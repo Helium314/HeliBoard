@@ -115,7 +115,7 @@ class HangulCombiner : Combiner {
                     is HangulJamo.Initial -> {
                         if(currentSyllable.initial != null) {
                             val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.initial.codePoint to jamo.codePoint]
-                            if(combination != null) {
+                            if(combination != null && currentSyllable.medial == null && currentSyllable.final == null) {
                                 history += currentSyllable.copy(initial = HangulJamo.Initial(combination))
                             } else {
                                 composingWord.append(currentSyllable.string)
