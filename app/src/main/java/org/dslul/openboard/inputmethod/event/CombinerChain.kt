@@ -107,6 +107,7 @@ class CombinerChain(initialText: String?) {
         mCombiners = ArrayList()
         // The dead key combiner is always active, and always first
         mCombiners.add(DeadKeyCombiner())
+        mCombiners.add(HangulCombiner())
         mCombinedText = StringBuilder(initialText!!)
         mStateFeedback = SpannableStringBuilder()
     }
