@@ -19,38 +19,64 @@
 -->
 
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
-    <Key
-        latin:keySpec="&#x3142;"
-        latin:keyHintLabel="&#x3143;"
-        latin:additionalMoreKeys="&#x3143;" />
-    <Key
-        latin:keySpec="&#x3148;"
-        latin:keyHintLabel="&#x3149;"
-        latin:additionalMoreKeys="&#x3149;" />
-    <Key
-        latin:keySpec="&#x3137;"
-        latin:keyHintLabel="&#x3138;"
-        latin:additionalMoreKeys="&#x3138;" />
-    <Key
-        latin:keySpec="&#x3131;"
-        latin:keyHintLabel="&#x3132;"
-        latin:additionalMoreKeys="&#x3132;" />
-    <Key
-        latin:keySpec="&#x3145;"
-        latin:keyHintLabel="&#x3146;"
-        latin:additionalMoreKeys="&#x3146;" />
+    <switch>
+        <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+            <Key
+                latin:keySpec="&#x3143;" />
+            <Key
+                latin:keySpec="&#x3149;" />
+            <Key
+                latin:keySpec="&#x3138;" />
+            <Key
+                latin:keySpec="&#x3132;" />
+            <Key
+                latin:keySpec="&#x3146;" />
+        </case>
+        <default>
+        <Key
+            latin:keySpec="&#x3142;"
+            latin:keyHintLabel="&#x3143;"
+            latin:additionalMoreKeys="&#x3143;" />
+        <Key
+            latin:keySpec="&#x3148;"
+            latin:keyHintLabel="&#x3149;"
+            latin:additionalMoreKeys="&#x3149;" />
+        <Key
+            latin:keySpec="&#x3137;"
+            latin:keyHintLabel="&#x3138;"
+            latin:additionalMoreKeys="&#x3138;" />
+        <Key
+            latin:keySpec="&#x3131;"
+            latin:keyHintLabel="&#x3132;"
+            latin:additionalMoreKeys="&#x3132;" />
+        <Key
+            latin:keySpec="&#x3145;"
+            latin:keyHintLabel="&#x3146;"
+            latin:additionalMoreKeys="&#x3146;" />
+        </default>
+    </switch>
     <Key
         latin:keySpec="&#x315b;" />
     <Key
         latin:keySpec="&#x3155;" />
     <Key
         latin:keySpec="&#x3151;" />
-    <Key
-        latin:keySpec="&#x3150;"
-        latin:keyHintLabel="&#x3152;"
-        latin:additionalMoreKeys="&#x3152;" />
-    <Key
-        latin:keySpec="&#x3154;"
-        latin:keyHintLabel="&#x3156;"
-        latin:additionalMoreKeys="&#x3156;" />
+    <switch>
+        <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+            <Key
+                latin:keySpec="&#x3152;" />
+            <Key
+                latin:keySpec="&#x3156;" />
+        </case>
+        <default>
+            <Key
+                latin:keySpec="&#x3150;"
+                latin:keyHintLabel="&#x3152;"
+                latin:additionalMoreKeys="&#x3152;" />
+            <Key
+                latin:keySpec="&#x3154;"
+                latin:keyHintLabel="&#x3156;"
+                latin:additionalMoreKeys="&#x3156;" />
+        </default>
+    </switch>
 </merge>
