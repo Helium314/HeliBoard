@@ -24,7 +24,7 @@
         latin:supportedScript="hangul" />
     <Element
         latin:elementName="alphabet"
-        latin:elementKeyboard="@xml/kbd_qwerty"
+        latin:elementKeyboard="@xml/kbd_korean_dubeolsik_standard"
         latin:enableProximityCharsCorrection="true" />
     <Element
         latin:elementName="symbols"
