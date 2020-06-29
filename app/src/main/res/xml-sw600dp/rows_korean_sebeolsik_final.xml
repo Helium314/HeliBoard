@@ -24,25 +24,28 @@
     <include latin:keyboardLayout="@xml/key_styles_common" />
     <Row
         latin:keyWidth="10%p"
-        latin:rowHeight="20%p"
+        latin:rowHeight="15%p"
         >
         <include
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_final_0" />
     </Row>
-    <Row latin:keyWidth="9%p" >
+    <Row latin:keyWidth="9%p"
+        latin:rowHeight="20%p" >
         <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_final_1" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyWidth="fillRight" />
     </Row>
-    <Row latin:keyWidth="9%p" >
+    <Row latin:keyWidth="9%p"
+        latin:rowHeight="20%p" >
         <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_final_2"
             latin:keyXPos="4%p" />
         <Key
             latin:keyStyle="enterKeyStyle"
             latin:keyWidth="fillRight" />
     </Row>
-    <Row latin:keyWidth="9%p" >
+    <Row latin:keyWidth="9%p"
+        latin:rowHeight="20%p" >
         <Key
             latin:keyStyle="shiftKeyStyle"
             latin:keyWidth="10.0%p" />

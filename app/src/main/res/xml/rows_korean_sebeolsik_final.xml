@@ -25,25 +25,28 @@
         latin:keyboardLayout="@xml/key_styles_common" />
     <Row
         latin:keyWidth="10%p"
-        latin:rowHeight="20%p"
+        latin:rowHeight="15%p"
         >
         <include
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_final_0" />
     </Row>
     <Row
         latin:keyWidth="10%p"
+        latin:rowHeight="20%p"
     >
         <include
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_final_1" />
     </Row>
     <Row
         latin:keyWidth="10%p"
+        latin:rowHeight="20%p"
     >
         <include
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_final_2" />
     </Row>
     <Row
         latin:keyWidth="10%p"
+        latin:rowHeight="20%p"
     >
         <Key
             latin:keyStyle="shiftKeyStyle"
