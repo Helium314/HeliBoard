@@ -2444,6 +2444,23 @@ public final class KeyboardTextsTable {
         /* keyspec_currency */ "\u20B9",
     };
 
+    /* Locale ko: Korean */
+    private static final String[] TEXTS_ko = {
+            /* morekeys_a ~ */
+            null, null, null, null, null,
+            /* ~ morekeys_i */
+            // Label for "switch to alphabetic" key.
+            // U+0995: "ᄀ" HANGUL LETTER KIYEOK
+            // U+0996: "ㄴ" HANGUL LETTER NIEUN
+            // U+0997: "ㄷ" HANGUL LETTER TIKEUT
+            /* keylabel_to_alpha */ "\u3131\u3134\u3137",
+            /* morekeys_n ~ */
+            null, null, null, null, null,
+            /* ~ single_quotes */
+            // U+20B9: "￦" FULLWIDTH WON SIGN
+            /* keyspec_currency */ "\uFFE6",
+    };
+
     /* Locale ky: Kirghiz */
     private static final String[] TEXTS_ky = {
         /* morekeys_a ~ */
@@ -4271,6 +4288,7 @@ public final class KeyboardTextsTable {
         "kk"     , TEXTS_kk,    /*  15/129 Kazakh */
         "km_KH"  , TEXTS_km_KH, /*   2/130 Khmer (Cambodia) */
         "kn_IN"  , TEXTS_kn_IN, /*   2/ 12 Kannada (India) */
+        "ko"     , TEXTS_ko,    /*   2/ 12 Korean */
         "ky"     , TEXTS_ky,    /*  10/ 92 Kirghiz */
         "lb"     , TEXTS_lb,    /*  11/ 20 Luxembourgish */
         "lo_LA"  , TEXTS_lo_LA, /*   2/ 12 Lao (Laos) */
