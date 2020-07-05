@@ -51,27 +51,34 @@ class HangulCombiner : Combiner {
                     is HangulJamo.Consonant -> {
                         val initial = jamo.toInitial()
                         val final = jamo.toFinal()
-                        if(currentSyllable.final == null) {
-                            if(currentSyllable.initial != null) {
+                        if(currentSyllable.initial != null && currentSyllable.medial != null) {
+                            if(currentSyllable.final == null) {
                                 val combination = COMBINATION_TABLE_DUBEOLSIK[currentSyllable.initial.codePoint to (initial?.codePoint ?: -1)]
                                 if(combination != null) {
                                     history += currentSyllable.copy(initial = HangulJamo.Initial(combination))
                                 } else {
-                                    history += currentSyllable.copy(final = final)
+                                    if(final != null) history += currentSyllable.copy(final = final)
+                                    else {
+                                        composingWord.append(currentSyllable.string)
+                                        history.clear()
+                                        history += HangulSyllable(initial = initial)
+                                    }
                                 }
                             } else {
-                                history += currentSyllable.copy(final = final)
+                                val pair = currentSyllable.final.codePoint to (final?.codePoint ?: -1)
+                                val combination = COMBINATION_TABLE_DUBEOLSIK[pair]
+                                if(combination != null) {
+                                    history += currentSyllable.copy(final = HangulJamo.Final(combination, combinationPair = pair))
+                                } else {
+                                    composingWord.append(currentSyllable.string)
+                                    history.clear()
+                                    history += HangulSyllable(initial = initial)
+                                }
                             }
                         } else {
-                            val pair = currentSyllable.final.codePoint to (final?.codePoint ?: -1)
-                            val combination = COMBINATION_TABLE_DUBEOLSIK[pair]
-                            if(combination != null) {
-                                history += currentSyllable.copy(final = HangulJamo.Final(combination, combinationPair = pair))
-                            } else {
-                                composingWord.append(currentSyllable.string)
-                                history.clear()
-                                history += HangulSyllable(initial = initial)
-                            }
+                            composingWord.append(currentSyllable.string)
+                            history.clear()
+                            history += HangulSyllable(initial = initial)
                         }
                     }
                     is HangulJamo.Vowel -> {
