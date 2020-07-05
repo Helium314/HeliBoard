@@ -31,6 +31,7 @@ import android.view.inputmethod.EditorInfo;
 
 import org.dslul.openboard.inputmethod.compat.SuggestionSpanUtils;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.event.HangulEventDecoder;
 import org.dslul.openboard.inputmethod.event.InputTransaction;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
@@ -437,8 +438,9 @@ public final class InputLogic {
     public InputTransaction onCodeInput(final SettingsValues settingsValues,
             @Nonnull final Event event, final int keyboardShiftMode,
             final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
+        final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
         mWordBeingCorrectedByCursor = null;
-        final Event processedEvent = mWordComposer.processEvent(event);
+        final Event processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));

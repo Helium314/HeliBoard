@@ -17,8 +17,7 @@ class HangulCombiner : Combiner {
             val text = combiningStateFeedback
             reset()
             return createEventChainFromSequence(text, event)
-        }
-        if(event.isFunctionalKeyEvent) {
+        } else if(event.isFunctionalKeyEvent) {
             if(event.mKeyCode == Constants.CODE_DELETE) {
                 return when {
                     history.size == 1 && composingWord.isEmpty() ||
@@ -43,7 +42,7 @@ class HangulCombiner : Combiner {
         } else {
             val currentSyllable = syllable ?: HangulSyllable()
             val jamo = HangulJamo.of(event.mCodePoint)
-            if(jamo is HangulJamo.NonHangul) {
+            if(!event.isCombining || jamo is HangulJamo.NonHangul) {
                 val text = combiningStateFeedback
                 reset()
                 return createEventChainFromSequence(text, event)
