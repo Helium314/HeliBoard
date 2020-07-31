@@ -12,7 +12,7 @@ class HangulCombiner : Combiner {
     val syllable: HangulSyllable? get() = history.lastOrNull()
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event?): Event? {
-        if(event == null) return event
+        if(event == null || event.mKeyCode == Constants.CODE_SHIFT) return event
         if(Character.isWhitespace(event.mCodePoint)) {
             val text = combiningStateFeedback
             reset()
