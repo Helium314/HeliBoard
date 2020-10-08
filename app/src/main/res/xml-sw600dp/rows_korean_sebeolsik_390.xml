@@ -30,14 +30,14 @@
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_0" />
     </Row>
     <Row latin:keyWidth="9%p"
-        latin:rowHeight="20%p" >
+        latin:rowHeight="23%p" >
         <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_1" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyWidth="fillRight" />
     </Row>
     <Row latin:keyWidth="9%p"
-        latin:rowHeight="20%p" >
+        latin:rowHeight="23%p" >
         <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_2"
             latin:keyXPos="4%p" />
         <Key
@@ -45,7 +45,7 @@
             latin:keyWidth="fillRight" />
     </Row>
     <Row latin:keyWidth="9%p"
-        latin:rowHeight="20%p" >
+        latin:rowHeight="23%p" >
         <Key
             latin:keyStyle="shiftKeyStyle"
             latin:keyWidth="10.0%p" />

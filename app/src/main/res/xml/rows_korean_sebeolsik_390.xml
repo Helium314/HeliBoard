@@ -32,21 +32,21 @@
     </Row>
     <Row
         latin:keyWidth="10%p"
-        latin:rowHeight="20%p"
+        latin:rowHeight="23%p"
     >
         <include
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_1" />
     </Row>
     <Row
         latin:keyWidth="10%p"
-        latin:rowHeight="20%p"
+        latin:rowHeight="23%p"
     >
         <include
             latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_2" />
     </Row>
     <Row
         latin:keyWidth="10%p"
-        latin:rowHeight="20%p"
+        latin:rowHeight="23%p"
     >
         <Key
             latin:keyStyle="shiftKeyStyle"
