@@ -1,7 +1,7 @@
 package org.dslul.openboard.inputmethod.latin.define
 
 object ProductionFlags {
-    const val IS_HARDWARE_KEYBOARD_SUPPORTED = false
+    const val IS_HARDWARE_KEYBOARD_SUPPORTED = true
 
     /**
      * Include all suggestions from all dictionaries in
