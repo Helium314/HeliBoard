@@ -1,5 +1,6 @@
 package org.dslul.openboard.inputmethod.latin;
 
+import org.dslul.openboard.inputmethod.event.HangulCombiner;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 
@@ -10,24 +11,40 @@ import java.util.ArrayList;
  * For Korean dictionary, there are too many cases of characters to store on dictionary, which makes it slow.
  * To solve that, Unicode normalization is used to decompose Hangul syllables into Hangul jamos.
  */
-public class NormalizedDictionary extends Dictionary {
-    private final Normalizer.Form mInputForm;
-    private final Normalizer.Form mOutputForm;
+public class KoreanDictionary extends Dictionary {
+
+    private static final String COMPAT_JAMO = HangulCombiner.HangulJamo.COMPAT_CONSONANTS + HangulCombiner.HangulJamo.COMPAT_VOWELS;
+    private static final String STANDARD_JAMO = HangulCombiner.HangulJamo.CONVERT_INITIALS + HangulCombiner.HangulJamo.CONVERT_MEDIALS;
+
     private final Dictionary mDictionary;
-    public NormalizedDictionary(Normalizer.Form inputForm, Normalizer.Form outputForm, Dictionary dictionary) {
+
+    public KoreanDictionary(Dictionary dictionary) {
         super(dictionary.mDictType, dictionary.mLocale);
-        mInputForm = inputForm;
-        mOutputForm = outputForm;
         mDictionary = dictionary;
+    }
+
+    private String processInput(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        StringBuilder result = new StringBuilder();
+        for(char c : normalized.toCharArray()) {
+            int index = COMPAT_JAMO.indexOf(c);
+            if(index == -1) result.append(c);
+            else result.append(STANDARD_JAMO.charAt(index));
+        }
+        return result.toString();
+    }
+
+    private String processOutput(String output) {
+        return Normalizer.normalize(output, Normalizer.Form.NFC);
     }
 
     @Override
     public ArrayList<SuggestedWords.SuggestedWordInfo> getSuggestions(ComposedData composedData, NgramContext ngramContext, long proximityInfoHandle, SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId, float weightForLocale, float[] inOutWeightOfLangModelVsSpatialModel) {
-        composedData = new ComposedData(composedData.mInputPointers, composedData.mIsBatchMode, Normalizer.normalize(composedData.mTypedWord, mInputForm));
+        composedData = new ComposedData(composedData.mInputPointers, composedData.mIsBatchMode, processInput(composedData.mTypedWord));
         ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData, ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId, weightForLocale, inOutWeightOfLangModelVsSpatialModel);
         ArrayList<SuggestedWords.SuggestedWordInfo> result = new ArrayList<>();
         for(SuggestedWords.SuggestedWordInfo info : suggestions) {
-            result.add(new SuggestedWords.SuggestedWordInfo(Normalizer.normalize(info.mWord, mOutputForm), info.mPrevWordsContext,
+            result.add(new SuggestedWords.SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
                     info.mScore, info.mKindAndFlags, info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence));
         }
         return result;
@@ -35,17 +52,17 @@ public class NormalizedDictionary extends Dictionary {
 
     @Override
     public boolean isInDictionary(String word) {
-        return mDictionary.isInDictionary(Normalizer.normalize(word, mInputForm));
+        return mDictionary.isInDictionary(processInput(word));
     }
 
     @Override
     public int getFrequency(String word) {
-        return mDictionary.getFrequency(Normalizer.normalize(word, mInputForm));
+        return mDictionary.getFrequency(processInput(word));
     }
 
     @Override
     public int getMaxFrequencyOfExactMatches(String word) {
-        return mDictionary.getMaxFrequencyOfExactMatches(Normalizer.normalize(word, mInputForm));
+        return mDictionary.getMaxFrequencyOfExactMatches(processInput(word));
     }
 
     @Override

@@ -62,8 +62,8 @@ public final class DictionaryFactory {
                                 false /* useFullEditDistance */, locale, Dictionary.TYPE_MAIN);
                 if (readOnlyBinaryDictionary.isValidDictionary()) {
                     if(locale.getLanguage().equals("ko")) {
-                        // Use normalized dictionary for Korean dictionaries
-                        dictList.add(new NormalizedDictionary(Normalizer.Form.NFD, Normalizer.Form.NFC, readOnlyBinaryDictionary));
+                        // Use KoreanDictionary for Korean locale
+                        dictList.add(new KoreanDictionary(readOnlyBinaryDictionary));
                     } else {
                         dictList.add(readOnlyBinaryDictionary);
                     }
