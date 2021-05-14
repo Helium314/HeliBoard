@@ -43,9 +43,7 @@ class HangulCombiner : Combiner {
             val currentSyllable = syllable ?: HangulSyllable()
             val jamo = HangulJamo.of(event.mCodePoint)
             if(!event.isCombining || jamo is HangulJamo.NonHangul) {
-                val text = combiningStateFeedback
-                reset()
-                return createEventChainFromSequence(text, event)
+                composingWord.append(jamo.string)
             } else {
                 when(jamo) {
                     is HangulJamo.Consonant -> {
@@ -316,19 +314,8 @@ class HangulCombiner : Combiner {
                 0x11b8 to 0x11ba to 0x11b9,	// ㅄ
                 0x11ba to 0x11ba to 0x11bb	// ㅆ
         )
-        private fun createEventChainFromSequence(text: CharSequence, originalEvent: Event?): Event? {
-            var index = text.length
-            if (index <= 0) {
-                return originalEvent
-            }
-            var lastEvent: Event? = originalEvent
-            do {
-                val codePoint = Character.codePointBefore(text, index)
-                lastEvent = Event.Companion.createHardwareKeypressEvent(codePoint,
-                        originalEvent!!.mKeyCode, lastEvent, false /* isKeyRepeat */)
-                index -= Character.charCount(codePoint)
-            } while (index > 0)
-            return lastEvent
+        private fun createEventChainFromSequence(text: CharSequence, originalEvent: Event): Event {
+            return Event.createSoftwareTextEvent(text, Constants.CODE_OUTPUT_TEXT, originalEvent);
         }
     }
 

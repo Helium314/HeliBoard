@@ -26,9 +26,9 @@ public class KoreanDictionary extends Dictionary {
     private String processInput(String input) {
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
         StringBuilder result = new StringBuilder();
-        for(char c : normalized.toCharArray()) {
+        for (char c : normalized.toCharArray()) {
             int index = COMPAT_JAMO.indexOf(c);
-            if(index == -1) result.append(c);
+            if (index == -1) result.append(c);
             else result.append(STANDARD_JAMO.charAt(index));
         }
         return result.toString();
@@ -43,7 +43,7 @@ public class KoreanDictionary extends Dictionary {
         composedData = new ComposedData(composedData.mInputPointers, composedData.mIsBatchMode, processInput(composedData.mTypedWord));
         ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData, ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId, weightForLocale, inOutWeightOfLangModelVsSpatialModel);
         ArrayList<SuggestedWords.SuggestedWordInfo> result = new ArrayList<>();
-        for(SuggestedWords.SuggestedWordInfo info : suggestions) {
+        for (SuggestedWords.SuggestedWordInfo info : suggestions) {
             result.add(new SuggestedWords.SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
                     info.mScore, info.mKindAndFlags, info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence));
         }
@@ -67,6 +67,8 @@ public class KoreanDictionary extends Dictionary {
 
     @Override
     protected boolean same(char[] word, int length, String typedWord) {
+        word = processInput(new String(word)).toCharArray();
+        typedWord = processInput(typedWord);
         return mDictionary.same(word, length, typedWord);
     }
 

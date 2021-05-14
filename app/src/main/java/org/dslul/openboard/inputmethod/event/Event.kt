@@ -206,6 +206,13 @@ class Event private constructor(// The type of event - one of the constants abov
                     null /* suggestedWordInfo */, FLAG_NONE, null /* next */)
         }
 
+        @JvmStatic
+        fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, next: Event): Event {
+            return Event(EVENT_TYPE_SOFTWARE_GENERATED_STRING, text, NOT_A_CODE_POINT, keyCode,
+                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
+                null /* suggestedWordInfo */, FLAG_NONE, next)
+        }
+
         /**
          * Creates an input event representing the manual pick of a punctuation suggestion.
          * @return an event for this suggestion pick.

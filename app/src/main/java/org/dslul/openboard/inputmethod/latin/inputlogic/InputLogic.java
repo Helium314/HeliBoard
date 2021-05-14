@@ -702,6 +702,9 @@ public final class InputLogic {
                 // line, so that does affect the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
+            case Constants.CODE_OUTPUT_TEXT:
+                mWordComposer.applyProcessedEvent(event);
+                break;
             default:
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }
