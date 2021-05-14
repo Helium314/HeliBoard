@@ -43,7 +43,9 @@ class HangulCombiner : Combiner {
             val currentSyllable = syllable ?: HangulSyllable()
             val jamo = HangulJamo.of(event.mCodePoint)
             if(!event.isCombining || jamo is HangulJamo.NonHangul) {
+                composingWord.append(currentSyllable.string)
                 composingWord.append(jamo.string)
+                history.clear()
             } else {
                 when(jamo) {
                     is HangulJamo.Consonant -> {
