@@ -22,49 +22,101 @@
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
     <include latin:keyboardLayout="@xml/key_styles_common" />
-    <Row
-        latin:keyWidth="10%p"
-        latin:rowHeight="25%p"
-        >
-        <include
-            latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_0" />
-    </Row>
-    <Row latin:keyWidth="9%p"
-        latin:rowHeight="25%p" >
-        <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_1" />
-        <Key
-            latin:keyStyle="deleteKeyStyle"
-            latin:keyWidth="fillRight" />
-    </Row>
-    <Row latin:keyWidth="9%p"
-        latin:rowHeight="25%p" >
-        <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_2"
-            latin:keyXPos="4%p" />
-        <Key
-            latin:keyStyle="enterKeyStyle"
-            latin:keyWidth="fillRight" />
-    </Row>
-    <Row latin:keyWidth="9%p"
-        latin:rowHeight="25%p" >
-        <Key
-            latin:keyStyle="shiftKeyStyle"
-            latin:keyWidth="10.0%p" />
-        <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_3" />
-        <switch>
-            <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+    <switch>
+        <case
+            latin:numberRowEnabled="true"
+            >
+            <Row
+                latin:keyWidth="10%p"
+                latin:rowHeight="25%p"
+                >
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_0" />
+            </Row>
+            <Row latin:keyWidth="9%p"
+                latin:rowHeight="25%p" >
+                <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_1" />
                 <Key
-                    latin:keySpec="&#x003f;" />
-            </case>
-            <default>
+                    latin:keyStyle="deleteKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </Row>
+            <Row latin:keyWidth="9%p"
+                latin:rowHeight="25%p" >
+                <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_2"
+                    latin:keyXPos="4%p" />
                 <Key
-                    latin:keySpec="&#x1169;"
-                    latin:keyHintLabel="&#x003f;"
-                    latin:additionalMoreKeys="&#x003f;" />
-            </default>
-        </switch>
-        <Key
-            latin:keyStyle="shiftKeyStyle"
-            latin:keyWidth="fillRight" />
-    </Row>
+                    latin:keyStyle="enterKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </Row>
+            <Row latin:keyWidth="9%p"
+                latin:rowHeight="25%p" >
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="10.0%p" />
+                <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_3" />
+                <switch>
+                    <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+                        <Key
+                            latin:keySpec="&#x003f;" />
+                    </case>
+                    <default>
+                        <Key
+                            latin:keySpec="&#x1169;"
+                            latin:keyHintLabel="&#x003f;"
+                            latin:additionalMoreKeys="&#x003f;" />
+                    </default>
+                </switch>
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </Row>
+        </case>
+        <default>
+            <Row
+                latin:keyWidth="10%p"
+                latin:rowHeight="15%p"
+                >
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_0" />
+            </Row>
+            <Row latin:keyWidth="9%p"
+                latin:rowHeight="20%p" >
+                <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_1" />
+                <Key
+                    latin:keyStyle="deleteKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </Row>
+            <Row latin:keyWidth="9%p"
+                latin:rowHeight="20%p" >
+                <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_2"
+                    latin:keyXPos="4%p" />
+                <Key
+                    latin:keyStyle="enterKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </Row>
+            <Row latin:keyWidth="9%p"
+                latin:rowHeight="20%p" >
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="10.0%p" />
+                <include latin:keyboardLayout="@xml/rowkeys_korean_sebeolsik_390_3" />
+                <switch>
+                    <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+                        <Key
+                            latin:keySpec="&#x003f;" />
+                    </case>
+                    <default>
+                        <Key
+                            latin:keySpec="&#x1169;"
+                            latin:keyHintLabel="&#x003f;"
+                            latin:additionalMoreKeys="&#x003f;" />
+                    </default>
+                </switch>
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </Row>
+        </default>
+    </switch>
     <include latin:keyboardLayout="@xml/row_qwerty4" />
 </merge>
