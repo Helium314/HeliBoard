@@ -1139,9 +1139,10 @@ public final class KeyboardTextsTable {
         /* morekeys_c */ null,
         /* double_quotes */ "!text/double_9qm_lqm",
         // U+00DF: "ß" LATIN SMALL LETTER SHARP S
+        // U+1E9E: "ẞ" LATIN CAPITAL LETTER SHARP S
         // U+015B: "ś" LATIN SMALL LETTER S WITH ACUTE
         // U+0161: "š" LATIN SMALL LETTER S WITH CARON
-        /* morekeys_s */ "\u00DF,\u015B,\u0161",
+        /* morekeys_s */ "\u00DF,%,\u1E9E,\u015B,\u0161",
         /* single_quotes */ "!text/single_9qm_lqm",
         /* keyspec_currency ~ */
         null, null, null, null, null, null, null,
@@ -1207,9 +1208,10 @@ public final class KeyboardTextsTable {
         /* morekeys_c */ null,
         /* double_quotes */ "!text/double_9qm_lqm",
         // U+00DF: "ß" LATIN SMALL LETTER SHARP S
+        // U+1E9E: "ẞ" LATIN CAPITAL LETTER SHARP S
         // U+015B: "ś" LATIN SMALL LETTER S WITH ACUTE
         // U+0161: "š" LATIN SMALL LETTER S WITH CARON
-        /* morekeys_s */ "\u00DF,%,\u015B,\u0161",
+        /* morekeys_s */ "\u00DF,%,\u1E9E,\u015B,\u0161",
         /* single_quotes */ "!text/single_9qm_lqm",
         /* keyspec_currency ~ */
         null, null, null, null, null, null, null,
@@ -2169,18 +2171,26 @@ public final class KeyboardTextsTable {
         /* morekeys_nordic_row2_11 ~ */
         null, null, null, null, null, null, null,
         /* ~ morekeys_swiss_row2_11 */
-        // U+055E: "՞" ARMENIAN QUESTION MARK
-        // U+055C: "՜" ARMENIAN EXCLAMATION MARK
-        // U+055A: "՚" ARMENIAN APOSTROPHE
-        // U+0559: "ՙ" ARMENIAN MODIFIER LETTER LEFT HALF RING
-        // U+055D: "՝" ARMENIAN COMMA
-        // U+055B: "՛" ARMENIAN EMPHASIS MARK
-        // U+058A: "֊" ARMENIAN HYPHEN
-        // U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-        // U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
-        // U+055F: "՟" ARMENIAN ABBREVIATION MARK
-        /* morekeys_punctuation */ "!autoColumnOrder!8,\\,,\u055E,\u055C,.,\u055A,\u0559,?,!,\u055D,\u055B,\u058A,\u00BB,\u00AB,\u055F,;,:",
-        /* keyspec_tablet_comma */ "\u055D",
+        // 
+        // &#x0028; U+0028 "(" Բացվող փակագիծ - OPENING PARENTHESES
+        // &#x0029; U+0029 ")" Փակվող փակագիծ - CLOSING PARENTHESES
+        // &#x0027; U+0027 "'" Ապաթարց - APOSTROPHE
+        // &#x2026; U+2026 "…" Կախման կետեր - HORIZONTAL ELLIPSIS
+        // &#x055E; U+055E "՞" Հարցական - ARMENIAN QUESTION MARK
+        // &#x055C; U+055C "՜" Բացականչական - ARMENIAN EXCLAMATION MARK
+        // &#x055B; U+055B "՛" Շեշտ - ARMENIAN EMPHASIS MARK
+        // &#x055D; U+055D "՝" Բութ - ARMENIAN COMMA
+        // !! (the unicode name is Armenian Comma, which isn't really accurate since Armenian Comma is U+002C)
+        // &#x058A; U+058A "֊" Միության գծիկ - ARMENIAN HYPHEN
+        // &#x2015; U+2015 "―" Անջատման գժիկ - ARMENIAN SEPARATION MARK
+        // &#x00AB; U+00AB "«" Բացվող չակերտ - LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // &#x00BB; U+00BB "»" Փակվող չակերտ - RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        // &#x002C; U+002C "," Ստօրակետ - ARMENIAN COMMA
+        // &#x0589; U+0589 "։" Վերջակետ - ARMENIAN COLON
+        // &#x2024; U+2024 "․" Միջակետ - One dot leader
+        // 
+        /* morekeys_punctuation */ "!autoColumnOrder!8,\\,,\u055E,\u055C,\u2024,\u2026,',=,/,\u055D,\u055B,\u058A,\u00BB,\u00AB,\u2015,),(",
+        /* keyspec_tablet_comma */ ",",
         /* morekeys_star ~ */
         null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
         /* ~ keyspec_right_single_angle_quote */
@@ -2188,8 +2198,8 @@ public final class KeyboardTextsTable {
         // TODO: Enable this when we have glyph for the following letter
         // <string name="keyspec_currency">&#x058F;</string>
         // 
-        // U+055D: "՝" ARMENIAN COMMA
-        /* keyspec_comma */ "\u055D",
+        // U+002C: "," ARMENIAN COMMA
+        /* keyspec_comma */ ",",
         /* morekeys_tablet_comma */ null,
         /* keyhintlabel_period */ null,
         // U+055E: "՞" ARMENIAN QUESTION MARK

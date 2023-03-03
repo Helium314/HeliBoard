@@ -41,6 +41,14 @@
             android:defaultValue="true"
             android:persistent="true" />
 
+        <ListPreference
+            android:key="pref_key_auto_correction_confidence"
+            android:title="@string/auto_correction_confidence"
+            android:summary="%s"
+            android:entries="@array/auto_correction_threshold_modes"
+            android:entryValues="@array/auto_correction_threshold_mode_indexes"
+            android:defaultValue="@string/auto_correction_threshold_mode_index_modest" />
+
         <CheckBoxPreference
             android:key="auto_cap"
             android:title="@string/auto_cap"

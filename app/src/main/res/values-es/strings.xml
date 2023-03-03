@@ -211,7 +211,7 @@
     <string name="settings_category_correction">Correcciones</string>
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_input">Entrada</string>
-    <string name="ime_settings">Ajustes de OpenBoard</string>
+    <string name="ime_settings">Ajustes OpenBoard</string>
     <string name="settings_category_suggestions">Sugerencias</string>
     <string name="settings_category_miscellaneous">Varios</string>
     <string name="number_row">Fila de números</string>
@@ -229,4 +229,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles, si lo hay</string>
+    <string name="autospace_after_punctuation">Espacio automático después del punto</string>
+    <string name="autospace_after_punctuation_summary">Insertar un espacio automático después del punto cuando se escriba una nueva palabra</string>
 </resources>

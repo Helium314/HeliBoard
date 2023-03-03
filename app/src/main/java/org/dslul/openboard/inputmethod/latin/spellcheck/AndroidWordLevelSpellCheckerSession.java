@@ -45,6 +45,8 @@ import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static final String TAG = AndroidWordLevelSpellCheckerSession.class.getSimpleName();
@@ -61,6 +63,16 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
     private static final String quotesRegexp =
             "(\\u0022|\\u0027|\\u0060|\\u00B4|\\u2018|\\u2018|\\u201C|\\u201D)";
+
+    private static final Map<Integer, String> scriptToPunctuationRegexMap = new TreeMap<>();
+
+    static {
+        // TODO: add other non-English language specific punctuation later.
+        scriptToPunctuationRegexMap.put(
+            ScriptUtils.SCRIPT_ARMENIAN,
+            "(\\u0028|\\u0029|\\u0027|\\u2026|\\u055E|\\u055C|\\u055B|\\u055D|\\u058A|\\u2015|\\u00AB|\\u00BB|\\u002C|\\u0589|\\u2024)"
+        );
+    }
 
     private static final class SuggestionsParams {
         public final String[] mSuggestions;
@@ -260,11 +272,21 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             final TextInfo textInfo, final NgramContext ngramContext, final int suggestionsLimit) {
         try {
             updateLocale();
-            final String text = textInfo.getText().
+            // It's good to keep this not local specific since the standard
+            // ones may show up in other languages also.
+            String text = textInfo.getText().
                     replaceAll(AndroidSpellCheckerService.APOSTROPHE,
                             AndroidSpellCheckerService.SINGLE_QUOTE).
                     replaceAll("^" + quotesRegexp, "").
                     replaceAll(quotesRegexp + "$", "");
+
+            final String localeRegex = scriptToPunctuationRegexMap.get(
+                    ScriptUtils.getScriptFromSpellCheckerLocale(mLocale)
+            );
+
+            if (localeRegex != null) {
+                text = text.replaceAll(localeRegex, "");
+            }
 
             if (!mService.hasMainDictionaryForLocale(mLocale)) {
                 return AndroidSpellCheckerService.getNotInDictEmptySuggestions(

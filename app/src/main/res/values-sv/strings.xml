@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,166 +16,163 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Inmatningsalternativ"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Slå upp kontaktnanmn"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"I stavningskontrollen används poster från kontaktlistan"</string>
+    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">Slå upp kontaktnamn</string>
+    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">Stavningskontrollen använder poster från din kontaktlista</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrera vid tangenttryck"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Ljud vid tangenttryck"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Popup vid tangenttryck"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Inställningar"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Konton och sekretess"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Utseende och layouter"</string>
+    <string name="settings_screen_preferences" msgid="2696713156722014624">Alternativ</string>
+    <string name="settings_screen_accounts" msgid="2786418968536696670">Konton &amp; integritet</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">Utseende &amp; layouter</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Svepskrivning"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Textkorrigering"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avancerat"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Aktivera delat tangentbord"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Byt till annan inmatning"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Språkbytesknappen omfattar även andra inmatningsmetoder"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Knapp för att byta språk"</string>
+    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">Byt till andra inmatningsmetoder</string>
+    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">Språkbytestangenten omfattar även andra inmatningsmetoder</string>
+    <string name="show_language_switch_key" msgid="5915478828318774384">Språkbytestangent</string>
     <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Visa när flera inmatningsspråk är aktiverade"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Ta bort popup-fördröjning"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Fördröj inte"</string>
+    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">Avfärda-popup-fördröjning</string>
+    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">Ingen fördröjn.</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Standard"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> millisek."</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Standardinställning"</string>
+    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
+    <string name="settings_system_default" msgid="6268225104743331821">Systemstandard</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Föreslå kontaktnamn"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Använd namn från Kontakter för förslag och korrigeringar"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Använd kontaktnamn för förslag och korrigeringar</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Anpassade förslag"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Förbättra <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Dubbelt blanksteg = punkt"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Dubbelt blanksteg ger en punkt följt av mellanslag"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Förbättra <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="use_double_space_period" msgid="8781529969425082860">Dubbelmellanslag infogar punkt</string>
+    <string name="use_double_space_period_summary" msgid="6532892187247952799">Dubbeltryck på mellanslagstangenten infogar punkt och mellanslag</string>
     <string name="auto_cap" msgid="1719746674854628252">"Automatiska versaler"</string>
     <string name="auto_cap_summary" msgid="7934452761022946874">"Inled varje mening med stor bokstav"</string>
     <string name="edit_personal_dictionary" msgid="3996910038952940420">"Personlig ordlista"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"Tilläggsordlistor"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Huvudordlistan"</string>
+    <string name="main_dictionary" msgid="4798763781818361168">Huvudordlista</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"Visa rättningsförslag"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Visar ordförslag när du skriver"</string>
+    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">Visa ordförslag när du skriver</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blockera stötande ord"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Visa inte förslag på ord som kan verka stötande"</string>
+    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">Föreslå inte ord som kan verka stötande</string>
     <string name="auto_correction" msgid="7630720885194996950">"Autokorrigering"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Blanksteg/skiljetecken rättar felstavning"</string>
+    <string name="auto_correction_summary" msgid="5625751551134658006">Mellanslag och skiljetecken rättar automatiskt felstavade ord</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Av"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Måttlig"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Aggressivt"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Mycket aggressivt"</string>
+    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">Aggressiv</string>
+    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">Mycket aggressiv</string>
     <string name="bigram_prediction" msgid="1084449187723948550">"Föreslå nästa ord"</string>
     <string name="bigram_prediction_summary" msgid="3896362682751109677">"Ge förslag utifrån föregående ord"</string>
     <string name="gesture_input" msgid="826951152254563827">"Aktivera svepskrivning"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Skriv genom att dra från tecken till tecken utan att lyfta handen"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Visa spår efter rörelse"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Visa ordförslag vid svepskrivning"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Ordförslaget visas i rörelsen medan du skriver"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Frasrörelse"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Infoga blanksteg genom att dra fingret över blankstegstangenten"</string>
+    <string name="gesture_input_summary" msgid="9180350639305731231">Skriv ett ord genom att dra fingret över bokstäverna</string>
+    <string name="gesture_preview_trail" msgid="3802333369335722221">Visa svepspår</string>
+    <string name="gesture_floating_preview_text" msgid="4443240334739381053">Dynamiskt svävande ordförslag</string>
+    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">Se det föreslagna ordet medan du svepskriver</string>
+    <string name="gesture_space_aware" msgid="2078291600664682496">Svepskrivning av fraser</string>
+    <string name="gesture_space_aware_summary" msgid="4371385818348528538">Infoga mellanslag genom att dra fingret till mellanslagstangenten</string>
     <string name="voice_input" msgid="3583258583521397548">"Röstinmatningsknapp"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Ingen röstinmatningsmetod har aktiverats. Kontrollera språk- och inmatningsinställningarna."</string>
+    <string name="voice_input_disabled_summary" msgid="6323489602945135165">Inga röstinmatningsmetoder har aktiverats. Kontrollera Språk och inmatning-inställningarna.</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurera inmatningsmetoder"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Språk"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Hjälp och feedback"</string>
+    <string name="help_and_feedback" msgid="5328219371839879161">Hjälp &amp; återkoppling</string>
     <string name="select_language" msgid="5709487854987078367">"Språk"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Tryck igen om du vill spara"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Tryck här om du vill spara"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"En ordlista är tillgänglig"</string>
+    <string name="hint_add_to_dictionary" msgid="2645988432867033007">Tryck igen för att spara</string>
+    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">Tryck här för att spara</string>
+    <string name="has_dictionary" msgid="6071847973466625007">Ordlista tillgänglig</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Tangentbordstema"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Byt konto"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Du har inte valt något konto"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Du använder nu <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="no_accounts_selected" msgid="2073821619103904330">Inga konton valda</string>
+    <string name="account_selected" msgid="2846876462199625974">Använder nu <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Avbryt"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Logga ut"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Välj ett konto"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Engelska (brittisk)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Engelska (amerikansk)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"spanska (USA)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hindi/engelska"</string>
+    <string name="account_select_title" msgid="6279711684772922649">Välj ett konto att använda</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">Engelska (UK)</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">Engelska (USA)</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">Spanska (USA)</string>
+    <string name="subtype_hi_ZZ" msgid="8860448146262798623">Hingelska</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbiska (latinsk)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Engelska (Storbritannien) <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Engelska (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spanska (USA (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hindi/engelska (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbiska (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditionell)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakt)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Engelska (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Engelska (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spanska (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hingelska (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbiska (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionell)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompakt)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Inget språk (alfabet)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabet (QWERTZ)"</string>
     <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Alfabet (AZERTY)"</string>
     <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Alfabet (Dvorak)"</string>
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabet (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Humörsymbol"</string>
+    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">Alfabet (pc)</string>
+    <string name="subtype_emoji" msgid="7483586578074549196">Emoji</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Tangentbordstema"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Anpassade indatastilar"</string>
-    <string name="add_style" msgid="6163126614514489951">"Ny stil"</string>
+    <string name="custom_input_styles_title" msgid="8429952441821251512">Anpassade inmatningsstilar</string>
+    <string name="add_style" msgid="6163126614514489951">Lägg till stil</string>
     <string name="add" msgid="8299699805688017798">"Lägg till"</string>
     <string name="remove" msgid="4486081658752944606">"Ta bort"</string>
     <string name="save" msgid="7646738597196767214">"Spara"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Språk"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Layout"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Din anpassade indatatyp måste aktiveras innan du börjar använda den. Vill du aktivera den nu?"</string>
+    <string name="custom_input_style_note_message" msgid="8826731320846363423">Din anpassade inmatningsstil måste aktiveras innan du kan börja använda den. Vill du aktivera den nu\?</string>
     <string name="enable" msgid="5031294444630523247">"Aktivera"</string>
     <string name="not_now" msgid="6172462888202790482">"Inte nu"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Samma indatastil finns redan: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Samma inmatningsstil finns redan: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Vibrationslängd vid tangenttryck"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volym vid tangenttryck"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Fördröjning vid långt tryck"</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">Ljudvolym vid tangenttryck</string>
+    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">Fördröjning för långt tangenttryck</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji för fysiskt tangentbord"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Den fysiska Alt-tangenten visar emoji-paletten"</string>
     <string name="button_default" msgid="3988017840431881491">"Standard"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Välkommen till <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Välkommen till <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"med svepskrivning"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Kom igång"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Nästa steg"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Konfigurera <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Aktivera <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Markera <xliff:g id="APPLICATION_NAME">%s</xliff:g> i inställningarna för Språk och inmatning så att appen kan köras."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> har redan aktiverats i inställningarna för Språk och inmatning och det här steget är färdigt. Fortsätt till nästa steg."</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Aktivera i inställningarna"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Byt till <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Välj sedan <xliff:g id="APPLICATION_NAME">%s</xliff:g> som din aktiva textinmatningsmetod."</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">Konfigurerar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Aktivera <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">Markera \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" i dina Språk &amp; inmatning-inställningar. Detta kommer att tillåta att den körs på din enhet.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> är redan aktiverad i dina Språk &amp; inmatning-inställningar, så detta steg är färdigt. Vidare till nästa!</string>
+    <string name="setup_step1_action" msgid="4366513534999901728">Aktivera i Inställningar</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">Byt till <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">Välj sedan \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" som din aktiva textinmatningsmetod.</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"Byt inmatningsmetod"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Grattis! Nu är det klart."</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Nu kan du skriva i alla dina favoritappar med <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_title" msgid="3154757183631490281">Grattis, nu är allt klart!</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">Nu kan du skriva i alla dina favoritappar med <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"Konfigurera ytterligare språk"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Slutförda"</string>
+    <string name="setup_finish_action" msgid="276559243409465389">Slutför</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Visa appikon"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Visa appikonen i startprogrammet"</string>
-    <string name="app_name" msgid="6320102637491234792">"Dictionary Provider"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Dictionary Provider"</string>
+    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Visa applikationsikon i startskärmsappen</string>
+    <string name="app_name" msgid="6320102637491234792">Ordlisteleverantör</string>
+    <string name="dictionary_provider_name" msgid="3027315045397363079">Ordlisteleverantör</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Ordlistetjänst"</string>
     <string name="download_description" msgid="6014835283119198591">"Uppdateringsinformation för ordlista"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Tilläggsordlistor"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Inställningar för ordlistor"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Egna ordlistor"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Egen ordlista"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"En ordlista är tillgänglig"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Hämtar för närvarande"</string>
+    <string name="dictionary_available" msgid="4728975345815214218">Ordlista tillgänglig</string>
+    <string name="dictionary_downloading" msgid="2982650524622620983">Nedladdning pågår</string>
     <string name="dictionary_installed" msgid="8081558343559342962">"Installerad"</string>
     <string name="dictionary_disabled" msgid="8950383219564621762">"Installerad, inaktiverad"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Problem med att ansluta till ordlistetjänsten"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Inga ordlistor finns"</string>
+    <string name="no_dictionaries_available" msgid="8039920716566132611">Inga ordlistor tillgängliga</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Uppdatera"</string>
-    <string name="last_update" msgid="730467549913588780">"Informationen uppdaterades senast"</string>
+    <string name="last_update" msgid="730467549913588780">Senast uppdaterad</string>
     <string name="message_updating" msgid="4457761393932375219">"Söker efter uppdateringar"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Läser in …"</string>
+    <string name="message_loading" msgid="5638680861387748936">Laddar …</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Huvudordlista"</string>
     <string name="cancel" msgid="6830980399865683324">"Avbryt"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Inställningar"</string>
     <string name="install_dict" msgid="180852772562189365">"Installera"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"Avbryt"</string>
     <string name="delete_dict" msgid="756853268088330054">"Ta bort"</string>
-    <string name="version_text" msgid="2715354215568469385">"Version <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Lägg till"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Lägg till i ordlista"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Fras"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Fler alternativ"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Färre alternativ"</string>
+    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">Fler val</string>
+    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">Färre val</string>
     <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"OK"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Ord:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Genväg:"</string>
@@ -185,9 +182,53 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Redigera ord"</string>
     <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Redigera"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Ta bort"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Du har inga ord i din egen ordlista. Tryck på knappen Lägg till (+) om du vill lägga till ett ord."</string>
+    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">Du har inga ord i din egen ordlista. För att lägga till ett ord, tryck på Lägg till (+)-knappen.</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"För alla språk"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Fler språk ..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Fler språk …</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Ta bort"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ"</string>
+    <string name="settings_category_correction">Korrigeringar</string>
+    <string name="settings_category_suggestions">Förslag</string>
+    <string name="settings_category_experimental">Experimentella</string>
+    <string name="settings_category_miscellaneous">Diverse</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="settings_no_limit">Ingen gräns</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Långtryckning på mellanslagstangenten öppnar menyn för val av inmatningsmetod</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Ändra inmatningsmetod med mellanslagstangenten</string>
+    <string name="spell_checker_service_name">OpenBoards stavningskontroll</string>
+    <string name="android_spell_checker_settings">Inställningar för OpenBoards stavningskontroll</string>
+    <string name="number_row">Sifferrad</string>
+    <string name="number_row_summary">Visa alltid sifferraden</string>
+    <string name="show_emoji_key">Emoji-tangent</string>
+    <string name="ime_settings">OpenBoard-inställningar</string>
+    <string name="show_hints_summary">Visa tips för långtryckning</string>
+    <string name="settings_category_additional_keys">Ytterligare tangenter</string>
+    <string name="settings_category_clipboard_history">Urklippshistorik</string>
+    <string name="show_hints">Visa tangenttips</string>
+    <string name="prefs_force_incognito_mode">Tvinga inkognitoläge</string>
+    <string name="prefs_force_incognito_mode_summary">Inaktivera inlärning av nya ord</string>
+    <string name="settings_category_input">Inmatning</string>
+    <string name="show_clipboard_key">Urklippsknapp</string>
+    <string name="enable_clipboard_history">Aktivera urklippshistorik</string>
+    <string name="enable_clipboard_history_summary">Urklippsknappen kommer att klistra in eventuellt urklippsinnehåll om denna är inaktiverad</string>
+    <string name="clipboard_history_retention_time">Lagringstid för historik</string>
+    <string name="delete_swipe">Backstegssvepning</string>
+    <string name="delete_swipe_summary">Gör en svepning från backstegstangenten för att markera och ta bort större mängder text på en gång</string>
+    <string name="space_trackpad_summary">Svep på mellanslagstangenten för att flytta textmarkören</string>
+    <string name="space_trackpad">Styrplatta i mellanslagstangenten</string>
+    <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
+    <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
+    <string name="more_keys_strip_description">Fler tangenter</string>
+    <string name="prefs_resize_keyboard">Aktivera storleksändring av tangentbord</string>
+    <string name="prefs_keyboard_height_scale">Tangentbordets höjdskala</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (akkhor)</string>
+    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
+    <string name="theme_family">Temafamilj</string>
+    <string name="theme_variant">Temavariant</string>
+    <string name="key_borders">Kantlinjer för tangenter</string>
+    <string name="day_night_mode">Automatiskt dag-/nattläge</string>
+    <string name="day_night_mode_summary">Utseendet kommer följa systeminställningarna</string>
+    <string name="amoled_mode_summary">Kan minska strömförbrukningen beroende på enhetens skärmteknik</string>
+    <string name="amoled_mode">Helsvarta bakgrunder</string>
 </resources>

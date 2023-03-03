@@ -18,30 +18,48 @@
 >
     <Key
         latin:keySpec="a"
+        latin:keyHintLabel="\@"
+        latin:additionalMoreKeys="\\@"
         latin:moreKeys="!text/morekeys_a" />
     <Key
         latin:keySpec="u"
+        latin:keyHintLabel="#"
+        latin:additionalMoreKeys="#"
         latin:moreKeys="!text/morekeys_u" />
     <Key
         latin:keySpec="i"
+        latin:keyHintLabel="$"
+        latin:additionalMoreKeys="$"
         latin:moreKeys="!text/morekeys_i" />
     <Key
         latin:keySpec="e"
+        latin:keyHintLabel="%"
+        latin:additionalMoreKeys="%"
         latin:moreKeys="!text/morekeys_e" />
     <Key
         latin:keySpec="c"
+        latin:keyHintLabel="&amp;"
+        latin:additionalMoreKeys="&amp;"
         latin:moreKeys="!text/morekeys_c" />
     <Key
         latin:keySpec="t"
+        latin:keyHintLabel="-"
+        latin:additionalMoreKeys="-"
         latin:moreKeys="!text/morekeys_t" />
     <Key
         latin:keySpec="s"
+        latin:keyHintLabel="+"
+        latin:additionalMoreKeys="+"
         latin:moreKeys="!text/morekeys_s" />
     <Key
         latin:keySpec="r"
+        latin:keyHintLabel="("
+        latin:additionalMoreKeys="("
         latin:moreKeys="!text/morekeys_r" />
     <Key
         latin:keySpec="n"
+        latin:keyHintLabel=")"
+        latin:additionalMoreKeys=")"
         latin:moreKeys="!text/morekeys_n" />
     <Key
         latin:keySpec="m" />

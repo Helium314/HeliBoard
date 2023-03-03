@@ -43,7 +43,7 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"Sarankan nama Kontak"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">Menggunakan nama kontak untuk saran dan koreksi</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Saran hasil personalisasi"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Tingkatkan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Tingkatkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Titik spasi ganda"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Mengetuk tombol spasi dua kali akan memasukkan titik diikuti satu spasi"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Kapitalisasi otomatis"</string>
@@ -82,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Tema keyboard"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Beralih akun"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Tidak ada akun yang dipilih"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Saat ini menggunakan <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="account_selected" msgid="2846876462199625974">Saat ini menggunakan <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"Oke"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Batal"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Keluar"</string>
@@ -92,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"Spanyol (AS)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbia (Latin)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"(<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>) Inggris (Inggris)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"(<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>) Inggris (AS)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"(<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>) Spanyol (AS)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbia (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradisional)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Rapat)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Inggris (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Inggris (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spanyol (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbia (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisional)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Ringkas)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Tidak ada bahasa (Abjad)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Abjad (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Abjad (QWERTZ)"</string>
@@ -118,27 +118,27 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"Gaya masukan khusus harus aktif sebelum digunakan. Aktifkan?"</string>
     <string name="enable" msgid="5031294444630523247">"Aktifkan"</string>
     <string name="not_now" msgid="6172462888202790482">"Nanti saja"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Sudah ada gaya masukan yang sama: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Gaya masukan yang sama sudah tersedia: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durasi getar saat tekan tombol"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume suara saat tekan tombol"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Penundaan tekan lama tombol"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji untuk keyboard fisik"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Tombol Alt fisik menampilkan palet emoji"</string>
     <string name="button_default" msgid="3988017840431881491">"Default"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Selamat datang di <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Selamat datang di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"dengan Ketikan Gestur"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Memulai"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Langkah berikutnya"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Menyiapkan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Aktifkan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Centang \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" di setelan Bahasa &amp; masukan. Tindakan ini akan mengizinkannya berjalan di perangkat Anda."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> telah diaktifkan di setelan Bahasa &amp; masukan Anda, jadi langkah ini sudah diselesaikan. Lanjut langkah selanjutnya!"</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">Menyiapkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Aktifkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">Silakan aktifkan \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" di dalam pengaturan Bahasa &amp; Masukan sistem. Ini akan mengizinkan aplikasi untuk bekerja pada perangkat Anda.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> sudah diaktifkan di dalam pengaturan Bahasa &amp; Masukan sistem. Siapkan yang berikutnya!</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"Aktifkan dalam Setelan"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Beralih ke <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Lalu, pilih \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" sebagai metode masukan teks aktif Anda."</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">Beralih ke <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">Selanjutnya, pilih \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" sebagai metode masukan Anda yang aktif.</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"Alihkan metode masukan"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Selamat, Anda sudah siap!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Sekarang Anda dapat mengetik di semua aplikasi favorit Anda dengan <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">Sekarang Anda bisa mengetik di semua aplikasi favorit Anda dengan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"Konfigurasikan bahasa tambahan"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Selesai"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Tampilkan ikon aplikasi"</string>
@@ -167,7 +167,7 @@
     <string name="install_dict" msgid="180852772562189365">"Instal"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"Batal"</string>
     <string name="delete_dict" msgid="756853268088330054">"Hapus"</string>
-    <string name="version_text" msgid="2715354215568469385">"Versi <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">Versi <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Tambahkan"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Tambahkan ke kamus"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frasa"</string>
@@ -180,11 +180,11 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Ketik kata"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Pintasan opsional"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edit kata"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Edit"</string>
+    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Sunting</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Hapus"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Tidak ada kata-kata dalam kamus pengguna. Untuk menambahkan kata, tap tombol Tambahkan (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Untuk semua bahasa"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Bahasa lainnya..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Bahasa lainnya…</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Hapus"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_resize_keyboard">Ubah ukuran keyboard</string>
@@ -229,4 +229,6 @@
     <string name="theme_family">Keluarga tema</string>
     <string name="enable_clipboard_history_summary">Jika dinonaktifkan, menekan tombol ikon clipboard akan menempelkan konten yang disalin</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="autospace_after_punctuation">Spasi otomatis setelah tanda baca</string>
+    <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
 </resources>

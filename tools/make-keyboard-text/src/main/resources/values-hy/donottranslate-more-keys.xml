@@ -23,17 +23,25 @@
          U+0532: "Բ" ARMENIAN CAPITAL LETTER BEN
          U+0533: "Գ" ARMENIAN CAPITAL LETTER GIM -->
     <string name="keylabel_to_alpha">&#x0531;&#x0532;&#x0533;</string>
-    <!-- U+055E: "՞" ARMENIAN QUESTION MARK
-         U+055C: "՜" ARMENIAN EXCLAMATION MARK
-         U+055A: "՚" ARMENIAN APOSTROPHE
-         U+0559: "ՙ" ARMENIAN MODIFIER LETTER LEFT HALF RING
-         U+055D: "՝" ARMENIAN COMMA
-         U+055B: "՛" ARMENIAN EMPHASIS MARK
-         U+058A: "֊" ARMENIAN HYPHEN
-         U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-         U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
-         U+055F: "՟" ARMENIAN ABBREVIATION MARK -->
-    <string name="morekeys_punctuation">"!autoColumnOrder!8,\\,,&#x055E;,&#x055C;,.,&#x055A;,&#x0559;,?,!,&#x055D;,&#x055B;,&#x058A;,&#x00BB;,&#x00AB;,&#x055F;,;,:"</string>
+    <!--
+        &#x0028; U+0028 "(" Բացվող փակագիծ - OPENING PARENTHESES
+        &#x0029; U+0029 ")" Փակվող փակագիծ - CLOSING PARENTHESES
+        &#x0027; U+0027 "'" Ապաթարց - APOSTROPHE
+        &#x2026; U+2026 "…" Կախման կետեր - HORIZONTAL ELLIPSIS
+        &#x055E; U+055E "՞" Հարցական - ARMENIAN QUESTION MARK
+        &#x055C; U+055C "՜" Բացականչական - ARMENIAN EXCLAMATION MARK
+        &#x055B; U+055B "՛" Շեշտ - ARMENIAN EMPHASIS MARK
+        &#x055D; U+055D "՝" Բութ - ARMENIAN COMMA
+            !! (the unicode name is Armenian Comma, which isn't really accurate since Armenian Comma is U+002C)
+        &#x058A; U+058A "֊" Միության գծիկ - ARMENIAN HYPHEN
+        &#x2015; U+2015 "―" Անջատման գժիկ - ARMENIAN SEPARATION MARK
+        &#x00AB; U+00AB "«" Բացվող չակերտ - LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+        &#x00BB; U+00BB "»" Փակվող չակերտ - RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+        &#x002C; U+002C "," Ստօրակետ - ARMENIAN COMMA
+        &#x0589; U+0589 "։" Վերջակետ - ARMENIAN COLON
+        &#x2024; U+2024 "․" Միջակետ - One dot leader
+    -->
+    <string name="morekeys_punctuation">"!autoColumnOrder!8,\\,,&#x055E;,&#x055C;,&#x2024;,&#x2026;,&#x0027;,&#x003D;,&#x002F;,&#x055D;,&#x055B;,&#x058A;,&#x00BB;,&#x00AB;,&#x2015;,&#x0029;,&#x0028;"</string>
     <!-- U+055E: "՞" ARMENIAN QUESTION MARK
          U+00BF: "¿" INVERTED QUESTION MARK -->
     <string name="morekeys_question">&#x055E;,&#x00BF;</string>
@@ -44,9 +52,9 @@
     <!-- TODO: Enable this when we have glyph for the following letter
          <string name="keyspec_currency">&#x058F;</string>
     -->
-    <!-- U+055D: "՝" ARMENIAN COMMA -->
-    <string name="keyspec_comma">&#x055D;</string>
-    <string name="keyspec_tablet_comma">&#x055D;</string>
+    <!-- U+002C: "," ARMENIAN COMMA -->
+    <string name="keyspec_comma">&#x002C;</string>
+    <string name="keyspec_tablet_comma">&#x002C;</string>
     <!-- U+0589: "։" ARMENIAN FULL STOP -->
     <string name="keyspec_period">&#x0589;</string>
     <string name="keyspec_tablet_period">&#x0589;</string>

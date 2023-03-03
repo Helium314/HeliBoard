@@ -19,54 +19,91 @@
 -->
 
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
-    <!-- U+0567: "է" ARMENIAN SMALL LETTER EH -->
-    <Key
-        latin:keySpec="&#x0567;"
-        latin:keyHintLabel="1"
-        latin:additionalMoreKeys="1" />
-    <!-- U+0569: "թ" ARMENIAN SMALL LETTER TO -->
-    <Key
-        latin:keySpec="&#x0569;"
-        latin:keyHintLabel="2"
-        latin:additionalMoreKeys="2" />
-    <!-- U+0583: "փ" ARMENIAN SMALL LETTER PIWR -->
-    <Key
-        latin:keySpec="&#x0583;"
-        latin:keyHintLabel="3"
-        latin:additionalMoreKeys="3" />
-    <!-- U+0571: "ձ" ARMENIAN SMALL LETTER JA -->
-    <Key
-        latin:keySpec="&#x0571;"
-        latin:keyHintLabel="4"
-        latin:additionalMoreKeys="4" />
-    <!-- U+057B: "ջ" ARMENIAN SMALL LETTER JHEH -->
-    <Key
-        latin:keySpec="&#x057B;"
-        latin:keyHintLabel="5"
-        latin:additionalMoreKeys="5" />
-    <!-- U+0580: "ր" ARMENIAN SMALL LETTER REH -->
-    <Key
-        latin:keySpec="&#x0580;"
-        latin:keyHintLabel="6"
-        latin:additionalMoreKeys="6" />
-    <!-- U+0579: "չ" ARMENIAN SMALL LETTER CHA -->
-    <Key
-        latin:keySpec="&#x0579;"
-        latin:keyHintLabel="7"
-        latin:additionalMoreKeys="7" />
-    <!-- U+0573: "ճ" ARMENIAN SMALL LETTER CHEH -->
-    <Key
-        latin:keySpec="&#x0573;"
-        latin:keyHintLabel="8"
-        latin:additionalMoreKeys="8" />
-    <!-- U+056A: "ժ" ARMENIAN SMALL LETTER ZHE -->
-    <Key
-        latin:keySpec="&#x056A;"
-        latin:keyHintLabel="9"
-        latin:additionalMoreKeys="9" />
-    <!-- U+056E: "ծ" ARMENIAN SMALL LETTER CA -->
-    <Key
-        latin:keySpec="&#x056E;"
-        latin:keyHintLabel="0"
-        latin:additionalMoreKeys="0" />
+    <switch>
+        <case
+            latin:numberRowEnabled="true">
+            <!-- U+0567: "է" ARMENIAN SMALL LETTER EH -->
+            <Key
+                latin:keySpec="&#x0567;"/>
+            <!-- U+0569: "թ" ARMENIAN SMALL LETTER TO -->
+            <Key
+                latin:keySpec="&#x0569;"/>
+            <!-- U+0583: "փ" ARMENIAN SMALL LETTER PIWR -->
+            <Key
+                latin:keySpec="&#x0583;"/>
+            <!-- U+0571: "ձ" ARMENIAN SMALL LETTER JA -->
+            <Key
+                latin:keySpec="&#x0571;"/>
+            <!-- U+057B: "ջ" ARMENIAN SMALL LETTER JHEH -->
+            <Key
+                latin:keySpec="&#x057B;"/>
+            <!-- U+0580: "ր" ARMENIAN SMALL LETTER REH -->
+            <Key
+                latin:keySpec="&#x0580;"/>
+            <!-- U+0579: "չ" ARMENIAN SMALL LETTER CHA -->
+            <Key
+                latin:keySpec="&#x0579;"/>
+            <!-- U+0573: "ճ" ARMENIAN SMALL LETTER CHEH -->
+            <Key
+                latin:keySpec="&#x0573;"/>
+            <!-- U+056A: "ժ" ARMENIAN SMALL LETTER ZHE -->
+            <Key
+                latin:keySpec="&#x056A;"/>
+            <!-- U+056E: "ծ" ARMENIAN SMALL LETTER CA -->
+            <Key
+                latin:keySpec="&#x056E;"/>
+        </case>
+        <default>
+            <!-- U+0567: "է" ARMENIAN SMALL LETTER EH -->
+            <Key
+                latin:keySpec="&#x0567;"
+                latin:keyHintLabel="1"
+                latin:additionalMoreKeys="1"/>
+            <!-- U+0569: "թ" ARMENIAN SMALL LETTER TO -->
+            <Key
+                latin:keySpec="&#x0569;"
+                latin:keyHintLabel="2"
+                latin:additionalMoreKeys="2"/>
+            <!-- U+0583: "փ" ARMENIAN SMALL LETTER PIWR -->
+            <Key
+                latin:keySpec="&#x0583;"
+                latin:keyHintLabel="3"
+                latin:additionalMoreKeys="3"/>
+            <!-- U+0571: "ձ" ARMENIAN SMALL LETTER JA -->
+            <Key
+                latin:keySpec="&#x0571;"
+                latin:keyHintLabel="4"
+                latin:additionalMoreKeys="4"/>
+            <!-- U+057B: "ջ" ARMENIAN SMALL LETTER JHEH -->
+            <Key
+                latin:keySpec="&#x057B;"
+                latin:keyHintLabel="5"
+                latin:additionalMoreKeys="5"/>
+            <!-- U+0580: "ր" ARMENIAN SMALL LETTER REH -->
+            <Key
+                latin:keySpec="&#x0580;"
+                latin:keyHintLabel="6"
+                latin:additionalMoreKeys="6"/>
+            <!-- U+0579: "չ" ARMENIAN SMALL LETTER CHA -->
+            <Key
+                latin:keySpec="&#x0579;"
+                latin:keyHintLabel="7"
+                latin:additionalMoreKeys="7"/>
+            <!-- U+0573: "ճ" ARMENIAN SMALL LETTER CHEH -->
+            <Key
+                latin:keySpec="&#x0573;"
+                latin:keyHintLabel="8"
+                latin:additionalMoreKeys="8"/>
+            <!-- U+056A: "ժ" ARMENIAN SMALL LETTER ZHE -->
+            <Key
+                latin:keySpec="&#x056A;"
+                latin:keyHintLabel="9"
+                latin:additionalMoreKeys="9"/>
+            <!-- U+056E: "ծ" ARMENIAN SMALL LETTER CA -->
+            <Key
+                latin:keySpec="&#x056E;"
+                latin:keyHintLabel="0"
+                latin:additionalMoreKeys="0"/>
+        </default>
+    </switch>
 </merge>

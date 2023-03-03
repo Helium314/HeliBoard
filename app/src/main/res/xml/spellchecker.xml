@@ -57,6 +57,10 @@
     />
     <subtype
             android:label="@string/subtype_generic"
+            android:subtypeLocale="hy"
+    />
+    <subtype
+            android:label="@string/subtype_generic"
             android:subtypeLocale="pt_BR"
     />
     <!-- LineageOS additions -->

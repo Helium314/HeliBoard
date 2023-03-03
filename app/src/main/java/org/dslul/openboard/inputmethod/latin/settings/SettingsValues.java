@@ -53,6 +53,7 @@ public class SettingsValues {
     private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
     private static final int TIMEOUT_TO_GET_TARGET_PACKAGE = 5; // seconds
     public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
+    public static final float AUTO_CORRECTION_DISABLED_THRESHOLD = Float.MAX_VALUE;
 
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
@@ -80,6 +81,7 @@ public class SettingsValues {
     public final boolean mBlockPotentiallyOffensive;
     public final boolean mSpaceTrackpadEnabled;
     public final boolean mDeleteSwipeEnabled;
+    public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
     public final long mClipboardHistoryRetentionTime;
     public final boolean mOneHandedModeEnabled;
@@ -162,9 +164,9 @@ public class SettingsValues {
                 && inputAttributes.mIsGeneralTextInput;
         mBlockPotentiallyOffensive = Settings.readBlockPotentiallyOffensive(prefs, res);
         mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs, res);
-        final String autoCorrectionThresholdRawValue = mAutoCorrectEnabled
-                ? res.getString(R.string.auto_correction_threshold_mode_index_modest)
-                : res.getString(R.string.auto_correction_threshold_mode_index_off);
+        mAutoCorrectionThreshold = mAutoCorrectEnabled
+                ? readAutoCorrectionThreshold(res, prefs)
+                : AUTO_CORRECTION_DISABLED_THRESHOLD;
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
@@ -182,8 +184,6 @@ public class SettingsValues {
                 Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mShowAppIcon = Settings.readShowSetupWizardIcon(prefs, context);
         mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
-        mAutoCorrectionThreshold = readAutoCorrectionThreshold(res,
-                autoCorrectionThresholdRawValue);
         mPlausibilityThreshold = Settings.readPlausibilityThreshold(res);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs, res);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
@@ -237,6 +237,7 @@ public class SettingsValues {
         }
         mSpaceTrackpadEnabled = Settings.readSpaceTrackpadEnabled(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
+        mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
@@ -329,7 +330,8 @@ public class SettingsValues {
     }
 
     private static float readAutoCorrectionThreshold(final Resources res,
-                                                     final String currentAutoCorrectionSetting) {
+                                                     final SharedPreferences prefs) {
+        final String currentAutoCorrectionSetting = Settings.readAutoCorrectConfidence(prefs, res);
         final String[] autoCorrectionThresholdValues = res.getStringArray(
                 R.array.auto_correction_threshold_values);
         // When autoCorrectionThreshold is greater than 1.0, it's like auto correction is off.

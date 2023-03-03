@@ -1393,6 +1393,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onMovePointer(int steps) {
+        // for RTL languages we want to invert pointer movement
+        if (mRichImm.getCurrentSubtype().isRtlSubtype())
+            steps = -steps;
+            
         mInputLogic.finishInput();
         if (steps < 0) {
             int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();

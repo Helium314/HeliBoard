@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,11 +16,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"输入选项"</string>
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="english_ime_input_options" msgid="3909945612939668554">输入设置</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"查找联系人姓名"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"拼写检查工具会使用您的联系人列表中的条目"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"按键振动"</string>
@@ -44,9 +41,9 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>毫秒"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"系统默认值"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"联系人姓名建议"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"根据通讯录中的姓名提供建议和更正"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">使用通讯录中姓名提供建议和更正</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"个性化建议"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"改进<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">改进 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"双击空格插入句号"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"双击空格键可插入句号并后跟空格"</string>
     <string name="auto_cap" msgid="1719746674854628252">"自动大写"</string>
@@ -85,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"键盘主题"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"切换帐号"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"未选择任何帐号"</string>
-    <string name="account_selected" msgid="2846876462199625974">"当前使用的是<xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="account_selected" msgid="2846876462199625974">当前使用的是 <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"确定"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"取消"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"退出帐号"</string>
@@ -95,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"西班牙语（美国）"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"印地英语"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"塞尔维亚语（拉丁语布局）"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"英式英语（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"美式英语（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"美式西班牙语（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"印地英语（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"塞尔维亚语（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>布局）"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g>（传统）"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g>（紧凑型）"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">英式英语 (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">英语（美国）(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">西班牙语（美国）(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">英语（印度）(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">塞尔维亚语 (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g>（传统）</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (紧凑)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"无语言（字母）"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"字母 (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"字母 (QWERTZ)"</string>
@@ -121,27 +118,27 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"您需要先启用自定义输入样式，然后才能开始使用。要立即启用该样式吗？"</string>
     <string name="enable" msgid="5031294444630523247">"启用"</string>
     <string name="not_now" msgid="6172462888202790482">"以后再说"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"已经存在相同的输入样式：<xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">已经存在相同的输入样式： <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"按键振动时长"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"按键音量"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"按键长按延迟"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"通过实体键盘启用表情符号"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"按实体键盘上的 Alt 键可显示表情符号面板"</string>
     <string name="button_default" msgid="3988017840431881491">"默认"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"欢迎使用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">欢迎使用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"体验顺畅的滑行输入体验"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"开始"</string>
     <string name="setup_next_action" msgid="371821437915144603">"下一步"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"设置 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"启用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"请在“语言和输入法”设置中选中“<xliff:g id="APPLICATION_NAME">%s</xliff:g>”，授权该应用在您的设备上运行。"</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"您已在“语言和输入法”中启用了<xliff:g id="APPLICATION_NAME">%s</xliff:g>，因此这一步骤已完成。继续下一步吧！"</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">设置 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title" msgid="3147967630253462315">启用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">请在“语言 &amp; 输入法”设置中选中“<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>”，授权该应用在您的设备上运行。</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">您已在“语言 &amp; 输入法”中启用了<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>，因此这一步骤已完成。继续下一步吧！</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"在设置中启用"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"切换到 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"接下来，请选择“<xliff:g id="APPLICATION_NAME">%s</xliff:g>”作为您要使用的文字输入法。"</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">切换到 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">接下来，请选择“<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>”作为您要使用的文字输入法。</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"切换输入法"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"恭喜，您已完成了设置！"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"现在，您可以在自己喜欢的所有应用中使用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>来输入内容了。"</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">现在，您可以在自己喜欢的所有应用中使用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 来输入内容了。</string>
     <string name="setup_step3_action" msgid="600879797256942259">"配置其他语言"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"完成"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"显示应用图标"</string>
@@ -170,7 +167,7 @@
     <string name="install_dict" msgid="180852772562189365">"安装"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"取消"</string>
     <string name="delete_dict" msgid="756853268088330054">"删除"</string>
-    <string name="version_text" msgid="2715354215568469385">"版本：<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">版本 <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"添加"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"添加到字典"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"词组"</string>
@@ -190,4 +187,48 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"更多语言…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"删除"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="settings_category_suggestions">建议</string>
+    <string name="settings_category_miscellaneous">其他</string>
+    <string name="settings_category_clipboard_history">剪贴板历史</string>
+    <string name="settings_category_correction">校正</string>
+    <string name="settings_category_experimental">实验性</string>
+    <string name="settings_no_limit">无限制</string>
+    <string name="enable_clipboard_history">剪切板</string>
+    <string name="clipboard_history_retention_time">保存历史</string>
+    <string name="delete_swipe_summary">从删除键上进行滑动，可以一次选择并删除较大的文字部分</string>
+    <string name="prefs_force_incognito_mode">强力隐私模式</string>
+    <string name="show_hints_summary">长按候选词弹框</string>
+    <string name="number_row_summary">数字行</string>
+    <string name="show_hints">显示主要提示</string>
+    <string name="theme_family">主题背景</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="show_clipboard_key">粘贴键</string>
+    <string name="space_trackpad">空格键</string>
+    <string name="space_trackpad_summary">滑行输入</string>
+    <string name="delete_swipe">滑动删除</string>
+    <string name="show_emoji_key">表情键</string>
+    <string name="enable_clipboard_history_summary">如果禁用，剪贴板键将粘贴剪贴板内容</string>
+    <string name="autospace_after_punctuation">标点后面自动插入空格</string>
+    <string name="autospace_after_punctuation_summary">单词输入后自动添加空格</string>
+    <string name="theme_variant">主题变化</string>
+    <string name="amoled_mode_summary">可大幅减少耗电量（具体取决于设备的屏幕技术）</string>
+    <string name="spell_checker_service_name">拼写检查</string>
+    <string name="android_spell_checker_settings">拼写检查设置</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (学校管理模板)</string>
+    <string name="subtype_no_language_workman">字母表</string>
+    <string name="prefs_force_incognito_mode_summary">禁止学习新单词</string>
+    <string name="more_keys_strip_description">切换输入法</string>
+    <string name="number_row">数字</string>
+    <string name="key_borders">边框</string>
+    <string name="day_night_mode">自动主题</string>
+    <string name="day_night_mode_summary">系统自动</string>
+    <string name="amoled_mode">深色背景</string>
+    <string name="settings_category_input">输入</string>
+    <string name="ime_settings">OpenBoard设置</string>
+    <string name="settings_category_additional_keys">额外键</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">长按空格切换输入法</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">空格切换输入法</string>
+    <string name="prefs_resize_keyboard">调整键盘大小</string>
+    <string name="prefs_keyboard_height_scale">调整键盘高度</string>
+    <string name="subtype_no_language_colemak_dh">字母表</string>
 </resources>

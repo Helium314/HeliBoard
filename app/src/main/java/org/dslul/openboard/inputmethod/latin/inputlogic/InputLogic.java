@@ -996,6 +996,16 @@ public final class InputLogic {
                 // between swappers and strippers), so we should not stay in phantom space state if
                 // the separator is a stripper. Hence the additional test above.
                 mSpaceState = SpaceState.PHANTOM;
+            } else
+                // mSpaceState is still SpaceState.NONE, but some characters should typically
+                // be followed by space. Set phantom space state for such characters if the user
+                // enabled the setting and was not composing a word. The latter avoids setting
+                // phantom space state when typing decimal numbers, with the drawback of not
+                // setting phantom space state after ending a sentence with a non-word.
+                if (wasComposingWord
+                    && settingsValues.mAutospaceAfterPunctuationEnabled
+                    && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
+                mSpaceState = SpaceState.PHANTOM;
             }
 
             sendKeyCodePoint(settingsValues, codePoint);

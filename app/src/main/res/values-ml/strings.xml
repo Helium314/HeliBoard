@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"ടൈപ്പിംഗ് ഓപ്‌ഷനുകൾ"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"കോണ്ടാക്റ്റ് പേരുകൾ തിരയൂ"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"നിങ്ങളുടെ കോൺടാക്‌റ്റ് ലിസ്‌റ്റിൽ നിന്നുള്ള എൻട്രികൾ സ്പെൽചെക്കർ ഉപയോഗിക്കുന്നു"</string>
@@ -44,9 +41,9 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>മി.സെ"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"സ്ഥിരമായ സിസ്റ്റം"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"കോൺടാക്‌റ്റ് പേര് നിർദ്ദേശിക്കൂ"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"നിർദ്ദേശങ്ങൾക്കും തിരുത്തലുകൾക്കുമായി കോൺടാക്‌റ്റുകളിൽ നിന്നുള്ള പേരുകൾ ഉപയോഗിക്കുക"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">നിർദ്ദേശങ്ങൾക്കും തിരുത്തലുകൾക്കുമായി കോൺടാക്‌റ്റുകളിൽ നിന്നുള്ള പേരുകൾ ഉപയോഗിക്കുക</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"വ്യക്തിഗത നിർദ്ദേശങ്ങൾ"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> മെച്ചപ്പെടുത്തുക"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> മെച്ചപ്പെടുത്തുക</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"ഡബിൾ സ്പേസ് പീരിഡ്"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"സ്‌പെയ്‌സ് ബാറിൽ ഇരട്ട ടാപ്പുചെയ്യുന്നത്, ഒരു സ്‌പെയ്‌സിന് മുമ്പായി വിരാമം ഇടുന്നു"</string>
     <string name="auto_cap" msgid="1719746674854628252">"സ്വയം വലിയക്ഷരമാക്കുക"</string>
@@ -85,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"കീബോർഡ് തീം"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"അക്കൗണ്ടുകൾ മാറുക"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"അക്കൗണ്ടുകളൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല"</string>
-    <string name="account_selected" msgid="2846876462199625974">"നിലവിൽ <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g> എന്ന അക്കൗണ്ട് ഉപയോഗിക്കുന്നു"</string>
+    <string name="account_selected" msgid="2846876462199625974">നിലവിൽ <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g> എന്ന ഇമെയിൽ അക്കൗണ്ട് ഉപയോഗിക്കുന്നു</string>
     <string name="account_select_ok" msgid="9141195141763227797">"ശരി"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"റദ്ദാക്കുക"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"സൈൻ ഔട്ട് ചെയ്യുക"</string>
@@ -95,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"സ്‌പാനിഷ് (യുഎസ്)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"ഹിംഗ്ലീഷ്"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"സെർബിയൻ (ലാറ്റിൻ)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"ഇംഗ്ലീഷ് (യുകെ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"ഇംഗ്ലീഷ് (യുഎസ്) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"സ്‌പാനിഷ് (യുഎസ്) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"ഹിംഗ്ലീഷ് (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"സെർബിയൻ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (പരമ്പരാഗതം)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (കോം‌പാക്‌ട്)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">ഇംഗ്ലീഷ് (യുകെ) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">ഇംഗ്ലീഷ് (യുഎസ്) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">സ്‌പാനിഷ് (യുഎസ്) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">ഹിംഗ്ലീഷ് (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">സെർബിയൻ (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (പരമ്പരാഗതം)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (കോം‌പാക്‌ട്)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"ഭാഷയില്ല (അക്ഷരമാല)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"അക്ഷരമാല (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"അക്ഷരമാല (QWERTZ)"</string>
@@ -121,27 +118,27 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"നിങ്ങളുടെ ഇഷ്‌ടാനുസൃത ടൈപ്പുചെയ്യൽ ശൈലി ഉപയോഗിക്കാൻ ആരംഭിക്കുന്നതിന് മുമ്പ് അത് പ്രവർത്തനക്ഷമമാക്കേണ്ടതുണ്ട്. ഇപ്പോൾ ഇത് പ്രവർത്തനക്ഷമമാക്കണോ?"</string>
     <string name="enable" msgid="5031294444630523247">"പ്രവർത്തനക്ഷമമാക്കുക"</string>
     <string name="not_now" msgid="6172462888202790482">"ഇപ്പോൾ വേണ്ട"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"സമാന ടൈപ്പുചെയ്യൽ ശൈലി ഇതിനകം നിലവിലുണ്ട്: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">സമാന ടൈപ്പിംഗ് ശൈലി നിലവിലുണ്ട്: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"കീ അമർത്തുമ്പോഴുള്ള വൈബ്രേഷൻ ദൈർഘ്യം"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"കീ അമർത്തുമ്പോഴുള്ള ശബ്‌ദ വോളിയം"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"കീ അമർത്തിപ്പിടിക്കുന്നതിലെ കാലതാമസം"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"പ്രത്യക്ഷ കീബോഡിനുള്ള ഇമോജി"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"പ്രത്യക്ഷ Alt കീ ഇമോജി പാലറ്റിനെ കാണിക്കുന്നു"</string>
     <string name="button_default" msgid="3988017840431881491">"സ്ഥിരമായത്"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> എന്നതിലേക്ക് സ്വാഗതം"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> എന്നതിലേക്ക് സ്വാഗതം</string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"വിരൽചലിത ടൈപ്പിംഗിനൊപ്പം"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"ആരംഭിക്കുക"</string>
     <string name="setup_next_action" msgid="371821437915144603">"അടുത്ത ചുവട്"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> സജ്ജമാക്കുന്നു"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കുക"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ചെക്കുചെയ്യുക. ചെക്കുചെയ്യുന്നത് ഉപകരണത്തിൽ പ്രവർത്തിക്കാൻ ഇതിന് അംഗീകാരം നൽകും."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ ഇതിനകം തന്നെ <xliff:g id="APPLICATION_NAME">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കിയതിനാൽ ഈ ഘട്ടം പൂർത്തിയായി. അടുത്ത ഘട്ടത്തിലേക്ക് പോകുക!"</string>
+    <string name="setup_steps_title" msgid="6400373034871816182"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> സജ്ജമാക്കുന്നു</string>
+    <string name="setup_step1_title" msgid="3147967630253462315"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കുക</string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" ചെക്കുചെയ്യുക. ചെക്കുചെയ്യുന്നത് ഉപകരണത്തിൽ പ്രവർത്തിക്കാൻ ഇതിന് അംഗീകാരം നൽകും.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ ഇതിനകം തന്നെ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കിയതിനാൽ ഈ ഘട്ടം പൂർത്തിയായി. അടുത്ത ഘട്ടത്തിലേക്ക് പോകുക!</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"ക്രമീകരണങ്ങളിൽ പ്രവർത്തനക്ഷമമാകുക"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> എന്നതിലേക്ക് മാറുക"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"അടുത്തത്, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" എന്നതിനെ നിങ്ങളുടെ സജീവ വാചക-ടൈപ്പുചെയ്യൽ രീതിയായി തിരഞ്ഞെടുക്കുക."</string>
+    <string name="setup_step2_title" msgid="6860725447906690594"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> എന്നതിലേക്ക് മാറുക</string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">അടുത്തത്, \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" എന്നതിനെ നിങ്ങളുടെ സജീവ വാചക-ടൈപ്പുചെയ്യൽ രീതിയായി തിരഞ്ഞെടുക്കുക.</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"ടൈപ്പുചെയ്യൽ രീതികൾ മാറുക"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"അഭിനന്ദനങ്ങൾ, നിങ്ങൾ എല്ലാം പൂർത്തിയാക്കി!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ഉപയോഗിച്ച് നിങ്ങളുടെ പ്രിയപ്പെട്ട എല്ലാ അപ്ലിക്കേഷനുകളിലും ഇപ്പോൾ ടൈപ്പുചെയ്യാനാകും."</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ഉപയോഗിച്ച് നിങ്ങളുടെ പ്രിയപ്പെട്ട എല്ലാ അപ്ലിക്കേഷനുകളിലും ഇപ്പോൾ ടൈപ്പുചെയ്യാനാകും.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"കൂടുതൽ ഭാഷകൾ കോൺഫിഗർ ചെയ്യുക"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"പൂർത്തിയായി"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"അപ്ലിക്കേഷൻ ഐക്കൺ കാണിക്കുക"</string>
@@ -163,14 +160,14 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"പുതുക്കുക"</string>
     <string name="last_update" msgid="730467549913588780">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="message_updating" msgid="4457761393932375219">"അപ്‌ഡേറ്റുകൾക്കായി പരിശോധിക്കുന്നു"</string>
-    <string name="message_loading" msgid="5638680861387748936">"ലോഡുചെയ്യുന്നു..."</string>
+    <string name="message_loading" msgid="5638680861387748936">ലോഡുചെയ്യുന്നു…</string>
     <string name="main_dict_description" msgid="3072821352793492143">"പ്രധാന നിഘണ്ടു"</string>
     <string name="cancel" msgid="6830980399865683324">"റദ്ദാക്കുക"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"ക്രമീകരണം"</string>
     <string name="install_dict" msgid="180852772562189365">"ഇൻസ്റ്റാളുചെയ്യുക"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"റദ്ദാക്കുക"</string>
     <string name="delete_dict" msgid="756853268088330054">"ഇല്ലാതാക്കുക"</string>
-    <string name="version_text" msgid="2715354215568469385">"പതിപ്പ് <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">വേർഷൻ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ചേര്‍ക്കുക"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"നിഘണ്ടുവിൽ ചേർക്കുക"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"വാക്യം"</string>
@@ -190,4 +187,48 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"കൂടുതൽ ഭാഷകൾ…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"ഇല്ലാതാക്കുക"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="settings_category_miscellaneous">വിവിധ</string>
+    <string name="settings_no_limit">പരിധിയില്ല</string>
+    <string name="clipboard_history_retention_time">ചരിത്രം സൂക്ഷിക്കുന്ന സമയം</string>
+    <string name="space_trackpad">സ്പേസ് ബാർ ട്രാക്ക്പാഡ്</string>
+    <string name="prefs_force_incognito_mode">ഇൻകോഗ്നിറ്റോ മോഡ് നിർബന്ധിക്കുക</string>
+    <string name="more_keys_strip_description">കൂടുതൽ കീകൾ</string>
+    <string name="number_row_summary">എല്ലായ്പ്പോഴും നമ്പർ വരി കാണിക്കുക</string>
+    <string name="number_row">നമ്പർ വരി</string>
+    <string name="show_hints">കീ സൂചനകൾ കാണിക്കുക</string>
+    <string name="amoled_mode">കടും കറുപ്പ് പശ്ചാത്തലങ്ങൾ</string>
+    <string name="android_spell_checker_settings">ഓപ്പൺബോർഡ് സ്പെൽ ചെക്കർ ക്രമീകരണങ്ങൾ</string>
+    <string name="delete_swipe">ഡിലീറ്റ് സ്വൈപ്പ്</string>
+    <string name="space_trackpad_summary">കഴ്‌സർ നീക്കാൻ സ്‌പേസ് ബാറിൽ സ്വൈപ്പ് ചെയ്യുക</string>
+    <string name="show_emoji_key">ഇമോജി കീ</string>
+    <string name="prefs_force_incognito_mode_summary">പുതിയ വാക്കുകൾ പഠിക്കുന്നത് അപ്രാപ്തമാക്കുക</string>
+    <string name="settings_category_suggestions">നിർദ്ദേശങ്ങൾ</string>
+    <string name="spell_checker_service_name">ഓപ്പൺബോർഡ് സ്പെൽ ചെക്കർ</string>
+    <string name="ime_settings">ഓപ്പൺബോർഡ് ക്രമീകരണങ്ങൾ</string>
+    <string name="settings_category_clipboard_history">ക്ലിപ്പ്ബോർഡ് ഹിസ്റ്ററി</string>
+    <string name="enable_clipboard_history_summary">പ്രവർത്തനരഹിതമാക്കിയാൽ, ക്ലിപ്പ്ബോർഡ് ഉള്ളടക്കം എന്തെങ്കിലും ഉണ്ടെങ്കിൽ ക്ലിപ്പ്ബോർഡ് കീ പേസ്റ്റ് ചെയ്യും</string>
+    <string name="show_clipboard_key">ക്ലിപ്പ്ബോർഡ് കീ</string>
+    <string name="enable_clipboard_history">ക്ലിപ്പ്ബോർഡ് ചരിത്രം എനേബിൾ ചെയ്യുക</string>
+    <string name="delete_swipe_summary">ടെക്‌സ്‌റ്റിന്റെ വലിയ ഭാഗങ്ങൾ ഒരേസമയം തിരഞ്ഞെടുത്ത് നീക്കംചെയ്യുന്നതിന് ഡിലീറ്റ് കീ ഒന്ന് സ്വൈപ്പ് ചെയ്യുക</string>
+    <string name="show_hints_summary">ദീർഘനേരം അമർത്തുന്ന സൂചനകൾ കാണിക്കുക</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">സ്പേസ് കീ ഉപയോഗിച്ച് ഇൻപുട്ട് രീതി മാറ്റുക</string>
+    <string name="prefs_resize_keyboard">കീബോർഡ് വലുപ്പം മാറ്റുന്നത് എനേബിൾ ചെയ്യുക</string>
+    <string name="day_night_mode_summary">രൂപഭാവം സിസ്റ്റം ക്രമീകരണങ്ങൾ പിന്തുടരും</string>
+    <string name="key_borders">കീ അതിരുകൾ</string>
+    <string name="day_night_mode">ഓട്ടോ പകൽ/രാത്രി മോഡ്</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>മിനിറ്റ് .</string>
+    <string name="autospace_after_punctuation_summary">വിരാമചിഹ്നത്തിന് ശേഷം ഒരു പുതിയ വാക്ക് ടൈപ്പുചെയ്യുമ്പോൾ സ്വയം സ്പേസ് ചേർക്കുക</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">സ്പേസ് കീ ദീർഘനേരം അമർത്തുന്നത് ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കൽ മെനു പ്രദർശിപ്പിക്കും</string>
+    <string name="prefs_keyboard_height_scale">കീബോർഡ് ഉയരം സ്കെയിൽ</string>
+    <string name="subtype_no_language_colemak_dh">അക്ഷരമാല (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_workman">അക്ഷരമാല (ജോലിക്കാരൻ)</string>
+    <string name="autospace_after_punctuation">വിരാമചിഹ്നത്തിനു ശേഷമുള്ള ഓട്ടോസ്പേസ്</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (അഖോർ )</string>
+    <string name="theme_family">തീം ഫാമിലി</string>
+    <string name="theme_variant">തീം വേരിയന്റ്</string>
+    <string name="amoled_mode_summary">ഉപകരണത്തിന്റെ സ്‌ക്രീൻ സാങ്കേതികവിദ്യയെ ആശ്രയിച്ച് വൈദ്യുതി ഉപയോഗം കുറയ്ക്കാനാകും</string>
+    <string name="settings_category_experimental">പരീക്ഷണാത്മകം</string>
+    <string name="settings_category_input">ഇൻപുട്ട്</string>
+    <string name="settings_category_additional_keys">അധിക കീകൾ</string>
+    <string name="settings_category_correction">തിരുത്തലുകൾ</string>
 </resources>

@@ -19,7 +19,7 @@
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Opções de introdução"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">Procurar nomes dos contactos</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">Corretor ortográfico usa entradas da lista de contactos</string>
+    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">Corrector ortográfico usa entradas da lista de contactos</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">Vibrar ao tocar na tecla</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">Som ao tocar na tecla</string>
     <string name="popup_on_keypress" msgid="123894815723512944">Mostrar popup de teclas</string>

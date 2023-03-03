@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2011, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+>
+    <include
+        latin:keyboardLayout="@xml/key_styles_common" />
+    <include
+        latin:keyboardLayout="@xml/row_optional_number_row" />
+    <!-- First row -->
+    <Row>
+        <switch>
+            <!-- Split keyboard layout for the first row -->
+            <case
+                latin:isSplitLayout="true"
+            >
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty1_left5"
+                    latin:keyWidth="7.0%p" />
+                <Spacer
+                    latin:keyWidth="20.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty1_right5"
+                    latin:keyWidth="7.0%p" />
+                <Key
+                    latin:keyStyle="deleteKeyStyle"
+                    latin:keyWidth="10.0%p" />
+            </case>
+            <!-- Regular layout for the first row -->
+            <default>
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty1"
+                    latin:keyWidth="9.0%p" />
+                <Key
+                    latin:keyStyle="deleteKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </default>
+        </switch>
+    </Row>
+    <!-- Second row -->
+    <Row>
+        <switch>
+            <!-- Split keyboard layout for the second row -->
+            <case
+                latin:isSplitLayout="true"
+            >
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty2_left5"
+                    latin:keyXPos="4.0%p"
+                    latin:keyWidth="7.0%p" />
+                <Spacer
+                    latin:keyWidth="23.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty2_right4"
+                    latin:keyWidth="7.0%p" />
+                <Key
+                    latin:keyStyle="enterKeyStyle"
+                    latin:keyWidth="10.0%p" />
+            </case>
+            <!-- Regular layout for the second row -->
+            <default>
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty2"
+                    latin:keyXPos="4.5%p"
+                    latin:keyWidth="9.0%p" />
+                <Key
+                    latin:keyStyle="enterKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </default>
+        </switch>
+    </Row>
+    <!-- Third row -->
+    <Row>
+        <switch>
+            <!-- Split keyboard layout for the third row -->
+            <case
+                latin:isSplitLayout="true"
+            >
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="10.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty3_left4"
+                    latin:keyWidth="7.0%p" />
+                <Spacer
+                    latin:keyWidth="17.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty3_right3"
+                    latin:keyWidth="7.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/keys_exclamation_question"
+                    latin:keyWidth="7.0%p" />
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="10.0%p" />
+            </case>
+            <!-- Regular layout for the third row -->
+            <default>
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="10.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_qwerty3"
+                    latin:keyWidth="9.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/keys_exclamation_question"
+                    latin:keyWidth="9.0%p" />
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyWidth="fillRight" />
+            </default>
+        </switch>
+    </Row>
+    <!-- Fourth row -->
+    <include
+        latin:keyboardLayout="@xml/row_qwerty4" />
+</merge>

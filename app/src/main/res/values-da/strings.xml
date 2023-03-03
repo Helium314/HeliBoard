@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Indstillinger for input"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Anvend kontaktnavne"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Stavekontrollen bruger ord fra dine kontaktpersondata"</string>
@@ -44,9 +41,9 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Systemstandard"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Foreslå navne på kontakter"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Brug navne fra Kontakter til forslag og rettelser"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Brug kontaktnavne til forslag og rettelser</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Tilpassede forslag"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Gør <xliff:g id="APPLICATION_NAME">%s</xliff:g> bedre"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Forbedr <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"To mellemrum for punktum"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"To tryk på mellemrumstasten indsætter et punktum og et mellemrum"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Skriv automatisk med stort"</string>
@@ -85,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Tastaturtema"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Skift konto"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Du har ikke valgt en konto"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Du bruger i øjeblikket <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="account_selected" msgid="2846876462199625974">Bruger i øjeblikket <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Annuller"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Log ud"</string>
@@ -95,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"Spansk (USA)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbisk (latinsk)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Engelsk (Storbritannien) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Engelsk (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spansk (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbisk (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditionelt)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakt)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Engelsk (Storbritannien) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Engelsk (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spansk (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbisk (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionelt)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompakt)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Intet sprog (Alfabet)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabet (QWERTZ)"</string>
@@ -121,33 +118,33 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"Din tilpassede indtastningsmetode skal være aktiveret, før du begynder at bruge den. Vil du gøre det nu?"</string>
     <string name="enable" msgid="5031294444630523247">"Aktivér"</string>
     <string name="not_now" msgid="6172462888202790482">"Ikke nu"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Denne inputstil findes allerede: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Denne inputstil findes allerede: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Vibrationstid ved tastetryk"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Lydstyrke ved tastetryk"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Forsinket langt tastetryk"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji på fysisk tastatur"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Alt-tasten på det fysiske tastatur viser emojipaletten"</string>
     <string name="button_default" msgid="3988017840431881491">"Standard"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Velkommen til <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Velkommen til <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"med glidende indtastning"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Kom godt i gang"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Næste trin"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> konfigureres"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Aktivér <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Markér \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" i dine indstillinger for sprog og indtastning. Dermed får appen tilladelse til at køre på din enhed."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> er allerede aktiveret i dine indstillinger for sprog og indtastning, så dette trin er gennemført. Fortsæt til næste."</string>
+    <string name="setup_steps_title" msgid="6400373034871816182"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> konfigureres</string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Aktivér <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">Markér \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" i dine indstillinger for sprog og indtastning. Dermed får appen tilladelse til at køre på din enhed.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> er allerede aktiveret i dine indstillinger for sprog og indtastning, så dette trin er gennemført. Fortsæt til næste!</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"Aktivér i Indstillinger"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Skift til <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Dernæst skal du vælge \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" som din aktive sms-indtastningsmetode."</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">Skift til <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">Dernæst skal du vælge \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" som din aktive tekst-inputmetode.</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"Skift indtastningsmetode"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Så er du klar."</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Nu kan du skrive i alle dine favoritapps med <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_title" msgid="3154757183631490281">Så er du klar!</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">Nu kan du skrive i alle dine favoritapps med <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"Konfigurer flere sprog"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Afslut"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Vis appikon"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Vis appikon i starteren"</string>
-    <string name="app_name" msgid="6320102637491234792">"Dictionary Provider"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Dictionary Provider"</string>
+    <string name="app_name" msgid="6320102637491234792">Ordbogsudbyder</string>
+    <string name="dictionary_provider_name" msgid="3027315045397363079">Ordbogsudbyder</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Ordbogstjeneste"</string>
     <string name="download_description" msgid="6014835283119198591">"Opdateringsoplysninger for ordbøger"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Ekstra ordbøger"</string>
@@ -170,7 +167,7 @@
     <string name="install_dict" msgid="180852772562189365">"Installer"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"Annuller"</string>
     <string name="delete_dict" msgid="756853268088330054">"Slet"</string>
-    <string name="version_text" msgid="2715354215568469385">"Version <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Tilføj"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Føj til ordbog"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Sætning"</string>
@@ -187,7 +184,51 @@
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Slet"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Du har ikke nogen ord i brugerordbogen. Du kan tilføje et ord ved at trykke på knappen Tilføj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"For alle sprog"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Flere sprog..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Flere sprog…</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Slet"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="settings_category_clipboard_history">Udklipsholder-historik</string>
+    <string name="settings_category_correction">Rettelser</string>
+    <string name="settings_category_suggestions">Forslag</string>
+    <string name="settings_category_experimental">Eksperimentelt</string>
+    <string name="settings_no_limit">Ingen grænse</string>
+    <string name="enable_clipboard_history">Aktivér udklipsholderhistorik</string>
+    <string name="enable_clipboard_history_summary">Hvis deaktiveret, vil udklipsholdertasten indsætte eventuelt indhold af udklipsholderen</string>
+    <string name="clipboard_history_retention_time">Opbevaringstid for historik</string>
+    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
+    <string name="amoled_mode">Dybsorte baggrunde</string>
+    <string name="key_borders">Tastegrænser</string>
+    <string name="day_night_mode">Auto dag/nat-tilstand</string>
+    <string name="day_night_mode_summary">Udseende følger systemindstillinger</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="spell_checker_service_name">OpenBoard-stavekontrol</string>
+    <string name="show_hints">Vis tastetips</string>
+    <string name="number_row">Talrække</string>
+    <string name="number_row_summary">Vis altid talrækken</string>
+    <string name="prefs_keyboard_height_scale">Skala for tastaturets højde</string>
+    <string name="show_emoji_key">Emoji-tast</string>
+    <string name="theme_family">Temafamilie</string>
+    <string name="theme_variant">Temavariant</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Skift inputmetode med mellemrumstasten</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Langt tryk på mellemrumstasten vil åbne menuen til valg af inputmetode</string>
+    <string name="prefs_resize_keyboard">Aktivér ændring af tastaturets størrelse</string>
+    <string name="android_spell_checker_settings">Indstillinger for OpenBoard-stavekontrol</string>
+    <string name="autospace_after_punctuation_summary">Indsæt automatisk mellemrum efter tegnsætning, når du skriver et nyt ord</string>
+    <string name="space_trackpad">Pegefelt på mellemrumstasten</string>
+    <string name="autospace_after_punctuation">Auto-mellemrum efter tegnsætning</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="amoled_mode_summary">Kan reducere strømforbruget afhængigt af enhedens skærmteknologi</string>
+    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
+    <string name="ime_settings">OpenBoard-indstillinger</string>
+    <string name="settings_category_input">Input</string>
+    <string name="settings_category_additional_keys">Yderligere taster</string>
+    <string name="settings_category_miscellaneous">Diverse</string>
+    <string name="show_clipboard_key">Udklipsholder-tast</string>
+    <string name="delete_swipe">Swipe-sletning</string>
+    <string name="delete_swipe_summary">Udfør et swipe fra slet-tasten for at vælge og fjerne større dele af teksten på én gang</string>
+    <string name="space_trackpad_summary">Stryg på mellemrumstasten for at flytte markøren</string>
+    <string name="prefs_force_incognito_mode">Gennemtving inkognitotilstand</string>
+    <string name="prefs_force_incognito_mode_summary">Deaktiver indlæring af nye ord</string>
+    <string name="more_keys_strip_description">Flere taster</string>
+    <string name="show_hints_summary">Vis tips med lange tryk</string>
 </resources>

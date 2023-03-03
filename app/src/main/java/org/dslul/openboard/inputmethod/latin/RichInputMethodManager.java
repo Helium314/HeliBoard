@@ -584,6 +584,10 @@ public class RichInputMethodManager {
         switchToTargetIME(imiId, mShortcutSubtype, context);
     }
 
+    public boolean hasShortcutIme() {
+        return mShortcutInputMethodInfo != null;
+    }
+
     private void switchToTargetIME(final String imiId, final InputMethodSubtype subtype,
             final InputMethodService context) {
         final IBinder token = context.getWindow().getWindow().getAttributes().token;

@@ -5,4 +5,4 @@ Features:
  - Themes
  - Emojis
 
-This app is opensource, the code is available here: https://github.com/dslul/openboard
+This app is opensource, the code is available here: https://github.com/openboard-team/openboard

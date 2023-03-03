@@ -5,4 +5,4 @@ Ha le seguenti funzionalità:
  - temi
  - emoji
 
-È possibile trovare il codice sorgente al seguente indirizzo: https://github.com/dslul/openboard
+È possibile trovare il codice sorgente al seguente indirizzo: https://github.com/openboard-team/openboard

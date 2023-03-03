@@ -41,9 +41,9 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"System default"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Suggest Contact names"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Use names from Contacts for suggestions and corrections"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Use contact names for suggestions and corrections</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Personalised suggestions"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Improve <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Improve <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Double-space full stop"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Double tap on spacebar inserts a full stop followed by a space"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Auto-capitalisation"</string>
@@ -82,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Keyboard theme"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Change accounts"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"No accounts selected"</string>
-    <string name="account_selected" msgid="2846876462199625974">Currently using <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g></string>
+    <string name="account_selected" msgid="2846876462199625974">Currently using <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Cancel"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Sign out"</string>
@@ -92,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"Spanish (US)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbian (Latin)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"English (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"English (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"No language (Alphabet)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alphabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alphabet (QWERTZ)"</string>
@@ -118,27 +118,27 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"Your customised input style needs to be enabled before you start using it. Do you want to enable it now?"</string>
     <string name="enable" msgid="5031294444630523247">"Enable"</string>
     <string name="not_now" msgid="6172462888202790482">"Not now"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"The same input style already exists: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">The same input style already exists: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Keypress vibration duration"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Keypress sound volume"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Key long-press delay"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji for physical keyboard"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Physical Alt key shows the emoji palette"</string>
     <string name="button_default" msgid="3988017840431881491">"Default"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Welcome to <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Welcome to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"with Gesture Typing"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Get started"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Next step"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Setting up <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Enable <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Please tick \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" in your Languages &amp; input settings. This will authorise it to run on your device."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is complete. On to the next one!</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">Setting up <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Enable <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">Please tick \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" in your Languages &amp; input settings. This will authorise it to run on your device.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"Enable in Settings"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Switch to <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Next, select \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" as your active text-input method."</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">Switch to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">Next, select \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method.</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"Switch input methods"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Congratulations, you\'re all set!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Now you can type in all your favourite apps with <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">Now you can type in all your favourite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"Configure additional languages"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Finished"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Show app icon"</string>
@@ -167,7 +167,7 @@
     <string name="install_dict" msgid="180852772562189365">"Install"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"Cancel"</string>
     <string name="delete_dict" msgid="756853268088330054">"Delete"</string>
-    <string name="version_text" msgid="2715354215568469385">"Version <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Add"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Add to dictionary"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Phrase"</string>
@@ -222,4 +222,13 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <string name="prefs_resize_keyboard">Enable keyboard resizing</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
+    <string name="settings_no_limit">No limit</string>
+    <string name="settings_category_clipboard_history">Clipboard history</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="enable_clipboard_history">Enable clipboard history</string>
+    <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
+    <string name="clipboard_history_retention_time">History retention time</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="autospace_after_punctuation">Autospace after punctuation</string>
+    <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
 </resources>

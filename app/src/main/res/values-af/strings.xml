@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Invoeropsies"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Soek kontakname op"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Speltoetser gebruik inskrywings uit jou kontaklys"</string>
@@ -41,12 +38,12 @@
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Sleutelopspringer-wagperiode"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Geen wagperiode nie"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Verstek"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms."</string>
+    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Stelsel se verstek"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Stel kontakname voor"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Gebruik name van kontakte vir voorstelle en korreksies"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Gebruik kontakte se name vir voorstelle en korreksies</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Gepersonaliseerde voorstelle"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Verbeter <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Verbeter <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Dubbelspasie-punt"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Dubbeltik op spasiebalk voeg \'n punt in, gevolg deur \'n spasie"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Outohoofletters"</string>
@@ -85,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Sleutelbordtema"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Wissel rekeninge"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Geen rekeninge gekies nie"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Gebruik tans <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="account_selected" msgid="2846876462199625974">Gebruik tans <xliff:g id="EMAIL_ADDRESS" example="iemand@voorbeeld.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Kanselleer"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Meld af"</string>
@@ -95,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"Spaans (VS)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serwies (Latyns)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serwies (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradisioneel)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompak)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serwies (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisioneel)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompak)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Geen taal nie (alfabet)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabet (QWERTZ)"</string>
@@ -121,27 +118,27 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"Jou gepasmaakte invoerstyl moet geaktiveer word voor gebruik. Aktiveer nou?"</string>
     <string name="enable" msgid="5031294444630523247">"Aktiveer"</string>
     <string name="not_now" msgid="6172462888202790482">"Nie nou nie"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Dieselfde invoerstyl bestaan ​​reeds: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Dieselfde invoerstyl bestaan reeds: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Sleuteldruk se vibrasie-tydsduur"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Sleuteldruk se klankvolume"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Vertraging van sleutellangdruk"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emosiekone vir fisieke sleutelbord"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Fisieke Alt-sleutel wys die emosiekoon-palet"</string>
     <string name="button_default" msgid="3988017840431881491">"Verstek"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Welkom by <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Welkom by <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"met Gebaar-tik"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Kom aan die gang"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Volgende stap"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Stel <xliff:g id="APPLICATION_NAME">%s</xliff:g> op"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Aktiveer <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Gaan asseblief \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" in jou Tale- en invoer-instellings na. Dit sal dit magtig om op jou toestel te werk."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> is reeds in jou Tale- en invoer-instellings geaktiveer – dus is hierdie stap klaar. Doen die volgende een!"</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">Stel <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g> op</string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Aktiveer <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">Gaan asseblief \"<xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>\" in jou Tale- en invoer-instellings na. Dit sal dit magtig om op jou toestel te werk.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g> is reeds in jou Tale- en invoer-instellings geaktiveer – dus is hierdie stap klaar. Doen die volgende een!</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"Aktiveer in instellings"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Skakel oor na <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Volgende, kies \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" as jou aktiewe teks-invoermetode."</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">Skakel oor na <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">Volgende, kies \"<xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>\" as jou aktiewe teks-invoermetode.</string>
     <string name="setup_step2_action" msgid="1660330307159824337">"Wissel invoermetodes"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Veels geluk, jy\'s gereed!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Nou kan jy in al jou gunstelingprogramme tik met <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">Nou kan jy in al jou gunsteling-programme tik met <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"Stel bykomende tale op"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Klaar"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Wys program-ikoon"</string>
@@ -170,7 +167,7 @@
     <string name="install_dict" msgid="180852772562189365">"Installeer"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"Kanselleer"</string>
     <string name="delete_dict" msgid="756853268088330054">"Vee uit"</string>
-    <string name="version_text" msgid="2715354215568469385">"Weergawe <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text" msgid="2715354215568469385">Weergawe <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Voeg by"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Voeg by woordeboek"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frase"</string>
@@ -190,4 +187,48 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Nog tale…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Vee uit"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="settings_category_clipboard_history">Knipbord geskiedenis</string>
+    <string name="settings_category_suggestions">Voorstelle</string>
+    <string name="settings_category_experimental">Eksperimenteel</string>
+    <string name="settings_category_miscellaneous">Allerlei</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="settings_no_limit">Geen beperking</string>
+    <string name="enable_clipboard_history">Aktiveer knipbord geskiedenis</string>
+    <string name="enable_clipboard_history_summary">Indien gedeaktiveerd, sal knipbord sleutel plak as dit inhoud het</string>
+    <string name="clipboard_history_retention_time">Geskiedenis behou tyd</string>
+    <string name="key_borders">Sleutelgrense</string>
+    <string name="spell_checker_service_name">OpenBoard Spell Checker</string>
+    <string name="android_spell_checker_settings">OpenBoard Spell Checker Settings</string>
+    <string name="show_clipboard_key">Knipbord sleutel</string>
+    <string name="number_row">Nommers ry</string>
+    <string name="number_row_summary">Wys altyd die nommers ry</string>
+    <string name="show_hints">Wys sleutel wenke</string>
+    <string name="prefs_resize_keyboard">Aktiveer sleutelbord grote verstelling</string>
+    <string name="show_hints_summary">Wys lang-druk wenke</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Verander toevoer modus met spasiebalk</string>
+    <string name="prefs_keyboard_height_scale">Sleutelbord hoogte-skaal</string>
+    <string name="delete_swipe">Skrap met vee</string>
+    <string name="space_trackpad">Spasiebalk raakpaneel</string>
+    <string name="show_emoji_key">Emoji sleutel</string>
+    <string name="delete_swipe_summary">Doen \'n vee van die skrap sleutel om \'n groter seleksie van teks eenmaal te skrap</string>
+    <string name="space_trackpad_summary">Vee op spasiebalk om wyser te beweeg</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="prefs_force_incognito_mode">Dwing incognito-modus</string>
+    <string name="prefs_force_incognito_mode_summary">Deaktiveer die leer van nuwe woorde</string>
+    <string name="more_keys_strip_description">Meer sleutels</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Lang-druk van spasiebalk sal toevoer metode seleksie skerm wys</string>
+    <string name="autospace_after_punctuation">Outo-spasie na leestekens</string>
+    <string name="autospace_after_punctuation_summary">Plaas \'n spasie na \'n leesteken sodra \'n nuwe woord getik word</string>
+    <string name="subtype_no_language_workman">Alphabet (Workman)</string>
+    <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
+    <string name="theme_variant">Tema variant</string>
+    <string name="ime_settings">OpenBoard Instellings</string>
+    <string name="settings_category_input">Invoer</string>
+    <string name="settings_category_additional_keys">Bykomende Sleutels</string>
+    <string name="settings_category_correction">Regstellings</string>
+    <string name="theme_family">Tema familie</string>
+    <string name="day_night_mode">Outo dag/nag modus</string>
+    <string name="day_night_mode_summary">Voorkoms sal sisteem verstellings naboots</string>
+    <string name="amoled_mode">Diep swart agtergronde</string>
+    <string name="amoled_mode_summary">Kan kragverbruik verminder, afhangende van die toestel se skermtegnologie</string>
 </resources>

@@ -32,6 +32,14 @@
                 latin:keyStyle="settingsMoreKeysStyle" />
         </case>
         <case
+            latin:keyboardLayoutSet="halmak" 
+        >
+            <Key
+                latin:keySpec=","
+                latin:backgroundType="normal"
+                latin:keyStyle="settingsMoreKeysStyle" />
+        </case>
+        <case
             latin:mode="url"
         >
             <Key

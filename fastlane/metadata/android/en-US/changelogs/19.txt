@@ -1,0 +1,14 @@
+Features
+ - Added clipboard history feature
+ - Added one-handed mode feature
+ - Added auto-space after punctuation feature
+Improvements
+ - Reworked settings navigation
+ - Added split layout for azerty keyboards
+ - Added number row support to more languages
+ - Added number row support to tablets
+ - Added new translations
+Bug fixes
+ - Fixed suggestions showing for not many input types
+ - Fixed space bar swipe direction for RTL languages
+ - Fixed voice input key shown when no voice input is installed

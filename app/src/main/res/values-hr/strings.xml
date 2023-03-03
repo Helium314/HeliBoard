@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,178 +16,219 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Opcije ulaza"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Potražite imena kontakata"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Provjera pravopisa upotrebljava unose iz vašeg popisa kontakata"</string>
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="english_ime_input_options" msgid="3909945612939668554">Opcije unosa</string>
+    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">Prepoznaj imena kontakata</string>
+    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">Provjera pravopisa koristi unose iz popisa tvojih kontakata</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibracija pri pritisku na tipku"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Povećani font na pritisak tipke"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Postavke"</string>
+    <string name="popup_on_keypress" msgid="123894815723512944">Povećana tipka pri pritisku tipke</string>
+    <string name="settings_screen_preferences" msgid="2696713156722014624">Osobitosti</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Računi i privatnost"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Izgled i rasporedi"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanje kretnjama"</string>
+    <string name="settings_screen_gesture" msgid="8826372746901183556">Tipkanje gestama</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravljanje teksta"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Napredno"</string>
+    <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Omogući razdvojenu tipkovnicu"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Prebaci na druge unose"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Tipka za prebacivanje jezika pokriva i druge načine unosa"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Tipka za izmjenjivanje jezika"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Prikaži kada je omogućen unos na više jezika"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Odgoda odbac. poveć. fonta"</string>
+    <string name="enable_split_keyboard" msgid="4177264923999493614">Aktiviraj podijeljenu tipkovnicu</string>
+    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">Prijeđi na druge načine unosa</string>
+    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">Tipka za mijenjanje jezika pokriva i druge načine unosa</string>
+    <string name="show_language_switch_key" msgid="5915478828318774384">Tipka za mijenjanje jezika</string>
+    <string name="show_language_switch_key_summary" msgid="7343403647474265713">Pokaži kad je aktiviran unos na više jezika</string>
+    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">Trajanje povećanog prikaza tipke</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Bez odgode"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Zadano"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Zadano sustavom"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Predlaži imena kontakata"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Koristi imena iz Kontakata za prijedloge i ispravke"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Prilagođeni prijedlozi"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Poboljšaj aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Točka s dva razmaka"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Dvostrukim dodirivanjem razmaknice umeću se točka i razmak"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Autom. veliko početno slovo"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Napiši velikim slovom prvu riječ svake rečenice"</string>
+    <string name="use_contacts_dict" msgid="4435317977804180815">Predloži imena kontakata</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Koristi imena kontakata za prijedloge i ispravke</string>
+    <string name="use_personalized_dicts" msgid="5167396352105467626">Personalizirani prijedlozi</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Poboljšaj <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="use_double_space_period" msgid="8781529969425082860">Točka i razmak</string>
+    <string name="use_double_space_period_summary" msgid="6532892187247952799">Dvostrukim dodirom razmaknice umeću se točka i razmak</string>
+    <string name="auto_cap" msgid="1719746674854628252">Automatsko veliko početno slovo</string>
+    <string name="auto_cap_summary" msgid="7934452761022946874">Započni svaku rečenicu s velikim slovom</string>
     <string name="edit_personal_dictionary" msgid="3996910038952940420">"Osobni rječnik"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"Rječnici kao dodaci"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"Glavni rječnik"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Pokaži prijedloge ispravka"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Prikazivanje predloženih riječi prilikom upisivanja"</string>
+    <string name="prefs_show_suggestions" msgid="8026799663445531637">Pokaži prijedloge za ispravljanje</string>
+    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">Prikaži predložene riječi prilikom tipkanja</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokiraj uvredljive riječi"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne predlaži potencijalno uvredljive riječi"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Automatski ispravak"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Razmak i interpunkcija automatski ispravljaju krive riječi"</string>
+    <string name="auto_correction" msgid="7630720885194996950">Automatsko ispravljanje</string>
+    <string name="auto_correction_summary" msgid="5625751551134658006">Razmaknica i interpunkcija automatski ispravljaju pogrešno upisane riječi</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Isključeno"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Skromno"</string>
+    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">Umjereno</string>
     <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Agresivno"</string>
     <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Vrlo agresivno"</string>
     <string name="bigram_prediction" msgid="1084449187723948550">"Prijedlozi za sljedeću riječ"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Koristi se prethodnom riječi u izradi prijedloga"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Omogući pisanje kretnjama"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Unesite riječ klizanjem preko slova"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Prikaži trag pokreta"</string>
+    <string name="bigram_prediction_summary" msgid="3896362682751109677">Koristi prethodnu riječ pri izradi prijedloga</string>
+    <string name="gesture_input" msgid="826951152254563827">Aktiviraj tipkanje gestama</string>
+    <string name="gesture_input_summary" msgid="9180350639305731231">Upiši riječ klizanjem po slovima</string>
+    <string name="gesture_preview_trail" msgid="3802333369335722221">Pokaži trag kretanja prstom</string>
     <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Dinamički plutajući pregled"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Vidi predloženu riječ tijekom pokreta"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Unos izraza kretnjom"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
+    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">Vidi predloženu riječ tijekom korištenja gesta</string>
+    <string name="gesture_space_aware" msgid="2078291600664682496">Unos izraza gestom</string>
+    <string name="gesture_space_aware_summary" msgid="4371385818348528538">Umeći razmake tijekom izvođenja gesta klizanjem na razmaknicu</string>
     <string name="voice_input" msgid="3583258583521397548">"Tipka za glasovni unos"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nije omogućen nijedan način glasovnog unosa. Provjerite postavke jezika i unosa."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Konfiguriraj načine ulaza"</string>
+    <string name="voice_input_disabled_summary" msgid="6323489602945135165">Nijedan način glasovnog unosa nije aktiviran. Provjeri postavke jezika i unosa.</string>
+    <string name="configure_input_method" msgid="373356270290742459">Konfiguriraj načine unosa</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>
     <string name="select_language" msgid="5709487854987078367">"Jezici"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Dodirnite ponovo za spremanje"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Dodirnite ovdje za spremanje"</string>
+    <string name="hint_add_to_dictionary" msgid="2645988432867033007">Dodirni ponovo za spremanje</string>
+    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">Dodirni ovdje za spremanje</string>
     <string name="has_dictionary" msgid="6071847973466625007">"Rječnik je dostupan"</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Tema tipkovnice"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Prijelaz na drugi račun"</string>
+    <string name="switch_accounts" msgid="3321216593719006162">Prijeđi na drugi račun</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Nije odabran nijedan račun"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Trenutačno upotrebljavate <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="account_selected" msgid="2846876462199625974">Trenutačno se koristi <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"U redu"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Odustani"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Odjava"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Odaberite račun za upotrebu"</string>
+    <string name="account_select_sign_out" msgid="3299651159390187933">Odjavi se</string>
+    <string name="account_select_title" msgid="6279711684772922649">Odaberi račun</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"španjolski (SAD)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Srpski (latinica)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"engleska (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"engleska (SAD) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"španjolska (SAD) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Srpski (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionalni)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktna)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Nema jezika (abeceda)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"abeceda (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"abeceda (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"abeceda (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Abeceda (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Abeceda (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Abeceda (PC)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Engleski (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Engleski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Španjolski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Srpski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionalno)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktno)</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">Neodređen jezik (abeceda)</string>
+    <string name="subtype_no_language_qwerty" msgid="244337630616742604">Abeceda (QWERTY)</string>
+    <string name="subtype_no_language_qwertz" msgid="443066912507547976">Abeceda (QWERTZ)</string>
+    <string name="subtype_no_language_azerty" msgid="8144348527575640087">Abeceda (AZERTY)</string>
+    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">Abeceda (Dvorak)</string>
+    <string name="subtype_no_language_colemak" msgid="5837418400010302623">Abeceda (Colemak)</string>
+    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">Abeceda (PC)</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Tema tipkovnice"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Pril. stilovi unosa"</string>
+    <string name="custom_input_styles_title" msgid="8429952441821251512">Prilagođeni stilovi unosa</string>
     <string name="add_style" msgid="6163126614514489951">"Dodaj stil"</string>
     <string name="add" msgid="8299699805688017798">"Dodaj"</string>
     <string name="remove" msgid="4486081658752944606">"Ukloni"</string>
     <string name="save" msgid="7646738597196767214">"Spremi"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Jezik"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Izgled"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Prilagođeni stil unosa mora biti omogućen. Omogućiti sada?"</string>
-    <string name="enable" msgid="5031294444630523247">"Omogući"</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">Raspored</string>
+    <string name="custom_input_style_note_message" msgid="8826731320846363423">Prije upotrebe prilagođenog stila unosa, on mora biti aktiviran. Želiš li ga sada aktivirati\?</string>
+    <string name="enable" msgid="5031294444630523247">Aktiviraj</string>
     <string name="not_now" msgid="6172462888202790482">"Ne sada"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Već postoji isti stil unosa: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Trajanje vibracije pritiska"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Glasnoća pritiska tipke"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Isti stil unosa već postoji: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">Trajanje vibracije pritiskanja tipke</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">Glasnoća pritiskanja tipke</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Trajanje dugog pritiska tipke"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji za fizičku tipkovnicu"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Fizička tipka Alt prikazuje paletu emojija"</string>
     <string name="button_default" msgid="3988017840431881491">"Zadano"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Dobro došli u aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"s Pisanjem kretnjama"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Počnite s radom"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Dobro došli u <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description" msgid="8150252008545768953">s tipkanjem pomoću gesta</string>
+    <string name="setup_start_action" msgid="8936036460897347708">Započni</string>
     <string name="setup_next_action" msgid="371821437915144603">"Sljedeći korak"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Postavljanje aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Omogućite aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Potvrdite aplikaciju \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" u postavkama jezika i unosa. Time ćete je autorizirati za izvođenje na uređaju."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"Aplikacija <xliff:g id="APPLICATION_NAME">%s</xliff:g> već je omogućena u postavkama jezika i unosa, pa je taj korak gotov. Nastavite sa sljedećim korakom!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Omogući u postavkama"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Prijeđite na aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Zatim odaberite aplikaciju \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" kao aktivan način unosa teksta."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Prebaci na drugi način unosa"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Izvrsno, spremni ste!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Sada možete pisati u svim svojim omiljenim aplikacijama pomoću aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">Postavljanje aplikacije <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Aktiviraj <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction" msgid="4295448056733329661">Označi „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” u postavkama jezika i unosa. Time se omogućuje izvođenje aplikacije na uređaju.</string>
+    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">Aplikacija <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> je već aktivirana u postavkama jezika i unosa, stoga je taj korak gotov. Nastavi sa sljedećim korakom!</string>
+    <string name="setup_step1_action" msgid="4366513534999901728">Aktiviraj u postavkama</string>
+    <string name="setup_step2_title" msgid="6860725447906690594">Prijeđi na <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction" msgid="9141481964870023336">Zatim odaberi „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” kao aktivan način unosa teksta.</string>
+    <string name="setup_step2_action" msgid="1660330307159824337">Prijeđi na drugi način unosa</string>
+    <string name="setup_step3_title" msgid="3154757183631490281">Čestitamo, sve je spremno!</string>
+    <string name="setup_step3_instruction" msgid="8025981829605426000">Sada možeš pisati u svim svojim omiljenim aplikacijama pomoću aplikacije <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_step3_action" msgid="600879797256942259">"Konfiguriraj dodatne jezike"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Završeno"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Prikaži ikonu aplikacije"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Prikazivanje ikone aplikacije u pokretaču"</string>
-    <string name="app_name" msgid="6320102637491234792">"Davatelj rječnika"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Davatelj rječnika"</string>
+    <string name="setup_finish_action" msgid="276559243409465389">Gotovo</string>
+    <string name="show_setup_wizard_icon" msgid="5008028590593710830">Pokaži ikonu aplikacije</string>
+    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Prikaži ikonu aplikacije u pokretaču</string>
+    <string name="app_name" msgid="6320102637491234792">Pružatelj usluge rječnika</string>
+    <string name="dictionary_provider_name" msgid="3027315045397363079">Pružatelj usluge rječnika</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Usluga rječnika"</string>
-    <string name="download_description" msgid="6014835283119198591">"Ažurirane informacije rječnika"</string>
+    <string name="download_description" msgid="6014835283119198591">Informacije o aktualiziranim rječnicima</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Rječnici kao dodaci"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Postavke za rječnike"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Korisnički rječnici"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Korisnički rječnik"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Dostupan je rječnik"</string>
+    <string name="dictionary_available" msgid="4728975345815214218">Dostupan rječnik</string>
     <string name="dictionary_downloading" msgid="2982650524622620983">"Trenutačno se preuzima"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Instalirano"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Instalirano, onemogućeno"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Nema usluge rječnika"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Rječnici nedostupni"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Osvježavanje"</string>
+    <string name="dictionary_installed" msgid="8081558343559342962">Instaliran</string>
+    <string name="dictionary_disabled" msgid="8950383219564621762">Instaliran, deaktiviran</string>
+    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">Preblem s povezivanjem na uslugu rječnika</string>
+    <string name="no_dictionaries_available" msgid="8039920716566132611">Nema dostupnih rječnika</string>
+    <string name="check_for_updates_now" msgid="8087688440916388581">Aktualiziraj</string>
     <string name="last_update" msgid="730467549913588780">"Zadnje ažuriranje"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Provjera ažuriranja"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Učitavanje…"</string>
+    <string name="message_updating" msgid="4457761393932375219">Traženje novih verzija</string>
+    <string name="message_loading" msgid="5638680861387748936">Učitavanje …</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Glavni rječnik"</string>
     <string name="cancel" msgid="6830980399865683324">"Odustani"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Postavke"</string>
     <string name="install_dict" msgid="180852772562189365">"Instaliraj"</string>
     <string name="cancel_download_dict" msgid="7843340278507019303">"Odustani"</string>
     <string name="delete_dict" msgid="756853268088330054">"Izbriši"</string>
-    <string name="version_text" msgid="2715354215568469385">"Verzija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Dodavanje"</string>
+    <string name="version_text" msgid="2715354215568469385">Verzija <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">Dodaj</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Dodaj u rječnik"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Fraza"</string>
+    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">Izraz</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Više opcija"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Manje opcija"</string>
     <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"U redu"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Riječ:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Prečac:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Jezik:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Upišite riječ"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Neobavezni prečac"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Uređivanje riječi"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Uređivanje"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Brisanje"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nemate nijednu riječ u korisničkom rječniku. Da biste dodali riječ, dodirnite gumb Dodaj (+)."</string>
+    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">Upiši riječ</string>
+    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">Opcionalni prečac</string>
+    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">Uredi riječ</string>
+    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Uredi</string>
+    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">Izbriši</string>
+    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">U korisničkom rječniku ne postoji nijedna riječ. Za dodavanje riječi, dodirni gumb Dodaj (+).</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Za sve jezike"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Više jezika…"</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Više jezika …</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Izbriši"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCČĆDDŽĐEFGHIJKLLJMNNJOPRSŠTUVZŽ"</string>
+    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCČĆDǄĐEFGHIJKLǇMNǊOPRSŠTUVZŽ"</string>
+    <string name="spell_checker_service_name">OpenBoard provjera pravopisa</string>
+    <string name="android_spell_checker_settings">Postavke OpenBoard provjere pravopisa</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
+    <string name="settings_category_suggestions">Prijedlozi</string>
+    <string name="subtype_no_language_workman">Abeceda (Workman)</string>
+    <string name="settings_category_clipboard_history">Povijest međuspremnika</string>
+    <string name="settings_category_miscellaneous">Razno</string>
+    <string name="settings_category_correction">Ispravci</string>
+    <string name="settings_category_experimental">Eksperimentalno</string>
+    <string name="show_emoji_key">Tipka za emojije</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="settings_no_limit">Bez ograničenja</string>
+    <string name="ime_settings">OpenBoard postavke</string>
+    <string name="settings_category_input">Unos</string>
+    <string name="settings_category_additional_keys">Dodatne tipke</string>
+    <string name="enable_clipboard_history">Aktiviraj povijest međuspremnika</string>
+    <string name="enable_clipboard_history_summary">Ako je deaktivirano, tipka međuspremnika će umetnuti sadržaj međuspremnika, ako ga ima</string>
+    <string name="clipboard_history_retention_time">Vrijeme zadržavanja povijesti</string>
+    <string name="delete_swipe">Izbriši povlačenjem</string>
+    <string name="delete_swipe_summary">Povuci prstom od tipke za brisanje, za biranje i uklanjanje većih dijelova teksta</string>
+    <string name="prefs_force_incognito_mode_summary">Deaktiviraj učenje novih riječi</string>
+    <string name="theme_family">Obitelj teme</string>
+    <string name="theme_variant">Varijanta teme</string>
+    <string name="amoled_mode_summary">Može smanjiti potrošnju energije ovisno o tehnologiji ekrana uređaja</string>
+    <string name="space_trackpad">Razmaknica kao dodirna ploča</string>
+    <string name="space_trackpad_summary">Prelazi prstom po razmaknici za pomicanje kursora</string>
+    <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
+    <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>
+    <string name="prefs_force_incognito_mode">Prisili inkognito način rada</string>
+    <string name="more_keys_strip_description">Više tipki</string>
+    <string name="number_row_summary">Uvijek pokaži broj retka</string>
+    <string name="show_hints">Pokaži savjete tipki</string>
+    <string name="show_hints_summary">Pokaži savjete pri dugom pritisku tipke</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Promijeni način unosa s razmaknicom</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Dugi pritisak razmaknice prikazat će izbornik za način unosa</string>
+    <string name="prefs_resize_keyboard">Aktiviraj mijenjanje veličine tipkovnice</string>
+    <string name="prefs_keyboard_height_scale">Visine tipkovnice</string>
+    <string name="key_borders">Tipke s rubovima</string>
+    <string name="day_night_mode">Automatski danji/noćni način rada</string>
+    <string name="day_night_mode_summary">Izgled će slijediti postavke sustava</string>
+    <string name="amoled_mode">Tamnocrne pozadine</string>
+    <string name="show_clipboard_key">Tipka međuspremnika</string>
+    <string name="number_row">Broj retka</string>
 </resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"輸入選項"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"查找聯絡人姓名"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"拼字檢查程式使用您的聯絡人名單中的各項記錄"</string>
@@ -190,4 +187,20 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"更多語言..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"刪除"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="settings_category_experimental">實驗功能</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>分鐘</string>
+    <string name="spell_checker_service_name">拼字檢查</string>
+    <string name="android_spell_checker_settings">拼字檢查設定</string>
+    <string name="show_clipboard_key">剪貼板按鍵</string>
+    <string name="show_emoji_key">Emoji</string>
+    <string name="prefs_force_incognito_mode">強制無痕模式</string>
+    <string name="settings_category_clipboard_history">剪貼板記錄</string>
+    <string name="settings_category_suggestions">建議</string>
+    <string name="settings_no_limit">無限</string>
+    <string name="enable_clipboard_history">啟用剪貼板記錄</string>
+    <string name="autospace_after_punctuation">在標點符號後自動插入空格</string>
+    <string name="autospace_after_punctuation_summary">在輸入字串後自動插入空格</string>
+    <string name="ime_settings">設定</string>
+    <string name="settings_category_input">輸入</string>
+    <string name="settings_category_correction">文字改正</string>
 </resources>

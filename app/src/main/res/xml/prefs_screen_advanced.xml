@@ -76,6 +76,12 @@
             android:summary="@string/delete_swipe_summary"
             android:defaultValue="true" />
 
+        <CheckBoxPreference
+            android:key="pref_autospace_after_punctuation"
+            android:title="@string/autospace_after_punctuation"
+            android:summary="@string/autospace_after_punctuation_summary"
+            android:defaultValue="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

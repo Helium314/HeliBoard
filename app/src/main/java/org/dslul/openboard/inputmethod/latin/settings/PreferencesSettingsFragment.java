@@ -70,8 +70,9 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         final Preference voiceInputKeyOption = findPreference(Settings.PREF_VOICE_INPUT_KEY);
         if (voiceInputKeyOption != null) {
             RichInputMethodManager.getInstance().refreshSubtypeCaches();
-            voiceInputKeyOption.setEnabled(VOICE_IME_ENABLED);
-            voiceInputKeyOption.setSummary(VOICE_IME_ENABLED
+            boolean voiceKeyEnabled = VOICE_IME_ENABLED && RichInputMethodManager.getInstance().hasShortcutIme();
+            voiceInputKeyOption.setEnabled(voiceKeyEnabled);
+            voiceInputKeyOption.setSummary(voiceKeyEnabled
                     ? null : getText(R.string.voice_input_disabled_summary));
         }
     }

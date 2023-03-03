@@ -140,6 +140,8 @@
     <string name="auto_correction">Auto-correction</string>
     <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
+    <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
+    <string name="auto_correction_confidence">Auto-correction confidence</string>
     <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
     <string name="auto_correction_threshold_mode_off">Off</string>
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. [CHAR LIMIT=20] -->
@@ -186,6 +188,10 @@
     <string name="space_trackpad">Space bar trackpad</string>
     <!-- Description for "space_trackpad" option. -->
     <string name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
+    <!-- Preferences item for enabling inserting more spaces key -->
+    <string name="autospace_after_punctuation">Autospace after punctuation</string>
+    <!-- Description for "insert_more_spaces" option. -->
+    <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
     <!-- Preferences item for disabling word learning -->
     <string name="prefs_force_incognito_mode">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->

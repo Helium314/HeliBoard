@@ -23,7 +23,8 @@
     <Element
         latin:elementName="alphabet"
         latin:elementKeyboard="@xml/kbd_azerty"
-        latin:enableProximityCharsCorrection="true" />
+        latin:enableProximityCharsCorrection="true"
+        latin:supportsSplitLayout="true" />
     <Element
         latin:elementName="symbols"
         latin:elementKeyboard="@xml/kbd_symbols" />

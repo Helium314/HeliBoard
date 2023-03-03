@@ -49,9 +49,10 @@
          U+016B: "ū" LATIN SMALL LETTER U WITH MACRON -->
     <string name="morekeys_u">&#x00FC;,%,&#x00FB;,&#x00F9;,&#x00FA;,&#x016B;</string>
     <!-- U+00DF: "ß" LATIN SMALL LETTER SHARP S
+         U+1E9E: "ẞ" LATIN CAPITAL LETTER SHARP S
          U+015B: "ś" LATIN SMALL LETTER S WITH ACUTE
          U+0161: "š" LATIN SMALL LETTER S WITH CARON -->
-    <string name="morekeys_s">&#x00DF;,&#x015B;,&#x0161;</string>
+    <string name="morekeys_s">&#x00DF;,%,&#x1E9E;,&#x015B;,&#x0161;</string>
     <!-- U+00F1: "ñ" LATIN SMALL LETTER N WITH TILDE
          U+0144: "ń" LATIN SMALL LETTER N WITH ACUTE -->
     <string name="morekeys_n">&#x00F1;,&#x0144;</string>

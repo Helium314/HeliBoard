@@ -113,6 +113,8 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         switch (script) {
         case ScriptUtils.SCRIPT_LATIN:
             return "qwerty";
+        case ScriptUtils.SCRIPT_ARMENIAN:
+            return "armenian_phonetic";
         case ScriptUtils.SCRIPT_CYRILLIC:
             return "east_slavic";
         case ScriptUtils.SCRIPT_GREEK:

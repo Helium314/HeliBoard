@@ -212,4 +212,6 @@
     <string name="voice_input">Tecla de Entrada por Voz</string>
     <string name="enable_clipboard_history_summary">Se desativada, a tecla da área de transferência colará o conteúdo na área de transferência, caso exista</string>
     <string name="hint_add_to_dictionary_without_word">Toque novamente para salvar</string>
+    <string name="autospace_after_punctuation">Espaço automático após pontuação</string>
+    <string name="autospace_after_punctuation_summary">Inserir automaticamente espaço após pontuação ao digitar uma nova palavra</string>
 </resources>

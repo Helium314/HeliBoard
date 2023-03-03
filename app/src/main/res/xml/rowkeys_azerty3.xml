@@ -19,47 +19,11 @@
 -->
 
 <merge
-    xmlns:latin="http://schemas.android.com/apk/res-auto"
->
-    <Key
-        latin:keySpec="w"
-        latin:keyHintLabel="*"
-        latin:additionalMoreKeys="*"
-        latin:moreKeys="!text/morekeys_w" />
-    <Key
-        latin:keySpec="x"
-        latin:keyHintLabel="&quot;"
-        latin:additionalMoreKeys="&quot;" />
-    <Key
-        latin:keySpec="c"
-        latin:keyHintLabel="&apos;"
-        latin:additionalMoreKeys="&apos;"
-        latin:moreKeys="!text/morekeys_c" />
-    <Key
-        latin:keySpec="v"
-        latin:keyHintLabel=":"
-        latin:additionalMoreKeys=":"
-        latin:moreKeys="!text/morekeys_v" />
-    <Key
-        latin:keySpec="b"
-        latin:keyHintLabel=";"
-        latin:additionalMoreKeys=";" />
-    <Key
-        latin:keySpec="n"
-        latin:keyHintLabel="!"
-        latin:additionalMoreKeys="!"
-        latin:moreKeys="!text/morekeys_n" />
-    <switch>
-        <case
-            latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLockShifted"
-        >
-            <Key
-                latin:keySpec="\?" />
-        </case>
-        <default>
-            <Key
-                latin:keySpec="\'"
-                latin:moreKeys="!text/morekeys_single_quote" />
-        </default>
-    </switch>
+    xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <!-- w,x,c,v -->
+    <include
+        latin:keyboardLayout="@xml/rowkeys_azerty3_left4" />
+    <!-- b,n,? -->
+    <include
+        latin:keyboardLayout="@xml/rowkeys_azerty3_right3" />
 </merge>

@@ -16,7 +16,6 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,12 +24,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.SwitchPreference;
-import android.text.TextUtils;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
-import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryList;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionarySettings;
 
@@ -44,6 +39,7 @@ import java.util.TreeSet;
  * - Add-on dictionaries
  * - Block offensive words
  * - Auto-correction
+ * - Auto-correction confidence
  * - Show correction suggestions
  * - Personalized suggestions
  * - Suggest Contact names
@@ -73,6 +69,18 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);
         }
+
+        refreshEnabledSettings();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
+        refreshEnabledSettings();
+    }
+
+    private void refreshEnabledSettings() {
+        setPreferenceEnabled(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
+                Settings.readAutoCorrectEnabled(getSharedPreferences(), getResources()));
     }
 
     private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {

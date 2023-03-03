@@ -21,8 +21,6 @@
 <resources>
     <!-- The array of auto correction threshold values. -->
     <string-array name="auto_correction_threshold_values" translatable="false">
-        <!-- Off, When auto correction setting is Off, this value is not used. -->
-        <item>floatMaxValue</item>
         <!-- Modest : Suggestion whose normalized score is greater than this value
              will be subject to auto-correction. -->
         <item>0.185</item>
@@ -41,21 +39,18 @@
     <string name="plausibility_threshold" translatable="false">0.065</string>
 
     <!-- The index of the auto correction threshold values array. -->
-    <string name="auto_correction_threshold_mode_index_off" translatable="false">0</string>
-    <string name="auto_correction_threshold_mode_index_modest" translatable="false">1</string>
-    <string name="auto_correction_threshold_mode_index_aggressive" translatable="false">2</string>
-    <string name="auto_correction_threshold_mode_index_very_aggressive" translatable="false">3</string>
+    <string name="auto_correction_threshold_mode_index_modest" translatable="false">0</string>
+    <string name="auto_correction_threshold_mode_index_aggressive" translatable="false">1</string>
+    <string name="auto_correction_threshold_mode_index_very_aggressive" translatable="false">2</string>
 
     <!-- The array of the auto correction threshold settings values. -->
     <string-array name="auto_correction_threshold_mode_indexes" translatable="false">
-      <item>@string/auto_correction_threshold_mode_index_off</item>
       <item>@string/auto_correction_threshold_mode_index_modest</item>
       <item>@string/auto_correction_threshold_mode_index_aggressive</item>
       <item>@string/auto_correction_threshold_mode_index_very_aggressive</item>
     </string-array>
     <!-- The array of the human readable auto correction threshold settings entries. -->
     <string-array name="auto_correction_threshold_modes" translatable="false">
-      <item>@string/auto_correction_threshold_mode_off</item>
       <item>@string/auto_correction_threshold_mode_modest</item>
       <item>@string/auto_correction_threshold_mode_aggressive</item>
       <item>@string/auto_correction_threshold_mode_very_aggressive</item>

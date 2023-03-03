@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Парам. введення"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Шукати імена контактів"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Для перевірки правопису використовувати список контактів"</string>
@@ -190,4 +187,5 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Інші мови…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Видалити"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
+    <string name="ime_settings">Налаштування OpenBoard</string>
 </resources>
