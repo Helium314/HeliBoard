@@ -46,4 +46,9 @@
         android:title="@string/settings_screen_advanced"
         android:key="screen_advanced"
         android:icon="@drawable/ic_settings_advanced"/>
+    <PreferenceScreen
+        android:fragment="org.dslul.openboard.inputmethod.latin.settings.AboutFragment"
+        android:title="@string/settings_screen_about"
+        android:key="screen_about"
+        android:icon="@drawable/ic_settings_about"/>
 </PreferenceScreen>

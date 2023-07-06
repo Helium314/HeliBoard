@@ -660,4 +660,14 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="select_color_key_background">Key background</string>
     <!-- Selection: accent color. -->
     <string name="select_color_accent">Accent</string>
+    <!-- Settings screen title for about [CHAR LIMIT=33]-->
+    <string name="settings_screen_about">About</string>
+    <!-- version for about screen-->
+    <string name="version">Version</string>
+    <!-- github repo link for about screen-->
+    <string name="about_github_link" >View on GitHub</string>
+    <!-- license for about screen-->
+    <string name="license" >Open-source license</string>
+    <!-- license link for about screen-->
+    <string name="gnu_gpl" >GNU General Public License v3.0</string>
 </resources>

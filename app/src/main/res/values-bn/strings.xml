@@ -231,4 +231,9 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (অক্ষর)</string>
     <string name="autospace_after_punctuation">যতিচিহ্নের পরে স্বয়ংক্রিয় স্পেস</string>
     <string name="autospace_after_punctuation_summary">নতুন শব্দ লেখার সময় যতিচিহ্নের পরে স্বয়ংক্রিয়ভাবে স্পেস বসবে</string>
+    <string name="settings_screen_about">সম্পর্কে</string>
+    <string name="version">সংস্করণ</string>
+    <string name="about_github_link" >গিটহাবে দেখুন</string>
+    <string name="license" >ওপেন-সোর্স লাইসেন্স</string>
+    <string name="gnu_gpl" >জিএনইউ জেনারেল পাবলিক লাইসেন্স v3.0</string>
 </resources>
