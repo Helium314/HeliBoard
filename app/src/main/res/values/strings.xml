@@ -670,4 +670,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="license" >Open-source license</string>
     <!-- license link for about screen-->
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <!-- App slogan-->
+    <string name="app_slogan" >100% FOSS keyboard, based on AOSP.</string>
 </resources>

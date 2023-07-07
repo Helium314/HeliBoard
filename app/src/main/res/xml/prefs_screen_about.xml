@@ -22,7 +22,7 @@
     <Preference
         android:icon="@mipmap/ic_launcher"
         android:title="@string/english_ime_name"
-        android:summary="100% FOSS keyboard, based on AOSP."/>
+        android:summary="@string/app_slogan"/>
     <Preference
         android:title="@string/version"
         android:summary="1.4.6"/>
