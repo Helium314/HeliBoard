@@ -30,10 +30,10 @@
     <Preference android:title="@string/license"
         android:summary="@string/gnu_gpl">
         <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/openboard-team/openboard/blob/master/LICENSE" />
+            android:data="https://github.com/Helium314/openboard/blob/master/LICENSE" />
     </Preference>
     <Preference android:title="@string/about_github_link">
         <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/openboard-team/openboard" />
+            android:data="https://github.com/Helium314/openboard" />
     </Preference>
 </PreferenceScreen>
