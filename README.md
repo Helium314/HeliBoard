@@ -31,6 +31,7 @@ Changes:
 * Optionally add typed words to system personal dictionary
 * Allow using contacts for suggestions (enable in spell checker settings), https://github.com/openboard-team/openboard/issues/374
 * Re-arranged comma-long-press-menu, https://github.com/Helium314/openboard/pull/7
+* Make Bengali spell check work, https://github.com/Helium314/openboard/pull/11
 
 Plan / to do:
 * ~upgrade dependencies~
@@ -39,7 +40,7 @@ Plan / to do:
 * ~user-selectable dictionaries, https://github.com/openboard-team/openboard/pull/578~
   * ~make additional dictionaries available for download (from OpenBoard PRs)~
   * more dictionaries
-  * proper icon for preference
+  * ~proper icon for preference~ https://github.com/Helium314/openboard/pull/10
 * ~multi-lingual typing, https://github.com/openboard-team/openboard/pull/586, https://github.com/openboard-team/openboard/pull/593~
   * maybe improve way of merging suggestions from both languages
   * test whether it works reasonably well in non-latin scripts
