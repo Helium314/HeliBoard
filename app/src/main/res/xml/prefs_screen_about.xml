@@ -25,7 +25,8 @@
         android:summary="@string/app_slogan"/>
     <Preference
         android:title="@string/version"
-        android:summary="1.4.6"/>
+        android:summary="@string/version_text"
+        android:key="pref_key_version" />
     <Preference android:title="@string/license"
         android:summary="@string/gnu_gpl">
         <intent android:action="android.intent.action.VIEW"

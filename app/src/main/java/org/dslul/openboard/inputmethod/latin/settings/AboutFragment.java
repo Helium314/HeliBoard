@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package org.dslul.openboard.inputmethod.latin.settings;
+ package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.os.Bundle;
-
-import org.dslul.openboard.inputmethod.latin.R;
-
-
-/**
- * "About" sub screen.
- */
-public final class AboutFragment extends SubScreenFragment {
-    @Override
-    public void onCreate(final Bundle icicle) {
-        super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.prefs_screen_about);
-    }
-}
+ import android.os.Bundle;
+ import android.preference.Preference;
+ 
+ import org.dslul.openboard.inputmethod.latin.BuildConfig;
+ import org.dslul.openboard.inputmethod.latin.R;
+ 
+ /**
+  * "About" sub screen.
+  */
+ public final class AboutFragment extends SubScreenFragment {
+     @Override
+     public void onCreate(final Bundle icicle) {
+         super.onCreate(icicle);
+         addPreferencesFromResource(R.xml.prefs_screen_about);
+         Preference versionPreference = findPreference("pref_key_version");
+         versionPreference.setSummary(BuildConfig.VERSION_NAME);
+     }
+ }
