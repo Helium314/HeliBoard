@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+   android:inset="@dimen/settings_screen_icon_inset">
+    <bitmap android:src="@drawable/ic_notify_dictionary_white"
+        android:tint="?android:colorForeground"/>
+</inset>
