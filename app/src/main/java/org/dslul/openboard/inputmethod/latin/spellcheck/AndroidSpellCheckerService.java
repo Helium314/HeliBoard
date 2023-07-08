@@ -125,6 +125,8 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             return "bulgarian";
         case ScriptUtils.SCRIPT_GEORGIAN:
             return "georgian";
+        case ScriptUtils.SCRIPT_BENGALI:
+            return "bengali_unijoy";
         default:
             throw new RuntimeException("Wrong script supplied: " + script);
         }
