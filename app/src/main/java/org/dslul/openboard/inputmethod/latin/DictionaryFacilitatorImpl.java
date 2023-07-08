@@ -681,34 +681,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 && Settings.getInstance().getCurrent().mAddToPersonalDictionary
                 && (mSecondaryDictionaryGroup == null || mDictionaryGroup.mConfidence != mSecondaryDictionaryGroup.mConfidence)
                 && !wasAutoCapitalized && words.length == 1) {
-            // user history always reports words as invalid, so we need to check isInDictionary instead
-            // also maybe a problem: words added to dictionaries (user and history) are apparently found
-            //  only after some delay. but this is not too bad, it just delays adding
-
-            final DictionaryGroup dictionaryGroup = getCurrentlyPreferredDictionaryGroup();
-            final ExpandableBinaryDictionary userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER);
-            final Dictionary userHistoryDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
-            if (userDict != null && userHistoryDict.isInDictionary(suggestion)) {
-                if (validMainWord == null)
-                    validMainWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, mDictionaryGroup);
-                if (validMainWord)
-                    return;
-                if (mSecondaryDictionaryGroup != null) {
-                    if (validSecondaryWord == null)
-                        validSecondaryWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, mSecondaryDictionaryGroup);
-                    if (validSecondaryWord)
-                        return;
-                }
-                if (userDict.isInDictionary(suggestion))
-                    return;
-                ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        UserDictionary.Words.addWord(userDict.mContext, suggestion,
-                                250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale);
-                    }
-                });
-            }
+            addToPersonalDictionaryIfInvalidButInHistory(suggestion, validMainWord, validSecondaryWord);
         }
 
         NgramContext ngramContextForCurrentWord = ngramContext;
@@ -728,6 +701,39 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             if (mSecondaryDictionaryGroup != null && mSecondaryDictionaryGroup.blacklist.remove(currentWord))
                 removeWordFromBlacklistFile(currentWord, mSecondaryDictionaryGroup.blacklistFileName);
         }
+    }
+
+    // main and secondary isValid provided to avoid duplicate lookups
+    private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, Boolean validMainWord, Boolean validSecondaryWord) {
+        // user history always reports words as invalid, so here we need to check isInDictionary instead
+        // also maybe a problem: words added to dictionaries (user and history) are apparently found
+        //  only after some delay. but this is not too bad, it just delays adding
+
+        final DictionaryGroup dictionaryGroup = getCurrentlyPreferredDictionaryGroup();
+        final ExpandableBinaryDictionary userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER);
+        final Dictionary userHistoryDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
+        if (userDict != null && userHistoryDict.isInDictionary(suggestion)) {
+            if (validMainWord == null)
+                validMainWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, mDictionaryGroup);
+            if (validMainWord)
+                return;
+            if (mSecondaryDictionaryGroup != null) {
+                if (validSecondaryWord == null)
+                    validSecondaryWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, mSecondaryDictionaryGroup);
+                if (validSecondaryWord)
+                    return;
+            }
+            if (userDict.isInDictionary(suggestion))
+                return;
+            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
+                @Override
+                public void run() {
+                    UserDictionary.Words.addWord(userDict.mContext, suggestion,
+                            250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale);
+                }
+            });
+        }
+
     }
 
     private void putWordIntoValidSpellingWordCache(

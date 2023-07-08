@@ -57,6 +57,7 @@ Plan / to do:
   * ~license issues, require using an external library~
 * re-consider preferring lowercase word for typed history in some cases (DictionaryFacilitatorImpl.addWordToUserHistory)
 * ~move/copy _use contacts_ setting from well hidden spell checker settings to _text correction_ settings~
+* add emojis to user history, to be used for next word suggestions
 
 -----
 
