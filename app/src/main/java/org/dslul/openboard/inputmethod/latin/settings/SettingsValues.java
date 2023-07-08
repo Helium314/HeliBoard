@@ -111,6 +111,7 @@ public class SettingsValues {
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
+    public final boolean mNavBarColor;
 
     // From the input box
     @Nonnull
@@ -263,13 +264,14 @@ public class SettingsValues {
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
         mSecondaryLocale = Settings.getSecondaryLocale(prefs, RichInputMethodManager.getInstance().getCurrentSubtypeLocale().toString());
 
-        mUserTheme = KeyboardTheme.getIsUser(KeyboardTheme.getThemeForParameters(
+        final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
                 prefs.getString(Settings.PREF_THEME_FAMILY, ""),
                 prefs.getString(Settings.PREF_THEME_VARIANT, ""),
                 prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false),
                 prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false),
                 prefs.getBoolean(Settings.PREF_THEME_AMOLED_MODE, false)
-            ));
+        );
+        mUserTheme = KeyboardTheme.getIsUser(keyboardThemeId);
         mUserThemeColorAccent = prefs.getInt(Settings.PREF_THEME_USER_COLOR_ACCENT, Color.BLUE);
         final int keyBgColor;
         if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false))
@@ -280,11 +282,21 @@ public class SettingsValues {
         mHintTextColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE), BlendModeCompat.SRC_ATOP);
         mKeyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
         mKeyTextColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mKeyTextColor, BlendModeCompat.SRC_ATOP);
-        mBackgroundColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
+        if (mUserTheme) {
+            mBackgroundColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
+        } else if (KeyboardTheme.THEME_VARIANT_LIGHT.equals(KeyboardTheme.getThemeVariant(keyboardThemeId))) {
+            mBackgroundColor = Color.rgb(236, 239, 241);
+        } else if (keyboardThemeId == KeyboardTheme.THEME_ID_LXX_DARK) {
+            mBackgroundColor = Color.rgb(38, 50, 56);
+        } else {
+            // dark border is 13/13/13, but that's ok
+            mBackgroundColor = Color.BLACK;
+        }
         mBackgroundColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mBackgroundColor, BlendModeCompat.MODULATE);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
+        mNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
     }
 
     public boolean isMetricsLoggingEnabled() {

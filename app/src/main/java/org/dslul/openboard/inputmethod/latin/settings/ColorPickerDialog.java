@@ -30,9 +30,9 @@ import android.widget.TextView;
 import org.dslul.openboard.inputmethod.latin.R;
 
 public class ColorPickerDialog extends AlertDialog implements SeekBar.OnSeekBarChangeListener {
-    protected ColorPickerDialog(Context context, SharedPreferences prefs, String colorPref) {
+    protected ColorPickerDialog(Context context, String title, SharedPreferences prefs, String colorPref) {
         super(context);
-        setTitle("bla");
+        setTitle(title);
         View view = getLayoutInflater().inflate(R.layout.color_dialog, null);
         mSeekBarRed = (SeekBar)view.findViewById(R.id.seek_bar_dialog_bar_red);
         mSeekBarRed.setMax(255);

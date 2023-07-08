@@ -461,7 +461,7 @@ public class KeyboardView extends View {
                 paint.setColor(key.selectTextColor(params));
                 if (mUserTheme) {
                     // set key color only if not in emoji keyboard range
-                    if (keyboard != null && (keyboard.mId.mElementId < 10 || keyboard.mId.mElementId > 26))
+                    if (keyboard != null && !containsEmoji(key.getLabel()))
                         paint.setColorFilter(keyTextColorFilter);
                     else
                         paint.setColorFilter(null);
@@ -553,7 +553,14 @@ public class KeyboardView extends View {
             drawKeyPopupHint(key, canvas, paint, params);
         }
     }
-
+    private static boolean containsEmoji(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!((c <= 174 && c >= 169) || (c <= 12953 && c >= 8205) || (c >= 126980 && c <=127569)))
+                return true;
+        }
+        return false;
+    }
     // Draw popup hint "..." at the bottom right corner of the key.
     protected void drawKeyPopupHint(@Nonnull final Key key, @Nonnull final Canvas canvas,
             @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {

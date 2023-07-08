@@ -500,8 +500,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="internal_dictionary_summary">Built-in dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
-    <!-- Button text for updating a dictionary -->
-    <string name="update_dictionary_button">"Update"</string>
     <!-- Message for user dictionary replacement dialog -->
     <string name="replace_dictionary_message">"Really replace existing user-added dictionary for %s?"</string>
     <!-- Message when trying to replace user dictionary with older version -->
@@ -509,15 +507,15 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
     <!-- Message for user dictionary remove dialog -->
-    <string name="remove_dictionary_message">"Really remove user-added dictionaries for %s?"</string>
+    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\" for %2$s?"</string>
     <!-- Title for user dictionary remove dialog -->
     <string name="remove_dictionary_title">"Remove dictionary"</string>
     <!-- Button text in user dictionary remove dialog for resetting to default -->
     <string name="reset_dictionary">"Reset to default"</string>
     <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
-    <string name="update_dictionary">"Select a dictionary to replace the current main dictionary. Dictionaries can be downloaded at %s."</string>
-    <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
-    <string name="add_new_dictionary">"Select a new dictionary to be added to the list. Dictionaries can be downloaded at the %s."</string>
+    <string name="add_dictionary">"Select a dictionary to add. Dictionaries can be downloaded at %s."</string>
+    <!-- Message above list of user-added dictionaries -->
+    <string name="existing_dictionaries">"User-added dictionaries, click to remove:"</string>
     <!-- Title of the link to the download page inserted into selection message (above) -->
     <string name="dictionary_link_text">"project repository"</string>
     <!-- Button text for dictionary file selection -->
@@ -527,7 +525,9 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->
-    <string name="dictionary_file_wrong_locale">"Error: Selected file is for %1$s, but %2$s was expected"</string>
+    <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string>
+    <!-- Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
+    <string name="dictionary_file_wrong_locale_ok">"Still use"</string>
     <!-- Text shown on other errors when loading dictionary file -->
     <string name="dictionary_load_error">"Error loading dictionary file"</string>
     <!-- Name of the user dictionaries settings category -->
@@ -644,6 +644,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="amoled_mode">Deep black backgrounds</string>
     <!-- Description indicating amoled mode can lower power usage depending on the screen of the device. -->
     <string name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
+    <!-- Option for setting navbar to follow keyboard color -->
+    <string name="theme_navbar">Color navigation bar</string>
     <!-- Option for selecting custom theme colors -->
     <string name="select_user_colors">Adjust theme colors</string>
     <!-- Description for selection of user-defined colors. -->

@@ -38,7 +38,7 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_settings"/>
         </case>
         <case
             latin:oneHandedModeEnabled="true"
@@ -48,7 +48,7 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_settings"/>
         </case>
         <case
             latin:oneHandedModeEnabled="true"
@@ -58,7 +58,7 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_language_switch"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"/>
         </case>
         <case
             latin:oneHandedModeEnabled="true"
@@ -68,7 +68,7 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_language_switch,!text/keyspec_emoji_normal_key"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"/>
         </case>
         <case
             latin:oneHandedModeEnabled="false"
@@ -78,7 +78,7 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_start_onehanded_mode"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_start_onehanded_mode,!text/keyspec_settings"/>
         </case>
         <case
             latin:oneHandedModeEnabled="false"
@@ -88,7 +88,7 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_start_onehanded_mode,!text/keyspec_emoji_normal_key"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_start_onehanded_mode,!text/keyspec_settings"/>
         </case>
         <case
             latin:oneHandedModeEnabled="false"
@@ -98,14 +98,14 @@
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_start_onehanded_mode,!text/keyspec_language_switch"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_language_switch,!text/keyspec_start_onehanded_mode,!text/keyspec_settings"/>
         </case>
         <default>
             <key-style
                 latin:styleName="settingsMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint"
                 latin:backgroundType="functional"
-                latin:additionalMoreKeys="!text/keyspec_settings,!text/keyspec_clipboard_normal_key,!text/keyspec_start_onehanded_mode,!text/keyspec_language_switch,!text/keyspec_emoji_normal_key"/>
+                latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_start_onehanded_mode,!text/keyspec_settings"/>
         </default>
     </switch>
 </merge>

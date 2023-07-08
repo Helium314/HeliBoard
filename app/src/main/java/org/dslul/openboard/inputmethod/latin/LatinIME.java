@@ -138,6 +138,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private static final String SCHEME_PACKAGE = "package";
 
     final Settings mSettings;
+    private int mOriginalNavBarColor = 0;
+    private int mOriginalNavBarFlags = 0;
     private final DictionaryFacilitator mDictionaryFacilitator =
             DictionaryFacilitatorProvider.getDictionaryFacilitator(
                     false /* isNeededForSpellChecking */);
@@ -1067,7 +1069,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onWindowShown() {
         super.onWindowShown();
-        setNavigationBarVisibility(isInputViewShown());
+        if (isInputViewShown())
+            setNavigationBarColor();
     }
 
     @Override
@@ -1077,7 +1080,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (mainKeyboardView != null) {
             mainKeyboardView.closing();
         }
-        setNavigationBarVisibility(false);
+        clearNavigationBarColor();
     }
 
     void onFinishInputInternal() {
@@ -2014,12 +2017,62 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         return mSettings.getCurrent().isLanguageSwitchKeyEnabled();
     }
 
-    private void setNavigationBarVisibility(final boolean visible) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            // For N and later, IMEs can specify Color.TRANSPARENT to make the navigation bar
-            // transparent.  For other colors the system uses the default color.
-            getWindow().getWindow().setNavigationBarColor(
-                    visible ? Color.BLACK : Color.TRANSPARENT);
+    // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
+    private void setNavigationBarColor() {
+        final SettingsValues settingsValues = mSettings.getCurrent();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mNavBarColor)
+            return;
+        final int color;
+        if (settingsValues.mUserTheme) {
+            final int c = settingsValues.mBackgroundColor;
+            // slightly adjust so color is same as keyboard background
+            color = Color.rgb((int) (Color.red(c) * 0.925), (int) (Color.green(c) * 0.9379), (int) (Color.blue(c) * 0.945));
+        } else
+            color = settingsValues.mBackgroundColor;
+        final Window window = getWindow().getWindow();
+        if (window == null)
+            return;
+        mOriginalNavBarColor = window.getNavigationBarColor();
+        window.setNavigationBarColor(color);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+        final View view = window.getDecorView();
+        mOriginalNavBarFlags = view.getSystemUiVisibility();
+        if (isBrightColor(color)) {
+            view.setSystemUiVisibility(mOriginalNavBarFlags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        } else {
+            view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
+    }
+
+    private void clearNavigationBarColor() {
+        final SettingsValues settingsValues = mSettings.getCurrent();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mNavBarColor)
+            return;
+        final Window window = getWindow().getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setNavigationBarColor(mOriginalNavBarColor);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+        final View view = window.getDecorView();
+        view.setSystemUiVisibility(mOriginalNavBarFlags);
+    }
+
+    private static boolean isBrightColor(int color) {
+        if (android.R.color.transparent == color) {
+            return true;
+        }
+        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
+        boolean bright = false;
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        int brightness = (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+        if (brightness >= 210) {
+            bright = true;
+        }
+        return bright;
     }
 }

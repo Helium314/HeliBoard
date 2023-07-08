@@ -16,6 +16,9 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import static org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager.get;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,8 +27,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.SwitchPreference;
+import android.text.TextUtils;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
+import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
+import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryList;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionarySettings;
 
@@ -46,11 +54,13 @@ import java.util.TreeSet;
  * - Next-word suggestions
  */
 public final class CorrectionSettingsFragment extends SubScreenFragment
-    implements SharedPreferences.OnSharedPreferenceChangeListener {
+    implements SharedPreferences.OnSharedPreferenceChangeListener,
+        PermissionsManager.PermissionsResultCallback {
 
     private static final boolean DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS = false;
     private static final boolean USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS =
             DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS;
+    private SwitchPreference mLookupContactsPreference;
 
     @Override
     public void onCreate(final Bundle icicle) {
@@ -69,19 +79,45 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);
         }
+        mLookupContactsPreference = (SwitchPreference) findPreference(
+                AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
 
         refreshEnabledSettings();
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
+        if (TextUtils.equals(key, AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY)
+                && prefs.getBoolean(key, false)
+                && !PermissionsUtil.checkAllPermissionsGranted(
+                getActivity() /* context */, Manifest.permission.READ_CONTACTS)
+        ) {
+            get(getActivity() /* context */).requestPermissions(this /* PermissionsResultCallback */,
+                    getActivity() /* activity */, Manifest.permission.READ_CONTACTS);
+        }
         refreshEnabledSettings();
+    }
+
+    // contacts and permission stuff from SpellCheckerSettingsFragment
+    @Override
+    public void onRequestPermissionsResult(boolean allGranted) {
+        turnOffLookupContactsIfNoPermission();
+        if (allGranted)
+            mLookupContactsPreference.setChecked(true);
+    }
+
+    private void turnOffLookupContactsIfNoPermission() {
+        if (!PermissionsUtil.checkAllPermissionsGranted(
+                getActivity(), Manifest.permission.READ_CONTACTS)) {
+            mLookupContactsPreference.setChecked(false);
+        }
     }
 
     private void refreshEnabledSettings() {
         setPreferenceEnabled(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
                 Settings.readAutoCorrectEnabled(getSharedPreferences(), getResources()));
         setPreferenceEnabled(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
+        turnOffLookupContactsIfNoPermission();
     }
 
     private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {

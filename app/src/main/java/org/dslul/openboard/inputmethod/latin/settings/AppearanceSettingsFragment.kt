@@ -51,6 +51,9 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             removePreference(Settings.PREF_THEME_DAY_NIGHT)
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            removePreference(Settings.PREF_NAVBAR_COLOR)
+        }
         setupTheme()
 
         if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED ||
@@ -182,7 +185,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
                         3 -> Settings.PREF_THEME_USER_COLOR_ACCENT
                         else -> Settings.PREF_THEME_USER_COLOR_KEYS
                     }
-                    val d = ColorPickerDialog(activity, sharedPreferences, pref)
+                    val d = ColorPickerDialog(activity, items[i], sharedPreferences, pref)
                     d.show()
                 }
                 .show()
