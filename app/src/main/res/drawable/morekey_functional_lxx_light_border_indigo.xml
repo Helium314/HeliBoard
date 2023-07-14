@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Functional keys. -->
+    <item android:state_pressed="true"
+          android:drawable="@drawable/morekey_pressed_lxx_light_border_indigo"/>
+    <item android:drawable="@drawable/morekey_normal_lxx_light_border_indigo"/>
+</selector>

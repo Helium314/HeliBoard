@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- For keyboard color scheme option dialog. -->
+    <string-array name="keyboard_theme_names" translatable="false">
+        <item>@style/KeyboardTheme.LXX_Dark</item>
+        <item>@style/KeyboardTheme.LXX_Dark_Border</item>
+        <item>@style/KeyboardTheme.LXX_Dark_Amoled</item>
+        <item>@style/KeyboardTheme.LXX_Auto_Amoled</item>
+        <item>@style/KeyboardTheme.LXX_Auto</item>
+        <item>@style/KeyboardTheme.LXX_Auto_Border</item>
+        <item>@style/KeyboardTheme.LXX_Light</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border</item>
+        <item>@style/KeyboardTheme.LXX_Light_Blue</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Blue</item>
+        <item>@style/KeyboardTheme.LXX_Light_Blue_Grey</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Blue_Grey</item>
+        <item>@style/KeyboardTheme.LXX_Light_Brown</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Brown</item>
+        <item>@style/KeyboardTheme.LXX_Light_Green</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Green</item>
+        <item>@style/KeyboardTheme.LXX_Light_Grey</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Grey</item>
+        <item>@style/KeyboardTheme.LXX_Light_Indigo</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Indigo</item>
+        <item>@style/KeyboardTheme.LXX_Light_Orange</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Orange</item>
+        <item>@style/KeyboardTheme.LXX_Light_Pink</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Pink</item>
+        <item>@style/KeyboardTheme.LXX_Light_Purple</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Purple</item>
+        <item>@style/KeyboardTheme.LXX_Light_Red</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Red</item>
+        <item>@style/KeyboardTheme.LXX_Light_Yellow</item>
+        <item>@style/KeyboardTheme.LXX_Light_Border_Yellow</item>
+    </string-array>
+
+    <integer-array name="keyboard_theme_ids" translatable="false">
+        <item>2</item> # dark
+        <item>3</item> # dark border
+        <item>4</item> # dark amoled
+        <item>5</item> # amoled auto
+        <item>6</item> # light auto
+        <item>7</item> # light auto border
+        <item>8</item> # light
+        <item>9</item> # light border
+        <item>10</item> # light blue
+        <item>11</item> # light border blue
+        <item>12</item> # light blue grey
+        <item>13</item> # light border blue grey
+        <item>14</item> # light brown
+        <item>15</item> # light border brown
+        <item>16</item> # light green
+        <item>17</item> # light border green
+        <item>18</item> # light grey
+        <item>19</item> # light border grey
+        <item>20</item> # light indigo
+        <item>21</item> # light border indigo
+        <item>22</item> # light orange
+        <item>23</item> # light border orange
+        <item>24</item> # light pink
+        <item>25</item> # light border pink
+        <item>26</item> # light purple
+        <item>27</item> # light border purple
+        <item>28</item> # light red
+        <item>29</item> # light border red
+        <item>30</item> # light yellow
+        <item>31</item> # light border yellow
+    </integer-array>
+
+    <array name="keyboard_theme_colors" translatable="false">
+        <item>@color/keyboard_background_lxx_dark</item> # material dark
+        <item>@color/keyboard_background_lxx_dark_border</item> # material dark border
+        <item>@color/background_amoled_black</item> # dark amoled
+        <item>@color/keyboard_background_lxx_light_border</item> # material dark auto
+        <item>@color/keyboard_background_lxx_light_border</item> # material light auto
+        <item>@color/keyboard_background_lxx_light_border</item> # material light border auto
+<!--        <item>@color/keyboard_background_lxx_light</item> # material light-->
+        <item>#eceff1</item> # material light
+        <item>@color/keyboard_background_lxx_light_border</item> # material light border
+        <item>@color/keyboard_background_lxx_light_blue</item> # material light blue
+        <item>@color/keyboard_background_lxx_light_blue</item> # material light border blue
+        <item>@color/keyboard_background_lxx_light_blue_grey</item> # material light blue grey
+        <item>@color/keyboard_background_lxx_light_blue_grey</item> # material light border blue grey
+        <item>@color/keyboard_background_lxx_light_brown</item> # material light brown
+        <item>@color/keyboard_background_lxx_light_brown</item> # material light border brown
+        <item>@color/keyboard_background_lxx_light_green</item> # material light green
+        <item>@color/keyboard_background_lxx_light_green</item> # material light border green
+        <item>@color/keyboard_background_lxx_light_grey</item> # material light grey
+        <item>@color/keyboard_background_lxx_light_grey</item> # material light border grey
+        <item>@color/keyboard_background_lxx_light_indigo</item> # material light grey
+        <item>@color/keyboard_background_lxx_light_indigo</item> # material light border grey
+        <item>@color/keyboard_background_lxx_light_orange</item> # material light orange
+        <item>@color/keyboard_background_lxx_light_orange</item> # material light border orange
+        <item>@color/keyboard_background_lxx_light_pink</item> # material light pink
+        <item>@color/keyboard_background_lxx_light_pink</item> # material light border pink
+        <item>@color/keyboard_background_lxx_light_purple</item> # material light purple
+        <item>@color/keyboard_background_lxx_light_purple</item> # material light border purple
+        <item>@color/keyboard_background_lxx_light_red</item> # material light red
+        <item>@color/keyboard_background_lxx_light_red</item> # material light border red
+        <item>@color/keyboard_background_lxx_light_yellow</item> # material light yellow
+        <item>@color/keyboard_background_lxx_light_yellow</item> # material light border yellow
+    </array>
+</resources>

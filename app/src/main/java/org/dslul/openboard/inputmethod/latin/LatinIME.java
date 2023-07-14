@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
@@ -47,7 +49,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
-
+import androidx.annotation.NonNull;
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
@@ -63,6 +65,8 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
+import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView;
+import org.dslul.openboard.inputmethod.keyboard.emoji.RecentEmoji;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -231,6 +235,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         private static final int MSG_RESUME_SUGGESTIONS_FOR_START_INPUT = 10;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 11;
         private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 12;
+        private static final int MSG_UPDATE_RECENT_EMOJIS = 13;
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
 
@@ -331,8 +336,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     break;
                 case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
                     @SuppressWarnings("unchecked")
-                    List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
+                    final List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
                     latinIme.mClipboardHistoryManager.onPinnedClipsAvailable(entries);
+                    break;
+                case MSG_UPDATE_RECENT_EMOJIS:
+                    final EmojiPalettesView emojiPalettesView = switcher.getEmojiPalettesView();
+                    if (emojiPalettesView != null) {
+                        @SuppressWarnings("unchecked")
+                        final SparseArray<RecentEmoji> array = (SparseArray<RecentEmoji>) msg.obj;
+                        emojiPalettesView.onRecentEmojisAvailable(array);
+                    }
                     break;
             }
         }
@@ -459,7 +472,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         public void postUpdateClipboardPinnedClips(final List<ClipboardHistoryEntry> clips) {
             obtainMessage(MSG_UPDATE_CLIPBOARD_PINNED_CLIPS, clips).sendToTarget();
         }
-
+        public void postUpdateRecentEmojis(@NonNull final SparseArray<RecentEmoji> array) {
+            obtainMessage(MSG_UPDATE_RECENT_EMOJIS, array).sendToTarget();
+        }
         // Working variables for the following methods.
         private boolean mIsOrientationChanging;
         private boolean mPendingSuccessiveImsCallback;
@@ -2018,7 +2033,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
-    private void setNavigationBarColor() {
+/*    private void setNavigationBarColor() {
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mNavBarColor)
             return;
@@ -2044,6 +2059,50 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         } else {
             view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
+    }*/
+
+    private void setNavigationBarColor() {
+        final SettingsValues settingsValues = mSettings.getCurrent();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && !settingsValues.mNavBarColor)
+                return;
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final int keyboardColor = Settings.readKeyboardColor(prefs, this);
+        final int color;
+
+            if (settingsValues.mUserTheme) {
+                final int c = settingsValues.mBackgroundColor;
+                // slightly adjust so color is same as keyboard background
+                color = Color.rgb((int) (Color.red(c) * 0.925), (int) (Color.green(c) * 0.9379), (int) (Color.blue(c) * 0.945));
+            } else {
+                color = keyboardColor;
+            }
+
+        final Window window = getWindow().getWindow();
+            if (window == null) {
+                return;
+        }
+            if (settingsValues.mUserTheme) {
+                mOriginalNavBarColor = window.getNavigationBarColor();
+                window.setNavigationBarColor(color);
+            } else {
+                mOriginalNavBarColor = window.getNavigationBarColor();
+                window.setNavigationBarColor(keyboardColor);
+            }
+
+        final View view = window.getDecorView();
+        mOriginalNavBarFlags = view.getSystemUiVisibility();
+
+            if (isBrightColor(color) || isBrightColor(keyboardColor)) {
+                 view.setSystemUiVisibility(mOriginalNavBarFlags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            } else {
+                 view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            }
+/*            if (isBrightColor(keyboardColor)) {
+                view.setSystemUiVisibility(mOriginalNavBarFlags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            } else {
+                view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            }*/
     }
 
     private void clearNavigationBarColor() {

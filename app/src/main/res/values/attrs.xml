@@ -236,18 +236,40 @@
             <!-- This should be aligned with
                  {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
             <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
+            <enum name="KLP" value="1" />
+            <enum name="LXXDark" value="2" />
+            <enum name="LXXDarkBorder" value="3" />
             <enum name="LXXDarkAmoled" value="4" />
-            <enum name="LXXAutoAmoled" value="10" />
-            <enum name="LXXDark" value="7" />
-            <enum name="LXXAuto" value="9" />
-            <enum name="LXXLightBorder" value="5" />
-            <enum name="LXXDarkBorder" value="6" />
-            <enum name="LXXAutoBorder" value="8" />
-            <enum name="LXXUser" value="11" />
-            <enum name="LXXUserBorder" value="12" />
-            <enum name="KLPUser" value="13" />
+            <enum name="LXXAutoAmoled" value="5" />
+            <enum name="LXXAuto" value="6" />
+            <enum name="LXXAutoBorder" value="7" />
+            <enum name="LXXLight" value="8" />
+            <enum name="LXXLightBorder" value="9" />
+            <enum name="LXXLightBlue" value="10" />
+            <enum name="LXXLightBorderBlue" value="11" />
+            <enum name="LXXLightBlueGrey" value="12" />
+            <enum name="LXXLightBorderBlueGrey" value="13" />
+            <enum name="LXXLightBrown" value="14" />
+            <enum name="LXXLightBorderBrown" value="15" />
+            <enum name="LXXLightGreen" value="16" />
+            <enum name="LXXLightBorderGreen" value="17" />
+            <enum name="LXXLightGrey" value="18" />
+            <enum name="LXXLightBorderGrey" value="19" />
+            <enum name="LXXLightIndigo" value="20" />
+            <enum name="LXXLightBorderIndigo" value="21" />
+            <enum name="LXXLightOrange" value="22" />
+            <enum name="LXXLightBorderOrange" value="23" />
+            <enum name="LXXLightPink" value="24" />
+            <enum name="LXXLightBorderPink" value="25" />
+            <enum name="LXXLightPurple" value="26" />
+            <enum name="LXXLightBorderPurple" value="27" />
+            <enum name="LXXLightRed" value="28" />
+            <enum name="LXXLightBorderRed" value="29" />
+            <enum name="LXXLightYellow" value="30" />
+            <enum name="LXXLightBorderYellow" value="31" />
+            <enum name="LXXUser" value="32" />
+            <enum name="LXXUserBorder" value="33" />
+            <enum name="KLPUser" value="34" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
@@ -497,9 +519,9 @@
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
         <attr name="keyboardTheme" format="enum|string">
             <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDark" value="4" />
+            <enum name="KLP" value="1" />
+            <enum name="LXXDark" value="2" />
+            <enum name="LXXLight" value="8" />
         </attr>
         <!-- This should be aligned with
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->

@@ -22,10 +22,12 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
 import android.view.Gravity;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -36,7 +38,6 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
-import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
 import java.util.Collections;
@@ -138,7 +139,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SECONDARY_LOCALES = "pref_secondary_locales";
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
     public static final String PREF_NAVBAR_COLOR = "navbar_color";
-
+    public static final String PREF_KEYBOARD_COLOR = "pref_keyboard_color";
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
     // This is being used only for the backward compatibility.
     private static final String PREF_SUPPRESS_LANGUAGE_SWITCH_KEY =
@@ -156,7 +157,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_EMOJI_CATEGORY_LAST_TYPED_ID = "emoji_category_last_typed_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
-
+    public static final String PREF_EMOJI_USAGE_FREQ = "pref_emoji_usage_freq";
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
 
@@ -185,6 +186,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
+        checkLegacyEmojiRecentKeys(mPrefs);
     }
 
     public void onDestroy() {
@@ -446,7 +448,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY, gravity).apply();
     }
-
+    public void writeEmojiRecentCount(final int count) {
+        writeEmojiRecentCount(mPrefs, count);
+    }
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
         // The standard way of finding out whether we have a hardware keyboard. This code is taken
         // from InputMethodService#onEvaluateInputShown, which canonically determines this.
@@ -491,12 +495,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return mPrefs.getStringSet(PREF_CORPUS_HANDLES_FOR_PERSONALIZATION, emptySet);
     }
 
-    public static void writeEmojiRecentKeys(final SharedPreferences prefs, String str) {
-        prefs.edit().putString(PREF_EMOJI_RECENT_KEYS, str).apply();
+    public static void writeEmojiRecentCount(final SharedPreferences prefs, final int c) {
+        prefs.edit().putInt(PREF_EMOJI_RECENT_KEYS, c).apply();
     }
 
-    public static String readEmojiRecentKeys(final SharedPreferences prefs) {
-        return prefs.getString(PREF_EMOJI_RECENT_KEYS, "");
+    public static int readEmojiRecentCount(final SharedPreferences prefs) {
+        return prefs.getInt(PREF_EMOJI_RECENT_KEYS, 0);
     }
 
     public static void writeLastTypedEmojiCategoryPageId(
@@ -530,7 +534,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
     }
-
+    public static boolean readEmojiUsageFrequencyEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_EMOJI_USAGE_FREQ, true);
+    }
+    private void checkLegacyEmojiRecentKeys(final SharedPreferences prefs) {
+        try {
+            prefs.getInt(PREF_EMOJI_RECENT_KEYS, 0);
+        } catch (ClassCastException e) {
+            prefs.edit().remove(PREF_EMOJI_RECENT_KEYS).apply();
+        }
+    }
     public static Locale getSecondaryLocale(final SharedPreferences prefs, final String mainLocaleString) {
         final Set<String> encodedLocales = prefs.getStringSet(PREF_SECONDARY_LOCALES, new HashSet<>());
         for (String loc : encodedLocales) {
@@ -541,4 +554,19 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return null;
     }
 
+    public static int readKeyboardColor(final SharedPreferences prefs, final Context context) {
+        return prefs.getInt(PREF_KEYBOARD_COLOR, readKeyboardDefaultColor(context));
+    }
+
+    public static int readKeyboardDefaultColor(final Context context) {
+        final int[] keyboardThemeColors = context.getResources().getIntArray(R.array.keyboard_theme_colors);
+        final int[] keyboardThemeIds = context.getResources().getIntArray(R.array.keyboard_theme_ids);
+        final int themeId = KeyboardTheme.getKeyboardTheme(context).mThemeId;
+        for (int index = 0; index < keyboardThemeIds.length; index++) {
+            if (themeId == keyboardThemeIds[index]) {
+                return keyboardThemeColors[index];
+            }
+        }
+        return Color.LTGRAY;
+    }
 }

@@ -78,7 +78,12 @@
         latin:backgroundType="functional" />
     <!-- emojiKeyStyle must be defined before including @xml/key_syles_enter. -->
     <switch>
-        <case latin:keyboardTheme="ICS|KLP|LXXLightBorder|LXXDarkBorder">
+        <case latin:keyboardTheme="ICS|KLP|LXXLightBorder|LXXDark|LXXDarkBorder|LXXLightBlue|LXXLightBorderBlue|
+                                    |LXXLightBlueGrey|LXXLightBorderBlueGrey||LXXLightBrown|LXXLightBorderBrown|
+                                    |LXXLightGreen|LXXLightBorderGreen|LXXLightGrey|LXXLightBorderGrey|
+                                    |LXXLightIndigo|LXXLightBorderIndigo|LXXLightOrange|LXXLightBorderOrange|
+                                    |LXXLightPink|LXXLightBorderPink|LXXLightPurple|LXXLightBorderPurple|
+                                    |LXXLightRed|LXXLightBorderRed|LXXLightYellow|LXXLightBorderYellow">
             <key-style
                 latin:styleName="emojiKeyStyle"
                 latin:keySpec="!icon/emoji_normal_key|!code/key_emoji"

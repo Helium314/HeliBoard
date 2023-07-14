@@ -16,47 +16,39 @@
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
 
-import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
-
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
-import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.utils.JsonUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This is a Keyboard class where you can add keys dynamically shown in a grid layout
  */
-final class DynamicGridKeyboard extends Keyboard {
-    private static final String TAG = DynamicGridKeyboard.class.getSimpleName();
+public class DynamicGridKeyboard extends Keyboard {
+
+    private static final String TAG = "DynamicGridKeyboard";
     private static final int TEMPLATE_KEY_CODE_0 = 0x30;
     private static final int TEMPLATE_KEY_CODE_1 = 0x31;
     private final Object mLock = new Object();
 
-    private final SharedPreferences mPrefs;
     private final int mHorizontalStep;
     private final int mHorizontalGap;
     private final int mVerticalStep;
     private final int mColumnsNum;
-    private final int mMaxKeyCount;
-    private final boolean mIsRecents;
-    private final ArrayDeque<GridKey> mGridKeys = new ArrayDeque<>();
-    private final ArrayDeque<Key> mPendingKeys = new ArrayDeque<>();
+    private final LinkedList<GridKey> mGridKeys = new LinkedList<>();
 
     private List<Key> mCachedGridKeys;
 
-    public DynamicGridKeyboard(final SharedPreferences prefs, final Keyboard templateKeyboard,
-            final int maxKeyCount, final int categoryId) {
+    public DynamicGridKeyboard(final Keyboard templateKeyboard) {
         super(templateKeyboard);
         final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
@@ -64,9 +56,6 @@ final class DynamicGridKeyboard extends Keyboard {
         mHorizontalStep = key0.getWidth() + mHorizontalGap;
         mVerticalStep = key0.getHeight() + mVerticalGap;
         mColumnsNum = mBaseWidth / mHorizontalStep;
-        mMaxKeyCount = maxKeyCount;
-        mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
-        mPrefs = prefs;
     }
 
     private Key getTemplateKey(final int code) {
@@ -87,124 +76,56 @@ final class DynamicGridKeyboard extends Keyboard {
         return mColumnsNum;
     }
 
-    public void addPendingKey(final Key usedKey) {
-        synchronized (mLock) {
-            mPendingKeys.addLast(usedKey);
+    public int getKeyCount() {
+        return mGridKeys.size();
+    }
+
+    public void addKeyFrom(final Key baseKey) {
+        if (baseKey == null) {
+            return;
         }
+        addKey(makeGridKey(baseKey));
     }
 
-    public void flushPendingRecentKeys() {
-        synchronized (mLock) {
-            while (!mPendingKeys.isEmpty()) {
-                addKey(mPendingKeys.pollFirst(), true);
-            }
-            saveRecentKeys();
-        }
-    }
-
-    public void addKeyFirst(final Key usedKey) {
-        addKey(usedKey, true);
-        if (mIsRecents) {
-            saveRecentKeys();
-        }
-    }
-
-    public void addKeyLast(final Key usedKey) {
-        addKey(usedKey, false);
-    }
-
-    private void addKey(final Key usedKey, final boolean addFirst) {
-        if (usedKey == null) {
+    public void addKey(final GridKey key) {
+        if (key == null) {
             return;
         }
         synchronized (mLock) {
             mCachedGridKeys = null;
-            // When a key is added to recents keyboard, we don't want to keep its more keys
-            // neither its hint label. Also, we make sure its background type is matching our keyboard
-            // if key comes from another keyboard (ie. a {@link MoreKeysKeyboard}).
-            final boolean dropMoreKeys = mIsRecents;
-            // Check if hint was a more emoji indicator and prevent its copy if more keys aren't copied
-            final boolean dropHintLabel = dropMoreKeys && "\u25E5".equals(usedKey.getHintLabel());
-            final GridKey key = new GridKey(usedKey,
-                    dropMoreKeys ? null : usedKey.getMoreKeys(),
-                    dropHintLabel ? null : usedKey.getHintLabel(),
-                    mIsRecents ? Key.BACKGROUND_TYPE_EMPTY : usedKey.getBackgroundType());
             while (mGridKeys.remove(key)) {
                 // Remove duplicate keys.
             }
-            if (addFirst) {
-                mGridKeys.addFirst(key);
-            } else {
-                mGridKeys.addLast(key);
-            }
-            while (mGridKeys.size() > mMaxKeyCount) {
-                mGridKeys.removeLast();
-            }
-            int index = 0;
-            for (final GridKey gridKey : mGridKeys) {
-                final int keyX0 = getKeyX0(index);
-                final int keyY0 = getKeyY0(index);
-                final int keyX1 = getKeyX1(index);
-                final int keyY1 = getKeyY1(index);
-                gridKey.updateCoordinates(keyX0, keyY0, keyX1, keyY1);
-                index++;
-            }
+            mGridKeys.add(key);
         }
+        updateKeysCoordinates();
     }
 
-    private void saveRecentKeys() {
-        final ArrayList<Object> keys = new ArrayList<>();
-        for (final Key key : mGridKeys) {
-            if (key.getOutputText() != null) {
-                keys.add(key.getOutputText());
-            } else {
-                keys.add(key.getCode());
-            }
-        }
-        final String jsonStr = JsonUtils.listToJsonStr(keys);
-        Settings.writeEmojiRecentKeys(mPrefs, jsonStr);
+    public void removeLastKey() {
+        mGridKeys.removeLast();
     }
 
-    private static Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
-            final int code) {
-        for (final DynamicGridKeyboard keyboard : keyboards) {
-            for (final Key key : keyboard.getSortedKeys()) {
-                if (key.getCode() == code) {
-                    return key;
-                }
-            }
-        }
-        return null;
+    public void sortKeys(Comparator<GridKey> comparator) {
+        Collections.sort(mGridKeys, comparator);
+        updateKeysCoordinates();
     }
 
-    private static Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
-            final String outputText) {
-        for (final DynamicGridKeyboard keyboard : keyboards) {
-            for (final Key key : keyboard.getSortedKeys()) {
-                if (outputText.equals(key.getOutputText())) {
-                    return key;
-                }
-            }
-        }
-        return null;
+    protected GridKey makeGridKey(Key baseKey) {
+        return new GridKey(baseKey,
+                baseKey.getMoreKeys(),
+                baseKey.getHintLabel(),
+                baseKey.getBackgroundType());
     }
 
-    public void loadRecentKeys(final Collection<DynamicGridKeyboard> keyboards) {
-        final String str = Settings.readEmojiRecentKeys(mPrefs);
-        final List<Object> keys = JsonUtils.jsonStrToList(str);
-        for (final Object o : keys) {
-            final Key key;
-            if (o instanceof Integer) {
-                final int code = (Integer)o;
-                key = getKeyByCode(keyboards, code);
-            } else if (o instanceof String) {
-                final String outputText = (String)o;
-                key = getKeyByOutputText(keyboards, outputText);
-            } else {
-                Log.w(TAG, "Invalid object: " + o);
-                continue;
-            }
-            addKeyLast(key);
+    private void updateKeysCoordinates() {
+        int index = 0;
+        for (final GridKey gridKey : mGridKeys) {
+            final int keyX0 = getKeyX0(index);
+            final int keyY0 = getKeyY0(index);
+            final int keyX1 = getKeyX1(index);
+            final int keyY1 = getKeyY1(index);
+            gridKey.updateCoordinates(keyX0, keyY0, keyX1, keyY1);
+            index++;
         }
     }
 
@@ -234,7 +155,7 @@ final class DynamicGridKeyboard extends Keyboard {
             if (mCachedGridKeys != null) {
                 return mCachedGridKeys;
             }
-            final ArrayList<Key> cachedKeys = new ArrayList<Key>(mGridKeys);
+            final ArrayList<Key> cachedKeys = new ArrayList<>(mGridKeys);
             mCachedGridKeys = Collections.unmodifiableList(cachedKeys);
             return mCachedGridKeys;
         }
@@ -246,7 +167,7 @@ final class DynamicGridKeyboard extends Keyboard {
         return getSortedKeys();
     }
 
-    static final class GridKey extends Key {
+    protected static class GridKey extends Key {
         private int mCurrentX;
         private int mCurrentY;
 
@@ -278,6 +199,11 @@ final class DynamicGridKeyboard extends Keyboard {
             if (getCode() != key.getCode()) return false;
             if (!TextUtils.equals(getLabel(), key.getLabel())) return false;
             return TextUtils.equals(getOutputText(), key.getOutputText());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getCode(), getLabel(), getOutputText());
         }
 
         @Override

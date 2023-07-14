@@ -674,4 +674,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <!-- App slogan-->
     <string name="app_slogan" >100% FOSS keyboard, based on AOSP.</string>
+    <!-- Preferences item for enabling emoji usage frequency saving -->
+    <string name="emoji_usage_freq">Save emojis usage frequency</string>
+    <!-- Description for enabling/disabling emoji usage frequency saving mentioning that if disabled, last use order is used. -->
+    <string name="emoji_usage_freq_summary">Allows recent emojis to be sorted accordingly to their frequency of use</string>
 </resources>
