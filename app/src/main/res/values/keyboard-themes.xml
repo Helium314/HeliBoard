@@ -2,6 +2,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- For keyboard color scheme option dialog. -->
     <string-array name="keyboard_theme_names" translatable="false">
+        <item>@style/KeyboardTheme.ICS</item>
+        <item>@style/KeyboardTheme.KLP</item>
         <item>@style/KeyboardTheme.LXX_Dark</item>
         <item>@style/KeyboardTheme.LXX_Dark_Border</item>
         <item>@style/KeyboardTheme.LXX_Dark_Amoled</item>
@@ -35,6 +37,8 @@
     </string-array>
 
     <integer-array name="keyboard_theme_ids" translatable="false">
+        <item>0</item> # ics
+        <item>1</item> # klp
         <item>2</item> # dark
         <item>3</item> # dark border
         <item>4</item> # dark amoled
@@ -68,14 +72,15 @@
     </integer-array>
 
     <array name="keyboard_theme_colors" translatable="false">
+        <item>@color/keyboard_background_ics</item> # ics
+        <item>@color/keyboard_background_klp</item> # klp
         <item>@color/keyboard_background_lxx_dark</item> # material dark
         <item>@color/keyboard_background_lxx_dark_border</item> # material dark border
         <item>@color/background_amoled_black</item> # dark amoled
         <item>@color/keyboard_background_lxx_light_border</item> # material dark auto
         <item>@color/keyboard_background_lxx_light_border</item> # material light auto
         <item>@color/keyboard_background_lxx_light_border</item> # material light border auto
-<!--        <item>@color/keyboard_background_lxx_light</item> # material light-->
-        <item>#eceff1</item> # material light
+        <item>@color/keyboard_background_lxx_light</item> # material light
         <item>@color/keyboard_background_lxx_light_border</item> # material light border
         <item>@color/keyboard_background_lxx_light_blue</item> # material light blue
         <item>@color/keyboard_background_lxx_light_blue</item> # material light border blue
