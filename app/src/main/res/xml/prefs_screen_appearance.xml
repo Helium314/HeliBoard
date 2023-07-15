@@ -46,7 +46,7 @@
             android:summary="@string/amoled_mode_summary"/>
 
         <CheckBoxPreference
-            android:key="theme_key_borders"
+            android:key="navbar_color"
             android:title="@string/theme_navbar"/>
 
         <Preference

@@ -32,6 +32,7 @@ Changes:
 * Allow using contacts for suggestions (enable in spell checker settings), https://github.com/openboard-team/openboard/issues/374
 * Re-arranged comma-long-press-menu, https://github.com/Helium314/openboard/pull/7
 * Make Bengali spell check work, https://github.com/Helium314/openboard/pull/11
+* Fix azerty layout in landscape mode on tablets, https://github.com/openboard-team/openboard/pull/791
 
 Plan / to do:
 * ~upgrade dependencies~
@@ -52,11 +53,11 @@ Plan / to do:
   * ~fix ABC buttons in emoji and clipboard view have wrong text color~
   * fix buttons on long-press action key not themed
   * allow adjusting colors without requiring manual reload of keyboard
+  * fix issues in _more suggestions_ view, https://github.com/Helium314/openboard/issues/9#issuecomment-1626932543
 * ~delete suggestions, https://github.com/openboard-team/openboard/issues/106~
   * make functionality more discoverable, e.g. add a button to the _more suggestions_ menu
 * ~gesture typing, https://github.com/openboard-team/openboard/issues/3~
   * ~license issues, require using an external library~
-* re-consider preferring lowercase word for typed history in some cases (DictionaryFacilitatorImpl.addWordToUserHistory)
 * ~move/copy _use contacts_ setting from well hidden spell checker settings to _text correction_ settings~
 * add emojis to user history, to be used for next word suggestions
 
