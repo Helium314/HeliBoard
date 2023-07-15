@@ -33,12 +33,12 @@
                 latin:isSplitLayout="true"
             >
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty1_left5"
+                    latin:keyboardLayout="@xml/rowkeys_azerty1_left5"
                     latin:keyWidth="7.0%p" />
                 <Spacer
                     latin:keyWidth="20.0%p" />
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty1_right5"
+                    latin:keyboardLayout="@xml/rowkeys_azerty1_right5"
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="deleteKeyStyle"
@@ -47,7 +47,7 @@
             <!-- Regular layout for the first row -->
             <default>
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty1"
+                    latin:keyboardLayout="@xml/rowkeys_azerty1"
                     latin:keyWidth="9.0%p" />
                 <Key
                     latin:keyStyle="deleteKeyStyle"
@@ -63,13 +63,13 @@
                 latin:isSplitLayout="true"
             >
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty2_left5"
+                    latin:keyboardLayout="@xml/rowkeys_azerty2_left5"
                     latin:keyXPos="4.0%p"
                     latin:keyWidth="7.0%p" />
                 <Spacer
                     latin:keyWidth="23.0%p" />
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty2_right4"
+                    latin:keyboardLayout="@xml/rowkeys_azerty2_right5"
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="enterKeyStyle"
@@ -78,7 +78,7 @@
             <!-- Regular layout for the second row -->
             <default>
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty2"
+                    latin:keyboardLayout="@xml/rowkeys_azerty2"
                     latin:keyXPos="4.5%p"
                     latin:keyWidth="9.0%p" />
                 <Key
@@ -98,12 +98,12 @@
                     latin:keyStyle="shiftKeyStyle"
                     latin:keyWidth="10.0%p" />
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty3_left4"
+                    latin:keyboardLayout="@xml/rowkeys_azerty3_left4"
                     latin:keyWidth="7.0%p" />
                 <Spacer
                     latin:keyWidth="17.0%p" />
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty3_right3"
+                    latin:keyboardLayout="@xml/rowkeys_azerty3_right3"
                     latin:keyWidth="7.0%p" />
                 <include
                     latin:keyboardLayout="@xml/keys_exclamation_question"
@@ -118,7 +118,7 @@
                     latin:keyStyle="shiftKeyStyle"
                     latin:keyWidth="10.0%p" />
                 <include
-                    latin:keyboardLayout="@xml/rowkeys_qwerty3"
+                    latin:keyboardLayout="@xml/rowkeys_azerty3"
                     latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/keys_exclamation_question"

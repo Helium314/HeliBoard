@@ -32,6 +32,7 @@ Changes:
 * Allow using contacts for suggestions (enable in spell checker settings), https://github.com/openboard-team/openboard/issues/374
 * Re-arranged comma-long-press-menu, https://github.com/Helium314/openboard/pull/7
 * Make Bengali spell check work, https://github.com/Helium314/openboard/pull/11
+* Fix azerty layout in landscape mode on tablets, https://github.com/openboard-team/openboard/pull/791
 
 Plan / to do:
 * ~upgrade dependencies~
