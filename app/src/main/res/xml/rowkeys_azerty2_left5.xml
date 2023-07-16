@@ -31,15 +31,41 @@
         latin:keyHintLabel="#"
         latin:additionalMoreKeys="#"
         latin:moreKeys="!text/morekeys_s" />
-    <Key
-        latin:keySpec="d"
-        latin:keyHintLabel="$"
-        latin:additionalMoreKeys="$"
-        latin:moreKeys="!text/morekeys_d" />
+    <switch>
+        <case latin:countryCode="GB">
+            <Key
+                latin:keySpec="d"
+                latin:keyHintLabel="£"
+                latin:additionalMoreKeys="£"
+                latin:moreKeys="!text/morekeys_d" />
+        </case>
+        <case latin:countryCode="AT|BE|CY|DE|EE|ES|FI|FR|GR|HR|
+                                |IE|IT|LT|LU|LV|MT|NL|PT|SK|SI">
+            <Key
+                latin:keySpec="d"
+                latin:keyHintLabel="€"
+                latin:additionalMoreKeys="€"
+                latin:moreKeys="!text/morekeys_d" />
+        </case>
+        <case latin:countryCode="IN">
+            <Key
+                latin:keySpec="d"
+                latin:keyHintLabel="₹"
+                latin:additionalMoreKeys="₹"
+                latin:moreKeys="!text/morekeys_d" />
+        </case>
+        <default>
+            <Key
+                latin:keySpec="d"
+                latin:keyHintLabel="$"
+                latin:additionalMoreKeys="$"
+                latin:moreKeys="!text/morekeys_d" />
+        </default>
+    </switch>
     <Key
         latin:keySpec="f"
-        latin:keyHintLabel="%"
-        latin:additionalMoreKeys="%" />
+        latin:keyHintLabel="_"
+        latin:additionalMoreKeys="_" />
     <Key
         latin:keySpec="g"
         latin:keyHintLabel="&amp;"

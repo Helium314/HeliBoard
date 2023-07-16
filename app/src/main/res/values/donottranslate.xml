@@ -115,6 +115,8 @@
         <item>nordic</item>
         <item>fr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
         <item>azerty</item>
+        <item>fr_FR:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
+        <item>azerty</item>
         <item>fr_CA:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
         <item>qwerty</item>
         <item>hr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
