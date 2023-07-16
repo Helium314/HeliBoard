@@ -99,12 +99,12 @@
             >
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_qwerty3_left4"
                     latin:keyWidth="8.0%p" />
                 <Spacer
-                    latin:keyWidth="8.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_qwerty3_right3"
                     latin:keyWidth="8.0%p" />

@@ -20,14 +20,17 @@
 
 <!-- Configuration values for Large Tablet Landscape. -->
 <resources>
+    <!-- Amount of width reduction in one-handed mode -->
+    <fraction name="config_one_handed_mode_width">85%</fraction>
+
     <!-- Preferable keyboard height in absolute scale: 58.0mm -->
     <!-- This config_default_keyboard_height value should match with keyboard-heights.xml -->
-    <dimen name="config_default_keyboard_height">365.4dp</dimen>
+    <dimen name="config_default_keyboard_height">270.4dp</dimen>
     <fraction name="config_min_keyboard_height">35%p</fraction>
 
     <fraction name="config_keyboard_top_padding_holo">1.896%p</fraction>
-    <fraction name="config_keyboard_bottom_padding_holo">0.0%p</fraction>
-    <fraction name="config_key_vertical_gap_holo">3.690%p</fraction>
+    <fraction name="config_keyboard_bottom_padding_holo">3.0%p</fraction>
+    <fraction name="config_key_vertical_gap_holo">3%p</fraction>
     <fraction name="config_key_horizontal_gap_holo">1.030%p</fraction>
 
     <dimen name="config_more_keys_keyboard_key_height">81.9dp</dimen>
@@ -35,26 +38,28 @@
     <fraction name="config_key_letter_ratio_holo">43%</fraction>
     <fraction name="config_key_letter_ratio_lxx">50%</fraction>
     <fraction name="config_key_large_letter_ratio_holo">42%</fraction>
-    <fraction name="config_key_large_letter_ratio_lxx">60%</fraction>
+    <fraction name="config_key_large_letter_ratio_lxx">70%</fraction>
     <fraction name="config_key_label_ratio_holo">28%</fraction>
-    <fraction name="config_key_label_ratio_lxx">32%</fraction>
-    <fraction name="config_key_hint_letter_ratio_holo">23%</fraction>
-    <fraction name="config_key_hint_letter_ratio_lxx">23%</fraction>
+    <fraction name="config_key_label_ratio_lxx">40%</fraction>
+    <fraction name="config_key_hint_letter_ratio_holo">30%</fraction>
+    <fraction name="config_key_hint_letter_ratio_lxx">30%</fraction>
     <fraction name="config_key_hint_label_ratio_holo">28%</fraction>
     <fraction name="config_key_hint_label_ratio_lxx">20%</fraction>
+    <dimen name="config_key_hint_letter_padding">5dp</dimen>
     <fraction name="config_key_shifted_letter_hint_ratio_holo">24%</fraction>
     <fraction name="config_key_shifted_letter_hint_ratio_lxx">24%</fraction>
-    <fraction name="config_language_on_spacebar_text_ratio">24.00%</fraction>
+    <fraction name="config_language_on_spacebar_text_ratio">30%</fraction>
 
     <!-- For 5-row keyboard -->
-    <fraction name="config_key_vertical_gap_5row">2.65%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">53%</fraction>
+    <fraction name="config_key_vertical_gap_5row">3%p</fraction>
+    <fraction name="config_key_letter_ratio_5row">50%</fraction>
     <fraction name="config_key_shifted_letter_hint_ratio_5row">30%</fraction>
 
-    <dimen name="config_suggestions_strip_height">44dp</dimen>
+    <dimen name="config_suggestions_strip_height">40dp</dimen>
     <dimen name="config_suggestions_strip_horizontal_margin">340dp</dimen>
     <dimen name="config_suggestions_strip_edge_key_width">54dp</dimen>
     <fraction name="config_min_more_suggestions_width">50%</fraction>
+    <dimen name="config_suggestion_text_size">18dp</dimen>
 
     <!-- Gesture floating preview text parameters -->
     <dimen name="config_gesture_floating_preview_text_size">32dp</dimen>
@@ -64,8 +69,8 @@
 
     <!-- Emoji keyboard -->
     <fraction name="config_emoji_keyboard_key_width">7.69%p</fraction>
-    <fraction name="config_emoji_keyboard_row_height">33%p</fraction>
-    <fraction name="config_emoji_keyboard_key_letter_size">58%p</fraction>
-    <fraction name="config_emoji_keyboard_key_label_size">58%p</fraction>
+    <fraction name="config_emoji_keyboard_row_height">30%p</fraction>
+    <fraction name="config_emoji_keyboard_key_letter_size">50%p</fraction>
+    <fraction name="config_emoji_keyboard_key_label_size">50%p</fraction>
     <integer name="config_emoji_keyboard_max_recents_key_count">39</integer>
 </resources>

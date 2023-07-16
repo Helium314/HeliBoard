@@ -45,14 +45,12 @@
     >
         <Key
             latin:keyStyle="backFromMoreSymbolKeyStyle"
-            latin:keyWidth="15%p"
-            latin:visualInsetsRight="1%p" />
+            latin:keyWidth="15%p" />
         <include
             latin:keyboardLayout="@xml/rowkeys_symbols_shift3" />
         <Key
             latin:keyStyle="deleteKeyStyle"
-            latin:keyWidth="fillRight"
-            latin:visualInsetsLeft="1%p" />
+            latin:keyWidth="fillRight" />
     </Row>
     <Row
         latin:keyWidth="10%p"
