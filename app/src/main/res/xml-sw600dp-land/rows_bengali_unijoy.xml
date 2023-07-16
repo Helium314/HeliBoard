@@ -20,7 +20,7 @@
 
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
->
+    >
     <include
         latin:keyboardLayout="@xml/key_styles_common" />
     <include
@@ -31,7 +31,7 @@
             <!-- Split keyboard layout for the first row -->
             <case
                 latin:isSplitLayout="true"
-            >
+                >
                 <include
                     latin:keyboardLayout="@xml/rowkeys_bengali_unijoy1_left5"
                     latin:keyWidth="7.0%p" />
@@ -61,19 +61,19 @@
             <!-- Split keyboard layout for the second row -->
             <case
                 latin:isSplitLayout="true"
-            >
+                >
                 <include
                     latin:keyboardLayout="@xml/rowkeys_bengali_unijoy2_left5"
                     latin:keyXPos="4.0%p"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="23.0%p" />
+                    latin:keyWidth="20%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_bengali_unijoy2_right4"
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="enterKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="fillRight" />
             </case>
             <!-- Regular layout for the second row -->
             <default>
@@ -93,15 +93,15 @@
             <!-- Split keyboard layout for the third row -->
             <case
                 latin:isSplitLayout="true"
-            >
+                >
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_bengali_unijoy3_left4"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="17.0%p" />
+                    latin:keyWidth="18.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_bengali_unijoy3_right3"
                     latin:keyWidth="7.0%p" />
@@ -116,7 +116,7 @@
             <default>
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_bengali_unijoy3"
                     latin:keyWidth="9.0%p" />
