@@ -157,7 +157,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_EMOJI_CATEGORY_LAST_TYPED_ID = "emoji_category_last_typed_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
-    public static final String PREF_EMOJI_USAGE_FREQ = "pref_emoji_usage_freq";
+
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
 
@@ -186,7 +186,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
-        checkLegacyEmojiRecentKeys(mPrefs);
     }
 
     public void onDestroy() {
@@ -448,9 +447,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY, gravity).apply();
     }
-    public void writeEmojiRecentCount(final int count) {
-        writeEmojiRecentCount(mPrefs, count);
-    }
+
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
         // The standard way of finding out whether we have a hardware keyboard. This code is taken
         // from InputMethodService#onEvaluateInputShown, which canonically determines this.
@@ -495,12 +492,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return mPrefs.getStringSet(PREF_CORPUS_HANDLES_FOR_PERSONALIZATION, emptySet);
     }
 
-    public static void writeEmojiRecentCount(final SharedPreferences prefs, final int c) {
-        prefs.edit().putInt(PREF_EMOJI_RECENT_KEYS, c).apply();
+    public static void writeEmojiRecentKeys(final SharedPreferences prefs, String str) {
+        prefs.edit().putString(PREF_EMOJI_RECENT_KEYS, str).apply();
     }
 
-    public static int readEmojiRecentCount(final SharedPreferences prefs) {
-        return prefs.getInt(PREF_EMOJI_RECENT_KEYS, 0);
+    public static String readEmojiRecentKeys(final SharedPreferences prefs) {
+        return prefs.getString(PREF_EMOJI_RECENT_KEYS, "");
     }
 
     public static void writeLastTypedEmojiCategoryPageId(
@@ -534,16 +531,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
     }
-    public static boolean readEmojiUsageFrequencyEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_EMOJI_USAGE_FREQ, true);
-    }
-    private void checkLegacyEmojiRecentKeys(final SharedPreferences prefs) {
-        try {
-            prefs.getInt(PREF_EMOJI_RECENT_KEYS, 0);
-        } catch (ClassCastException e) {
-            prefs.edit().remove(PREF_EMOJI_RECENT_KEYS).apply();
-        }
-    }
+
     public static Locale getSecondaryLocale(final SharedPreferences prefs, final String mainLocaleString) {
         final Set<String> encodedLocales = prefs.getStringSet(PREF_SECONDARY_LOCALES, new HashSet<>());
         for (String loc : encodedLocales) {

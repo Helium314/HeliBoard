@@ -49,7 +49,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
-import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
@@ -65,8 +65,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
-import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView;
-import org.dslul.openboard.inputmethod.keyboard.emoji.RecentEmoji;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -235,7 +233,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         private static final int MSG_RESUME_SUGGESTIONS_FOR_START_INPUT = 10;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 11;
         private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 12;
-        private static final int MSG_UPDATE_RECENT_EMOJIS = 13;
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
 
@@ -336,16 +333,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     break;
                 case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
                     @SuppressWarnings("unchecked")
-                    final List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
+                    List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
                     latinIme.mClipboardHistoryManager.onPinnedClipsAvailable(entries);
-                    break;
-                case MSG_UPDATE_RECENT_EMOJIS:
-                    final EmojiPalettesView emojiPalettesView = switcher.getEmojiPalettesView();
-                    if (emojiPalettesView != null) {
-                        @SuppressWarnings("unchecked")
-                        final SparseArray<RecentEmoji> array = (SparseArray<RecentEmoji>) msg.obj;
-                        emojiPalettesView.onRecentEmojisAvailable(array);
-                    }
                     break;
             }
         }
@@ -472,9 +461,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         public void postUpdateClipboardPinnedClips(final List<ClipboardHistoryEntry> clips) {
             obtainMessage(MSG_UPDATE_CLIPBOARD_PINNED_CLIPS, clips).sendToTarget();
         }
-        public void postUpdateRecentEmojis(@NonNull final SparseArray<RecentEmoji> array) {
-            obtainMessage(MSG_UPDATE_RECENT_EMOJIS, array).sendToTarget();
-        }
+
         // Working variables for the following methods.
         private boolean mIsOrientationChanging;
         private boolean mPendingSuccessiveImsCallback;

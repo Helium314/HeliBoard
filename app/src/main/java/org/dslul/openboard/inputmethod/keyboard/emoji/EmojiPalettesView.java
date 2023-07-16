@@ -22,7 +22,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,7 +33,10 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import org.dslul.openboard.inputmethod.compat.TabHostCompat;
@@ -46,13 +48,14 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
-import org.dslul.openboard.inputmethod.latin.LatinIME;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
+
 import org.jetbrains.annotations.NotNull;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.NOT_A_COORDINATE;
@@ -124,7 +127,8 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);
-        mEmojiCategory = new EmojiCategory(context, layoutSet, emojiPalettesViewAttr);
+        mEmojiCategory = new EmojiCategory(DeviceProtectedUtils.getSharedPreferences(context),
+                res, layoutSet, emojiPalettesViewAttr);
         mCategoryIndicatorEnabled = emojiPalettesViewAttr.getBoolean(
                 R.styleable.EmojiPalettesView_categoryIndicatorEnabled, false);
         mCategoryIndicatorDrawableResId = emojiPalettesViewAttr.getResourceId(
@@ -193,7 +197,7 @@ public final class EmojiPalettesView extends LinearLayout
             tabWidget.setRightStripDrawable(mCategoryIndicatorBackgroundResId);
         }
 
-        mEmojiPalettesAdapter = new EmojiPalettesAdapter(mEmojiCategory, mEmojiLayoutManager, this);
+        mEmojiPalettesAdapter = new EmojiPalettesAdapter(mEmojiCategory, this);
 
         mEmojiRecyclerView = findViewById(R.id.emoji_keyboard_list);
         mEmojiRecyclerView.setLayoutManager(mEmojiLayoutManager);
@@ -249,8 +253,8 @@ public final class EmojiPalettesView extends LinearLayout
         mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
         mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
         mDeleteKey.setTag(Constants.CODE_DELETE);
-        mDeleteKey.setOnTouchListener(this);
-        mDeleteKey.setOnClickListener(this);
+        mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
+
         // {@link #mAlphabetKeyLeft} and spaceKey depend on
         // {@link View.OnClickListener} as well as {@link View.OnTouchListener}.
         // {@link View.OnTouchListener} is used as the trigger of key-press, while
@@ -368,14 +372,7 @@ public final class EmojiPalettesView extends LinearLayout
      */
     @Override
     public void onReleaseKey(final Key key) {
-        if (mEmojiCategory.isInRecentTab()) {
-            // Needs to save pending updates for recent keys when we get out of the recents
-            // category because we don't want to move the recent emojis around while the user
-            // is in the recents category.
-            mEmojiCategory.getRecentEmojiKeyboard().notifyEmojiUsedPending(key);
-        } else {
-            mEmojiCategory.getRecentEmojiKeyboard().notifyEmojiUsed(key);
-        }
+        mEmojiPalettesAdapter.addRecentKey(key);
         mEmojiCategory.saveLastTypedCategoryPage();
         final int code = key.getCode();
         if (code == Constants.CODE_OUTPUT_TEXT) {
@@ -425,19 +422,12 @@ public final class EmojiPalettesView extends LinearLayout
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
                     true /* force */);
         }
-        mEmojiCategory.getRecentEmojiKeyboard().setListener(mOnRecentEmojiChangedListener);
     }
 
     public void stopEmojiPalettes() {
-        if (mEmojiCategory.isInRecentTab()) {
-            mEmojiCategory.getRecentEmojiKeyboard().applyPendingChanges();
-        }
-        mEmojiCategory.getRecentEmojiKeyboard().setListener(null);
         mEmojiPalettesAdapter.releaseCurrentKey(true /* withKeyRegistering */);
+        mEmojiPalettesAdapter.flushPendingRecentKeys();
         mEmojiRecyclerView.setAdapter(null);
-    }
-    public void setUiHandler(final LatinIME.UIHandler handler) {
-        mEmojiCategory.getRecentEmojiKeyboard().loadRecentEmojis(handler);
     }
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
@@ -460,7 +450,10 @@ public final class EmojiPalettesView extends LinearLayout
         final int oldCategoryPageId = mEmojiCategory.getCurrentCategoryPageId();
 
         if (oldCategoryId == EmojiCategory.ID_RECENTS && categoryId != EmojiCategory.ID_RECENTS) {
-            mEmojiCategory.getRecentEmojiKeyboard().applyPendingChanges();
+            // Needs to save pending updates for recent keys when we get out of the recents
+            // category because we don't want to move the recent emojis around while the user
+            // is in the recents category.
+            mEmojiPalettesAdapter.flushPendingRecentKeys();
         }
 
         if (force || oldCategoryId != categoryId || oldCategoryPageId != categoryPageId) {
@@ -475,18 +468,6 @@ public final class EmojiPalettesView extends LinearLayout
             mTabHost.setCurrentTab(newTabId);
         }
     }
-    public void onRecentEmojisAvailable(SparseArray<RecentEmoji> recentEmojis) {
-        mEmojiCategory.getRecentEmojiKeyboard().onRecentEmojisAvailable(recentEmojis);
-    }
-
-    private final RecentEmojiKeyboard.OnRecentEmojiChangedListener mOnRecentEmojiChangedListener = new RecentEmojiKeyboard.OnRecentEmojiChangedListener() {
-        @Override
-        public void onRecentEmojiChanged() {
-            if (mEmojiCategory.isInRecentTab()) {
-                mEmojiPalettesAdapter.invalidateVisibleKeyboardViews();
-            }
-        }
-    };
 
     private static class DeleteKeyOnTouchListener implements OnTouchListener {
         private KeyboardActionListener mKeyboardActionListener =

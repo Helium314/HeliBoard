@@ -21,26 +21,57 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardView;
 import org.dslul.openboard.inputmethod.latin.R;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapter.ViewHolder>{
     private static final String TAG = EmojiPalettesAdapter.class.getSimpleName();
     private static final boolean DEBUG_PAGER = false;
 
     private final OnKeyEventListener mListener;
+    private final DynamicGridKeyboard mRecentsKeyboard;
     private final SparseArray<EmojiPageKeyboardView> mActiveKeyboardViews = new SparseArray<>();
     private final EmojiCategory mEmojiCategory;
-    private final LinearLayoutManager mLayoutManager;
+    private int mActivePosition = 0;
 
-    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, final LinearLayoutManager layoutManager,
+    public EmojiPalettesAdapter(final EmojiCategory emojiCategory,
             final OnKeyEventListener listener) {
         mEmojiCategory = emojiCategory;
-        mLayoutManager = layoutManager;
         mListener = listener;
+        mRecentsKeyboard = mEmojiCategory.getKeyboard(EmojiCategory.ID_RECENTS, 0);
+    }
+
+    public void flushPendingRecentKeys() {
+        mRecentsKeyboard.flushPendingRecentKeys();
+        final KeyboardView recentKeyboardView =
+                mActiveKeyboardViews.get(mEmojiCategory.getRecentTabId());
+        if (recentKeyboardView != null) {
+            recentKeyboardView.invalidateAllKeys();
+        }
+    }
+
+    public void addRecentKey(final Key key) {
+        if (Settings.getInstance().getCurrent().mIncognitoModeEnabled) {
+            // We do not want to log recent keys while being in incognito
+            return;
+        }
+        if (mEmojiCategory.isInRecentTab()) {
+            mRecentsKeyboard.addPendingKey(key);
+            return;
+        }
+        mRecentsKeyboard.addKeyFirst(key);
+        final KeyboardView recentKeyboardView =
+                mActiveKeyboardViews.get(mEmojiCategory.getRecentTabId());
+        if (recentKeyboardView != null) {
+            recentKeyboardView.invalidateAllKeys();
+        }
     }
 
     public void onPageScrolled() {
@@ -50,28 +81,12 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     public void releaseCurrentKey(final boolean withKeyRegistering) {
         // Make sure the delayed key-down event (highlight effect and haptic feedback) will be
         // canceled.
-        final int first = mLayoutManager.findFirstVisibleItemPosition();
-        final int last = mLayoutManager.findLastVisibleItemPosition();
-        if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION || last < first) {
+        final EmojiPageKeyboardView currentKeyboardView =
+                mActiveKeyboardViews.get(mActivePosition);
+        if (currentKeyboardView == null) {
             return;
         }
-        for (int i = first; i <= last; i++) {
-            final EmojiPageKeyboardView keyboardView = mActiveKeyboardViews.get(i);
-            keyboardView.releaseCurrentKey(withKeyRegistering);
-        }
-    }
-
-    public void invalidateVisibleKeyboardViews() {
-        final int first = mLayoutManager.findFirstVisibleItemPosition();
-        final int last = mLayoutManager.findLastVisibleItemPosition();
-        if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION || last < first) {
-            return;
-        }
-        for (int i = first; i <= last; i++) {
-            final EmojiPageKeyboardView keyboardView = mActiveKeyboardViews.get(i);
-            keyboardView.invalidateAllKeys();
-            keyboardView.requestLayout();
-        }
+        currentKeyboardView.releaseCurrentKey(withKeyRegistering);
     }
 
 /*

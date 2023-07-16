@@ -511,9 +511,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public MainKeyboardView getMainKeyboardView() {
         return mKeyboardView;
     }
-    public EmojiPalettesView getEmojiPalettesView() {
-        return mEmojiPalettesView;
-    }
+
     public void deallocateMemory() {
         if (mKeyboardView != null) {
             mKeyboardView.cancelAllOngoingEvents();
@@ -547,7 +545,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardView.setKeyboardActionListener(mLatinIME);
         mEmojiPalettesView.setHardwareAcceleratedDrawingEnabled(
                 isHardwareAcceleratedDrawingEnabled);
-        mEmojiPalettesView.setUiHandler(mLatinIME.mHandler);
         mEmojiPalettesView.setKeyboardActionListener(mLatinIME);
         mClipboardHistoryView.setHardwareAcceleratedDrawingEnabled(
                 isHardwareAcceleratedDrawingEnabled);
