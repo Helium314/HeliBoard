@@ -20,6 +20,8 @@
 
 <KeyboardLayoutSet
     xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <Feature
+        latin:supportedScript="bengali" />
     <Element
         latin:elementName="alphabet"
         latin:elementKeyboard="@xml/kbd_bengali_unijoy"
