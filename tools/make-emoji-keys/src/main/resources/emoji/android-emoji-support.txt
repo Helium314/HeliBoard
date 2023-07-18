@@ -15,6 +15,39 @@
 # releasing new emojis through its Noto font, it might be more complicated to
 # keep track of new additions though Noto font.
 
+@33 # Below emojis are supported from Android 13 (API level 33)
+U+1FAE8 # shaking Face
+U+1FA77 # pink heart
+U+1FA75 # light blue heart
+U+1FA76 # grey heart
+U+1FAF7 # leftwards pushing hand
+U+1FAF7 1F3FB # leftwards pushing hand: light skin tone
+U+1FAF7 1F3FC # leftwards pushing hand: medium-light skin tone
+U+1FAF7 1F3FD # leftwards pushing hand: medium skin tone
+U+1FAF7 1F3FE # leftwards pushing hand: medium-dark skin tone
+U+1FAF7 1F3FF # leftwards pushing hand: dark skin tone
+U+1FAF8 # rightwards pushing hand
+U+1FAF8 U+1F3FB # rightwards pushing hand: light skin tone
+U+1FAF8 U+1F3FC # rightwards pushing hand: medium-light skin tone
+U+1FAF8 U+1F3FD # rightwards pushing hand: medium skin tone
+U+1FAF8 U+1F3FE # rightwards pushing hand: medium-dark skin tone
+U+1FAF8 U+1F3FF # rightwards pushing hand: dark skin tone
+U+1FACE # moose
+U+1FACF # donkey
+U+1FABD # wing
+U+1F426 U+200D U+2B1B # black bird
+U+1FABF # goose
+U+1FABC # jellyfish
+U+1FABB # hyacinth
+U+1FADA # ginger root
+U+1FADB # pea pod
+U+1FAAD # folding hand fan
+U+1FAAE # hair pick
+U+1FA87 # maracas
+U+1FA88 # flute
+U+1FAAF # khanda
+U+1F6DC # wireless
+# Above emojis are supported from Android 13 (API level 33)
 
 @32 # Below emojis are supported from Android 12l (API level 32)
 U+1FAE0 # melting face
