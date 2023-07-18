@@ -25,13 +25,13 @@
     <dimen name="config_key_hysteresis_distance">8.0dp</dimen>
 
     <!-- Amount of width reduction in one-handed mode -->
-    <fraction name="config_one_handed_mode_width">85%</fraction>
+    <fraction name="config_one_handed_mode_width">86%</fraction>
 
     <!-- Preferable keyboard height in absolute scale: 1.285in -->
     <!-- This config_default_keyboard_height value should match with keyboard-heights.xml -->
     <dimen name="config_default_keyboard_height">205.6dp</dimen>
     <fraction name="config_max_keyboard_height">46%p</fraction>
-    <fraction name="config_min_keyboard_height">-65%p</fraction>
+    <fraction name="config_min_keyboard_height">-61.8%p</fraction>
 
     <dimen name="config_more_keys_keyboard_key_height">52.8dp</dimen>
     <!-- Amount of allowance for selecting keys in a mini popup keyboard by sliding finger. -->
@@ -41,17 +41,17 @@
 
     <fraction name="config_keyboard_top_padding_holo">2.335%p</fraction>
     <fraction name="config_keyboard_bottom_padding_holo">4.669%p</fraction>
-    <fraction name="config_key_vertical_gap_holo">3%p</fraction>
-    <fraction name="config_key_horizontal_gap_holo">1.089%p</fraction>
+    <fraction name="config_key_vertical_gap_holo">6.127%p</fraction>
+    <fraction name="config_key_horizontal_gap_holo">1.739%p</fraction>
     <!-- config_more_keys_keyboard_key_height x -0.5 -->
     <dimen name="config_more_keys_keyboard_vertical_correction_holo">-26.4dp</dimen>
     <dimen name="config_key_preview_offset_holo">40.0dp</dimen>
     <dimen name="config_key_preview_height_holo">80dp</dimen>
     <dimen name="config_key_preview_offset_lxx">0dp</dimen>
     <dimen name="config_key_preview_height_lxx">111dp</dimen>
-    <fraction name="config_key_preview_text_ratio">70%</fraction>
-    <fraction name="config_key_letter_ratio_holo">50%</fraction>
-    <fraction name="config_key_letter_ratio_lxx">50%</fraction>
+    <fraction name="config_key_preview_text_ratio">82%</fraction>
+    <fraction name="config_key_letter_ratio_holo">55%</fraction>
+    <fraction name="config_key_letter_ratio_lxx">55%</fraction>
     <fraction name="config_key_large_letter_ratio_holo">65%</fraction>
     <fraction name="config_key_large_letter_ratio_lxx">90%</fraction>
     <fraction name="config_key_label_ratio_holo">34%</fraction>
@@ -67,9 +67,9 @@
     <dimen name="config_key_shifted_letter_hint_padding">2dp</dimen>
 
     <!-- For 5-row keyboard -->
-    <fraction name="config_key_vertical_gap_5row">3.527%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">50%</fraction>
-    <fraction name="config_key_shifted_letter_hint_ratio_5row">30%</fraction>
+    <fraction name="config_key_vertical_gap_5row">3.20%p</fraction>
+    <fraction name="config_key_letter_ratio_5row">55%</fraction>
+    <fraction name="config_key_shifted_letter_hint_ratio_5row">41%</fraction>
 
     <dimen name="config_suggestions_strip_height">40dp</dimen>
     <dimen name="config_suggestions_strip_horizontal_margin">36dp</dimen>
@@ -80,7 +80,7 @@
     <dimen name="config_suggestion_min_width">44dp</dimen>
     <dimen name="config_suggestion_text_horizontal_padding">6dp</dimen>
     <dimen name="config_suggestion_text_size">18dp</dimen>
-    <dimen name="config_more_suggestions_hint_text_size">25dp</dimen>
+    <dimen name="config_more_suggestions_hint_text_size">27dp</dimen>
 
     <!-- Gesture floating preview text parameters -->
     <dimen name="config_gesture_floating_preview_text_size">24dp</dimen>
@@ -91,9 +91,9 @@
 
     <!-- Emoji keyboard -->
     <fraction name="config_emoji_keyboard_key_width">12.5%p</fraction>
-    <fraction name="config_emoji_keyboard_row_height">30%p</fraction>
-    <fraction name="config_emoji_keyboard_key_letter_size">60%p</fraction>
-    <fraction name="config_emoji_keyboard_key_label_size">60%p</fraction>
+    <fraction name="config_emoji_keyboard_row_height">28%p</fraction>
+    <fraction name="config_emoji_keyboard_key_letter_size">78%p</fraction>
+    <fraction name="config_emoji_keyboard_key_label_size">78%p</fraction>
     <integer name="config_emoji_keyboard_max_recents_key_count">32</integer>
 
     <!-- Clipboard keyboard -->
