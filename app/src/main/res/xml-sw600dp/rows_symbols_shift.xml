@@ -51,7 +51,7 @@
     >
         <Key
             latin:keyStyle="backFromMoreSymbolKeyStyle"
-            latin:keyWidth="10.0%p" />
+            latin:keyWidth="9.0%p" />
         <include
             latin:keyboardLayout="@xml/rowkeys_symbols_shift3" />
         <!-- U+00A1: "¡" INVERTED EXCLAMATION MARK -->
@@ -70,7 +70,7 @@
     >
         <Key
             latin:keyStyle="toAlphaKeyStyle"
-            latin:keyWidth="10%p" />
+            latin:keyWidth="9%p" />
         <include
             latin:keyboardLayout="@xml/row_symbols_shift4" />
         <include

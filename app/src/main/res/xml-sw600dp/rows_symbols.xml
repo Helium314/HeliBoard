@@ -72,7 +72,7 @@
     >
         <Key
             latin:keyStyle="toMoreSymbolKeyStyle"
-            latin:keyWidth="10.0%p" />
+            latin:keyWidth="9.0%p" />
         <Key
             latin:keySpec="\\" />
         <Key
@@ -89,7 +89,7 @@
     >
         <Key
             latin:keyStyle="toAlphaKeyStyle"
-            latin:keyWidth="10.0%p" />
+            latin:keyWidth="9.0%p" />
         <include
             latin:keyboardLayout="@xml/row_symbols4" />
         <include

@@ -63,7 +63,7 @@
     <fraction name="config_key_shifted_letter_hint_ratio_holo">35%</fraction>
     <fraction name="config_key_shifted_letter_hint_ratio_lxx">35%</fraction>
     <fraction name="config_language_on_spacebar_text_ratio">33.735%</fraction>
-    <dimen name="config_key_hint_letter_padding">1dp</dimen>
+    <dimen name="config_key_hint_letter_padding">4dp</dimen>
     <dimen name="config_key_shifted_letter_hint_padding">2dp</dimen>
 
     <!-- For 5-row keyboard -->

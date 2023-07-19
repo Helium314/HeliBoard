@@ -22,7 +22,7 @@
 <resources>
     <!-- Preferable keyboard height in absolute scale: 48.0mm -->
     <!-- This config_default_keyboard_height value should match with keyboard-heights.xml -->
-    <dimen name="config_default_keyboard_height">302.4dp</dimen>
+    <dimen name="config_default_keyboard_height">320.4dp</dimen>
     <fraction name="config_max_keyboard_height">46%p</fraction>
     <fraction name="config_min_keyboard_height">-35.0%p</fraction>
 
@@ -40,15 +40,15 @@
     <dimen name="config_more_keys_keyboard_slide_allowance">98.3dp</dimen>
 
     <fraction name="config_key_preview_text_ratio">50%</fraction>
-    <fraction name="config_key_letter_ratio_holo">40%</fraction>
-    <fraction name="config_key_letter_ratio_lxx">50%</fraction>
+    <fraction name="config_key_letter_ratio_holo">45%</fraction>
+    <fraction name="config_key_letter_ratio_lxx">45%</fraction>
     <fraction name="config_key_large_letter_ratio_holo">42%</fraction>
     <fraction name="config_key_large_letter_ratio_lxx">60%</fraction>
     <fraction name="config_key_label_ratio_holo">28%</fraction>
     <fraction name="config_key_label_ratio_lxx">32%</fraction>
-    <fraction name="config_key_hint_letter_ratio_holo">23%</fraction>
-    <fraction name="config_key_hint_letter_ratio_lxx">23%</fraction>
-    <fraction name="config_key_hint_label_ratio_holo">28%</fraction>
+    <fraction name="config_key_hint_letter_ratio_holo">25%</fraction>
+    <fraction name="config_key_hint_letter_ratio_lxx">25%</fraction>
+    <fraction name="config_key_hint_label_ratio_holo">20%</fraction>
     <fraction name="config_key_hint_label_ratio_lxx">20%</fraction>
     <fraction name="config_key_shifted_letter_hint_ratio_holo">26%</fraction>
     <fraction name="config_key_shifted_letter_hint_ratio_lxx">26%</fraction>
@@ -58,18 +58,18 @@
 
     <!-- For 5-row keyboard -->
     <fraction name="config_key_vertical_gap_5row">2.95%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">51%</fraction>
-    <fraction name="config_key_shifted_letter_hint_ratio_5row">33%</fraction>
+    <fraction name="config_key_letter_ratio_5row">45%</fraction>
+    <fraction name="config_key_shifted_letter_hint_ratio_5row">26%</fraction>
 
-    <dimen name="config_suggestions_strip_height">44dp</dimen>
+    <dimen name="config_suggestions_strip_height">40dp</dimen>
     <dimen name="config_suggestions_strip_horizontal_margin">100dp</dimen>
     <dimen name="config_suggestions_strip_edge_key_width">54dp</dimen>
-    <dimen name="config_more_suggestions_row_height">44dp</dimen>
+    <dimen name="config_more_suggestions_row_height">40dp</dimen>
     <integer name="config_max_more_suggestions_row">6</integer>
     <fraction name="config_min_more_suggestions_width">90%</fraction>
     <dimen name="config_suggestion_min_width">46dp</dimen>
     <dimen name="config_suggestion_text_horizontal_padding">10dp</dimen>
-    <dimen name="config_suggestion_text_size">22dp</dimen>
+    <dimen name="config_suggestion_text_size">18dp</dimen>
     <dimen name="config_more_suggestions_hint_text_size">33dp</dimen>
 
     <!-- Gesture floating preview text parameters -->
@@ -82,7 +82,7 @@
     <!-- Emoji keyboard -->
     <fraction name="config_emoji_keyboard_key_width">10%p</fraction>
     <fraction name="config_emoji_keyboard_row_height">30%p</fraction>
-    <fraction name="config_emoji_keyboard_key_letter_size">64%p</fraction>
-    <fraction name="config_emoji_keyboard_key_label_size">64%p</fraction>
-    <integer name="config_emoji_keyboard_max_recents_key_count">39</integer>
+    <fraction name="config_emoji_keyboard_key_letter_size">50%p</fraction>
+    <fraction name="config_emoji_keyboard_key_label_size">50%p</fraction>
+    <integer name="config_emoji_keyboard_max_recents_key_count">30</integer>
 </resources>

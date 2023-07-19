@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2015, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="KeyboardTheme.LXX_Light_Purple" parent="KeyboardIcons.LXX_Light">
+        <item name="inputViewStyle">@style/InputView.LXX</item>
+        <item name="keyboardStyle">@style/Keyboard.LXX_Light_Purple</item>
+        <item name="keyboardViewStyle">@style/KeyboardView.LXX_Light_Purple</item>
+        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Light_Purple</item>
+        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Light_Purple</item>
+        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.LXX_Light_Purple</item>
+        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.LXX_Light_Purple</item>
+        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.LXX_Light_Purple</item>
+        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.LXX_Light_Purple.Action</item>
+        <item name="suggestionStripViewStyle">@style/SuggestionStripView.LXX_Light_Purple</item>
+        <item name="suggestionWordStyle">@style/SuggestionWord.LXX_Light_Purple</item>
+    </style>
+    <style
+        name="Keyboard.LXX_Light_Purple"
+        parent="Keyboard"
+    >
+        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
+        <item name="themeId">LXXLightPurple</item>
+    </style>
+    <style
+        name="KeyboardView.LXX_Light_Purple"
+        parent="KeyboardView.LXX"
+    >
+        <item name="android:background">@color/keyboard_background_lxx_light_purple</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_light_purple</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_light_purple</item>
+        <item name="spacebarBackground">@drawable/btn_keyboard_key_functional_lxx_light_purple</item>
+        <item name="keyTextColor">@color/key_text_color_lxx_light</item>
+        <item name="keyTextInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
+        <item name="functionalTextColor">@color/key_functional_text_color_lxx_light</item>
+        <item name="keyHintLetterColor">@color/key_hint_letter_color_lxx_light</item>
+        <item name="keyHintLabelColor">@color/key_text_inactive_color_lxx_light</item>
+        <item name="keyShiftedLetterHintInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
+        <item name="keyShiftedLetterHintActivatedColor">@color/key_text_color_lxx_light</item>
+        <item name="keyPreviewTextColor">@color/key_text_color_lxx_light</item>
+    </style>
+
+    <style
+        name="MainKeyboardView.LXX_Light_Purple"
+        parent="KeyboardView.LXX_Light_Purple"
+    >
+        <item name="moreKeysKeyboardForActionLayout">@layout/more_keys_keyboard_for_action_lxx</item>
+        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_light</item>
+        <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
+        <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
+        <item name="keyPreviewShowUpAnimator">@anim/key_preview_show_up_lxx</item>
+        <item name="keyPreviewDismissAnimator">@anim/key_preview_dismiss_lxx</item>
+        <item name="gestureFloatingPreviewTextColor">@color/auto_correct_color_lxx_light</item>
+        <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_lxx_light</item>
+        <item name="gestureTrailColor">@color/gesture_trail_color_lxx_light</item>
+        <item name="slidingKeyInputPreviewColor">@color/sliding_key_input_preview_color_lxx_light</item>
+        <item name="languageOnSpacebarTextColor">@color/language_on_spacebar_text_color_lxx_light</item>
+        <!-- A negative value to disable text shadow layer. -->
+        <item name="languageOnSpacebarTextShadowRadius">-1.0</item>
+    </style>
+    <!-- Though {@link org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView} doesn't extend
+         {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}, some views inside it, for instance
+         delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
+         attributes. -->
+    <style
+        name="EmojiPalettesView.LXX_Light_Purple"
+        parent="MainKeyboardView.LXX_Light_Purple"
+    >
+        <item name="categoryIndicatorEnabled">false</item>
+        <item name="categoryPageIndicatorColor">@color/highlight_color_lxx_light</item>
+        <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_light_purple</item>
+        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx_light</item>
+        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx_light</item>
+        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx_light</item>
+        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx_light</item>
+        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_lxx_light</item>
+        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_lxx_light</item>
+        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_lxx_light</item>
+        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_lxx_light</item>
+        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_lxx_light</item>
+        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_lxx_light</item>
+        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_lxx_light</item>
+    </style>
+
+    <style
+            name="ClipboardHistoryView.LXX_Light_Purple"
+            parent="MainKeyboardView.LXX_Light_Purple"
+            >
+        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx_light</item>
+        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_lxx_light_purple</item>
+    </style>
+    <!--    ???    -->
+    <style
+        name="MoreKeysKeyboard.LXX_Light_Purple"
+        parent="Keyboard.LXX_Light_Purple"
+    >
+        <item name="keyboardTopPadding">0%p</item>
+        <item name="keyboardBottomPadding">0%p</item>
+        <item name="horizontalGap">0%p</item>
+        <item name="touchPositionCorrectionData">@null</item>
+    </style>
+    <!--    Couleur de fond dans plus de mots suggérés & lettres supplémentaires   -->
+    <style
+        name="MoreKeysKeyboardView.LXX_Light_Purple"
+        parent="KeyboardView.LXX_Light_Purple"
+    >
+        <item name="android:background">@drawable/morekey_background_lxx_light_purple</item>
+        <item name="keyBackground">@drawable/morekey_functional_lxx_light_border_purple</item>
+        <item name="divider">@drawable/more_keys_divider</item>
+        <item name="keyTypeface">normal</item>
+        <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
+    </style>
+    <!--    Couleur de fond touche action    -->
+    <style
+        name="MoreKeysKeyboardView.LXX_Light_Purple.Action"
+        parent="MoreKeysKeyboardView.LXX_Light_Purple"
+    >
+        <item name="android:background">@android:color/transparent</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_action_lxx_light_purple</item>
+        <item name="divider">@null</item>
+        <item name="keyLabelFlags">keepBackgroundAspectRatio</item>
+    </style>
+    <!--    Couleur de fond du bandeau des mots suggérés    -->
+    <style
+        name="SuggestionStripView.LXX_Light_Purple"
+        parent="KeyboardView.LXX_Light_Purple"
+    >
+        <item name="suggestionsCountInStrip">@integer/config_suggestions_count_in_strip</item>
+        <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
+        <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
+        <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
+        <item name="android:background">@drawable/keyboard_suggest_strip_lxx_light_border_purple</item>
+        <item name="android:src">@drawable/suggestions_strip_divider_lxx_light</item>
+        <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
+        <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
+        <item name="colorTypedWord">@color/typed_word_color_lxx_light</item>
+        <item name="colorAutoCorrect">@color/auto_correct_color_lxx_light</item>
+        <item name="colorSuggested">@color/suggested_word_color_lxx_light</item>
+        <item name="alphaObsoleted">70%</item>
+    </style>
+<!--    Couleur de fond des mots suggérés    -->
+    <style
+        name="SuggestionWord.LXX_Light_Purple"
+        parent="SuggestionWord"
+    >
+        <item name="android:background">@drawable/btn_suggestion_lxx_light_purple</item>
+        <item name="android:textColor">@color/highlight_color_lxx_light</item>
+    </style>
+
+</resources>

@@ -34,10 +34,21 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     public static final String THEME_FAMILY_MATERIAL = "Material";
     public static final String THEME_FAMILY_HOLO = "Holo (Legacy)";
+    public static final String THEME_VARIANT_WHITE = "White";
+    public static final String THEME_VARIANT_BLUE_KLP = "Blue";
     public static final String THEME_VARIANT_LIGHT = "Light";
     public static final String THEME_VARIANT_DARK = "Dark";
-    public static final String THEME_VARIANT_WHITE = "White";
-    public static final String THEME_VARIANT_BLUE = "Blue";
+    public static final String THEME_VARIANT_RED = "Red";
+    public static final String THEME_VARIANT_ORANGE = "Orange" ;
+    public static final String THEME_VARIANT_BROWN = "Brown" ;
+    public static final String THEME_VARIANT_GREEN = "Green" ;
+    public static final String THEME_VARIANT_GREY = "Grey" ;
+    public static final String THEME_VARIANT_BLUE_GREY = "Blue Grey" ;
+    public static final String THEME_VARIANT_BLUE = "Blue" ;
+    public static final String THEME_VARIANT_PINK = "Pink" ;
+    public static final String THEME_VARIANT_YELLOW = "Yellow" ;
+    public static final String THEME_VARIANT_PURPLE = "Purple" ;
+    public static final String THEME_VARIANT_INDIGO = "Indigo" ;
     public static final String THEME_VARIANT_USER = "User-defined";
     public static final String THEME_VARIANT_HOLO_USER = "User-defined (Holo)";
 
@@ -46,9 +57,11 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     static {
         THEME_VARIANTS.put(THEME_FAMILY_MATERIAL,
-                new String[] {THEME_VARIANT_LIGHT, THEME_VARIANT_DARK, THEME_VARIANT_USER});
+                new String[] {THEME_VARIANT_DARK, THEME_VARIANT_LIGHT, THEME_VARIANT_BLUE, THEME_VARIANT_BLUE_GREY, THEME_VARIANT_BROWN,
+                        THEME_VARIANT_GREEN, THEME_VARIANT_GREY, THEME_VARIANT_INDIGO, THEME_VARIANT_ORANGE, THEME_VARIANT_PINK, THEME_VARIANT_PURPLE,
+                        THEME_VARIANT_RED, THEME_VARIANT_YELLOW, THEME_VARIANT_USER});
         THEME_VARIANTS.put(THEME_FAMILY_HOLO,
-                new String[] {THEME_VARIANT_WHITE, THEME_VARIANT_BLUE, THEME_VARIANT_HOLO_USER});
+                new String[] {THEME_VARIANT_WHITE, THEME_VARIANT_BLUE_KLP, THEME_VARIANT_HOLO_USER});
     }
 
     private static final String TAG = KeyboardTheme.class.getSimpleName();
@@ -59,18 +72,40 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
     public static final int THEME_ID_ICS = 0;
-    public static final int THEME_ID_KLP = 2;
-    public static final int THEME_ID_KLP_USER = 13;
-    public static final int THEME_ID_LXX_LIGHT = 3;
+    public static final int THEME_ID_KLP = 1;
+    public static final int THEME_ID_KLP_USER = 34;
+    public static final int THEME_ID_LXX_DARK = 2;
+    public static final int THEME_ID_LXX_DARK_BORDER = 3;
     public static final int THEME_ID_LXX_DARK_AMOLED = 4;
-    public static final int THEME_ID_LXX_AUTO_AMOLED = 10;
-    public static final int THEME_ID_LXX_LIGHT_BORDER = 5;
-    public static final int THEME_ID_LXX_DARK_BORDER = 6;
-    public static final int THEME_ID_LXX_DARK = 7;
-    public static final int THEME_ID_LXX_AUTO = 9;
-    public static final int THEME_ID_LXX_AUTO_BORDER = 8;
-    public static final int THEME_ID_LXX_USER = 11;
-    public static final int THEME_ID_LXX_USER_BORDER = 12;
+    public static final int THEME_ID_LXX_AUTO_AMOLED = 5;
+    public static final int THEME_ID_LXX_AUTO = 6;
+    public static final int THEME_ID_LXX_AUTO_BORDER = 7;
+    public static final int THEME_ID_LXX_LIGHT = 8;
+    public static final int THEME_ID_LXX_LIGHT_BORDER = 9;
+    public static final int THEME_ID_LXX_LIGHT_BLUE = 10;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_BLUE = 11;
+    public static final int THEME_ID_LXX_LIGHT_BLUE_GREY = 12;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_BLUE_GREY = 13;
+    public static final int THEME_ID_LXX_LIGHT_BROWN = 14;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_BROWN = 15;
+    public static final int THEME_ID_LXX_LIGHT_GREEN = 16;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_GREEN = 17;
+    public static final int THEME_ID_LXX_LIGHT_GREY = 18;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_GREY = 19;
+    public static final int THEME_ID_LXX_LIGHT_INDIGO = 20;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_INDIGO = 21;
+    public static final int THEME_ID_LXX_LIGHT_ORANGE = 22;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_ORANGE = 23;
+    public static final int THEME_ID_LXX_LIGHT_PINK = 24;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_PINK = 25;
+    public static final int THEME_ID_LXX_LIGHT_PURPLE = 26;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_PURPLE = 27;
+    public static final int THEME_ID_LXX_LIGHT_RED = 28;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_RED = 29;
+    public static final int THEME_ID_LXX_LIGHT_YELLOW = 30;
+    public static final int THEME_ID_LXX_LIGHT_BORDER_YELLOW = 31;
+    public static final int THEME_ID_LXX_USER = 32;
+    public static final int THEME_ID_LXX_USER_BORDER = 33;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_DARK_BORDER;
 
     private static KeyboardTheme[] AVAILABLE_KEYBOARD_THEMES;
@@ -86,6 +121,39 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         new KeyboardTheme(THEME_ID_LXX_LIGHT, "LXXLight", R.style.KeyboardTheme_LXX_Light,
                 // Default theme for LXX.
                 VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BLUE, "LXXLightBlue", R.style.KeyboardTheme_LXX_Light_Blue,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BLUE_GREY, "LXXLightBlueGrey", R.style.KeyboardTheme_LXX_Light_Blue_Grey,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BROWN, "LXXLightBrown", R.style.KeyboardTheme_LXX_Light_Brown,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_GREEN, "LXXLightGreen", R.style.KeyboardTheme_LXX_Light_Green,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_GREY, "LXXLightGrey", R.style.KeyboardTheme_LXX_Light_Grey,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_INDIGO, "LXXLightIndigo", R.style.KeyboardTheme_LXX_Light_Indigo,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_ORANGE, "LXXLightOrange", R.style.KeyboardTheme_LXX_Light_Orange,
+                   // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_PINK, "LXXLightPink", R.style.KeyboardTheme_LXX_Light_Pink,
+                // Default theme for LXX.
+                VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_PURPLE, "LXXLightPurple", R.style.KeyboardTheme_LXX_Light_Purple,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_RED, "LXXLightRed", R.style.KeyboardTheme_LXX_Light_Red,
+                    // Default theme for LXX.
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_YELLOW, "LXXLightYellow", R.style.KeyboardTheme_LXX_Light_Yellow,
+                // Default theme for LXX.
+                VERSION_CODES.BASE),
         new KeyboardTheme(THEME_ID_LXX_DARK, "LXXDark", R.style.KeyboardTheme_LXX_Dark,
                 // This has never been selected as default theme.
                 VERSION_CODES.BASE),
@@ -95,6 +163,39 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER, "LXXLightBorder", R.style.KeyboardTheme_LXX_Light_Border,
                 // This has never been selected as default theme.
                 Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_BLUE, "LXXLightBorderBlue", R.style.KeyboardTheme_LXX_Light_Border_Blue,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_BLUE_GREY, "LXXLightBorderBlueGrey", R.style.KeyboardTheme_LXX_Light_Border_Blue_Grey,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_BROWN, "LXXLightBorderBrown", R.style.KeyboardTheme_LXX_Light_Border_Brown,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_GREEN, "LXXLightBorderGreen", R.style.KeyboardTheme_LXX_Light_Border_Green,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_GREY, "LXXLightBorderGrey", R.style.KeyboardTheme_LXX_Light_Border_Grey,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_INDIGO, "LXXLightBorderIndigo", R.style.KeyboardTheme_LXX_Light_Border_Indigo,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_ORANGE, "LXXLightBorderOrange", R.style.KeyboardTheme_LXX_Light_Border_Orange,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_PINK, "LXXLightBorderPink", R.style.KeyboardTheme_LXX_Light_Border_Pink,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_PURPLE, "LXXLightBorderPurple", R.style.KeyboardTheme_LXX_Light_Border_Purple,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_RED, "LXXLightBorderRed", R.style.KeyboardTheme_LXX_Light_Border_Red,
+                    // This has never been selected as default theme.
+                    Build.VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER_YELLOW, "LXXLightBorderYellow", R.style.KeyboardTheme_LXX_Light_Border_Yellow,
+                    // This has never been selected as default theme.
+                   Build.VERSION_CODES.BASE),
         new KeyboardTheme(THEME_ID_LXX_DARK_BORDER, "LXXDarkBorder", R.style.KeyboardTheme_LXX_Dark_Border,
                 // This has never been selected as default theme.
                 VERSION_CODES.LOLLIPOP),
@@ -264,10 +365,43 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_ID_LXX_LIGHT:
             case THEME_ID_LXX_LIGHT_BORDER:
                 return THEME_VARIANT_LIGHT;
+            case THEME_ID_LXX_LIGHT_BLUE:
+            case THEME_ID_LXX_LIGHT_BORDER_BLUE:
+                return THEME_VARIANT_BLUE;
+            case THEME_ID_LXX_LIGHT_BLUE_GREY:
+            case THEME_ID_LXX_LIGHT_BORDER_BLUE_GREY:
+                return THEME_VARIANT_BLUE_GREY;
+                case THEME_ID_LXX_LIGHT_BROWN:
+            case THEME_ID_LXX_LIGHT_BORDER_BROWN:
+                return THEME_VARIANT_BROWN;
+            case THEME_ID_LXX_LIGHT_GREEN:
+            case THEME_ID_LXX_LIGHT_BORDER_GREEN:
+                return THEME_VARIANT_GREEN;
+            case THEME_ID_LXX_LIGHT_GREY:
+            case THEME_ID_LXX_LIGHT_BORDER_GREY:
+                return THEME_VARIANT_GREY;
+            case THEME_ID_LXX_LIGHT_INDIGO:
+            case THEME_ID_LXX_LIGHT_BORDER_INDIGO:
+                return THEME_VARIANT_INDIGO;
+            case THEME_ID_LXX_LIGHT_ORANGE:
+            case THEME_ID_LXX_LIGHT_BORDER_ORANGE:
+                return THEME_VARIANT_ORANGE;
+            case THEME_ID_LXX_LIGHT_PINK:
+            case THEME_ID_LXX_LIGHT_BORDER_PINK:
+                return THEME_VARIANT_PINK;
+            case THEME_ID_LXX_LIGHT_PURPLE:
+            case THEME_ID_LXX_LIGHT_BORDER_PURPLE:
+                return THEME_VARIANT_PURPLE;
+            case THEME_ID_LXX_LIGHT_RED:
+            case THEME_ID_LXX_LIGHT_BORDER_RED:
+                return THEME_VARIANT_RED;
+            case THEME_ID_LXX_LIGHT_YELLOW:
+            case THEME_ID_LXX_LIGHT_BORDER_YELLOW:
+                return THEME_VARIANT_YELLOW;
             case THEME_ID_KLP:
                 return THEME_VARIANT_WHITE;
             case THEME_ID_ICS:
-                return THEME_VARIANT_BLUE;
+                return THEME_VARIANT_BLUE_KLP;
             case THEME_ID_LXX_USER:
             case THEME_ID_LXX_USER_BORDER:
                 return THEME_VARIANT_USER;
@@ -282,6 +416,17 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         switch (themeId) {
             case THEME_ID_LXX_DARK_BORDER:
             case THEME_ID_LXX_LIGHT_BORDER:
+            case THEME_ID_LXX_LIGHT_BORDER_BLUE:
+            case THEME_ID_LXX_LIGHT_BORDER_BLUE_GREY:
+            case THEME_ID_LXX_LIGHT_BORDER_BROWN:
+            case THEME_ID_LXX_LIGHT_BORDER_GREEN:
+            case THEME_ID_LXX_LIGHT_BORDER_GREY:
+            case THEME_ID_LXX_LIGHT_BORDER_INDIGO:
+            case THEME_ID_LXX_LIGHT_BORDER_ORANGE:
+            case THEME_ID_LXX_LIGHT_BORDER_PINK:
+            case THEME_ID_LXX_LIGHT_BORDER_PURPLE:
+            case THEME_ID_LXX_LIGHT_BORDER_RED:
+            case THEME_ID_LXX_LIGHT_BORDER_YELLOW:
             case THEME_ID_LXX_AUTO_BORDER:
             case THEME_ID_LXX_USER_BORDER:
             case THEME_ID_ICS:
@@ -327,7 +472,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static int getThemeForParameters(String family, String variant,
             boolean keyBorders, boolean dayNight, boolean amoledMode) {
         if (THEME_FAMILY_HOLO.equals(family)) {
-            if (THEME_VARIANT_BLUE.equals(variant)) return THEME_ID_ICS;
+            if (THEME_VARIANT_BLUE_KLP.equals(variant)) return THEME_ID_ICS;
             if (THEME_VARIANT_HOLO_USER.equals(variant)) return THEME_ID_KLP_USER;
             return THEME_ID_KLP;
         }
@@ -340,6 +485,50 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             if (keyBorders) return THEME_ID_LXX_DARK_BORDER;
             if (amoledMode) return THEME_ID_LXX_DARK_AMOLED;
             return THEME_ID_LXX_DARK;
+        }
+        if (THEME_VARIANT_BLUE.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_BLUE;
+            return THEME_ID_LXX_LIGHT_BLUE;
+        }
+        if (THEME_VARIANT_BLUE_GREY.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_BLUE_GREY;
+            return THEME_ID_LXX_LIGHT_BLUE_GREY;
+        }
+        if (THEME_VARIANT_BROWN.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_BROWN;
+            return THEME_ID_LXX_LIGHT_BROWN;
+        }
+        if (THEME_VARIANT_GREEN.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_GREEN;
+            return THEME_ID_LXX_LIGHT_GREEN;
+        }
+        if (THEME_VARIANT_GREY.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_GREY;
+            return THEME_ID_LXX_LIGHT_GREY;
+        }
+        if (THEME_VARIANT_INDIGO.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_INDIGO;
+            return THEME_ID_LXX_LIGHT_INDIGO;
+        }
+        if (THEME_VARIANT_ORANGE.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_ORANGE;
+            return THEME_ID_LXX_LIGHT_ORANGE;
+        }
+        if (THEME_VARIANT_PINK.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_PINK;
+            return THEME_ID_LXX_LIGHT_PINK;
+        }
+        if (THEME_VARIANT_PURPLE.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_PURPLE;
+            return THEME_ID_LXX_LIGHT_PURPLE;
+        }
+        if (THEME_VARIANT_RED.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_RED;
+            return THEME_ID_LXX_LIGHT_RED;
+        }
+        if (THEME_VARIANT_YELLOW.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER_YELLOW;
+            return THEME_ID_LXX_LIGHT_YELLOW;
         }
         if (THEME_VARIANT_USER.equals(variant)) {
             if (keyBorders) return THEME_ID_LXX_USER_BORDER;

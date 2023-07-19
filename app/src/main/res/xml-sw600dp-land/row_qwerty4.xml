@@ -20,18 +20,19 @@
 
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
->
+    >
     <switch>
         <!-- Split the 4th row for split layouts -->
         <case
             latin:isSplitLayout="true"
-        >
+            latin:languageSwitchKeyEnabled="true">
             <Row
-                latin:keyWidth="7.0%p"
+                latin:keyWidth="9.0%p"
                 latin:backgroundType="functional"
-            >
+                >
                 <Key
-                    latin:keyStyle="toSymbolKeyStyle" />
+                    latin:keyStyle="toSymbolKeyStyle"
+                    latin:keyWidth="9.0%p"/>
                 <include
                     latin:keyboardLayout="@xml/key_comma" />
                 <!-- Space key. -->
@@ -39,10 +40,38 @@
                     latin:keyboardLayout="@xml/key_space_3kw"
                     latin:backgroundType="normal" />
                 <Spacer
-                    latin:keyWidth="28.0%p" />
+                    latin:keyWidth="20%p" />
                 <Key
                     latin:keyStyle="spaceKeyStyle"
-                    latin:keyWidth="21.0%p" />
+                    latin:keyWidth="18.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/key_period" />
+                <include
+                    latin:keyboardLayout="@xml/key_emoji" />
+            </Row>
+        </case>
+
+        <case
+            latin:isSplitLayout="true"
+            latin:languageSwitchKeyEnabled="false">
+            <Row
+                latin:keyWidth="9.0%p"
+                latin:backgroundType="functional"
+                >
+                <Key
+                    latin:keyStyle="toSymbolKeyStyle"
+                    latin:keyWidth="9.0%p"/>
+                <include
+                    latin:keyboardLayout="@xml/key_comma" />
+                <!-- Space key. -->
+                <include
+                    latin:keyboardLayout="@xml/key_space_3kw"
+                    latin:backgroundType="normal" />
+                <Spacer
+                    latin:keyWidth="19%p" />
+                <Key
+                    latin:keyStyle="spaceKeyStyle"
+                    latin:keyWidth="22.0%p" />
                 <include
                     latin:keyboardLayout="@xml/key_period" />
                 <include
@@ -53,15 +82,14 @@
             <Row
                 latin:keyWidth="9.0%p"
                 latin:backgroundType="functional"
-            >
+                >
                 <Key
-                    latin:keyStyle="toSymbolKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyStyle="toSymbolKeyStyle" />
                 <include
                     latin:keyboardLayout="@xml/key_comma" />
                 <!-- Space key. -->
                 <include
-                    latin:keyXPos="19.0%p"
+                    latin:keyXPos="18.0%p"
                     latin:keyboardLayout="@xml/key_space_7kw"
                     latin:backgroundType="normal" />
                 <include

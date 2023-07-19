@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
@@ -2018,7 +2020,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
-    private void setNavigationBarColor() {
+/*    private void setNavigationBarColor() {
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mNavBarColor)
             return;
@@ -2044,6 +2046,50 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         } else {
             view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
+    }*/
+
+    private void setNavigationBarColor() {
+        final SettingsValues settingsValues = mSettings.getCurrent();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && !settingsValues.mNavBarColor)
+                return;
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final int keyboardColor = Settings.readKeyboardColor(prefs, this);
+        final int color;
+
+            if (settingsValues.mUserTheme) {
+                final int c = settingsValues.mBackgroundColor;
+                // slightly adjust so color is same as keyboard background
+                color = Color.rgb((int) (Color.red(c) * 0.925), (int) (Color.green(c) * 0.9379), (int) (Color.blue(c) * 0.945));
+            } else {
+                color = keyboardColor;
+            }
+
+        final Window window = getWindow().getWindow();
+            if (window == null) {
+                return;
+        }
+            if (settingsValues.mUserTheme) {
+                mOriginalNavBarColor = window.getNavigationBarColor();
+                window.setNavigationBarColor(color);
+            } else {
+                mOriginalNavBarColor = window.getNavigationBarColor();
+                window.setNavigationBarColor(keyboardColor);
+            }
+
+        final View view = window.getDecorView();
+        mOriginalNavBarFlags = view.getSystemUiVisibility();
+
+            if (isBrightColor(color) || isBrightColor(keyboardColor)) {
+                 view.setSystemUiVisibility(mOriginalNavBarFlags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            } else {
+                 view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            }
+/*            if (isBrightColor(keyboardColor)) {
+                view.setSystemUiVisibility(mOriginalNavBarFlags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            } else {
+                view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            }*/
     }
 
     private void clearNavigationBarColor() {

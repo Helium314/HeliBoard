@@ -61,7 +61,7 @@
         name="EmojiPalettesView.LXX_Dark_Amoled"
         parent="EmojiPalettesView.LXX_Dark"
     >
-        <item name="categoryPageIndicatorBackground">@android:color/transparent</item>
+        <item name="categoryPageIndicatorBackground">@color/background_amoled_dark</item>
         <item name="android:background">@color/background_amoled_black</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_dark_amoled</item>
     </style>

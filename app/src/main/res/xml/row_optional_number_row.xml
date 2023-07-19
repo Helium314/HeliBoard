@@ -5,6 +5,22 @@
     <switch>
         <case
             latin:numberRowEnabled="true"
+            latin:isSplitLayout="true"
+            >
+            <Row
+                latin:keyWidth="8%p"
+                >
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_symbols1_left1" />
+                <Spacer
+                    latin:keyWidth="20.0%p" />
+                <include
+                    latin:keyboardLayout="@xml/rowkeys_symbols1_right1" />
+            </Row>
+        </case>
+        <case
+            latin:numberRowEnabled="true"
+            latin:isSplitLayout="false"
             >
             <Row
                 latin:keyWidth="10%p"

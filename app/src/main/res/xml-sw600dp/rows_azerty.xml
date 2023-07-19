@@ -92,12 +92,12 @@
             latin:isSplitLayout="true">
             <Key
                 latin:keyStyle="shiftKeyStyle"
-                latin:keyWidth="10.0%p" />
+                latin:keyWidth="9.0%p" />
             <include
                 latin:keyboardLayout="@xml/rowkeys_azerty3_left4"
                 latin:keyWidth="8.0%p" />
             <Spacer
-                latin:keyWidth="8.0%p" />
+                latin:keyWidth="9.0%p" />
             <include
                 latin:keyboardLayout="@xml/rowkeys_azerty3_right3"
                 latin:keyWidth="8.0%p" />
@@ -106,13 +106,13 @@
                 latin:keyWidth="8.0%p" />
             <Key
                 latin:keyStyle="shiftKeyStyle"
-                latin:keyWidth="10.0%p" />
+                latin:keyWidth="fillRight" />
         </case>
         <!-- Regular layout for the third row -->
         <default>
             <Key
                 latin:keyStyle="shiftKeyStyle"
-                latin:keyWidth="10.0%p"/>
+                latin:keyWidth="9.0%p"/>
             <include
                 latin:keyboardLayout="@xml/rowkeys_azerty3"
                 latin:keyWidth="9.0%p"/>

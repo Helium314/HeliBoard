@@ -42,7 +42,7 @@
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="deleteKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="fillRight" />
             </case>
             <!-- Regular layout for the first row -->
             <default>
@@ -67,19 +67,19 @@
                     latin:keyXPos="4.0%p"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="23.0%p" />
+                    latin:keyWidth="12.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty2_right5"
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="enterKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="fillRight" />
             </case>
             <!-- Regular layout for the second row -->
             <default>
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty2"
-                    latin:keyXPos="4.5%p"
+                    latin:keyXPos="0%p"
                     latin:keyWidth="9.0%p" />
                 <Key
                     latin:keyStyle="enterKeyStyle"
@@ -96,12 +96,12 @@
             >
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty3_left4"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="17.0%p" />
+                    latin:keyWidth="18.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty3_right3"
                     latin:keyWidth="7.0%p" />
@@ -110,13 +110,13 @@
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="fillRight" />
             </case>
             <!-- Regular layout for the third row -->
             <default>
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty3"
                     latin:keyWidth="9.0%p" />

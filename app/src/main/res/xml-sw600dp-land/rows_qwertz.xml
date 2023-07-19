@@ -67,13 +67,13 @@
                     latin:keyXPos="4.0%p"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="23.0%p" />
+                    latin:keyWidth="20.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_qwertz2_right4"
                     latin:keyWidth="7.0%p" />
                 <Key
                     latin:keyStyle="enterKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="fillRight" />
             </case>
             <!-- Regular layout for the second row -->
             <default>
@@ -96,12 +96,12 @@
             >
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_qwertz3_left4"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="17.0%p" />
+                    latin:keyWidth="18.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_qwertz3_right3"
                     latin:keyWidth="7.0%p" />
@@ -116,7 +116,7 @@
             <default>
                 <Key
                     latin:keyStyle="shiftKeyStyle"
-                    latin:keyWidth="10.0%p" />
+                    latin:keyWidth="9.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_qwertz3"
                     latin:keyWidth="9.0%p" />

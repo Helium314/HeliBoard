@@ -35,11 +35,13 @@
     <color name="spacebar_text_shadow_color_holo">#80000000</color>
     <color name="gesture_floating_preview_color_holo">#C0000000</color>
     <color name="emoji_tab_page_indicator_background_holo">#111111</color>
+    <color name="keyboard_background_ics">@android:color/black</color>
     <!-- Color resources for KLP theme. Base color = F0F0F0 -->
     <color name="highlight_color_klp">#FFF0F0F0</color>
     <color name="typed_word_color_klp">#D8F0F0F0</color>
     <color name="suggested_word_color_klp">#B2F0F0F0</color>
     <color name="highlight_translucent_color_klp">#99E0E0E0</color>
+    <color name="keyboard_background_klp">@android:color/black</color>
 
     <!-- Color resources for LXX_Light theme.
          15%:0x26 70%:0xB3 75%:0xC0 80%:0xCC 85%:0xD9 90%:0xE6 -->
@@ -61,6 +63,7 @@
     <color name="suggested_word_background_selected_lxx_light">#2637474F</color>
     <color name="gesture_floating_preview_color_lxx_light">#E6ECEFF1</color>
     <color name="emoji_tab_page_indicator_background_lxx_light">#E4E7E9</color>
+    <color name="keyboard_background_lxx_light">#ECEFF1</color>
     <!-- Color resources for LXX_Light_Border theme.
          15%:0x26 70%:0xB3 75%:0xC0 80%:0xCC 85%:0xD9 90%:0xE6 -->
     <color name="keyboard_background_lxx_light_border">#E8EAED</color>
@@ -90,6 +93,7 @@
     <color name="suggested_word_background_selected_lxx_dark">#1CFFFFFF</color>
     <color name="gesture_floating_preview_color_lxx_dark">#E621272B</color>
     <color name="emoji_tab_page_indicator_background_lxx_dark">#21272B</color>
+    <color name="keyboard_background_lxx_dark">#263238</color>
     <!-- Color resources for LXX_Dark_Border theme.
          15%:0x26 70%:0xB3 75%:0xC0 80%:0xCC 85%:0xD9 90%:0xE6 -->
     <color name="keyboard_background_lxx_dark_border">#0d0d0d</color>
@@ -104,6 +108,226 @@
     <color name="background_amoled_dark">#1A1A1A</color>
 
     <color name="popup_background_material_dark_theme">#ff3c474c</color>
+
+    <!-- Color resources for LXX_Light_Blue theme. -->
+    <color name="keyboard_background_lxx_light_blue">#E3F2FD</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_blue">#BBDEFB</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_blue">#E3F2FD</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_blue">#E3F2FD</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_blue">#BBDEFB</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_blue">#BBDEFB</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Blue theme. -->
+    <color name="key_background_normal_lxx_light_border_blue">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_blue">#BBDEFB</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_blue">#BBDEFB</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_blue">#82B1FF</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_blue">#BBDEFB</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_blue">#42A5F5</color>
+    <color name="action_key_background_pressed_lxx_light_border_blue">#64B5F6</color>
+    <color name="suggested_word_background_selected_lxx_light_blue">#BBDEFB</color>
+    <color name="morekey_normal_lxx_light_blue">#BBDEFB</color>
+    <color name="morekey_pressed_lxx_light_blue">#82B1FF</color>
+
+    <!-- Color resources for LXX_Light_Blue-Grey theme. -->
+    <color name="keyboard_background_lxx_light_blue_grey">#ECEFF1</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_blue_grey">#CFD8DC</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_blue_grey">#ECEFF1</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_blue_grey">#ECEFF1</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_blue_grey">#CFD8DC</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_blue_grey">#CFD8DC</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Blue-Grey theme. -->
+    <color name="key_background_normal_lxx_light_border_blue_grey">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_blue_grey">#CFD8DC</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_blue_grey">#CFD8DC</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_blue_grey">#B0BEC5</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_blue_grey">#CFD8DC</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_blue_grey">#78909C</color>
+    <color name="action_key_background_pressed_lxx_light_border_blue_grey">#90A4AE</color>
+    <color name="suggested_word_background_selected_lxx_light_blue_grey">#CFD8DC</color>
+    <color name="morekey_normal_lxx_light_blue_grey">#CFD8DC</color>
+    <color name="morekey_pressed_lxx_light_blue_grey">#B0BEC5</color>
+
+    <!-- Color resources for LXX_Light_Brown theme. -->
+    <color name="keyboard_background_lxx_light_brown">#EFEBE9</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_brown">#D7CCC8</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_brown">#EFEBE9</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_brown">#EFEBE9</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_brown">#D7CCC8</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_brown">#D7CCC8</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Brown theme. -->
+    <color name="key_background_normal_lxx_light_border_brown">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_brown">#D7CCC8</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_brown">#D7CCC8</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_brown">#BCAAA4</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_brown">#D7CCC8</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_brown">#8D6E63</color>
+    <color name="action_key_background_pressed_lxx_light_border_brown">#A1887F</color>
+    <color name="suggested_word_background_selected_lxx_light_brown">#D7CCC8</color>
+    <color name="morekey_normal_lxx_light_brown">#D7CCC8</color>
+    <color name="morekey_pressed_lxx_light_brown">#BCAAA4</color>
+
+    <!-- Color resources for LXX_Light_Green theme. -->
+    <color name="keyboard_background_lxx_light_green">#E8F5E9</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_green">#C8E6C9</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_green">#E8F5E9</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_green">#E8F5E9</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_green">#C8E6C9</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_green">#C8E6C9</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Green theme. -->
+    <color name="key_background_normal_lxx_light_border_green">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_green">#C8E6C9</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_green">#C8E6C9</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_green">#A5D6A7</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_green">#C8E6C9</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_green">#66BB6A</color>
+    <color name="action_key_background_pressed_lxx_light_border_green">#81C784</color>
+    <color name="suggested_word_background_selected_lxx_light_green">#C8E6C9</color>
+    <color name="morekey_normal_lxx_light_green">#C8E6C9</color>
+    <color name="morekey_pressed_lxx_light_green">#A5D6A7</color>
+
+    <!-- Color resources for LXX_Light_Grey theme. -->
+    <color name="keyboard_background_lxx_light_grey">#FAFAFA</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_grey">#E0E0E0</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_grey">#FAFAFA</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_grey">#FAFAFA</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_grey">#E0E0E0</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_grey">#E0E0E0</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Grey theme. -->
+    <color name="key_background_normal_lxx_light_border_grey">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_grey">#EEEEEE</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_grey">#E0E0E0</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_grey">#BDBDBD</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_grey">#EEEEEE</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_grey">#9E9E9E</color>
+    <color name="action_key_background_pressed_lxx_light_border_grey">#BDBDBD</color>
+    <color name="suggested_word_background_selected_lxx_light_grey">#E0E0E0</color>
+    <color name="morekey_normal_lxx_light_grey">#E0E0E0</color>
+    <color name="morekey_pressed_lxx_light_grey">#BDBDBD</color>
+
+    <!-- Color resources for LXX_Light_Indigo theme. -->
+    <color name="keyboard_background_lxx_light_indigo">#E8EAF6</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_indigo">#C5CAE9</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_indigo">#E8EAF6</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_indigo">#E8EAF6</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_indigo">#C5CAE9</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_indigo">#C5CAE9</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Indigo theme. -->
+    <color name="key_background_normal_lxx_light_border_indigo">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_indigo">#C5CAE9</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_indigo">#C5CAE9</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_indigo">#8C9EFF</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_indigo">#C5CAE9</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_indigo">#5C6BC0</color>
+    <color name="action_key_background_pressed_lxx_light_border_indigo">#7986CB</color>
+    <color name="suggested_word_background_selected_lxx_light_indigo">#C5CAE9</color>
+    <color name="morekey_normal_lxx_light_indigo">#C5CAE9</color>
+    <color name="morekey_pressed_lxx_light_indigo">#8C9EFF</color>
+
+    <!-- Color resources for LXX_Light_Orange theme. -->
+    <color name="keyboard_background_lxx_light_orange">#FFF3E0</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_orange">#FFE0B2</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_orange">#FFF3E0</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_orange">#FFF3E0</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_orange">#FFE0B2</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_orange">#FFE0B2</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Orange theme. -->
+    <color name="key_background_normal_lxx_light_border_orange">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_orange">#FFE0B2</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_orange">#FFE0B2</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_orange">#FFD180</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_orange">#FFE0B2</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_orange">#FFA726</color>
+    <color name="action_key_background_pressed_lxx_light_border_orange">#FFB74D</color>
+    <color name="suggested_word_background_selected_lxx_light_orange">#FFE0B2</color>
+    <color name="morekey_normal_lxx_light_orange">#FFE0B2</color>
+    <color name="morekey_pressed_lxx_light_orange">#FFD180</color>
+
+    <!-- Color resources for LXX_Light_Pink theme. -->
+    <color name="keyboard_background_lxx_light_pink">#FCE4EC</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_pink">#F8BBD0</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_pink">#FCE4EC</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_pink">#FCE4EC</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_pink">#F8BBD0</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_pink">#F8BBD0</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Pink theme. -->
+    <color name="key_background_normal_lxx_light_border_pink">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_pink">#F8BBD0</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_pink">#F8BBD0</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_pink">#FF80AB</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_pink">#F8BBD0</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_pink">#EC407A</color>
+    <color name="action_key_background_pressed_lxx_light_border_pink">#F06292</color>
+    <color name="suggested_word_background_selected_lxx_light_pink">#F8BBD0</color>
+    <color name="morekey_normal_lxx_light_pink">#F8BBD0</color>
+    <color name="morekey_pressed_lxx_light_pink">#FF80AB</color>
+
+    <!-- Color resources for LXX_Light_Purple theme. -->
+    <color name="keyboard_background_lxx_light_purple">#F3E5F5</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_purple">#E1BEE7</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_purple">#F3E5F5</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_purple">#F3E5F5</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_purple">#E1BEE7</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_purple">#E1BEE7</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Purple theme. -->
+    <color name="key_background_normal_lxx_light_border_purple">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_purple">#E1BEE7</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_purple">#E1BEE7</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_purple">#EA80FC</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_purple">#E1BEE7</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_purple">#AB47BC</color>
+    <color name="action_key_background_pressed_lxx_light_border_purple">#BA68C8</color>
+    <color name="suggested_word_background_selected_lxx_light_purple">#E1BEE7</color>
+    <color name="morekey_normal_lxx_light_purple">#E1BEE7</color>
+    <color name="morekey_pressed_lxx_light_purple">#EA80FC</color>
+
+    <!-- Color resources for LXX_Light_Red theme. -->
+    <color name="keyboard_background_lxx_light_red">#FFEBEE</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_red">#FFCDD2</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_red">#FFEBEE</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_red">#FFEBEE</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_red">#FFCDD2</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_red">#FFCDD2</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Red theme. -->
+    <color name="key_background_normal_lxx_light_border_red">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_red">#FFCDD2</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_red">#FFCDD2</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_red">#FF8A80</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_red">#FFCDD2</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_red">#EF5350</color>
+    <color name="action_key_background_pressed_lxx_light_border_red">#E57373</color>
+    <color name="suggested_word_background_selected_lxx_light_red">#FFCDD2</color>
+    <color name="morekey_normal_lxx_light_red">#FFCDD2</color>
+    <color name="morekey_pressed_lxx_light_red">#FF8A80</color>
+
+    <!-- Color resources for LXX_Light_Yellow theme. -->
+    <color name="keyboard_background_lxx_light_yellow">#FFFDE7</color> <!--couleur fond clavier-->
+    <color name="key_background_pressed_lxx_light_yellow">#FFF9C4</color> <!--couleur touche préssée-->
+    <color name="key_background_lxx_light_yellow">#FFFDE7</color> <!--couleur touche-->
+    <color name="key_background_functional_lxx_light_yellow">#FFFDE7</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_yellow">#FFF9C4</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_yellow">#FFF59D</color> <!--couleur bandeau emoji-->
+
+    <!-- Color resources for LXX_Light_Border_Yellow theme. -->
+    <color name="key_background_normal_lxx_light_border_yellow">#FFFFFF</color> <!--couleur touche-->
+    <color name="key_background_pressed_lxx_light_border_yellow">#FFF9C4</color> <!--couleur touche préssée-->
+    <color name="key_background_functional_lxx_light_border_yellow">#FFF9C4</color> <!--couleur touche fonctions-->
+    <color name="key_background_functional_pressed_lxx_light_border_yellow">#FFEE58</color> <!--couleur touche fonctions pressée-->
+    <color name="emoji_tab_page_indicator_background_lxx_light_border_yellow">#FFF9C4</color> <!--couleur bandeau emoji-->
+    <color name="action_key_background_lxx_light_border_yellow">#FFEE58</color>
+    <color name="action_key_background_pressed_lxx_light_border_yellow">#FFF176</color>
+    <color name="suggested_word_background_selected_lxx_light_yellow">#FFF59D</color>
+    <color name="morekey_normal_lxx_light_yellow">#FFF9C4</color>
+    <color name="morekey_pressed_lxx_light_yellow">#FFEE58</color>
 
     <!-- Color resources for setup wizard and tutorial -->
     <color name="setup_background">#FFEBEBEB</color>
