@@ -33,6 +33,7 @@ Changes:
 * Re-arranged comma-long-press-menu, https://github.com/Helium314/openboard/pull/7
 * Make Bengali spell check work, https://github.com/Helium314/openboard/pull/11
 * Fix azerty layout in landscape mode on tablets, https://github.com/openboard-team/openboard/pull/791
+* Improve issues with emoji deletion (still happens with delete gesture), https://github.com/Helium314/openboard/issues/22
 
 Plan / to do:
 * ~upgrade dependencies~

@@ -1,7 +1,7 @@
 This directory contains dictionaries compiled from sentence lists to make use of next-word predictions.
 Currently all word dictionaries are based on word lists available at https://wortschatz.uni-leipzig.de/en/download/ under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
-The emoji dictionary is adapted from [emojilib](https://github.com/muan/emojilib/blob/main/dist/emoji-en-US.json) without further processing. This is a proof of concept, but otherwise is not really usable as there are many suggestions for some words (e.g. `face`), and some will never suggested if the word contains a character the keyboard sees as a break (e.g. `baby_symbol`).
+The emoji dictionary is adapted from [gemoji](https://github.com/github/gemoji/blob/master/db/emoji.json) without further processing.
 
 Dictionaries are created using [`create_wordlist_from_sentences.py`](create_wordlist_from_sentences.py) for `<locale>_wordlist.combined` and [`dicttool_aosp.jar`](https://github.com/remi0s/aosp-dictionary-tools) for creating `.dict` files. See the `example_()` functions in the python script for how to use it. You can simply adjust paths and add your sentence (or word) lists.
 The script is still experimental, rather slow and may produce bad dictionaries in some languages. Some words seem to be wrongly added (e.g. "i" for English), and names are typically missing, though this depends on how exactly you create the Android dictionaries.

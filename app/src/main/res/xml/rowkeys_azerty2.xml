@@ -21,52 +21,10 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
-    <Key
-        latin:keySpec="q"
-        latin:keyHintLabel="\@"
-        latin:additionalMoreKeys="\\@"
-        latin:moreKeys="!text/morekeys_q" />
-    <Key
-        latin:keySpec="s"
-        latin:keyHintLabel="#"
-        latin:additionalMoreKeys="#"
-        latin:moreKeys="!text/morekeys_s" />
-    <Key
-        latin:keySpec="d"
-        latin:keyHintLabel="$"
-        latin:additionalMoreKeys="$"
-        latin:moreKeys="!text/morekeys_d" />
-    <Key
-        latin:keySpec="f"
-        latin:keyHintLabel="%"
-        latin:additionalMoreKeys="%" />
-    <Key
-        latin:keySpec="g"
-        latin:keyHintLabel="&amp;"
-        latin:additionalMoreKeys="&amp;"
-        latin:moreKeys="!text/morekeys_g" />
-    <Key
-        latin:keySpec="h"
-        latin:keyHintLabel="-"
-        latin:additionalMoreKeys="-"
-        latin:moreKeys="!text/morekeys_h" />
-    <Key
-        latin:keySpec="j"
-        latin:keyHintLabel="+"
-        latin:additionalMoreKeys="+"
-        latin:moreKeys="!text/morekeys_j" />
-    <Key
-        latin:keySpec="k"
-        latin:keyHintLabel="("
-        latin:additionalMoreKeys="("
-        latin:moreKeys="!text/morekeys_k" />
-    <Key
-        latin:keySpec="l"
-        latin:keyHintLabel=")"
-        latin:additionalMoreKeys=")"
-        latin:moreKeys="!text/morekeys_l" />
-    <Key
-        latin:keySpec="m"
-        latin:keyHintLabel="\?"
-        latin:additionalMoreKeys="\\?" />
+    <!-- q,s,d,f,g -->
+    <include
+        latin:keyboardLayout="@xml/rowkeys_azerty2_left5" />
+    <!-- h,j,k,l,m -->
+    <include
+        latin:keyboardLayout="@xml/rowkeys_azerty2_right5" />
 </merge>

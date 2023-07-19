@@ -711,4 +711,24 @@ public final class StringUtils {
         }
         return false;
     }
+
+    public static boolean probablyContainsEmoji(String s) {
+        int offset = 0;
+        int length = s.length();
+        while (offset < length) {
+            int c = Character.codePointAt(s, offset);
+            if (probablyIsEmojiCodePoint(c))
+                return true;
+            offset += Character.charCount(c);
+        }
+        return false;
+    }
+
+    // seemingly arbitrary ranges taken from "somewhere on the internet"
+    public static boolean probablyIsEmojiCodePoint(int c) {
+        return (0x200D <= c && c <= 0x3299) // ??
+                || (0x1F004 <= c && c <= 0x1F251) // ??
+                || (0x1F300 <= c && c <= 0x1FFFF) // ??
+                || c == 0xFE0F; // variation selector emoji with color
+    }
 }

@@ -1187,24 +1187,30 @@ public final class InputLogic {
                     }
                     final int lengthToDelete =
                             Character.isSupplementaryCodePoint(codePointBeforeCursor) ? 2 : 1;
-                    mConnection.deleteTextBeforeCursor(lengthToDelete);
-                    int totalDeletedLength = lengthToDelete;
-                    if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
-                        // If this is an accelerated (i.e., double) deletion, then we need to
-                        // consider unlearning here because we may have already reached
-                        // the previous word, and will lose it after next deletion.
-                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
-                                inputTransaction.getMSettingsValues(), currentKeyboardScriptId);
-                        final int codePointBeforeCursorToDeleteAgain =
-                                mConnection.getCodePointBeforeCursor();
-                        if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
-                            final int lengthToDeleteAgain = Character.isSupplementaryCodePoint(
-                                    codePointBeforeCursorToDeleteAgain) ? 2 : 1;
-                            mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
-                            totalDeletedLength += lengthToDeleteAgain;
+                    if (StringUtils.probablyIsEmojiCodePoint(codePointBeforeCursor)) {
+                        // emoji length varies, so we'd need to find out length to delete correctly
+                        // this is not optimal, but a reasonable workaround for issues when trying to delete emojis
+                        sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
+                    } else {
+                        mConnection.deleteTextBeforeCursor(lengthToDelete);
+                        int totalDeletedLength = lengthToDelete;
+                        if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
+                            // If this is an accelerated (i.e., double) deletion, then we need to
+                            // consider unlearning here because we may have already reached
+                            // the previous word, and will lose it after next deletion.
+                            hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
+                                    inputTransaction.getMSettingsValues(), currentKeyboardScriptId);
+                            final int codePointBeforeCursorToDeleteAgain =
+                                    mConnection.getCodePointBeforeCursor();
+                            if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
+                                final int lengthToDeleteAgain = Character.isSupplementaryCodePoint(
+                                        codePointBeforeCursorToDeleteAgain) ? 2 : 1;
+                                mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
+                                totalDeletedLength += lengthToDeleteAgain;
+                            }
                         }
+                        StatsUtils.onBackspacePressed(totalDeletedLength);
                     }
-                    StatsUtils.onBackspacePressed(totalDeletedLength);
                 }
             }
             if (!hasUnlearnedWordBeingDeleted) {
