@@ -21,6 +21,8 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
+    <include
+        latin:keyboardLayout="@xml/key_styles_currency" />
     <!-- U+0444: "ф" CYRILLIC SMALL LETTER EF -->
     <Key
         latin:keySpec="&#x0444;"
@@ -34,8 +36,7 @@
     <!-- U+0432: "в" CYRILLIC SMALL LETTER VE -->
     <Key
         latin:keySpec="&#x0432;"
-        latin:keyHintLabel="$"
-        latin:additionalMoreKeys="$" />
+        latin:keyStyle="currencyHintStyle" />
     <!-- U+0430: "а" CYRILLIC SMALL LETTER A -->
     <Key
         latin:keySpec="&#x0430;"

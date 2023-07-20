@@ -158,6 +158,10 @@
             <key-style
                     latin:styleName="moreCurrency4KeyStyle"
                     latin:keySpec="&#x00A2;" />
+            <key-style
+                    latin:styleName="currencyHintStyle"
+                    latin:keyHintLabel="&#x20B9;"
+                    latin:additionalMoreKeys="&#x20B9;" />
         </case>
         <!-- GB: United Kingdom (Pound) -->
         <case latin:countryCode="GB">
@@ -183,6 +187,10 @@
             <key-style
                     latin:styleName="moreCurrency4KeyStyle"
                     latin:keySpec="&#x00A2;" />
+            <key-style
+                    latin:styleName="currencyHintStyle"
+                    latin:keyHintLabel="&#x00A3;"
+                    latin:additionalMoreKeys="&#x00A3;" />
         </case>
         <!-- ar: Arabic (Dollar and Rial) -->
         <default>

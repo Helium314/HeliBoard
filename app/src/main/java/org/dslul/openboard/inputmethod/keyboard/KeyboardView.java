@@ -40,6 +40,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
@@ -464,7 +465,7 @@ public class KeyboardView extends View {
                     // set key color only if not in emoji keyboard range
                     if (keyboard != null
                             && (this.getClass() == MoreSuggestionsView.class ?
-                                !containsEmoji(key.getLabel()) : // doesn't contain emoji (all can happen in MoreSuggestionsView)
+                                !StringUtils.probablyContainsEmoji(key.getLabel()) : // doesn't contain emoji (all can happen in MoreSuggestionsView)
                                 (keyboard.mId.mElementId < 10 || keyboard.mId.mElementId > 26) // not showing emoji keyboard (no emojis visible on main keyboard otherwise)
                             ))
                         paint.setColorFilter(keyTextColorFilter);
@@ -557,15 +558,6 @@ public class KeyboardView extends View {
         if (key.hasPopupHint() && key.getMoreKeys() != null) {
             drawKeyPopupHint(key, canvas, paint, params);
         }
-    }
-
-    private static boolean containsEmoji(String s) {
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (!(c <= 0xD7FF || (c >= 0xE000 && c <= 0xFFFD) || (c >= 0x10000 && c <= 0x10FFFF)))
-                return true;
-        }
-        return false;
     }
 
     // Draw popup hint "..." at the bottom right corner of the key.

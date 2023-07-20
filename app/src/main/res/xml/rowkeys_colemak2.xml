@@ -21,6 +21,8 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
+    <include
+        latin:keyboardLayout="@xml/key_styles_currency" />
     <Key
         latin:keySpec="a"
         latin:keyHintLabel="\@"
@@ -33,8 +35,7 @@
         latin:moreKeys="!text/morekeys_r" />
     <Key
         latin:keySpec="s"
-        latin:keyHintLabel="$"
-        latin:additionalMoreKeys="$"
+        latin:keyStyle="currencyHintStyle"
         latin:moreKeys="!text/morekeys_s" />
     <Key
         latin:keySpec="t"
