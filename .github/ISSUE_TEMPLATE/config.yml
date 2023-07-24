@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions
+    url: https://github.com/Helium314/OpenBoard/discussions
+    about: For discussions and feedback about this version of OpenBoard, asking questions or talking about ideas which are not yet actionable (i.e. not suitable for an issue).
