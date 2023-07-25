@@ -248,6 +248,8 @@
             <enum name="LXXCustom" value="11" />
             <enum name="LXXCustomBorder" value="12" />
             <enum name="KLPCustom" value="13" />
+            <enum name="LXXBase" value="14" />
+            <enum name="LXXBaseBorder" value="15" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />

@@ -128,6 +128,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             isEnabled = !isLegacyFamily && variant != KeyboardTheme.THEME_VARIANT_LIGHT
                     && !KeyboardTheme.getHasKeyBorders(selectedThemeId)
                     && !KeyboardTheme.getIsCustom(selectedThemeId)
+                    && variant != KeyboardTheme.THEME_VARIANT_BASE
             isChecked = !isLegacyFamily && KeyboardTheme.getIsAmoledMode(selectedThemeId)
         }
         dayNightPref?.apply {
@@ -135,7 +136,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             isChecked = !isLegacyFamily && !KeyboardTheme.getIsCustom(selectedThemeId) && KeyboardTheme.getIsDayNight(selectedThemeId)
         }
         userColorsPref.apply {
-            isEnabled = KeyboardTheme.getIsCustom(selectedThemeId)
+            isEnabled = KeyboardTheme.getIsCustom(selectedThemeId) && variant != KeyboardTheme.THEME_VARIANT_LIGHT
         }
     }
 
