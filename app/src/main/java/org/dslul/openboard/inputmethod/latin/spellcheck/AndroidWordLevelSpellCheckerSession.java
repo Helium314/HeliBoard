@@ -296,16 +296,19 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             // Handle special patterns like email, URI, telephone number.
             final int checkability = getCheckabilityInScript(text, mScript);
             if (CHECKABILITY_CHECKABLE != checkability) {
+                // CHECKABILITY_CONTAINS_PERIOD Typo should not be reported when text is a valid word followed by a single period (end of sentence).
+                boolean periodOnlyAtLastIndex = text.indexOf(Constants.CODE_PERIOD) == (text.length() - 1);
                 if (CHECKABILITY_CONTAINS_PERIOD == checkability) {
                     final String[] splitText = text.split(Constants.REGEXP_PERIOD);
                     boolean allWordsAreValid = true;
+                    // Validate all words on both sides of periods, skip empty tokens due to periods at first/last index
                     for (final String word : splitText) {
-                        if (!mService.isValidWord(mLocale, word)) {
+                        if (!word.isEmpty() && !mService.isValidWord(mLocale, word) && !mService.isValidWord(mLocale, word.toLowerCase(mLocale))) {
                             allWordsAreValid = false;
                             break;
                         }
                     }
-                    if (allWordsAreValid) {
+                    if (allWordsAreValid && !periodOnlyAtLastIndex) {
                         return new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO
                                 | SuggestionsInfo.RESULT_ATTR_HAS_RECOMMENDED_SUGGESTIONS,
                                 new String[] {
@@ -314,8 +317,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                 }
                 return mService.isValidWord(mLocale, text) ?
                         AndroidSpellCheckerService.getInDictEmptySuggestions() :
-                        AndroidSpellCheckerService.getNotInDictEmptySuggestions(
-                                CHECKABILITY_CONTAINS_PERIOD == checkability /* reportAsTypo */);
+                        AndroidSpellCheckerService.getNotInDictEmptySuggestions(!periodOnlyAtLastIndex);
             }
 
             // Handle normal words.
