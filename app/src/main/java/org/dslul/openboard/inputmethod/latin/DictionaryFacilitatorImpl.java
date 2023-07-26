@@ -917,6 +917,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             // this may not be the most efficient way, but getting suggestions is much slower anyway
             for (SuggestedWordInfo info : dictionarySuggestions) {
                 if (!isBlacklisted(info.getWord())) {
+                    // for some reason, user history produces garbage words in batch mode
+                    // this also happens for other dictionaries, but for those the score usually is much lower, so they are less visible
+                    if (composedData.mIsBatchMode && dictType.equals(Dictionary.TYPE_USER_HISTORY) && !dictionary.isInDictionary(info.getWord()))
+                        continue;
                     suggestions.add(info);
                 }
              }
