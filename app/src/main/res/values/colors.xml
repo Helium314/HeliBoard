@@ -116,7 +116,7 @@
     <color name="morekey_normal_lxx_base">@android:color/white</color>
     <color name="morekey_pressed_lxx_base">#F4F4F5</color>
     <color name="suggested_word_background_selected_lxx_base">#F4F4F5</color>
-    <color name="emoji_tab_page_indicator_background_lxx_base">#F4F4F5</color>
+    <color name="emoji_tab_page_indicator_background_lxx_base">@android:color/white</color>
 
     <!-- Color resources for setup wizard and tutorial -->
     <color name="setup_background">#FFEBEBEB</color>

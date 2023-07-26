@@ -97,8 +97,8 @@
         name="MoreKeysKeyboardView.LXX_Base"
         parent="KeyboardView.LXX_Base"
         >
-        <item name="android:background">@drawable/morekey_background_lxx_base</item>
-        <item name="keyBackground">@drawable/morekey_functional_lxx_base</item>
+        <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_base</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_base</item>
         <item name="divider">@drawable/more_keys_divider</item>
         <item name="keyTypeface">normal</item>
         <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
