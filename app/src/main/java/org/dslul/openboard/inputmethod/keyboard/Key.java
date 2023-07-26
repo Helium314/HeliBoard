@@ -1108,7 +1108,7 @@ public class Key implements Comparable<Key> {
             @Nonnull final Drawable functionalKeyBackground,
             @Nonnull final Drawable spacebarBackground) {
         final Drawable background;
-        if (mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL || mBackgroundType == BACKGROUND_TYPE_STICKY_OFF || mBackgroundType == BACKGROUND_TYPE_STICKY_ON) {
+        if (isFunctional()) {
             background = functionalKeyBackground;
         } else if (mBackgroundType == BACKGROUND_TYPE_SPACEBAR) {
             background = spacebarBackground;
@@ -1139,5 +1139,11 @@ public class Key implements Comparable<Key> {
 
     public boolean isPressed() {
         return mPressed;
+    }
+
+    public boolean isFunctional() {
+        return mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL
+                || mBackgroundType == BACKGROUND_TYPE_STICKY_OFF
+                || mBackgroundType == BACKGROUND_TYPE_STICKY_ON;
     }
 }

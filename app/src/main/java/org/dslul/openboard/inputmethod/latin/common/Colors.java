@@ -6,9 +6,9 @@ import android.graphics.ColorFilter;
 
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
+import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
-import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 public class Colors {
 
@@ -22,6 +22,7 @@ public class Colors {
     public final int keyText;
     public final int keyHintText;
     public ColorFilter backgroundFilter;
+    public ColorFilter backgroundPressedFilter;
     public ColorFilter keyBackgroundFilter;
     public ColorFilter keyPressedBackgroundFilter;
     public ColorFilter functionalKeyBackgroundFilter;
@@ -31,6 +32,7 @@ public class Colors {
     public ColorFilter keyTextFilter; // todo: really necessary?
     public ColorFilter keyHintTextFilter; // todo: really? color alone should be sufficient i think... test!
     public ColorFilter accentColorFilter; // todo: really necessary?
+    public ColorFilter accentPressedColorFilter;
     public ColorFilter actionKeyIconColorFilter;
 
     public Colors(int acc, int bg, int k, int fun, int space, int kt, int kht) {
@@ -73,33 +75,41 @@ public class Colors {
 
     public void createColorFilters(final boolean hasKeyBorders) {
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
+        backgroundPressedFilter = isDarkColor(background)
+                // todo: below is not working, but why?
+//                ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(background, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
+                ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.SCREEN)
+                : backgroundFilter;
         if (hasKeyBorders) {
             keyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyBackground, BlendModeCompat.MODULATE);
             functionalKeyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(functionalKey, BlendModeCompat.MODULATE);
             spaceBarFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(spaceBar, BlendModeCompat.MODULATE);
             keyPressedBackgroundFilter = isDarkColor(keyBackground)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyBackground, BlendModeCompat.SCREEN)
+                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(keyBackground, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
                     : keyBackgroundFilter;
             functionalKeyPressedBackgroundFilter = isDarkColor(functionalKey)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(functionalKey, BlendModeCompat.SCREEN)
+                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(functionalKey, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
                     : functionalKeyBackgroundFilter;
             spaceBarPressedFilter = isDarkColor(spaceBar)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(spaceBar, BlendModeCompat.SCREEN)
+                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(spaceBar, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
                     : spaceBarFilter;
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
             keyBackgroundFilter = backgroundFilter;
-            functionalKeyBackgroundFilter = backgroundFilter;
-            spaceBarFilter = backgroundFilter;
-            keyPressedBackgroundFilter = isDarkColor(background)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.SCREEN)
-                    : keyBackgroundFilter;
+            functionalKeyBackgroundFilter = keyBackgroundFilter;
+            spaceBarFilter = keyBackgroundFilter;
+            keyPressedBackgroundFilter = backgroundPressedFilter;
             functionalKeyPressedBackgroundFilter = keyBackgroundFilter;
             spaceBarPressedFilter = keyBackgroundFilter;
         }
+        // todo: some of these should be modulate (once the base theme is done)
+        //  especially the accent pressed filter should use modulate/screen
         keyTextFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyText, BlendModeCompat.SRC_ATOP);
         keyHintTextFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyHintText, BlendModeCompat.SRC_ATOP);
         accentColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(accent, BlendModeCompat.SRC_ATOP);
+        accentPressedColorFilter = isDarkColor(accent)
+                ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(accent, Color.WHITE, 0.1f), BlendModeCompat.SRC_ATOP)
+                : BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(accent, Color.BLACK, 0.1f), BlendModeCompat.SRC_ATOP);
         actionKeyIconColorFilter = isBrightColor(accent) // the white icon may not have enough contrast, and can't be adjusted by the user
                 ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.DKGRAY, BlendModeCompat.SRC_ATOP)
                 : null;

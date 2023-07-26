@@ -55,6 +55,9 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import org.jetbrains.annotations.NotNull;
 
+import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_ALPHA_FROM_EMOJI;
+import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_DELETE;
+import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_SPACE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.NOT_A_COORDINATE;
 
 /**
@@ -317,7 +320,20 @@ public final class EmojiPalettesView extends LinearLayout
      */
     @Override
     public boolean onTouch(final View v, final MotionEvent event) {
-        if (event.getActionMasked() != MotionEvent.ACTION_DOWN) {
+        final int eventCode = event.getActionMasked();
+        if (eventCode != MotionEvent.ACTION_DOWN) {
+            if (eventCode == MotionEvent.ACTION_UP) {
+                final Object tag = v.getTag();
+                if (!(tag instanceof Integer))
+                    return false;
+                final int code = (Integer) tag;
+                if (code == CODE_SPACE)
+                    v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.spaceBarFilter);
+                else if (code == CODE_DELETE)
+                    v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyBackgroundFilter);
+                else if (code == CODE_ALPHA_FROM_EMOJI)
+                    v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyBackgroundFilter);
+            }
             return false;
         }
         final Object tag = v.getTag();
@@ -325,6 +341,12 @@ public final class EmojiPalettesView extends LinearLayout
             return false;
         }
         final int code = (Integer) tag;
+        if (code == CODE_SPACE)
+            v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.spaceBarPressedFilter);
+        else if (code == CODE_DELETE)
+            v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyPressedBackgroundFilter);
+        else if (code == CODE_ALPHA_FROM_EMOJI)
+            v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyPressedBackgroundFilter);
         mKeyboardActionListener.onPressKey(
                 code, 0 /* repeatCount */, true /* isSinglePointer */);
         // It's important to return false here. Otherwise, {@link #onClick} and touch-down visual

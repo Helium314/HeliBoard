@@ -183,12 +183,18 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onTouch(view: View, event: MotionEvent): Boolean {
         if (event.actionMasked != MotionEvent.ACTION_DOWN) {
+            if (view == alphabetKey && event.actionMasked != MotionEvent.ACTION_UP)
+                alphabetKey.background.colorFilter = Settings.getInstance().current.mColors.functionalKeyBackgroundFilter
+
             return false
         }
         when (view) {
-            alphabetKey -> keyboardActionListener?.onPressKey(
+            alphabetKey -> {
+                alphabetKey.background.colorFilter = Settings.getInstance().current.mColors.functionalKeyPressedBackgroundFilter
+                keyboardActionListener?.onPressKey(
                     Constants.CODE_ALPHA_FROM_CLIPBOARD, 0 /* repeatCount */,
                     true /* isSinglePointer */)
+            }
             clearKey -> keyboardActionListener?.onPressKey(
                     Constants.CODE_UNSPECIFIED, 0 /* repeatCount */,
                     true /* isSinglePointer */)
