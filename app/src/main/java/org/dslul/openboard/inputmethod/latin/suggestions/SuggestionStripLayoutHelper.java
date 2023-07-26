@@ -49,6 +49,7 @@ import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
@@ -508,9 +509,9 @@ final class SuggestionStripLayoutHelper {
             // {@link SuggestionStripView#onClick(View)}.
             wordView.setTag(indexInSuggestedWords);
             wordView.setText(getStyledSuggestedWord(suggestedWords, indexInSuggestedWords));
-            final SettingsValues settingsValues = Settings.getInstance().getCurrent();
-            if (settingsValues.mCustomTheme)
-                wordView.setTextColor(settingsValues.mCustomKeyTextColor);
+            final Colors colors = Settings.getInstance().getCurrent().mColors;
+            if (colors.isCustom)
+                wordView.setTextColor(colors.keyText);
             else
                 wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
             if (SuggestionStripView.DBG) {

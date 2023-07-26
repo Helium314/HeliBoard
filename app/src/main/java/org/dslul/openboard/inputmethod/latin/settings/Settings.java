@@ -31,6 +31,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils;
@@ -47,6 +48,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
@@ -563,59 +565,4 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return new Colors(accent, background, keyBgColor, keyBgColor, keyBgColor, keyTextColor, hintTextColor);
     }
 
-}
-
-// class for forwarding custom colors to SettingsValues
-// (kotlin data class could be 3 lines...)
-// actually this could contain the color filters too, which would allow more flexibility (only do if needed)
-class Colors {
-    boolean isCustom;
-    int navBar;
-    int accent;
-    int background;
-    int keyBackground;
-    int functionalKey; // this color will appear darker than set, as it is applied using a color filter in modulate mode
-    int spaceBar;
-    int keyText;
-    int keyHintText;
-    public Colors(int acc, int bg, int k, int fun, int space, int kt, int kht) {
-        isCustom = true;
-        accent = acc;
-        background = bg;
-        keyBackground = k;
-        functionalKey = fun;
-        spaceBar = space;
-        keyText = kt;
-        keyHintText = kht;
-        // slightly adjust color so it matches keyboard background (actually it's a little off)
-        // todo: remove this weird not-really-white? i.e. set actually white background
-        //  then the default themes could simply be replaced by a set of colors...
-        //  but: this needs to work for the auto-theme too!
-        navBar = Color.rgb((int) (Color.red(background) * 0.925), (int) (Color.green(background) * 0.9379), (int) (Color.blue(background) * 0.945));
-    }
-    public Colors(int themeId, int nightModeFlags) {
-        isCustom = false;
-        if (KeyboardTheme.getIsDayNight(themeId)) {
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO)
-                navBar = Color.rgb(236, 239, 241);
-            else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK)
-                navBar = Color.rgb(38, 50, 56);
-            else
-                navBar = Color.BLACK;
-        } else if (KeyboardTheme.THEME_VARIANT_LIGHT.equals(KeyboardTheme.getThemeVariant(themeId))) {
-            navBar = Color.rgb(236, 239, 241);
-        } else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK) {
-            navBar = Color.rgb(38, 50, 56);
-        } else {
-            // dark border is 13/13/13, but that's ok
-            navBar = Color.BLACK;
-        }
-        accent = 0;
-        background = 0;
-        keyBackground = 0;
-        functionalKey = 0;
-        spaceBar = 0;
-        keyText = 0;
-        keyHintText = 0;
-    }
 }

@@ -64,6 +64,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
@@ -101,7 +102,6 @@ import javax.annotation.Nonnull;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
-import static org.dslul.openboard.inputmethod.latin.utils.ColorUtils.isBrightColor;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -2022,7 +2022,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mCustomNavBarColor)
             return;
-        final int color = settingsValues.mNavBarColor;
+        final int color = settingsValues.mColors.navBar;
         final Window window = getWindow().getWindow();
         if (window == null)
             return;
@@ -2033,7 +2033,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return;
         final View view = window.getDecorView();
         mOriginalNavBarFlags = view.getSystemUiVisibility();
-        if (isBrightColor(color)) {
+        if (Colors.isBrightColor(color)) {
             view.setSystemUiVisibility(mOriginalNavBarFlags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         } else {
             view.setSystemUiVisibility(mOriginalNavBarFlags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);

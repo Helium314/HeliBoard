@@ -1136,4 +1136,8 @@ public class Key implements Comparable<Key> {
                     height, params.mHorizontalGap, params.mVerticalGap);
         }
     }
+
+    public boolean isPressed() {
+        return mPressed;
+    }
 }
