@@ -136,7 +136,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             isChecked = !isLegacyFamily && !KeyboardTheme.getIsCustom(selectedThemeId) && KeyboardTheme.getIsDayNight(selectedThemeId)
         }
         userColorsPref.apply {
-            isEnabled = KeyboardTheme.getIsCustom(selectedThemeId) && variant != KeyboardTheme.THEME_VARIANT_LIGHT
+            isEnabled = KeyboardTheme.getIsCustom(selectedThemeId)
         }
     }
 

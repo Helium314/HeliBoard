@@ -72,6 +72,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final int THEME_ID_LXX_CUSTOM = 11;
     public static final int THEME_ID_LXX_CUSTOM_BORDER = 12;
     public static final int THEME_ID_LXX_BASE = 14;
+    public static final int THEME_ID_LXX_BASE_BORDER = 15;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_DARK_BORDER;
 
     private static KeyboardTheme[] AVAILABLE_KEYBOARD_THEMES;
@@ -118,6 +119,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 // This has never been selected as default theme.
                 VERSION_CODES.BASE),
             new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
+                    // This has never been selected as default theme.
+                    VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
                     // This has never been selected as default theme.
                     VERSION_CODES.LOLLIPOP),
     };
@@ -278,6 +282,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_ID_KLP_CUSTOM:
                 return THEME_VARIANT_HOLO_USER;
             case THEME_ID_LXX_BASE:
+            case THEME_ID_LXX_BASE_BORDER:
                 return THEME_VARIANT_BASE;
             default:
                 return null;
@@ -290,6 +295,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_ID_LXX_LIGHT_BORDER:
             case THEME_ID_LXX_AUTO_BORDER:
             case THEME_ID_LXX_CUSTOM_BORDER:
+            case THEME_ID_LXX_BASE_BORDER:
             case THEME_ID_ICS:
             case THEME_ID_KLP:
                 return true;
@@ -352,7 +358,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             return THEME_ID_LXX_CUSTOM;
         }
         if (THEME_VARIANT_BASE.equals(variant)) {
-            if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER;
+            if (keyBorders) return THEME_ID_LXX_BASE_BORDER;
             return THEME_ID_LXX_BASE;
         }
         if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER;

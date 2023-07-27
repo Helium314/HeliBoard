@@ -78,7 +78,7 @@
         latin:backgroundType="functional" />
     <!-- emojiKeyStyle must be defined before including @xml/key_syles_enter. -->
     <switch>
-        <case latin:keyboardTheme="ICS|KLP|LXXLightBorder|LXXDarkBorder">
+        <case latin:keyboardTheme="ICS|KLP|LXXLightBorder|LXXDarkBorder|LXXBaseBorder">
             <key-style
                 latin:styleName="emojiKeyStyle"
                 latin:keySpec="!icon/emoji_normal_key|!code/key_emoji"
