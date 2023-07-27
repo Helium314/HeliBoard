@@ -90,7 +90,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         findViewById<FrameLayout>(R.id.clipboard_action_bar)?.apply {
             clipboardLayoutParams.setActionBarProperties(this)
         }
-        val settingsValues = Settings.getInstance().current
         alphabetKey = findViewById<TextView>(R.id.clipboard_keyboard_alphabet).apply {
             tag = Constants.CODE_ALPHA_FROM_CLIPBOARD
             setBackgroundResource(functionalKeyBackgroundId)
@@ -101,11 +100,12 @@ class ClipboardHistoryView @JvmOverloads constructor(
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
         }
-        if (settingsValues.mCustomTheme) {
-            alphabetKey.background.colorFilter = settingsValues.mCustomFunctionalKeyBackgroundColorFilter
-            alphabetKey.setTextColor(settingsValues.mCustomKeyTextColor)
-            clearKey.colorFilter = settingsValues.mCustomKeyTextColorFilter
-            background.colorFilter = settingsValues.mCustomBackgroundColorFilter
+        val colors = Settings.getInstance().current.mColors
+        if (colors.isCustom) {
+            alphabetKey.background.colorFilter = colors.functionalKeyBackgroundFilter
+            alphabetKey.setTextColor(colors.keyText)
+            clearKey.colorFilter = colors.keyTextFilter
+            background.colorFilter = colors.backgroundFilter
         }
     }
 
@@ -113,9 +113,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         key?.apply {
             text = label
             typeface = params.mTypeface
-            val settingsValues = Settings.getInstance().current
-            if (settingsValues.mCustomTheme)
-                setTextColor(settingsValues.mCustomKeyTextColor)
+            val colors = Settings.getInstance().current.mColors
+            if (colors.isCustom)
+                setTextColor(colors.keyText)
             else
                 setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
@@ -126,10 +126,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardAdapter.apply {
             itemBackgroundId = keyBackgroundId
             itemTypeFace = params.mTypeface
-            val settingsValues = Settings.getInstance().current
-            if (settingsValues.mCustomTheme) {
-                itemTextColor = settingsValues.mCustomKeyTextColor
-                itemBackgroundColorFilter = settingsValues.mCustomKeyBackgroundColorFilter
+            val colors = Settings.getInstance().current.mColors
+            if (colors.isCustom) {
+                itemTextColor = colors.keyText
+                itemBackgroundColorFilter = colors.keyBackgroundFilter
             } else
                 itemTextColor = params.mTextColor
             itemTextSize = params.mLabelSize.toFloat()
@@ -183,12 +183,18 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onTouch(view: View, event: MotionEvent): Boolean {
         if (event.actionMasked != MotionEvent.ACTION_DOWN) {
+            if (view == alphabetKey && event.actionMasked != MotionEvent.ACTION_UP)
+                alphabetKey.background.colorFilter = Settings.getInstance().current.mColors.functionalKeyBackgroundFilter
+
             return false
         }
         when (view) {
-            alphabetKey -> keyboardActionListener?.onPressKey(
+            alphabetKey -> {
+                alphabetKey.background.colorFilter = Settings.getInstance().current.mColors.functionalKeyPressedBackgroundFilter
+                keyboardActionListener?.onPressKey(
                     Constants.CODE_ALPHA_FROM_CLIPBOARD, 0 /* repeatCount */,
                     true /* isSinglePointer */)
+            }
             clearKey -> keyboardActionListener?.onPressKey(
                     Constants.CODE_UNSPECIFIED, 0 /* repeatCount */,
                     true /* isSinglePointer */)

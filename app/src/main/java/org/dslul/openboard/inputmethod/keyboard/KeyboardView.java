@@ -21,7 +21,6 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
@@ -33,18 +32,13 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.core.graphics.BlendModeColorFilterCompat;
-import androidx.core.graphics.BlendModeCompat;
-
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
+import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
-import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
-import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
-import org.dslul.openboard.inputmethod.latin.utils.ColorUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
@@ -104,11 +98,7 @@ public class KeyboardView extends View {
     private final float mSpacebarIconWidthRatio;
     private final Rect mKeyBackgroundPadding = new Rect();
     private static final float KET_TEXT_SHADOW_RADIUS_DISABLED = -1.0f;
-    private final ColorFilter keyHintTextColorFilter;
-    private final ColorFilter keyTextColorFilter;
-    private final ColorFilter keyBgFilter;
-    private final ColorFilter accentColorFilter;
-    private final boolean mCustomTheme;
+    private final Colors mColors;
 
     // The maximum key label width in the proportion to the key width.
     private static final float MAX_LABEL_RATIO = 0.90f;
@@ -180,23 +170,9 @@ public class KeyboardView extends View {
 
         mPaint.setAntiAlias(true);
 
-        final SettingsValues settingsValues = Settings.getInstance().getCurrent();
-        mCustomTheme = settingsValues.mCustomTheme;
-        if (mCustomTheme) {
-            getBackground().setColorFilter(settingsValues.mCustomBackgroundColorFilter);
-
-            keyBgFilter = settingsValues.mCustomKeyBackgroundColorFilter;
-            keyHintTextColorFilter = settingsValues.mCustomHintTextColorFilter;
-            keyTextColorFilter = settingsValues.mCustomKeyTextColorFilter;
-            accentColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(settingsValues.mCustomThemeColorAccent, BlendModeCompat.SRC_ATOP);
-            mSpacebarBackground.setColorFilter(settingsValues.mCustomSpaceBarBackgroundColorFilter);
-            mFunctionalKeyBackground.setColorFilter(settingsValues.mCustomFunctionalKeyBackgroundColorFilter);
-        } else {
-            keyHintTextColorFilter = null;
-            keyTextColorFilter = null;
-            keyBgFilter = null;
-            accentColorFilter = null;
-        }
+        mColors = Settings.getInstance().getCurrent().mColors;
+        if (mColors.isCustom)
+            getBackground().setColorFilter(mColors.backgroundFilter);
     }
 
     @Nullable
@@ -401,14 +377,8 @@ public class KeyboardView extends View {
             bgX = -padding.left;
             bgY = -padding.top;
         }
-        if (mCustomTheme) {
-            // color filter is applied to background, which is re-used
-            // action key and normal key share the same background drawable, so we need to select the correct color filter
-            if (key.isActionKey())
-                background.setColorFilter(accentColorFilter);
-            else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL)
-                background.setColorFilter(keyBgFilter);
-        }
+        if (mColors.isCustom)
+            setCustomKeyBackgroundColor(key, getKeyboard(), background);
         background.setBounds(0, 0, bgWidth, bgHeight);
         canvas.translate(bgX, bgY);
         background.draw(canvas);
@@ -460,18 +430,10 @@ public class KeyboardView extends View {
             }
 
             if (key.isEnabled()) {
-                paint.setColor(key.selectTextColor(params));
-                if (mCustomTheme) {
-                    // set key color only if not in emoji keyboard range
-                    if (keyboard != null
-                            && (this.getClass() == MoreSuggestionsView.class ?
-                                !StringUtils.probablyContainsEmoji(key.getLabel()) : // doesn't contain emoji (all can happen in MoreSuggestionsView)
-                                (keyboard.mId.mElementId < 10 || keyboard.mId.mElementId > 26) // not showing emoji keyboard (no emojis visible on main keyboard otherwise)
-                            ))
-                        paint.setColorFilter(keyTextColorFilter);
-                    else
-                        paint.setColorFilter(null);
-                }
+                if (mColors.isCustom)
+                    paint.setColor(mColors.keyText);
+                else
+                    paint.setColor(key.selectTextColor(params));
                 // Set a drop shadow for the text if the shadow radius is positive value.
                 if (mKeyTextShadowRadius > 0.0f) {
                     paint.setShadowLayer(mKeyTextShadowRadius, 0.0f, 0.0f, params.mTextShadowColor);
@@ -494,9 +456,10 @@ public class KeyboardView extends View {
         final String hintLabel = key.getHintLabel();
         if (hintLabel != null && mShowsHints) {
             paint.setTextSize(key.selectHintTextSize(params));
-            paint.setColor(key.selectHintTextColor(params));
-            if (mCustomTheme)
-                paint.setColorFilter(keyHintTextColorFilter);
+            if (mColors.isCustom)
+                paint.setColor(mColors.keyHintText);
+            else
+                paint.setColor(key.selectHintTextColor(params));
             // TODO: Should add a way to specify type face for hint letters
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             blendAlpha(paint, params.mAnimAlpha);
@@ -549,26 +512,10 @@ public class KeyboardView extends View {
                 iconY = (keyHeight - iconHeight) / 2; // Align vertically center.
             }
             final int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
-            if (mCustomTheme) {
-                if (key.isActionKey()) {
-                    // the white icon may not have enough contrast, and can't be adjusted by the user
-                    if (ColorUtils.isBrightColor(Settings.getInstance().getCurrent().mCustomThemeColorAccent))
-                        icon.setColorFilter(Color.DKGRAY, PorterDuff.Mode.SRC_ATOP);
-                    else
-                        icon.clearColorFilter();
-                } else if (key.isShift()) {
-                    if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
-                            || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
-                            || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-                            || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-                    )
-                        icon.setColorFilter(accentColorFilter);
-                    else
-                        icon.setColorFilter(keyTextColorFilter);
-                } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
-                    icon.setColorFilter(keyTextColorFilter);
-                }
-            }
+            if (mColors.isCustom)
+                setCustomKeyIconColor(key, icon, keyboard);
+            else
+                icon.clearColorFilter();
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }
 
@@ -656,4 +603,70 @@ public class KeyboardView extends View {
     public void deallocateMemory() {
         freeOffscreenBuffer();
     }
+
+    private void setCustomKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
+        if (isAccentColoredKey(key)) {
+            icon.setColorFilter(mColors.actionKeyIconColorFilter);
+        } else if (key.isShift() && keyboard != null) {
+            if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
+                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
+                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
+                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            )
+                icon.setColorFilter(mColors.accentColorFilter); // accent if shifted
+            else
+                icon.setColorFilter(mColors.keyTextFilter); // key text if not shifted
+        } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
+            icon.setColorFilter(mColors.keyTextFilter);
+        } else if (this.getClass() == MoreKeysKeyboardView.class) {
+            // set color filter for long press comma key, should not trigger anywhere else
+            icon.setColorFilter(mColors.keyTextFilter);
+        }
+    }
+
+    private void setCustomKeyBackgroundColor(Key key, Keyboard keyboard, Drawable background) {
+        // color filter is applied to background, which is re-used
+        // action key and normal key share the same background drawable, so we need to select the correct color filter
+        if (isAccentColoredKey(key)) { // action key and its popup keys
+            if (key.isPressed())
+                background.setColorFilter(mColors.accentPressedColorFilter);
+            else
+                background.setColorFilter(mColors.accentColorFilter);
+        } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR) { // space
+            if (key.isPressed())
+                background.setColorFilter(mColors.spaceBarPressedFilter);
+            else
+                background.setColorFilter(mColors.spaceBarFilter);
+        } else if (key.isFunctional()) { // shift, 123, delete,...
+            if (key.isPressed())
+                background.setColorFilter(mColors.functionalKeyPressedBackgroundFilter);
+            else
+                background.setColorFilter(mColors.functionalKeyBackgroundFilter);
+        } else if (this.getClass() == MoreKeysKeyboardView.class) { // more keys popup (except on action key, which is handled above)
+            if (key.isPressed())
+                background.setColorFilter(mColors.backgroundPressedFilter);
+            else
+                background.setColorFilter(mColors.backgroundFilter);
+        } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL) { // normal keys
+            if (key.isPressed())
+                background.setColorFilter(mColors.keyPressedBackgroundFilter);
+            else
+                background.setColorFilter(mColors.keyBackgroundFilter);
+        } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys
+            if (key.isPressed())
+                background.setColorFilter(mColors.backgroundPressedFilter);
+            else
+                background.setColorFilter(mColors.backgroundFilter);
+        }
+    }
+
+    private boolean isAccentColoredKey(Key key) {
+        if (key.isActionKey()) return true;
+        if (this.getClass() != MoreKeysKeyboardView.class) return false;
+        final String iconName = KeyboardIconsSet.getIconName(key.getIconId());
+        return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
+    }
+
 }

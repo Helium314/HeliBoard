@@ -23,7 +23,9 @@ import android.graphics.Path;
 
 import org.dslul.openboard.inputmethod.keyboard.PointerTracker;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 /**
  * Draw rubber band preview graphics during sliding key input.
@@ -45,8 +47,10 @@ public final class SlidingKeyInputDrawingPreview extends AbstractDrawingPreview 
     private final Paint mPaint = new Paint();
 
     public SlidingKeyInputDrawingPreview(final TypedArray mainKeyboardViewAttr) {
-        final int previewColor = mainKeyboardViewAttr.getColor(
-                R.styleable.MainKeyboardView_slidingKeyInputPreviewColor, 0);
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        final int previewColor = colors.isCustom
+                ? colors.accent
+                : mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_slidingKeyInputPreviewColor, 0);
         final float previewRadius = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_slidingKeyInputPreviewWidth, 0) / 2.0f;
         final int PERCENTAGE_INT = 100;

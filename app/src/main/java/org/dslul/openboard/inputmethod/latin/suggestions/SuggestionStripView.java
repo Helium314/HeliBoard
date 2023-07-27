@@ -48,6 +48,7 @@ import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -181,10 +182,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mOtherKey.setImageDrawable(iconIncognito);
 
-        final SettingsValues settingsValues = Settings.getInstance().getCurrent();
-        if (settingsValues.mCustomTheme) {
-            mStripVisibilityGroup.mSuggestionStripView.getBackground().setColorFilter(settingsValues.mCustomBackgroundColorFilter);
-            mClipboardKey.setColorFilter(settingsValues.mCustomKeyTextColor);
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        if (colors.isCustom) {
+            mStripVisibilityGroup.mSuggestionStripView.getBackground().setColorFilter(colors.backgroundFilter);
+            mClipboardKey.setColorFilter(colors.keyText);
         }
     }
 

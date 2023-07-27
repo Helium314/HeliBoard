@@ -32,6 +32,7 @@ import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
@@ -127,17 +128,7 @@ public class SettingsValues {
     private final AsyncResultHolder<AppWorkaroundsUtils> mAppWorkarounds;
 
     // User-defined colors
-    public final boolean mCustomTheme;
-    public final ColorFilter mCustomKeyBackgroundColorFilter;
-    public final ColorFilter mCustomFunctionalKeyBackgroundColorFilter;
-    public final ColorFilter mCustomSpaceBarBackgroundColorFilter;
-    public final int mCustomBackgroundColor;
-    public final ColorFilter mCustomBackgroundColorFilter;
-    public final ColorFilter mCustomKeyTextColorFilter;
-    public final ColorFilter mCustomHintTextColorFilter;
-    public final int mCustomThemeColorAccent;
-    public final int mCustomKeyTextColor;
-    public final int mNavBarColor;
+    public final Colors mColors;
 
     // Debug settings
     public final boolean mIsInternal;
@@ -265,25 +256,8 @@ public class SettingsValues {
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
         mSecondaryLocale = Settings.getSecondaryLocale(prefs, RichInputMethodManager.getInstance().getCurrentSubtypeLocale().toString());
 
-        final Colors colors = Settings.getColors(context.getResources().getConfiguration(), prefs);
-        mNavBarColor = colors.navBar;
-        mCustomTheme = colors.isCustom;
-        mCustomThemeColorAccent = colors.accent;
-        mCustomKeyTextColor = colors.keyText;
-        mCustomBackgroundColor = colors.background;
-        mCustomBackgroundColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mCustomBackgroundColor, BlendModeCompat.MODULATE);
-        if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) {
-            mCustomKeyBackgroundColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colors.keyBackground, BlendModeCompat.MODULATE);
-            mCustomFunctionalKeyBackgroundColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colors.functionalKey, BlendModeCompat.MODULATE);
-            mCustomSpaceBarBackgroundColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colors.spaceBar, BlendModeCompat.MODULATE);
-        } else {
-            // need to set color to background if key borders are disabled, or there will be ugly keys
-            mCustomKeyBackgroundColorFilter = mCustomBackgroundColorFilter;
-            mCustomFunctionalKeyBackgroundColorFilter = mCustomBackgroundColorFilter;
-            mCustomSpaceBarBackgroundColorFilter = mCustomBackgroundColorFilter;
-        }
-        mCustomHintTextColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(colors.keyHintText, BlendModeCompat.SRC_ATOP);
-        mCustomKeyTextColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(mCustomKeyTextColor, BlendModeCompat.SRC_ATOP);
+        mColors = Settings.getColors(context.getResources().getConfiguration(), prefs);
+        mColors.createColorFilters(prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false));
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);

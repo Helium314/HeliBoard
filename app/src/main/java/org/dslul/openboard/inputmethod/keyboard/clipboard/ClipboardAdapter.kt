@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class ClipboardAdapter(
        val clipboardLayoutParams: ClipboardLayoutParams,
@@ -77,8 +78,11 @@ class ClipboardAdapter(
 
         override fun onTouch(view: View, event: MotionEvent): Boolean {
             if (event.actionMasked != MotionEvent.ACTION_DOWN) {
+                if (event.actionMasked == MotionEvent.ACTION_UP)
+                    view.background.colorFilter = Settings.getInstance().current.mColors.keyBackgroundFilter
                 return false
             }
+            view.background.colorFilter = Settings.getInstance().current.mColors.keyPressedBackgroundFilter
             keyEventListener.onKeyDown(view.tag as Long)
             return false
         }

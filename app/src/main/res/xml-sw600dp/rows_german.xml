@@ -145,6 +145,8 @@
                 <include
                     latin:keyboardLayout="@xml/keys_exclamation_question"/>
                 <Key
+                    latin:keySpec="ẞ" />
+                <Key
                     latin:keyStyle="shiftKeyStyle"
                     latin:keyXPos="-10.0%p"
                     latin:keyWidth="fillRight" />
