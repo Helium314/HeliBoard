@@ -51,8 +51,8 @@
             <Key
                 latin:keySpec="&#2433;"
                 latin:keyHintLabel="&#x22EF;"
-                latin:additionalMoreKeys="&#2554;"
-                latin:moreKeys="&#2492;,&#2493;,&#2519;,&#2444;,&#2529;,&#2528;,&#2545;,&#2530;,&#2531;,&#2500;,&#2544;"/>
+                latin:additionalMoreKeys="&#2492;"
+                latin:moreKeys="&#2554;,&#2493;,&#2519;,&#2444;,&#2529;,&#2528;,&#2545;,&#2530;,&#2531;,&#2500;,&#2544;"/>
         </case>
         <default>
             <!-- bengali vowel sign vocalic r
