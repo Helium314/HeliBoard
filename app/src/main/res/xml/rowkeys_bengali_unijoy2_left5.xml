@@ -30,12 +30,9 @@
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
     <switch>
         <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
-            <!-- bengali ligature reph -->
+            <!-- bengali sign visarga -->
             <Key
-                latin:keySpec="&#11789;|&#2480;&#x09CD;"
-                latin:keyHintLabel="&#x22EF;"
-                latin:additionalMoreKeys="&#2528;"
-                latin:moreKeys="&#2444;,&#2529;,&#2500;,&#2530;,&#2531;" />
+                latin:keySpec="&#2435;" />
             <!-- bengali vowel sign uu
                  bengali letter uu -->
             <Key
@@ -55,7 +52,7 @@
                 latin:keySpec="&#2433;"
                 latin:keyHintLabel="&#x22EF;"
                 latin:additionalMoreKeys="&#2554;"
-                latin:moreKeys="&#2519;,&#2492;,&#2544;,&#2545;,&#2493;" />
+                latin:moreKeys="&#2492;,&#2493;,&#2519;,&#2444;,&#2529;,&#2528;,&#2545;,&#2530;,&#2531;,&#2500;,&#2544;"/>
         </case>
         <default>
             <!-- bengali vowel sign vocalic r
@@ -88,8 +85,7 @@
             <Key
                 latin:keySpec="&#x09CD;"
                 latin:keyHintLabel="&#2433;"
-                latin:additionalMoreKeys="&#2433;"
-                latin:moreKeys="&#2435;" />
+                latin:moreKeys="&#2433;" />
         </default>
     </switch>
 </merge>
