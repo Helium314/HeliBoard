@@ -624,6 +624,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         AudioAndHapticFeedbackManager.init(this);
         AccessibilityUtils.init(this);
         mStatsUtilsManager.onCreate(this /* context */, mDictionaryFacilitator);
+        checkForNoAutoCap();
         super.onCreate();
 
         mClipboardHistoryManager.onCreate();
@@ -666,6 +667,25 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
     }
 
+    private boolean checkForNoAutoCap() {
+        Locale locale = mRichImm.getCurrentSubtypeLocale();
+
+        switch (locale.getLanguage()) {
+            case "bn": /*  Bengali */
+            case "hi": /*  Hindi */
+            case "th": /*  Thai */
+            case "ka": /*  Georgian */
+            case "km": /*  Khmer */
+            case "lo": /*  Lao */
+            case "si": /*  Sinhala */
+            case "ne": /*  Nepali */
+                mInputLogic.setNoAutoCap(true);
+                break;
+            default:
+                mInputLogic.setNoAutoCap(false);
+        }
+        return false;
+    }
     // Has to be package-visible for unit tests
     @UsedForTesting
     void loadSettings() {
@@ -876,6 +896,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mRichImm.onSubtypeChanged(subtype);
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
+        checkForNoAutoCap();
         loadKeyboard();
     }
 
