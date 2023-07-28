@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** bn-unijoy Bengali input method simulating Unijoy keyboard.
+** Copyright (C) 2005, 2008
+**   National Institute of Advanced Industrial Science and Technology (AIST)
+**   Registration Number H15PRO112
+
+** This file is part of the m17n database; a sub-part of the m17n
+** library.
+
+** The m17n library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public License
+** as published by the Free Software Foundation; either version 2.1 of
+** the License, or (at your option) any later version.
+
+** The m17n library is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+** Lesser General Public License for more details.
+
+** You should have received a copy of the GNU Lesser General Public
+** License along with the m17n library; if not, write to the Free
+** Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+** Boston, MA 02110-1301, USA.
+*/
+-->
+
+<merge xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <switch>
+        <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+            <!-- bengali ligature reph -->
+            <Key
+                latin:keySpec="&#11789;|&#2480;&#x09CD;"
+                latin:keyHintLabel="&#x22EF;"
+                latin:additionalMoreKeys="&#2528;"
+                latin:moreKeys="&#2444;,&#2529;,&#2500;,&#2530;,&#2531;" />
+            <!-- bengali vowel sign uu
+                 bengali letter uu -->
+            <Key
+                latin:keySpec="&#2498;"
+                latin:keyHintLabel="&#2442;"
+                latin:moreKeys="&#2442;" />
+            <!-- bengali vowel sign ii
+                 bengali letter ii -->
+            <Key
+                latin:keySpec="&#2496;"
+                latin:keyHintLabel="&#2440;"
+                latin:moreKeys="&#2440;" />
+            <!-- bengali vowel sign a -->
+            <Key latin:keySpec="&#2437;" />
+            <!-- bengali sign candrabindu -->
+            <Key
+                latin:keySpec="&#2433;"
+                latin:keyHintLabel="&#x22EF;"
+                latin:additionalMoreKeys="&#2554;"
+                latin:moreKeys="&#2519;,&#2492;,&#2544;,&#2545;,&#2493;" />
+        </case>
+        <default>
+            <!-- bengali vowel sign vocalic r
+                 bengali letter vocalic r -->
+            <Key
+                latin:keySpec="&#2499;"
+                latin:keyHintLabel="&#2443;"
+                latin:moreKeys="&#2443;" />
+            <!-- bengali vowel sign u
+                 bengali letter u -->
+            <Key
+                latin:keySpec="&#2497;"
+                latin:keyHintLabel="&#2441;"
+                latin:moreKeys="&#2441;" />
+            <!-- bengali vowel sign i
+                 bengali letter i -->
+            <Key
+                latin:keySpec="&#2495;"
+                latin:keyHintLabel="&#2439;"
+                latin:moreKeys="&#2439;" />
+            <!-- bengali vowel sign aa
+                 bengali letter aa -->
+            <Key
+                latin:keySpec="&#2494;"
+                latin:keyHintLabel="&#2438;"
+                latin:additionalMoreKeys="&#2438;"
+                latin:moreKeys="&#2437;" />
+            <!-- bengali sign virama
+                 bengali sign candrabindu -->
+            <Key
+                latin:keySpec="&#x09CD;"
+                latin:keyHintLabel="&#2433;"
+                latin:additionalMoreKeys="&#2433;"
+                latin:moreKeys="&#2435;" />
+        </default>
+    </switch>
+</merge>
+
