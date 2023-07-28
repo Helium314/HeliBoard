@@ -799,9 +799,9 @@ public final class KeyboardTextsTable {
         null, null, null, null,
         /* ~ morekeys_u */
         // Label for "switch to alphabetic" key.
-        // U+0995: "क" BENGALI LETTER KA
-        // U+0996: "ख" BENGALI LETTER KHA
-        // U+0997: "ग" BENGALI LETTER GA
+        // U+0995: "ক" BENGALI LETTER KA
+        // U+0996: "খ" BENGALI LETTER KHA
+        // U+0997: "গ" BENGALI LETTER GA
         /* keylabel_to_alpha */ "\u0995\u0996\u0997",
         /* morekeys_i ~ */
         null, null, null, null, null, null,

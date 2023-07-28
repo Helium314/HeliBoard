@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** bn-unijoy Bengali input method simulating Unijoy keyboard.
+** Copyright (C) 2005, 2008
+**   National Institute of Advanced Industrial Science and Technology (AIST)
+**   Registration Number H15PRO112
+
+** This file is part of the m17n database; a sub-part of the m17n
+** library.
+
+** The m17n library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public License
+** as published by the Free Software Foundation; either version 2.1 of
+** the License, or (at your option) any later version.
+
+** The m17n library is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+** Lesser General Public License for more details.
+
+** You should have received a copy of the GNU Lesser General Public
+** License along with the m17n library; if not, write to the Free
+** Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+** Boston, MA 02110-1301, USA.
+*/
+-->
+
+
+<merge xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <switch>
+        <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+            <!-- bengali sign anusvara -->
+            <Key latin:keySpec="&#2434;" />
+            <!-- bengali letter yya -->
+            <Key latin:keySpec="&#2527;" />
+            <!-- bengali letter ddha -->
+            <Key latin:keySpec="&#2466;" />
+            <!-- 	bengali letter pha -->
+            <Key latin:keySpec="&#2475;" />
+            <!-- 	bengali letter ttha -->
+            <Key latin:keySpec="&#2464;" />
+        </case>
+        <default>
+            <!-- bengali letter nga
+                 bengali sign anusvara
+                 bengali digit one -->
+            <Key
+                latin:keySpec="&#2457;"
+                latin:keyHintLabel="&#2434;"
+                latin:additionalMoreKeys="&#2434;"
+                latin:moreKeys="&#2535;" />
+            <!-- bengali letter ya
+                 bengali letter yya
+                 bengali digit two -->
+            <Key
+                latin:keySpec="&#2479;"
+                latin:keyHintLabel="&#2527;"
+                latin:additionalMoreKeys="&#2527;"
+                latin:moreKeys="&#2536;" />
+            <!-- bengali letter dda
+                 bengali letter ddha
+                 bengali digit three -->
+            <Key
+                latin:keySpec="&#2465;"
+                latin:keyHintLabel="&#2466;"
+                latin:additionalMoreKeys="&#2466;"
+                latin:moreKeys="&#2537;" />
+            <!-- bengali letter pa
+                 bengali letter pha
+                 bengali digit four -->
+            <Key
+                latin:keySpec="&#2474;"
+                latin:keyHintLabel="&#2475;"
+                latin:additionalMoreKeys="&#2475;"
+                latin:moreKeys="&#2538;" />
+            <!-- bengali letter tta
+                 bengali letter ttha
+                 bengali digit five -->
+            <Key
+                latin:keySpec="&#2463;"
+                latin:keyHintLabel="&#2464;"
+                latin:additionalMoreKeys="&#2464;"
+                latin:moreKeys="&#2539;" />
+        </default>
+    </switch>
+</merge>
