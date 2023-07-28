@@ -109,7 +109,6 @@ public final class InputLogic {
     // The word being corrected while the cursor is in the middle of the word.
     // Note: This does not have a composing span, so it must be handled separately.
     private String mWordBeingCorrectedByCursor = null;
-    private boolean isNoAutoCap;
 
     /**
      * Create a new instance of the input logic.
@@ -1798,7 +1797,7 @@ public final class InputLogic {
      * @return a caps mode from TextUtils.CAP_MODE_* or Constants.TextUtils.CAP_MODE_OFF.
      */
     public int getCurrentAutoCapsState(final SettingsValues settingsValues) {
-        if (!settingsValues.mAutoCap || isNoAutoCap) return Constants.TextUtils.CAP_MODE_OFF;
+        if (!settingsValues.mAutoCap) return Constants.TextUtils.CAP_MODE_OFF;
 
         final EditorInfo ei = getCurrentInputEditorInfo();
         if (ei == null) return Constants.TextUtils.CAP_MODE_OFF;
@@ -2034,7 +2033,7 @@ public final class InputLogic {
     private void sendKeyCodePoint(final SettingsValues settingsValues, final int codePoint) {
         // TODO: Remove this special handling of digit letters.
         // For backward compatibility. See {@link InputMethodService#sendKeyChar(char)}.
-        if (!isNoAutoCap && codePoint >= '0' && codePoint <= '9') {
+        if (codePoint >= '0' && codePoint <= '9') {
             sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
             return;
         }
@@ -2398,8 +2397,4 @@ public final class InputLogic {
     public int getComposingLength() {
         return mWordComposer.size();
     }
-    public void setNoAutoCap(boolean flag) {
-        isNoAutoCap = flag;
-    }
-
 }
