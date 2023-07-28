@@ -39,14 +39,13 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_VARIANT_BLUE = "Blue";
     public static final String THEME_VARIANT_CUSTOM = "User-defined";
     public static final String THEME_VARIANT_HOLO_USER = "User-defined (Holo)";
-    public static final String THEME_VARIANT_BASE = "Base";
 
     public static final String[] THEME_FAMILIES = {THEME_FAMILY_MATERIAL, THEME_FAMILY_HOLO};
     public static final Map<String, String[]> THEME_VARIANTS = new HashMap<>();
 
     static {
         THEME_VARIANTS.put(THEME_FAMILY_MATERIAL,
-                new String[] {THEME_VARIANT_LIGHT, THEME_VARIANT_DARK, THEME_VARIANT_CUSTOM, THEME_VARIANT_BASE});
+                new String[] {THEME_VARIANT_LIGHT, THEME_VARIANT_DARK, THEME_VARIANT_CUSTOM});
         THEME_VARIANTS.put(THEME_FAMILY_HOLO,
                 new String[] {THEME_VARIANT_WHITE, THEME_VARIANT_BLUE, THEME_VARIANT_HOLO_USER});
     }
@@ -71,8 +70,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final int THEME_ID_LXX_AUTO_BORDER = 8;
     public static final int THEME_ID_LXX_CUSTOM = 11;
     public static final int THEME_ID_LXX_CUSTOM_BORDER = 12;
-    public static final int THEME_ID_LXX_BASE = 14;
-    public static final int THEME_ID_LXX_BASE_BORDER = 15;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_DARK_BORDER;
 
     private static KeyboardTheme[] AVAILABLE_KEYBOARD_THEMES;
@@ -118,12 +115,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         new KeyboardTheme(THEME_ID_KLP_CUSTOM, "KLPCustom", R.style.KeyboardTheme_KLP,
                 // This has never been selected as default theme.
                 VERSION_CODES.BASE),
-            new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
-                    // This has never been selected as default theme.
-                    VERSION_CODES.LOLLIPOP),
-            new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
-                    // This has never been selected as default theme.
-                    VERSION_CODES.LOLLIPOP),
     };
 
     static {
@@ -281,9 +272,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return THEME_VARIANT_CUSTOM;
             case THEME_ID_KLP_CUSTOM:
                 return THEME_VARIANT_HOLO_USER;
-            case THEME_ID_LXX_BASE:
-            case THEME_ID_LXX_BASE_BORDER:
-                return THEME_VARIANT_BASE;
             default:
                 return null;
         }
@@ -295,7 +283,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_ID_LXX_LIGHT_BORDER:
             case THEME_ID_LXX_AUTO_BORDER:
             case THEME_ID_LXX_CUSTOM_BORDER:
-            case THEME_ID_LXX_BASE_BORDER:
             case THEME_ID_ICS:
             case THEME_ID_KLP:
                 return true;
@@ -356,10 +343,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         if (THEME_VARIANT_CUSTOM.equals(variant)) {
             if (keyBorders) return THEME_ID_LXX_CUSTOM_BORDER;
             return THEME_ID_LXX_CUSTOM;
-        }
-        if (THEME_VARIANT_BASE.equals(variant)) {
-            if (keyBorders) return THEME_ID_LXX_BASE_BORDER;
-            return THEME_ID_LXX_BASE;
         }
         if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER;
         return THEME_ID_LXX_LIGHT;

@@ -128,7 +128,6 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             isEnabled = !isLegacyFamily && variant != KeyboardTheme.THEME_VARIANT_LIGHT
                     && !KeyboardTheme.getHasKeyBorders(selectedThemeId)
                     && !KeyboardTheme.getIsCustom(selectedThemeId)
-                    && variant != KeyboardTheme.THEME_VARIANT_BASE
             isChecked = !isLegacyFamily && KeyboardTheme.getIsAmoledMode(selectedThemeId)
         }
         dayNightPref?.apply {

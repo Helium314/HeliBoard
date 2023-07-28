@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.LXX_Base" parent="KeyboardIcons.LXX_Light">
         <item name="inputViewStyle">@style/InputView.LXX</item>
@@ -15,9 +17,7 @@
     <style
         name="Keyboard.LXX_Base"
         parent="Keyboard"
-        >
-        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
-        <item name="themeId">LXXBase</item>
+    >
     </style>
     <style
         name="KeyboardView.LXX_Base"

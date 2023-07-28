@@ -13,9 +13,8 @@
     </style>
     <style
         name="Keyboard.LXX_Base_Border"
-        parent="Keyboard">
-        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
-        <item name="themeId">LXXBaseBorder</item>
+        parent="Keyboard"
+    >
     </style>
     <style
         name="KeyboardView.LXX_Base_Border"
