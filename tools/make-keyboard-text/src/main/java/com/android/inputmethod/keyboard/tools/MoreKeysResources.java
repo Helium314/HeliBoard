@@ -188,9 +188,12 @@ public class MoreKeysResources {
         for (final StringResourceMap resMap : mResourcesMap.values()) {
             final Locale locale = resMap.mLocale;
             final String localeStr = LocaleUtils.getLocaleCode(locale);
+            final String localeStr2 = localeStr.equals("he")
+                    ? "iw" // android still uses iw, but apparently with a newer java version iw ends up being converted to he
+                    : localeStr;
             final String localeToDump = (locale == LocaleUtils.DEFAULT_LOCALE)
                     ? String.format("\"%s\"", localeStr)
-                    : String.format("\"%s\"%s", localeStr, "       ".substring(localeStr.length()));
+                    : String.format("\"%s\"%s", localeStr2, "       ".substring(localeStr.length()));
             out.format("        %s, %-12s /* %3d/%3d %s */\n",
                     localeToDump, getArrayNameForLocale(locale) + ",",
                     resMap.getResources().size(), resMap.getOutputArraySize(),
