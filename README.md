@@ -10,12 +10,12 @@ Changes:
 * Debug version can be installed along OpenBoard
 * Allow users to add and replace built-in dictionaries
   * modified / improved from https://github.com/openboard-team/openboard/pull/569 and https://github.com/openboard-team/openboard/pull/578
-  * some AOSP dictionaries are available [here](dictionaries/dict)
+  * some AOSP dictionaries are available [here](https://codeberg.org/Helium314/aosp-dictionaries)
     * experimental dictionaries with next-word suggestions created from sentence lists [are also available](dictionaries/experimental), but they may contain unwanted words, and may be missing other features
   * dictionary files starting with "main_" replace the built-in dictionary for the language, all other names work as add-on dictionaries
   * add [Arabic dictionary](https://github.com/remi0s/aosp-dictionary-tools/blob/master/dictsCreated/WikiAndOpenSubtitles/ar_wordlist.combined) for download, from https://github.com/openboard-team/openboard/pull/450
   * add [Hebrew dictionary](https://github.com/Hananel-Hazan/aosp-dictionary-tools/blob/master/hebrew-hspell.txt.combined.new) for download, from https://github.com/openboard-team/openboard/pull/300
-  * add [Galician dictionary](https://github.com/chavaone/openboard/blob/master/dictionaries/es_GL_wordlist.combined.g) for download, from https://github.com/openboard-team/openboard/pull/291
+  * add [Galician dictionary](https://github.com/chavaone/openboard/blob/master/dictionaries/es_GL_wordlist.combined.gz) for download, from https://github.com/openboard-team/openboard/pull/291
 * Fix suggestions after some characters, https://github.com/openboard-team/openboard/pull/694, https://github.com/openboard-team/openboard/issues/795
 * Fix suggestions sometimes not being shown, https://github.com/openboard-team/openboard/pull/709
 * Reduce amount of unwanted automatic space insertions, https://github.com/openboard-team/openboard/pull/576
@@ -41,6 +41,7 @@ Changes:
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
 * Fix white background of emoji tab selector on AMOLED theme for some Android versions, https://github.com/Helium314/openboard/pull/26
 * Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679
+*
 
 Plan / to do:
 * ~upgrade dependencies~

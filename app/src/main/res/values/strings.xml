@@ -513,11 +513,11 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Button text in user dictionary remove dialog for resetting to default -->
     <string name="reset_dictionary">"Reset to default"</string>
     <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
-    <string name="add_dictionary">"Select a dictionary to add. Dictionaries can be downloaded at %s."</string>
+    <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
+    <!-- Title of the link to the download page inserted into selection message (above) -->
+    <string name="dictionary_link_text">"here"</string>
     <!-- Message above list of user-added dictionaries -->
     <string name="existing_dictionaries">"User-added dictionaries, click to remove:"</string>
-    <!-- Title of the link to the download page inserted into selection message (above) -->
-    <string name="dictionary_link_text">"project repository"</string>
     <!-- Button text for dictionary file selection -->
     <string name="load_dictionary_file">"Load dictionary"</string>
     <!-- Toast text shown when dictionary file for a locale was added successfully -->
