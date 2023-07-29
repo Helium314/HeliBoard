@@ -67,7 +67,7 @@
                     latin:keyXPos="4.0%p"
                     latin:keyWidth="7.0%p" />
                 <Spacer
-                    latin:keyWidth="23.0%p" />
+                    latin:keyWidth="16.0%p" />
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty2_right5"
                     latin:keyWidth="7.0%p" />
