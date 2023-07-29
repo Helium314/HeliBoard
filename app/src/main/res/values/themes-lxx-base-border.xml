@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="KeyboardTheme.LXX_Base_Border"
+           parent="KeyboardTheme.LXX_Base">
+        <item name="keyboardStyle">@style/Keyboard.LXX_Base_Border</item>
+        <item name="keyboardViewStyle">@style/KeyboardView.LXX_Base_Border</item>
+        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base_Border</item>
+        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Base_Border</item>
+        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.LXX_Base_Border</item>
+        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.LXX_Base_Border</item>
+        <item name="suggestionStripViewStyle">@style/SuggestionStripView.LXX_Base_Border</item>
+    </style>
+    <style
+        name="Keyboard.LXX_Base_Border"
+        parent="Keyboard"
+    >
+    </style>
+    <style
+        name="KeyboardView.LXX_Base_Border"
+        parent="KeyboardView.LXX_Base">
+        <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="spacebarBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+    </style>
+
+    <style
+        name="MainKeyboardView.LXX_Base_Border"
+        parent="MainKeyboardView.LXX_Base">
+        <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="spacebarBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+    </style>
+
+    <style
+        name="EmojiPalettesView.LXX_Base_Border"
+        parent="EmojiPalettesView.LXX_Base">
+        <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base_border</item>
+        <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="spacebarBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+    </style>
+
+    <style
+        name="ClipboardHistoryView.LXX_Base_Border"
+        parent="ClipboardHistoryView.LXX_Base">
+        <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+    </style>
+
+    <style
+        name="MoreKeysKeyboardView.LXX_Base_Border"
+        parent="MoreKeysKeyboardView.LXX_Base">
+        <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_base_border</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_base</item>
+    </style>
+
+    <style
+        name="SuggestionStripView.LXX_Base_Border"
+        parent="SuggestionStripView.LXX_Base">
+        <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base_border</item>
+    </style>
+
+</resources>
