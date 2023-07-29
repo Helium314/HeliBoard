@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/btn_keyboard_key_action_pressed_lxx_base" />
+    <item android:drawable="@drawable/btn_keyboard_key_action_normal_lxx_base" />
+</selector>

@@ -105,6 +105,28 @@
 
     <color name="popup_background_material_dark_theme">#ff3c474c</color>
 
+    <!-- Color resources for LXX_Base theme.
+     15%:0x26 70%:0xB3 75%:0xC0 80%:0xCC 85%:0xD9 90%:0xE6 -->
+    <color name="keyboard_background_lxx_base">@android:color/white</color>
+    <color name="key_background_lxx_base">@android:color/white</color>
+    <color name="key_background_pressed_lxx_base">#F4F4F5</color>
+    <color name="action_key_background_lxx_base">@android:color/white</color>
+    <color name="action_key_background_pressed_lxx_base">#F4F4F5</color>
+    <color name="key_background_functional_lxx_base">@android:color/white</color>
+    <color name="morekey_normal_lxx_base">@android:color/white</color>
+    <color name="morekey_pressed_lxx_base">#F4F4F5</color>
+    <color name="suggested_word_background_selected_lxx_base">#F4F4F5</color>
+    <color name="emoji_tab_page_indicator_background_lxx_base">@android:color/white</color>
+
+    <!-- Color resources for LXX_Base_Border theme.
+     15%:0x26 70%:0xB3 75%:0xC0 80%:0xCC 85%:0xD9 90%:0xE6 -->
+    <color name="keyboard_background_lxx_base_border">@android:color/white</color>
+    <color name="key_background_normal_lxx_base_border">@android:color/white</color>
+    <color name="key_background_pressed_lxx_base_border">#F4F4F5</color>
+    <color name="key_background_functional_lxx_base_border">@android:color/white</color>
+    <color name="key_bottom_bevel_lxx_base">#A9ABAD</color>
+    <color name="emoji_tab_page_indicator_background_lxx_base_border">@android:color/white</color>
+
     <!-- Color resources for setup wizard and tutorial -->
     <color name="setup_background">#FFEBEBEB</color>
     <color name="setup_text_dark">#FF707070</color>

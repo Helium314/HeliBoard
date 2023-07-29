@@ -51,6 +51,15 @@ public class ScriptUtils {
     public static final int SCRIPT_BULGARIAN = 18;
 
     public static final String LANGUAGE_GEORGIAN = "ka";
+    public static final String LANGUAGE_BENGALI = "bn";
+    public static final String LANGUAGE_HINDI = "hi";
+    public static final String LANGUAGE_THAI = "th";
+    public static final String LANGUAGE_KHMER = "km";
+    public static final String LANGUAGE_LAO = "lo";
+    public static final String LANGUAGE_SINHALA = "si";
+    public static final String LANGUAGE_NEPALI = "ne";
+
+
 
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
     private final static ArraySet<String> NON_UPPERCASE_SCRIPTS = new ArraySet<>();
@@ -79,6 +88,13 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("uk", SCRIPT_CYRILLIC);
 
         NON_UPPERCASE_SCRIPTS.add(LANGUAGE_GEORGIAN);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_BENGALI);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_HINDI);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_THAI);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_KHMER);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_LAO);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_SINHALA);
+        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_NEPALI);
     }
 
 
