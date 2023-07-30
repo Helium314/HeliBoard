@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -58,6 +59,7 @@ import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -184,11 +186,22 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (colors.isCustom) {
-            getBackground().setColorFilter(colors.backgroundFilter);
+            // this only works with backgrounds of SuggestionStripView.LXX_Base and SuggestionWord.LXX_Base
+            // set to keyboard_background_lxx_base (just white drawable), but NOT when set to
+            // btn_suggestion_lxx_base (state drawable with selector)
+            // why is this? then i have to set tint list for voice/clipboard/other keys and word views separately
+            // anyway, the only loss is that pressed state can't have a different shape
+            DrawableCompat.setTintList(getBackground(), colors.backgroundStateList);
+            DrawableCompat.setTintMode(getBackground(), PorterDuff.Mode.MULTIPLY);
+
             mClipboardKey.setColorFilter(colors.keyText);
             mVoiceKey.setColorFilter(colors.keyText);
             mOtherKey.setColorFilter(colors.keyText);
-        } else mClipboardKey.clearColorFilter();
+        } else {
+            mClipboardKey.clearColorFilter();
+            mVoiceKey.clearColorFilter();
+            mOtherKey.clearColorFilter();
+        }
     }
 
     /**
