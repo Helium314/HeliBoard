@@ -22,7 +22,7 @@ public class Colors {
     public final int spaceBar;
     public final int keyText;
     public final int keyHintText;
-    // todo: evaluate which colors, colorFilters and colorStateLists area actually necessary
+    // todo (later): evaluate which colors, colorFilters and colorStateLists area actually necessary
     public ColorFilter backgroundFilter;
     public ColorFilter adjustedBackgroundFilter;
     public ColorFilter keyBackgroundFilter;
@@ -81,15 +81,14 @@ public class Colors {
 
     public void createColorFilters(final boolean hasKeyBorders) {
         final int[][] states = new int[][] {
-//            new int[] { android.R.attr.state_checked}, // checked -> todo: when is this happening? there are more states, but when are they used?
+//            new int[] { android.R.attr.state_checked}, // checked -> todo (later): when is this happening? there are more states, but when are they used?
                 new int[] { android.R.attr.state_pressed}, // pressed
                 new int[] { -android.R.attr.state_pressed}, // not pressed
         };
 
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
 
-        // todo: use adjusted? or is this just for space bar in no border theme?
-        //  maybe for morekeys popup, but then need to set background color there too
+        // color to be used if exact background color would be bad contrast, e.g. more keys popup or no border space bar
         final int adjustedBackground = brightenOrDarken(background, true);
         adjustedBackgroundStateList = new ColorStateList(states, new int[] { brightenOrDarken(adjustedBackground, true), adjustedBackground });
         adjustedBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(adjustedBackground, BlendModeCompat.MODULATE);

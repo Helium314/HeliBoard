@@ -361,6 +361,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
 
+    // todo: copies of original themes might need adjustments, though maybe it's only Colors that needs to be adjusted
     public static Colors getCustomTheme(String theme, Context context, SharedPreferences prefs) {
         switch (theme) {
             case THEME_USER:
@@ -369,10 +370,11 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 final int keyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
                 final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
                 final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
-                return new Colors(accent, background, keyBgColor, Colors.darken(keyBgColor), keyBgColor, keyTextColor, hintTextColor);
+                return new Colors(accent, background, keyBgColor, Colors.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
             case THEME_DARK:
                 return new Colors(
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        // colors taken from the drawable
                         Color.parseColor("#263238"),
                         Color.parseColor("#364248"),
                         Color.parseColor("#2d393f"),

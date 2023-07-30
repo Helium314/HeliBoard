@@ -176,7 +176,10 @@ public class KeyboardView extends View {
             DrawableCompat.setTintMode(mKeyBackground, PorterDuff.Mode.MULTIPLY);
             DrawableCompat.setTintMode(mSpacebarBackground, PorterDuff.Mode.MULTIPLY);
             DrawableCompat.setTintMode(mFunctionalKeyBackground, PorterDuff.Mode.MULTIPLY);
-            getBackground().setColorFilter(mColors.backgroundFilter);
+            if (this.getClass() == MoreKeysKeyboardView.class)
+                getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
+            else
+                getBackground().setColorFilter(mColors.backgroundFilter);
         }
     }
 
@@ -613,12 +616,14 @@ public class KeyboardView extends View {
         if (isAccentColoredKey(key)) {
             icon.setColorFilter(mColors.actionKeyIconColorFilter);
         } else if (key.isShift() && keyboard != null) {
+            // todo (idea): replace shift icon with white one and use the normal multiply filters
+            //  this could allow different shift icon with nicer coloring
             if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
-                icon.setColorFilter(mColors.accentColorFilter); // accent if shifted
+                icon.setColorFilter(mColors.accent, PorterDuff.Mode.SRC_ATOP); // accent if shifted, needs SRC_ATOP because of underlying drawable
             else
                 icon.setColorFilter(mColors.keyTextFilter); // key text if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
@@ -640,7 +645,7 @@ public class KeyboardView extends View {
         } else if (key.isFunctional()) { // shift, 123, delete,...
             DrawableCompat.setTintList(background, mColors.functionalKeyStateList);
         } else if (this.getClass() == MoreKeysKeyboardView.class) { // more keys popup (except on action key, which is handled above)
-            DrawableCompat.setTintList(background, mColors.backgroundStateList);
+            DrawableCompat.setTintList(background, mColors.adjustedBackgroundStateList);
         } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL) { // normal keys
             DrawableCompat.setTintList(background, mColors.keyStateList);
         } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys
