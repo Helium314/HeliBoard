@@ -81,7 +81,8 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
     override fun onPause() {
         super.onPause()
         if (needsReload)
-            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme()
+            // todo: is this the correct "displayContext? if not it may cause weird rare issues on some android versions
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(activity)
         needsReload = false
     }
 
