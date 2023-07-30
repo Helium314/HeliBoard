@@ -184,7 +184,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (colors.isCustom) {
-            mStripVisibilityGroup.mSuggestionStripView.getBackground().setColorFilter(colors.backgroundFilter);
+            mStripVisibilityGroup.mSuggestionStripView.getBackground().setColorFilter(colors.adjustedBackgroundFilter);
             mClipboardKey.setColorFilter(colors.keyText);
         } else mClipboardKey.clearColorFilter();
     }

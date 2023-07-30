@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import org.dslul.openboard.inputmethod.compat.TabHostCompat;
@@ -55,9 +57,6 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import org.jetbrains.annotations.NotNull;
 
-import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_ALPHA_FROM_EMOJI;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_DELETE;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_SPACE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.NOT_A_COORDINATE;
 
 /**
@@ -274,12 +273,15 @@ public final class EmojiPalettesView extends LinearLayout
         mSpacebar.setOnClickListener(this);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (colors.isCustom) {
-            mAlphabetKeyLeft.getBackground().setColorFilter(colors.functionalKeyBackgroundFilter);
-            mSpacebar.getBackground().setColorFilter(colors.spaceBarFilter);
-            mDeleteKey.getBackground().setColorFilter(colors.functionalKeyBackgroundFilter);
+            DrawableCompat.setTintList(mAlphabetKeyLeft.getBackground(), colors.functionalKeyStateList);
+            DrawableCompat.setTintList(mSpacebar.getBackground(), colors.spaceBarStateList);
+            DrawableCompat.setTintList(mDeleteKey.getBackground(), colors.functionalKeyStateList);
+            DrawableCompat.setTintMode(mAlphabetKeyLeft.getBackground(), PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintMode(mSpacebar.getBackground(), PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintMode(mDeleteKey.getBackground(), PorterDuff.Mode.MULTIPLY);
             getBackground().setColorFilter(colors.backgroundFilter);
             mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.background);
-            findViewById(R.id.emoji_tab_strip).getBackground().setColorFilter(colors.backgroundFilter);
+            findViewById(R.id.emoji_tab_strip).getBackground().setColorFilter(colors.adjustedBackgroundFilter);
         }
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
@@ -307,7 +309,8 @@ public final class EmojiPalettesView extends LinearLayout
             if (mCurrentTab != null)
                 mCurrentTab.setColorFilter(colors.keyTextFilter);
             mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
-            mCurrentTab.setColorFilter(colors.accentColorFilter);
+//            mCurrentTab.setColorFilter(colors.accentColorFilter); // todo (later): doesn't work properly, because enabled drawable is blue -> adjust
+            mCurrentTab.setColorFilter(colors.accent);
         }
     }
 
@@ -320,20 +323,7 @@ public final class EmojiPalettesView extends LinearLayout
      */
     @Override
     public boolean onTouch(final View v, final MotionEvent event) {
-        final int eventCode = event.getActionMasked();
-        if (eventCode != MotionEvent.ACTION_DOWN) {
-            if (eventCode == MotionEvent.ACTION_UP) {
-                final Object tag = v.getTag();
-                if (!(tag instanceof Integer))
-                    return false;
-                final int code = (Integer) tag;
-                if (code == CODE_SPACE)
-                    v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.spaceBarFilter);
-                else if (code == CODE_DELETE)
-                    v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyBackgroundFilter);
-                else if (code == CODE_ALPHA_FROM_EMOJI)
-                    v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyBackgroundFilter);
-            }
+        if (event.getActionMasked() != MotionEvent.ACTION_DOWN) {
             return false;
         }
         final Object tag = v.getTag();
@@ -341,12 +331,6 @@ public final class EmojiPalettesView extends LinearLayout
             return false;
         }
         final int code = (Integer) tag;
-        if (code == CODE_SPACE)
-            v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.spaceBarPressedFilter);
-        else if (code == CODE_DELETE)
-            v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyPressedBackgroundFilter);
-        else if (code == CODE_ALPHA_FROM_EMOJI)
-            v.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.functionalKeyPressedBackgroundFilter);
         mKeyboardActionListener.onPressKey(
                 code, 0 /* repeatCount */, true /* isSinglePointer */);
         // It's important to return false here. Otherwise, {@link #onClick} and touch-down visual

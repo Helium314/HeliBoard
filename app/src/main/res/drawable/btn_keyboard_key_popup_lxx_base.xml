@@ -15,7 +15,10 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true"
-          android:drawable="@drawable/btn_keyboard_key_popup_selected_lxx_base" />
-    <item android:drawable="@android:color/transparent" />
+    <item android:state_pressed="true" >
+        <shape android:shape="rectangle">
+            <solid android:color="@color/key_background_normal_lxx_base_border" />
+        </shape>
+    </item>
+    <item android:drawable="@android:color/white" />
 </selector>

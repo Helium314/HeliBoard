@@ -1,6 +1,6 @@
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
-import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
@@ -24,7 +25,6 @@ class ClipboardAdapter(
 
     var pinnedIconResId = 0
     var itemBackgroundId = 0
-    var itemBackgroundColorFilter: ColorFilter? = null
     var itemTypeFace: Typeface? = null
     var itemTextColor = 0
     var itemTextSize = 0f
@@ -56,7 +56,11 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
-                background.colorFilter = itemBackgroundColorFilter
+                val colors = Settings.getInstance().current.mColors
+                if (colors.isCustom) {
+                    DrawableCompat.setTintList(background, colors.keyStateList)
+                    DrawableCompat.setTintMode(background, PorterDuff.Mode.MULTIPLY)
+                }
             }
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
                 visibility = View.GONE
@@ -78,11 +82,8 @@ class ClipboardAdapter(
 
         override fun onTouch(view: View, event: MotionEvent): Boolean {
             if (event.actionMasked != MotionEvent.ACTION_DOWN) {
-                if (event.actionMasked == MotionEvent.ACTION_UP)
-                    view.background.colorFilter = Settings.getInstance().current.mColors.keyBackgroundFilter
                 return false
             }
-            view.background.colorFilter = Settings.getInstance().current.mColors.keyPressedBackgroundFilter
             keyEventListener.onKeyDown(view.tag as Long)
             return false
         }

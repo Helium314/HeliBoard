@@ -31,6 +31,7 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -171,8 +172,12 @@ public class KeyboardView extends View {
         mPaint.setAntiAlias(true);
 
         mColors = Settings.getInstance().getCurrent().mColors;
-        if (mColors.isCustom)
+        if (mColors.isCustom) {
+            DrawableCompat.setTintMode(mKeyBackground, PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintMode(mSpacebarBackground, PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintMode(mFunctionalKeyBackground, PorterDuff.Mode.MULTIPLY);
             getBackground().setColorFilter(mColors.backgroundFilter);
+        }
     }
 
     @Nullable
@@ -625,38 +630,21 @@ public class KeyboardView extends View {
     }
 
     private void setCustomKeyBackgroundColor(Key key, Keyboard keyboard, Drawable background) {
-        // color filter is applied to background, which is re-used
-        // action key and normal key share the same background drawable, so we need to select the correct color filter
+        // colors are applied to background, which is re-used
+        // action key and normal key share the same background drawable, so we need to select the correct colors
+
         if (isAccentColoredKey(key)) { // action key and its popup keys
-            if (key.isPressed())
-                background.setColorFilter(mColors.accentPressedColorFilter);
-            else
-                background.setColorFilter(mColors.accentColorFilter);
+            DrawableCompat.setTintList(background, mColors.actionKeyStateList);
         } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR) { // space
-            if (key.isPressed())
-                background.setColorFilter(mColors.spaceBarPressedFilter);
-            else
-                background.setColorFilter(mColors.spaceBarFilter);
+            DrawableCompat.setTintList(background, mColors.spaceBarStateList);
         } else if (key.isFunctional()) { // shift, 123, delete,...
-            if (key.isPressed())
-                background.setColorFilter(mColors.functionalKeyPressedBackgroundFilter);
-            else
-                background.setColorFilter(mColors.functionalKeyBackgroundFilter);
+            DrawableCompat.setTintList(background, mColors.functionalKeyStateList);
         } else if (this.getClass() == MoreKeysKeyboardView.class) { // more keys popup (except on action key, which is handled above)
-            if (key.isPressed())
-                background.setColorFilter(mColors.backgroundPressedFilter);
-            else
-                background.setColorFilter(mColors.backgroundFilter);
+            DrawableCompat.setTintList(background, mColors.backgroundStateList);
         } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL) { // normal keys
-            if (key.isPressed())
-                background.setColorFilter(mColors.keyPressedBackgroundFilter);
-            else
-                background.setColorFilter(mColors.keyBackgroundFilter);
+            DrawableCompat.setTintList(background, mColors.keyStateList);
         } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys
-            if (key.isPressed())
-                background.setColorFilter(mColors.backgroundPressedFilter);
-            else
-                background.setColorFilter(mColors.backgroundFilter);
+            DrawableCompat.setTintList(background, mColors.backgroundStateList);
         }
     }
 

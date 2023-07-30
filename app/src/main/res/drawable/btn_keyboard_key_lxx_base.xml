@@ -22,14 +22,14 @@
           android:drawable="@drawable/btn_keyboard_key_action_normal_lxx_base" />
 
     <!-- Toggle keys. Use checkable/checked state. -->
-        <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
-              android:drawable="@color/key_background_pressed_lxx_base" />
-        <item android:state_checkable="true" android:state_pressed="true"
-              android:drawable="@color/key_background_lxx_base" />
-        <item android:state_checkable="true" android:state_checked="true"
-              android:drawable="@color/key_background_pressed_lxx_base" />
-        <item android:state_checkable="true"
-              android:drawable="@color/key_background_lxx_base" />
+    <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
+          android:drawable="@color/key_background_pressed_lxx_base" />
+    <item android:state_checkable="true" android:state_pressed="true"
+          android:drawable="@color/key_background_lxx_base" />
+    <item android:state_checkable="true" android:state_checked="true"
+          android:drawable="@color/key_background_pressed_lxx_base" />
+    <item android:state_checkable="true"
+          android:drawable="@color/key_background_lxx_base" />
 
         <!-- Empty background keys. -->
     <item android:state_empty="true" android:state_pressed="true"

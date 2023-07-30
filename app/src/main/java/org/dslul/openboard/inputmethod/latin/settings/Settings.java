@@ -27,6 +27,9 @@ import android.os.Build;
 import android.util.Log;
 
 import android.view.Gravity;
+
+import androidx.core.content.ContextCompat;
+
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
@@ -48,7 +51,6 @@ import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
@@ -63,6 +65,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_THEME_FAMILY = "theme_family";
     public static final String PREF_THEME_VARIANT = "theme_variant";
+    public static final String PREF_CUSTOM_THEME_VARIANT = "custom_theme_variant";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
     public static final String PREF_THEME_AMOLED_MODE = "theme_amoled_mode";
@@ -544,7 +547,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return null;
     }
 
-    public static Colors getColors(final Configuration configuration, final SharedPreferences prefs) {
+    public static Colors getColors(final Context context, final SharedPreferences prefs) {
         final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
                 prefs.getString(Settings.PREF_THEME_FAMILY, ""),
                 prefs.getString(Settings.PREF_THEME_VARIANT, ""),
@@ -553,16 +556,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 prefs.getBoolean(Settings.PREF_THEME_AMOLED_MODE, false)
         );
         if (!KeyboardTheme.getIsCustom(keyboardThemeId))
-            return new Colors(keyboardThemeId, configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK);
+            return new Colors(keyboardThemeId, context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
 
-        // we have a custom theme, which is user only (at the moment)
-        final int accent = prefs.getInt(Settings.PREF_THEME_USER_COLOR_ACCENT, Color.BLUE);
-        final int keyBgColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_KEYS, Color.LTGRAY);
-        final int keyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
-        final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
-        final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
-
-        return new Colors(accent, background, keyBgColor, keyBgColor, keyBgColor, keyTextColor, hintTextColor);
+        return KeyboardTheme.getCustomTheme(prefs.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT), context, prefs);
     }
 
 }

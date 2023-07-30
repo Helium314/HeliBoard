@@ -31,6 +31,10 @@
             android:key="theme_variant"
             android:title="@string/theme_variant"/>
 
+        <ListPreference
+            android:key="custom_theme_variant"
+            android:title="@string/theme_variant"/>
+
         <CheckBoxPreference
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>

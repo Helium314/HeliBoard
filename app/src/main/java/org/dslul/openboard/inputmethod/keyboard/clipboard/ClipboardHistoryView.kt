@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams
@@ -114,9 +115,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
             text = label
             typeface = params.mTypeface
             val colors = Settings.getInstance().current.mColors
-            if (colors.isCustom)
+            if (colors.isCustom) {
                 setTextColor(colors.keyText)
-            else
+                DrawableCompat.setTintList(this.background, colors.functionalKeyStateList)
+            } else
                 setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
@@ -127,11 +129,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
             itemBackgroundId = keyBackgroundId
             itemTypeFace = params.mTypeface
             val colors = Settings.getInstance().current.mColors
-            if (colors.isCustom) {
-                itemTextColor = colors.keyText
-                itemBackgroundColorFilter = colors.keyBackgroundFilter
-            } else
-                itemTextColor = params.mTextColor
+            itemTextColor = if (colors.isCustom)
+                colors.keyText
+            else
+                params.mTextColor
             itemTextSize = params.mLabelSize.toFloat()
         }
     }
@@ -183,18 +184,12 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onTouch(view: View, event: MotionEvent): Boolean {
         if (event.actionMasked != MotionEvent.ACTION_DOWN) {
-            if (view == alphabetKey && event.actionMasked != MotionEvent.ACTION_UP)
-                alphabetKey.background.colorFilter = Settings.getInstance().current.mColors.functionalKeyBackgroundFilter
-
             return false
         }
         when (view) {
-            alphabetKey -> {
-                alphabetKey.background.colorFilter = Settings.getInstance().current.mColors.functionalKeyPressedBackgroundFilter
-                keyboardActionListener?.onPressKey(
+            alphabetKey -> keyboardActionListener?.onPressKey(
                     Constants.CODE_ALPHA_FROM_CLIPBOARD, 0 /* repeatCount */,
                     true /* isSinglePointer */)
-            }
             clearKey -> keyboardActionListener?.onPressKey(
                     Constants.CODE_UNSPECIFIED, 0 /* repeatCount */,
                     true /* isSinglePointer */)

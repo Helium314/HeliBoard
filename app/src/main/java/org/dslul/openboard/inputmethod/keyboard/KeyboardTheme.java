@@ -18,11 +18,16 @@ package org.dslul.openboard.inputmethod.keyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
+
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.Arrays;
@@ -46,6 +51,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     static {
         THEME_VARIANTS.put(THEME_FAMILY_MATERIAL,
                 new String[] {THEME_VARIANT_LIGHT, THEME_VARIANT_DARK, THEME_VARIANT_CUSTOM});
+        THEME_VARIANTS.put(THEME_FAMILY_HOLO,
+                new String[] {THEME_VARIANT_WHITE, THEME_VARIANT_BLUE, THEME_VARIANT_HOLO_USER});
         THEME_VARIANTS.put(THEME_FAMILY_HOLO,
                 new String[] {THEME_VARIANT_WHITE, THEME_VARIANT_BLUE, THEME_VARIANT_HOLO_USER});
     }
@@ -346,5 +353,64 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         }
         if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER;
         return THEME_ID_LXX_LIGHT;
+    }
+
+    public static final String THEME_LIGHT = "light";
+    public static final String THEME_DARK = "dark";
+    public static final String THEME_DARKER = "darker";
+    public static final String THEME_BLACK = "black";
+    public static final String THEME_USER = "user";
+
+    public static Colors getCustomTheme(String theme, Context context, SharedPreferences prefs) {
+        switch (theme) {
+            case THEME_USER:
+                final int accent = prefs.getInt(Settings.PREF_THEME_USER_COLOR_ACCENT, Color.BLUE);
+                final int keyBgColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_KEYS, Color.LTGRAY);
+                final int keyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
+                final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
+                final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
+                return new Colors(accent, background, keyBgColor, Colors.darken(keyBgColor), keyBgColor, keyTextColor, hintTextColor);
+            case THEME_DARK:
+                return new Colors(
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        Color.parseColor("#263238"),
+                        Color.parseColor("#364248"),
+                        Color.parseColor("#2d393f"),
+                        Color.parseColor("#364248"),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
+                );
+            case THEME_DARKER:
+                return new Colors(
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
+                        ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
+                        ContextCompat.getColor(context, R.color.key_background_functional_lxx_dark_border),
+                        ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
+                );
+            case THEME_BLACK:
+                return new Colors(
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.background_amoled_black),
+                        ContextCompat.getColor(context, R.color.background_amoled_dark),
+                        ContextCompat.getColor(context, R.color.background_amoled_dark),
+                        ContextCompat.getColor(context, R.color.background_amoled_dark),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
+                );
+            case THEME_LIGHT:
+            default:
+                return new Colors(
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
+                        ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
+                        ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
+                        ContextCompat.getColor(context, R.color.key_background_functional_lxx_light_border),
+                        ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light)
+                );
+        }
     }
 }

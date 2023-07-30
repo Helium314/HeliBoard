@@ -1137,10 +1137,6 @@ public class Key implements Comparable<Key> {
         }
     }
 
-    public boolean isPressed() {
-        return mPressed;
-    }
-
     public boolean isFunctional() {
         return mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL
                 || mBackgroundType == BACKGROUND_TYPE_STICKY_OFF

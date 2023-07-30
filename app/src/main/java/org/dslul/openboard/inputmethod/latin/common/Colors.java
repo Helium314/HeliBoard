@@ -1,5 +1,6 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -12,7 +13,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 
 public class Colors {
 
-    public final boolean isCustom; // todo: could be removed?
+    public final boolean isCustom;
     public final int navBar;
     public final int accent;
     public final int background;
@@ -21,32 +22,37 @@ public class Colors {
     public final int spaceBar;
     public final int keyText;
     public final int keyHintText;
+    // todo: evaluate which colors, colorFilters and colorStateLists area actually necessary
     public ColorFilter backgroundFilter;
-    public ColorFilter backgroundPressedFilter;
+    public ColorFilter adjustedBackgroundFilter;
     public ColorFilter keyBackgroundFilter;
-    public ColorFilter keyPressedBackgroundFilter;
     public ColorFilter functionalKeyBackgroundFilter;
-    public ColorFilter functionalKeyPressedBackgroundFilter;
     public ColorFilter spaceBarFilter;
-    public ColorFilter spaceBarPressedFilter;
-    public ColorFilter keyTextFilter; // todo: really necessary?
-    public ColorFilter keyHintTextFilter; // todo: really? color alone should be sufficient i think... test!
-    public ColorFilter accentColorFilter; // todo: really necessary?
-    public ColorFilter accentPressedColorFilter;
+    public ColorFilter keyTextFilter;
+    public ColorFilter accentColorFilter;
     public ColorFilter actionKeyIconColorFilter;
 
-    public Colors(int acc, int bg, int k, int fun, int space, int kt, int kht) {
+    public ColorStateList backgroundStateList;
+    public ColorStateList keyStateList;
+    public ColorStateList functionalKeyStateList;
+    public ColorStateList actionKeyStateList;
+    public ColorStateList spaceBarStateList;
+    public ColorStateList adjustedBackgroundStateList; // todo (later): use in MoreKeys popup, without breaking when the selection has a radius set
+
+
+    public Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
         isCustom = true;
-        accent = acc;
-        background = bg;
-        keyBackground = k;
-        functionalKey = fun;
-        spaceBar = space;
-        keyText = kt;
-        keyHintText = kht;
+        accent = _accent;
+        background = _background;
+        keyBackground = _keyBackground;
+        functionalKey = _functionalKey;
+        spaceBar = _spaceBar;
+        keyText = _keyText;
+        keyHintText = _keyHintText;
         navBar = background;
     }
 
+    // todo (later): remove this and isCustom, once the old themes can be completely replaced
     public Colors(int themeId, int nightModeFlags) {
         isCustom = false;
         if (KeyboardTheme.getIsDayNight(themeId)) {
@@ -74,42 +80,45 @@ public class Colors {
     }
 
     public void createColorFilters(final boolean hasKeyBorders) {
+        final int[][] states = new int[][] {
+//            new int[] { android.R.attr.state_checked}, // checked -> todo: when is this happening? there are more states, but when are they used?
+                new int[] { android.R.attr.state_pressed}, // pressed
+                new int[] { -android.R.attr.state_pressed}, // not pressed
+        };
+
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
-        backgroundPressedFilter = isDarkColor(background)
-                // todo: below is not working, but why?
-//                ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(background, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
-                ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.SCREEN)
-                : backgroundFilter;
+
+        // todo: use adjusted? or is this just for space bar in no border theme?
+        //  maybe for morekeys popup, but then need to set background color there too
+        final int adjustedBackground = brightenOrDarken(background, true);
+        adjustedBackgroundStateList = new ColorStateList(states, new int[] { brightenOrDarken(adjustedBackground, true), adjustedBackground });
+        adjustedBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(adjustedBackground, BlendModeCompat.MODULATE);
+
+        // todo (later): for bright colors there often is no need for 2 states, could just have one (because keys will darken anyway) -> test!
         if (hasKeyBorders) {
             keyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyBackground, BlendModeCompat.MODULATE);
             functionalKeyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(functionalKey, BlendModeCompat.MODULATE);
             spaceBarFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(spaceBar, BlendModeCompat.MODULATE);
-            keyPressedBackgroundFilter = isDarkColor(keyBackground)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(keyBackground, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
-                    : keyBackgroundFilter;
-            functionalKeyPressedBackgroundFilter = isDarkColor(functionalKey)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(functionalKey, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
-                    : functionalKeyBackgroundFilter;
-            spaceBarPressedFilter = isDarkColor(spaceBar)
-                    ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(spaceBar, Color.WHITE, 0.1f), BlendModeCompat.MODULATE)
-                    : spaceBarFilter;
+
+            backgroundStateList = new ColorStateList(states, new int[] { brightenOrDarken(background, true), background });
+            keyStateList = new ColorStateList(states, new int[] { brightenOrDarken(keyBackground, true), keyBackground });
+            functionalKeyStateList = new ColorStateList(states, new int[] { brightenOrDarken(functionalKey, true), functionalKey });
+            actionKeyStateList = new ColorStateList(states, new int[] { brightenOrDarken(accent, true), accent });
+            spaceBarStateList = new ColorStateList(states, new int[] { brightenOrDarken(spaceBar, true), spaceBar });
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
             keyBackgroundFilter = backgroundFilter;
             functionalKeyBackgroundFilter = keyBackgroundFilter;
             spaceBarFilter = keyBackgroundFilter;
-            keyPressedBackgroundFilter = backgroundPressedFilter;
-            functionalKeyPressedBackgroundFilter = keyBackgroundFilter;
-            spaceBarPressedFilter = keyBackgroundFilter;
+
+            backgroundStateList = new ColorStateList(states, new int[] { brightenOrDarken(background, true), background });
+            keyStateList = backgroundStateList;
+            functionalKeyStateList = backgroundStateList;
+            actionKeyStateList = new ColorStateList(states, new int[] { brightenOrDarken(accent, true), accent });
+            spaceBarStateList = adjustedBackgroundStateList;
         }
-        // todo: some of these should be modulate (once the base theme is done)
-        //  especially the accent pressed filter should use modulate/screen
         keyTextFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyText, BlendModeCompat.SRC_ATOP);
-        keyHintTextFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyHintText, BlendModeCompat.SRC_ATOP);
-        accentColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(accent, BlendModeCompat.SRC_ATOP);
-        accentPressedColorFilter = isDarkColor(accent)
-                ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(accent, Color.WHITE, 0.1f), BlendModeCompat.SRC_ATOP)
-                : BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ColorUtils.blendARGB(accent, Color.BLACK, 0.1f), BlendModeCompat.SRC_ATOP);
+        accentColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(accent, BlendModeCompat.MODULATE);
         actionKeyIconColorFilter = isBrightColor(accent) // the white icon may not have enough contrast, and can't be adjusted by the user
                 ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.DKGRAY, BlendModeCompat.SRC_ATOP)
                 : null;
@@ -126,6 +135,7 @@ public class Colors {
         return brightnessSquared >= 210*210;
     }
 
+    // todo (later): what needs to be public?
     public static boolean isDarkColor(int color) {
         if (android.R.color.transparent == color) {
             return true;
@@ -135,5 +145,20 @@ public class Colors {
         // we are only interested whether brightness is greater, so no need for sqrt
         int brightnessSquared = (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
         return brightnessSquared < 50*50;
+    }
+
+    public static int brightenOrDarken(final int color, final boolean preferDarken) {
+        if (preferDarken) {
+            if (isDarkColor(color)) return brighten(color);
+            else return darken(color);
+        } else if (isBrightColor(color)) return darken(color);
+        else return brighten(color);
+    }
+    public static int brighten(final int color) {
+        return ColorUtils.blendARGB(color, Color.WHITE, 0.2f); // brighten is stronger, because often the drawables get darker when pressed
+    }
+
+    public static int darken(final int color) {
+        return ColorUtils.blendARGB(color, Color.BLACK, 0.1f);
     }
 }
