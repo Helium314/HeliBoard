@@ -20,14 +20,12 @@
     >
         <Key
             latin:keyStyle="shiftKeyStyle"
-            latin:keyWidth="15%p"
-            latin:visualInsetsRight="1%p" />
+            latin:keyWidth="15%p" />
         <include
             latin:keyboardLayout="@xml/rowkeys_turkish3" />
         <Key
             latin:keyStyle="deleteKeyStyle"
-            latin:keyWidth="fillRight"
-            latin:visualInsetsLeft="1%p" />
+            latin:keyWidth="fillRight" />
     </Row>
     <include latin:keyboardLayout="@xml/row_qwerty4" />
 </merge>

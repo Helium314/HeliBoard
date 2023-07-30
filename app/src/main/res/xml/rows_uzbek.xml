@@ -31,15 +31,13 @@
     <Row latin:keyWidth="9.2%p" >
         <Key
             latin:keyStyle="shiftKeyStyle"
-            latin:keyWidth="15%p"
-            latin:visualInsetsRight="1%p" />
+            latin:keyWidth="15%p" />
         <Spacer latin:keyWidth="2.8%p" />
         <include latin:keyboardLayout="@xml/rowkeys_qwerty3" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyWidth="fillRight"
-            latin:keyXPos="-15%p"
-            latin:visualInsetsLeft="1%p" />
+            latin:keyXPos="-15%p" />
     </Row>
     <include latin:keyboardLayout="@xml/row_qwerty4" />
 </merge>

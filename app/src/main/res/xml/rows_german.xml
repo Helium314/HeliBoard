@@ -42,15 +42,13 @@
     >
         <Key
             latin:keyStyle="shiftKeyStyle"
-            latin:keyWidth="15%p"
-            latin:visualInsetsRight="1%p" />
+            latin:keyWidth="15%p" />
         <include
             latin:keyboardLayout="@xml/rowkeys_german3" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyXPos="-15%p"
-            latin:keyWidth="fillRight"
-            latin:visualInsetsLeft="1%p" />
+            latin:keyWidth="fillRight" />
     </Row>
     <include
         latin:keyboardLayout="@xml/row_qwerty4" />
