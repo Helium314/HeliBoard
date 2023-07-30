@@ -360,7 +360,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_DARKER = "darker";
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
+    public static final String[] CUSTOM_THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
 
+    // todo (later): material you, system accent, ...
     // todo: copies of original themes might need adjustments, though maybe it's only Colors that needs to be adjusted
     public static Colors getCustomTheme(String theme, Context context, SharedPreferences prefs) {
         switch (theme) {

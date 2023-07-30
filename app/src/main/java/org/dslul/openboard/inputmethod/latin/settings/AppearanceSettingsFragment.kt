@@ -131,9 +131,8 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             //  check whether night mode is active using context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK
             //  this is needed so the auto-theme can be replaced
             //  idea: add a "dark theme variant" preference when auto-switch is on
-            // todo (later): material you, system accent, ...
             // todo (idea): re-work setting to actually see preview of theme colors... but that's a lot of work
-            val variants = arrayOf(KeyboardTheme.THEME_LIGHT, KeyboardTheme.THEME_DARK, KeyboardTheme.THEME_DARKER, KeyboardTheme.THEME_BLACK, KeyboardTheme.THEME_USER)
+            val variants = KeyboardTheme.CUSTOM_THEME_VARIANTS
             entries = variants.map {
                 val resId = resources.getIdentifier("theme_name_$it", "string", activity.packageName)
                 if (resId == 0) it else getString(resId)
