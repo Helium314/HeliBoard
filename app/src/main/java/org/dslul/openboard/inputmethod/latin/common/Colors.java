@@ -7,7 +7,6 @@ import android.graphics.ColorFilter;
 
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
-import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 
@@ -22,6 +21,7 @@ public class Colors {
     public final int spaceBar;
     public final int keyText;
     public final int keyHintText;
+    public int adjustedBackground;
     // todo (later): evaluate which colors, colorFilters and colorStateLists area actually necessary
     public ColorFilter backgroundFilter;
     public ColorFilter adjustedBackgroundFilter;
@@ -37,8 +37,7 @@ public class Colors {
     public ColorStateList functionalKeyStateList;
     public ColorStateList actionKeyStateList;
     public ColorStateList spaceBarStateList;
-    public ColorStateList adjustedBackgroundStateList; // todo (later): use in MoreKeys popup, without breaking when the selection has a radius set
-
+    public ColorStateList adjustedBackgroundStateList;
 
     public Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
         isCustom = true;
@@ -81,7 +80,9 @@ public class Colors {
 
     public void createColorFilters(final boolean hasKeyBorders) {
         final int[][] states = new int[][] {
-//            new int[] { android.R.attr.state_checked}, // checked -> todo (later): when is this happening? there are more states, but when are they used?
+                // are other states used?
+                //  looks like only microphone ("shortcut") key can ever be disabled, but then it's not shown anyway...
+                //  and checked seems unused
                 new int[] { android.R.attr.state_pressed}, // pressed
                 new int[] { -android.R.attr.state_pressed}, // not pressed
         };
@@ -89,11 +90,15 @@ public class Colors {
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
 
         // color to be used if exact background color would be bad contrast, e.g. more keys popup or no border space bar
-        final int adjustedBackground = brightenOrDarken(background, true);
-        adjustedBackgroundStateList = new ColorStateList(states, new int[] { brightenOrDarken(adjustedBackground, true), adjustedBackground });
+        if (isDarkColor(background)) {
+            adjustedBackground = brighten(background);
+            adjustedBackgroundStateList = new ColorStateList(states, new int[] { brighten(adjustedBackground), adjustedBackground });
+        } else {
+            adjustedBackground = darken(background);
+            adjustedBackgroundStateList = new ColorStateList(states, new int[] { darken(adjustedBackground), adjustedBackground });
+        }
         adjustedBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(adjustedBackground, BlendModeCompat.MODULATE);
 
-        // todo (later): for bright colors there often is no need for 2 states, could just have one (because keys will darken anyway) -> test!
         if (hasKeyBorders) {
             keyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyBackground, BlendModeCompat.MODULATE);
             functionalKeyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(functionalKey, BlendModeCompat.MODULATE);
@@ -123,27 +128,28 @@ public class Colors {
                 : null;
     }
 
-    public static boolean isBrightColor(int color) {
+    public static boolean isBrightColor(final int color) {
         if (android.R.color.transparent == color) {
             return true;
         }
-        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        // we are only interested whether brightness is greater, so no need for sqrt
-        int brightnessSquared = (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-        return brightnessSquared >= 210*210;
+        return getBrightnessSquared(color) >= 210*210;
     }
 
-    // todo (later): what needs to be public?
-    public static boolean isDarkColor(int color) {
+    private static boolean isDarkColor(final int color) {
         if (android.R.color.transparent == color) {
             return true;
         }
-        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        // we are only interested whether brightness is greater, so no need for sqrt
-        int brightnessSquared = (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-        return brightnessSquared < 50*50;
+        return getBrightnessSquared(color) < 50*50;
+    }
+
+    private static int brighten(final int color) {
+        // brighten is stronger, because often the drawables get darker when pressed
+        // todo (maybe): remove the darker pressed colors to have more consistent behavior?
+        return blendARGB(color, Color.WHITE, 0.14f);
+    }
+
+    private static int darken(final int color) {
+        return blendARGB(color, Color.BLACK, 0.11f);
     }
 
     public static int brightenOrDarken(final int color, final boolean preferDarken) {
@@ -153,11 +159,22 @@ public class Colors {
         } else if (isBrightColor(color)) return darken(color);
         else return brighten(color);
     }
-    public static int brighten(final int color) {
-        return ColorUtils.blendARGB(color, Color.WHITE, 0.2f); // brighten is stronger, because often the drawables get darker when pressed
+
+    // taken from androidx ColorUtils, modified to keep alpha of color1
+    private static int blendARGB(int color1, int color2, float ratio) {
+        final float inverseRatio = 1 - ratio;
+        float a = Color.alpha(color1);
+        float r = Color.red(color1) * inverseRatio + Color.red(color2) * ratio;
+        float g = Color.green(color1) * inverseRatio + Color.green(color2) * ratio;
+        float b = Color.blue(color1) * inverseRatio + Color.blue(color2) * ratio;
+        return Color.argb((int) a, (int) r, (int) g, (int) b);
     }
 
-    public static int darken(final int color) {
-        return ColorUtils.blendARGB(color, Color.BLACK, 0.1f);
+    private static int getBrightnessSquared(final int color) {
+        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        // we are only interested whether brightness is greater, so no need for sqrt
+        return (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
     }
+
 }

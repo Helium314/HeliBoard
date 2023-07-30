@@ -167,7 +167,7 @@ public final class EmojiPalettesView extends LinearLayout
         iconView.setBackgroundColor(mCategoryPageIndicatorBackground);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (colors.isCustom) {
-            iconView.getBackground().setColorFilter(colors.backgroundFilter);
+            iconView.getBackground().setColorFilter(colors.adjustedBackgroundFilter);
             iconView.setColorFilter(colors.keyTextFilter);
         }
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
@@ -280,8 +280,7 @@ public final class EmojiPalettesView extends LinearLayout
             DrawableCompat.setTintMode(mSpacebar.getBackground(), PorterDuff.Mode.MULTIPLY);
             DrawableCompat.setTintMode(mDeleteKey.getBackground(), PorterDuff.Mode.MULTIPLY);
             getBackground().setColorFilter(colors.backgroundFilter);
-            mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.background);
-            findViewById(R.id.emoji_tab_strip).getBackground().setColorFilter(colors.adjustedBackgroundFilter);
+            mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
         }
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
