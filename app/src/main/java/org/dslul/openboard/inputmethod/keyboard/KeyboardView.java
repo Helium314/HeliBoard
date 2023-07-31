@@ -382,9 +382,22 @@ public class KeyboardView extends View {
         } else {
             final Rect padding = mKeyBackgroundPadding;
             bgWidth = keyWidth + padding.left + padding.right;
-            bgHeight = keyHeight + padding.top + padding.bottom;
+            // absurdly horrible workaround, because it's not possible to set padding as percentage of height in btn_keyboard_spacebar_lxx_base
+            if (mColors.isCustom && key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR) {
+                Rect p = new Rect();
+                background.getPadding(p);
+                if (p.top != 0) {
+                    bgHeight = (keyHeight + padding.top + padding.bottom) / 2;
+                    bgY = -padding.top + bgHeight / 2;
+                } else {
+                    bgHeight = keyHeight + padding.top + padding.bottom;
+                    bgY = -padding.top;
+                }
+            } else {
+                bgHeight = keyHeight + padding.top + padding.bottom;
+                bgY = -padding.top;
+            }
             bgX = -padding.left;
-            bgY = -padding.top;
         }
         if (mColors.isCustom)
             setCustomKeyBackgroundColor(key, getKeyboard(), background);

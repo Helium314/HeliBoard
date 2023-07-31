@@ -190,6 +190,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // set to keyboard_background_lxx_base (just white drawable), but NOT when set to
             // btn_suggestion_lxx_base (state drawable with selector) or keyboard_suggest_strip_lxx_base_border (layer-list)
             // why is this? then it's necessary to set tint list for voice/clipboard/other keys and all word views separately
+            //  it seems to work in other places, e.g. for btn_keyboard_spacebar_lxx_base... though maybe that's the weirdly nested layer list?
             // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
             //  this would allow having a different background shape in pressed state
             DrawableCompat.setTintList(getBackground(), colors.backgroundStateList);

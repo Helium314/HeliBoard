@@ -3,20 +3,22 @@
     <!-- without this weirdly nested layer list the bottom/top things are ignored -->
     <item android:state_pressed="true">
         <layer-list>
-            <item android:bottom="12dp" android:top="12dp">
+            <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/key_background_pressed_lxx_base" />
                     <corners android:radius="5dp" />
+                    <padding android:bottom="12dp" android:top="12dp"/>
                 </shape>
             </item>
         </layer-list>
     </item>
     <item>
         <layer-list>
-            <item android:bottom="12dp" android:top="12dp">
+            <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/key_background_lxx_base" />
                     <corners android:radius="5dp" />
+                    <padding android:bottom="12dp" android:top="12dp"/>
                 </shape>
             </item>
         </layer-list>
