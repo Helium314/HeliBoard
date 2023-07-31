@@ -188,9 +188,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (colors.isCustom) {
             // this only works with backgrounds of SuggestionStripView.LXX_Base and SuggestionWord.LXX_Base
             // set to keyboard_background_lxx_base (just white drawable), but NOT when set to
-            // btn_suggestion_lxx_base (state drawable with selector)
-            // why is this? then i have to set tint list for voice/clipboard/other keys and word views separately
-            // anyway, the only loss is that pressed state can't have a different shape
+            // btn_suggestion_lxx_base (state drawable with selector) or keyboard_suggest_strip_lxx_base_border (layer-list)
+            // why is this? then it's necessary to set tint list for voice/clipboard/other keys and all word views separately
+            // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
+            //  this would allow having a different background shape in pressed state
             DrawableCompat.setTintList(getBackground(), colors.backgroundStateList);
             DrawableCompat.setTintMode(getBackground(), PorterDuff.Mode.MULTIPLY);
 

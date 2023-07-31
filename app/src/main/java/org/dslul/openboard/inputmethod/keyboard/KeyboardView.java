@@ -40,6 +40,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
@@ -644,11 +645,13 @@ public class KeyboardView extends View {
             DrawableCompat.setTintList(background, mColors.spaceBarStateList);
         } else if (key.isFunctional()) { // shift, 123, delete,...
             DrawableCompat.setTintList(background, mColors.functionalKeyStateList);
+        } else if (this.getClass() == MoreSuggestionsView.class) { // more suggestions popup, should not use keyStateList
+            DrawableCompat.setTintList(background, mColors.backgroundStateList);
         } else if (this.getClass() == MoreKeysKeyboardView.class) { // more keys popup (except on action key, which is handled above)
             DrawableCompat.setTintList(background, mColors.adjustedBackgroundStateList);
         } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL) { // normal keys
             DrawableCompat.setTintList(background, mColors.keyStateList);
-        } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys
+        } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys, maybe rather check for EmojiPageKeyboardView.class?
             DrawableCompat.setTintList(background, mColors.backgroundStateList);
         }
     }
