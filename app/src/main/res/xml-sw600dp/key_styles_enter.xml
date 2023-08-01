@@ -81,7 +81,7 @@
     </switch>
     <!-- Enter key style -->
     <switch>
-        <case latin:keyboardTheme="ICS|KLP|LXXLightBorder|LXXDarkBorder">
+        <case latin:keyboardTheme="ICS|KLP|LXXLightBorder|LXXDarkBorder|LXXBaseBorder">
             <key-style
                 latin:styleName="defaultEnterKeyStyle"
                 latin:keySpec="!icon/enter_key|!code/key_enter"
