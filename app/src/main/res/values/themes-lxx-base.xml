@@ -3,7 +3,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.LXX_Base" parent="KeyboardIcons.LXX_Light">
         <item name="inputViewStyle">@style/InputView.LXX</item>
-        <item name="keyboardStyle">@style/Keyboard.LXX_Base</item> <!-- todo: when using Keyboard.LXX_Base, the action key doesn't keep aspect ratio, and sometimes action more keys popup looks bad... wtf? -->
+        <item name="keyboardStyle">@style/Keyboard.LXX_Base</item>
         <item name="keyboardViewStyle">@style/KeyboardView.LXX_Base</item>
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Base</item>
