@@ -49,35 +49,9 @@
         <Key
             latin:keySpec="6"
             latin:keyStyle="numKeyStyle" />
-        <switch>
-            <case
-                latin:mode="date"
-            >
-                <Key
-                    latin:keySpec="."
-                    latin:keyStyle="numKeyStyle"
-                    latin:backgroundType="functional"
-                    latin:keyWidth="fillRight" />
-            </case>
-            <case
-                latin:mode="time|datetime"
-            >
-                <Key
-                    latin:keySpec="."
-                    latin:moreKeys="!text/morekeys_am_pm"
-                    latin:keyLabelFlags="hasPopupHint"
-                    latin:keyStyle="numKeyStyle"
-                    latin:backgroundType="functional"
-                    latin:keyWidth="fillRight" />
-            </case>
-            <default>
-                <Key
-                    latin:keySpec=","
-                    latin:keyStyle="numKeyStyle"
-                    latin:backgroundType="functional"
-                    latin:keyWidth="fillRight" />
-            </default>
-        </switch>
+        <Key
+            latin:keyStyle="numSpaceKeyStyle"
+            latin:keyWidth="fillRight" />
     </Row>
     <Row>
         <Key
@@ -94,6 +68,32 @@
             latin:keyWidth="fillRight" />
     </Row>
     <Row>
+        <switch>
+            <case
+                latin:mode="date"
+            >
+                <Key
+                    latin:keySpec="."
+                    latin:keyStyle="numKeyStyle" />
+            </case>
+            <case
+                latin:mode="time|datetime"
+            >
+                <Key
+                    latin:keySpec="."
+                    latin:moreKeys="!text/morekeys_am_pm"
+                    latin:keyLabelFlags="hasPopupHint"
+                    latin:keyStyle="numKeyStyle" />
+            </case>
+            <default>
+                <Key
+                    latin:keySpec=","
+                    latin:keyStyle="numKeyStyle" />
+            </default>
+        </switch>
+        <Key
+            latin:keySpec="0"
+            latin:keyStyle="numKeyStyle" />
         <switch>
             <case
                 latin:mode="date"
@@ -123,11 +123,6 @@
                     latin:keyStyle="numKeyStyle" />
             </default>
         </switch>
-        <Key
-            latin:keySpec="0"
-            latin:keyStyle="numKeyStyle" />
-        <Key
-            latin:keyStyle="numSpaceKeyStyle" />
         <Key
             latin:keyStyle="enterKeyStyle"
             latin:keyWidth="fillRight" />
