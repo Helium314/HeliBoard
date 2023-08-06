@@ -49,8 +49,8 @@
 <string name="key_preview_popup_dismiss_delay">বোতামের পপআপ অপসারণের বিলম্ব</string>
 <string name="key_preview_popup_dismiss_no_delay">তাৎক্ষণিক</string>
 <string name="key_preview_popup_dismiss_default_delay">"ডিফল্ট"</string>
-<string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>মিলিসেকেন্ড</string>
-<string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>মিনিট</string>
+<string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> মিলিসেকেন্ড</string>
+<string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> মিনিট</string>
 <string name="settings_system_default">সিস্টেম ডিফল্ট</string>
 <string name="settings_no_limit">সীমাহীন</string>
 <string name="use_contacts_dict">পরিচিতি নাম থেকে পরামর্শ</string>
