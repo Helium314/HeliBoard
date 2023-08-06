@@ -1,5 +1,4 @@
-
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 /*
 **
@@ -17,11 +16,15 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
--->
+ -->
+
 <!--
     These Emoji symbols are unsupported by TTS.
     TODO: Remove this file when TTS/TalkBack support these Emoji symbols.
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Spoken description for Unicode code point U+00A9: "©" COPYRIGHT SIGN -->
     <string name="spoken_emoji_00A9">কপিরাইট চিহ্ন</string>
     <!-- Spoken description for Unicode code point U+00AE: "®" REGISTERED SIGN -->
