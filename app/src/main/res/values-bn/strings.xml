@@ -210,7 +210,7 @@
 <string name="remove_dictionary_title">"অভিধান অপসারণ"</string>
 <string name="reset_dictionary">"ডিফল্ট পুনঃস্থাপন"</string>
 <string name="add_dictionary">"অভিধান সংযুক্ত করতে ক্লিক করুন। %s থেকে .dict ফরম্যাটে অভিধান ডাউনলোড করা যেতে পারে।"</string>
-<string name="dictionary_link_text">"এখানে"</string>
+<string name="dictionary_link_text">"এখান"</string>
 <string name="existing_dictionaries">"ব্যবহারকারী অভিধান। অপসারণ করতে ক্লিক করুন:"</string>
 <string name="load_dictionary_file">"অভিধান সংযুক্তি"</string>
 <string name="dictionary_load_success">"%s এর অভিধান সংযুক্ত হয়েছে"</string>
