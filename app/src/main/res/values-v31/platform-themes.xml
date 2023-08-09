@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="platformActivityTheme" parent="@android:style/Theme.Material" />
-    <style name="platformDialogTheme" parent="@android:style/Theme.Material.Dialog"/>
+    <style name="platformActivityTheme" parent="@android:style/Theme.Material.Light">
+        <item name="android:colorAccent">@android:color/system_accent1_400</item>
+    </style>
+    <style name="platformDialogTheme" parent="@android:style/Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">@android:color/system_accent1_400</item>
+    </style>
 </resources>
