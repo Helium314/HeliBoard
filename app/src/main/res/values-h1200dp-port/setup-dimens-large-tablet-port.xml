@@ -25,7 +25,7 @@
     <dimen name="setup_step_action_text_size">20sp</dimen>
     <dimen name="setup_vertical_padding">96dp</dimen>
     <dimen name="setup_horizontal_padding">144dp</dimen>
-    <dimen name="setup_step_action_height">48dp</dimen>
+    <dimen name="setup_step_action_height">54dp</dimen>
     <dimen name="setup_step_horizontal_padding">24dp</dimen>
     <dimen name="setup_step_horizontal_padding_half">12dp</dimen>
     <dimen name="setup_step_vertical_padding">16dp</dimen>
