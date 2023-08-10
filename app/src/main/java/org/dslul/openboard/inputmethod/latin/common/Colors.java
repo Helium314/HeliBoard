@@ -163,7 +163,7 @@ public class Colors {
     public static int brighten(@ColorInt int color) {
         float[] hsl = new float[3];
         ColorUtils.colorToHSL(color, hsl);
-        hsl[2] += 0.1f;
+        hsl[2] += 0.05f;
         return ColorUtils.HSLToColor(hsl);
     }
 
@@ -171,7 +171,7 @@ public class Colors {
     public static int darken(@ColorInt int color) {
         float[] hsl = new float[3];
         ColorUtils.colorToHSL(color, hsl);
-        hsl[2] -= 0.1f;
+        hsl[2] -= 0.05f;
         return ColorUtils.HSLToColor(hsl);
     }
 
