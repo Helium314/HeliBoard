@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
 import org.dslul.openboard.inputmethod.latin.common.Constants
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class KeyboardWrapperView @JvmOverloads constructor(
         context: Context,
@@ -51,6 +52,12 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
         stopOneHandedModeBtn.setOnClickListener(this)
         switchOneHandedModeBtn.setOnClickListener(this)
+
+        val colors = Settings.getInstance().current.mColors
+        if (colors.isCustom) {
+            stopOneHandedModeBtn.colorFilter = colors.keyTextFilter
+            switchOneHandedModeBtn.colorFilter = colors.keyTextFilter
+        }
     }
 
     @SuppressLint("RtlHardcoded")
