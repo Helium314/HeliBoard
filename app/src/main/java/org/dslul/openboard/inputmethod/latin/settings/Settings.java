@@ -22,13 +22,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
 import android.view.Gravity;
-
-import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
@@ -44,8 +41,10 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
@@ -537,14 +536,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
     }
 
-    public static Locale getSecondaryLocale(final SharedPreferences prefs, final String mainLocaleString) {
+    // todo: adjust for multiple secondary locales
+    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
         final Set<String> encodedLocales = prefs.getStringSet(PREF_SECONDARY_LOCALES, new HashSet<>());
         for (String loc : encodedLocales) {
             String[] locales = loc.split("§");
             if (locales.length == 2 && locales[0].equals(mainLocaleString.toLowerCase(Locale.ENGLISH)))
-                return LocaleUtils.constructLocaleFromString(locales[1]);
+                return new ArrayList<Locale>() {{ add(LocaleUtils.constructLocaleFromString(locales[1])); }};
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public static Colors getColors(final Context context, final SharedPreferences prefs) {
