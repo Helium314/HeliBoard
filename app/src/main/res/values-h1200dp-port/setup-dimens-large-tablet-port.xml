@@ -28,6 +28,7 @@
     <dimen name="setup_step_action_height">62dp</dimen>
     <dimen name="setup_step_horizontal_padding">24dp</dimen>
     <dimen name="setup_step_horizontal_padding_half">12dp</dimen>
+    <dimen name="setup_step_action_padding">6dp</dimen>
     <dimen name="setup_step_vertical_padding">16dp</dimen>
     <dimen name="setup_step_horizontal_line_height">2dp</dimen>
     <integer name="setup_title_weight_in_screen">40</integer>
