@@ -110,6 +110,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         mValidSpellingWordWriteCache = cache;
     }
 
+    // judging by usage, this should check primary locale only
     @Override
     public boolean isForLocale(final Locale locale) {
         return locale != null && locale.equals(mDictionaryGroups.get(0).mLocale);
@@ -290,6 +291,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         return mDictionaryGroups.get(0).mLocale != null;
     }
 
+    // used in
+    //  putWordIntoValidSpellingWordCache -> should probably return most confidence locale, but the cache is not used anyway
+    //  LatinIME.resetSuggestMainDict -> should return primary locale
+    //  Suggest.getSuggestedWordsFor... -> should not matter if suggestions have a word locale, todo: check whether they do!
+    //  InputLogic.getDictionaryFacilitatorLocale -> not sure, but probably doesn't matter
     @Override
     public Locale getLocale() {
         return mDictionaryGroups.get(0).mLocale;
