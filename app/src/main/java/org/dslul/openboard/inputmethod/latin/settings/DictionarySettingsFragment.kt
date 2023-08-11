@@ -244,7 +244,7 @@ class DictionarySettingsFragment : SubScreenFragment() {
             )
             AlertDialog.Builder(DialogUtils.getPlatformDialogThemeContext(activity))
                 .setMessage(message)
-                .setNegativeButton(android.R.string.cancel) { _, _ -> cachedDictionaryFile.delete() }
+                .setNegativeButton(R.string.cancel) { _, _ -> cachedDictionaryFile.delete() }
                 .setPositiveButton(R.string.dictionary_file_wrong_locale_ok) { _, _ ->
                     checkCachedDictionaryVersion(currentDictLocale, newHeader)
                 }

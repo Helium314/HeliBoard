@@ -63,7 +63,7 @@ public class ColorPickerDialog extends AlertDialog implements SeekBar.OnSeekBarC
         });
 
         // set on ok and on cancel listeners
-        setButton(BUTTON_NEGATIVE, context.getText(android.R.string.cancel), (dialogInterface, i) -> dismiss());
+        setButton(BUTTON_NEGATIVE, context.getText(R.string.cancel), (dialogInterface, i) -> dismiss());
         setButton(BUTTON_POSITIVE, context.getText(android.R.string.ok), (dialogInterface, i) -> {
             final int value = Color.rgb(
                     mSeekBarRed.getProgress(),

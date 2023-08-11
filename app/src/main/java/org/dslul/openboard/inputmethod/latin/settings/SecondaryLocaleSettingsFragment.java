@@ -77,7 +77,7 @@ public final class SecondaryLocaleSettingsFragment extends SubScreenFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(
                 DialogUtils.getPlatformDialogThemeContext(getActivity()))
                 .setTitle(R.string.language_selection_title)
-                .setPositiveButton(android.R.string.cancel, null);
+                .setPositiveButton(R.string.cancel, null);
 
         if (locales.isEmpty()) {
             builder.setMessage(R.string.no_secondary_locales)

@@ -132,10 +132,10 @@ final class CustomInputStylePreference extends DialogPreference
         builder.setCancelable(true).setOnCancelListener(this);
         if (isIncomplete()) {
             builder.setPositiveButton(R.string.add, this)
-                    .setNegativeButton(android.R.string.cancel, this);
+                    .setNegativeButton(R.string.cancel, this);
         } else {
             builder.setPositiveButton(R.string.save, this)
-                    .setNeutralButton(android.R.string.cancel, this)
+                    .setNeutralButton(R.string.cancel, this)
                     .setNegativeButton(R.string.remove, this);
             final SubtypeLocaleItem localeItem = new SubtypeLocaleItem(mSubtype);
             final KeyboardLayoutSetItem layoutItem = new KeyboardLayoutSetItem(mSubtype);

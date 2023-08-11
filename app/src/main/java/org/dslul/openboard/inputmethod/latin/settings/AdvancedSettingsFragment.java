@@ -95,7 +95,7 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
                                     startActivityForResult(intent, REQUEST_CODE_GESTURE_LIBRARY);
                                 }
                             })
-                            .setNegativeButton(android.R.string.cancel, null);
+                            .setNegativeButton(R.string.cancel, null);
                     libfile = new File(context.getFilesDir().getAbsolutePath() + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME);
                     if (libfile.exists())
                         builder.setNeutralButton(R.string.load_gesture_library_button_delete, new DialogInterface.OnClickListener() {

@@ -105,7 +105,7 @@ public final class SeekBarDialogPreference extends DialogPreference
     @Override
     protected void onPrepareDialogBuilder(final AlertDialog.Builder builder) {
         builder.setPositiveButton(android.R.string.ok, this)
-            .setNegativeButton(android.R.string.cancel, this)
+            .setNegativeButton(R.string.cancel, this)
             .setNeutralButton(R.string.button_default, this);
     }
 
