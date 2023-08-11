@@ -544,6 +544,9 @@ final class SuggestionStripLayoutHelper {
             wordView.setTextColor(mColorAutoCorrect);
             stripView.addView(wordView);
             setLayoutWeight(wordView, 1.0f, mSuggestionsStripHeight);
+            final Colors colors = Settings.getInstance().getCurrent().mColors;
+            if (colors.isCustom)
+                wordView.setTextColor(colors.keyText);
         }
         mMoreSuggestionsAvailable = (punctuationSuggestions.size() > countInStrip);
         return countInStrip;
