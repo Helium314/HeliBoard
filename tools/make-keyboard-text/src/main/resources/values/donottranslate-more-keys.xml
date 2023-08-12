@@ -255,7 +255,6 @@
     <string name="double_9qm_lqm">&#x201D;,&#x201E;,&#x201C;</string>
     <string name="double_9qm_rqm">&#x201C;,&#x201E;,&#x201D;</string>
     <string name="double_rqm_9qm">&#x201C;,&#x201D;,&#x201E;</string>
-    <string name="morekeys_apostrophe">!fixedColumnOrder!3,&#x201A;,?,&#x2018;,&#x2019;,!text/keyspec_left_single_angle_quote,!text/keyspec_right_single_angle_quote</string>
     <string name="morekeys_single_quote">!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes</string>
     <string name="morekeys_double_quote">!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes</string>
     <string name="morekeys_tablet_double_quote">!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes</string>

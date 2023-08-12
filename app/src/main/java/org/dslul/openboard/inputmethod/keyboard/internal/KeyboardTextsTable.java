@@ -253,16 +253,15 @@ public final class KeyboardTextsTable {
         /* 169: 0 */ "double_9qm_lqm",
         /* 170: 0 */ "double_9qm_rqm",
         /* 171: 0 */ "double_rqm_9qm",
-        /* 172: 0 */ "morekeys_apostrophe",
-        /* 173: 0 */ "morekeys_single_quote",
-        /* 174: 0 */ "morekeys_double_quote",
-        /* 175: 0 */ "morekeys_tablet_double_quote",
-        /* 176: 0 */ "keyspec_emoji_action_key",
-        /* 177: 0 */ "keyspec_emoji_normal_key",
-        /* 178: 0 */ "keyspec_clipboard_action_key",
-        /* 179: 0 */ "keyspec_clipboard_normal_key",
-        /* 180: 0 */ "keyspec_start_onehanded_mode",
-        /* 181: 0 */ "keyspec_language_switch",
+        /* 172: 0 */ "morekeys_single_quote",
+        /* 173: 0 */ "morekeys_double_quote",
+        /* 174: 0 */ "morekeys_tablet_double_quote",
+        /* 175: 0 */ "keyspec_emoji_action_key",
+        /* 176: 0 */ "keyspec_emoji_normal_key",
+        /* 177: 0 */ "keyspec_clipboard_action_key",
+        /* 178: 0 */ "keyspec_clipboard_normal_key",
+        /* 179: 0 */ "keyspec_start_onehanded_mode",
+        /* 180: 0 */ "keyspec_language_switch",
     };
 
     private static final String EMPTY = "";
@@ -483,7 +482,6 @@ public final class KeyboardTextsTable {
         /* double_9qm_lqm */ "\u201D,\u201E,\u201C",
         /* double_9qm_rqm */ "\u201C,\u201E,\u201D",
         /* double_rqm_9qm */ "\u201C,\u201D,\u201E",
-        /* morekeys_apostrophe */ "!fixedColumnOrder!3,\u201A,?,\u2018,\u2019,!text/keyspec_left_single_angle_quote,!text/keyspec_right_single_angle_quote",
         /* morekeys_single_quote */ "!fixedColumnOrder!5,!text/single_quotes,!text/single_angle_quotes",
         /* morekeys_double_quote */ "!fixedColumnOrder!5,!text/double_quotes,!text/double_angle_quotes",
         /* morekeys_tablet_double_quote */ "!fixedColumnOrder!6,!text/double_quotes,!text/single_quotes,!text/double_angle_quotes,!text/single_angle_quotes",
@@ -4265,7 +4263,7 @@ public final class KeyboardTextsTable {
 
     private static final Object[] LOCALES_AND_TEXTS = {
     // "locale", TEXT_ARRAY,  /* numberOfNonNullText/lengthOf_TEXT_ARRAY localeName */
-        "DEFAULT", TEXTS_DEFAULT, /* 182/182 DEFAULT */
+        "DEFAULT", TEXTS_DEFAULT, /* 181/181 DEFAULT */
         "af"     , TEXTS_af,    /*   7/ 13 Afrikaans */
         "ar"     , TEXTS_ar,    /*  55/110 Arabic */
         "az"     , TEXTS_az,    /*  11/ 18 Azerbaijani */
