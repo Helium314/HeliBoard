@@ -41,7 +41,7 @@
             <Key
                 latin:keySpec="\'"
                 latin:keyHintLabel="\?"
-                latin:moreKeys="!text/morekeys_apostrophe" />
+                latin:additionalMoreKeys="\?,!text/single_quotes,!text/single_angle_quotes" />
         </default>
     </switch>
 </merge>
