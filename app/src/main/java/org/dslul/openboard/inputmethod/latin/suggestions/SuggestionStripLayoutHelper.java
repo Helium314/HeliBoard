@@ -129,10 +129,20 @@ final class SuggestionStripLayoutHelper {
                 R.styleable.SuggestionStripView_suggestionStripOptions, 0);
         mAlphaObsoleted = ResourceUtils.getFraction(a,
                 R.styleable.SuggestionStripView_alphaObsoleted, 1.0f);
-        mColorValidTypedWord = a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
-        mColorTypedWord = a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
-        mColorAutoCorrect = a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
-        mColorSuggested = a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
+
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        if (colors.isCustom) {
+            mColorValidTypedWord = colors.adjustedKeyText;
+            mColorTypedWord = colors.adjustedKeyText;
+            mColorAutoCorrect = colors.keyText;
+            mColorSuggested = colors.adjustedKeyText;
+        } else {
+            mColorValidTypedWord = a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
+            mColorTypedWord = a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
+            mColorAutoCorrect = a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
+            mColorSuggested = a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
+        }
+
         mSuggestionsCountInStrip = a.getInt(
                 R.styleable.SuggestionStripView_suggestionsCountInStrip,
                 DEFAULT_SUGGESTIONS_COUNT_IN_STRIP);
@@ -147,7 +157,8 @@ final class SuggestionStripLayoutHelper {
         a.recycle();
 
         mMoreSuggestionsHint = getMoreSuggestionsHint(res,
-                res.getDimension(R.dimen.config_more_suggestions_hint_text_size));
+                res.getDimension(R.dimen.config_more_suggestions_hint_text_size),
+                mColorAutoCorrect);
         mCenterPositionInStrip = mSuggestionsCountInStrip / 2;
         // Assuming there are at least three suggestions. Also, note that the suggestions are
         // laid out according to script direction, so this is left of the center for LTR scripts
@@ -177,14 +188,13 @@ final class SuggestionStripLayoutHelper {
                 / mMoreSuggestionsRowHeight;
     }
 
-    private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize) {
+    private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize,
+            final int color) {
         final Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setTextAlign(Align.CENTER);
         paint.setTextSize(textSize);
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom)
-            paint.setColor(colors.keyText);
+        paint.setColor(color);
         final Rect bounds = new Rect();
         paint.getTextBounds(MORE_SUGGESTIONS_HINT, 0, MORE_SUGGESTIONS_HINT.length(), bounds);
         final int width = Math.round(bounds.width() + 0.5f);
@@ -509,11 +519,7 @@ final class SuggestionStripLayoutHelper {
             // {@link SuggestionStripView#onClick(View)}.
             wordView.setTag(indexInSuggestedWords);
             wordView.setText(getStyledSuggestedWord(suggestedWords, indexInSuggestedWords));
-            final Colors colors = Settings.getInstance().getCurrent().mColors;
-            if (colors.isCustom)
-                wordView.setTextColor(colors.keyText);
-            else
-                wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
+            wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
             if (SuggestionStripView.DBG) {
                 mDebugInfoViews.get(positionInStrip).setText(
                         suggestedWords.getDebugString(indexInSuggestedWords));
@@ -544,9 +550,6 @@ final class SuggestionStripLayoutHelper {
             wordView.setTextColor(mColorAutoCorrect);
             stripView.addView(wordView);
             setLayoutWeight(wordView, 1.0f, mSuggestionsStripHeight);
-            final Colors colors = Settings.getInstance().getCurrent().mColors;
-            if (colors.isCustom)
-                wordView.setTextColor(colors.keyText);
         }
         mMoreSuggestionsAvailable = (punctuationSuggestions.size() > countInStrip);
         return countInStrip;

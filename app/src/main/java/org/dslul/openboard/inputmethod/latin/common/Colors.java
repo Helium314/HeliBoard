@@ -24,6 +24,7 @@ public class Colors {
     public final int keyText;
     public final int keyHintText;
     public int adjustedBackground;
+    public int adjustedKeyText;
     // todo (later): evaluate which colors, colorFilters and colorStateLists area actually necessary
     public ColorFilter backgroundFilter;
     public ColorFilter adjustedBackgroundFilter;
@@ -90,6 +91,7 @@ public class Colors {
         };
 
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
+        adjustedKeyText = brightenOrDarken(keyText, true);
 
         // color to be used if exact background color would be bad contrast, e.g. more keys popup or no border space bar
         if (isDarkColor(background)) {
