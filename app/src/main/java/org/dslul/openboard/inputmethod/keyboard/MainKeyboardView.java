@@ -61,6 +61,8 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.WeakHashMap;
 
@@ -844,19 +846,27 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             final RichInputMethodSubtype subtype, final int width) {
         // Choose appropriate language name to fit into the width.
 
-        final Locale secondaryLocale = Settings.getInstance().getCurrent().mSecondaryLocale;
-        if (secondaryLocale != null
-                // avoid showing same language twice
-                && !secondaryLocale.getLanguage().equals(subtype.getLocale().getLanguage())
-        ) {
+        final List<Locale> secondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
+        // avoid showing same language twice
+        final List<Locale> secondaryLocalesToUse = withoutDuplicateLanguages(secondaryLocales, subtype.getLocale().getLanguage());
+        if (secondaryLocalesToUse.size() > 0) {
+            StringBuilder sb = new StringBuilder(subtype.getMiddleDisplayName());
             final Locale displayLocale = getResources().getConfiguration().locale;
-            final String full = subtype.getMiddleDisplayName() + " - " +
-                    secondaryLocale.getDisplayLanguage(displayLocale);
+            for (Locale locale : secondaryLocales) {
+                sb.append(" - ");
+                sb.append(locale.getDisplayLanguage(displayLocale));
+            }
+            final String full = sb.toString();
             if (fitsTextIntoWidth(width, full, paint)) {
                 return full;
             }
-            final String middle = subtype.getLocale().getLanguage().toUpperCase(displayLocale) +
-                    " - " + secondaryLocale.getLanguage().toUpperCase(displayLocale);
+            sb.setLength(0);
+            sb.append(subtype.getLocale().getLanguage().toUpperCase(displayLocale));
+            for (Locale locale : secondaryLocales) {
+                sb.append(" - ");
+                sb.append(locale.getLanguage().toUpperCase(displayLocale));
+            }
+            final String middle = sb.toString();
             if (fitsTextIntoWidth(width, middle, paint)) {
                 return middle;
             }
@@ -875,6 +885,23 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
 
         return "";
+    }
+
+    private List<Locale> withoutDuplicateLanguages(List<Locale> locales, String mainLanguage) {
+        ArrayList<String> languages = new ArrayList<String>() {{ add(mainLanguage); }};
+        ArrayList<Locale> newLocales = new ArrayList<>();
+        for (Locale locale : locales) {
+            boolean keep = true;
+            for (String language : languages) {
+                if (locale.getLanguage().equals(language))
+                    keep = false;
+            }
+            if (!keep)
+                continue;
+            languages.add(locale.getLanguage());
+            newLocales.add(locale);
+        }
+        return newLocales;
     }
 
     private void drawLanguageOnSpacebar(final Key key, final Canvas canvas, final Paint paint) {

@@ -40,7 +40,8 @@
         <default>
             <Key
                 latin:keySpec="\'"
-                latin:moreKeys="!text/morekeys_single_quote" />
+                latin:keyHintLabel="\?"
+                latin:additionalMoreKeys="\?,!text/single_quotes,!text/single_angle_quotes" />
         </default>
     </switch>
 </merge>

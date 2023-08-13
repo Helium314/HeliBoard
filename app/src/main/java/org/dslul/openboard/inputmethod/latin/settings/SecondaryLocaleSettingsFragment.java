@@ -44,7 +44,8 @@ public final class SecondaryLocaleSettingsFragment extends SubScreenFragment {
         List<InputMethodSubtype> subtypes = mRichImm.getMyEnabledInputMethodSubtypeList(true);
 
         for (InputMethodSubtype subtype : subtypes) {
-            final Locale secondaryLocale = Settings.getSecondaryLocale(getSharedPreferences(), subtype.getLocale());
+            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(getSharedPreferences(), subtype.getLocale());
+            final Locale secondaryLocale = secondaryLocales.size() > 0 ? secondaryLocales.get(0) : null;
             final Preference pref = new Preference(context);
             pref.setTitle(subtype.getDisplayName(context, BuildConfig.APPLICATION_ID, context.getApplicationInfo()));
             if (secondaryLocale != null)
@@ -94,7 +95,8 @@ public final class SecondaryLocaleSettingsFragment extends SubScreenFragment {
             titles[i] = loc.getDisplayName(displayLocale);
         }
 
-        Locale currentSecondaryLocale = Settings.getSecondaryLocale(getSharedPreferences(), mainLocale);
+        final List<Locale> secondaryLocales = Settings.getSecondaryLocales(getSharedPreferences(), mainLocale);
+        final Locale currentSecondaryLocale = secondaryLocales.size() > 0 ? secondaryLocales.get(0) : null;
         int checkedItem;
         if (currentSecondaryLocale == null)
             checkedItem = 0;

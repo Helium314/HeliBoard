@@ -7,6 +7,8 @@ import android.graphics.ColorFilter;
 
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
+import androidx.annotation.ColorInt;
+import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 
@@ -22,6 +24,7 @@ public class Colors {
     public final int keyText;
     public final int keyHintText;
     public int adjustedBackground;
+    public int adjustedKeyText;
     // todo (later): evaluate which colors, colorFilters and colorStateLists area actually necessary
     public ColorFilter backgroundFilter;
     public ColorFilter adjustedBackgroundFilter;
@@ -88,6 +91,7 @@ public class Colors {
         };
 
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
+        adjustedKeyText = brightenOrDarken(keyText, true);
 
         // color to be used if exact background color would be bad contrast, e.g. more keys popup or no border space bar
         if (isDarkColor(background)) {
@@ -142,16 +146,6 @@ public class Colors {
         return getBrightnessSquared(color) < 50*50;
     }
 
-    private static int brighten(final int color) {
-        // brighten is stronger, because often the drawables get darker when pressed
-        // todo (maybe): remove the darker pressed colors to have more consistent behavior?
-        return blendARGB(color, Color.WHITE, 0.14f);
-    }
-
-    private static int darken(final int color) {
-        return blendARGB(color, Color.BLACK, 0.11f);
-    }
-
     public static int brightenOrDarken(final int color, final boolean preferDarken) {
         if (preferDarken) {
             if (isDarkColor(color)) return brighten(color);
@@ -160,21 +154,27 @@ public class Colors {
         else return brighten(color);
     }
 
-    // taken from androidx ColorUtils, modified to keep alpha of color1
-    private static int blendARGB(int color1, int color2, float ratio) {
-        final float inverseRatio = 1 - ratio;
-        float a = Color.alpha(color1);
-        float r = Color.red(color1) * inverseRatio + Color.red(color2) * ratio;
-        float g = Color.green(color1) * inverseRatio + Color.green(color2) * ratio;
-        float b = Color.blue(color1) * inverseRatio + Color.blue(color2) * ratio;
-        return Color.argb((int) a, (int) r, (int) g, (int) b);
-    }
-
     private static int getBrightnessSquared(final int color) {
         // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
         int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
         // we are only interested whether brightness is greater, so no need for sqrt
         return (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+    }
+
+    @ColorInt
+    public static int brighten(@ColorInt int color) {
+        float[] hsl = new float[3];
+        ColorUtils.colorToHSL(color, hsl);
+        hsl[2] += 0.05f;
+        return ColorUtils.HSLToColor(hsl);
+    }
+
+    @ColorInt
+    public static int darken(@ColorInt int color) {
+        float[] hsl = new float[3];
+        ColorUtils.colorToHSL(color, hsl);
+        hsl[2] -= 0.05f;
+        return ColorUtils.HSLToColor(hsl);
     }
 
 }
