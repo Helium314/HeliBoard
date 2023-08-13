@@ -147,8 +147,7 @@ final class SuggestionStripLayoutHelper {
         a.recycle();
 
         mMoreSuggestionsHint = getMoreSuggestionsHint(res,
-                res.getDimension(R.dimen.config_more_suggestions_hint_text_size),
-                mColorAutoCorrect);
+                res.getDimension(R.dimen.config_more_suggestions_hint_text_size));
         mCenterPositionInStrip = mSuggestionsCountInStrip / 2;
         // Assuming there are at least three suggestions. Also, note that the suggestions are
         // laid out according to script direction, so this is left of the center for LTR scripts
@@ -178,13 +177,14 @@ final class SuggestionStripLayoutHelper {
                 / mMoreSuggestionsRowHeight;
     }
 
-    private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize,
-            final int color) {
+    private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize) {
         final Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setTextAlign(Align.CENTER);
         paint.setTextSize(textSize);
-        paint.setColor(color);
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        if (colors.isCustom)
+            paint.setColor(colors.keyText);
         final Rect bounds = new Rect();
         paint.getTextBounds(MORE_SUGGESTIONS_HINT, 0, MORE_SUGGESTIONS_HINT.length(), bounds);
         final int width = Math.round(bounds.width() + 0.5f);
