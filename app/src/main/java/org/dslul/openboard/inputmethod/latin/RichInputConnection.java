@@ -704,7 +704,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (!isConnected()) {
             return null;
         }
-        final CharSequence before = getTextBeforeCursorAndDetectLaggyConnection(
+        CharSequence before = getTextBeforeCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 NUM_CHARS_TO_GET_BEFORE_CURSOR,
@@ -716,6 +716,41 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 InputConnection.GET_TEXT_WITH_STYLES);
         if (before == null || after == null) {
             return null;
+        }
+
+        // what is sometimes happening (depending on app, or maybe input field attributes):
+        //  we just pressed delete, and getTextBeforeCursor gets the correct text,
+        //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
+        //  -> detect this difference, and try to fix it
+        // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
+        //  mCommittedTextBeforeComposingText where the text is cached
+        // (this check is really annoyingly long for the simple thing to be done)
+        if (before.length() > 0 && after.length() == 0) {
+            final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
+            if (!isPartOfCompositionForScript(lastBeforeCodePoint, spacingAndPunctuations, scriptId)) {
+                // before ends with separator or similar -> check whether text before cursor ends with the same codepoint
+                int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
+                CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
+                if (Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
+                    // they are different, as is expected from the issue
+                    // now check whether they are the same if the last codepoint of before is removed
+                    final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
+                    final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
+                    if (beforeCursor.length() == beforeWithoutLast.length()) {
+                        boolean same = true;
+                        // CharSequence has undefined equals
+                        for (int i = 0; i < beforeCursor.length(); i++) {
+                            if (beforeCursor.charAt(i) != beforeWithoutLast.charAt(i)) {
+                                same = false;
+                                break;
+                            }
+                        }
+                        if (same) {
+                            before = beforeWithoutLast;
+                        }
+                    }
+                }
+            }
         }
 
         // Going backward, find the first breaking point (separator)
