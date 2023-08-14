@@ -37,5 +37,6 @@
         android:layout_marginTop="@dimen/setup_step_horizontal_line_height"
         android:paddingTop="@dimen/setup_step_action_padding"
         android:paddingBottom="@dimen/setup_step_action_padding"
+        android:minHeight="@dimen/setup_step_action_height"
         android:layout_height="wrap_content"/>
 </LinearLayout>
