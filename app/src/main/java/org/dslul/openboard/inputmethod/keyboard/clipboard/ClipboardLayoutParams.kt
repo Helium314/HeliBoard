@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
 
 class ClipboardLayoutParams(res: Resources) {
@@ -26,14 +27,21 @@ class ClipboardLayoutParams(res: Resources) {
         val suggestionStripHeight = res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
         val defaultKeyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res)
 
-        keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo,
+        if (Settings.getInstance().current.mNarrowKeyGaps) {
+            keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+            keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo_narrow,
+                defaultKeyboardWidth, defaultKeyboardWidth).toInt()
+        } else {
+            keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+            keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo,
+                defaultKeyboardWidth, defaultKeyboardWidth).toInt()
+        }
         bottomPadding = res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
         topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
-        keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo,
-                defaultKeyboardWidth, defaultKeyboardWidth).toInt()
 
         actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / DEFAULT_KEYBOARD_ROWS - keyVerticalGap / 2
         listHeight = defaultKeyboardHeight + suggestionStripHeight - actionBarHeight - bottomPadding

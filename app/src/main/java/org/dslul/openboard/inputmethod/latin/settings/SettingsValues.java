@@ -88,6 +88,7 @@ public class SettingsValues {
     public final long mClipboardHistoryRetentionTime;
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
+    public final boolean mNarrowKeyGaps;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -259,6 +260,7 @@ public class SettingsValues {
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
+        mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
     }
 
     public boolean isMetricsLoggingEnabled() {

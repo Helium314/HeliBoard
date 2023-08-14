@@ -50,7 +50,7 @@
             android:summary="@string/amoled_mode_summary"/>
 
         <CheckBoxPreference
-            android:key="navbar_color"
+            android:key="pref_navbar_color"
             android:title="@string/theme_navbar"/>
 
         <Preference
@@ -78,6 +78,12 @@
             android:key="pref_resize_keyboard"
             android:title="@string/prefs_resize_keyboard"
             android:defaultValue="false"
+            android:persistent="true" />
+
+        <CheckBoxPreference
+            android:key="pref_narrow_key_gaps"
+            android:title="@string/prefs_narrow_key_gaps"
+            android:defaultValue="true"
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference

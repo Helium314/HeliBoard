@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 final class EmojiLayoutParams {
@@ -41,14 +41,21 @@ final class EmojiLayoutParams {
     public EmojiLayoutParams(final Resources res) {
         final int defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(res);
         final int defaultKeyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res);
-        mKeyVerticalGap = (int) res.getFraction(R.fraction.config_key_vertical_gap_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight);
+        if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
+            mKeyVerticalGap = (int) res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
+                    defaultKeyboardHeight, defaultKeyboardHeight);
+            mKeyHorizontalGap = (int) (res.getFraction(R.fraction.config_key_horizontal_gap_holo_narrow,
+                    defaultKeyboardWidth, defaultKeyboardWidth));
+        } else {
+            mKeyVerticalGap = (int) res.getFraction(R.fraction.config_key_vertical_gap_holo,
+                    defaultKeyboardHeight, defaultKeyboardHeight);
+            mKeyHorizontalGap = (int) (res.getFraction(R.fraction.config_key_horizontal_gap_holo,
+                    defaultKeyboardWidth, defaultKeyboardWidth));
+        }
         mBottomPadding = (int) res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight);
         mTopPadding = (int) res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight);
-        mKeyHorizontalGap = (int) (res.getFraction(R.fraction.config_key_horizontal_gap_holo,
-                defaultKeyboardWidth, defaultKeyboardWidth));
         mEmojiCategoryPageIdViewHeight =
                 (int) (res.getDimension(R.dimen.config_emoji_category_page_id_height));
         final int baseheight = defaultKeyboardHeight - mBottomPadding - mTopPadding

@@ -254,6 +254,8 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
     <!-- Title of the settings to enable keyboard resizing -->
     <string name="prefs_resize_keyboard">Enable keyboard resizing</string>
+    <!-- Title of the setting for reduced distance between keys -->
+    <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
     <!-- Title of the settings for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the preference item for switching accounts [CHAR LIMIT=30] -->

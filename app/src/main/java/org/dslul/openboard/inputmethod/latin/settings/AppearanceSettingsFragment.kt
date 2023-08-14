@@ -248,6 +248,10 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
                 .show()
             true
         }
+        preferenceScreen.findPreference(Settings.PREF_NARROW_KEY_GAPS)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
+            needsReload = true
+            true
+        }
     }
 
     private fun setupKeyboardHeight(prefKey: String, defaultValue: Float) {

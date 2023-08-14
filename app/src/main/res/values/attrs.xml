@@ -263,8 +263,12 @@
         <attr name="rowHeight" format="dimension|fraction" />
         <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
         <attr name="horizontalGap" format="fraction" />
+        <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
+        <attr name="horizontalGapNarrow" format="fraction" />
         <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
         <attr name="verticalGap" format="fraction" />
+        <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
+        <attr name="verticalGapNarrow" format="fraction" />
         <!-- More keys keyboard layout template -->
         <attr name="moreKeysTemplate" format="reference" />
         <!-- Icon set for key top and key preview. These should be aligned with
