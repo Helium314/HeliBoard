@@ -24,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/setup_step_vertical_padding"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
         <TextView
             android:id="@+id/setup_step1_bullet"
             style="@style/setupStepBulletStyle"
@@ -65,5 +66,8 @@
         android:id="@+id/setup_finish"
         android:text="@string/setup_finish_action"
         style="@style/setupStepActionLabelStyle"
-        android:layout_marginTop="@dimen/setup_step_horizontal_line_height" />
+        android:layout_marginTop="@dimen/setup_step_horizontal_line_height"
+        android:paddingTop="@dimen/setup_step_action_padding"
+        android:paddingBottom="@dimen/setup_step_action_padding"
+        android:layout_height="wrap_content"/>
 </merge>

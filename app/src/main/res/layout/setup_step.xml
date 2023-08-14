@@ -34,5 +34,8 @@
     <TextView
         android:id="@+id/setup_step_action_label"
         style="@style/setupStepActionLabelStyle"
-        android:layout_marginTop="@dimen/setup_step_horizontal_line_height" />
+        android:layout_marginTop="@dimen/setup_step_horizontal_line_height"
+        android:paddingTop="@dimen/setup_step_action_padding"
+        android:paddingBottom="@dimen/setup_step_action_padding"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

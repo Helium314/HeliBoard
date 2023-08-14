@@ -21,5 +21,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:id="@+id/setup_title"
+        android:gravity="center"
         style="@style/setupTitleStyle" />
 </merge>
