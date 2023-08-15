@@ -27,8 +27,8 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="spoken_emoji_00A9" msgid="2859822817116803638">কপিরাইট চিহ্ন</string>
     <string name="spoken_emoji_00AE" msgid="7708335454134589027">নিবন্ধিত চিহ্ন</string>
-    <string name="spoken_emoji_203C" msgid="153340916701508663">যুগল বিস্ময়বোধক চিহ্ন</string>
-    <string name="spoken_emoji_2049" msgid="4877256448299555371">বিস্ময়বোধক প্রশ্ন চিহ্ন</string>
+    <string name="spoken_emoji_203C" msgid="153340916701508663">যুগল বিস্ময়বোধক চিহ্ন</string>
+    <string name="spoken_emoji_2049" msgid="4877256448299555371">বিস্ময়বোধক প্রশ্ন চিহ্ন</string>
     <string name="spoken_emoji_2122" msgid="9188440722954720429">ট্রেড মার্ক সাইন</string>
     <string name="spoken_emoji_2139" msgid="9114342638917304327">তথ্য উৎস</string>
     <string name="spoken_emoji_2194" msgid="8055202727034946680">বাম ডান তীর</string>
@@ -43,15 +43,15 @@
     <string name="spoken_emoji_231B" msgid="5956428809948426182">বালিঘড়ি</string>
     <string name="spoken_emoji_2328" msgid="8004906090359197446">কিবোর্ড</string>
     <string name="spoken_emoji_23CF" msgid="8619437871899719070">ইজেক্ট চিহ্ন</string>
-    <string name="spoken_emoji_23E9" msgid="4022497733535162237">কালো ডানদিকে নির্দেশক যুগল ত্রিভুজ</string>
-    <string name="spoken_emoji_23EA" msgid="2251396938087774944">কালো বাম-পয়েন্টিং যুগল ত্রিভুজ</string>
-    <string name="spoken_emoji_23EB" msgid="3746885195641491865">কালো উপরে-পয়েন্টিং যুগল ত্রিভুজ</string>
-    <string name="spoken_emoji_23EC" msgid="7852372752901163416">কালো ডাউন-পয়েন্টিং যুগল ত্রিভুজ</string>
-    <string name="spoken_emoji_23ED" msgid="4064850193044573080">উল্লম্ব দণ্ডসহ কালো ডান-পয়েন্টিং যুগল ত্রিভুজ</string>
-    <string name="spoken_emoji_23EE" msgid="9014449600450857793">উল্লম্ব দণ্ডসহ কালো বাম-পয়েন্টিং যুগল ত্রিভুজ</string>
-    <string name="spoken_emoji_23EF" msgid="3823680845887006998">যুগল উল্লম্ব দণ্ডসহ কালো ডান-পয়েন্টিং ত্রিভুজ</string>
+    <string name="spoken_emoji_23E9" msgid="4022497733535162237">কালো ডানে নির্দেশক যুগল ত্রিভুজ</string>
+    <string name="spoken_emoji_23EA" msgid="2251396938087774944">কালো বামে নির্দেশক যুগল ত্রিভুজ</string>
+    <string name="spoken_emoji_23EB" msgid="3746885195641491865">কালো উপরে নির্দেশক যুগল ত্রিভুজ</string>
+    <string name="spoken_emoji_23EC" msgid="7852372752901163416">কালো নিচে নির্দেশক যুগল ত্রিভুজ</string>
+    <string name="spoken_emoji_23ED" msgid="4064850193044573080">উল্লম্ব দণ্ডসহ কালো ডানে নির্দেশক যুগল ত্রিভুজ</string>
+    <string name="spoken_emoji_23EE" msgid="9014449600450857793">উল্লম্ব দণ্ডসহ কালো বামে নির্দেশক যুগল ত্রিভুজ</string>
+    <string name="spoken_emoji_23EF" msgid="3823680845887006998">যুগল উল্লম্ব দণ্ডসহ কালো ডানে নির্দেশক ত্রিভুজ</string>
     <string name="spoken_emoji_23F0" msgid="8474219588750627870">অ্যালার্মঘড়ি</string>
-    <string name="spoken_emoji_23F1" msgid="2303619241672210658">স্টপওয়াচ</string>
+    <string name="spoken_emoji_23F1" msgid="2303619241672210658">স্টপওয়াচ</string>
     <string name="spoken_emoji_23F2" msgid="2178084138229786936">টাইমার ঘড়ি</string>
     <string name="spoken_emoji_23F3" msgid="166900119581024371">প্রবাহিত বালির সঙ্গে বালিঘড়ি</string>
     <string name="spoken_emoji_23F8" msgid="1924914079210161141">যুগল উল্লম্ব বার</string>
@@ -74,24 +74,24 @@
     <string name="spoken_emoji_260E" msgid="8670395193046424238">কালো টেলিফোন</string>
     <string name="spoken_emoji_2611" msgid="4530550203347054611">চেকসহ ব্যালট বাক্স</string>
     <string name="spoken_emoji_2614" msgid="1612791247861229500">বৃষ্টির ফোঁটাসহ ছাতা</string>
-    <string name="spoken_emoji_2615" msgid="3320562382424018588">গরম পানীয়</string>
+    <string name="spoken_emoji_2615" msgid="3320562382424018588">গরম পানীয়</string>
     <string name="spoken_emoji_2618" msgid="5581533965699965354">শ্যামরক</string>
-    <string name="spoken_emoji_261D" msgid="4690554173549768467">সাদা আপ পয়েন্টিং সূচক</string>
+    <string name="spoken_emoji_261D" msgid="4690554173549768467">সাদা আপ পয়েন্টিং সূচক</string>
     <string name="spoken_emoji_2620" msgid="4434290857196023657">মাথার খুলি এবং ক্রসবোন</string>
-    <string name="spoken_emoji_2622" msgid="2534880989000210921">তেজস্ক্রিয় চিহ্ন</string>
-    <string name="spoken_emoji_2623" msgid="141484483765762677">বায়োহাজার্ড সাইন</string>
+    <string name="spoken_emoji_2622" msgid="2534880989000210921">তেজস্ক্রিয় চিহ্ন</string>
+    <string name="spoken_emoji_2623" msgid="141484483765762677">জীবঝুঁকি সাইন</string>
     <string name="spoken_emoji_2626" msgid="2857954123507187408">অর্থোডক্স ক্রস</string>
     <string name="spoken_emoji_262A" msgid="6726891928565290372">তারা এবং অর্ধচন্দ্র</string>
     <string name="spoken_emoji_262E" msgid="3189887039765290178">শান্তির চিহ্ন</string>
-    <string name="spoken_emoji_262F" msgid="7138150472623738307">ইয়িন ইয়াং</string>
+    <string name="spoken_emoji_262F" msgid="7138150472623738307">ইয়িন ইয়াং</string>
     <string name="spoken_emoji_2638" msgid="9073003565602256277">ধর্মের চাকা</string>
-    <string name="spoken_emoji_2639" msgid="6128305824180156835">সাদা ভ্রুকুটি মুখাবয়ব</string>
-    <string name="spoken_emoji_263A" msgid="3170094381521989300">সাদা হাসিমাখা মুখাবয়ব</string>
+    <string name="spoken_emoji_2639" msgid="6128305824180156835">সাদা ভ্রুকুটি মুখাবয়ব</string>
+    <string name="spoken_emoji_263A" msgid="3170094381521989300">সাদা হাসিমাখা মুখাবয়ব</string>
     <string name="spoken_emoji_2648" msgid="4621241062667020673">মেষ রাশি</string>
     <string name="spoken_emoji_2649" msgid="7694461245947059086">বৃষ রাশি</string>
-    <string name="spoken_emoji_264A" msgid="1258074605878705030">মিথুনরাশি</string>
+    <string name="spoken_emoji_264A" msgid="1258074605878705030">মিথুন রাশি</string>
     <string name="spoken_emoji_264B" msgid="4409219914377810956">কর্কট রাশি</string>
-    <string name="spoken_emoji_264C" msgid="6520255367817054163">লিও রাশি</string>
+    <string name="spoken_emoji_264C" msgid="6520255367817054163">সিংহ রাশি</string>
     <string name="spoken_emoji_264D" msgid="1504758945499854018">কন্যা রাশি</string>
     <string name="spoken_emoji_264E" msgid="2354847104530633519">তুলা রাশি</string>
     <string name="spoken_emoji_264F" msgid="5822933280406416112">বৃশ্চিক রাশি</string>
@@ -99,19 +99,19 @@
     <string name="spoken_emoji_2651" msgid="840953134601595090">মকর রাশি</string>
     <string name="spoken_emoji_2652" msgid="3586925968718775281">কুম্ভ রাশি</string>
     <string name="spoken_emoji_2653" msgid="8420547731496254492">মীন রাশি</string>
-    <string name="spoken_emoji_2660" msgid="4541170554542412536">কালো কোদাল স্যুট</string>
-    <string name="spoken_emoji_2663" msgid="3669352721942285724">কালো ক্লাব স্যুট</string>
-    <string name="spoken_emoji_2665" msgid="6347941599683765843">কালো হৃদয় স্যুট</string>
-    <string name="spoken_emoji_2666" msgid="8296769213401115999">কালো হীরক স্যুট</string>
+    <string name="spoken_emoji_2660" msgid="4541170554542412536">কালো ইস্কাপন</string>
+    <string name="spoken_emoji_2663" msgid="3669352721942285724">কালো চিড়িতন</string>
+    <string name="spoken_emoji_2665" msgid="6347941599683765843">কালো হরতন</string>
+    <string name="spoken_emoji_2666" msgid="8296769213401115999">কালো রুইতন</string>
     <string name="spoken_emoji_2668" msgid="7063148281053820386">উষ্ণ প্রস্রবণ</string>
-    <string name="spoken_emoji_267B" msgid="21716857176812762">কালো সার্বজনীন পুনর্ব্যবহারযোগ্য চিহ্ন</string>
-    <string name="spoken_emoji_267F" msgid="8833496533226475443">হুইলচেয়ার চিহ্ন</string>
-    <string name="spoken_emoji_2692" msgid="633276166375803852">হাতুড়ি এবং বাছাই</string>
+    <string name="spoken_emoji_267B" msgid="21716857176812762">কালো পুনর্ব্যবহারযোগ্য চিহ্ন</string>
+    <string name="spoken_emoji_267F" msgid="8833496533226475443">হুইলচেয়ার চিহ্ন</string>
+    <string name="spoken_emoji_2692" msgid="633276166375803852">হাতুড়ি ও খনিত্র</string>
     <string name="spoken_emoji_2693" msgid="7443148847598433088">নোঙ্গর</string>
-    <string name="spoken_emoji_2694" msgid="4114117110598973648">ক্রসড তলোয়ার</string>
+    <string name="spoken_emoji_2694" msgid="4114117110598973648">ক্রসড তলোয়ার</string>
     <string name="spoken_emoji_2696" msgid="7920282042498350920">দাঁড়িপাল্লা</string>
     <string name="spoken_emoji_2697" msgid="7576307101162421601">অ্যালেম্বিক</string>
-    <string name="spoken_emoji_2699" msgid="8525225054232323125">গিয়ার</string>
+    <string name="spoken_emoji_2699" msgid="8525225054232323125">গিয়ার</string>
     <string name="spoken_emoji_269B" msgid="9146644473418235977">পরমাণুর চিহ্ন</string>
     <string name="spoken_emoji_269C" msgid="1883421369883009835">ফ্লেউর-ডি-লিস</string>
     <string name="spoken_emoji_26A0" msgid="6272635532992727510">সতর্কীকরণ চিহ্ন</string>
@@ -119,14 +119,14 @@
     <string name="spoken_emoji_26AA" msgid="8005748091690377153">মাঝারি সাদা বৃত্ত</string>
     <string name="spoken_emoji_26AB" msgid="1655910278422753244">মাঝারি কালো বৃত্ত</string>
     <string name="spoken_emoji_26B0" msgid="5742048235215593821">শবাধার</string>
-    <string name="spoken_emoji_26B1" msgid="2096529437455909562">অন্ত্যেষ্টিক্রিয়া</string>
+    <string name="spoken_emoji_26B1" msgid="2096529437455909562">অন্ত্যেষ্টিক্রিয়া</string>
     <string name="spoken_emoji_26BD" msgid="1545218197938889737">ফুটবল</string>
     <string name="spoken_emoji_26BE" msgid="8959760533076498209">বেসবল</string>
     <string name="spoken_emoji_26C4" msgid="3045791757044255626">তুষার ছাড়া তুষারমানব</string>
     <string name="spoken_emoji_26C5" msgid="5580129409712578639">মেঘের আড়ালে সূর্য</string>
     <string name="spoken_emoji_26C8" msgid="4641925705576445058">বজ্র মেঘ আর বৃষ্টি</string>
     <string name="spoken_emoji_26CE" msgid="8963656417276062998">ওফিউকাস</string>
-    <string name="spoken_emoji_26CF" msgid="1048987245528185548">বাছাই</string>
+    <string name="spoken_emoji_26CF" msgid="1048987245528185548">খনিত্র</string>
     <string name="spoken_emoji_26D1" msgid="5122253261153603676">সাদা ক্রসসহ হেলমেট</string>
     <string name="spoken_emoji_26D3" msgid="7567590167882104907">চেইন</string>
     <string name="spoken_emoji_26D4" msgid="2231451988209604130">প্রবেশ নিষেধ</string>
@@ -138,7 +138,7 @@
     <string name="spoken_emoji_26F3" msgid="4912302210162075465">গর্তে পতাকা</string>
     <string name="spoken_emoji_26F4" msgid="8296597141413923967">ফেরি</string>
     <string name="spoken_emoji_26F5" msgid="4766328116769075217">পালতোলা নৌকা</string>
-    <string name="spoken_emoji_26F7" msgid="5002838791562917075">স্কিয়ার</string>
+    <string name="spoken_emoji_26F7" msgid="5002838791562917075">স্কিয়ার</string>
     <string name="spoken_emoji_26F8" msgid="2326041972852924376">বরফ স্কেইট্</string>
     <string name="spoken_emoji_26F9" msgid="1588803158145064802">বলসহ ব্যক্তি</string>
     <string name="spoken_emoji_26FA" msgid="5888017494809199037">তাঁবু</string>
@@ -149,7 +149,7 @@
     <string name="spoken_emoji_2709" msgid="2217319160724311369">খাম</string>
     <string name="spoken_emoji_270A" msgid="508347232762319473">উত্থাপিত মুষ্টি</string>
     <string name="spoken_emoji_270B" msgid="6640562128327753423">উত্থাপিত হাত</string>
-    <string name="spoken_emoji_270C" msgid="1344288035704944581">বিজয়ের হাত</string>
+    <string name="spoken_emoji_270C" msgid="1344288035704944581">বিজয়ের হাত</string>
     <string name="spoken_emoji_270D" msgid="8850355355131892496">লেখার হাত</string>
     <string name="spoken_emoji_270F" msgid="6108251586067318718">পেন্সিল</string>
     <string name="spoken_emoji_2712" msgid="6320544535087710482">কালো নিব</string>
@@ -158,7 +158,7 @@
     <string name="spoken_emoji_271D" msgid="2367275551961395862">ল্যাটিন ক্রস</string>
     <string name="spoken_emoji_2721" msgid="4150694777322944905">ডেভিডের নক্ষত্র</string>
     <string name="spoken_emoji_2728" msgid="5650330815808691881">ঝিকিমিকি</string>
-    <string name="spoken_emoji_2733" msgid="8915809595141157327">আটটি কথ্য তারকাচিহ্ন</string>
+    <string name="spoken_emoji_2733" msgid="8915809595141157327">আট ম্পোকের তারকাচিহ্ন</string>
     <string name="spoken_emoji_2734" msgid="4846583547980754332">আট বিন্দু কালো তারা</string>
     <string name="spoken_emoji_2744" msgid="4350636647760161042">তুষারকণা</string>
     <string name="spoken_emoji_2747" msgid="3718282973916474455">ঝিকিমিকি</string>
@@ -166,18 +166,18 @@
     <string name="spoken_emoji_274E" msgid="4262918689871098338">ঋণাত্মক বর্গক্ষেত্র ক্রস চিহ্ন</string>
     <string name="spoken_emoji_2753" msgid="6935897159942119808">কালো প্রশ্ন চিহ্নের অলংকার</string>
     <string name="spoken_emoji_2754" msgid="7277504915105532954">সাদা প্রশ্ন চিহ্নের অলংকার</string>
-    <string name="spoken_emoji_2755" msgid="6853076969826960210">সাদা বিস্ময় চিহ্নের অলঙ্কার</string>
-    <string name="spoken_emoji_2757" msgid="3707907828776912174">ভারী বিস্ময়বোধক চিহ্ন</string>
-    <string name="spoken_emoji_2763" msgid="3255858123691890971">ভারি হৃদয় বিস্ময় চিহ্ন অলঙ্কার</string>
-    <string name="spoken_emoji_2764" msgid="4214257843609432167">ভারী কালো হৃদয়</string>
+    <string name="spoken_emoji_2755" msgid="6853076969826960210">সাদা বিস্ময় চিহ্নের অলঙ্কার</string>
+    <string name="spoken_emoji_2757" msgid="3707907828776912174">ভারী বিস্ময়বোধক চিহ্ন</string>
+    <string name="spoken_emoji_2763" msgid="3255858123691890971">ভারি হৃদয় বিস্ময় চিহ্ন অলঙ্কার</string>
+    <string name="spoken_emoji_2764" msgid="4214257843609432167">ভারী কালো হৃদয়</string>
     <string name="spoken_emoji_2795" msgid="6563954833786162168">ভারী প্লাস চিহ্ন</string>
     <string name="spoken_emoji_2796" msgid="5990926508250772777">ভারী মাইনাস চিহ্ন</string>
     <string name="spoken_emoji_2797" msgid="24694184172879174">ভারী বিভাজন চিহ্ন</string>
     <string name="spoken_emoji_27A1" msgid="3513434778263100580">কালো ডানদিকের তীর</string>
     <string name="spoken_emoji_27B0" msgid="203395646864662198">কোঁকড়া লুপ</string>
     <string name="spoken_emoji_27BF" msgid="4940514642375640510">যুগল কোঁকড়া লুপ</string>
-    <string name="spoken_emoji_2934" msgid="9062130477982973457">ডানদিকে নির্দেশ করা তীর তারপর উপরের দিকে বাঁকা</string>
-    <string name="spoken_emoji_2935" msgid="6198710960720232074">ডানদিকে নির্দেশ করা তীর তারপর নিচের দিকে বাঁকা</string>
+    <string name="spoken_emoji_2934" msgid="9062130477982973457">ডানে নির্দেশক তীর তারপর উপরের দিকে বাঁকা</string>
+    <string name="spoken_emoji_2935" msgid="6198710960720232074">ডানে নির্দেশক তীর তারপর নিচের দিকে বাঁকা</string>
     <string name="spoken_emoji_2B05" msgid="4813405635410707690">বাম দিকে কালো তীর</string>
     <string name="spoken_emoji_2B06" msgid="1223172079106250748">উপরের দিকে কালো তীর</string>
     <string name="spoken_emoji_2B07" msgid="1599124424746596150">নিচের দিকে কালো তীর</string>
@@ -188,15 +188,15 @@
     <string name="spoken_emoji_3030" msgid="4609172241893565639">ঢেউ খেলানো ড্যাশ</string>
     <string name="spoken_emoji_303D" msgid="2545833934975907505">অংশ বিকল্প চিহ্ন</string>
     <string name="spoken_emoji_3297" msgid="928912923628973800">বৃত্তাকার চিত্রলিপি অভিনন্দন</string>
-    <string name="spoken_emoji_3299" msgid="3930347573693668426">চেনাশোনা চিত্রলিপি গোপন</string>
+    <string name="spoken_emoji_3299" msgid="3930347573693668426">গোলাকার চিত্রলিপি গোপন</string>
     <string name="spoken_emoji_1F004" msgid="1705216181345894600">মাহজং টাইল লাল ড্রাগন</string>
-    <string name="spoken_emoji_1F0CF" msgid="7601493592085987866">কার্ড কালো জোকার খেলা</string>
+    <string name="spoken_emoji_1F0CF" msgid="7601493592085987866">কালো জোকার খেলার-কার্ড</string>
     <string name="spoken_emoji_1F170" msgid="3817698686602826773">রক্তের গ্রুপ এ</string>
     <string name="spoken_emoji_1F171" msgid="3684218589626650242">রক্তের গ্রুপ বি</string>
     <string name="spoken_emoji_1F17E" msgid="2978809190364779029">রক্তের গ্রুপ ও</string>
     <string name="spoken_emoji_1F17F" msgid="463634348668462040">পার্কিং লট</string>
-    <string name="spoken_emoji_1F18E" msgid="1650705325221496768">রক্তের গ্রুপ এ বি</string>
-    <string name="spoken_emoji_1F191" msgid="5386969264431429221">বর্গাকার CL</string>
+    <string name="spoken_emoji_1F18E" msgid="1650705325221496768">রক্তের গ্রুপ এবি</string>
+    <string name="spoken_emoji_1F191" msgid="5386969264431429221">বর্গাকার ক্লিয়ার বাটন</string>
     <string name="spoken_emoji_1F192" msgid="8324226436829162496">চৌকো শীতল</string>
     <string name="spoken_emoji_1F193" msgid="4731758603321515364">বর্গাকার বিনামূল্যে</string>
     <string name="spoken_emoji_1F194" msgid="4903128609556175887">বর্গাকার আইডি</string>
@@ -204,9 +204,9 @@
     <string name="spoken_emoji_1F196" msgid="8825160701159634202">বর্গাকার এন জি</string>
     <string name="spoken_emoji_1F197" msgid="7841079241554176535">বর্গাকার সঠিক</string>
     <string name="spoken_emoji_1F198" msgid="7020298909426960622">বর্গাকার SOS</string>
-    <string name="spoken_emoji_1F199" msgid="5971252667136235630">বিস্ময় চিহ্নসহ বর্গাকার</string>
+    <string name="spoken_emoji_1F199" msgid="5971252667136235630">বিস্ময় চিহ্নসহ বর্গাকার</string>
     <string name="spoken_emoji_1F19A" msgid="4557270135899843959">বর্গক্ষেত্র বনাম</string>
-    <string name="spoken_emoji_1F201" msgid="7000490044681139002">এখানে বর্গাকার কাতাকানা</string>
+    <string name="spoken_emoji_1F201" msgid="7000490044681139002">বর্গাকার এখানে কাতাকানা</string>
     <string name="spoken_emoji_1F202" msgid="8560906958695043947">বর্গাকার কাতাকানা পরিষেবা</string>
     <string name="spoken_emoji_1F21A" msgid="1496435317324514033">বর্গাকার চিত্রলিপি চার্জ-মুক্ত</string>
     <string name="spoken_emoji_1F22F" msgid="609797148862445402">বর্গাকার চিত্রলিপি সংরক্ষিত-সিট</string>
@@ -214,30 +214,30 @@
     <string name="spoken_emoji_1F233" msgid="8749401090457355028">বর্গাকার চিত্রলিপি খালি</string>
     <string name="spoken_emoji_1F234" msgid="3546951604285970768">বর্গাকার চিত্রলিপি গ্রহণযোগ্যতা</string>
     <string name="spoken_emoji_1F235" msgid="5320186982841793711">বর্গাকার চিত্রলিপি সম্পূর্ণ দখল</string>
-    <string name="spoken_emoji_1F236" msgid="879755752069393034">বর্গাকার চিত্রলিপি দেওয়া হয়েছে</string>
+    <string name="spoken_emoji_1F236" msgid="879755752069393034">বর্গাকার চিত্রলিপি দেওয়া হয়েছে</string>
     <string name="spoken_emoji_1F237" msgid="6741807001205851437">বর্গাকার চিত্রলিপি মাসিক</string>
     <string name="spoken_emoji_1F238" msgid="5504414186438196912">বর্গাকার চিত্রলিপি অ্যাপ্লিকেশন</string>
     <string name="spoken_emoji_1F239" msgid="1634067311597618959">বর্গক্ষেত্র চিত্রলিপি ডিসকাউন্ট</string>
-    <string name="spoken_emoji_1F23A" msgid="3107862957630169536">ব্যবসায় বর্গাকার চিত্রলিপি</string>
+    <string name="spoken_emoji_1F23A" msgid="3107862957630169536">ব্যবসায় বর্গাকার চিত্রলিপি</string>
     <string name="spoken_emoji_1F250" msgid="6586943922806727907">বৃত্তাকার চিত্রলিপি সুবিধা</string>
-    <string name="spoken_emoji_1F251" msgid="9099032855993346948">বৃত্তাকার চিত্রলিপি গ্রহণ করুন</string>
+    <string name="spoken_emoji_1F251" msgid="9099032855993346948">বৃত্তাকার চিত্রলিপি গ্রহণ</string>
     <string name="spoken_emoji_1F300" msgid="4720098285295840383">ঘূর্ণিঝড়</string>
-    <string name="spoken_emoji_1F301" msgid="3601962477653752974">কুয়াশাচ্ছন্ন</string>
+    <string name="spoken_emoji_1F301" msgid="3601962477653752974">কুয়াশাচ্ছন্ন</string>
     <string name="spoken_emoji_1F302" msgid="3404357123421753593">বন্ধ ছাতা</string>
     <string name="spoken_emoji_1F303" msgid="3899301321538188206">তারাময় রাত</string>
-    <string name="spoken_emoji_1F304" msgid="2767148930689050040">পাহাড়ের উপরে সূর্যোদয়</string>
-    <string name="spoken_emoji_1F305" msgid="9165812924292061196">সূর্যোদয়</string>
+    <string name="spoken_emoji_1F304" msgid="2767148930689050040">পাহাড়ের উপরে সূর্যোদয়</string>
+    <string name="spoken_emoji_1F305" msgid="9165812924292061196">সূর্যোদয়</string>
     <string name="spoken_emoji_1F306" msgid="5889294736109193104">শহুরে সন্ধ্যা</string>
     <string name="spoken_emoji_1F307" msgid="2714290867291163713">ভবনের উপর সূর্যাস্ত</string>
     <string name="spoken_emoji_1F308" msgid="688704703985173377">রংধনু</string>
     <string name="spoken_emoji_1F309" msgid="6217981957992313528">রাতের সেতু</string>
     <string name="spoken_emoji_1F30A" msgid="4329309263152110893">জল তরঙ্গ</string>
-    <string name="spoken_emoji_1F30B" msgid="5729430693700923112">আগ্নেয়গিরি</string>
+    <string name="spoken_emoji_1F30B" msgid="5729430693700923112">আগ্নেয়গিরি</string>
     <string name="spoken_emoji_1F30C" msgid="2961230863217543082">আকাশগঙ্গা</string>
     <string name="spoken_emoji_1F30D" msgid="1113905673331547953">ইউরোপ-আফ্রিকা পৃথিবী</string>
     <string name="spoken_emoji_1F30E" msgid="5278512600749223671">আমেরিকা পৃথিবী</string>
-    <string name="spoken_emoji_1F30F" msgid="5718144880978707493">এশিয়া-অস্ট্রেলিয়া পৃথিবী</string>
-    <string name="spoken_emoji_1F310" msgid="2959618582975247601">মেরিডিয়ানসহ গ্লোব</string>
+    <string name="spoken_emoji_1F30F" msgid="5718144880978707493">এশিয়া-অস্ট্রেলিয়া পৃথিবী</string>
+    <string name="spoken_emoji_1F310" msgid="2959618582975247601">মেরিডিয়ানসহ গ্লোব</string>
     <string name="spoken_emoji_1F311" msgid="623906380914895542">নতুন চাঁদ</string>
     <string name="spoken_emoji_1F312" msgid="4458575672576125401">শুক্লপক্ষের অর্ধচন্দ্র</string>
     <string name="spoken_emoji_1F313" msgid="7599181787989497294">প্রথম ত্রৈমাসিক চাঁদ</string>
@@ -262,8 +262,8 @@
     <string name="spoken_emoji_1F328" msgid="1991614733939171872">তুষারসহ মেঘ</string>
     <string name="spoken_emoji_1F329" msgid="6016235695016510649">বিদ্যুতের সাথে মেঘ</string>
     <string name="spoken_emoji_1F32A" msgid="5889026615334911758">টর্নেডোসহ মেঘ</string>
-    <string name="spoken_emoji_1F32B" msgid="3223192457131343118">কুয়াশা</string>
-    <string name="spoken_emoji_1F32C" msgid="3479270390051226956">বাতাস বয়ে যাওয়া মুখাবয়ব</string>
+    <string name="spoken_emoji_1F32B" msgid="3223192457131343118">কুয়াশা</string>
+    <string name="spoken_emoji_1F32C" msgid="3479270390051226956">বাতাস বয়ে যাওয়া মুখাবয়ব</string>
     <string name="spoken_emoji_1F32D" msgid="8869598854109228966">হট ডগ</string>
     <string name="spoken_emoji_1F32E" msgid="6077879860650582531">টাকো</string>
     <string name="spoken_emoji_1F32F" msgid="6730078269862769637">বুরিটো</string>
@@ -340,9 +340,9 @@
     <string name="spoken_emoji_1F376" msgid="6499274685584852067">সেক বোতল এবং কাপ</string>
     <string name="spoken_emoji_1F377" msgid="1762398562314172075">সুরাপাত্র</string>
     <string name="spoken_emoji_1F378" msgid="5528234560590117516">ককটেল গ্লাস</string>
-    <string name="spoken_emoji_1F379" msgid="790581290787943325">গ্রীষ্মমন্ডলীয় পানীয়</string>
-    <string name="spoken_emoji_1F37A" msgid="391966822450619516">বিয়ার মগ</string>
-    <string name="spoken_emoji_1F37B" msgid="9015043286465670662">ক্লিঙ্কিং বিয়ার মগ</string>
+    <string name="spoken_emoji_1F379" msgid="790581290787943325">গ্রীষ্মমন্ডলীয় পানীয়</string>
+    <string name="spoken_emoji_1F37A" msgid="391966822450619516">বিয়ার মগ</string>
+    <string name="spoken_emoji_1F37B" msgid="9015043286465670662">ক্লিঙ্কিং বিয়ার মগ</string>
     <string name="spoken_emoji_1F37C" msgid="2532113819464508894">শিশুর বোতল</string>
     <string name="spoken_emoji_1F37D" msgid="8887228479219886429">প্লেট সঙ্গে কাঁটাচামচ এবং ছুরি</string>
     <string name="spoken_emoji_1F37E" msgid="37593222775513943">পপিং কর্ক সঙ্গে বোতল</string>
@@ -354,7 +354,7 @@
     <string name="spoken_emoji_1F384" msgid="1797870204479059004">বড়দিনের গাছ</string>
     <string name="spoken_emoji_1F385" msgid="1754174063483626367">ফাদার ক্রিসমাস</string>
     <string name="spoken_emoji_1F386" msgid="2130445450758114746">আতশবাজি</string>
-    <string name="spoken_emoji_1F387" msgid="3403182563117999933">ফায়ারওয়ার্ক স্পার্কলার</string>
+    <string name="spoken_emoji_1F387" msgid="3403182563117999933">ফায়ারওয়ার্ক স্পার্কলার</string>
     <string name="spoken_emoji_1F388" msgid="2903047203723251804">বেলুন</string>
     <string name="spoken_emoji_1F389" msgid="2352830665883549388">পার্টি পপার</string>
     <string name="spoken_emoji_1F38A" msgid="6280428984773641322">কনফেটি বল</string>
@@ -363,15 +363,15 @@
     <string name="spoken_emoji_1F38D" msgid="8237542796124408528">পাইন প্রসাধন</string>
     <string name="spoken_emoji_1F38E" msgid="5373397476238212371">জাপানি পুতুল</string>
     <string name="spoken_emoji_1F38F" msgid="8754091376829552844">কার্প স্ট্রিমার</string>
-    <string name="spoken_emoji_1F390" msgid="8903307048095431374">বায়ু ঐকতান</string>
+    <string name="spoken_emoji_1F390" msgid="8903307048095431374">বায়ু ঐকতান</string>
     <string name="spoken_emoji_1F391" msgid="2134952069191911841">চাঁদ দেখার অনুষ্ঠান</string>
     <string name="spoken_emoji_1F392" msgid="6380405493914304737">স্কুলের ঝুলি</string>
     <string name="spoken_emoji_1F393" msgid="6947890064872470996">স্নাতক ক্যাপ</string>
     <string name="spoken_emoji_1F396" msgid="8356140738000265647">সামরিক পদক</string>
-    <string name="spoken_emoji_1F397" msgid="5249863289838097468">অনুস্মারক ফিতা</string>
+    <string name="spoken_emoji_1F397" msgid="5249863289838097468">স্মরণকারী ফিতা</string>
     <string name="spoken_emoji_1F399" msgid="6087019010423147017">স্টুডিও মাইক্রোফোন</string>
     <string name="spoken_emoji_1F39A" msgid="1627914548345466924">লেভেল স্লাইডার</string>
-    <string name="spoken_emoji_1F39B" msgid="648039433701743585">নিয়ন্ত্রণ knobs</string>
+    <string name="spoken_emoji_1F39B" msgid="648039433701743585">নিয়ন্ত্রণ নব</string>
     <string name="spoken_emoji_1F39E" msgid="2918731924907952534">ফিল্ম ফ্রেম</string>
     <string name="spoken_emoji_1F39F" msgid="2427606024950432412">ভর্তির টিকিট</string>
     <string name="spoken_emoji_1F3A0" msgid="3572095190082826057">ক্যারোসেল ঘোড়া</string>
@@ -387,11 +387,11 @@
     <string name="spoken_emoji_1F3AA" msgid="5728760354237132">সার্কাসের তাঁবু</string>
     <string name="spoken_emoji_1F3AB" msgid="1657997517193216284">টিকিট</string>
     <string name="spoken_emoji_1F3AC" msgid="4317366554314492152">ক্ল্যাপার বোর্ড</string>
-    <string name="spoken_emoji_1F3AD" msgid="607157286336130470">শিল্পকলা প্রদর্শন করা</string>
+    <string name="spoken_emoji_1F3AD" msgid="607157286336130470">শিল্পকলা প্রদর্শন</string>
     <string name="spoken_emoji_1F3AE" msgid="2902308174671548150">ভিডিও গেম</string>
     <string name="spoken_emoji_1F3AF" msgid="5420539221790296407">সরাসরি আঘাত</string>
     <string name="spoken_emoji_1F3B0" msgid="7440244806527891956">স্লট মেশিন</string>
-    <string name="spoken_emoji_1F3B1" msgid="545544382391379234">বিলিয়ার্ডস</string>
+    <string name="spoken_emoji_1F3B1" msgid="545544382391379234">বিলিয়ার্ডস</string>
     <string name="spoken_emoji_1F3B2" msgid="8302262034774787493">খেলা মারা</string>
     <string name="spoken_emoji_1F3B3" msgid="5180870610771027520">বোলিং</string>
     <string name="spoken_emoji_1F3B4" msgid="4723852033266071564">ফুল তাস খেলা</string>
@@ -403,7 +403,7 @@
     <string name="spoken_emoji_1F3BA" msgid="4284064120340683558">ট্রাম্পেট</string>
     <string name="spoken_emoji_1F3BB" msgid="2856598510069988745">বেহালা</string>
     <string name="spoken_emoji_1F3BC" msgid="1608424748821446230">সংগীতের স্কোর</string>
-    <string name="spoken_emoji_1F3BD" msgid="5490786111375627777">শার্ট দিয়ে চলমান শার্ট</string>
+    <string name="spoken_emoji_1F3BD" msgid="5490786111375627777">শার্ট দিয়ে চলমান শার্ট</string>
     <string name="spoken_emoji_1F3BE" msgid="1851613105691627931">টেনিস র্যাকেট এবং বল</string>
     <string name="spoken_emoji_1F3BF" msgid="6862405997423247921">স্কি এবং স্কি বুট</string>
     <string name="spoken_emoji_1F3C0" msgid="7421420756115104085">বাস্কেটবল এবং হুপ</string>
@@ -428,7 +428,7 @@
     <string name="spoken_emoji_1F3D3" msgid="5392602379011857837">টেবিল টেনিস প্যাডেল এবং বল</string>
     <string name="spoken_emoji_1F3D4" msgid="5682806162641888464">বরফে ঢাকা পাহাড়</string>
     <string name="spoken_emoji_1F3D5" msgid="485622019934191893">ক্যাম্পিং</string>
-    <string name="spoken_emoji_1F3D6" msgid="8056487018845189239">ছাতা দিয়ে সমুদ্র সৈকত</string>
+    <string name="spoken_emoji_1F3D6" msgid="8056487018845189239">ছাতাসহ সমুদ্র সৈকত</string>
     <string name="spoken_emoji_1F3D7" msgid="9200931466909972688">ভবন নির্মান</string>
     <string name="spoken_emoji_1F3D8" msgid="4060224387880105443">ঘর ভবন</string>
     <string name="spoken_emoji_1F3D9" msgid="5239036983837296458">সিটিস্কেপ</string>
@@ -436,37 +436,37 @@
     <string name="spoken_emoji_1F3DB" msgid="5481092245291634716">ক্লাসিক্যাল বিল্ডিং</string>
     <string name="spoken_emoji_1F3DC" msgid="7540751465637885253">মরুভূমি</string>
     <string name="spoken_emoji_1F3DD" msgid="2957722522033693226">মরুভূমির দ্বীপ</string>
-    <string name="spoken_emoji_1F3DE" msgid="8767730963119889199">জাতীয় উদ্যান</string>
-    <string name="spoken_emoji_1F3DF" msgid="360348087882746758">স্টেডিয়াম</string>
+    <string name="spoken_emoji_1F3DE" msgid="8767730963119889199">জাতীয় উদ্যান</string>
+    <string name="spoken_emoji_1F3DF" msgid="360348087882746758">স্টেডিয়াম</string>
     <string name="spoken_emoji_1F3E0" msgid="6277213201655811842">গৃহ নির্মাণ</string>
     <string name="spoken_emoji_1F3E1" msgid="233476176077538885">বাগানসহ ঘর</string>
     <string name="spoken_emoji_1F3E2" msgid="919736380093964570">অফিস ভবন</string>
     <string name="spoken_emoji_1F3E3" msgid="6177606081825094184">জাপানি পোস্ট অফিস</string>
-    <string name="spoken_emoji_1F3E4" msgid="717377871070970293">ইউরোপীয় পোস্ট অফিস</string>
+    <string name="spoken_emoji_1F3E4" msgid="717377871070970293">ইউরোপীয় পোস্ট অফিস</string>
     <string name="spoken_emoji_1F3E5" msgid="1350532500431776780">হাসপাতাল</string>
     <string name="spoken_emoji_1F3E6" msgid="342132788513806214">ব্যাংক</string>
-    <string name="spoken_emoji_1F3E7" msgid="6322352038284944265">স্বয়ংক্রিয় টেলার মেশিন</string>
+    <string name="spoken_emoji_1F3E7" msgid="6322352038284944265">স্বয়ংক্রিয় টেলার মেশিন</string>
     <string name="spoken_emoji_1F3E8" msgid="5864918444350599907">হোটেল</string>
     <string name="spoken_emoji_1F3E9" msgid="7830416185375326938">প্রেমের হোটেল</string>
     <string name="spoken_emoji_1F3EA" msgid="5081084413084360479">সুবিধার দোকান</string>
-    <string name="spoken_emoji_1F3EB" msgid="7010966528205150525">বিদ্যালয়</string>
+    <string name="spoken_emoji_1F3EB" msgid="7010966528205150525">বিদ্যালয়</string>
     <string name="spoken_emoji_1F3EC" msgid="4845978861878295154">ডিপার্টমেন্ট স্টোর</string>
     <string name="spoken_emoji_1F3ED" msgid="3980316226665215370">কারখানা</string>
-    <string name="spoken_emoji_1F3EE" msgid="1253964276770550248">ইজাকায়া লণ্ঠন</string>
+    <string name="spoken_emoji_1F3EE" msgid="1253964276770550248">ইজাকায়া লণ্ঠন</string>
     <string name="spoken_emoji_1F3EF" msgid="1128975573507389883">জাপানি দুর্গ</string>
-    <string name="spoken_emoji_1F3F0" msgid="1544632297502291578">ইউরোপীয় দুর্গ</string>
+    <string name="spoken_emoji_1F3F0" msgid="1544632297502291578">ইউরোপীয় দুর্গ</string>
     <string name="spoken_emoji_1F3F3" msgid="6471977885401554862">সাদা পতাকা ওড়ানো</string>
     <string name="spoken_emoji_1F3F4" msgid="6634164537580574234">কালো পতাকা ওড়ানো</string>
     <string name="spoken_emoji_1F3F5" msgid="5247950040998935573">রোজেট</string>
     <string name="spoken_emoji_1F3F7" msgid="5140855387008703511">লেবেল</string>
     <string name="spoken_emoji_1F3F8" msgid="7061216387824058281">ব্যাডমিন্টন র‌্যাকেট এবং শাটলকক</string>
-    <string name="spoken_emoji_1F3F9" msgid="1287386031701875351">তীর - ধনুক</string>
+    <string name="spoken_emoji_1F3F9" msgid="1287386031701875351">তীর-ধনুক</string>
     <string name="spoken_emoji_1F3FA" msgid="972388608151034163">আমফোরা</string>
-    <string name="spoken_emoji_1F3FB" msgid="2482905976407635663">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-১-২</string>
-    <string name="spoken_emoji_1F3FC" msgid="2438230702000819552">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৩</string>
-    <string name="spoken_emoji_1F3FD" msgid="8205610118230779658">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৪</string>
-    <string name="spoken_emoji_1F3FE" msgid="2707903021796601195">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৫</string>
-    <string name="spoken_emoji_1F3FF" msgid="12056714027518795">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৬</string>
+    <string name="spoken_emoji_1F3FB" msgid="2482905976407635663">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-১-২</string>
+    <string name="spoken_emoji_1F3FC" msgid="2438230702000819552">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৩</string>
+    <string name="spoken_emoji_1F3FD" msgid="8205610118230779658">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৪</string>
+    <string name="spoken_emoji_1F3FE" msgid="2707903021796601195">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৫</string>
+    <string name="spoken_emoji_1F3FF" msgid="12056714027518795">ইমোজি মডিফায়ার ফিটজপ্যাট্রিক টাইপ-৬</string>
     <string name="spoken_emoji_1F400" msgid="2063034795679578294">ইঁদুর</string>
     <string name="spoken_emoji_1F401" msgid="6736421616217369594">মাউস</string>
     <string name="spoken_emoji_1F402" msgid="7276670995895485604">বলদ</string>
@@ -504,34 +504,34 @@
     <string name="spoken_emoji_1F422" msgid="4106724877523329148">কচ্ছপ</string>
     <string name="spoken_emoji_1F423" msgid="4077407945958691907">পরিস্ফুটিত মুরগির বাচ্চা</string>
     <string name="spoken_emoji_1F424" msgid="6911326019270172283">মুরগির বাচ্চা</string>
-    <string name="spoken_emoji_1F425" msgid="5466514196557885577">সম্মুখ দিকের মুরগির বাচ্চা</string>
+    <string name="spoken_emoji_1F425" msgid="5466514196557885577">সম্মুখমুখী মুরগির বাচ্চা</string>
     <string name="spoken_emoji_1F426" msgid="2163979138772892755">পাখি</string>
     <string name="spoken_emoji_1F427" msgid="3585670324511212961">পেঙ্গুইন</string>
-    <string name="spoken_emoji_1F428" msgid="7955440808647898579">কোয়ালা</string>
+    <string name="spoken_emoji_1F428" msgid="7955440808647898579">কোয়ালা</string>
     <string name="spoken_emoji_1F429" msgid="5028269352809819035">পুডল</string>
     <string name="spoken_emoji_1F42A" msgid="4681926706404032484">ড্রোমেডারি উট</string>
-    <string name="spoken_emoji_1F42B" msgid="2725166074981558322">ব্যাক্ট্রিয়ান উট</string>
+    <string name="spoken_emoji_1F42B" msgid="2725166074981558322">ব্যাকট্রিয়ান উট</string>
     <string name="spoken_emoji_1F42C" msgid="6764791873413727085">ডলফিন</string>
-    <string name="spoken_emoji_1F42D" msgid="1033643138546864251">ইঁদুরের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F42E" msgid="8099223337120508820">গরুর মুখাবয়ব</string>
-    <string name="spoken_emoji_1F42F" msgid="2104743989330781572">বাঘের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F430" msgid="525492897063150160">খরগোশের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F431" msgid="6051358666235016851">বিড়ালের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F432" msgid="7698001871193018305">ড্রাগনের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F42D" msgid="1033643138546864251">ইঁদুরের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F42E" msgid="8099223337120508820">গরুর মুখাবয়ব</string>
+    <string name="spoken_emoji_1F42F" msgid="2104743989330781572">বাঘের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F430" msgid="525492897063150160">খরগোশের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F431" msgid="6051358666235016851">বিড়ালের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F432" msgid="7698001871193018305">ড্রাগনের মুখাবয়ব</string>
     <string name="spoken_emoji_1F433" msgid="3762356053512899326">উৎসারিত তিমি</string>
-    <string name="spoken_emoji_1F434" msgid="3619943222159943226">ঘোড়ার মুখাবয়ব</string>
-    <string name="spoken_emoji_1F435" msgid="59199202683252958">বানরের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F436" msgid="340544719369009828">কুকুরের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F437" msgid="1219818379784982585">শূকরের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F438" msgid="9128124743321008210">ব্যাঙের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F439" msgid="1424161319554642266">ধেড়ে ইঁদুরের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F43A" msgid="6727645488430385584">নেকড়ে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F43B" msgid="5397170068392865167">ভালুকের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F43C" msgid="2715995734367032431">পান্ডা মুখাবয়ব</string>
+    <string name="spoken_emoji_1F434" msgid="3619943222159943226">ঘোড়ার মুখাবয়ব</string>
+    <string name="spoken_emoji_1F435" msgid="59199202683252958">বানরের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F436" msgid="340544719369009828">কুকুরের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F437" msgid="1219818379784982585">শূকরের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F438" msgid="9128124743321008210">ব্যাঙের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F439" msgid="1424161319554642266">ধেড়ে ইঁদুরের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F43A" msgid="6727645488430385584">নেকড়ে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F43B" msgid="5397170068392865167">ভালুকের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F43C" msgid="2715995734367032431">পান্ডা মুখাবয়ব</string>
     <string name="spoken_emoji_1F43D" msgid="6005480717951776597">শূকরের নাক</string>
     <string name="spoken_emoji_1F43E" msgid="8917626103219080547">থাবার ছাপ</string>
     <string name="spoken_emoji_1F43F" msgid="84025195766364970">চিপমাঙ্ক</string>
-    <string name="spoken_emoji_1F440" msgid="7144338258163384433">চোখ</string>
+    <string name="spoken_emoji_1F440" msgid="7144338258163384433">চোখদ্বয়</string>
     <string name="spoken_emoji_1F441" msgid="5716781405495001412">চোখ</string>
     <string name="spoken_emoji_1F442" msgid="1905515392292676124">কান</string>
     <string name="spoken_emoji_1F443" msgid="1491504447758933115">নাক</string>
@@ -566,11 +566,11 @@
     <string name="spoken_emoji_1F460" msgid="305863879170420855">হাই হিল জুতা</string>
     <string name="spoken_emoji_1F461" msgid="5160493217831417630">মহিলাদের স্যান্ডেল</string>
     <string name="spoken_emoji_1F462" msgid="1722897795554863734">মহিলাদের বুট</string>
-    <string name="spoken_emoji_1F463" msgid="5850772903593010699">পায়ের ছাপ</string>
-    <string name="spoken_emoji_1F464" msgid="1228335905487734913">সিলুয়েট মধ্যে আবক্ষ</string>
-    <string name="spoken_emoji_1F465" msgid="4461307702499679879">সিলুয়েট মধ্যে আবক্ষ</string>
+    <string name="spoken_emoji_1F463" msgid="5850772903593010699">পায়ের ছাপ</string>
+    <string name="spoken_emoji_1F464" msgid="1228335905487734913">সিলুয়েট আবক্ষমূর্তি</string>
+    <string name="spoken_emoji_1F465" msgid="4461307702499679879">একাধিক সিলুয়েট আবক্ষমূর্তি </string>
     <string name="spoken_emoji_1F466" msgid="1938873085514108889">ছেলে</string>
-    <string name="spoken_emoji_1F467" msgid="8237080594860144998">মেয়ে</string>
+    <string name="spoken_emoji_1F467" msgid="8237080594860144998">মেয়ে</string>
     <string name="spoken_emoji_1F468" msgid="6081300722526675382">মানুষ</string>
     <string name="spoken_emoji_1F469" msgid="1090140923076108158">নারী</string>
     <string name="spoken_emoji_1F46A" msgid="5063570981942606595">পরিবার</string>
@@ -579,22 +579,22 @@
     <string name="spoken_emoji_1F46D" msgid="2316773068014053180">হাত ধরা দুই মহিলা</string>
     <string name="spoken_emoji_1F46E" msgid="5897625605860822401">পুলিশ অফিসার</string>
     <string name="spoken_emoji_1F46F" msgid="7716871657717641490">খরগোশের কানসহ মহিলা</string>
-    <string name="spoken_emoji_1F470" msgid="6409995400510338892">ঘোমটা দিয়ে বধূ</string>
-    <string name="spoken_emoji_1F471" msgid="3058247860441670806">স্বর্ণকেশী চুল সঙ্গে ব্যক্তি</string>
-    <string name="spoken_emoji_1F472" msgid="3928854667819339142">গুয়া পাই মাওসহ মানুষ</string>
+    <string name="spoken_emoji_1F470" msgid="6409995400510338892">ঘোমটা দিয়ে বধূ</string>
+    <string name="spoken_emoji_1F471" msgid="3058247860441670806">স্বর্ণকেশী চুলের ব্যক্তি</string>
+    <string name="spoken_emoji_1F472" msgid="3928854667819339142">গুয়া পাই মাওসহ মানুষ</string>
     <string name="spoken_emoji_1F473" msgid="5921952095808988381">পাগড়ি পরা মানুষ</string>
-    <string name="spoken_emoji_1F474" msgid="1082237499496725183">বয়োজ্যেষ্ঠ ব্যক্তি</string>
+    <string name="spoken_emoji_1F474" msgid="1082237499496725183">বয়োজ্যেষ্ঠ ব্যক্তি</string>
     <string name="spoken_emoji_1F475" msgid="7280323988642212761">বৃদ্ধ মহিলা</string>
-    <string name="spoken_emoji_1F476" msgid="4713322657821088296">বেবি</string>
+    <string name="spoken_emoji_1F476" msgid="4713322657821088296">শিশু</string>
     <string name="spoken_emoji_1F477" msgid="2197036131029221370">নির্মাণ শ্রমিক</string>
     <string name="spoken_emoji_1F478" msgid="7245521193493488875">রাজকুমারী</string>
     <string name="spoken_emoji_1F479" msgid="6876475321015553972">জাপানি ওগ্রে</string>
     <string name="spoken_emoji_1F47A" msgid="3900813633102703571">জাপানি গবলিন</string>
     <string name="spoken_emoji_1F47B" msgid="2608250873194079390">প্রেতাত্মা</string>
     <string name="spoken_emoji_1F47C" msgid="3838699131276537421">শিশু দেবদূত</string>
-    <string name="spoken_emoji_1F47D" msgid="2874077455888369538">বহির্জাগতিক এলিয়েন</string>
-    <string name="spoken_emoji_1F47E" msgid="3642607168625579507">এলিয়েন দানব</string>
-    <string name="spoken_emoji_1F47F" msgid="441605977269926252">ছোট শয়তান</string>
+    <string name="spoken_emoji_1F47D" msgid="2874077455888369538">বহির্জাগতিক এলিয়েন</string>
+    <string name="spoken_emoji_1F47E" msgid="3642607168625579507">এলিয়েন দানব</string>
+    <string name="spoken_emoji_1F47F" msgid="441605977269926252">ছোট শয়তান</string>
     <string name="spoken_emoji_1F480" msgid="3696253485164878739">মাথার খুলি</string>
     <string name="spoken_emoji_1F481" msgid="320408708521966893">তথ্য ডেস্ক ব্যক্তি</string>
     <string name="spoken_emoji_1F482" msgid="3424354860245608949">গার্ডসম্যান</string>
@@ -612,22 +612,22 @@
     <string name="spoken_emoji_1F48E" msgid="8777981696011111101">রত্ন পাথর</string>
     <string name="spoken_emoji_1F48F" msgid="741593675183677907">চুম্বন</string>
     <string name="spoken_emoji_1F490" msgid="4482549128959806736">তোড়া</string>
-    <string name="spoken_emoji_1F491" msgid="2305245307882441500">হৃদয় দিয়ে দম্পতি</string>
+    <string name="spoken_emoji_1F491" msgid="2305245307882441500">হৃদয় দিয়ে দম্পতি</string>
     <string name="spoken_emoji_1F492" msgid="3884119934804475732">বিবাহ</string>
-    <string name="spoken_emoji_1F493" msgid="1208828371565525121">স্পন্দিত হৃদয়</string>
-    <string name="spoken_emoji_1F494" msgid="6198876398509338718">ভাঙ্গা হৃদয়</string>
-    <string name="spoken_emoji_1F495" msgid="9206202744967130919">দুটি হৃদয়</string>
-    <string name="spoken_emoji_1F496" msgid="5436953041732207775">ঝিকিমিকি হৃদয়</string>
-    <string name="spoken_emoji_1F497" msgid="7285142863951448473">বর্ধনশীল হৃদয়</string>
-    <string name="spoken_emoji_1F498" msgid="7940131245037575715">তীরসহ হৃদয়</string>
-    <string name="spoken_emoji_1F499" msgid="4453235040265550009">নীল হৃদয়</string>
-    <string name="spoken_emoji_1F49A" msgid="6262178648366971405">সবুজ হৃদয়</string>
-    <string name="spoken_emoji_1F49B" msgid="8085384999750714368">হলুদ হৃদয়</string>
-    <string name="spoken_emoji_1F49C" msgid="453829540120898698">বেগুনি হৃদয়</string>
-    <string name="spoken_emoji_1F49D" msgid="3460534750224161888">ফিতাসহ হৃদয়</string>
-    <string name="spoken_emoji_1F49E" msgid="4490636226072523867">ঘূর্ণায়মান হৃদয়</string>
-    <string name="spoken_emoji_1F49F" msgid="2059319756421226336">হৃদয় সজ্জা</string>
-    <string name="spoken_emoji_1F4A0" msgid="1954850380550212038">ভিতরে একটি বিন্দুসহ ডায়মন্ড আকৃতি</string>
+    <string name="spoken_emoji_1F493" msgid="1208828371565525121">স্পন্দিত হৃদয়</string>
+    <string name="spoken_emoji_1F494" msgid="6198876398509338718">ভাঙ্গা হৃদয়</string>
+    <string name="spoken_emoji_1F495" msgid="9206202744967130919">হৃদয়যুগল</string>
+    <string name="spoken_emoji_1F496" msgid="5436953041732207775">ঝিকিমিকি হৃদয়</string>
+    <string name="spoken_emoji_1F497" msgid="7285142863951448473">বর্ধনশীল হৃদয়</string>
+    <string name="spoken_emoji_1F498" msgid="7940131245037575715">তীরসহ হৃদয়</string>
+    <string name="spoken_emoji_1F499" msgid="4453235040265550009">নীল হৃদয়</string>
+    <string name="spoken_emoji_1F49A" msgid="6262178648366971405">সবুজ হৃদয়</string>
+    <string name="spoken_emoji_1F49B" msgid="8085384999750714368">হলুদ হৃদয়</string>
+    <string name="spoken_emoji_1F49C" msgid="453829540120898698">বেগুনি হৃদয়</string>
+    <string name="spoken_emoji_1F49D" msgid="3460534750224161888">ফিতাসহ হৃদয়</string>
+    <string name="spoken_emoji_1F49E" msgid="4490636226072523867">ঘূর্ণায়মান হৃদয়</string>
+    <string name="spoken_emoji_1F49F" msgid="2059319756421226336">হৃদয় সজ্জা</string>
+    <string name="spoken_emoji_1F4A0" msgid="1954850380550212038">ভিতরে একটি বিন্দুসহ ডায়মন্ড আকৃতি</string>
     <string name="spoken_emoji_1F4A1" msgid="403137413540909021">বৈদ্যুতিক বাতি</string>
     <string name="spoken_emoji_1F4A2" msgid="2604192053295622063">রাগের চিহ্ন</string>
     <string name="spoken_emoji_1F4A3" msgid="6378351742957821735">বোমা</string>
@@ -636,23 +636,23 @@
     <string name="spoken_emoji_1F4A6" msgid="3837802182716483848">ছেটানো ঘামের চিহ্ন</string>
     <string name="spoken_emoji_1F4A7" msgid="5718438987757885141">ফোঁটা</string>
     <string name="spoken_emoji_1F4A8" msgid="4472108229720006377">ড্যাশ চিহ্ন</string>
-    <string name="spoken_emoji_1F4A9" msgid="1240958472788430032">পায়খানার স্তুপ</string>
+    <string name="spoken_emoji_1F4A9" msgid="1240958472788430032">পায়খানার স্তূপ</string>
     <string name="spoken_emoji_1F4AA" msgid="8427525538635146416">ফ্লেক্সড বাইসেপ</string>
     <string name="spoken_emoji_1F4AB" msgid="5484114759939427459">মাথা ঘোরা চিহ্ন</string>
     <string name="spoken_emoji_1F4AC" msgid="5571196638219612682">স্পিচ বেলুন</string>
     <string name="spoken_emoji_1F4AD" msgid="353174619257798652">থট বেলুন</string>
     <string name="spoken_emoji_1F4AE" msgid="1223142786927162641">সাদা ফুল</string>
-    <string name="spoken_emoji_1F4AF" msgid="3526278354452138397">শত পয়েন্ট চিহ্ন</string>
+    <string name="spoken_emoji_1F4AF" msgid="3526278354452138397">শত পয়েন্ট চিহ্ন</string>
     <string name="spoken_emoji_1F4B0" msgid="4124102195175124156">টাকার থলে</string>
-    <string name="spoken_emoji_1F4B1" msgid="8339494003418572905">মুদ্রা বিনিময়</string>
+    <string name="spoken_emoji_1F4B1" msgid="8339494003418572905">মুদ্রা বিনিময়</string>
     <string name="spoken_emoji_1F4B2" msgid="3179159430187243132">ভারী ডলারের চিহ্ন</string>
     <string name="spoken_emoji_1F4B3" msgid="5375412518221759596">ক্রেডিট কার্ড</string>
-    <string name="spoken_emoji_1F4B4" msgid="1068592463669453204">ইয়েন চিহ্নসহ ব্যাঙ্কনোট</string>
+    <string name="spoken_emoji_1F4B4" msgid="1068592463669453204">ইয়েন চিহ্নসহ ব্যাঙ্কনোট</string>
     <string name="spoken_emoji_1F4B5" msgid="1426708699891832564">ডলার চিহ্নসহ ব্যাঙ্কনোট</string>
     <string name="spoken_emoji_1F4B6" msgid="8289249930736444837">ইউরো চিহ্নসহ ব্যাঙ্কনোট</string>
     <string name="spoken_emoji_1F4B7" msgid="5245100496860739429">পাউন্ড চিহ্নসহ ব্যাঙ্কনোট</string>
     <string name="spoken_emoji_1F4B8" msgid="4401099580477164440">ডানাসহ টাকা</string>
-    <string name="spoken_emoji_1F4B9" msgid="647509393536679903">উপরের দিকে প্রবণতা এবং ইয়েন চিহ্নসহ চার্ট</string>
+    <string name="spoken_emoji_1F4B9" msgid="647509393536679903">ঊর্ধ্বমুখী প্রবণতা এবং ইয়েন চিহ্নসহ চার্ট</string>
     <string name="spoken_emoji_1F4BA" msgid="1269737854891046321">আসন</string>
     <string name="spoken_emoji_1F4BB" msgid="6252883563347816451">ব্যক্তিগত কম্পিউটার</string>
     <string name="spoken_emoji_1F4BC" msgid="6182597732218446206">ব্রিফকেস</string>
@@ -663,7 +663,7 @@
     <string name="spoken_emoji_1F4C1" msgid="6645461382494158111">ফাইল ফোল্ডার</string>
     <string name="spoken_emoji_1F4C2" msgid="8095638715523765338">ফাইল ফোল্ডার খুলুন</string>
     <string name="spoken_emoji_1F4C3" msgid="3727274466173970142">কার্লসহ পৃষ্ঠা</string>
-    <string name="spoken_emoji_1F4C4" msgid="4382570710795501612">পৃষ্ঠাটি মুখোমুখি</string>
+    <string name="spoken_emoji_1F4C4" msgid="4382570710795501612">সম্মুখমুখী পৃষ্ঠা</string>
     <string name="spoken_emoji_1F4C5" msgid="8693944622627762487">ক্যালেন্ডার</string>
     <string name="spoken_emoji_1F4C6" msgid="8469908708708424640">ছিঁড়ে ফেলা ক্যালেন্ডার</string>
     <string name="spoken_emoji_1F4C7" msgid="2665313547987324495">কার্ড সূচি</string>
@@ -703,16 +703,16 @@
     <string name="spoken_emoji_1F4E9" msgid="5947550337678643166">উপরে নিচের দিকে তীরসহ খাম</string>
     <string name="spoken_emoji_1F4EA" msgid="772614045207213751">নিচু পতাকাসহ বন্ধ ডাকবাক্স</string>
     <string name="spoken_emoji_1F4EB" msgid="6491414165464146137">উত্থাপিত পতাকাসহ বন্ধ ডাকবাক্স</string>
-    <string name="spoken_emoji_1F4EC" msgid="7369517138779988438">উত্থাপিত পতাকাসহ মেলবক্স খুলুন</string>
-    <string name="spoken_emoji_1F4ED" msgid="5657520436285454241">নিচু পতাকাসহ মেলবক্স খুলুন</string>
-    <string name="spoken_emoji_1F4EE" msgid="8464138906243608614">ডাক বাক্স</string>
+    <string name="spoken_emoji_1F4EC" msgid="7369517138779988438">উত্থাপিত পতাকাসহ খোলা ডাকবাক্স</string>
+    <string name="spoken_emoji_1F4ED" msgid="5657520436285454241">নিচু পতাকাসহ খোলা ডাকবাক্স</string>
+    <string name="spoken_emoji_1F4EE" msgid="8464138906243608614">ডাকবাক্স</string>
     <string name="spoken_emoji_1F4EF" msgid="8801427577198798226">পোস্টাল হর্ন</string>
     <string name="spoken_emoji_1F4F0" msgid="6330208624731662525">সংবাদপত্র</string>
     <string name="spoken_emoji_1F4F1" msgid="3966503935581675695">মোবাইল ফোন</string>
     <string name="spoken_emoji_1F4F2" msgid="1057540341746100087">বাম দিকে ডানদিকের তীরসহ মোবাইল ফোন</string>
     <string name="spoken_emoji_1F4F3" msgid="5003984447315754658">ভাইব্রেশন মোড</string>
     <string name="spoken_emoji_1F4F4" msgid="5549847566968306253">মোবাইল ফোন বন্ধ</string>
-    <string name="spoken_emoji_1F4F5" msgid="3660199448671699238">মোবাইল ফোন নেই</string>
+    <string name="spoken_emoji_1F4F5" msgid="3660199448671699238">মোবাইল ফোন নিষেধ</string>
     <string name="spoken_emoji_1F4F6" msgid="2676974903233268860">বারসহ অ্যান্টেনা</string>
     <string name="spoken_emoji_1F4F7" msgid="2643891943105989039">ক্যামেরা</string>
     <string name="spoken_emoji_1F4F8" msgid="6874216216317936645">ফ্ল্যাশসহ ক্যামেরা</string>
@@ -724,7 +724,7 @@
     <string name="spoken_emoji_1F4FF" msgid="6566102135671766103">জপমালা</string>
     <string name="spoken_emoji_1F500" msgid="2389947994502144547">বাঁকানো ডানদিকের তীর</string>
     <string name="spoken_emoji_1F501" msgid="2132188352433347009">ঘড়ির কাঁটার দিকে ডানদিকে এবং বাম দিকে খোলা বৃত্তের তীর</string>
-    <string name="spoken_emoji_1F502" msgid="2361976580513178391">ঘড়ির কাঁটার দিকে ডানদিকে এবং বাম দিকে বৃত্তাকার একটি ওভারলেসহ বৃত্ত তীরগুলি খোলা</string>
+    <string name="spoken_emoji_1F502" msgid="2361976580513178391">ঘড়ির কাঁটার দিকে ডানদিকে এবং বাম দিকে বৃত্তাকার একটি ওভারলেসহ বৃত্ত তীর খোলা</string>
     <string name="spoken_emoji_1F503" msgid="8936283551917858793">ঘড়ির কাঁটার দিকে নিচের দিকে এবং উপরের দিকে খোলা বৃত্তের তীর</string>
     <string name="spoken_emoji_1F504" msgid="708290317843535943">কাঁটার বিপরীত দিকে নিচের দিকে এবং উপরের দিকে খোলা বৃত্তের তীর</string>
     <string name="spoken_emoji_1F505" msgid="6348909939004951860">কম উজ্জ্বলতার চিহ্ন</string>
@@ -735,25 +735,25 @@
     <string name="spoken_emoji_1F50A" msgid="5818194948677277197">তিনটি শব্দ তরঙ্গসহ স্পিকার</string>
     <string name="spoken_emoji_1F50B" msgid="8083470451266295876">ব্যাটারি</string>
     <string name="spoken_emoji_1F50C" msgid="7793219132036431680">বৈদ্যুতিক চাবি</string>
-    <string name="spoken_emoji_1F50D" msgid="8140244710637926780">বাম-পয়েন্টিং ম্যাগনিফাইং গ্লাস</string>
-    <string name="spoken_emoji_1F50E" msgid="4751821352839693365">ডান দিকে নির্দেশক ম্যাগনিফাইং গ্লাস</string>
-    <string name="spoken_emoji_1F50F" msgid="915079280472199605">কালি কলম দিয়ে তালা</string>
+    <string name="spoken_emoji_1F50D" msgid="8140244710637926780">বামে নির্দেশক ম্যাগনিফাইং গ্লাস</string>
+    <string name="spoken_emoji_1F50E" msgid="4751821352839693365">ডানে নির্দেশক ম্যাগনিফাইং গ্লাস</string>
+    <string name="spoken_emoji_1F50F" msgid="915079280472199605">কালি কলম দিয়ে তালা</string>
     <string name="spoken_emoji_1F510" msgid="7658381761691758318">চাবিসহ বন্ধ তালা</string>
     <string name="spoken_emoji_1F511" msgid="262319867774655688">চাবি</string>
     <string name="spoken_emoji_1F512" msgid="5628688337255115175">তালা</string>
     <string name="spoken_emoji_1F513" msgid="8579201846619420981">খোলা তালা</string>
     <string name="spoken_emoji_1F514" msgid="7027268683047322521">বেল</string>
-    <string name="spoken_emoji_1F515" msgid="8903179856036069242">বাতিল স্ট্রোক সঙ্গে বেল</string>
+    <string name="spoken_emoji_1F515" msgid="8903179856036069242">বাতিল স্ট্রোকের সাথে বেল</string>
     <string name="spoken_emoji_1F516" msgid="108097933937925381">বুকমার্ক</string>
     <string name="spoken_emoji_1F517" msgid="2450846665734313397">সংযোগ চিহ্ন</string>
     <string name="spoken_emoji_1F518" msgid="7028220286841437832">রেডিও বোতাম</string>
     <string name="spoken_emoji_1F519" msgid="8211189165075445687">উপরে বাম দিকের তীরসহ পিছনে</string>
-    <string name="spoken_emoji_1F51A" msgid="823966751787338892">উপরে বাম দিকের তীর দিয়ে শেষ করুন</string>
-    <string name="spoken_emoji_1F51B" msgid="5920570742107943382">উপরে বাম ডান তীরসহ বিস্ময়বোধক চিহ্নসহ চালু করুন</string>
+    <string name="spoken_emoji_1F51A" msgid="823966751787338892">উপরে বাম দিকের তীর দিয়ে শেষ করুন</string>
+    <string name="spoken_emoji_1F51B" msgid="5920570742107943382">উপরে বাম ডান তীরসহ বিস্ময়বোধক চিহ্নসহ চালু করুন</string>
     <string name="spoken_emoji_1F51C" msgid="110609810659826676">উপরে ডানদিকের তীরসহ শীঘ্রই</string>
     <string name="spoken_emoji_1F51D" msgid="4087697222026095447">উপরে উপরের দিকে তীরসহ শীর্ষ</string>
     <string name="spoken_emoji_1F51E" msgid="8512873526157201775">আঠারো প্রতীকের নিচে কেউ নেই</string>
-    <string name="spoken_emoji_1F51F" msgid="8673370823728653973">কীক্যাপ দশ</string>
+    <string name="spoken_emoji_1F51F" msgid="8673370823728653973">কিক্যাপ দশ</string>
     <string name="spoken_emoji_1F520" msgid="7335109890337048900">ল্যাটিন বড় অক্ষরের জন্য ইনপুট চিহ্ন</string>
     <string name="spoken_emoji_1F521" msgid="2693185864450925778">ল্যাটিন ছোট অক্ষরের জন্য ইনপুট চিহ্ন</string>
     <string name="spoken_emoji_1F522" msgid="8419130286280673347">সংখ্যার জন্য ইনপুট চিহ্ন</string>
@@ -769,7 +769,7 @@
     <string name="spoken_emoji_1F52C" msgid="1330294501371770790">মাইক্রোস্কোপ</string>
     <string name="spoken_emoji_1F52D" msgid="7549551775445177140">টেলিস্কোপ</string>
     <string name="spoken_emoji_1F52E" msgid="4457099417872625141">ক্রিস্টাল বল</string>
-    <string name="spoken_emoji_1F52F" msgid="8899031001317442792">মাঝের বিন্দুসহ ছয় পয়েন্টযুক্ত তারা</string>
+    <string name="spoken_emoji_1F52F" msgid="8899031001317442792">মাঝের বিন্দুসহ ছয় পয়েন্টযুক্ত তারা</string>
     <string name="spoken_emoji_1F530" msgid="3572898444281774023">শিক্ষানবিস জন্য জাপানি চিহ্ন</string>
     <string name="spoken_emoji_1F531" msgid="5225633376450025396">ত্রিশূল চিহ্ন</string>
     <string name="spoken_emoji_1F532" msgid="9169568490485180779">কালো বর্গাকার বোতাম</string>
@@ -789,29 +789,29 @@
     <string name="spoken_emoji_1F54B" msgid="1632185618342057203">কাবা</string>
     <string name="spoken_emoji_1F54C" msgid="2444758230008443504">মসজিদ</string>
     <string name="spoken_emoji_1F54D" msgid="8871149889908118955">সিনাগগ</string>
-    <string name="spoken_emoji_1F54E" msgid="2602602033588655819">নয়টি শাখাসহ মেনোরাহ</string>
+    <string name="spoken_emoji_1F54E" msgid="2602602033588655819">নয়টি শাখাসহ মেনোরাহ</string>
     <string name="spoken_emoji_1F550" msgid="7761392621689986218">ঘড়ির কাঁটা এক বাজে</string>
-    <string name="spoken_emoji_1F551" msgid="2699448504113431716">ঘড়ির কাঁটায় দুইটা বাজে</string>
-    <string name="spoken_emoji_1F552" msgid="5872107867411853750">ঘড়ির কাঁটায় তিনটা বাজে</string>
-    <string name="spoken_emoji_1F553" msgid="8490966286158640743">ঘড়ির কাঁটায় চারটা বাজে</string>
-    <string name="spoken_emoji_1F554" msgid="7662585417832909280">ঘড়ির কাঁটায় পাঁচটা বাজে</string>
-    <string name="spoken_emoji_1F555" msgid="5564698204520412009">ঘড়ির কাঁটায় ছয়টা বাজে</string>
-    <string name="spoken_emoji_1F556" msgid="7325712194836512205">ঘড়ির কাঁটায় সাতটা বাজে</string>
-    <string name="spoken_emoji_1F557" msgid="4398343183682848693">ঘড়ির কাঁটায় আটটা বাজে</string>
-    <string name="spoken_emoji_1F558" msgid="3110507820404018172">ঘড়ির কাঁটায় নয়টা বাজে</string>
-    <string name="spoken_emoji_1F559" msgid="2972160366448337839">ঘড়ির কাঁটায় দশটা বাজে</string>
-    <string name="spoken_emoji_1F55A" msgid="5568112876681714834">ঘড়ির কাঁটায় এগারোটা</string>
-    <string name="spoken_emoji_1F55B" msgid="6731739890330659276">ঘড়ির কাঁটায় বারোটা</string>
-    <string name="spoken_emoji_1F55C" msgid="7838853679879115890">ঘড়ির কাঁটায় সাড়ে এক বাজে</string>
-    <string name="spoken_emoji_1F55D" msgid="3518832144255922544">ঘড়ির কাঁটায় আড়াইটা</string>
-    <string name="spoken_emoji_1F55E" msgid="3092760695634993002">ঘড়ির কাঁটায় সাড়ে তিনটা</string>
-    <string name="spoken_emoji_1F55F" msgid="2326720311892906763">ঘড়ির কাঁটায় সাড়ে চারটা</string>
-    <string name="spoken_emoji_1F560" msgid="5771339179963924448">ঘড়ির কাঁটায় সাড়ে পাঁচটা</string>
-    <string name="spoken_emoji_1F561" msgid="3139944777062475382">ঘড়ির কাঁটা সাড়ে ছয়টা</string>
+    <string name="spoken_emoji_1F551" msgid="2699448504113431716">ঘড়ির কাঁটায় দুইটা বাজে</string>
+    <string name="spoken_emoji_1F552" msgid="5872107867411853750">ঘড়ির কাঁটায় তিনটা বাজে</string>
+    <string name="spoken_emoji_1F553" msgid="8490966286158640743">ঘড়ির কাঁটায় চারটা বাজে</string>
+    <string name="spoken_emoji_1F554" msgid="7662585417832909280">ঘড়ির কাঁটায় পাঁচটা বাজে</string>
+    <string name="spoken_emoji_1F555" msgid="5564698204520412009">ঘড়ির কাঁটায় ছয়টা বাজে</string>
+    <string name="spoken_emoji_1F556" msgid="7325712194836512205">ঘড়ির কাঁটায় সাতটা বাজে</string>
+    <string name="spoken_emoji_1F557" msgid="4398343183682848693">ঘড়ির কাঁটায় আটটা বাজে</string>
+    <string name="spoken_emoji_1F558" msgid="3110507820404018172">ঘড়ির কাঁটায় নয়টা বাজে</string>
+    <string name="spoken_emoji_1F559" msgid="2972160366448337839">ঘড়ির কাঁটায় দশটা বাজে</string>
+    <string name="spoken_emoji_1F55A" msgid="5568112876681714834">ঘড়ির কাঁটায় এগারোটা</string>
+    <string name="spoken_emoji_1F55B" msgid="6731739890330659276">ঘড়ির কাঁটায় বারোটা</string>
+    <string name="spoken_emoji_1F55C" msgid="7838853679879115890">ঘড়ির কাঁটায় সাড়ে এক বাজে</string>
+    <string name="spoken_emoji_1F55D" msgid="3518832144255922544">ঘড়ির কাঁটায় আড়াইটা</string>
+    <string name="spoken_emoji_1F55E" msgid="3092760695634993002">ঘড়ির কাঁটায় সাড়ে তিনটা</string>
+    <string name="spoken_emoji_1F55F" msgid="2326720311892906763">ঘড়ির কাঁটায় সাড়ে চারটা</string>
+    <string name="spoken_emoji_1F560" msgid="5771339179963924448">ঘড়ির কাঁটায় সাড়ে পাঁচটা</string>
+    <string name="spoken_emoji_1F561" msgid="3139944777062475382">ঘড়ির কাঁটা সাড়ে ছয়টা</string>
     <string name="spoken_emoji_1F562" msgid="8273944611162457084">ঘড়ির কাঁটা সাড়ে সাতটা</string>
-    <string name="spoken_emoji_1F563" msgid="8643976903718136299">ঘড়ির কাঁটায় সাড়ে আটটা</string>
-    <string name="spoken_emoji_1F564" msgid="3511070239796141638">ঘড়ির কাঁটা সাড়ে নয়টা</string>
-    <string name="spoken_emoji_1F565" msgid="4567451985272963088">ঘড়ির কাঁটায় সাড়ে দশটা</string>
+    <string name="spoken_emoji_1F563" msgid="8643976903718136299">ঘড়ির কাঁটায় সাড়ে আটটা</string>
+    <string name="spoken_emoji_1F564" msgid="3511070239796141638">ঘড়ির কাঁটা সাড়ে নয়টা</string>
+    <string name="spoken_emoji_1F565" msgid="4567451985272963088">ঘড়ির কাঁটায় সাড়ে দশটা</string>
     <string name="spoken_emoji_1F566" msgid="2790552288169929810">ঘড়ির কাঁটা সাড়ে এগারোটা</string>
     <string name="spoken_emoji_1F567" msgid="9026037362100689337">ঘড়ির কাঁটা সাড়ে বারোটা</string>
     <string name="spoken_emoji_1F56F" msgid="2425394083258103670">মোমবাতি</string>
@@ -822,12 +822,12 @@
     <string name="spoken_emoji_1F576" msgid="6510040886626337527">কালো সানগ্লাস</string>
     <string name="spoken_emoji_1F577" msgid="1745605672232546738">মাকড়সা</string>
     <string name="spoken_emoji_1F578" msgid="5843261607004481128">মাকড়সার জাল</string>
-    <string name="spoken_emoji_1F579" msgid="356353388497335187">জয়স্টিক</string>
+    <string name="spoken_emoji_1F579" msgid="356353388497335187">জয়স্টিক</string>
     <string name="spoken_emoji_1F587" msgid="1529578701645787678">লিঙ্ক করা পেপারক্লিপ</string>
-    <string name="spoken_emoji_1F58A" msgid="5535685878758638056">নিচের বাম বলপয়েন্ট কলম</string>
+    <string name="spoken_emoji_1F58A" msgid="5535685878758638056">নিচের বাম বলপয়েন্ট কলম</string>
     <string name="spoken_emoji_1F58B" msgid="8383182102775796958">নিচের বাম ফাউন্টেন পেন</string>
     <string name="spoken_emoji_1F58C" msgid="3645908884921776727">নিচে বাম পেইন্টব্রাশ</string>
-    <string name="spoken_emoji_1F58D" msgid="8498569396909368249">নিচের বাম ক্রেয়ন</string>
+    <string name="spoken_emoji_1F58D" msgid="8498569396909368249">নিচের বাম ক্রেয়ন</string>
     <string name="spoken_emoji_1F590" msgid="1764003432828568259">আঙুল খোলা উত্থাপিত হাত</string>
     <string name="spoken_emoji_1F595" msgid="2331418391124951688">মধ্যমা প্রসারিত সঙ্গে বিপরীত হাত</string>
     <string name="spoken_emoji_1F596" msgid="1326418921526428839">মধ্যম এবং অনামিকা আঙ্গুলের মধ্যবর্তী অংশসহ হাত তোলা</string>
@@ -846,101 +846,101 @@
     <string name="spoken_emoji_1F5DD" msgid="2537536524658220506">পুরাতন চাবি</string>
     <string name="spoken_emoji_1F5DE" msgid="369717954301912562">রোলড-আপ সংবাদপত্র</string>
     <string name="spoken_emoji_1F5E1" msgid="4756313645316161687">ড্যাগার ছুরি</string>
-    <string name="spoken_emoji_1F5E3" msgid="725415936980269374">সিলুয়েটে মাথা কথা বলা</string>
+    <string name="spoken_emoji_1F5E3" msgid="725415936980269374">সিলুয়েটে মাথা কথা বলা</string>
     <string name="spoken_emoji_1F5EF" msgid="6775383222346053007">ডানে রাগের বুদবুদ</string>
     <string name="spoken_emoji_1F5F3" msgid="5365297662012404100">ব্যালটসহ ব্যালট বাক্স</string>
     <string name="spoken_emoji_1F5FA" msgid="4806783543043181633">বিশ্ব মানচিত্র</string>
     <string name="spoken_emoji_1F5FB" msgid="9037503671676124015">ফুজি পর্বতমালা</string>
     <string name="spoken_emoji_1F5FC" msgid="1409415995817242150">টোকিও মিনার</string>
     <string name="spoken_emoji_1F5FD" msgid="2562726956654429582">স্ট্যাচু অফ লিবার্টি</string>
-    <string name="spoken_emoji_1F5FE" msgid="1184469756905210580">জাপানের সিলুয়েট</string>
-    <string name="spoken_emoji_1F5FF" msgid="6003594799354942297">মোয়াই</string>
-    <string name="spoken_emoji_1F600" msgid="7601109464776835283">হাসিমাখা মুখাবয়ব</string>
-    <string name="spoken_emoji_1F601" msgid="746026523967444503">হাস্যোজ্জ্বল চোখে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F602" msgid="8354558091785198246">আনন্দে কান্নায় মুখাবয়ব</string>
-    <string name="spoken_emoji_1F603" msgid="3861022912544159823">খোলা মুখ নিয়ে হাসিমুখ</string>
+    <string name="spoken_emoji_1F5FE" msgid="1184469756905210580">জাপানের সিলুয়েট</string>
+    <string name="spoken_emoji_1F5FF" msgid="6003594799354942297">মোয়াই</string>
+    <string name="spoken_emoji_1F600" msgid="7601109464776835283">হাসিমাখা মুখাবয়ব</string>
+    <string name="spoken_emoji_1F601" msgid="746026523967444503">হাস্যোজ্জ্বল চোখে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F602" msgid="8354558091785198246">আনন্দে কান্নায় মুখাবয়ব</string>
+    <string name="spoken_emoji_1F603" msgid="3861022912544159823">খোলা মুখ নিয়ে হাসিমুখ</string>
     <string name="spoken_emoji_1F604" msgid="5119021072966343531">খোলা মুখ আর হাস্যোজ্জ্বল চোখ</string>
-    <string name="spoken_emoji_1F605" msgid="6140813923973561735">খোলা মুখা এবং ঠান্ডা ঘাম সঙ্গে হাসি মুখাবয়ব</string>
+    <string name="spoken_emoji_1F605" msgid="6140813923973561735">খোলা মুখা এবং ঠান্ডা ঘাম সঙ্গে হাসি মুখাবয়ব</string>
     <string name="spoken_emoji_1F606" msgid="3549936813966832799">খোলা মুখ এবং শক্তভাবে বন্ধ চোখসহ হাসিমুখ</string>
     <string name="spoken_emoji_1F607" msgid="2826424078212384817">চক্রসহ হাসিমুখ</string>
     <string name="spoken_emoji_1F608" msgid="7343559595089811640">শিংসহ হাসিমুখ</string>
     <string name="spoken_emoji_1F609" msgid="5481030187207504405">চোখের পলক</string>
     <string name="spoken_emoji_1F60A" msgid="5023337769148679767">হাস্যোজ্জ্বল চোখে মুখে হাসি</string>
     <string name="spoken_emoji_1F60B" msgid="3005248217216195694">মুখরোচক সুস্বাদু খাবার</string>
-    <string name="spoken_emoji_1F60C" msgid="349384012958268496">স্বস্তির মুখাবয়ব</string>
-    <string name="spoken_emoji_1F60D" msgid="7921853137164938391">হৃদয় আকৃতির চোখসহ হাসিমুখ</string>
+    <string name="spoken_emoji_1F60C" msgid="349384012958268496">স্বস্তির মুখাবয়ব</string>
+    <string name="spoken_emoji_1F60D" msgid="7921853137164938391">হৃদয় আকৃতির চোখসহ হাসিমুখ</string>
     <string name="spoken_emoji_1F60E" msgid="441718886380605643">সানগ্লাস পরা হাসিমুখ</string>
-    <string name="spoken_emoji_1F60F" msgid="2674453144890180538">হাস্যোজ্জ্বল মুখাবয়ব</string>
-    <string name="spoken_emoji_1F610" msgid="3225675825334102369">নিরপেক্ষ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F611" msgid="7199179827619679668">অভিব্যক্তিহীন মুখাবয়ব</string>
-    <string name="spoken_emoji_1F612" msgid="985081329745137998">অপ্রস্তুত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F613" msgid="5548607684830303562">ঠান্ডা ঘামে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F614" msgid="3196305665259916390">চিন্তাশীল মুখাবয়ব</string>
-    <string name="spoken_emoji_1F615" msgid="3051674239303969101">বিভ্রান্ত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F616" msgid="8124887056243813089">বিভ্রান্ত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F617" msgid="7052733625511122870">চুমু খাওয়া মুখাবয়ব</string>
-    <string name="spoken_emoji_1F618" msgid="408207170572303753">একটি চুম্বন নিক্ষেপ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F60F" msgid="2674453144890180538">হাস্যোজ্জ্বল মুখাবয়ব</string>
+    <string name="spoken_emoji_1F610" msgid="3225675825334102369">নিরপেক্ষ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F611" msgid="7199179827619679668">অভিব্যক্তিহীন মুখাবয়ব</string>
+    <string name="spoken_emoji_1F612" msgid="985081329745137998">অপ্রস্তুত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F613" msgid="5548607684830303562">ঠান্ডা ঘামযুক্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F614" msgid="3196305665259916390">চিন্তাশীল মুখাবয়ব</string>
+    <string name="spoken_emoji_1F615" msgid="3051674239303969101">বিভ্রান্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F616" msgid="8124887056243813089">কিংকর্তব্যবিমূঢ় মুখাবয়ব</string>
+    <string name="spoken_emoji_1F617" msgid="7052733625511122870">চুম্বনরত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F618" msgid="408207170572303753">চুম্বন নিক্ষেপ মুখাবয়ব</string>
     <string name="spoken_emoji_1F619" msgid="8645430335143153645">হাসিমাখা চোখে মুখে চুম্বন</string>
-    <string name="spoken_emoji_1F61A" msgid="2882157190974340247">চোখ বন্ধ করে চুম্বন মুখাবয়ব</string>
-    <string name="spoken_emoji_1F61B" msgid="3765927202787211499">আটকে থাকা জিহ্বা দিয়ে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F61C" msgid="198943912107589389">আটকে থাকা জিহ্বা এবং চোখের পলকসহ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F61D" msgid="7643546385877816182">আটকে থাকা জিহ্বা এবং শক্তভাবে বন্ধ চোখসহ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F61E" msgid="1528732952202098364">হতাশ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F61F" msgid="1853664164636082404">চিন্তিত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F61A" msgid="2882157190974340247">চোখ বন্ধ করে চুম্বন মুখাবয়ব</string>
+    <string name="spoken_emoji_1F61B" msgid="3765927202787211499">বাইরে বের করা জিহ্বাসহ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F61C" msgid="198943912107589389">বাইরে বের করা জিহ্বা এবং চোখের পলকসহ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F61D" msgid="7643546385877816182">বাইরে বের করা জিহ্বা এবং শক্তভাবে বন্ধ চোখসহ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F61E" msgid="1528732952202098364">হতাশ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F61F" msgid="1853664164636082404">চিন্তিত মুখাবয়ব</string>
     <string name="spoken_emoji_1F620" msgid="6051942001307375830">রাগান্বিত চেহারা</string>
-    <string name="spoken_emoji_1F621" msgid="2114711878097257704">মুখাবয়ব থুবড়ে পড়ছে</string>
-    <string name="spoken_emoji_1F622" msgid="29291014645931822">কান্নাকাটি মুখাবয়ব</string>
-    <string name="spoken_emoji_1F623" msgid="7803959833595184773">শ্রমক্লান্ত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F624" msgid="8637637647725752799">বিজয়ের চেহারা নিয়ে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F625" msgid="6153625183493635030">হতাশ কিন্তু স্বস্তির মুখাবয়ব</string>
-    <string name="spoken_emoji_1F626" msgid="6179485689935562950">খোলা মুখাবয়ব দিয়ে ভ্রূকুটি করা মুখাবয়ব</string>
-    <string name="spoken_emoji_1F627" msgid="8566204052903012809">বিষণ্ণ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F628" msgid="8875777401624904224">ভীত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F629" msgid="1411538490319190118">ক্লান্ত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F62A" msgid="4726686726690289969">ঘুমন্ত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F62B" msgid="3221980473921623613">ক্লান্ত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F62C" msgid="4616356691941225182">মৃদু মুখাবয়ব</string>
-    <string name="spoken_emoji_1F62D" msgid="4283677508698812232">উচ্চস্বরে কাঁদছে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F62E" msgid="726083405284353894">খোলা মুখাবয়ব দিয়ে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F62F" msgid="7746620088234710962">নিস্তব্ধ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F630" msgid="3298804852155581163">খোলা মুখাবয়ব এবং ঠান্ডা ঘাম সঙ্গে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F631" msgid="1603391150954646779">ভয়ে চিৎকার করার মুখাবয়ব</string>
-    <string name="spoken_emoji_1F632" msgid="4846193232203976013">বিস্মিত মুখাবয়ব</string>
-    <string name="spoken_emoji_1F633" msgid="4023593836629700443">রাঙা মুখাবয়ব</string>
-    <string name="spoken_emoji_1F634" msgid="3155265083246248129">ঘুমন্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F621" msgid="2114711878097257704">বিস্ফোরিত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F622" msgid="29291014645931822">কান্নাকাটি মুখাবয়ব</string>
+    <string name="spoken_emoji_1F623" msgid="7803959833595184773">শ্রমক্লান্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F624" msgid="8637637647725752799">বিজয়ের চেহারা নিয়ে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F625" msgid="6153625183493635030">হতাশ কিন্তু স্বস্তির মুখাবয়ব</string>
+    <string name="spoken_emoji_1F626" msgid="6179485689935562950">খোলা মুখাবয়ব দিয়ে ভ্রূকুটি করা মুখাবয়ব</string>
+    <string name="spoken_emoji_1F627" msgid="8566204052903012809">বিষণ্ণ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F628" msgid="8875777401624904224">ভীত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F629" msgid="1411538490319190118">ক্লান্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F62A" msgid="4726686726690289969">ঘুমন্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F62B" msgid="3221980473921623613">ক্লান্ত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F62C" msgid="4616356691941225182">মৃদু মুখাবয়ব</string>
+    <string name="spoken_emoji_1F62D" msgid="4283677508698812232">উচ্চস্বরে কাঁদছে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F62E" msgid="726083405284353894">খোলা মুখাবয়ব দিয়ে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F62F" msgid="7746620088234710962">নিস্তব্ধ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F630" msgid="3298804852155581163">খোলা মুখাবয়ব এবং ঠান্ডা ঘাম সঙ্গে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F631" msgid="1603391150954646779">ভয়ে চিৎকার করার মুখাবয়ব</string>
+    <string name="spoken_emoji_1F632" msgid="4846193232203976013">বিস্মিত মুখাবয়ব</string>
+    <string name="spoken_emoji_1F633" msgid="4023593836629700443">রাঙা মুখাবয়ব</string>
+    <string name="spoken_emoji_1F634" msgid="3155265083246248129">ঘুমন্ত মুখাবয়ব</string>
     <string name="spoken_emoji_1F635" msgid="4616691133452764482">মাথা ঘোরা</string>
-    <string name="spoken_emoji_1F636" msgid="947000211822375683">মুখবিহীন মুখাবয়ব</string>
-    <string name="spoken_emoji_1F637" msgid="1269551267347165774">মেডিকেল মাস্কসহ মুখাবয়ব</string>
-    <string name="spoken_emoji_1F638" msgid="3410766467496872301">হাস্যোজ্জ্বল চোখে বিড়ালের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F636" msgid="947000211822375683">মুখবিহীন মুখাবয়ব</string>
+    <string name="spoken_emoji_1F637" msgid="1269551267347165774">মেডিকেল মাস্কসহ মুখাবয়ব</string>
+    <string name="spoken_emoji_1F638" msgid="3410766467496872301">হাস্যোজ্জ্বল চোখে বিড়ালের মুখাবয়ব</string>
     <string name="spoken_emoji_1F639" msgid="1833417519781022031">বিড়ালের মুখে আনন্দের কান্না</string>
-    <string name="spoken_emoji_1F63A" msgid="8566294484007152613">খোলা মুখাবয়ব দিয়ে হাস্যোজ্জ্বল বিড়াল মুখাবয়ব</string>
-    <string name="spoken_emoji_1F63B" msgid="74417995938927571">হৃদয় আকৃতির চোখসহ হাস্যোজ্জ্বল বিড়াল মুখাবয়ব</string>
+    <string name="spoken_emoji_1F63A" msgid="8566294484007152613">খোলা মুখাবয়ব দিয়ে হাস্যোজ্জ্বল বিড়ালের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F63B" msgid="74417995938927571">হৃদয় আকৃতির চোখসহ হাস্যোজ্জ্বল বিড়ালের মুখাবয়ব</string>
     <string name="spoken_emoji_1F63C" msgid="6472812005729468870">বিড়ালের মুখে মৃদু হাসি</string>
-    <string name="spoken_emoji_1F63D" msgid="1638398369553349509">চোখ বন্ধ করে বিড়ালের মুখে চুমু খাওয়া</string>
-    <string name="spoken_emoji_1F63E" msgid="6788969063020278986">বিড়ালের পাউটিং মুখাবয়ব</string>
-    <string name="spoken_emoji_1F63F" msgid="1207234562459550185">কান্নাকাটি বিড়ালের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F640" msgid="6023054549904329638">ক্লান্ত বিড়ালের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F641" msgid="2580807588556383139">সামান্য ভ্রুকুটি মুখাবয়ব</string>
-    <string name="spoken_emoji_1F642" msgid="1150197386159721331">একটু হাস্যোজ্জ্বল মুখাবয়ব</string>
-    <string name="spoken_emoji_1F643" msgid="7631520433919530552">উল্টো মুখাবয়ব</string>
-    <string name="spoken_emoji_1F644" msgid="446284817942609022">ঘূর্ণায়মান চোখ দিয়ে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F645" msgid="5202090629227587076">কোন ভাল অঙ্গভঙ্গি সঙ্গে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F646" msgid="6734425134415138134">ঠিক আছে অঙ্গভঙ্গি সঙ্গে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F647" msgid="1090285518444205483">গভীরভাবে নত হওয়া ব্যক্তি</string>
-    <string name="spoken_emoji_1F648" msgid="8978535230610522356">দেখুন-না-দুষ্ট বানর</string>
-    <string name="spoken_emoji_1F649" msgid="8486145279809495102">শোন-না-দুষ্ট বানর</string>
-    <string name="spoken_emoji_1F64A" msgid="1237524974033228660">কথা-না-দুষ্ট বানর</string>
+    <string name="spoken_emoji_1F63D" msgid="1638398369553349509">চোখ বন্ধ করে বিড়ালের চুম্বন মুখাবয়ব</string>
+    <string name="spoken_emoji_1F63E" msgid="6788969063020278986">বিড়ালের পাউটিং মুখাবয়ব</string>
+    <string name="spoken_emoji_1F63F" msgid="1207234562459550185">কান্নাকাটি বিড়ালের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F640" msgid="6023054549904329638">ক্লান্ত বিড়ালের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F641" msgid="2580807588556383139">সামান্য ভ্রুকুটি মুখাবয়ব</string>
+    <string name="spoken_emoji_1F642" msgid="1150197386159721331">একটু হাস্যোজ্জ্বল মুখাবয়ব</string>
+    <string name="spoken_emoji_1F643" msgid="7631520433919530552">উল্টো মুখাবয়ব</string>
+    <string name="spoken_emoji_1F644" msgid="446284817942609022">ঘূর্ণায়মান চোখ দিয়ে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F645" msgid="5202090629227587076">ভালো নয় অঙ্গভঙ্গির সাথে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F646" msgid="6734425134415138134">ঠিক আছে অঙ্গভঙ্গির সাথে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F647" msgid="1090285518444205483">গভীরভাবে নত হওয়া ব্যক্তি</string>
+    <string name="spoken_emoji_1F648" msgid="8978535230610522356">খারাপ দেখব না বানর</string>
+    <string name="spoken_emoji_1F649" msgid="8486145279809495102">খারাপ শুনব না বানর</string>
+    <string name="spoken_emoji_1F64A" msgid="1237524974033228660">খারাপ বলব না বানর</string>
     <string name="spoken_emoji_1F64B" msgid="4251150782016370475">সুখী ব্যক্তি এক হাত তুলছেন</string>
-    <string name="spoken_emoji_1F64C" msgid="5446231430684558344">ব্যক্তি উদযাপনে উভয় হাত তুলছেন</string>
+    <string name="spoken_emoji_1F64C" msgid="5446231430684558344">ব্যক্তি উদযাপনে উভয় হাত তুলছেন</string>
     <string name="spoken_emoji_1F64D" msgid="4646485595309482342">ব্যক্তি ভ্রুকুটি করছে</string>
-    <string name="spoken_emoji_1F64E" msgid="3376579939836656097">মুখ থুবড়ে পড়া ব্যক্তি</string>
+    <string name="spoken_emoji_1F64E" msgid="3376579939836656097">বিস্ফোরিত মুখাবয়বসহ ব্যক্তি</string>
     <string name="spoken_emoji_1F64F" msgid="1044439574356230711">হাত ভাঁজ করা ব্যক্তি</string>
     <string name="spoken_emoji_1F680" msgid="513263736012689059">রকেট</string>
     <string name="spoken_emoji_1F681" msgid="9201341783850525339">হেলিকপ্টার</string>
     <string name="spoken_emoji_1F682" msgid="8046933583867498698">বাষ্পশকট</string>
     <string name="spoken_emoji_1F683" msgid="8772750354339223092">রেলগাড়ি</string>
     <string name="spoken_emoji_1F684" msgid="346396777356203608">উচ্চ গতির ট্রেন</string>
-    <string name="spoken_emoji_1F685" msgid="1237059817190832730">বুলেট নাক দিয়ে দ্রুতগতির ট্রেন</string>
+    <string name="spoken_emoji_1F685" msgid="1237059817190832730">বুলেট নাকসহ দ্রুতগতির ট্রেন</string>
     <string name="spoken_emoji_1F686" msgid="3525197227223620343">ট্রেন</string>
     <string name="spoken_emoji_1F687" msgid="5110143437960392837">মেট্রো</string>
     <string name="spoken_emoji_1F688" msgid="4702085029871797965">হালকা রেল</string>
@@ -966,16 +966,16 @@
     <string name="spoken_emoji_1F69C" msgid="5557395610750818161">ট্রাক্টর</string>
     <string name="spoken_emoji_1F69D" msgid="5467164189942951047">মনোরেল</string>
     <string name="spoken_emoji_1F69E" msgid="169238196389832234">পাহাড়ি রেলপথ</string>
-    <string name="spoken_emoji_1F69F" msgid="7508128757012845102">সাসপেনশন রেলওয়ে</string>
+    <string name="spoken_emoji_1F69F" msgid="7508128757012845102">সাসপেনশন রেলওয়ে</string>
     <string name="spoken_emoji_1F6A0" msgid="8733056213790160147">পাহাড়ের তারের পথ</string>
-    <string name="spoken_emoji_1F6A1" msgid="4666516337749347253">বায়বীয় ট্রামওয়ে</string>
+    <string name="spoken_emoji_1F6A1" msgid="4666516337749347253">বায়বীয় ট্রামওয়ে</string>
     <string name="spoken_emoji_1F6A2" msgid="4511220588943129583">জাহাজ</string>
     <string name="spoken_emoji_1F6A3" msgid="8412962252222205387">রোবোট</string>
     <string name="spoken_emoji_1F6A4" msgid="8867571300266339211">স্পিডবোট</string>
     <string name="spoken_emoji_1F6A5" msgid="7650260812741963884">অনুভূমিক ট্রাফিক লাইট</string>
     <string name="spoken_emoji_1F6A6" msgid="485575967773793454">উল্লম্ব ট্রাফিক লাইট</string>
     <string name="spoken_emoji_1F6A7" msgid="6411048933816976794">নির্মাণ চিহ্ন</string>
-    <string name="spoken_emoji_1F6A8" msgid="6345717218374788364">পুলিশের গাড়ির আলো ঘূর্ণায়মান</string>
+    <string name="spoken_emoji_1F6A8" msgid="6345717218374788364">পুলিশের গাড়ির আলো ঘূর্ণায়মান</string>
     <string name="spoken_emoji_1F6A9" msgid="6586380356807600412">পোস্টে ত্রিভুজাকার পতাকা</string>
     <string name="spoken_emoji_1F6AA" msgid="8954448167261738885">দরজা</string>
     <string name="spoken_emoji_1F6AB" msgid="5313946262888343544">প্রবেশ নিষেধ চিহ্ন</string>
@@ -994,14 +994,14 @@
     <string name="spoken_emoji_1F6B8" msgid="3020531906940267349">শিশুরা পার হচ্ছে</string>
     <string name="spoken_emoji_1F6B9" msgid="1207095844125041251">পুরুষ চিহ্ন</string>
     <string name="spoken_emoji_1F6BA" msgid="2346879310071017531">নারী চিহ্ন</string>
-    <string name="spoken_emoji_1F6BB" msgid="2370172469642078526">পায়খানা</string>
+    <string name="spoken_emoji_1F6BB" msgid="2370172469642078526">পায়খানা</string>
     <string name="spoken_emoji_1F6BC" msgid="5558827593563530851">শিশুর চিহ্ন</string>
-    <string name="spoken_emoji_1F6BD" msgid="9213590243049835957">টয়লেট</string>
+    <string name="spoken_emoji_1F6BD" msgid="9213590243049835957">টয়লেট</string>
     <string name="spoken_emoji_1F6BE" msgid="394016533781742491">শৌচাগার</string>
     <string name="spoken_emoji_1F6BF" msgid="906336365928291207">ঝরনা</string>
     <string name="spoken_emoji_1F6C0" msgid="4592099854378821599">স্নান</string>
     <string name="spoken_emoji_1F6C1" msgid="2845056048320031158">বাথটাব</string>
-    <string name="spoken_emoji_1F6C2" msgid="8117262514698011877">পাসপোর্ট নিয়ন্ত্রণ</string>
+    <string name="spoken_emoji_1F6C2" msgid="8117262514698011877">পাসপোর্ট নিয়ন্ত্রণ</string>
     <string name="spoken_emoji_1F6C3" msgid="1176342001834630675">কাস্টমস</string>
     <string name="spoken_emoji_1F6C4" msgid="1477622834179978886">লাগেজ দাবি</string>
     <string name="spoken_emoji_1F6C5" msgid="2495834050856617451">বাম লটবহর</string>
@@ -1014,7 +1014,7 @@
     <string name="spoken_emoji_1F6E0" msgid="3263282970310123206">হাতুড়ি এবং রেঞ্চ</string>
     <string name="spoken_emoji_1F6E1" msgid="6426910766335807918">ঢাল</string>
     <string name="spoken_emoji_1F6E2" msgid="5167605828052365314">তেলের ড্রাম</string>
-    <string name="spoken_emoji_1F6E3" msgid="1107731664336606313">মোটরওয়ে</string>
+    <string name="spoken_emoji_1F6E3" msgid="1107731664336606313">মোটরওয়ে</string>
     <string name="spoken_emoji_1F6E4" msgid="5902467073917590761">মালবাহী রেল</string>
     <string name="spoken_emoji_1F6E5" msgid="5188878074701467086">মোটর বোট</string>
     <string name="spoken_emoji_1F6E9" msgid="5852950271931619238">ছোট বিমান</string>
@@ -1022,69 +1022,69 @@
     <string name="spoken_emoji_1F6EC" msgid="4869529552294301253">বিমান আসছে</string>
     <string name="spoken_emoji_1F6F0" msgid="3448012994947964984">স্যাটেলাইট</string>
     <string name="spoken_emoji_1F6F3" msgid="1127894976097893258">যাত্রীবাহী জাহাজ</string>
-    <string name="spoken_emoji_1F910" msgid="4360725090163247960">জিপার-মুখের মুখাবয়ব</string>
-    <string name="spoken_emoji_1F911" msgid="8595715714642200771">টাকা-পয়সার মুখাবয়ব</string>
-    <string name="spoken_emoji_1F912" msgid="6361337370946123054">থার্মোমিটার দিয়ে মুখাবয়ব</string>
-    <string name="spoken_emoji_1F913" msgid="3175822147540114526">পড়ুয়া মুখাবয়ব</string>
-    <string name="spoken_emoji_1F914" msgid="3784454242803834936">চিন্তাশীল মুখাবয়ব</string>
-    <string name="spoken_emoji_1F915" msgid="8277232429785015709">মাথা ব্যান্ডেজ করা মুখাবয়ব</string>
-    <string name="spoken_emoji_1F916" msgid="4717142652070467513">রোবট মুখাবয়ব</string>
-    <string name="spoken_emoji_1F917" msgid="5434814678071084726">আলিঙ্গন মুখাবয়ব</string>
-    <string name="spoken_emoji_1F918" msgid="6065030046434546286">শিং এর চিহ্ন</string>
+    <string name="spoken_emoji_1F910" msgid="4360725090163247960">জিপার মুখের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F911" msgid="8595715714642200771">টাকা-পয়সার মুখাবয়ব</string>
+    <string name="spoken_emoji_1F912" msgid="6361337370946123054">থার্মোমিটার দিয়ে মুখাবয়ব</string>
+    <string name="spoken_emoji_1F913" msgid="3175822147540114526">পড়ুয়া মুখাবয়ব</string>
+    <string name="spoken_emoji_1F914" msgid="3784454242803834936">চিন্তাশীল মুখাবয়ব</string>
+    <string name="spoken_emoji_1F915" msgid="8277232429785015709">মাথা ব্যান্ডেজ করা মুখাবয়ব</string>
+    <string name="spoken_emoji_1F916" msgid="4717142652070467513">রোবট মুখাবয়ব</string>
+    <string name="spoken_emoji_1F917" msgid="5434814678071084726">আলিঙ্গন মুখাবয়ব</string>
+    <string name="spoken_emoji_1F918" msgid="6065030046434546286">শিংয়ের চিহ্ন</string>
     <string name="spoken_emoji_1F980" msgid="7396183110343909685">কাঁকড়া</string>
-    <string name="spoken_emoji_1F981" msgid="1201691097417167784">সিংহের মুখাবয়ব</string>
+    <string name="spoken_emoji_1F981" msgid="1201691097417167784">সিংহের মুখাবয়ব</string>
     <string name="spoken_emoji_1F982" msgid="7295087763708065402">বিচ্ছু</string>
     <string name="spoken_emoji_1F983" msgid="9086413570044829984">তুরস্ক</string>
-    <string name="spoken_emoji_1F984" msgid="5757150507762082864">ইউনিকর্ন মুখাবয়ব</string>
+    <string name="spoken_emoji_1F984" msgid="5757150507762082864">ইউনিকর্ন মুখাবয়ব</string>
     <string name="spoken_emoji_1F9C0" msgid="3346738126264740148">পনির কীলক</string>
-    <string name="spoken_emoji_0023_20E3" msgid="3693649188523505503">কীক্যাপ নম্বর চিহ্ন</string>
-    <string name="spoken_emoji_002A_20E3" msgid="6500437684406442358">কীক্যাপ তারকাচিহ্ন</string>
-    <string name="spoken_emoji_0030_20E3" msgid="6312420508970951699">কীক্যাপ ডিজিট শূন্য</string>
-    <string name="spoken_emoji_0031_20E3" msgid="5101790681679370329">কীক্যাপ ডিজিট এক</string>
-    <string name="spoken_emoji_0032_20E3" msgid="6852105251673250734">কীক্যাপের সংখ্যা দুই</string>
-    <string name="spoken_emoji_0033_20E3" msgid="6436737625517381721">কীক্যাপের সংখ্যা তিন</string>
-    <string name="spoken_emoji_0034_20E3" msgid="7652958059237626893">কীক্যাপের সংখ্যা চার</string>
-    <string name="spoken_emoji_0035_20E3" msgid="1222504383755215423">কীক্যাপের সংখ্যা পাঁচ</string>
-    <string name="spoken_emoji_0036_20E3" msgid="7251599202525740371">কীক্যাপের সংখ্যা ছয়</string>
-    <string name="spoken_emoji_0037_20E3" msgid="7717155024038170161">কিক্যাপ অঙ্ক প্রেমময়</string>
-    <string name="spoken_emoji_0038_20E3" msgid="744556233370117245">কীক্যাপের সংখ্যা আট</string>
-    <string name="spoken_emoji_0039_20E3" msgid="1891172571916106023">কীক্যাপের সংখ্যা নয়</string>
+    <string name="spoken_emoji_0023_20E3" msgid="3693649188523505503">কিক্যাপ নম্বর চিহ্ন</string>
+    <string name="spoken_emoji_002A_20E3" msgid="6500437684406442358">কিক্যাপ তারকাচিহ্ন</string>
+    <string name="spoken_emoji_0030_20E3" msgid="6312420508970951699">কিক্যাপ ডিজিট শূন্য</string>
+    <string name="spoken_emoji_0031_20E3" msgid="5101790681679370329">কিক্যাপ ডিজিট এক</string>
+    <string name="spoken_emoji_0032_20E3" msgid="6852105251673250734">কিক্যাপের সংখ্যা দুই</string>
+    <string name="spoken_emoji_0033_20E3" msgid="6436737625517381721">কিক্যাপের সংখ্যা তিন</string>
+    <string name="spoken_emoji_0034_20E3" msgid="7652958059237626893">কিক্যাপের সংখ্যা চার</string>
+    <string name="spoken_emoji_0035_20E3" msgid="1222504383755215423">কিক্যাপের সংখ্যা পাঁচ</string>
+    <string name="spoken_emoji_0036_20E3" msgid="7251599202525740371">কিক্যাপের সংখ্যা ছয়</string>
+    <string name="spoken_emoji_0037_20E3" msgid="7717155024038170161">কিক্যাপের সংখ্যা সাত</string>
+    <string name="spoken_emoji_0038_20E3" msgid="744556233370117245">কিক্যাপের সংখ্যা আট</string>
+    <string name="spoken_emoji_0039_20E3" msgid="1891172571916106023">কিক্যাপের সংখ্যা নয়</string>
     <string name="spoken_emoji_1F1E6_1F1E8" msgid="515584542061392145">অ্যাসেনশন দ্বীপের পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1E9" msgid="9021988927513031086">Andorra পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1E9" msgid="9021988927513031086">অ্যান্ডোরার পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1EA" msgid="4856101611523027311">সংযুক্ত আরব আমিরাতের পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1EB" msgid="3716145572492094038">আফগানিস্তানের পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1EC" msgid="7286661601747455727">অ্যান্টিগুয়া এবং বারবুডার পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1EC" msgid="7286661601747455727">অ্যান্টিগুয়া এবং বারবুডার পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1EE" msgid="94989132936786231">অ্যাঙ্গুইলার পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1F1" msgid="182374112533705554">আলবেনিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1F2" msgid="8083744008211394946">আর্মেনিয়া পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1F1" msgid="182374112533705554">আলবেনিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1F2" msgid="8083744008211394946">আর্মেনিয়া পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1F4" msgid="1162797094210816783">অ্যাঙ্গোলার পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1F6" msgid="8423968169207301745">অ্যান্টার্কটিকার পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1F7" msgid="6876638422035482357">আর্জেন্টিনার পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1F8" msgid="8277196879892990334">আমেরিকান সামোয়া পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1F9" msgid="2248522124836544558">অস্ট্রিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1E6_1F1FA" msgid="4458840480641529325">অস্ট্রেলিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1F8" msgid="8277196879892990334">আমেরিকান সামোয়া পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1F9" msgid="2248522124836544558">অস্ট্রিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E6_1F1FA" msgid="4458840480641529325">অস্ট্রেলিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1FC" msgid="1163927173985102777">আরুবার পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1FD" msgid="3030463315371570615">আল্যান্ড দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1E6_1F1FF" msgid="612355136879823825">আজারবাইজানের পতাকা</string>
-    <string name="spoken_emoji_1F1E7_1F1E6" msgid="8760838318301758538">বসনিয়া ও হার্জেগোভিনার পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1E6" msgid="8760838318301758538">বসনিয়া ও হার্জেগোভিনার পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1E7" msgid="3157629488105877061">বার্বাডোসের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1E9" msgid="3576256753416957572">বাংলাদেশের পতাকা</string>
-    <string name="spoken_emoji_1F1E7_1F1EA" msgid="664083045789831960">বেলজিয়ামের পতাকা</string>
-    <string name="spoken_emoji_1F1E7_1F1EB" msgid="1288425089161930952">Flag for Burkina Faso</string>
-    <string name="spoken_emoji_1F1E7_1F1EC" msgid="7159669370784906474">বুলগেরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1EA" msgid="664083045789831960">বেলজিয়ামের পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1EB" msgid="1288425089161930952">বারকিনা ফাসোর পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1EC" msgid="7159669370784906474">বুলগেরিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1ED" msgid="6171060568325681800">বাহরাইনের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1EE" msgid="8825724034337572789">বুরুন্ডির পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1EF" msgid="481381108368354037">বেনিনের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1F1" msgid="323880581960666092">সেন্ট পতাকা. বার্থোলোমিউ</string>
     <string name="spoken_emoji_1F1E7_1F1F2" msgid="6865529687293471865">বারমুডার পতাকা</string>
-    <string name="spoken_emoji_1F1E7_1F1F3" msgid="6196184089269330603">ব্রুনাইয়ের পতাকা</string>
-    <string name="spoken_emoji_1F1E7_1F1F4" msgid="7901700697723663375">Flag for Bolivia</string>
-    <string name="spoken_emoji_1F1E7_1F1F6" msgid="3206988419974375148">ক্যারিবিয়ান নেদারল্যান্ডসের পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1F3" msgid="6196184089269330603">ব্রুনাইয়ের পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1F4" msgid="7901700697723663375">বলিভিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1F6" msgid="3206988419974375148">ক্যারিবিয়ান নেদারল্যান্ডসের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1F7" msgid="3483402348221577606">ব্রাজিলের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1F8" msgid="3399891901314769071">বাহামাস পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1F9" msgid="8985883748925470425">ভুটানের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1FB" msgid="3357087874695825993">বুভেট দ্বীপের পতাকা</string>
-    <string name="spoken_emoji_1F1E7_1F1FC" msgid="2010150990697392924">বতসোয়ানার পতাকা</string>
+    <string name="spoken_emoji_1F1E7_1F1FC" msgid="2010150990697392924">বতসোয়ানার পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1FE" msgid="7660069185149104762">বেলারুশের পতাকা</string>
     <string name="spoken_emoji_1F1E7_1F1FF" msgid="4808586235664381640">বেলিজের পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1E6" msgid="1994799795544707087">কানাডার পতাকা</string>
@@ -1098,7 +1098,7 @@
     <string name="spoken_emoji_1F1E8_1F1F1" msgid="4368512465692540121">চিলির পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1F2" msgid="1029570029642994892">ক্যামেরুনের পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1F3" msgid="1409448857910840128">চীনের পতাকা</string>
-    <string name="spoken_emoji_1F1E8_1F1F4" msgid="6875493644298026833">কলম্বিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E8_1F1F4" msgid="6875493644298026833">কলম্বিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1F5" msgid="2538762550371590224">ক্লিপারটন দ্বীপের পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1F7" msgid="888554264338218550">কোস্টারিকার পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1FA" msgid="4443590407200355667">কিউবার পতাকা</string>
@@ -1108,56 +1108,56 @@
     <string name="spoken_emoji_1F1E8_1F1FE" msgid="5037633794290940318">সাইপ্রাসের পতাকা</string>
     <string name="spoken_emoji_1F1E8_1F1FF" msgid="5384200881950442912">চেক প্রজাতন্ত্রের পতাকা</string>
     <string name="spoken_emoji_1F1E9_1F1EA" msgid="4047812762841623779">জার্মানির পতাকা</string>
-    <string name="spoken_emoji_1F1E9_1F1EC" msgid="3569858113686878222">দিয়েগো গার্সিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E9_1F1EC" msgid="3569858113686878222">দিয়েগো গার্সিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1E9_1F1EF" msgid="5200510107957246395">জিবুতির পতাকা</string>
     <string name="spoken_emoji_1F1E9_1F1F0" msgid="8230065040498090250">ডেনমার্কের পতাকা</string>
     <string name="spoken_emoji_1F1E9_1F1F2" msgid="6971088854496559333">ডমিনিকা পতাকা</string>
     <string name="spoken_emoji_1F1E9_1F1F4" msgid="2684281180913271831">ডোমিনিকান প্রজাতন্ত্রের পতাকা</string>
-    <string name="spoken_emoji_1F1E9_1F1FF" msgid="5134944828411359548">আলজেরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1E9_1F1FF" msgid="5134944828411359548">আলজেরিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1EA_1F1E6" msgid="5992703503107448385">সেউটা এবং মেলিলার পতাকা</string>
-    <string name="spoken_emoji_1F1EA_1F1E8" msgid="7604769613933532639">ইকুয়েডরের পতাকা</string>
-    <string name="spoken_emoji_1F1EA_1F1EA" msgid="780881058311953116">এস্তোনিয়া পতাকা</string>
+    <string name="spoken_emoji_1F1EA_1F1E8" msgid="7604769613933532639">ইকুয়েডরের পতাকা</string>
+    <string name="spoken_emoji_1F1EA_1F1EA" msgid="780881058311953116">এস্তোনিয়া পতাকা</string>
     <string name="spoken_emoji_1F1EA_1F1EC" msgid="5379955220214737541">মিশরের পতাকা</string>
     <string name="spoken_emoji_1F1EA_1F1ED" msgid="608191363783136124">পশ্চিম সাহারার পতাকা</string>
-    <string name="spoken_emoji_1F1EA_1F1F7" msgid="1974034165386559979">ইরিত্রিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1EA_1F1F7" msgid="1974034165386559979">ইরিত্রিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1EA_1F1F8" msgid="7667964716717428380">স্পেনের পতাকা</string>
-    <string name="spoken_emoji_1F1EA_1F1F9" msgid="4028236645746627833">ইথিওপিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1EA_1F1FA" msgid="2605433302354957477">ইউরোপীয় ইউনিয়নের পতাকা</string>
+    <string name="spoken_emoji_1F1EA_1F1F9" msgid="4028236645746627833">ইথিওপিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1EA_1F1FA" msgid="2605433302354957477">ইউরোপীয় ইউনিয়নের পতাকা</string>
     <string name="spoken_emoji_1F1EB_1F1EE" msgid="825447084506872225">ফিনল্যান্ডের পতাকা</string>
     <string name="spoken_emoji_1F1EB_1F1EF" msgid="1029994540873767904">ফিজির পতাকা</string>
     <string name="spoken_emoji_1F1EB_1F1F0" msgid="2992979756365410511">ফকল্যান্ড দ্বীপপুঞ্জের পতাকা</string>
-    <string name="spoken_emoji_1F1EB_1F1F2" msgid="1986035899283103062">মাইক্রোনেশিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1EB_1F1F2" msgid="1986035899283103062">মাইক্রোনেশিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1EB_1F1F4" msgid="2441016703335601117">ফ্যারো দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1EB_1F1F7" msgid="6052493581307010327">ফ্রান্সের পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1E6" msgid="8950853954004506523">গ্যাবনের পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1E7" msgid="8888357158195515349">যুক্তরাজ্যের পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1E9" msgid="3463286702486956748">গ্রেনাডার পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1EA" msgid="1180536780790586881">জর্জিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1EB" msgid="1203001730316543314">ফরাসি গায়ানার পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1EC" msgid="1840977808701617077">Guernsey পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1EA" msgid="1180536780790586881">জর্জিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1EB" msgid="1203001730316543314">ফরাসি গায়ানার পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1EC" msgid="1840977808701617077">গার্নজির পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1ED" msgid="8783297421754572238">ঘানার পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1EE" msgid="2567172982673015319">জিব্রাল্টারের পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1F1" msgid="8178317151097107486">গ্রীনল্যান্ডের পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1F2" msgid="8595547572836079090">গাম্বিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1F2" msgid="8595547572836079090">গাম্বিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1F3" msgid="3646326386653741855">গিনির পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1F5" msgid="6864411408511905871">গুয়াদেলুপের পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1F6" msgid="2059115105795502868">নিরক্ষীয় গিনির পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1F5" msgid="6864411408511905871">গুয়াদেলুপের পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1F6" msgid="2059115105795502868">নিরক্ষীয় গিনির পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1F7" msgid="6459258808903505755">গ্রীসের পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1F8" msgid="5458754397575470944">দক্ষিণ জর্জিয়া এবং দক্ষিণ স্যান্ডউইচ দ্বীপপুঞ্জের পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1F9" msgid="1467915615110741560">গুয়াতেমালার পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1FA" msgid="4393335139566648919">গুয়ামের পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1F8" msgid="5458754397575470944">দক্ষিণ জর্জিয়া এবং দক্ষিণ স্যান্ডউইচ দ্বীপপুঞ্জের পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1F9" msgid="1467915615110741560">গুয়াতেমালার পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1FA" msgid="4393335139566648919">গুয়ামের পতাকা</string>
     <string name="spoken_emoji_1F1EC_1F1FC" msgid="3425188247186220041">গিনি-বিসাউ-এর পতাকা</string>
-    <string name="spoken_emoji_1F1EC_1F1FE" msgid="1021690400460955309">গায়ানার পতাকা</string>
+    <string name="spoken_emoji_1F1EC_1F1FE" msgid="1021690400460955309">গায়ানার পতাকা</string>
     <string name="spoken_emoji_1F1ED_1F1F0" msgid="3761740442568650190">হংকং এর পতাকা</string>
     <string name="spoken_emoji_1F1ED_1F1F2" msgid="6910358977247451757">হার্ড এবং ম্যাকডোনাল্ড দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1ED_1F1F3" msgid="1646439132096214446">হন্ডুরাসের পতাকা</string>
-    <string name="spoken_emoji_1F1ED_1F1F7" msgid="1052046916656026391">ক্রোয়েশিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1ED_1F1F7" msgid="1052046916656026391">ক্রোয়েশিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1ED_1F1F9" msgid="8078385390509081446">হাইতির পতাকা</string>
     <string name="spoken_emoji_1F1ED_1F1FA" msgid="8804528562628572718">হাঙ্গেরির পতাকা</string>
     <string name="spoken_emoji_1F1EE_1F1E8" msgid="3140919483825058219">ক্যানারি দ্বীপপুঞ্জের পতাকা</string>
-    <string name="spoken_emoji_1F1EE_1F1E9" msgid="5502581798727777828">ইন্দোনেশিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1EE_1F1EA" msgid="644825647040215471">আয়ারল্যান্ডের পতাকা</string>
-    <string name="spoken_emoji_1F1EE_1F1F1" msgid="5743874630545163729">ইসরায়েলের পতাকা</string>
+    <string name="spoken_emoji_1F1EE_1F1E9" msgid="5502581798727777828">ইন্দোনেশিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1EE_1F1EA" msgid="644825647040215471">আয়ারল্যান্ডের পতাকা</string>
+    <string name="spoken_emoji_1F1EE_1F1F1" msgid="5743874630545163729">ইসরায়েলের পতাকা</string>
     <string name="spoken_emoji_1F1EE_1F1F2" msgid="3120136719636059223">আইল অফ ম্যান পতাকা</string>
     <string name="spoken_emoji_1F1EE_1F1F3" msgid="7645444982385343194">ভারতের পতাকা</string>
     <string name="spoken_emoji_1F1EE_1F1F4" msgid="9194565409945825135">ব্রিটিশ ভারত মহাসাগর অঞ্চলের পতাকা</string>
@@ -1169,28 +1169,28 @@
     <string name="spoken_emoji_1F1EF_1F1F2" msgid="5221399784104523954">জ্যামাইকার পতাকা</string>
     <string name="spoken_emoji_1F1EF_1F1F4" msgid="5417778604376647557">জর্ডানের পতাকা</string>
     <string name="spoken_emoji_1F1EF_1F1F5" msgid="6507273654908139469">জাপানের পতাকা</string>
-    <string name="spoken_emoji_1F1F0_1F1EA" msgid="21237090866742866">কেনিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F0_1F1EA" msgid="21237090866742866">কেনিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F0_1F1EC" msgid="8276011655824240009">কিরগিজস্তানের পতাকা</string>
-    <string name="spoken_emoji_1F1F0_1F1ED" msgid="6083653169314926215">কম্বোডিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F0_1F1ED" msgid="6083653169314926215">কম্বোডিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F0_1F1EE" msgid="9065926492362391494">কিরিবাতির পতাকা</string>
     <string name="spoken_emoji_1F1F0_1F1F2" msgid="3247483394872878766">কমোরসের পতাকা</string>
     <string name="spoken_emoji_1F1F0_1F1F3" msgid="5367548209741205839">সেন্ট কিটস ও নেভিসের পতাকা</string>
-    <string name="spoken_emoji_1F1F0_1F1F5" msgid="8936494847635883781">উত্তর কোরিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F0_1F1F7" msgid="6083499745947821288">দক্ষিণ কোরিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F0_1F1FC" msgid="1379041347924516759">কুয়েতের পতাকা</string>
+    <string name="spoken_emoji_1F1F0_1F1F5" msgid="8936494847635883781">উত্তর কোরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F0_1F1F7" msgid="6083499745947821288">দক্ষিণ কোরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F0_1F1FC" msgid="1379041347924516759">কুয়েতের পতাকা</string>
     <string name="spoken_emoji_1F1F0_1F1FE" msgid="4109777537443572630">কেম্যান দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1F0_1F1FF" msgid="552222434607517957">কাজাখস্তানের পতাকা</string>
     <string name="spoken_emoji_1F1F1_1F1E6" msgid="5166202354177379139">লাওসের পতাকা</string>
     <string name="spoken_emoji_1F1F1_1F1E7" msgid="5664910004482751646">লেবাননের পতাকা</string>
-    <string name="spoken_emoji_1F1F1_1F1E8" msgid="4030901907323824445">সেন্ট লুসিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F1_1F1E8" msgid="4030901907323824445">সেন্ট লুসিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F1_1F1EE" msgid="1173785145388735876">লিচেনস্টাইনের পতাকা</string>
     <string name="spoken_emoji_1F1F1_1F1F0" msgid="3577045271636841729">শ্রীলঙ্কার পতাকা</string>
-    <string name="spoken_emoji_1F1F1_1F1F7" msgid="7993304871488957893">লাইবেরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F1_1F1F7" msgid="7993304871488957893">লাইবেরিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F1_1F1F8" msgid="5224840012819747543">লেসোথো পতাকা</string>
-    <string name="spoken_emoji_1F1F1_1F1F9" msgid="3594812865734584207">লিথুয়ানিয়া পতাকা</string>
+    <string name="spoken_emoji_1F1F1_1F1F9" msgid="3594812865734584207">লিথুয়ানিয়া পতাকা</string>
     <string name="spoken_emoji_1F1F1_1F1FA" msgid="224221840159454205">লুক্সেমবার্গের পতাকা</string>
-    <string name="spoken_emoji_1F1F1_1F1FB" msgid="7718987237653945359">লাটভিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F1_1F1FE" msgid="5998022588266933168">লিবিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F1_1F1FB" msgid="7718987237653945359">লাটভিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F1_1F1FE" msgid="5998022588266933168">লিবিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1E6" msgid="8965537225940059216">মরক্কোর পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1E8" msgid="5827062380829465964">মোনাকোর পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1E9" msgid="1226461313141287009">মলদোভার পতাকা</string>
@@ -1198,55 +1198,55 @@
     <string name="spoken_emoji_1F1F2_1F1EB" msgid="5222394276026013118">সেন্ট মার্টিনের পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1EC" msgid="7183384701516848699">মাদাগাস্কারের পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1ED" msgid="6898522028833048325">মার্শাল দ্বীপপুঞ্জের পতাকা</string>
-    <string name="spoken_emoji_1F1F2_1F1F0" msgid="7068152815895976960">ম্যাসেডোনিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F2_1F1F0" msgid="7068152815895976960">ম্যাসেডোনিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1F1" msgid="7611046424376988616">মালির পতাকা</string>
-    <string name="spoken_emoji_1F1F2_1F1F2" msgid="491461913101284240">মায়ানমারের পতাকা</string>
-    <string name="spoken_emoji_1F1F2_1F1F3" msgid="1450454181585256539">মঙ্গোলিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F2_1F1F2" msgid="491461913101284240">মায়ানমারের পতাকা</string>
+    <string name="spoken_emoji_1F1F2_1F1F3" msgid="1450454181585256539">মঙ্গোলিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1F4" msgid="3352572139711280528">ম্যাকাও পতাকা</string>
-    <string name="spoken_emoji_1F1F2_1F1F5" msgid="7536142087380383112">উত্তর মারিয়ানা দ্বীপপুঞ্জের পতাকা</string>
+    <string name="spoken_emoji_1F1F2_1F1F5" msgid="7536142087380383112">উত্তর মারিয়ানা দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1F6" msgid="5424070233210033210">মার্টিনিকের পতাকা</string>
-    <string name="spoken_emoji_1F1F2_1F1F7" msgid="108173332528207905">মৌরিতানিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F2_1F1F7" msgid="108173332528207905">মৌরিতানিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1F8" msgid="4922582142276070473">মন্টসেরাতের পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1F9" msgid="3215356274998633531">মাল্টার পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1FA" msgid="7064984448662302120">মরিশাস পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1FB" msgid="7349657291755821742">মালদ্বীপের পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1FC" msgid="2970112458704297219">মালাউই পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1FD" msgid="6249447018233900361">মেক্সিকো পতাকা</string>
-    <string name="spoken_emoji_1F1F2_1F1FE" msgid="2415463066267602417">মালয়েশিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F2_1F1FE" msgid="2415463066267602417">মালয়েশিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F2_1F1FF" msgid="5374300224943425292">মোজাম্বিকের পতাকা</string>
-    <string name="spoken_emoji_1F1F3_1F1E6" msgid="7995033472926590061">নামিবিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F3_1F1E8" msgid="6673558559311734824">নিউ ক্যালেডোনিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F3_1F1E6" msgid="7995033472926590061">নামিবিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F3_1F1E8" msgid="6673558559311734824">নিউ ক্যালেডোনিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F3_1F1EA" msgid="5248874974108203948">নাইজারের পতাকা</string>
     <string name="spoken_emoji_1F1F3_1F1EB" msgid="8586671186548769011">নরফোক দ্বীপের পতাকা</string>
-    <string name="spoken_emoji_1F1F3_1F1EC" msgid="3610271061141196804">নাইজেরিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F3_1F1EE" msgid="3793576318302879471">নিকারাগুয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F3_1F1EC" msgid="3610271061141196804">নাইজেরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F3_1F1EE" msgid="3793576318302879471">নিকারাগুয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F3_1F1F1" msgid="7394150679646822106">নেদারল্যান্ডের পতাকা</string>
-    <string name="spoken_emoji_1F1F3_1F1F4" msgid="4823752697520630443">নরওয়ের পতাকা</string>
+    <string name="spoken_emoji_1F1F3_1F1F4" msgid="4823752697520630443">নরওয়ের পতাকা</string>
     <string name="spoken_emoji_1F1F3_1F1F5" msgid="8143013034442974213">নেপালের পতাকা</string>
     <string name="spoken_emoji_1F1F3_1F1F7" msgid="2718588476956930593">নাউরুর পতাকা</string>
-    <string name="spoken_emoji_1F1F3_1F1FA" msgid="2136206841853719289">নিউয়ের পতাকা</string>
+    <string name="spoken_emoji_1F1F3_1F1FA" msgid="2136206841853719289">নিউয়ের পতাকা</string>
     <string name="spoken_emoji_1F1F3_1F1FF" msgid="7114679379862776721">নিউজিল্যান্ডের পতাকা</string>
     <string name="spoken_emoji_1F1F4_1F1F2" msgid="1366056698822189642">ওমানের পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1E6" msgid="2318048598212415394">পানামার পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1EA" msgid="3843366473938653876">পেরুর পতাকা</string>
-    <string name="spoken_emoji_1F1F5_1F1EB" msgid="5842604724881232116">ফ্রেঞ্চ পলিনেশিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F5_1F1EC" msgid="1527509030357350666">পাপুয়া নিউ গিনির পতাকা</string>
+    <string name="spoken_emoji_1F1F5_1F1EB" msgid="5842604724881232116">ফ্রেঞ্চ পলিনেশিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F5_1F1EC" msgid="1527509030357350666">পাপুয়া নিউ গিনির পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1ED" msgid="4519745708610996392">ফিলিপাইনের পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1F0" msgid="6461277576429215252">পাকিস্তানের পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1F1" msgid="8076361813157658785">পোল্যান্ডের পতাকা</string>
-    <string name="spoken_emoji_1F1F5_1F1F2" msgid="2895871984922747795">সেন্ট পিয়ের এবং মিকেলনের পতাকা</string>
-    <string name="spoken_emoji_1F1F5_1F1F3" msgid="3351998070564812928">পিটকেয়ার্ন দ্বীপপুঞ্জের পতাকা</string>
-    <string name="spoken_emoji_1F1F5_1F1F7" msgid="2273664192514768865">পুয়ের্তো রিকোর পতাকা</string>
+    <string name="spoken_emoji_1F1F5_1F1F2" msgid="2895871984922747795">সেন্ট পিয়ের এবং মিকেলনের পতাকা</string>
+    <string name="spoken_emoji_1F1F5_1F1F3" msgid="3351998070564812928">পিটকেয়ার্ন দ্বীপপুঞ্জের পতাকা</string>
+    <string name="spoken_emoji_1F1F5_1F1F7" msgid="2273664192514768865">পুয়ের্তো রিকোর পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1F8" msgid="4184730889323208578">ফিলিস্তিন অঞ্চলের পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1F9" msgid="6088372177025496872">পর্তুগালের পতাকা</string>
     <string name="spoken_emoji_1F1F5_1F1FC" msgid="6503480614531765009">পালাউ পতাকা</string>
-    <string name="spoken_emoji_1F1F5_1F1FE" msgid="8948077259790298897">প্যারাগুয়ের পতাকা</string>
+    <string name="spoken_emoji_1F1F5_1F1FE" msgid="8948077259790298897">প্যারাগুয়ের পতাকা</string>
     <string name="spoken_emoji_1F1F6_1F1E6" msgid="5941022501487103264">কাতারের পতাকা</string>
-    <string name="spoken_emoji_1F1F7_1F1EA" msgid="6520393107511408733">রিইউনিয়নের পতাকা</string>
-    <string name="spoken_emoji_1F1F7_1F1F4" msgid="24771949751001440">রোমানিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F7_1F1F8" msgid="3958542649861771783">সার্বিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F7_1F1FA" msgid="1079726084663529719">রাশিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F7_1F1FC" msgid="3705031663938652819">রুয়ান্ডা পতাকা</string>
+    <string name="spoken_emoji_1F1F7_1F1EA" msgid="6520393107511408733">রিইউনিয়নের পতাকা</string>
+    <string name="spoken_emoji_1F1F7_1F1F4" msgid="24771949751001440">রোমানিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F7_1F1F8" msgid="3958542649861771783">সার্বিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F7_1F1FA" msgid="1079726084663529719">রাশিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F7_1F1FC" msgid="3705031663938652819">রুয়ান্ডা পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1E6" msgid="2776179858340260230">সৌদি আরবের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1E7" msgid="3665472085378450456">সলোমন দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1E8" msgid="4466400506433158307">সেশেলসের পতাকা</string>
@@ -1254,20 +1254,20 @@
     <string name="spoken_emoji_1F1F8_1F1EA" msgid="2665982185283861392">সুইডেনের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1EC" msgid="1054034328208566506">সিঙ্গাপুরের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1ED" msgid="4263061939910522547">সেন্ট হেলেনার পতাকা</string>
-    <string name="spoken_emoji_1F1F8_1F1EE" msgid="6565744105871887098">স্লোভেনিয়া পতাকা</string>
+    <string name="spoken_emoji_1F1F8_1F1EE" msgid="6565744105871887098">স্লোভেনিয়া পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1EF" msgid="3016523221609614043">স্বালবার্ড ও জান মায়ের পতাকা</string>
-    <string name="spoken_emoji_1F1F8_1F1F0" msgid="5390016769601791982">স্লোভাকিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F8_1F1F1" msgid="6403850165793367854">সিয়েরা লিওনের পতাকা</string>
+    <string name="spoken_emoji_1F1F8_1F1F0" msgid="5390016769601791982">স্লোভাকিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F8_1F1F1" msgid="6403850165793367854">সিয়েরা লিওনের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1F2" msgid="4310711409277111575">সান মারিনোর পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1F3" msgid="6489885135970927076">সেনেগালের পতাকা</string>
-    <string name="spoken_emoji_1F1F8_1F1F4" msgid="5341079828952201668">সোমালিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F8_1F1F4" msgid="5341079828952201668">সোমালিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1F7" msgid="8817875467979840211">সুরিনামের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1F8" msgid="2660263148212045846">দক্ষিণ সুদানের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1F9" msgid="8238122890022856070">সাও তমে ও প্রিন্সিপার পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1FB" msgid="4615906903576645230">এল সালভাদরের পতাকা</string>
     <string name="spoken_emoji_1F1F8_1F1FD" msgid="4404781163148659815">সিন্ট মার্টেনের পতাকা</string>
-    <string name="spoken_emoji_1F1F8_1F1FE" msgid="7179176431724187154">সিরিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1F8_1F1FF" msgid="8456502038439909076">সোয়াজিল্যান্ডের পতাকা</string>
+    <string name="spoken_emoji_1F1F8_1F1FE" msgid="7179176431724187154">সিরিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F8_1F1FF" msgid="8456502038439909076">সোয়াজিল্যান্ডের পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1E6" msgid="7462600413724750923">ত্রিস্তান দা কুনহার পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1E8" msgid="8714687302692115701">তুর্ক এবং কাইকোস দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1E9" msgid="4271932459960645451">চাদের পতাকা</string>
@@ -1278,32 +1278,32 @@
     <string name="spoken_emoji_1F1F9_1F1F0" msgid="5328199482828913429">টোকেলাউ এর পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1F1" msgid="8753850591122992884">তিমুর-লেস্তের পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1F2" msgid="5491037548857189992">তুর্কমেনিস্তানের পতাকা</string>
-    <string name="spoken_emoji_1F1F9_1F1F3" msgid="7278463413655866267">তিউনিসিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1F9_1F1F3" msgid="7278463413655866267">তিউনিসিয়ার পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1F4" msgid="7624316225889181844">টোঙ্গার পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1F7" msgid="5932331866489640094">তুরস্কের পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1F9" msgid="4042249888728442471">ত্রিনিদাদ ও টোবাগোর পতাকা</string>
     <string name="spoken_emoji_1F1F9_1F1FB" msgid="4705386325884538832">টুভালুর পতাকা</string>
-    <string name="spoken_emoji_1F1F9_1F1FC" msgid="9106106156487112003">তাইওয়ানের পতাকা</string>
-    <string name="spoken_emoji_1F1F9_1F1FF" msgid="6594567669471176195">তানজানিয়া পতাকা</string>
+    <string name="spoken_emoji_1F1F9_1F1FC" msgid="9106106156487112003">তাইওয়ানের পতাকা</string>
+    <string name="spoken_emoji_1F1F9_1F1FF" msgid="6594567669471176195">তানজানিয়া পতাকা</string>
     <string name="spoken_emoji_1F1FA_1F1E6" msgid="7516283481055191487">ইউক্রেনের পতাকা</string>
     <string name="spoken_emoji_1F1FA_1F1EC" msgid="7713151466830788434">উগান্ডার পতাকা</string>
     <string name="spoken_emoji_1F1FA_1F1F2" msgid="169503347987231777">ইউএস আউটলাইং দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1FA_1F1F8" msgid="3794069376561841694">মার্কিন যুক্তরাষ্ট্রের পতাকা</string>
-    <string name="spoken_emoji_1F1FA_1F1FE" msgid="7768717385050492537">উরুগুয়ের পতাকা</string>
+    <string name="spoken_emoji_1F1FA_1F1FE" msgid="7768717385050492537">উরুগুয়ের পতাকা</string>
     <string name="spoken_emoji_1F1FA_1F1FF" msgid="1957036711159158590">উজবেকিস্তানের পতাকা</string>
     <string name="spoken_emoji_1F1FB_1F1E6" msgid="6686626035855100794">ভ্যাটিকান সিটির পতাকা</string>
     <string name="spoken_emoji_1F1FB_1F1E8" msgid="958901562721846738">সেন্ট ভিনসেন্ট এবং গ্রেনাডাইনসের পতাকা</string>
-    <string name="spoken_emoji_1F1FB_1F1EA" msgid="8171514854370897858">ভেনেজুয়েলার পতাকা</string>
+    <string name="spoken_emoji_1F1FB_1F1EA" msgid="8171514854370897858">ভেনেজুয়েলার পতাকা</string>
     <string name="spoken_emoji_1F1FB_1F1EC" msgid="7825072244650491600">ব্রিটিশ ভার্জিন দ্বীপপুঞ্জের পতাকা</string>
     <string name="spoken_emoji_1F1FB_1F1EE" msgid="8177320330941963456">মার্কিন ভার্জিন দ্বীপপুঞ্জের পতাকা</string>
-    <string name="spoken_emoji_1F1FB_1F1F3" msgid="6211275163002022414">ভিয়েতনামের পতাকা</string>
-    <string name="spoken_emoji_1F1FB_1F1FA" msgid="7638199094441690866">ভানুয়াতুর পতাকা</string>
-    <string name="spoken_emoji_1F1FC_1F1EB" msgid="2750545602487865333">ওয়ালিস এবং ফুটুনার পতাকা</string>
-    <string name="spoken_emoji_1F1FC_1F1F8" msgid="1717055707936794276">সামোয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1FB_1F1F3" msgid="6211275163002022414">ভিয়েতনামের পতাকা</string>
+    <string name="spoken_emoji_1F1FB_1F1FA" msgid="7638199094441690866">ভানুয়াতুর পতাকা</string>
+    <string name="spoken_emoji_1F1FC_1F1EB" msgid="2750545602487865333">ওয়ালিস এবং ফুটুনার পতাকা</string>
+    <string name="spoken_emoji_1F1FC_1F1F8" msgid="1717055707936794276">সামোয়ার পতাকা</string>
     <string name="spoken_emoji_1F1FD_1F1F0" msgid="8924460310127605012">কসোভোর পতাকা</string>
-    <string name="spoken_emoji_1F1FE_1F1EA" msgid="5020385658435288646">ইয়েমেনের পতাকা</string>
-    <string name="spoken_emoji_1F1FE_1F1F9" msgid="5627032701159894458">মায়োটের পতাকা</string>
+    <string name="spoken_emoji_1F1FE_1F1EA" msgid="5020385658435288646">ইয়েমেনের পতাকা</string>
+    <string name="spoken_emoji_1F1FE_1F1F9" msgid="5627032701159894458">মায়োটের পতাকা</string>
     <string name="spoken_emoji_1F1FF_1F1E6" msgid="3518155724469542909">দক্ষিণ আফ্রিকার পতাকা</string>
-    <string name="spoken_emoji_1F1FF_1F1F2" msgid="1316086892525163001">জাম্বিয়ার পতাকা</string>
-    <string name="spoken_emoji_1F1FF_1F1FC" msgid="7229025296887296741">জিম্বাবুয়ের পতাকা</string>
+    <string name="spoken_emoji_1F1FF_1F1F2" msgid="1316086892525163001">জাম্বিয়ার পতাকা</string>
+    <string name="spoken_emoji_1F1FF_1F1FC" msgid="7229025296887296741">জিম্বাবুয়ের পতাকা</string>
 </resources>
