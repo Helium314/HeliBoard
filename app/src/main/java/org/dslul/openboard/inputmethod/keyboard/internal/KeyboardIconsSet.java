@@ -62,6 +62,7 @@ public final class KeyboardIconsSet {
     public static final String NAME_CLIPBOARD_ACTION_KEY = "clipboard_action_key";
     public static final String NAME_CLIPBOARD_NORMAL_KEY = "clipboard_normal_key";
     public static final String NAME_CLEAR_CLIPBOARD_KEY = "clear_clipboard_key";
+    public static final String NAME_NUMPAD_KEY = "numpad_key";
     public static final String NAME_START_ONEHANDED_KEY = "start_onehanded_mode_key";
     public static final String NAME_STOP_ONEHANDED_KEY = "stop_onehanded_mode_key";
     public static final String NAME_SWITCH_ONEHANDED_KEY = "switch_onehanded_key";
@@ -98,6 +99,7 @@ public final class KeyboardIconsSet {
         NAME_CLIPBOARD_ACTION_KEY,        R.styleable.Keyboard_iconClipboardActionKey,
         NAME_CLIPBOARD_NORMAL_KEY,        R.styleable.Keyboard_iconClipboardNormalKey,
         NAME_CLEAR_CLIPBOARD_KEY,         R.styleable.Keyboard_iconClearClipboardKey,
+        NAME_NUMPAD_KEY,                  R.styleable.Keyboard_iconNumpadKey,
         NAME_START_ONEHANDED_KEY,         R.styleable.Keyboard_iconStartOneHandedMode,
         NAME_STOP_ONEHANDED_KEY,          R.styleable.Keyboard_iconStopOneHandedMode,
         NAME_SWITCH_ONEHANDED_KEY,        R.styleable.Keyboard_iconSwitchOneHandedMode,

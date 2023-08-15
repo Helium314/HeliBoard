@@ -262,6 +262,7 @@ public final class KeyboardTextsTable {
         /* 178: 0 */ "keyspec_clipboard_normal_key",
         /* 179: 0 */ "keyspec_start_onehanded_mode",
         /* 180: 0 */ "keyspec_language_switch",
+        /* 181: 0 */ "keyspec_numpad_key",
     };
 
     private static final String EMPTY = "";
@@ -491,6 +492,7 @@ public final class KeyboardTextsTable {
         /* keyspec_clipboard_normal_key */ "!icon/clipboard_normal_key|!code/key_clipboard",
         /* keyspec_start_onehanded_mode */ "!icon/start_onehanded_mode_key|!code/key_start_onehanded",
         /* keyspec_language_switch */ "!icon/language_switch_key|!code/key_language_switch",
+        /* keyspec_numpad_key */ "!icon/numpad_key|!code/key_numpad",
     };
 
     /* Locale af: Afrikaans */
@@ -4263,7 +4265,7 @@ public final class KeyboardTextsTable {
 
     private static final Object[] LOCALES_AND_TEXTS = {
     // "locale", TEXT_ARRAY,  /* numberOfNonNullText/lengthOf_TEXT_ARRAY localeName */
-        "DEFAULT", TEXTS_DEFAULT, /* 181/181 DEFAULT */
+        "DEFAULT", TEXTS_DEFAULT, /* 182/182 DEFAULT */
         "af"     , TEXTS_af,    /*   7/ 13 Afrikaans */
         "ar"     , TEXTS_ar,    /*  55/110 Arabic */
         "az"     , TEXTS_az,    /*  11/ 18 Azerbaijani */

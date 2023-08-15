@@ -181,6 +181,9 @@ public final class KeyboardLayoutSet {
                     keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE;
                 }
                 break;
+            case KeyboardId.MODE_NUMPAD:
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMPAD;
+                break;
             case KeyboardId.MODE_NUMBER:
             case KeyboardId.MODE_DATE:
             case KeyboardId.MODE_TIME:

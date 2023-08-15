@@ -71,6 +71,42 @@
                 latin:parentStyle="baseForShiftKeyStyle" />
         </default>
     </switch>
+    <!-- numpadKeyStyle -->
+    <switch>
+        <case latin:keyboardTheme="ICS|KLP|LXXBaseBorder|LXXBase">
+            <key-style
+                latin:styleName="numpadKeyStyle"
+                latin:keySpec="!icon/numpad_key|!code/key_numpad"
+                latin:keyActionFlags="noKeyPreview"
+                latin:backgroundType="functional" />
+        </case>
+        <default>
+            <key-style
+                latin:styleName="numpadKeyStyle"
+                latin:keySpec="!icon/numpad_key|!code/key_numpad"
+                latin:keyLabelFlags="keepBackgroundAspectRatio"
+                latin:keyActionFlags="noKeyPreview"
+                latin:backgroundType="functional" />
+        </default>
+    </switch>
+    <!-- alphaNumpadKeyStyle -->
+    <switch>
+        <case latin:keyboardTheme="ICS|KLP|LXXBaseBorder|LXXBase">
+            <key-style
+                latin:styleName="alphaNumpadKeyStyle"
+                latin:keySpec="!text/keylabel_to_alpha|!code/key_alphaNumpad"
+                latin:keyActionFlags="noKeyPreview"
+                latin:backgroundType="functional" />
+        </case>
+        <default>
+            <key-style
+                latin:styleName="alphaNumpadKeyStyle"
+                latin:keySpec="!text/keylabel_to_alpha|!code/key_alphaNumpad"
+                latin:keyLabelFlags="keepBackgroundAspectRatio"
+                latin:keyActionFlags="noKeyPreview"
+                latin:backgroundType="functional" />
+        </default>
+    </switch>
     <key-style
         latin:styleName="deleteKeyStyle"
         latin:keySpec="!icon/delete_key|!code/key_delete"
