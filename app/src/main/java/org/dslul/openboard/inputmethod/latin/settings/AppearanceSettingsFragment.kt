@@ -16,6 +16,7 @@
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.app.AlertDialog
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -42,6 +43,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
     private lateinit var themeFamilyPref: ListPreference
     private lateinit var themeVariantPref: ListPreference
     private lateinit var customThemeVariantPref: ListPreference
+    private lateinit var customThemeVariantNightPref: ListPreference
     private lateinit var keyBordersPref: TwoStatePreference
     private lateinit var amoledModePref: TwoStatePreference
     private var dayNightPref: TwoStatePreference? = null
@@ -54,8 +56,18 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         val keyboardTheme = KeyboardTheme.getKeyboardTheme(activity)
         selectedThemeId = keyboardTheme.mThemeId
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             removePreference(Settings.PREF_THEME_DAY_NIGHT)
+            removePreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT)
+        } else {
+            // on P there is experimental support for night mode, exposed by some roms like LineageOS
+            // try to detect this using UI_MODE_NIGHT_UNDEFINED, but actually the system could always report day too?
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+                && (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_UNDEFINED
+            ) {
+                removePreference(Settings.PREF_THEME_DAY_NIGHT)
+                removePreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT)
+            }
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // todo: consider removing the preference, and always set the navbar color
@@ -154,11 +166,39 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             isChecked = !isLegacyFamily && KeyboardTheme.getIsAmoledMode(selectedThemeId)
         }
         dayNightPref?.apply {
-            isEnabled = !isLegacyFamily && !KeyboardTheme.getIsCustom(selectedThemeId)
-            isChecked = !isLegacyFamily && !KeyboardTheme.getIsCustom(selectedThemeId) && KeyboardTheme.getIsDayNight(selectedThemeId)
+            isEnabled = !isLegacyFamily
+            isChecked = !isLegacyFamily && (KeyboardTheme.getIsDayNight(selectedThemeId)
+                    || (KeyboardTheme.getIsCustom(selectedThemeId) && sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
+                    )
         }
         userColorsPref.apply {
             isEnabled = KeyboardTheme.getIsCustom(selectedThemeId) && sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER
+        }
+        customThemeVariantNightPref.apply {
+            // todo: this doesn't work properly on changing day night pref, because updateThemePreferencesState is called before the new value is set
+            //  -> make it work!
+            if (KeyboardTheme.getIsCustom(selectedThemeId)) {
+                // show preference to allow choosing a night theme
+                // todo: currently just the same as normal themes, but should have a different theme selection in the end
+                //  and a separate user-defined theme!
+                // can't hide a preference, at least not without category or maybe some androidx things
+                // -> just disable it instead (for now...)
+                isEnabled = dayNightPref?.isChecked == true
+            } else
+                isEnabled = false
+
+            // copied from customThemeVariantNight, maybe adjust
+            val variant = sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
+            val variants = KeyboardTheme.CUSTOM_THEME_VARIANTS // todo: only dark themes and user-defined (maybe second user-defined)
+            entries = variants.map {
+                val resId = resources.getIdentifier("theme_name_$it", "string", activity.packageName)
+                if (resId == 0) it else getString(resId)
+            }.toTypedArray()
+            entryValues = variants
+            value = variant
+            val resId = resources.getIdentifier("theme_name_$variant", "string", activity.packageName)
+            summary = if (resId == 0) variant else getString(resId)
+            isEnabled = true
         }
     }
 
@@ -221,6 +261,22 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
                 val userVariant = variants.first { it.contains("user", true) }
                 saveSelectedThemeId(variant = userVariant as String)
                 updateThemePreferencesState(skipThemeFamily = true)
+
+                true
+            }
+        }
+        customThemeVariantNightPref = preferenceScreen.findPreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT) as ListPreference
+        customThemeVariantNightPref.apply {
+            title = "$title new (night)" // todo: remove, this is just a workaround while there are still 2 ways of selecting variant
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
+                // not so nice workaround, could be removed in the necessary re-work: new value seems
+                // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now
+                if (value == sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARK))
+                    return@OnPreferenceChangeListener true // avoid infinite loop
+                sharedPreferences.edit { putString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, value as String) }
+
+                summary = entries[entryValues.indexOfFirst { it == value }]
+                needsReload = true
 
                 true
             }

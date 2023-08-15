@@ -345,6 +345,11 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             if (THEME_VARIANT_HOLO_USER.equals(variant)) return THEME_ID_KLP_CUSTOM;
             return THEME_ID_KLP;
         }
+        // check custom before dayNight, because now both can match
+        if (THEME_VARIANT_CUSTOM.equals(variant)) {
+            if (keyBorders) return THEME_ID_LXX_CUSTOM_BORDER;
+            return THEME_ID_LXX_CUSTOM;
+        }
         if (dayNight) {
             if (keyBorders) return THEME_ID_LXX_AUTO_BORDER;
             if (amoledMode) return THEME_ID_LXX_AUTO_AMOLED;
@@ -354,10 +359,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             if (keyBorders) return THEME_ID_LXX_DARK_BORDER;
             if (amoledMode) return THEME_ID_LXX_DARK_AMOLED;
             return THEME_ID_LXX_DARK;
-        }
-        if (THEME_VARIANT_CUSTOM.equals(variant)) {
-            if (keyBorders) return THEME_ID_LXX_CUSTOM_BORDER;
-            return THEME_ID_LXX_CUSTOM;
         }
         if (keyBorders) return THEME_ID_LXX_LIGHT_BORDER;
         return THEME_ID_LXX_LIGHT;
