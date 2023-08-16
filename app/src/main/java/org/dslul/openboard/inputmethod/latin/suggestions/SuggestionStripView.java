@@ -315,7 +315,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
                 Constants.NOT_A_CODE, this);
         if (isShowingMoreSuggestionPanel() || !showMoreSuggestions()) {
-            for (int i = 0; i < mStartIndexOfMoreSuggestions; i++) {
+            for (int i = 0; i <= mStartIndexOfMoreSuggestions; i++) {
                 if (view == mWordViews.get(i)) {
                     showDeleteSuggestionDialog(mWordViews.get(i));
                     return true;
