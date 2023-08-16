@@ -75,6 +75,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_USER_COLOR_BACKGROUND = "theme_color_background";
     public static final String PREF_THEME_USER_COLOR_KEYS = "theme_color_keys";
     public static final String PREF_THEME_USER_COLOR_ACCENT = "theme_color_accent";
+    public static final String PREF_THEME_USER_DARK_COLOR_TEXT = "theme_dark_color_text";
+    public static final String PREF_THEME_USER_DARK_COLOR_HINT_TEXT = "theme_dark_color_hint_text";
+    public static final String PREF_THEME_USER_DARK_COLOR_BACKGROUND = "theme_dark_color_background";
+    public static final String PREF_THEME_USER_DARK_COLOR_KEYS = "theme_dark_color_keys";
+    public static final String PREF_THEME_USER_DARK_COLOR_ACCENT = "theme_dark_color_accent";
     // PREF_VOICE_MODE_OBSOLETE is obsolete. Use PREF_VOICE_INPUT_KEY instead.
     public static final String PREF_VOICE_MODE_OBSOLETE = "voice_mode";
     public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";

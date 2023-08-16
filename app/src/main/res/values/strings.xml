@@ -640,6 +640,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode">Auto day/night mode</string>
+    <!-- Message for the dialog to choose which user-defined theme to edit -->
+    <string name="day_or_night_colors">Edit day or night colors?</string>
+    <!-- Button of the dialog above for "day"-->
+    <string name="day_or_night_day">Day</string>
+    <!-- Button of the dialog above for "night"-->
+    <string name="day_or_night_night">Night</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
     <!-- Option for enabling AMOLED mode [CHAR LIMIT=33] -->

@@ -369,7 +369,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_DARKER = "darker";
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
+    public static final String THEME_USER_DARK = "user_dark";
     public static final String[] CUSTOM_THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
+    public static final String[] CUSTOM_THEME_VARIANTS_DARK = new String[] { THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_DARK };
 
     // todo (later): material you, system accent, ...
     // todo: copies of original themes might need adjustments, though maybe it's only Colors that needs to be adjusted
@@ -382,6 +384,13 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
                 final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
                 return new Colors(accent, background, keyBgColor, Colors.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
+            case THEME_USER_DARK:
+                final int accent2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_ACCENT, Color.BLUE);
+                final int keyBgColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_KEYS, Color.LTGRAY);
+                final int keyTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_TEXT, Color.WHITE);
+                final int hintTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT, Color.WHITE);
+                final int background2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND, Color.DKGRAY);
+                return new Colors(accent2, background2, keyBgColor2, Colors.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
             case THEME_DARK:
                 return new Colors(
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
