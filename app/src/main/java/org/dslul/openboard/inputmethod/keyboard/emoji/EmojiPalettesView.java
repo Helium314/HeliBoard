@@ -530,11 +530,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         private void onTouchCanceled(final View v) {
-            final Colors colors = Settings.getInstance().getCurrent().mColors;
-            if (colors.isCustom) {
-                DrawableCompat.setTintList(v.getBackground(), colors.functionalKeyStateList);
-                DrawableCompat.setTintMode(v.getBackground(), PorterDuff.Mode.MULTIPLY);
-            }
+            v.setPressed(false);
         }
     }
 }
