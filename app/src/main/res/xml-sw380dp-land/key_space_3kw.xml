@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2014, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+    >
+    <switch>
+        <case
+            latin:keyboardLayoutSet="farsi|kannada|nepali_romanized|nepali_traditional|telugu"
+            latin:languageSwitchKeyEnabled="true"
+            >
+            <Key
+                latin:keyStyle="languageSwitchKeyStyle" />
+            <Key
+                latin:keyStyle="spaceKeyStyle"
+                latin:keyWidth="13%p" />
+            <Key
+                latin:keyStyle="zwnjKeyStyle" />
+        </case>
+        <case
+            latin:keyboardLayoutSet="farsi|kannada|nepali_romanized|nepali_traditional|telugu"
+            latin:languageSwitchKeyEnabled="false"
+            >
+            <Key
+                latin:keyStyle="spaceKeyStyle"
+                latin:keyWidth="21%p" />
+            <Key
+                latin:keyStyle="zwnjKeyStyle" />
+        </case>
+
+        <case
+            latin:languageSwitchKeyEnabled="true"
+            latin:emojiKeyEnabled="false"
+            >
+            <Key
+                latin:keyStyle="languageSwitchKeyStyle" />
+            <Key
+                latin:keyStyle="spaceKeyStyle"
+                latin:keyWidth="21%p" />
+        </case>
+
+        <case
+            latin:languageSwitchKeyEnabled="false"
+            latin:emojiKeyEnabled="true"
+            >
+            <Key
+                latin:keyStyle="emojiKeyStyle" />
+            <Key
+                latin:keyStyle="spaceKeyStyle"
+                latin:keyWidth="21%p" />
+        </case>
+
+        <case
+            latin:languageSwitchKeyEnabled="true"
+            latin:emojiKeyEnabled="true"
+            >
+            <Key
+                latin:keyStyle="languageSwitchKeyStyle" />
+            <Key
+                latin:keyStyle="emojiKeyStyle" />
+            <Key
+                latin:keyStyle="spaceKeyStyle"
+                latin:keyWidth="13%p" />
+        </case>
+
+        <!-- languageSwitchKeyEnabled="false" -->
+        <default>
+            <Key
+                latin:keyStyle="spaceKeyStyle"
+                latin:keyWidth="29%p" />
+        </default>
+    </switch>
+</merge>

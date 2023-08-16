@@ -63,10 +63,12 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         }
         setupTheme()
 
+
         if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED ||
-                Constants.isPhone(Settings.readScreenMetrics(resources))) {
+                Constants.isSmallPhone(Settings.readScreenMetrics(resources))) {
             removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
         }
+
         setupKeyboardHeight(
                 Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
     }
