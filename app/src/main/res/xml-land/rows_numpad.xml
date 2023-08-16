@@ -67,9 +67,11 @@
         <Key
             latin:keySpec="6"
             latin:keyStyle="numKeyStyle" />
-        <!-- &#65290; "*" FULLWIDTH ASTERISK SIGN -->
+        <!-- &#42; "*" ASTERISK SIGN -->
+        <!-- &#215; "×" MULTIPLICATION SIGN -->
         <Key
-            latin:keySpec="&#65290;"
+            latin:keySpec="&#42;"
+            latin:additionalMoreKeys="&#215;"
             latin:keyWidth="8.6%p" />
         <!-- &#47; "/" SOLIDUS SIGN -->
         <!-- &#247; "÷" DIVISION SIGN -->
