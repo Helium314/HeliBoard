@@ -13,14 +13,17 @@
         <!-- &#40; "(" LEFT PARENTHESIS SIGN -->
         <Key
             latin:keySpec="&#40;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#41; ")" RIGHT PARENTHESIS SIGN -->
         <Key
             latin:keySpec="&#41;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#58; ":" COLON SIGN -->
         <Key
             latin:keySpec="&#58;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
             latin:keySpec="1"
@@ -34,10 +37,12 @@
         <!-- &#43; "+" PLUS SIGN -->
         <Key
             latin:keySpec="&#43;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#45; "-" HYPHEN-MINUS SIGN -->
         <Key
             latin:keySpec="&#45;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
             latin:keyStyle="deleteKeyStyle"
@@ -49,14 +54,17 @@
         <!-- &#33; "!" EXCLAMATION MARK SIGN -->
         <Key
             latin:keySpec="&#33;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#63; "?" QUESTION MARK SIGN -->
         <Key
             latin:keySpec="&#63;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#59; ";" SEMICOLON SIGN -->
         <Key
             latin:keySpec="&#59;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
             latin:keySpec="4"
@@ -72,12 +80,14 @@
         <Key
             latin:keySpec="&#42;"
             latin:additionalMoreKeys="&#215;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#47; "/" SOLIDUS SIGN -->
         <!-- &#247; "÷" DIVISION SIGN -->
         <Key
             latin:keySpec="&#47;"
             latin:additionalMoreKeys="&#247;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
             latin:keyStyle="enterKeyStyle"
@@ -88,13 +98,16 @@
         <!-- &#124; "|" VERTICAL LINE -->
         <Key
             latin:keySpec="&#124;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
             latin:keyStyle="currencyKeyStyle"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#38; "&" AMPERSAND -->
         <Key
             latin:keySpec="&#38;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
             latin:keySpec="7"
@@ -108,10 +121,12 @@
         <!-- &#35; "#" NUMBER SIGN -->
         <Key
             latin:keySpec="&#35;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#37; "%" PERCENT SIGN -->
         <Key
             latin:keySpec="&#37;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#32; " " SPACE -->
         <Key
@@ -131,23 +146,28 @@
         <!-- &#60; "<" LESS-THAN SIGN -->
         <Key
             latin:keySpec="&#60;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#62; ">" GREATER-THAN SIGN -->
         <Key
             latin:keySpec="&#62;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#44; "," COMMA SIGN -->
         <Key
-            latin:keySpec="&#44;" />
+            latin:keySpec="&#44;"
+            latin:keyActionFlags="noKeyPreview" />
         <Key
             latin:keySpec="0"
             latin:keyStyle="numKeyStyle" />
         <!-- &#46; "." PERIOD SIGN -->
         <Key
-            latin:keySpec="&#46;" />
+            latin:keySpec="&#46;"
+            latin:keyActionFlags="noKeyPreview" />
         <!-- &#61; "=" EQUAL SIGN -->
         <Key
             latin:keySpec="&#61;"
+            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="17.2%p" />
         <Key
             latin:keyStyle="alphaNumpadKeyStyle"
