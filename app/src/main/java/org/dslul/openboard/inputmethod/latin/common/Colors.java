@@ -1,7 +1,6 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 
@@ -55,10 +54,10 @@ public class Colors {
     }
 
     // todo (later): remove this and isCustom, once the old themes can be completely replaced
-    public Colors(int themeId, int nightModeFlags) {
+    public Colors(int themeId, final boolean isNight) {
         isCustom = false;
         if (KeyboardTheme.getIsDayNight(themeId)) {
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO)
+            if (!isNight)
                 navBar = Color.rgb(236, 239, 241);
             else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK)
                 navBar = Color.rgb(38, 50, 56);

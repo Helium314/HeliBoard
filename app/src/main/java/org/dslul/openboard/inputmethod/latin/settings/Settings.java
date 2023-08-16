@@ -65,6 +65,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_FAMILY = "theme_family";
     public static final String PREF_THEME_VARIANT = "theme_variant";
     public static final String PREF_CUSTOM_THEME_VARIANT = "custom_theme_variant";
+    public static final String PREF_CUSTOM_THEME_VARIANT_NIGHT = "custom_theme_variant_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
     public static final String PREF_THEME_AMOLED_MODE = "theme_amoled_mode";
@@ -74,6 +75,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_USER_COLOR_BACKGROUND = "theme_color_background";
     public static final String PREF_THEME_USER_COLOR_KEYS = "theme_color_keys";
     public static final String PREF_THEME_USER_COLOR_ACCENT = "theme_color_accent";
+    public static final String PREF_THEME_USER_DARK_COLOR_TEXT = "theme_dark_color_text";
+    public static final String PREF_THEME_USER_DARK_COLOR_HINT_TEXT = "theme_dark_color_hint_text";
+    public static final String PREF_THEME_USER_DARK_COLOR_BACKGROUND = "theme_dark_color_background";
+    public static final String PREF_THEME_USER_DARK_COLOR_KEYS = "theme_dark_color_keys";
+    public static final String PREF_THEME_USER_DARK_COLOR_ACCENT = "theme_dark_color_accent";
     // PREF_VOICE_MODE_OBSOLETE is obsolete. Use PREF_VOICE_INPUT_KEY instead.
     public static final String PREF_VOICE_MODE_OBSOLETE = "voice_mode";
     public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
@@ -557,9 +563,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false),
                 prefs.getBoolean(Settings.PREF_THEME_AMOLED_MODE, false)
         );
+        // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
+        final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         if (!KeyboardTheme.getIsCustom(keyboardThemeId))
-            return new Colors(keyboardThemeId, context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
+            return new Colors(keyboardThemeId, isNight);
 
+        if (isNight && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
+            return KeyboardTheme.getCustomTheme(prefs.getString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER), context, prefs);
         return KeyboardTheme.getCustomTheme(prefs.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT), context, prefs);
     }
 

@@ -61,6 +61,9 @@ Changes to OpenBoard:
 * Fix white background of emoji tab selector on AMOLED theme for some Android versions, https://github.com/Helium314/openboard/pull/26
 * Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679 (maybe not properly fixed)
 * Fix always-dark settings on some Android versions, https://github.com/Helium314/openboard/pull/69
+* Fix bug with space before word being deleted in some apps / input fields, https://github.com/Helium314/openboard/commit/ce0bf06545c4547d3fc5791cc769508db0a89e87
+* Allow using auto theme on some devices with Android 9
+* Add auto theme for the new theming system
 
 Further plan / to do:
 * ~upgrade dependencies~
