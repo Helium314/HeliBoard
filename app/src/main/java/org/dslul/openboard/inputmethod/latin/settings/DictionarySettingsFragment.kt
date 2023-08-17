@@ -348,7 +348,7 @@ class DictionarySettingsFragment : SubScreenFragment() {
         private const val DICTIONARY_REQUEST_CODE = 96834
         private const val DICTIONARY_URL =
             "https://codeberg.org/Helium314/aosp-dictionaries"
-        private const val USER_DICTIONARY_SUFFIX = "user.dict"
+        const val USER_DICTIONARY_SUFFIX = "user.dict"
 
         private const val DICT_INTERNAL_AND_USER = 2
         private const val DICT_INTERNAL_ONLY = 1

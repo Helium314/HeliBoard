@@ -46,6 +46,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         setHasOptionsMenu(true);
+        // todo: remove the language thing once it's not necessary any more
         setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
         setSubtypeEnablerTitle(R.string.select_language);
         setSubtypeEnablerIcon(R.drawable.ic_settings_languages);
@@ -69,6 +70,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         }
     }
 
+    // todo: there is no options menu -> remove related code?
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         if (FeedbackUtils.isHelpAndFeedbackFormSupported()) {
