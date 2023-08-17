@@ -476,6 +476,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <!-- The label of the button that triggers the screen for configuaring additional languages of the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step3_action">Configure additional languages</string>
+    <!-- The label of the button that triggers the settings screen for the keyboard. [CHAR_LIMIT=64] -->
+    <string name="setup_step3_action_new">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
     <string name="setup_finish_action">Finished</string>
     <!-- Option to show setup wizard icon. [CHAR LIMIT=30]-->
