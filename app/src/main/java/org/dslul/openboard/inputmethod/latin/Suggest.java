@@ -21,7 +21,9 @@ import android.text.TextUtils;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
@@ -187,7 +189,7 @@ public final class Suggest {
             }
         }
 
-        final int firstOcurrenceOfTypedWordInSuggestions =
+        final int firstOccurrenceOfTypedWordInSuggestions =
                 SuggestedWordInfo.removeDupsAndTypedWord(typedWordString, suggestionsContainer);
 
         final SuggestedWordInfo whitelistedWordInfo =
@@ -241,7 +243,7 @@ public final class Suggest {
         } else {
             final SuggestedWordInfo firstSuggestion = suggestionResults.first();
             if (suggestionResults.mFirstSuggestionExceedsConfidenceThreshold
-                    && firstOcurrenceOfTypedWordInSuggestions != 0) {
+                    && firstOccurrenceOfTypedWordInSuggestions != 0) {
                 // todo: mFirstSuggestionExceedsConfidenceThreshold is always false, so currently
                 //  this branch is useless. remove the related logic, or actually use it
                 hasAutoCorrection = true;
@@ -254,10 +256,26 @@ public final class Suggest {
                 // form to allow auto-correcting to it in this language. For details of how this
                 // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
                 // TODO: this should not have its own logic here but be handled by the dictionary.
-                if (typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 1000000)
-                    hasAutoCorrection = false; // do not autocorrect if typed word has a good score, todo: the threshold may need tuning
-                else
-                    hasAutoCorrection = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
+                final boolean allowed = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
+                // todo: the threshold (currently 1000000) may need tuning
+                if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 1000000) {
+                    // typed word is valid and has good score
+                    // do not auto-correct if typed word is a prediction from ngram context alone
+                    // todo: maybe instead check for both words, and check which one is better
+                    //  more complicated, could be better, but could also give unexpected results
+                    boolean typedWordOccursInEmptyWordSuggestions = false;
+                    final SuggestionResults emptyWordSuggestions = mDictionaryFacilitator.getSuggestionResults(
+                            new ComposedData(new InputPointers(1), false, ""), ngramContext,
+                            keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
+                    for (SuggestedWordInfo i : emptyWordSuggestions) {
+                        if (typedWordString.equals(i.getWord())) {
+                            typedWordOccursInEmptyWordSuggestions = true;
+                            break;
+                        }
+                    }
+                    hasAutoCorrection = !typedWordOccursInEmptyWordSuggestions;
+                } else
+                    hasAutoCorrection = allowed;
             }
         }
 
@@ -289,7 +307,7 @@ public final class Suggest {
             inputStyle = inputStyleIfNotPrediction;
         }
 
-        final boolean isTypedWordValid = firstOcurrenceOfTypedWordInSuggestions > -1
+        final boolean isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1
                 || (!resultsArePredictions && !allowsToBeAutoCorrected);
 
         if (hasAutoCorrection && typedWordFirstOccurrenceWordInfo != null) {
