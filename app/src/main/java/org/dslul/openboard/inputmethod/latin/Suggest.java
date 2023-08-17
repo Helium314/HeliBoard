@@ -198,11 +198,20 @@ public final class Suggest {
                 ? null : whitelistedWordInfo.mWord;
         final boolean resultsArePredictions = !wordComposer.isComposingWord();
 
+        final SuggestedWordInfo firstSuggestionInContainer = suggestionsContainer.isEmpty() ? null : suggestionsContainer.get(0);
+        // SuggestedWordInfos for suggestions for empty word (based only on previously typed words)
+        // done in a weird way to imitate what kotlin does with lazy
+        final ArrayList<SuggestedWordInfo> firstAndTypedWordEmptyInfos = new ArrayList<>(2);
+
         // We allow auto-correction if whitelisting is not required or the word is whitelisted,
         // or if the word had more than one char and was not suggested.
         final boolean allowsToBeAutoCorrected =
                 (SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION || whitelistedWord != null)
-                || (consideredWord.length() > 1 && (sourceDictionaryOfRemovedWord == null));
+                || (consideredWord.length() > 1 && (sourceDictionaryOfRemovedWord == null)) // more than 1 letter and not in dictionary
+                || (firstSuggestionInContainer != null && putEmptyWordSuggestions(firstAndTypedWordEmptyInfos, // first suggestion appears in emptyWordSuggestions
+                        ngramContext, keyboard, settingsValuesForSuggestion, inputStyleIfNotPrediction,
+                        firstSuggestionInContainer.getWord(), typedWordString).get(0) != null);
+        // todo: hope autocorrect doesn't trigger too often now (remove this comment if ok)
 
         final boolean hasAutoCorrection;
         // If correction is not enabled, we never auto-correct. This is for example for when
@@ -249,6 +258,7 @@ public final class Suggest {
                 hasAutoCorrection = true;
             } else if (!AutoCorrectionUtils.suggestionExceedsThreshold(
                     firstSuggestion, consideredWord, mAutoCorrectionThreshold)) {
+                // todo: maybe also do something here depending on ngram context?
                 // Score is too low for autocorrect
                 hasAutoCorrection = false;
             } else {
@@ -260,20 +270,21 @@ public final class Suggest {
                 // todo: the threshold (currently 1000000) may need tuning
                 if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 1000000) {
                     // typed word is valid and has good score
-                    // do not auto-correct if typed word is a prediction from ngram context alone
-                    // todo: maybe instead check for both words, and check which one is better
-                    //  more complicated, could be better, but could also give unexpected results
-                    boolean typedWordOccursInEmptyWordSuggestions = false;
-                    final SuggestionResults emptyWordSuggestions = mDictionaryFacilitator.getSuggestionResults(
-                            new ComposedData(new InputPointers(1), false, ""), ngramContext,
-                            keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
-                    for (SuggestedWordInfo i : emptyWordSuggestions) {
-                        if (typedWordString.equals(i.getWord())) {
-                            typedWordOccursInEmptyWordSuggestions = true;
-                            break;
-                        }
-                    }
-                    hasAutoCorrection = !typedWordOccursInEmptyWordSuggestions;
+                    // do not auto-correct if typed word is better prediction than possible correction from ngram context alone
+                    final SuggestedWordInfo first = firstSuggestionInContainer != null ? firstSuggestionInContainer : firstSuggestion;
+                    putEmptyWordSuggestions(firstAndTypedWordEmptyInfos,
+                            ngramContext, keyboard, settingsValuesForSuggestion, inputStyleIfNotPrediction,
+                            first.getWord(), typedWordString);
+                    int firstScoreForEmpty = firstAndTypedWordEmptyInfos.get(0) != null ? firstAndTypedWordEmptyInfos.get(0).mScore : 0;
+                    int typedScoreForEmpty = firstAndTypedWordEmptyInfos.get(1) != null ? firstAndTypedWordEmptyInfos.get(1).mScore : 0;
+                    final Locale dictLocale = mDictionaryFacilitator.getCurrentLocale();
+                    // slightly prefer suggestion for the current locale, this is very useful e.g.
+                    // for Polish i vs English I, or French un vs un->in shortcut in English default dictionary
+                    if (dictLocale == first.mSourceDict.mLocale)
+                        firstScoreForEmpty += 1;
+                    if (dictLocale == typedWordFirstOccurrenceWordInfo.mSourceDict.mLocale)
+                        typedScoreForEmpty += 1;
+                    hasAutoCorrection = firstScoreForEmpty >= typedScoreForEmpty;
                 } else
                     hasAutoCorrection = allowed;
             }
@@ -325,6 +336,27 @@ public final class Suggest {
                 isTypedWordValid,
                 hasAutoCorrection /* willAutoCorrect */,
                 false /* isObsoleteSuggestions */, inputStyle, sequenceNumber));
+    }
+
+    // annoyingly complicated thing to avoid getting emptyWordSuggestions more than once
+    /** puts word infos for suggestions with an empty word in [infos], based on previously typed words */
+    private ArrayList<SuggestedWordInfo> putEmptyWordSuggestions(ArrayList<SuggestedWordInfo> infos, NgramContext ngramContext,
+                    Keyboard keyboard, SettingsValuesForSuggestion settingsValuesForSuggestion,
+                    int inputStyleIfNotPrediction, String firstSuggestionInContainer, String typedWordString) {
+        if (infos.size() != 0) return infos;
+        infos.add(null);
+        infos.add(null);
+        final SuggestionResults emptyWordSuggestions = mDictionaryFacilitator.getSuggestionResults(
+                new ComposedData(new InputPointers(1), false, ""), ngramContext,
+                keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
+        for (SuggestedWordInfo info : emptyWordSuggestions) {
+            if (infos.get(1) == null && typedWordString.equals(info.getWord())) {
+                infos.set(1, info);
+            } else if (infos.get(0) == null && firstSuggestionInContainer.equals(info.getWord())) {
+                infos.set(0, info);
+            }
+        }
+        return infos;
     }
 
     // Retrieves suggestions for the batch input
