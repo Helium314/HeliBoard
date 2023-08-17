@@ -172,6 +172,9 @@ public final class Suggest {
 
         boolean foundInDictionary = false;
         Dictionary sourceDictionaryOfRemovedWord = null;
+        // store the original SuggestedWordInfo for typed word, as it will be removed
+        // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
+        SuggestedWordInfo typedWordFirstOccurrenceWordInfo = null;
         for (final SuggestedWordInfo info : suggestionsContainer) {
             // Search for the best dictionary, defined as the first one with the highest match
             // quality we can find.
@@ -179,12 +182,13 @@ public final class Suggest {
                 // Use this source if the old match had lower quality than this match
                 sourceDictionaryOfRemovedWord = info.mSourceDict;
                 foundInDictionary = true;
+                typedWordFirstOccurrenceWordInfo = info;
                 break;
             }
         }
 
         final int firstOcurrenceOfTypedWordInSuggestions =
-                SuggestedWordInfo.removeDups(typedWordString, suggestionsContainer);
+                SuggestedWordInfo.removeDupsAndTypedWord(typedWordString, suggestionsContainer);
 
         final SuggestedWordInfo whitelistedWordInfo =
                 getWhitelistedWordInfoOrNull(suggestionsContainer);
@@ -238,6 +242,8 @@ public final class Suggest {
             final SuggestedWordInfo firstSuggestion = suggestionResults.first();
             if (suggestionResults.mFirstSuggestionExceedsConfidenceThreshold
                     && firstOcurrenceOfTypedWordInSuggestions != 0) {
+                // todo: mFirstSuggestionExceedsConfidenceThreshold is always false, so currently
+                //  this branch is useless. remove the related logic, or actually use it
                 hasAutoCorrection = true;
             } else if (!AutoCorrectionUtils.suggestionExceedsThreshold(
                     firstSuggestion, consideredWord, mAutoCorrectionThreshold)) {
@@ -248,7 +254,10 @@ public final class Suggest {
                 // form to allow auto-correcting to it in this language. For details of how this
                 // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
                 // TODO: this should not have its own logic here but be handled by the dictionary.
-                hasAutoCorrection = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
+                if (typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 1000000)
+                    hasAutoCorrection = false; // do not autocorrect if typed word has a good score, todo: the threshold may need tuning
+                else
+                    hasAutoCorrection = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
             }
         }
 
@@ -282,6 +291,17 @@ public final class Suggest {
 
         final boolean isTypedWordValid = firstOcurrenceOfTypedWordInSuggestions > -1
                 || (!resultsArePredictions && !allowsToBeAutoCorrected);
+
+        if (hasAutoCorrection && typedWordFirstOccurrenceWordInfo != null) {
+            // typed word is valid (in suggestions), but will not be shown if hasAutoCorrection
+            // -> add it after the auto-correct suggestion
+            // todo: it would be better to adjust this in SuggestedWords (getWordCountToShow, maybe more)
+            //  and SuggestionStripView (shouldOmitTypedWord, getStyledSuggestedWord)
+            //  but this could become more complicated than simply adding a duplicate word in a case
+            //  where the first occurrence of that word is ignored
+            suggestionsList.add(2, typedWordFirstOccurrenceWordInfo);
+        }
+
         callback.onGetSuggestedWords(new SuggestedWords(suggestionsList,
                 suggestionResults.mRawSuggestions, typedWordInfo,
                 isTypedWordValid,
@@ -325,7 +345,7 @@ public final class Suggest {
             final SuggestedWordInfo rejected = suggestionsContainer.remove(0);
             suggestionsContainer.add(1, rejected);
         }
-        SuggestedWordInfo.removeDups(null /* typedWord */, suggestionsContainer);
+        SuggestedWordInfo.removeDupsAndTypedWord(null /* typedWord */, suggestionsContainer);
 
         // For some reason some suggestions with MIN_VALUE are making their way here.
         // TODO: Find a more robust way to detect distracters.
