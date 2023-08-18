@@ -209,5 +209,4 @@
     <string name="about_github_link" >Паглядзець на GitHub</string>
     <string name="license" >Ліцэнзія з адкрытым зыходным кодам</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <string name="app_slogan" translatable="false">100% FOSS клавіятура, заснаваная на AOSP.</string>
 </resources>
