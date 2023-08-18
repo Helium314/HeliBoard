@@ -207,5 +207,4 @@
     <string name="about_github_link" >Подивитися на GitHub</string>
     <string name="license" >Ліцензія з відкритим кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <string name="app_slogan" translatable="false">100% FOSS клавіатура на основі AOSP.</string>
 </resources>
