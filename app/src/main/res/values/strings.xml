@@ -232,6 +232,8 @@
     <string name="help_and_feedback">Help &amp; feedback</string>
     <!-- Preference for input language selection -->
     <string name="select_language">Languages</string>
+    <!-- Preference for selecting system locales -->
+    <string name="system_languages">Use system languages</string>
     <!-- Add to dictionary hint -->
     <string name="hint_add_to_dictionary">Tap again to save</string>
     <!-- Add to dictionary hint -->

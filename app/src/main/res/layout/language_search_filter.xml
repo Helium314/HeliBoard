@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dip">
@@ -14,8 +15,7 @@
             android:layout_gravity="center_vertical"
             android:layout_width="40dp"
             android:layout_height="40dp" />
-        <!-- todo: search icon color should depend on theme, and icon should be larger an placed properly
-         -> maybe switch to relative layout -->
+        <!-- todo: icon should be larger and colored properly -->
         <EditText
             android:id="@+id/search_field"
             android:layout_marginHorizontal="6dp"
