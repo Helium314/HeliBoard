@@ -189,8 +189,8 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
     <string name="number_row">"Ряд с цифрами"</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
-    <string name="show_hints">"Подсказывать символы"</string>
-    <string name="show_hints_summary">"Показывать символы на клавишах"</string>
+    <string name="show_hints">"Показывать спецсимволы"</string>
+    <string name="show_hints_summary">"Показывать спецсимволы на клавишах"</string>
     <string name="prefs_resize_keyboard">"Включить изменение размера клавиатуры"</string>
     <string name="prefs_keyboard_height_scale">"Масштабирование по высоте"</string>
     <string name="delete_swipe">"Удаление жестом"</string>
@@ -231,4 +231,24 @@
     <string name="settings_category_suggestions">Предложения</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Долгое нажатие клавиши пробела вызовет меню выбора метода ввода</string>
     <string name="amoled_mode_summary">Экономия заряда батареи для AMOLED-экранов</string>
+    <string name="theme_navbar">Цвет панели навигации</string>
+    <string name="theme_name_light">Светлая</string>
+    <string name="theme_name_dark">Тёмная</string>
+    <string name="theme_name_darker">Серая</string>
+    <string name="theme_name_black">Чёрная</string>
+    <string name="theme_name_user">Пользовательская</string>
+    <string name="select_user_colors">Настройка цветов темы</string>
+    <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
+    <string name="select_color_to_adjust">Выберите цвета для настройки</string>
+    <string name="select_color_background">Фон клавиатуры</string>
+    <string name="select_color_key">Текст клавиш</string>
+    <string name="select_color_key_hint">Текст спецсимволов клавиш</string>
+    <string name="select_color_key_background">Фон клавиш</string>
+    <string name="select_color_accent">Акцент</string>
+    <string name="settings_screen_about">Справка</string>
+    <string name="version">Версия</string>
+    <string name="about_github_link" >Посмотреть на GitHub</string>
+    <string name="license" >Лицензия с открытым исходным кодом</string>
+    <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="app_slogan" translatable="false">100% FOSS клавиатура, основанная на AOSP.</string>
 </resources>
