@@ -731,7 +731,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 // before ends with separator or similar -> check whether text before cursor ends with the same codepoint
                 int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
                 CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
-                if (Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
+                if (codePointBeforeCursor.length() != 0 && Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
                     // they are different, as is expected from the issue
                     // now check whether they are the same if the last codepoint of before is removed
                     final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
