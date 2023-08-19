@@ -252,8 +252,9 @@ public final class Constants {
     public static final int CODE_SWITCH_ONE_HANDED_MODE = -19;
     public static final int CODE_NUMPAD = -20;
     public static final int CODE_ALPHA_FROM_NUMPAD = -21;
+    public static final int CODE_SYMBOL_FROM_NUMPAD = -22;
     // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -22;
+    public static final int CODE_UNSPECIFIED = -23;
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;
@@ -286,6 +287,7 @@ public final class Constants {
         case CODE_SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
         case CODE_NUMPAD: return "numpad";
         case CODE_ALPHA_FROM_NUMPAD: return "alphaNumpad";
+        case CODE_SYMBOL_FROM_NUMPAD: return "symbolNumpad";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);
             if (code < 0x100) return String.format("%c", code);

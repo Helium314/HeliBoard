@@ -709,7 +709,7 @@ public final class KeyboardState {
             }
             break;
         case SWITCH_STATE_SYMBOL_BEGIN:
-            if (mMode == MODE_EMOJI || mMode == MODE_CLIPBOARD|| mMode == MODE_NUMPAD) {
+            if (mMode == MODE_EMOJI || mMode == MODE_CLIPBOARD || mMode == MODE_NUMPAD) {
                 // When in the Emoji keyboard or clipboard one, we don't want to switch back to the main layout even
                 // after the user hits an emoji letter followed by an enter or a space.
                 break;
@@ -754,6 +754,8 @@ public final class KeyboardState {
             setNumpadKeyboard();
         } else if (code == Constants.CODE_ALPHA_FROM_NUMPAD) {
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
+        } else if (code == Constants.CODE_SYMBOL_FROM_NUMPAD) {
+            setSymbolsKeyboard();
         } else if (code == Constants.CODE_START_ONE_HANDED_MODE) {
             setOneHandedModeEnabled(true);
         } else if (code == Constants.CODE_STOP_ONE_HANDED_MODE) {

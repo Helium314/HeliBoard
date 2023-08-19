@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard
     xmlns:latin="http://schemas.android.com/apk/res-auto"
-    latin:keyWidth="22%p"
+    latin:keyWidth="23.33%p"
     latin:touchPositionCorrectionData="@array/touch_position_correction_data_default"
 >
     <include

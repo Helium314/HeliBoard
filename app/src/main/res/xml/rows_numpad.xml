@@ -17,7 +17,7 @@
             latin:additionalMoreKeys="&#40;,&#62;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
-            latin:keyWidth="17%p" />
+            latin:keyWidth="15%p" />
         <Key
             latin:keySpec="1"
             latin:keyStyle="numKeyStyle" />
@@ -45,7 +45,7 @@
             latin:additionalMoreKeys="&#41;,&#60;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
-            latin:keyWidth="17%p" />
+            latin:keyWidth="15%p" />
         <Key
             latin:keySpec="4"
             latin:keyStyle="numKeyStyle" />
@@ -75,7 +75,7 @@
             latin:additionalMoreKeys="&#47;,&#215;,&#247;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
-            latin:keyWidth="17%p" />
+            latin:keyWidth="15%p" />
         <Key
             latin:keySpec="7"
             latin:keyStyle="numKeyStyle" />
@@ -93,22 +93,34 @@
     <Row>
         <Key
             latin:keyStyle="alphaNumpadKeyStyle"
+            latin:keyWidth="15%p" />
+        <!-- &#44; "," COMMA SIGN -->
+        <Key
+            latin:keySpec="&#44;"
+            latin:keyLabelFlags="hasPopupHint"
+            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
-            latin:keyWidth="17%p" />
-        <!-- &#46; "." PERIOD SIGN -->
+            latin:keyWidth="10%p" />
         <Key
-            latin:keySpec="&#46;"
-            latin:backgroundType="functional"
-            latin:keyActionFlags="noKeyPreview" />
+            latin:keyStyle="symbolNumpadKeyStyle"
+            latin:keyWidth="13.33%p" />
         <Key
             latin:keySpec="0"
             latin:keyStyle="numKeyStyle" />
         <!-- &#61; "=" EQUAL SIGN -->
         <Key
             latin:keySpec="&#61;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="13.33%p" />
+        <!-- &#46; "." PERIOD SIGN -->
+        <!-- &#8230; "..." ELLIPSIS SIGN -->
+        <Key
+            latin:keySpec="&#46;"
+            latin:additionalMoreKeys="&#8230;"
             latin:backgroundType="functional"
-            latin:keyActionFlags="noKeyPreview" />
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="10%p" />
         <Key
             latin:keyStyle="enterKeyStyle"
             latin:keyWidth="fillRight" />
