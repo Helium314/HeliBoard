@@ -133,7 +133,7 @@
             latin:keySpec="!icon/space_key_for_number_layout|&#32;"
             latin:keyLabelFlags="alignIconToBottom"
             latin:backgroundType="functional"
-            latin:keyActionFlags="noKeyPreview"
+            latin:keyActionFlags="noKeyPreview|enableLongPress"
             latin:keyWidth="fillRight" />
     </Row>
     <!-- Fourth row -->
