@@ -32,7 +32,8 @@ class LanguageSettingsFragment : SubScreenFragment() {
         addPreferencesFromResource(R.xml.prefs_screen_language);
         SubtypeLocaleUtils.init(activity)
 
-        enabledSubtypes.addAll(RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(true))
+//        enabledSubtypes.addAll(RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(true))
+        enabledSubtypes.addAll(Settings.getInstance().current.mEnabledSubtypes)
         systemLocales.addAll(getSystemLocales())
         (findPreference("pref_system_languages") as TwoStatePreference).setOnPreferenceChangeListener { _, b ->
             loadSubtypes(b as Boolean)

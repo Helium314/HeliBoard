@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
@@ -109,6 +110,7 @@ public class SettingsValues {
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
+    public final InputMethodSubtype[] mEnabledSubtypes;
 
     // From the input box
     @Nonnull
@@ -261,6 +263,8 @@ public class SettingsValues {
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
+
+        mEnabledSubtypes = SettingsKtKt.getEnabledSubtypes(prefs, context);
     }
 
     public boolean isMetricsLoggingEnabled() {

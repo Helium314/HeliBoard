@@ -2,23 +2,25 @@ package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.Context
 import android.graphics.Rect
-import android.os.Build
 import android.preference.Preference
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.edit
 import androidx.core.view.doOnLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
+import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 
 class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Preference(context, attrs) {
 
     private var preferenceView: View? = null
-    private val adapter = LanguageAdapter()
+    private val adapter = LanguageAdapter(emptyList(), context)
     private val sortedSubtypes = mutableListOf<SubtypeInfo>()
 
     override fun onBindView(view: View?) {
@@ -53,9 +55,10 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
 }
 
 // todo: decide class
-class LanguageAdapter(list: List<SubtypeInfo> = listOf()) :
+class LanguageAdapter(list: List<SubtypeInfo> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var disableSwitches = false
+    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
 
     var list: List<SubtypeInfo> = list
         set(value) {
@@ -76,9 +79,11 @@ class LanguageAdapter(list: List<SubtypeInfo> = listOf()) :
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun onBind(info: SubtypeInfo) {
+            // todo: when loading subtypes from settings using additional subtype thing, the string is rather bad
+            //  probably issue there (and intended for these subtypes, as layout is shown)
             view.findViewById<TextView>(R.id.language_name).text = info.displayName
 //            view.findViewById<TextView>(R.id.language_details).text = // some short info, no more than 2 lines
-            view.findViewById<TextView>(R.id.language_text).setOnClickListener {
+            view.findViewById<LinearLayout>(R.id.language_text).setOnClickListener {
                 // todo: click item dialog (better full screen with custom layout, not some alertDialog)
                 //  secondary locale options similar to now
                 //  add/remove dictionary thing, like now
@@ -93,27 +98,13 @@ class LanguageAdapter(list: List<SubtypeInfo> = listOf()) :
                 isChecked = info.isEnabled
                 isEnabled = !disableSwitches
                 setOnCheckedChangeListener { _, b ->
-                    // todo: what now?
-                    // todo: maybe need to copy some code from CustomInputStyleSettingsFragment
-                    // i really should have checked this... apparently the only way to enable an inputmethod is using the system
-                    //  or not exposing different subtypes to the system... which is better?
+                    val enabledSubtypes = prefs.getStringSet(Settings.PREF_ENABLED_INPUT_STYLES, emptySet())!!.toHashSet()
+                    if (enabledSubtypes.isEmpty())
+                        enabledSubtypes.addAll(getDefaultEnabledSubtypes(context).mapNotNull { AdditionalSubtypeUtils.getPrefSubtype(it) })
                     if (b) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            // calls the default menu... maybe try this, at least it might not be crashing
-//                          view.context.getSystemService(InputMethodManager::class.java).showInputMethodAndSubtypeEnabler(null);
-                        }
-                        RichInputMethodManager.getInstance()
-                            .setAdditionalInputMethodSubtypes(arrayOf(info.subtype)) // nah
-                        // there is putSelectedSubtype / putSelectedInputMethod in InputMethodUtils.InputMethodSettings (frameworks/base)
-                        // and possibly i could write secure settings, but that's not really great
-                        // but this is not public enough...
-/*                    val a: InputMethodService
-                        a.InputMethodImpl().
-                        a.InputMethodSessionImpl().
-                        InputMethodManager
-                        InputMethodManagerCompatWrapper*/
+                        prefs.edit { putStringSet(Settings.PREF_ENABLED_INPUT_STYLES, enabledSubtypes + AdditionalSubtypeUtils.getPrefSubtype(info.subtype)) }
                     } else {
-//                    RichInputMethodManager.getInstance().
+                        prefs.edit { putStringSet(Settings.PREF_ENABLED_INPUT_STYLES, enabledSubtypes - AdditionalSubtypeUtils.getPrefSubtype(info.subtype)) }
                     }
                 }
             }
