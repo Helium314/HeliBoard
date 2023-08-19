@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * A simple class to help with removing directories recursively.
@@ -68,6 +69,10 @@ public class FileUtils {
             throw new IOException("could not create parent folder");
         }
         FileOutputStream out = new FileOutputStream(outfile);
+        copyStreamToOtherStream(in, out);
+    }
+
+    public static void copyStreamToOtherStream(InputStream in, OutputStream out) throws IOException {
         byte[] buf = new byte[1024];
         int len;
         while ((len = in.read(buf)) > 0) {
