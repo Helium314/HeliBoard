@@ -161,6 +161,11 @@ public final class LocaleUtils {
         return LOCALE_MATCH <= level;
     }
 
+    /** similar to isMatch, but returns true if there is anything matching (used for fallback) */
+    public static boolean isMatchWeak(final int level) {
+        return level > LOCALE_NO_MATCH;
+    }
+
     private static final HashMap<String, Locale> sLocaleCache = new HashMap<>();
 
     /**
