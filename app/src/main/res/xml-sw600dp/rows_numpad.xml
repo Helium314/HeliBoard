@@ -170,9 +170,8 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="17.2%p" />
         <Key
-            latin:keyStyle="alphaNumpadKeyStyle"
+            latin:keyStyle="symbolNumpadKeyStyle"
             latin:backgroundType="functional"
-            latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="fillRight" />
     </Row>
 </merge>
