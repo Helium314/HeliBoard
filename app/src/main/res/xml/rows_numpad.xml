@@ -13,10 +13,11 @@
         <!-- &#43; "+" PLUS SIGN -->
         <!-- &#40; "(" LEFT PARENTHESIS SIGN -->
         <!-- &#62; ">" GREATER-THAN SIGN -->
+        <!-- &#177; "±" PLUS-MINUS SIGN -->
         <Key
             latin:keySpec="&#43;"
             latin:keyHintLabel="&#40;"
-            latin:additionalMoreKeys="&#40;,&#62;"
+            latin:additionalMoreKeys="&#40;,&#62;,&#177;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="15%p" />
@@ -113,8 +114,12 @@
             latin:keySpec="0"
             latin:keyStyle="numKeyStyle" />
         <!-- &#61; "=" EQUAL SIGN -->
+        <!-- &#8800; "≠" NOT EQUAL TO -->
+        <!-- &#8776; "≈" ALMOST EQUAL TO -->
         <Key
             latin:keySpec="&#61;"
+            latin:keyHintLabel="&#8800;"
+            latin:additionalMoreKeys="&#8800;,&#8776;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="13.33%p" />
         <!-- &#46; "." PERIOD SIGN -->

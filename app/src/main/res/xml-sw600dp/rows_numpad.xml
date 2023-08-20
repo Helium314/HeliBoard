@@ -35,8 +35,10 @@
             latin:keySpec="3"
             latin:keyStyle="numKeyStyle" />
         <!-- &#43; "+" PLUS SIGN -->
+        <!-- &#177; "±" PLUS-MINUS SIGN -->
         <Key
             latin:keySpec="&#43;"
+            latin:additionalMoreKeys="&#177;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#45; "-" HYPHEN-MINUS SIGN -->
@@ -165,8 +167,11 @@
             latin:keySpec="&#46;"
             latin:keyActionFlags="noKeyPreview" />
         <!-- &#61; "=" EQUAL SIGN -->
+        <!-- &#8800; "≠" NOT EQUAL TO -->
+        <!-- &#8776; "≈" ALMOST EQUAL TO -->
         <Key
             latin:keySpec="&#61;"
+            latin:additionalMoreKeys="&#8800;,&#8776;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="17.2%p" />
         <Key
