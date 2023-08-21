@@ -190,4 +190,23 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Іншыя мовы..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Выдаліць"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="theme_navbar">Колер панэлі навігацыі</string>
+    <string name="theme_name_light">Светлая</string>
+    <string name="theme_name_dark">Цёмная</string>
+    <string name="theme_name_darker">Шэрая</string>
+    <string name="theme_name_black">Чорная</string>
+    <string name="theme_name_user">Карыстацкая</string>
+    <string name="select_user_colors">Настройка колераў тэмы</string>
+    <string name="select_user_colors_summary">Абярыце колеру для тэксту і фону</string>
+    <string name="select_color_to_adjust">Выберыце колеру для наладкі</string>
+    <string name="select_color_background">Фон клавіятуры</string>
+    <string name="select_color_key">Тэкст клавіш</string>
+    <string name="select_color_key_hint">Тэкст спецзнакаў клавіш</string>
+    <string name="select_color_key_background">Фон клавіш</string>
+    <string name="select_color_accent">Акцэнт</string>
+    <string name="settings_screen_about">Даведка</string>
+    <string name="version">Версія</string>
+    <string name="about_github_link" >Паглядзець на GitHub</string>
+    <string name="license" >Ліцэнзія з адкрытым зыходным кодам</string>
+    <string name="gnu_gpl" >GNU General Public License v3.0</string>
 </resources>

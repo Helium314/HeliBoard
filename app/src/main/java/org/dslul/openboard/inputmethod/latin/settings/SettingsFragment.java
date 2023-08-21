@@ -18,7 +18,9 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -28,11 +30,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethodcommon.InputMethodSettingsFragment;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public final class SettingsFragment extends InputMethodSettingsFragment {
     // We don't care about menu grouping.
@@ -41,6 +54,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
     private static final int MENU_ABOUT = Menu.FIRST;
     // The second menu item id and order.
     private static final int MENU_HELP_AND_FEEDBACK = Menu.FIRST + 1;
+    private static final int CRASH_REPORT_REQUEST_CODE = 985287532;
+    // for storing crash report files, so onActivityResult can actually use them
+    private final ArrayList<File> crashReportFiles = new ArrayList<>();
 
     @Override
     public void onCreate(final Bundle icicle) {
@@ -67,6 +83,8 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         if (actionBar != null && screenTitle != null) {
             actionBar.setTitle(screenTitle);
         }
+        if (BuildConfig.DEBUG)
+            askAboutCrashReports();
     }
 
     @Override
@@ -109,5 +127,65 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
             return true;
         }
         return Secure.getInt(activity.getContentResolver(), "user_setup_complete", 0) != 0;
+    }
+
+    private void askAboutCrashReports() {
+        // find crash report files
+        final File dir = getActivity().getExternalFilesDir(null);
+        if (dir == null) return;
+//        final File[] files = dir.listFiles((file, s) -> file.getName().startsWith("crash_report"));
+        final File[] allFiles = dir.listFiles();
+        if (allFiles == null) return;
+        crashReportFiles.clear();
+        for (File file : allFiles) {
+            if (file.getName().startsWith("crash_report"))
+                crashReportFiles.add(file);
+        }
+        if (crashReportFiles.isEmpty()) return;
+        new AlertDialog.Builder(getActivity())
+                .setMessage("Crash report files found")
+                .setPositiveButton("get", (dialogInterface, i) -> {
+                    final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip");
+                    intent.setType("application/zip");
+                    startActivityForResult(intent, CRASH_REPORT_REQUEST_CODE);
+                })
+                .setNeutralButton("delete", (dialogInterface, i) -> {
+                    for (File file : crashReportFiles) {
+                        file.delete(); // don't care whether it fails, though user will complain
+                    }
+                })
+                .setNegativeButton("ignore", null)
+                .show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK || data == null) return;
+        if (requestCode != CRASH_REPORT_REQUEST_CODE) return;
+        if (crashReportFiles.isEmpty()) return;
+        final Uri uri = data.getData();
+        if (uri == null) return;
+        final OutputStream os;
+        try {
+            os = getActivity().getContentResolver().openOutputStream(uri);
+            final BufferedOutputStream bos = new BufferedOutputStream(os);
+            final ZipOutputStream z = new ZipOutputStream(bos);
+            for (File file : crashReportFiles) {
+                FileInputStream f = new FileInputStream(file);
+                z.putNextEntry(new ZipEntry(file.getName()));
+                FileUtils.copyStreamToOtherStream(f, z);
+                f.close();
+                z.closeEntry();
+            }
+            z.close();
+            bos.close();
+            os.close();
+            for (File file : crashReportFiles) {
+                file.delete();
+            }
+        } catch (IOException ignored) { }
     }
 }
