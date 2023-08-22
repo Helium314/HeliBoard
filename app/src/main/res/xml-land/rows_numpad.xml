@@ -46,9 +46,12 @@
             latin:keySpec="&#45;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
+        <!-- &#32; " " SPACE -->
         <Key
-            latin:keyStyle="deleteKeyStyle"
+            latin:keySpec="!icon/space_key_for_number_layout|&#32;"
+            latin:keyLabelFlags="alignIconToBottom"
             latin:backgroundType="functional"
+            latin:keyActionFlags="noKeyPreview|enableLongPress"
             latin:keyWidth="fillRight" />
     </Row>
     <!-- Second row -->
@@ -92,7 +95,8 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
-            latin:keyStyle="enterKeyStyle"
+            latin:keyStyle="deleteKeyStyle"
+            latin:backgroundType="functional"
             latin:keyWidth="fillRight" />
     </Row>
     <!-- Third row -->
@@ -130,12 +134,8 @@
             latin:keySpec="&#37;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
-        <!-- &#32; " " SPACE -->
         <Key
-            latin:keySpec="!icon/space_key_for_number_layout|&#32;"
-            latin:keyLabelFlags="alignIconToBottom"
-            latin:backgroundType="functional"
-            latin:keyActionFlags="noKeyPreview|enableLongPress"
+            latin:keyStyle="enterKeyStyle"
             latin:keyWidth="fillRight" />
     </Row>
     <!-- Fourth row -->
