@@ -34,7 +34,6 @@
         <Key
             latin:keySpec="&#37;"
             latin:keyStyle="currencyHintStyle"
-            latin:additionalMoreKeys="!text/morekeys_currency_generic"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="fillRight" />
@@ -109,7 +108,7 @@
             latin:keyWidth="10%p" />
         <Key
             latin:keyStyle="symbolNumpadKeyStyle"
-            latin:keyWidth="13.33%p" />
+            latin:keyWidth="13.33333%p" />
         <Key
             latin:keySpec="0"
             latin:keyStyle="numKeyStyle" />
@@ -121,7 +120,7 @@
             latin:keyHintLabel="&#8800;"
             latin:additionalMoreKeys="&#8800;,&#8776;"
             latin:keyActionFlags="noKeyPreview"
-            latin:keyWidth="13.33%p" />
+            latin:keyWidth="13.33333%p" />
         <!-- &#46; "." PERIOD SIGN -->
         <!-- &#8230; "..." ELLIPSIS SIGN -->
         <Key
