@@ -4,9 +4,9 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.net.Uri
 import android.preference.Preference
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +19,12 @@ import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
-import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
-import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
-import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
+import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
+import org.dslul.openboard.inputmethod.latin.utils.*
 import java.io.File
+import java.io.IOException
 import java.util.Locale
 
 class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Preference(context, attrs) {
@@ -33,6 +32,10 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
     private var preferenceView: View? = null
     private val adapter = LanguageAdapter(emptyList(), context)
     private val sortedSubtypes = mutableListOf<MutableList<SubtypeInfo>>() // todo: maybe better just use that map?
+
+    fun setSettingsFragment(newFragment: LanguageSettingsFragment?) {
+        adapter.fragment = newFragment
+    }
 
     override fun onBindView(view: View?) {
         super.onBindView(view)
@@ -69,6 +72,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var disableSwitches = false
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    var fragment: LanguageSettingsFragment? = null
 
     var list: List<MutableList<SubtypeInfo>> = list
         set(value) {
@@ -99,7 +103,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                 //  add/remove dictionary thing, like now
                 //   but also for secondary locales
                 //  option to change / adjust layout (need to check how exactly)
-                LocaleSubtypeSettingsDialog(view.context, infos).show()
+                LocaleSubtypeSettingsDialog(view.context, infos, fragment).show()
             }
             view.findViewById<Switch>(R.id.language_switch).apply {
                 // take care: isChecked changes if the language is scrolled out of view and comes back!
@@ -120,22 +124,17 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                         } else {
                             shouldBeChecked = false
                             isChecked = false
-                            LocaleSubtypeSettingsDialog(view.context, infos).show()
+                            LocaleSubtypeSettingsDialog(view.context, infos, fragment).show()
                         }
                     } else {
                         if (infos.size == 1) {
-                            if (removeEnabledSubtype(prefs, infos.first().subtype)) {
-                                shouldBeChecked = false
-                                infos.single().isEnabled = false
-                            } else {
-                                Toast.makeText(context, "can't disable the last subtype", Toast.LENGTH_LONG).show() // todo: remove or string
-                                shouldBeChecked = true
-                                isChecked = true
-                            }
+                            removeEnabledSubtype(prefs, infos.first().subtype)
+                            shouldBeChecked = false
+                            infos.single().isEnabled = false
                         } else {
                             shouldBeChecked = true
                             isChecked = true
-                            LocaleSubtypeSettingsDialog(view.context, infos).show()
+                            LocaleSubtypeSettingsDialog(view.context, infos, fragment).show()
                         }
                     }
                 }
@@ -146,11 +145,14 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
 }
 
 // todo: some kind of contextThemeWrapper?
-private class LocaleSubtypeSettingsDialog(context: Context, private val subtypes: MutableList<SubtypeInfo>) : AlertDialog(context) {
+private class LocaleSubtypeSettingsDialog(
+        context: Context, private val subtypes: MutableList<SubtypeInfo>, private val fragment: LanguageSettingsFragment?
+    ) : AlertDialog(context), LanguageSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
     private val mainLocaleString = subtypes.first().subtype.locale
-    private val mainLocale = LocaleUtils.constructLocaleFromString(mainLocaleString)
+    private val mainLocale = mainLocaleString.toLocale()
+    private val cachedDictionaryFile by lazy { File(context.cacheDir.path + File.separator + "temp_dict") }
 
     init {
         setTitle(subtypes.first().displayName)
@@ -169,6 +171,16 @@ private class LocaleSubtypeSettingsDialog(context: Context, private val subtypes
         //   style for texts, and stuff
         //   padding/margins
         //   dividers
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fragment?.setListener(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        fragment?.setListener(null)
     }
 
     private fun fillSubtypesView(subtypesView: LinearLayout) {
@@ -256,14 +268,14 @@ private class LocaleSubtypeSettingsDialog(context: Context, private val subtypes
                 isVisible = true
                 setOnClickListener {
                     val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }).toList()
-                    val localeNames = locales.map { LocaleUtils.constructLocaleFromString(it).displayName }.toTypedArray()
+                    val localeNames = locales.map { it.toLocale().getDisplayName(context.resources.configuration.locale) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.language_selection_title)
                         .setItems(localeNames) { di, i -> // todo: singleChoiceItems?
                             val locale = locales[i]
                             val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
                             Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings + locale)
-                            addSecondaryLocaleView(LocaleUtils.constructLocaleFromString(locale), secondaryLocalesView)
+                            addSecondaryLocaleView(locale.toLocale(), secondaryLocalesView)
                             di.dismiss()
                         }
                         .show()
@@ -293,11 +305,7 @@ private class LocaleSubtypeSettingsDialog(context: Context, private val subtypes
 
     private fun fillDictionariesView(dictionariesView: LinearLayout) {
         dictionariesView.findViewById<ImageView>(R.id.add_dictionary).setOnClickListener {
-            // todo: the dialog should already exist
-            //  need an activity dammit!
-            //  maybe forward activity and use some listener for activity result
-            //  and hope the dialog survives... though i could just re-create it
-            //  after adding, call addDictionaryToView and do the broadcast
+            fragment?.requestDictionary()
         }
         val (userDicts, hasInternalDict) = getUserAndInternalDictionaries(context, mainLocaleString)
         if (hasInternalDict) {
@@ -311,22 +319,109 @@ private class LocaleSubtypeSettingsDialog(context: Context, private val subtypes
         }
     }
 
+    override fun onNewDictionary(uri: Uri?) {
+        if (uri == null)
+            return onDictionaryLoadingError(R.string.dictionary_load_error)
+
+        cachedDictionaryFile.delete()
+        try {
+            FileUtils.copyStreamToNewFile(
+                context.contentResolver.openInputStream(uri),
+                cachedDictionaryFile
+            )
+        } catch (e: IOException) {
+            return onDictionaryLoadingError(R.string.dictionary_load_error)
+        }
+        val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(cachedDictionaryFile, 0, cachedDictionaryFile.length())
+            ?: return onDictionaryLoadingError(R.string.dictionary_file_error)
+
+        val locale = newHeader.mLocaleString.toLocale()
+        if (locale != mainLocale) {
+            val message = context.resources.getString(
+                R.string.dictionary_file_wrong_locale,
+                locale.getDisplayName(context.resources.configuration.locale),
+                mainLocale.getDisplayName(context.resources.configuration.locale)
+            )
+            Builder(context)
+                .setMessage(message)
+                .setNegativeButton(android.R.string.cancel) { _, _ -> cachedDictionaryFile.delete() }
+                .setPositiveButton(R.string.dictionary_file_wrong_locale_ok) { _, _ ->
+                    addDictAndAskToReplace(newHeader)
+                }
+                .show()
+            return
+        }
+        addDictAndAskToReplace(newHeader)
+    }
+
+    private fun addDictAndAskToReplace(header: DictionaryHeader) {
+        val dictionaryType = header.mIdString.substringBefore(":")
+        val dictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
+                File.separator + dictionaryType + "_" + DictionarySettingsFragment.USER_DICTIONARY_SUFFIX
+        val dictFile = File(dictFilename)
+
+        fun moveDict(replaced: Boolean) {
+            if (!cachedDictionaryFile.renameTo(dictFile)) {
+                return onDictionaryLoadingError(R.string.dictionary_load_error)
+            }
+            if (dictionaryType == DictionaryInfoUtils.DEFAULT_MAIN_DICT) {
+                // replaced main dict, remove the one created from internal data
+                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(this.toString(), context) +
+                        File.separator + DictionaryInfoUtils.getMainDictFilename(this.toString())
+                File(internalMainDictFilename).delete()
+            }
+            val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
+            fragment?.activity?.sendBroadcast(newDictBroadcast)
+            if (!replaced)
+                addDictionaryToView(dictFile, view.findViewById(R.id.dictionaries))
+        }
+
+        if (!dictFile.exists()) {
+            return moveDict(false)
+        }
+        Builder(context)
+            .setTitle(R.string.replace_dictionary)
+            .setMessage(context.resources.getString(R.string.replace_dictionary_message2, dictionaryType))
+            .setCancelable(false)
+            .setNegativeButton(R.string.cancel, ) { _,_ ->
+                cachedDictionaryFile.delete()
+            }
+            .setPositiveButton(R.string.replace_dictionary) { _,_ ->
+                moveDict(true)
+            }
+            .show()
+    }
+
+    private fun onDictionaryLoadingError(messageId: Int) = onDictionaryLoadingError(context.getString(messageId))
+
+    private fun onDictionaryLoadingError(message: String) {
+        // todo: maybe show toast instead?
+        cachedDictionaryFile.delete()
+        Builder(context)
+            .setNegativeButton(android.R.string.ok, null)
+            .setMessage(message)
+            .show()
+    }
+
     private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
-        // todo: could load the dictionary headers to get some infos for display
+        // todo: could load the dictionary headers to get some infos for display, or maybe show internal locale
         val dictType = dictFile.name.substringBefore("_${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}")
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
         row.findViewById<TextView>(R.id.language_name).text = dictType
         row.findViewById<View>(R.id.language_details).isGone = true
         row.findViewById<Switch>(R.id.language_switch).isGone = true
-        row.findViewById<ImageView>(R.id.delete_button).setOnClickListener {
-            confirmDialog(context, "really delete user-added $dictType dictionary?", "delete") {
-                val parent = dictFile.parentFile
-                dictFile.delete()
-                if (parent?.list()?.isEmpty() == true)
-                    parent.delete()
-                val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
-//                activity.sendBroadcast(newDictBroadcast) // todo...
-                dictionariesView.removeView(row)
+        row.findViewById<ImageView>(R.id.delete_button).apply {
+            isVisible = true
+            setOnClickListener {
+                confirmDialog(context, "really delete user-added $dictType dictionary?", "delete") {
+                    val parent = dictFile.parentFile
+                    dictFile.delete()
+                    if (parent?.list()?.isEmpty() == true)
+                        parent.delete()
+                    val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
+                    fragment?.activity?.sendBroadcast(newDictBroadcast)
+                    dictionariesView.removeView(row)
+                }
             }
         }
         dictionariesView.addView(row)
@@ -369,7 +464,7 @@ fun getUserAndInternalDictionaries(context: Context, localeString: String): Pair
 
 // get locales with same script as main locale, but different language
 private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: String, asciiCapable: Boolean): Set<String> {
-    val mainLocale = LocaleUtils.constructLocaleFromString(mainLocaleString)
+    val mainLocale = mainLocaleString.toLocale()
     val locales = HashSet<String>()
     val mainScript = if (asciiCapable) ScriptUtils.SCRIPT_LATIN
         else ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale)
@@ -385,7 +480,7 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
             if (!directory.isDirectory) continue
             val dirLocale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
             if (dirLocale == mainLocaleString) continue
-            val locale = LocaleUtils.constructLocaleFromString(dirLocale)
+            val locale = dirLocale.toLocale()
             if (locale.language == mainLocale.language) continue
             val localeScript = ScriptUtils.getScriptFromSpellCheckerLocale(locale)
             if (localeScript != mainScript) continue
@@ -400,7 +495,7 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
                 BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictionary)
                     ?: continue
             if (dictLocale == mainLocaleString) continue
-            val locale = LocaleUtils.constructLocaleFromString(dictLocale)
+            val locale = dictLocale.toLocale()
             if (locale.language == mainLocale.language) continue
             val localeScript = ScriptUtils.getScriptFromSpellCheckerLocale(locale)
             if (localeScript != mainScript) continue
@@ -409,3 +504,5 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
     }
     return locales
 }
+
+private fun String.toLocale() = LocaleUtils.constructLocaleFromString(this)

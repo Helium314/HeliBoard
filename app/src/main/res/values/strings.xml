@@ -506,8 +506,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="internal_dictionary_summary">Built-in dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
-    <!-- Message for user dictionary replacement dialog -->
+    <!-- Old message for user dictionary replacement dialog (not used any more) -->
     <string name="replace_dictionary_message">"Really replace existing user-added dictionary for %s?"</string>
+    <!-- Message for user dictionary replacement dialog -->
+    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%s\"?"</string>
     <!-- Message when trying to replace user dictionary with older version -->
     <string name="overwrite_old_dicitonary_messsage">"New dictionary file contains older version code than current file. Really replace current dictionary for %s?"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->

@@ -1,6 +1,9 @@
 package org.dslul.openboard.inputmethod.latin.settings
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Resources
+import android.net.Uri
 import android.os.Bundle
 import android.preference.TwoStatePreference
 import android.view.inputmethod.InputMethodSubtype
@@ -18,6 +21,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
+    private val languageFilterListPreference by lazy { findPreference("pref_language_filter") as LanguageFilterListPreference }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,12 @@ class LanguageSettingsFragment : SubScreenFragment() {
     override fun onResume() {
         super.onResume()
         loadSubtypes((findPreference("pref_system_languages") as TwoStatePreference).isChecked)
+        languageFilterListPreference.setSettingsFragment(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        languageFilterListPreference.setSettingsFragment(null)
     }
 
     // todo: filter *_zz locales, should be added as subtype of their languages
@@ -80,7 +90,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
             //  but not here, rather in LatinIME onCreate
             //  the switch only changes enablement
             //  though it does use richIMM... we'll see
-            (findPreference("pref_language_filter") as LanguageFilterListPreference).setLanguages(sortedSubtypes.values, systemOnly)
+            languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
             return
         }
 
@@ -107,7 +117,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
             .sortedBy { it.displayName }.addToSortedSubtypes()
 
         // set languages
-        (findPreference("pref_language_filter") as LanguageFilterListPreference).setLanguages(sortedSubtypes.values, systemOnly)
+        languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
@@ -122,6 +132,28 @@ class LanguageSettingsFragment : SubScreenFragment() {
         forEach {
             sortedSubtypes.getOrPut(it.displayName) { mutableListOf() }.add(it)
         }
+    }
+
+    interface Listener {
+        fun onNewDictionary(uri: Uri?)
+    }
+
+    private var listener: Listener? = null
+
+    fun setListener(newListener: Listener?) {
+        listener = newListener
+    }
+
+    fun requestDictionary() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType("application/octet-stream")
+        startActivityForResult(intent, DICTIONARY_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == DICTIONARY_REQUEST_CODE)
+            listener?.onNewDictionary(resultData?.data)
     }
 
 }
@@ -139,3 +171,5 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
 
 fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEnabled: Boolean) =
     SubtypeInfo(locale.getDisplayName(resources.configuration.locale), this, isEnabled)
+
+private const val DICTIONARY_REQUEST_CODE = 96834
