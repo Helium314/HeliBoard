@@ -70,8 +70,7 @@
             <default>
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty2"
-                    latin:keyWidth="10%p"
-                    latin:keyXPos="5%p" />
+                    latin:keyWidth="10%p" />
             </default>
         </switch>
     </Row>
