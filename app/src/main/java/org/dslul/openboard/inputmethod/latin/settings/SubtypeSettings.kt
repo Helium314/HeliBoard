@@ -38,10 +38,12 @@ fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
 fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype): Boolean {
     require(initialized)
     val subtypeString = subtype.prefString()
-    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR)
-    val newString = (oldSubtypeStrings - subtypeString).joinToString(SUBTYPE_SEPARATOR)
+    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!
+    val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(SUBTYPE_SEPARATOR)
     if (newString.isEmpty())
-        return false
+        return false // don't remove last subtype
+    if (newString == oldSubtypeString)
+        return true // already not there
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
 //    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, ""))
 //        RichInputMethodManager.getInstance().switchToNextInputMethod(, true) // todo: needs to be handled by latinIME actually...
@@ -64,6 +66,15 @@ fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     if (prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "") == subtypeString)
         return
     prefs.edit { putString(Settings.PREF_SELECTED_INPUT_STYLE, subtypeString) }
+}
+
+fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
+    return subtype in additionalSubtypes // todo: maybe use a set?
+}
+
+fun updateAdditionalSubtypes(subtypes: Array<InputMethodSubtype>) {
+    additionalSubtypes.clear()
+    additionalSubtypes.addAll(subtypes)
 }
 
 fun init(context: Context) {

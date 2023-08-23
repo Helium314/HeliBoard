@@ -43,7 +43,6 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -146,7 +145,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "pref_enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "pref_clipboard_history_retention_time";
 
-    public static final String PREF_SECONDARY_LOCALES = "pref_secondary_locales";
+    public static final String PREF_SECONDARY_LOCALES_PREFIX = "pref_secondary_locales_";
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "pref_add_to_personal_dictionary";
     public static final String PREF_NAVBAR_COLOR = "pref_navbar_color";
     public static final String PREF_NARROW_KEY_GAPS = "pref_narrow_key_gaps";
@@ -219,6 +218,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             StatsUtils.onLoadSettings(mSettingsValues);
         } finally {
             mSettingsValuesLock.unlock();
+        }
+        if (key.equals(PREF_CUSTOM_INPUT_STYLES)) {
+            final String additionalSubtypes = readPrefAdditionalSubtypes(prefs, mContext.getResources());
+            SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
         }
     }
 
@@ -545,15 +548,27 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
     }
 
-    // todo: adjust for multiple secondary locales
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
-        final Set<String> encodedLocales = prefs.getStringSet(PREF_SECONDARY_LOCALES, new HashSet<>());
-        for (String loc : encodedLocales) {
-            String[] locales = loc.split("§");
-            if (locales.length == 2 && locales[0].equals(mainLocaleString.toLowerCase(Locale.ENGLISH)))
-                return new ArrayList<Locale>() {{ add(LocaleUtils.constructLocaleFromString(locales[1])); }};
+        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "");
+
+        final ArrayList<Locale> locales = new ArrayList<>();
+        for (String locale : localesString.split(";")) {
+            if (locale.isEmpty()) continue;
+            locales.add(LocaleUtils.constructLocaleFromString(locale));
         }
-        return new ArrayList<>();
+        return locales;
+    }
+
+    public static void setSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString, final List<String> locales) {
+        if (locales.isEmpty()) {
+            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "").apply();
+            return;
+        }
+        final StringBuilder sb = new StringBuilder();
+        for (String locale : locales) {
+            sb.append(";").append(locale);
+        }
+        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), sb.toString()).apply();
     }
 
     public static Colors getColors(final Context context, final SharedPreferences prefs) {

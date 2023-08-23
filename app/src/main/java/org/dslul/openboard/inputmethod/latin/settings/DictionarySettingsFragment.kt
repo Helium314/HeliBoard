@@ -29,6 +29,7 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 
+@Suppress("deprecation")
 class DictionarySettingsFragment : SubScreenFragment() {
 
     // dict for which dialog is currently open (if any)

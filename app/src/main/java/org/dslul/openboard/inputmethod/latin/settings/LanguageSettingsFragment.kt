@@ -1,5 +1,6 @@
 package org.dslul.openboard.inputmethod.latin.settings
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.preference.TwoStatePreference
 import android.view.inputmethod.InputMethodSubtype
@@ -110,7 +111,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        SubtypeInfo(locale.getDisplayName(resources.configuration.locale), this, isEnabled)
+        toSubtypeInfo(locale, resources, isEnabled)
 
     private fun getSystemLocales(): List<Locale> {
         val locales = LocaleManagerCompat.getSystemLocales(activity)
@@ -125,4 +126,16 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
 }
 
-data class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var isEnabled: Boolean)
+class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var isEnabled: Boolean) {
+    override fun equals(other: Any?): Boolean {
+        if (other !is SubtypeInfo) return false
+        return subtype == other.subtype
+    }
+
+    override fun hashCode(): Int {
+        return subtype.hashCode()
+    }
+}
+
+fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEnabled: Boolean) =
+    SubtypeInfo(locale.getDisplayName(resources.configuration.locale), this, isEnabled)
