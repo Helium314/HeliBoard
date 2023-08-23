@@ -23,7 +23,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
@@ -72,7 +71,7 @@ public class SettingsValues {
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
-    public final boolean mIncludesOtherImesInLanguageSwitchList;
+    public final boolean mIncludesOtherImesInLanguageSwitchList; // todo: can be removed, only used internally
     public final boolean mShowsNumberRow;
     public final boolean mShowsHints;
     public final boolean mSpaceForLangChange;
@@ -110,7 +109,6 @@ public class SettingsValues {
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
-    public final InputMethodSubtype[] mEnabledSubtypes;
 
     // From the input box
     @Nonnull
@@ -254,7 +252,7 @@ public class SettingsValues {
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, RichInputMethodManager.getInstance().getCurrentSubtypeLocale().toString());
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale());
 
         mColors = Settings.getColors(context, prefs);
         mColors.createColorFilters(prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false));
@@ -263,8 +261,6 @@ public class SettingsValues {
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
-
-        mEnabledSubtypes = SettingsKtKt.getEnabledSubtypes(prefs, context);
     }
 
     public boolean isMetricsLoggingEnabled() {

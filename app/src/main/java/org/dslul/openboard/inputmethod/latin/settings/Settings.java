@@ -151,6 +151,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_NAVBAR_COLOR = "pref_navbar_color";
     public static final String PREF_NARROW_KEY_GAPS = "pref_narrow_key_gaps";
     public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
+    public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
 
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
     // This is being used only for the backward compatibility.

@@ -8,20 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.edit
 import androidx.core.view.doOnLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
-import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 
 class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Preference(context, attrs) {
 
     private var preferenceView: View? = null
     private val adapter = LanguageAdapter(emptyList(), context)
-    private val sortedSubtypes = mutableListOf<SubtypeInfo>()
+    private val sortedSubtypes = mutableListOf<List<SubtypeInfo>>() // todo: maybe better just use that map?
 
     override fun onBindView(view: View?) {
         super.onBindView(view)
@@ -29,7 +26,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
         preferenceView?.findViewById<RecyclerView>(R.id.language_list)?.adapter = adapter
         val searchField = preferenceView?.findViewById<EditText>(R.id.search_field)!!
         searchField.doAfterTextChanged { text ->
-            adapter.list = sortedSubtypes.filter { it.displayName.startsWith(text.toString(), ignoreCase = true) }
+            adapter.list = sortedSubtypes.filter { it.first().displayName.startsWith(text.toString(), ignoreCase = true) }
         }
         view?.doOnLayout {
             // set correct height for recycler view, so there is no scrolling of the outside view happening
@@ -45,7 +42,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
         }
     }
 
-    fun setLanguages(list: List<SubtypeInfo>, disableSwitches: Boolean) {
+    fun setLanguages(list: Collection<List<SubtypeInfo>>, disableSwitches: Boolean) {
         sortedSubtypes.clear()
         sortedSubtypes.addAll(list)
         adapter.disableSwitches = disableSwitches
@@ -54,16 +51,15 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
 
 }
 
-// todo: decide class
-class LanguageAdapter(list: List<SubtypeInfo> = listOf(), context: Context) :
+class LanguageAdapter(list: List<List<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var disableSwitches = false
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
 
-    var list: List<SubtypeInfo> = list
+    var list: List<List<SubtypeInfo>> = list
         set(value) {
             field = value
-            notifyDataSetChanged() // todo: check performance, maybe better do a diff if bad?
+            notifyDataSetChanged()
         }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -78,10 +74,10 @@ class LanguageAdapter(list: List<SubtypeInfo> = listOf(), context: Context) :
     }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun onBind(info: SubtypeInfo) {
-            // todo: when loading subtypes from settings using additional subtype thing, the string is rather bad
-            //  probably issue there (and intended for these subtypes, as layout is shown)
-            view.findViewById<TextView>(R.id.language_name).text = info.displayName
+        fun onBind(infos: List<SubtypeInfo>) {
+            view.findViewById<TextView>(R.id.language_name).text = infos.first().displayName
+            // todo: get full display name including layout: resources.getString(nameResId, SubtypeLocaleUtils.getSubtypeLocaleDisplayNameInSystemLocale(locale))
+
 //            view.findViewById<TextView>(R.id.language_details).text = // some short info, no more than 2 lines
             view.findViewById<LinearLayout>(R.id.language_text).setOnClickListener {
                 // todo: click item dialog (better full screen with custom layout, not some alertDialog)
@@ -95,16 +91,38 @@ class LanguageAdapter(list: List<SubtypeInfo> = listOf(), context: Context) :
                 // disable the change listener when setting the checked status on scroll
                 // so it's only triggered on user interactions
                 setOnCheckedChangeListener(null)
-                isChecked = info.isEnabled
+                isChecked = disableSwitches || infos.any { it.isEnabled }
                 isEnabled = !disableSwitches
+                var shouldBeChecked = isChecked
+                // todo: change enablement, turn off screen and turn on again -> back to initial enablement
                 setOnCheckedChangeListener { _, b ->
-                    val enabledSubtypes = prefs.getStringSet(Settings.PREF_ENABLED_INPUT_STYLES, emptySet())!!.toHashSet()
-                    if (enabledSubtypes.isEmpty())
-                        enabledSubtypes.addAll(getDefaultEnabledSubtypes(context).mapNotNull { AdditionalSubtypeUtils.getPrefSubtype(it) })
+                    if (b == shouldBeChecked) return@setOnCheckedChangeListener // avoid the infinite circle...
                     if (b) {
-                        prefs.edit { putStringSet(Settings.PREF_ENABLED_INPUT_STYLES, enabledSubtypes + AdditionalSubtypeUtils.getPrefSubtype(info.subtype)) }
+                        if (infos.size == 1) {
+                            addEnabledSubtype(prefs, infos.first().subtype)
+                            shouldBeChecked = true
+                            infos.single().isEnabled = true
+                        } else {
+                            shouldBeChecked = false
+                            isChecked = false
+                            // todo: show dialog like click listener above
+                        }
                     } else {
-                        prefs.edit { putStringSet(Settings.PREF_ENABLED_INPUT_STYLES, enabledSubtypes - AdditionalSubtypeUtils.getPrefSubtype(info.subtype)) }
+                        // todo: also adjust settings if currently chosen subtype is removed!
+                        if (infos.size == 1) {
+                            if (removeEnabledSubtype(prefs, infos.first().subtype)) {
+                                shouldBeChecked = false
+                                infos.single().isEnabled = false
+                            } else {
+                                Toast.makeText(context, "can't disable the last subtype", Toast.LENGTH_LONG).show() // todo: remove or string
+                                shouldBeChecked = true
+                                isChecked = true
+                            }
+                        } else {
+                            shouldBeChecked = true
+                            isChecked = true
+                            // todo: show dialog like click listener above
+                        }
                     }
                 }
             }
