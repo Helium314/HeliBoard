@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodSubtype
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
@@ -24,7 +25,7 @@ fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): Lis
     require(initialized)
     if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true))
         return getDefaultEnabledSubtypes()
-    return getExplicitlyEnabledSubtypes((fallback))
+    return getExplicitlyEnabledSubtypes(fallback)
 }
 
 fun getExplicitlyEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
@@ -64,7 +65,10 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
     if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")) {
         // switch subtype if the currently used one has been disabled
         val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
-        KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
+        if (subtypeString == nextSubtype?.prefString())
+            KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
+        else
+            KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
     }
     enabledSubtypes.remove(subtype)
 }
@@ -191,11 +195,17 @@ private fun loadEnabledSubtypes(context: Context) {
     for (localeAndLayout in subtypeStrings) {
         require(localeAndLayout.size == 2)
         val subtypesForLocale = resourceSubtypesByLocale[localeAndLayout.first()]
-        require(subtypesForLocale != null) // todo: remove in the end, even weird things should never crash
+        if (BuildConfig.DEBUG) // should not happen, but should not crash for normal user
+            require(subtypesForLocale != null)
+        else if (subtypesForLocale == null)
+            continue
 
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
-        require(subtype != null) // todo: this will be null if additional subtype is removed!
+        if (BuildConfig.DEBUG) // should not happen, but should not crash for normal user
+            require(subtype != null)
+        else if (subtype == null)
+            continue
 
         enabledSubtypes.add(subtype)
     }

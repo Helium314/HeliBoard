@@ -71,7 +71,7 @@ public class SettingsValues {
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
-    public final boolean mIncludesOtherImesInLanguageSwitchList; // todo: can be removed, only used internally
+    public final boolean mIncludesOtherImesInLanguageSwitchList;
     public final boolean mShowsNumberRow;
     public final boolean mShowsHints;
     public final boolean mSpaceForLangChange;

@@ -24,7 +24,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addPreferencesFromResource(R.xml.prefs_screen_language);
+        addPreferencesFromResource(R.xml.prefs_screen_languages);
         SubtypeLocaleUtils.init(activity)
 
         enabledSubtypes.addAll(getExplicitlyEnabledSubtypes())
@@ -48,11 +48,11 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     // todo: filter *_zz locales, should be added as subtype of their languages
-    //  and ignore zz?
     private fun loadSubtypes(systemOnly: Boolean) {
         sortedSubtypes.clear()
-        val allSubtypes = getAllAvailableSubtypes().toMutableList()
-        // todo: make use of the map for performance reasons?
+        // ignore "zz", this is just a locale-less qwerty keyboard
+        val allSubtypes = getAllAvailableSubtypes().filterNot { it.locale.equals("zz", true) }.toMutableList()
+        // maybe make use of the map used by SubtypeSettings for performance reasons?
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->
@@ -67,7 +67,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
                         added = true
                     }
                 }
-                if (!added) {
+                if (!added && locale.country.isEmpty()) {
                     // try again, but with language only
                     val languageString = locale.language
                     val iter = allSubtypes.iterator()
@@ -75,6 +75,21 @@ class LanguageSettingsFragment : SubScreenFragment() {
                         val subtype = iter.next()
                         if (subtype.locale == languageString) {
                             subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(languageString)))
+                            iter.remove()
+                            added = true
+                        }
+                    }
+                }
+                // special treatment for the known languages with _ZZ types
+                // todo: later: make it a bit less weird... and probably faster
+                //  consider that more _ZZ languages might be added (e.g. hinglish)
+                if (!added && (locale.language == "sr" || locale.language == "hu")) {
+                    val languageString = locale.language
+                    val iter = allSubtypes.iterator()
+                    while (iter.hasNext()) {
+                        val subtype = iter.next()
+                        if (subtype.locale.substringBefore("_") == languageString) {
+                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(subtype.locale)))
                             iter.remove()
                         }
                     }
@@ -159,7 +174,12 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
     }
 }
 
-fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEnabled: Boolean) =
-    SubtypeInfo(locale.getDisplayName(resources.configuration.locale), this, isEnabled)
+fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEnabled: Boolean): SubtypeInfo {
+    val displayName = if (locale.toString().endsWith("_zz", true))
+            SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
+        else
+            locale.getDisplayName(resources.configuration.locale)
+    return SubtypeInfo(displayName, this, isEnabled)
+}
 
 private const val DICTIONARY_REQUEST_CODE = 96834

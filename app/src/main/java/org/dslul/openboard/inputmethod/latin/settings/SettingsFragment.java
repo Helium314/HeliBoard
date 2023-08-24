@@ -31,6 +31,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethodcommon.InputMethodSettingsFragment;
@@ -49,7 +50,6 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         setHasOptionsMenu(true);
-        // todo: remove the language thing once it's not necessary any more
         setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
         setSubtypeEnablerTitle(R.string.select_language);
         setSubtypeEnablerIcon(R.drawable.ic_settings_languages);
@@ -74,7 +74,6 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
     }
 
-    // todo: there is no options menu -> remove related code?
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         if (FeedbackUtils.isHelpAndFeedbackFormSupported()) {
@@ -118,8 +117,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
     }
 
     private String getEnabledSubtypesLabel() {
-        final boolean fallback = getPreferenceScreen().getSharedPreferences().getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(getPreferenceScreen().getSharedPreferences(), fallback);
+        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(getActivity()), true);
         final StringBuilder sb = new StringBuilder();
         for (final InputMethodSubtype subtype : subtypes) {
             if (sb.length() > 0)

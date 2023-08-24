@@ -15,7 +15,6 @@
             android:layout_gravity="center_vertical"
             android:layout_width="40dp"
             android:layout_height="40dp" />
-        <!-- todo: icon should be larger and colored properly -->
         <EditText
             android:id="@+id/search_field"
             android:layout_marginHorizontal="6dp"

@@ -3,7 +3,7 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/language_selection_title"
-    android:key="screen_language">
+    android:key="screen_languages">
     <CheckBoxPreference
         android:key="pref_use_system_locales"
         android:title="@string/system_languages"
@@ -11,10 +11,5 @@
         android:persistent="true" />
     <org.dslul.openboard.inputmethod.latin.settings.LanguageFilterListPreference
         android:key="pref_language_filter"
-        android:layout="@layout/language_search_filter"
-        />
-<!--
-add new preference type searchPreference (just an editText with search icon)
-add new preference type languageListPreference (just a recycler view)
- -->
+        android:layout="@layout/language_search_filter" />
 </PreferenceScreen>

@@ -700,4 +700,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
+    <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
+    <string name="change_keyboard">Change Keyboard</string>
 </resources>

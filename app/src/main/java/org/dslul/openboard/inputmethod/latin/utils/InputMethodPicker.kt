@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
 import org.dslul.openboard.inputmethod.latin.LatinIME
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 
 // similar to what showSubtypePicker does in https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/RichInputMethodManager.java
@@ -56,7 +57,7 @@ fun showInputMethodPicker(latinIme: LatinIME, richImm: RichInputMethodManager, w
     }
 
     val dialog = AlertDialog.Builder(DialogUtils.getPlatformDialogThemeContext(latinIme))
-        .setTitle("ok?") // todo: string
+        .setTitle(R.string.change_keyboard)
         .setSingleChoiceItems(items.toTypedArray(), currentSubtypeIndex) { di, i ->
             di.dismiss()
             val (imi, subtype) = enabledSubtypes[i]
@@ -68,9 +69,6 @@ fun showInputMethodPicker(latinIme: LatinIME, richImm: RichInputMethodManager, w
                 latinIme.switchInputMethod(imi.id)
         }
         .create()
-    // todo: dialog is too wide, and in that state never cancelable
-//    dialog.setCancelable(true)
-//    dialog.setCanceledOnTouchOutside(true)
 
     val window = dialog.window
     val layoutParams = window?.attributes

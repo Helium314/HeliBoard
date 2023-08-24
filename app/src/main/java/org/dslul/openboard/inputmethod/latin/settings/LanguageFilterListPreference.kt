@@ -230,6 +230,7 @@ private class LocaleSubtypeSettingsDialog(
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
+                ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
         row.findViewById<View>(R.id.language_details).isGone = true
         row.findViewById<Switch>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
