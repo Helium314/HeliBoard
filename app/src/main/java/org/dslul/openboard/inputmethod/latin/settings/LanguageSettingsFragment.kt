@@ -30,7 +30,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
         enabledSubtypes.addAll(getEnabledSubtypes())
         systemLocales.addAll(getSystemLocales())
-        (findPreference("pref_system_languages") as TwoStatePreference).setOnPreferenceChangeListener { _, b ->
+        (findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).setOnPreferenceChangeListener { _, b ->
             loadSubtypes(b as Boolean)
             true
         }
@@ -38,7 +38,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
     override fun onResume() {
         super.onResume()
-        loadSubtypes((findPreference("pref_system_languages") as TwoStatePreference).isChecked)
+        loadSubtypes((findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).isChecked)
         languageFilterListPreference.setSettingsFragment(this)
     }
 

@@ -27,12 +27,15 @@ import android.provider.Settings.Secure;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethodcommon.InputMethodSettingsFragment;
+
+import java.util.List;
 
 public final class SettingsFragment extends InputMethodSettingsFragment {
     // We don't care about menu grouping.
@@ -68,6 +71,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         if (actionBar != null && screenTitle != null) {
             actionBar.setTitle(screenTitle);
         }
+        findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
     }
 
     // todo: there is no options menu -> remove related code?
@@ -111,5 +115,17 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
             return true;
         }
         return Secure.getInt(activity.getContentResolver(), "user_setup_complete", 0) != 0;
+    }
+
+    private String getEnabledSubtypesLabel() {
+        final boolean fallback = getPreferenceScreen().getSharedPreferences().getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
+        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(fallback);
+        final StringBuilder sb = new StringBuilder();
+        for (final InputMethodSubtype subtype : subtypes) {
+            if (sb.length() > 0)
+                sb.append(", ");
+            sb.append(subtype.getDisplayName(getActivity(), getActivity().getPackageName(), getActivity().getApplicationInfo()));
+        }
+        return sb.toString();
     }
 }

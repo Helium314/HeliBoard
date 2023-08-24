@@ -5,7 +5,7 @@
     android:title="@string/language_selection_title"
     android:key="screen_language">
     <CheckBoxPreference
-        android:key="pref_system_languages"
+        android:key="pref_use_system_locales"
         android:title="@string/system_languages"
         android:defaultValue="true"
         android:persistent="true" />

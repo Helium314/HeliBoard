@@ -19,7 +19,7 @@
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment"
         android:title="@string/language_selection_title"
-        android:key="screen_preferences"
+        android:key="screen_languages"
         android:icon="@drawable/ic_settings_languages"/>
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment"
