@@ -514,8 +514,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="overwrite_old_dicitonary_messsage">"New dictionary file contains older version code than current file. Really replace current dictionary for %s?"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
-    <!-- Message for user dictionary remove dialog -->
+    <!-- Old message for user dictionary remove dialog  (not used any more) -->
     <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\" for %2$s?"</string>
+    <!-- Message for user dictionary remove dialog -->
+    <string name="remove_dictionary_message2">"Really remove user-added dictionary \"%1$s\"?"</string>
     <!-- Title for user dictionary remove dialog -->
     <string name="remove_dictionary_title">"Remove dictionary"</string>
     <!-- Button text in user dictionary remove dialog for resetting to default -->
@@ -696,6 +698,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="license" >Open-source license</string>
     <!-- license link for about screen-->
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <!-- App slogan-->
-    <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
+    <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
+    <string name="dialog_close">Close</string>
 </resources>

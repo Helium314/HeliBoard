@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import android.preference.Preference
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -173,7 +175,7 @@ private class LocaleSubtypeSettingsDialog(
     init {
         setTitle(subtypes.first().displayName)
         setView(ScrollView(context).apply { addView(view) })
-        setButton(BUTTON_NEGATIVE, "close") { _, _ ->
+        setButton(BUTTON_NEGATIVE, context.getString(R.string.dialog_close)) { _, _ ->
             dismiss()
         }
 
@@ -246,19 +248,17 @@ private class LocaleSubtypeSettingsDialog(
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
-                    confirmDialog(context, "really remove subtype ${SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)}?", "remove") {
-                        // todo: resources
-                        subtypesView.removeView(row)
-                        subtypes.remove(subtype)
+                    // can be re-added easily, no need for confirmation dialog
+                    subtypesView.removeView(row)
+                    subtypes.remove(subtype)
 
-                        val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
-                        val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
-                        val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype.subtype }
-                        val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
-                        Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
-                        removeEnabledSubtype(prefs, subtype.subtype)
-                        onSubtypesChanged()
-                    }
+                    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+                    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
+                    val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype.subtype }
+                    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
+                    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+                    removeEnabledSubtype(prefs, subtype.subtype)
+                    onSubtypesChanged()
                 }
             }
         }
@@ -284,7 +284,7 @@ private class LocaleSubtypeSettingsDialog(
                     val localeNames = locales.map { it.toLocale().getDisplayName(context.resources.configuration.locale) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.language_selection_title)
-                        .setItems(localeNames) { di, i -> // todo: singleChoiceItems?
+                        .setItems(localeNames) { di, i ->
                             val locale = locales[i]
                             val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
                             Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings + locale)
@@ -311,19 +311,26 @@ private class LocaleSubtypeSettingsDialog(
                 secondaryLocalesView.removeView(row)
             }
         }
-        // todo: manage dictionaries for that locale when clicking on language_texts?
-        //  but essentially would require duplicating functionality in a different way
         secondaryLocalesView.addView(row)
     }
 
     private fun fillDictionariesView(dictionariesView: LinearLayout) {
         dictionariesView.findViewById<ImageView>(R.id.add_dictionary).setOnClickListener {
-            fragment?.requestDictionary()
+            val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+            val message = Html.fromHtml(context.getString(R.string.add_dictionary, link))
+            val dialog = Builder(context)
+                .setTitle(R.string.add_new_dictionary_title)
+                .setMessage(message)
+                .setPositiveButton(R.string.user_dict_settings_add_menu_title) { _, _ -> fragment?.requestDictionary() }
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+            dialog.show()
+            (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
         }
         val (userDicts, hasInternalDict) = getUserAndInternalDictionaries(context, mainLocaleString)
         if (hasInternalDict) {
             dictionariesView.addView(TextView(context).apply {
-                text = "main (internal)" // todo: resource
+                setText(R.string.internal_dictionary_summary)
                 isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}" }
             })
         }
@@ -392,41 +399,36 @@ private class LocaleSubtypeSettingsDialog(
         if (!dictFile.exists()) {
             return moveDict(false)
         }
-        Builder(context)
-            .setTitle(R.string.replace_dictionary)
-            .setMessage(context.resources.getString(R.string.replace_dictionary_message2, dictionaryType))
-            .setCancelable(false)
-            .setNegativeButton(R.string.cancel, ) { _,_ ->
-                cachedDictionaryFile.delete()
-            }
-            .setPositiveButton(R.string.replace_dictionary) { _,_ ->
-                moveDict(true)
-            }
-            .show()
+        confirmDialog(context, context.getString(R.string.replace_dictionary_message2, dictionaryType), context.getString(R.string.replace_dictionary)) {
+            moveDict(true)
+        }
     }
 
     private fun onDictionaryLoadingError(messageId: Int) = onDictionaryLoadingError(context.getString(messageId))
 
     private fun onDictionaryLoadingError(message: String) {
-        // todo: maybe show toast instead?
         cachedDictionaryFile.delete()
-        Builder(context)
-            .setNegativeButton(android.R.string.ok, null)
-            .setMessage(message)
-            .show()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
-        // todo: could load the dictionary headers to get some infos for display, or maybe show internal locale
         val dictType = dictFile.name.substringBefore("_${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}")
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
         row.findViewById<TextView>(R.id.language_name).text = dictType
-        row.findViewById<View>(R.id.language_details).isGone = true
+        row.findViewById<TextView>(R.id.language_details).apply {
+            val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
+            if (header?.description == null) {
+                isGone = true
+            } else {
+                // what would potentially be interesting? locale? description? version? timestamp?
+                text = header.description
+            }
+        }
         row.findViewById<Switch>(R.id.language_switch).isGone = true
         row.findViewById<ImageView>(R.id.delete_button).apply {
             isVisible = true
             setOnClickListener {
-                confirmDialog(context, "really delete user-added $dictType dictionary?", "delete") {
+                confirmDialog(context, context.getString(R.string.remove_dictionary_message2, dictType), context.getString(R.string.delete_dict)) {
                     val parent = dictFile.parentFile
                     dictFile.delete()
                     if (parent?.list()?.isEmpty() == true)
@@ -443,7 +445,7 @@ private class LocaleSubtypeSettingsDialog(
 
 fun confirmDialog(context: Context, message: String, confirmButton: String, onConfirmed: (() -> Unit)) {
     AlertDialog.Builder(context)
-        .setTitle("confirm") // todo: resources
+//        .setTitle("confirm") // maybe looks ok without?
         .setMessage(message)
         .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(confirmButton) { _, _ -> onConfirmed() }
@@ -519,3 +521,4 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
 }
 
 private fun String.toLocale() = LocaleUtils.constructLocaleFromString(this)
+private const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"
