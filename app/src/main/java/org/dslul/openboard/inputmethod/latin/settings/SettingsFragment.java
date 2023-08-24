@@ -119,7 +119,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
 
     private String getEnabledSubtypesLabel() {
         final boolean fallback = getPreferenceScreen().getSharedPreferences().getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(fallback);
+        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(getPreferenceScreen().getSharedPreferences(), fallback);
         final StringBuilder sb = new StringBuilder();
         for (final InputMethodSubtype subtype : subtypes) {
             if (sb.length() > 0)

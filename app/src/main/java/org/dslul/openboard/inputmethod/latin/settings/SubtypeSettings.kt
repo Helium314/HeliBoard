@@ -20,7 +20,14 @@ import kotlin.collections.LinkedHashMap
 
 /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
  *  subtypes for system locales will be returned, or en_US if none found. */
-fun getEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
+fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
+    require(initialized)
+    if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true))
+        return getDefaultEnabledSubtypes()
+    return getExplicitlyEnabledSubtypes((fallback))
+}
+
+fun getExplicitlyEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
     require(initialized)
     if (fallback && enabledSubtypes.isEmpty())
         return getDefaultEnabledSubtypes()
@@ -101,6 +108,11 @@ fun reloadSystemLocales(context: Context) {
     }
 }
 
+fun getSystemLocales(): List<Locale> {
+    require(initialized)
+    return systemLocales
+}
+
 fun init(context: Context) {
     if (initialized) return
     SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
@@ -141,10 +153,10 @@ private fun loadResourceSubtypes(resources: Resources) {
             val icon = xml.getAttributeResourceValue(namespace, "icon", 0)
             val label = xml.getAttributeResourceValue(namespace, "label", 0)
             val subtypeId = xml.getAttributeIntValue(namespace, "subtypeId", 0)
-            val locale = xml.getAttributeValue(namespace, "imeSubtypeLocale")
+            val locale = xml.getAttributeValue(namespace, "imeSubtypeLocale").intern()
             val languageTag = xml.getAttributeValue(namespace, "languageTag")
             val imeSubtypeMode = xml.getAttributeValue(namespace, "imeSubtypeMode")
-            val imeSubtypeExtraValue = xml.getAttributeValue(namespace, "imeSubtypeExtraValue")
+            val imeSubtypeExtraValue = xml.getAttributeValue(namespace, "imeSubtypeExtraValue").intern()
             val isAsciiCapable = xml.getAttributeBooleanValue(namespace, "isAsciiCapable", false)
             val b = InputMethodSubtype.InputMethodSubtypeBuilder()
             b.setSubtypeIconResId(icon)

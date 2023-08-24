@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.preference.TwoStatePreference
 import android.view.inputmethod.InputMethodSubtype
-import androidx.core.app.LocaleManagerCompat
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
@@ -28,7 +27,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
         addPreferencesFromResource(R.xml.prefs_screen_language);
         SubtypeLocaleUtils.init(activity)
 
-        enabledSubtypes.addAll(getEnabledSubtypes())
+        enabledSubtypes.addAll(getExplicitlyEnabledSubtypes())
         systemLocales.addAll(getSystemLocales())
         val systemLocalesSwitch = findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference
         systemLocalesSwitch.setOnPreferenceChangeListener { _, b ->
@@ -86,10 +85,6 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
         if (systemOnly) {
             systemLocales.sortedAddToSubtypesAndRemoveFromAllSubtypes()
-            // todo: make sure these locales are all actually enabled in settingsValues
-            //  but not here, rather in LatinIME onCreate
-            //  the switch only changes enablement
-            //  though it does use richIMM... we'll see
             languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
             return
         }
@@ -122,11 +117,6 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
         toSubtypeInfo(locale, resources, isEnabled)
-
-    private fun getSystemLocales(): List<Locale> {
-        val locales = LocaleManagerCompat.getSystemLocales(activity)
-        return (0 until locales.size()).mapNotNull { locales[it] }
-    }
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
