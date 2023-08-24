@@ -11,13 +11,19 @@
     <!-- First row -->
     <Row>
         <!-- &#40; "(" LEFT PARENTHESIS SIGN -->
+        <!-- &#123; "{" LEFT CURLY BRACKET -->
+        <!-- &#91; "[" LEFT SQUARE BRACKET -->
         <Key
             latin:keySpec="&#40;"
+            latin:additionalMoreKeys="&#123;,&#91;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#41; ")" RIGHT PARENTHESIS SIGN -->
+        <!-- &#125; "}" RIGHT CURLY BRACKET -->
+        <!-- &#93; "]" RIGHT SQUARE BRACKET -->
         <Key
             latin:keySpec="&#41;"
+            latin:additionalMoreKeys="&#125;,&#93;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#58; ":" COLON SIGN -->
@@ -42,8 +48,10 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#45; "-" HYPHEN-MINUS SIGN -->
+        <!-- &#126; "~" TILDE -->
         <Key
             latin:keySpec="&#45;"
+            latin:additionalMoreKeys="&#126;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#32; " " SPACE -->
@@ -130,8 +138,10 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#37; "%" PERCENT SIGN -->
+        <!-- &#8240; "‰" PER MILLE SIGN -->
         <Key
             latin:keySpec="&#37;"
+            latin:additionalMoreKeys="&#8240;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <Key
@@ -146,25 +156,37 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#60; "<" LESS-THAN SIGN -->
+        <!-- &#8804; "≤" LESS THAN OR EQUAL TO -->
         <Key
             latin:keySpec="&#60;"
+            latin:additionalMoreKeys="&#8804;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#62; ">" GREATER-THAN SIGN -->
+        <!-- &#8805; "≥" GREATER THAN OR EQUAL TO -->
         <Key
             latin:keySpec="&#62;"
+            latin:additionalMoreKeys="&#8805;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#44; "," COMMA SIGN -->
         <Key
             latin:keySpec="&#44;"
+            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"
             latin:keyActionFlags="noKeyPreview" />
         <Key
             latin:keySpec="0"
             latin:keyStyle="numKeyStyle" />
         <!-- &#46; "." PERIOD SIGN -->
+        <!-- &#8230; "..." ELLIPSIS SIGN -->
+        <!-- &#8734; "∞" INFINITY -->
+        <!-- &#960; "π" GREEK SMALL LETTER PI -->
+        <!-- &#8730; "√" SQUARE ROOT -->
+        <!-- &#176; "°" DEGREE SIGN -->
+        <!-- &#94; "^" CIRCUMFLEX ACCENT -->
         <Key
             latin:keySpec="&#46;"
+            latin:additionalMoreKeys="&#8230;,&#8734;,&#960;,&#8730;,&#176;,&#94;"
             latin:keyActionFlags="noKeyPreview" />
         <!-- &#61; "=" EQUAL SIGN -->
         <!-- &#8800; "≠" NOT EQUAL TO -->

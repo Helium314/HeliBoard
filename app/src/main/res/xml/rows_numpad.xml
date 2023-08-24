@@ -12,12 +12,12 @@
     <Row>
         <!-- &#43; "+" PLUS SIGN -->
         <!-- &#40; "(" LEFT PARENTHESIS SIGN -->
-        <!-- &#62; ">" GREATER-THAN SIGN -->
+        <!-- &#60; "<" LESS-THAN SIGN -->
         <!-- &#177; "±" PLUS-MINUS SIGN -->
         <Key
             latin:keySpec="&#43;"
             latin:keyHintLabel="&#40;"
-            latin:additionalMoreKeys="&#40;,&#62;,&#177;"
+            latin:additionalMoreKeys="&#40;,&#60;,&#177;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="15%p" />
@@ -42,11 +42,12 @@
     <Row>
         <!-- &#45; "-" HYPHEN-MINUS SIGN -->
         <!-- &#41; ")" RIGHT PARENTHESIS SIGN -->
-        <!-- &#60; "<" LESS-THAN SIGN -->
+        <!-- &#62; ">" GREATER-THAN SIGN -->
+        <!-- &#126; "~" TILDE -->
         <Key
             latin:keySpec="&#45;"
             latin:keyHintLabel="&#41;"
-            latin:additionalMoreKeys="&#41;,&#60;"
+            latin:additionalMoreKeys="&#41;,&#62;,&#126;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="15%p" />
@@ -123,9 +124,14 @@
             latin:keyWidth="13.33333%p" />
         <!-- &#46; "." PERIOD SIGN -->
         <!-- &#8230; "..." ELLIPSIS SIGN -->
+        <!-- &#8734; "∞" INFINITY -->
+        <!-- &#960; "π" GREEK SMALL LETTER PI -->
+        <!-- &#8730; "√" SQUARE ROOT -->
+        <!-- &#176; "°" DEGREE SIGN -->
+        <!-- &#94; "^" CIRCUMFLEX ACCENT -->
         <Key
             latin:keySpec="&#46;"
-            latin:additionalMoreKeys="&#8230;"
+            latin:additionalMoreKeys="&#8230;,&#8734;,&#960;,&#8730;,&#176;,&#94;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="10%p" />
