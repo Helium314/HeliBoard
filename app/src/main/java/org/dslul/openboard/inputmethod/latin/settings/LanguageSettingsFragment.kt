@@ -30,15 +30,16 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
         enabledSubtypes.addAll(getEnabledSubtypes())
         systemLocales.addAll(getSystemLocales())
-        (findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).setOnPreferenceChangeListener { _, b ->
+        val systemLocalesSwitch = findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference
+        systemLocalesSwitch.setOnPreferenceChangeListener { _, b ->
             loadSubtypes(b as Boolean)
             true
         }
+        loadSubtypes(systemLocalesSwitch.isChecked)
     }
 
     override fun onResume() {
         super.onResume()
-        loadSubtypes((findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).isChecked)
         languageFilterListPreference.setSettingsFragment(this)
     }
 
@@ -51,9 +52,8 @@ class LanguageSettingsFragment : SubScreenFragment() {
     //  and ignore zz?
     private fun loadSubtypes(systemOnly: Boolean) {
         sortedSubtypes.clear()
-        val allSubtypes = getAllAvailableSubtypes().toMutableList() // todo: replace? use the map to have it by locale?
-
-        // todo: make use of the map for performance reasons
+        val allSubtypes = getAllAvailableSubtypes().toMutableList()
+        // todo: make use of the map for performance reasons?
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->

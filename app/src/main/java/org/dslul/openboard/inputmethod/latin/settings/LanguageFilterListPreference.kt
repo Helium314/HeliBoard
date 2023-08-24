@@ -31,7 +31,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
 
     private var preferenceView: View? = null
     private val adapter = LanguageAdapter(emptyList(), context)
-    private val sortedSubtypes = mutableListOf<MutableList<SubtypeInfo>>() // todo: maybe better just use that map?
+    private val sortedSubtypes = mutableListOf<MutableList<SubtypeInfo>>()
 
     fun setSettingsFragment(newFragment: LanguageSettingsFragment?) {
         adapter.fragment = newFragment
@@ -92,61 +92,77 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
     }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun onBind(infos: MutableList<SubtypeInfo>) {
-            view.findViewById<TextView>(R.id.language_name).text = infos.first().displayName
-            // todo: get full display name including layout: resources.getString(nameResId, SubtypeLocaleUtils.getSubtypeLocaleDisplayNameInSystemLocale(locale))
 
-//            view.findViewById<TextView>(R.id.language_details).text = // some short info, no more than 2 lines
-            view.findViewById<LinearLayout>(R.id.language_text).setOnClickListener {
-                // todo: click item dialog (better full screen with custom layout, not some alertDialog)
-                //  secondary locale options similar to now
-                //  add/remove dictionary thing, like now
-                //   but also for secondary locales
-                //  option to change / adjust layout (need to check how exactly)
-                LocaleSubtypeSettingsDialog(view.context, infos, fragment).show()
-            }
-            view.findViewById<Switch>(R.id.language_switch).apply {
-                // take care: isChecked changes if the language is scrolled out of view and comes back!
-                // disable the change listener when setting the checked status on scroll
-                // so it's only triggered on user interactions
-                setOnCheckedChangeListener(null)
-                isChecked = disableSwitches || infos.any { it.isEnabled }
-                isEnabled = !disableSwitches
-                var shouldBeChecked = isChecked
-                // todo: change enablement, turn off screen and turn on again -> back to initial enablement
-                setOnCheckedChangeListener { _, b ->
-                    if (b == shouldBeChecked) return@setOnCheckedChangeListener // avoid the infinite circle...
-                    if (b) {
-                        if (infos.size == 1) {
-                            addEnabledSubtype(prefs, infos.first().subtype)
-                            shouldBeChecked = true
-                            infos.single().isEnabled = true
+        fun onBind(infos: MutableList<SubtypeInfo>) {
+            fun setupDetailsTextAndSwitch() {
+                // this is unrelated -> rename it
+                view.findViewById<TextView>(R.id.language_details).apply {
+                    // input styles if more than one in infos
+                    val sb = StringBuilder()
+                    if (infos.size > 1) {
+                        sb.append(infos.joinToString(", ") {// separator ok? because for some languages it might not be...
+                            SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
+                                ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype)
+                        })
+                    }
+                    val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
+                    if (secondaryLocales.isNotEmpty()) {
+                        if (sb.isNotEmpty())
+                            sb.append("\n")
+                        sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
+                            .joinToString(", ") {
+                                it.getDisplayName(context.resources.configuration.locale)
+                            })
+                    }
+                    text = sb.toString()
+                    if (text.isBlank()) isGone = true
+                        else isVisible = true
+                }
+
+                view.findViewById<Switch>(R.id.language_switch).apply {
+                    isEnabled = !disableSwitches && infos.size == 1
+                    // take care: isChecked changes if the language is scrolled out of view and comes back!
+                    // disable the change listener when setting the checked status on scroll
+                    // so it's only triggered on user interactions
+                    setOnCheckedChangeListener(null)
+                    isChecked = disableSwitches || infos.any { it.isEnabled }
+                    setOnCheckedChangeListener { _, b ->
+                        if (b) {
+                            if (infos.size == 1) {
+                                addEnabledSubtype(prefs, infos.first().subtype)
+                                infos.single().isEnabled = true
+                            } else {
+                                LocaleSubtypeSettingsDialog(view.context, infos, fragment, disableSwitches, { setupDetailsTextAndSwitch() }).show()
+                            }
                         } else {
-                            shouldBeChecked = false
-                            isChecked = false
-                            LocaleSubtypeSettingsDialog(view.context, infos, fragment).show()
-                        }
-                    } else {
-                        if (infos.size == 1) {
-                            removeEnabledSubtype(prefs, infos.first().subtype)
-                            shouldBeChecked = false
-                            infos.single().isEnabled = false
-                        } else {
-                            shouldBeChecked = true
-                            isChecked = true
-                            LocaleSubtypeSettingsDialog(view.context, infos, fragment).show()
+                            if (infos.size == 1) {
+                                removeEnabledSubtype(prefs, infos.first().subtype)
+                                infos.single().isEnabled = false
+                            } else {
+                                LocaleSubtypeSettingsDialog(view.context, infos, fragment, disableSwitches, { setupDetailsTextAndSwitch() }).show()
+                            }
                         }
                     }
                 }
             }
-            // todo: set other text
+
+            view.findViewById<TextView>(R.id.language_name).text = infos.first().displayName
+            view.findViewById<LinearLayout>(R.id.language_text).setOnClickListener {
+                LocaleSubtypeSettingsDialog(view.context, infos, fragment, disableSwitches, { setupDetailsTextAndSwitch() }).show()
+            }
+            setupDetailsTextAndSwitch()
         }
     }
 }
 
-// todo: some kind of contextThemeWrapper?
+// todo: some kind of contextThemeWrapper necessary?
+@Suppress("deprecation")
 private class LocaleSubtypeSettingsDialog(
-        context: Context, private val subtypes: MutableList<SubtypeInfo>, private val fragment: LanguageSettingsFragment?
+        context: Context,
+        private val subtypes: MutableList<SubtypeInfo>,
+        private val fragment: LanguageSettingsFragment?,
+        private val disableSwitches: Boolean,
+        private val onSubtypesChanged: () -> Unit
     ) : AlertDialog(context), LanguageSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
@@ -164,13 +180,6 @@ private class LocaleSubtypeSettingsDialog(
         fillSubtypesView(view.findViewById(R.id.subtypes))
         fillSecondaryLocaleView(view.findViewById(R.id.secondary_languages))
         fillDictionariesView(view.findViewById(R.id.dictionaries))
-
-        // todo:
-        //  make it actually work
-        //  refine dialog
-        //   style for texts, and stuff
-        //   padding/margins
-        //   dividers
     }
 
     override fun onStart() {
@@ -190,17 +199,18 @@ private class LocaleSubtypeSettingsDialog(
                     .filterNot { layoutName -> subtypes.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
                 val displayNames = layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
                 Builder(context)
-                        // todo: maybe enabled by default? why else would you add them?
                     .setTitle(R.string.keyboard_layout_set)
                     .setItems(displayNames.toTypedArray()) { di, i ->
                         di.dismiss()
                         val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, layouts[i])
-                        addSubtypeToView(newSubtype.toSubtypeInfo(mainLocale, context.resources, false), subtypesView)
+                        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context.resources, true) // enabled by default, because why else add them
+                        addSubtypeToView(newSubtypeInfo, subtypesView)
                         val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
                         val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toHashSet()
                         val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes((oldAdditionalSubtypes + newSubtype).toTypedArray())
                         Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
-                        subtypes.add(newSubtype.toSubtypeInfo(mainLocale, context.resources, false))
+                        subtypes.add(newSubtypeInfo)
+                        onSubtypesChanged()
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
@@ -217,24 +227,26 @@ private class LocaleSubtypeSettingsDialog(
     private fun addSubtypeToView(subtype: SubtypeInfo, subtypesView: LinearLayout) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
         row.findViewById<TextView>(R.id.language_name).text =
-            subtype.subtype.getDisplayName(context, context.packageName, context.applicationInfo)
+            SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
         row.findViewById<View>(R.id.language_details).isGone = true
         row.findViewById<Switch>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
+            isEnabled = !disableSwitches
             setOnCheckedChangeListener { _, b ->
-                // todo: adjust base switch enabled state (dammit)
                 if (b)
                     addEnabledSubtype(prefs, subtype.subtype)
                 else
                     removeEnabledSubtype(prefs, subtype.subtype)
                 subtype.isEnabled = b
+                onSubtypesChanged()
             }
         }
         if (isAdditionalSubtype(subtype.subtype)) {
+            row.findViewById<Switch>(R.id.language_switch).isEnabled = true
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
-                    confirmDialog(context, "really remove subtype ${subtype.subtype.getDisplayName(context, context.packageName, context.applicationInfo)}?", "remove") {
+                    confirmDialog(context, "really remove subtype ${SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)}?", "remove") {
                         // todo: resources
                         subtypesView.removeView(row)
                         subtypes.remove(subtype)
@@ -245,6 +257,7 @@ private class LocaleSubtypeSettingsDialog(
                         val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
                         Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
                         removeEnabledSubtype(prefs, subtype.subtype)
+                        onSubtypesChanged()
                     }
                 }
             }
@@ -267,7 +280,7 @@ private class LocaleSubtypeSettingsDialog(
             secondaryLocalesView.findViewById<ImageView>(R.id.add_secondary_language).apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }).toList()
+                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }).sorted()
                     val localeNames = locales.map { it.toLocale().getDisplayName(context.resources.configuration.locale) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.language_selection_title)
