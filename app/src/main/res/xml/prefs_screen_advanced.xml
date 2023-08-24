@@ -82,12 +82,6 @@
             android:summary="@string/autospace_after_punctuation_summary"
             android:defaultValue="false" />
 
-        <PreferenceScreen
-            android:fragment="org.dslul.openboard.inputmethod.latin.settings.SecondaryLocaleSettingsFragment"
-            android:key="pref_secondary_locales"
-            android:title="@string/secondary_locale"
-            android:summary="@string/secondary_locale_summary" />
-
         <Preference
             android:key="load_gesture_library"
             android:title="@string/load_gesture_library"

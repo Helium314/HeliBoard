@@ -42,11 +42,6 @@
         android:key="screen_correction"
         android:icon="@drawable/ic_settings_correction"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.DictionarySettingsFragment"
-        android:title="@string/dictionary_settings_category"
-        android:key="add_dictionary"
-        android:icon="@drawable/ic_notify_dictionary"/>
-    <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AdvancedSettingsFragment"
         android:title="@string/settings_screen_advanced"
         android:key="screen_advanced"
