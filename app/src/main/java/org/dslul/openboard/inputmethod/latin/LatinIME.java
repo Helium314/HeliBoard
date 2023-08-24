@@ -806,6 +806,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
+        SubtypeSettingsKt.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();
             mInputLogic.onOrientationChange(mSettings.getCurrent());
@@ -1487,6 +1488,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         return mOptionsDialog != null && mOptionsDialog.isShowing();
     }
 
+    // todo: remove, this is really not necessary
     public void switchLanguage(final InputMethodSubtype subtype) {
         switchToSubtype(subtype);
     }
@@ -1494,11 +1496,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // TODO: Revise the language switch key behavior to make it much smarter and more reasonable.
     public void switchToNextSubtype() {
         if (shouldSwitchToOtherInputMethods()) {
-            // todo: previously switch to other subtypes would happen only if only one enabled subtype
-            //  but now it's happening if we were at the end of the enabled subtypes list
-            //  -> go back to old behavior?
-            //  boolean onlyOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() == 1;
-            final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(false);
+            // todo: this is the old behavior, is this actually wanted?
+            //  maybe make the language switch key more configurable
+            boolean moreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
+            final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(moreThanOneSubtype);
             if (nextSubtype != null) {
                 switchToSubtype(nextSubtype);
             } else {
@@ -1507,7 +1508,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     switchToNextInputMethod(false);
                 } else {
-                    // todo: test on my phone
                     final IBinder token = getWindow().getWindow().getAttributes().token;
                     mRichImm.getInputMethodManager().switchToNextInputMethod(token, false);
                 }
@@ -1521,7 +1521,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             switchInputMethod(imi.getId(), subtype);
         } else {
-            // todo: test on my phone
             final IBinder token = getWindow().getWindow().getAttributes().token;
             mRichImm.getInputMethodManager().setInputMethodAndSubtype(token, imi.getId(), subtype);
         }

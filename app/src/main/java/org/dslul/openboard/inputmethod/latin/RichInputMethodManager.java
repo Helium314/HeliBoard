@@ -286,9 +286,9 @@ public class RichInputMethodManager {
             }
             final List<InputMethodSubtype> result;
             if (imi == getInputMethodOfThisIme()) {
-                // todo: actually should consider implicitly selected subtypes, which should
-                //  be the fallback subtypes if current selection is empty
-                result = SubtypeSettingsKt.getEnabledSubtypes();
+                // allowsImplicitlySelectedSubtypes means system should choose if nothing is enabled,
+                // use it to fall back to system locales or en_US to avoid returning an empty list
+                result = SubtypeSettingsKt.getEnabledSubtypes(allowsImplicitlySelectedSubtypes);
             } else {
                 result = mImm.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes);
             }

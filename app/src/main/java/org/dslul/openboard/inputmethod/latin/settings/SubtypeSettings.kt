@@ -7,14 +7,23 @@ import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.xmlpull.v1.XmlPullParser
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
-fun getEnabledSubtypes(): List<InputMethodSubtype> {
+/** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
+ *  subtypes for system locales will be returned, or en_US if none found. */
+fun getEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
     require(initialized)
+    if (fallback && enabledSubtypes.isEmpty())
+        return getDefaultEnabledSubtypes()
     return enabledSubtypes
 }
 
@@ -30,8 +39,10 @@ fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
 
-    if (subtype !in enabledSubtypes)
-        enabledSubtypes.add(subtype) // todo: order? maybe sorted set? is it relevant? sorting also done in pref string, probably should match
+    if (subtype !in enabledSubtypes) {
+        enabledSubtypes.add(subtype)
+        enabledSubtypes.sortBy { it.locale } // for consistent order
+    }
 }
 
 /** returns whether subtype was actually removed, does not remove last subtype */
@@ -43,30 +54,37 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
     if (newString == oldSubtypeString)
         return // already removed
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
-//    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, ""))
-//        RichInputMethodManager.getInstance().switchToNextInputMethod(, true) // todo: needs to be handled by latinIME actually...
-
-    if (subtype in enabledSubtypes)
-        enabledSubtypes.remove(subtype)
+    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")) {
+        // switch subtype if the currently used one has been disabled
+        val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
+        KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
+    }
+    enabledSubtypes.remove(subtype)
 }
 
-// selected subtype is mostly managed by system, but sometimes this here is necessary
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     require(initialized)
     val subtypeString = prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")!!.split(LOCALE_LAYOUT_SEPARATOR)
     val subtype = enabledSubtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-    return subtype ?: enabledSubtypes.first()
+        ?: enabledSubtypes.firstOrNull()
+    if (subtype == null) {
+        val defaultSubtypes = getDefaultEnabledSubtypes()
+        return defaultSubtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+            ?: defaultSubtypes.firstOrNull { subtypeString.first().substringBefore("_") == it.locale.substringBefore("_") && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+            ?: defaultSubtypes.first()
+    }
+    return subtype
 }
 
 fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     val subtypeString = subtype.prefString()
-    if (prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "") == subtypeString)
+    if (subtype.locale.isEmpty() || prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "") == subtypeString)
         return
     prefs.edit { putString(Settings.PREF_SELECTED_INPUT_STYLE, subtypeString) }
 }
 
 fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
-    return subtype in additionalSubtypes // todo: maybe use a set?
+    return subtype in additionalSubtypes
 }
 
 fun updateAdditionalSubtypes(subtypes: Array<InputMethodSubtype>) {
@@ -74,21 +92,31 @@ fun updateAdditionalSubtypes(subtypes: Array<InputMethodSubtype>) {
     additionalSubtypes.addAll(subtypes)
 }
 
+fun reloadSystemLocales(context: Context) {
+    systemLocales.clear()
+    val localeList = LocaleManagerCompat.getSystemLocales(context)
+    (0 until localeList.size()).forEach {
+        val locale = localeList[it]
+        if (locale != null) systemLocales.add(locale)
+    }
+}
+
 fun init(context: Context) {
     if (initialized) return
     SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
+
+    // necessary to set system locales at start, because for some weird reason (bug?)
+    // LocaleManagerCompat.getSystemLocales(context) sometimes doesn't return all system locales
+    reloadSystemLocales(context)
+
     loadResourceSubtypes(context.resources)
     loadAdditionalSubtypes(context)
     loadEnabledSubtypes(context)
     initialized = true
 }
 
-// requires loadResourceSubtypes to be called before
-private fun getDefaultEnabledSubtypes(context: Context): List<InputMethodSubtype> {
-    val localeList = LocaleManagerCompat.getSystemLocales(context)
-    val locales = (0 until localeList.size()).mapNotNull { localeList[it] }
-
-    val inputMethodSubtypes = locales.mapNotNull { locale ->
+private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
+    val inputMethodSubtypes = systemLocales.mapNotNull { locale ->
         val localeString = locale.toString()
         val subtypes = resourceSubtypesByLocale[localeString]
             ?: resourceSubtypesByLocale[localeString.substringBefore("_")] // fall back to language match
@@ -159,16 +187,13 @@ private fun loadEnabledSubtypes(context: Context) {
 
         enabledSubtypes.add(subtype)
     }
-
-    if (enabledSubtypes.isEmpty()) {
-        enabledSubtypes.addAll(getDefaultEnabledSubtypes(context))
-    }
 }
 
 private var initialized = false
 private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
 private val resourceSubtypesByLocale = LinkedHashMap<String, MutableList<InputMethodSubtype>>(100)
 private val additionalSubtypes = mutableListOf<InputMethodSubtype>()
+private val systemLocales = mutableListOf<Locale>()
 
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
