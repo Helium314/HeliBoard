@@ -9,6 +9,7 @@ import android.preference.Preference
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -157,7 +158,6 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
     }
 }
 
-// todo: some kind of contextThemeWrapper necessary?
 @Suppress("deprecation")
 private class LocaleSubtypeSettingsDialog(
         context: Context,
@@ -165,7 +165,8 @@ private class LocaleSubtypeSettingsDialog(
         private val fragment: LanguageSettingsFragment?,
         private val disableSwitches: Boolean,
         private val onSubtypesChanged: () -> Unit
-    ) : AlertDialog(context), LanguageSettingsFragment.Listener {
+    ) : AlertDialog(ContextThemeWrapper(context, R.style.platformDialogTheme)), LanguageSettingsFragment.Listener {
+    private val context = ContextThemeWrapper(context, R.style.platformDialogTheme)
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
     private val mainLocaleString = subtypes.first().subtype.locale
@@ -330,8 +331,10 @@ private class LocaleSubtypeSettingsDialog(
         }
         val (userDicts, hasInternalDict) = getUserAndInternalDictionaries(context, mainLocaleString)
         if (hasInternalDict) {
-            dictionariesView.addView(TextView(context).apply {
+            dictionariesView.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                 setText(R.string.internal_dictionary_summary)
+                textSize *= 0.8f
+                setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
                 isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}" }
             })
         }

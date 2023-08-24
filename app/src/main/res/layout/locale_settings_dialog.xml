@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:showDividers="middle"
+    android:divider="@drawable/ic_divider"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
@@ -12,18 +14,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="subtypes"/>
+                style="@style/PreferenceCategoryTitleText"
+                android:text="@string/keyboard_layout_set"/>
             <ImageView
                 android:id="@+id/add_subtype"
+                android:padding="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_languages" />
+                android:src="@drawable/ic_plus" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -34,19 +39,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="other languages for multilingual typing"/>
+                style="@style/PreferenceCategoryTitleText"
+                android:text="@string/secondary_locale"/>
             <ImageView
                 android:id="@+id/add_secondary_language"
+                android:padding="6dp"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_languages" />
+                android:src="@drawable/ic_plus" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -57,18 +65,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="dictionaries"/>
+                style="@style/PreferenceCategoryTitleText"
+                android:text="@string/dictionary_settings_category"/>
             <ImageView
                 android:id="@+id/add_dictionary"
+                android:padding="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_languages" />
+                android:src="@drawable/ic_plus" />
         </LinearLayout>
     </LinearLayout>
 
