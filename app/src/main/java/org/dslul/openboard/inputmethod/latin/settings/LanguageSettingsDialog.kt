@@ -95,7 +95,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSubtypeToView(subtype: SubtypeInfo, subtypesView: LinearLayout) {
-        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, this.listView)
+        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
@@ -168,7 +168,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSecondaryLocaleView(locale: Locale, secondaryLocalesView: LinearLayout) {
-        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
+        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         row.findViewById<Switch>(R.id.language_switch).isGone = true
         row.findViewById<Switch>(R.id.language_details).isGone = true
         row.findViewById<TextView>(R.id.language_name).text = locale.displayName
@@ -290,7 +290,7 @@ class LanguageSettingsDialog(
 
     private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
         val dictType = dictFile.name.substringBefore("_${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}")
-        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
+        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         row.findViewById<TextView>(R.id.language_name).text = dictType
         row.findViewById<TextView>(R.id.language_details).apply {
             val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
@@ -330,8 +330,8 @@ fun confirmDialog(context: Context, message: String, confirmButton: String, onCo
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */
-fun getUserAndInternalDictionaries(context: Context, localeString: String): Pair<List<File>, Boolean> {
-    val localeString = localeString.lowercase() // files and folders always use lowercase
+fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<File>, Boolean> {
+    val localeString = locale.lowercase() // internal files and folders always use lowercase
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
     val userLocaleDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context), localeString)
