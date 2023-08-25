@@ -47,11 +47,9 @@ class LanguageSettingsFragment : SubScreenFragment() {
         languageFilterListPreference.setSettingsFragment(null)
     }
 
-    // todo: filter *_zz locales, should be added as subtype of their languages
     private fun loadSubtypes(systemOnly: Boolean) {
         sortedSubtypes.clear()
-        // ignore "zz", this is just a locale-less qwerty keyboard
-        val allSubtypes = getAllAvailableSubtypes().filterNot { it.locale.equals("zz", true) }.toMutableList()
+        val allSubtypes = getAllAvailableSubtypes().toMutableList()
         // maybe make use of the map used by SubtypeSettings for performance reasons?
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
@@ -83,7 +81,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
                 // special treatment for the known languages with _ZZ types
                 // todo: later: make it a bit less weird... and probably faster
                 //  consider that more _ZZ languages might be added (e.g. hinglish)
-                if (!added && (locale.language == "sr" || locale.language == "hu")) {
+                if (!added && locale.language == "sr") {
                     val languageString = locale.language
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
@@ -124,7 +122,10 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
         // add the remaining ones
         allSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale)) }
-            .sortedBy { it.displayName }.addToSortedSubtypes()
+            .sortedBy { if (it.subtype.locale.equals("zz", true))
+                    "zz" // "No language (Alphabet)" should be last
+                else it.displayName
+            }.addToSortedSubtypes()
 
         // set languages
         languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
@@ -175,7 +176,9 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
 }
 
 fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEnabled: Boolean): SubtypeInfo {
-    val displayName = if (locale.toString().endsWith("_zz", true))
+    val displayName = if (locale.toString().equals("zz", true)) // no language
+            SubtypeLocaleUtils.getSubtypeLocaleDisplayNameInSystemLocale(locale.toString())
+        else if (locale.toString().endsWith("zz", true)) // serbian (latin), maybe others in the future
             SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
         else
             locale.getDisplayName(resources.configuration.locale)
