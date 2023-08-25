@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"वर्णमाला (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"इमोजी"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"किबोर्ड थिम"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"आफू अनुकूल इनपुट शैली"</string>
-    <string name="add_style" msgid="6163126614514489951">"शैली थप्नुहोस्"</string>
     <string name="add" msgid="8299699805688017798">"थप्नुहोस्"</string>
     <string name="remove" msgid="4486081658752944606">"हटाउनुहोस्"</string>
     <string name="save" msgid="7646738597196767214">"सुरक्षित गर्नुहोस्"</string>

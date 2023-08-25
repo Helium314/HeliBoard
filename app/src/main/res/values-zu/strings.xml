@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabhethi (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"I-Emoji"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Itimu yekhibhodi"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Izitayela zokufaka ngokwezifiso"</string>
-    <string name="add_style" msgid="6163126614514489951">"Engeza isitayela"</string>
     <string name="add" msgid="8299699805688017798">"Engeza"</string>
     <string name="remove" msgid="4486081658752944606">"Khipha"</string>
     <string name="save" msgid="7646738597196767214">"Londoloza"</string>

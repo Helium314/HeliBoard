@@ -57,6 +57,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
 
 }
 
+@Suppress("Deprecation")
 class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var disableSwitches = false

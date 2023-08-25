@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"តាម​លំដាប់​អក្សរក្រម (កុំព្យូទ័រ)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"សញ្ញា​អារម្មណ៍"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"រូបរាង​ក្ដារចុច"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"រចនាប័ទ្ម​បញ្ចូល​ផ្ទាល់ខ្លួន"</string>
-    <string name="add_style" msgid="6163126614514489951">"បន្ថែម​រចនាប័ទ្ម"</string>
     <string name="add" msgid="8299699805688017798">"បន្ថែម"</string>
     <string name="remove" msgid="4486081658752944606">"លុប​ចេញ"</string>
     <string name="save" msgid="7646738597196767214">"រក្សាទុក"</string>

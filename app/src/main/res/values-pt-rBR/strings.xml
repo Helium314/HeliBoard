@@ -75,8 +75,6 @@
     <string name="subtype_no_language_pcqwerty">Alfabeto (PC)</string>
     <string name="subtype_emoji">Emojis</string>
     <string name="keyboard_theme">Tema do teclado</string>
-    <string name="custom_input_styles_title">Estilos personalizados</string>
-    <string name="add_style">Adicionar estilo</string>
     <string name="add">Adicionar</string>
     <string name="remove">Remover</string>
     <string name="save">Salvar</string>

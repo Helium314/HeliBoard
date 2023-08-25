@@ -91,7 +91,8 @@
 
         <CheckBoxPreference
             android:key="pref_spellcheck_use_contacts"
-            android:title="@string/use_contacts_for_spellchecking_option_title"
+            android:title="@string/use_contacts_dict"
+            android:summary="@string/use_contacts_dict_summary"
             android:defaultValue="true"
             android:persistent="true" />
 

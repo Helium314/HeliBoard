@@ -108,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Ábécé (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Hangulatjel"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Billentyűzettéma"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Egyedi bevitelstílusok"</string>
-    <string name="add_style" msgid="6163126614514489951">"Új stílus"</string>
     <string name="add" msgid="8299699805688017798">"Hozzáadás"</string>
     <string name="remove" msgid="4486081658752944606">"Eltávolítás"</string>
     <string name="save" msgid="7646738597196767214">"Mentés"</string>

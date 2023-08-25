@@ -35,7 +35,6 @@ import org.dslul.openboard.inputmethod.latin.personalization.UserHistoryDictiona
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
-import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
 import java.io.File;
@@ -838,21 +837,18 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 new float[] { Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL };
 
         // start getting suggestions for non-main locales first, but in background
-        final ArrayList<SuggestedWordInfo>[] otherDictionarySuggestions = new ArrayList[mDictionaryGroups.size() - 1];
+        final ArrayList<SuggestedWordInfo>[] otherDictionarySuggestions = (ArrayList<SuggestedWordInfo>[]) new ArrayList[mDictionaryGroups.size() - 1];
         final CountDownLatch waitForOtherDictionaries;
         if (mDictionaryGroups.size() > 1) {
             waitForOtherDictionaries = new CountDownLatch(mDictionaryGroups.size() - 1);
             for (int i = 1; i < mDictionaryGroups.size(); i ++) {
                 final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
                 final int index = i - 1;
-                ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        otherDictionarySuggestions[index] = getSuggestions(composedData,
-                                ngramContext, settingsValuesForSuggestion, sessionId, proximityInfoHandle,
-                                weightOfLangModelVsSpatialModel, dictionaryGroup);
-                        waitForOtherDictionaries.countDown();
-                    }
+                ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
+                    otherDictionarySuggestions[index] = getSuggestions(composedData,
+                            ngramContext, settingsValuesForSuggestion, sessionId, proximityInfoHandle,
+                            weightOfLangModelVsSpatialModel, dictionaryGroup);
+                    waitForOtherDictionaries.countDown();
                 });
             }
         } else
@@ -989,16 +985,13 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // add to blacklist if in main dictionary
         if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word) && group.blacklist.add(word)) {
             // write to file if word wasn't already in blacklist
-            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
-                        fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
-                        fos.close();
-                    } catch (IOException e) {
-                        Log.e(TAG, "Exception while trying to write blacklist", e);
-                    }
+            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
+                try {
+                    FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
+                    fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
+                    fos.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Exception while trying to write blacklist", e);
                 }
             });
         }
@@ -1021,20 +1014,17 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private void removeWordFromBlacklistFile(String word, String filename) {
-        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ArrayList<String> blacklist = readBlacklistFile(filename);
-                    blacklist.remove(word);
-                    FileOutputStream fos = new FileOutputStream(filename);
-                    for (String entry : blacklist) {
-                        fos.write((entry + "\n").getBytes(StandardCharsets.UTF_8));
-                    }
-                    fos.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "Exception while trying to write blacklist" + filename, e);
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
+            try {
+                ArrayList<String> blacklist = readBlacklistFile(filename);
+                blacklist.remove(word);
+                FileOutputStream fos = new FileOutputStream(filename);
+                for (String entry : blacklist) {
+                    fos.write((entry + "\n").getBytes(StandardCharsets.UTF_8));
                 }
+                fos.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Exception while trying to write blacklist" + filename, e);
             }
         });
 

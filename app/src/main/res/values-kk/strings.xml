@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Әліпби (ДК)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Эмодзи"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Пернетақта тақырыбы"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Реттелетін енгізу стильдері"</string>
-    <string name="add_style" msgid="6163126614514489951">"Стиль қосу"</string>
     <string name="add" msgid="8299699805688017798">"Қосу"</string>
     <string name="remove" msgid="4486081658752944606">"Өшіру"</string>
     <string name="save" msgid="7646738597196767214">"Сақтау"</string>

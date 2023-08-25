@@ -202,7 +202,7 @@ class LanguageSettingsDialog(
                 setText(R.string.internal_dictionary_summary)
                 textSize *= 0.8f
                 setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
-                isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}" }
+                isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
             })
         }
         userDicts.sorted().forEach {
@@ -253,7 +253,7 @@ class LanguageSettingsDialog(
     private fun addDictAndAskToReplace(header: DictionaryHeader) {
         val dictionaryType = header.mIdString.substringBefore(":")
         val dictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
-                File.separator + dictionaryType + "_" + DictionarySettingsFragment.USER_DICTIONARY_SUFFIX
+                File.separator + dictionaryType + "_" + USER_DICTIONARY_SUFFIX
         val dictFile = File(dictFilename)
 
         fun moveDict(replaced: Boolean) {
@@ -275,7 +275,7 @@ class LanguageSettingsDialog(
         if (!dictFile.exists()) {
             return moveDict(false)
         }
-        confirmDialog(context, context.getString(R.string.replace_dictionary_message2, dictionaryType), context.getString(
+        confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType), context.getString(
             R.string.replace_dictionary)) {
             moveDict(true)
         }
@@ -289,7 +289,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
-        val dictType = dictFile.name.substringBefore("_${DictionarySettingsFragment.USER_DICTIONARY_SUFFIX}")
+        val dictType = dictFile.name.substringBefore("_${USER_DICTIONARY_SUFFIX}")
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         row.findViewById<TextView>(R.id.language_name).text = dictType
         row.findViewById<TextView>(R.id.language_details).apply {
@@ -305,7 +305,7 @@ class LanguageSettingsDialog(
         row.findViewById<ImageView>(R.id.delete_button).apply {
             isVisible = true
             setOnClickListener {
-                confirmDialog(context, context.getString(R.string.remove_dictionary_message2, dictType), context.getString(
+                confirmDialog(context, context.getString(R.string.remove_dictionary_message, dictType), context.getString(
                     R.string.delete_dict)) {
                     val parent = dictFile.parentFile
                     dictFile.delete()
@@ -337,7 +337,7 @@ fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<
     val userLocaleDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context), localeString)
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
-            if (it.name.endsWith(DictionarySettingsFragment.USER_DICTIONARY_SUFFIX))
+            if (it.name.endsWith(USER_DICTIONARY_SUFFIX))
                 userDicts.add(it)
             else if (it.name.startsWith(DictionaryInfoUtils.MAIN_DICT_PREFIX))
                 hasInternalDict = true

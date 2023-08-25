@@ -111,7 +111,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
         val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(activity)?.mapNotNull { dir ->
             if (!dir.isDirectory)
                 return@mapNotNull null
-            if (dir.list()?.any { it.endsWith(DictionarySettingsFragment.USER_DICTIONARY_SUFFIX) } == true)
+            if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
                 LocaleUtils.constructLocaleFromString(dir.name)
             else null
         }
@@ -186,3 +186,4 @@ fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEna
 }
 
 private const val DICTIONARY_REQUEST_CODE = 96834
+const val USER_DICTIONARY_SUFFIX = "user.dict"

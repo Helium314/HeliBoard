@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Stafróf (tölva)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji-tákn"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Lyklaborðsþema"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Sérsniðnar innsláttaraðferðir"</string>
-    <string name="add_style" msgid="6163126614514489951">"Bæta stíl við"</string>
     <string name="add" msgid="8299699805688017798">"Bæta við"</string>
     <string name="remove" msgid="4486081658752944606">"Fjarlægja"</string>
     <string name="save" msgid="7646738597196767214">"Vista"</string>

@@ -108,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"알파벳(PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"이모티콘"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"키보드 테마"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"맞춤 입력 스타일"</string>
-    <string name="add_style" msgid="6163126614514489951">"스타일 추가"</string>
     <string name="add" msgid="8299699805688017798">"추가"</string>
     <string name="remove" msgid="4486081658752944606">"삭제"</string>
     <string name="save" msgid="7646738597196767214">"저장"</string>

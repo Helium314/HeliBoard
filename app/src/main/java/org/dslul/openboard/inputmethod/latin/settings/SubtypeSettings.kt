@@ -50,6 +50,7 @@ fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     if (subtype !in enabledSubtypes) {
         enabledSubtypes.add(subtype)
         enabledSubtypes.sortBy { it.locale } // for consistent order
+        RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
 }
 
@@ -71,6 +72,7 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
             KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
     }
     enabledSubtypes.remove(subtype)
+    RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
@@ -101,6 +103,7 @@ fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
 fun updateAdditionalSubtypes(subtypes: Array<InputMethodSubtype>) {
     additionalSubtypes.clear()
     additionalSubtypes.addAll(subtypes)
+    RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
 fun reloadSystemLocales(context: Context) {

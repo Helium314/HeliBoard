@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"ตัวอักษร (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"อีโมจิ"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"ธีมแป้นพิมพ์"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"รูปแบบอินพุตกำหนดเอง"</string>
-    <string name="add_style" msgid="6163126614514489951">"เพิ่มสไตล์"</string>
     <string name="add" msgid="8299699805688017798">"เพิ่ม"</string>
     <string name="remove" msgid="4486081658752944606">"ลบ"</string>
     <string name="save" msgid="7646738597196767214">"บันทึก"</string>

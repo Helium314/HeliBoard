@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings.Secure;
 import android.view.Menu;
@@ -38,7 +39,6 @@ import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
-import org.dslul.openboard.inputmethodcommon.InputMethodSettingsFragment;
 
 import java.util.List;
 import java.io.BufferedOutputStream;
@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public final class SettingsFragment extends InputMethodSettingsFragment {
+public final class SettingsFragment extends PreferenceFragment {
     // We don't care about menu grouping.
     private static final int NO_MENU_GROUP = Menu.NONE;
     // The first menu item id and order.
@@ -65,9 +65,6 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         setHasOptionsMenu(true);
-        setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
-        setSubtypeEnablerTitle(R.string.select_language);
-        setSubtypeEnablerIcon(R.drawable.ic_settings_languages);
         addPreferencesFromResource(R.xml.prefs);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.setTitle(

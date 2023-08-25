@@ -192,12 +192,6 @@
     <string name="space_trackpad">Space bar trackpad</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
-    <!-- Description for "secondary_locale" option. -->
-    <string name="secondary_locale_summary">Select a secondary dictionary to use alongside main language</string>
-    <!-- Text when no secondary locale chosen -->
-    <string name="secondary_locale_none">None</string>
-    <!-- Message shown when no secondary locales available -->
-    <string name="no_secondary_locales">No secondary dictionaries available</string>
     <!-- Preferences item for loading an external gesture typing library -->
     <string name="load_gesture_library">Load gesture typing library</string>
     <!-- Description for "load_gesture_library" option -->
@@ -404,10 +398,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="subtype_emoji">Emoji</string>
     <!-- Title of the preference settings for switching keyboard theme [CHAR LIMIT=35] -->
     <string name="keyboard_theme">Keyboard theme</string>
-    <!-- Title of the preference settings for custom input styles (language and keyboard layout pairs) [CHAR LIMIT=35]-->
-    <string name="custom_input_styles_title">Custom input styles</string>
-    <!-- Title of the option menu to add a new style entry in the preference settings [CHAR LIMIT=16] -->
-    <string name="add_style">Add style</string>
     <!-- Title of the button to add custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="add">Add</string>
     <!-- Title of the button to remove a custom style entry in the settings dialog [CHAR LIMIT=15] -->
@@ -496,38 +486,20 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="dictionary_settings_summary">Settings for dictionaries</string>
     <!-- Title for dictionaries preference screen -->
     <string name="dictionary_settings_category">Dictionaries</string>
-    <!-- Summary text for dictionary added by user -->
-    <string name="user_dictionary_summary">User-added dictionary</string>
     <!-- Summary text for built-in dictionary -->
     <string name="internal_dictionary_summary">Built-in dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
-    <!-- Old message for user dictionary replacement dialog (not used any more) -->
-    <string name="replace_dictionary_message">"Really replace existing user-added dictionary for %s?"</string>
     <!-- Message for user dictionary replacement dialog -->
-    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%s\"?"</string>
-    <!-- Message when trying to replace user dictionary with older version -->
-    <string name="overwrite_old_dicitonary_messsage">"New dictionary file contains older version code than current file. Really replace current dictionary for %s?"</string>
+    <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
-    <!-- Old message for user dictionary remove dialog  (not used any more) -->
-    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\" for %2$s?"</string>
     <!-- Message for user dictionary remove dialog -->
-    <string name="remove_dictionary_message2">"Really remove user-added dictionary \"%1$s\"?"</string>
-    <!-- Title for user dictionary remove dialog -->
-    <string name="remove_dictionary_title">"Remove dictionary"</string>
-    <!-- Button text in user dictionary remove dialog for resetting to default -->
-    <string name="reset_dictionary">"Reset to default"</string>
+    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\"?"</string>
     <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
     <!-- Title of the link to the download page inserted into selection message (above) -->
     <string name="dictionary_link_text">"here"</string>
-    <!-- Message above list of user-added dictionaries -->
-    <string name="existing_dictionaries">"User-added dictionaries, click to remove:"</string>
-    <!-- Button text for dictionary file selection -->
-    <string name="load_dictionary_file">"Load dictionary"</string>
-    <!-- Toast text shown when dictionary file for a locale was added successfully -->
-    <string name="dictionary_load_success">"Dictionary for %s added"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->

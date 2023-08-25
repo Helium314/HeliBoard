@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"ವರ್ಣಮಾಲೆ (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"ಎಮೋಜಿ"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"ಕೀಬೋರ್ಡ್ ಥೀಮ್"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"ಕಸ್ಟಮ್ ಇನ್‌ಪುಟ್ ಶೈಲಿ"</string>
-    <string name="add_style" msgid="6163126614514489951">"ಶೈಲಿ ಸೇರಿಸು"</string>
     <string name="add" msgid="8299699805688017798">"ಸೇರಿಸು"</string>
     <string name="remove" msgid="4486081658752944606">"ತೆಗೆದುಹಾಕಿ"</string>
     <string name="save" msgid="7646738597196767214">"ಉಳಿಸಿ"</string>
