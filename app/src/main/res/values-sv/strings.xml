@@ -142,7 +142,7 @@
     <string name="setup_step3_action" msgid="600879797256942259">"Konfigurera ytterligare språk"</string>
     <string name="setup_finish_action" msgid="276559243409465389">Slutför</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Visa appikon"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Visa applikationsikon i startskärmsappen</string>
+    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Visa applikationsikonen i startskärmsappen</string>
     <string name="app_name" msgid="6320102637491234792">Ordlisteleverantör</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">Ordlisteleverantör</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Ordlistetjänst"</string>
@@ -206,7 +206,7 @@
     <string name="settings_category_clipboard_history">Urklippshistorik</string>
     <string name="show_hints">Visa tangenttips</string>
     <string name="prefs_force_incognito_mode">Tvinga inkognitoläge</string>
-    <string name="prefs_force_incognito_mode_summary">Inaktivera inlärning av nya ord</string>
+    <string name="prefs_force_incognito_mode_summary">Inaktivera inlärningen av nya ord</string>
     <string name="settings_category_input">Inmatning</string>
     <string name="show_clipboard_key">Urklippsknapp</string>
     <string name="enable_clipboard_history">Aktivera urklippshistorik</string>
@@ -219,18 +219,19 @@
     <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
     <string name="more_keys_strip_description">Fler tangenter</string>
-    <string name="prefs_resize_keyboard">Aktivera storleksändring av tangentbord</string>
+    <string name="prefs_resize_keyboard">Ändra tangentbordsstorlek</string>
     <string name="prefs_keyboard_height_scale">Tangentbordets höjdskala</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="theme_family">Temafamilj</string>
     <string name="theme_variant">Temavariant</string>
-    <string name="key_borders">Kantlinjer för tangenter</string>
+    <string name="key_borders">Kantlinjer runt tangenter</string>
     <string name="day_night_mode">Automatiskt dag-/nattläge</string>
     <string name="day_night_mode_summary">Utseendet kommer följa systeminställningarna</string>
     <string name="amoled_mode_summary">Kan minska strömförbrukningen beroende på enhetens skärmteknik</string>
     <string name="amoled_mode">Helsvarta bakgrunder</string>
+    <string name="auto_correction_confidence">Förtroende för automatisk korrigering</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Använda systemspråk"</string>
     <string name="select_input_method">"Byt tangentbord"</string>
 </resources>

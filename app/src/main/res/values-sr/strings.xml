@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Опције уноса"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Потражи имена контаката"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Контролор правописа користи уносе са листе контаката"</string>
@@ -44,9 +41,9 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Подразумевано"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Предложи имена контаката"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Користи имена из Контаката за предлоге и исправке"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Користите имена контаката за предлоге и исправке</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Персонализовани предлози"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Побољшајте апликацију <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="enable_metrics_logging" msgid="5506372337118822837">Побољшајте апликацију <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Тачка и размак"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Двоструким додиром размака умеће се тачка праћена размаком"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Аутоматски унос великих слова"</string>
@@ -85,7 +82,7 @@
     <string name="keyboard_layout" msgid="8451164783510487501">"Тема тастатуре"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Промените налог"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Није изабран ниједан налог"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Тренутно користите <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
+    <string name="account_selected" msgid="2846876462199625974">Тренутно користите <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
     <string name="account_select_ok" msgid="9141195141763227797">"Потврди"</string>
     <string name="account_select_cancel" msgid="5181012062618504340">"Откажи"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Одјави ме"</string>
@@ -95,13 +92,13 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"шпански (САД)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"хенглески"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"српски (латиница)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"енглески (УК) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"енглески (САД) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"шпански (САД) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"хенглески (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"српски (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (традиционални)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (компактна)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">енглески (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">енглески (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">шпански (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">хенглески (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">српски (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (традиционални)</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (компактна)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Нема језика (абецеда)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"абецеда (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"абецеда (QWERTZ)"</string>
@@ -121,19 +118,19 @@
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"Прилагођени стил уноса треба да буде омогућен да бисте почели да га користите. Желите ли да га омогућите сада?"</string>
     <string name="enable" msgid="5031294444630523247">"Омогући"</string>
     <string name="not_now" msgid="6172462888202790482">"Не сада"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Исти стил уноса већ постоји: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Исти стил уноса већ постоји: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Трајање вибрације при притиску"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Јачина звука при притиску"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Задржавање при дугом притиску"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Емоџи за физичку тастатуру"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Физички тастер Alt показује палету емоџија"</string>
     <string name="button_default" msgid="3988017840431881491">"Подразумевано"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Добро дошли у <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title" msgid="6112821709832031715">Добро дошли у <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"помоћу Куцања покретима"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Започнимо"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Следећи корак"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Подешавање апликације <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Омогућите апликацију <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">Подешавање апликације <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title" msgid="3147967630253462315">Омогућите апликацију <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction" msgid="4295448056733329661">"Потврдите апликацију „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ у Подешавањима језика и уноса. Тако јој одобравате покретање на уређају."</string>
     <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"Апликација <xliff:g id="APPLICATION_NAME">%s</xliff:g> је већ омогућена у Подешавањима језика и уноса, па је овај корак готов. Пређимо на следећи!"</string>
     <string name="setup_step1_action" msgid="4366513534999901728">"Омогући у Подешавањима"</string>
@@ -192,4 +189,49 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Користи језике система"</string>
     <string name="select_input_method">"Промените тастатуру"</string>
+    <string name="spell_checker_service_name">ОпенБоард провера правописа</string>
+    <string name="android_spell_checker_settings">ОпенБоард подешавања провере правописа</string>
+    <string name="ime_settings">ОпенБоард подешавања</string>
+    <string name="settings_category_input">Унос</string>
+    <string name="settings_category_additional_keys">Додатни кључеви</string>
+    <string name="auto_correction_confidence">Поузданост ауто-корекције</string>
+    <string name="space_trackpad">Кретање курсора</string>
+    <string name="autospace_after_punctuation">Аутоматски размак после интерпункције</string>
+    <string name="number_row_summary">Увек прикажи ред са бројевима</string>
+    <string name="show_hints">Прикажи кључне савете</string>
+    <string name="prefs_resize_keyboard">Омогућите промену величине тастатуре</string>
+    <string name="settings_category_clipboard_history">Историја међуспремника</string>
+    <string name="settings_category_correction">Исправке</string>
+    <string name="settings_category_experimental">Експерименталне карактеристике</string>
+    <string name="show_clipboard_key">Тастер међуспремника</string>
+    <string name="enable_clipboard_history_summary">Ако је онемогућено, тастер међумеморије ће налепити садржај међуспремника ако га има</string>
+    <string name="delete_swipe_summary">Превуците прстом од тастера за брисање да бисте одједном изабрали и уклонили веће делове текста</string>
+    <string name="space_trackpad_summary">Проведите по пробелу, чтобы переместить курсор</string>
+    <string name="prefs_force_incognito_mode">Омогући режим без архивирања</string>
+    <string name="number_row">Ред бројева</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Промените начин уноса помоћу тастера за размак</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Дуг притисак на тастер за размак ће приказати мени за избор метода уноса</string>
+    <string name="theme_family">Тхеме стиле</string>
+    <string name="day_night_mode">Аутоматски режим дан/ноћ</string>
+    <string name="amoled_mode">Црна тема</string>
+    <string name="day_night_mode_summary">Изглед ће пратити подешавања система</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
+    <string name="subtype_no_language_colemak_dh">Абецеда (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_workman">Абецеда (Workman)</string>
+    <string name="settings_no_limit">Без лимита</string>
+    <string name="enable_clipboard_history">Омогући историју међуспремника</string>
+    <string name="clipboard_history_retention_time">Време задржавања историје</string>
+    <string name="prefs_keyboard_height_scale">Висина тастатуре</string>
+    <string name="theme_variant">Варијанта теме</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин.</string>
+    <string name="show_hints_summary">Прикажи савете за дуги притисак</string>
+    <string name="delete_swipe">Уклањање превлачењем</string>
+    <string name="show_emoji_key">Емоји кључ</string>
+    <string name="key_borders">Кључне обрисе</string>
+    <string name="amoled_mode_summary">Уштеда батерије за уређаје са ОЛЕД екранима</string>
+    <string name="prefs_force_incognito_mode_summary">Онемогућите учење нових речи</string>
+    <string name="autospace_after_punctuation_summary">Аутоматски убаци размак после интерпункције када куцате нову реч</string>
+    <string name="more_keys_strip_description">Додатни кључеви</string>
+    <string name="settings_category_suggestions">Предлози</string>
+    <string name="settings_category_miscellaneous">Остало</string>
 </resources>

@@ -232,5 +232,6 @@
     <string name="more_keys_strip_description">Flere taster</string>
     <string name="show_hints_summary">Vis tips med lange tryk</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Brug systemsprogene"</string>
+    <string name="auto_correction_confidence">Tillid til automatisk korrektion</string>
     <string name="select_input_method">"Skift tastatur"</string>
 </resources>

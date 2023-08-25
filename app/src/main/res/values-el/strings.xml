@@ -218,7 +218,7 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Αλφάβητο (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Αλφάβητο (Workman)</string>
-    <string name="day_night_mode_summary">Η εμφάνιση θα ακολουθήσει τις ρυθμίσεις συστήματος</string>
+    <string name="day_night_mode_summary">Η εμφάνιση θα ακολουθεί τις ρυθμίσεις του συστήματος</string>
     <string name="amoled_mode_summary">Μπορεί να μειώσει τη χρήση ενέργειας ανάλογα με την τεχνολογία οθόνης της συσκευής</string>
     <string name="autospace_after_punctuation">Αυτόματο κενό μετά τη στίξη</string>
     <string name="theme_variant">Παραλλαγή θέματος</string>
@@ -232,5 +232,6 @@
     <string name="show_clipboard_key">Πλήκτρο προχείρου</string>
     <string name="theme_family">Θέμα οικογένεια</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
+    <string name="auto_correction_confidence">Εμπιστοσύνη αυτόματης διόρθωσης</string>
     <string name="select_input_method">"Αλλαγή πληκτρολογίου"</string>
 </resources>

@@ -142,6 +142,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
             sb.append(subtype.getDisplayName(getActivity(), getActivity().getPackageName(), getActivity().getApplicationInfo()));
         }
         return sb.toString();
+    }
 
     private void askAboutCrashReports() {
         // find crash report files

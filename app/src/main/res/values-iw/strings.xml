@@ -231,6 +231,7 @@
     <string name="prefs_force_incognito_mode_summary">השבת למידה של מילים חדשות</string>
     <string name="more_keys_strip_description">עוד מפתחות</string>
     <string name="amoled_mode">רקע שחור עמוק</string>
+    <string name="auto_correction_confidence">ודאות התיקון האוטומטי</string>
     <string name="use_system_language_to_select_input_method_subtypes">"שימוש בשפות מערכת"</string>
     <string name="select_input_method">"שינוי מקלדת"</string>
     <string name="settings_screen_appearance">"מראה"</string>

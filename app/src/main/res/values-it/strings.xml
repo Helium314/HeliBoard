@@ -143,8 +143,8 @@
     <string name="setup_finish_action" msgid="276559243409465389">"Terminato"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Mostra icona app"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Mostra l\'icona dell\'app nel launcher</string>
-    <string name="app_name" msgid="6320102637491234792">"Dictionary Provider"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Dictionary Provider"</string>
+    <string name="app_name" msgid="6320102637491234792">Fornitore di dizionari</string>
+    <string name="dictionary_provider_name" msgid="3027315045397363079">Fornitore di dizionari</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Servizio dizionario"</string>
     <string name="download_description" msgid="6014835283119198591">"Informazioni aggiornamento dizionari"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Dizionari aggiuntivi"</string>
@@ -231,6 +231,7 @@
     <string name="theme_variant">Variante tema</string>
     <string name="key_borders">Bordi tasto</string>
     <string name="day_night_mode">Modalità giorno/notte automatica</string>
+    <string name="auto_correction_confidence">Modalità correzione automatica</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utilizza le lingue di sistema"</string>
     <string name="select_input_method">"Cambia tastiera"</string>
 </resources>

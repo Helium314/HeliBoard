@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="use_system_language_to_select_input_method_subtypes">"ସିଷ୍ଟମ୍‌ ଭାଷା ବ୍ୟବହାର କରନ୍ତୁ"</string>
-    <string name="select_input_method">"କୀ’ବୋର୍ଡ ପରିବର୍ତ୍ତନ କରନ୍ତୁ"</string>
+    <string name="settings_category_miscellaneous">ଵିଵିଧ</string>
+    <string name="account_select_ok">ଠିକ୍ ଅଛି</string>
+    <string name="subtype_locale">ଭାଷା</string>
+    <string name="dictionary_service_name">ଅଭିଧାନ ସେଵା</string>
+    <string name="user_dict_settings_add_menu_title">ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="user_dict_settings_add_dialog_title">ଅଭିଧାନରେ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="user_dict_settings_add_locale_option_name">ଭାଷା:</string>
+    <string name="user_dict_settings_context_menu_edit_title">ସମ୍ପାଦନା</string>
+    <string name="user_dict_settings_edit_dialog_title">ଶବ୍ଦ ସମ୍ପାଦନା</string>
+    <string name="user_dict_settings_more_languages">ଅଧିକ ଭାଷା…</string>
+    <string name="settings_screen_theme">ଥିମ୍</string>
+    <string name="language_selection_title">ଭାଷା</string>
+    <string name="auto_correction_threshold_mode_off">ବନ୍ଦ</string>
+    <string name="settings_screen_advanced">ଵିକଶିତ</string>
+    <string name="key_preview_popup_dismiss_default_delay">ଡିଫଲ୍ଟ</string>
+    <string name="select_language">ଭାଷା</string>
+    <string name="add_style">ଶୈଳୀ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="subtype_en_US">ଇଂରାଜୀ (ଯୁକ୍ତରାଷ୍ଟ୍ର)</string>
+    <string name="add">ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="button_default">ଡିଫଲ୍ଟ</string>
+    <string name="go_to_settings">ସେଟିଂ</string>
+    <string name="user_dict_settings_add_dialog_more_options">ଅଧିକ ଵିକଳ୍ପ</string>
+    <string name="user_dict_settings_add_dialog_confirm">ଠିକ୍ ଅଛି</string>
+    <string name="user_dict_settings_add_word_option_name">ଶବ୍ଦ:</string>
 </resources>

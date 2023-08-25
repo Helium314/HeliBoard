@@ -231,6 +231,7 @@
     <string name="settings_category_additional_keys">Ek tuşlar</string>
     <string name="autospace_after_punctuation">Noktalama işaretlerinden sonra otomatik boşluk</string>
     <string name="autospace_after_punctuation_summary">Yeni bir sözcük yazarken noktalama işaretlerinden sonra otomatik olarak boşluk ekle</string>
+    <string name="auto_correction_confidence">Otomatik düzeltme güveni</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillerini kullan"</string>
     <string name="select_input_method">"Klavyeyi değiştir"</string>
 </resources>
