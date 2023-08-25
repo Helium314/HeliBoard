@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,19 +16,16 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Опции за въвеждане"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Търсене на имена"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"За проверка на правописа се ползват записи от списъка с контакти"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Да вибрира при натискане на клавиш"</string>
+    <string name="vibrate_on_keypress" msgid="5258079494276955460">Вибрация при натискане на клавиш</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук при натиск. на клавиш"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Изск. прозорец при натискане на клавиш"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Предпочитания"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Профили и поверителност"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Облик и оформления"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Облик и оформления"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Въвеждане чрез жест"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Коригиране на текст"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Разширени"</string>
@@ -161,7 +158,7 @@
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Няма връзка с речниците"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Няма налични речници"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Опресняване"</string>
-    <string name="last_update" msgid="730467549913588780">"Последна актуализация:"</string>
+    <string name="last_update" msgid="730467549913588780">Последна актуализация</string>
     <string name="message_updating" msgid="4457761393932375219">"Проверява се за актуализации"</string>
     <string name="message_loading" msgid="5638680861387748936">"Зарежда се…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Основен речник"</string>
@@ -190,4 +187,7 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Още езици…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Изтриване"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЪЮЯ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Използване на системните езици"</string>
+    <string name="settings_category_input">въвеждане</string>
+    <string name="select_input_method">"Промяна на клавиатурата"</string>
 </resources>

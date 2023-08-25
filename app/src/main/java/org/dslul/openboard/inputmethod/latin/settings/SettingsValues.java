@@ -252,7 +252,7 @@ public class SettingsValues {
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, RichInputMethodManager.getInstance().getCurrentSubtypeLocale().toString());
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale());
 
         mColors = Settings.getColors(context, prefs);
         mColors.createColorFilters(prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false));

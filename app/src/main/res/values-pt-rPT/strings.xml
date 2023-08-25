@@ -25,16 +25,17 @@
     <string name="popup_on_keypress" msgid="123894815723512944">Mostrar popup de teclas</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferências"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Contas e privacidade"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">Aparência e esquemas</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">Aparência e esquemas</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">Aparência &amp; Esquemas</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escrita com gestos"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Correção de texto"</string>
+    <string name="settings_screen_correction" msgid="1616818407747682955">Correcção de texto</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">Avançado</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Ativar teclado dividido"</string>
+    <string name="enable_split_keyboard" msgid="4177264923999493614">Activar teclado dividido</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">Outros métodos de entrada</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">Tecla para mudar o idioma também cobre outros métodos de entrada</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">Tecla para troca de idioma</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">Mostrar se estiverem ativados vários idiomas</string>
+    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">Tecla para mudar de língua também cobre outros métodos de entrada</string>
+    <string name="show_language_switch_key" msgid="5915478828318774384">Tecla para troca de língua</string>
+    <string name="show_language_switch_key_summary" msgid="7343403647474265713">Mostrar se estiverem ativados várias línguas</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">Duração do popup da tecla</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sem atraso"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">Padrão</string>
@@ -152,7 +153,7 @@
     <string name="user_dictionaries" msgid="3582332055892252845">"Dicionários do utilizador"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Dicionário do utilizador"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Dicionário disponível"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">Descarga em curso...</string>
+    <string name="dictionary_downloading" msgid="2982650524622620983">Descarga em curso</string>
     <string name="dictionary_installed" msgid="8081558343559342962">"Instalado"</string>
     <string name="dictionary_disabled" msgid="8950383219564621762">"Instalado, desativado"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">Erro ao contactar com o serviço de dicionário</string>
@@ -200,8 +201,8 @@
     <string name="spell_checker_service_name">Verificação ortográfica OpenBoard</string>
     <string name="ime_settings">Definições OpenBoard</string>
     <string name="settings_category_input">Introdução</string>
-    <string name="settings_category_additional_keys">Teclas adicionais</string>
-    <string name="settings_category_correction">Correções</string>
+    <string name="settings_category_additional_keys">Teclas adiccionais</string>
+    <string name="settings_category_correction">Correcções</string>
     <string name="settings_category_suggestions">Sugestões</string>
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_miscellaneous">Outras</string>
@@ -222,4 +223,16 @@
     <string name="theme_variant">Variante do tema</string>
     <string name="key_borders">Limite das teclas</string>
     <string name="android_spell_checker_settings">Definições de verificação ortográfica OpenBoard</string>
+    <string name="auto_correction_confidence">Confiança da correção automática</string>
+    <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência colará o conteúdo, se houver</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Utilizar idiomas do sistema"</string>
+    <string name="select_input_method">"Alterar teclado"</string>
+    <string name="clipboard_history_retention_time">Tempo de retenção de historio</string>
+    <string name="autospace_after_punctuation">Espaço automático depois de pontuação</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="settings_no_limit">Sem limite</string>
+    <string name="enable_clipboard_history">Ativar Histórico da Área de Transferência</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="autospace_after_punctuation_summary">Inserir espaço automaticamente após pontuação ao digitar uma nova palavra</string>
+    <string name="settings_category_clipboard_history">Histórico da área de transferência</string>
 </resources>

@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Powiększ po naciśnięciu"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Ustawienia"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Konta i prywatność"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Wygląd i układy"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Wygląd i układy"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanie gestami"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Korekta tekstu"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Zaawansowane"</string>
@@ -119,7 +119,7 @@
     <string name="enable" msgid="5031294444630523247">"Włącz"</string>
     <string name="not_now" msgid="6172462888202790482">"Nie teraz"</string>
     <string name="custom_input_style_already_exists" msgid="8008728952215449707">Taki styl wprowadzania już istnieje: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Wibracja przy naciśniętym klawiszu"</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">Długość wibracji przy naciśniętym klawiszu</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Głośność przy naciśniętym klawiszu"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Opóźnienie przy długim naciśnięciu"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emotikony z klawiatury fizycznej"</string>
@@ -217,7 +217,7 @@
     <string name="show_hints">Pokazuj wskazówki klawiszy</string>
     <string name="prefs_keyboard_height_scale">Skala wysokości klawiatury</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="space_trackpad">Gładzik ze spacją</string>
+    <string name="space_trackpad">Spacja przesuwa kursor</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="ime_settings">Ustawienia OpenBoard</string>
     <string name="settings_category_additional_keys">Dodatkowe klawisze</string>
@@ -231,4 +231,7 @@
     <string name="amoled_mode_summary">Może zmniejszyć zużycie energii w zależności od technologii ekranu urządzenia</string>
     <string name="autospace_after_punctuation_summary">Automatyczne wstawianie spacji po znaku interpunkcyjnym podczas wpisywania nowego słowa</string>
     <string name="autospace_after_punctuation">Automatyczne wstawianie spacji po znaku interpunkcyjnym</string>
+    <string name="auto_correction_confidence">Dokładność autokorekty</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Użyj języków systemu"</string>
+    <string name="select_input_method">"Zmień klawiaturę"</string>
 </resources>
