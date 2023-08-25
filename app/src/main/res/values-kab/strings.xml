@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_screen_preferences">Imenyafen</string>
+    <string name="ime_settings">Iɣewwaren n OpenBoard</string>
+    <string name="settings_category_miscellaneous">Wiyyaḍ</string>
+    <string name="language_selection_title">Tutlayin</string>
+    <string name="install_dict">Sbedd</string>
+    <string name="user_dict_settings_add_menu_title">Rnu</string>
+    <string name="user_dict_settings_add_locale_option_name">Tutlayt :</string>
+    <string name="user_dict_settings_edit_dialog_title">Beddel awal-a</string>
+    <string name="user_dict_settings_context_menu_edit_title">Beddel</string>
+    <string name="save">Sekles</string>
+    <string name="add">Rnu</string>
+    <string name="user_dict_settings_add_word_option_name">Awal :</string>
+    <string name="user_dict_settings_more_languages">Tutlayin-nniḍen …</string>
+    <string name="user_dict_settings_delete">Kkes</string>
+    <string name="settings_screen_accounts">Imiḍan akked ttbaḍnit</string>
+    <string name="account_select_sign_out">Senser</string>
+    <string name="remove">Kkes</string>
+    <string name="select_language">Tutlayin</string>
+    <string name="switch_accounts">Beddel amiḍan</string>
+    <string name="account_select_ok">IH</string>
+    <string name="account_select_cancel">Sefsex</string>
+    <string name="subtype_locale">Tutlayt</string>
+    <string name="keyboard_layout_set">Anasiw</string>
+    <string name="setup_start_action">Bdu</string>
+    <string name="go_to_settings">Iɣewwaren</string>
+    <string name="setup_finish_action">IH</string>
+    <string name="cancel_download_dict">Sefsex</string>
+    <string name="delete_dict">Kkes</string>
+    <string name="user_dict_settings_add_dialog_confirm">IH</string>
+    <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
+</resources>

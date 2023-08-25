@@ -137,6 +137,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
+    private int keyboardChangeOccupiedHeightDifference;
 
     // true if this pointer is no longer triggering any action because it has been canceled.
     private boolean mIsTrackingForActionDisabled;
@@ -355,6 +356,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         if (keyDetector == mKeyDetector && keyboard == mKeyboard) {
             return;
+        }
+        if (mKeyboard != null) {
+            // changing keyboards may change height
+            // since y is measured from top of view, this change needs to be considered in some places
+            keyboardChangeOccupiedHeightDifference = keyboard.mOccupiedHeight - mKeyboard.mOccupiedHeight;
         }
         mKeyDetector = keyDetector;
         mKeyboard = keyboard;
@@ -696,8 +702,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             // This onPress call may have changed keyboard layout. Those cases are detected at
             // {@link #setKeyboard}. In those cases, we should update key according to the new
             // keyboard layout.
+            // Also height difference between keyboards needs to be considered.
             if (callListenerOnPressAndCheckKeyboardLayoutChange(key, 0 /* repeatCount */)) {
-                key = onDownKey(x, y, eventTime);
+                final int yOffset = keyboardChangeOccupiedHeightDifference;
+                keyboardChangeOccupiedHeightDifference = 0;
+                CoordinateUtils.set(mDownCoordinates, x, y + yOffset);
+                key = onDownKey(x, y + yOffset, eventTime);
             }
 
             startRepeatKey(key);

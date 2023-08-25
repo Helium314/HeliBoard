@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"விழை அழுத்தத்தின்போது பாப்அப் செய்"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"விருப்பங்கள்"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"கணக்குகள் &amp; தனியுரிமை"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"தோற்றம் &amp; தளவமைப்புகள்"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"தோற்றம் &amp; தளவமைப்புகள்"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ஸ்வைப் தட்டச்சு"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"உரை திருத்தம்"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"மேம்பட்டவை"</string>
@@ -190,4 +190,6 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"மேலும் மொழிகள்..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"நீக்கு"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"சாதன மொழிகளைப் பயன்படுத்து"</string>
+    <string name="select_input_method">"விசைப்பலகையை மாற்று"</string>
 </resources>

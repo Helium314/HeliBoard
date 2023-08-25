@@ -329,6 +329,7 @@ public class DictionaryInfoUtils {
         return MAIN_DICT_PREFIX + locale.toLowerCase(Locale.ENGLISH) + ".dict";
     }
 
+    @Nullable
     public static DictionaryHeader getDictionaryFileHeaderOrNull(final File file,
             final long offset, final long length) {
         try {
@@ -426,7 +427,7 @@ public class DictionaryInfoUtils {
             for (final File directory : directoryList) {
                 final String localeString = getWordListIdFromFileName(directory.getName());
                 final File[] dicts = BinaryDictionaryGetter.getCachedWordLists(
-                        localeString, context);
+                        localeString, context, false);
                 for (final File dict : dicts) {
                     final String wordListId = getWordListIdFromFileName(dict.getName());
                     if (!DictionaryInfoUtils.isMainWordListId(wordListId)) {

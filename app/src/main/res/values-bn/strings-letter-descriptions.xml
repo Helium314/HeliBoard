@@ -33,36 +33,36 @@
     <string name="spoken_accented_letter_00E0" msgid="2234515772182387086">"A, গ্রেভ"</string>
     <string name="spoken_accented_letter_00E1" msgid="7780174500802535063">"A, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_00E2" msgid="7054108480488102631">"A, সারকামফ্লেক্স"</string>
-    <string name="spoken_accented_letter_00E3" msgid="8252569677935693343">"A, টিল্ডাা"</string>
-    <string name="spoken_accented_letter_00E4" msgid="6610118430986969466">"A, ডায়ারেসিস"</string>
+    <string name="spoken_accented_letter_00E3" msgid="8252569677935693343">"A, টিল্ডা"</string>
+    <string name="spoken_accented_letter_00E4" msgid="6610118430986969466">"A, ডায়ারেসিস"</string>
     <string name="spoken_accented_letter_00E5" msgid="7630449270070348394">"A, উপরের রিং"</string>
     <string name="spoken_accented_letter_00E6" msgid="701838036007000032">"A, E, লিগেচার"</string>
     <string name="spoken_accented_letter_00E7" msgid="2991289211702135310">"C, চিহ্নবিশেষ"</string>
     <string name="spoken_accented_letter_00E8" msgid="2080035251848179782">"E, গ্রেভ"</string>
     <string name="spoken_accented_letter_00E9" msgid="2708473976407506968">"E, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_00EA" msgid="1898848081635119449">"E, সারকামফ্লেক্স"</string>
-    <string name="spoken_accented_letter_00EB" msgid="8318942663983499634">"E, ডায়ারেসিস"</string>
+    <string name="spoken_accented_letter_00EB" msgid="8318942663983499634">"E, ডায়ারেসিস"</string>
     <string name="spoken_accented_letter_00EC" msgid="7643810590358306098">"I, গ্রেভ"</string>
     <string name="spoken_accented_letter_00ED" msgid="8288035355103120759">"I, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_00EE" msgid="1137417730211688894">"I, সারকামফ্লেক্স"</string>
-    <string name="spoken_accented_letter_00EF" msgid="8993714322731956785">"I, ডায়ারেসিস"</string>
+    <string name="spoken_accented_letter_00EF" msgid="8993714322731956785">"I, ডায়ারেসিস"</string>
     <string name="spoken_accented_letter_00F0" msgid="3427567511221967857">"ইথ"</string>
-    <string name="spoken_accented_letter_00F1" msgid="6983294908255378605">"N, টিল্ডাা"</string>
+    <string name="spoken_accented_letter_00F1" msgid="6983294908255378605">"N, টিল্ডা"</string>
     <string name="spoken_accented_letter_00F2" msgid="2623804069332183695">"O, গ্রেভ"</string>
     <string name="spoken_accented_letter_00F3" msgid="8945987631729216917">"O, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_00F4" msgid="2415494299699717276">"O, সারকামফ্লেক্স"</string>
-    <string name="spoken_accented_letter_00F5" msgid="7320512716652765243">"O, টিল্ডাা"</string>
-    <string name="spoken_accented_letter_00F6" msgid="9101179351242478555">"O, ডায়ারেসিস"</string>
+    <string name="spoken_accented_letter_00F5" msgid="7320512716652765243">"O, টিল্ডা"</string>
+    <string name="spoken_accented_letter_00F6" msgid="9101179351242478555">"O, ডায়ারেসিস"</string>
     <string name="spoken_accented_letter_00F8" msgid="1488324280918884122">"O, স্ট্রোক"</string>
     <string name="spoken_accented_letter_00F9" msgid="2823570256527173278">"U, গ্রেভ"</string>
     <string name="spoken_accented_letter_00FA" msgid="6883092085077298608">"U, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_00FB" msgid="4948239400399514418">"U, সারকামফ্লেক্স"</string>
-    <string name="spoken_accented_letter_00FC" msgid="2496066211694000442">"U, ডায়ারেসিস"</string>
+    <string name="spoken_accented_letter_00FC" msgid="2496066211694000442">"U, ডায়ারেসিস"</string>
     <string name="spoken_accented_letter_00FD" msgid="2400529610834233890">"Y, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_00FE" msgid="8788160115017853040">"থর্ণ"</string>
-    <string name="spoken_accented_letter_00FF" msgid="5225610161025124830">"Y, ডায়ারেসিস"</string>
+    <string name="spoken_accented_letter_00FF" msgid="5225610161025124830">"Y, ডায়ারেসিস"</string>
     <string name="spoken_accented_letter_0101" msgid="5573209280917268157">"A, ম্যাকরন"</string>
-    <string name="spoken_accented_letter_0103" msgid="2469151120095164730">"A, ব্রীভ"</string>
+    <string name="spoken_accented_letter_0103" msgid="2469151120095164730">"A, ব্রিভ"</string>
     <string name="spoken_accented_letter_0105" msgid="8312689789855786427">"A, অগোনিক"</string>
     <string name="spoken_accented_letter_0107" msgid="5708507895287798642">"C, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_0109" msgid="7008112603489583335">"C, সারকামফ্লেক্স"</string>
@@ -71,22 +71,22 @@
     <string name="spoken_accented_letter_010F" msgid="603374318657992205">"D, কারোন"</string>
     <string name="spoken_accented_letter_0111" msgid="5517997642285938260">"D, স্ট্রোক"</string>
     <string name="spoken_accented_letter_0113" msgid="2326009009311798997">"E, ম্যাকরন"</string>
-    <string name="spoken_accented_letter_0115" msgid="3964545407091037747">"E, ব্রীভ"</string>
+    <string name="spoken_accented_letter_0115" msgid="3964545407091037747">"E, ব্রিভ"</string>
     <string name="spoken_accented_letter_0117" msgid="8799753183781089777">"E, উপরে বিন্দু"</string>
     <string name="spoken_accented_letter_0119" msgid="3772451226935709136">"E, অগোনিক"</string>
     <string name="spoken_accented_letter_011B" msgid="7663481332351461288">"E, কারোন"</string>
     <string name="spoken_accented_letter_011D" msgid="1181326600595482369">"G, সারকামফ্লেক্স"</string>
-    <string name="spoken_accented_letter_011F" msgid="6843415389823096647">"G, ব্রীভ"</string>
+    <string name="spoken_accented_letter_011F" msgid="6843415389823096647">"G, ব্রিভ"</string>
     <string name="spoken_accented_letter_0121" msgid="6205288708713306903">"G, উপরে বিন্দু"</string>
     <string name="spoken_accented_letter_0123" msgid="2394277128105386261">"G, চিহ্নবিশেষ"</string>
     <string name="spoken_accented_letter_0125" msgid="6575866461277751345">"H, সারকামফ্লেক্স"</string>
     <string name="spoken_accented_letter_0127" msgid="1316971762214091641">"H, স্ট্রোক"</string>
-    <string name="spoken_accented_letter_0129" msgid="7824912405885325754">"I, টিল্ডাা"</string>
+    <string name="spoken_accented_letter_0129" msgid="7824912405885325754">"I, টিল্ডা"</string>
     <string name="spoken_accented_letter_012B" msgid="6772690258769905270">"I, ম্যাকরন"</string>
-    <string name="spoken_accented_letter_012D" msgid="2933871131556503448">"I, ব্রীভ"</string>
+    <string name="spoken_accented_letter_012D" msgid="2933871131556503448">"I, ব্রিভ"</string>
     <string name="spoken_accented_letter_012F" msgid="1340511254985181663">"I, অগোনিক"</string>
     <string name="spoken_accented_letter_0131" msgid="5635600720566083969">"বিন্দু বিহীন I"</string>
-    <string name="spoken_accented_letter_0133" msgid="7593704176516791941">"I, J, লিগেচার"</string>
+    <string name="spoken_accented_letter_0133" msgid="7593704176516791941">"I, J, যুক্তবর্ণ"</string>
     <string name="spoken_accented_letter_0135" msgid="4521109674238248436">"J, সারকামফ্লেক্স"</string>
     <string name="spoken_accented_letter_0137" msgid="5886444641003852175">"K, চিহ্নবিশেষ"</string>
     <string name="spoken_accented_letter_0138" msgid="4200294389170924853">"ক্রা"</string>
@@ -98,10 +98,10 @@
     <string name="spoken_accented_letter_0144" msgid="201843550323875352">"N, অ্যাকুইট"</string>
     <string name="spoken_accented_letter_0146" msgid="3403847152606051818">"N, চিহ্নবিশেষ"</string>
     <string name="spoken_accented_letter_0148" msgid="9215300786722209338">"N, কারোন"</string>
-    <string name="spoken_accented_letter_0149" msgid="3191850286630154063">"N, পূর্বে ঊর্ধকমা দিয়ে"</string>
+    <string name="spoken_accented_letter_0149" msgid="3191850286630154063">"N, পূর্বে ঊর্ধকমা দিয়ে"</string>
     <string name="spoken_accented_letter_014B" msgid="8503022408522837410">"ইং"</string>
     <string name="spoken_accented_letter_014D" msgid="4452323602550610641">"O, ম্যাকরন"</string>
-    <string name="spoken_accented_letter_014F" msgid="2795957717094385336">"O, ব্রীভ"</string>
+    <string name="spoken_accented_letter_014F" msgid="2795957717094385336">"O, ব্রিভ"</string>
     <string name="spoken_accented_letter_0151" msgid="8013704745216410244">"O, যুগ্ম অ্যাকুইট"</string>
     <string name="spoken_accented_letter_0153" msgid="8410582495993285221">"O, E, লিগেচার"</string>
     <string name="spoken_accented_letter_0155" msgid="7601517174689798560">"R, অ্যাকুইট"</string>
@@ -114,9 +114,9 @@
     <string name="spoken_accented_letter_0163" msgid="9103547637928833069">"T, চিহ্নবিশেষ"</string>
     <string name="spoken_accented_letter_0165" msgid="7306159398214872062">"T, কারোন"</string>
     <string name="spoken_accented_letter_0167" msgid="5578767705098672443">"T, স্ট্রোক"</string>
-    <string name="spoken_accented_letter_0169" msgid="413046581387735371">"U, টিল্ডাা"</string>
+    <string name="spoken_accented_letter_0169" msgid="413046581387735371">"U, টিল্ডা"</string>
     <string name="spoken_accented_letter_016B" msgid="3209778874978859441">"U, ম্যাকরন"</string>
-    <string name="spoken_accented_letter_016D" msgid="2983326533258602840">"U, ব্রীভ"</string>
+    <string name="spoken_accented_letter_016D" msgid="2983326533258602840">"U, ব্রিভ"</string>
     <string name="spoken_accented_letter_016F" msgid="4416532499516387231">"U, উপরে রিং"</string>
     <string name="spoken_accented_letter_0171" msgid="3435171971353200807">"U, যুগ্ম অ্যাকুইট"</string>
     <string name="spoken_accented_letter_0173" msgid="4494154432483553480">"U, অগোনিক"</string>
@@ -130,7 +130,7 @@
     <string name="spoken_accented_letter_01B0" msgid="8544012177684640443">"U, শিং"</string>
     <string name="spoken_accented_letter_0219" msgid="1960371842020076066">"S, নিচে কমা"</string>
     <string name="spoken_accented_letter_021B" msgid="1398418662032919032">"T, নিচে কমা"</string>
-    <string name="spoken_accented_letter_0259" msgid="2464085263158415898">"শোহয়া"</string>
+    <string name="spoken_accented_letter_0259" msgid="2464085263158415898">"শোহয়া"</string>
     <string name="spoken_accented_letter_1EA1" msgid="688124877202887630">"A, নিচে বিন্দু"</string>
     <string name="spoken_accented_letter_1EA3" msgid="327960130366386256">"A, উপরে হুক"</string>
     <string name="spoken_accented_letter_1EA5" msgid="637406363453769610">"A, সারকামফ্লেক্স এবং অ্যাকুইট"</string>
@@ -138,14 +138,14 @@
     <string name="spoken_accented_letter_1EA9" msgid="6068887382734896756">"A, সারকামফ্লেক্স এবং উপরে হুক"</string>
     <string name="spoken_accented_letter_1EAB" msgid="7236523151662538333">"A,সারকামফ্লেক্স এবং টিল্ডা"</string>
     <string name="spoken_accented_letter_1EAD" msgid="2363364864106332076">"A, সারকামফ্লেক্স এবং নিচে বিন্দু"</string>
-    <string name="spoken_accented_letter_1EAF" msgid="1576329511464272935">"A, ব্রীভ এবং অ্যাকুইট"</string>
-    <string name="spoken_accented_letter_1EB1" msgid="4634735072816076592">"A, ব্রীভ এবং গ্রেভ"</string>
-    <string name="spoken_accented_letter_1EB3" msgid="2325245849038771534">"A, ব্রীভ এবং উপরে হুক"</string>
-    <string name="spoken_accented_letter_1EB5" msgid="3720427596242746295">"A, ব্রীভ এবং টিল্ডা"</string>
-    <string name="spoken_accented_letter_1EB7" msgid="700415535653646695">"A, ব্রীভ এবং নিচে ডট"</string>
+    <string name="spoken_accented_letter_1EAF" msgid="1576329511464272935">"A, ব্রিভ এবং অ্যাকুইট"</string>
+    <string name="spoken_accented_letter_1EB1" msgid="4634735072816076592">"A, ব্রিভ এবং গ্রেভ"</string>
+    <string name="spoken_accented_letter_1EB3" msgid="2325245849038771534">"A, ব্রিভ এবং উপরে হুক"</string>
+    <string name="spoken_accented_letter_1EB5" msgid="3720427596242746295">"A, ব্রিভ এবং টিল্ডা"</string>
+    <string name="spoken_accented_letter_1EB7" msgid="700415535653646695">"A, ব্রিভ এবং নিচে ডট"</string>
     <string name="spoken_accented_letter_1EB9" msgid="3901338692305890487">"E, নিচে বিন্দু"</string>
     <string name="spoken_accented_letter_1EBB" msgid="4028688699415417302">"E, উপরে হুক"</string>
-    <string name="spoken_accented_letter_1EBD" msgid="181253633045931897">"E, টিল্ডাা"</string>
+    <string name="spoken_accented_letter_1EBD" msgid="181253633045931897">"E, টিল্ডা"</string>
     <string name="spoken_accented_letter_1EBF" msgid="3309618845007944963">"E, সারকামফ্লেক্স এবং অ্যাকুইট"</string>
     <string name="spoken_accented_letter_1EC1" msgid="8139046749226332542">"E, সারকামফ্লেক্স এবং গ্রেভ"</string>
     <string name="spoken_accented_letter_1EC3" msgid="3239674223053133383">"E, সারকামফ্লেক্স এবং উপরে হুক"</string>
@@ -176,7 +176,7 @@
     <string name="spoken_accented_letter_1EF5" msgid="8998864482764007384">"Y, নিচে বিন্দু"</string>
     <string name="spoken_accented_letter_1EF7" msgid="922043627252869200">"Y, উপরে হুক"</string>
     <string name="spoken_accented_letter_1EF9" msgid="6213977100552260366">"Y, টিল্ডা"</string>
-    <string name="spoken_symbol_00A1" msgid="4281758332905123408">"উল্টানো বিস্ময়বোধক চিহ্ন"</string>
+    <string name="spoken_symbol_00A1" msgid="4281758332905123408">"উল্টানো বিস্ময়বোধক চিহ্ন"</string>
     <string name="spoken_symbol_00AB" msgid="4093069643313064892">"বামদিকে-নির্দেশিত যুগ্ম কোণ সমেত উদ্ধৃতি চিহ্ন"</string>
     <string name="spoken_symbol_00B7" msgid="2447718728927874920">"মধ্যম বিন্দু"</string>
     <string name="spoken_symbol_00B9" msgid="8026257165451461231">"ঊর্ধ্বলিপি এক"</string>
@@ -202,7 +202,7 @@
     <string name="spoken_symbol_2193" msgid="2659541693445985717">"নিম্নাভিমুখী তীর"</string>
     <string name="spoken_symbol_2205" msgid="4457188084269117343">"ফাঁকা সেট"</string>
     <string name="spoken_symbol_2206" msgid="4856786565708380687">"বর্ধিত"</string>
-    <string name="spoken_symbol_2264" msgid="5092061257745123554">"তুলনায় কম বা সমান"</string>
-    <string name="spoken_symbol_2265" msgid="1907966479878036357">"তুলনায় বড় বা সমান"</string>
+    <string name="spoken_symbol_2264" msgid="5092061257745123554">"তুলনায় কম বা সমান"</string>
+    <string name="spoken_symbol_2265" msgid="1907966479878036357">"তুলনায় বড় বা সমান"</string>
     <string name="spoken_symbol_2605" msgid="5202920479405857753">"কালো তারকা"</string>
 </resources>

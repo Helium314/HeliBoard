@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"કીપ્રેસ પર પોપઅપ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"પસંદગી"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"એકાઉન્ટ્સ અને ગોપનીયતા"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"દેખાવ અને લેઆઉટ્સ"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"દેખાવ અને લેઆઉટ્સ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"સાંકેતિક ટાઇપિંગ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ટેક્સ્ટ સુધારણા"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"વિગતવાર"</string>
@@ -190,4 +190,6 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"વધુ ભાષાઓ…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"કાઢી નાખો"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" [અ આ ઇ ઈ ઉ ઊ ઋ એ ઐ ઓ ઔ ક ખ ગ ઘ ઙ ચ છ જ ઝ ઞ ટ ઠ ડ ઢ ણ ત થ દ ધ ન પ ફ બ ભ મ ય ર લ વ શ ષ સ હ ળ]"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"સિસ્ટમ ભાષાઓનો ઉપયોગ કરો"</string>
+    <string name="select_input_method">"કીબોર્ડ બદલો"</string>
 </resources>

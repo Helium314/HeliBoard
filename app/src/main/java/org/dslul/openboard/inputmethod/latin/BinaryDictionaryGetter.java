@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -166,16 +167,17 @@ final public class BinaryDictionaryGetter {
      * @param context the context on which to open the files upon.
      * @return an array of binary dictionary files, which may be empty but may not be null.
      */
-    public static File[] getCachedWordLists(final String locale, final Context context) {
+    public static File[] getCachedWordLists(final String locale, final Context context, final boolean weakMatchAcceptable) {
         final File[] directoryList = DictionaryInfoUtils.getCachedDirectoryList(context);
         if (null == directoryList) return EMPTY_FILE_ARRAY;
+        Arrays.sort(directoryList);
         final HashMap<String, FileAndMatchLevel> cacheFiles = new HashMap<>();
         for (File directory : directoryList) {
             if (!directory.isDirectory()) continue;
             final String dirLocale =
                     DictionaryInfoUtils.getWordListIdFromFileName(directory.getName()).toLowerCase(Locale.ENGLISH);
             final int matchLevel = LocaleUtils.getMatchLevel(dirLocale, locale.toLowerCase(Locale.ENGLISH));
-            if (LocaleUtils.isMatch(matchLevel)) {
+            if (weakMatchAcceptable ? LocaleUtils.isMatchWeak(matchLevel) : LocaleUtils.isMatch(matchLevel)) {
                 final File[] wordLists = directory.listFiles();
                 if (null != wordLists) {
                     for (File wordList : wordLists) {
@@ -243,8 +245,8 @@ final public class BinaryDictionaryGetter {
      * @return The list of addresses of valid dictionary files, or null.
      */
     public static ArrayList<AssetFileAddress> getDictionaryFiles(final Locale locale,
-            final Context context, boolean notifyDictionaryPackForUpdates) {
-        final File[] cachedWordLists = getCachedWordLists(locale.toString(), context);
+            final Context context, boolean notifyDictionaryPackForUpdates, final boolean weakMatchAcceptable) {
+        final File[] cachedWordLists = getCachedWordLists(locale.toString(), context, weakMatchAcceptable);
         final String mainDictId = DictionaryInfoUtils.getMainDictId(locale);
         final DictPackSettings dictPackSettings = new DictPackSettings(context);
 
@@ -271,7 +273,7 @@ final public class BinaryDictionaryGetter {
         }
 
         if (!foundMainDict && dictPackSettings.isWordListActive(mainDictId)) {
-            final File dict = loadDictionaryFromAssets(locale.toString(), context);
+            final File dict = loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable);
             final AssetFileAddress fallbackAsset;
             if (dict == null) {
                 // fall back to the old way (maybe remove? will not work if files are compressed)
@@ -298,7 +300,7 @@ final public class BinaryDictionaryGetter {
      *
      * Returns null on IO errors or if no matching dictionary is found
      */
-    public static File loadDictionaryFromAssets(final String locale, final Context context) {
+    public static File loadDictionaryFromAssets(final String locale, final Context context, final boolean weakMatchAcceptable) {
         final String[] dictionaryList = getAssetsDictionaryList(context);
         if (null == dictionaryList) return null;
         String bestMatchName = null;
@@ -310,8 +312,9 @@ final public class BinaryDictionaryGetter {
             // assets files may contain the locale in lowercase, but dictionary headers usually
             //  have an upper case country code, so we compare lowercase here
             final int matchLevel = LocaleUtils.getMatchLevel(dictLocale.toLowerCase(Locale.ENGLISH), locale.toLowerCase(Locale.ENGLISH));
-            if (LocaleUtils.isMatch(matchLevel) && matchLevel > bestMatchLevel) {
+            if ((weakMatchAcceptable ? LocaleUtils.isMatchWeak(matchLevel) : LocaleUtils.isMatch(matchLevel)) && matchLevel > bestMatchLevel) {
                 bestMatchName = dictionary;
+                bestMatchLevel = matchLevel;
             }
         }
         if (bestMatchName == null) return null;

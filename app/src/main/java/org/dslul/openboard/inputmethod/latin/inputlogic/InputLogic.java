@@ -110,6 +110,8 @@ public final class InputLogic {
     // Note: This does not have a composing span, so it must be handled separately.
     private String mWordBeingCorrectedByCursor = null;
 
+    private boolean mJustRevertedACommit = false;
+
     /**
      * Create a new instance of the input logic.
      * @param latinIME the instance of the parent LatinIME. We should remove this when we can.
@@ -298,13 +300,17 @@ public final class InputLogic {
         if (SpaceState.PHANTOM == mSpaceState && suggestion.length() > 0
                 // In the batch input mode, a manually picked suggested word should just replace
                 // the current batch input text and there is no need for a phantom space.
-                && !mWordComposer.isBatchMode()) {
+                && !mWordComposer.isBatchMode()
+                // when a commit was reverted and user chose a different suggestion, we don't want
+                // to insert a space before the picked word
+                && !mJustRevertedACommit) {
             final int firstChar = Character.codePointAt(suggestion, 0);
             if (!settingsValues.isWordSeparator(firstChar)
                     || settingsValues.isUsuallyPrecededBySpace(firstChar)) {
                 insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
             }
         }
+        mJustRevertedACommit = false;
 
         // TODO: We should not need the following branch. We should be able to take the same
         // code path as for other kinds, use commitChosenWord, and do everything normally. We will
@@ -439,6 +445,7 @@ public final class InputLogic {
             @Nonnull final Event event, final int keyboardShiftMode,
             final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
+        mJustRevertedACommit = false;
         final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
@@ -1746,6 +1753,7 @@ public final class InputLogic {
         if (inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
             mConnection.commitText(textToCommit, 1);
             if (usePhantomSpace) {
+                mJustRevertedACommit = true;
                 mSpaceState = SpaceState.PHANTOM;
             }
         } else {

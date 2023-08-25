@@ -107,27 +107,33 @@ public final class AdditionalSubtypeUtils {
         final String[] prefSubtypeArray = prefSubtypes.split(PREF_SUBTYPE_SEPARATOR);
         final ArrayList<InputMethodSubtype> subtypesList = new ArrayList<>(prefSubtypeArray.length);
         for (final String prefSubtype : prefSubtypeArray) {
-            final String[] elems = prefSubtype.split(LOCALE_AND_LAYOUT_SEPARATOR);
-            if (elems.length != LENGTH_WITHOUT_EXTRA_VALUE
-                    && elems.length != LENGTH_WITH_EXTRA_VALUE) {
-                Log.w(TAG, "Unknown additional subtype specified: " + prefSubtype + " in "
-                        + prefSubtypes);
-                continue;
-            }
-            final String localeString = elems[INDEX_OF_LOCALE];
-            final String keyboardLayoutSetName = elems[INDEX_OF_KEYBOARD_LAYOUT];
-            // Here we assume that all the additional subtypes have AsciiCapable and EmojiCapable.
-            // This is actually what the setting dialog for additional subtype is doing.
-            final InputMethodSubtype subtype = createAsciiEmojiCapableAdditionalSubtype(
-                    localeString, keyboardLayoutSetName);
-            if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT) {
-                // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
-                // layout has been removed.
-                continue;
-            }
-            subtypesList.add(subtype);
+            final InputMethodSubtype subtype = createSubtypeFromString(prefSubtype);
+            if (subtype != null)
+                subtypesList.add(subtype);
         }
         return subtypesList.toArray(new InputMethodSubtype[subtypesList.size()]);
+    }
+
+    // use string created with getPrefSubtype
+    public static InputMethodSubtype createSubtypeFromString(final String prefSubtype) {
+        final String[] elems = prefSubtype.split(LOCALE_AND_LAYOUT_SEPARATOR);
+        if (elems.length != LENGTH_WITHOUT_EXTRA_VALUE
+                && elems.length != LENGTH_WITH_EXTRA_VALUE) {
+            Log.w(TAG, "Unknown additional subtype specified: " + prefSubtype);
+            return null;
+        }
+        final String localeString = elems[INDEX_OF_LOCALE];
+        final String keyboardLayoutSetName = elems[INDEX_OF_KEYBOARD_LAYOUT];
+        // Here we assume that all the additional subtypes have AsciiCapable and EmojiCapable.
+        // This is actually what the setting dialog for additional subtype is doing.
+        final InputMethodSubtype subtype = createAsciiEmojiCapableAdditionalSubtype(
+                localeString, keyboardLayoutSetName);
+        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT) {
+            // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
+            // layout has been removed.
+            return null;
+        }
+        return subtype;
     }
 
     public static String createPrefSubtypes(final InputMethodSubtype[] subtypes) {

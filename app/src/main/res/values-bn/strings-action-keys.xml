@@ -27,5 +27,5 @@
     <string name="label_send_key" msgid="482252074224462163">"পাঠান"</string>
     <string name="label_search_key" msgid="7965186050435796642">"সন্ধান"</string>
     <string name="label_pause_key" msgid="2225922926459730642">"বিরাম"</string>
-    <string name="label_wait_key" msgid="5891247853595466039">"অপেক্ষা করুন"</string>
+    <string name="label_wait_key" msgid="5891247853595466039">"অপেক্ষা"</string>
 </resources>

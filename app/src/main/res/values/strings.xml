@@ -43,8 +43,6 @@
     <string name="settings_screen_preferences">Preferences</string>
     <!-- Settings screen title for accounts and privacy preferences [CHAR LIMIT=33]-->
     <string name="settings_screen_accounts">Accounts &amp; Privacy</string>
-    <!-- Settings screen title for appearance & layouts preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">Appearance &amp; Layouts</string>
     <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
     <string name="settings_screen_gesture">Gesture Typing</string>
     <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
@@ -476,6 +474,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <!-- The label of the button that triggers the screen for configuaring additional languages of the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step3_action">Configure additional languages</string>
+    <!-- The label of the button that triggers the settings screen for the keyboard. [CHAR_LIMIT=64] -->
+    <string name="setup_step3_action_new">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
     <string name="setup_finish_action">Finished</string>
     <!-- Option to show setup wizard icon. [CHAR LIMIT=30]-->
@@ -502,14 +502,18 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="internal_dictionary_summary">Built-in dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
-    <!-- Message for user dictionary replacement dialog -->
+    <!-- Old message for user dictionary replacement dialog (not used any more) -->
     <string name="replace_dictionary_message">"Really replace existing user-added dictionary for %s?"</string>
+    <!-- Message for user dictionary replacement dialog -->
+    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%s\"?"</string>
     <!-- Message when trying to replace user dictionary with older version -->
     <string name="overwrite_old_dicitonary_messsage">"New dictionary file contains older version code than current file. Really replace current dictionary for %s?"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
-    <!-- Message for user dictionary remove dialog -->
+    <!-- Old message for user dictionary remove dialog  (not used any more) -->
     <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\" for %2$s?"</string>
+    <!-- Message for user dictionary remove dialog -->
+    <string name="remove_dictionary_message2">"Really remove user-added dictionary \"%1$s\"?"</string>
     <!-- Title for user dictionary remove dialog -->
     <string name="remove_dictionary_title">"Remove dictionary"</string>
     <!-- Button text in user dictionary remove dialog for resetting to default -->
@@ -528,6 +532,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->
     <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string>
+    <!-- Text shown when dictionary file is has incompatible script with the keyboard -->
+    <string name="dictionary_file_wrong_script">"Error: script not compatible with this keyboard"</string>
     <!-- Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
     <string name="dictionary_file_wrong_locale_ok">"Still use"</string>
     <!-- Text shown on other errors when loading dictionary file -->
@@ -640,6 +646,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode">Auto day/night mode</string>
+    <!-- Message for the dialog to choose which user-defined theme to edit -->
+    <string name="day_or_night_colors">Edit day or night colors?</string>
+    <!-- Button of the dialog above for "day"-->
+    <string name="day_or_night_day">Day</string>
+    <!-- Button of the dialog above for "night"-->
+    <string name="day_or_night_night">Night</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
     <!-- Option for enabling AMOLED mode [CHAR LIMIT=33] -->
@@ -684,6 +696,16 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="license" >Open-source license</string>
     <!-- license link for about screen-->
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <!-- App slogan-->
-    <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
+    <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
+    <string name="dialog_close">Close</string>
+    <!-- Preference for selecting system locales -->
+    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
+    <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
+    <string name="select_input_method">"Change keyboard"</string>
+    <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]
+    This string is not used, but the new string below (settings_screen_appearance) is not translated
+    into nearly as many languages, and the old string may act as a guide for translators. -->
+    <string name="settings_screen_appearance_and_layouts">Appearance &amp; Layouts</string>
+    <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
+    <string name="settings_screen_appearance">"Appearance"</string>
 </resources>

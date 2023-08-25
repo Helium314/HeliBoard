@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"按键时弹出显示字符"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"偏好设置"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"帐号和隐私权"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"外观和布局"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"外观和布局"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"滑行输入"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"文字更正"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"高级"</string>
@@ -231,4 +231,7 @@
     <string name="prefs_resize_keyboard">调整键盘大小</string>
     <string name="prefs_keyboard_height_scale">调整键盘高度</string>
     <string name="subtype_no_language_colemak_dh">字母表</string>
+    <string name="auto_correction_confidence">自动更正把握</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"使用系统语言"</string>
+    <string name="select_input_method">"更改键盘"</string>
 </resources>

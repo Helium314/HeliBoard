@@ -35,6 +35,10 @@
             android:key="custom_theme_variant"
             android:title="@string/theme_variant"/>
 
+        <ListPreference
+            android:key="custom_theme_variant_night"
+            android:title="@string/theme_variant"/>
+
         <CheckBoxPreference
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
@@ -62,11 +66,6 @@
 
     <PreferenceCategory
         android:title="@string/settings_category_miscellaneous">
-
-        <PreferenceScreen
-            android:fragment="org.dslul.openboard.inputmethod.latin.settings.CustomInputStyleSettingsFragment"
-            android:key="custom_input_styles"
-            android:title="@string/custom_input_styles_title" />
 
         <CheckBoxPreference
             android:key="pref_split_keyboard"
