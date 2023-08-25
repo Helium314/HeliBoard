@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">Povećana tipka pri pritisku tipke</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">Osobitosti</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Računi i privatnost"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Izgled i rasporedi"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">Tipkanje gestama</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravljanje teksta"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>
@@ -231,4 +231,6 @@
     <string name="amoled_mode">Tamnocrne pozadine</string>
     <string name="show_clipboard_key">Tipka međuspremnika</string>
     <string name="number_row">Broj retka</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>
+    <string name="select_input_method">"Promjena tipkovnice"</string>
 </resources>

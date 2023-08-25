@@ -101,8 +101,6 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         super.onResume()
         updateThemePreferencesState()
         updateAfterPreferenceChanged()
-        CustomInputStyleSettingsFragment.updateCustomInputStylesSummary(
-                findPreference(Settings.PREF_CUSTOM_INPUT_STYLES))
     }
 
     override fun onPause() {

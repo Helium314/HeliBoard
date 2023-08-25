@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Збільшення натиснутих"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметри"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Облік. записи й конфіденційність"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Вигляд і розкладка"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вигляд і розкладка"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Введення тексту жестами"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Виправлення тексту"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Додатково"</string>
@@ -207,4 +207,6 @@
     <string name="about_github_link" >Подивитися на GitHub</string>
     <string name="license" >Ліцензія з відкритим кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Використовувати мови системи"</string>
+    <string name="select_input_method">"Змінити клавіатуру"</string>
 </resources>

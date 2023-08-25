@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"بازشدن با فشار کلید"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"تنظیمات برگزیده"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"حساب‌ها و حریم خصوصی"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"شکل ظاهری و چیدمان"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"شکل ظاهری و چیدمان"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ورودی اشاره‌ای"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"اصلاح نوشتار"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"پیشرفته"</string>
@@ -190,4 +190,6 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"زبان‌های بیشتر…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"حذف"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"استفاده از زبان‌های سیستم"</string>
+    <string name="select_input_method">"تغییر صفحه‌کلید"</string>
 </resources>

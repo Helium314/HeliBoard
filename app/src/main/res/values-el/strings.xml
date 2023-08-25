@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Εμφάνιση με το πάτημα πλήκτρου"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Προτιμήσεις"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Λογαριασμοί και απόρρητο"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Εμφάνιση και διάταξη"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Εμφάνιση και διάταξη"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Πληκτρολόγηση με κίνηση"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Διόρθωση κειμένου"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Σύνθετες"</string>
@@ -231,4 +231,6 @@
     <string name="show_hints_summary">Εμφάνιση υποδείξεων με παρατεταμένο πάτημα</string>
     <string name="show_clipboard_key">Πλήκτρο προχείρου</string>
     <string name="theme_family">Θέμα οικογένεια</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
+    <string name="select_input_method">"Αλλαγή πληκτρολογίου"</string>
 </resources>

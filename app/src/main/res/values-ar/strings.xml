@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">نافذة منبثقة عند الضغط على المفاتيح</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"الإعدادات المفضّلة"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"الحسابات والخصوصية"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"الكتابة بالإشارة"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"الإعدادات المتقدمة"</string>
@@ -218,4 +218,6 @@
     <string name="theme_family">سمة العائلة</string>
     <string name="theme_variant">متغير السمة</string>
     <string name="key_borders">الحدود الرئيسية</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"استخدام لغات النظام"</string>
+    <string name="select_input_method">"تغيير لوحة المفاتيح"</string>
 </resources>

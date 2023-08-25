@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Opspring met sleuteldruk"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Voorkeure"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Rekeninge en privaatheid"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Voorkoms en uitlegte"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Voorkoms en uitlegte"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Gebaarinvoer"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Tekskorrigering"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Gevorderd"</string>
@@ -231,4 +231,6 @@
     <string name="day_night_mode_summary">Voorkoms sal sisteem verstellings naboots</string>
     <string name="amoled_mode">Diep swart agtergronde</string>
     <string name="amoled_mode_summary">Kan kragverbruik verminder, afhangende van die toestel se skermtegnologie</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Gebruik stelseltale"</string>
+    <string name="select_input_method">"Verander sleutelbord"</string>
 </resources>

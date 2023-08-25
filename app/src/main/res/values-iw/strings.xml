@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"חלון קופץ בלחיצה על מקש"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"העדפות"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"חשבונות ופרטיות"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"מראה ופריסות"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"מראה ופריסות"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"הקלדה רציפה"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"תיקון טקסט"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"אפשרויות מתקדמות"</string>
@@ -231,4 +231,7 @@
     <string name="prefs_force_incognito_mode_summary">השבת למידה של מילים חדשות</string>
     <string name="more_keys_strip_description">עוד מפתחות</string>
     <string name="amoled_mode">רקע שחור עמוק</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"שימוש בשפות מערכת"</string>
+    <string name="select_input_method">"שינוי מקלדת"</string>
+    <string name="settings_screen_appearance">"מראה"</string>
 </resources>

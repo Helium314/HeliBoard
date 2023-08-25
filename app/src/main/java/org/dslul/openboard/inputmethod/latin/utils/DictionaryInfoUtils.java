@@ -329,6 +329,7 @@ public class DictionaryInfoUtils {
         return MAIN_DICT_PREFIX + locale.toLowerCase(Locale.ENGLISH) + ".dict";
     }
 
+    @Nullable
     public static DictionaryHeader getDictionaryFileHeaderOrNull(final File file,
             final long offset, final long length) {
         try {

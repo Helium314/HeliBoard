@@ -313,14 +313,14 @@ public final class SubtypeLocaleUtils {
         return LocaleUtils.constructLocaleFromString(localeString);
     }
 
-    @Nonnull
+    @Nullable
     public static String getKeyboardLayoutSetDisplayName(
             @Nonnull final InputMethodSubtype subtype) {
         final String layoutName = getKeyboardLayoutSetName(subtype);
         return getKeyboardLayoutSetDisplayName(layoutName);
     }
 
-    @Nonnull
+    @Nullable
     public static String getKeyboardLayoutSetDisplayName(@Nonnull final String layoutName) {
         return sKeyboardLayoutToDisplayNameMap.get(layoutName);
     }

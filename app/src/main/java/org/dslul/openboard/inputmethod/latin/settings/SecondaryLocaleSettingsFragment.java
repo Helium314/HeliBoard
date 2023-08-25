@@ -109,7 +109,7 @@ public final class SecondaryLocaleSettingsFragment extends SubScreenFragment {
                 locale = "";
             final Set<String> encodedLocales = new HashSet<>();
             boolean updated = false;
-            for (String encodedLocale : getSharedPreferences().getStringSet(Settings.PREF_SECONDARY_LOCALES, new HashSet<>())) {
+            for (String encodedLocale : getSharedPreferences().getStringSet(Settings.PREF_SECONDARY_LOCALES_PREFIX, new HashSet<>())) {
                 String[] locs = encodedLocale.split("§");
                 if (locs.length == 2 && locs[0].equals(mainLocale)) {
                     if (!locale.isEmpty())
@@ -121,7 +121,7 @@ public final class SecondaryLocaleSettingsFragment extends SubScreenFragment {
             }
             if (!updated)
                 encodedLocales.add(mainLocale + "§" + locale);
-            getSharedPreferences().edit().putStringSet(Settings.PREF_SECONDARY_LOCALES, encodedLocales).apply();
+            getSharedPreferences().edit().putStringSet(Settings.PREF_SECONDARY_LOCALES_PREFIX, encodedLocales).apply();
             final Intent newDictBroadcast = new Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
             getActivity().sendBroadcast(newDictBroadcast);
             resetKeyboardLocales();

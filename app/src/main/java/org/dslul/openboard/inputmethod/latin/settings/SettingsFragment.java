@@ -29,15 +29,18 @@ import android.provider.Settings.Secure;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethodcommon.InputMethodSettingsFragment;
 
+import java.util.List;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -83,6 +86,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         if (actionBar != null && screenTitle != null) {
             actionBar.setTitle(screenTitle);
         }
+        findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
         if (BuildConfig.DEBUG)
             askAboutCrashReports();
     }
@@ -129,11 +133,20 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         return Secure.getInt(activity.getContentResolver(), "user_setup_complete", 0) != 0;
     }
 
+    private String getEnabledSubtypesLabel() {
+        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(getActivity()), true);
+        final StringBuilder sb = new StringBuilder();
+        for (final InputMethodSubtype subtype : subtypes) {
+            if (sb.length() > 0)
+                sb.append(", ");
+            sb.append(subtype.getDisplayName(getActivity(), getActivity().getPackageName(), getActivity().getApplicationInfo()));
+        }
+        return sb.toString();
+
     private void askAboutCrashReports() {
         // find crash report files
         final File dir = getActivity().getExternalFilesDir(null);
         if (dir == null) return;
-//        final File[] files = dir.listFiles((file, s) -> file.getName().startsWith("crash_report"));
         final File[] allFiles = dir.listFiles();
         if (allFiles == null) return;
         crashReportFiles.clear();

@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Tuşa basıldığında pop-up aç"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Tercihler"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Hesaplar ve Gizlilik"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Görünüm ve Düzenler"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Görünüm ve Düzenler"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Hareketle Yazma"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Metin düzeltme"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Gelişmiş"</string>
@@ -231,4 +231,6 @@
     <string name="settings_category_additional_keys">Ek tuşlar</string>
     <string name="autospace_after_punctuation">Noktalama işaretlerinden sonra otomatik boşluk</string>
     <string name="autospace_after_punctuation_summary">Yeni bir sözcük yazarken noktalama işaretlerinden sonra otomatik olarak boşluk ekle</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillerini kullan"</string>
+    <string name="select_input_method">"Klavyeyi değiştir"</string>
 </resources>

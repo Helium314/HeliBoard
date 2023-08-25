@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"കീ അമർത്തുമ്പോൾ പോപ്പപ്പ്"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"മുൻഗണനകൾ"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"അക്കൗണ്ടുകളും സമന്വയവും"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"രൂപഭാവവും ലേഔട്ടുകളും"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"രൂപഭാവവും ലേഔട്ടുകളും"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ഗെസ്ചർ ടൈപ്പിംഗ്"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ടെക്സ്റ്റ് തിരുത്തൽ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"വിപുലം"</string>
@@ -231,4 +231,6 @@
     <string name="settings_category_input">ഇൻപുട്ട്</string>
     <string name="settings_category_additional_keys">അധിക കീകൾ</string>
     <string name="settings_category_correction">തിരുത്തലുകൾ</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"സിസ്റ്റം ഭാഷകൾ ഉപയോഗിക്കുക"</string>
+    <string name="select_input_method">"കീബോഡ് മാറ്റുക"</string>
 </resources>

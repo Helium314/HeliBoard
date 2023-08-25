@@ -67,11 +67,6 @@
     <PreferenceCategory
         android:title="@string/settings_category_miscellaneous">
 
-        <PreferenceScreen
-            android:fragment="org.dslul.openboard.inputmethod.latin.settings.CustomInputStyleSettingsFragment"
-            android:key="custom_input_styles"
-            android:title="@string/custom_input_styles_title" />
-
         <CheckBoxPreference
             android:key="pref_split_keyboard"
             android:title="@string/enable_split_keyboard"

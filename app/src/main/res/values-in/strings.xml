@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Muncul saat tombol ditekan"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferensi"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Akun &amp; Privasi"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Tampilan &amp; Tata Letak"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Tampilan &amp; Tata Letak"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Ketikan Gestur"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Koreksi teks"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Lanjutan"</string>
@@ -231,4 +231,6 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Spasi otomatis setelah tanda baca</string>
     <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
+    <string name="select_input_method">"Ubah keyboard"</string>
 </resources>

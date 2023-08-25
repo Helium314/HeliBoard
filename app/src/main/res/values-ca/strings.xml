@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Amplia en prémer tecles"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferències"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Comptes i privadesa"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Aparença i disposició"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aparença i disposició"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escriptura gestual"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correcció de textos"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avançada"</string>
@@ -231,4 +231,6 @@
     <string name="prefs_resize_keyboard">Activa la redimensió del teclat</string>
     <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema.</string>
     <string name="subtype_no_language_colemak_dh">Alfabètic (Colemak Mod-DH)</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
+    <string name="select_input_method">"Canvia el teclat"</string>
 </resources>

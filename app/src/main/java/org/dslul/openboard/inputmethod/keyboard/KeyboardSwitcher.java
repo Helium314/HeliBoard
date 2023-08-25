@@ -24,6 +24,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 
@@ -592,5 +593,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return ScriptUtils.SCRIPT_UNKNOWN;
         }
         return mKeyboardLayoutSet.getScriptId();
+    }
+
+    public void switchToSubtype(InputMethodSubtype subtype) {
+        Log.i("test1", "switch to "+subtype.getLocale());
+        mLatinIME.switchToSubtype(subtype);
     }
 }
