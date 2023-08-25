@@ -285,4 +285,7 @@
     <string name="license">ওপেন-সোর্স লাইসেন্স</string>
     <string name="gnu_gpl">জিএনইউ জেনারেল পাবলিক লাইসেন্স তৃতীয় সংস্করণ</string>
     <string name="prefs_narrow_key_gaps">বোতামের বিভাজন সংকীর্ণকরণ</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"সিস্টেমের ভাষাগুলি ব্যবহার করুন"</string>
+    <string name="select_input_method">"কীবোর্ড পরিবর্তন করুন"</string>
+    <string name="settings_screen_appearances">"উপস্থিতি"</string>
 </resources>

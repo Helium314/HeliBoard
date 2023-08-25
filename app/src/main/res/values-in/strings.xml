@@ -231,4 +231,6 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Spasi otomatis setelah tanda baca</string>
     <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
+    <string name="select_input_method">"Ubah keyboard"</string>
 </resources>

@@ -231,4 +231,6 @@
     <string name="amoled_mode">Tamnocrne pozadine</string>
     <string name="show_clipboard_key">Tipka međuspremnika</string>
     <string name="number_row">Broj retka</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>
+    <string name="select_input_method">"Promjena tipkovnice"</string>
 </resources>

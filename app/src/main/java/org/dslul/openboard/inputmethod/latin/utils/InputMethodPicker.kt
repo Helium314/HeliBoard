@@ -57,7 +57,7 @@ fun showInputMethodPicker(latinIme: LatinIME, richImm: RichInputMethodManager, w
     }
 
     val dialog = AlertDialog.Builder(DialogUtils.getPlatformDialogThemeContext(latinIme))
-        .setTitle(R.string.change_keyboard)
+        .setTitle(R.string.select_input_method)
         .setSingleChoiceItems(items.toTypedArray(), currentSubtypeIndex) { di, i ->
             di.dismiss()
             val (imi, subtype) = enabledSubtypes[i]

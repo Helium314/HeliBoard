@@ -222,4 +222,6 @@
     <string name="theme_variant">Variante do tema</string>
     <string name="key_borders">Limite das teclas</string>
     <string name="android_spell_checker_settings">Definições de verificação ortográfica OpenBoard</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Utilizar idiomas do sistema"</string>
+    <string name="select_input_method">"Alterar teclado"</string>
 </resources>

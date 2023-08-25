@@ -231,4 +231,6 @@
     <string name="theme_family">Gaien familia</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Erabili sistemaren hizkuntzak"</string>
+    <string name="select_input_method">"Aldatu teklatua"</string>
 </resources>

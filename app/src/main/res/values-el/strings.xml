@@ -231,4 +231,6 @@
     <string name="show_hints_summary">Εμφάνιση υποδείξεων με παρατεταμένο πάτημα</string>
     <string name="show_clipboard_key">Πλήκτρο προχείρου</string>
     <string name="theme_family">Θέμα οικογένεια</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
+    <string name="select_input_method">"Αλλαγή πληκτρολογίου"</string>
 </resources>

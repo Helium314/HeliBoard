@@ -222,4 +222,6 @@
     <string name="key_borders">Tastekanter</string>
     <string name="theme_family">Draktfamilie</string>
     <string name="amoled_mode">Svarte bakgrunner</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Bruk systemspråk"</string>
+    <string name="select_input_method">"Endre tastatur"</string>
 </resources>

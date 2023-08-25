@@ -203,4 +203,6 @@
     <string name="ime_settings">設定</string>
     <string name="settings_category_input">輸入</string>
     <string name="settings_category_correction">文字改正</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"使用系統語言"</string>
+    <string name="select_input_method">"變更鍵盤"</string>
 </resources>

@@ -231,4 +231,6 @@
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles, si lo hay</string>
     <string name="autospace_after_punctuation">Espacio automático después del punto</string>
     <string name="autospace_after_punctuation_summary">Insertar un espacio automático después del punto cuando se escriba una nueva palabra</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
+    <string name="select_input_method">"Cambiar teclado"</string>
 </resources>

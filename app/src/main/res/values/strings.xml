@@ -43,8 +43,6 @@
     <string name="settings_screen_preferences">Preferences</string>
     <!-- Settings screen title for accounts and privacy preferences [CHAR LIMIT=33]-->
     <string name="settings_screen_accounts">Accounts &amp; Privacy</string>
-    <!-- Settings screen title for appearance & layouts preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">Appearance &amp; Layouts</string>
     <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
     <string name="settings_screen_gesture">Gesture Typing</string>
     <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
@@ -232,8 +230,6 @@
     <string name="help_and_feedback">Help &amp; feedback</string>
     <!-- Preference for input language selection -->
     <string name="select_language">Languages</string>
-    <!-- Preference for selecting system locales -->
-    <string name="system_languages">Use system languages</string>
     <!-- Add to dictionary hint -->
     <string name="hint_add_to_dictionary">Tap again to save</string>
     <!-- Add to dictionary hint -->
@@ -702,6 +698,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
+    <!-- Preference for selecting system locales -->
+    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
-    <string name="change_keyboard">Change Keyboard</string>
+    <string name="select_input_method">"Change keyboard"</string>
+    <!-- Settings screen title for appearance & layouts preferences [CHAR LIMIT=33] -->
+    <string name="settings_screen_appearance">Appearance &amp; Layouts</string>
+    <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
+    <string name="settings_screen_appearances">"Appearance"</string>
 </resources>

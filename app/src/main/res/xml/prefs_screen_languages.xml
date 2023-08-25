@@ -6,7 +6,7 @@
     android:key="screen_languages">
     <CheckBoxPreference
         android:key="pref_use_system_locales"
-        android:title="@string/system_languages"
+        android:title="@string/use_system_language_to_select_input_method_subtypes"
         android:defaultValue="true"
         android:persistent="true" />
     <org.dslul.openboard.inputmethod.latin.settings.LanguageFilterListPreference

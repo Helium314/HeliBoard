@@ -231,4 +231,6 @@
     <string name="amoled_mode_summary">Może zmniejszyć zużycie energii w zależności od technologii ekranu urządzenia</string>
     <string name="autospace_after_punctuation_summary">Automatyczne wstawianie spacji po znaku interpunkcyjnym podczas wpisywania nowego słowa</string>
     <string name="autospace_after_punctuation">Automatyczne wstawianie spacji po znaku interpunkcyjnym</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Użyj języków systemu"</string>
+    <string name="select_input_method">"Zmień klawiaturę"</string>
 </resources>

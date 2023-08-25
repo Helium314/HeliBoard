@@ -218,4 +218,6 @@
     <string name="theme_family">سمة العائلة</string>
     <string name="theme_variant">متغير السمة</string>
     <string name="key_borders">الحدود الرئيسية</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"استخدام لغات النظام"</string>
+    <string name="select_input_method">"تغيير لوحة المفاتيح"</string>
 </resources>

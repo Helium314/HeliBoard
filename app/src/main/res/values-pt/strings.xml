@@ -222,4 +222,7 @@
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de introdução com a tecla Espaço</string>
     <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas do sistema"</string>
+    <string name="select_input_method">"Alterar teclado"</string>
+    <string name="settings_screen_appearances">"Aparência"</string>
 </resources>

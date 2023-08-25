@@ -228,4 +228,6 @@
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>
     <string name="settings_category_correction">Correcciones</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
+    <string name="select_input_method">"Cambiar el teclado"</string>
 </resources>
