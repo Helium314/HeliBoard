@@ -427,7 +427,7 @@ public class DictionaryInfoUtils {
             for (final File directory : directoryList) {
                 final String localeString = getWordListIdFromFileName(directory.getName());
                 final File[] dicts = BinaryDictionaryGetter.getCachedWordLists(
-                        localeString, context);
+                        localeString, context, false);
                 for (final File dict : dicts) {
                     final String wordListId = getWordListIdFromFileName(dict.getName());
                     if (!DictionaryInfoUtils.isMainWordListId(wordListId)) {

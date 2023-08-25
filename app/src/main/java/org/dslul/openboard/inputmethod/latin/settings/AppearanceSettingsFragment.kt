@@ -38,6 +38,17 @@ import java.util.*
  */
 @Suppress("Deprecation") // yes everything here is deprecated, but only work on this if really necessary
 // todo: simplify when removing old themes
+// idea for color selection
+//  left: which color (background, key, text,...)
+//  right: color preview (always the correct one, even if determined automatically)
+//   maybe copy parts from simple keyboard, see e.g. screenshot 4 in https://github.com/SimpleMobileTools/Simple-Keyboard/tree/main/fastlane/metadata/android/en-US/images/phoneScreenshots
+//  below (for some colors, with indent):
+//   enable user-defining (most colors, but definitely not background)
+//   use system accent (for accent and text colors)
+//  on click: color selector
+//   maybe copy parts from simple keyboard, see e.g. screenshot 4 in https://github.com/SimpleMobileTools/Simple-Keyboard/tree/main/fastlane/metadata/android/en-US/images/phoneScreenshots
+//    but full range would be preferable
+//   use some color picker library? would likely allow nicer tuning
 class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceChangeListener, OnSharedPreferenceChangeListener {
 
     private var selectedThemeId = 0

@@ -188,6 +188,25 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Видалити"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
     <string name="ime_settings">Налаштування OpenBoard</string>
+    <string name="theme_navbar">Колір навігаційної панелі</string>
+    <string name="theme_name_light">Світла</string>
+    <string name="theme_name_dark">Темна</string>
+    <string name="theme_name_darker">Сіра</string>
+    <string name="theme_name_black">Чорна</string>
+    <string name="theme_name_user">Користувальницька</string>
+    <string name="select_user_colors">Налаштування кольорів теми</string>
+    <string name="select_user_colors_summary">Виберіть кольори для тексту та фону</string>
+    <string name="select_color_to_adjust">Виберіть кольори для налаштування</string>
+    <string name="select_color_background">Фон клавіатури</string>
+    <string name="select_color_key">Текст клавіш</string>
+    <string name="select_color_key_hint">Текст спецсимволів клавіш</string>
+    <string name="select_color_key_background">Фон клавіш</string>
+    <string name="select_color_accent">Акцент</string>
+    <string name="settings_screen_about">Довідка</string>
+    <string name="version">Версія</string>
+    <string name="about_github_link" >Подивитися на GitHub</string>
+    <string name="license" >Ліцензія з відкритим кодом</string>
+    <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Використовувати мови системи"</string>
     <string name="select_input_method">"Змінити клавіатуру"</string>
 </resources>

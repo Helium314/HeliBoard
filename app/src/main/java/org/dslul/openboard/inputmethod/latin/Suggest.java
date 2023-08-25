@@ -205,13 +205,33 @@ public final class Suggest {
 
         // We allow auto-correction if whitelisting is not required or the word is whitelisted,
         // or if the word had more than one char and was not suggested.
-        final boolean allowsToBeAutoCorrected =
-                (SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION || whitelistedWord != null)
+        final boolean allowsToBeAutoCorrected;
+        if ((SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION || whitelistedWord != null)
                 || (consideredWord.length() > 1 && (sourceDictionaryOfRemovedWord == null)) // more than 1 letter and not in dictionary
-                || (firstSuggestionInContainer != null && putEmptyWordSuggestions(firstAndTypedWordEmptyInfos, // first suggestion appears in emptyWordSuggestions
-                        ngramContext, keyboard, settingsValuesForSuggestion, inputStyleIfNotPrediction,
-                        firstSuggestionInContainer.getWord(), typedWordString).get(0) != null);
+        ) {
+            allowsToBeAutoCorrected = true;
+        } else if (firstSuggestionInContainer != null && !typedWordString.isEmpty()) {
+            // maybe allow autocorrect, depending on emptyWordSuggestions
+            putEmptyWordSuggestions(firstAndTypedWordEmptyInfos,
+                    ngramContext, keyboard, settingsValuesForSuggestion, inputStyleIfNotPrediction,
+                    firstSuggestionInContainer.getWord(), typedWordString);
+            final SuggestedWordInfo first = firstAndTypedWordEmptyInfos.get(0);
+            final SuggestedWordInfo typed = firstAndTypedWordEmptyInfos.get(1);
+            if (first == null) {
+                allowsToBeAutoCorrected = false; // no autocorrect if first suggestion unknown in this context
+            } else if (typed == null) {
+                allowsToBeAutoCorrected = true; // autocorrect if typed word not known in this context (this may be too aggressive)
+            } else {
+                // autocorrect only if suggested word has clearly higher score
+                // todo: maybe adjust the score difference? but already 15 requires typing several times (but doesn't go back quickly...)
+                //  maybe this should depend on mAutoCorrectionThreshold
+                //  0.185 for modest, 0.067 for aggressive, negative infinity for very aggressive
+                allowsToBeAutoCorrected = (first.mScore - typed.mScore) > 20;
+            }
+        } else
+            allowsToBeAutoCorrected = false;
         // todo: hope autocorrect doesn't trigger too often now (remove this comment if ok)
+        //  yes, it triggered too often / weirdly in some cases, but hopefully improved
 
         final boolean hasAutoCorrection;
         // If correction is not enabled, we never auto-correct. This is for example for when
@@ -354,7 +374,8 @@ public final class Suggest {
                 infos.set(1, info);
             } else if (infos.get(0) == null && firstSuggestionInContainer.equals(info.getWord())) {
                 infos.set(0, info);
-            }
+            } else if (infos.get(1) != null && infos.get(0) != null)
+                break;
         }
         return infos;
     }
