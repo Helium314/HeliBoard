@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">Mostrar popup de teclas</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferências"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Contas e privacidade"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">Aparência e esquemas</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">Aparência e esquemas</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escrita com gestos"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correção de texto"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">Avançado</string>

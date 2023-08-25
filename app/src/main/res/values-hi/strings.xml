@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"बटन दबाने पर पॉपअप दिखाएं"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राथमिकताएं"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"खाते और निजता"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"दिखावट और सज्जा"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"दिखावट और सज्जा"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"संकेतोें द्वारा टाइपिंग"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"लेख सुधार"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"बेहतर सेटिंग"</string>

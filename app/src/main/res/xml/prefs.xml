@@ -28,7 +28,7 @@
         android:icon="@drawable/ic_settings_preferences"/>
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AppearanceSettingsFragment"
-        android:title="@string/settings_screen_appearances"
+        android:title="@string/settings_screen_appearance"
         android:key="screen_appearance"
         android:icon="@drawable/ic_settings_appearance"/>
     <PreferenceScreen

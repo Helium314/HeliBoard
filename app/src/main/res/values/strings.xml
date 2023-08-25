@@ -702,8 +702,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">"Change keyboard"</string>
-    <!-- Settings screen title for appearance & layouts preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">Appearance &amp; Layouts</string>
+    <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]
+    This string is not used, but the new string below (settings_screen_appearance) is not translated
+    into nearly as many languages, and the old string may act as a guide for translators. -->
+    <string name="settings_screen_appearance_and_layouts">Appearance &amp; Layouts</string>
     <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearances">"Appearance"</string>
+    <string name="settings_screen_appearance">"Appearance"</string>
 </resources>

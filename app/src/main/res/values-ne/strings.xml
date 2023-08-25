@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"कुञ्जी दबाउँदा पपअप"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राथमिकताहरू"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"खाताहरू तथा गोपनीयता"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"आवरण तथा लेआउटहरू"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"आवरण तथा लेआउटहरू"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"इशारा टाइपिङ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"पाठ सुधार"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"उन्नत"</string>
@@ -192,5 +192,5 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"प्रणालीका भाषाहरू प्रयोग गर्नुहोस्"</string>
     <string name="select_input_method">"कुञ्जीपाटी परिवर्तन गर्नुहोस्"</string>
-    <string name="settings_screen_appearances">"उपस्थिति"</string>
+    <string name="settings_screen_appearance">"उपस्थिति"</string>
 </resources>

@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"ໂຕອັກສອນເວລາພິມ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"​​ການ​ຕັ້ງ​ຄ່າ"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"ບັນຊີ ແລະ ຄວາມເປັນສ່ວນຕົວ"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"​ລັກ​ສະ​ນະ &amp; ໂຄງ​ຮ່າງ"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"​ລັກ​ສະ​ນະ &amp; ໂຄງ​ຮ່າງ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"​ກາ​ນ​ພິມ​ແບບ​ລາກ​ນິ້ວ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"​ການ​ແປງ​ຄຳ​ໃຫ້​ຖືກ​ຕ້ອງ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"​ຂັ້ນ​ສູງ"</string>
@@ -192,5 +192,5 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ໃຊ້ພາສາຂອງລະບົບ"</string>
     <string name="select_input_method">"​ປ່ຽນ​ແປ້ນ​ພິມ"</string>
-    <string name="settings_screen_appearances">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
+    <string name="settings_screen_appearance">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
 </resources>

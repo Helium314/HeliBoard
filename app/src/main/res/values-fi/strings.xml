@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Ponnahdusikkuna painalluksella"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Asetukset"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Tilit ja tietosuoja"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Ulkoasu ja asettelut"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Ulkoasu ja asettelut"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Piirtokirjoitus"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Tekstin korjaus"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Lisäasetukset"</string>
@@ -192,5 +192,5 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Käytä järjestelmän kieliä"</string>
     <string name="select_input_method">"Vaihda näppäimistö"</string>
-    <string name="settings_screen_appearances">"Ulkonäkö"</string>
+    <string name="settings_screen_appearance">"Ulkonäkö"</string>
 </resources>

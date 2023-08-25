@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Pop-up on key press"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferences"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Accounts &amp; Privacy"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Appearance &amp; Layouts"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Appearance &amp; Layouts"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Gesture Typing"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Text correction"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Advanced"</string>
@@ -192,5 +192,5 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
     <string name="select_input_method">"Change keyboard"</string>
-    <string name="settings_screen_appearances">"Appearance"</string>
+    <string name="settings_screen_appearance">"Appearance"</string>
 </resources>

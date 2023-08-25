@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Изск. прозорец при натискане на клавиш"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Предпочитания"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Профили и поверителност"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Облик и оформления"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Облик и оформления"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Въвеждане чрез жест"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Коригиране на текст"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Разширени"</string>

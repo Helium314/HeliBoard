@@ -5,7 +5,7 @@
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
     <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa entradas da sua lista de contatos</string>
-    <string name="settings_screen_appearance">Aparência e Layouts</string>
+    <string name="settings_screen_appearance_and_layouts">Aparência e Layouts</string>
     <string name="settings_screen_gesture">Escrita por Gestos</string>
     <string name="settings_screen_correction">Correção de Texto</string>
     <string name="settings_screen_advanced">Avançado</string>
