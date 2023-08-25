@@ -107,6 +107,9 @@ public interface DictionaryFacilitator {
 
     Locale getLocale();
 
+    // useful for multilingual typing
+    Locale getCurrentLocale();
+
     boolean usesContacts();
 
     String getAccount();

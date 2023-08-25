@@ -20,5 +20,5 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"পরামর্শ উন্নত করতে আপনার যোগাযোগসমূহ এবং টাইপ করা তথ্য থেকে শিখুন"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"পরামর্শ উন্নত করতে আপনার যোগাযোগ এবং টাইপ করা তথ্য থেকে শিখবে"</string>
 </resources>

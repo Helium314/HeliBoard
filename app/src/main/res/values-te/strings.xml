@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"ఇన్‌పుట్ ఎంపికలు"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"పరిచయ పేర్లను వెతకండి"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"స్పెల్ చెకర్ మీ పరిచయ జాబితా నుండి నమోదులను ఉపయోగిస్తుంది"</string>
@@ -28,8 +25,8 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"కీని నొక్కినప్పుడు పాప్‌అప్ చూపు"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ప్రాధాన్యతలు"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"ఖాతాలు &amp; గోప్యత"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"కనిపించే తీరు &amp; లేఅవుట్‌లు"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"సంజ్ఞ టైపింగ్"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"కనిపించే తీరు &amp; లేఅవుట్‌లు"</string>
+    <string name="settings_screen_gesture" msgid="8826372746901183556">సైగలతో టైపింగ్</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"వచన సవరణ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"అధునాతనం"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"థీమ్"</string>
@@ -155,7 +152,7 @@
     <string name="user_dictionaries" msgid="3582332055892252845">"వినియోగదారు నిఘంటువులు"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"వినియోగదారు నిఘంటువు"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"నిఘంటువు అందుబాటులో ఉంది"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"ప్రస్తుతం డౌన్‌లోడ్ చేస్తోంది"</string>
+    <string name="dictionary_downloading" msgid="2982650524622620983">ప్రస్తుతం డౌన్‌లోడ్ అవుతోంది</string>
     <string name="dictionary_installed" msgid="8081558343559342962">"ఇన్‌స్టాల్ చేయబడింది"</string>
     <string name="dictionary_disabled" msgid="8950383219564621762">"ఇన్‌స్టాల్ చేయబడింది, నిలిపివేయబడింది"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"నిఘంటువు సేవకు కనెక్ట్ చేయడంలో సమస్య"</string>
@@ -190,4 +187,26 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"మరిన్ని భాషలు…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"తొలగించు"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="number_row_summary">సంఖ్యల వరుసను ఎల్లప్పుడూ చూపండి</string>
+    <string name="prefs_force_incognito_mode">అజ్ఞాత పద్దతి ప్రయోగించండి</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"సిస్టమ్ భాషలను ఉపయోగించు"</string>
+    <string name="select_input_method">"కీబోర్డ్‌ను మార్చు"</string>
+    <string name="prefs_force_incognito_mode_summary">కొత్త పదముల అభ్యాసమును ఆపండి</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">ఇన్పుట్ పద్దతి మార్చుటకు స్పేస్ కీ వాడండి</string>
+    <string name="prefs_keyboard_height_scale">కీబోర్డ్ ఎత్తు కొలత</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">ఇన్పుట్ పద్దతి ఎంపిక కొరకు స్పేస్ కీ ని కొద్ది సేపు నొక్కి ఉంచండి</string>
+    <string name="settings_category_clipboard_history">క్లిప్ బోర్డ్ హిస్టరీ</string>
+    <string name="settings_category_suggestions">సూచనలు</string>
+    <string name="settings_category_experimental">ప్రయోగాత్మకము</string>
+    <string name="settings_category_correction">సరిదిద్దుట</string>
+    <string name="settings_category_miscellaneous">వివధములు</string>
+    <string name="settings_no_limit">పరిమితి లేదు</string>
+    <string name="more_keys_strip_description">మరికొన్ని కీస్</string>
+    <string name="number_row">సంఖ్యల వరుస</string>
+    <string name="spell_checker_service_name">ఓపెన్ బోర్డ్ స్పెల్ల్ చెకర్</string>
+    <string name="android_spell_checker_settings">ఓపెన్ బోర్డ్ స్పెల్ చెకర్ సెటింగ్స్</string>
+    <string name="show_clipboard_key">క్లిప్ బోర్డు కీ</string>
+    <string name="show_hints">కీ సూచనలు చూపండి</string>
+    <string name="ime_settings">పరికరము యొక్క సాంకేతికతను బట్టి విద్యుత్ వినియోగము తగ్గించవచ్చు</string>
+    <string name="settings_category_additional_keys">అదనపు కీస్</string>
 </resources>

@@ -25,6 +25,10 @@
         android:orientation="horizontal"
         android:paddingTop="@dimen/setup_welcome_video_top_padding"
         android:paddingBottom="@dimen/setup_welcome_video_bottom_padding">
+        <View
+            android:layout_weight="@integer/setup_welcome_video_end_padding_weight_in_screen"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
         <LinearLayout
             android:layout_weight="@integer/setup_welcome_video_weight_in_screen"
             android:layout_width="0dp"
@@ -34,6 +38,7 @@
             android:background="@color/setup_welcome_video_margin_color" >
             <VideoView
                 android:id="@+id/setup_welcome_video"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/setup_background"

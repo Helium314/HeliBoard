@@ -96,7 +96,7 @@
             android:persistent="true" />
 
         <CheckBoxPreference
-            android:key="add_to_personal_dictionary"
+            android:key="pref_add_to_personal_dictionary"
             android:title="@string/add_to_personal_dictionary"
             android:summary="@string/add_to_personal_dictionary_summary"
             android:defaultValue="false"

@@ -41,6 +41,7 @@
                 android:protectionLevel="signature" />
 
     <application android:label="@string/english_ime_name"
+            android:name="org.dslul.openboard.inputmethod.latin.App"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
@@ -58,7 +59,7 @@
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
-            <meta-data android:name="android.view.im" android:resource="@xml/method" />
+            <meta-data android:name="android.view.im" android:resource="@xml/method_dummy" />
         </service>
 
         <service android:name=".spellcheck.AndroidSpellCheckerService"

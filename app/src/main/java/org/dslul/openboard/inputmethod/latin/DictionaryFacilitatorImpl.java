@@ -302,6 +302,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    public Locale getCurrentLocale() {
+        return getCurrentlyPreferredDictionaryGroup().mLocale;
+    }
+
+    @Override
     public boolean usesContacts() {
         return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_CONTACTS) != null;
     }

@@ -142,4 +142,6 @@
     </string-array>
     <!-- permission name as string to avoid issues with debug build -->
     <string name="hide_soft_input_permission">org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT</string>
+    <!-- App slogan-->
+    <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
 </resources>

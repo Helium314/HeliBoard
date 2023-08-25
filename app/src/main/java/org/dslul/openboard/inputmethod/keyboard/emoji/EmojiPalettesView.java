@@ -530,7 +530,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         private void onTouchCanceled(final View v) {
-            v.setBackgroundColor(Color.TRANSPARENT);
+            v.setPressed(false);
         }
     }
 }

@@ -444,13 +444,6 @@
             android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
-            android:label="@string/subtype_hu_ZZ"
-            android:imeSubtypeLocale="hu_ZZ"
-            android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
-            android:isAsciiCapable="true"
-    />
-    <subtype android:icon="@drawable/ic_ime_switcher_dark"
             android:label="@string/subtype_generic"
             android:subtypeId="0xe39ac3ca"
             android:imeSubtypeLocale="hy_AM"

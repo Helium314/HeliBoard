@@ -79,7 +79,6 @@
             <default>
                 <include
                     latin:keyboardLayout="@xml/rowkeys_azerty2"
-                    latin:keyXPos="4.5%p"
                     latin:keyWidth="9.0%p" />
                 <Key
                     latin:keyStyle="enterKeyStyle"

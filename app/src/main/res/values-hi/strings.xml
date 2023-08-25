@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"इनपुट विकल्‍प"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"संपर्कों को सर्च करें"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"स्पेलिंग जाँचने वाली सेवा आपकी संपर्क सूची के संपर्कों इस्तेमाल करता है"</string>
@@ -28,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"बटन दबाने पर पॉपअप दिखाएं"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राथमिकताएं"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"खाते और निजता"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"दिखावट और सज्जा"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"दिखावट और सज्जा"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"संकेतोें द्वारा टाइपिंग"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"लेख सुधार"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"बेहतर सेटिंग"</string>
@@ -190,4 +187,7 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ज़्यादा भाषाएं…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"मिटाएं"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"सिस्टम की भाषाओं का उपयोग करें"</string>
+    <string name="spell_checker_service_name"></string>
+    <string name="select_input_method">"कीबोर्ड बदलें"</string>
 </resources>

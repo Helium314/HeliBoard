@@ -1,7 +1,6 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 
@@ -12,6 +11,7 @@ import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 
+// todo: maybe kotlin? would make it much shorter and more readable
 public class Colors {
 
     public final boolean isCustom;
@@ -55,10 +55,10 @@ public class Colors {
     }
 
     // todo (later): remove this and isCustom, once the old themes can be completely replaced
-    public Colors(int themeId, int nightModeFlags) {
+    public Colors(int themeId, final boolean isNight) {
         isCustom = false;
         if (KeyboardTheme.getIsDayNight(themeId)) {
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO)
+            if (!isNight)
                 navBar = Color.rgb(236, 239, 241);
             else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK)
                 navBar = Color.rgb(38, 50, 56);
@@ -132,6 +132,7 @@ public class Colors {
                 : null;
     }
 
+    // todo: move static functions to some utility class?
     public static boolean isBrightColor(final int color) {
         if (android.R.color.transparent == color) {
             return true;
@@ -161,20 +162,23 @@ public class Colors {
         return (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
     }
 
-    @ColorInt
-    public static int brighten(@ColorInt int color) {
+    private static int adjustLuminosityAndKeepAlpha(@ColorInt final int color, final float amount) {
+        final int alpha = Color.alpha(color);
         float[] hsl = new float[3];
         ColorUtils.colorToHSL(color, hsl);
-        hsl[2] += 0.05f;
-        return ColorUtils.HSLToColor(hsl);
+        hsl[2] += amount;
+        final int newColor = ColorUtils.HSLToColor(hsl);
+        return Color.argb(alpha, Color.red(newColor), Color.green(newColor), Color.blue(newColor));
     }
 
     @ColorInt
-    public static int darken(@ColorInt int color) {
-        float[] hsl = new float[3];
-        ColorUtils.colorToHSL(color, hsl);
-        hsl[2] -= 0.05f;
-        return ColorUtils.HSLToColor(hsl);
+    public static int brighten(@ColorInt final int color) {
+        return adjustLuminosityAndKeepAlpha(color, 0.05f);
+    }
+
+    @ColorInt
+    public static int darken(@ColorInt final int color) {
+        return adjustLuminosityAndKeepAlpha(color, -0.05f);
     }
 
 }

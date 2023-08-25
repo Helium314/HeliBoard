@@ -35,6 +35,10 @@
             android:key="custom_theme_variant"
             android:title="@string/theme_variant"/>
 
+        <ListPreference
+            android:key="custom_theme_variant_night"
+            android:title="@string/theme_variant"/>
+
         <CheckBoxPreference
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
@@ -50,7 +54,7 @@
             android:summary="@string/amoled_mode_summary"/>
 
         <CheckBoxPreference
-            android:key="navbar_color"
+            android:key="pref_navbar_color"
             android:title="@string/theme_navbar"/>
 
         <Preference
@@ -63,11 +67,6 @@
     <PreferenceCategory
         android:title="@string/settings_category_miscellaneous">
 
-        <PreferenceScreen
-            android:fragment="org.dslul.openboard.inputmethod.latin.settings.CustomInputStyleSettingsFragment"
-            android:key="custom_input_styles"
-            android:title="@string/custom_input_styles_title" />
-
         <CheckBoxPreference
             android:key="pref_split_keyboard"
             android:title="@string/enable_split_keyboard"
@@ -78,6 +77,12 @@
             android:key="pref_resize_keyboard"
             android:title="@string/prefs_resize_keyboard"
             android:defaultValue="false"
+            android:persistent="true" />
+
+        <CheckBoxPreference
+            android:key="pref_narrow_key_gaps"
+            android:title="@string/prefs_narrow_key_gaps"
+            android:defaultValue="true"
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
