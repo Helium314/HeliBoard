@@ -78,6 +78,7 @@ class LanguageSettingsDialog(
                         val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toHashSet()
                         val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes((oldAdditionalSubtypes + newSubtype).toTypedArray())
                         Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+                        addEnabledSubtype(prefs, newSubtype)
                         subtypes.add(newSubtypeInfo)
                         onSubtypesChanged()
                     }
@@ -94,7 +95,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSubtypeToView(subtype: SubtypeInfo, subtypesView: LinearLayout) {
-        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, null)
+        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, this.listView)
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
@@ -226,6 +227,11 @@ class LanguageSettingsDialog(
             ?: return onDictionaryLoadingError(R.string.dictionary_file_error)
 
         val locale = newHeader.mLocaleString.toLocale()
+        // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not,
+        // e.g. for Persian or Chinese. But at least fail when dictionary certainly is incompatible
+        if (ScriptUtils.getScriptFromSpellCheckerLocale(locale) != ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale))
+            return onDictionaryLoadingError(R.string.dictionary_file_wrong_script)
+
         if (locale != mainLocale) {
             val message = context.resources.getString(
                 R.string.dictionary_file_wrong_locale,
