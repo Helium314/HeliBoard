@@ -65,7 +65,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
                         added = true
                     }
                 }
-                if (!added && locale.country.isEmpty()) {
+                if (!added && locale.country.isNotEmpty()) {
                     // try again, but with language only
                     val languageString = locale.language
                     val iter = allSubtypes.iterator()
