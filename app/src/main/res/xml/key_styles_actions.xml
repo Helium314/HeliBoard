@@ -126,7 +126,7 @@
                 latin:styleName="customLabelActionKeyStyle"
                 latin:keySpec="dummy_label|!code/key_enter"
                 latin:keyLabelFlags="fromCustomActionLabel"
-                latin:backgroundType="functional"
+                latin:backgroundType="action"
                 latin:parentStyle="defaultEnterKeyStyle" />
         </default>
     </switch>
