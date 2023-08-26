@@ -229,6 +229,4 @@
     <string name="theme_variant">نوع تم</string>
     <string name="key_borders">حاشیه کلید</string>
     <string name="day_night_mode">حالت روز/شب خودکار</string>
-    <string name="amoled_mode">پس زمینه سیاه مطلق</string>
-    <string name="amoled_mode_summary">بسته به فناوری صفحه نمایش دستگاه می‌تواند مصرف انرژی را کاهش دهد</string>
 </resources>

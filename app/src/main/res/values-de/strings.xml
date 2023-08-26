@@ -226,10 +226,8 @@
     <string name="day_night_mode_summary">Aussehen (hell/dunkel) folgt der Systemeinstellung für den Tag-/Nachtmodus</string>
     <string name="key_borders">Tastenränder</string>
     <string name="day_night_mode">Automatischer Tag-/Nachtmodus</string>
-    <string name="amoled_mode">Tiefschwarzer Hintergrund</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Bengali)</string>
     <string name="subtype_no_language_workman">Lat. Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Lat. Alphabet (Colemak Mod-DH)</string>
-    <string name="amoled_mode_summary">Kann den Stromverbrauch reduzieren (abhängig von der Bildschirmtechnologie)</string>
     <string name="auto_correction_confidence">Vertrauenslevel der Autokorrektur</string>
 </resources>

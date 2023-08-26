@@ -627,10 +627,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="day_or_night_night">Night</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
-    <!-- Option for enabling AMOLED mode [CHAR LIMIT=33] -->
-    <string name="amoled_mode">Deep black backgrounds</string>
-    <!-- Description indicating amoled mode can lower power usage depending on the screen of the device. -->
-    <string name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
     <!-- Option for setting navbar to follow keyboard color -->
     <string name="theme_navbar">Color navigation bar</string>
     <!-- Theme name for light theme -->

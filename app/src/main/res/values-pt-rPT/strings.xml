@@ -194,8 +194,6 @@
     <string name="prefs_force_incognito_mode">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
-    <string name="amoled_mode">Fundo muito escuro</string>
-    <string name="amoled_mode_summary">Pode reduzir a utilização de energia (conforme a tecnologia do ecrã)</string>
     <string name="spell_checker_service_name">Verificação ortográfica OpenBoard</string>
     <string name="ime_settings">Definições OpenBoard</string>
     <string name="settings_category_input">Introdução</string>

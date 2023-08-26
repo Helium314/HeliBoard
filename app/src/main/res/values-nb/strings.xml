@@ -216,10 +216,8 @@
     <string name="show_hints">Vis tastaturhint</string>
     <string name="show_hints_summary">Vis langtrykkshint</string>
     <string name="prefs_force_incognito_mode">Påtving inkognito-modus</string>
-    <string name="amoled_mode_summary">Kan redusere effektforbruk avhengig av skjermteknologi</string>
     <string name="key_borders">Tastekanter</string>
     <string name="theme_family">Draktfamilie</string>
-    <string name="amoled_mode">Svarte bakgrunner</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Bruk systemspråk"</string>
     <string name="select_input_method">"Endre tastatur"</string>
 </resources>

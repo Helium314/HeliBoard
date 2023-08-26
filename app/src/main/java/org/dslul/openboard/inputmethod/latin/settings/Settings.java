@@ -67,7 +67,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_CUSTOM_THEME_VARIANT_NIGHT = "custom_theme_variant_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
-    public static final String PREF_THEME_AMOLED_MODE = "theme_amoled_mode";
     public static final String PREF_THEME_USER = "theme_select_colors";
     public static final String PREF_THEME_USER_COLOR_TEXT = "theme_color_text";
     public static final String PREF_THEME_USER_COLOR_HINT_TEXT = "theme_color_hint_text";
@@ -576,9 +575,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
                 prefs.getString(Settings.PREF_THEME_FAMILY, ""),
                 prefs.getString(Settings.PREF_THEME_VARIANT, ""),
-                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false),
-                prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false),
-                prefs.getBoolean(Settings.PREF_THEME_AMOLED_MODE, false)
+                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
         );
         // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
         final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;

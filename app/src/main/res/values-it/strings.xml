@@ -214,8 +214,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Premendo a lungo la barra spaziatrice verrà visualizzato il menu di selezione del metodo di immissione</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="day_night_mode_summary">L\'aspetto seguirà le impostazioni di sistema</string>
-    <string name="amoled_mode">Sfondi nero profondo</string>
-    <string name="amoled_mode_summary">Può ridurre il consumo energetico, a seconda della tecnologia dello schermo del dispositivo</string>
     <string name="settings_category_additional_keys">Tasti aggiuntivi</string>
     <string name="settings_category_correction">Correzioni</string>
     <string name="settings_category_suggestions">Suggerimenti</string>

@@ -194,7 +194,6 @@
     <string name="enable_clipboard_history_summary">Hvis deaktiveret, vil udklipsholdertasten indsætte eventuelt indhold af udklipsholderen</string>
     <string name="clipboard_history_retention_time">Opbevaringstid for historik</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
-    <string name="amoled_mode">Dybsorte baggrunde</string>
     <string name="key_borders">Tastegrænser</string>
     <string name="day_night_mode">Auto dag/nat-tilstand</string>
     <string name="day_night_mode_summary">Udseende følger systemindstillinger</string>
@@ -215,7 +214,6 @@
     <string name="space_trackpad">Pegefelt på mellemrumstasten</string>
     <string name="autospace_after_punctuation">Auto-mellemrum efter tegnsætning</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="amoled_mode_summary">Kan reducere strømforbruget afhængigt af enhedens skærmteknologi</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="ime_settings">OpenBoard-indstillinger</string>
     <string name="settings_category_input">Input</string>

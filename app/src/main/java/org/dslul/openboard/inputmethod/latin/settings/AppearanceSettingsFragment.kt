@@ -37,7 +37,8 @@ import java.util.*
  * "Appearance" settings sub screen.
  */
 @Suppress("Deprecation") // yes everything here is deprecated, but only work on this if really necessary
-// todo: simplify when removing old themes
+// todo: simplify when removing old themes (or migrating holo to same style as user themes)
+//  there is a bunch of ugly things in the theme settings, and mostly for historic reasons...
 // idea for color selection
 //  left: which color (background, key, text,...)
 //  right: color preview (always the correct one, even if determined automatically)
@@ -56,10 +57,8 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
 
     private lateinit var themeFamilyPref: ListPreference
     private lateinit var themeVariantPref: ListPreference
-    private lateinit var customThemeVariantPref: ListPreference
     private lateinit var customThemeVariantNightPref: ListPreference
     private lateinit var keyBordersPref: TwoStatePreference
-    private lateinit var amoledModePref: TwoStatePreference
     private var dayNightPref: TwoStatePreference? = null
     private lateinit var userColorsPref: Preference
 
@@ -160,11 +159,9 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
     private fun saveSelectedThemeId(
             family: String = themeFamilyPref.value,
             variant: String = themeVariantPref.value,
-            keyBorders: Boolean = keyBordersPref.isChecked,
-            dayNight: Boolean = dayNightPref?.isChecked ?: false,
-            amoledMode: Boolean = amoledModePref.isChecked
+            keyBorders: Boolean = keyBordersPref.isChecked
     ) {
-        selectedThemeId = KeyboardTheme.getThemeForParameters(family, variant, keyBorders, dayNight, amoledMode)
+        selectedThemeId = KeyboardTheme.getThemeForParameters(family, variant, keyBorders)
         KeyboardTheme.saveKeyboardThemeId(selectedThemeId, sharedPreferences)
     }
 
@@ -178,45 +175,31 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             }
         }
         val variants = KeyboardTheme.THEME_VARIANTS[themeFamily]!!
-        val variant = KeyboardTheme.getThemeVariant(selectedThemeId)
+        val variant = if (isLegacyFamily) KeyboardTheme.getThemeVariant(selectedThemeId)
+            else sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT)
         if (!skipThemeVariant) {
             themeVariantPref.apply {
-                entries = variants
+                entries = if (isLegacyFamily) variants // todo: translatable string for holo, not internal name
+                    else variants.map {
+                        val resId = resources.getIdentifier("theme_name_$it", "string", activity.packageName)
+                        if (resId == 0) it else getString(resId)
+                    }.toTypedArray()
                 entryValues = variants
                 value = variant ?: variants[0]
-                summary = variant ?: "Auto"
-                isEnabled = isLegacyFamily || !KeyboardTheme.getIsDayNight(selectedThemeId)
+                summary = if (isLegacyFamily) variant
+                    else {
+                        val resId = resources.getIdentifier("theme_name_$variant", "string", activity.packageName)
+                        if (resId == 0) variant else getString(resId)
+                    }
             }
         }
-        customThemeVariantPref.apply {
-            val variant = sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT)
-            // todo (idea): re-work setting to actually see preview of theme colors... but that's a lot of work
-            val variants = KeyboardTheme.CUSTOM_THEME_VARIANTS
-            entries = variants.map {
-                val resId = resources.getIdentifier("theme_name_$it", "string", activity.packageName)
-                if (resId == 0) it else getString(resId)
-            }.toTypedArray()
-            entryValues = variants
-            value = variant
-            val resId = resources.getIdentifier("theme_name_$variant", "string", activity.packageName)
-            summary = if (resId == 0) variant else getString(resId)
-            isEnabled = true
-        }
         keyBordersPref.apply {
-            isEnabled = !isLegacyFamily && !KeyboardTheme.getIsAmoledMode(selectedThemeId)
+            isEnabled = !isLegacyFamily
             isChecked = isLegacyFamily || KeyboardTheme.getHasKeyBorders(selectedThemeId)
-        }
-        amoledModePref.apply {
-            isEnabled = !isLegacyFamily && variant != KeyboardTheme.THEME_VARIANT_LIGHT
-                    && !KeyboardTheme.getHasKeyBorders(selectedThemeId)
-                    && !KeyboardTheme.getIsCustom(selectedThemeId)
-            isChecked = !isLegacyFamily && KeyboardTheme.getIsAmoledMode(selectedThemeId)
         }
         dayNightPref?.apply {
             isEnabled = !isLegacyFamily
-            isChecked = !isLegacyFamily && (KeyboardTheme.getIsDayNight(selectedThemeId)
-                    || (KeyboardTheme.getIsCustom(selectedThemeId) && sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
-                    )
+            isChecked = !isLegacyFamily && KeyboardTheme.getIsCustom(selectedThemeId) && sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
         }
     }
 
@@ -234,9 +217,19 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         }
         themeVariantPref = preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT) as ListPreference
         themeVariantPref.apply {
-            title = "$title old (to be removed)" // todo: remove, this is just a workaround while there are still 2 ways of selecting variant
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
+
+                if (themeFamilyPref.value == KeyboardTheme.THEME_FAMILY_MATERIAL) {
+                    // not so nice workaround, could be removed in the necessary re-work: new value seems
+                    // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now
+                    if (value == sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT))
+                        return@OnPreferenceChangeListener true // avoid infinite loop
+                    sharedPreferences.edit { putString(Settings.PREF_CUSTOM_THEME_VARIANT, value as String) }
+
+                    summary = entries[entryValues.indexOfFirst { it == value }]
+                    needsReload = true
+                }
                 saveSelectedThemeId(variant = value as String)
                 updateThemePreferencesState(skipThemeFamily = true, skipThemeVariant = true)
                 true
@@ -248,44 +241,14 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             updateThemePreferencesState(skipThemeFamily = true)
             true
         }
-        amoledModePref = preferenceScreen.findPreference(Settings.PREF_THEME_AMOLED_MODE) as TwoStatePreference
-        amoledModePref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            saveSelectedThemeId(amoledMode = value as Boolean)
-            updateThemePreferencesState(skipThemeFamily = true)
-            true
-        }
         dayNightPref = preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) as? TwoStatePreference
         dayNightPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            saveSelectedThemeId(dayNight = value as Boolean)
             updateThemePreferencesState(skipThemeFamily = true)
             true
-        }
-        customThemeVariantPref = preferenceScreen.findPreference(Settings.PREF_CUSTOM_THEME_VARIANT) as ListPreference
-        customThemeVariantPref.apply {
-            title = "$title new" // todo: remove, this is just a workaround while there are still 2 ways of selecting variant
-            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-                // not so nice workaround, could be removed in the necessary re-work: new value seems
-                // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now
-                if (value == sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT))
-                    return@OnPreferenceChangeListener true // avoid infinite loop
-                sharedPreferences.edit { putString(Settings.PREF_CUSTOM_THEME_VARIANT, value as String) }
-
-                summary = entries[entryValues.indexOfFirst { it == value }]
-                needsReload = true
-
-                // always switch to user-defined theme variant
-                val themeFamily = KeyboardTheme.getThemeFamily(selectedThemeId)
-                val variants = KeyboardTheme.THEME_VARIANTS[themeFamily]!!
-                val userVariant = variants.first { it.contains("user", true) }
-                saveSelectedThemeId(variant = userVariant as String)
-                updateThemePreferencesState(skipThemeFamily = true)
-
-                true
-            }
         }
         customThemeVariantNightPref = preferenceScreen.findPreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT) as ListPreference
         customThemeVariantNightPref.apply {
-            title = "$title new (night)" // todo: remove, this is just a workaround while there are still 2 ways of selecting variant
+            title = "$title (night)" // todo: string resource
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 // not so nice workaround, could be removed in the necessary re-work: new value seems
                 // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now

@@ -189,7 +189,6 @@
     <string name="day_night_mode_summary">La apariencia seguirá los ajustes del sistema</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="number_row_summary">Mostrar siempre fila de números</string>
-    <string name="amoled_mode_summary">Puede reducir el uso de energía dependiendo de la tecnología de su pantalla</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Cambiar método de entrada con la barra espaciadora</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Al presionar por mucho tiempo la barra espaciadora, aparecerá el menú de selección del método de entrada</string>
@@ -216,7 +215,6 @@
     <string name="show_hints">Mostrar símbolos adicionales</string>
     <string name="show_hints_summary">Mostrar sugerencias al mantener pulsado</string>
     <string name="day_night_mode">Modo claro/oscuro automático</string>
-    <string name="amoled_mode">Fondo negro</string>
     <string name="key_borders">Bordes de teclas</string>
     <string name="theme_family">Temas</string>
     <string name="theme_variant">Variante de tema</string>

@@ -225,8 +225,6 @@
     <string name="key_borders">Obramowanie klawiszy</string>
     <string name="day_night_mode">Automatyczny tryb dzienny/nocny</string>
     <string name="day_night_mode_summary">Wygląd będzie zgodny z ustawieniami systemu</string>
-    <string name="amoled_mode">Głęboka czerń tła</string>
-    <string name="amoled_mode_summary">Może zmniejszyć zużycie energii w zależności od technologii ekranu urządzenia</string>
     <string name="autospace_after_punctuation_summary">Automatyczne wstawianie spacji po znaku interpunkcyjnym podczas wpisywania nowego słowa</string>
     <string name="autospace_after_punctuation">Automatyczne wstawianie spacji po znaku interpunkcyjnym</string>
     <string name="auto_correction_confidence">Dokładność autokorekty</string>

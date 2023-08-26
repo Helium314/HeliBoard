@@ -200,8 +200,6 @@
     <string name="theme_variant">Tema varianti</string>
     <string name="day_night_mode">Avtomatik kunduz/tun rejimi</string>
     <string name="day_night_mode_summary">Tashqi ko\'rinish tizim sozlamalariga binoan</string>
-    <string name="amoled_mode">To\'q qora fon</string>
-    <string name="amoled_mode_summary">Qurilma ekrani texnologiyasiga qarab quvvat sarfini kamaytirishi mumkin</string>
     <string name="spell_checker_service_name">OpenBoard Imlo tekshiruvi</string>
     <string name="android_spell_checker_settings">OpenBoard Imlo Tekshiruvi Sozlamalari</string>
     <string name="show_clipboard_key">Bufer tugmasi</string>

@@ -234,22 +234,14 @@
     <declare-styleable name="Keyboard">
         <attr name="themeId" format="enum">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
-            <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDarkAmoled" value="4" />
-            <enum name="LXXAutoAmoled" value="10" />
-            <enum name="LXXDark" value="7" />
-            <enum name="LXXAuto" value="9" />
-            <enum name="LXXLightBorder" value="5" />
-            <enum name="LXXDarkBorder" value="6" />
-            <enum name="LXXAutoBorder" value="8" />
-            <enum name="LXXCustom" value="11" />
-            <enum name="LXXCustomBorder" value="12" />
-            <enum name="KLPCustom" value="13" />
-            <enum name="LXXBase" value="14" />
-            <enum name="LXXBaseBorder" value="15" />
+                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BLUE} etc. -->
+            <enum name="HoloBlue" value="0" />
+            <enum name="HoloWhite" value="1" />
+            <enum name="HoloCustom" value="2" />
+            <enum name="LXXBase" value="3" />
+            <enum name="LXXBaseBorder" value="4" />
+            <enum name="LXXCustom" value="5" />
+            <enum name="LXXCustomBorder" value="6" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
@@ -502,12 +494,15 @@
             <enum name="numpad" value="28"  />
         </attr>
         <!-- This should be aligned with Keyboard.themeId and
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
+             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BLUE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
-            <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDark" value="4" />
+            <enum name="HoloBlue" value="0" />
+            <enum name="HoloWhite" value="1" />
+            <enum name="HoloCustom" value="2" />
+            <enum name="LXXBase" value="3" />
+            <enum name="LXXBaseBorder" value="4" />
+            <enum name="LXXCustom" value="5" />
+            <enum name="LXXCustomBorder" value="6" />
         </attr>
         <!-- This should be aligned with
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->

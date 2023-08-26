@@ -212,8 +212,6 @@
     <string name="key_borders">Limite das teclas</string>
     <string name="theme_family">Família do tema</string>
     <string name="theme_variant">Variante do tema</string>
-    <string name="amoled_mode_summary">Pode reduzir a utilização de energia (conforme a tecnologia do ecrã)</string>
-    <string name="amoled_mode">Fundo muito escuro</string>
     <string name="settings_category_additional_keys">Teclas adicionais</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>

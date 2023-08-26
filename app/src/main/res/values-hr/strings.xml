@@ -209,7 +209,6 @@
     <string name="prefs_force_incognito_mode_summary">Deaktiviraj učenje novih riječi</string>
     <string name="theme_family">Obitelj teme</string>
     <string name="theme_variant">Varijanta teme</string>
-    <string name="amoled_mode_summary">Može smanjiti potrošnju energije ovisno o tehnologiji ekrana uređaja</string>
     <string name="space_trackpad">Razmaknica kao dodirna ploča</string>
     <string name="space_trackpad_summary">Prelazi prstom po razmaknici za pomicanje kursora</string>
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
@@ -226,7 +225,6 @@
     <string name="key_borders">Tipke s rubovima</string>
     <string name="day_night_mode">Automatski danji/noćni način rada</string>
     <string name="day_night_mode_summary">Izgled će slijediti postavke sustava</string>
-    <string name="amoled_mode">Tamnocrne pozadine</string>
     <string name="show_clipboard_key">Tipka međuspremnika</string>
     <string name="number_row">Broj retka</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>

@@ -126,8 +126,6 @@
     <string name="theme_variant">Variante do tema</string>
     <string name="theme_family">Família do tema</string>
     <string name="key_borders">Borda em teclas</string>
-    <string name="amoled_mode">Fundo muito escuro</string>
-    <string name="amoled_mode_summary">Reduzir o uso de energia (dependendo da tecnologia de tela do dispositivo)</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do OpenBoard</string>
     <string name="android_spell_checker_settings">Configurar corretor ortográfico do OpenBoard</string>
     <string name="use_contacts_for_spellchecking_option_title">Procurar nomes de contatos</string>

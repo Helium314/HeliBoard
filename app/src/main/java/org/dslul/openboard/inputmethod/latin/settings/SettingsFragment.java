@@ -83,6 +83,12 @@ public final class SettingsFragment extends PreferenceFragment {
         if (actionBar != null && screenTitle != null) {
             actionBar.setTitle(screenTitle);
         }
+
+        // todo: got a crash because it wasn't initialized...
+        //  but sometimes wrong languages are returned when not initializing on creation of LatinIME
+        //  maybe wait until some user actually encounters this bug, initializing here is really rare
+        SubtypeSettingsKt.init(getActivity());
+
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
         if (BuildConfig.DEBUG)
             askAboutCrashReports();

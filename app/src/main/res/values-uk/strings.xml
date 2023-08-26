@@ -189,7 +189,6 @@
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
     <string name="theme_variant">Варіант теми</string>
-    <string name="amoled_mode_summary">Може зменшити енергоспоживання в залежності від технології екрану пристрою</string>
     <string name="day_night_mode">Автоматичний режим день/ніч</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Аккгор)</string>
@@ -246,7 +245,6 @@
     <string name="number_row">Рядок цифр</string>
     <string name="number_row_summary">Завжди показувати рядок цифр</string>
     <string name="key_borders">Границі клавіш</string>
-    <string name="amoled_mode">Глибокий чорний фон</string>
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
     <string name="theme_family">Сімейство тем</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>

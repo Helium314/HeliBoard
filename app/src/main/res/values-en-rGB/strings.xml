@@ -208,7 +208,6 @@
     <string name="show_hints_summary">Show long-press hints</string>
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <string name="day_night_mode">Auto day/night mode</string>
-    <string name="amoled_mode">Deep black backgrounds</string>
     <string name="key_borders">Key borders</string>
     <string name="theme_family">Theme family</string>
     <string name="theme_variant">Theme variant</string>
@@ -216,7 +215,6 @@
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
-    <string name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <string name="prefs_resize_keyboard">Enable keyboard resizing</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>

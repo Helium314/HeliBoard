@@ -197,11 +197,9 @@
     <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'OpenBoard</string>
     <string name="delete_swipe">Esborra amb lliscament</string>
     <string name="show_emoji_key">Tecla d\'accés a emoticones</string>
-    <string name="amoled_mode">Fons negre profund</string>
     <string name="prefs_force_incognito_mode_summary">Desactiva l\'aprenentatge de paraules noves.</string>
     <string name="number_row">Numera les files</string>
     <string name="number_row_summary">Mostra sempre el número de fila.</string>
-    <string name="amoled_mode_summary">Pot reduir l\'ús energètic depenent de la tecnologia de la pantalla.</string>
     <string name="ime_settings">Configuració de l\'OpenBoard</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_miscellaneous">Miscel·lània</string>

@@ -204,7 +204,6 @@
     <string name="subtype_no_language_workman">Alfabe (Workman)</string>
     <string name="key_borders">Tuş kenarlıkları</string>
     <string name="day_night_mode">Otomatik gündüz/gece modu</string>
-    <string name="amoled_mode_summary">Aygıtın ekran teknolojisine bağlı olarak güç kullanımını azaltabilir</string>
     <string name="spell_checker_service_name">OpenBoard Yazım Denetleyicisi</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>dak.</string>
     <string name="settings_category_suggestions">Öneriler</string>
@@ -223,7 +222,6 @@
     <string name="subtype_no_language_colemak_dh">Alfabe (Colemak Mod-DH)</string>
     <string name="theme_family">Tema ailesi</string>
     <string name="day_night_mode_summary">Görünüm sistem ayarlarını takip edecektir</string>
-    <string name="amoled_mode">Derin siyah arka planlar</string>
     <string name="ime_settings">OpenBoard Ayarları</string>
     <string name="settings_category_input">Giriş</string>
     <string name="settings_category_additional_keys">Ek tuşlar</string>

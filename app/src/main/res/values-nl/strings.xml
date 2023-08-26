@@ -226,8 +226,6 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="theme_family">Thema familie</string>
     <string name="key_borders">Toetsen randen</string>
-    <string name="amoled_mode_summary">Kan het stroomverbruik verminderen, afhankelijk van de schermtechnologie van het apparaat</string>
-    <string name="amoled_mode">Diep zwarte achtergronden</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na punt bij het typen van een nieuw woord</string>
     <string name="ime_settings">OpenBoard Instellingen</string>
     <string name="settings_category_input">Invoer</string>

@@ -208,12 +208,10 @@
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>
     <string name="theme_variant">Variante de thème</string>
     <string name="day_night_mode_summary">L\'apparence suivra les paramètres système</string>
-    <string name="amoled_mode">Arrière-plans noir profond</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
     <string name="theme_family">Famille de thème</string>
     <string name="key_borders">Bordures de touche</string>
     <string name="day_night_mode">Mode jour/nuit automatique</string>
-    <string name="amoled_mode_summary">Peut réduire la consommation d\'énergie en fonction de la technologie d\'écran de l\'appareil</string>
     <string name="prefs_resize_keyboard">Autoriser le redimensionnement du clavier</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>

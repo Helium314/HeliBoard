@@ -23,7 +23,7 @@
         name="InputView.Holo"
         parent="InputView"
     />
-    <!-- Holo KeyboardView theme (ICS and KLP) -->
+    <!-- Holo KeyboardView theme (HoloBlue and HoloWhite) -->
     <style
         name="KeyboardView.Holo"
         parent="KeyboardView"

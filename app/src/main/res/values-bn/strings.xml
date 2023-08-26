@@ -256,8 +256,6 @@
     <string name="day_or_night_colors">দিবা অথবা রাত্রির রং সম্পাদনা?</string>
     <string name="day_or_night_day">দিবা</string>
     <string name="day_or_night_night">রাত্রি</string>
-    <string name="amoled_mode">গাঢ় কালো পটভূমি</string>
-    <string name="amoled_mode_summary">ডিভাইসের স্ক্রিনের প্রযুক্তি ভেদে শক্তির ব্যবহার হ্রাস হতে পারে</string>
     <string name="theme_navbar">রঙিন ন্যাভিগেশন বার</string>
     <string name="theme_name_light">উজ্জ্বল</string>
     <string name="theme_name_dark">নিষ্প্রভ</string>

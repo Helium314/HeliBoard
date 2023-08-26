@@ -55,23 +55,10 @@ public class Colors {
     }
 
     // todo (later): remove this and isCustom, once the old themes can be completely replaced
+    // for now there are the holo themes left, which don't require any of themeId and isNight
     public Colors(int themeId, final boolean isNight) {
         isCustom = false;
-        if (KeyboardTheme.getIsDayNight(themeId)) {
-            if (!isNight)
-                navBar = Color.rgb(236, 239, 241);
-            else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK)
-                navBar = Color.rgb(38, 50, 56);
-            else
-                navBar = Color.BLACK;
-        } else if (KeyboardTheme.THEME_VARIANT_LIGHT.equals(KeyboardTheme.getThemeVariant(themeId))) {
-            navBar = Color.rgb(236, 239, 241);
-        } else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK) {
-            navBar = Color.rgb(38, 50, 56);
-        } else {
-            // dark border is 13/13/13, but that's ok
-            navBar = Color.BLACK;
-        }
+        navBar = Color.BLACK;
         accent = 0;
         background = 0;
         keyBackground = 0;

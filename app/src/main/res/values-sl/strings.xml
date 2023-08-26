@@ -209,7 +209,6 @@
     <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja OpenBoard</string>
     <string name="show_clipboard_key">Tipka odložišča</string>
     <string name="day_night_mode">Samodejni dnevni/nočni način</string>
-    <string name="amoled_mode">Ozadja z globoko črnino</string>
     <string name="prefs_keyboard_height_scale">Spremeni višino tipkovnice</string>
     <string name="theme_family">Skupina tem</string>
     <string name="settings_category_experimental">Poskusne možnosti</string>
@@ -227,6 +226,5 @@
     <string name="space_trackpad_summary">Podrsaj po preslednici za premik kazalca</string>
     <string name="show_hints_summary">Prikaži namige z dolgim pritiskom</string>
     <string name="day_night_mode_summary">Izgled bo sledil sistemskim nastavitvam</string>
-    <string name="amoled_mode_summary">Odvisno od tehnologije zaslona lahko zmanjša porabo energije</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dolg pritisk na preslednico bo priklical meni za izbiro načina vnosa</string>
 </resources>

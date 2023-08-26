@@ -223,12 +223,10 @@
     <string name="theme_family">테마 패밀리</string>
     <string name="day_night_mode">자동 밤낮 모드</string>
     <string name="day_night_mode_summary">시스템 설정에 따른 모양</string>
-    <string name="amoled_mode_summary">기기의 화면 기술에 의존하여 전력 사용량을 줄일 수 있습니다</string>
     <string name="delete_swipe_summary">한번에 많은 글자들을 선택하고 제거하기 위해서는 삭제 키를 스와이프하기</string>
     <string name="space_trackpad_summary">커서를 움직이기 위해서는 스페이스바를 스와이프</string>
     <string name="theme_variant">테마 유형</string>
     <string name="key_borders">키의 경계</string>
-    <string name="amoled_mode">진한 검정 배경</string>
     <string name="subtype_no_language_workman">알파벳 (Workman)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (벵골어)</string>
     <string name="subtype_no_language_colemak_dh">알파벳 (Colemak Mod-DH)</string>

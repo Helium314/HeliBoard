@@ -209,7 +209,6 @@
     <string name="autospace_after_punctuation">标点后面自动插入空格</string>
     <string name="autospace_after_punctuation_summary">单词输入后自动添加空格</string>
     <string name="theme_variant">主题变化</string>
-    <string name="amoled_mode_summary">可大幅减少耗电量（具体取决于设备的屏幕技术）</string>
     <string name="spell_checker_service_name">拼写检查</string>
     <string name="android_spell_checker_settings">拼写检查设置</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (学校管理模板)</string>
@@ -220,7 +219,6 @@
     <string name="key_borders">边框</string>
     <string name="day_night_mode">自动主题</string>
     <string name="day_night_mode_summary">系统自动</string>
-    <string name="amoled_mode">深色背景</string>
     <string name="settings_category_input">输入</string>
     <string name="ime_settings">OpenBoard设置</string>
     <string name="settings_category_additional_keys">额外键</string>

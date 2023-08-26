@@ -214,7 +214,6 @@
     <string name="show_emoji_key">ემოჯის ღილაკი</string>
     <string name="delete_swipe">ჟესტით წაშლა</string>
     <string name="theme_variant">თემის ვარიანტი</string>
-    <string name="amoled_mode">მუქი შავი ფონები</string>
     <string name="ime_settings">OpenBoard-ის მორგება</string>
     <string name="settings_category_input">შეყვანა</string>
     <string name="theme_family">თემის ოჯახი</string>
@@ -227,7 +226,6 @@
     <string name="clipboard_history_retention_time">ისტორიის შენახვის დრო</string>
     <string name="space_trackpad_summary">კურსორის გადასატანად გამოტოვების ღილაკს გაუსვით</string>
     <string name="more_keys_strip_description">მეტი ღილაკი</string>
-    <string name="amoled_mode_summary">შეუძლია შეამციროს ენერგიის მოხმარება, მოწყობილობის ეკრანის ტექნოლოგიაზე დამოკიდებულებით</string>
     <string name="prefs_resize_keyboard">კლავიატურის ზომის შეცვლის დაშვება</string>
     <string name="prefs_keyboard_height_scale">კლავიატურის სიმაღლის მასშტაბი</string>
     <string name="key_borders">ღილაკის კონტურები</string>

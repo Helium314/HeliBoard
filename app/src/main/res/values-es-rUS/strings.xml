@@ -220,8 +220,6 @@
     <string name="theme_family">Temas</string>
     <string name="theme_variant">Variante del tema</string>
     <string name="day_night_mode">Modo claro/oscuro automático</string>
-    <string name="amoled_mode">Fondo oscuro (AMOLED)</string>
-    <string name="amoled_mode_summary">Puede reducir el uso de energía dependiendo de la tecnología de pantalla del dispositivo</string>
     <string name="ime_settings">Ajustes de OpenBoard</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_additional_keys">Teclas adicionales</string>

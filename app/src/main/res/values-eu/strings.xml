@@ -215,8 +215,6 @@
     <string name="key_borders">Gako-ertzak</string>
     <string name="day_night_mode">Egun/gau modu automatikoa</string>
     <string name="day_night_mode_summary">Itxurak sistemaren ezarpenei jarraituko die</string>
-    <string name="amoled_mode">Atzeko plano ilun-ilunak</string>
-    <string name="amoled_mode_summary">Gailuaren pantaila-teknologiaren arabera, energia-erabilera murriztu dezake</string>
     <string name="ime_settings">OpenBoard Ezarpenak</string>
     <string name="settings_category_additional_keys">Giltza gehigarriak</string>
     <string name="android_spell_checker_settings">OpenBoard Ortografia Zuzentzailearen Ezarpenak</string>

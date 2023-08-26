@@ -19,57 +19,57 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="KeyboardTheme.KLP" parent="KeyboardIcons.Holo">
+    <style name="KeyboardTheme.HoloWhite" parent="KeyboardIcons.Holo">
         <item name="inputViewStyle">@style/InputView.Holo</item>
-        <item name="keyboardStyle">@style/Keyboard.KLP</item>
-        <item name="keyboardViewStyle">@style/KeyboardView.KLP</item>
-        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.KLP</item>
-        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.KLP</item>
-        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.KLP</item>
-        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.KLP</item>
-        <!-- Note: KLP theme uses the same style for both general more keys and action more keys. -->
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.KLP</item>
-        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.KLP</item>
-        <item name="suggestionStripViewStyle">@style/SuggestionStripView.KLP</item>
-        <item name="suggestionWordStyle">@style/SuggestionWord.KLP</item>
+        <item name="keyboardStyle">@style/Keyboard.HoloWhite</item>
+        <item name="keyboardViewStyle">@style/KeyboardView.HoloWhite</item>
+        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.HoloWhite</item>
+        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.HoloWhite</item>
+        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.HoloWhite</item>
+        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.HoloWhite</item>
+        <!-- Note: HoloWhite theme uses the same style for both general more keys and action more keys. -->
+        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.HoloWhite</item>
+        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.HoloWhite</item>
+        <item name="suggestionStripViewStyle">@style/SuggestionStripView.HoloWhite</item>
+        <item name="suggestionWordStyle">@style/SuggestionWord.HoloWhite</item>
     </style>
     <style
-        name="Keyboard.KLP"
+        name="Keyboard.HoloWhite"
         parent="Keyboard"
     >
         <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
-        <item name="themeId">KLP</item>
+        <item name="themeId">HoloWhite</item>
     </style>
     <style
-        name="KeyboardView.KLP"
+        name="KeyboardView.HoloWhite"
         parent="KeyboardView.Holo"
     >
         <item name="android:background">@drawable/keyboard_background_holo</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_klp</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_klp</item>
-        <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_klp</item>
-        <item name="keyTextColor">@color/key_text_color_holo</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_holo_white</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_holo_white</item>
+        <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_holo_white</item>
+        <item name="keyTextColor">@color/key_text_color_blue</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactivated_color_holo</item>
-        <item name="functionalTextColor">@color/key_text_color_holo</item>
+        <item name="functionalTextColor">@color/key_text_color_blue</item>
         <item name="keyHintLetterColor">@color/key_hint_letter_color_holo</item>
         <item name="keyHintLabelColor">@color/key_hint_label_color_holo</item>
         <item name="keyShiftedLetterHintInactivatedColor">@color/key_shifted_letter_hint_inactivated_color_holo</item>
         <item name="keyShiftedLetterHintActivatedColor">@color/key_shifted_letter_hint_activated_color_holo</item>
-        <item name="keyPreviewTextColor">@color/key_text_color_holo</item>
+        <item name="keyPreviewTextColor">@color/key_text_color_blue</item>
     </style>
     <style
-        name="MainKeyboardView.KLP"
-        parent="KeyboardView.KLP"
+        name="MainKeyboardView.HoloWhite"
+        parent="KeyboardView.HoloWhite"
     >
-        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_klp</item>
+        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_holo_white</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_holo</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_holo</item>
         <item name="keyPreviewShowUpAnimator">@anim/key_preview_show_up_holo</item>
         <item name="keyPreviewDismissAnimator">@anim/key_preview_dismiss_holo</item>
-        <item name="gestureFloatingPreviewTextColor">@color/highlight_color_klp</item>
+        <item name="gestureFloatingPreviewTextColor">@color/highlight_color_holo_white</item>
         <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_holo</item>
-        <item name="gestureTrailColor">@color/highlight_color_klp</item>
-        <item name="slidingKeyInputPreviewColor">@color/highlight_translucent_color_klp</item>
+        <item name="gestureTrailColor">@color/highlight_color_holo_white</item>
+        <item name="slidingKeyInputPreviewColor">@color/highlight_translucent_color_holo_white</item>
         <item name="languageOnSpacebarTextColor">@color/spacebar_text_color_holo</item>
         <item name="languageOnSpacebarTextShadowRadius">1.0</item>
         <item name="languageOnSpacebarTextShadowColor">@color/spacebar_text_shadow_color_holo</item>
@@ -79,13 +79,13 @@
          delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
          attributes. -->
     <style
-        name="EmojiPalettesView.KLP"
-        parent="MainKeyboardView.KLP"
+        name="EmojiPalettesView.HoloWhite"
+        parent="MainKeyboardView.HoloWhite"
     >
         <item name="categoryIndicatorEnabled">true</item>
-        <item name="categoryIndicatorDrawable">@drawable/emoji_category_tab_selected_klp</item>
+        <item name="categoryIndicatorDrawable">@drawable/emoji_category_tab_selected_holo_white</item>
         <item name="categoryIndicatorBackground">@drawable/emoji_category_tab_unselected_holo_dark</item>
-        <item name="categoryPageIndicatorColor">@color/highlight_color_klp</item>
+        <item name="categoryPageIndicatorColor">@color/highlight_color_holo_white</item>
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_holo</item>
         <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_holo_dark</item>
         <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_holo_dark</item>
@@ -100,13 +100,13 @@
         <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_holo_dark</item>
     </style>
     <style
-            name="ClipboardHistoryView.KLP"
-            parent="ClipboardHistoryView.ICS"
+            name="ClipboardHistoryView.HoloWhite"
+            parent="ClipboardHistoryView.HoloBlue"
             >
     </style>
     <style
-        name="MoreKeysKeyboard.KLP"
-        parent="Keyboard.KLP"
+        name="MoreKeysKeyboard.HoloWhite"
+        parent="Keyboard.HoloWhite"
     >
         <item name="keyboardTopPadding">0%p</item>
         <item name="keyboardBottomPadding">0%p</item>
@@ -115,18 +115,18 @@
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style
-        name="MoreKeysKeyboardView.KLP"
-        parent="KeyboardView.KLP"
+        name="MoreKeysKeyboardView.HoloWhite"
+        parent="KeyboardView.HoloWhite"
     >
-        <item name="android:background">@drawable/keyboard_popup_panel_background_klp</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_popup_klp</item>
+        <item name="android:background">@drawable/keyboard_popup_panel_background_holo_white</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_holo_white</item>
         <item name="divider">@drawable/more_keys_divider</item>
         <item name="keyTypeface">normal</item>
         <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
     </style>
     <style
-        name="SuggestionStripView.KLP"
-        parent="KeyboardView.KLP"
+        name="SuggestionStripView.HoloWhite"
+        parent="KeyboardView.HoloWhite"
     >
         <item name="suggestionsCountInStrip">@integer/config_suggestions_count_in_strip</item>
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
@@ -135,17 +135,17 @@
         <item name="android:background">@drawable/keyboard_suggest_strip_holo</item>
         <item name="android:src">@drawable/suggestions_strip_divider_holo</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
-        <item name="colorValidTypedWord">@color/typed_word_color_klp</item>
-        <item name="colorTypedWord">@color/typed_word_color_klp</item>
-        <item name="colorAutoCorrect">@color/highlight_color_klp</item>
-        <item name="colorSuggested">@color/suggested_word_color_klp</item>
+        <item name="colorValidTypedWord">@color/typed_word_color_holo_white</item>
+        <item name="colorTypedWord">@color/typed_word_color_holo_white</item>
+        <item name="colorAutoCorrect">@color/highlight_color_holo_white</item>
+        <item name="colorSuggested">@color/suggested_word_color_holo_white</item>
         <item name="alphaObsoleted">70%</item>
     </style>
     <style
-        name="SuggestionWord.KLP"
+        name="SuggestionWord.HoloWhite"
         parent="SuggestionWord"
     >
-        <item name="android:background">@drawable/btn_suggestion_klp</item>
-        <item name="android:textColor">@color/highlight_color_klp</item>
+        <item name="android:background">@drawable/btn_suggestion_holo_white</item>
+        <item name="android:textColor">@color/highlight_color_holo_white</item>
     </style>
 </resources>

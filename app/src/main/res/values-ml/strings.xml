@@ -194,7 +194,6 @@
     <string name="number_row_summary">എല്ലായ്പ്പോഴും നമ്പർ വരി കാണിക്കുക</string>
     <string name="number_row">നമ്പർ വരി</string>
     <string name="show_hints">കീ സൂചനകൾ കാണിക്കുക</string>
-    <string name="amoled_mode">കടും കറുപ്പ് പശ്ചാത്തലങ്ങൾ</string>
     <string name="android_spell_checker_settings">ഓപ്പൺബോർഡ് സ്പെൽ ചെക്കർ ക്രമീകരണങ്ങൾ</string>
     <string name="delete_swipe">ഡിലീറ്റ് സ്വൈപ്പ്</string>
     <string name="space_trackpad_summary">കഴ്‌സർ നീക്കാൻ സ്‌പേസ് ബാറിൽ സ്വൈപ്പ് ചെയ്യുക</string>
@@ -224,7 +223,6 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (അഖോർ )</string>
     <string name="theme_family">തീം ഫാമിലി</string>
     <string name="theme_variant">തീം വേരിയന്റ്</string>
-    <string name="amoled_mode_summary">ഉപകരണത്തിന്റെ സ്‌ക്രീൻ സാങ്കേതികവിദ്യയെ ആശ്രയിച്ച് വൈദ്യുതി ഉപയോഗം കുറയ്ക്കാനാകും</string>
     <string name="settings_category_experimental">പരീക്ഷണാത്മകം</string>
     <string name="settings_category_input">ഇൻപുട്ട്</string>
     <string name="settings_category_additional_keys">അധിക കീകൾ</string>

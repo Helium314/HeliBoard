@@ -196,7 +196,6 @@
     <string name="enable_clipboard_history">Aktifkan riwayat clipboard</string>
     <string name="clipboard_history_retention_time">Waktu simpan riwayat</string>
     <string name="show_hints">Tampilkan petunjuk tombol</string>
-    <string name="amoled_mode_summary">Dapat mengurangi penggunaan daya tergantung pada teknologi layar perangkat</string>
     <string name="number_row_summary">Selalu tampilkan baris angka</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>mnt.</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
@@ -222,7 +221,6 @@
     <string name="key_borders">Batas tombol</string>
     <string name="day_night_mode">Mode siang/malam otomatis</string>
     <string name="day_night_mode_summary">Tampilan mengikuti pengaturan sistem</string>
-    <string name="amoled_mode">Latar belakang hitam pekat</string>
     <string name="theme_variant">Variasi tema</string>
     <string name="theme_family">Keluarga tema</string>
     <string name="enable_clipboard_history_summary">Jika dinonaktifkan, menekan tombol ikon clipboard akan menempelkan konten yang disalin</string>

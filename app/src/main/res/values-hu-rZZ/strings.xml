@@ -219,12 +219,10 @@
     <string name="prefs_force_incognito_mode">Inkognitó mód kényszerítése</string>
     <string name="prefs_force_incognito_mode_summary">Új szavak tanulásának letiltása</string>
     <string name="more_keys_strip_description">Több kulcs</string>
-    <string name="amoled_mode_summary">A készülék képernyőtechnológiájától függően csökkentheti az energiafelhasználást</string>
     <string name="autospace_after_punctuation">Automatikus szóköz írásjelek után</string>
     <string name="autospace_after_punctuation_summary">Automatikus szóköz beillesztése az írásjelek után új szó beírásakor</string>
     <string name="number_row">Számsor</string>
     <string name="day_night_mode_summary">A megjelenés követi a rendszerbeállításokat</string>
-    <string name="amoled_mode">Mélyfekete háttér</string>
     <string name="settings_category_input">Bemenet</string>
     <string name="space_trackpad">Space billentyű trackpad</string>
     <string name="prefs_resize_keyboard">A billentyűzet átméretezésének engedélyezése</string>
