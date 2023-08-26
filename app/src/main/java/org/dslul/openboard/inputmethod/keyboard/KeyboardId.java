@@ -42,6 +42,7 @@ public final class KeyboardId {
     public static final int MODE_DATE = 6;
     public static final int MODE_TIME = 7;
     public static final int MODE_DATETIME = 8;
+    public static final int MODE_NUMPAD = 9;
 
     public static final int ELEMENT_ALPHABET = 0;
     public static final int ELEMENT_ALPHABET_MANUAL_SHIFTED = 1;
@@ -71,6 +72,7 @@ public final class KeyboardId {
     public static final int ELEMENT_EMOJI_CATEGORY15 = 25;
     public static final int ELEMENT_EMOJI_CATEGORY16 = 26;
     public static final int ELEMENT_CLIPBOARD = 27;
+    public static final int ELEMENT_NUMPAD = 28;
 
     public final RichInputMethodSubtype mSubtype;
     public final int mWidth;
@@ -259,6 +261,7 @@ public final class KeyboardId {
         case ELEMENT_EMOJI_CATEGORY15: return "emojiCategory15";
         case ELEMENT_EMOJI_CATEGORY16: return "emojiCategory16";
         case ELEMENT_CLIPBOARD: return "clipboard";
+        case ELEMENT_NUMPAD: return "numpad";
         default: return null;
         }
     }
@@ -274,6 +277,7 @@ public final class KeyboardId {
         case MODE_DATE: return "date";
         case MODE_TIME: return "time";
         case MODE_DATETIME: return "datetime";
+        case MODE_NUMPAD: return "numpad";
         default: return null;
         }
     }

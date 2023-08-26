@@ -55,6 +55,9 @@ public final class KeyboardCodesSet {
         "key_unspecified",
         "key_clipboard",
         "key_alpha_from_clipboard",
+        "key_numpad",
+        "key_alphaNumpad",
+        "key_symbolNumpad",
         "key_start_onehanded",
         "key_stop_onehanded",
         "key_switch_onehanded"
@@ -80,6 +83,9 @@ public final class KeyboardCodesSet {
         Constants.CODE_UNSPECIFIED,
         Constants.CODE_CLIPBOARD,
         Constants.CODE_ALPHA_FROM_CLIPBOARD,
+        Constants.CODE_NUMPAD,
+        Constants.CODE_ALPHA_FROM_NUMPAD,
+        Constants.CODE_SYMBOL_FROM_NUMPAD,
         Constants.CODE_START_ONE_HANDED_MODE,
         Constants.CODE_STOP_ONE_HANDED_MODE,
         Constants.CODE_SWITCH_ONE_HANDED_MODE

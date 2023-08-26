@@ -717,6 +717,18 @@ public final class InputLogic {
                 // Note: Switching back from clipboard keyboard to the main keyboard is being
                 // handled in {@link KeyboardState#onEvent(Event,int)}.
                 break;
+            case Constants.CODE_NUMPAD:
+                // Note: Switching Numpad keyboard is being handled in
+                // {@link KeyboardState#onEvent(Event,int)}.
+                break;
+            case Constants.CODE_ALPHA_FROM_NUMPAD:
+                // Note: Switching back from Numpad keyboard to the main keyboard is being
+                // handled in {@link KeyboardState#onEvent(Event,int)}.
+                break;
+            case Constants.CODE_SYMBOL_FROM_NUMPAD:
+                // Note: Switching back from Numpad keyboard to the symbol keyboard is being
+                // handled in {@link KeyboardState#onEvent(Event,int)}.
+                break;
             case Constants.CODE_SHIFT_ENTER:
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
                         event.getMKeyCode(), event.getMX(), event.getMY(), event.isKeyRepeat());

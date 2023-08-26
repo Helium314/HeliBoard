@@ -347,6 +347,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardHistoryView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void setNumpadKeyboard() {
+        if (DEBUG_ACTION) {
+            Log.d(TAG, "setNumpadKeyboard");
+        }
+        setKeyboard(KeyboardId.ELEMENT_NUMPAD, KeyboardSwitchState.OTHER);
+    }
+
     public enum KeyboardSwitchState {
         HIDDEN(-1),
         SYMBOLS_SHIFTED(KeyboardId.ELEMENT_SYMBOLS_SHIFTED),

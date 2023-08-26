@@ -49,5 +49,6 @@
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_lxx_light</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_lxx_light</item>
         <item name="iconSwitchOneHandedMode">@drawable/sym_keyboard_switch_onehanded_lxx_light</item>
+        <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_lxx_light</item>
     </style>
 </resources>
