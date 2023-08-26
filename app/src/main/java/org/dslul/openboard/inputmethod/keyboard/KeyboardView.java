@@ -674,6 +674,7 @@ public class KeyboardView extends View {
         if (this.getClass() != MoreKeysKeyboardView.class) return false;
         final String iconName = KeyboardIconsSet.getIconName(key.getIconId());
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }
