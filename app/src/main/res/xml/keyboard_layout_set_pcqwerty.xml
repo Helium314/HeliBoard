@@ -33,4 +33,7 @@
     <Element
         latin:elementName="number"
         latin:elementKeyboard="@xml/kbd_number" />
+    <Element
+        latin:elementName="numpad"
+        latin:elementKeyboard="@xml/kbd_numpad" />
 </KeyboardLayoutSet>
