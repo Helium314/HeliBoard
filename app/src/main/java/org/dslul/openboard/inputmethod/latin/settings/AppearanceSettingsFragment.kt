@@ -264,7 +264,9 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         }
         userColorsPref = preferenceScreen.findPreference(Settings.PREF_THEME_USER)
         userColorsPref.onPreferenceClickListener = Preference.OnPreferenceClickListener { _ ->
-            if (sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false) && sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER)
+            if (sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
+                && sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER
+                && sharedPreferences.getString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARK) == KeyboardTheme.THEME_USER_DARK)
                 AlertDialog.Builder(activity)
                     .setMessage(R.string.day_or_night_colors)
                     .setPositiveButton(R.string.day_or_night_night) { _, _ -> adjustColors(true)}
