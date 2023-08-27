@@ -48,10 +48,10 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
         }
     }
 
-    fun setLanguages(list: Collection<MutableList<SubtypeInfo>>, disableSwitches: Boolean) {
+    fun setLanguages(list: Collection<MutableList<SubtypeInfo>>, onlySystemLocales: Boolean) {
         sortedSubtypes.clear()
         sortedSubtypes.addAll(list)
-        adapter.disableSwitches = disableSwitches
+        adapter.onlySystemLocales = onlySystemLocales
         adapter.list = sortedSubtypes
     }
 
@@ -60,7 +60,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
 @Suppress("Deprecation")
 class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
-    var disableSwitches = false
+    var onlySystemLocales = false
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     var fragment: LanguageSettingsFragment? = null
 
@@ -105,31 +105,31 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                             })
                     }
                     text = sb.toString()
-                    if (text.isBlank()) isGone = true
+                    if (onlySystemLocales || text.isBlank()) isGone = true
                         else isVisible = true
                 }
 
                 view.findViewById<Switch>(R.id.language_switch).apply {
-                    isEnabled = !disableSwitches && infos.size == 1
+                    isEnabled = !onlySystemLocales && infos.size == 1
                     // take care: isChecked changes if the language is scrolled out of view and comes back!
                     // disable the change listener when setting the checked status on scroll
                     // so it's only triggered on user interactions
                     setOnCheckedChangeListener(null)
-                    isChecked = disableSwitches || infos.any { it.isEnabled }
+                    isChecked = onlySystemLocales || infos.any { it.isEnabled }
                     setOnCheckedChangeListener { _, b ->
                         if (b) {
                             if (infos.size == 1) {
                                 addEnabledSubtype(prefs, infos.first().subtype)
                                 infos.single().isEnabled = true
                             } else {
-                                LanguageSettingsDialog(view.context, infos, fragment, disableSwitches, { setupDetailsTextAndSwitch() }).show()
+                                LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
                             }
                         } else {
                             if (infos.size == 1) {
                                 removeEnabledSubtype(prefs, infos.first().subtype)
                                 infos.single().isEnabled = false
                             } else {
-                                LanguageSettingsDialog(view.context, infos, fragment, disableSwitches, { setupDetailsTextAndSwitch() }).show()
+                                LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
                             }
                         }
                     }
@@ -138,10 +138,9 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
 
             view.findViewById<TextView>(R.id.language_name).text = infos.first().displayName
             view.findViewById<LinearLayout>(R.id.language_text).setOnClickListener {
-                LanguageSettingsDialog(view.context, infos, fragment, disableSwitches, { setupDetailsTextAndSwitch() }).show()
+                LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
             }
             setupDetailsTextAndSwitch()
         }
     }
 }
-

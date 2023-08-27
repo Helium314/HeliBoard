@@ -29,7 +29,7 @@ class LanguageSettingsDialog(
     context: Context,
     private val subtypes: MutableList<SubtypeInfo>,
     private val fragment: LanguageSettingsFragment?,
-    private val disableSwitches: Boolean,
+    private val onlySystemLocales: Boolean,
     private val onSubtypesChanged: () -> Unit
 ) : AlertDialog(ContextThemeWrapper(context, R.style.platformDialogTheme)), LanguageSettingsFragment.Listener {
     private val context = ContextThemeWrapper(context, R.style.platformDialogTheme)
@@ -46,7 +46,10 @@ class LanguageSettingsDialog(
             dismiss()
         }
 
-        fillSubtypesView(view.findViewById(R.id.subtypes))
+        if (onlySystemLocales)
+            view.findViewById<View>(R.id.subtypes).isGone = true
+        else
+            fillSubtypesView(view.findViewById(R.id.subtypes))
         fillSecondaryLocaleView(view.findViewById(R.id.secondary_languages))
         fillDictionariesView(view.findViewById(R.id.dictionaries))
     }
@@ -73,12 +76,9 @@ class LanguageSettingsDialog(
                         di.dismiss()
                         val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, layouts[i])
                         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context.resources, true) // enabled by default, because why else add them
-                        addSubtypeToView(newSubtypeInfo, subtypesView)
-                        val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
-                        val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toHashSet()
-                        val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes((oldAdditionalSubtypes + newSubtype).toTypedArray())
-                        Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+                        addAdditionalSubtype(prefs, context.resources, newSubtype)
                         addEnabledSubtype(prefs, newSubtype)
+                        addSubtypeToView(newSubtypeInfo, subtypesView)
                         subtypes.add(newSubtypeInfo)
                         onSubtypesChanged()
                     }
@@ -102,7 +102,7 @@ class LanguageSettingsDialog(
         row.findViewById<View>(R.id.language_details).isGone = true
         row.findViewById<Switch>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
-            isEnabled = !disableSwitches
+            isEnabled = !onlySystemLocales
             setOnCheckedChangeListener { _, b ->
                 if (b)
                     addEnabledSubtype(prefs, subtype.subtype)
@@ -121,11 +121,7 @@ class LanguageSettingsDialog(
                     subtypesView.removeView(row)
                     subtypes.remove(subtype)
 
-                    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
-                    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
-                    val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype.subtype }
-                    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
-                    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+                    removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
                     removeEnabledSubtype(prefs, subtype.subtype)
                     onSubtypesChanged()
                 }

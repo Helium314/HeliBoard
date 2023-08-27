@@ -2,6 +2,7 @@ package org.dslul.openboard.inputmethod.latin.settings
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
@@ -29,12 +30,13 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
         enabledSubtypes.addAll(getExplicitlyEnabledSubtypes())
         systemLocales.addAll(getSystemLocales())
-        val systemLocalesSwitch = findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference
-        systemLocalesSwitch.setOnPreferenceChangeListener { _, b ->
-            loadSubtypes(b as Boolean)
-            true
-        }
-        loadSubtypes(systemLocalesSwitch.isChecked)
+        loadSubtypes()
+    }
+
+    override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
+        super.onSharedPreferenceChanged(prefs, key)
+        if (key == Settings.PREF_USE_SYSTEM_LOCALES)
+            loadSubtypes()
     }
 
     override fun onResume() {
@@ -47,7 +49,8 @@ class LanguageSettingsFragment : SubScreenFragment() {
         languageFilterListPreference.setSettingsFragment(null)
     }
 
-    private fun loadSubtypes(systemOnly: Boolean) {
+    private fun loadSubtypes() {
+        val systemOnly = (findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).isChecked
         sortedSubtypes.clear()
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
         // maybe make use of the map used by SubtypeSettings for performance reasons?

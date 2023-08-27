@@ -75,11 +75,28 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
     RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
+fun addAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
+    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
+    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toSet()
+    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes((oldAdditionalSubtypes + subtype).toTypedArray())
+    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+}
+
+fun removeAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
+    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
+    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
+    val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
+    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
+    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+}
+
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     require(initialized)
     val subtypeString = prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")!!.split(LOCALE_LAYOUT_SEPARATOR)
-    val subtype = enabledSubtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-        ?: enabledSubtypes.firstOrNull()
+    val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
+        else enabledSubtypes
+    val subtype = subtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+        ?: subtypes.firstOrNull()
     if (subtype == null) {
         val defaultSubtypes = getDefaultEnabledSubtypes()
         return defaultSubtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
@@ -113,6 +130,7 @@ fun reloadSystemLocales(context: Context) {
         val locale = localeList[it]
         if (locale != null) systemLocales.add(locale)
     }
+    systemSubtypes.clear()
 }
 
 fun getSystemLocales(): List<Locale> {
@@ -135,16 +153,20 @@ fun init(context: Context) {
 }
 
 private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
-    val inputMethodSubtypes = systemLocales.mapNotNull { locale ->
+    if (systemSubtypes.isNotEmpty()) return systemSubtypes
+    val subtypes = systemLocales.mapNotNull { locale ->
         val localeString = locale.toString()
-        val subtypes = resourceSubtypesByLocale[localeString]
+        val subtypesOfLocale = resourceSubtypesByLocale[localeString]
             ?: resourceSubtypesByLocale[localeString.substringBefore("_")] // fall back to language match
-        subtypes?.firstOrNull() // todo: maybe set default for some languages with multiple resource subtypes?
+        subtypesOfLocale?.firstOrNull()
     }
-    if (inputMethodSubtypes.isEmpty())
+    if (subtypes.isEmpty()) {
         // hardcoded fallback for weird cases
-        return listOf(resourceSubtypesByLocale["en_US"]!!.first())
-    return inputMethodSubtypes
+        systemSubtypes.add(resourceSubtypesByLocale["en_US"]!!.first())
+    } else {
+        systemSubtypes.addAll(subtypes)
+    }
+    return systemSubtypes
 }
 
 private fun InputMethodSubtype.prefString() =
@@ -219,6 +241,7 @@ private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
 private val resourceSubtypesByLocale = LinkedHashMap<String, MutableList<InputMethodSubtype>>(100)
 private val additionalSubtypes = mutableListOf<InputMethodSubtype>()
 private val systemLocales = mutableListOf<Locale>()
+private val systemSubtypes = mutableListOf<InputMethodSubtype>()
 
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
