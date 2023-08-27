@@ -2,7 +2,12 @@ package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.Context
 import android.graphics.Rect
+import android.graphics.Typeface
 import android.preference.Preference
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -84,16 +89,26 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun onBind(infos: MutableList<SubtypeInfo>) {
+            sort(infos)
             fun setupDetailsTextAndSwitch() {
                 // this is unrelated -> rename it
                 view.findViewById<TextView>(R.id.language_details).apply {
                     // input styles if more than one in infos
-                    val sb = StringBuilder()
+                    val sb = SpannableStringBuilder()
                     if (infos.size > 1) {
-                        sb.append(infos.joinToString(", ") {// separator ok? because for some languages it might not be...
-                            SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
-                                ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype)
-                        })
+                        var start = true
+                        infos.forEach {
+                            val string = SpannableString(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
+                                ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+                            if (it.isEnabled)
+                                string.setSpan(StyleSpan(Typeface.BOLD), 0, string.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            if (!start) {
+                                sb.append(", ")
+                            }
+                            start = false
+                            sb.append(string)
+                        }
+//                        })
                     }
                     val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
                     if (secondaryLocales.isNotEmpty()) {
@@ -104,7 +119,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                                 it.getDisplayName(context.resources.configuration.locale)
                             })
                     }
-                    text = sb.toString()
+                    text = sb
                     if (onlySystemLocales || text.isBlank()) isGone = true
                         else isVisible = true
                 }
@@ -141,6 +156,11 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                 LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
             }
             setupDetailsTextAndSwitch()
+        }
+
+        private fun sort(infos: MutableList<SubtypeInfo>) {
+            if (infos.size <= 1) return
+            infos.sortWith(compareBy({ isAdditionalSubtype(it.subtype) }, { it.displayName }))
         }
     }
 }
