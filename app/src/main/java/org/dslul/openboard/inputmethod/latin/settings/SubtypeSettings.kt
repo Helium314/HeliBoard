@@ -25,11 +25,6 @@ fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): Lis
     require(initialized)
     if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true))
         return getDefaultEnabledSubtypes()
-    return getExplicitlyEnabledSubtypes(fallback)
-}
-
-fun getExplicitlyEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
-    require(initialized)
     if (fallback && enabledSubtypes.isEmpty())
         return getDefaultEnabledSubtypes()
     return enabledSubtypes
@@ -157,7 +152,14 @@ private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
     val subtypes = systemLocales.mapNotNull { locale ->
         val localeString = locale.toString()
         val subtypesOfLocale = resourceSubtypesByLocale[localeString]
-            ?: resourceSubtypesByLocale[localeString.substringBefore("_")] // fall back to language match
+            ?: resourceSubtypesByLocale[localeString.substringBefore("_")] // fall back to language matching the subtype
+            ?: localeString.substringBefore("_").let { language -> // fall back to languages matching subtype language
+                resourceSubtypesByLocale.firstNotNullOfOrNull {
+                    if (it.key.substringBefore("_") == language)
+                        it.value
+                    else null
+                }
+            }
         subtypesOfLocale?.firstOrNull()
     }
     if (subtypes.isEmpty()) {

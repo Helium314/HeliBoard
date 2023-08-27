@@ -28,7 +28,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
         addPreferencesFromResource(R.xml.prefs_screen_languages);
         SubtypeLocaleUtils.init(activity)
 
-        enabledSubtypes.addAll(getExplicitlyEnabledSubtypes())
+        enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
         systemLocales.addAll(getSystemLocales())
         loadSubtypes()
     }
@@ -52,11 +52,14 @@ class LanguageSettingsFragment : SubScreenFragment() {
     private fun loadSubtypes() {
         val systemOnly = (findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).isChecked
         sortedSubtypes.clear()
+        // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
         // maybe make use of the map used by SubtypeSettings for performance reasons?
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->
+                // this could be rather slow with looping multiple times over all ~100 subtypes,
+                //  but usually there aren't many locales to be checked, and usually the first loop already finds a match
                 val localeString = locale.toString()
                 val iter = allSubtypes.iterator()
                 var added = false
@@ -68,8 +71,8 @@ class LanguageSettingsFragment : SubScreenFragment() {
                         added = true
                     }
                 }
+                // try again, but with language only
                 if (!added && locale.country.isNotEmpty()) {
-                    // try again, but with language only
                     val languageString = locale.language
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
@@ -99,16 +102,15 @@ class LanguageSettingsFragment : SubScreenFragment() {
             subtypesToAdd.sortedBy { it.displayName }.addToSortedSubtypes()
         }
 
-        if (systemOnly) {
-            systemLocales.sortedAddToSubtypesAndRemoveFromAllSubtypes()
-            languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
-            return
-        }
-
         // add enabled subtypes
         enabledSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale), true) }
             .sortedBy { it.displayName }.addToSortedSubtypes()
         allSubtypes.removeAll(enabledSubtypes)
+
+        if (systemOnly) { // don't add anything else
+            languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
+            return
+        }
 
         // add subtypes that have a dictionary
         val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(activity)?.mapNotNull { dir ->
