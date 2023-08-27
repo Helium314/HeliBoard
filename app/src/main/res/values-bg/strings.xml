@@ -20,7 +20,7 @@
     <string name="english_ime_input_options" msgid="3909945612939668554">"Опции за въвеждане"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Търсене на имена"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"За проверка на правописа се ползват записи от списъка с контакти"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">Вибрация при натискане на клавиш</string>
+    <string name="vibrate_on_keypress">"Да вибрира при натискане на клавиш"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук при натиск. на клавиш"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Изск. прозорец при натискане на клавиш"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Предпочитания"</string>
@@ -156,7 +156,7 @@
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Няма връзка с речниците"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Няма налични речници"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Опресняване"</string>
-    <string name="last_update" msgid="730467549913588780">Последна актуализация</string>
+    <string name="last_update">"Последна актуализация:"</string>
     <string name="message_updating" msgid="4457761393932375219">"Проверява се за актуализации"</string>
     <string name="message_loading" msgid="5638680861387748936">"Зарежда се…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Основен речник"</string>

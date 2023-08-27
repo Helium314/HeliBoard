@@ -52,7 +52,7 @@
     <string name="auto_cap" msgid="1719746674854628252">"स्‍वयं-कॅपिटलायझेशन"</string>
     <string name="auto_cap_summary" msgid="7934452761022946874">"प्रत्येक वाक्याचा पहिला शब्द कॅपिटल करा"</string>
     <string name="edit_personal_dictionary" msgid="3996910038952940420">"वैयक्तिक शब्दकोश"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"अॅड-ऑन शब्दकोश"</string>
+    <string name="configure_dictionaries_title">"ॲड-ऑन शब्दकोश"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"मु्ख्य शब्दकोश"</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"सुधारणा सूचना दर्शवा"</string>
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"टाइप करताना सुचविलेले शब्द प्रदर्शित करा"</string>
@@ -143,12 +143,12 @@
     <string name="setup_step3_action" msgid="600879797256942259">"अतिरिक्त भाषा कॉन्फिगर करा"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"समाप्त"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"अ‍ॅप आयकन दर्शवा"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"लाँचर मध्ये अॅप्लिकेशन आयकन दाखवा"</string>
+    <string name="show_setup_wizard_icon_summary">"लाँचर मध्ये ॲप्लिकेशन आयकन दाखवा"</string>
     <string name="app_name" msgid="6320102637491234792">"शब्दकोश प्रदाता"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"शब्दकोश प्रदाता"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"शब्दकोश सेवा"</string>
     <string name="download_description" msgid="6014835283119198591">"डिक्शनरी अपडेट माहिती"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"अॅड-ऑन शब्दकोश"</string>
+    <string name="dictionary_settings_title">"ॲड-ऑन शब्दकोश"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"शब्दकोशांसाठी सेटिंग्ज"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"वापरकर्ता शब्दकोश"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"वापरकर्ता शब्दकोश"</string>

@@ -26,7 +26,7 @@
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ప్రాధాన్యతలు"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"ఖాతాలు &amp; గోప్యత"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"కనిపించే తీరు &amp; లేఅవుట్‌లు"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">సైగలతో టైపింగ్</string>
+    <string name="settings_screen_gesture">"సంజ్ఞ టైపింగ్"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"వచన సవరణ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"అధునాతనం"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"థీమ్"</string>
@@ -150,7 +150,7 @@
     <string name="user_dictionaries" msgid="3582332055892252845">"వినియోగదారు నిఘంటువులు"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"వినియోగదారు నిఘంటువు"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"నిఘంటువు అందుబాటులో ఉంది"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">ప్రస్తుతం డౌన్‌లోడ్ అవుతోంది</string>
+    <string name="dictionary_downloading">"ప్రస్తుతం డౌన్‌లోడ్ చేస్తోంది"</string>
     <string name="dictionary_installed" msgid="8081558343559342962">"ఇన్‌స్టాల్ చేయబడింది"</string>
     <string name="dictionary_disabled" msgid="8950383219564621762">"ఇన్‌స్టాల్ చేయబడింది, నిలిపివేయబడింది"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"నిఘంటువు సేవకు కనెక్ట్ చేయడంలో సమస్య"</string>

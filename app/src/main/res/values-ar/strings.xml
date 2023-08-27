@@ -17,61 +17,61 @@
 ** limitations under the License.
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">خيارات الإدخال</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">ابحث عن جهات اتصال</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">يستخدم المدقق الإملائي إدخالات من قائمة جهات اتصالك</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">اهتزَّ عند الضغط على مفتاح</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">‮أصدر صوتًا عند الضغط على مفتاح</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">أظهر نافذةً منبثقةً عند الضغط على مفتاح</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">التفضيلات</string>
+    <string name="english_ime_input_options">"خيارات الإرسال"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"بحث في أسماء جهات الاتصال"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"يستخدم المدقق الإملائي إدخالات من قائمة جهات الاتصال"</string>
+    <string name="vibrate_on_keypress">"اهتزاز عند ضغط مفتاح"</string>
+    <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
+    <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
+    <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"الحسابات والخصوصية"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">الكتابة بالرسم</string>
+    <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"الإعدادات المتقدمة"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">السمة</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">مكِّن لوحة المفاتيح المقسمة</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">بدِّل لأساليب إدخال أخرى</string>
+    <string name="settings_screen_theme">"المظهر"</string>
+    <string name="enable_split_keyboard">"هل تريد تفعيل لوحة المفاتيح المقسمة"</string>
+    <string name="include_other_imes_in_language_switch_list">"التبديل إلى أسلوب إدخال آخر"</string>
     <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"يغطي مفتاح تبديل اللغات أساليب الإدخال الأخرى أيضًا"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"مفتاح تبديل اللغة"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">أظهر عندما تُفعل لغات إدخال متعددة</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">زمن تأخير اختفاء النافذة المنبثقة عند ضغط المفتاح</string>
+    <string name="show_language_switch_key_summary">"يظهر عندما يتم تفعيل لغات الإدخال متعددة"</string>
+    <string name="key_preview_popup_dismiss_delay">"تأخير إزالة النافذة المنبثقة الأساسية"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"بلا تأخير"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"تلقائي"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363"><xliff:g id="MILLISECONDS">%s</xliff:g> ملي ثانية</string>
     <string name="settings_system_default" msgid="6268225104743331821">"الضبط التلقائي للنظام"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">اقترح أسماء جهات الاتصال</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">استخدم أسماء جهات الاتصال للاقتراحات والتصحيحات</string>
+    <string name="use_contacts_dict">"اقتراح أسماء جهات الاتصال"</string>
+    <string name="use_contacts_dict_summary">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"اقتراحات مخصصة"</string>
     <string name="enable_metrics_logging" msgid="5506372337118822837">حسِّن <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="use_double_space_period" msgid="8781529969425082860">طباعة نقطة بعد الضغط على زر المسافة مرتين متتاليتين</string>
+    <string name="use_double_space_period">"نقطة المسافة المزدوجة"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
     <string name="auto_cap" msgid="1719746674854628252">"أحرف كبيرة تلقائيًا"</string>
     <string name="auto_cap_summary" msgid="7934452761022946874">"كتابة الحرف الأول من كل جملة بحرف كبير"</string>
     <string name="edit_personal_dictionary" msgid="3996910038952940420">"القاموس الشخصي"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"القواميس الإضافية"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">القاموس الرئيس</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">اعرض اقتراحات التصحيح</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">اعرض كلمات مقترحةً أثناء الكتابة</string>
+    <string name="main_dictionary">"القاموس الرئيسي"</string>
+    <string name="prefs_show_suggestions">"عرض اقتراحات التصحيح"</string>
+    <string name="prefs_show_suggestions_summary">"عرض الكلمات المقترحة أثناء الكتابة"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"حظر الكلمات المسيئة"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">لا تقترح كلمات يمكن أن تكون مسيئة</string>
+    <string name="prefs_block_potentially_offensive_summary">"عدم اقتراح كلمات محتمل أن تكون مسيئة"</string>
     <string name="auto_correction" msgid="7630720885194996950">"التصحيح التلقائي"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل خاطئ</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">أوقف</string>
+    <string name="auto_correction_summary">"تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل غير صحيح"</string>
+    <string name="auto_correction_threshold_mode_off">"إيقاف"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"معتدل"</string>
     <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"صارم"</string>
     <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"شديد الصرامة"</string>
     <string name="bigram_prediction" msgid="1084449187723948550">"اقتراحات الكلمات التالية"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">استخدم الكلمة السابقة لتقديم الاقتراحات</string>
-    <string name="gesture_input" msgid="826951152254563827">تفعيل الكتابة بالرسم</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">أدخل كلمة من خلال الرسم على الأحرف</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">تعرض مسار الرسم</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">اعرض معاينة للكلمة المرسومة أثناء الرسم</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">شاهد الكلمة المقترحة أثناء الرسم</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">رسم الجُمل</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">أدخل مسافات خلال الرسم من خلال المرور على مفتاح المسافة</string>
+    <string name="bigram_prediction_summary">"استخدام الكلمة السابقة لتقديم الاقتراحات"</string>
+    <string name="gesture_input">"تفعيل الكتابة بالإيماءة"</string>
+    <string name="gesture_input_summary">"إدخال كلمة من خلال التمرير على الأحرف"</string>
+    <string name="gesture_preview_trail">"عرض مسار الإيماءة"</string>
+    <string name="gesture_floating_preview_text">"معاينة نصوص متحركة ديناميكية"</string>
+    <string name="gesture_floating_preview_text_summary">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
+    <string name="gesture_space_aware">"عبارة الإيماء"</string>
+    <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
     <string name="voice_input" msgid="3583258583521397548">"مفتاح الإدخال الصوتي"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">لم تُفعَّل أي أساليب للإدخال الصوتي. تحقق من إعدادات اللغات والإدخال.</string>
+    <string name="voice_input_disabled_summary">"لم يتم تفعيل أي أساليب إدخال صوتي. تحقق من إعدادات اللغات والإدخال."</string>
     <string name="configure_input_method" msgid="373356270290742459">"تهيئة طرق الإدخال"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"اللغات"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"المساعدة والتعليقات"</string>
@@ -159,7 +159,7 @@
     <string name="last_update" msgid="730467549913588780">"تاريخ آخر تحديث"</string>
     <string name="message_updating" msgid="4457761393932375219">"جارٍ البحث عن تحديثات"</string>
     <string name="message_loading" msgid="5638680861387748936">"جارٍ التحميل…"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">القاموس الرئيس</string>
+    <string name="main_dict_description">"القاموس الرئيسي"</string>
     <string name="cancel" msgid="6830980399865683324">"إلغاء"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"إعدادات"</string>
     <string name="install_dict" msgid="180852772562189365">"تثبيت"</string>
@@ -169,7 +169,7 @@
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"إضافة"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"إضافة إلى القاموس"</string>
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"عبارة"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">المزيد من الخيارات</string>
+    <string name="user_dict_settings_add_dialog_more_options">"خيارات أكثر"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"خيارات أقل"</string>
     <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"موافق"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"الكلمة:"</string>
@@ -180,9 +180,9 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"تعديل كلمة"</string>
     <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"تعديل"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"حذف"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">ليست لديك أي كلمات في قاموس المستخدم. لإضافة كلمة، اضغط على زر إضافة (+).</string>
+    <string name="user_dict_settings_empty_text">"ليس هناك أي كلمات في قاموس المستخدم. لإضافة كلمة، انقر على زر الإضافة (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"لجميع اللغات"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">مزيد من اللغات…</string>
+    <string name="user_dict_settings_more_languages">"مزيد من اللغات..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"حذف"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
     <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>

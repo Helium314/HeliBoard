@@ -18,30 +18,30 @@
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Možnosti vnosa"</string>
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">Išči po seznamu stikov</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">Črkovalnik uporablja vnose iz seznama stikov</string>
+    <string name="use_contacts_for_spellchecking_option_title">"Iskanje imen stikov"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Črkovalnik uporablja vnose s seznama stikov"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibriranje ob pritisku tipke"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvok ob pritisku tipke"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">Povečaj črko ob pritisku tipke</string>
+    <string name="popup_on_keypress">"Povečaj črko ob pritisku"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Nastavitve"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Računi in zasebnost"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Videz in postavitve"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanje s kretnjami"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Popravki besedila"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>
+    <string name="settings_screen_advanced">"Dodatno"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">Omogoči razpolovljeno tipkovnico</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">Zamenjaj način vnosa</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">Tipka za menjavo jezika omogoča menjavo ostalih načinov vnosa</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">Tipka za menjavo jezika</string>
+    <string name="enable_split_keyboard">"Omogoči razdeljeno tipkovnico"</string>
+    <string name="include_other_imes_in_language_switch_list">"Prekl. na drug nač. vnosa"</string>
+    <string name="include_other_imes_in_language_switch_list_summary">"Tipka za preklop jezika, ki vključuje tudi druge načine vnosa"</string>
+    <string name="show_language_switch_key">"Tipka za preklop med jeziki"</string>
     <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Pokaži, ko je omogočenih več jezikov vnosa"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Trajanje povečanja tipke"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Brez zakasnitve"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Privzeto"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Sistemsko privzeto"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">Predlagaj imena iz seznama stikov</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Uporaba seznama stikov za predloge in popravke</string>
+    <string name="use_contacts_dict">"Predlagaj imena stikov"</string>
+    <string name="use_contacts_dict_summary">"Uporaba imen iz stikov za predloge in popravke"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Prilagojeni predlogi"</string>
     <string name="enable_metrics_logging" msgid="5506372337118822837">"Izboljšava aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Dva presl. za vnos pike"</string>
@@ -120,11 +120,11 @@
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Trajanje vibr. ob prit. tipke"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Glasn. zvoka ob pritisku tipke"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Zakasn. za dolg pritisk tipke"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">Emoji za fizično tipkovnico</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">Fizična tipka Alt prikaže nabor emojijev</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Emodžiji za fizično tipkovnico"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Fizična tipka Alt prikaže nabor emodžijev"</string>
     <string name="button_default" msgid="3988017840431881491">"Privzeto"</string>
     <string name="setup_welcome_title" msgid="6112821709832031715">"Pozdravljeni v aplikaciji <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">pisanje s kretnjami</string>
+    <string name="setup_welcome_additional_description">"s pisanjem s kretnjami"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Začnite"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Naslednji korak"</string>
     <string name="setup_steps_title" msgid="6400373034871816182">"Nastavitev aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>

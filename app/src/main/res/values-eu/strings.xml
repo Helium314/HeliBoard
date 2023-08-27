@@ -28,7 +28,7 @@
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Itxura eta diseinuak"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Idazketa lerrakorra"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Testu-zuzenketa"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Ezarpen aurreratuak"</string>
+    <string name="settings_screen_advanced">"Aurreratuak"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Gaia"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Gaitu teklatu banatua"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Aldatu idazketa-metodoa"</string>

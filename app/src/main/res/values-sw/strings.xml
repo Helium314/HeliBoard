@@ -118,7 +118,7 @@
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Mpangilio"</string>
     <string name="custom_input_style_note_message" msgid="8826731320846363423">"Mtindo wa ingizo lako maalum unahitaji kuwa umewezeshwa kabla uanze kulitumia. Unataka kuuwesha sasa?"</string>
     <string name="enable" msgid="5031294444630523247">"Washa"</string>
-    <string name="not_now" msgid="6172462888202790482">"Sio sasa"</string>
+    <string name="not_now">"Si sasa"</string>
     <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Mfumo sawa wa maingizo tayari upo: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Bonyeza kitufe cha muda wa kutetema"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Bonyeza kitufe cha kiwango cha sauti"</string>

@@ -158,7 +158,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"പുതുക്കുക"</string>
     <string name="last_update" msgid="730467549913588780">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="message_updating" msgid="4457761393932375219">"അപ്‌ഡേറ്റുകൾക്കായി പരിശോധിക്കുന്നു"</string>
-    <string name="message_loading" msgid="5638680861387748936">ലോഡുചെയ്യുന്നു…</string>
+    <string name="message_loading">"ലോഡുചെയ്യുന്നു..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"പ്രധാന നിഘണ്ടു"</string>
     <string name="cancel" msgid="6830980399865683324">"റദ്ദാക്കുക"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"ക്രമീകരണം"</string>

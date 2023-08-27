@@ -25,4 +25,7 @@
     <string name="user_dict_settings_add_word_option_name">ଶବ୍ଦ:</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ସିଷ୍ଟମ୍‌ ଭାଷା ବ୍ୟବହାର କରନ୍ତୁ"</string>
     <string name="select_input_method">"ଇନପୁଟ୍ ପଦ୍ଧତି ବାଛନ୍ତୁ"</string>
+    <string name="prefs_block_potentially_offensive_title">"ଅପମାନଜନକ ଶବ୍ଦଗୁଡ଼ିକୁ ବ୍ଲକ୍ କରନ୍ତୁ"</string>
+    <string name="prefs_block_potentially_offensive_summary">"ସମ୍ଭାବ୍ୟ ଅପମାନଜନକ ଶବ୍ଦଗୁଡ଼ିକର ପ୍ରସ୍ତାବ ଦିଅନ୍ତୁ ନାହିଁ"</string>
+    <string name="bigram_prediction_summary">"ପ୍ରସ୍ତାବ ପ୍ରସ୍ତୁତ କରିବାରେ ପୂର୍ବବର୍ତ୍ତୀ ଶବ୍ଦ ବ୍ୟବହାର କରନ୍ତୁ"</string>
 </resources>

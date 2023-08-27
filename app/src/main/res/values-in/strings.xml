@@ -41,7 +41,7 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> md"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Default sistem"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Sarankan nama Kontak"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Menggunakan nama kontak untuk saran dan koreksi</string>
+    <string name="use_contacts_dict_summary">"Menggunakan nama dari Kontak untuk saran dan koreksi"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Saran hasil personalisasi"</string>
     <string name="enable_metrics_logging" msgid="5506372337118822837">Tingkatkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Titik spasi ganda"</string>
@@ -76,8 +76,8 @@
     <string name="language_selection_title" msgid="3666971864764478269">"Bahasa"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Bantuan &amp; masukan"</string>
     <string name="select_language" msgid="5709487854987078367">"Bahasa"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Tap sekali lagi untuk menyimpan"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Tap di sini untuk menyimpan"</string>
+    <string name="hint_add_to_dictionary">"Ketuk sekali lagi untuk menyimpan"</string>
+    <string name="hint_add_to_dictionary_without_word">"Ketuk di sini untuk menyimpan"</string>
     <string name="has_dictionary" msgid="6071847973466625007">"Kamus yang tersedia"</string>
     <string name="keyboard_layout" msgid="8451164783510487501">"Tema keyboard"</string>
     <string name="switch_accounts" msgid="3321216593719006162">"Beralih akun"</string>
@@ -178,11 +178,11 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Ketik kata"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Pintasan opsional"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edit kata"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Sunting</string>
+    <string name="user_dict_settings_context_menu_edit_title">"Edit"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Hapus"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Tidak ada kata-kata dalam kamus pengguna. Untuk menambahkan kata, tap tombol Tambahkan (+)."</string>
+    <string name="user_dict_settings_empty_text">"Tidak ada kata-kata dalam kamus pengguna. Untuk menambahkan kata, ketuk Tambahkan (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Untuk semua bahasa"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Bahasa lainnya…</string>
+    <string name="user_dict_settings_more_languages">"Bahasa lainnya..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Hapus"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_resize_keyboard">Ubah ukuran keyboard</string>
