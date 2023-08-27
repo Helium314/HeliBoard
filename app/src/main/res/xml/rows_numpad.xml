@@ -123,7 +123,9 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="13.33333%p" />
         <!-- &#46; "." PERIOD SIGN -->
+        <!-- &#58; ":" COLON SIGN -->
         <!-- &#8230; "..." ELLIPSIS SIGN -->
+        <!-- &#59; ";" SEMICOLON SIGN -->
         <!-- &#8734; "∞" INFINITY -->
         <!-- &#960; "π" GREEK SMALL LETTER PI -->
         <!-- &#8730; "√" SQUARE ROOT -->
@@ -131,7 +133,7 @@
         <!-- &#94; "^" CIRCUMFLEX ACCENT -->
         <Key
             latin:keySpec="&#46;"
-            latin:additionalMoreKeys="&#8230;,&#8734;,&#960;,&#8730;,&#176;,&#94;"
+            latin:additionalMoreKeys="&#58;,&#8230;,&#59;,&#8734;,&#960;,&#8730;,&#176;,&#94;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="10%p" />
