@@ -258,8 +258,8 @@ class LanguageSettingsDialog(
             }
             if (dictionaryType == DictionaryInfoUtils.DEFAULT_MAIN_DICT) {
                 // replaced main dict, remove the one created from internal data
-                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(this.toString(), context) +
-                        File.separator + DictionaryInfoUtils.getMainDictFilename(this.toString())
+                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
+                        File.separator + DictionaryInfoUtils.getMainDictFilename(mainLocaleString)
                 File(internalMainDictFilename).delete()
             }
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
@@ -366,6 +366,7 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
     if (cachedDirectoryList != null) {
         for (directory in cachedDirectoryList) {
             if (!directory.isDirectory) continue
+            if (directory.list()?.isNotEmpty() != true) continue
             val dirLocale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
             if (dirLocale == mainLocaleString) continue
             val locale = dirLocale.toLocale()
