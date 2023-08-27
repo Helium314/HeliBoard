@@ -248,7 +248,6 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         }
         customThemeVariantNightPref = preferenceScreen.findPreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT) as ListPreference
         customThemeVariantNightPref.apply {
-            title = "$title (night)" // todo: string resource
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 // not so nice workaround, could be removed in the necessary re-work: new value seems
                 // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now

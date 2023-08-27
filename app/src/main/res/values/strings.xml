@@ -615,6 +615,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="theme_family">Theme family</string>
     <!-- Option for choosing theme family variant [CHAR LIMIT=33] -->
     <string name="theme_variant">Theme variant</string>
+    <!-- Option for choosing theme family variant (night) [CHAR LIMIT=33] -->
+    <string name="theme_variant_night">Theme variant (night mode)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->

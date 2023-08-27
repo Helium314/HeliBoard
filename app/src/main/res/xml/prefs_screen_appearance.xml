@@ -42,7 +42,7 @@
 
         <ListPreference
             android:key="custom_theme_variant_night"
-            android:title="@string/theme_variant"/>
+            android:title="@string/theme_variant_night"/>
 
         <Preference
             android:key="theme_select_colors"
