@@ -20,5 +20,5 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Améliorer suggestions en fonction des messages et données saisies"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Améliore les suggestions en fonction des messages et des données saisies"</string>
 </resources>
