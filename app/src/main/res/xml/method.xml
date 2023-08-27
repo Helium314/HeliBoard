@@ -416,8 +416,8 @@
             android:isAsciiCapable="false"
     />
     <!-- TODO: This Hinglish keyboard is a preliminary layout.
-               This isn't based on the final specification. -->
-    <!--  Disabled because there is no LM yet, and this layout does not offer anything different.
+               This isn't based on the final specification.
+               Was disabled because there is no LM yet, and this layout does not offer anything different. -->
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
             android:label="@string/subtype_hi_ZZ"
             android:subtypeId="0x352eb37c"
@@ -426,7 +426,6 @@
             android:imeSubtypeExtraValue="AsciiCapable,KeyboardLayoutSet=qwerty,EmojiCapable"
             android:isAsciiCapable="true"
     />
-    -->
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
             android:label="@string/subtype_generic"
             android:subtypeId="0x35b7526a"

@@ -86,8 +86,8 @@ class LanguageSettingsFragment : SubScreenFragment() {
                 }
                 // special treatment for the known languages with _ZZ types
                 // todo: later: make it a bit less weird... and probably faster
-                //  consider that more _ZZ languages might be added (e.g. hinglish)
-                if (!added && locale.language == "sr") {
+                //  consider that more _ZZ languages might be added
+                if (!added && (locale.language == "sr" || locale.language == "hi")) {
                     val languageString = locale.language
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
