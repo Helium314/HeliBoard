@@ -246,6 +246,7 @@ final public class BinaryDictionaryGetter {
      */
     public static ArrayList<AssetFileAddress> getDictionaryFiles(final Locale locale,
             final Context context, boolean notifyDictionaryPackForUpdates, final boolean weakMatchAcceptable) {
+        loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable); // will copy dict to cached word lists if not existing
         final File[] cachedWordLists = getCachedWordLists(locale.toString(), context, weakMatchAcceptable);
         final String mainDictId = DictionaryInfoUtils.getMainDictId(locale);
         final DictPackSettings dictPackSettings = new DictPackSettings(context);
@@ -322,8 +323,10 @@ final public class BinaryDictionaryGetter {
         // we have a match, now copy contents of the dictionary to cached word lists folder
         final String bestMatchLocale = extractLocaleFromAssetsDictionaryFile(bestMatchName);
         if (bestMatchLocale == null) return null;
-        File dictFile = new File(DictionaryInfoUtils.getCacheDirectoryForLocale(bestMatchLocale, context) +
-                File.separator + DictionaryInfoUtils.getMainDictFilename(bestMatchLocale));
+        File dictFile = new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
+                File.separator + DictionaryInfoUtils.getMainDictFilename(locale));
+        if (dictFile.exists())
+            return dictFile;
         try {
             FileUtils.copyStreamToNewFile(
                     context.getAssets().open(ASSETS_DICTIONARY_FOLDER + File.separator + bestMatchName),
