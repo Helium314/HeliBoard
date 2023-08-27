@@ -187,8 +187,8 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="number_row_summary">సంఖ్యల వరుసను ఎల్లప్పుడూ చూపండి</string>
     <string name="prefs_force_incognito_mode">అజ్ఞాత పద్దతి ప్రయోగించండి</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"సిస్టమ్ భాషలను ఉపయోగించు"</string>
-    <string name="select_input_method">"కీబోర్డ్‌ను మార్చు"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"సిస్టమ్ భాషలను ఉపయోగించండి"</string>
+    <string name="select_input_method">"ఇన్‌పుట్ పద్ధతిని ఎంచుకోండి"</string>
     <string name="prefs_force_incognito_mode_summary">కొత్త పదముల అభ్యాసమును ఆపండి</string>
     <string name="prefs_long_press_keyboard_to_change_lang">ఇన్పుట్ పద్దతి మార్చుటకు స్పేస్ కీ వాడండి</string>
     <string name="prefs_keyboard_height_scale">కీబోర్డ్ ఎత్తు కొలత</string>

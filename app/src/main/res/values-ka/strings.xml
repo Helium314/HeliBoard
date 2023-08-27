@@ -189,7 +189,7 @@
     <string name="enable_clipboard_history">ბუფერის ისტორიის ჩართვა</string>
     <string name="enable_clipboard_history_summary">თუ გამორთულია, ბუფერის ღილაკი ბუფერის შემცველობას ჩასვამს, თუ ის არსებობს</string>
     <string name="use_system_language_to_select_input_method_subtypes">"სისტემის ენების გამოყენება"</string>
-    <string name="select_input_method">"კლავიატურის შეცვლა"</string>
+    <string name="select_input_method">"აირჩიეთ შეყვანის მეთოდი"</string>
     <string name="settings_screen_appearance">"იერსახე"</string>
     <string name="autospace_after_punctuation">პუნქტუაციის შემდეგ ადგილის ავტომტური გამოტოვება</string>
     <string name="autospace_after_punctuation_summary">ახალი სიტყვის დაწყებისას პუნქტუაციის შემდეგ გამოტოვების ავტომატური ჩასმა</string>

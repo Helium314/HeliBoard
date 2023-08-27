@@ -226,7 +226,7 @@
     <string name="license" >Ліцэнзія з адкрытым зыходным кодам</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Выкарыстоўваць мовы сістэмы"</string>
-    <string name="select_input_method">"Змяніць клавіятуру"</string>
+    <string name="select_input_method">"Выберыце метад уводу"</string>
     <string name="number_row_summary">Заўсёды паказваць лічбавы радок</string>
     <string name="delete_swipe">Выдаліць свайпам</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>

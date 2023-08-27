@@ -228,5 +228,5 @@
     <string name="day_night_mode">Outo dag/nag modus</string>
     <string name="day_night_mode_summary">Voorkoms sal sisteem verstellings naboots</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gebruik stelseltale"</string>
-    <string name="select_input_method">"Verander sleutelbord"</string>
+    <string name="select_input_method">"Kies invoermetode"</string>
 </resources>

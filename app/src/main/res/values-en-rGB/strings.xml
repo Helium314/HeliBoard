@@ -229,6 +229,6 @@
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
     <string name="auto_correction_confidence">Auto-correction confidence</string>
-    <string name="select_input_method">"Change keyboard"</string>
+    <string name="select_input_method">"Choose input method"</string>
     <string name="settings_screen_appearance">"Appearance"</string>
 </resources>

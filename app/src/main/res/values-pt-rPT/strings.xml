@@ -221,8 +221,8 @@
     <string name="android_spell_checker_settings">Definições de verificação ortográfica OpenBoard</string>
     <string name="auto_correction_confidence">Confiança da correção automática</string>
     <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência colará o conteúdo, se houver</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Utilizar idiomas do sistema"</string>
-    <string name="select_input_method">"Alterar teclado"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas do sistema"</string>
+    <string name="select_input_method">"Escolher o método de entrada"</string>
     <string name="clipboard_history_retention_time">Tempo de retenção de historio</string>
     <string name="autospace_after_punctuation">Espaço automático depois de pontuação</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>

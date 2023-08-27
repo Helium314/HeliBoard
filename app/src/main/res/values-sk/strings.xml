@@ -204,6 +204,6 @@
     <string name="settings_category_suggestions">Návrhy</string>
     <string name="settings_category_experimental">Experimentálne</string>
     <string name="settings_category_miscellaneous">Ostatné</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Použiť jazyky systému"</string>
-    <string name="select_input_method">"Zmeniť klávesnicu"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Jazyky systému"</string>
+    <string name="select_input_method">"Zvoliť metódu vstupu"</string>
 </resources>

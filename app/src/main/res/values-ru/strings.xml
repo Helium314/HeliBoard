@@ -249,5 +249,5 @@
     <string name="license" >Лицензия с открытым исходным кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Языки системы"</string>
-    <string name="select_input_method">"Выбор раскладки"</string>
+    <string name="select_input_method">"Выберите способ ввода"</string>
 </resources>

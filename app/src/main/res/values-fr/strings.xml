@@ -229,5 +229,5 @@
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="auto_correction_confidence">Confiance dans la correction automatique</string>
-    <string name="select_input_method">"Changer de clavier"</string>
+    <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
 </resources>

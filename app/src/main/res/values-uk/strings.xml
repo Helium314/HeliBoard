@@ -226,7 +226,7 @@
     <string name="license" >Ліцензія з відкритим кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Використовувати мови системи"</string>
-    <string name="select_input_method">"Змінити клавіатуру"</string>
+    <string name="select_input_method">"Вибрати метод введення"</string>
     <string name="space_trackpad">Клавіша пробіл як трекпад</string>
     <string name="prefs_force_incognito_mode">Примусовий режим інкогніто</string>
     <string name="prefs_force_incognito_mode_summary">Вимкнути вивчення нових слів</string>

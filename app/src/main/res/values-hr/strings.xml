@@ -229,5 +229,5 @@
     <string name="number_row">Broj retka</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>
     <string name="auto_correction_confidence">Pouzdanje u automatsko ispravljanje</string>
-    <string name="select_input_method">"Promjena tipkovnice"</string>
+    <string name="select_input_method">"Odabir načina unosa"</string>
 </resources>

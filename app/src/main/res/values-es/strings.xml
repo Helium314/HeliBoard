@@ -229,5 +229,5 @@
     <string name="autospace_after_punctuation_summary">Insertar un espacio automático después del punto cuando se escriba una nueva palabra</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
     <string name="auto_correction_confidence">Precisión de la corrección automática</string>
-    <string name="select_input_method">"Cambiar teclado"</string>
+    <string name="select_input_method">"Selecciona un método de entrada"</string>
 </resources>

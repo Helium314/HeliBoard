@@ -189,5 +189,5 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"நீக்கு"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"சாதன மொழிகளைப் பயன்படுத்து"</string>
-    <string name="select_input_method">"விசைப்பலகையை மாற்று"</string>
+    <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
 </resources>

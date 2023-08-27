@@ -188,7 +188,7 @@
     <string name="settings_category_clipboard_history">Historie schránky</string>
     <string name="settings_category_correction">Opravy</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Použít systémové jazyky"</string>
-    <string name="select_input_method">"Změna klávesnice"</string>
+    <string name="select_input_method">"Vybrat metodu zadávání"</string>
     <string name="settings_category_experimental">Experimentální</string>
     <string name="settings_category_miscellaneous">Různé</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTY">%s</xliff:g>min.</string>

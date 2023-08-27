@@ -188,7 +188,7 @@
     <string name="settings_category_clipboard_history">Bufer tarixi</string>
     <string name="show_emoji_key">Emoji kaliti</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Tizimdagi mavjud tillar"</string>
-    <string name="select_input_method">"Klaviaturani o‘zgartirish"</string>
+    <string name="select_input_method">"Matn kiritish usulini tanlang"</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <string name="settings_no_limit">Cheklanmagan</string>
     <string name="enable_clipboard_history">Bufer tarixini yoqish</string>

@@ -229,5 +229,5 @@
     <string name="day_night_mode">Modalità giorno/notte automatica</string>
     <string name="auto_correction_confidence">Modalità correzione automatica</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utilizza le lingue di sistema"</string>
-    <string name="select_input_method">"Cambia tastiera"</string>
+    <string name="select_input_method">"Scegli il metodo di immissione"</string>
 </resources>

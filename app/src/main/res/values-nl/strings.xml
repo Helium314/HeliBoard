@@ -187,8 +187,8 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="autospace_after_punctuation">Automatische spatie na punt</string>
     <string name="theme_variant">Thema variant</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Systeemtalen gebruiken"</string>
-    <string name="select_input_method">"Toetsenbord wijzigen"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Gebruik systeemtalen"</string>
+    <string name="select_input_method">"Invoermethode selecteren"</string>
     <string name="day_night_mode">Automatische dag/nachtmodus</string>
     <string name="day_night_mode_summary">Het uiterlijk volgt de systeeminstellingen</string>
     <string name="settings_category_clipboard_history">Klembord geschiedenis</string>

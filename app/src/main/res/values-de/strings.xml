@@ -185,8 +185,8 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Weitere Sprachen…</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Löschen"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Systemsprache verwenden"</string>
-    <string name="select_input_method">"Tastatur ändern"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Systemsprachen verwenden"</string>
+    <string name="select_input_method">"Eingabemethode wählen"</string>
     <string name="settings_category_clipboard_history">Zwischenablage-Verlauf</string>
     <string name="settings_category_correction">Korrekturen</string>
     <string name="settings_category_suggestions">Vorschläge</string>

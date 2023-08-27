@@ -229,5 +229,5 @@
     <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
     <string name="auto_correction_confidence">Konfidensi koreksi otomatis</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
-    <string name="select_input_method">"Ubah keyboard"</string>
+    <string name="select_input_method">"Pilih metode masukan"</string>
 </resources>

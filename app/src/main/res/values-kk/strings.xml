@@ -189,5 +189,5 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Жою"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АӘБВГҒДЕЁЖЗИЙКҚЛМНҢОӨПРСТУҰҮФХҺЦЧШЩЪЫІЬЭЮЯ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Жүйелік тілдерді пайдалану"</string>
-    <string name="select_input_method">"Пернетақтаны өзгерту"</string>
+    <string name="select_input_method">"Енгізу әдісін таңдау"</string>
 </resources>

@@ -189,7 +189,7 @@
     <string name="spell_checker_service_name">OpenBoard Yazı Yoxlayıcısı</string>
     <string name="android_spell_checker_settings">OpenBoard Yazı Yoxlayıcısı Parametrləri</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillərini istifadə edin"</string>
-    <string name="select_input_method">"Klaviaturanı dəyişin"</string>
+    <string name="select_input_method">"Daxiletmə metodunu seçin"</string>
     <string name="settings_screen_appearance">"Görünüş"</string>
     <string name="ime_settings">OpenBoard Tənzimləmələri</string>
     <string name="settings_category_input">Giriş</string>

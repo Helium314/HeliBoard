@@ -228,6 +228,6 @@
     <string name="day_night_mode">Automatiskt dag-/nattläge</string>
     <string name="day_night_mode_summary">Utseendet kommer följa systeminställningarna</string>
     <string name="auto_correction_confidence">Förtroende för automatisk korrigering</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Använda systemspråk"</string>
-    <string name="select_input_method">"Byt tangentbord"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Använd systemspråk"</string>
+    <string name="select_input_method">"Välj inmatningsmetod"</string>
 </resources>

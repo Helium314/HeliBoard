@@ -188,7 +188,7 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"थप भाषाहरू..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"मेट्नुहोस्"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"प्रणालीका भाषाहरू प्रयोग गर्नुहोस्"</string>
-    <string name="select_input_method">"कुञ्जीपाटी परिवर्तन गर्नुहोस्"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"सिष्टममा भएका भाषा प्रयोग गरियोस्"</string>
+    <string name="select_input_method">"निवेश विधि छान्नुहोस्"</string>
     <string name="settings_screen_appearance">"उपस्थिति"</string>
 </resources>

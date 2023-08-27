@@ -229,5 +229,5 @@
     <string name="autospace_after_punctuation">Automatyczne wstawianie spacji po znaku interpunkcyjnym</string>
     <string name="auto_correction_confidence">Dokładność autokorekty</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Użyj języków systemu"</string>
-    <string name="select_input_method">"Zmień klawiaturę"</string>
+    <string name="select_input_method">"Wybierz metodę wprowadzania"</string>
 </resources>

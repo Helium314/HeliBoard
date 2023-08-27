@@ -189,6 +189,6 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"លុប"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ប្រើភាសាប្រព័ន្ធ"</string>
-    <string name="select_input_method">"ប្ដូរ​ក្ដារចុច"</string>
+    <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="settings_screen_appearance">"រូបរាង"</string>
 </resources>

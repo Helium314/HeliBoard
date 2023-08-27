@@ -189,5 +189,5 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"削除"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"システム言語を使用"</string>
-    <string name="select_input_method">"キーボードの変更"</string>
+    <string name="select_input_method">"入力方法の選択"</string>
 </resources>

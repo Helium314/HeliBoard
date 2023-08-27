@@ -186,7 +186,7 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Избриши"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Користи језике система"</string>
-    <string name="select_input_method">"Промените тастатуру"</string>
+    <string name="select_input_method">"Избор метода уноса"</string>
     <string name="spell_checker_service_name">ОпенБоард провера правописа</string>
     <string name="android_spell_checker_settings">ОпенБоард подешавања провере правописа</string>
     <string name="ime_settings">ОпенБоард подешавања</string>

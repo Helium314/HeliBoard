@@ -217,7 +217,7 @@
     <string name="delete_swipe_summary">أجرِ سحبًا سريعًا على مفتاح الحذف لتُحدِّد وتُزيل أجزاءً كبيرة من النص دفعةً واحدة</string>
     <string name="show_hints">إظهار تلميحات المفاتيح</string>
     <string name="use_system_language_to_select_input_method_subtypes">"استخدام لغات النظام"</string>
-    <string name="select_input_method">"تغيير لوحة المفاتيح"</string>
+    <string name="select_input_method">"اختيار أسلوب الإدخال"</string>
     <string name="show_hints_summary">إظهار تلميحات المفاتيح عند الضغط لفترة طويلة</string>
     <string name="space_trackpad">مفتاح المسافة على لوحة اللَّمس</string>
     <string name="space_trackpad_summary">اسحب على مفتاح المسافة لتحريك المؤشر</string>

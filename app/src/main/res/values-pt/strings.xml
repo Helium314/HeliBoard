@@ -218,8 +218,8 @@
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de introdução com a tecla Espaço</string>
     <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas do sistema"</string>
-    <string name="select_input_method">"Alterar teclado"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Usa idiomas do sistema"</string>
+    <string name="select_input_method">"Selecione o método de entrada"</string>
     <string name="settings_screen_appearance">"Aparência"</string>
     <string name="auto_correction_confidence">Confiança na auto-correção</string>
     <string name="enable_clipboard_history_summary">Se desativada, a chave da área de transferência colará o conteúdo da área de transferência, se houver</string>

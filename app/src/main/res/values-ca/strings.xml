@@ -229,5 +229,5 @@
     <string name="subtype_no_language_colemak_dh">Alfabètic (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
-    <string name="select_input_method">"Canvia el teclat"</string>
+    <string name="select_input_method">"Selecciona un mètode d\'introducció"</string>
 </resources>
