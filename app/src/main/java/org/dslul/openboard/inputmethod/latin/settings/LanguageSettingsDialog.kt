@@ -75,7 +75,7 @@ class LanguageSettingsDialog(
                     .setItems(displayNames.toTypedArray()) { di, i ->
                         di.dismiss()
                         val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, layouts[i])
-                        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context.resources, true) // enabled by default, because why else add them
+                        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true) // enabled by default, because why else add them
                         addAdditionalSubtype(prefs, context.resources, newSubtype)
                         addEnabledSubtype(prefs, newSubtype)
                         addSubtypeToView(newSubtypeInfo, subtypesView)
@@ -145,15 +145,15 @@ class LanguageSettingsDialog(
             secondaryLocalesView.findViewById<ImageView>(R.id.add_secondary_language).apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }).sorted()
-                    val localeNames = locales.map { it.toLocale().getDisplayName(context.resources.configuration.locale) }.toTypedArray()
+                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString)).sortedBy { it.displayName }
+                    val localeNames = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.language_selection_title)
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
                             val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
-                            Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings + locale)
-                            addSecondaryLocaleView(locale.toLocale(), secondaryLocalesView)
+                            Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings + locale.toString())
+                            addSecondaryLocaleView(locale, secondaryLocalesView)
                             di.dismiss()
                         }
                         .show()
@@ -231,8 +231,8 @@ class LanguageSettingsDialog(
         if (locale != mainLocale) {
             val message = context.resources.getString(
                 R.string.dictionary_file_wrong_locale,
-                locale.getDisplayName(context.resources.configuration.locale),
-                mainLocale.getDisplayName(context.resources.configuration.locale)
+                LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context),
+                LocaleUtils.getLocaleDisplayNameInSystemLocale(mainLocale, context)
             )
             Builder(context)
                 .setMessage(message)
@@ -351,9 +351,9 @@ fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<
 }
 
 // get locales with same script as main locale, but different language
-private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: String, asciiCapable: Boolean): Set<String> {
+private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: String, asciiCapable: Boolean): Set<Locale> {
     val mainLocale = mainLocaleString.toLocale()
-    val locales = HashSet<String>()
+    val locales = HashSet<Locale>()
     val mainScript = if (asciiCapable) ScriptUtils.SCRIPT_LATIN
     else ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale)
     // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not
@@ -373,7 +373,7 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
             if (locale.language == mainLocale.language) continue
             val localeScript = ScriptUtils.getScriptFromSpellCheckerLocale(locale)
             if (localeScript != mainScript) continue
-            locales.add(locale.toString())
+            locales.add(locale)
         }
     }
     // get assets dictionaries
@@ -388,7 +388,7 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
             if (locale.language == mainLocale.language) continue
             val localeScript = ScriptUtils.getScriptFromSpellCheckerLocale(locale)
             if (localeScript != mainScript) continue
-            locales.add(locale.toString())
+            locales.add(locale)
         }
     }
     return locales

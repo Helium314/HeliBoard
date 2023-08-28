@@ -1,9 +1,9 @@
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.preference.TwoStatePreference
@@ -137,7 +137,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        toSubtypeInfo(locale, resources, isEnabled)
+        toSubtypeInfo(locale, activity, isEnabled)
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
@@ -180,15 +180,8 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
     }
 }
 
-fun InputMethodSubtype.toSubtypeInfo(locale: Locale, resources: Resources, isEnabled: Boolean): SubtypeInfo {
-    val displayName = if (locale.toString().equals("zz", true)) // no language
-            SubtypeLocaleUtils.getSubtypeLocaleDisplayNameInSystemLocale(locale.toString())
-        else if (locale.toString().endsWith("zz", true)) // serbian (latin), maybe others in the future
-            SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
-        else
-            locale.getDisplayName(resources.configuration.locale)
-    return SubtypeInfo(displayName, this, isEnabled)
-}
+fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean): SubtypeInfo =
+    SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled)
 
 private const val DICTIONARY_REQUEST_CODE = 96834
 const val USER_DICTIONARY_SUFFIX = "user.dict"

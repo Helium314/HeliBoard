@@ -16,6 +16,10 @@
 
 package org.dslul.openboard.inputmethod.latin.common;
 
+import android.content.Context;
+
+import org.dslul.openboard.inputmethod.latin.R;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -211,5 +215,18 @@ public final class LocaleUtils {
 
     public static boolean isRtlLanguage(@Nonnull final Locale locale) {
         return sRtlLanguageCodes.contains(locale.getLanguage());
+    }
+
+    public static String getLocaleDisplayNameInSystemLocale(final Locale locale, final Context context) {
+        final String localeString = locale.toString();
+        if (localeString.equals("zz"))
+            return context.getString(R.string.subtype_no_language);
+        if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz")) {
+            final int resId = context.getResources()
+                    .getIdentifier("subtype_"+localeString, "string", context.getPackageName());
+            if (resId != 0)
+                return context.getString(resId);
+        }
+        return locale.getDisplayName(context.getResources().getConfiguration().locale);
     }
 }

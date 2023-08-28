@@ -19,6 +19,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.*
 
 class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Preference(context, attrs) {
@@ -116,7 +117,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                             sb.append("\n")
                         sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
                             .joinToString(", ") {
-                                it.getDisplayName(context.resources.configuration.locale)
+                                LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context)
                             })
                     }
                     text = sb
