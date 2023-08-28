@@ -26,8 +26,9 @@ import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags
+import java.lang.Float.max
+import java.lang.Float.min
 import java.util.*
 
 /**
@@ -64,8 +65,9 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         setupTheme()
 
 
-        if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED ||
-                Constants.isSmallPhone(Settings.readScreenMetrics(resources))) {
+        val widthDp = activity.resources.displayMetrics.widthPixels / activity.resources.displayMetrics.density
+        val heightDp = activity.resources.displayMetrics.heightPixels / activity.resources.displayMetrics.density
+        if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED || (min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
             removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
         }
 

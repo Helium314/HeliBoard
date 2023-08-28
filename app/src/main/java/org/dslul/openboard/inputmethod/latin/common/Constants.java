@@ -311,17 +311,11 @@ public final class Constants {
     public static final int SCREEN_METRICS_LARGE_PHONE = 1;
     public static final int SCREEN_METRICS_LARGE_TABLET = 2;
     public static final int SCREEN_METRICS_SMALL_TABLET = 3;
-    public static final int SCREEN_METRICS_MEDIUM_PHONE = 4;
 
     @UsedForTesting
     public static boolean isPhone(final int screenMetrics) {
         return screenMetrics == SCREEN_METRICS_SMALL_PHONE
-                || screenMetrics == SCREEN_METRICS_MEDIUM_PHONE
                 || screenMetrics == SCREEN_METRICS_LARGE_PHONE;
-    }
-    @UsedForTesting
-    public static boolean isSmallPhone(final int screenMetrics) {
-        return screenMetrics == SCREEN_METRICS_SMALL_PHONE;
     }
 
     @UsedForTesting
