@@ -258,9 +258,10 @@ class LanguageSettingsDialog(
             }
             if (dictionaryType == DictionaryInfoUtils.DEFAULT_MAIN_DICT) {
                 // replaced main dict, remove the one created from internal data
-                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
-                        File.separator + DictionaryInfoUtils.getMainDictFilename(mainLocaleString)
-                File(internalMainDictFilename).delete()
+                // todo: currently not, see also BinaryDictionaryGetter.getDictionaryFiles
+//                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
+//                        File.separator + DictionaryInfoUtils.getMainDictFilename(mainLocaleString)
+//                File(internalMainDictFilename).delete()
             }
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             fragment?.activity?.sendBroadcast(newDictBroadcast)

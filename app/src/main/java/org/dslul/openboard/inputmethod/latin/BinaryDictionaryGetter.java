@@ -16,6 +16,8 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import static org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragmentKt.USER_DICTIONARY_SUFFIX;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
@@ -184,8 +186,11 @@ final public class BinaryDictionaryGetter {
                         final String category =
                                 DictionaryInfoUtils.getCategoryFromFileName(wordList.getName());
                         final FileAndMatchLevel currentBestMatch = cacheFiles.get(category);
-                        if (null == currentBestMatch || currentBestMatch.mMatchLevel < matchLevel) {
-                            cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
+                        if (null == currentBestMatch || currentBestMatch.mMatchLevel <= matchLevel) {
+                            // todo: not nice, related to getDictionaryFiles todo
+                            //  this is so user-added main dict has priority over internal main dict
+                            if ("main".equals(category) && (wordList.getName().endsWith(USER_DICTIONARY_SUFFIX) || currentBestMatch == null))
+                                cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
                         }
                     }
                 }
@@ -244,6 +249,8 @@ final public class BinaryDictionaryGetter {
      * - Returns null.
      * @return The list of addresses of valid dictionary files, or null.
      */
+    // todo: the way of using assets and cached lists should be improved, so that the assets file
+    //  doesn't need to be in cached dir just for checking whether it's a good match
     public static ArrayList<AssetFileAddress> getDictionaryFiles(final Locale locale,
             final Context context, boolean notifyDictionaryPackForUpdates, final boolean weakMatchAcceptable) {
         loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable); // will copy dict to cached word lists if not existing
