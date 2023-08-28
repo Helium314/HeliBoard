@@ -306,6 +306,9 @@ public final class Suggest {
             final int firstOccurrenceOfTypedWordInSuggestions,
             final SuggestedWordInfo typedWordFirstOccurrenceWordInfo
     ) {
+        // todo:
+        //  tune the suggestion score thresholds (currently 900k, maybe should depend on autocorrect)
+        //  maybe tune the empty word suggestion min difference (currently 20, seems quite ok)
         final String consideredWord = trailingSingleQuotesCount > 0
                 ? typedWordString.substring(0, typedWordString.length() - trailingSingleQuotesCount)
                 : typedWordString;
@@ -324,25 +327,23 @@ public final class Suggest {
         ) {
             allowsToBeAutoCorrected = true;
         } else if (firstSuggestionInContainer != null && !typedWordString.isEmpty()) {
-            // maybe allow autocorrect, depending on emptyWordSuggestions
+            // maybe allow autocorrect, depending on scores and emptyWordSuggestions
             putEmptyWordSuggestions.run();
             final SuggestedWordInfo first = firstAndTypedWordEmptyInfos.get(0);
             final SuggestedWordInfo typed = firstAndTypedWordEmptyInfos.get(1);
-            if (first == null) {
+            if (firstSuggestionInContainer.mScore > 900000) {
+                allowsToBeAutoCorrected = true; // suggestion has good score, allow
+            } else if (first == null) {
                 allowsToBeAutoCorrected = false; // no autocorrect if first suggestion unknown in this context
             } else if (typed == null) {
-                allowsToBeAutoCorrected = true; // autocorrect if typed word not known in this context (this may be too aggressive)
+                allowsToBeAutoCorrected = true; // autocorrect if typed word not known in this context, todo: this may be too aggressive
             } else {
-                // autocorrect only if suggested word has clearly higher score
-                // todo: maybe adjust the score difference? but already 15 requires typing several times (but doesn't go back quickly...)
-                //  maybe this should depend on mAutoCorrectionThreshold
-                //  0.185 for modest, 0.067 for aggressive, negative infinity for very aggressive
+                // autocorrect if suggested word has clearly higher score for empty word suggestions
                 allowsToBeAutoCorrected = (first.mScore - typed.mScore) > 20;
             }
-        } else
+        } else {
             allowsToBeAutoCorrected = false;
-        // todo: hope autocorrect doesn't trigger too often now (remove this comment if ok)
-        //  yes, it triggered too often / weirdly in some cases, but hopefully improved
+        }
 
         final boolean hasAutoCorrection;
         // If correction is not enabled, we never auto-correct. This is for example for when
@@ -384,38 +385,51 @@ public final class Suggest {
             final SuggestedWordInfo firstSuggestion = suggestionResults.first();
             if (suggestionResults.mFirstSuggestionExceedsConfidenceThreshold
                     && firstOccurrenceOfTypedWordInSuggestions != 0) {
-                // todo: mFirstSuggestionExceedsConfidenceThreshold is always false, so currently
-                //  this branch is useless. remove the related logic, or actually use it
-                hasAutoCorrection = true;
-            } else if (!AutoCorrectionUtils.suggestionExceedsThreshold(
+                // mFirstSuggestionExceedsConfidenceThreshold is always set to false, so currently
+                //  this branch is useless
+                return new boolean[]{ true, true };
+            }
+            if (!AutoCorrectionUtils.suggestionExceedsThreshold(
                     firstSuggestion, consideredWord, autoCorrectionThreshold)) {
                 // todo: maybe also do something here depending on ngram context?
                 // Score is too low for autocorrect
+                return new boolean[]{ true, false };
+            }
+            // We have a high score, so we need to check if this suggestion is in the correct
+            // form to allow auto-correcting to it in this language. For details of how this
+            // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
+            // TODO: this should not have its own logic here but be handled by the dictionary.
+            final boolean allowed = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
+            if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 900000) {
+                // typed word is valid and has good score
+                // do not auto-correct if typed word is better match than first suggestion
+                final SuggestedWordInfo first = firstSuggestionInContainer != null ? firstSuggestionInContainer : firstSuggestion;
+                final Locale dictLocale = dictionaryFacilitator.getCurrentLocale();
+
+                if (first.mScore < 900000) {
+                    // don't allow if suggestion has too low score
+                    // todo: maybe lower this to ~600k? 500k will be too aggressive
+                    //  or make it depend on autocorrect threshold
+                    return new boolean[]{ true, false };
+                }
+                if (first.mSourceDict.mLocale != typedWordFirstOccurrenceWordInfo.mSourceDict.mLocale) {
+                    // dict locale different -> return the better match
+                    return new boolean[]{ true, dictLocale == first.mSourceDict.mLocale };
+                }
+                putEmptyWordSuggestions.run();
+                int firstScoreForEmpty = firstAndTypedWordEmptyInfos.get(0) != null ? firstAndTypedWordEmptyInfos.get(0).mScore : 0;
+                int typedScoreForEmpty = firstAndTypedWordEmptyInfos.get(1) != null ? firstAndTypedWordEmptyInfos.get(1).mScore : 0;
+                if (firstScoreForEmpty == 0 && typedScoreForEmpty == 0) {
+                    // both words unknown in this ngram context -> return the correction
+                    return new boolean[]{ true, true };
+                }
+                if (firstScoreForEmpty > typedScoreForEmpty + 20) {
+                    // return the better match for ngram context, biased towards typed word
+                    return new boolean[]{ true, true };
+                }
                 hasAutoCorrection = false;
             } else {
-                // We have a high score, so we need to check if this suggestion is in the correct
-                // form to allow auto-correcting to it in this language. For details of how this
-                // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
-                // TODO: this should not have its own logic here but be handled by the dictionary.
-                final boolean allowed = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
-                // todo: the threshold (currently 1000000) may need tuning
-                if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 1000000) {
-                    // typed word is valid and has good score
-                    // do not auto-correct if typed word is better prediction than possible correction from ngram context alone
-                    final SuggestedWordInfo first = firstSuggestionInContainer != null ? firstSuggestionInContainer : firstSuggestion;
-                    putEmptyWordSuggestions.run();
-                    int firstScoreForEmpty = firstAndTypedWordEmptyInfos.get(0) != null ? firstAndTypedWordEmptyInfos.get(0).mScore : 0;
-                    int typedScoreForEmpty = firstAndTypedWordEmptyInfos.get(1) != null ? firstAndTypedWordEmptyInfos.get(1).mScore : 0;
-                    final Locale dictLocale = dictionaryFacilitator.getCurrentLocale();
-                    // slightly prefer suggestion for the current locale, this is very useful e.g.
-                    // for Polish i vs English I, or French un vs un->in shortcut in English default dictionary
-                    if (dictLocale == first.mSourceDict.mLocale)
-                        firstScoreForEmpty += 1;
-                    if (dictLocale == typedWordFirstOccurrenceWordInfo.mSourceDict.mLocale)
-                        typedScoreForEmpty += 1;
-                    hasAutoCorrection = firstScoreForEmpty >= typedScoreForEmpty;
-                } else
-                    hasAutoCorrection = allowed;
+                hasAutoCorrection = allowed;
             }
         }
         return new boolean[]{ allowsToBeAutoCorrected, hasAutoCorrection };
