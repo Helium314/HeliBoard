@@ -718,36 +718,40 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return null;
         }
 
+        // issue:
+        //  type 2 words and space, press delete twice -> remaining word and space before are selected
+        //   now on next key press, the space before the word is removed
+        //  or complete a word by choosing a suggestion than press backspace -> same thing
         // what is sometimes happening (depending on app, or maybe input field attributes):
         //  we just pressed delete, and getTextBeforeCursor gets the correct text,
         //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
-        //  -> detect this difference, and try to fix it
+        //  -> we try to detect this difference, and then try to fix it
         // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
         //  mCommittedTextBeforeComposingText where the text is cached
-        // (this check is really annoyingly long for the simple thing to be done)
-        if (before.length() > 0 && after.length() == 0) {
+        // what could be actually going on? we probably need to fetch the text because we want updated styles if any
+
+        // we need text before, and text after is always empty or a separator or similar
+        if (before.length() > 0 && (after.length() == 0 || !isPartOfCompositionForScript(Character.codePointBefore(after, 0), spacingAndPunctuations, scriptId))) {
             final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
-            if (!isPartOfCompositionForScript(lastBeforeCodePoint, spacingAndPunctuations, scriptId)) {
-                // before ends with separator or similar -> check whether text before cursor ends with the same codepoint
-                int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
-                CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
-                if (codePointBeforeCursor.length() != 0 && Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
-                    // they are different, as is expected from the issue
-                    // now check whether they are the same if the last codepoint of before is removed
-                    final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
-                    final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
-                    if (beforeCursor.length() == beforeWithoutLast.length()) {
-                        boolean same = true;
-                        // CharSequence has undefined equals
-                        for (int i = 0; i < beforeCursor.length(); i++) {
-                            if (beforeCursor.charAt(i) != beforeWithoutLast.charAt(i)) {
-                                same = false;
-                                break;
-                            }
+            // check whether before ends with the same codepoint as getTextBeforeCursor
+            int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
+            CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
+            if (codePointBeforeCursor.length() != 0 && Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
+                // they are different, as is expected from the issue
+                // now check whether they are the same if the last codepoint of before is removed
+                final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
+                final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
+                if (beforeCursor.length() == beforeWithoutLast.length()) {
+                    boolean same = true;
+                    // CharSequence has undefined equals, so we need to compare characters
+                    for (int i = 0; i < beforeCursor.length(); i++) {
+                        if (beforeCursor.charAt(i) != beforeWithoutLast.charAt(i)) {
+                            same = false;
+                            break;
                         }
-                        if (same) {
-                            before = beforeWithoutLast;
-                        }
+                    }
+                    if (same) {
+                        before = beforeWithoutLast;
                     }
                 }
             }
