@@ -16,7 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_name" translatable="false">OpenBoard</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
@@ -283,21 +283,21 @@
     <!-- Description for English (UK) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT.
          This should be identical to subtype_en_GB aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_GB" tools:keep="@string/subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for English (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United States to fit in the CHAR LIMIT.
          This should be identical to subtype_en_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" tools:keep="@string/subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United Statesn to fit in the CHAR LIMIT.
          This should be identical to subtype_es_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" tools:keep="@string/subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_hi_ZZ">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" tools:keep="@string/subtype_with_layout_hi_ZZ">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_sr_ZZ">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" tools:keep="@string/subtype_with_layout_sr_ZZ">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
          (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
@@ -337,7 +337,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTZ
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_qwertz">Alphabet (QWERTZ)</string>
+    <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">Alphabet (QWERTZ)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -348,7 +348,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the AZERTY
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_azerty">Alphabet (AZERTY)</string>
+    <string name="subtype_no_language_azerty" tools:keep="@string/subtype_no_language_azerty">Alphabet (AZERTY)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -359,7 +359,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Dvorak
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_dvorak">Alphabet (Dvorak)</string>
+    <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Alphabet (Dvorak)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -370,7 +370,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Colemak
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_colemak">Alphabet (Colemak)</string>
+    <string name="subtype_no_language_colemak" tools:keep="@string/subtype_no_language_colemak">Alphabet (Colemak)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -382,7 +382,7 @@ are used to. This keyboard does not provide a dictionary, and it is not tied to 
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY PC
 disposition that offers additional keys, but smaller keys compared to other common dispositions for
 mobile devices. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -393,8 +393,8 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Workman
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_workman">Alphabet (Workman)</string>
-    <string name="subtype_no_language_pcqwerty">Alphabet (PC)</string>
+    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alphabet (Workman)</string>
+    <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
     <!-- Description for Emoji keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_emoji">Emoji</string>
     <!-- Title of the preference settings for switching keyboard theme [CHAR LIMIT=35] -->
@@ -632,15 +632,15 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Option for setting navbar to follow keyboard color -->
     <string name="theme_navbar">Color navigation bar</string>
     <!-- Theme name for light theme -->
-    <string name="theme_name_light">Light</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Light</string>
     <!-- Theme name for dark theme (based on old no-border dark) -->
-    <string name="theme_name_dark">Dark</string>
-    <!-- Theme name for darker theme  (based on old border dark), todo: re-consider that stupid name -->
-    <string name="theme_name_darker">Darker</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dark</string>
+    <!-- Theme name for darker theme (based on old border dark), todo: re-consider that stupid name -->
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Darker</string>
     <!-- Theme name for black theme (based on old amoled black) -->
-    <string name="theme_name_black">Black</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
     <!-- Theme name for user-defined theme -->
-    <string name="theme_name_user">User-Defined</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Option for selecting custom theme colors -->
     <string name="select_user_colors">Adjust theme colors</string>
     <!-- Description for selection of user-defined colors. -->
