@@ -189,7 +189,8 @@ final public class BinaryDictionaryGetter {
                         if (null == currentBestMatch || currentBestMatch.mMatchLevel <= matchLevel) {
                             // todo: not nice, related to getDictionaryFiles todo
                             //  this is so user-added main dict has priority over internal main dict
-                            if ("main".equals(category) && (wordList.getName().endsWith(USER_DICTIONARY_SUFFIX) || currentBestMatch == null))
+                            //  actually any user-added dict has priority, but there aren't any other built-in types
+                            if (wordList.getName().endsWith(USER_DICTIONARY_SUFFIX) || currentBestMatch == null)
                                 cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
                         }
                     }

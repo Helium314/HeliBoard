@@ -64,6 +64,9 @@ Changes to OpenBoard:
 * Fix bug with space before word being deleted in some apps / input fields, https://github.com/Helium314/openboard/commit/ce0bf06545c4547d3fc5791cc769508db0a89e87
 * Allow using auto theme on some devices with Android 9
 * Add auto theme for the new theming system
+* Add number pad
+* Overhauled language settings
+* Updated translations
 
 Further plan / to do:
 * ~upgrade dependencies~
@@ -94,7 +97,8 @@ Further plan / to do:
 * add emojis to user history, to be used for next word
 
 -----
-
+# readme for original version of OpenBoard below
+-----
 <h1 align="center"><b>OpenBoard</b></h1>
 <h4 align="center">100% FOSS keyboard, based on AOSP.</h4>
 <p align="center"><img src='fastlane/metadata/android/en-US/images/icon.png' height='128'></p>
