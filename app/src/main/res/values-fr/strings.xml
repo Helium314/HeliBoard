@@ -122,7 +122,7 @@
     <string name="custom_input_style_already_exists" msgid="8008728952215449707">Le style de saisie suivant existe déjà : <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durée de vibration des touches"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume son pression de touche"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Délai d\'appui long sur les touches"</string>
+    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Délai d\'un appui long sur les touches"</string>
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji pour clavier physique"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La touche Alt physique permet d\'afficher la palette d\'emoji"</string>
     <string name="button_default" msgid="3988017840431881491">"Par défaut"</string>
