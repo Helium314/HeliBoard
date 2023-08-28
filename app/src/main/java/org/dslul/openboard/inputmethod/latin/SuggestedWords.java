@@ -383,7 +383,7 @@ public class SuggestedWords {
 
         /**
          * This will always remove the higher index if a duplicate is found.
-         * Will also remove al occurrences of the typed word.
+         * Will also remove all occurrences of the typed word.
          *
          * @return position of typed word in the candidate list
          */
@@ -394,7 +394,7 @@ public class SuggestedWords {
                 return -1;
             }
             int firstOccurrenceOfWord = -1;
-            if (!TextUtils.isEmpty(typedWord)) {
+            if (typedWord != null && typedWord.length() > 0) {
                 firstOccurrenceOfWord = removeSuggestedWordInfoFromList(
                         typedWord, candidates, -1 /* startIndexExclusive */);
             }
