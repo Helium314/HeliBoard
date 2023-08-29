@@ -608,7 +608,7 @@ public final class StringUtils {
     @Nullable
     public static String toTitleCaseOfKeyLabel(@Nullable final String label,
                                                @Nonnull final Locale locale) {
-        if (label == null || !ScriptUtils.scriptSupportsUppercase(locale.getLanguage())) {
+        if (label == null || !ScriptUtils.scriptSupportsUppercase(locale)) {
             return label;
         }
 

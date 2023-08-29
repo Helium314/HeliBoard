@@ -50,19 +50,8 @@ public class ScriptUtils {
     public static final int SCRIPT_THAI = 17;
     public static final int SCRIPT_BULGARIAN = 18;
 
-    public static final String LANGUAGE_GEORGIAN = "ka";
-    public static final String LANGUAGE_BENGALI = "bn";
-    public static final String LANGUAGE_HINDI = "hi";
-    public static final String LANGUAGE_THAI = "th";
-    public static final String LANGUAGE_KHMER = "km";
-    public static final String LANGUAGE_LAO = "lo";
-    public static final String LANGUAGE_SINHALA = "si";
-    public static final String LANGUAGE_NEPALI = "ne";
-
-
-
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
-    private final static ArraySet<String> NON_UPPERCASE_SCRIPTS = new ArraySet<>();
+    private final static ArraySet<Integer> UPPERCASE_SCRIPTS = new ArraySet<>();
 
 
     static {
@@ -87,19 +76,19 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("th", SCRIPT_THAI);
         mLanguageCodeToScriptCode.put("uk", SCRIPT_CYRILLIC);
 
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_GEORGIAN);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_BENGALI);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_HINDI);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_THAI);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_KHMER);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_LAO);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_SINHALA);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_NEPALI);
+        // only Latin, Cyrillic, Greek and Armenian have upper/lower case
+        // https://unicode.org/faq/casemap_charprop.html#3
+        // adding Bulgarian because internally it uses a separate script value
+        UPPERCASE_SCRIPTS.add(SCRIPT_LATIN);
+        UPPERCASE_SCRIPTS.add(SCRIPT_CYRILLIC);
+        UPPERCASE_SCRIPTS.add(SCRIPT_BULGARIAN);
+        UPPERCASE_SCRIPTS.add(SCRIPT_GREEK);
+        UPPERCASE_SCRIPTS.add(SCRIPT_ARMENIAN);
     }
 
 
-    public static boolean scriptSupportsUppercase(String language) {
-        return !NON_UPPERCASE_SCRIPTS.contains(language);
+    public static boolean scriptSupportsUppercase(Locale locale) {
+        return UPPERCASE_SCRIPTS.contains(getScriptFromSpellCheckerLocale(locale));
     }
 
     /*
@@ -217,8 +206,8 @@ public class ScriptUtils {
      * {@see http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes}
      */
     public static int getScriptFromSpellCheckerLocale(final Locale locale) {
-        // need special treatment of serbian latin, which would get detected as cyrillic
-        if (locale.toString().toLowerCase(Locale.ENGLISH).equals("sr_zz"))
+        // need special treatment of serbian latin and hinglish, which would get detected as cyrillic /
+        if (locale.toString().toLowerCase(Locale.ENGLISH).endsWith("_zz"))
             return ScriptUtils.SCRIPT_LATIN;
         String language = locale.getLanguage();
         Integer script = mLanguageCodeToScriptCode.get(language);
