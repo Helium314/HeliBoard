@@ -57,13 +57,13 @@
                 latin:keyStyle="languageSwitchKeyStyle" />
             <Key
                 latin:keyStyle="spaceKeyStyle"
-                latin:keyWidth="14.0%p" />
+                latin:keyWidth="15.0%p" />
         </case>
         <!-- languageSwitchKeyEnabled="false" -->
         <default>
             <Key
                 latin:keyStyle="spaceKeyStyle"
-                latin:keyWidth="21.0%p" />
+                latin:keyWidth="22.0%p" />
         </default>
     </switch>
 </merge>

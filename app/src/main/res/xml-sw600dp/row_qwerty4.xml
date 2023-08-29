@@ -31,7 +31,8 @@
                 latin:backgroundType="functional"
             >
                 <Key
-                    latin:keyStyle="toSymbolKeyStyle" />
+                    latin:keyStyle="toSymbolKeyStyle"
+                    latin:keyWidth="10.0%p" />
                 <include
                     latin:keyboardLayout="@xml/key_comma" />
                 <!-- Space key. -->
@@ -39,10 +40,10 @@
                     latin:keyboardLayout="@xml/key_space_3kw"
                     latin:backgroundType="normal" />
                 <Spacer
-                    latin:keyWidth="20.0%p" />
+                    latin:keyWidth="19.0%p" />
                 <Key
                     latin:keyStyle="spaceKeyStyle"
-                    latin:keyWidth="24.0%p" />
+                    latin:keyWidth="22.0%p" />
                 <include
                     latin:keyboardLayout="@xml/key_period" />
                 <include
