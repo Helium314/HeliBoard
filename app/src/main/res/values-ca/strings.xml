@@ -25,10 +25,10 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Amplia en prémer tecles"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferències"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Comptes i privadesa"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Aparença i disposició"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aparença i disposició"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escriptura gestual"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correcció de textos"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Avançada"</string>
+    <string name="settings_screen_advanced">"Configuració avançada"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Activa el teclat partit"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Altres mètodes d\'introducció"</string>
@@ -41,7 +41,7 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Predeterminat"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Suggereix noms de contactes"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Utilitza els noms dels contactes per fer suggeriments i correccions</string>
+    <string name="use_contacts_dict_summary">"Utilitza els noms de contactes per fer suggeriments i correccions"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Suggeriments personalitzats"</string>
     <string name="enable_metrics_logging" msgid="5506372337118822837">Millora <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Doble espai per punt"</string>
@@ -108,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabet (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Tema del teclat"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Estils d\'introdució personalitzats"</string>
-    <string name="add_style" msgid="6163126614514489951">"Afegeix estil"</string>
     <string name="add" msgid="8299699805688017798">"Afegeix"</string>
     <string name="remove" msgid="4486081658752944606">"Elimina"</string>
     <string name="save" msgid="7646738597196767214">"Desa"</string>
@@ -156,11 +154,11 @@
     <string name="dictionary_installed" msgid="8081558343559342962">"Instal·lat"</string>
     <string name="dictionary_disabled" msgid="8950383219564621762">"Instal·lat, desactivat"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Error en connectar amb el diccionari"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">Sense diccionaris disponibles</string>
+    <string name="no_dictionaries_available">"Cap diccion. dispon."</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Actualitza"</string>
     <string name="last_update" msgid="730467549913588780">"Última actualització"</string>
     <string name="message_updating" msgid="4457761393932375219">"S\'està comprovant si hi ha actualitzacions"</string>
-    <string name="message_loading" msgid="5638680861387748936">S\'està carregant…</string>
+    <string name="message_loading">"S\'està carregant..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Diccionari principal"</string>
     <string name="cancel" msgid="6830980399865683324">"Cancel·la"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Configuració"</string>
@@ -184,7 +182,7 @@
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Suprimeix"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tens cap paraula al diccionari de l\'usuari. Toca el botó Afegeix (+) per afegir-n\'hi una."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Per a tots els idiomes"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">Més idiomes…</string>
+    <string name="user_dict_settings_more_languages">"Més idiomes..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Suprimeix"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
@@ -199,11 +197,9 @@
     <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'OpenBoard</string>
     <string name="delete_swipe">Esborra amb lliscament</string>
     <string name="show_emoji_key">Tecla d\'accés a emoticones</string>
-    <string name="amoled_mode">Fons negre profund</string>
     <string name="prefs_force_incognito_mode_summary">Desactiva l\'aprenentatge de paraules noves.</string>
     <string name="number_row">Numera les files</string>
     <string name="number_row_summary">Mostra sempre el número de fila.</string>
-    <string name="amoled_mode_summary">Pot reduir l\'ús energètic depenent de la tecnologia de la pantalla.</string>
     <string name="ime_settings">Configuració de l\'OpenBoard</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_miscellaneous">Miscel·lània</string>
@@ -231,4 +227,7 @@
     <string name="prefs_resize_keyboard">Activa la redimensió del teclat</string>
     <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema.</string>
     <string name="subtype_no_language_colemak_dh">Alfabètic (Colemak Mod-DH)</string>
+    <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
+    <string name="select_input_method">"Selecciona un mètode d\'introducció"</string>
 </resources>

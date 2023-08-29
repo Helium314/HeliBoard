@@ -1,16 +1,17 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
+import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 
+// todo: maybe kotlin? would make it much shorter and more readable
 public class Colors {
 
     public final boolean isCustom;
@@ -22,6 +23,8 @@ public class Colors {
     public final int spaceBar;
     public final int keyText;
     public final int keyHintText;
+    public int adjustedBackground;
+    public int adjustedKeyText;
     // todo (later): evaluate which colors, colorFilters and colorStateLists area actually necessary
     public ColorFilter backgroundFilter;
     public ColorFilter adjustedBackgroundFilter;
@@ -37,8 +40,7 @@ public class Colors {
     public ColorStateList functionalKeyStateList;
     public ColorStateList actionKeyStateList;
     public ColorStateList spaceBarStateList;
-    public ColorStateList adjustedBackgroundStateList; // todo (later): use in MoreKeys popup, without breaking when the selection has a radius set
-
+    public ColorStateList adjustedBackgroundStateList;
 
     public Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
         isCustom = true;
@@ -53,23 +55,10 @@ public class Colors {
     }
 
     // todo (later): remove this and isCustom, once the old themes can be completely replaced
-    public Colors(int themeId, int nightModeFlags) {
+    // for now there are the holo themes left, which don't require any of themeId and isNight
+    public Colors(int themeId, final boolean isNight) {
         isCustom = false;
-        if (KeyboardTheme.getIsDayNight(themeId)) {
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO)
-                navBar = Color.rgb(236, 239, 241);
-            else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK)
-                navBar = Color.rgb(38, 50, 56);
-            else
-                navBar = Color.BLACK;
-        } else if (KeyboardTheme.THEME_VARIANT_LIGHT.equals(KeyboardTheme.getThemeVariant(themeId))) {
-            navBar = Color.rgb(236, 239, 241);
-        } else if (themeId == KeyboardTheme.THEME_ID_LXX_DARK) {
-            navBar = Color.rgb(38, 50, 56);
-        } else {
-            // dark border is 13/13/13, but that's ok
-            navBar = Color.BLACK;
-        }
+        navBar = Color.BLACK;
         accent = 0;
         background = 0;
         keyBackground = 0;
@@ -81,19 +70,26 @@ public class Colors {
 
     public void createColorFilters(final boolean hasKeyBorders) {
         final int[][] states = new int[][] {
-//            new int[] { android.R.attr.state_checked}, // checked -> todo (later): when is this happening? there are more states, but when are they used?
+                // are other states used?
+                //  looks like only microphone ("shortcut") key can ever be disabled, but then it's not shown anyway...
+                //  and checked seems unused
                 new int[] { android.R.attr.state_pressed}, // pressed
                 new int[] { -android.R.attr.state_pressed}, // not pressed
         };
 
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
+        adjustedKeyText = brightenOrDarken(keyText, true);
 
         // color to be used if exact background color would be bad contrast, e.g. more keys popup or no border space bar
-        final int adjustedBackground = brightenOrDarken(background, true);
-        adjustedBackgroundStateList = new ColorStateList(states, new int[] { brightenOrDarken(adjustedBackground, true), adjustedBackground });
+        if (isDarkColor(background)) {
+            adjustedBackground = brighten(background);
+            adjustedBackgroundStateList = new ColorStateList(states, new int[] { brighten(adjustedBackground), adjustedBackground });
+        } else {
+            adjustedBackground = darken(background);
+            adjustedBackgroundStateList = new ColorStateList(states, new int[] { darken(adjustedBackground), adjustedBackground });
+        }
         adjustedBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(adjustedBackground, BlendModeCompat.MODULATE);
 
-        // todo (later): for bright colors there often is no need for 2 states, could just have one (because keys will darken anyway) -> test!
         if (hasKeyBorders) {
             keyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(keyBackground, BlendModeCompat.MODULATE);
             functionalKeyBackgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(functionalKey, BlendModeCompat.MODULATE);
@@ -123,27 +119,19 @@ public class Colors {
                 : null;
     }
 
-    public static boolean isBrightColor(int color) {
+    // todo: move static functions to some utility class?
+    public static boolean isBrightColor(final int color) {
         if (android.R.color.transparent == color) {
             return true;
         }
-        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        // we are only interested whether brightness is greater, so no need for sqrt
-        int brightnessSquared = (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-        return brightnessSquared >= 210*210;
+        return getBrightnessSquared(color) >= 210*210;
     }
 
-    // todo (later): what needs to be public?
-    public static boolean isDarkColor(int color) {
+    private static boolean isDarkColor(final int color) {
         if (android.R.color.transparent == color) {
             return true;
         }
-        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        // we are only interested whether brightness is greater, so no need for sqrt
-        int brightnessSquared = (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-        return brightnessSquared < 50*50;
+        return getBrightnessSquared(color) < 50*50;
     }
 
     public static int brightenOrDarken(final int color, final boolean preferDarken) {
@@ -153,11 +141,31 @@ public class Colors {
         } else if (isBrightColor(color)) return darken(color);
         else return brighten(color);
     }
-    public static int brighten(final int color) {
-        return ColorUtils.blendARGB(color, Color.WHITE, 0.2f); // brighten is stronger, because often the drawables get darker when pressed
+
+    private static int getBrightnessSquared(final int color) {
+        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        // we are only interested whether brightness is greater, so no need for sqrt
+        return (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
     }
 
-    public static int darken(final int color) {
-        return ColorUtils.blendARGB(color, Color.BLACK, 0.1f);
+    private static int adjustLuminosityAndKeepAlpha(@ColorInt final int color, final float amount) {
+        final int alpha = Color.alpha(color);
+        float[] hsl = new float[3];
+        ColorUtils.colorToHSL(color, hsl);
+        hsl[2] += amount;
+        final int newColor = ColorUtils.HSLToColor(hsl);
+        return Color.argb(alpha, Color.red(newColor), Color.green(newColor), Color.blue(newColor));
     }
+
+    @ColorInt
+    public static int brighten(@ColorInt final int color) {
+        return adjustLuminosityAndKeepAlpha(color, 0.05f);
+    }
+
+    @ColorInt
+    public static int darken(@ColorInt final int color) {
+        return adjustLuminosityAndKeepAlpha(color, -0.05f);
+    }
+
 }

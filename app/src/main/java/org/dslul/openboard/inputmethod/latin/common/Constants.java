@@ -17,6 +17,7 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 
 import javax.annotation.Nonnull;
 
@@ -177,7 +178,7 @@ public final class Constants {
     // Key events coming any faster than this are long-presses.
     public static final int LONG_PRESS_MILLISECONDS = 200;
     // TODO: Set this value appropriately.
-    public static final int GET_SUGGESTED_WORDS_TIMEOUT = 200;
+    public static final int GET_SUGGESTED_WORDS_TIMEOUT = BuildConfig.DEBUG ? 500 : 200; // debug build is slow, and timeout is annoying for testing
     // How many continuous deletes at which to start deleting at a higher speed.
     public static final int DELETE_ACCELERATE_AT = 20;
 
@@ -250,8 +251,11 @@ public final class Constants {
     public static final int CODE_START_ONE_HANDED_MODE = -17;
     public static final int CODE_STOP_ONE_HANDED_MODE = -18;
     public static final int CODE_SWITCH_ONE_HANDED_MODE = -19;
+    public static final int CODE_NUMPAD = -20;
+    public static final int CODE_ALPHA_FROM_NUMPAD = -21;
+    public static final int CODE_SYMBOL_FROM_NUMPAD = -22;
     // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -20;
+    public static final int CODE_UNSPECIFIED = -23;
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;
@@ -282,6 +286,9 @@ public final class Constants {
         case CODE_START_ONE_HANDED_MODE: return "startOneHandedMode";
         case CODE_STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
         case CODE_SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
+        case CODE_NUMPAD: return "numpad";
+        case CODE_ALPHA_FROM_NUMPAD: return "alphaNumpad";
+        case CODE_SYMBOL_FROM_NUMPAD: return "symbolNumpad";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);
             if (code < 0x100) return String.format("%c", code);

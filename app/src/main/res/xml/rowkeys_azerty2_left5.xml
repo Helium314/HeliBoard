@@ -39,8 +39,8 @@
         latin:moreKeys="!text/morekeys_d" />
     <Key
         latin:keySpec="f"
-        latin:keyHintLabel="%"
-        latin:additionalMoreKeys="%" />
+        latin:keyHintLabel="_"
+        latin:additionalMoreKeys="_" />
     <Key
         latin:keySpec="g"
         latin:keyHintLabel="&amp;"

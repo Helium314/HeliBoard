@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+>
+    <include
+        latin:keyboardLayout="@xml/key_styles_common" />
+    <include
+        latin:keyboardLayout="@xml/key_styles_number" />
+    <include
+        latin:keyboardLayout="@xml/key_styles_currency" />
+    <!-- First row -->
+    <Row>
+        <!-- &#40; "(" LEFT PARENTHESIS SIGN -->
+        <!-- &#123; "{" LEFT CURLY BRACKET -->
+        <!-- &#91; "[" LEFT SQUARE BRACKET -->
+        <Key
+            latin:keySpec="&#40;"
+            latin:additionalMoreKeys="&#123;,&#91;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#41; ")" RIGHT PARENTHESIS SIGN -->
+        <!-- &#125; "}" RIGHT CURLY BRACKET -->
+        <!-- &#93; "]" RIGHT SQUARE BRACKET -->
+        <Key
+            latin:keySpec="&#41;"
+            latin:additionalMoreKeys="&#125;,&#93;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#58; ":" COLON SIGN -->
+        <Key
+            latin:keySpec="&#58;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <Key
+            latin:keySpec="1"
+            latin:keyStyle="numKeyStyle" />
+        <Key
+            latin:keySpec="2"
+            latin:keyStyle="numKeyStyle" />
+        <Key
+            latin:keySpec="3"
+            latin:keyStyle="numKeyStyle" />
+        <!-- &#43; "+" PLUS SIGN -->
+        <!-- &#177; "±" PLUS-MINUS SIGN -->
+        <Key
+            latin:keySpec="&#43;"
+            latin:additionalMoreKeys="&#177;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#45; "-" HYPHEN-MINUS SIGN -->
+        <!-- &#126; "~" TILDE -->
+        <Key
+            latin:keySpec="&#45;"
+            latin:additionalMoreKeys="&#126;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#32; " " SPACE -->
+        <Key
+            latin:keySpec="!icon/space_key_for_number_layout|&#32;"
+            latin:keyLabelFlags="alignIconToBottom"
+            latin:backgroundType="functional"
+            latin:keyActionFlags="noKeyPreview|enableLongPress"
+            latin:keyWidth="fillRight" />
+    </Row>
+    <!-- Second row -->
+    <Row>
+        <!-- &#33; "!" EXCLAMATION MARK SIGN -->
+        <Key
+            latin:keySpec="&#33;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#63; "?" QUESTION MARK SIGN -->
+        <Key
+            latin:keySpec="&#63;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#59; ";" SEMICOLON SIGN -->
+        <Key
+            latin:keySpec="&#59;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <Key
+            latin:keySpec="4"
+            latin:keyStyle="numKeyStyle" />
+        <Key
+            latin:keySpec="5"
+            latin:keyStyle="numKeyStyle" />
+        <Key
+            latin:keySpec="6"
+            latin:keyStyle="numKeyStyle" />
+        <!-- &#42; "*" ASTERISK SIGN -->
+        <!-- &#215; "×" MULTIPLICATION SIGN -->
+        <Key
+            latin:keySpec="&#42;"
+            latin:additionalMoreKeys="&#215;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#47; "/" SOLIDUS SIGN -->
+        <!-- &#247; "÷" DIVISION SIGN -->
+        <Key
+            latin:keySpec="&#47;"
+            latin:additionalMoreKeys="&#247;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <Key
+            latin:keyStyle="deleteKeyStyle"
+            latin:backgroundType="functional"
+            latin:keyWidth="fillRight" />
+    </Row>
+    <!-- Third row -->
+    <Row>
+        <!-- &#124; "|" VERTICAL LINE -->
+        <Key
+            latin:keySpec="&#124;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <Key
+            latin:keyStyle="currencyKeyStyle"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#38; "&" AMPERSAND -->
+        <Key
+            latin:keySpec="&#38;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <Key
+            latin:keySpec="7"
+            latin:keyStyle="numKeyStyle" />
+        <Key
+            latin:keySpec="8"
+            latin:keyStyle="numKeyStyle" />
+        <Key
+            latin:keySpec="9"
+            latin:keyStyle="numKeyStyle" />
+        <!-- &#35; "#" NUMBER SIGN -->
+        <Key
+            latin:keySpec="&#35;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#37; "%" PERCENT SIGN -->
+        <!-- &#8240; "‰" PER MILLE SIGN -->
+        <Key
+            latin:keySpec="&#37;"
+            latin:additionalMoreKeys="&#8240;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <Key
+            latin:keyStyle="enterKeyStyle"
+            latin:keyWidth="fillRight" />
+    </Row>
+    <!-- Fourth row -->
+    <Row>
+        <Key
+            latin:keyStyle="alphaNumpadKeyStyle"
+            latin:backgroundType="functional"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#60; "<" LESS-THAN SIGN -->
+        <!-- &#8804; "≤" LESS THAN OR EQUAL TO -->
+        <Key
+            latin:keySpec="&#60;"
+            latin:additionalMoreKeys="&#8804;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#62; ">" GREATER-THAN SIGN -->
+        <!-- &#8805; "≥" GREATER THAN OR EQUAL TO -->
+        <Key
+            latin:keySpec="&#62;"
+            latin:additionalMoreKeys="&#8805;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="8.6%p" />
+        <!-- &#44; "," COMMA SIGN -->
+        <Key
+            latin:keySpec="&#44;"
+            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"
+            latin:keyActionFlags="noKeyPreview" />
+        <Key
+            latin:keySpec="0"
+            latin:keyStyle="numKeyStyle" />
+        <!-- &#46; "." PERIOD SIGN -->
+        <!-- &#8230; "..." ELLIPSIS SIGN -->
+        <!-- &#8734; "∞" INFINITY -->
+        <!-- &#960; "π" GREEK SMALL LETTER PI -->
+        <!-- &#8730; "√" SQUARE ROOT -->
+        <!-- &#176; "°" DEGREE SIGN -->
+        <!-- &#94; "^" CIRCUMFLEX ACCENT -->
+        <Key
+            latin:keySpec="&#46;"
+            latin:additionalMoreKeys="&#8230;,&#8734;,&#960;,&#8730;,&#176;,&#94;"
+            latin:keyActionFlags="noKeyPreview" />
+        <!-- &#61; "=" EQUAL SIGN -->
+        <!-- &#8800; "≠" NOT EQUAL TO -->
+        <!-- &#8776; "≈" ALMOST EQUAL TO -->
+        <Key
+            latin:keySpec="&#61;"
+            latin:additionalMoreKeys="&#8800;,&#8776;"
+            latin:keyActionFlags="noKeyPreview"
+            latin:keyWidth="17.2%p" />
+        <Key
+            latin:keyStyle="symbolNumpadKeyStyle"
+            latin:backgroundType="functional"
+            latin:keyWidth="fillRight" />
+    </Row>
+</merge>

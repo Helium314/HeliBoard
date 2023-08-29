@@ -3,7 +3,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.LXX_Base_Border"
            parent="KeyboardTheme.LXX_Base">
-        <item name="keyboardStyle">@style/Keyboard.LXX_Light_Border</item> <!-- todo: see comment for lxx-base, though here only the action key popup in search field is weird -->
+        <item name="keyboardStyle">@style/Keyboard.LXX_Base_Border</item>
         <item name="keyboardViewStyle">@style/KeyboardView.LXX_Base_Border</item>
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base_Border</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Base_Border</item>
@@ -15,6 +15,8 @@
         name="Keyboard.LXX_Base_Border"
         parent="Keyboard"
     >
+        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
+        <item name="themeId">LXXBaseBorder</item>
     </style>
     <style
         name="KeyboardView.LXX_Base_Border"
@@ -62,7 +64,8 @@
     <style
         name="SuggestionStripView.LXX_Base_Border"
         parent="SuggestionStripView.LXX_Base">
-        <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base_border</item>
+        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base_border</item> -->
+        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
     </style>
 
 </resources>

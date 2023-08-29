@@ -35,6 +35,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.XmlParseUtils;
 import org.dslul.openboard.inputmethod.latin.utils.XmlParseUtils.ParseException;
@@ -258,13 +259,22 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             params.mBaseWidth = baseWidth;
             params.mDefaultKeyWidth = (int)keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     baseWidth, baseWidth, baseWidth / DEFAULT_KEYBOARD_COLUMNS);
-            params.mHorizontalGap = (int)keyboardAttr.getFraction(
-                    R.styleable.Keyboard_horizontalGap, baseWidth, baseWidth, 0);
-            // TODO: Fix keyboard geometry calculation clearer. Historically vertical gap between
-            // rows are determined based on the entire keyboard height including top and bottom
-            // paddings.
-            params.mVerticalGap = (int)keyboardAttr.getFraction(
-                    R.styleable.Keyboard_verticalGap, height, height, 0);
+
+            if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
+                params.mHorizontalGap = (int) keyboardAttr.getFraction(
+                        R.styleable.Keyboard_horizontalGapNarrow, baseWidth, baseWidth, 0);
+                params.mVerticalGap = (int) keyboardAttr.getFraction(
+                        R.styleable.Keyboard_verticalGapNarrow, height, height, 0);
+            } else {
+                params.mHorizontalGap = (int) keyboardAttr.getFraction(
+                        R.styleable.Keyboard_horizontalGap, baseWidth, baseWidth, 0);
+                // TODO: Fix keyboard geometry calculation clearer. Historically vertical gap between
+                // rows are determined based on the entire keyboard height including top and bottom
+                // paddings.
+                params.mVerticalGap = (int) keyboardAttr.getFraction(
+                        R.styleable.Keyboard_verticalGap, height, height, 0);
+            }
+
             final int baseHeight = params.mOccupiedHeight - params.mTopPadding
                     - params.mBottomPadding + params.mVerticalGap;
             params.mBaseHeight = baseHeight;

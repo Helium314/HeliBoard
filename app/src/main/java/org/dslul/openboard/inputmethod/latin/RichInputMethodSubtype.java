@@ -54,11 +54,6 @@ public class RichInputMethodSubtype {
     }
 
     @Nonnull
-    public InputMethodSubtype getmSubtype() {
-        return mSubtype;
-    }
-
-    @Nonnull
     private final InputMethodSubtype mSubtype;
     @Nonnull
     private final Locale mLocale;

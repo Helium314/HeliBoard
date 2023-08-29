@@ -17,6 +17,7 @@
 package org.dslul.openboard.inputmethod.keyboard;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -31,6 +32,8 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
@@ -40,9 +43,12 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -381,9 +387,22 @@ public class KeyboardView extends View {
         } else {
             final Rect padding = mKeyBackgroundPadding;
             bgWidth = keyWidth + padding.left + padding.right;
-            bgHeight = keyHeight + padding.top + padding.bottom;
+            // absurdly horrible workaround, because it's not possible to set padding as percentage of height in btn_keyboard_spacebar_lxx_base
+            if (mColors.isCustom && key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR && !isHoloTheme()) {
+                Rect p = new Rect();
+                background.getPadding(p);
+                if (p.top != 0) {
+                    bgHeight = (keyHeight + padding.top + padding.bottom) / 2;
+                    bgY = -padding.top + bgHeight / 2;
+                } else {
+                    bgHeight = keyHeight + padding.top + padding.bottom;
+                    bgY = -padding.top;
+                }
+            } else {
+                bgHeight = keyHeight + padding.top + padding.bottom;
+                bgY = -padding.top;
+            }
             bgX = -padding.left;
-            bgY = -padding.top;
         }
         if (mColors.isCustom)
             setCustomKeyBackgroundColor(key, getKeyboard(), background);
@@ -391,6 +410,16 @@ public class KeyboardView extends View {
         canvas.translate(bgX, bgY);
         background.draw(canvas);
         canvas.translate(-bgX, -bgY);
+    }
+
+    private boolean isHoloTheme() {
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(getContext());
+        final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
+                prefs.getString(Settings.PREF_THEME_FAMILY, ""),
+                prefs.getString(Settings.PREF_THEME_VARIANT, ""),
+                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+        );
+        return KeyboardTheme.getThemeFamily(keyboardThemeId).equals(KeyboardTheme.THEME_FAMILY_HOLO);
     }
 
     // Draw key top visuals.
@@ -644,11 +673,13 @@ public class KeyboardView extends View {
             DrawableCompat.setTintList(background, mColors.spaceBarStateList);
         } else if (key.isFunctional()) { // shift, 123, delete,...
             DrawableCompat.setTintList(background, mColors.functionalKeyStateList);
+        } else if (this.getClass() == MoreSuggestionsView.class) { // more suggestions popup, should not use keyStateList
+            DrawableCompat.setTintList(background, mColors.backgroundStateList);
         } else if (this.getClass() == MoreKeysKeyboardView.class) { // more keys popup (except on action key, which is handled above)
             DrawableCompat.setTintList(background, mColors.adjustedBackgroundStateList);
         } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL) { // normal keys
             DrawableCompat.setTintList(background, mColors.keyStateList);
-        } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys
+        } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys, maybe rather check for EmojiPageKeyboardView.class?
             DrawableCompat.setTintList(background, mColors.backgroundStateList);
         }
     }
@@ -658,6 +689,7 @@ public class KeyboardView extends View {
         if (this.getClass() != MoreKeysKeyboardView.class) return false;
         final String iconName = KeyboardIconsSet.getIconName(key.getIconId());
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }

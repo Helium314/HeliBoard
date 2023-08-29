@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Ventás emerxentes ao premer as teclas"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferencias"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Contas e privacidade"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Aparencia e deseños"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aparencia e deseños"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escritura por xestos"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Corrección ortográfica"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Configuración avanzada"</string>
@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabeto (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Tema do teclado"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Estilos de entrada personalizados"</string>
-    <string name="add_style" msgid="6163126614514489951">"Engadir estilo"</string>
     <string name="add" msgid="8299699805688017798">"Engadir"</string>
     <string name="remove" msgid="4486081658752944606">"Eliminar"</string>
     <string name="save" msgid="7646738597196767214">"Gardar"</string>
@@ -190,4 +188,6 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Máis idiomas..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Eliminar"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas do sistema"</string>
+    <string name="select_input_method">"Escoller método de introdución de texto"</string>
 </resources>

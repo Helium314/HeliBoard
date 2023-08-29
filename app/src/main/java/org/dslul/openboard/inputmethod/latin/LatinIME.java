@@ -19,8 +19,6 @@ package org.dslul.openboard.inputmethod.latin;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -45,6 +43,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
@@ -75,14 +74,14 @@ import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.personalization.PersonalizationHelper;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
+import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAccessor;
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
-import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
-import org.dslul.openboard.inputmethod.latin.utils.IntentUtils;
+import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
@@ -271,7 +270,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             if (latinIme == null) {
                 return;
             }
-            final KeyboardSwitcher switcher = latinIme.mKeyboardSwitcher;
             switch (msg.what) {
                 case MSG_UPDATE_SUGGESTION_STRIP:
                     cancelUpdateSuggestionStrip();
@@ -279,7 +277,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                             latinIme.mSettings.getCurrent(), msg.arg1 /* inputStyle */);
                     break;
                 case MSG_UPDATE_SHIFT_STATE:
-                    switcher.requestUpdatingShiftState(latinIme.getCurrentAutoCapsState(),
+                    latinIme.mKeyboardSwitcher.requestUpdatingShiftState(latinIme.getCurrentAutoCapsState(),
                             latinIme.getCurrentRecapitalizeState());
                     break;
                 case MSG_SHOW_GESTURE_PREVIEW_AND_SUGGESTION_STRIP:
@@ -333,7 +331,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     latinIme.deallocateMemory();
                     break;
                 case MSG_SWITCH_LANGUAGE_AUTOMATICALLY:
-                    latinIme.switchLanguage((InputMethodSubtype)msg.obj);
+                    latinIme.switchToSubtype((InputMethodSubtype) msg.obj);
                     break;
                 case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
                     @SuppressWarnings("unchecked")
@@ -578,7 +576,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
     }
 
-    static final class SubtypeState {
+    final class SubtypeState {
         private InputMethodSubtype mLastActiveSubtype;
         private boolean mCurrentSubtypeHasBeenUsed;
 
@@ -586,9 +584,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mCurrentSubtypeHasBeenUsed = true;
         }
 
-        public void switchSubtype(final IBinder token, final RichInputMethodManager richImm) {
-            final InputMethodSubtype currentSubtype = richImm.getInputMethodManager()
-                    .getCurrentInputMethodSubtype();
+        public void switchSubtype(final RichInputMethodManager richImm) {
+            final InputMethodSubtype currentSubtype = richImm.getCurrentSubtype().getRawSubtype();
             final InputMethodSubtype lastActiveSubtype = mLastActiveSubtype;
             final boolean currentSubtypeHasBeenUsed = mCurrentSubtypeHasBeenUsed;
             if (currentSubtypeHasBeenUsed) {
@@ -598,10 +595,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             if (currentSubtypeHasBeenUsed
                     && richImm.checkIfSubtypeBelongsToThisImeAndEnabled(lastActiveSubtype)
                     && !currentSubtype.equals(lastActiveSubtype)) {
-                richImm.setInputMethodAndSubtype(token, lastActiveSubtype);
+                switchToSubtype(lastActiveSubtype);
                 return;
             }
-            richImm.switchToNextInputMethod(token, true /* onlyCurrentIme */);
+            // switchSubtype is called only for internal switching, so let's just switch to the next subtype
+            switchToSubtype(richImm.getNextSubtypeInThisIme(true));
         }
     }
 
@@ -624,6 +622,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void onCreate() {
         Settings.init(this);
         DebugFlags.init(DeviceProtectedUtils.getSharedPreferences(this));
+        SubtypeSettingsKt.init(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
@@ -802,6 +801,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
+        SubtypeSettingsKt.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();
             mInputLogic.onOrientationChange(mSettings.getCurrent());
@@ -812,7 +812,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             // TODO: we should probably do this unconditionally here, rather than only when we
             // have a change in hardware keyboard configuration.
             loadSettings();
-            settingsValues = mSettings.getCurrent();
             if (isImeSuppressedByHardwareKeyboard()) {
                 // We call cleanupInternalStateForFinishInput() because it's the right thing to do;
                 // however, it seems at the moment the framework is passing us a seemingly valid
@@ -916,6 +915,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
         loadKeyboard();
+    }
+
+    /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
+    public void switchToSubtype(final InputMethodSubtype subtype) {
+        onCurrentInputMethodSubtypeChanged(subtype);
     }
 
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
@@ -1267,7 +1271,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (mInputView == null) {
             return;
         }
-        final SettingsValues settingsValues = mSettings.getCurrent();
         final View visibleKeyboardView = mKeyboardSwitcher.getVisibleKeyboardView();
         if (visibleKeyboardView == null || !hasSuggestionStripView()) {
             return;
@@ -1336,7 +1339,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public boolean onEvaluateFullscreenMode() {
-        final SettingsValues settingsValues = mSettings.getCurrent();
         if (isImeSuppressedByHardwareKeyboard()) {
             // If there is a hardware keyboard, disable full screen mode.
             return false;
@@ -1411,12 +1413,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     public void displaySettingsDialog() {
         launchSettings();
-        /* old dialog
-        if (isShowingOptionDialog()) {
-            return;
-        }
-        showSubtypeSelectorAndSettings();
-         */
     }
 
     @Override
@@ -1425,8 +1421,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         switch (requestCode) {
             case Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER:
                 if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */)) {
-                    mRichImm.getInputMethodManager().showInputMethodPicker();
-                    return true;
+                    InputMethodPickerKt.showInputMethodPicker(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
+                    return true; // todo: don't show and return if dialog already shown? but how can this happen?
                 }
                 return false;
         }
@@ -1478,19 +1474,37 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         return mOptionsDialog != null && mOptionsDialog.isShowing();
     }
 
-    public void switchLanguage(final InputMethodSubtype subtype) {
-        final IBinder token = getWindow().getWindow().getAttributes().token;
-        mRichImm.setInputMethodAndSubtype(token, subtype);
-    }
-
     // TODO: Revise the language switch key behavior to make it much smarter and more reasonable.
     public void switchToNextSubtype() {
-        final IBinder token = getWindow().getWindow().getAttributes().token;
         if (shouldSwitchToOtherInputMethods()) {
-            mRichImm.switchToNextInputMethod(token, true /* onlyCurrentIme */);
+            // todo: this is the old behavior, is this actually wanted?
+            //  maybe make the language switch key more configurable
+            boolean moreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
+            final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(moreThanOneSubtype);
+            if (nextSubtype != null) {
+                switchToSubtype(nextSubtype);
+            } else {
+                // we are at end of the internal subtype list, switch to next input method
+                // (for now) don't care about which input method and subtype exactly, let the system choose
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    switchToNextInputMethod(false);
+                } else {
+                    final IBinder token = getWindow().getWindow().getAttributes().token;
+                    mRichImm.getInputMethodManager().switchToNextInputMethod(token, false);
+                }
+            }
             return;
         }
-        mSubtypeState.switchSubtype(token, mRichImm);
+        mSubtypeState.switchSubtype(mRichImm);
+    }
+
+    public void switchInputMethodAndSubtype(final InputMethodInfo imi, final InputMethodSubtype subtype) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            switchInputMethod(imi.getId(), subtype);
+        } else {
+            final IBinder token = getWindow().getWindow().getAttributes().token;
+            mRichImm.getInputMethodManager().setInputMethodAndSubtype(token, imi.getId(), subtype);
+        }
     }
 
     // TODO: Instead of checking for alphabetic keyboard here, separate keycodes for
@@ -1913,62 +1927,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         startActivity(intent);
     }
 
-    private void showSubtypeSelectorAndSettings() {
-        final CharSequence title = getString(R.string.english_ime_input_options);
-        // TODO: Should use new string "Select active input modes".
-        final CharSequence languageSelectionTitle = getString(R.string.language_selection_title);
-        final CharSequence[] items = new CharSequence[] {
-                languageSelectionTitle,
-                getString(ApplicationUtils.getActivityTitleResId(this, SettingsActivity.class))
-        };
-        final String imeId = mRichImm.getInputMethodIdOfThisIme();
-        final OnClickListener listener = new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface di, int position) {
-                di.dismiss();
-                switch (position) {
-                    case 0:
-                        final Intent intent = IntentUtils.getInputLanguageSelectionIntent(
-                                imeId,
-                                Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra(Intent.EXTRA_TITLE, languageSelectionTitle);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        launchSettings();
-                        break;
-                }
-            }
-        };
-        final AlertDialog.Builder builder = new AlertDialog.Builder(
-                DialogUtils.getPlatformDialogThemeContext(this));
-        builder.setItems(items, listener).setTitle(title);
-        final AlertDialog dialog = builder.create();
-        dialog.setCancelable(true /* cancelable */);
-        dialog.setCanceledOnTouchOutside(true /* cancelable */);
-        showOptionDialog(dialog);
-    }
-
-    // TODO: Move this method out of {@link LatinIME}.
-    private void showOptionDialog(final AlertDialog dialog) {
-        final IBinder windowToken = mKeyboardSwitcher.getMainKeyboardView().getWindowToken();
-        if (windowToken == null) {
-            return;
-        }
-
-        final Window window = dialog.getWindow();
-        final WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = windowToken;
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-
-        mOptionsDialog = dialog;
-        dialog.show();
-    }
-
     @UsedForTesting
     SuggestedWords getSuggestedWordsForTest() {
         // You may not use this method for anything else than debug
@@ -2038,15 +1996,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     public boolean shouldSwitchToOtherInputMethods() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            return shouldOfferSwitchingToNextInputMethod();
         // TODO: Revisit here to reorganize the settings. Probably we can/should use different
         // strategy once the implementation of
         // {@link InputMethodManager#shouldOfferSwitchingToNextInputMethod} is defined well.
-        final boolean fallbackValue = mSettings.getCurrent().mIncludesOtherImesInLanguageSwitchList;
         final IBinder token = getWindow().getWindow().getAttributes().token;
         if (token == null) {
-            return fallbackValue;
+            return mSettings.getCurrent().mIncludesOtherImesInLanguageSwitchList;
         }
-        return mRichImm.shouldOfferSwitchingToNextInputMethod(token, fallbackValue);
+        return mRichImm.getInputMethodManager().shouldOfferSwitchingToNextInputMethod(token);
     }
 
     public boolean shouldShowLanguageSwitchKey() {

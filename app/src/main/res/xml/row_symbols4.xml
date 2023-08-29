@@ -22,7 +22,7 @@
     <Key
         latin:keySpec="!text/keyspec_comma" />
     <Key
-        latin:keySpec="_" />
+        latin:keyStyle="numpadKeyStyle" />
     <include
         latin:keyboardLayout="@xml/key_space_symbols" />
     <Key

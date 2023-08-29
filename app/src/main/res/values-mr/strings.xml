@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"की दाबताना पॉपअप"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राधान्ये"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"खाती आणि गोपनीयता"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"स्वरूप आणि लेआउट"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"स्वरूप आणि लेआउट"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"जेश्चर टायपिंग"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"मजकूर दुरुस्ती"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"प्रगत"</string>
@@ -52,7 +52,7 @@
     <string name="auto_cap" msgid="1719746674854628252">"स्‍वयं-कॅपिटलायझेशन"</string>
     <string name="auto_cap_summary" msgid="7934452761022946874">"प्रत्येक वाक्याचा पहिला शब्द कॅपिटल करा"</string>
     <string name="edit_personal_dictionary" msgid="3996910038952940420">"वैयक्तिक शब्दकोश"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"अॅड-ऑन शब्दकोश"</string>
+    <string name="configure_dictionaries_title">"ॲड-ऑन शब्दकोश"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"मु्ख्य शब्दकोश"</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"सुधारणा सूचना दर्शवा"</string>
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"टाइप करताना सुचविलेले शब्द प्रदर्शित करा"</string>
@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"वर्णमाला (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"इमोजी"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"कीबोर्ड थीम"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"कस्टम इनपुट शैली"</string>
-    <string name="add_style" msgid="6163126614514489951">"स्टाइल जोडा"</string>
     <string name="add" msgid="8299699805688017798">"जोडा"</string>
     <string name="remove" msgid="4486081658752944606">"काढा"</string>
     <string name="save" msgid="7646738597196767214">"सेव्ह करा"</string>
@@ -145,12 +143,12 @@
     <string name="setup_step3_action" msgid="600879797256942259">"अतिरिक्त भाषा कॉन्फिगर करा"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"समाप्त"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"अ‍ॅप आयकन दर्शवा"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"लाँचर मध्ये अॅप्लिकेशन आयकन दाखवा"</string>
+    <string name="show_setup_wizard_icon_summary">"लाँचर मध्ये ॲप्लिकेशन आयकन दाखवा"</string>
     <string name="app_name" msgid="6320102637491234792">"शब्दकोश प्रदाता"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"शब्दकोश प्रदाता"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"शब्दकोश सेवा"</string>
     <string name="download_description" msgid="6014835283119198591">"डिक्शनरी अपडेट माहिती"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"अॅड-ऑन शब्दकोश"</string>
+    <string name="dictionary_settings_title">"ॲड-ऑन शब्दकोश"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"शब्दकोशांसाठी सेटिंग्ज"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"वापरकर्ता शब्दकोश"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"वापरकर्ता शब्दकोश"</string>
@@ -190,4 +188,6 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"अधिक भाषा..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"हटवा"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"सिस्टम भाषा वापरा"</string>
+    <string name="select_input_method">"इनपुट पद्धत निवडा"</string>
 </resources>

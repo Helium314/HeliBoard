@@ -22,13 +22,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
 import android.view.Gravity;
-
-import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
@@ -44,8 +41,9 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
@@ -66,15 +64,20 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_FAMILY = "theme_family";
     public static final String PREF_THEME_VARIANT = "theme_variant";
     public static final String PREF_CUSTOM_THEME_VARIANT = "custom_theme_variant";
+    public static final String PREF_CUSTOM_THEME_VARIANT_NIGHT = "custom_theme_variant_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
-    public static final String PREF_THEME_AMOLED_MODE = "theme_amoled_mode";
     public static final String PREF_THEME_USER = "theme_select_colors";
     public static final String PREF_THEME_USER_COLOR_TEXT = "theme_color_text";
     public static final String PREF_THEME_USER_COLOR_HINT_TEXT = "theme_color_hint_text";
     public static final String PREF_THEME_USER_COLOR_BACKGROUND = "theme_color_background";
     public static final String PREF_THEME_USER_COLOR_KEYS = "theme_color_keys";
     public static final String PREF_THEME_USER_COLOR_ACCENT = "theme_color_accent";
+    public static final String PREF_THEME_USER_DARK_COLOR_TEXT = "theme_dark_color_text";
+    public static final String PREF_THEME_USER_DARK_COLOR_HINT_TEXT = "theme_dark_color_hint_text";
+    public static final String PREF_THEME_USER_DARK_COLOR_BACKGROUND = "theme_dark_color_background";
+    public static final String PREF_THEME_USER_DARK_COLOR_KEYS = "theme_dark_color_keys";
+    public static final String PREF_THEME_USER_DARK_COLOR_ACCENT = "theme_dark_color_accent";
     // PREF_VOICE_MODE_OBSOLETE is obsolete. Use PREF_VOICE_INPUT_KEY instead.
     public static final String PREF_VOICE_MODE_OBSOLETE = "voice_mode";
     public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
@@ -141,9 +144,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "pref_enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "pref_clipboard_history_retention_time";
 
-    public static final String PREF_SECONDARY_LOCALES = "pref_secondary_locales";
-    public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
-    public static final String PREF_NAVBAR_COLOR = "navbar_color";
+    public static final String PREF_SECONDARY_LOCALES_PREFIX = "pref_secondary_locales_";
+    public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "pref_add_to_personal_dictionary";
+    public static final String PREF_NAVBAR_COLOR = "pref_navbar_color";
+    public static final String PREF_NARROW_KEY_GAPS = "pref_narrow_key_gaps";
+    public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
+    public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
+    public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
 
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
     // This is being used only for the backward compatibility.
@@ -211,6 +218,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             StatsUtils.onLoadSettings(mSettingsValues);
         } finally {
             mSettingsValuesLock.unlock();
+        }
+        if (key.equals(PREF_CUSTOM_INPUT_STYLES)) {
+            final String additionalSubtypes = readPrefAdditionalSubtypes(prefs, mContext.getResources());
+            SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
         }
     }
 
@@ -537,27 +548,42 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
     }
 
-    public static Locale getSecondaryLocale(final SharedPreferences prefs, final String mainLocaleString) {
-        final Set<String> encodedLocales = prefs.getStringSet(PREF_SECONDARY_LOCALES, new HashSet<>());
-        for (String loc : encodedLocales) {
-            String[] locales = loc.split("§");
-            if (locales.length == 2 && locales[0].equals(mainLocaleString.toLowerCase(Locale.ENGLISH)))
-                return LocaleUtils.constructLocaleFromString(locales[1]);
+    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
+        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "");
+
+        final ArrayList<Locale> locales = new ArrayList<>();
+        for (String locale : localesString.split(";")) {
+            if (locale.isEmpty()) continue;
+            locales.add(LocaleUtils.constructLocaleFromString(locale));
         }
-        return null;
+        return locales;
+    }
+
+    public static void setSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString, final List<String> locales) {
+        if (locales.isEmpty()) {
+            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "").apply();
+            return;
+        }
+        final StringBuilder sb = new StringBuilder();
+        for (String locale : locales) {
+            sb.append(";").append(locale);
+        }
+        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), sb.toString()).apply();
     }
 
     public static Colors getColors(final Context context, final SharedPreferences prefs) {
         final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
                 prefs.getString(Settings.PREF_THEME_FAMILY, ""),
                 prefs.getString(Settings.PREF_THEME_VARIANT, ""),
-                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false),
-                prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false),
-                prefs.getBoolean(Settings.PREF_THEME_AMOLED_MODE, false)
+                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
         );
+        // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
+        final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         if (!KeyboardTheme.getIsCustom(keyboardThemeId))
-            return new Colors(keyboardThemeId, context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
+            return new Colors(keyboardThemeId, isNight);
 
+        if (isNight && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
+            return KeyboardTheme.getCustomTheme(prefs.getString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER), context, prefs);
         return KeyboardTheme.getCustomTheme(prefs.getString(Settings.PREF_CUSTOM_THEME_VARIANT, KeyboardTheme.THEME_LIGHT), context, prefs);
     }
 

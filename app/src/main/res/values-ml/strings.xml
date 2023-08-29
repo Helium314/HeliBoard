@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"കീ അമർത്തുമ്പോൾ പോപ്പപ്പ്"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"മുൻഗണനകൾ"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"അക്കൗണ്ടുകളും സമന്വയവും"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"രൂപഭാവവും ലേഔട്ടുകളും"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"രൂപഭാവവും ലേഔട്ടുകളും"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ഗെസ്ചർ ടൈപ്പിംഗ്"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ടെക്സ്റ്റ് തിരുത്തൽ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"വിപുലം"</string>
@@ -108,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"അക്ഷരമാല (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"ഇമോജി"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"കീബോർഡ് തീം"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"ഇഷ്‌ട ടൈപ്പ്സ്റ്റൈൽ"</string>
-    <string name="add_style" msgid="6163126614514489951">"സ്റ്റൈൽ ചേർക്കുക"</string>
     <string name="add" msgid="8299699805688017798">"ചേര്‍ക്കുക"</string>
     <string name="remove" msgid="4486081658752944606">"നീക്കംചെയ്യുക"</string>
     <string name="save" msgid="7646738597196767214">"സംരക്ഷിക്കുക"</string>
@@ -160,7 +158,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"പുതുക്കുക"</string>
     <string name="last_update" msgid="730467549913588780">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="message_updating" msgid="4457761393932375219">"അപ്‌ഡേറ്റുകൾക്കായി പരിശോധിക്കുന്നു"</string>
-    <string name="message_loading" msgid="5638680861387748936">ലോഡുചെയ്യുന്നു…</string>
+    <string name="message_loading">"ലോഡുചെയ്യുന്നു..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"പ്രധാന നിഘണ്ടു"</string>
     <string name="cancel" msgid="6830980399865683324">"റദ്ദാക്കുക"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"ക്രമീകരണം"</string>
@@ -196,7 +194,6 @@
     <string name="number_row_summary">എല്ലായ്പ്പോഴും നമ്പർ വരി കാണിക്കുക</string>
     <string name="number_row">നമ്പർ വരി</string>
     <string name="show_hints">കീ സൂചനകൾ കാണിക്കുക</string>
-    <string name="amoled_mode">കടും കറുപ്പ് പശ്ചാത്തലങ്ങൾ</string>
     <string name="android_spell_checker_settings">ഓപ്പൺബോർഡ് സ്പെൽ ചെക്കർ ക്രമീകരണങ്ങൾ</string>
     <string name="delete_swipe">ഡിലീറ്റ് സ്വൈപ്പ്</string>
     <string name="space_trackpad_summary">കഴ്‌സർ നീക്കാൻ സ്‌പേസ് ബാറിൽ സ്വൈപ്പ് ചെയ്യുക</string>
@@ -226,9 +223,11 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (അഖോർ )</string>
     <string name="theme_family">തീം ഫാമിലി</string>
     <string name="theme_variant">തീം വേരിയന്റ്</string>
-    <string name="amoled_mode_summary">ഉപകരണത്തിന്റെ സ്‌ക്രീൻ സാങ്കേതികവിദ്യയെ ആശ്രയിച്ച് വൈദ്യുതി ഉപയോഗം കുറയ്ക്കാനാകും</string>
     <string name="settings_category_experimental">പരീക്ഷണാത്മകം</string>
     <string name="settings_category_input">ഇൻപുട്ട്</string>
     <string name="settings_category_additional_keys">അധിക കീകൾ</string>
     <string name="settings_category_correction">തിരുത്തലുകൾ</string>
+    <string name="auto_correction_confidence">യാന്ത്രിക-തിരുത്തൽ ആത്മവിശ്വാസം</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"സിസ്റ്റം ഭാഷകൾ ഉപയോഗിക്കുക"</string>
+    <string name="select_input_method">"ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കുക"</string>
 </resources>

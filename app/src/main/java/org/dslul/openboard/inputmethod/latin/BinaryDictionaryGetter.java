@@ -16,6 +16,8 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import static org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragmentKt.USER_DICTIONARY_SUFFIX;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
@@ -33,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -166,24 +169,29 @@ final public class BinaryDictionaryGetter {
      * @param context the context on which to open the files upon.
      * @return an array of binary dictionary files, which may be empty but may not be null.
      */
-    public static File[] getCachedWordLists(final String locale, final Context context) {
+    public static File[] getCachedWordLists(final String locale, final Context context, final boolean weakMatchAcceptable) {
         final File[] directoryList = DictionaryInfoUtils.getCachedDirectoryList(context);
         if (null == directoryList) return EMPTY_FILE_ARRAY;
+        Arrays.sort(directoryList);
         final HashMap<String, FileAndMatchLevel> cacheFiles = new HashMap<>();
         for (File directory : directoryList) {
             if (!directory.isDirectory()) continue;
             final String dirLocale =
                     DictionaryInfoUtils.getWordListIdFromFileName(directory.getName()).toLowerCase(Locale.ENGLISH);
             final int matchLevel = LocaleUtils.getMatchLevel(dirLocale, locale.toLowerCase(Locale.ENGLISH));
-            if (LocaleUtils.isMatch(matchLevel)) {
+            if (weakMatchAcceptable ? LocaleUtils.isMatchWeak(matchLevel) : LocaleUtils.isMatch(matchLevel)) {
                 final File[] wordLists = directory.listFiles();
                 if (null != wordLists) {
                     for (File wordList : wordLists) {
                         final String category =
                                 DictionaryInfoUtils.getCategoryFromFileName(wordList.getName());
                         final FileAndMatchLevel currentBestMatch = cacheFiles.get(category);
-                        if (null == currentBestMatch || currentBestMatch.mMatchLevel < matchLevel) {
-                            cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
+                        if (null == currentBestMatch || currentBestMatch.mMatchLevel <= matchLevel) {
+                            // todo: not nice, related to getDictionaryFiles todo
+                            //  this is so user-added main dict has priority over internal main dict
+                            //  actually any user-added dict has priority, but there aren't any other built-in types
+                            if (wordList.getName().endsWith(USER_DICTIONARY_SUFFIX) || currentBestMatch == null)
+                                cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
                         }
                     }
                 }
@@ -242,9 +250,12 @@ final public class BinaryDictionaryGetter {
      * - Returns null.
      * @return The list of addresses of valid dictionary files, or null.
      */
+    // todo: the way of using assets and cached lists should be improved, so that the assets file
+    //  doesn't need to be in cached dir just for checking whether it's a good match
     public static ArrayList<AssetFileAddress> getDictionaryFiles(final Locale locale,
-            final Context context, boolean notifyDictionaryPackForUpdates) {
-        final File[] cachedWordLists = getCachedWordLists(locale.toString(), context);
+            final Context context, boolean notifyDictionaryPackForUpdates, final boolean weakMatchAcceptable) {
+        loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable); // will copy dict to cached word lists if not existing
+        final File[] cachedWordLists = getCachedWordLists(locale.toString(), context, weakMatchAcceptable);
         final String mainDictId = DictionaryInfoUtils.getMainDictId(locale);
         final DictPackSettings dictPackSettings = new DictPackSettings(context);
 
@@ -271,7 +282,7 @@ final public class BinaryDictionaryGetter {
         }
 
         if (!foundMainDict && dictPackSettings.isWordListActive(mainDictId)) {
-            final File dict = loadDictionaryFromAssets(locale.toString(), context);
+            final File dict = loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable);
             final AssetFileAddress fallbackAsset;
             if (dict == null) {
                 // fall back to the old way (maybe remove? will not work if files are compressed)
@@ -298,7 +309,7 @@ final public class BinaryDictionaryGetter {
      *
      * Returns null on IO errors or if no matching dictionary is found
      */
-    public static File loadDictionaryFromAssets(final String locale, final Context context) {
+    public static File loadDictionaryFromAssets(final String locale, final Context context, final boolean weakMatchAcceptable) {
         final String[] dictionaryList = getAssetsDictionaryList(context);
         if (null == dictionaryList) return null;
         String bestMatchName = null;
@@ -310,8 +321,9 @@ final public class BinaryDictionaryGetter {
             // assets files may contain the locale in lowercase, but dictionary headers usually
             //  have an upper case country code, so we compare lowercase here
             final int matchLevel = LocaleUtils.getMatchLevel(dictLocale.toLowerCase(Locale.ENGLISH), locale.toLowerCase(Locale.ENGLISH));
-            if (LocaleUtils.isMatch(matchLevel) && matchLevel > bestMatchLevel) {
+            if ((weakMatchAcceptable ? LocaleUtils.isMatchWeak(matchLevel) : LocaleUtils.isMatch(matchLevel)) && matchLevel > bestMatchLevel) {
                 bestMatchName = dictionary;
+                bestMatchLevel = matchLevel;
             }
         }
         if (bestMatchName == null) return null;
@@ -319,8 +331,10 @@ final public class BinaryDictionaryGetter {
         // we have a match, now copy contents of the dictionary to cached word lists folder
         final String bestMatchLocale = extractLocaleFromAssetsDictionaryFile(bestMatchName);
         if (bestMatchLocale == null) return null;
-        File dictFile = new File(DictionaryInfoUtils.getCacheDirectoryForLocale(bestMatchLocale, context) +
-                File.separator + DictionaryInfoUtils.getMainDictFilename(bestMatchLocale));
+        File dictFile = new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
+                File.separator + DictionaryInfoUtils.getMainDictFilename(locale));
+        if (dictFile.exists())
+            return dictFile;
         try {
             FileUtils.copyStreamToNewFile(
                     context.getAssets().open(ASSETS_DICTIONARY_FOLDER + File.separator + bestMatchName),

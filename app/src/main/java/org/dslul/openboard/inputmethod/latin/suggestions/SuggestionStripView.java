@@ -22,11 +22,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,12 +41,14 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysPanel;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -58,6 +62,7 @@ import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -184,9 +189,24 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (colors.isCustom) {
-            mStripVisibilityGroup.mSuggestionStripView.getBackground().setColorFilter(colors.adjustedBackgroundFilter);
+            // this only works with backgrounds of SuggestionStripView.LXX_Base and SuggestionWord.LXX_Base
+            // set to keyboard_background_lxx_base (just white drawable), but NOT when set to
+            // btn_suggestion_lxx_base (state drawable with selector) or keyboard_suggest_strip_lxx_base_border (layer-list)
+            // why is this? then it's necessary to set tint list for voice/clipboard/other keys and all word views separately
+            //  it seems to work in other places, e.g. for btn_keyboard_spacebar_lxx_base... though maybe that's the weirdly nested layer list?
+            // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
+            //  this would allow having a different background shape in pressed state
+            DrawableCompat.setTintList(getBackground(), colors.backgroundStateList);
+            DrawableCompat.setTintMode(getBackground(), PorterDuff.Mode.MULTIPLY);
+
             mClipboardKey.setColorFilter(colors.keyText);
-        } else mClipboardKey.clearColorFilter();
+            mVoiceKey.setColorFilter(colors.keyText);
+            mOtherKey.setColorFilter(colors.keyText);
+        } else {
+            mClipboardKey.clearColorFilter();
+            mVoiceKey.clearColorFilter();
+            mOtherKey.clearColorFilter();
+        }
     }
 
     /**
@@ -298,7 +318,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
                 Constants.NOT_A_CODE, this);
         if (isShowingMoreSuggestionPanel() || !showMoreSuggestions()) {
-            for (int i = 0; i < mStartIndexOfMoreSuggestions; i++) {
+            for (int i = 0; i <= mStartIndexOfMoreSuggestions; i++) {
                 if (view == mWordViews.get(i)) {
                     showDeleteSuggestionDialog(mWordViews.get(i));
                     return true;
@@ -312,40 +332,49 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final String word = wordView.getText().toString();
 
         final PopupMenu menu = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
-        menu.getMenu().add(R.string.remove_suggestions);
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                mListener.removeSuggestion(word);
-                mMoreSuggestionsView.dismissMoreKeysPanel();
-                // show suggestions, but without the removed word
-                final ArrayList<SuggestedWordInfo> sw = new ArrayList<SuggestedWordInfo>();
+        menu.getMenu().add(Menu.NONE, 1, Menu.NONE, R.string.remove_suggestions);
+        if (BuildConfig.DEBUG)
+            menu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Show source dictionary");
+        menu.setOnMenuItemClickListener(menuItem -> {
+            if (menuItem.getItemId() == 2) {
                 for (int i = 0; i < mSuggestedWords.size(); i ++) {
                     final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
-                    if (!info.getWord().equals(word))
-                        sw.add(info);
-                }
-                ArrayList<SuggestedWordInfo> rs = null;
-                if (mSuggestedWords.mRawSuggestions != null) {
-                    rs = mSuggestedWords.mRawSuggestions;
-                    for (int i = 0; i < rs.size(); i ++) {
-                        if (rs.get(i).getWord().equals(word)) {
-                            rs.remove(i);
-                            break;
-                        }
+                    if (info.getWord().equals(word)) {
+                        final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
+                        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
                     }
                 }
-                // copied code from setSuggestions, but without the Rtl part
-                clear();
-                mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
-                        mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
-                        mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
-                        mSuggestedWords.mSequenceNumber);
-                mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                        getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
-                mStripVisibilityGroup.showSuggestionsStrip();
                 return true;
             }
+            mListener.removeSuggestion(word);
+            mMoreSuggestionsView.dismissMoreKeysPanel();
+            // show suggestions, but without the removed word
+            final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
+            for (int i = 0; i < mSuggestedWords.size(); i ++) {
+                final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
+                if (!info.getWord().equals(word))
+                    sw.add(info);
+            }
+            ArrayList<SuggestedWordInfo> rs = null;
+            if (mSuggestedWords.mRawSuggestions != null) {
+                rs = mSuggestedWords.mRawSuggestions;
+                for (int i = 0; i < rs.size(); i ++) {
+                    if (rs.get(i).getWord().equals(word)) {
+                        rs.remove(i);
+                        break;
+                    }
+                }
+            }
+            // copied code from setSuggestions, but without the Rtl part
+            clear();
+            mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
+                    mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
+                    mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
+                    mSuggestedWords.mSequenceNumber);
+            mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
+                    getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+            mStripVisibilityGroup.showSuggestionsStrip();
+            return true;
         });
         menu.show();
     }

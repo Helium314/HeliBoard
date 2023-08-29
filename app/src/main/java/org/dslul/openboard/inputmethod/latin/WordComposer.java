@@ -478,4 +478,15 @@ public final class WordComposer {
     void setTypedWordCacheForTests(String typedWordCacheForTests) {
         mTypedWordCache = typedWordCacheForTests;
     }
+
+    @UsedForTesting
+    static WordComposer getComposerForTest(boolean isEmpty) {
+        return new WordComposer(isEmpty);
+    }
+
+    private WordComposer(boolean isEmpty) {
+        mCodePointSize = isEmpty ? 0 : 1;
+        mEvents = null;
+    }
+
 }

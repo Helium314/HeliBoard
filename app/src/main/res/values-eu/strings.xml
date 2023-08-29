@@ -25,10 +25,10 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Handitu teklak, sakatzean"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Hobespenak"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Kontuak eta pribatutasuna"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Itxura eta diseinuak"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Itxura eta diseinuak"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Idazketa lerrakorra"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Testu-zuzenketa"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Ezarpen aurreratuak"</string>
+    <string name="settings_screen_advanced">"Aurreratuak"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Gaia"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Gaitu teklatu banatua"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Aldatu idazketa-metodoa"</string>
@@ -108,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"alfabetoa (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emojiak"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Teklatuaren gaia"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Idazketa-estilo pertsonalizatuak"</string>
-    <string name="add_style" msgid="6163126614514489951">"Gehitu estiloa"</string>
     <string name="add" msgid="8299699805688017798">"Gehitu"</string>
     <string name="remove" msgid="4486081658752944606">"Kendu"</string>
     <string name="save" msgid="7646738597196767214">"Gorde"</string>
@@ -217,8 +215,6 @@
     <string name="key_borders">Gako-ertzak</string>
     <string name="day_night_mode">Egun/gau modu automatikoa</string>
     <string name="day_night_mode_summary">Itxurak sistemaren ezarpenei jarraituko die</string>
-    <string name="amoled_mode">Atzeko plano ilun-ilunak</string>
-    <string name="amoled_mode_summary">Gailuaren pantaila-teknologiaren arabera, energia-erabilera murriztu dezake</string>
     <string name="ime_settings">OpenBoard Ezarpenak</string>
     <string name="settings_category_additional_keys">Giltza gehigarriak</string>
     <string name="android_spell_checker_settings">OpenBoard Ortografia Zuzentzailearen Ezarpenak</string>
@@ -231,4 +227,6 @@
     <string name="theme_family">Gaien familia</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Erabili sistemaren hizkuntzak"</string>
+    <string name="select_input_method">"Aukeratu idazketa-metodoa"</string>
 </resources>

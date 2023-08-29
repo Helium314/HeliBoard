@@ -25,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"חלון קופץ בלחיצה על מקש"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"העדפות"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"חשבונות ופרטיות"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"מראה ופריסות"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"מראה ופריסות"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"הקלדה רציפה"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"תיקון טקסט"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"אפשרויות מתקדמות"</string>
@@ -108,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"‏אלף-בית (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"אמוג\'י"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"עיצוב מקלדת"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"סגנונות קלט מותאמים אישית"</string>
-    <string name="add_style" msgid="6163126614514489951">"הוסף סגנון"</string>
     <string name="add" msgid="8299699805688017798">"הוסף"</string>
     <string name="remove" msgid="4486081658752944606">"הסר"</string>
     <string name="save" msgid="7646738597196767214">"שמור"</string>
@@ -202,7 +200,6 @@
     <string name="theme_variant">וריאנט נושא</string>
     <string name="key_borders">גבולות מקלדת</string>
     <string name="day_night_mode">מצב יום/לילה אוטומטי</string>
-    <string name="amoled_mode_summary">יכול להפחית את צריכת החשמל בהתאם לטכנולוגיית המסך של המכשיר</string>
     <string name="android_spell_checker_settings">פתח את הגדרות בודק האיות של לוח</string>
     <string name="prefs_long_press_keyboard_to_change_lang">שנה שפת מקלדת על ידי מקש רווח</string>
     <string name="show_emoji_key">מפתח אמוג\'י</string>
@@ -230,5 +227,8 @@
     <string name="prefs_force_incognito_mode">כפה מקלדת אנונימית</string>
     <string name="prefs_force_incognito_mode_summary">השבת למידה של מילים חדשות</string>
     <string name="more_keys_strip_description">עוד מפתחות</string>
-    <string name="amoled_mode">רקע שחור עמוק</string>
+    <string name="auto_correction_confidence">ודאות התיקון האוטומטי</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"שימוש בשפות המערכת"</string>
+    <string name="select_input_method">"בחירה של שיטת הזנה"</string>
+    <string name="settings_screen_appearance">"מראה"</string>
 </resources>

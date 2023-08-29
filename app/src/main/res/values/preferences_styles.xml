@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="PreferenceTitleText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/foreground</item>
+    </style>
+    <style name="PreferenceCategoryTitleText" parent="PreferenceTitleText">
+        <item name="android:textStyle">italic</item>
+    </style>
+    <style name="PreferenceSubtitleText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/foreground_weak</item>
+    </style>
+</resources>

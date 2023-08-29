@@ -180,11 +180,14 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 (TextView)findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_step3,
-                R.string.setup_step3_action);
+                R.string.setup_step3_action_new);
         step3.setAction(new Runnable() {
             @Override
             public void run() {
-                invokeSubtypeEnablerOfThisIme();
+                final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                intent.setAction(Intent.ACTION_VIEW);
+                startActivity(intent);
+                finish();
             }
         });
         mSetupStepGroup.addStep(step3);
@@ -280,19 +283,6 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         // Invoke input method picker.
         mImm.showInputMethodPicker();
         mNeedsToAdjustStepNumberToSystemState = true;
-    }
-
-    void invokeSubtypeEnablerOfThisIme() {
-        final InputMethodInfo imi =
-                UncachedInputMethodManagerUtils.getInputMethodInfoOf(getPackageName(), mImm);
-        if (imi == null) {
-            return;
-        }
-        final Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.putExtra(Settings.EXTRA_INPUT_METHOD_ID, imi.getId());
-        startActivity(intent);
     }
 
     private int determineSetupStepNumberFromLauncher() {

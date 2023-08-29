@@ -181,6 +181,9 @@ public final class KeyboardLayoutSet {
                     keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE;
                 }
                 break;
+            case KeyboardId.MODE_NUMPAD:
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMPAD;
+                break;
             case KeyboardId.MODE_NUMBER:
             case KeyboardId.MODE_DATE:
             case KeyboardId.MODE_TIME:
@@ -301,7 +304,7 @@ public final class KeyboardLayoutSet {
         }
 
         public Builder setSubtype(@Nonnull final RichInputMethodSubtype subtype) {
-            final boolean asciiCapable = subtype.getmSubtype().isAsciiCapable();
+            final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
             // TODO: Consolidate with {@link InputAttributes}.
             @SuppressWarnings("deprecation") final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
                     mPackageName, FORCE_ASCII, mParams.mEditorInfo);

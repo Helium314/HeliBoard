@@ -17,6 +17,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="english_ime_settings">
     <PreferenceScreen
+        android:fragment="org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment"
+        android:title="@string/language_selection_title"
+        android:key="screen_languages"
+        android:icon="@drawable/ic_settings_languages"/>
+    <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment"
         android:title="@string/settings_screen_preferences"
         android:key="screen_preferences"
@@ -36,11 +41,6 @@
         android:title="@string/settings_screen_correction"
         android:key="screen_correction"
         android:icon="@drawable/ic_settings_correction"/>
-    <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.DictionarySettingsFragment"
-        android:title="@string/dictionary_settings_category"
-        android:key="add_dictionary"
-        android:icon="@drawable/ic_notify_dictionary"/>
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AdvancedSettingsFragment"
         android:title="@string/settings_screen_advanced"

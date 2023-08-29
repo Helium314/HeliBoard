@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Ugaxekile ngokucindezela ukhiye"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Izintandokazi"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Ama-akhawunti nobumfihlo"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Ukubonakala nezakhiwo"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Ukubonakala nezakhiwo"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Ukuthayipha ngokuthinta"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ukulungisa umbhalo"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Okuthuthukisiwe"</string>
@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabhethi (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"I-Emoji"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Itimu yekhibhodi"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Izitayela zokufaka ngokwezifiso"</string>
-    <string name="add_style" msgid="6163126614514489951">"Engeza isitayela"</string>
     <string name="add" msgid="8299699805688017798">"Engeza"</string>
     <string name="remove" msgid="4486081658752944606">"Khipha"</string>
     <string name="save" msgid="7646738597196767214">"Londoloza"</string>
@@ -190,4 +188,6 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Izilimi eziningi…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Susa"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Sebenzisa izilimi zesistimu"</string>
+    <string name="select_input_method">"Khetha indlela yokufaka"</string>
 </resources>

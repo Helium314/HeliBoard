@@ -3,15 +3,34 @@
 This is an attempt to integrate changes / improvements into OpenBoard that have been sitting around for a long time due to low dev activity.
 Might end up on F-Droid...
 
-**consider all releases as beta**
+**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best.**
 
-Changes:
+The rough plan for this project:
+* Theming
+  * improve user-defined coloring
+  * add pre-defined themes
+  * make automatic theme switch work with the new themes
+* Multilingual Typing
+  * fix some bugs preventing proper usage in some cases (especially concerning key popups)
+  * possibly has some undiscovered bugs, more testing required
+* Dictionaries
+  * semi-independent in a separate repository: https://codeberg.org/Helium314/aosp-dictionaries
+* Language settings
+  * currently they are scattered across mulitple places (languages, custom input styles, multilingual typing, dictionaries)
+* Clean up the xml files
+  * the current state look rather messy, with many useless / duplicate entries that make changes needlessly tricky
+* Make suggestion removal functionality more discoverable
+* Fix some bugs along the way
+
+Once above is done, we can think about renaming and properly releasing the app. First just in this repository, and later on F-Droid.
+
+Changes to OpenBoard:
 * Updated dependencies
 * Debug version can be installed along OpenBoard
 * Allow users to add and replace built-in dictionaries
   * modified / improved from https://github.com/openboard-team/openboard/pull/569 and https://github.com/openboard-team/openboard/pull/578
-  * some AOSP dictionaries are available [here](https://codeberg.org/Helium314/aosp-dictionaries)
-    * experimental dictionaries with next-word suggestions created from sentence lists [are also available](dictionaries/experimental), but they may contain unwanted words, and may be missing other features
+  * some AOSP dictionaries are available [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries)
+    * experimental dictionaries with next-word suggestions created from sentence lists [are also available](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental), but they may contain unwanted words, and may be missing other features
   * dictionary files starting with "main_" replace the built-in dictionary for the language, all other names work as add-on dictionaries
   * add [Arabic dictionary](https://github.com/remi0s/aosp-dictionary-tools/blob/master/dictsCreated/WikiAndOpenSubtitles/ar_wordlist.combined) for download, from https://github.com/openboard-team/openboard/pull/450
   * add [Hebrew dictionary](https://github.com/Hananel-Hazan/aosp-dictionary-tools/blob/master/hebrew-hspell.txt.combined.new) for download, from https://github.com/openboard-team/openboard/pull/300
@@ -40,10 +59,16 @@ Changes:
 * Reduce space between keys, https://github.com/Helium314/openboard/pull/8
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
 * Fix white background of emoji tab selector on AMOLED theme for some Android versions, https://github.com/Helium314/openboard/pull/26
-* Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679
-*
+* Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679 (maybe not properly fixed)
+* Fix always-dark settings on some Android versions, https://github.com/Helium314/openboard/pull/69
+* Fix bug with space before word being deleted in some apps / input fields, https://github.com/Helium314/openboard/commit/ce0bf06545c4547d3fc5791cc769508db0a89e87
+* Allow using auto theme on some devices with Android 9
+* Add auto theme for the new theming system
+* Add number pad
+* Overhauled language settings
+* Updated translations
 
-Plan / to do:
+Further plan / to do:
 * ~upgrade dependencies~
 * upgrade NDK, https://github.com/openboard-team/openboard/issues/782
 * maybe: rename (package, app, icon), so it can be installed parallel to OpenBoard, and published on F-Droid
@@ -72,7 +97,8 @@ Plan / to do:
 * add emojis to user history, to be used for next word
 
 -----
-
+# readme for original version of OpenBoard below
+-----
 <h1 align="center"><b>OpenBoard</b></h1>
 <h4 align="center">100% FOSS keyboard, based on AOSP.</h4>
 <p align="center"><img src='fastlane/metadata/android/en-US/images/icon.png' height='128'></p>

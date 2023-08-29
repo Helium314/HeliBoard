@@ -24,6 +24,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 
@@ -99,6 +100,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         final boolean themeUpdated = updateKeyboardThemeAndContextThemeWrapper(
                 displayContext, KeyboardTheme.getKeyboardTheme(displayContext /* context */));
         if (themeUpdated && mKeyboardView != null) {
+            Settings settings = Settings.getInstance();
+            settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
             mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
         }
     }
@@ -342,6 +345,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 mKeyboardTextsSet.getText(KeyboardTextsSet.SWITCH_TO_ALPHA_KEY_LABEL),
                 mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
         mClipboardHistoryView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setNumpadKeyboard() {
+        if (DEBUG_ACTION) {
+            Log.d(TAG, "setNumpadKeyboard");
+        }
+        setKeyboard(KeyboardId.ELEMENT_NUMPAD, KeyboardSwitchState.OTHER);
     }
 
     public enum KeyboardSwitchState {
@@ -590,5 +601,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return ScriptUtils.SCRIPT_UNKNOWN;
         }
         return mKeyboardLayoutSet.getScriptId();
+    }
+
+    public void switchToSubtype(InputMethodSubtype subtype) {
+        mLatinIME.switchToSubtype(subtype);
     }
 }

@@ -52,6 +52,7 @@ public final class KeyboardState {
         void setAlphabetShiftLockShiftedKeyboard();
         void setEmojiKeyboard();
         void setClipboardKeyboard();
+        void setNumpadKeyboard();
         void setSymbolsKeyboard();
         void setSymbolsShiftedKeyboard();
 
@@ -90,6 +91,7 @@ public final class KeyboardState {
     private static final int MODE_SYMBOLS = 1;
     private static final int MODE_EMOJI = 2;
     private static final int MODE_CLIPBOARD = 3;
+    private static final int MODE_NUMPAD = 4;
     private int mMode = MODE_ALPHABET;
     private AlphabetShiftState mAlphabetShiftState = new AlphabetShiftState();
     private boolean mIsSymbolShifted;
@@ -123,6 +125,9 @@ public final class KeyboardState {
             }
             if (mMode == MODE_CLIPBOARD) {
                 return "CLIPBOARD";
+            }
+            if (mMode == MODE_NUMPAD) {
+                return "NUMPAD";
             }
             return "SYMBOLS_" + shiftModeToString(mShiftMode);
         }
@@ -198,6 +203,10 @@ public final class KeyboardState {
         }
         if (state.mMode == MODE_CLIPBOARD) {
             setClipboardKeyboard();
+            return;
+        }
+        if (state.mMode == MODE_NUMPAD) {
+            setNumpadKeyboard();
             return;
         }
         // Symbol mode
@@ -371,6 +380,19 @@ public final class KeyboardState {
         mPrevMainKeyboardWasShiftLocked = mAlphabetShiftState.isShiftLocked();
         mAlphabetShiftState.setShiftLocked(false);
         mSwitchActions.setClipboardKeyboard();
+    }
+
+    private void setNumpadKeyboard() {
+        if (DEBUG_INTERNAL_ACTION) {
+            Log.d(TAG, "setNumpadKeyboard");
+        }
+        mMode = MODE_NUMPAD;
+        mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
+        // Remember caps lock mode and reset alphabet shift state.
+        mPrevMainKeyboardWasShiftLocked = mAlphabetShiftState.isShiftLocked();
+        mAlphabetShiftState.setShiftLocked(false);
+        mSwitchActions.setNumpadKeyboard();
+
     }
 
     private void setOneHandedModeEnabled(boolean enabled) {
@@ -687,7 +709,7 @@ public final class KeyboardState {
             }
             break;
         case SWITCH_STATE_SYMBOL_BEGIN:
-            if (mMode == MODE_EMOJI || mMode == MODE_CLIPBOARD) {
+            if (mMode == MODE_EMOJI || mMode == MODE_CLIPBOARD || mMode == MODE_NUMPAD) {
                 // When in the Emoji keyboard or clipboard one, we don't want to switch back to the main layout even
                 // after the user hits an emoji letter followed by an enter or a space.
                 break;
@@ -728,6 +750,12 @@ public final class KeyboardState {
             }
         } else if (code == Constants.CODE_ALPHA_FROM_CLIPBOARD) {
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
+        } else if (code == Constants.CODE_NUMPAD) {
+            setNumpadKeyboard();
+        } else if (code == Constants.CODE_ALPHA_FROM_NUMPAD) {
+            setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
+        } else if (code == Constants.CODE_SYMBOL_FROM_NUMPAD) {
+            setSymbolsKeyboard();
         } else if (code == Constants.CODE_START_ONE_HANDED_MODE) {
             setOneHandedModeEnabled(true);
         } else if (code == Constants.CODE_STOP_ONE_HANDED_MODE) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_category_miscellaneous">ଵିଵିଧ</string>
+    <string name="account_select_ok">ଠିକ୍ ଅଛି</string>
+    <string name="subtype_locale">ଭାଷା</string>
+    <string name="dictionary_service_name">ଅଭିଧାନ ସେଵା</string>
+    <string name="user_dict_settings_add_menu_title">ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="user_dict_settings_add_dialog_title">ଅଭିଧାନରେ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="user_dict_settings_add_locale_option_name">ଭାଷା:</string>
+    <string name="user_dict_settings_context_menu_edit_title">ସମ୍ପାଦନା</string>
+    <string name="user_dict_settings_edit_dialog_title">ଶବ୍ଦ ସମ୍ପାଦନା</string>
+    <string name="user_dict_settings_more_languages">ଅଧିକ ଭାଷା…</string>
+    <string name="settings_screen_theme">ଥିମ୍</string>
+    <string name="language_selection_title">ଭାଷା</string>
+    <string name="auto_correction_threshold_mode_off">ବନ୍ଦ</string>
+    <string name="settings_screen_advanced">ଵିକଶିତ</string>
+    <string name="key_preview_popup_dismiss_default_delay">ଡିଫଲ୍ଟ</string>
+    <string name="select_language">ଭାଷା</string>
+    <string name="subtype_en_US">ଇଂରାଜୀ (ଯୁକ୍ତରାଷ୍ଟ୍ର)</string>
+    <string name="add">ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="button_default">ଡିଫଲ୍ଟ</string>
+    <string name="go_to_settings">ସେଟିଂ</string>
+    <string name="user_dict_settings_add_dialog_more_options">ଅଧିକ ଵିକଳ୍ପ</string>
+    <string name="user_dict_settings_add_dialog_confirm">ଠିକ୍ ଅଛି</string>
+    <string name="user_dict_settings_add_word_option_name">ଶବ୍ଦ:</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"ସିଷ୍ଟମ୍‌ ଭାଷା ବ୍ୟବହାର କରନ୍ତୁ"</string>
+    <string name="select_input_method">"ଇନପୁଟ୍ ପଦ୍ଧତି ବାଛନ୍ତୁ"</string>
+    <string name="prefs_block_potentially_offensive_title">"ଅପମାନଜନକ ଶବ୍ଦଗୁଡ଼ିକୁ ବ୍ଲକ୍ କରନ୍ତୁ"</string>
+    <string name="prefs_block_potentially_offensive_summary">"ସମ୍ଭାବ୍ୟ ଅପମାନଜନକ ଶବ୍ଦଗୁଡ଼ିକର ପ୍ରସ୍ତାବ ଦିଅନ୍ତୁ ନାହିଁ"</string>
+    <string name="bigram_prediction_summary">"ପ୍ରସ୍ତାବ ପ୍ରସ୍ତୁତ କରିବାରେ ପୂର୍ବବର୍ତ୍ତୀ ଶବ୍ଦ ବ୍ୟବହାର କରନ୍ତୁ"</string>
+</resources>

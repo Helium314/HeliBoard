@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Functional keys. -->
-    <item android:state_pressed="true"
-          android:drawable="@drawable/btn_keyboard_key_pressed_lxx_dark_border" />
-    <item android:drawable="@drawable/btn_keyboard_key_functional_normal_lxx_dark_border" />
-</selector>

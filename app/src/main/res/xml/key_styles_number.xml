@@ -109,7 +109,7 @@
     <!-- TODO: Consolidate these space key styles with numSpaceKeyStyle above by introducing <case>
          predicator that checks device form-factor. -->
     <switch>
-        <case latin:keyboardTheme="ICS|KLP">
+        <case latin:keyboardTheme="HoloBlue|HoloWhite">
             <key-style
                 latin:styleName="tabletNumSpaceKeyStyle"
                 latin:keySpec="!icon/space_key|!code/key_space"

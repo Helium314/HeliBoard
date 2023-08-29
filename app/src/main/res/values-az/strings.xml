@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 /*
 **
@@ -16,10 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Daxiletmə seçimləri"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Kontakt adlarına baxın"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Orfoqrafik yoxlanış kontakt siyahınızdakı qeydlərdən istifadə edir"</string>
@@ -28,7 +25,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Klikləmədə popup"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Seçimlər"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Hesablar &amp; Məxfilik"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Görünüş &amp; Düzümlər"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Görünüş &amp; Düzümlər"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Jest ilə yazma"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Mətn korreksiyası"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Qabaqcıl"</string>
@@ -111,8 +108,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Əlifba (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"Klaviatura teması"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"Xüsusi daxiletmə üslubları"</string>
-    <string name="add_style" msgid="6163126614514489951">"Stil əlavə et"</string>
     <string name="add" msgid="8299699805688017798">"Əlavə et"</string>
     <string name="remove" msgid="4486081658752944606">"Ləğv et"</string>
     <string name="save" msgid="7646738597196767214">"Yadda saxla"</string>
@@ -190,4 +185,13 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Digər dillər​​..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Silin"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="settings_category_clipboard_history">Pano keçmişi</string>
+    <string name="spell_checker_service_name">OpenBoard Yazı Yoxlayıcısı</string>
+    <string name="android_spell_checker_settings">OpenBoard Yazı Yoxlayıcısı Parametrləri</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillərini istifadə edin"</string>
+    <string name="select_input_method">"Daxiletmə metodunu seçin"</string>
+    <string name="settings_screen_appearance">"Görünüş"</string>
+    <string name="ime_settings">OpenBoard Tənzimləmələri</string>
+    <string name="settings_category_input">Giriş</string>
+    <string name="settings_category_additional_keys">Əlavə Düymələr</string>
 </resources>

@@ -16,7 +16,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_name" translatable="false">OpenBoard</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
@@ -43,8 +43,6 @@
     <string name="settings_screen_preferences">Preferences</string>
     <!-- Settings screen title for accounts and privacy preferences [CHAR LIMIT=33]-->
     <string name="settings_screen_accounts">Accounts &amp; Privacy</string>
-    <!-- Settings screen title for appearance & layouts preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">Appearance &amp; Layouts</string>
     <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
     <string name="settings_screen_gesture">Gesture Typing</string>
     <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
@@ -108,7 +106,7 @@
     <!-- Option name for enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=25] -->
     <string name="use_contacts_dict">Suggest Contact names</string>
     <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=65] -->
-    <string name="use_contacts_dict_summary">Use contact names for suggestions and corrections</string>
+    <string name="use_contacts_dict_summary">Use names from Contacts for suggestions and corrections</string>
     <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
     <!-- Option name for adding learned words to personal dictionary -->
@@ -194,12 +192,6 @@
     <string name="space_trackpad">Space bar trackpad</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
-    <!-- Description for "secondary_locale" option. -->
-    <string name="secondary_locale_summary">Select a secondary dictionary to use alongside main language</string>
-    <!-- Text when no secondary locale chosen -->
-    <string name="secondary_locale_none">None</string>
-    <!-- Message shown when no secondary locales available -->
-    <string name="no_secondary_locales">No secondary dictionaries available</string>
     <!-- Preferences item for loading an external gesture typing library -->
     <string name="load_gesture_library">Load gesture typing library</string>
     <!-- Description for "load_gesture_library" option -->
@@ -254,6 +246,8 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
     <!-- Title of the settings to enable keyboard resizing -->
     <string name="prefs_resize_keyboard">Enable keyboard resizing</string>
+    <!-- Title of the setting for reduced distance between keys -->
+    <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
     <!-- Title of the settings for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the preference item for switching accounts [CHAR LIMIT=30] -->
@@ -289,25 +283,26 @@
     <!-- Description for English (UK) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT.
          This should be identical to subtype_en_GB aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_GB" tools:keep="@string/subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for English (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United States to fit in the CHAR LIMIT.
          This should be identical to subtype_en_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" tools:keep="@string/subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United Statesn to fit in the CHAR LIMIT.
          This should be identical to subtype_es_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" tools:keep="@string/subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_hi_ZZ">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ" tools:keep="@string/subtype_with_layout_hi_ZZ">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_sr_ZZ">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" tools:keep="@string/subtype_with_layout_sr_ZZ">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
          (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <!-- Description for Bengali (Akkhor) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
          (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
@@ -342,7 +337,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTZ
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_qwertz">Alphabet (QWERTZ)</string>
+    <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">Alphabet (QWERTZ)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -353,7 +348,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the AZERTY
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_azerty">Alphabet (AZERTY)</string>
+    <string name="subtype_no_language_azerty" tools:keep="@string/subtype_no_language_azerty">Alphabet (AZERTY)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -364,7 +359,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Dvorak
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_dvorak">Alphabet (Dvorak)</string>
+    <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Alphabet (Dvorak)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -375,7 +370,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Colemak
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_colemak">Alphabet (Colemak)</string>
+    <string name="subtype_no_language_colemak" tools:keep="@string/subtype_no_language_colemak">Alphabet (Colemak)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -387,7 +382,7 @@ are used to. This keyboard does not provide a dictionary, and it is not tied to 
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY PC
 disposition that offers additional keys, but smaller keys compared to other common dispositions for
 mobile devices. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
 When the device is configured to use a language using a script other than the Latin alphabet, the
@@ -398,16 +393,12 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Workman
 disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
-    <string name="subtype_no_language_workman">Alphabet (Workman)</string>
-    <string name="subtype_no_language_pcqwerty">Alphabet (PC)</string>
+    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alphabet (Workman)</string>
+    <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
     <!-- Description for Emoji keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_emoji">Emoji</string>
     <!-- Title of the preference settings for switching keyboard theme [CHAR LIMIT=35] -->
     <string name="keyboard_theme">Keyboard theme</string>
-    <!-- Title of the preference settings for custom input styles (language and keyboard layout pairs) [CHAR LIMIT=35]-->
-    <string name="custom_input_styles_title">Custom input styles</string>
-    <!-- Title of the option menu to add a new style entry in the preference settings [CHAR LIMIT=16] -->
-    <string name="add_style">Add style</string>
     <!-- Title of the button to add custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="add">Add</string>
     <!-- Title of the button to remove a custom style entry in the settings dialog [CHAR LIMIT=15] -->
@@ -474,6 +465,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <!-- The label of the button that triggers the screen for configuaring additional languages of the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step3_action">Configure additional languages</string>
+    <!-- The label of the button that triggers the settings screen for the keyboard. [CHAR_LIMIT=64] -->
+    <string name="setup_step3_action_new">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
     <string name="setup_finish_action">Finished</string>
     <!-- Option to show setup wizard icon. [CHAR LIMIT=30]-->
@@ -494,38 +487,26 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="dictionary_settings_summary">Settings for dictionaries</string>
     <!-- Title for dictionaries preference screen -->
     <string name="dictionary_settings_category">Dictionaries</string>
-    <!-- Summary text for dictionary added by user -->
-    <string name="user_dictionary_summary">User-added dictionary</string>
     <!-- Summary text for built-in dictionary -->
     <string name="internal_dictionary_summary">Built-in dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
     <!-- Message for user dictionary replacement dialog -->
-    <string name="replace_dictionary_message">"Really replace existing user-added dictionary for %s?"</string>
-    <!-- Message when trying to replace user dictionary with older version -->
-    <string name="overwrite_old_dicitonary_messsage">"New dictionary file contains older version code than current file. Really replace current dictionary for %s?"</string>
+    <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
     <!-- Message for user dictionary remove dialog -->
-    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\" for %2$s?"</string>
-    <!-- Title for user dictionary remove dialog -->
-    <string name="remove_dictionary_title">"Remove dictionary"</string>
-    <!-- Button text in user dictionary remove dialog for resetting to default -->
-    <string name="reset_dictionary">"Reset to default"</string>
+    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\"?"</string>
     <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
     <!-- Title of the link to the download page inserted into selection message (above) -->
     <string name="dictionary_link_text">"here"</string>
-    <!-- Message above list of user-added dictionaries -->
-    <string name="existing_dictionaries">"User-added dictionaries, click to remove:"</string>
-    <!-- Button text for dictionary file selection -->
-    <string name="load_dictionary_file">"Load dictionary"</string>
-    <!-- Toast text shown when dictionary file for a locale was added successfully -->
-    <string name="dictionary_load_success">"Dictionary for %s added"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->
     <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string>
+    <!-- Text shown when dictionary file is has incompatible script with the keyboard -->
+    <string name="dictionary_file_wrong_script">"Error: script not compatible with this keyboard"</string>
     <!-- Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
     <string name="dictionary_file_wrong_locale_ok">"Still use"</string>
     <!-- Text shown on other errors when loading dictionary file -->
@@ -634,28 +615,32 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="theme_family">Theme family</string>
     <!-- Option for choosing theme family variant [CHAR LIMIT=33] -->
     <string name="theme_variant">Theme variant</string>
+    <!-- Option for choosing theme family variant (night) [CHAR LIMIT=33] -->
+    <string name="theme_variant_night">Theme variant (night mode)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode">Auto day/night mode</string>
+    <!-- Message for the dialog to choose which user-defined theme to edit -->
+    <string name="day_or_night_colors">Edit day or night colors?</string>
+    <!-- Button of the dialog above for "day"-->
+    <string name="day_or_night_day">Day</string>
+    <!-- Button of the dialog above for "night"-->
+    <string name="day_or_night_night">Night</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
-    <!-- Option for enabling AMOLED mode [CHAR LIMIT=33] -->
-    <string name="amoled_mode">Deep black backgrounds</string>
-    <!-- Description indicating amoled mode can lower power usage depending on the screen of the device. -->
-    <string name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
     <!-- Option for setting navbar to follow keyboard color -->
     <string name="theme_navbar">Color navigation bar</string>
     <!-- Theme name for light theme -->
-    <string name="theme_name_light">Light</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Light</string>
     <!-- Theme name for dark theme (based on old no-border dark) -->
-    <string name="theme_name_dark">Dark</string>
-    <!-- Theme name for darker theme  (based on old border dark), todo: re-consider that stupid name -->
-    <string name="theme_name_darker">Darker</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dark</string>
+    <!-- Theme name for darker theme (based on old border dark), todo: re-consider that stupid name -->
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Darker</string>
     <!-- Theme name for black theme (based on old amoled black) -->
-    <string name="theme_name_black">Black</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
     <!-- Theme name for user-defined theme -->
-    <string name="theme_name_user">User-Defined</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Option for selecting custom theme colors -->
     <string name="select_user_colors">Adjust theme colors</string>
     <!-- Description for selection of user-defined colors. -->
@@ -682,6 +667,16 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="license" >Open-source license</string>
     <!-- license link for about screen-->
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <!-- App slogan-->
-    <string name="app_slogan" >100% FOSS keyboard, based on AOSP.</string>
+    <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
+    <string name="dialog_close">Close</string>
+    <!-- Preference for selecting system locales -->
+    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
+    <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
+    <string name="select_input_method">Choose input method</string>
+    <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]
+    This string is not used, but the new string below (settings_screen_appearance) is not translated
+    into nearly as many languages, and the old string may act as a guide for translators. -->
+    <string name="settings_screen_appearance_and_layouts">Appearance &amp; Layouts</string>
+    <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
+    <string name="settings_screen_appearance">"Appearance"</string>
 </resources>

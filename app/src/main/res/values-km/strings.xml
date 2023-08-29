@@ -27,8 +27,8 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"សំឡេង​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"លេច​ឡើង​នៅ​​ពេល​ចុច​គ្រាប់​ចុច"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ចំណូលចិត្ត"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"គណនី &amp;amp ភាពឯកជន"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"រូបរាង &amp;amp ប្លង់"</string>
+    <string name="settings_screen_accounts">"គណនី &amp; ភាពឯកជន"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"រូបរាង &amp;amp ប្លង់"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"កាយវិការ​បញ្ចូល"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ការ​កែ​​អត្ថបទ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"កម្រិត​ខ្ពស់"</string>
@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"តាម​លំដាប់​អក្សរក្រម (កុំព្យូទ័រ)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"សញ្ញា​អារម្មណ៍"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"រូបរាង​ក្ដារចុច"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"រចនាប័ទ្ម​បញ្ចូល​ផ្ទាល់ខ្លួន"</string>
-    <string name="add_style" msgid="6163126614514489951">"បន្ថែម​រចនាប័ទ្ម"</string>
     <string name="add" msgid="8299699805688017798">"បន្ថែម"</string>
     <string name="remove" msgid="4486081658752944606">"លុប​ចេញ"</string>
     <string name="save" msgid="7646738597196767214">"រក្សាទុក"</string>
@@ -190,4 +188,7 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ភាសា​ច្រើន​ទៀត…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"លុប"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"ប្រើភាសាប្រព័ន្ធ"</string>
+    <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
+    <string name="settings_screen_appearance">"រូបរាង"</string>
 </resources>

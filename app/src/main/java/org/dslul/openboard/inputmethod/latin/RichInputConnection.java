@@ -704,7 +704,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (!isConnected()) {
             return null;
         }
-        final CharSequence before = getTextBeforeCursorAndDetectLaggyConnection(
+        CharSequence before = getTextBeforeCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 NUM_CHARS_TO_GET_BEFORE_CURSOR,
@@ -716,6 +716,45 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 InputConnection.GET_TEXT_WITH_STYLES);
         if (before == null || after == null) {
             return null;
+        }
+
+        // issue:
+        //  type 2 words and space, press delete twice -> remaining word and space before are selected
+        //   now on next key press, the space before the word is removed
+        //  or complete a word by choosing a suggestion than press backspace -> same thing
+        // what is sometimes happening (depending on app, or maybe input field attributes):
+        //  we just pressed delete, and getTextBeforeCursor gets the correct text,
+        //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
+        //  -> we try to detect this difference, and then try to fix it
+        // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
+        //  mCommittedTextBeforeComposingText where the text is cached
+        // what could be actually going on? we probably need to fetch the text because we want updated styles if any
+
+        // we need text before, and text after is always empty or a separator or similar
+        if (before.length() > 0 && (after.length() == 0 || !isPartOfCompositionForScript(Character.codePointBefore(after, 0), spacingAndPunctuations, scriptId))) {
+            final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
+            // check whether before ends with the same codepoint as getTextBeforeCursor
+            int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
+            CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
+            if (codePointBeforeCursor.length() != 0 && Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
+                // they are different, as is expected from the issue
+                // now check whether they are the same if the last codepoint of before is removed
+                final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
+                final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
+                if (beforeCursor.length() == beforeWithoutLast.length()) {
+                    boolean same = true;
+                    // CharSequence has undefined equals, so we need to compare characters
+                    for (int i = 0; i < beforeCursor.length(); i++) {
+                        if (beforeCursor.charAt(i) != beforeWithoutLast.charAt(i)) {
+                            same = false;
+                            break;
+                        }
+                    }
+                    if (same) {
+                        before = beforeWithoutLast;
+                    }
+                }
+            }
         }
 
         // Going backward, find the first breaking point (separator)

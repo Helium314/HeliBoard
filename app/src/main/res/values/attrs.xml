@@ -234,20 +234,14 @@
     <declare-styleable name="Keyboard">
         <attr name="themeId" format="enum">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
-            <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDarkAmoled" value="4" />
-            <enum name="LXXAutoAmoled" value="10" />
-            <enum name="LXXDark" value="7" />
-            <enum name="LXXAuto" value="9" />
-            <enum name="LXXLightBorder" value="5" />
-            <enum name="LXXDarkBorder" value="6" />
-            <enum name="LXXAutoBorder" value="8" />
-            <enum name="LXXCustom" value="11" />
-            <enum name="LXXCustomBorder" value="12" />
-            <enum name="KLPCustom" value="13" />
+                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BLUE} etc. -->
+            <enum name="HoloBlue" value="0" />
+            <enum name="HoloWhite" value="1" />
+            <enum name="HoloCustom" value="2" />
+            <enum name="LXXBase" value="3" />
+            <enum name="LXXBaseBorder" value="4" />
+            <enum name="LXXCustom" value="5" />
+            <enum name="LXXCustomBorder" value="6" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
@@ -261,8 +255,12 @@
         <attr name="rowHeight" format="dimension|fraction" />
         <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
         <attr name="horizontalGap" format="fraction" />
+        <!-- Default horizontal gap between keys, in the proportion of keyboard width. -->
+        <attr name="horizontalGapNarrow" format="fraction" />
         <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
         <attr name="verticalGap" format="fraction" />
+        <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
+        <attr name="verticalGapNarrow" format="fraction" />
         <!-- More keys keyboard layout template -->
         <attr name="moreKeysTemplate" format="reference" />
         <!-- Icon set for key top and key preview. These should be aligned with
@@ -296,6 +294,7 @@
         <attr name="iconStartOneHandedMode" format="reference" />
         <attr name="iconStopOneHandedMode" format="reference" />
         <attr name="iconSwitchOneHandedMode" format="reference" />
+        <attr name="iconNumpadKey" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_GridRows">
@@ -492,14 +491,18 @@
             <enum name="emojiCategory14" value="24" />
             <enum name="emojiCategory15" value="25" />
             <enum name="emojiCategory16" value="26" />
+            <enum name="numpad" value="28"  />
         </attr>
         <!-- This should be aligned with Keyboard.themeId and
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_ICS} etc. -->
+             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BLUE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
-            <enum name="ICS" value="0" />
-            <enum name="KLP" value="2" />
-            <enum name="LXXLight" value="3" />
-            <enum name="LXXDark" value="4" />
+            <enum name="HoloBlue" value="0" />
+            <enum name="HoloWhite" value="1" />
+            <enum name="HoloCustom" value="2" />
+            <enum name="LXXBase" value="3" />
+            <enum name="LXXBaseBorder" value="4" />
+            <enum name="LXXCustom" value="5" />
+            <enum name="LXXCustomBorder" value="6" />
         </attr>
         <!-- This should be aligned with
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->
@@ -580,6 +583,7 @@
             <enum name="emojiCategory14" value="24" />
             <enum name="emojiCategory15" value="25" />
             <enum name="emojiCategory16" value="26" />
+            <enum name="numpad" value="28"  />
         </attr>
         <attr name="elementKeyboard" format="reference"/>
         <!-- Enable proximity characters correction. Disabled by default. -->

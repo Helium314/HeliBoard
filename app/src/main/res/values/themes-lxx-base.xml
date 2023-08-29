@@ -3,7 +3,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.LXX_Base" parent="KeyboardIcons.LXX_Light">
         <item name="inputViewStyle">@style/InputView.LXX</item>
-        <item name="keyboardStyle">@style/Keyboard.LXX_Light</item> <!-- todo: when using Keyboard.LXX_Base, the action key doesn't keep aspect ratio, and sometimes action more keys popup looks bad... wtf? -->
+        <item name="keyboardStyle">@style/Keyboard.LXX_Base</item>
         <item name="keyboardViewStyle">@style/KeyboardView.LXX_Base</item>
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Base</item>
@@ -18,6 +18,8 @@
         name="Keyboard.LXX_Base"
         parent="Keyboard"
     >
+        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
+        <item name="themeId">LXXBase</item>
     </style>
     <style
         name="KeyboardView.LXX_Base"
@@ -91,6 +93,7 @@
         <item name="keyboardTopPadding">0%p</item>
         <item name="keyboardBottomPadding">0%p</item>
         <item name="horizontalGap">0%p</item>
+        <item name="horizontalGapNarrow">0%p</item>
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style
@@ -120,7 +123,8 @@
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
-        <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base</item>
+        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/btn_suggestion_lxx_base</item> -->
+        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
         <item name="android:src">@drawable/suggestions_strip_divider_lxx_light</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
         <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
@@ -133,7 +137,8 @@
         name="SuggestionWord.LXX_Base"
         parent="SuggestionWord"
         >
-        <item name="android:background">@drawable/btn_suggestion_lxx_base</item>
+        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base</item> -->
+        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
         <item name="android:textColor">@color/highlight_color_lxx_light</item>
     </style>
 </resources>

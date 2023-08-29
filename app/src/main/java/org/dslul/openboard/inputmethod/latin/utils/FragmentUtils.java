@@ -19,9 +19,9 @@ package org.dslul.openboard.inputmethod.latin.utils;
 import org.dslul.openboard.inputmethod.latin.settings.AdvancedSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.AppearanceSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.CorrectionSettingsFragment;
-import org.dslul.openboard.inputmethod.latin.settings.CustomInputStyleSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.GestureSettingsFragment;
+import org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.AboutFragment;
@@ -38,7 +38,6 @@ public class FragmentUtils {
     static {
         sLatinImeFragments.add(PreferencesSettingsFragment.class.getName());
         sLatinImeFragments.add(AppearanceSettingsFragment.class.getName());
-        sLatinImeFragments.add(CustomInputStyleSettingsFragment.class.getName());
         sLatinImeFragments.add(GestureSettingsFragment.class.getName());
         sLatinImeFragments.add(CorrectionSettingsFragment.class.getName());
         sLatinImeFragments.add(AdvancedSettingsFragment.class.getName());
@@ -50,6 +49,7 @@ public class FragmentUtils {
         sLatinImeFragments.add(UserDictionaryList.class.getName());
         sLatinImeFragments.add(UserDictionaryLocalePicker.class.getName());
         sLatinImeFragments.add(UserDictionarySettings.class.getName());
+        sLatinImeFragments.add(LanguageSettingsFragment.class.getName());
     }
 
     public static boolean isValidFragment(String fragmentName) {

@@ -23,7 +23,7 @@
         name="InputView.LXX"
         parent="InputView"
     />
-    <!-- LXX KeyboardView theme (LXX_Light and LXX_Dark) -->
+    <!-- LXX KeyboardView theme -->
     <style
         name="KeyboardView.LXX"
         parent="KeyboardView"

@@ -28,7 +28,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"कुञ्जी दबाउँदा पपअप"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राथमिकताहरू"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"खाताहरू तथा गोपनीयता"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"आवरण तथा लेआउटहरू"</string>
+    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"आवरण तथा लेआउटहरू"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"इशारा टाइपिङ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"पाठ सुधार"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"उन्नत"</string>
@@ -111,8 +111,6 @@
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"वर्णमाला (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"इमोजी"</string>
     <string name="keyboard_theme" msgid="4909551808526178852">"किबोर्ड थिम"</string>
-    <string name="custom_input_styles_title" msgid="8429952441821251512">"आफू अनुकूल इनपुट शैली"</string>
-    <string name="add_style" msgid="6163126614514489951">"शैली थप्नुहोस्"</string>
     <string name="add" msgid="8299699805688017798">"थप्नुहोस्"</string>
     <string name="remove" msgid="4486081658752944606">"हटाउनुहोस्"</string>
     <string name="save" msgid="7646738597196767214">"सुरक्षित गर्नुहोस्"</string>
@@ -190,4 +188,7 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"थप भाषाहरू..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"मेट्नुहोस्"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"सिष्टममा भएका भाषा प्रयोग गरियोस्"</string>
+    <string name="select_input_method">"निवेश विधि छान्नुहोस्"</string>
+    <string name="settings_screen_appearance">"उपस्थिति"</string>
 </resources>
