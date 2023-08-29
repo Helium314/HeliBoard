@@ -42,7 +42,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
         }
         view?.doOnLayout {
             // set correct height for recycler view, so there is no scrolling of the outside view happening
-            // not sure how, but probably this can be achieved in xml...
+            // not sure how, but probably this can also be achieved in xml...
             val windowFrame = Rect()
             it.getWindowVisibleDisplayFrame(windowFrame) // rect the app has, we want the bottom (above screen bottom/navbar/keyboard)
             val globalRect = Rect()
@@ -50,7 +50,8 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
             val recycler = it.findViewById<RecyclerView>(R.id.language_list)
 
             val newHeight = windowFrame.bottom - globalRect.top - it.findViewById<View>(R.id.search_container).height
-            recycler.layoutParams = recycler.layoutParams.apply { height = newHeight }
+            if (newHeight != recycler.layoutParams.height)
+                recycler.layoutParams = recycler.layoutParams.apply { height = newHeight }
         }
     }
 
@@ -92,11 +93,10 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
         fun onBind(infos: MutableList<SubtypeInfo>) {
             sort(infos)
             fun setupDetailsTextAndSwitch() {
-                // this is unrelated -> rename it
                 view.findViewById<TextView>(R.id.language_details).apply {
                     // input styles if more than one in infos
                     val sb = SpannableStringBuilder()
-                    if (infos.size > 1) {
+                    if (infos.size > 1 && !onlySystemLocales) {
                         var start = true
                         infos.forEach {
                             val string = SpannableString(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
@@ -109,7 +109,6 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                             start = false
                             sb.append(string)
                         }
-//                        })
                     }
                     val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
                     if (secondaryLocales.isNotEmpty()) {
@@ -121,7 +120,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                             })
                     }
                     text = sb
-                    if (onlySystemLocales || text.isBlank()) isGone = true
+                    if (text.isBlank()) isGone = true
                         else isVisible = true
                 }
 
@@ -138,6 +137,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                                 addEnabledSubtype(prefs, infos.first().subtype)
                                 infos.single().isEnabled = true
                             } else {
+                                // currently switch is disabled in this case
                                 LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
                             }
                         } else {
@@ -145,6 +145,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                                 removeEnabledSubtype(prefs, infos.first().subtype)
                                 infos.single().isEnabled = false
                             } else {
+                                // currently switch is disabled in this case
                                 LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
                             }
                         }
