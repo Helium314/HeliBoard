@@ -242,7 +242,7 @@
     <string name="theme_family">Стыль тэмы</string>
     <string name="theme_variant">Варыянт тэмы</string>
     <string name="theme_variant_night">Варыянт тэмы (цёмная тэма)</string>
-    <string name="key_borders">Межы клавіш</string>
+    <string name="key_borders">Контуры клавіш</string>
     <string name="day_night_mode">Аўтаматычны рэжым дня/ночы</string>
     <string name="show_clipboard_key">Клавіша буфера абмену</string>
     <string name="delete_swipe_summary">Правядзіце пальцам ад клавішы выдалення, каб выбраць і выдаліць адразу большыя часткі тэксту</string>
