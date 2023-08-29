@@ -731,7 +731,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // what could be actually going on? we probably need to fetch the text because we want updated styles if any
 
         // we need text before, and text after is always empty or a separator or similar
-        if (before.length() > 0 && (after.length() == 0 || !isPartOfCompositionForScript(Character.codePointBefore(after, 0), spacingAndPunctuations, scriptId))) {
+        if (before.length() > 0 && (after.length() == 0 || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, scriptId))) {
             final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
             // check whether before ends with the same codepoint as getTextBeforeCursor
             int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
