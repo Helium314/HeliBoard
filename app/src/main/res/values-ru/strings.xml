@@ -191,6 +191,7 @@
     <string name="show_hints">"Показывать спецсимволы"</string>
     <string name="show_hints_summary">"Показывать спецсимволы на клавишах"</string>
     <string name="prefs_resize_keyboard">Включить масштабирование клавиатуры</string>
+    <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
     <string name="prefs_keyboard_height_scale">"Масштабирование по высоте"</string>
     <string name="delete_swipe">"Удаление жестом"</string>
     <string name="space_trackpad">Пробел в качестве трекпада</string>
@@ -215,6 +216,7 @@
     <string name="day_night_mode">Использовать системную тему</string>
     <string name="theme_family">Стиль темы</string>
     <string name="theme_variant">Вариант темы</string>
+    <string name="theme_variant_night">Вариант темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
     <string name="autospace_after_punctuation_summary">Автоматически добавлять пробел после знаков препинания при вводе нового слова</string>
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена будет вставлять содержимое буфера обмена, если таковое имеется</string>
