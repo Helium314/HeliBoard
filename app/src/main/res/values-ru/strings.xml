@@ -26,12 +26,12 @@
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Настройки"</string>
     <string name="settings_screen_accounts" msgid="2786418968536696670">"Аккаунты"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вид и раскладки"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">Оформление и раскладки</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">Оформление</string>
     <string name="settings_screen_gesture">"Непрерывный ввод"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Исправление текста"</string>
     <string name="settings_screen_advanced">"Дополнительные настройки"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Тема"</string>
-    <string name="enable_split_keyboard">"Включить разделенную клавиатуру"</string>
+    <string name="enable_split_keyboard">"Включить разделённую клавиатуру"</string>
     <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Смена способов ввода"</string>
     <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Клавиша переключения языков также служит для смены способа ввода"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Клавиша смены языка"</string>
@@ -191,6 +191,7 @@
     <string name="show_hints">"Показывать спецсимволы"</string>
     <string name="show_hints_summary">"Показывать спецсимволы на клавишах"</string>
     <string name="prefs_resize_keyboard">Включить масштабирование клавиатуры</string>
+    <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
     <string name="prefs_keyboard_height_scale">"Масштабирование по высоте"</string>
     <string name="delete_swipe">"Удаление жестом"</string>
     <string name="space_trackpad">Пробел в качестве трекпада</string>
@@ -215,6 +216,7 @@
     <string name="day_night_mode">Использовать системную тему</string>
     <string name="theme_family">Стиль темы</string>
     <string name="theme_variant">Вариант темы</string>
+    <string name="theme_variant_night">Вариант темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
     <string name="autospace_after_punctuation_summary">Автоматически добавлять пробел после знаков препинания при вводе нового слова</string>
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена будет вставлять содержимое буфера обмена, если таковое имеется</string>

@@ -189,6 +189,7 @@
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
     <string name="theme_variant">Варіант теми</string>
+    <string name="theme_variant_night">Варіант теми (темна тема)</string>
     <string name="day_night_mode">Автоматичний режим день/ніч</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Аккгор)</string>
@@ -237,6 +238,7 @@
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="spell_checker_service_name">Перевірка правопису OpenBoard</string>
     <string name="prefs_resize_keyboard">Дозволити зміну розміру клавіатури</string>
+    <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>
     <string name="space_trackpad_summary">Ковзання по клавіші пробіл переміщає курсор</string>
@@ -244,7 +246,7 @@
     <string name="prefs_keyboard_height_scale">Масштабування клавіатури по висоті</string>
     <string name="number_row">Рядок цифр</string>
     <string name="number_row_summary">Завжди показувати рядок цифр</string>
-    <string name="key_borders">Границі клавіш</string>
+    <string name="key_borders">Контури клавіш</string>
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
     <string name="theme_family">Сімейство тем</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
