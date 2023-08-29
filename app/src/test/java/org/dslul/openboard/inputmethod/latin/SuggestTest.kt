@@ -119,6 +119,19 @@ class SuggestTest {
         // not corrected because of locale matching
     }
 
+    @Test fun `no "lé" instead of "le"`() {
+        val result = shouldBeAutoCorrected(
+            "le",
+            listOf(suggestion("le", 1900000, Locale.FRENCH), suggestion("lé", 1500000, Locale.FRENCH)),
+            null,
+            null,
+            Locale.FRENCH,
+            thresholdModest
+        )
+        assert(!result.last()) // should not be corrected
+        // not corrected because of score difference
+    }
+
 }
 
 private fun suggestion(word: String, score: Int, locale: Locale) =

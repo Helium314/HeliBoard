@@ -416,6 +416,11 @@ public final class Suggest {
                     // dict locale different -> return the better match
                     return new boolean[]{ true, dictLocale == first.mSourceDict.mLocale };
                 }
+                if (first.mScore < typedWordFirstOccurrenceWordInfo.mScore - 100000) {
+                    // don't autocorrect if typed word is clearly the better suggestion
+                    // todo: maybe this should be reduced more, to 50k or even 0
+                    return new boolean[]{ true, false };
+                }
                 putEmptyWordSuggestions.run();
                 int firstScoreForEmpty = firstAndTypedWordEmptyInfos.get(0) != null ? firstAndTypedWordEmptyInfos.get(0).mScore : 0;
                 int typedScoreForEmpty = firstAndTypedWordEmptyInfos.get(1) != null ? firstAndTypedWordEmptyInfos.get(1).mScore : 0;
