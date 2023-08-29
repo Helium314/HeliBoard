@@ -491,12 +491,18 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="internal_dictionary_summary">Built-in dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
+    <!-- Message when opening a dictionary file, showing type and dictionary language, prompting to choose a language to add it to -->
+    <string name="add_new_dictionary_ask_locale">"To which language should the dictionary \"%1$s\" for %2$s be added?"</string>
+    <!-- Button in dialog for choosing a locale -->
+    <string name="button_select_language">"Select language"</string>
+    <!-- Button in dialog for adding dictionary to specific locale -->
+    <string name="button_add_to_language">"Add to %s"</string>
     <!-- Message for user dictionary replacement dialog -->
     <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
     <!-- Message for user dictionary remove dialog -->
-    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%1$s\"?"</string>
+    <string name="remove_dictionary_message">"Really remove user-added dictionary \"%s\"?"</string>
     <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
     <!-- Title of the link to the download page inserted into selection message (above) -->

@@ -23,6 +23,7 @@ import android.preference.PreferenceActivity;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.utils.FragmentUtils;
+import org.dslul.openboard.inputmethod.latin.utils.NewDictionaryAdder;
 
 import androidx.core.app.ActivityCompat;
 
@@ -45,6 +46,10 @@ public final class SettingsActivity extends PreferenceActivity
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
+        }
+        final Intent i = getIntent();
+        if (Intent.ACTION_VIEW.equals(i.getAction()) && i.getData() != null) {
+            new NewDictionaryAdder(this, null).addDictionary(i.getData(), null);
         }
     }
 

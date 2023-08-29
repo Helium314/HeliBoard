@@ -15,12 +15,9 @@ import androidx.core.view.isVisible
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
-import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
 import org.dslul.openboard.inputmethod.latin.utils.*
 import java.io.File
-import java.io.IOException
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -37,7 +34,6 @@ class LanguageSettingsDialog(
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
     private val mainLocaleString = subtypes.first().subtype.locale
     private val mainLocale = mainLocaleString.toLocale()
-    private val cachedDictionaryFile by lazy { File(context.cacheDir.path + File.separator + "temp_dict") }
 
     init {
         setTitle(subtypes.first().displayName)
@@ -207,82 +203,10 @@ class LanguageSettingsDialog(
     }
 
     override fun onNewDictionary(uri: Uri?) {
-        if (uri == null)
-            return onDictionaryLoadingError(R.string.dictionary_load_error)
-
-        cachedDictionaryFile.delete()
-        try {
-            FileUtils.copyStreamToNewFile(
-                context.contentResolver.openInputStream(uri),
-                cachedDictionaryFile
-            )
-        } catch (e: IOException) {
-            return onDictionaryLoadingError(R.string.dictionary_load_error)
-        }
-        val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(cachedDictionaryFile, 0, cachedDictionaryFile.length())
-            ?: return onDictionaryLoadingError(R.string.dictionary_file_error)
-
-        val locale = newHeader.mLocaleString.toLocale()
-        // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not,
-        // e.g. for Persian or Chinese. But at least fail when dictionary certainly is incompatible
-        if (ScriptUtils.getScriptFromSpellCheckerLocale(locale) != ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale))
-            return onDictionaryLoadingError(R.string.dictionary_file_wrong_script)
-
-        if (locale != mainLocale) {
-            val message = context.resources.getString(
-                R.string.dictionary_file_wrong_locale,
-                LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context),
-                LocaleUtils.getLocaleDisplayNameInSystemLocale(mainLocale, context)
-            )
-            Builder(context)
-                .setMessage(message)
-                .setNegativeButton(android.R.string.cancel) { _, _ -> cachedDictionaryFile.delete() }
-                .setPositiveButton(R.string.dictionary_file_wrong_locale_ok) { _, _ ->
-                    addDictAndAskToReplace(newHeader)
-                }
-                .show()
-            return
-        }
-        addDictAndAskToReplace(newHeader)
-    }
-
-    private fun addDictAndAskToReplace(header: DictionaryHeader) {
-        val dictionaryType = header.mIdString.substringBefore(":")
-        val dictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
-                File.separator + dictionaryType + "_" + USER_DICTIONARY_SUFFIX
-        val dictFile = File(dictFilename)
-
-        fun moveDict(replaced: Boolean) {
-            if (!cachedDictionaryFile.renameTo(dictFile)) {
-                return onDictionaryLoadingError(R.string.dictionary_load_error)
-            }
-            if (dictionaryType == DictionaryInfoUtils.DEFAULT_MAIN_DICT) {
-                // replaced main dict, remove the one created from internal data
-                // todo: currently not, see also BinaryDictionaryGetter.getDictionaryFiles
-//                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
-//                        File.separator + DictionaryInfoUtils.getMainDictFilename(mainLocaleString)
-//                File(internalMainDictFilename).delete()
-            }
-            val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
-            fragment?.activity?.sendBroadcast(newDictBroadcast)
+        NewDictionaryAdder(context) { replaced, dictFile ->
             if (!replaced)
                 addDictionaryToView(dictFile, view.findViewById(R.id.dictionaries))
-        }
-
-        if (!dictFile.exists()) {
-            return moveDict(false)
-        }
-        confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType), context.getString(
-            R.string.replace_dictionary)) {
-            moveDict(true)
-        }
-    }
-
-    private fun onDictionaryLoadingError(messageId: Int) = onDictionaryLoadingError(context.getString(messageId))
-
-    private fun onDictionaryLoadingError(message: String) {
-        cachedDictionaryFile.delete()
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        }.addDictionary(uri, mainLocale)
     }
 
     private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
@@ -395,5 +319,4 @@ private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: St
     return locales
 }
 
-private fun String.toLocale() = LocaleUtils.constructLocaleFromString(this)
 private const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"

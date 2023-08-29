@@ -133,6 +133,16 @@ fun getSystemLocales(): List<Locale> {
     return systemLocales
 }
 
+fun hasMatchingSubtypeForLocaleString(localeString: String): Boolean {
+    require(initialized)
+    return !resourceSubtypesByLocale[localeString].isNullOrEmpty()
+}
+
+fun getAvailableSubtypeLocaleStrings(): Collection<String> {
+    require(initialized)
+    return resourceSubtypesByLocale.keys
+}
+
 fun init(context: Context) {
     if (initialized) return
     SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
