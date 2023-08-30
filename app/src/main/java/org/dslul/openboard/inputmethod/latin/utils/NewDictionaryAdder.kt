@@ -136,7 +136,13 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
     private fun onDictionaryLoadingError(messageId: Int) {
         cachedDictionaryFile.delete()
-        Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
+        // show a dialog because toasts are not showing up on some Android versions
+        // possibly Android 13 because of notification permission
+        AlertDialog.Builder(context)
+            .setMessage(messageId)
+            .setNegativeButton(R.string.dialog_close, null)
+            .show()
     }
 }
 

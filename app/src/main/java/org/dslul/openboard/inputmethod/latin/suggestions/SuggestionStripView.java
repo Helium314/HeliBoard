@@ -341,7 +341,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
                     if (info.getWord().equals(word)) {
                         final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-                        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+                        // apparently toast is not working on some Android versions, probably
+                        // Android 13 with the notification permission
+                        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+                        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
+                        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
+                        uglyWorkaround.show();
                     }
                 }
                 return true;
