@@ -499,9 +499,16 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="replace_dictionary">"Replace dictionary"</string>
     <!-- Message for user dictionary remove dialog -->
     <string name="remove_dictionary_message">"Really remove user-added dictionary \"%s\"?"</string>
-    <!-- Message for the user dictionary selection dialog. This string will be interpreted as HTML -->
+    <!-- Message when no dictionary is available for the selected language, with no_dictionaries_available as title.
+     %1$s will be replaced by dictionary_link_text, %2$s by the language code, %3$s by dictionary_link_text again.
+     This string will be interpreted as HTML -->
+    <string name="no_dictionary_message">"Without a dictionary, you will only get suggestions for text you entered before.&lt;br&gt;
+        You can download dictionaries %1$s, or check whether a dictionary for \"%2$s\" can be downloaded directly %3$s."</string>
+    <!-- Button to never show the no_dictionary_message when enabling a language that has no dictionary -->
+    <string name="no_dictionary_dont_show_again_button">"Don't show again"</string>
+    <!-- Message for the user dictionary selection dialog, %s will be replaced by dictionary_link_text. This string will be interpreted as HTML -->
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
-    <!-- Title of the link to the download page inserted into selection message (above) -->
+    <!-- Title of the link to the download page inserted into messages (add_dictionary and no_dictionary_message) -->
     <string name="dictionary_link_text">"here"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>

@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.view.size
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
@@ -19,12 +20,11 @@ import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.*
 import java.io.File
 import java.util.*
-import kotlin.collections.HashSet
 
 @Suppress("deprecation")
 class LanguageSettingsDialog(
     context: Context,
-    private val subtypes: MutableList<SubtypeInfo>,
+    private val infos: MutableList<SubtypeInfo>,
     private val fragment: LanguageSettingsFragment?,
     private val onlySystemLocales: Boolean,
     private val onSubtypesChanged: () -> Unit
@@ -32,11 +32,11 @@ class LanguageSettingsDialog(
     private val context = ContextThemeWrapper(context, R.style.platformDialogTheme)
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
-    private val mainLocaleString = subtypes.first().subtype.locale
+    private val mainLocaleString = infos.first().subtype.locale
     private val mainLocale = mainLocaleString.toLocale()
 
     init {
-        setTitle(subtypes.first().displayName)
+        setTitle(infos.first().displayName)
         setView(ScrollView(context).apply { addView(view) })
         setButton(BUTTON_NEGATIVE, context.getString(R.string.dialog_close)) { _, _ ->
             dismiss()
@@ -61,21 +61,21 @@ class LanguageSettingsDialog(
     }
 
     private fun fillSubtypesView(subtypesView: LinearLayout) {
-        if (subtypes.any { it.subtype.isAsciiCapable }) { // currently can only add subtypes for latin keyboards
+        if (infos.any { it.subtype.isAsciiCapable }) { // currently can only add subtypes for latin keyboards
             subtypesView.findViewById<ImageView>(R.id.add_subtype).setOnClickListener {
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
-                    .filterNot { layoutName -> subtypes.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
+                    .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
                 val displayNames = layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
                 Builder(context)
                     .setTitle(R.string.keyboard_layout_set)
                     .setItems(displayNames.toTypedArray()) { di, i ->
                         di.dismiss()
                         val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, layouts[i])
-                        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true) // enabled by default, because why else add them
+                        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
                         addAdditionalSubtype(prefs, context.resources, newSubtype)
                         addEnabledSubtype(prefs, newSubtype)
                         addSubtypeToView(newSubtypeInfo, subtypesView)
-                        subtypes.add(newSubtypeInfo)
+                        infos.add(newSubtypeInfo)
                         onSubtypesChanged()
                     }
                     .setNegativeButton(android.R.string.cancel, null)
@@ -85,7 +85,7 @@ class LanguageSettingsDialog(
             subtypesView.findViewById<View>(R.id.add_subtype).isGone = true
 
         // add subtypes
-        subtypes.sortedBy { it.displayName }.forEach {
+        infos.sortedBy { it.displayName }.forEach {
             addSubtypeToView(it, subtypesView)
         }
     }
@@ -100,8 +100,11 @@ class LanguageSettingsDialog(
             isChecked = subtype.isEnabled
             isEnabled = !onlySystemLocales
             setOnCheckedChangeListener { _, b ->
-                if (b)
+                if (b) {
+                    if (!infos.first().hasDictionary)
+                        showMissingDictionaryDialog(context, mainLocale)
                     addEnabledSubtype(prefs, subtype.subtype)
+                }
                 else
                     removeEnabledSubtype(prefs, subtype.subtype)
                 subtype.isEnabled = b
@@ -115,7 +118,7 @@ class LanguageSettingsDialog(
                 setOnClickListener {
                     // can be re-added easily, no need for confirmation dialog
                     subtypesView.removeView(row)
-                    subtypes.remove(subtype)
+                    infos.remove(subtype)
 
                     removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
                     removeEnabledSubtype(prefs, subtype.subtype)
@@ -128,10 +131,10 @@ class LanguageSettingsDialog(
 
     private fun fillSecondaryLocaleView(secondaryLocalesView: LinearLayout) {
         // can only use multilingual typing if there is more than one dictionary available
-        val availableSecondaryLocales = getAvailableDictionaryLocales(
+        val availableSecondaryLocales = getAvailableSecondaryLocales(
             context,
             mainLocaleString,
-            subtypes.first().subtype.isAsciiCapable
+            infos.first().subtype.isAsciiCapable
         )
         val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocaleString)
         selectedSecondaryLocales.forEach {
@@ -210,6 +213,9 @@ class LanguageSettingsDialog(
     }
 
     private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
+        if (!infos.first().hasDictionary) {
+            infos.forEach { it.hasDictionary = true }
+        }
         val dictType = dictFile.name.substringBefore("_${USER_DICTIONARY_SUFFIX}")
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         row.findViewById<TextView>(R.id.language_name).text = dictType
@@ -235,6 +241,10 @@ class LanguageSettingsDialog(
                     val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
                     fragment?.activity?.sendBroadcast(newDictBroadcast)
                     dictionariesView.removeView(row)
+                    if (dictionariesView.size < 2) { // first view is "Dictionaries"
+                        infos.forEach { it.hasDictionary = false }
+                    }
+
                 }
             }
         }
@@ -276,47 +286,19 @@ fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<
 }
 
 // get locales with same script as main locale, but different language
-private fun getAvailableDictionaryLocales(context: Context, mainLocaleString: String, asciiCapable: Boolean): Set<Locale> {
+private fun getAvailableSecondaryLocales(context: Context, mainLocaleString: String, asciiCapable: Boolean): Set<Locale> {
     val mainLocale = mainLocaleString.toLocale()
-    val locales = HashSet<Locale>()
+    val locales = getDictionaryLocales(context)
     val mainScript = if (asciiCapable) ScriptUtils.SCRIPT_LATIN
     else ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale)
     // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not
     //  e.g. for persian or chinese
     // workaround: don't allow secondary locales for these locales
-    if (!asciiCapable && mainScript == ScriptUtils.SCRIPT_LATIN) return locales
+    if (!asciiCapable && mainScript == ScriptUtils.SCRIPT_LATIN) return emptySet()
 
-    // get cached dictionaries: extracted or user-added dictionaries
-    val cachedDirectoryList = DictionaryInfoUtils.getCachedDirectoryList(context)
-    if (cachedDirectoryList != null) {
-        for (directory in cachedDirectoryList) {
-            if (!directory.isDirectory) continue
-            if (directory.list()?.isNotEmpty() != true) continue
-            val dirLocale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
-            if (dirLocale == mainLocaleString) continue
-            val locale = dirLocale.toLocale()
-            if (locale.language == mainLocale.language) continue
-            val localeScript = ScriptUtils.getScriptFromSpellCheckerLocale(locale)
-            if (localeScript != mainScript) continue
-            locales.add(locale)
-        }
-    }
-    // get assets dictionaries
-    val assetsDictionaryList = BinaryDictionaryGetter.getAssetsDictionaryList(context)
-    if (assetsDictionaryList != null) {
-        for (dictionary in assetsDictionaryList) {
-            val dictLocale =
-                BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictionary)
-                    ?: continue
-            if (dictLocale == mainLocaleString) continue
-            val locale = dictLocale.toLocale()
-            if (locale.language == mainLocale.language) continue
-            val localeScript = ScriptUtils.getScriptFromSpellCheckerLocale(locale)
-            if (localeScript != mainScript) continue
-            locales.add(locale)
-        }
+    locales.removeAll {
+        it.language == mainLocale.language
+                || ScriptUtils.getScriptFromSpellCheckerLocale(it) != mainScript
     }
     return locales
 }
-
-private const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"

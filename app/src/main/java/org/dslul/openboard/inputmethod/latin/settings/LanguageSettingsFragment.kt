@@ -12,6 +12,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
+import org.dslul.openboard.inputmethod.latin.utils.getDictionaryLocales
 import java.util.Locale
 
 
@@ -22,6 +23,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
     private val languageFilterListPreference by lazy { findPreference("pref_language_filter") as LanguageFilterListPreference }
+    private val dictionaryLocales by lazy { getDictionaryLocales(activity) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,7 +139,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        toSubtypeInfo(locale, activity, isEnabled)
+        toSubtypeInfo(locale, activity, isEnabled, dictionaryLocales.contains(locale))
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
@@ -169,7 +171,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
 
 }
 
-class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var isEnabled: Boolean) {
+class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var isEnabled: Boolean, var hasDictionary: Boolean) {
     override fun equals(other: Any?): Boolean {
         if (other !is SubtypeInfo) return false
         return subtype == other.subtype
@@ -180,8 +182,8 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
     }
 }
 
-fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean): SubtypeInfo =
-    SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled)
+fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean, hasDictionary: Boolean): SubtypeInfo =
+    SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled, hasDictionary)
 
 private const val DICTIONARY_REQUEST_CODE = 96834
 const val USER_DICTIONARY_SUFFIX = "user.dict"
