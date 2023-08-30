@@ -83,8 +83,6 @@
     <string name="switch_accounts" msgid="3321216593719006162">"Bytt konto"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Ingen kontoer er valgt"</string>
     <string name="account_selected" msgid="2846876462199625974">"Du bruker for øyeblikket <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Avbryt"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Logg av"</string>
     <string name="account_select_title" msgid="6279711684772922649">"Velg kontoen du vil bruke"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engelsk (Storbritannia)"</string>
@@ -160,10 +158,8 @@
     <string name="message_updating">"Ser etter oppdateringer ..."</string>
     <string name="message_loading" msgid="5638680861387748936">"Laster inn …"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Hovedordliste"</string>
-    <string name="cancel" msgid="6830980399865683324">"Avbryt"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Innstillinger"</string>
     <string name="install_dict" msgid="180852772562189365">"Installer"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Avbryt"</string>
     <string name="delete_dict" msgid="756853268088330054">"Slett"</string>
     <string name="version_text" msgid="2715354215568469385">"Versjon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Legg til"</string>
@@ -171,7 +167,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Setning"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Flere alt."</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Færre alt."</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"OK"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Ord:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Snarvei:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Språk:"</string>

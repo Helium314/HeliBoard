@@ -83,8 +83,6 @@
     <string name="switch_accounts" msgid="3321216593719006162">"Canvia de compte"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"No hi ha cap compte seleccionat."</string>
     <string name="account_selected" msgid="2846876462199625974">Actualment es fa servir <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_ok" msgid="9141195141763227797">"D\'acord"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Cancel·la"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Tanca la sessió"</string>
     <string name="account_select_title" msgid="6279711684772922649">"Compte que vols utilitzar"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"anglès (Regne Unit)"</string>
@@ -160,10 +158,8 @@
     <string name="message_updating" msgid="4457761393932375219">"S\'està comprovant si hi ha actualitzacions"</string>
     <string name="message_loading">"S\'està carregant..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Diccionari principal"</string>
-    <string name="cancel" msgid="6830980399865683324">"Cancel·la"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Configuració"</string>
     <string name="install_dict" msgid="180852772562189365">"Instal·la"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Cancel·la"</string>
     <string name="delete_dict" msgid="756853268088330054">"Suprimeix"</string>
     <string name="version_text" msgid="2715354215568469385">Versió <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Afegeix"</string>
@@ -171,7 +167,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frase"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Més opcions"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Menys opcions"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"D\'acord"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Paraula:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Drecera:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Idioma:"</string>

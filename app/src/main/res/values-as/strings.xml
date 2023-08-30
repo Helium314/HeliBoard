@@ -64,8 +64,6 @@
     <string name="switch_accounts">"একাউণ্ট সলনি কৰক"</string>
     <string name="no_accounts_selected">"কোনো একাউণ্ট বাছনি কৰা হোৱা নাই"</string>
     <string name="account_selected">"</string>
-    <string name="account_select_ok">"ঠিক আছে"</string>
-    <string name="account_select_cancel">"বাতিল কৰক"</string>
     <string name="account_select_sign_out">"ছাইন আউট কৰক"</string>
     <string name="account_select_title">"ব্যৱহাৰ কৰিবৰ বাবে এটা একাউণ্ট বাছনি কৰক"</string>
     <string name="keyboard_theme">"কীব\'ৰ্ড থীম"</string>
@@ -109,10 +107,8 @@
     <string name="message_updating">"আপডে’ট আছে নেকি পৰীক্ষা কৰি থকা হৈছে"</string>
     <string name="message_loading">"ল\'ড হৈ আছে…"</string>
     <string name="main_dict_description">"মুখ্য অভিধান"</string>
-    <string name="cancel">"বাতিল কৰক"</string>
     <string name="go_to_settings">"ছেটিংসমূহ"</string>
     <string name="install_dict">"ইনষ্টল কৰক"</string>
-    <string name="cancel_download_dict">"বাতিল কৰক"</string>
     <string name="delete_dict">"মচক"</string>
     <string name="version_text">"সংস্কৰণ </string>
     <string name="user_dict_settings_add_menu_title">"যোগ কৰক"</string>
@@ -120,7 +116,6 @@
     <string name="user_dict_settings_add_screen_title">"বাক্যাংশ"</string>
     <string name="user_dict_settings_add_dialog_more_options">"অধিক বিকল্প"</string>
     <string name="user_dict_settings_add_dialog_less_options">"কম বিকল্প"</string>
-    <string name="user_dict_settings_add_dialog_confirm">"ঠিক আছে"</string>
     <string name="user_dict_settings_add_word_option_name">"শব্দ:"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"শ্বৰ্টকাট:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ভাষা:"</string>

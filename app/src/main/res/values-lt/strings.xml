@@ -86,8 +86,6 @@
     <string name="switch_accounts" msgid="3321216593719006162">"Perjungti paskyras"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Nepasirinkta jokia paskyra"</string>
     <string name="account_selected" msgid="2846876462199625974">"Šiuo metu naudojama <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"Gerai"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Atšaukti"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Atsijungti"</string>
     <string name="account_select_title" msgid="6279711684772922649">"Pasirinkite norimą naudoti paskyrą"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Anglų k. (JK)"</string>
@@ -163,10 +161,8 @@
     <string name="message_updating" msgid="4457761393932375219">"Ieškoma naujinių"</string>
     <string name="message_loading" msgid="5638680861387748936">"Įkeliama…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Pagrindinis žodynas"</string>
-    <string name="cancel" msgid="6830980399865683324">"Atšaukti"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Nustatymai"</string>
     <string name="install_dict" msgid="180852772562189365">"Įdiegti"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Atšaukti"</string>
     <string name="delete_dict" msgid="756853268088330054">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt" msgid="6737084685073734292">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; <xliff:g id="LANGUAGE_NAME">%1$s</xliff:g> žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
 )  -->
@@ -176,7 +172,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frazė"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Daugiau parink."</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Mažiau parink."</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"Gerai"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Žodis:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Spartusis klavišas:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Kalba:"</string>

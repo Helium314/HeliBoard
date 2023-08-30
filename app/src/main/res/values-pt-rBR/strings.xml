@@ -60,8 +60,6 @@
     <string name="switch_accounts">Alternar contas</string>
     <string name="no_accounts_selected">Nenhuma conta selecionada</string>
     <string name="number_row_summary">Sempre mostrar a linha de números</string>
-    <string name="account_select_ok">OK</string>
-    <string name="account_select_cancel">Cancelar</string>
     <string name="account_select_sign_out">Sair</string>
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>
     <string name="subtype_en_US">Inglês (EUA)</string>
@@ -111,7 +109,6 @@
     <string name="message_updating">Procurando atualizações</string>
     <string name="message_loading">Carregando…</string>
     <string name="go_to_settings">Configurações</string>
-    <string name="cancel_download_dict">Cancelar</string>
     <string name="delete_dict">Apagar</string>
     <string name="user_dict_settings_add_menu_title">Adicionar</string>
     <string name="user_dict_settings_add_dialog_more_options">Mais opções</string>
@@ -182,11 +179,9 @@
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Em seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de entrada.</string>
     <string name="user_dictionaries">Dicionários da(o) usuária(o)</string>
-    <string name="user_dict_settings_add_dialog_confirm">OK</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar e escrever nos seus aplicativos favoritos.</string>
     <string name="dictionary_provider_name">Fornecedor de dicionário</string>
     <string name="main_dict_description">Dicionário principal</string>
-    <string name="cancel">Cancelar</string>
     <string name="install_dict">Instalar</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>

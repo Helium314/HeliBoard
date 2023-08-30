@@ -83,8 +83,6 @@
     <string name="switch_accounts" msgid="3321216593719006162">"അക്കൗണ്ടുകൾ മാറുക"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"അക്കൗണ്ടുകളൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല"</string>
     <string name="account_selected" msgid="2846876462199625974">നിലവിൽ <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g> എന്ന ഇമെയിൽ അക്കൗണ്ട് ഉപയോഗിക്കുന്നു</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"ശരി"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"റദ്ദാക്കുക"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"സൈൻ ഔട്ട് ചെയ്യുക"</string>
     <string name="account_select_title" msgid="6279711684772922649">"ഉപയോഗിക്കാൻ ഒരു അക്കൗണ്ട് തിരഞ്ഞെടുക്കുക"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ഇംഗ്ലീഷ് (യുകെ)"</string>
@@ -160,10 +158,8 @@
     <string name="message_updating" msgid="4457761393932375219">"അപ്‌ഡേറ്റുകൾക്കായി പരിശോധിക്കുന്നു"</string>
     <string name="message_loading">"ലോഡുചെയ്യുന്നു..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"പ്രധാന നിഘണ്ടു"</string>
-    <string name="cancel" msgid="6830980399865683324">"റദ്ദാക്കുക"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"ക്രമീകരണം"</string>
     <string name="install_dict" msgid="180852772562189365">"ഇൻസ്റ്റാളുചെയ്യുക"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"റദ്ദാക്കുക"</string>
     <string name="delete_dict" msgid="756853268088330054">"ഇല്ലാതാക്കുക"</string>
     <string name="version_text" msgid="2715354215568469385">വേർഷൻ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ചേര്‍ക്കുക"</string>
@@ -171,7 +167,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"വാക്യം"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"കുറച്ച് ഓപ്‌ഷനുകൾ"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"ശരി"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"പദം:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"കുറുക്കുവഴി:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ഭാഷ:"</string>

@@ -258,10 +258,6 @@
     <!-- Summary of the preference item for switching accounts when an account
          is selected [CHAR LIMIT=65] -->
     <string name="account_selected">Currently using <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <!-- Positive text for selecting an account -->
-    <string name="account_select_ok">OK</string>
-    <!-- Negative text for selecting an account -->
-    <string name="account_select_cancel">Cancel</string>
     <!-- Text for signing out of an account -->
     <string name="account_select_sign_out">Sign out</string>
     <!-- Title of the account picker dialog for selecting an account [CHAR LIMIT=40] -->
@@ -543,14 +539,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="message_loading">Loading…</string>
     <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
     <string name="main_dict_description">Main dictionary</string>
-    <!-- Standard message to dismiss a dialog box -->
-    <string name="cancel">Cancel</string>
     <!-- Title of the button in a dialog box. The button takes the user to the keyboard settings. [CHAR LIMIT=15] -->
     <string name="go_to_settings">Settings</string>
     <!-- Action to download and install a dictionary [CHAR_LIMIT=15] -->
     <string name="install_dict">Install</string>
-    <!-- Action to cancel the ongoing download of a dictionary file [CHAR_LIMIT=25] -->
-    <string name="cancel_download_dict">Cancel</string>
     <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
     <string name="delete_dict">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
@@ -573,9 +565,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- User dictionary settings. Text on the dialog button mask advanced options. [CHAR LIMIT=15] -->
     <!-- This resource is corresponding to msgid="2441785268726036101" -->
     <string name="user_dict_settings_add_dialog_less_options">Less options</string>
-    <!-- User dictionary settings. Text on the dialog button to confirm adding a word. [CHAR LIMIT=15] -->
-    <!-- This resource is corresponding to msgid="6225823625332416144" -->
-    <string name="user_dict_settings_add_dialog_confirm">OK</string>
     <!-- User dictionary settings. Label to put before the word field (that's the word that will actually be added to the user dictionary when OK is pressed). [CHAR LIMIT=20] -->
     <!-- This resource is corresponding to msgid="7868879174905963135" -->
     <string name="user_dict_settings_add_word_option_name">Word:</string>

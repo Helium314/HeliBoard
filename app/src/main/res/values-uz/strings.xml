@@ -83,8 +83,6 @@
     <string name="switch_accounts" msgid="3321216593719006162">"Hisobni almashtirish"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Hech qanday hisob tanlanmadi"</string>
     <string name="account_selected" msgid="2846876462199625974">Hozir foydalanilmoqda <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Bekor qilish"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Chiqish"</string>
     <string name="account_select_title" msgid="6279711684772922649">"Foydalanish uchun hisobni tanlang"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Ingliz (Buyuk Britaniya)"</string>
@@ -160,10 +158,8 @@
     <string name="message_updating" msgid="4457761393932375219">"Yangilanish mavjudligi tekshirilmoqda"</string>
     <string name="message_loading" msgid="5638680861387748936">"Yuklanmoqda…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Asosiy lug‘at"</string>
-    <string name="cancel" msgid="6830980399865683324">"Bekor qilish"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Sozlamalar"</string>
     <string name="install_dict" msgid="180852772562189365">"O‘rnatish"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Bekor qilish"</string>
     <string name="delete_dict" msgid="756853268088330054">"O‘chirish"</string>
     <string name="version_text" msgid="2715354215568469385"><xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g> versiya</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Qo‘shish"</string>
@@ -171,7 +167,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Ibora"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Ko‘proq soz-lar"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Kamroq sozlamalar"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"OK"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"So‘z:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Qisqartma:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Til:"</string>

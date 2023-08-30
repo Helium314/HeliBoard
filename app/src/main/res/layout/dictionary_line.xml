@@ -98,7 +98,7 @@
         android:layout_gravity="right|center_vertical"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/cancel_download_dict" />
+        android:text="@android:string/cancel" />
     <Button
         android:id="@+id/dict_delete_button"
         android:layout_width="wrap_content"

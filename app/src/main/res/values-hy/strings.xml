@@ -86,8 +86,6 @@
     <string name="switch_accounts" msgid="3321216593719006162">"Անցնել մյուս հաշիվ"</string>
     <string name="no_accounts_selected" msgid="2073821619103904330">"Հաշիվ չի ընտրվել"</string>
     <string name="account_selected" msgid="2846876462199625974">"Ներկայումս օգտագործում է՝ <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"Հաստատել"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Չեղարկել"</string>
     <string name="account_select_sign_out" msgid="3299651159390187933">"Դուրս գալ"</string>
     <string name="account_select_title" msgid="6279711684772922649">"Ընտրեք հաշիվ՝ օգտագործելու համար"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Անգլերեն (ՄԹ)"</string>
@@ -163,10 +161,8 @@
     <string name="message_updating" msgid="4457761393932375219">"Ստուգվում է թարմացումների առկայությունը"</string>
     <string name="message_loading" msgid="5638680861387748936">"Բեռնում..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Հիմնական բառարան"</string>
-    <string name="cancel" msgid="6830980399865683324">"Չեղարկել"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Կարգավորումներ"</string>
     <string name="install_dict" msgid="180852772562189365">"Տեղադրել"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Չեղարկել"</string>
     <string name="delete_dict" msgid="756853268088330054">"Ջնջել"</string>
     <string name="version_text" msgid="2715354215568469385">"Տարբերակ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Ավելացնել"</string>
@@ -174,7 +170,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Արտահայտություն"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Այլ ընտրանքներ"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Սակավ ընտրանքներ"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"Հաստատել"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Բառը՝"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Դյուրանցումը՝"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Lեզուն՝"</string>
