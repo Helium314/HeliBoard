@@ -62,7 +62,7 @@ class SuggestTest {
         // not corrected because first empty score not high enough
     }
 
-    @Test fun `not "ill" to "I'll" if both were used before in this context`() {
+    @Test fun `"ill" to "I'll" if both have same ngram score`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -72,8 +72,20 @@ class SuggestTest {
             locale,
             thresholdModest
         )
+        assert(result.last()) // should be corrected
+    }
+
+    @Test fun `no "ill" to "I'll" if "ill" has somewhat better ngram score`() {
+        val locale = Locale.ENGLISH
+        val result = shouldBeAutoCorrected(
+            "ill",
+            listOf(suggestion("I'll", Int.MAX_VALUE, locale), suggestion("ill", 1500000, locale)),
+            suggestion("I'll", 200, locale),
+            suggestion("ill", 211, locale),
+            locale,
+            thresholdModest
+        )
         assert(!result.last()) // should not be corrected
-        // essentially same as `not "ill" to "I'll" if only "ill" was used before in this context`
     }
 
     @Test fun `no English "I" for Polish "i" when typing in Polish`() {
@@ -119,17 +131,70 @@ class SuggestTest {
         // not corrected because of locale matching
     }
 
-    @Test fun `no "lé" instead of "le"`() {
+    @Test fun `no "né" instead of "ne"`() {
         val result = shouldBeAutoCorrected(
-            "le",
-            listOf(suggestion("le", 1900000, Locale.FRENCH), suggestion("lé", 1500000, Locale.FRENCH)),
+            "ne",
+            listOf(suggestion("ne", 1900000, Locale.FRENCH), suggestion("né", 1900000-1, Locale.FRENCH)),
             null,
             null,
             Locale.FRENCH,
             thresholdModest
         )
         assert(!result.last()) // should not be corrected
-        // not corrected because of score difference
+        // not corrected because score is lower
+    }
+
+    @Test fun `"né" instead of "ne" if "né" in ngram context`() {
+        val locale = Locale.FRENCH
+        val result = shouldBeAutoCorrected(
+            "ne",
+            listOf(suggestion("ne", 1900000, locale), suggestion("né", 1900000-1, locale)),
+            suggestion("né", 200, locale),
+            null,
+            locale,
+            thresholdModest
+        )
+        assert(result.last()) // should be corrected
+    }
+
+    @Test fun `"né" instead of "ne" if "né" has clearly better score in ngram context`() {
+        val locale = Locale.FRENCH
+        val result = shouldBeAutoCorrected(
+            "ne",
+            listOf(suggestion("ne", 1900000, locale), suggestion("né", 1900000-1, locale)),
+            suggestion("né", 215, locale),
+            suggestion("ne", 200, locale),
+            locale,
+            thresholdModest
+        )
+        assert(result.last()) // should be corrected
+    }
+
+    @Test fun `no "né" instead of "ne" if both with same score in ngram context`() {
+        val locale = Locale.FRENCH
+        val result = shouldBeAutoCorrected(
+            "ne",
+            listOf(suggestion("ne", 1900000, locale), suggestion("né", 1900000-1, locale)),
+            suggestion("né", 200, locale),
+            suggestion("ne", 200, locale),
+            locale,
+            thresholdModest
+        )
+        assert(!result.last()) // should not be corrected
+    }
+
+    @Test fun `no "ne" instead of "né"`() {
+        val locale = Locale.FRENCH
+        val result = shouldBeAutoCorrected(
+            "né",
+            listOf(suggestion("ne", 600000, locale), suggestion("né", 1600000, locale)),
+            suggestion("né", 200, locale),
+            suggestion("ne", 200, locale),
+            locale,
+            thresholdModest
+        )
+        assert(!result.last()) // should not be corrected
+        // not even allowed to check because of low score for ne
     }
 
 }

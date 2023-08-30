@@ -336,7 +336,7 @@ public final class Suggest {
             } else if (first == null) {
                 allowsToBeAutoCorrected = false; // no autocorrect if first suggestion unknown in this context
             } else if (typed == null) {
-                allowsToBeAutoCorrected = true; // autocorrect if typed word not known in this context, todo: this may be too aggressive
+                allowsToBeAutoCorrected = true; // allow autocorrect if typed word not known in this context, todo: this may be too aggressive
             } else {
                 // autocorrect if suggested word has clearly higher score for empty word suggestions
                 allowsToBeAutoCorrected = (first.mScore - typed.mScore) > 20;
@@ -416,20 +416,17 @@ public final class Suggest {
                     // dict locale different -> return the better match
                     return new boolean[]{ true, dictLocale == first.mSourceDict.mLocale };
                 }
-                if (first.mScore < typedWordFirstOccurrenceWordInfo.mScore - 100000) {
-                    // don't autocorrect if typed word is clearly the better suggestion
-                    // todo: maybe this should be reduced more, to 50k or even 0
-                    return new boolean[]{ true, false };
-                }
+                // todo: this may need tuning, especially the score difference thing
+                final int firstWordBonusScore = (first.isKindOf(SuggestedWordInfo.KIND_WHITELIST) ? 20 : 0) // large bonus because it's wanted by dictionary
+                        + (StringUtils.isLowerCaseAscii(typedWordString) ? 5 : 0) // small bonus because typically only ascii is typed (applies to latin keyboards only)
+                        + (first.mScore > typedWordFirstOccurrenceWordInfo.mScore ? 5 : 0); // small bonus if score is higher
                 putEmptyWordSuggestions.run();
                 int firstScoreForEmpty = firstAndTypedWordEmptyInfos.get(0) != null ? firstAndTypedWordEmptyInfos.get(0).mScore : 0;
                 int typedScoreForEmpty = firstAndTypedWordEmptyInfos.get(1) != null ? firstAndTypedWordEmptyInfos.get(1).mScore : 0;
-                if (firstScoreForEmpty == 0 && typedScoreForEmpty == 0) {
-                    // both words unknown in this ngram context -> return the correction
-                    return new boolean[]{ true, true };
-                }
-                if (firstScoreForEmpty > typedScoreForEmpty + 20) {
-                    // return the better match for ngram context, biased towards typed word
+                if (firstScoreForEmpty + firstWordBonusScore >= typedScoreForEmpty + 20) {
+                    // return the better match for ngram context
+                    //  biased towards typed word
+                    //  but with bonus depending on 
                     return new boolean[]{ true, true };
                 }
                 hasAutoCorrection = false;

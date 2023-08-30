@@ -712,9 +712,9 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean probablyContainsEmoji(String s) {
+    public static boolean probablyContainsEmoji(final String s) {
         int offset = 0;
-        int length = s.length();
+        final int length = s.length();
         while (offset < length) {
             int c = Character.codePointAt(s, offset);
             if (probablyIsEmojiCodePoint(c))
@@ -725,10 +725,19 @@ public final class StringUtils {
     }
 
     // seemingly arbitrary ranges taken from "somewhere on the internet"
-    public static boolean probablyIsEmojiCodePoint(int c) {
+    public static boolean probablyIsEmojiCodePoint(final int c) {
         return (0x200D <= c && c <= 0x3299) // ??
                 || (0x1F004 <= c && c <= 0x1F251) // ??
                 || (0x1F300 <= c && c <= 0x1FFFF) // ??
                 || c == 0xFE0F; // variation selector emoji with color
+    }
+
+    public static boolean isLowerCaseAscii(final String s) {
+        final int length = s.length();
+        for (int i = 0; i < length; i++) {
+            final int c = s.charAt(i);
+            if (c < 97 || c > 122) return false;
+        }
+        return true;
     }
 }
