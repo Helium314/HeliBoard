@@ -19,16 +19,12 @@ package org.dslul.openboard.inputmethod.keyboard.emoji;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -288,17 +284,6 @@ public final class EmojiPalettesView extends LinearLayout
             DrawableCompat.setTintMode(mDeleteKey.getBackground(), PorterDuff.Mode.MULTIPLY);
             getBackground().setColorFilter(colors.backgroundFilter);
             mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
-
-            // another weird workaround because it's not possible to set padding as percentage of height in btn_keyboard_spacebar_lxx_base
-            // of course different than in KeyboardView...
-            Rect p = new Rect();
-            mSpacebar.getBackground().getPadding(p);
-            if (p.top != 0) {
-                final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mSpacebar.getLayoutParams();
-                lp.topMargin = p.top;
-                lp.bottomMargin = p.top;
-                mSpacebar.setLayoutParams(lp);
-            }
         }
     }
 

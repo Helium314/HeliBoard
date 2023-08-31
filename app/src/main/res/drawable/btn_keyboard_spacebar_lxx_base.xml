@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- without this weirdly nested layer list the bottom/top things are ignored -->
     <item android:state_pressed="true">
-        <layer-list>
-            <item>
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/key_background_pressed_lxx_base" />
-                    <corners android:radius="5dp" />
-                    <padding android:bottom="12dp" android:top="12dp"/>
-                </shape>
-            </item>
-        </layer-list>
+        <inset android:insetTop="25%p" android:insetBottom="25%p">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/key_background_pressed_lxx_base" />
+                <corners android:radius="5dp" />
+            </shape>
+        </inset>
     </item>
     <item>
-        <layer-list>
-            <item>
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/key_background_lxx_base" />
-                    <corners android:radius="5dp" />
-                    <padding android:bottom="12dp" android:top="12dp"/>
-                </shape>
-            </item>
-        </layer-list>
+        <inset android:insetTop="25%p" android:insetBottom="25%p">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/key_background_lxx_base" />
+                <corners android:radius="5dp" />
+            </shape>
+        </inset>
     </item>
 </selector>

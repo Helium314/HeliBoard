@@ -17,7 +17,6 @@
 package org.dslul.openboard.inputmethod.keyboard;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -43,7 +42,6 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
@@ -398,37 +396,14 @@ public class KeyboardView extends View {
         } else {
             final Rect padding = mKeyBackgroundPadding;
             bgWidth = keyWidth + padding.left + padding.right;
-            // absurdly horrible workaround, because it's not possible to set padding as percentage of height in btn_keyboard_spacebar_lxx_base
-            if (mColors.isCustom && key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR && !isHoloTheme()) {
-                Rect p = new Rect();
-                background.getPadding(p);
-                if (p.top != 0) {
-                    bgHeight = (keyHeight + padding.top + padding.bottom) / 2;
-                    bgY = -padding.top + bgHeight / 2;
-                } else {
-                    bgHeight = keyHeight + padding.top + padding.bottom;
-                    bgY = -padding.top;
-                }
-            } else {
-                bgHeight = keyHeight + padding.top + padding.bottom;
-                bgY = -padding.top;
-            }
+            bgHeight = keyHeight + padding.top + padding.bottom;
+            bgY = -padding.top;
             bgX = -padding.left;
         }
         background.setBounds(0, 0, bgWidth, bgHeight);
         canvas.translate(bgX, bgY);
         background.draw(canvas);
         canvas.translate(-bgX, -bgY);
-    }
-
-    private boolean isHoloTheme() {
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(getContext());
-        final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
-                prefs.getString(Settings.PREF_THEME_FAMILY, ""),
-                prefs.getString(Settings.PREF_THEME_VARIANT, ""),
-                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-        );
-        return KeyboardTheme.getThemeFamily(keyboardThemeId).equals(KeyboardTheme.THEME_FAMILY_HOLO);
     }
 
     // Draw key top visuals.
