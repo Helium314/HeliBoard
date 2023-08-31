@@ -19,6 +19,7 @@ package org.dslul.openboard.inputmethod.keyboard.emoji;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -161,6 +162,8 @@ public final class EmojiPalettesView extends LinearLayout
         // TODO: Replace background color with its own setting rather than using the
         //       category page indicator background as a workaround.
         iconView.setBackgroundColor(mCategoryPageIndicatorBackground);
+        // todo: this doesn't get applied for holo, what could cause this?
+        //  very interesting: in onTabChanged it's applied
         iconView.setColorFilter(Settings.getInstance().getCurrent().mColors.keyTextFilter);
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
         iconView.setContentDescription(mEmojiCategory.getAccessibilityDescription(categoryId));
@@ -271,7 +274,11 @@ public final class EmojiPalettesView extends LinearLayout
         colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), Colors.TYPE_FUNCTIONAL);
         colors.setBackgroundColor(mDeleteKey.getBackground(), Colors.TYPE_FUNCTIONAL);
         colors.setBackgroundColor(mSpacebar.getBackground(), Colors.TYPE_SPACE);
-        getBackground().setColorFilter(colors.backgroundFilter);
+        final Drawable background = colors.getKeyboardBackground();
+        if (background != null)
+            setBackground(background);
+        else
+            getBackground().setColorFilter(colors.backgroundFilter);
         mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
     }
 

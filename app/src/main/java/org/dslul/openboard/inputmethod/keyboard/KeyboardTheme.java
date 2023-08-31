@@ -19,7 +19,6 @@ package org.dslul.openboard.inputmethod.keyboard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.util.Log;
 
@@ -31,37 +30,25 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     // old themes
-    public static final String THEME_FAMILY_MATERIAL = "Material";
-    public static final String THEME_FAMILY_HOLO = "Holo (Legacy)";
-    public static final String THEME_VARIANT_HOLO_WHITE = "White";
-    public static final String THEME_VARIANT_HOLO_BLUE = "Blue";
-    public static final String THEME_VARIANT_CUSTOM = "User-defined";
-    public static final String THEME_VARIANT_HOLO_USER = "User-defined (Holo)";
+    public static final String THEME_STYLE_MATERIAL = "Material";
+    public static final String THEME_STYLE_HOLO = "Holo";
 
     // new themes using the custom colors
     public static final String THEME_LIGHT = "light";
+    public static final String THEME_HOLO_WHITE = "holo_white"; // todo: rename (but useful to have for testing)
     public static final String THEME_DARK = "dark";
     public static final String THEME_DARKER = "darker";
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
     public static final String THEME_USER_DARK = "user_dark";
-    public static final String[] CUSTOM_THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
-    public static final String[] CUSTOM_THEME_VARIANTS_DARK = new String[] { THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_DARK };
+    public static final String[] THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
+    public static final String[] THEME_VARIANTS_DARK = new String[] { THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_DARK };
 
-    public static final String[] THEME_FAMILIES = {THEME_FAMILY_MATERIAL, THEME_FAMILY_HOLO};
-    public static final Map<String, String[]> THEME_VARIANTS = new HashMap<>();
-
-    static {
-        THEME_VARIANTS.put(THEME_FAMILY_MATERIAL, CUSTOM_THEME_VARIANTS);
-        THEME_VARIANTS.put(THEME_FAMILY_HOLO,
-                new String[] {THEME_VARIANT_HOLO_WHITE, THEME_VARIANT_HOLO_BLUE, THEME_VARIANT_HOLO_USER});
-    }
+    public static final String[] THEME_STYLES = { THEME_STYLE_MATERIAL, THEME_STYLE_HOLO };
 
     private static final String TAG = KeyboardTheme.class.getSimpleName();
 
@@ -190,28 +177,19 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         return theme.mThemeName;
     }
 
-    public static void saveKeyboardThemeId(final int themeId, final SharedPreferences prefs) {
-        saveKeyboardThemeId(themeId, prefs, Build.VERSION.SDK_INT);
-    }
-
-    /* package private for testing */
-    static String getPreferenceKey(final int sdkVersion) {
-        if (sdkVersion <= VERSION_CODES.KITKAT) {
-            return KLP_KEYBOARD_THEME_KEY;
-        }
-        return LXX_KEYBOARD_THEME_KEY;
-    }
-
-    /* package private for testing */
-    static void saveKeyboardThemeId(final int themeId, final SharedPreferences prefs,
-            final int sdkVersion) {
-        final String prefKey = getPreferenceKey(sdkVersion);
-        prefs.edit().putString(prefKey, Integer.toString(themeId)).apply();
-    }
-
+    // todo: this actually should be called style now, as the colors are independent
+    //  and selection should be simplified, becuase really...
     public static KeyboardTheme getKeyboardTheme(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        return getKeyboardTheme(prefs, Build.VERSION.SDK_INT, KEYBOARD_THEMES);
+        final String style = prefs.getString(Settings.PREF_THEME_STYLE, THEME_STYLE_MATERIAL);
+        final boolean borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
+        final int matchingId = style.equals(THEME_STYLE_HOLO) ? THEME_ID_HOLO_CUSTOM : (borders ? THEME_ID_LXX_CUSTOM_BORDER : THEME_ID_LXX_CUSTOM);
+        for (int i = 0; i < KEYBOARD_THEMES.length; i++) {
+            if (KEYBOARD_THEMES[i].mThemeId == matchingId)
+                return KEYBOARD_THEMES[i];
+        }
+        return KEYBOARD_THEMES[2]; // custom no border
+//        return getKeyboardTheme(prefs, Build.VERSION.SDK_INT, KEYBOARD_THEMES);
     }
 
     /* package private for testing */
@@ -237,24 +215,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     }
 
     public static String getThemeFamily(int themeId) {
-        if (themeId == THEME_ID_HOLO_BLUE || themeId == THEME_ID_HOLO_WHITE || themeId == THEME_ID_HOLO_CUSTOM) return THEME_FAMILY_HOLO;
-        return THEME_FAMILY_MATERIAL;
-    }
-
-    public static String getThemeVariant(int themeId) {
-        switch (themeId) {
-            case THEME_ID_HOLO_WHITE:
-                return THEME_VARIANT_HOLO_WHITE;
-            case THEME_ID_HOLO_BLUE:
-                return THEME_VARIANT_HOLO_BLUE;
-            case THEME_ID_LXX_CUSTOM:
-            case THEME_ID_LXX_CUSTOM_BORDER:
-                return THEME_VARIANT_CUSTOM;
-            case THEME_ID_HOLO_CUSTOM:
-                return THEME_VARIANT_HOLO_USER;
-            default:
-                return null;
-        }
+        if (themeId == THEME_ID_HOLO_BLUE || themeId == THEME_ID_HOLO_WHITE || themeId == THEME_ID_HOLO_CUSTOM) return THEME_STYLE_HOLO;
+        return THEME_STYLE_MATERIAL;
     }
 
     public static boolean getHasKeyBorders(int themeId) {
@@ -279,37 +241,26 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         }
     }
 
-    public static int getThemeForParameters(String family, String variant,
-            boolean keyBorders) {
-        if (THEME_FAMILY_HOLO.equals(family)) {
-            if (THEME_VARIANT_HOLO_BLUE.equals(variant)) return THEME_ID_HOLO_BLUE;
-            if (THEME_VARIANT_HOLO_USER.equals(variant)) return THEME_ID_HOLO_CUSTOM;
-            return THEME_ID_HOLO_WHITE;
-        }
-        if (keyBorders) return THEME_ID_LXX_CUSTOM_BORDER;
-        return THEME_ID_LXX_CUSTOM;
-    }
-
     // todo (later): material you, system accent, ...
-    // todo: copies of original themes might need adjustments, though maybe it's only Colors that needs to be adjusted
-    public static Colors getCustomTheme(String theme, Context context, SharedPreferences prefs) {
-        switch (theme) {
+    public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
+        switch (themeColors) {
             case THEME_USER:
                 final int accent = prefs.getInt(Settings.PREF_THEME_USER_COLOR_ACCENT, Color.BLUE);
                 final int keyBgColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_KEYS, Color.LTGRAY);
                 final int keyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
                 final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
                 final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
-                return new Colors(accent, background, keyBgColor, Colors.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
+                return Colors.newColors(themeStyle, accent, background, keyBgColor, Colors.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
             case THEME_USER_DARK:
                 final int accent2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_ACCENT, Color.BLUE);
                 final int keyBgColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_KEYS, Color.LTGRAY);
                 final int keyTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_TEXT, Color.WHITE);
                 final int hintTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT, Color.WHITE);
                 final int background2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND, Color.DKGRAY);
-                return new Colors(accent2, background2, keyBgColor2, Colors.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
+                return Colors.newColors(themeStyle, accent2, background2, keyBgColor2, Colors.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
             case THEME_DARK:
-                return new Colors(
+                return Colors.newColors(
+                        themeStyle,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         // colors taken from the drawable
                         Color.parseColor("#263238"),
@@ -319,8 +270,21 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
                 );
+            case THEME_HOLO_WHITE:
+                return Colors.newColors(
+                        themeStyle,
+                        Color.parseColor("#FFFFFF"),
+                        // colors taken from the drawable
+                        Color.parseColor("#282828"),
+                        Color.parseColor("#FFFFFF"), // transparency!
+                        Color.parseColor("#444444"), // should be 222222, but the key drawable is already grey
+                        Color.parseColor("#FFFFFF"),
+                        Color.parseColor("#FFFFFF"),
+                        Color.parseColor("#282828")
+                );
             case THEME_DARKER:
-                return new Colors(
+                return Colors.newColors(
+                        themeStyle,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
@@ -330,7 +294,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
                 );
             case THEME_BLACK:
-                return new Colors(
+                return Colors.newColors(
+                        themeStyle,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_black),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
@@ -341,7 +306,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_LIGHT:
             default:
-                return new Colors(
+                return Colors.newColors(
+                        themeStyle,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),

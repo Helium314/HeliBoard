@@ -5,12 +5,16 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
+
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 
 // todo: maybe kotlin? would make it much shorter and more readable
 public class Colors {
@@ -42,7 +46,14 @@ public class Colors {
     private ColorStateList spaceBarStateList;
     private ColorStateList adjustedBackgroundStateList;
 
-    public Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
+    public static Colors newColors(String themeStyle, int accent, int background, int keyBackground, int functionalKey, int spaceBar, int keyText, int keyHintText) {
+        Log.i("test1", "colors with style "+themeStyle);
+        if (themeStyle.equals(KeyboardTheme.THEME_STYLE_HOLO))
+            return new HoloColors(accent, background, keyBackground, functionalKey, spaceBar, keyText, keyHintText);
+        return new Colors(accent, background, keyBackground, functionalKey, spaceBar, keyText, keyHintText);
+    }
+
+    protected Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
         accent = _accent;
         background = _background;
         keyBackground = _keyBackground;
@@ -80,6 +91,11 @@ public class Colors {
         }
         DrawableCompat.setTintMode(background, PorterDuff.Mode.MULTIPLY);
         DrawableCompat.setTintList(background, list);
+    }
+
+    @Nullable
+    public Drawable getKeyboardBackground() {
+        return null;
     }
 
     public static final int TYPE_BACKGROUND = 0;
@@ -170,7 +186,7 @@ public class Colors {
         return (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
     }
 
-    private static int adjustLuminosityAndKeepAlpha(@ColorInt final int color, final float amount) {
+    protected static int adjustLuminosityAndKeepAlpha(@ColorInt final int color, final float amount) {
         final int alpha = Color.alpha(color);
         float[] hsl = new float[3];
         ColorUtils.colorToHSL(color, hsl);

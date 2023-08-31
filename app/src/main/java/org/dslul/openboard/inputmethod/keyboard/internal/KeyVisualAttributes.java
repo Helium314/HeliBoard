@@ -134,7 +134,7 @@ public final class KeyVisualAttributes {
         // todo: maybe a separate color?
         mFunctionalTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_functionalTextColor, 0);
         mHintLetterColor = colors.keyHintText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLetterColor, 0);
-        mHintLabelColor = colors.keyHintText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLabelColor, 0);
+        mHintLabelColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLabelColor, 0);
         mShiftedLetterHintInactivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintInactivatedColor, 0);
         mShiftedLetterHintActivatedColor = keyAttr.getColor(

@@ -254,7 +254,7 @@ public class SettingsValues {
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale());
 
-        mColors = Settings.getColors(context, prefs);
+        mColors = Settings.getColorsForCurrentTheme(context, prefs);
         mColors.createColorFilters(prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false));
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);

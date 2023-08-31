@@ -103,7 +103,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         val colors = Settings.getInstance().current.mColors
         clearKey.colorFilter = colors.keyTextFilter
-        background.colorFilter = colors.backgroundFilter
+        val colorBackground = colors.keyboardBackground
+        if (colorBackground != null)
+            background = colorBackground
+        else
+            background.colorFilter = colors.backgroundFilter
     }
 
     private fun setupAlphabetKey(key: TextView?, label: String, params: KeyDrawParams) {

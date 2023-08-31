@@ -38,6 +38,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.common.HoloColors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
@@ -136,6 +137,7 @@ public class KeyboardView extends View {
 
     public KeyboardView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+        mColors = Settings.getInstance().getCurrent().mColors;
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
@@ -149,7 +151,10 @@ public class KeyboardView extends View {
                 R.styleable.KeyboardView_spacebarBackground);
         mSpacebarBackground = (spacebarBackground != null) ? spacebarBackground.mutate()
                 : keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
-        mActionKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
+        if (mColors.getClass() == HoloColors.class) // todo: this logic should be in Colors, not here
+            mActionKeyBackground = mFunctionalKeyBackground;
+        else
+            mActionKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
 
         mSpacebarIconWidthRatio = keyboardViewAttr.getFloat(
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
@@ -175,7 +180,6 @@ public class KeyboardView extends View {
 
         mPaint.setAntiAlias(true);
 
-        mColors = Settings.getInstance().getCurrent().mColors;
         final Class<?> c = this.getClass();
         if (c == MoreKeysKeyboardView.class) {
             mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
@@ -189,8 +193,15 @@ public class KeyboardView extends View {
         mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_FUNCTIONAL);
         if (this.getClass() == MoreKeysKeyboardView.class)
             getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
-        else
-            getBackground().setColorFilter(mColors.backgroundFilter);
+        else {
+            // todo: this should only be applied to specific keyboards, check original version for which one
+            //  and actually this again is something that maybe should be done in Colors
+            final Drawable keyboardBackground = mColors.getKeyboardBackground();
+            if (this.getClass() != MoreSuggestionsView.class && keyboardBackground != null)
+                setBackground(keyboardBackground);
+            else
+                getBackground().setColorFilter(mColors.backgroundFilter);
+        }
     }
 
     @Nullable
@@ -610,7 +621,7 @@ public class KeyboardView extends View {
     }
 
     private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
-        if (key.isAccentColored()) {
+        if (key.isAccentColored() && mColors.getClass() != HoloColors.class) { // todo: again sth that should not be here
             icon.setColorFilter(mColors.actionKeyIconColorFilter);
         } else if (key.isShift() && keyboard != null) {
             // todo (idea): replace shift icon with white one and use the normal multiply filters

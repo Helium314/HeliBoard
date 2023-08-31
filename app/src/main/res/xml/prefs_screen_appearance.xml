@@ -24,8 +24,9 @@
         android:title="@string/settings_screen_theme">
 
         <ListPreference
-            android:key="theme_family"
-            android:title="@string/theme_family"/>
+            android:key="theme_style"
+            android:title="@string/theme_family"
+            android:defaultValue="Material"/>
 
         <ListPreference
             android:key="theme_variant"

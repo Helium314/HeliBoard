@@ -44,9 +44,9 @@
         name="KeyboardView.HoloWhite"
         parent="KeyboardView.Holo"
     >
-        <item name="android:background">@drawable/keyboard_background_holo</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_holo_white</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_holo_white</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="keyBackground">@drawable/btn_keyboard_spacebar_holo_white</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_pressed_klp_light</item>
         <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_holo_white</item>
         <item name="keyTextColor">@color/key_text_color_blue</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactivated_color_holo</item>
@@ -132,7 +132,7 @@
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
-        <item name="android:background">@drawable/keyboard_suggest_strip_holo</item>
+        <item name="android:background">@android:color/white</item>
         <item name="android:src">@drawable/suggestions_strip_divider_holo</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
         <item name="colorValidTypedWord">@color/typed_word_color_holo_white</item>

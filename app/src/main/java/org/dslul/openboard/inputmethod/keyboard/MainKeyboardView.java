@@ -52,8 +52,10 @@ import org.dslul.openboard.inputmethod.keyboard.internal.TimerHandler;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
+import org.dslul.openboard.inputmethod.latin.common.HoloColors;
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -61,6 +63,7 @@ import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.WeakHashMap;
@@ -216,7 +219,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mBackgroundDimAlphaPaint.setAlpha(backgroundDimAlpha);
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
-        mLanguageOnSpacebarTextColor = Settings.getInstance().getCurrent().mColors.keyHintText; //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        if (colors.getClass() == HoloColors.class) // todo: this logic should be in Colors
+            mLanguageOnSpacebarTextColor = colors.keyText;
+        else
+            mLanguageOnSpacebarTextColor = colors.keyHintText; //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);
