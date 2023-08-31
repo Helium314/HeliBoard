@@ -33,12 +33,11 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
-import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -48,7 +47,6 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
-import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -101,6 +99,7 @@ public class KeyboardView extends View {
     private final float mVerticalCorrection;
     private final Drawable mKeyBackground;
     private final Drawable mFunctionalKeyBackground;
+    private final Drawable mActionKeyBackground;
     private final Drawable mSpacebarBackground;
     private final float mSpacebarIconWidthRatio;
     private final Rect mKeyBackgroundPadding = new Rect();
@@ -144,15 +143,18 @@ public class KeyboardView extends View {
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
-        mKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground);
+        mKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
         mKeyBackground.getPadding(mKeyBackgroundPadding);
         final Drawable functionalKeyBackground = keyboardViewAttr.getDrawable(
                 R.styleable.KeyboardView_functionalKeyBackground);
-        mFunctionalKeyBackground = (functionalKeyBackground != null) ? functionalKeyBackground
-                : mKeyBackground;
+        mFunctionalKeyBackground = (functionalKeyBackground != null) ? functionalKeyBackground.mutate()
+                : keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
         final Drawable spacebarBackground = keyboardViewAttr.getDrawable(
                 R.styleable.KeyboardView_spacebarBackground);
-        mSpacebarBackground = (spacebarBackground != null) ? spacebarBackground : mKeyBackground;
+        mSpacebarBackground = (spacebarBackground != null) ? spacebarBackground.mutate()
+                : keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
+        mActionKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
+
         mSpacebarIconWidthRatio = keyboardViewAttr.getFloat(
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
         mKeyHintLetterPadding = keyboardViewAttr.getDimension(
@@ -180,8 +182,19 @@ public class KeyboardView extends View {
         mColors = Settings.getInstance().getCurrent().mColors;
         if (mColors.isCustom) {
             DrawableCompat.setTintMode(mKeyBackground, PorterDuff.Mode.MULTIPLY);
+            if (this.getClass() == MoreKeysKeyboardView.class) {
+                DrawableCompat.setTintList(mKeyBackground, mColors.adjustedBackgroundStateList);
+            } else if (this.getClass() == EmojiPageKeyboardView.class || this.getClass() == MoreSuggestionsView.class) {
+                DrawableCompat.setTintList(mKeyBackground, mColors.backgroundStateList);
+            } else {
+                DrawableCompat.setTintList(mKeyBackground, mColors.keyStateList);
+            }
+            DrawableCompat.setTintMode(mActionKeyBackground, PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintList(mActionKeyBackground, mColors.actionKeyStateList);
             DrawableCompat.setTintMode(mSpacebarBackground, PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintList(mSpacebarBackground, mColors.spaceBarStateList);
             DrawableCompat.setTintMode(mFunctionalKeyBackground, PorterDuff.Mode.MULTIPLY);
+            DrawableCompat.setTintList(mFunctionalKeyBackground, mColors.functionalKeyStateList);
             if (this.getClass() == MoreKeysKeyboardView.class)
                 getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
             else
@@ -361,10 +374,8 @@ public class KeyboardView extends View {
 
         if (!key.isSpacer()) {
             final Drawable background = key.selectBackgroundDrawable(
-                    mKeyBackground, mFunctionalKeyBackground, mSpacebarBackground);
-            if (background != null) {
-                onDrawKeyBackground(key, canvas, background);
-            }
+                    mKeyBackground, mFunctionalKeyBackground, mSpacebarBackground, mActionKeyBackground);
+            onDrawKeyBackground(key, canvas, background);
         }
         onDrawKeyTopVisuals(key, canvas, paint, params);
 
@@ -404,8 +415,6 @@ public class KeyboardView extends View {
             }
             bgX = -padding.left;
         }
-        if (mColors.isCustom)
-            setCustomKeyBackgroundColor(key, getKeyboard(), background);
         background.setBounds(0, 0, bgWidth, bgHeight);
         canvas.translate(bgX, bgY);
         background.draw(canvas);
@@ -642,7 +651,7 @@ public class KeyboardView extends View {
     }
 
     private void setCustomKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
-        if (isAccentColoredKey(key)) {
+        if (key.isAccentColored()) {
             icon.setColorFilter(mColors.actionKeyIconColorFilter);
         } else if (key.isShift() && keyboard != null) {
             // todo (idea): replace shift icon with white one and use the normal multiply filters
@@ -661,37 +670,6 @@ public class KeyboardView extends View {
             // set color filter for long press comma key, should not trigger anywhere else
             icon.setColorFilter(mColors.keyTextFilter);
         }
-    }
-
-    private void setCustomKeyBackgroundColor(Key key, Keyboard keyboard, Drawable background) {
-        // colors are applied to background, which is re-used
-        // action key and normal key share the same background drawable, so we need to select the correct colors
-
-        if (isAccentColoredKey(key)) { // action key and its popup keys
-            DrawableCompat.setTintList(background, mColors.actionKeyStateList);
-        } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR) { // space
-            DrawableCompat.setTintList(background, mColors.spaceBarStateList);
-        } else if (key.isFunctional()) { // shift, 123, delete,...
-            DrawableCompat.setTintList(background, mColors.functionalKeyStateList);
-        } else if (this.getClass() == MoreSuggestionsView.class) { // more suggestions popup, should not use keyStateList
-            DrawableCompat.setTintList(background, mColors.backgroundStateList);
-        } else if (this.getClass() == MoreKeysKeyboardView.class) { // more keys popup (except on action key, which is handled above)
-            DrawableCompat.setTintList(background, mColors.adjustedBackgroundStateList);
-        } else if (key.getBackgroundType() == Key.BACKGROUND_TYPE_NORMAL) { // normal keys
-            DrawableCompat.setTintList(background, mColors.keyStateList);
-        } else if (keyboard.mId.mElementId >= 10 && keyboard.mId.mElementId <= 26) { // emoji keyboard keys, maybe rather check for EmojiPageKeyboardView.class?
-            DrawableCompat.setTintList(background, mColors.backgroundStateList);
-        }
-    }
-
-    private boolean isAccentColoredKey(Key key) {
-        if (key.isActionKey()) return true;
-        if (this.getClass() != MoreKeysKeyboardView.class) return false;
-        final String iconName = KeyboardIconsSet.getIconName(key.getIconId());
-        return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }
 
 }

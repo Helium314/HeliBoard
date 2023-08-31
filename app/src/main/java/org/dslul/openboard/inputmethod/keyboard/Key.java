@@ -1106,9 +1106,12 @@ public class Key implements Comparable<Key> {
     @Nonnull
     public final Drawable selectBackgroundDrawable(@Nonnull final Drawable keyBackground,
             @Nonnull final Drawable functionalKeyBackground,
-            @Nonnull final Drawable spacebarBackground) {
+            @Nonnull final Drawable spacebarBackground,
+           @Nonnull final Drawable actionKeyBackground) {
         final Drawable background;
-        if (isFunctional()) {
+        if (isAccentColored()) {
+            background = actionKeyBackground;
+        } else if (isFunctional()) {
             background = functionalKeyBackground;
         } else if (mBackgroundType == BACKGROUND_TYPE_SPACEBAR) {
             background = spacebarBackground;
@@ -1118,6 +1121,15 @@ public class Key implements Comparable<Key> {
         final int[] state = KeyBackgroundState.STATES[mBackgroundType].getState(mPressed);
         background.setState(state);
         return background;
+    }
+
+    public final boolean isAccentColored() {
+        if (isActionKey()) return true;
+        final String iconName = KeyboardIconsSet.getIconName(getIconId());
+        return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
+                || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }
 
     public static class Spacer extends Key {

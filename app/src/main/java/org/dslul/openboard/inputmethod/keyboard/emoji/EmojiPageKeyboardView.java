@@ -55,7 +55,7 @@ import java.util.WeakHashMap;
  * Multi-touch unsupported. No gesture support.
  */
 // TODO: Implement key popup preview.
-final class EmojiPageKeyboardView extends KeyboardView implements
+public final class EmojiPageKeyboardView extends KeyboardView implements
         MoreKeysPanel.Controller {
     private static final String TAG = "EmojiPageKeyboardView";
     private static final boolean LOG = false;
