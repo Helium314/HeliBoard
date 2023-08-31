@@ -58,7 +58,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
 
     private lateinit var themeFamilyPref: ListPreference
     private lateinit var themeVariantPref: ListPreference
-    private lateinit var customThemeVariantNightPref: ListPreference
+    private var customThemeVariantNightPref: ListPreference? = null
     private lateinit var keyBordersPref: TwoStatePreference
     private var dayNightPref: TwoStatePreference? = null
     private lateinit var userColorsPref: Preference
@@ -128,7 +128,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
 
     // doing things on changing, but with the old values is not good, this is at least a little better
     private fun updateAfterPreferenceChanged() {
-        customThemeVariantNightPref.apply {
+        customThemeVariantNightPref?.apply {
             if (KeyboardTheme.getIsCustom(selectedThemeId)) {
                 // show preference to allow choosing a night theme
                 // can't hide a preference, at least not without category or maybe some androidx things
@@ -250,8 +250,8 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             updateThemePreferencesState(skipThemeFamily = true)
             true
         }
-        customThemeVariantNightPref = preferenceScreen.findPreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT) as ListPreference
-        customThemeVariantNightPref.apply {
+        customThemeVariantNightPref = preferenceScreen.findPreference(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT) as? ListPreference
+        customThemeVariantNightPref?.apply {
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 // not so nice workaround, could be removed in the necessary re-work: new value seems
                 // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now
