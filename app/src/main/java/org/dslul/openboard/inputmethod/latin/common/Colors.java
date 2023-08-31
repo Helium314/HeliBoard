@@ -3,13 +3,14 @@ package org.dslul.openboard.inputmethod.latin.common;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
 import androidx.annotation.ColorInt;
 import androidx.core.graphics.ColorUtils;
-
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 // todo: maybe kotlin? would make it much shorter and more readable
 public class Colors {
@@ -35,12 +36,12 @@ public class Colors {
     public ColorFilter accentColorFilter;
     public ColorFilter actionKeyIconColorFilter;
 
-    public ColorStateList backgroundStateList;
-    public ColorStateList keyStateList;
-    public ColorStateList functionalKeyStateList;
-    public ColorStateList actionKeyStateList;
-    public ColorStateList spaceBarStateList;
-    public ColorStateList adjustedBackgroundStateList;
+    private ColorStateList backgroundStateList;
+    private ColorStateList keyStateList;
+    private ColorStateList functionalKeyStateList;
+    private ColorStateList actionKeyStateList;
+    private ColorStateList spaceBarStateList;
+    private ColorStateList adjustedBackgroundStateList;
 
     public Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
         isCustom = true;
@@ -67,6 +68,42 @@ public class Colors {
         keyText = 0;
         keyHintText = 0;
     }
+
+    /** set background colors including state list to the drawable */
+    // todo: this can be used for setting more complicated filters
+    //  may be necessary for reproducing holo theme (extend Colors and override this in sth like HoloColors?)
+    public void setBackgroundColor(final Drawable background, final int type) {
+        final ColorStateList list;
+        switch (type) {
+            case TYPE_KEY:
+                list = keyStateList;
+                break;
+            case TYPE_SPACE:
+                list = spaceBarStateList;
+                break;
+            case TYPE_ADJUSTED_BACKGROUND:
+                list = adjustedBackgroundStateList;
+                break;
+            case TYPE_ACTION:
+                list = actionKeyStateList;
+                break;
+            case TYPE_FUNCTIONAL:
+                list = functionalKeyStateList;
+                break;
+            case TYPE_BACKGROUND:
+            default:
+                list = backgroundStateList;
+        }
+        DrawableCompat.setTintMode(background, PorterDuff.Mode.MULTIPLY);
+        DrawableCompat.setTintList(background, list);
+    }
+
+    public static final int TYPE_BACKGROUND = 0;
+    public static final int TYPE_KEY = 1;
+    public static final int TYPE_FUNCTIONAL = 2;
+    public static final int TYPE_ACTION = 3;
+    public static final int TYPE_SPACE = 4;
+    public static final int TYPE_ADJUSTED_BACKGROUND = 5;
 
     public void createColorFilters(final boolean hasKeyBorders) {
         final int[][] states = new int[][] {

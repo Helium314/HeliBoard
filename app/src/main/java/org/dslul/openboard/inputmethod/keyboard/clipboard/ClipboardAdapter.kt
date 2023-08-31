@@ -1,6 +1,5 @@
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -9,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.Colors
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class ClipboardAdapter(
@@ -58,8 +57,7 @@ class ClipboardAdapter(
                 setBackgroundResource(itemBackgroundId)
                 val colors = Settings.getInstance().current.mColors
                 if (colors.isCustom) {
-                    DrawableCompat.setTintList(background, colors.keyStateList)
-                    DrawableCompat.setTintMode(background, PorterDuff.Mode.MULTIPLY)
+                    colors.setBackgroundColor(background, Colors.TYPE_KEY)
                 }
             }
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {

@@ -22,14 +22,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,7 +39,6 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
@@ -196,8 +193,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             //  it seems to work in other places, e.g. for btn_keyboard_spacebar_lxx_base... though maybe that's the weirdly nested layer list?
             // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
             //  this would allow having a different background shape in pressed state
-            DrawableCompat.setTintList(getBackground(), colors.backgroundStateList);
-            DrawableCompat.setTintMode(getBackground(), PorterDuff.Mode.MULTIPLY);
+            colors.setBackgroundColor(getBackground(), Colors.TYPE_BACKGROUND);
 
             mClipboardKey.setColorFilter(colors.keyText);
             mVoiceKey.setColorFilter(colors.keyText);

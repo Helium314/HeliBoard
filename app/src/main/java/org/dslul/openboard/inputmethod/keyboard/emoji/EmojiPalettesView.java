@@ -19,7 +19,6 @@ package org.dslul.openboard.inputmethod.keyboard.emoji;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -276,12 +275,9 @@ public final class EmojiPalettesView extends LinearLayout
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (colors.isCustom) {
-            DrawableCompat.setTintList(mAlphabetKeyLeft.getBackground(), colors.functionalKeyStateList);
-            DrawableCompat.setTintList(mSpacebar.getBackground(), colors.spaceBarStateList);
-            DrawableCompat.setTintList(mDeleteKey.getBackground(), colors.functionalKeyStateList);
-            DrawableCompat.setTintMode(mAlphabetKeyLeft.getBackground(), PorterDuff.Mode.MULTIPLY);
-            DrawableCompat.setTintMode(mSpacebar.getBackground(), PorterDuff.Mode.MULTIPLY);
-            DrawableCompat.setTintMode(mDeleteKey.getBackground(), PorterDuff.Mode.MULTIPLY);
+            colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), Colors.TYPE_FUNCTIONAL);
+            colors.setBackgroundColor(mDeleteKey.getBackground(), Colors.TYPE_FUNCTIONAL);
+            colors.setBackgroundColor(mSpacebar.getBackground(), Colors.TYPE_SPACE);
             getBackground().setColorFilter(colors.backgroundFilter);
             mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
         }

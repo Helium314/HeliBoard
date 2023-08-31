@@ -32,8 +32,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.core.graphics.drawable.DrawableCompat;
-
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -179,20 +177,17 @@ public class KeyboardView extends View {
 
         mColors = Settings.getInstance().getCurrent().mColors;
         if (mColors.isCustom) {
-            DrawableCompat.setTintMode(mKeyBackground, PorterDuff.Mode.MULTIPLY);
-            if (this.getClass() == MoreKeysKeyboardView.class) {
-                DrawableCompat.setTintList(mKeyBackground, mColors.adjustedBackgroundStateList);
-            } else if (this.getClass() == EmojiPageKeyboardView.class || this.getClass() == MoreSuggestionsView.class) {
-                DrawableCompat.setTintList(mKeyBackground, mColors.backgroundStateList);
+            final Class<?> c = this.getClass();
+            if (c == MoreKeysKeyboardView.class) {
+                mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
+            } else if (c == EmojiPageKeyboardView.class || c == MoreSuggestionsView.class) {
+                mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_BACKGROUND);
             } else {
-                DrawableCompat.setTintList(mKeyBackground, mColors.keyStateList);
+                mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_KEY);
             }
-            DrawableCompat.setTintMode(mActionKeyBackground, PorterDuff.Mode.MULTIPLY);
-            DrawableCompat.setTintList(mActionKeyBackground, mColors.actionKeyStateList);
-            DrawableCompat.setTintMode(mSpacebarBackground, PorterDuff.Mode.MULTIPLY);
-            DrawableCompat.setTintList(mSpacebarBackground, mColors.spaceBarStateList);
-            DrawableCompat.setTintMode(mFunctionalKeyBackground, PorterDuff.Mode.MULTIPLY);
-            DrawableCompat.setTintList(mFunctionalKeyBackground, mColors.functionalKeyStateList);
+            mColors.setBackgroundColor(mActionKeyBackground, Colors.TYPE_ACTION);
+            mColors.setBackgroundColor(mSpacebarBackground, Colors.TYPE_SPACE);
+            mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_FUNCTIONAL);
             if (this.getClass() == MoreKeysKeyboardView.class)
                 getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
             else
