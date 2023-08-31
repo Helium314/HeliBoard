@@ -176,23 +176,21 @@ public class KeyboardView extends View {
         mPaint.setAntiAlias(true);
 
         mColors = Settings.getInstance().getCurrent().mColors;
-        if (mColors.isCustom) {
-            final Class<?> c = this.getClass();
-            if (c == MoreKeysKeyboardView.class) {
-                mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
-            } else if (c == EmojiPageKeyboardView.class || c == MoreSuggestionsView.class) {
-                mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_BACKGROUND);
-            } else {
-                mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_KEY);
-            }
-            mColors.setBackgroundColor(mActionKeyBackground, Colors.TYPE_ACTION);
-            mColors.setBackgroundColor(mSpacebarBackground, Colors.TYPE_SPACE);
-            mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_FUNCTIONAL);
-            if (this.getClass() == MoreKeysKeyboardView.class)
-                getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
-            else
-                getBackground().setColorFilter(mColors.backgroundFilter);
+        final Class<?> c = this.getClass();
+        if (c == MoreKeysKeyboardView.class) {
+            mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
+        } else if (c == EmojiPageKeyboardView.class || c == MoreSuggestionsView.class) {
+            mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_BACKGROUND);
+        } else {
+            mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_KEY);
         }
+        mColors.setBackgroundColor(mActionKeyBackground, Colors.TYPE_ACTION);
+        mColors.setBackgroundColor(mSpacebarBackground, Colors.TYPE_SPACE);
+        mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_FUNCTIONAL);
+        if (this.getClass() == MoreKeysKeyboardView.class)
+            getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
+        else
+            getBackground().setColorFilter(mColors.backgroundFilter);
     }
 
     @Nullable
@@ -446,10 +444,7 @@ public class KeyboardView extends View {
             }
 
             if (key.isEnabled()) {
-                if (mColors.isCustom)
-                    paint.setColor(mColors.keyText);
-                else
-                    paint.setColor(key.selectTextColor(params));
+                paint.setColor(key.selectTextColor(params));
                 // Set a drop shadow for the text if the shadow radius is positive value.
                 if (mKeyTextShadowRadius > 0.0f) {
                     paint.setShadowLayer(mKeyTextShadowRadius, 0.0f, 0.0f, params.mTextShadowColor);
@@ -472,10 +467,7 @@ public class KeyboardView extends View {
         final String hintLabel = key.getHintLabel();
         if (hintLabel != null && mShowsHints) {
             paint.setTextSize(key.selectHintTextSize(params));
-            if (mColors.isCustom)
-                paint.setColor(mColors.keyHintText);
-            else
-                paint.setColor(key.selectHintTextColor(params));
+            paint.setColor(key.selectHintTextColor(params));
             // TODO: Should add a way to specify type face for hint letters
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             blendAlpha(paint, params.mAnimAlpha);
@@ -528,10 +520,7 @@ public class KeyboardView extends View {
                 iconY = (keyHeight - iconHeight) / 2; // Align vertically center.
             }
             final int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
-            if (mColors.isCustom)
-                setCustomKeyIconColor(key, icon, keyboard);
-            else
-                icon.clearColorFilter();
+            setKeyIconColor(key, icon, keyboard);
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }
 
@@ -620,7 +609,7 @@ public class KeyboardView extends View {
         freeOffscreenBuffer();
     }
 
-    private void setCustomKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
+    private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
         if (key.isAccentColored()) {
             icon.setColorFilter(mColors.actionKeyIconColorFilter);
         } else if (key.isShift() && keyboard != null) {

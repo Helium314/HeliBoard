@@ -21,6 +21,8 @@ import android.graphics.Typeface;
 import android.util.SparseIntArray;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import javax.annotation.Nonnull;
@@ -125,18 +127,20 @@ public final class KeyVisualAttributes {
         mPreviewTextRatio = ResourceUtils.getFraction(keyAttr,
                 R.styleable.Keyboard_Key_keyPreviewTextRatio);
 
-        mTextColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextColor, 0);
-        mTextInactivatedColor = keyAttr.getColor(
-                R.styleable.Keyboard_Key_keyTextInactivatedColor, 0);
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        mTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyTextColor, 0);
+        mTextInactivatedColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextInactivatedColor, 0);
         mTextShadowColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextShadowColor, 0);
-        mFunctionalTextColor = keyAttr.getColor(R.styleable.Keyboard_Key_functionalTextColor, 0);
-        mHintLetterColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLetterColor, 0);
-        mHintLabelColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLabelColor, 0);
+        // todo: maybe a separate color?
+        mFunctionalTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_functionalTextColor, 0);
+        mHintLetterColor = colors.keyHintText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLetterColor, 0);
+        mHintLabelColor = colors.keyHintText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLabelColor, 0);
         mShiftedLetterHintInactivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintInactivatedColor, 0);
         mShiftedLetterHintActivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintActivatedColor, 0);
-        mPreviewTextColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyPreviewTextColor, 0);
+        // todo: maybe a separate color?
+        mPreviewTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyPreviewTextColor, 0);
 
         mHintLabelVerticalAdjustment = ResourceUtils.getFraction(keyAttr,
                 R.styleable.Keyboard_Key_keyHintLabelVerticalAdjustment, 0.0f);

@@ -55,10 +55,7 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
-                val colors = Settings.getInstance().current.mColors
-                if (colors.isCustom) {
-                    colors.setBackgroundColor(background, Colors.TYPE_KEY)
-                }
+                Settings.getInstance().current.mColors.setBackgroundColor(background, Colors.TYPE_KEY)
             }
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
                 visibility = View.GONE

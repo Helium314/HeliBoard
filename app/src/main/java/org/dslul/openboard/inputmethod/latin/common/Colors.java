@@ -15,7 +15,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 // todo: maybe kotlin? would make it much shorter and more readable
 public class Colors {
 
-    public final boolean isCustom;
     public final int navBar;
     public final int accent;
     public final int background;
@@ -44,7 +43,6 @@ public class Colors {
     private ColorStateList adjustedBackgroundStateList;
 
     public Colors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
-        isCustom = true;
         accent = _accent;
         background = _background;
         keyBackground = _keyBackground;
@@ -53,20 +51,6 @@ public class Colors {
         keyText = _keyText;
         keyHintText = _keyHintText;
         navBar = background;
-    }
-
-    // todo (later): remove this and isCustom, once the old themes can be completely replaced
-    // for now there are the holo themes left, which don't require any of themeId and isNight
-    public Colors(int themeId, final boolean isNight) {
-        isCustom = false;
-        navBar = Color.BLACK;
-        accent = 0;
-        background = 0;
-        keyBackground = 0;
-        functionalKey = 0;
-        spaceBar = 0;
-        keyText = 0;
-        keyHintText = 0;
     }
 
     /** set background colors including state list to the drawable */

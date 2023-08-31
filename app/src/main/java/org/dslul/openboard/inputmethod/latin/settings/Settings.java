@@ -574,15 +574,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static Colors getColors(final Context context, final SharedPreferences prefs) {
-        final int keyboardThemeId = KeyboardTheme.getThemeForParameters(
-                prefs.getString(Settings.PREF_THEME_FAMILY, ""),
-                prefs.getString(Settings.PREF_THEME_VARIANT, ""),
-                prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-        );
         // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
         final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-        if (!KeyboardTheme.getIsCustom(keyboardThemeId))
-            return new Colors(keyboardThemeId, isNight);
 
         if (isNight && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
             return KeyboardTheme.getCustomTheme(prefs.getString(Settings.PREF_CUSTOM_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER), context, prefs);

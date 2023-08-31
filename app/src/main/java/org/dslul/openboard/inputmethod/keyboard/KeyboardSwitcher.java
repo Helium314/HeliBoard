@@ -40,7 +40,6 @@ import org.dslul.openboard.inputmethod.latin.LatinIME;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.WordComposer;
-import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
@@ -571,9 +570,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
 
         // set background color here, otherwise there is a narrow white line between keyboard and suggestion strip
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom)
-            mKeyboardViewWrapper.getBackground().setColorFilter(colors.backgroundFilter);
+        mKeyboardViewWrapper.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.backgroundFilter);
 
         return mCurrentInputView;
     }

@@ -59,7 +59,6 @@ import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
 
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -185,24 +184,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mOtherKey.setImageDrawable(iconIncognito);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            // this only works with backgrounds of SuggestionStripView.LXX_Base and SuggestionWord.LXX_Base
-            // set to keyboard_background_lxx_base (just white drawable), but NOT when set to
-            // btn_suggestion_lxx_base (state drawable with selector) or keyboard_suggest_strip_lxx_base_border (layer-list)
-            // why is this? then it's necessary to set tint list for voice/clipboard/other keys and all word views separately
-            //  it seems to work in other places, e.g. for btn_keyboard_spacebar_lxx_base... though maybe that's the weirdly nested layer list?
-            // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
-            //  this would allow having a different background shape in pressed state
-            colors.setBackgroundColor(getBackground(), Colors.TYPE_BACKGROUND);
+        // this only works when backgrounds of SuggestionStripView.LXX_Base and SuggestionWord.LXX_Base
+        // are set to keyboard_background_lxx_base (just white drawable), but NOT when set to
+        // btn_suggestion_lxx_base (state drawable with selector) or keyboard_suggest_strip_lxx_base_border (layer-list)
+        // why is this? then it's necessary to set tint list for voice/clipboard/other keys and all word views separately
+        //  it seems to work in other places, e.g. for btn_keyboard_spacebar_lxx_base... though maybe that's the weirdly nested layer list?
+        // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
+        //  this would allow having a different background shape in pressed state
+        colors.setBackgroundColor(getBackground(), Colors.TYPE_BACKGROUND);
 
-            mClipboardKey.setColorFilter(colors.keyText);
-            mVoiceKey.setColorFilter(colors.keyText);
-            mOtherKey.setColorFilter(colors.keyText);
-        } else {
-            mClipboardKey.clearColorFilter();
-            mVoiceKey.clearColorFilter();
-            mOtherKey.clearColorFilter();
-        }
+        mClipboardKey.setColorFilter(colors.keyText);
+        mVoiceKey.setColorFilter(colors.keyText);
+        mOtherKey.setColorFilter(colors.keyText);
     }
 
     /**

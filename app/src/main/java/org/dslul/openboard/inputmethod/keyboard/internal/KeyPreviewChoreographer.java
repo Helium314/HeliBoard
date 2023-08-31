@@ -87,8 +87,7 @@ public final class KeyPreviewChoreographer {
             final KeyDrawParams drawParams, final int keyboardViewWidth, final int[] keyboardOrigin,
             final ViewGroup placerView) {
         final KeyPreviewView keyPreviewView = getKeyPreviewView(key, placerView);
-        placeKeyPreview(
-                key, keyPreviewView, iconsSet, drawParams, keyboardViewWidth, keyboardOrigin);
+        placeKeyPreview(key, keyPreviewView, iconsSet, drawParams, keyboardViewWidth, keyboardOrigin);
         showKeyPreview(key, keyPreviewView);
     }
 
@@ -96,8 +95,7 @@ public final class KeyPreviewChoreographer {
             final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams,
             final int keyboardViewWidth, final int[] originCoords) {
         keyPreviewView.setPreviewVisual(key, iconsSet, drawParams);
-        keyPreviewView.measure(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        keyPreviewView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mParams.setGeometry(keyPreviewView);
         final int previewWidth = keyPreviewView.getMeasuredWidth();
         final int previewHeight = mParams.mPreviewHeight;
@@ -120,10 +118,7 @@ public final class KeyPreviewChoreographer {
         final boolean hasMoreKeys = (key.getMoreKeys() != null);
         keyPreviewView.setPreviewBackground(hasMoreKeys, keyPreviewPosition);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            keyPreviewView.getBackground().setColorFilter(colors.backgroundFilter);
-            keyPreviewView.setTextColor(colors.keyText);
-        }
+        keyPreviewView.getBackground().setColorFilter(colors.adjustedBackgroundFilter);
         // The key preview is placed vertically above the top edge of the parent key with an
         // arbitrary offset.
         final int previewY = key.getY() - previewHeight + key.getHeight() - mParams.mPreviewOffset

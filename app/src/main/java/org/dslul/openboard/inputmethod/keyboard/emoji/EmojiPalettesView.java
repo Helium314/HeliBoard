@@ -33,7 +33,6 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import org.dslul.openboard.inputmethod.compat.TabHostCompat;
@@ -134,8 +133,7 @@ public final class EmojiPalettesView extends LinearLayout
                 R.styleable.EmojiPalettesView_categoryIndicatorBackground, 0);
         mCategoryPageIndicatorColor = emojiPalettesViewAttr.getColor(
                 R.styleable.EmojiPalettesView_categoryPageIndicatorColor, 0);
-        mCategoryPageIndicatorBackground = emojiPalettesViewAttr.getColor(
-                R.styleable.EmojiPalettesView_categoryPageIndicatorBackground, 0);
+        mCategoryPageIndicatorBackground = Settings.getInstance().getCurrent().mColors.adjustedBackground; //emojiPalettesViewAttr.getColor(R.styleable.EmojiPalettesView_categoryPageIndicatorBackground, 0);
         emojiPalettesViewAttr.recycle();
         mDeleteKeyOnTouchListener = new DeleteKeyOnTouchListener();
         mEmojiLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -163,11 +161,7 @@ public final class EmojiPalettesView extends LinearLayout
         // TODO: Replace background color with its own setting rather than using the
         //       category page indicator background as a workaround.
         iconView.setBackgroundColor(mCategoryPageIndicatorBackground);
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            iconView.getBackground().setColorFilter(colors.adjustedBackgroundFilter);
-            iconView.setColorFilter(colors.keyTextFilter);
-        }
+        iconView.setColorFilter(Settings.getInstance().getCurrent().mColors.keyTextFilter);
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
         iconView.setContentDescription(mEmojiCategory.getAccessibilityDescription(categoryId));
         tspec.setIndicator(iconView);
@@ -274,13 +268,11 @@ public final class EmojiPalettesView extends LinearLayout
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), Colors.TYPE_FUNCTIONAL);
-            colors.setBackgroundColor(mDeleteKey.getBackground(), Colors.TYPE_FUNCTIONAL);
-            colors.setBackgroundColor(mSpacebar.getBackground(), Colors.TYPE_SPACE);
-            getBackground().setColorFilter(colors.backgroundFilter);
-            mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
-        }
+        colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), Colors.TYPE_FUNCTIONAL);
+        colors.setBackgroundColor(mDeleteKey.getBackground(), Colors.TYPE_FUNCTIONAL);
+        colors.setBackgroundColor(mSpacebar.getBackground(), Colors.TYPE_SPACE);
+        getBackground().setColorFilter(colors.backgroundFilter);
+        mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
     }
 
     @Override
@@ -301,13 +293,11 @@ public final class EmojiPalettesView extends LinearLayout
             updateEmojiCategoryPageIdView();
         }
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            if (mCurrentTab != null)
-                mCurrentTab.setColorFilter(colors.keyTextFilter);
-            mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
-//            mCurrentTab.setColorFilter(colors.accentColorFilter); // todo (later): doesn't work properly, because enabled drawable is blue -> adjust
-            mCurrentTab.setColorFilter(colors.accent);
-        }
+        if (mCurrentTab != null)
+            mCurrentTab.setColorFilter(colors.keyTextFilter);
+        mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
+//        mCurrentTab.setColorFilter(colors.accentColorFilter); // todo (later): doesn't work properly, because enabled drawable is blue -> adjust
+        mCurrentTab.setColorFilter(colors.accent);
     }
 
     /**
@@ -391,11 +381,7 @@ public final class EmojiPalettesView extends LinearLayout
     private static void setupAlphabetKey(final TextView alphabetKey, final String label,
                                          final KeyDrawParams params) {
         alphabetKey.setText(label);
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom)
-            alphabetKey.setTextColor(colors.keyText);
-        else
-            alphabetKey.setTextColor(params.mFunctionalTextColor);
+        alphabetKey.setTextColor(params.mFunctionalTextColor);
         alphabetKey.setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize);
         alphabetKey.setTypeface(params.mTypeface);
     }
