@@ -191,8 +191,8 @@ class LanguageSettingsDialog(
             dialog.show()
             (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
         }
-        val (userDicts, hasInternalDict) = getUserAndInternalDictionaries(context, mainLocaleString)
-        if (hasInternalDict) {
+        val (userDicts, hasInternalDictForLanguage) = getUserAndInternalDictionaries(context, mainLocaleString)
+        if (hasInternalDictForLanguage) {
             dictionariesView.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                 setText(R.string.internal_dictionary_summary)
                 textSize *= 0.8f
@@ -276,13 +276,21 @@ fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<
     }
     if (hasInternalDict)
         return userDicts to true
+    val language = localeString.languageConsideringZZ()
     BinaryDictionaryGetter.getAssetsDictionaryList(context)?.forEach { dictFile ->
         BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictFile)?.let {
-            if (it == localeString)
+            if (it == localeString || it.languageConsideringZZ() == language)
                 return userDicts to true
         }
     }
     return userDicts to false
+}
+
+private fun String.languageConsideringZZ(): String {
+    return if (endsWith("zz", false))
+        this
+    else
+        substringBefore("_")
 }
 
 // get locales with same script as main locale, but different language

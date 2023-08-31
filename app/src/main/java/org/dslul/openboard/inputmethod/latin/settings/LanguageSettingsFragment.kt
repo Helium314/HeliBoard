@@ -23,7 +23,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
     private val languageFilterListPreference by lazy { findPreference("pref_language_filter") as LanguageFilterListPreference }
-    private val dictionaryLocales by lazy { getDictionaryLocales(activity) }
+    private val dictionaryLocales by lazy { getDictionaryLocales(activity).mapTo(HashSet()) { it.languageConsideringZZ() } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,7 +139,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        toSubtypeInfo(locale, activity, isEnabled, dictionaryLocales.contains(locale))
+        toSubtypeInfo(locale, activity, isEnabled, dictionaryLocales.contains(locale.languageConsideringZZ()))
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
@@ -184,6 +184,13 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
 
 fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean, hasDictionary: Boolean): SubtypeInfo =
     SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled, hasDictionary)
+
+private fun Locale.languageConsideringZZ(): String {
+    return if (country.equals("zz", false))
+        "${language}_zz"
+    else
+        language
+}
 
 private const val DICTIONARY_REQUEST_CODE = 96834
 const val USER_DICTIONARY_SUFFIX = "user.dict"
