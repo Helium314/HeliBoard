@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/language_selection_title"
     android:key="screen_languages">
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         android:key="pref_use_system_locales"
         android:title="@string/use_system_language_to_select_input_method_subtypes"
         android:defaultValue="true"

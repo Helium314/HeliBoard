@@ -6,8 +6,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.preference.TwoStatePreference
 import android.view.inputmethod.InputMethodSubtype
+import androidx.preference.SwitchPreferenceCompat
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
@@ -15,20 +15,18 @@ import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.getDictionaryLocales
 import java.util.Locale
 
-
-@Suppress("Deprecation") // yes everything here is deprecated, but only work on this if really necessary
 class LanguageSettingsFragment : SubScreenFragment() {
 
     private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
-    private val languageFilterListPreference by lazy { findPreference("pref_language_filter") as LanguageFilterListPreference }
-    private val dictionaryLocales by lazy { getDictionaryLocales(activity).mapTo(HashSet()) { it.languageConsideringZZ() } }
+    private val languageFilterListPreference by lazy { findPreference<LanguageFilterListPreference>("pref_language_filter")!! }
+    private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addPreferencesFromResource(R.xml.prefs_screen_languages);
-        SubtypeLocaleUtils.init(activity)
+        addPreferencesFromResource(R.xml.prefs_screen_languages)
+        SubtypeLocaleUtils.init(requireContext())
 
         enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
         systemLocales.addAll(getSystemLocales())
@@ -52,7 +50,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     private fun loadSubtypes() {
-        val systemOnly = (findPreference(Settings.PREF_USE_SYSTEM_LOCALES) as TwoStatePreference).isChecked
+        val systemOnly = findPreference<SwitchPreferenceCompat>(Settings.PREF_USE_SYSTEM_LOCALES)!!.isChecked
         sortedSubtypes.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
@@ -115,7 +113,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
         }
 
         // add subtypes that have a dictionary
-        val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(activity)?.mapNotNull { dir ->
+        val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(requireContext())?.mapNotNull { dir ->
             if (!dir.isDirectory)
                 return@mapNotNull null
             if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
@@ -139,7 +137,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        toSubtypeInfo(locale, activity, isEnabled, dictionaryLocales.contains(locale.languageConsideringZZ()))
+        toSubtypeInfo(locale, requireContext(), isEnabled, dictionaryLocales.contains(locale.languageConsideringZZ()))
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {

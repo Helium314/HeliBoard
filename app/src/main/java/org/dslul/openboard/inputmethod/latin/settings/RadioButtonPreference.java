@@ -17,10 +17,13 @@
 package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.Context;
-import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RadioButton;
+
+import androidx.annotation.NonNull;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceViewHolder;
 
 import org.dslul.openboard.inputmethod.latin.R;
 
@@ -72,8 +75,9 @@ public class RadioButtonPreference extends Preference {
     }
 
     @Override
-    protected void onBindView(final View view) {
-        super.onBindView(view);
+    public void onBindViewHolder(@NonNull final PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        final View view = holder.itemView;
         mRadioButton = view.findViewById(R.id.radio_button);
         mRadioButton.setChecked(mIsSelected);
         mRadioButton.setOnClickListener(mClickListener);

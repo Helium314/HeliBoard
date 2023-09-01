@@ -47,7 +47,6 @@ public class Colors {
     private ColorStateList adjustedBackgroundStateList;
 
     public static Colors newColors(String themeStyle, int accent, int background, int keyBackground, int functionalKey, int spaceBar, int keyText, int keyHintText) {
-        Log.i("test1", "colors with style "+themeStyle);
         if (themeStyle.equals(KeyboardTheme.THEME_STYLE_HOLO))
             return new HoloColors(accent, background, keyBackground, functionalKey, spaceBar, keyText, keyHintText);
         return new Colors(accent, background, keyBackground, functionalKey, spaceBar, keyText, keyHintText);

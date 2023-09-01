@@ -32,11 +32,11 @@
             android:key="theme_variant"
             android:title="@string/theme_variant"/>
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="theme_auto_day_night"
             android:title="@string/day_night_mode"
             android:summary="@string/day_night_mode_summary"/>
@@ -50,7 +50,7 @@
             android:title="@string/select_user_colors"
             android:summary="@string/select_user_colors_summary"/>
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_navbar_color"
             android:title="@string/theme_navbar"/>
 
@@ -59,19 +59,19 @@
     <PreferenceCategory
         android:title="@string/settings_category_miscellaneous">
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_split_keyboard"
             android:title="@string/enable_split_keyboard"
             android:persistent="true"
             android:defaultValue="false" />
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_resize_keyboard"
             android:title="@string/prefs_resize_keyboard"
             android:defaultValue="false"
             android:persistent="true" />
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
             android:defaultValue="true"

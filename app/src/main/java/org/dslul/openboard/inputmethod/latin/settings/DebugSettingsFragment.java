@@ -22,10 +22,10 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Process;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceGroup;
-import android.preference.TwoStatePreference;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceGroup;
+import androidx.preference.TwoStatePreference;
 
 import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
 import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
@@ -41,7 +41,7 @@ import java.util.Locale;
  * This settings sub screen handles a several preference options for debugging.
  */
 public final class DebugSettingsFragment extends SubScreenFragment
-        implements OnPreferenceClickListener {
+        implements Preference.OnPreferenceClickListener {
     private static final String PREF_KEY_DUMP_DICTS = "pref_key_dump_dictionaries";
     private static final String PREF_KEY_DUMP_DICT_PREFIX = "pref_key_dump_dictionaries";
 

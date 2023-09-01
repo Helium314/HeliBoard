@@ -3,12 +3,13 @@ package org.dslul.openboard.inputmethod.latin.settings
 import android.content.Context
 import android.graphics.Rect
 import android.graphics.Typeface
-import android.preference.Preference
+import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,9 @@ import androidx.core.view.doOnLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.preference.Preference
+import androidx.preference.PreferenceGroupAdapter
+import androidx.preference.PreferenceViewHolder
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
@@ -24,7 +28,7 @@ import org.dslul.openboard.inputmethod.latin.utils.*
 
 class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Preference(context, attrs) {
 
-    private var preferenceView: View? = null
+    private lateinit var preferenceView: View
     private val adapter = LanguageAdapter(emptyList(), context)
     private val sortedSubtypes = mutableListOf<MutableList<SubtypeInfo>>()
 
@@ -32,15 +36,33 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
         adapter.fragment = newFragment
     }
 
-    override fun onBindView(view: View?) {
-        super.onBindView(view)
-        preferenceView = view
-        preferenceView?.findViewById<RecyclerView>(R.id.language_list)?.adapter = adapter
-        val searchField = preferenceView?.findViewById<EditText>(R.id.search_field)!!
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+        preferenceView = holder.itemView
+/*        val a = holder.bindingAdapter as PreferenceGroupAdapter
+        preferenceManager.preferenceScreen
+*/
+        preferenceView.findViewById<RecyclerView>(R.id.language_list)?.adapter = adapter
+        val searchField = preferenceView.findViewById<EditText>(R.id.search_field)!!
         searchField.doAfterTextChanged { text ->
             adapter.list = sortedSubtypes.filter { it.first().displayName.startsWith(text.toString(), ignoreCase = true) }
         }
-        view?.doOnLayout {
+        // todo: why the fuck isn't the recyclerview scrolling after switching to androidx?
+        //   looks like nothing can scroll inside!
+        //   maybe just make it a list and add a note to the changelog with request for help
+        //   first play around with weirdly nested (Nested)ScrollViews and layouts
+
+        val recycler = preferenceView.findViewById<RecyclerView>(R.id.language_list)
+//        recycler.isScrollContainer = true
+//        recycler.isNestedScrollingEnabled = true
+//        preferenceView.isScrollContainer = true
+/*        val windowFrame = Rect()
+        preferenceView.getWindowVisibleDisplayFrame(windowFrame) // rect the app has, we want the bottom (above screen bottom/navbar/keyboard)
+        val globalRect = Rect()
+        preferenceView.getGlobalVisibleRect(globalRect) // rect the view takes, we want the top (below the system language preference)
+        val newHeight = windowFrame.bottom - globalRect.top - preferenceView.findViewById<View>(R.id.search_container).height
+        preferenceView.layoutParams = preferenceView.layoutParams.apply { height = newHeight -250 }*/
+/*        preferenceView.doOnLayout {
             // set correct height for recycler view, so there is no scrolling of the outside view happening
             // not sure how, but probably this can also be achieved in xml...
             val windowFrame = Rect()
@@ -52,7 +74,7 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
             val newHeight = windowFrame.bottom - globalRect.top - it.findViewById<View>(R.id.search_container).height
             if (newHeight != recycler.layoutParams.height)
                 recycler.layoutParams = recycler.layoutParams.apply { height = newHeight }
-        }
+        }*/
     }
 
     fun setLanguages(list: Collection<MutableList<SubtypeInfo>>, onlySystemLocales: Boolean) {
@@ -64,7 +86,6 @@ class LanguageFilterListPreference(context: Context, attrs: AttributeSet) : Pref
 
 }
 
-@Suppress("Deprecation")
 class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var onlySystemLocales = false

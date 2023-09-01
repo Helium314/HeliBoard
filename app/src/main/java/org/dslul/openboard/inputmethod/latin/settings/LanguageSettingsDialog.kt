@@ -20,7 +20,6 @@ import org.dslul.openboard.inputmethod.latin.utils.*
 import java.io.File
 import java.util.*
 
-@Suppress("deprecation")
 class LanguageSettingsDialog(
     context: Context,
     private val infos: MutableList<SubtypeInfo>,

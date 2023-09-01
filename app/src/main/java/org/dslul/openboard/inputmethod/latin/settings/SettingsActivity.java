@@ -16,18 +16,20 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.app.ActionBar;
+import static android.preference.PreferenceActivity.EXTRA_NO_HEADERS;
+import static android.preference.PreferenceActivity.EXTRA_SHOW_FRAGMENT;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
-import org.dslul.openboard.inputmethod.latin.utils.FragmentUtils;
 import org.dslul.openboard.inputmethod.latin.utils.NewDictionaryAdder;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-public final class SettingsActivity extends PreferenceActivity
+public final class SettingsActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
 
@@ -42,7 +44,7 @@ public final class SettingsActivity extends PreferenceActivity
     @Override
     protected void onCreate(final Bundle savedState) {
         super.onCreate(savedState);
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
@@ -51,6 +53,9 @@ public final class SettingsActivity extends PreferenceActivity
         if (Intent.ACTION_VIEW.equals(i.getAction()) && i.getData() != null) {
             new NewDictionaryAdder(this, null).addDictionary(i.getData(), null);
         }
+        getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
     }
 
     @Override
@@ -65,12 +70,8 @@ public final class SettingsActivity extends PreferenceActivity
     }
 
     @Override
-    public boolean isValidFragment(final String fragmentName) {
-        return FragmentUtils.isValidFragment(fragmentName);
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionsManager.get(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

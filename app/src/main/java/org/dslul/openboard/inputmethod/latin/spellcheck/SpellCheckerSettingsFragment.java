@@ -19,18 +19,18 @@ package org.dslul.openboard.inputmethod.latin.spellcheck;
 import android.Manifest;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.text.TextUtils;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
 import org.dslul.openboard.inputmethod.latin.settings.SubScreenFragment;
-import org.dslul.openboard.inputmethod.latin.settings.TwoStatePreferenceHelper;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 
 import static org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager.get;
+
+import androidx.preference.PreferenceScreen;
+import androidx.preference.SwitchPreferenceCompat;
 
 /**
  * Preference screen.
@@ -39,19 +39,16 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
             PermissionsManager.PermissionsResultCallback {
 
-    private SwitchPreference mLookupContactsPreference;
+    private SwitchPreferenceCompat mLookupContactsPreference;
 
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addPreferencesFromResource(R.xml.spell_checker_settings);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
-        preferenceScreen.setTitle(ApplicationUtils.getActivityTitleResId(
-                getActivity(), SpellCheckerSettingsActivity.class));
-        TwoStatePreferenceHelper.replaceCheckBoxPreferencesBySwitchPreferences(preferenceScreen);
+        preferenceScreen.setTitle(ApplicationUtils.getActivityTitleResId(getActivity(), SpellCheckerSettingsActivity.class));
 
-        mLookupContactsPreference = (SwitchPreference) findPreference(
-                AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+        mLookupContactsPreference = (SwitchPreferenceCompat) findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
         turnOffLookupContactsIfNoPermission();
     }
 

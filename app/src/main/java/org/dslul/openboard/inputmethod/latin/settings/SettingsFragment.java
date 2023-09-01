@@ -16,22 +16,24 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
 import android.provider.Settings.Secure;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceScreen;
 
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -51,7 +53,7 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public final class SettingsFragment extends PreferenceFragment {
+public final class SettingsFragment extends PreferenceFragmentCompat {
     // We don't care about menu grouping.
     private static final int NO_MENU_GROUP = Menu.NONE;
     // The first menu item id and order.
@@ -66,10 +68,13 @@ public final class SettingsFragment extends PreferenceFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreatePreferences(@Nullable Bundle bundle, @Nullable String s) {
         addPreferencesFromResource(R.xml.prefs);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
-        preferenceScreen.setTitle(
-                ApplicationUtils.getActivityTitleResId(getActivity(), SettingsActivity.class));
+        preferenceScreen.setTitle(ApplicationUtils.getActivityTitleResId(getActivity(), SettingsActivity.class));
         if (!JniUtils.sHaveGestureLib) {
             final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
             preferenceScreen.removePreference(gesturePreference);
@@ -79,10 +84,13 @@ public final class SettingsFragment extends PreferenceFragment {
     @Override
     public void onResume() {
         super.onResume();
-        final ActionBar actionBar = getActivity().getActionBar();
-        final CharSequence screenTitle = getPreferenceScreen().getTitle();
-        if (actionBar != null && screenTitle != null) {
-            actionBar.setTitle(screenTitle);
+        final Activity activity = getActivity();
+        if (activity instanceof AppCompatActivity) {
+            final ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+            final CharSequence screenTitle = getPreferenceScreen().getTitle();
+            if (actionBar != null && screenTitle != null) {
+                actionBar.setTitle(screenTitle);
+            }
         }
 
         // todo: got a crash because it wasn't initialized...

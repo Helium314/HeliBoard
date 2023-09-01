@@ -26,9 +26,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.SwitchPreference;
 import android.text.TextUtils;
+
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
@@ -60,7 +61,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     private static final boolean DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS = false;
     private static final boolean USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS =
             DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS;
-    private SwitchPreference mLookupContactsPreference;
+    private SwitchPreferenceCompat mLookupContactsPreference;
 
     @Override
     public void onCreate(final Bundle icicle) {
@@ -74,13 +75,11 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                 findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
         final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
         final ResolveInfo ri = USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS ? null
-                : pm.resolveActivity(
-                        editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                : pm.resolveActivity(editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);
         }
-        mLookupContactsPreference = (SwitchPreference) findPreference(
-                AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+        mLookupContactsPreference = (SwitchPreferenceCompat) findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
 
         refreshEnabledSettings();
     }
