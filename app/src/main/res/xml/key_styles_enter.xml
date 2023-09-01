@@ -213,7 +213,7 @@
     </switch>
     <!-- Enter key style -->
     <switch>
-        <case latin:keyboardTheme="HoloBlue|HoloWhite|LXXBaseBorder">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder">
             <key-style
                 latin:styleName="defaultEnterKeyStyle"
                 latin:keySpec="!icon/enter_key|!code/key_enter"

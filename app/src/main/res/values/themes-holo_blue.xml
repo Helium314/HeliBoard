@@ -19,6 +19,7 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
     <style name="KeyboardTheme.HoloBlue" parent="KeyboardIcons.Holo">
         <item name="inputViewStyle">@style/InputView.Holo</item>
         <item name="keyboardStyle">@style/Keyboard.HoloBlue</item>
@@ -27,8 +28,8 @@
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.HoloBlue</item>
         <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.HoloBlue</item>
         <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.HoloBlue</item>
-        <!-- Note: HoloBlue theme uses the same style for both general more keys and action more keys. -->
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.HoloBlue</item>
+        <!- - Note: HoloBlue theme uses the same style for both general more keys and action more keys. -->
+<!--        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.HoloBlue</item>
         <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.HoloBlue</item>
         <item name="suggestionStripViewStyle">@style/SuggestionStripView.HoloBlue</item>
         <item name="suggestionWordStyle">@style/SuggestionWord.HoloBlue</item>
@@ -37,8 +38,8 @@
         name="Keyboard.HoloBlue"
         parent="Keyboard"
     >
-        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
-        <item name="themeId">HoloBlue</item>
+        <!- - This should be aligned with KeyboardTheme.THEME_ID_* -->
+<!--        <item name="themeId">HoloBlue</item>
     </style>
     <style
         name="KeyboardView.HoloBlue"
@@ -74,11 +75,11 @@
         <item name="languageOnSpacebarTextShadowRadius">1.0</item>
         <item name="languageOnSpacebarTextShadowColor">@color/spacebar_text_shadow_color_holo</item>
     </style>
-    <!-- Though {@link org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView} doesn't extend
+    <!- - Though {@link org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView} doesn't extend
          {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}, some views inside it, for instance
          delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
          attributes. -->
-    <style
+<!--    <style
         name="EmojiPalettesView.HoloBlue"
         parent="MainKeyboardView.HoloBlue"
     >
@@ -150,4 +151,5 @@
         <item name="android:background">@drawable/btn_suggestion_holo_blue</item>
         <item name="android:textColor">@color/highlight_color_holo_blue</item>
     </style>
+-->
 </resources>

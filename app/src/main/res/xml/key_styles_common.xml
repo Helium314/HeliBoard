@@ -78,7 +78,7 @@
         latin:backgroundType="functional" />
     <!-- emojiKeyStyle must be defined before including @xml/key_syles_enter. -->
     <switch>
-        <case latin:keyboardTheme="HoloBlue|HoloWhite|LXXBaseBorder">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder">
             <key-style
                 latin:styleName="emojiKeyStyle"
                 latin:keySpec="!icon/emoji_normal_key|!code/key_emoji"
@@ -97,7 +97,7 @@
     </switch>
     <!-- numpadKeyStyle -->
     <switch>
-        <case latin:keyboardTheme="HoloBlue|HoloWhite|LXXBaseBorder|LXXBase">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder|LXXBase">
             <key-style
                 latin:styleName="numpadKeyStyle"
                 latin:keySpec="!icon/numpad_key|!code/key_numpad"
@@ -115,7 +115,7 @@
     </switch>
     <!-- alphaNumpadKeyStyle -->
     <switch>
-        <case latin:keyboardTheme="HoloBlue|HoloWhite|LXXBaseBorder|LXXBase">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder|LXXBase">
             <key-style
                 latin:styleName="alphaNumpadKeyStyle"
                 latin:keySpec="!text/keylabel_to_alpha|!code/key_alphaNumpad"
@@ -133,7 +133,7 @@
     </switch>
     <!-- symbolNumpadKeyStyle -->
     <switch>
-        <case latin:keyboardTheme="HoloBlue|HoloWhite|LXXBaseBorder|LXXBase">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder|LXXBase">
             <key-style
                 latin:styleName="symbolNumpadKeyStyle"
                 latin:keySpec="!text/keylabel_to_symbol|!code/key_symbolNumpad"

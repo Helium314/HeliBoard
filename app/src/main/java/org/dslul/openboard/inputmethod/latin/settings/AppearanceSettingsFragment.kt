@@ -130,7 +130,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
     // doing things on changing, but with the old values is not good, this is at least a little better
     private fun updateAfterPreferenceChanged() {
         customThemeVariantNightPref?.apply {
-            if (KeyboardTheme.getIsCustom(selectedThemeId)) {
+            if (true) { //KeyboardTheme.getIsCustom(selectedThemeId)) {
                 // show preference to allow choosing a night theme
                 // can't hide a preference, at least not without category or maybe some androidx things
                 // -> just disable it instead (for now...)
@@ -153,7 +153,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             summary = if (resId == 0) variant else getString(resId)
         }
         userColorsPref.apply {
-            isEnabled = KeyboardTheme.getIsCustom(selectedThemeId)
+            isEnabled = true //KeyboardTheme.getIsCustom(selectedThemeId)
                     && (sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER
                         || (sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER) == KeyboardTheme.THEME_USER_DARK
                             && sharedPreferences!!.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
@@ -204,7 +204,7 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
         }
         dayNightPref?.apply {
             isEnabled = !isLegacyFamily
-            isChecked = !isLegacyFamily && KeyboardTheme.getIsCustom(selectedThemeId) && sharedPreferences!!.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
+            isChecked = !isLegacyFamily && /*KeyboardTheme.getIsCustom(selectedThemeId) &&*/ sharedPreferences!!.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
         }
     }
 

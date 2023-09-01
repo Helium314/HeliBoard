@@ -19,29 +19,29 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="KeyboardTheme.HoloWhite" parent="KeyboardIcons.Holo">
+    <style name="KeyboardTheme.HoloBase" parent="KeyboardIcons.Holo">
         <item name="inputViewStyle">@style/InputView.Holo</item>
-        <item name="keyboardStyle">@style/Keyboard.HoloWhite</item>
-        <item name="keyboardViewStyle">@style/KeyboardView.HoloWhite</item>
-        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.HoloWhite</item>
-        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.HoloWhite</item>
-        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.HoloWhite</item>
-        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.HoloWhite</item>
-        <!-- Note: HoloWhite theme uses the same style for both general more keys and action more keys. -->
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.HoloWhite</item>
-        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.HoloWhite</item>
-        <item name="suggestionStripViewStyle">@style/SuggestionStripView.HoloWhite</item>
-        <item name="suggestionWordStyle">@style/SuggestionWord.HoloWhite</item>
+        <item name="keyboardStyle">@style/Keyboard.HoloBase</item>
+        <item name="keyboardViewStyle">@style/KeyboardView.HoloBase</item>
+        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.HoloBase</item>
+        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.HoloBase</item>
+        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.HoloBase</item>
+        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.HoloBase</item>
+        <!-- Note: HoloBase theme uses the same style for both general more keys and action more keys. -->
+        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.HoloBase</item>
+        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.HoloBase</item>
+        <item name="suggestionStripViewStyle">@style/SuggestionStripView.HoloBase</item>
+        <item name="suggestionWordStyle">@style/SuggestionWord.HoloBase</item>
     </style>
     <style
-        name="Keyboard.HoloWhite"
+        name="Keyboard.HoloBase"
         parent="Keyboard"
     >
         <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
-        <item name="themeId">HoloWhite</item>
+        <item name="themeId">HoloBase</item>
     </style>
     <style
-        name="KeyboardView.HoloWhite"
+        name="KeyboardView.HoloBase"
         parent="KeyboardView.Holo"
     >
         <item name="android:background">@android:color/white</item>
@@ -58,8 +58,8 @@
         <item name="keyPreviewTextColor">@color/key_text_color_blue</item>
     </style>
     <style
-        name="MainKeyboardView.HoloWhite"
-        parent="KeyboardView.HoloWhite"
+        name="MainKeyboardView.HoloBase"
+        parent="KeyboardView.HoloBase"
     >
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_holo_white</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_holo</item>
@@ -79,8 +79,8 @@
          delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
          attributes. -->
     <style
-        name="EmojiPalettesView.HoloWhite"
-        parent="MainKeyboardView.HoloWhite"
+        name="EmojiPalettesView.HoloBase"
+        parent="MainKeyboardView.HoloBase"
     >
         <item name="categoryIndicatorEnabled">true</item>
         <item name="categoryIndicatorDrawable">@drawable/emoji_category_tab_selected_holo_white</item>
@@ -100,13 +100,15 @@
         <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_holo_dark</item>
     </style>
     <style
-            name="ClipboardHistoryView.HoloWhite"
-            parent="ClipboardHistoryView.HoloBlue"
+            name="ClipboardHistoryView.HoloBase"
+            parent="MainKeyboardView.HoloBase"
             >
+        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_holo_dark</item>
+        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_holo</item>
     </style>
     <style
-        name="MoreKeysKeyboard.HoloWhite"
-        parent="Keyboard.HoloWhite"
+        name="MoreKeysKeyboard.HoloBase"
+        parent="Keyboard.HoloBase"
     >
         <item name="keyboardTopPadding">0%p</item>
         <item name="keyboardBottomPadding">0%p</item>
@@ -115,8 +117,8 @@
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style
-        name="MoreKeysKeyboardView.HoloWhite"
-        parent="KeyboardView.HoloWhite"
+        name="MoreKeysKeyboardView.HoloBase"
+        parent="KeyboardView.HoloBase"
     >
         <item name="android:background">@drawable/keyboard_popup_panel_background_holo_white</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_holo_white</item>
@@ -125,8 +127,8 @@
         <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
     </style>
     <style
-        name="SuggestionStripView.HoloWhite"
-        parent="KeyboardView.HoloWhite"
+        name="SuggestionStripView.HoloBase"
+        parent="KeyboardView.HoloBase"
     >
         <item name="suggestionsCountInStrip">@integer/config_suggestions_count_in_strip</item>
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
@@ -142,7 +144,7 @@
         <item name="alphaObsoleted">70%</item>
     </style>
     <style
-        name="SuggestionWord.HoloWhite"
+        name="SuggestionWord.HoloBase"
         parent="SuggestionWord"
     >
         <item name="android:background">@drawable/btn_suggestion_holo_white</item>

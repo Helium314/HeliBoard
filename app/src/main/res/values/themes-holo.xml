@@ -23,7 +23,7 @@
         name="InputView.Holo"
         parent="InputView"
     />
-    <!-- Holo KeyboardView theme (HoloBlue and HoloWhite) -->
+    <!-- Holo KeyboardView theme (HoloBase) -->
     <style
         name="KeyboardView.Holo"
         parent="KeyboardView"

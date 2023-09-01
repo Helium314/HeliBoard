@@ -57,37 +57,18 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
-    public static final int THEME_ID_HOLO_BLUE = 0;
-    public static final int THEME_ID_HOLO_WHITE = 1;
-    public static final int THEME_ID_HOLO_CUSTOM = 2; // todo: custom <-> white?
-    public static final int THEME_ID_LXX_BASE = 3;
-    public static final int THEME_ID_LXX_BASE_BORDER = 4;
-    public static final int THEME_ID_LXX_CUSTOM = 5; // todo: custom <-> base?
-    public static final int THEME_ID_LXX_CUSTOM_BORDER = 6;
-    public static final int DEFAULT_THEME_ID = THEME_ID_LXX_CUSTOM;
+    public static final int THEME_ID_HOLO_BASE = 0;
+    public static final int THEME_ID_LXX_BASE = 1;
+    public static final int THEME_ID_LXX_BASE_BORDER = 2;
+    public static final int DEFAULT_THEME_ID = THEME_ID_LXX_BASE;
 
     /* package private for testing */
     static final KeyboardTheme[] KEYBOARD_THEMES = {
-        new KeyboardTheme(THEME_ID_HOLO_BLUE, "HoloBlue", R.style.KeyboardTheme_HoloBlue,
-                // This has never been selected because we support ICS or later.
-                VERSION_CODES.BASE),
-        new KeyboardTheme(THEME_ID_HOLO_WHITE, "HoloWhite", R.style.KeyboardTheme_HoloWhite,
-                // Default theme for ICS, JB, and KLP.
-                VERSION_CODES.ICE_CREAM_SANDWICH),
-        new KeyboardTheme(THEME_ID_LXX_CUSTOM, "LXXCustom", R.style.KeyboardTheme_LXX_Base,
-                // This has never been selected as default theme.
-                VERSION_CODES.LOLLIPOP),
-        new KeyboardTheme(THEME_ID_LXX_CUSTOM_BORDER, "LXXCustomBorder", R.style.KeyboardTheme_LXX_Base_Border,
-                // This has never been selected as default theme.
-                VERSION_CODES.LOLLIPOP),
-        new KeyboardTheme(THEME_ID_HOLO_CUSTOM, "HoloCustom", R.style.KeyboardTheme_HoloWhite,
-                // This has never been selected as default theme.
+        new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase,
                 VERSION_CODES.BASE),
         new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
-                // This has never been selected as default theme.
                 VERSION_CODES.LOLLIPOP),
         new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
-                // This has never been selected as default theme.
                 VERSION_CODES.LOLLIPOP),
     };
 
@@ -183,13 +164,12 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final String style = prefs.getString(Settings.PREF_THEME_STYLE, THEME_STYLE_MATERIAL);
         final boolean borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
-        final int matchingId = style.equals(THEME_STYLE_HOLO) ? THEME_ID_HOLO_CUSTOM : (borders ? THEME_ID_LXX_CUSTOM_BORDER : THEME_ID_LXX_CUSTOM);
-        for (int i = 0; i < KEYBOARD_THEMES.length; i++) {
-            if (KEYBOARD_THEMES[i].mThemeId == matchingId)
-                return KEYBOARD_THEMES[i];
+        final int matchingId = style.equals(THEME_STYLE_HOLO) ? THEME_ID_HOLO_BASE : (borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE);
+        for (KeyboardTheme keyboardTheme : KEYBOARD_THEMES) {
+            if (keyboardTheme.mThemeId == matchingId)
+                return keyboardTheme;
         }
-        return KEYBOARD_THEMES[2]; // custom no border
-//        return getKeyboardTheme(prefs, Build.VERSION.SDK_INT, KEYBOARD_THEMES);
+        return KEYBOARD_THEMES[2]; // base no border as default
     }
 
     /* package private for testing */
@@ -215,31 +195,14 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     }
 
     public static String getThemeFamily(int themeId) {
-        if (themeId == THEME_ID_HOLO_BLUE || themeId == THEME_ID_HOLO_WHITE || themeId == THEME_ID_HOLO_CUSTOM) return THEME_STYLE_HOLO;
+        if (themeId == THEME_ID_HOLO_BASE) return THEME_STYLE_HOLO;
         return THEME_STYLE_MATERIAL;
     }
 
     public static boolean getHasKeyBorders(int themeId) {
-        switch (themeId) {
-            case THEME_ID_LXX_CUSTOM_BORDER:
-            case THEME_ID_HOLO_BLUE:
-            case THEME_ID_HOLO_WHITE:
-                return true;
-            default:
-                return false;
-        }
+        return themeId != THEME_ID_LXX_BASE; // THEME_ID_LXX_BASE is the only without borders
     }
 
-    public static boolean getIsCustom(int themeId) {
-        switch (themeId) {
-            case THEME_ID_LXX_CUSTOM:
-            case THEME_ID_LXX_CUSTOM_BORDER:
-            case THEME_ID_HOLO_CUSTOM:
-                return true;
-            default:
-                return false;
-        }
-    }
 
     // todo (later): material you, system accent, ...
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
