@@ -18,9 +18,10 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.os.Build;
 import android.text.TextUtils;
-import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
+
+import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
 /**
  * The string parser of moreCodesArray specification for <GridRows />. The attribute moreCodesArray is an

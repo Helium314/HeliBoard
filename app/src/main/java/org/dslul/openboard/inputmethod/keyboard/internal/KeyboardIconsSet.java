@@ -22,12 +22,12 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.SparseIntArray;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.R;
 
 import java.util.HashMap;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public final class KeyboardIconsSet {
     private static final String TAG = KeyboardIconsSet.class.getSimpleName();
@@ -146,7 +146,7 @@ public final class KeyboardIconsSet {
         return iconId >= 0 && iconId < ICON_NAMES.length;
     }
 
-    @Nonnull
+    @NonNull
     public static String getIconName(final int iconId) {
         return isValidIconId(iconId) ? ICON_NAMES[iconId] : "unknown<" + iconId + ">";
     }

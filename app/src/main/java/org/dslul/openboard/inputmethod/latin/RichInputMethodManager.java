@@ -41,10 +41,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Enrichment class for InputMethodManager to simplify interaction and add functionality.
@@ -229,7 +229,7 @@ public class RichInputMethodManager {
         return INDEX_NOT_FOUND;
     }
 
-    public void onSubtypeChanged(@Nonnull final InputMethodSubtype newSubtype) {
+    public void onSubtypeChanged(@NonNull final InputMethodSubtype newSubtype) {
         updateCurrentSubtype(newSubtype);
         updateShortcutIme();
         if (DEBUG) {
@@ -240,11 +240,11 @@ public class RichInputMethodManager {
     private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
     @UsedForTesting
-    static void forceSubtype(@Nonnull final InputMethodSubtype subtype) {
+    static void forceSubtype(@NonNull final InputMethodSubtype subtype) {
         sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
-    @Nonnull
+    @NonNull
     public Locale getCurrentSubtypeLocale() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting.getLocale();
@@ -252,7 +252,7 @@ public class RichInputMethodManager {
         return getCurrentSubtype().getLocale();
     }
 
-    @Nonnull
+    @NonNull
     public RichInputMethodSubtype getCurrentSubtype() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting;

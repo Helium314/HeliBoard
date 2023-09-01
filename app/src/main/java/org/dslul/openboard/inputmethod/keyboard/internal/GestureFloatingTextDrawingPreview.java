@@ -24,14 +24,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.keyboard.PointerTracker;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
-
-import javax.annotation.Nonnull;
 
 /**
  * The class for single gesture preview text. The class for multiple gesture preview text will be
@@ -114,10 +114,10 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
     }
 
     public void dismissGestureFloatingPreviewText() {
-        setSuggetedWords(SuggestedWords.getEmptyInstance());
+        setSuggestedWords(SuggestedWords.getEmptyInstance());
     }
 
-    public void setSuggetedWords(@Nonnull final SuggestedWords suggestedWords) {
+    public void setSuggestedWords(@NonNull final SuggestedWords suggestedWords) {
         if (!isPreviewEnabled()) {
             return;
         }

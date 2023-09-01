@@ -32,6 +32,10 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.KeyboardAccessibilityDelegate;
 import org.dslul.openboard.inputmethod.keyboard.Key;
@@ -46,8 +50,6 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.WeakHashMap;
 
 /**
@@ -179,7 +181,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     @Nullable
-    public MoreKeysPanel showMoreKeysKeyboard(@Nonnull final Key key, final int lastX, final int lastY) {
+    public MoreKeysPanel showMoreKeysKeyboard(@NonNull final Key key, final int lastX, final int lastY) {
         final MoreKeySpec[] moreKeys = key.getMoreKeys();
         if (moreKeys == null) {
             return null;

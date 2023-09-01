@@ -19,6 +19,8 @@ package org.dslul.openboard.inputmethod.keyboard;
 import android.content.Context;
 import android.graphics.Paint;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
@@ -26,8 +28,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
-
-import javax.annotation.Nonnull;
 
 public final class MoreKeysKeyboard extends Keyboard {
     private final int mDefaultKeyCoordX;
@@ -330,7 +330,7 @@ public final class MoreKeysKeyboard extends Keyboard {
         }
 
         @Override
-        @Nonnull
+        @NonNull
         public MoreKeysKeyboard build() {
             final MoreKeysKeyboardParams params = mParams;
             final int moreKeyFlags = mParentKey.getMoreKeyLabelFlags();

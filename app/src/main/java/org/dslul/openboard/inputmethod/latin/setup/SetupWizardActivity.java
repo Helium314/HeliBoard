@@ -27,11 +27,12 @@ import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
@@ -39,8 +40,6 @@ import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 import org.dslul.openboard.inputmethod.latin.utils.UncachedInputMethodManagerUtils;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
 
 // TODO: Use Fragment to implement welcome screen and setup steps.
 public final class SetupWizardActivity extends Activity implements View.OnClickListener {
@@ -82,7 +81,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         private final InputMethodManager mImmInHandler;
 
-        public SettingsPoolingHandler(@Nonnull final SetupWizardActivity ownerInstance,
+        public SettingsPoolingHandler(@NonNull final SetupWizardActivity ownerInstance,
                 final InputMethodManager imm) {
             super(ownerInstance);
             mImmInHandler = imm;

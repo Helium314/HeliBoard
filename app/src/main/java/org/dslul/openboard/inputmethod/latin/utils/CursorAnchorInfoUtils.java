@@ -30,10 +30,10 @@ import android.view.ViewParent;
 import android.view.inputmethod.CursorAnchorInfo;
 import android.widget.TextView;
 
-import org.dslul.openboard.inputmethod.compat.CursorAnchorInfoCompatWrapper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.dslul.openboard.inputmethod.compat.CursorAnchorInfoCompatWrapper;
 
 /**
  * This class allows input methods to extract {@link CursorAnchorInfo} directly from the given
@@ -94,7 +94,7 @@ public final class CursorAnchorInfoUtils {
      */
     @Nullable
     public static CursorAnchorInfoCompatWrapper extractFromTextView(
-            @Nonnull final TextView textView) {
+            @NonNull final TextView textView) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return null;
         }
@@ -109,7 +109,7 @@ public final class CursorAnchorInfoUtils {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
-    private static CursorAnchorInfo extractFromTextViewInternal(@Nonnull final TextView textView) {
+    private static CursorAnchorInfo extractFromTextViewInternal(@NonNull final TextView textView) {
         final Layout layout = textView.getLayout();
         if (layout == null) {
             return null;

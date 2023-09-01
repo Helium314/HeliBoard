@@ -20,6 +20,9 @@ import android.content.res.TypedArray;
 import android.util.Log;
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.XmlParseUtils;
 import org.xmlpull.v1.XmlPullParser;
@@ -28,31 +31,28 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public final class KeyStylesSet {
     private static final String TAG = KeyStylesSet.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    @Nonnull
+    @NonNull
     private final HashMap<String, KeyStyle> mStyles = new HashMap<>();
 
-    @Nonnull
+    @NonNull
     private final KeyboardTextsSet mTextsSet;
-    @Nonnull
+    @NonNull
     private final KeyStyle mEmptyKeyStyle;
-    @Nonnull
+    @NonNull
     private static final String EMPTY_STYLE_NAME = "<empty>";
 
-    public KeyStylesSet(@Nonnull final KeyboardTextsSet textsSet) {
+    public KeyStylesSet(@NonNull final KeyboardTextsSet textsSet) {
         mTextsSet = textsSet;
         mEmptyKeyStyle = new EmptyKeyStyle(textsSet);
         mStyles.put(EMPTY_STYLE_NAME, mEmptyKeyStyle);
     }
 
     private static final class EmptyKeyStyle extends KeyStyle {
-        EmptyKeyStyle(@Nonnull final KeyboardTextsSet textsSet) {
+        EmptyKeyStyle(@NonNull final KeyboardTextsSet textsSet) {
             super(textsSet);
         }
 
@@ -84,9 +84,9 @@ public final class KeyStylesSet {
         private final String mParentStyleName;
         private final SparseArray<Object> mStyleAttributes = new SparseArray<>();
 
-        public DeclaredKeyStyle(@Nonnull final String parentStyleName,
-                @Nonnull final KeyboardTextsSet textsSet,
-                @Nonnull final HashMap<String, KeyStyle> styles) {
+        public DeclaredKeyStyle(@NonNull final String parentStyleName,
+                @NonNull final KeyboardTextsSet textsSet,
+                @NonNull final HashMap<String, KeyStyle> styles) {
             super(textsSet);
             mParentStyleName = parentStyleName;
             mStyles = styles;
@@ -213,7 +213,7 @@ public final class KeyStylesSet {
         mStyles.put(styleName, style);
     }
 
-    @Nonnull
+    @NonNull
     public KeyStyle getKeyStyle(final TypedArray keyAttr, final XmlPullParser parser)
             throws XmlParseUtils.ParseException {
         final String styleName = keyAttr.getString(R.styleable.Keyboard_Key_keyStyle);

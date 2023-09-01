@@ -19,19 +19,19 @@ package org.dslul.openboard.inputmethod.latin.utils;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.lang.ref.WeakReference;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.lang.ref.WeakReference;
 
 public class LeakGuardHandlerWrapper<T> extends Handler {
     private final WeakReference<T> mOwnerInstanceRef;
 
-    public LeakGuardHandlerWrapper(@Nonnull final T ownerInstance) {
+    public LeakGuardHandlerWrapper(@NonNull final T ownerInstance) {
         this(ownerInstance, Looper.myLooper());
     }
 
-    public LeakGuardHandlerWrapper(@Nonnull final T ownerInstance, final Looper looper) {
+    public LeakGuardHandlerWrapper(@NonNull final T ownerInstance, final Looper looper) {
         super(looper);
         mOwnerInstanceRef = new WeakReference<>(ownerInstance);
     }

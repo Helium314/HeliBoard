@@ -31,14 +31,14 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
-
-import javax.annotation.Nullable;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryList.java

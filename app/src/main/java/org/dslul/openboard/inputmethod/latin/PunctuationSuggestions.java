@@ -16,14 +16,14 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.annotation.Nullable;
 
 /**
  * The extended {@link SuggestedWords} class to represent punctuation suggestions.

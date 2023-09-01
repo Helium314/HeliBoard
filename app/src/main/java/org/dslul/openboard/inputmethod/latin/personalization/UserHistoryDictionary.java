@@ -18,6 +18,9 @@ package org.dslul.openboard.inputmethod.latin.personalization;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.annotations.ExternallyReferenced;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.BinaryDictionary;
@@ -29,9 +32,6 @@ import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import java.io.File;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Locally gathers statistics about the words user types and various other signals like
@@ -77,7 +77,7 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
      * @param timestamp the timestamp when the word has been inputted
      */
     public static void addToDictionary(final ExpandableBinaryDictionary userHistoryDictionary,
-            @Nonnull final NgramContext ngramContext, final String word, final boolean isValid,
+            @NonNull final NgramContext ngramContext, final String word, final boolean isValid,
             final int timestamp) {
         if (word.length() > BinaryDictionary.DICTIONARY_MAX_WORD_LENGTH) {
             return;

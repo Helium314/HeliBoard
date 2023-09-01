@@ -16,6 +16,8 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.event.CombinerChain;
 import org.dslul.openboard.inputmethod.event.Event;
@@ -30,8 +32,6 @@ import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.annotation.Nonnull;
 
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
@@ -157,8 +157,8 @@ public final class WordComposer {
      * @param event the unprocessed event.
      * @return the processed event. Never null, but may be marked as consumed.
      */
-    @Nonnull
-    public Event processEvent(@Nonnull final Event event) {
+    @NonNull
+    public Event processEvent(@NonNull final Event event) {
         final Event processedEvent = mCombinerChain.processEvent(mEvents, event);
         // The retained state of the combiner chain may have changed while processing the event,
         // so we need to update our cache.

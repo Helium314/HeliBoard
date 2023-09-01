@@ -24,6 +24,9 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -38,9 +41,6 @@ import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * When you call the constructor of this class, you may want to change the current system locale by
@@ -111,7 +111,7 @@ public class SettingsValues {
     public final boolean mCustomNavBarColor;
 
     // From the input box
-    @Nonnull
+    @NonNull
     public final InputAttributes mInputAttributes;
 
     // Deduced settings
@@ -144,7 +144,7 @@ public class SettingsValues {
     public final String mAccount;
 
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
-                          @Nonnull final InputAttributes inputAttributes) {
+                          @NonNull final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
         // Get the resources
         mDelayInMillisecondsToUpdateOldSuggestions =

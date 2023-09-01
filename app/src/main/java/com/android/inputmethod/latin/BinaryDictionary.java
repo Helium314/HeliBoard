@@ -20,6 +20,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.Dictionary;
 import org.dslul.openboard.inputmethod.latin.NgramContext;
@@ -45,8 +47,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
@@ -497,7 +497,7 @@ public final class BinaryDictionary extends Dictionary {
     }
 
     // Update entries for the word occurrence with the ngramContext.
-    public boolean updateEntriesForWordWithNgramContext(@Nonnull final NgramContext ngramContext,
+    public boolean updateEntriesForWordWithNgramContext(@NonNull final NgramContext ngramContext,
             final String word, final boolean isValidWord, final int count, final int timestamp) {
         if (TextUtils.isEmpty(word)) {
             return false;

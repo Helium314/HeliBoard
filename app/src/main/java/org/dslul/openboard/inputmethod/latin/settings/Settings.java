@@ -27,6 +27,8 @@ import android.util.Log;
 
 import android.view.Gravity;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
@@ -47,8 +49,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
-
-import javax.annotation.Nonnull;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
@@ -227,7 +227,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void loadSettings(final Context context, final Locale locale,
-                             @Nonnull final InputAttributes inputAttributes) {
+                             @NonNull final InputAttributes inputAttributes) {
         mSettingsValuesLock.lock();
         mContext = context;
         try {

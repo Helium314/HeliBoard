@@ -16,26 +16,26 @@
 
 package org.dslul.openboard.inputmethod.latin.makedict;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.makedict.FormatSpec.DictionaryOptions;
 import org.dslul.openboard.inputmethod.latin.makedict.FormatSpec.FormatOptions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Class representing dictionary header.
  */
 public final class DictionaryHeader {
     public final int mBodyOffset;
-    @Nonnull
+    @NonNull
     public final DictionaryOptions mDictionaryOptions;
-    @Nonnull
+    @NonNull
     public final FormatOptions mFormatOptions;
-    @Nonnull
+    @NonNull
     public final String mLocaleString;
-    @Nonnull
+    @NonNull
     public final String mVersionString;
-    @Nonnull
+    @NonNull
     public final String mIdString;
 
     // Note that these are corresponding definitions in native code in latinime::HeaderPolicy
@@ -58,8 +58,8 @@ public final class DictionaryHeader {
     public static final String CODE_POINT_TABLE_KEY = "codePointTable";
 
     public DictionaryHeader(final int headerSize,
-            @Nonnull final DictionaryOptions dictionaryOptions,
-            @Nonnull final FormatOptions formatOptions) throws UnsupportedFormatException {
+            @NonNull final DictionaryOptions dictionaryOptions,
+            @NonNull final FormatOptions formatOptions) throws UnsupportedFormatException {
         mDictionaryOptions = dictionaryOptions;
         mFormatOptions = formatOptions;
         mBodyOffset = formatOptions.mVersion < FormatSpec.VERSION4 ? headerSize : 0;

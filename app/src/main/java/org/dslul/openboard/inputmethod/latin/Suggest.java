@@ -36,10 +36,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
 import static org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants.SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION;
 import static org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants.SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION;
+
+import androidx.annotation.NonNull;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of
@@ -140,7 +140,7 @@ public final class Suggest {
     }
 
     private static SuggestedWordInfo getWhitelistedWordInfoOrNull(
-            @Nonnull final List<SuggestedWordInfo> suggestions) {
+            @NonNull final List<SuggestedWordInfo> suggestions) {
         if (suggestions.isEmpty()) {
             return null;
         }

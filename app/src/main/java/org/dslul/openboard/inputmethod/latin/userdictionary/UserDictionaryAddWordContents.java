@@ -26,14 +26,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TreeSet;
-
-import javax.annotation.Nullable;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordContents.java

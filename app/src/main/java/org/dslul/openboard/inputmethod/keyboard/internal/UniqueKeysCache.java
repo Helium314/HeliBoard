@@ -16,18 +16,18 @@
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.keyboard.Key;
 
 import java.util.HashMap;
 
-import javax.annotation.Nonnull;
-
 public abstract class UniqueKeysCache {
     public abstract void setEnabled(boolean enabled);
     public abstract void clear();
-    public abstract @Nonnull Key getUniqueKey(@Nonnull Key key);
+    public abstract @NonNull Key getUniqueKey(@NonNull Key key);
 
-    @Nonnull
+    @NonNull
     public static final UniqueKeysCache NO_CACHE = new UniqueKeysCache() {
         @Override
         public void setEnabled(boolean enabled) {}
@@ -39,7 +39,7 @@ public abstract class UniqueKeysCache {
         public Key getUniqueKey(Key key) { return key; }
     };
 
-    @Nonnull
+    @NonNull
     public static UniqueKeysCache newInstance() {
         return new UniqueKeysCacheImpl();
     }

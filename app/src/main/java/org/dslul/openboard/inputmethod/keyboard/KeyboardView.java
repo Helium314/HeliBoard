@@ -32,6 +32,9 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -44,9 +47,6 @@ import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A view that renders a virtual {@link Keyboard}.
@@ -107,10 +107,10 @@ public class KeyboardView extends View {
     private static final float MAX_LABEL_RATIO = 0.90f;
 
     // Main keyboard
-    // TODO: Consider having a dummy keyboard object to make this @Nonnull
+    // TODO: Consider having a dummy keyboard object to make this @NonNull
     @Nullable
     private Keyboard mKeyboard;
-    @Nonnull
+    @NonNull
     private final KeyDrawParams mKeyDrawParams = new KeyDrawParams();
 
     // Drawing
@@ -125,9 +125,9 @@ public class KeyboardView extends View {
     /** Flag for whether the key hints should be displayed */
     private boolean mShowsHints;
     /** The canvas for the above mutable keyboard bitmap */
-    @Nonnull
+    @NonNull
     private final Canvas mOffscreenCanvas = new Canvas();
-    @Nonnull
+    @NonNull
     private final Paint mPaint = new Paint();
     private final Paint.FontMetrics mFontMetrics = new Paint.FontMetrics();
 
@@ -209,7 +209,7 @@ public class KeyboardView extends View {
         return mKeyVisualAttributes;
     }
 
-    private static void blendAlpha(@Nonnull final Paint paint, final int alpha) {
+    private static void blendAlpha(@NonNull final Paint paint, final int alpha) {
         final int color = paint.getColor();
         paint.setARGB((paint.getAlpha() * alpha) / Constants.Color.ALPHA_OPAQUE,
                 Color.red(color), Color.green(color), Color.blue(color));
@@ -228,7 +228,7 @@ public class KeyboardView extends View {
      * @see #getKeyboard()
      * @param keyboard the keyboard to display in this view
      */
-    public void setKeyboard(@Nonnull final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         mKeyboard = keyboard;
         final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
         mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
@@ -251,7 +251,7 @@ public class KeyboardView extends View {
         return mVerticalCorrection;
     }
 
-    @Nonnull
+    @NonNull
     protected KeyDrawParams getKeyDrawParams() {
         return mKeyDrawParams;
     }
@@ -317,7 +317,7 @@ public class KeyboardView extends View {
         }
     }
 
-    private void onDrawKeyboard(@Nonnull final Canvas canvas) {
+    private void onDrawKeyboard(@NonNull final Canvas canvas) {
         final Keyboard keyboard = getKeyboard();
         if (keyboard == null) {
             return;
@@ -364,8 +364,8 @@ public class KeyboardView extends View {
         mInvalidateAllKeys = false;
     }
 
-    private void onDrawKey(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Paint paint) {
+    private void onDrawKey(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Paint paint) {
         final int keyDrawX = key.getDrawX() + getPaddingLeft();
         final int keyDrawY = key.getY() + getPaddingTop();
         canvas.translate(keyDrawX, keyDrawY);
@@ -385,8 +385,8 @@ public class KeyboardView extends View {
     }
 
     // Draw key background.
-    protected void onDrawKeyBackground(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Drawable background) {
+    protected void onDrawKeyBackground(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Drawable background) {
         final int keyWidth = key.getDrawWidth();
         final int keyHeight = key.getHeight();
         final int bgWidth, bgHeight, bgX, bgY;
@@ -411,8 +411,8 @@ public class KeyboardView extends View {
     }
 
     // Draw key top visuals.
-    protected void onDrawKeyTopVisuals(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {
+    protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         final int keyWidth = key.getDrawWidth();
         final int keyHeight = key.getHeight();
         final float centerX = keyWidth * 0.5f;
@@ -541,8 +541,8 @@ public class KeyboardView extends View {
     }
 
     // Draw popup hint "..." at the bottom right corner of the key.
-    protected void drawKeyPopupHint(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {
+    protected void drawKeyPopupHint(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (TextUtils.isEmpty(mKeyPopupHintLetter)) {
             return;
         }
@@ -559,7 +559,7 @@ public class KeyboardView extends View {
         canvas.drawText(mKeyPopupHintLetter, hintX, hintY, paint);
     }
 
-    protected static void drawIcon(@Nonnull final Canvas canvas,@Nonnull final Drawable icon,
+    protected static void drawIcon(@NonNull final Canvas canvas,@NonNull final Drawable icon,
             final int x, final int y, final int width, final int height) {
         canvas.translate(x, y);
         icon.setBounds(0, 0, width, height);

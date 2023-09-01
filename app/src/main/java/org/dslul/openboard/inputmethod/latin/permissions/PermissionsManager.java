@@ -19,12 +19,12 @@ package org.dslul.openboard.inputmethod.latin.permissions;
 import android.app.Activity;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Manager to perform permission related tasks. Always call on the UI thread.
@@ -46,8 +46,8 @@ public class PermissionsManager {
         mContext = context;
     }
 
-    @Nonnull
-    public static synchronized PermissionsManager get(@Nonnull Context context) {
+    @NonNull
+    public static synchronized PermissionsManager get(@NonNull Context context) {
         if (sInstance == null) {
             sInstance = new PermissionsManager(context);
         }
@@ -59,7 +59,7 @@ public class PermissionsManager {
     }
 
 
-    public synchronized void requestPermissions(@Nonnull PermissionsResultCallback callback,
+    public synchronized void requestPermissions(@NonNull PermissionsResultCallback callback,
                                    @Nullable Activity activity,
                                    String... permissionsToRequest) {
         List<String> deniedPermissions = PermissionsUtil.getDeniedPermissions(

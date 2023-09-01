@@ -18,8 +18,8 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.content.res.TypedArray;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public abstract class KeyStyle {
     private final KeyboardTextsSet mTextsSet;
@@ -29,7 +29,7 @@ public abstract class KeyStyle {
     public abstract int getInt(TypedArray a, int index, int defaultValue);
     public abstract int getFlags(TypedArray a, int index);
 
-    protected KeyStyle(@Nonnull final KeyboardTextsSet textsSet) {
+    protected KeyStyle(@NonNull final KeyboardTextsSet textsSet) {
         mTextsSet = textsSet;
     }
 

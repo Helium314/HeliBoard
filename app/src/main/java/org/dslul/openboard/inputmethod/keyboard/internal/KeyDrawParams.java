@@ -18,13 +18,13 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.graphics.Typeface;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public final class KeyDrawParams {
-    @Nonnull
+    @NonNull
     public Typeface mTypeface = Typeface.DEFAULT;
 
     public int mLetterSize;
@@ -53,7 +53,7 @@ public final class KeyDrawParams {
 
     public KeyDrawParams() {}
 
-    private KeyDrawParams(@Nonnull final KeyDrawParams copyFrom) {
+    private KeyDrawParams(@NonNull final KeyDrawParams copyFrom) {
         mTypeface = copyFrom.mTypeface;
 
         mLetterSize = copyFrom.mLetterSize;
@@ -121,7 +121,7 @@ public final class KeyDrawParams {
                 attr.mHintLabelOffCenterRatio, mHintLabelOffCenterRatio);
     }
 
-    @Nonnull
+    @NonNull
     public KeyDrawParams mayCloneAndUpdateParams(final int keyHeight,
             @Nullable final KeyVisualAttributes attr) {
         if (attr == null) {

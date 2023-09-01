@@ -23,6 +23,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.latin.NgramContext.WordInfo;
@@ -55,9 +58,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
@@ -614,7 +614,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     public void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+            @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final boolean blockPotentiallyOffensive) {
         // Update the spelling cache before learning. Words that are not yet added to user history
         // and appear in no other language model are not considered valid.
@@ -713,8 +713,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private void putWordIntoValidSpellingWordCache(
-            @Nonnull final String caller,
-            @Nonnull final String originalWord) {
+            @NonNull final String caller,
+            @NonNull final String originalWord) {
         if (mValidSpellingWordWriteCache == null) {
             return;
         }
@@ -811,7 +811,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public void unlearnFromUserHistory(final String word,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+            @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final int eventType) {
         // TODO: Decide whether or not to remove the word on EVENT_BACKSPACE.
         if (eventType != Constants.EVENT_BACKSPACE) {
@@ -825,8 +825,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // TODO: Revise the way to fusion suggestion results.
     @Override
-    @Nonnull public SuggestionResults getSuggestionResults(ComposedData composedData,
-            NgramContext ngramContext, @Nonnull final Keyboard keyboard,
+    @NonNull public SuggestionResults getSuggestionResults(ComposedData composedData,
+            NgramContext ngramContext, @NonNull final Keyboard keyboard,
             SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId,
             int inputStyle) {
         long proximityInfoHandle = keyboard.getProximityInfo().getNativeProximityInfo();
@@ -1080,7 +1080,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     // this is unused, so leave it for now
-    @Nonnull public List<DictionaryStats> getDictionaryStats(final Context context) {
+    @NonNull public List<DictionaryStats> getDictionaryStats(final Context context) {
         final ArrayList<DictionaryStats> statsOfEnabledSubDicts = new ArrayList<>();
         for (final String dictType : DYNAMIC_DICTIONARY_TYPES) {
             final ExpandableBinaryDictionary dictionary = mDictionaryGroups.get(0).getSubDict(dictType);

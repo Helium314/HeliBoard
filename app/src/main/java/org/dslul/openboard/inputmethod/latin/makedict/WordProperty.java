@@ -16,6 +16,8 @@
 
 package org.dslul.openboard.inputmethod.latin.makedict;
 
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.latin.BinaryDictionary;
 import org.dslul.openboard.inputmethod.latin.Dictionary;
@@ -26,8 +28,6 @@ import org.dslul.openboard.inputmethod.latin.utils.CombinedFormatUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.annotation.Nullable;
 
 /**
  * Utility class for a word with a probability.

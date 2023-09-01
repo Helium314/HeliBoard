@@ -16,6 +16,8 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.latin.NgramContext;
 import org.dslul.openboard.inputmethod.latin.NgramContext.WordInfo;
 import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
@@ -23,8 +25,6 @@ import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
-
-import javax.annotation.Nonnull;
 
 public final class NgramContextUtils {
     private NgramContextUtils() {
@@ -55,7 +55,7 @@ public final class NgramContextUtils {
     // (n = 2) "abc|" -> beginning-of-sentence
     // (n = 2) "abc |" -> beginning-of-sentence
     // (n = 2) "abc. def|" -> beginning-of-sentence
-    @Nonnull
+    @NonNull
     public static NgramContext getNgramContextFromNthPreviousWord(final CharSequence prev,
             final SpacingAndPunctuations spacingAndPunctuations, final int n) {
         if (prev == null) return NgramContext.EMPTY_PREV_WORDS_INFO;

@@ -20,14 +20,15 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.JsonUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -250,7 +251,7 @@ final class DynamicGridKeyboard extends Keyboard {
         private int mCurrentX;
         private int mCurrentY;
 
-        public GridKey(@Nonnull final Key originalKey, @Nullable final MoreKeySpec[] moreKeys,
+        public GridKey(@NonNull final Key originalKey, @Nullable final MoreKeySpec[] moreKeys,
              @Nullable final String labelHint, final int backgroundType) {
             super(originalKey, moreKeys, labelHint, backgroundType);
         }

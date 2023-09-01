@@ -24,6 +24,9 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.keyboard.internal.BatchInputArbiter;
 import org.dslul.openboard.inputmethod.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
 import org.dslul.openboard.inputmethod.keyboard.internal.BogusMoveEventDetector;
@@ -44,9 +47,6 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public final class PointerTracker implements PointerTrackerQueue.Element,
         BatchInputArbiterListener {
@@ -117,7 +117,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // The position and time at which first down event occurred.
     private long mDownTime;
-    @Nonnull
+    @NonNull
     private int[] mDownCoordinates = CoordinateUtils.newInstance();
     private long mUpTime;
 
@@ -470,7 +470,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return mGestureStrokeDrawingPoints;
     }
 
-    public void getLastCoordinates(@Nonnull final int[] outCoords) {
+    public void getLastCoordinates(@NonNull final int[] outCoords) {
         CoordinateUtils.set(outCoords, mLastX, mLastY);
     }
 
@@ -478,7 +478,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return mDownTime;
     }
 
-    public void getDownCoordinates(@Nonnull final int[] outCoords) {
+    public void getDownCoordinates(@NonNull final int[] outCoords) {
         CoordinateUtils.copy(outCoords, mDownCoordinates);
     }
 

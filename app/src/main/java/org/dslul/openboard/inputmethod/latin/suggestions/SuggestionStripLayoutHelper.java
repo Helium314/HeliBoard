@@ -43,6 +43,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
@@ -56,9 +59,6 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ViewLayoutUtils;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 final class SuggestionStripLayoutHelper {
     private static final int DEFAULT_SUGGESTIONS_COUNT_IN_STRIP = 3;
@@ -570,7 +570,7 @@ final class SuggestionStripLayoutHelper {
 
     @Nullable
     private static CharSequence getEllipsizedTextWithSettingScaleX(
-            @Nullable final CharSequence text, final int maxWidth, @Nonnull final TextPaint paint) {
+            @Nullable final CharSequence text, final int maxWidth, @NonNull final TextPaint paint) {
         if (text == null) {
             return null;
         }
@@ -610,7 +610,7 @@ final class SuggestionStripLayoutHelper {
         return false;
     }
 
-    private static void addStyleSpan(@Nonnull final Spannable text, final CharacterStyle style) {
+    private static void addStyleSpan(@NonNull final Spannable text, final CharacterStyle style) {
         text.removeSpan(style);
         text.setSpan(style, 0, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
     }

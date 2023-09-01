@@ -18,6 +18,9 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.util.SparseIntArray;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -26,9 +29,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class KeyboardParams {
     public KeyboardId mId;
@@ -64,20 +64,20 @@ public class KeyboardParams {
     public int GRID_HEIGHT;
 
     // Keys are sorted from top-left to bottom-right order.
-    @Nonnull
+    @NonNull
     public final SortedSet<Key> mSortedKeys = new TreeSet<>(ROW_COLUMN_COMPARATOR);
-    @Nonnull
+    @NonNull
     public final ArrayList<Key> mShiftKeys = new ArrayList<>();
-    @Nonnull
+    @NonNull
     public final ArrayList<Key> mAltCodeKeysWhileTyping = new ArrayList<>();
-    @Nonnull
+    @NonNull
     public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
-    @Nonnull
+    @NonNull
     public final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
-    @Nonnull
+    @NonNull
     public final KeyStylesSet mKeyStyles = new KeyStylesSet(mTextsSet);
 
-    @Nonnull
+    @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantMoreKeys;
 
@@ -86,7 +86,7 @@ public class KeyboardParams {
 
     public boolean mProximityCharsCorrectionEnabled;
 
-    @Nonnull
+    @NonNull
     public final TouchPositionCorrection mTouchPositionCorrection =
             new TouchPositionCorrection();
 
@@ -106,7 +106,7 @@ public class KeyboardParams {
         this(UniqueKeysCache.NO_CACHE);
     }
 
-    public KeyboardParams(@Nonnull final UniqueKeysCache keysCache) {
+    public KeyboardParams(@NonNull final UniqueKeysCache keysCache) {
         mUniqueKeysCache = keysCache;
     }
 
@@ -116,7 +116,7 @@ public class KeyboardParams {
         clearHistogram();
     }
 
-    public void onAddKey(@Nonnull final Key newKey) {
+    public void onAddKey(@NonNull final Key newKey) {
         final Key key = mUniqueKeysCache.getUniqueKey(newKey);
         final boolean isSpacer = key.isSpacer();
         if (isSpacer && key.getWidth() == 0) {

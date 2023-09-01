@@ -18,14 +18,14 @@ package org.dslul.openboard.inputmethod.latin.common;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.R;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A class to help with handling Locales in string form.
@@ -177,8 +177,8 @@ public final class LocaleUtils {
      * @param localeString a string specification of a locale, in a format of "ll_cc_variant" where
      * "ll" is a language code, "cc" is a country code.
      */
-    @Nonnull
-    public static Locale constructLocaleFromString(@Nonnull final String localeString) {
+    @NonNull
+    public static Locale constructLocaleFromString(@NonNull final String localeString) {
         synchronized (sLocaleCache) {
             if (sLocaleCache.containsKey(localeString)) {
                 return sLocaleCache.get(localeString);
@@ -213,7 +213,7 @@ public final class LocaleUtils {
         sRtlLanguageCodes.add("yi"); // Yiddish
     }
 
-    public static boolean isRtlLanguage(@Nonnull final Locale locale) {
+    public static boolean isRtlLanguage(@NonNull final Locale locale) {
         return sRtlLanguageCodes.contains(locale.getLanguage());
     }
 

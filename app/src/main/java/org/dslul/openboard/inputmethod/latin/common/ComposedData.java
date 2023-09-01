@@ -16,20 +16,20 @@
 
 package org.dslul.openboard.inputmethod.latin.common;
 
-import javax.annotation.Nonnull;
+import androidx.annotation.NonNull;
 
 /**
  * An immutable class that encapsulates a snapshot of word composition data.
  */
 public class ComposedData {
-    @Nonnull
+    @NonNull
     public final InputPointers mInputPointers;
     public final boolean mIsBatchMode;
-    @Nonnull
+    @NonNull
     public final String mTypedWord;
 
-    public ComposedData(@Nonnull final InputPointers inputPointers, final boolean isBatchMode,
-            @Nonnull final String typedWord) {
+    public ComposedData(@NonNull final InputPointers inputPointers, final boolean isBatchMode,
+            @NonNull final String typedWord) {
         mInputPointers = inputPointers;
         mIsBatchMode = isBatchMode;
         mTypedWord = typedWord;
@@ -45,7 +45,7 @@ public class ComposedData {
      * @return the number of copied code points.
      */
     public int copyCodePointsExceptTrailingSingleQuotesAndReturnCodePointCount(
-            @Nonnull final int[] destination) {
+            @NonNull final int[] destination) {
         // lastIndex is exclusive
         final int lastIndex = mTypedWord.length()
                 - StringUtils.getTrailingSingleQuotesCount(mTypedWord);

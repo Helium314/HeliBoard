@@ -31,6 +31,9 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.compat.InputConnectionCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
@@ -46,9 +49,6 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Enrichment class for InputConnection to simplify interaction and add functionality.
@@ -652,7 +652,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     @SuppressWarnings("unused")
-    @Nonnull
+    @NonNull
     public NgramContext getNgramContextFromNthPreviousWord(
             final SpacingAndPunctuations spacingAndPunctuations, final int n) {
         mIC = mParent.getCurrentInputConnection();

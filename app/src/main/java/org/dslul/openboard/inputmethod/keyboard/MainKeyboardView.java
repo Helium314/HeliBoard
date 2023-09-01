@@ -34,6 +34,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.MainKeyboardAccessibilityDelegate;
 import org.dslul.openboard.inputmethod.annotations.ExternallyReferenced;
@@ -63,13 +66,9 @@ import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.WeakHashMap;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A view that is responsible for detecting key presses and touch movements.
@@ -470,7 +469,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     // Implements {@link DrawingProxy#onKeyPressed(Key,boolean)}.
     @Override
-    public void onKeyPressed(@Nonnull final Key key, final boolean withPreview) {
+    public void onKeyPressed(@NonNull final Key key, final boolean withPreview) {
         key.onPressed();
         invalidateKey(key);
         if (withPreview && !key.noKeyPreview()) {
@@ -478,7 +477,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
     }
 
-    private void showKeyPreview(@Nonnull final Key key) {
+    private void showKeyPreview(@NonNull final Key key) {
         final Keyboard keyboard = getKeyboard();
         if (keyboard == null) {
             return;
@@ -495,14 +494,14 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
     }
 
-    private void dismissKeyPreviewWithoutDelay(@Nonnull final Key key) {
+    private void dismissKeyPreviewWithoutDelay(@NonNull final Key key) {
         mKeyPreviewChoreographer.dismissKeyPreview(key);
         invalidateKey(key);
     }
 
     // Implements {@link DrawingProxy#onKeyReleased(Key,boolean)}.
     @Override
-    public void onKeyReleased(@Nonnull final Key key, final boolean withAnimation) {
+    public void onKeyReleased(@NonNull final Key key, final boolean withAnimation) {
         key.onReleased();
         invalidateKey(key);
         if (!key.noKeyPreview()) {
@@ -514,7 +513,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
     }
 
-    private void dismissKeyPreview(@Nonnull final Key key) {
+    private void dismissKeyPreview(@NonNull final Key key) {
         if (isHardwareAccelerated()) {
             mKeyPreviewChoreographer.dismissKeyPreview(key);
         }
@@ -540,12 +539,12 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mGestureTrailsDrawingPreview.setPreviewEnabled(isGestureTrailEnabled);
     }
 
-    public void showGestureFloatingPreviewText(@Nonnull final SuggestedWords suggestedWords,
+    public void showGestureFloatingPreviewText(@NonNull final SuggestedWords suggestedWords,
             final boolean dismissDelayed) {
         locatePreviewPlacerView();
         final GestureFloatingTextDrawingPreview gestureFloatingTextDrawingPreview =
                 mGestureFloatingTextDrawingPreview;
-        gestureFloatingTextDrawingPreview.setSuggetedWords(suggestedWords);
+        gestureFloatingTextDrawingPreview.setSuggestedWords(suggestedWords);
         if (dismissDelayed) {
             mTimerHandler.postDismissGestureFloatingPreviewText(
                     mGestureFloatingPreviewTextLingerTimeout);
@@ -559,7 +558,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
-    public void showGestureTrail(@Nonnull final PointerTracker tracker,
+    public void showGestureTrail(@NonNull final PointerTracker tracker,
             final boolean showsFloatingPreviewText) {
         locatePreviewPlacerView();
         if (showsFloatingPreviewText) {
@@ -597,8 +596,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     // Implements {@link DrawingProxy@showMoreKeysKeyboard(Key,PointerTracker)}.
     @Override
     @Nullable
-    public MoreKeysPanel showMoreKeysKeyboard(@Nonnull final Key key,
-            @Nonnull final PointerTracker tracker) {
+    public MoreKeysPanel showMoreKeysKeyboard(@NonNull final Key key,
+            @NonNull final PointerTracker tracker) {
         final MoreKeySpec[] moreKeys = key.getMoreKeys();
         if (moreKeys == null) {
             return null;

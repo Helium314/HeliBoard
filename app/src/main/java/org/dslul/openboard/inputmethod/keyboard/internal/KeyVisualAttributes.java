@@ -20,13 +20,13 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.SparseIntArray;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public final class KeyVisualAttributes {
     @Nullable
@@ -88,7 +88,7 @@ public final class KeyVisualAttributes {
     }
 
     @Nullable
-    public static KeyVisualAttributes newInstance(@Nonnull final TypedArray keyAttr) {
+    public static KeyVisualAttributes newInstance(@NonNull final TypedArray keyAttr) {
         final int indexCount = keyAttr.getIndexCount();
         for (int i = 0; i < indexCount; i++) {
             final int attrId = keyAttr.getIndex(i);
@@ -100,7 +100,7 @@ public final class KeyVisualAttributes {
         return null;
     }
 
-    private KeyVisualAttributes(@Nonnull final TypedArray keyAttr) {
+    private KeyVisualAttributes(@NonNull final TypedArray keyAttr) {
         if (keyAttr.hasValue(R.styleable.Keyboard_Key_keyTypeface)) {
             mTypeface = Typeface.defaultFromStyle(
                     keyAttr.getInt(R.styleable.Keyboard_Key_keyTypeface, Typeface.NORMAL));
