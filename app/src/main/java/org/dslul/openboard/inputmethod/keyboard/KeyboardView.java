@@ -151,7 +151,7 @@ public class KeyboardView extends View {
                 R.styleable.KeyboardView_spacebarBackground);
         mSpacebarBackground = (spacebarBackground != null) ? spacebarBackground.mutate()
                 : keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
-        if (mColors.getClass() == HoloColors.class) // todo: this logic should be in Colors, not here
+        if (mColors instanceof HoloColors) // todo: this logic should be in Colors, not here
             mActionKeyBackground = mFunctionalKeyBackground;
         else
             mActionKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground).mutate();
@@ -180,11 +180,10 @@ public class KeyboardView extends View {
 
         mPaint.setAntiAlias(true);
 
-        final Class<?> c = this.getClass();
-        if (c == MoreKeysKeyboardView.class) {
-            mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
-        } else if (c == EmojiPageKeyboardView.class || c == MoreSuggestionsView.class) {
+        if (this instanceof EmojiPageKeyboardView || this instanceof MoreSuggestionsView) {
             mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_BACKGROUND);
+        } else if (this instanceof MoreKeysKeyboardView) {
+            mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
         } else {
             mColors.setBackgroundColor(mKeyBackground, Colors.TYPE_KEY);
         }
@@ -197,7 +196,7 @@ public class KeyboardView extends View {
             // todo: this should only be applied to specific keyboards, check original version for which one
             //  and actually this again is something that maybe should be done in Colors
             final Drawable keyboardBackground = mColors.getKeyboardBackground();
-            if (this.getClass() != MoreSuggestionsView.class && keyboardBackground != null)
+            if (this instanceof MoreSuggestionsView && keyboardBackground != null)
                 setBackground(keyboardBackground);
             else
                 getBackground().setColorFilter(mColors.backgroundFilter);
@@ -621,7 +620,7 @@ public class KeyboardView extends View {
     }
 
     private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
-        if (key.isAccentColored() && mColors.getClass() != HoloColors.class) { // todo: again sth that should not be here
+        if (key.isAccentColored() && !(mColors instanceof HoloColors)) { // todo: again sth that should not be here
             icon.setColorFilter(mColors.actionKeyIconColorFilter);
         } else if (key.isShift() && keyboard != null) {
             // todo (idea): replace shift icon with white one and use the normal multiply filters
@@ -636,7 +635,7 @@ public class KeyboardView extends View {
                 icon.setColorFilter(mColors.keyTextFilter); // key text if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             icon.setColorFilter(mColors.keyTextFilter);
-        } else if (this.getClass() == MoreKeysKeyboardView.class) {
+        } else if (this instanceof MoreKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
             icon.setColorFilter(mColors.keyTextFilter);
         }

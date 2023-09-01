@@ -219,7 +219,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.getClass() == HoloColors.class) // todo: this logic should be in Colors
+        if (colors instanceof HoloColors) // todo: this logic should be in Colors
             mLanguageOnSpacebarTextColor = colors.keyText;
         else
             mLanguageOnSpacebarTextColor = colors.keyHintText; //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
