@@ -982,8 +982,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             userDict.removeUnigramEntryDynamically(word);
         }
 
-        // add to blacklist if in main dictionary
-        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word) && group.blacklist.add(word)) {
+        final ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
+        final boolean isInContacts;
+        if (contactsDict != null) {
+            isInContacts = contactsDict.isInDictionary(word);
+            if (isInContacts)
+                contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
+        } else isInContacts = false;
+
+        // add to blacklist if in main or contacts dictionaries
+        if ((isInContacts || group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)) && group.blacklist.add(word)) {
             // write to file if word wasn't already in blacklist
             ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
                 try {
