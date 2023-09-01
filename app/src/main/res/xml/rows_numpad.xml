@@ -43,11 +43,11 @@
         <!-- &#45; "-" HYPHEN-MINUS SIGN -->
         <!-- &#41; ")" RIGHT PARENTHESIS SIGN -->
         <!-- &#62; ">" GREATER-THAN SIGN -->
-        <!-- &#126; "~" TILDE -->
+        <!-- &#8722; "−" MINUS SIGN -->
         <Key
             latin:keySpec="&#45;"
             latin:keyHintLabel="&#41;"
-            latin:additionalMoreKeys="&#41;,&#62;,&#126;"
+            latin:additionalMoreKeys="&#41;,&#62;,&#8722;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="15%p" />

@@ -48,10 +48,10 @@
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#45; "-" HYPHEN-MINUS SIGN -->
-        <!-- &#126; "~" TILDE -->
+        <!-- &#8722; "−" MINUS SIGN -->
         <Key
             latin:keySpec="&#45;"
-            latin:additionalMoreKeys="&#126;"
+            latin:additionalMoreKeys="&#8722;"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="8.6%p" />
         <!-- &#32; " " SPACE -->
