@@ -21,7 +21,7 @@ import org.dslul.openboard.inputmethod.latin.settings.AppearanceSettingsFragment
 import org.dslul.openboard.inputmethod.latin.settings.CorrectionSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.GestureSettingsFragment;
-import org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment;
+import org.dslul.openboard.inputmethod.latin.settings.LanguageFakeSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsFragment;
 import org.dslul.openboard.inputmethod.latin.settings.AboutFragment;
@@ -49,7 +49,7 @@ public class FragmentUtils {
         sLatinImeFragments.add(UserDictionaryList.class.getName());
         sLatinImeFragments.add(UserDictionaryLocalePicker.class.getName());
         sLatinImeFragments.add(UserDictionarySettings.class.getName());
-        sLatinImeFragments.add(LanguageSettingsFragment.class.getName());
+        sLatinImeFragments.add(LanguageFakeSettingsFragment.class.getName());
     }
 
     public static boolean isValidFragment(String fragmentName) {

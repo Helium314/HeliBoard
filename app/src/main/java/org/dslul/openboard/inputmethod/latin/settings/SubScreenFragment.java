@@ -140,7 +140,9 @@ public abstract class SubScreenFragment extends PreferenceFragmentCompat
         final Activity activity = getActivity();
         if (activity instanceof AppCompatActivity) {
             final ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
-            final CharSequence screenTitle = getPreferenceScreen().getTitle();
+            final PreferenceScreen ps = getPreferenceScreen();
+            if (ps == null) return;
+            final CharSequence screenTitle = ps.getTitle();
             if (actionBar != null && screenTitle != null) {
                 actionBar.setTitle(screenTitle);
             }

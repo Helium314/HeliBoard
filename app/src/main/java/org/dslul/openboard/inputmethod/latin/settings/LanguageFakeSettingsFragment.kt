@@ -6,51 +6,76 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodSubtype
-import androidx.preference.SwitchPreferenceCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.edit
+import androidx.fragment.app.Fragment
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.getDictionaryLocales
-import java.util.Locale
+import java.util.*
 
-class LanguageSettingsFragment : SubScreenFragment() {
-
+// not a SettingsFragment, because with androidx.preferences it's very complicated or
+// impossible to have the languages RecyclerView scrollable (this way it works nicely out of the box)
+class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
     private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
-    private val languageFilterListPreference by lazy { findPreference<LanguageFilterListPreference>("pref_language_filter")!! }
+    private lateinit var languageFilterList: LanguageFilterListFakePreference
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var systemOnlySwitch: SwitchCompat
     private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addPreferencesFromResource(R.xml.prefs_screen_languages)
+        sharedPreferences = DeviceProtectedUtils.getSharedPreferences(requireContext())
+
         SubtypeLocaleUtils.init(requireContext())
 
         enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
         systemLocales.addAll(getSystemLocales())
-        loadSubtypes()
     }
 
-    override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
-        super.onSharedPreferenceChanged(prefs, key)
-        if (key == Settings.PREF_USE_SYSTEM_LOCALES)
-            loadSubtypes()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState) ?: return null
+        systemOnlySwitch = view.findViewById(R.id.language_switch)
+        systemOnlySwitch.isChecked = sharedPreferences.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
+        systemOnlySwitch.setOnCheckedChangeListener { _, b ->
+            sharedPreferences.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
+            loadSubtypes(b)
+        }
+        languageFilterList = LanguageFilterListFakePreference(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
+        loadSubtypes(systemOnlySwitch.isChecked)
+        return view
     }
 
     override fun onResume() {
         super.onResume()
-        languageFilterListPreference.setSettingsFragment(this)
+        languageFilterList.setSettingsFragment(this)
+        val activity: Activity? = activity
+        if (activity is AppCompatActivity) {
+            val actionBar = activity.supportActionBar ?: return
+            actionBar.setTitle(R.string.language_selection_title)
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        languageFilterListPreference.setSettingsFragment(null)
+        languageFilterList.setSettingsFragment(null)
     }
 
-    private fun loadSubtypes() {
-        val systemOnly = findPreference<SwitchPreferenceCompat>(Settings.PREF_USE_SYSTEM_LOCALES)!!.isChecked
+    private fun loadSubtypes(systemOnly: Boolean) {
         sortedSubtypes.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
@@ -108,7 +133,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
         allSubtypes.removeAll(enabledSubtypes)
 
         if (systemOnly) { // don't add anything else
-            languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
+            languageFilterList.setLanguages(sortedSubtypes.values, systemOnly)
             return
         }
 
@@ -133,7 +158,7 @@ class LanguageSettingsFragment : SubScreenFragment() {
             }.addToSortedSubtypes()
 
         // set languages
-        languageFilterListPreference.setLanguages(sortedSubtypes.values, systemOnly)
+        languageFilterList.setLanguages(sortedSubtypes.values, systemOnly)
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =

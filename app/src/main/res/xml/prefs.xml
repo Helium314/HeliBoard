@@ -17,7 +17,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="english_ime_settings">
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment"
+        android:fragment="org.dslul.openboard.inputmethod.latin.settings.LanguageFakeSettingsFragment"
         android:title="@string/language_selection_title"
         android:key="screen_languages"
         android:icon="@drawable/ic_settings_languages"/>

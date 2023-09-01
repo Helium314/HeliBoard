@@ -52,6 +52,7 @@ public final class SettingsActivity extends AppCompatActivity
         final Intent i = getIntent();
         if (Intent.ACTION_VIEW.equals(i.getAction()) && i.getData() != null) {
             new NewDictionaryAdder(this, null).addDictionary(i.getData(), null);
+            setIntent(new Intent()); // avoid opening again
         }
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
