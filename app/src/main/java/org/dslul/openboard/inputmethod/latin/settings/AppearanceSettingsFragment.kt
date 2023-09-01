@@ -15,7 +15,6 @@
  */
 package org.dslul.openboard.inputmethod.latin.settings
 
-import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Configuration
@@ -26,6 +25,7 @@ import android.preference.ListPreference
 import android.preference.Preference
 import android.preference.TwoStatePreference
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme

@@ -36,7 +36,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,6 +58,7 @@ import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,

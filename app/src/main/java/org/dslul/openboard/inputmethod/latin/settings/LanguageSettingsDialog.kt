@@ -1,15 +1,14 @@
 package org.dslul.openboard.inputmethod.latin.settings
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
@@ -28,8 +27,7 @@ class LanguageSettingsDialog(
     private val fragment: LanguageSettingsFragment?,
     private val onlySystemLocales: Boolean,
     private val onSubtypesChanged: () -> Unit
-) : AlertDialog(ContextThemeWrapper(context, R.style.platformDialogTheme)), LanguageSettingsFragment.Listener {
-    private val context = ContextThemeWrapper(context, R.style.platformDialogTheme)
+) : AlertDialog(context), LanguageSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
     private val mainLocaleString = infos.first().subtype.locale

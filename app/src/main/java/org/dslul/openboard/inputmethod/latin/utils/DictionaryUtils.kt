@@ -1,11 +1,11 @@
 package org.dslul.openboard.inputmethod.latin.utils
 
-import android.app.AlertDialog
 import android.content.Context
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="platformActivityTheme" parent="@android:style/Theme.Material">
-        <item name="android:colorAccent">@color/highlight_color_lxx_dark</item>
-    </style>
-    <style name="platformDialogTheme" parent="@android:style/Theme.Material.Dialog">
-        <item name="android:colorAccent">@color/highlight_color_lxx_dark</item>
-    </style>
-</resources>

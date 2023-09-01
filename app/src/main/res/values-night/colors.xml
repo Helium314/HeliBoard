@@ -5,4 +5,6 @@
     <color name="foreground">#FFF</color>
     <color name="foreground_weak">#BBB</color>
     <color name="almost_background">#666</color>
+
+    <color name="accent">@color/highlight_color_lxx_dark</color>
 </resources>

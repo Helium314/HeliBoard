@@ -17,7 +17,6 @@
 // adapted from https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/settings/ColorDialogPreference.java
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,6 +24,8 @@ import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.dslul.openboard.inputmethod.latin.R;
 

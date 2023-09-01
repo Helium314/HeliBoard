@@ -16,7 +16,6 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -102,6 +101,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -211,7 +211,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
     final RestartAfterDeviceUnlockReceiver mRestartAfterDeviceUnlockReceiver = new RestartAfterDeviceUnlockReceiver();
 
-    private AlertDialog mOptionsDialog;
+    private AlertDialog mOptionsDialog; // todo: this is always null -> remove?
 
     private final boolean mIsHardwareAcceleratedDrawingEnabled;
 

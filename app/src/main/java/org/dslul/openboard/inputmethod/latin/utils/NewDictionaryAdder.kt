@@ -1,10 +1,10 @@
 package org.dslul.openboard.inputmethod.latin.utils
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.FileUtils

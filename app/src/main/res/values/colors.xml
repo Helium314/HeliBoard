@@ -117,4 +117,6 @@
     <color name="foreground">#000</color>
     <color name="foreground_weak">#555</color>
     <color name="almost_background">#AAA</color>
+
+    <color name="accent">@color/highlight_color_lxx_light</color>
 </resources>
