@@ -53,10 +53,11 @@
         latin:keySpec="&amp;" />
     <!-- U+2013: "–" EN DASH
          U+2014: "—" EM DASH
+         U+2014: "−" MINUS SIGN
          U+00B7: "·" MIDDLE DOT -->
     <Key
         latin:keySpec="-"
-        latin:moreKeys="_,&#x2013;,&#x2014;,&#x00B7;" />
+        latin:moreKeys="_,&#x2013;,&#x2014;,&#8722;,&#x00B7;" />
     <Key
         latin:keySpec="+"
         latin:moreKeys="!text/morekeys_plus" />
