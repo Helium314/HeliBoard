@@ -248,7 +248,8 @@ private fun loadEnabledSubtypes(context: Context) {
     }
 }
 
-private var initialized = false
+var initialized = false
+    private set
 private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
 private val resourceSubtypesByLocale = LinkedHashMap<String, MutableList<InputMethodSubtype>>(100)
 private val additionalSubtypes = mutableListOf<InputMethodSubtype>()
