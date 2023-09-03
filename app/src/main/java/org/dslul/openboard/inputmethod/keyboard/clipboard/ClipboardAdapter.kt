@@ -13,6 +13,7 @@ import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Colors
+import org.dslul.openboard.inputmethod.latin.common.HoloColors
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class ClipboardAdapter(
@@ -67,6 +68,9 @@ class ClipboardAdapter(
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize)
             }
             clipboardLayoutParams.setItemProperties(view)
+            val colors = Settings.getInstance().current.mColors
+            if (colors is HoloColors)
+                pinnedIconView.colorFilter = colors.accentColorFilter
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {
