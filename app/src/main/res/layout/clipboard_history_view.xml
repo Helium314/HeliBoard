@@ -42,7 +42,9 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="1dp"
                 android:layout_gravity="start|center_vertical"
-                android:paddingHorizontal="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:drawablePadding="12dp"
                 android:gravity="center"
                 android:hapticFeedbackEnabled="false"
                 android:soundEffectsEnabled="false" />
