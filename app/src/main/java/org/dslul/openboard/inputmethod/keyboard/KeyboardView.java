@@ -196,7 +196,7 @@ public class KeyboardView extends View {
             // todo: this should only be applied to specific keyboards, check original version for which one
             //  and actually this again is something that maybe should be done in Colors
             final Drawable keyboardBackground = mColors.getKeyboardBackground();
-            if (this instanceof MoreSuggestionsView && keyboardBackground != null)
+            if (!(this instanceof MoreSuggestionsView) && keyboardBackground != null)
                 setBackground(keyboardBackground);
             else
                 getBackground().setColorFilter(mColors.backgroundFilter);
