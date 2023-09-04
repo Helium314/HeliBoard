@@ -123,8 +123,7 @@
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
-        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/btn_suggestion_lxx_base</item> -->
-        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
+        <item name="android:background">@drawable/btn_suggestion_lxx_base</item>
         <item name="android:src">@drawable/suggestions_strip_divider_lxx_light</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
         <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
@@ -137,8 +136,7 @@
         name="SuggestionWord.LXX_Base"
         parent="SuggestionWord"
         >
-        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base</item> -->
-        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
+        <item name="android:background">@drawable/btn_suggestion_lxx_base</item>
         <item name="android:textColor">@color/highlight_color_lxx_light</item>
     </style>
 </resources>
