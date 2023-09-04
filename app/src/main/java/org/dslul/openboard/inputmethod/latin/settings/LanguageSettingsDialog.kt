@@ -152,6 +152,7 @@ class LanguageSettingsDialog(
                             addSecondaryLocaleView(locale, secondaryLocalesView)
                             di.dismiss()
                         }
+                        .setNegativeButton(android.R.string.cancel, null)
                         .show()
                 }
             }
