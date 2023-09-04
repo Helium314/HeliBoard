@@ -200,12 +200,12 @@ public class Colors {
 
     @ColorInt
     public static int brighten(@ColorInt final int color) {
-        return adjustLuminosityAndKeepAlpha(color, 0.05f);
+        return adjustLuminosityAndKeepAlpha(color, 0.06f);
     }
 
     @ColorInt
     public static int darken(@ColorInt final int color) {
-        return adjustLuminosityAndKeepAlpha(color, -0.05f);
+        return adjustLuminosityAndKeepAlpha(color, -0.06f);
     }
 
 }

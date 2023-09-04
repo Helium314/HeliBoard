@@ -68,7 +68,6 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.NOT_A_COORD
  * </ol>
  * Because of the above reasons, this class doesn't extend {@link KeyboardView}.
  */
-@SuppressWarnings("deprecation")
 public final class EmojiPalettesView extends LinearLayout
         implements OnTabChangeListener, View.OnClickListener, View.OnTouchListener,
         OnKeyEventListener {
@@ -174,6 +173,8 @@ public final class EmojiPalettesView extends LinearLayout
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+
         mTabHost = findViewById(R.id.emoji_category_tabhost);
         mTabHost.setup();
         for (final EmojiCategory.CategoryProperties properties
@@ -189,7 +190,6 @@ public final class EmojiPalettesView extends LinearLayout
             tabWidget.setBackgroundResource(mCategoryIndicatorDrawableResId);
             tabWidget.setLeftStripDrawable(mCategoryIndicatorBackgroundResId);
             tabWidget.setRightStripDrawable(mCategoryIndicatorBackgroundResId);
-            final Colors colors = Settings.getInstance().getCurrent().mColors;
             tabWidget.setBackgroundColor(colors.accent);
         }
 
@@ -272,7 +272,6 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
 
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
         colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), Colors.TYPE_FUNCTIONAL);
         colors.setBackgroundColor(mDeleteKey.getBackground(), Colors.TYPE_FUNCTIONAL);
         colors.setBackgroundColor(mSpacebar.getBackground(), Colors.TYPE_SPACE);

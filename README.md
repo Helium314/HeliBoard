@@ -15,85 +15,60 @@ The rough plan for this project:
   * possibly has some undiscovered bugs, more testing required
 * Dictionaries
   * semi-independent in a separate repository: https://codeberg.org/Helium314/aosp-dictionaries
-* Language settings
-  * currently they are scattered across mulitple places (languages, custom input styles, multilingual typing, dictionaries)
-* Clean up the xml files
+* Internal clean up (xml files, unused resources and classes)
   * the current state look rather messy, with many useless / duplicate entries that make changes needlessly tricky
 * Make suggestion removal functionality more discoverable
 * Fix some bugs along the way
 
 Once above is done, we can think about renaming and properly releasing the app. First just in this repository, and later on F-Droid.
 
-Changes to OpenBoard:
-* Updated dependencies
+Important differences / changes to OpenBoard:
 * Debug version can be installed along OpenBoard
 * Allow users to add and replace built-in dictionaries
   * modified / improved from https://github.com/openboard-team/openboard/pull/569 and https://github.com/openboard-team/openboard/pull/578
   * some AOSP dictionaries are available [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries)
     * experimental dictionaries with next-word suggestions created from sentence lists [are also available](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental), but they may contain unwanted words, and may be missing other features
   * dictionary files starting with "main_" replace the built-in dictionary for the language, all other names work as add-on dictionaries
-  * add [Arabic dictionary](https://github.com/remi0s/aosp-dictionary-tools/blob/master/dictsCreated/WikiAndOpenSubtitles/ar_wordlist.combined) for download, from https://github.com/openboard-team/openboard/pull/450
-  * add [Hebrew dictionary](https://github.com/Hananel-Hazan/aosp-dictionary-tools/blob/master/hebrew-hspell.txt.combined.new) for download, from https://github.com/openboard-team/openboard/pull/300
-  * add [Galician dictionary](https://github.com/chavaone/openboard/blob/master/dictionaries/es_GL_wordlist.combined.gz) for download, from https://github.com/openboard-team/openboard/pull/291
-* Fix suggestions after some characters, https://github.com/openboard-team/openboard/pull/694, https://github.com/openboard-team/openboard/issues/795
-* Fix suggestions sometimes not being shown, https://github.com/openboard-team/openboard/pull/709
+  * emoji dictionaries can be used to get emoji suggestions
+* Fixes / improvements regarding suggestions
+  * Remove suggestions by long pressing on suggestion strip while the more suggestions popup is open (suggestions get re-added if they are entered again)
+  * Allow using contacts for suggestions
+  * several small adjustments and fixes
 * Reduce amount of unwanted automatic space insertions, https://github.com/openboard-team/openboard/pull/576
-* Exit shift-symbol view on space (same as normal symbol view)
 * Add multi-lingual typing, slightly modified from https://github.com/openboard-team/openboard/pull/586, https://github.com/openboard-team/openboard/pull/593
 * Allow loading an external library to enable gesture typing, https://github.com/openboard-team/openboard/issues/3
   * based on [wordmage's work](https://github.com/openboard-team/openboard/tree/57d33791d7674e3fe0600eddb72f6b4317b5df00)
   * tested with [Google libraries](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs) and [others](https://github.com/openboard-team/openboard/issues/3#issuecomment-1200456262) (when building with the [rename](https://github.com/openboard-team/openboard/tree/57d33791d7674e3fe0600eddb72f6b4317b5df00))
-* Allow adjusting keyboard colors, https://github.com/openboard-team/openboard/issues/124
+* Theming: allow adjusting keyboard colors, https://github.com/openboard-team/openboard/issues/124
   * Optionally make the navigation bar follow current theme, https://github.com/Helium314/openboard/issues/4
 * Remove suggestions by long pressing on suggestion strip while the more suggestions popup is open, https://github.com/openboard-team/openboard/issues/106
   * suggestions get re-added if they are entered again
 * Optionally add typed words to system personal dictionary
-* Allow using contacts for suggestions (enable in spell checker settings), https://github.com/openboard-team/openboard/issues/374
-* Re-arranged comma-long-press-menu, https://github.com/Helium314/openboard/pull/7
-* Make Bengali spell check work, https://github.com/Helium314/openboard/pull/11
-* Fix azerty layout in landscape mode on tablets, https://github.com/openboard-team/openboard/pull/791
 * Improve issues with emoji deletion (still happens with delete gesture), https://github.com/Helium314/openboard/issues/22
 * Add Unicode 15 emojis, https://github.com/openboard-team/openboard/issues/25
-* Improved experimental emoji dictionary for download
 * Better currency selection, https://github.com/Helium314/openboard/pull/21 / https://github.com/Helium314/openboard/commit/0d1106649f95ecbd7d8f6d950428547666059564
-* Reduce space between keys, https://github.com/Helium314/openboard/pull/8
+* Reduce space between keys, with option to use old values, https://github.com/Helium314/openboard/pull/8
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
-* Fix white background of emoji tab selector on AMOLED theme for some Android versions, https://github.com/Helium314/openboard/pull/26
-* Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679 (maybe not properly fixed)
+* Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679
+  * maybe not properly fixed, this causes some other issues
 * Fix always-dark settings on some Android versions, https://github.com/Helium314/openboard/pull/69
 * Fix bug with space before word being deleted in some apps / input fields, https://github.com/Helium314/openboard/commit/ce0bf06545c4547d3fc5791cc769508db0a89e87
 * Allow using auto theme on some devices with Android 9
-* Add auto theme for the new theming system
 * Add number pad
 * Overhauled language settings
 * Updated translations
 
 Further plan / to do:
-* ~upgrade dependencies~
 * upgrade NDK, https://github.com/openboard-team/openboard/issues/782
-* maybe: rename (package, app, icon), so it can be installed parallel to OpenBoard, and published on F-Droid
-* ~user-selectable dictionaries, https://github.com/openboard-team/openboard/pull/578~
-  * ~make additional dictionaries available for download (from OpenBoard PRs)~
-  * more dictionaries
-  * ~proper icon for preference~ https://github.com/Helium314/openboard/pull/10
+* later: rename (package, app, icon), so it can be installed parallel to OpenBoard, and published on F-Droid
 * ~multi-lingual typing, https://github.com/openboard-team/openboard/pull/586, https://github.com/openboard-team/openboard/pull/593~
   * maybe improve way of merging suggestions from both languages
   * test whether it works reasonably well in non-latin scripts
 * ~suggestion fixes, https://github.com/openboard-team/openboard/pull/694, https://github.com/openboard-team/openboard/issues/795, https://github.com/openboard-team/openboard/issues/660~
 * ~improve auto-space insertion, https://github.com/openboard-team/openboard/pull/576~
 * ~emoji prediction/search, https://github.com/openboard-team/openboard/pull/749 (better use emoji dictionaries, this is more flexible)~
-* ~theming, https://github.com/openboard-team/openboard/issues/124~
-  * ~fix emoji view not themed properly~
-  * ~fix ABC buttons in emoji and clipboard view have wrong text color~
-  * ~allow adjusting colors without requiring manual reload of keyboard~
-  * ~fix issues in _more suggestions_ view, https://github.com/Helium314/openboard/issues/9#issuecomment-1626932543~ (not 100% fixed, but should not be noticeable)
-  * fix buttons on long-press action key not themed
-  * fix icons on long-press comma key not themed
 * ~delete suggestions, https://github.com/openboard-team/openboard/issues/106~
   * make functionality more discoverable, e.g. add a button to the _more suggestions_ menu, or replace long-press menu and show more suggestions by scrolling suggestion strip
-* ~gesture typing, https://github.com/openboard-team/openboard/issues/3~
-  * ~license issues, require using an external library~
-* ~copy _use contacts_ setting from well hidden spell checker settings to _text correction_ settings~
 * add emojis to user history, to be used for next word
 
 -----
