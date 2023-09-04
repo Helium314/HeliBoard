@@ -18,6 +18,11 @@ import java.util.*
 /**
  * Preference screen.
  */
+// keep the fragment for now, as it may contain something useful on dictionary management, but
+// suppress warnings
+// todo: check this fragment, take what could be useful, and remove the fragment
+//  same for WordListPreference and WordListMetadata
+@Suppress("deprecation")
 class DictionarySettingsFragment
 /**
  * Empty constructor for fragment generation.
@@ -149,12 +154,12 @@ class DictionarySettingsFragment
             }
             val systemLocaleString = Locale.getDefault().toString()
             val prefMap = TreeMap<String, WordListPreference>()
-            val idIndex = cursor.getColumnIndex(MetadataDbHelper.Companion.WORDLISTID_COLUMN)
-            val versionIndex = cursor.getColumnIndex(MetadataDbHelper.Companion.VERSION_COLUMN)
-            val localeIndex = cursor.getColumnIndex(MetadataDbHelper.Companion.LOCALE_COLUMN)
-            val descriptionIndex = cursor.getColumnIndex(MetadataDbHelper.Companion.DESCRIPTION_COLUMN)
-            val statusIndex = cursor.getColumnIndex(MetadataDbHelper.Companion.STATUS_COLUMN)
-            val filesizeIndex = cursor.getColumnIndex(MetadataDbHelper.Companion.FILESIZE_COLUMN)
+            val idIndex = cursor.getColumnIndex(MetadataDbHelper.WORDLISTID_COLUMN)
+            val versionIndex = cursor.getColumnIndex(MetadataDbHelper.VERSION_COLUMN)
+            val localeIndex = cursor.getColumnIndex(MetadataDbHelper.LOCALE_COLUMN)
+            val descriptionIndex = cursor.getColumnIndex(MetadataDbHelper.DESCRIPTION_COLUMN)
+            val statusIndex = cursor.getColumnIndex(MetadataDbHelper.STATUS_COLUMN)
+            val filesizeIndex = cursor.getColumnIndex(MetadataDbHelper.FILESIZE_COLUMN)
             do {
                 val wordlistId = cursor.getString(idIndex)
                 val version = cursor.getInt(versionIndex)
@@ -202,7 +207,7 @@ class DictionarySettingsFragment
         private val TAG = DictionarySettingsFragment::class.java.simpleName
         private const val DICT_LIST_ID = "list"
         const val DICT_SETTINGS_FRAGMENT_CLIENT_ID_ARGUMENT = "clientId"
-        private const val MENU_UPDATE_NOW = Menu.FIRST
+//        private const val MENU_UPDATE_NOW = Menu.FIRST
         private fun createErrorMessage(activity: Activity?, messageResource: Int): Preference {
             val message = Preference(activity)
             message.setTitle(messageResource)

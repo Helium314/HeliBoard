@@ -25,6 +25,7 @@ import java.util.*
  * This class is a ContentProvider exposing all available dictionary data as managed by
  * the dictionary pack.
  */
+@Suppress("deprecation")
 class DictionaryProvider : ContentProvider() {
     companion object {
         private val TAG = DictionaryProvider::class.java.simpleName
@@ -97,7 +98,7 @@ class DictionaryProvider : ContentProvider() {
         val mWordLists: Array<WordListInfo>
 
         override fun getColumnNames(): Array<String> {
-            return Companion.columnNames
+            return columnNames
         }
 
         override fun getCount(): Int {
@@ -139,8 +140,8 @@ class DictionaryProvider : ContentProvider() {
 
         companion object {
             // Column names for the cursor returned by this content provider.
-            private val columnNames = arrayOf<String>(MetadataDbHelper.Companion.WORDLISTID_COLUMN,
-                    MetadataDbHelper.Companion.LOCALE_COLUMN, MetadataDbHelper.Companion.RAW_CHECKSUM_COLUMN)
+            private val columnNames = arrayOf<String>(MetadataDbHelper.WORDLISTID_COLUMN,
+                    MetadataDbHelper.LOCALE_COLUMN, MetadataDbHelper.RAW_CHECKSUM_COLUMN)
         }
 
         // Note : the cursor also uses mPos, which is defined in AbstractCursor.
@@ -196,7 +197,7 @@ class DictionaryProvider : ContentProvider() {
         val match = matchUri(uri)
         return when (match) {
             DICTIONARY_V1_WHOLE_LIST, DICTIONARY_V2_WHOLE_LIST -> {
-                val c: Cursor = MetadataDbHelper.Companion.queryDictionaries(context, clientId)
+                val c: Cursor = MetadataDbHelper.queryDictionaries(context, clientId)
                 DebugLogUtils.l("List of dictionaries with count", c.count)
                 PrivateLog.log("Returned a list of " + c.count + " items")
                 c
@@ -204,7 +205,7 @@ class DictionaryProvider : ContentProvider() {
             DICTIONARY_V2_DICT_INFO -> {
                 // In protocol version 2, we return null if the client is unknown. Otherwise
 // we behave exactly like for protocol 1.
-                if (!MetadataDbHelper.Companion.isClientKnown(context, clientId)) return null
+                if (!MetadataDbHelper.isClientKnown(context, clientId)) return null
                 val locale = uri.lastPathSegment
                 val dictFiles = getDictionaryWordListsForLocale(clientId, locale)
                 // TODO: pass clientId to the following function
@@ -240,8 +241,8 @@ class DictionaryProvider : ContentProvider() {
                                                  wordlistId: String?): ContentValues? {
         val context = context
         if (TextUtils.isEmpty(wordlistId)) return null
-        val db: SQLiteDatabase = MetadataDbHelper.Companion.getDb(context, clientId)
-        return MetadataDbHelper.Companion.getInstalledOrDeletingWordListContentValuesByWordListId(
+        val db: SQLiteDatabase = MetadataDbHelper.getDb(context, clientId)
+        return MetadataDbHelper.getInstalledOrDeletingWordListContentValuesByWordListId(
                 db, wordlistId)
     }
 
@@ -267,15 +268,15 @@ class DictionaryProvider : ContentProvider() {
         val clientId = getClientId(uri)
         val wordList = getWordlistMetadataForWordlistId(clientId, wordlistId) ?: return null
         try {
-            val status = wordList.getAsInteger(MetadataDbHelper.Companion.STATUS_COLUMN)
-            if (MetadataDbHelper.Companion.STATUS_DELETING == status) { // This will return an empty file (R.raw.empty points at an empty dictionary)
+            val status = wordList.getAsInteger(MetadataDbHelper.STATUS_COLUMN)
+            if (MetadataDbHelper.STATUS_DELETING == status) { // This will return an empty file (R.raw.empty points at an empty dictionary)
 // This is how we "delete" the files. It allows Android Keyboard to fake deleting
 // a default dictionary - which is actually in its assets and can't be really
 // deleted.
                 return context!!.resources.openRawResourceFd(
                         R.raw.empty)
             }
-            val localFilename = wordList.getAsString(MetadataDbHelper.Companion.LOCAL_FILENAME_COLUMN)
+            val localFilename = wordList.getAsString(MetadataDbHelper.LOCAL_FILENAME_COLUMN)
             val f = context!!.getFileStreamPath(localFilename)
             val pfd = ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY)
             return AssetFileDescriptor(pfd, 0, pfd.statSize)
@@ -300,15 +301,15 @@ class DictionaryProvider : ContentProvider() {
     private fun getDictionaryWordListsForLocale(clientId: String?,
                                                 locale: String?): Collection<WordListInfo> {
         val context = context
-        val results: Cursor = MetadataDbHelper.Companion.queryInstalledOrDeletingOrAvailableDictionaryMetadata(context,
+        val results: Cursor = MetadataDbHelper.queryInstalledOrDeletingOrAvailableDictionaryMetadata(context,
                 clientId)
         return try {
             val dicts = HashMap<String, WordListInfo>()
-            val idIndex = results.getColumnIndex(MetadataDbHelper.Companion.WORDLISTID_COLUMN)
-            val localeIndex = results.getColumnIndex(MetadataDbHelper.Companion.LOCALE_COLUMN)
-            val localFileNameIndex = results.getColumnIndex(MetadataDbHelper.Companion.LOCAL_FILENAME_COLUMN)
-            val rawChecksumIndex = results.getColumnIndex(MetadataDbHelper.Companion.RAW_CHECKSUM_COLUMN)
-            val statusIndex = results.getColumnIndex(MetadataDbHelper.Companion.STATUS_COLUMN)
+            val idIndex = results.getColumnIndex(MetadataDbHelper.WORDLISTID_COLUMN)
+            val localeIndex = results.getColumnIndex(MetadataDbHelper.LOCALE_COLUMN)
+            val localFileNameIndex = results.getColumnIndex(MetadataDbHelper.LOCAL_FILENAME_COLUMN)
+            val rawChecksumIndex = results.getColumnIndex(MetadataDbHelper.RAW_CHECKSUM_COLUMN)
+            val statusIndex = results.getColumnIndex(MetadataDbHelper.STATUS_COLUMN)
             if (results.moveToFirst()) {
                 do {
                     val wordListId = results.getString(idIndex)
@@ -334,7 +335,7 @@ class DictionaryProvider : ContentProvider() {
 // Skip this wordlist and go to the next.
                         continue
                     }
-                    if (MetadataDbHelper.Companion.STATUS_INSTALLED == wordListStatus) { // If the file does not exist, it has been deleted and the IME should
+                    if (MetadataDbHelper.STATUS_INSTALLED == wordListStatus) { // If the file does not exist, it has been deleted and the IME should
 // already have it. Do not return it. However, this only applies if the
 // word list is INSTALLED, for if it is DELETING we should return it always
 // so that Android Keyboard can perform the actual deletion.
@@ -373,7 +374,7 @@ class DictionaryProvider : ContentProvider() {
             return deleteDataFile(uri)
         }
         return if (DICTIONARY_V2_METADATA == match) {
-            if (MetadataDbHelper.Companion.deleteClient(context, getClientId(uri))) {
+            if (MetadataDbHelper.deleteClient(context, getClientId(uri))) {
                 1
             } else 0
         } else 0
@@ -384,8 +385,8 @@ class DictionaryProvider : ContentProvider() {
         val wordlistId = uri.lastPathSegment
         val clientId = getClientId(uri)
         val wordList = getWordlistMetadataForWordlistId(clientId, wordlistId) ?: return 0
-        val status = wordList.getAsInteger(MetadataDbHelper.Companion.STATUS_COLUMN)
-        val version = wordList.getAsInteger(MetadataDbHelper.Companion.VERSION_COLUMN)
+        val status = wordList.getAsInteger(MetadataDbHelper.STATUS_COLUMN)
+        val version = wordList.getAsInteger(MetadataDbHelper.VERSION_COLUMN)
         return 0
     }
 
@@ -398,7 +399,7 @@ class DictionaryProvider : ContentProvider() {
      */
     @Throws(UnsupportedOperationException::class)
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        if (null == uri || null == values) return null // Should never happen but let's be safe
+        if (null == values) return null // Should never happen but let's be safe
         PrivateLog.log("Insert, uri = $uri")
         val clientId = getClientId(uri)
         when (matchUri(uri)) {
@@ -407,10 +408,10 @@ class DictionaryProvider : ContentProvider() {
 // is reserved for internal use.
 // The metadata URI may not be null, but it may be empty if the client does not
 // want the dictionary pack to update the metadata automatically.
-                MetadataDbHelper.Companion.updateClientInfo(context, clientId, values)
+                MetadataDbHelper.updateClientInfo(context, clientId, values)
             DICTIONARY_V2_DICT_INFO -> try {
-                val newDictionaryMetadata: WordListMetadata = WordListMetadata.Companion.createFromContentValues(
-                        MetadataDbHelper.Companion.completeWithDefaultValues(values))
+                val newDictionaryMetadata: WordListMetadata = WordListMetadata.createFromContentValues(
+                        MetadataDbHelper.completeWithDefaultValues(values))
                 MarkPreInstalledAction(clientId, newDictionaryMetadata)
                         .execute(context)
             } catch (e: BadFormatException) {

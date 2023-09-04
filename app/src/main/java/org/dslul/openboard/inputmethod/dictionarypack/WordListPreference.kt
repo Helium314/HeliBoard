@@ -16,6 +16,7 @@ import java.util.*
  * pack. Upon being pressed, it displays a menu to allow the user to install, disable,
  * enable or delete it as appropriate for the current state of the word list.
  */
+@Suppress("deprecation")
 class WordListPreference(context: Context?,
                          private val mInterfaceState: DictionaryListInterfaceState, // The id of the client for which this preference is.
                          private val mClientId: String?,
@@ -51,10 +52,10 @@ class WordListPreference(context: Context?,
     private fun getSummary(status: Int): String {
         val context = context
         return when (status) {
-            MetadataDbHelper.Companion.STATUS_DELETING, MetadataDbHelper.Companion.STATUS_AVAILABLE -> context.getString(R.string.dictionary_available)
-            MetadataDbHelper.Companion.STATUS_DOWNLOADING -> context.getString(R.string.dictionary_downloading)
-            MetadataDbHelper.Companion.STATUS_INSTALLED -> context.getString(R.string.dictionary_installed)
-            MetadataDbHelper.Companion.STATUS_DISABLED -> context.getString(R.string.dictionary_disabled)
+            MetadataDbHelper.STATUS_DELETING, MetadataDbHelper.STATUS_AVAILABLE -> context.getString(R.string.dictionary_available)
+            MetadataDbHelper.STATUS_DOWNLOADING -> context.getString(R.string.dictionary_downloading)
+            MetadataDbHelper.STATUS_INSTALLED -> context.getString(R.string.dictionary_installed)
+            MetadataDbHelper.STATUS_DISABLED -> context.getString(R.string.dictionary_disabled)
             else -> NO_STATUS_MESSAGE
         }
     }
@@ -63,11 +64,11 @@ class WordListPreference(context: Context?,
         val context = context
         val prefs = CommonPreferences.getCommonPreferences(context)
         CommonPreferences.disable(prefs, mWordlistId)
-        if (MetadataDbHelper.Companion.STATUS_DOWNLOADING == mStatus) {
-            setStatus(MetadataDbHelper.Companion.STATUS_AVAILABLE)
-        } else if (MetadataDbHelper.Companion.STATUS_INSTALLED == mStatus) { // Interface-wise, we should no longer be able to come here. However, this is still
+        if (MetadataDbHelper.STATUS_DOWNLOADING == mStatus) {
+            setStatus(MetadataDbHelper.STATUS_AVAILABLE)
+        } else if (MetadataDbHelper.STATUS_INSTALLED == mStatus) { // Interface-wise, we should no longer be able to come here. However, this is still
 // the right thing to do if we do come here.
-            setStatus(MetadataDbHelper.Companion.STATUS_DISABLED)
+            setStatus(MetadataDbHelper.STATUS_DISABLED)
         } else {
             Log.e(TAG, "Unexpected state of the word list for disabling $mStatus")
         }
@@ -77,15 +78,15 @@ class WordListPreference(context: Context?,
         val context = context
         val prefs = CommonPreferences.getCommonPreferences(context)
         CommonPreferences.enable(prefs, mWordlistId)
-        if (MetadataDbHelper.Companion.STATUS_AVAILABLE == mStatus) {
-            setStatus(MetadataDbHelper.Companion.STATUS_DOWNLOADING)
-        } else if (MetadataDbHelper.Companion.STATUS_DISABLED == mStatus
-                || MetadataDbHelper.Companion.STATUS_DELETING == mStatus) { // If the status is DELETING, it means Android Keyboard
+        if (MetadataDbHelper.STATUS_AVAILABLE == mStatus) {
+            setStatus(MetadataDbHelper.STATUS_DOWNLOADING)
+        } else if (MetadataDbHelper.STATUS_DISABLED == mStatus
+                || MetadataDbHelper.STATUS_DELETING == mStatus) { // If the status is DELETING, it means Android Keyboard
 // has not deleted the word list yet, so we can safely
 // turn it to 'installed'. The status DISABLED is still supported internally to
 // avoid breaking older installations and all but there should not be a way to
 // disable a word list through the interface any more.
-            setStatus(MetadataDbHelper.Companion.STATUS_INSTALLED)
+            setStatus(MetadataDbHelper.STATUS_INSTALLED)
         } else {
             Log.e(TAG, "Unexpected state of the word list for enabling $mStatus")
         }
@@ -95,7 +96,7 @@ class WordListPreference(context: Context?,
         val context = context
         val prefs = CommonPreferences.getCommonPreferences(context)
         CommonPreferences.disable(prefs, mWordlistId)
-        setStatus(MetadataDbHelper.Companion.STATUS_DELETING)
+        setStatus(MetadataDbHelper.STATUS_DELETING)
     }
 
     override fun onBindView(view: View) {
@@ -115,21 +116,19 @@ class WordListPreference(context: Context?,
                 mInterfaceState.setOpen(mWordlistId, mStatus)
             }
         } else { // The button is closed.
-            buttonSwitcher.setStatusAndUpdateVisuals(ButtonSwitcher.Companion.STATUS_NO_BUTTON)
+            buttonSwitcher.setStatusAndUpdateVisuals(ButtonSwitcher.STATUS_NO_BUTTON)
         }
         buttonSwitcher.setInternalOnClickListener(View.OnClickListener { onActionButtonClicked() })
         view.setOnClickListener { v -> onWordListClicked(v) }
     }
 
     fun onWordListClicked(v: View) { // Note : v is the preference view
-        val parent = v.parent as? ListView ?: return
+        val listView = v.parent as? ListView ?: return
         // Just in case something changed in the framework, test for the concrete class
-        val listView = parent
-        val indexToOpen: Int
         // Close all first, we'll open back any item that needs to be open.
         val wasOpen = mInterfaceState.isOpen(mWordlistId)
         mInterfaceState.closeAll()
-        indexToOpen = if (wasOpen) { // This button being shown. Take note that we don't want to open any button in the
+        val indexToOpen = if (wasOpen) { // This button being shown. Take note that we don't want to open any button in the
 // loop below.
             -1
         } else { // This button was not being shown. Open it, and remember the index of this
@@ -171,12 +170,12 @@ class WordListPreference(context: Context?,
         private const val ACTION_DELETE_DICT = 3
         // The table below needs to be kept in sync with MetadataDbHelper.STATUS_* since it uses
 // the values as indices.
-        private val sStatusActionList = arrayOf(intArrayOf(), intArrayOf(ButtonSwitcher.Companion.STATUS_INSTALL, ACTION_ENABLE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_CANCEL, ACTION_DISABLE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_DELETE, ACTION_DELETE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_DELETE, ACTION_DELETE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_INSTALL, ACTION_ENABLE_DICT))
+        private val sStatusActionList = arrayOf(intArrayOf(), intArrayOf(ButtonSwitcher.STATUS_INSTALL, ACTION_ENABLE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_CANCEL, ACTION_DISABLE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_DELETE, ACTION_DELETE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_DELETE, ACTION_DELETE_DICT), intArrayOf(ButtonSwitcher.Companion.STATUS_INSTALL, ACTION_ENABLE_DICT))
 
         fun getButtonSwitcherStatus(status: Int): Int {
             if (status >= sStatusActionList.size) {
                 Log.e(TAG, "Unknown status $status")
-                return ButtonSwitcher.Companion.STATUS_NO_BUTTON
+                return ButtonSwitcher.STATUS_NO_BUTTON
             }
             return sStatusActionList[status][0]
         }
