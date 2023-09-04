@@ -5,6 +5,7 @@ labels: enhancement
 ---
 
 <!--
+Please search open and closed issues to avoid duplicates.
 Note that this version of OpenBoard is focusing only on a few things. You can add a feature request, but at the current stage it's unlikely it will get implemented.
 -->
 

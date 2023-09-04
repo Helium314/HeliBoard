@@ -69,7 +69,7 @@ class ClipboardAdapter(
             }
             clipboardLayoutParams.setItemProperties(view)
             val colors = Settings.getInstance().current.mColors
-            if (colors is HoloColors)
+            if (colors is HoloColors) // todo: this logic should be in Colors, not here
                 pinnedIconView.colorFilter = colors.accentColorFilter
         }
 

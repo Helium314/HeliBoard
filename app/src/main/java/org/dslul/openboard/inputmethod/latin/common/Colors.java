@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.graphics.BlendModeColorFilterCompat;
@@ -108,10 +107,15 @@ public class Colors {
         final int[][] states = new int[][] {
                 // are other states used?
                 //  looks like only microphone ("shortcut") key can ever be disabled, but then it's not shown anyway...
-                //  and checked seems unused
+                //  checkable/checked is only used for sticky shift key in old holo theme, but drawables not used  in new version
+                //  active is used for action key
+                //  empty is used for emoji and spacers
                 new int[] { android.R.attr.state_pressed}, // pressed
                 new int[] { -android.R.attr.state_pressed}, // not pressed
         };
+        // todo (idea): make better use of the states?
+        //  could also use / create StateListDrawables in colors (though that's a style than a color...)
+        //  this would better allow choosing e.g. cornered/rounded drawables for moreKeys or moreSuggestions
 
         backgroundFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(background, BlendModeCompat.MODULATE);
         adjustedKeyText = brightenOrDarken(keyText, true);
