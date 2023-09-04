@@ -53,6 +53,8 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
         systemOnlySwitch.isChecked = sharedPreferences.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
         systemOnlySwitch.setOnCheckedChangeListener { _, b ->
             sharedPreferences.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
+            enabledSubtypes.clear()
+            enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
             loadSubtypes(b)
         }
         languageFilterList = LanguageFilterListFakePreference(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
