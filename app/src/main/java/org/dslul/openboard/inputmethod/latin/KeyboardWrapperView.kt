@@ -130,8 +130,12 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 R.styleable.KeyboardTheme, defStyle, 0)
         val keyboardViewStyleId = themeAttr.getResourceId(R.styleable.KeyboardTheme_mainKeyboardViewStyle, 0)
         themeAttr.recycle()
-        val styleAttr = context.obtainStyledAttributes(keyboardViewStyleId, intArrayOf(android.R.attr.background))
-        setBackgroundResource(styleAttr.getResourceId(0, 0))
-        styleAttr.recycle()
+        val backgroundDrawable = Settings.getInstance().current.mColors.keyboardBackground
+        if (backgroundDrawable == null) {
+            val styleAttr = context.obtainStyledAttributes(keyboardViewStyleId, intArrayOf(android.R.attr.background))
+            setBackgroundResource(styleAttr.getResourceId(0, 0))
+            styleAttr.recycle()
+        } else
+            background = backgroundDrawable
     }
 }
