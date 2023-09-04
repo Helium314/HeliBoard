@@ -88,13 +88,13 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
                 // this could be rather slow with looping multiple times over all ~100 subtypes,
                 //  but usually there aren't many locales to be checked, and usually the first loop already finds a match
                 val localeString = locale.toString()
-                val iter = allSubtypes.iterator()
+                val iterator = allSubtypes.iterator()
                 var added = false
-                while (iter.hasNext()) {
-                    val subtype = iter.next()
-                    if (subtype.locale == localeString) {
+                while (iterator.hasNext()) {
+                    val subtype = iterator.next()
+                    if (subtype.locale() == localeString) {
                         subtypesToAdd.add(subtype.toSubtypeInfo(locale))
-                        iter.remove()
+                        iterator.remove()
                         added = true
                     }
                 }
@@ -104,7 +104,7 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale == languageString) {
+                        if (subtype.locale() == languageString) {
                             subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(languageString)))
                             iter.remove()
                             added = true
@@ -119,8 +119,8 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale.substringBefore("_") == languageString) {
-                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(subtype.locale)))
+                        if (subtype.locale().substringBefore("_") == languageString) {
+                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(subtype.locale())))
                             iter.remove()
                         }
                     }
@@ -130,7 +130,7 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
         }
 
         // add enabled subtypes
-        enabledSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale), true) }
+        enabledSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale()), true) }
             .sortedBy { it.displayName }.addToSortedSubtypes()
         allSubtypes.removeAll(enabledSubtypes)
 
@@ -153,8 +153,8 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
         systemLocales.sortedAddToSubtypesAndRemoveFromAllSubtypes()
 
         // add the remaining ones
-        allSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale)) }
-            .sortedBy { if (it.subtype.locale.equals("zz", true))
+        allSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale())) }
+            .sortedBy { if (it.subtype.locale().equals("zz", true))
                     "zz" // "No language (Alphabet)" should be last
                 else it.displayName
             }.addToSortedSubtypes()

@@ -44,7 +44,7 @@ fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
 
     if (subtype !in enabledSubtypes) {
         enabledSubtypes.add(subtype)
-        enabledSubtypes.sortBy { it.locale } // for consistent order
+        enabledSubtypes.sortBy { it.locale() } // for consistent order
         RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
 }
@@ -90,12 +90,12 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     val subtypeString = prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")!!.split(LOCALE_LAYOUT_SEPARATOR)
     val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
         else enabledSubtypes
-    val subtype = subtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+    val subtype = subtypes.firstOrNull { subtypeString.first() == it.locale() && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
         ?: subtypes.firstOrNull()
     if (subtype == null) {
         val defaultSubtypes = getDefaultEnabledSubtypes()
-        return defaultSubtypes.firstOrNull { subtypeString.first() == it.locale && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-            ?: defaultSubtypes.firstOrNull { subtypeString.first().substringBefore("_") == it.locale.substringBefore("_") && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+        return defaultSubtypes.firstOrNull { subtypeString.first() == it.locale() && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+            ?: defaultSubtypes.firstOrNull { subtypeString.first().substringBefore("_") == it.locale().substringBefore("_") && subtypeString.last() == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
             ?: defaultSubtypes.first()
     }
     return subtype
@@ -103,7 +103,7 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
 
 fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     val subtypeString = subtype.prefString()
-    if (subtype.locale.isEmpty() || prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "") == subtypeString)
+    if (subtype.locale().isEmpty() || prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "") == subtypeString)
         return
     prefs.edit { putString(Settings.PREF_SELECTED_INPUT_STYLE, subtypeString) }
 }
@@ -182,7 +182,7 @@ private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
 }
 
 private fun InputMethodSubtype.prefString() =
-    locale + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
+    locale() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
 
 private fun loadResourceSubtypes(resources: Resources) {
     val xml = resources.getXml(R.xml.method)
@@ -238,7 +238,7 @@ private fun loadEnabledSubtypes(context: Context) {
             continue
 
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
-            ?: additionalSubtypes.firstOrNull { it.locale == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
+            ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
         if (BuildConfig.DEBUG) // should not happen, but should not crash for normal user
             require(subtype != null)
         else if (subtype == null)
@@ -258,3 +258,5 @@ private val systemSubtypes = mutableListOf<InputMethodSubtype>()
 
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
+
+fun InputMethodSubtype.locale() = locale

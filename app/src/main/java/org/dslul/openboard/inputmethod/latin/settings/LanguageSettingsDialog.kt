@@ -29,7 +29,7 @@ class LanguageSettingsDialog(
 ) : AlertDialog(context), LanguageFakeSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
-    private val mainLocaleString = infos.first().subtype.locale
+    private val mainLocaleString = infos.first().subtype.locale()
     private val mainLocale = mainLocaleString.toLocale()
 
     init {

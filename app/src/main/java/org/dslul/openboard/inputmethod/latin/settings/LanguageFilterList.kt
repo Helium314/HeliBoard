@@ -91,11 +91,11 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                             sb.append(string)
                         }
                     }
-                    val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
+                    val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
                     if (secondaryLocales.isNotEmpty()) {
                         if (sb.isNotEmpty())
                             sb.append("\n")
-                        sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale)
+                        sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
                             .joinToString(", ") {
                                 LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context)
                             })
@@ -116,7 +116,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                         if (b) {
                             if (infos.size == 1) {
                                 if (!infos.first().hasDictionary)
-                                    showMissingDictionaryDialog(context, infos.first().subtype.locale.toLocale())
+                                    showMissingDictionaryDialog(context, infos.first().subtype.locale().toLocale())
                                 addEnabledSubtype(prefs, infos.first().subtype)
                                 infos.single().isEnabled = true
                             } else {
