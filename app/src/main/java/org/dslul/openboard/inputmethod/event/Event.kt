@@ -60,6 +60,9 @@ class Event private constructor(// The type of event - one of the constants abov
     val isConsumed: Boolean
         get() = 0 != FLAG_CONSUMED and mFlags
 
+    val isCombining: Boolean
+        get() = 0 != FLAG_COMBINING and mFlags
+
     val isGesture: Boolean
         get() = EVENT_TYPE_GESTURE == mEventType
 
@@ -122,6 +125,8 @@ class Event private constructor(// The type of event - one of the constants abov
         private const val FLAG_REPEAT = 0x2
         // This event has already been consumed.
         private const val FLAG_CONSUMED = 0x4
+        // This event is a combining character, usually a hangul input.
+        private const val FLAG_COMBINING = 0x8
 
         @JvmStatic
         fun createSoftwareKeypressEvent(codePoint: Int, keyCode: Int,
@@ -201,6 +206,13 @@ class Event private constructor(// The type of event - one of the constants abov
                     null /* suggestedWordInfo */, FLAG_NONE, null /* next */)
         }
 
+        @JvmStatic
+        fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, next: Event): Event {
+            return Event(EVENT_TYPE_SOFTWARE_GENERATED_STRING, text, NOT_A_CODE_POINT, keyCode,
+                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
+                null /* suggestedWordInfo */, FLAG_NONE, next)
+        }
+
         /**
          * Creates an input event representing the manual pick of a punctuation suggestion.
          * @return an event for this suggestion pick.
@@ -235,6 +247,12 @@ class Event private constructor(// The type of event - one of the constants abov
         fun createConsumedEvent(source: Event?): Event { // A consumed event should not input any text at all, so we pass the empty string as text.
             return Event(source!!.mEventType, source.mText, source.mCodePoint, source.mKeyCode,
                     source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_CONSUMED,
+                    source.mNextEvent)
+        }
+
+        fun createCombiningEvent(source: Event): Event {
+            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode,
+                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_COMBINING,
                     source.mNextEvent)
         }
 

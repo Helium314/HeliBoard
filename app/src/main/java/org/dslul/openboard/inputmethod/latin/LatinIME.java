@@ -52,6 +52,7 @@ import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils;
 import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils.InsetsUpdater;
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.event.HangulEventDecoder;
 import org.dslul.openboard.inputmethod.event.HardwareEventDecoder;
 import org.dslul.openboard.inputmethod.event.HardwareKeyboardEventDecoder;
 import org.dslul.openboard.inputmethod.event.InputTransaction;
@@ -1865,7 +1866,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // If the event is not handled by LatinIME, we just pass it to the parent implementation.
         // If it's handled, we return true because we did handle it.
         if (event.isHandled()) {
-            mInputLogic.onCodeInput(mSettings.getCurrent(), event,
+            Event hangulDecodedEvent = HangulEventDecoder.decodeHardwareKeyEvent(mKeyboardSwitcher.getKeyboard().mId.mSubtype, keyEvent, event);
+            mInputLogic.onCodeInput(mSettings.getCurrent(), hangulDecodedEvent,
                     mKeyboardSwitcher.getKeyboardShiftMode(),
                     // TODO: this is not necessarily correct for a hardware keyboard right now
                     mKeyboardSwitcher.getCurrentKeyboardScriptId(),

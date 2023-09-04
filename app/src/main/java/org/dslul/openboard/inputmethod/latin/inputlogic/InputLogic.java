@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.compat.SuggestionSpanUtils;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.event.HangulEventDecoder;
 import org.dslul.openboard.inputmethod.event.InputTransaction;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
@@ -444,9 +445,10 @@ public final class InputLogic {
     public InputTransaction onCodeInput(final SettingsValues settingsValues,
             @NonNull final Event event, final int keyboardShiftMode,
             final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
+        final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
-        final Event processedEvent = mWordComposer.processEvent(event);
+        final Event processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
@@ -736,6 +738,9 @@ public final class InputLogic {
                 // Shift + Enter is treated as a functional key but it results in adding a new
                 // line, so that does affect the contents of the editor.
                 inputTransaction.setDidAffectContents();
+                break;
+            case Constants.CODE_OUTPUT_TEXT:
+                mWordComposer.applyProcessedEvent(event);
                 break;
             case Constants.CODE_START_ONE_HANDED_MODE:
             case Constants.CODE_STOP_ONE_HANDED_MODE:
