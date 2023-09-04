@@ -189,7 +189,10 @@ public class KeyboardView extends View {
         }
         mColors.setBackgroundColor(mActionKeyBackground, Colors.TYPE_ACTION);
         mColors.setBackgroundColor(mSpacebarBackground, Colors.TYPE_SPACE);
-        mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_FUNCTIONAL);
+        if (this instanceof MoreKeysKeyboardView)
+            mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_ADJUSTED_BACKGROUND);
+        else
+            mColors.setBackgroundColor(mFunctionalKeyBackground, Colors.TYPE_FUNCTIONAL);
         if (this.getClass() == MoreKeysKeyboardView.class)
             getBackground().setColorFilter(mColors.adjustedBackgroundFilter);
         else {
@@ -620,7 +623,7 @@ public class KeyboardView extends View {
     }
 
     private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
-        if (key.isAccentColored() && !(mColors instanceof HoloColors)) { // todo: again sth that should not be here
+        if (key.isAccentColored() && !(mColors instanceof HoloColors)) { // todo: this logic should not be here
             icon.setColorFilter(mColors.actionKeyIconColorFilter);
         } else if (key.isShift() && keyboard != null) {
             // todo (idea): replace shift icon with white one and use the normal multiply filters
