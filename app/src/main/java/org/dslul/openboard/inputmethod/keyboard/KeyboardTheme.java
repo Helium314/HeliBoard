@@ -59,14 +59,17 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
     public static final int THEME_ID_HOLO_BASE = 0;
-    public static final int THEME_ID_LXX_BASE = 1;
-    public static final int THEME_ID_LXX_BASE_BORDER = 2;
+    public static final int THEME_ID_HOLO_BASE_NO_BORDER = 1;
+    public static final int THEME_ID_LXX_BASE = 2;
+    public static final int THEME_ID_LXX_BASE_BORDER = 3;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_BASE;
 
     /* package private for testing */
     static final KeyboardTheme[] KEYBOARD_THEMES = {
-        new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase,
-                VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase,
+                    VERSION_CODES.BASE),
+            new KeyboardTheme(THEME_ID_HOLO_BASE_NO_BORDER, "HoloBaseNoBorder", R.style.KeyboardTheme_HoloBaseNoBorder,
+                    VERSION_CODES.BASE),
         new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
                 VERSION_CODES.LOLLIPOP),
         new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
@@ -160,17 +163,21 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     }
 
     // todo: this actually should be called style now, as the colors are independent
-    //  and selection should be simplified, becuase really...
+    //  and selection should be simplified, because really...
     public static KeyboardTheme getKeyboardTheme(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final String style = prefs.getString(Settings.PREF_THEME_STYLE, THEME_STYLE_MATERIAL);
         final boolean borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
-        final int matchingId = style.equals(THEME_STYLE_HOLO) ? THEME_ID_HOLO_BASE : (borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE);
+        final int matchingId;
+        if (style.equals(THEME_STYLE_HOLO))
+            matchingId = borders ? THEME_ID_HOLO_BASE : THEME_ID_HOLO_BASE_NO_BORDER;
+        else
+            matchingId = borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE;
         for (KeyboardTheme keyboardTheme : KEYBOARD_THEMES) {
             if (keyboardTheme.mThemeId == matchingId)
                 return keyboardTheme;
         }
-        return KEYBOARD_THEMES[2]; // base no border as default
+        return KEYBOARD_THEMES[3]; // base no border as default
     }
 
     /* package private for testing */

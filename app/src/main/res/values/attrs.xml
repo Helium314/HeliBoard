@@ -234,10 +234,11 @@
     <declare-styleable name="Keyboard">
         <attr name="themeId" format="enum">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BLUE} etc. -->
+                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
             <enum name="HoloBase" value="0" />
-            <enum name="LXXBase" value="1" />
-            <enum name="LXXBaseBorder" value="2" />
+            <enum name="HoloBaseNoBorder" value="1" />
+            <enum name="LXXBase" value="2" />
+            <enum name="LXXBaseBorder" value="3" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
@@ -490,11 +491,12 @@
             <enum name="numpad" value="28"  />
         </attr>
         <!-- This should be aligned with Keyboard.themeId and
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BLUE} etc. -->
+             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
             <enum name="HoloBase" value="0" />
-            <enum name="LXXBase" value="1" />
-            <enum name="LXXBaseBorder" value="2" />
+            <enum name="HoloBaseNoBorder" value="1" />
+            <enum name="LXXBase" value="2" />
+            <enum name="LXXBaseBorder" value="3" />
         </attr>
         <!-- This should be aligned with
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
+import org.dslul.openboard.inputmethod.latin.common.Colors
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 
@@ -56,6 +57,8 @@ class KeyboardWrapperView @JvmOverloads constructor(
         val colors = Settings.getInstance().current.mColors
         stopOneHandedModeBtn.colorFilter = colors.keyTextFilter
         switchOneHandedModeBtn.colorFilter = colors.keyTextFilter
+        colors.setBackgroundColor(stopOneHandedModeBtn.background, Colors.TYPE_BACKGROUND)
+        colors.setBackgroundColor(switchOneHandedModeBtn.background, Colors.TYPE_BACKGROUND)
     }
 
     @SuppressLint("RtlHardcoded")
@@ -117,6 +120,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 buttonsLeft + (spareWidth + switchOneHandedModeBtn.measuredWidth) / 2,
                 2 * stopOneHandedModeBtn.measuredHeight + switchOneHandedModeBtn.measuredHeight
         )
+        Settings.getInstance().current.mColors.keyboardBackground?.let { background = it }
     }
 
     init {
@@ -130,12 +134,8 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 R.styleable.KeyboardTheme, defStyle, 0)
         val keyboardViewStyleId = themeAttr.getResourceId(R.styleable.KeyboardTheme_mainKeyboardViewStyle, 0)
         themeAttr.recycle()
-        val backgroundDrawable = Settings.getInstance().current.mColors.keyboardBackground
-        if (backgroundDrawable == null) {
-            val styleAttr = context.obtainStyledAttributes(keyboardViewStyleId, intArrayOf(android.R.attr.background))
-            setBackgroundResource(styleAttr.getResourceId(0, 0))
-            styleAttr.recycle()
-        } else
-            background = backgroundDrawable
+        val styleAttr = context.obtainStyledAttributes(keyboardViewStyleId, intArrayOf(android.R.attr.background))
+        setBackgroundResource(styleAttr.getResourceId(0, 0))
+        styleAttr.recycle()
     }
 }
