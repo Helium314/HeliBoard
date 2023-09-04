@@ -1,5 +1,7 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
+import static org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt.*;
+
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -9,8 +11,6 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
-import androidx.annotation.ColorInt;
-import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
@@ -18,7 +18,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 // todo: maybe kotlin? would make it much shorter and more readable
 public class Colors {
 
-    public final int navBar;
+    public int navBar;
     public final int accent;
     public final int background;
     public final int keyBackground;
@@ -158,54 +158,4 @@ public class Colors {
                 ? BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.DKGRAY, BlendModeCompat.SRC_ATOP)
                 : null;
     }
-
-    // todo: move static functions to some utility class?
-    public static boolean isBrightColor(final int color) {
-        if (android.R.color.transparent == color) {
-            return true;
-        }
-        return getBrightnessSquared(color) >= 210*210;
-    }
-
-    private static boolean isDarkColor(final int color) {
-        if (android.R.color.transparent == color) {
-            return true;
-        }
-        return getBrightnessSquared(color) < 50*50;
-    }
-
-    public static int brightenOrDarken(final int color, final boolean preferDarken) {
-        if (preferDarken) {
-            if (isDarkColor(color)) return brighten(color);
-            else return darken(color);
-        } else if (isBrightColor(color)) return darken(color);
-        else return brighten(color);
-    }
-
-    private static int getBrightnessSquared(final int color) {
-        // See http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        // we are only interested whether brightness is greater, so no need for sqrt
-        return (int) (rgb[0] * rgb[0] * .241 + rgb[1] * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-    }
-
-    protected static int adjustLuminosityAndKeepAlpha(@ColorInt final int color, final float amount) {
-        final int alpha = Color.alpha(color);
-        float[] hsl = new float[3];
-        ColorUtils.colorToHSL(color, hsl);
-        hsl[2] += amount;
-        final int newColor = ColorUtils.HSLToColor(hsl);
-        return Color.argb(alpha, Color.red(newColor), Color.green(newColor), Color.blue(newColor));
-    }
-
-    @ColorInt
-    public static int brighten(@ColorInt final int color) {
-        return adjustLuminosityAndKeepAlpha(color, 0.06f);
-    }
-
-    @ColorInt
-    public static int darken(@ColorInt final int color) {
-        return adjustLuminosityAndKeepAlpha(color, -0.06f);
-    }
-
 }

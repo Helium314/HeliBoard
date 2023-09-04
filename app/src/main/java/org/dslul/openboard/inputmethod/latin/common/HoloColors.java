@@ -1,5 +1,7 @@
 package org.dslul.openboard.inputmethod.latin.common;
 
+import static org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt.adjustLuminosityAndKeepAlpha;
+
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 
@@ -11,6 +13,7 @@ public class HoloColors extends Colors {
 
     protected HoloColors(int _accent, int _background, int _keyBackground, int _functionalKey, int _spaceBar, int _keyText, int _keyHintText) {
         super(_accent, _background, _keyBackground, _functionalKey, _spaceBar, _keyText, _keyHintText);
+        navBar = adjustLuminosityAndKeepAlpha(background, -0.2f);
     }
 
     @Override
