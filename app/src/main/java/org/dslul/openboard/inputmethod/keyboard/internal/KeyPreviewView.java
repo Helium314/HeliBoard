@@ -24,7 +24,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -34,7 +35,7 @@ import java.util.HashSet;
 /**
  * The pop up key preview view.
  */
-public class KeyPreviewView extends TextView {
+public class KeyPreviewView extends AppCompatTextView {
     public static final int POSITION_MIDDLE = 0;
     public static final int POSITION_LEFT = 1;
     public static final int POSITION_RIGHT = 2;

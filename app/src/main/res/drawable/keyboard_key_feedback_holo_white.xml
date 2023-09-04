@@ -19,18 +19,12 @@
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
     <!-- Left edge -->
-    <item latin:state_left_edge="true" latin:state_has_morekeys="true"
-          android:drawable="@drawable/keyboard_key_feedback_left_more_background_klp" />
     <item latin:state_left_edge="true"
           android:drawable="@drawable/keyboard_key_feedback_left_background_klp" />
 
     <!-- Right edge -->
-    <item latin:state_right_edge="true" latin:state_has_morekeys="true"
-          android:drawable="@drawable/keyboard_key_feedback_right_more_background_klp" />
     <item latin:state_right_edge="true"
           android:drawable="@drawable/keyboard_key_feedback_right_background_klp" />
 
-    <item latin:state_has_morekeys="true"
-          android:drawable="@drawable/keyboard_key_feedback_more_background_klp" />
     <item android:drawable="@drawable/keyboard_key_feedback_background_klp" />
 </selector>
