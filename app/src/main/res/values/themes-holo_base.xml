@@ -87,17 +87,17 @@
         <item name="categoryIndicatorBackground">@drawable/emoji_category_tab_unselected_holo_dark</item>
         <item name="categoryPageIndicatorColor">@color/highlight_color_holo_white</item>
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_holo</item>
-        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_holo_dark</item>
-        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_holo_dark</item>
-        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_holo_dark</item>
-        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_holo_dark</item>
-        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_holo_dark</item>
-        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_holo_dark</item>
-        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_holo_dark</item>
-        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_holo_dark</item>
-        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_holo_dark</item>
-        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_holo_dark</item>
-        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_holo_dark</item>
+        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_normal_holo_dark</item>
+        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_normal_holo_dark</item>
+        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_normal_holo_dark</item>
+        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_normal_holo_dark</item>
+        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_normal_holo_dark</item>
+        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_normal_holo_dark</item>
+        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_normal_holo_dark</item>
+        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_normal_holo_dark</item>
+        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_normal_holo_dark</item>
+        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_normal_holo_dark</item>
+        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_normal_holo_dark</item>
     </style>
     <style
             name="ClipboardHistoryView.HoloBase"

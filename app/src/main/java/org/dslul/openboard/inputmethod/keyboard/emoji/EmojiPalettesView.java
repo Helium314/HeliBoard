@@ -298,7 +298,12 @@ public final class EmojiPalettesView extends LinearLayout
         if (mCurrentTab != null)
             mCurrentTab.setColorFilter(colors.getKeyTextFilter());
         mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
-//        mCurrentTab.setColorFilter(colors.accentColorFilter); // todo (later): doesn't work properly, because enabled drawable is blue -> adjust
+        // todo (later): doesn't work properly, decide which drawables to use for lxx emojis
+        //  holo ones are good, but a bit larger (and scaling results in weird background outline)
+        //   and the recents is different
+        //  dark ones seem to have transparency
+        //  light ones are too dark, can only be used when overriding color
+//        mCurrentTab.setColorFilter(colors.accentColorFilter);
         mCurrentTab.setColorFilter(colors.getAccent());
     }
 
