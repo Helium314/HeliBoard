@@ -574,7 +574,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
         final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-        final String themeColors = (isNight && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
+        final String themeColors = (isNight && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
                 ? prefs.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
                 : prefs.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL);

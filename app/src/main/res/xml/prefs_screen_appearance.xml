@@ -44,6 +44,7 @@
         <SwitchPreferenceCompat
             android:key="theme_auto_day_night"
             android:title="@string/day_night_mode"
+            android:defaultValue="@bool/day_night_default"
             android:summary="@string/day_night_mode_summary"/>
 
         <ListPreference

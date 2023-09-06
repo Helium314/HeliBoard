@@ -144,4 +144,6 @@
     <string name="hide_soft_input_permission">org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT</string>
     <!-- App slogan-->
     <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
+    <!-- default value for auto-day/night setting -->
+    <bool name="day_night_default">false</bool>
 </resources>
