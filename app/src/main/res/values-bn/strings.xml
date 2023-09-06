@@ -248,9 +248,6 @@
     <string name="key_borders">বোতামের প্রান্ত</string>
     <string name="day_night_mode">স্বয়ংক্রিয় দিবা/রাত্রি মোড</string>
     <string name="day_night_mode_summary">অবয়ব সিস্টেম সেটিংসকে অনুসরণ করবে</string>
-    <string name="day_or_night_colors">দিবা অথবা রাত্রির রং সম্পাদনা?</string>
-    <string name="day_or_night_day">দিবা</string>
-    <string name="day_or_night_night">রাত্রি</string>
     <string name="theme_navbar">রঙিন ন্যাভিগেশন বার</string>
     <string name="theme_name_light">উজ্জ্বল</string>
     <string name="theme_name_dark">নিষ্প্রভ</string>

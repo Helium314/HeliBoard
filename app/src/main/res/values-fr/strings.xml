@@ -228,9 +228,6 @@
     <string name="theme_variant">Variante de thème</string>
     <string name="theme_variant_night">Variante de thème (mode nuit)</string>
     <string name="day_night_mode_summary">L\'apparence suivra les paramètres système</string>
-    <string name="day_or_night_colors">Modifier les couleurs du mode jour ou nuit ?</string>
-    <string name="day_or_night_day">Jour</string>
-    <string name="day_or_night_night">Nuit</string>
     <string name="theme_navbar">Colorer la barre de navigation</string>
     <string name="theme_name_light">Clair</string>
     <string name="theme_name_dark">Sombre</string>

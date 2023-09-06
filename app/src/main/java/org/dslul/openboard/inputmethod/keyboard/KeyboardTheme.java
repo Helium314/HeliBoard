@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build.VERSION_CODES;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -40,21 +39,16 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     // new themes using the custom colors
     public static final String THEME_LIGHT = "light";
-    public static final String THEME_HOLO_WHITE = "holo_white"; // todo: rename (but useful to have for testing)
+    public static final String THEME_HOLO_WHITE = "holo_white";
     public static final String THEME_DARK = "dark";
     public static final String THEME_DARKER = "darker";
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
-    public static final String THEME_USER_DARK = "user_dark";
+    public static final String THEME_USER_NIGHT = "user_night";
     public static final String[] THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
-    public static final String[] THEME_VARIANTS_DARK = new String[] { THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_DARK };
+    public static final String[] THEME_VARIANTS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT};
 
     public static final String[] THEME_STYLES = { THEME_STYLE_MATERIAL, THEME_STYLE_HOLO };
-
-    private static final String TAG = KeyboardTheme.class.getSimpleName();
-
-    static final String KLP_KEYBOARD_THEME_KEY = "pref_keyboard_layout_20110916";
-    static final String LXX_KEYBOARD_THEME_KEY = "pref_keyboard_theme_20140509";
 
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
@@ -126,44 +120,11 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         return null;
     }
 
-    /* package private for testing */
-    static KeyboardTheme getDefaultKeyboardTheme(final SharedPreferences prefs,
-            final int sdkVersion, final KeyboardTheme[] availableThemeArray) {
-        final String klpThemeIdString = prefs.getString(KLP_KEYBOARD_THEME_KEY, null);
-        if (klpThemeIdString != null) {
-            if (sdkVersion <= VERSION_CODES.KITKAT) {
-                try {
-                    final int themeId = Integer.parseInt(klpThemeIdString);
-                    final KeyboardTheme theme = searchKeyboardThemeById(themeId,
-                            availableThemeArray);
-                    if (theme != null) {
-                        return theme;
-                    }
-                    Log.w(TAG, "Unknown keyboard theme in KLP preference: " + klpThemeIdString);
-                } catch (final NumberFormatException e) {
-                    Log.w(TAG, "Illegal keyboard theme in KLP preference: " + klpThemeIdString, e);
-                }
-            }
-            // Remove old preference.
-            Log.i(TAG, "Remove KLP keyboard theme preference: " + klpThemeIdString);
-            prefs.edit().remove(KLP_KEYBOARD_THEME_KEY).apply();
-        }
-        // TODO: This search algorithm isn't optimal if there are many themes.
-        for (final KeyboardTheme theme : availableThemeArray) {
-            if (sdkVersion >= theme.mMinApiVersion) {
-                return theme;
-            }
-        }
-        return searchKeyboardThemeById(DEFAULT_THEME_ID, availableThemeArray);
-    }
-
     public static String getKeyboardThemeName(final int themeId) {
         final KeyboardTheme theme = searchKeyboardThemeById(themeId, KEYBOARD_THEMES);
         return theme.mThemeName;
     }
 
-    // todo: this actually should be called style now, as the colors are independent
-    //  and selection should be simplified, because really...
     public static KeyboardTheme getKeyboardTheme(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final String style = prefs.getString(Settings.PREF_THEME_STYLE, THEME_STYLE_MATERIAL);
@@ -177,40 +138,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             if (keyboardTheme.mThemeId == matchingId)
                 return keyboardTheme;
         }
-        return KEYBOARD_THEMES[3]; // base no border as default
+        return KEYBOARD_THEMES[DEFAULT_THEME_ID];
     }
-
-    /* package private for testing */
-    static KeyboardTheme getKeyboardTheme(final SharedPreferences prefs, final int sdkVersion,
-            final KeyboardTheme[] availableThemeArray) {
-        final String lxxThemeIdString = prefs.getString(LXX_KEYBOARD_THEME_KEY, null);
-        if (lxxThemeIdString == null) {
-            return getDefaultKeyboardTheme(prefs, sdkVersion, availableThemeArray);
-        }
-        try {
-            final int themeId = Integer.parseInt(lxxThemeIdString);
-            final KeyboardTheme theme = searchKeyboardThemeById(themeId, availableThemeArray);
-            if (theme != null) {
-                return theme;
-            }
-            Log.w(TAG, "Unknown keyboard theme in LXX preference: " + lxxThemeIdString);
-        } catch (final NumberFormatException e) {
-            Log.w(TAG, "Illegal keyboard theme in LXX preference: " + lxxThemeIdString, e);
-        }
-        // Remove preference that contains unknown or illegal theme id.
-        prefs.edit().remove(LXX_KEYBOARD_THEME_KEY).apply();
-        return getDefaultKeyboardTheme(prefs, sdkVersion, availableThemeArray);
-    }
-
-    public static String getThemeFamily(int themeId) {
-        if (themeId == THEME_ID_HOLO_BASE) return THEME_STYLE_HOLO;
-        return THEME_STYLE_MATERIAL;
-    }
-
-    public static boolean getHasKeyBorders(int themeId) {
-        return themeId != THEME_ID_LXX_BASE; // THEME_ID_LXX_BASE is the only without borders
-    }
-
 
     // todo (later): material you, system accent, ...
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
@@ -223,7 +152,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
                 final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
                 return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, ColorUtilKt.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
-            case THEME_USER_DARK:
+            case THEME_USER_NIGHT:
                 final int accent2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_ACCENT, Color.BLUE);
                 final int keyBgColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_KEYS, Color.LTGRAY);
                 final int keyTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_TEXT, Color.WHITE);

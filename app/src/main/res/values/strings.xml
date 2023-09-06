@@ -618,23 +618,19 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Option for choosing theme family variant [CHAR LIMIT=33] -->
     <string name="theme_variant">Theme variant</string>
     <!-- Option for choosing theme family variant (night) [CHAR LIMIT=33] -->
-    <string name="theme_variant_night">Theme variant (night mode)</string>
+    <string name="theme_variant_night">Theme variant (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode">Auto day/night mode</string>
-    <!-- Message for the dialog to choose which user-defined theme to edit -->
-    <string name="day_or_night_colors">Edit day or night colors?</string>
-    <!-- Button of the dialog above for "day"-->
-    <string name="day_or_night_day">Day</string>
-    <!-- Button of the dialog above for "night"-->
-    <string name="day_or_night_night">Night</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
     <!-- Option for setting navbar to follow keyboard color -->
     <string name="theme_navbar">Color navigation bar</string>
     <!-- Theme name for light theme -->
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Light</string>
+    <!-- Theme name for holo white theme -->
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo White</string>
     <!-- Theme name for dark theme (based on old no-border dark) -->
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dark</string>
     <!-- Theme name for darker theme (based on old border dark), todo: re-consider that stupid name -->
@@ -643,8 +639,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
+    <!-- Theme name for user-defined theme night mode theme -->
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
     <!-- Option for selecting custom theme colors -->
     <string name="select_user_colors">Adjust theme colors</string>
+    <!-- Option for selecting custom theme colors for night mode only -->
+    <string name="select_user_colors_night">Adjust theme colors (night)</string>
     <!-- Description for selection of user-defined colors. -->
     <string name="select_user_colors_summary">Select colors for text and background</string>
     <!-- Dialog message when selecting color to adjust. -->

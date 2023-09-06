@@ -36,18 +36,23 @@
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
 
+        <Preference
+            android:key="theme_select_colors"
+            android:title="@string/select_user_colors"
+            android:summary="@string/select_user_colors_summary"/>
+
         <SwitchPreferenceCompat
             android:key="theme_auto_day_night"
             android:title="@string/day_night_mode"
             android:summary="@string/day_night_mode_summary"/>
 
         <ListPreference
-            android:key="custom_theme_variant_night"
+            android:key="theme_variant_night"
             android:title="@string/theme_variant_night"/>
 
         <Preference
-            android:key="theme_select_colors"
-            android:title="@string/select_user_colors"
+            android:key="theme_select_colors_night"
+            android:title="@string/select_user_colors_night"
             android:summary="@string/select_user_colors_summary"/>
 
         <SwitchPreferenceCompat
