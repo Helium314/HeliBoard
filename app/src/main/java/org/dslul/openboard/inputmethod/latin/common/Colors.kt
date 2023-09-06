@@ -13,6 +13,8 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
+import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
+import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
 import org.dslul.openboard.inputmethod.latin.utils.*
@@ -90,11 +92,13 @@ class Colors (
             functionalKeyBackgroundFilter = colorFilter(functionalKey)
             spaceBarFilter = colorFilter(spaceBar)
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = stateList(brightenOrDarken(keyBackground, true), keyBackground)
+            keyStateList = if (themeStyle == KeyboardTheme.THEME_STYLE_HOLO) stateList(keyBackground, keyBackground)
+                else stateList(brightenOrDarken(keyBackground, true), keyBackground)
             functionalKeyStateList = stateList(brightenOrDarken(functionalKey, true), functionalKey)
             actionKeyStateList = if (themeStyle == KeyboardTheme.THEME_STYLE_HOLO) functionalKeyStateList
                 else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
+            spaceBarStateList = if (themeStyle == KeyboardTheme.THEME_STYLE_HOLO) stateList(spaceBar, spaceBar)
+                else stateList(brightenOrDarken(spaceBar, true), spaceBar)
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
             keyBackgroundFilter = backgroundFilter
@@ -139,8 +143,8 @@ class Colors (
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)?.mutate()
             BackgroundType.SPACE -> attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)?.mutate()
-            BackgroundType.ACTION -> if (themeStyle == KeyboardTheme.THEME_STYLE_HOLO)
-                attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)?.mutate()
+            BackgroundType.ACTION -> if (themeStyle == KeyboardTheme.THEME_STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
+                    attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)?.mutate()
                 else attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()
         } ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
 
@@ -152,6 +156,7 @@ class Colors (
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
+            is EmojiPageKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // to make EmojiPalettesView background visible, which does not scroll
             else -> if (keyboardBackground != null) view.background = keyboardBackground
                 else view.background.colorFilter = backgroundFilter
         }

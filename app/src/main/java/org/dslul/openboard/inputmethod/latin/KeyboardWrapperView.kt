@@ -126,8 +126,8 @@ class KeyboardWrapperView @JvmOverloads constructor(
     }
 
     init {
-        val keyboardAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.Keyboard, defStyle, R.style.Keyboard)
+        @SuppressLint("CustomViewStyleable")
+        val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.Keyboard)
         iconStopOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconStopOneHandedMode, 0)
         iconSwitchOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconSwitchOneHandedMode, 0)
         keyboardAttr.recycle()
