@@ -214,6 +214,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     // todo (later): material you, system accent, ...
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
+        final boolean hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         switch (themeColors) {
             case THEME_USER:
                 final int accent = prefs.getInt(Settings.PREF_THEME_USER_COLOR_ACCENT, Color.BLUE);
@@ -221,17 +222,18 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 final int keyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
                 final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
                 final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
-                return Colors.newColors(themeStyle, accent, background, keyBgColor, ColorUtilKt.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
+                return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, ColorUtilKt.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
             case THEME_USER_DARK:
                 final int accent2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_ACCENT, Color.BLUE);
                 final int keyBgColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_KEYS, Color.LTGRAY);
                 final int keyTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_TEXT, Color.WHITE);
                 final int hintTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT, Color.WHITE);
                 final int background2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND, Color.DKGRAY);
-                return Colors.newColors(themeStyle, accent2, background2, keyBgColor2, ColorUtilKt.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
+                return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, ColorUtilKt.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
             case THEME_DARK:
-                return Colors.newColors(
+                return new Colors(
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         // colors taken from the drawable
                         Color.parseColor("#263238"),
@@ -242,8 +244,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
                 );
             case THEME_HOLO_WHITE:
-                return Colors.newColors(
+                return new Colors(
                         themeStyle,
+                        hasBorders,
                         Color.parseColor("#FFFFFF"),
                         // colors taken from the drawable
                         Color.parseColor("#282828"),
@@ -254,8 +257,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Color.parseColor("#282828")
                 );
             case THEME_DARKER:
-                return Colors.newColors(
+                return new Colors(
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
@@ -265,8 +269,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
                 );
             case THEME_BLACK:
-                return Colors.newColors(
+                return new Colors(
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_black),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
@@ -277,8 +282,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_LIGHT:
             default:
-                return Colors.newColors(
+                return new Colors(
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),

@@ -58,7 +58,6 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
-import org.dslul.openboard.inputmethod.latin.common.HoloColors;
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -219,10 +218,10 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors instanceof HoloColors) // todo: this logic should be in Colors
-            mLanguageOnSpacebarTextColor = colors.keyText;
+        if (colors.getThemeStyle().equals(KeyboardTheme.THEME_STYLE_HOLO)) // todo: this logic should be in Colors
+            mLanguageOnSpacebarTextColor = colors.getKeyText();
         else
-            mLanguageOnSpacebarTextColor = colors.keyHintText; //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
+            mLanguageOnSpacebarTextColor = colors.getKeyHintText(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);

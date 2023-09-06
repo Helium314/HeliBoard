@@ -255,7 +255,6 @@ public class SettingsValues {
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale());
 
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
-        mColors.createColorFilters(prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false));
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);

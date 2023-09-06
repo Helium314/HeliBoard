@@ -128,19 +128,19 @@ public final class KeyVisualAttributes {
                 R.styleable.Keyboard_Key_keyPreviewTextRatio);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyTextColor, 0);
+        mTextColor = colors.getKeyText(); //keyAttr.getColor(R.styleable.Keyboard_Key_keyTextColor, 0);
         mTextInactivatedColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextInactivatedColor, 0);
         mTextShadowColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextShadowColor, 0);
         // todo: maybe a separate color?
-        mFunctionalTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_functionalTextColor, 0);
-        mHintLetterColor = colors.keyHintText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLetterColor, 0);
-        mHintLabelColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLabelColor, 0);
+        mFunctionalTextColor = colors.getKeyText(); //keyAttr.getColor(R.styleable.Keyboard_Key_functionalTextColor, 0);
+        mHintLetterColor = colors.getKeyHintText(); //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLetterColor, 0);
+        mHintLabelColor = colors.getKeyText(); //keyAttr.getColor(R.styleable.Keyboard_Key_keyHintLabelColor, 0);
         mShiftedLetterHintInactivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintInactivatedColor, 0);
         mShiftedLetterHintActivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintActivatedColor, 0);
         // todo: maybe a separate color?
-        mPreviewTextColor = colors.keyText; //keyAttr.getColor(R.styleable.Keyboard_Key_keyPreviewTextColor, 0);
+        mPreviewTextColor = colors.getKeyText(); //keyAttr.getColor(R.styleable.Keyboard_Key_keyPreviewTextColor, 0);
 
         mHintLabelVerticalAdjustment = ResourceUtils.getFraction(keyAttr,
                 R.styleable.Keyboard_Key_keyHintLabelVerticalAdjustment, 0.0f);

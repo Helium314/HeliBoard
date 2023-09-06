@@ -567,9 +567,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 isHardwareAcceleratedDrawingEnabled);
         mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
 
-        // set background color here, otherwise there is a narrow white line between keyboard and suggestion strip
-        mKeyboardViewWrapper.getBackground().setColorFilter(Settings.getInstance().getCurrent().mColors.backgroundFilter);
-
         return mCurrentInputView;
     }
 

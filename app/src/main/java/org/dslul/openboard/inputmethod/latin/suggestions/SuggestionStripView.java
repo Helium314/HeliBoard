@@ -48,6 +48,7 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
@@ -147,7 +148,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackgroundColor(word.getBackground(), Colors.TYPE_BACKGROUND);
+            colors.setBackgroundColor(word.getBackground(), BackgroundType.BACKGROUND);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -185,10 +186,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mOtherKey.setImageDrawable(iconIncognito);
 
-        colors.setBackgroundColor(getBackground(), Colors.TYPE_BACKGROUND);
-        mClipboardKey.setColorFilter(colors.keyText);
-        mVoiceKey.setColorFilter(colors.keyText);
-        mOtherKey.setColorFilter(colors.keyText);
+        colors.setBackgroundColor(getBackground(), BackgroundType.BACKGROUND);
+        mClipboardKey.setColorFilter(colors.getKeyText());
+        mVoiceKey.setColorFilter(colors.getKeyText());
+        mOtherKey.setColorFilter(colors.getKeyText());
     }
 
     /**

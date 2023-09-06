@@ -19,7 +19,6 @@ package org.dslul.openboard.inputmethod.keyboard.emoji;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -47,6 +46,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -133,7 +133,7 @@ public final class EmojiPalettesView extends LinearLayout
                 R.styleable.EmojiPalettesView_categoryIndicatorBackground, 0);
         mCategoryPageIndicatorColor = emojiPalettesViewAttr.getColor(
                 R.styleable.EmojiPalettesView_categoryPageIndicatorColor, 0);
-        mCategoryPageIndicatorBackground = Settings.getInstance().getCurrent().mColors.adjustedBackground; //emojiPalettesViewAttr.getColor(R.styleable.EmojiPalettesView_categoryPageIndicatorBackground, 0);
+        mCategoryPageIndicatorBackground = Settings.getInstance().getCurrent().mColors.getAdjustedBackground(); //emojiPalettesViewAttr.getColor(R.styleable.EmojiPalettesView_categoryPageIndicatorBackground, 0);
         emojiPalettesViewAttr.recycle();
         mDeleteKeyOnTouchListener = new DeleteKeyOnTouchListener();
         mEmojiLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -161,9 +161,7 @@ public final class EmojiPalettesView extends LinearLayout
         // TODO: Replace background color with its own setting rather than using the
         //       category page indicator background as a workaround.
         iconView.setBackgroundColor(mCategoryPageIndicatorBackground);
-        // todo: this doesn't get applied for holo, what could cause this?
-        //  very interesting: in onTabChanged it's applied
-        iconView.setColorFilter(Settings.getInstance().getCurrent().mColors.keyTextFilter);
+        iconView.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
         iconView.setContentDescription(mEmojiCategory.getAccessibilityDescription(categoryId));
         tspec.setIndicator(iconView);
@@ -190,7 +188,7 @@ public final class EmojiPalettesView extends LinearLayout
             tabWidget.setBackgroundResource(mCategoryIndicatorDrawableResId);
             tabWidget.setLeftStripDrawable(mCategoryIndicatorBackgroundResId);
             tabWidget.setRightStripDrawable(mCategoryIndicatorBackgroundResId);
-            tabWidget.setBackgroundColor(colors.accent);
+            tabWidget.setBackgroundColor(colors.getAccent());
         }
 
         mEmojiPalettesAdapter = new EmojiPalettesAdapter(mEmojiCategory, this);
@@ -272,15 +270,11 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
 
-        colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), Colors.TYPE_FUNCTIONAL);
-        colors.setBackgroundColor(mDeleteKey.getBackground(), Colors.TYPE_FUNCTIONAL);
-        colors.setBackgroundColor(mSpacebar.getBackground(), Colors.TYPE_SPACE);
-        final Drawable background = colors.getKeyboardBackground();
-        if (background != null)
-            setBackground(background);
-        else
-            getBackground().setColorFilter(colors.backgroundFilter);
-        mEmojiCategoryPageIndicatorView.setColors(colors.accent, colors.adjustedBackground);
+        colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
+        colors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
+        colors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
+        colors.setBackgroundColor(getBackground(), BackgroundType.BACKGROUND); // only set color, not drawable (issues in keyboardWrapper otherwise)
+        mEmojiCategoryPageIndicatorView.setColors(colors.getAccent(), colors.getAdjustedBackground());
     }
 
     @Override
@@ -302,10 +296,10 @@ public final class EmojiPalettesView extends LinearLayout
         }
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (mCurrentTab != null)
-            mCurrentTab.setColorFilter(colors.keyTextFilter);
+            mCurrentTab.setColorFilter(colors.getKeyTextFilter());
         mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
 //        mCurrentTab.setColorFilter(colors.accentColorFilter); // todo (later): doesn't work properly, because enabled drawable is blue -> adjust
-        mCurrentTab.setColorFilter(colors.accent);
+        mCurrentTab.setColorFilter(colors.getAccent());
     }
 
     /**

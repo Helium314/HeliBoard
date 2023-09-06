@@ -2020,7 +2020,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mCustomNavBarColor)
             return;
-        final int color = settingsValues.mColors.navBar;
+        final int color = settingsValues.mColors.getNavBar();
         final Window window = getWindow().getWindow();
         if (window == null)
             return;

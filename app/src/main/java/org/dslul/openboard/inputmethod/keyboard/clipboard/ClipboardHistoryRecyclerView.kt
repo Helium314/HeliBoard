@@ -63,7 +63,7 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         init {
             paint.color = dividerColor
             paint.strokeWidth = dividerHeight.toFloat()
-            paint.colorFilter = Settings.getInstance().current.mColors.backgroundFilter
+            paint.colorFilter = Settings.getInstance().current.mColors.getThatBackgroundFilter()
         }
 
         override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: State) {

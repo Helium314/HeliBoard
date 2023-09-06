@@ -1,6 +1,7 @@
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
@@ -16,7 +17,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.Colors
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
@@ -48,8 +49,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
                 R.styleable.ClipboardHistoryView, defStyle, R.style.ClipboardHistoryView)
         pinIconId = clipboardViewAttr.getResourceId(
                 R.styleable.ClipboardHistoryView_iconPinnedClip, 0)
-        dividerColor = clipboardViewAttr.getColor(
-                R.styleable.ClipboardHistoryView_dividerBackground, 0)
+        // todo: remove the divider completely?
+        dividerColor = Color.TRANSPARENT //clipboardViewAttr.getColor(R.styleable.ClipboardHistoryView_dividerBackground, 0)
         clipboardViewAttr.recycle()
         val keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
@@ -74,6 +75,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+        val colors = Settings.getInstance().current.mColors
+        colors.setKeyboardBackground(this)
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
             pinnedIconResId = pinIconId
@@ -100,21 +103,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clearKey = findViewById<ImageButton>(R.id.clipboard_clear).apply {
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
+            colorFilter = colors.keyTextFilter
         }
-        val colors = Settings.getInstance().current.mColors
-        clearKey.colorFilter = colors.keyTextFilter
-        val colorBackground = colors.keyboardBackground
-        if (colorBackground != null)
-            background = colorBackground
-        else
-            background.colorFilter = colors.backgroundFilter
     }
 
     private fun setupAlphabetKey(key: TextView?, label: String, params: KeyDrawParams) {
         key?.apply {
             text = label
             typeface = params.mTypeface
-            Settings.getInstance().current.mColors.setBackgroundColor(this.background, Colors.TYPE_FUNCTIONAL)
+            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
