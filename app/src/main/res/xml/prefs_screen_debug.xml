@@ -77,17 +77,6 @@
         android:title="@string/prefs_key_popup_dismiss_duration_settings"
         latin:maxValue="100" /> <!-- milliseconds -->
     <SwitchPreferenceCompat
-        android:key="pref_resize_keyboard"
-        android:title="@string/prefs_resize_keyboard"
-        android:defaultValue="false"
-        android:persistent="true" />
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_resize_keyboard"
-        android:key="pref_keyboard_height_scale"
-        android:title="@string/prefs_keyboard_height_scale"
-        latin:minValue="50"
-        latin:maxValue="120" /> <!-- percentage -->
-    <SwitchPreferenceCompat
         android:key="pref_key_dump_dictionaries"
         android:title="@string/prefs_dump_dynamic_dicts">
     </SwitchPreferenceCompat>

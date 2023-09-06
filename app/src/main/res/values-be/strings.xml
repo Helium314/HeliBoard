@@ -225,7 +225,6 @@
     <string name="number_row_summary">Заўсёды паказваць лічбавы радок</string>
     <string name="delete_swipe">Выдаліць свайпам</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
-    <string name="prefs_resize_keyboard">Уключыць змяненне памеру клавіятуры</string>
     <string name="prefs_narrow_key_gaps">Павялічаныя клавішы</string>
     <string name="prefs_keyboard_height_scale">Шкала вышыні клавіятуры</string>
     <string name="number_row">Лічбавы рад</string>

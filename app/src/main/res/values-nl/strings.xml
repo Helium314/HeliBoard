@@ -216,7 +216,6 @@
     <string name="prefs_keyboard_height_scale">Toetsenbord hoogte schaal</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akhor)</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Wijzig de invoermethode met de spatietoets</string>
-    <string name="prefs_resize_keyboard">Het formaat van het toetsenbord wijzigen inschakelen</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="theme_family">Thema familie</string>

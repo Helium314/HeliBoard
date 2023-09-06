@@ -180,7 +180,6 @@
     <string name="user_dict_settings_more_languages">"Altre lingue..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Elimina"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="prefs_resize_keyboard">Attiva ridimensionamento tastiera</string>
     <string name="prefs_keyboard_height_scale">Altezza tastiera</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="autospace_after_punctuation">Spazio automatico dopo la punteggiatura</string>

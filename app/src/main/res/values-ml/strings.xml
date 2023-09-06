@@ -204,7 +204,6 @@
     <string name="delete_swipe_summary">ടെക്‌സ്‌റ്റിന്റെ വലിയ ഭാഗങ്ങൾ ഒരേസമയം തിരഞ്ഞെടുത്ത് നീക്കംചെയ്യുന്നതിന് ഡിലീറ്റ് കീ ഒന്ന് സ്വൈപ്പ് ചെയ്യുക</string>
     <string name="show_hints_summary">ദീർഘനേരം അമർത്തുന്ന സൂചനകൾ കാണിക്കുക</string>
     <string name="prefs_long_press_keyboard_to_change_lang">സ്പേസ് കീ ഉപയോഗിച്ച് ഇൻപുട്ട് രീതി മാറ്റുക</string>
-    <string name="prefs_resize_keyboard">കീബോർഡ് വലുപ്പം മാറ്റുന്നത് എനേബിൾ ചെയ്യുക</string>
     <string name="day_night_mode_summary">രൂപഭാവം സിസ്റ്റം ക്രമീകരണങ്ങൾ പിന്തുടരും</string>
     <string name="key_borders">കീ അതിരുകൾ</string>
     <string name="day_night_mode">ഓട്ടോ പകൽ/രാത്രി മോഡ്</string>

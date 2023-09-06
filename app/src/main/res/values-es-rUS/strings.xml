@@ -186,7 +186,6 @@
     <string name="spell_checker_service_name">Corrector ortográfico de OpenBoard</string>
     <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de OpenBoard</string>
     <string name="show_clipboard_key">Tecla de portapapeles</string>
-    <string name="prefs_resize_keyboard">Habilitar cambiar de tamaño al teclado</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles si lo hay</string>

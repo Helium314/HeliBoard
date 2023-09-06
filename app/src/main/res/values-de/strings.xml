@@ -213,7 +213,6 @@
     <string name="autospace_after_punctuation">Automatisches Leerzeichen nach Punkt</string>
     <string name="show_hints_summary">Hinweise bei langem Halten anzeigen</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Eingabemethode mit der Leertaste ändern</string>
-    <string name="prefs_resize_keyboard">Tastatur-Größenanpassung aktivieren</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langes Halten der Leertaste öffnet das Eingabemethoden-Menü</string>
     <string name="theme_family">Designsprache</string>
     <string name="prefs_keyboard_height_scale">Tastaturgröße</string>

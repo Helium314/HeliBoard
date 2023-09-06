@@ -123,7 +123,6 @@
     <string name="show_hints_summary">দীর্ঘ চাপের পরামর্শ প্রদর্শন</string>
     <string name="prefs_long_press_keyboard_to_change_lang">স্পেস বোতামে ইনপুট পদ্ধতি পরিবর্তন</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">স্পেস বোতামে দীর্ঘ চাপ দিয়ে ইনপুট পদ্ধতি নির্বাচনের মেনু আনয়ন</string>
-    <string name="prefs_resize_keyboard">কিবোর্ডের আকার পরিবর্তন সক্রিয়করণ</string>
     <string name="prefs_keyboard_height_scale">কিবোর্ডের উচ্চতার স্কেল</string>
     <string name="switch_accounts">অ্যাকাউন্ট পরিবর্তন</string>
     <string name="no_accounts_selected">কোনো অ্যাকাউন্ট নির্বাচন করা হয়নি</string>

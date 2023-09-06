@@ -204,7 +204,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Endre inndatametode med mellomromstast</string>
     <string name="show_clipboard_key">Utklippstavletast</string>
     <string name="prefs_force_incognito_mode_summary">Skru av innlæring av nye ord</string>
-    <string name="prefs_resize_keyboard">Skru på endring av tastaturstørrelse</string>
     <string name="prefs_keyboard_height_scale">Skalering av tastaturhøyde</string>
     <string name="more_keys_strip_description">Flere taster</string>
     <string name="number_row">Tallrad</string>

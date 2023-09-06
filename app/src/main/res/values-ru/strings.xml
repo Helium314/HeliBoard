@@ -185,7 +185,6 @@
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
     <string name="show_hints">"Показывать спецсимволы"</string>
     <string name="show_hints_summary">"Показывать спецсимволы на клавишах"</string>
-    <string name="prefs_resize_keyboard">Включить масштабирование клавиатуры</string>
     <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
     <string name="prefs_keyboard_height_scale">"Масштабирование по высоте"</string>
     <string name="delete_swipe">"Удаление жестом"</string>

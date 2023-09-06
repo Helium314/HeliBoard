@@ -196,7 +196,6 @@
     <string name="number_row">Nommers ry</string>
     <string name="number_row_summary">Wys altyd die nommers ry</string>
     <string name="show_hints">Wys sleutel wenke</string>
-    <string name="prefs_resize_keyboard">Aktiveer sleutelbord grote verstelling</string>
     <string name="show_hints_summary">Wys lang-druk wenke</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Verander toevoer modus met spasiebalk</string>
     <string name="prefs_keyboard_height_scale">Sleutelbord hoogte-skaal</string>

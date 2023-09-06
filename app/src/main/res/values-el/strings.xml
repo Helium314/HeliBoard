@@ -206,7 +206,6 @@
     <string name="autospace_after_punctuation_summary">Εισαγάγετε αυτόματα κενό διάστημα μετά τα σημεία στίξης όταν πληκτρολογείτε μια νέα λέξη</string>
     <string name="number_row">Αριθμητική σειρά</string>
     <string name="number_row_summary">Να εμφανίζεται πάντα η αριθμητική σειρά</string>
-    <string name="prefs_resize_keyboard">Ενεργοποίηση αλλαγής μεγέθους πληκτρολογίου</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Αλλάξτε τη μέθοδο εισαγωγής με το πλήκτρο διαστήματος</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Αλφάβητο (Colemak Mod-DH)</string>

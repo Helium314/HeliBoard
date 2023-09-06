@@ -184,7 +184,6 @@
     <string name="settings_no_limit">بلا حدود</string>
     <string name="ime_settings">إعدادات OpenBoard</string>
     <string name="settings_category_input">الإدخال</string>
-    <string name="prefs_resize_keyboard">تمكين تغيير حجم لوحة المفاتيح</string>
     <string name="prefs_force_incognito_mode_summary">تعطيل تعلم الكلمات الجديدة</string>
     <string name="more_keys_strip_description">المزيد من المفاتيح</string>
     <string name="prefs_keyboard_height_scale">مقياس ارتفاع لوحة المفاتيح</string>

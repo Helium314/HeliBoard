@@ -220,5 +220,4 @@
     <string name="day_night_mode_summary">A megjelenés követi a rendszerbeállításokat</string>
     <string name="settings_category_input">Bemenet</string>
     <string name="space_trackpad">Space billentyű trackpad</string>
-    <string name="prefs_resize_keyboard">A billentyűzet átméretezésének engedélyezése</string>
 </resources>

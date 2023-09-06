@@ -216,7 +216,6 @@
     <string name="prefs_force_incognito_mode_summary">غیرفعال کردن یادگیری کلمات جدید</string>
     <string name="autospace_after_punctuation">فاصله خودکار بعد از نشانه گذاری</string>
     <string name="autospace_after_punctuation_summary">هنگام تایپ یک کلمه جدید، به طور خودکار فاصله را بعد از علامت گذاری وارد کن</string>
-    <string name="prefs_resize_keyboard">تغییر اندازه صفحه کلید را فعال کنید</string>
     <string name="prefs_keyboard_height_scale">مقیاس ارتفاع صفحه کلید</string>
     <string name="show_hints">نمایش اشاره کلید‌ها</string>
     <string name="show_hints_summary">نمایش اشاره لمس طولانی</string>

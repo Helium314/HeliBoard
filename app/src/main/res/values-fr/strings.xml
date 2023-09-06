@@ -249,7 +249,6 @@
     <string name="theme_family">Famille de thème</string>
     <string name="key_borders">Bordures de touche</string>
     <string name="day_night_mode">Mode jour/nuit automatique</string>
-    <string name="prefs_resize_keyboard">Autoriser le redimensionnement du clavier</string>
     <string name="prefs_narrow_key_gaps">Réduire l\'espace entre les touches</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>

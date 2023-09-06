@@ -188,7 +188,6 @@
     <string name="number_row_summary">Vedno pokaži vrstico s številkami</string>
     <string name="show_hints">Prikaži namige tipk</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Spremeni način vnosa s preslednico</string>
-    <string name="prefs_resize_keyboard">Omogoči spreminjanje velikosti tipkovnice</string>
     <string name="key_borders">Robovi tipk</string>
     <string name="theme_variant">Različica tem</string>
     <string name="settings_category_clipboard_history">Zgodovina odložišča</string>

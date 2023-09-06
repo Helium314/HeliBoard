@@ -212,7 +212,6 @@
     <string name="show_hints_summary">길게 누르기 힌트 표시</string>
     <string name="prefs_long_press_keyboard_to_change_lang">스페이스로 입력 방법 변경</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">스페이스를 길게 눌러 입력 방법 메뉴 표시</string>
-    <string name="prefs_resize_keyboard">키보드 리사이징 활성화</string>
     <string name="prefs_keyboard_height_scale">키보드 높이 정도</string>
     <string name="number_row">숫자 행</string>
     <string name="theme_family">테마 패밀리</string>

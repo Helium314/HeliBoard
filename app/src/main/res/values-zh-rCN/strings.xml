@@ -219,7 +219,6 @@
     <string name="settings_category_additional_keys">额外键</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">长按空格切换输入法</string>
     <string name="prefs_long_press_keyboard_to_change_lang">空格切换输入法</string>
-    <string name="prefs_resize_keyboard">调整键盘大小</string>
     <string name="prefs_keyboard_height_scale">调整键盘高度</string>
     <string name="subtype_no_language_colemak_dh">字母表</string>
     <string name="auto_correction_confidence">自动更正把握</string>

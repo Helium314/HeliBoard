@@ -203,7 +203,6 @@
     <string name="theme_variant">Temavariant</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Skift inputmetode med mellemrumstasten</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langt tryk på mellemrumstasten vil åbne menuen til valg af inputmetode</string>
-    <string name="prefs_resize_keyboard">Aktivér ændring af tastaturets størrelse</string>
     <string name="android_spell_checker_settings">Indstillinger for OpenBoard-stavekontrol</string>
     <string name="autospace_after_punctuation_summary">Indsæt automatisk mellemrum efter tegnsætning, når du skriver et nyt ord</string>
     <string name="space_trackpad">Pegefelt på mellemrumstasten</string>

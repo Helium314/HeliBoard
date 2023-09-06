@@ -207,7 +207,6 @@
     <string name="show_hints_summary">Nápověda při dlouhém stisku</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Změnit metodu zadávání mezerníkem</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dlouhý stisk mezerníku zobrazí výzvu změny vstupní metody</string>
-    <string name="prefs_resize_keyboard">Povolit změnu velikosti</string>
     <string name="prefs_keyboard_height_scale">Měřítko výšky klávesnice</string>
     <string name="day_night_mode_summary">Vzhled podle systémového nastavení</string>
     <string name="ime_settings">Nastavení OpenBoard</string>

@@ -187,7 +187,6 @@
     <string name="prefs_force_incognito_mode_summary">Wyłącz naukę nowych słów</string>
     <string name="more_keys_strip_description">Więcej klawiszy</string>
     <string name="number_row">Rząd numeryczny</string>
-    <string name="prefs_resize_keyboard">Włącz zmianę rozmiaru klawiatury</string>
     <string name="show_emoji_key">Klawisz Emoji</string>
     <string name="theme_variant">Wariant motywu</string>
     <string name="theme_family">Rodzina motywów</string>

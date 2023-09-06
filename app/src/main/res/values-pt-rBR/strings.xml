@@ -55,7 +55,6 @@
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de entrada</string>
-    <string name="prefs_resize_keyboard">Ativar redimensionamento do teclado</string>
     <string name="prefs_keyboard_height_scale">Escala de altura do teclado</string>
     <string name="switch_accounts">Alternar contas</string>
     <string name="no_accounts_selected">Nenhuma conta selecionada</string>

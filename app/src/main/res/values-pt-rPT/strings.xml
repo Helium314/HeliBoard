@@ -206,7 +206,6 @@
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de introdução com a tecla Espaço</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de introdução</string>
-    <string name="prefs_resize_keyboard">Ativar redimensionamento do teclado</string>
     <string name="prefs_keyboard_height_scale">Altura do teclado</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>

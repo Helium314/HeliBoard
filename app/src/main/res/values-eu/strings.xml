@@ -201,7 +201,6 @@
     <string name="number_row">zenbaki errenkada</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Espazio tekla luze sakatzeak sarrera-metodoa hautatzeko menua piztuko du</string>
     <string name="spell_checker_service_name">OpenBoard Ortografia Zuzentzailea</string>
-    <string name="prefs_resize_keyboard">Gaitu teklatuaren tamaina aldatzea</string>
     <string name="theme_variant">Gai aldaera</string>
     <string name="autospace_after_punctuation">Autoespazioa puntuazioen ondoren</string>
     <string name="prefs_force_incognito_mode">Ezezagun modua behartu</string>

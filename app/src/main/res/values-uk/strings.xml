@@ -232,7 +232,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Довге натискання клавіші пробіл виводить меню вибору способу введення</string>
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="spell_checker_service_name">Перевірка правопису OpenBoard</string>
-    <string name="prefs_resize_keyboard">Дозволити зміну розміру клавіатури</string>
     <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>

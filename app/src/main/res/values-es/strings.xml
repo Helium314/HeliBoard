@@ -190,7 +190,6 @@
     <string name="spell_checker_service_name">Corrector ortográfico de OpenBoard</string>
     <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de OpenBoard</string>
     <string name="show_clipboard_key">Tecla de portapapeles</string>
-    <string name="prefs_resize_keyboard">Habilitar cambiar el tamaño del teclado</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="delete_swipe">Borrar deslizando</string>
     <string name="delete_swipe_summary">Deslice el dedo desde la tecla Borrar para seleccionar y eliminar porciones más grandes de texto de una vez</string>

@@ -211,7 +211,6 @@
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
-    <string name="prefs_resize_keyboard">Enable keyboard resizing</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
     <string name="settings_no_limit">No limit</string>
     <string name="settings_category_clipboard_history">Clipboard history</string>

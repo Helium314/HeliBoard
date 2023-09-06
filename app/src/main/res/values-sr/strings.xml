@@ -192,7 +192,6 @@
     <string name="autospace_after_punctuation">Аутоматски размак после интерпункције</string>
     <string name="number_row_summary">Увек прикажи ред са бројевима</string>
     <string name="show_hints">Прикажи кључне савете</string>
-    <string name="prefs_resize_keyboard">Омогућите промену величине тастатуре</string>
     <string name="settings_category_clipboard_history">Историја међуспремника</string>
     <string name="settings_category_correction">Исправке</string>
     <string name="settings_category_experimental">Експерименталне карактеристике</string>

@@ -212,7 +212,6 @@
     <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
     <string name="more_keys_strip_description">Fler tangenter</string>
-    <string name="prefs_resize_keyboard">Ändra tangentbordsstorlek</string>
     <string name="prefs_keyboard_height_scale">Tangentbordets höjdskala</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>

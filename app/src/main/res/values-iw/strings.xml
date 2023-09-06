@@ -188,7 +188,6 @@
     <string name="number_row">שורת מספרים</string>
     <string name="number_row_summary">הצג תמיד שורת מספרים</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">לחיצה ארוכה על מקש הרווח תציג תפריט בחירת שיטת קלט</string>
-    <string name="prefs_resize_keyboard">אפשר שינוי גודל מקלדת</string>
     <string name="show_hints">הצג רמזים עיקריים</string>
     <string name="show_hints_summary">הצג רמזים בלחיצה ארוכה</string>
     <string name="prefs_keyboard_height_scale">סולם גובה מקלדת</string>

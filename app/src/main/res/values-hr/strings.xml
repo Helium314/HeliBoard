@@ -215,7 +215,6 @@
     <string name="show_hints_summary">Pokaži savjete pri dugom pritisku tipke</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Promijeni način unosa s razmaknicom</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dugi pritisak razmaknice prikazat će izbornik za način unosa</string>
-    <string name="prefs_resize_keyboard">Aktiviraj mijenjanje veličine tipkovnice</string>
     <string name="prefs_keyboard_height_scale">Visine tipkovnice</string>
     <string name="key_borders">Tipke s rubovima</string>
     <string name="day_night_mode">Automatski danji/noćni način rada</string>

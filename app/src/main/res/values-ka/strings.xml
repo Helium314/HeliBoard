@@ -221,7 +221,6 @@
     <string name="clipboard_history_retention_time">ისტორიის შენახვის დრო</string>
     <string name="space_trackpad_summary">კურსორის გადასატანად გამოტოვების ღილაკს გაუსვით</string>
     <string name="more_keys_strip_description">მეტი ღილაკი</string>
-    <string name="prefs_resize_keyboard">კლავიატურის ზომის შეცვლის დაშვება</string>
     <string name="prefs_keyboard_height_scale">კლავიატურის სიმაღლის მასშტაბი</string>
     <string name="key_borders">ღილაკის კონტურები</string>
     <string name="subtype_no_language_colemak_dh">ანბანი (Colemak Mod-DH)</string>

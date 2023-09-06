@@ -204,7 +204,6 @@
     <string name="number_row_summary">Har doim raqamlar qatorini ko\'rsatish</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Bo\'sh joy tugmasi bilan kiritish usulini o\'zgartirish</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Bo\'sh joy tugmachasini uzoq bosib turish, kiritish usulini tanlash menyusini taklif qiladi</string>
-    <string name="prefs_resize_keyboard">Klaviatura o‘lchamini o‘zgartirishni yoqish</string>
     <string name="prefs_keyboard_height_scale">Klaviatura balandligi o\'lchovi</string>
     <string name="settings_category_miscellaneous">Turli xil</string>
     <string name="settings_category_suggestions">Takliflar</string>
