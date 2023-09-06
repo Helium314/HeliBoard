@@ -105,6 +105,7 @@
     th: Thai/thai
     tl: Tagalog/spanish
     tr: Turkish/qwerty
+    ur_PK: Urdu Pakistan
     uk: Ukrainian/east_slavic
     uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
     vi: Vietnamese/qwerty
@@ -814,6 +815,14 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=east_slavic,EmojiCapable"
             android:isAsciiCapable="false"
     />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0x1e8349fc"
+        android:imeSubtypeLocale="ur_PK"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=urdu,EmojiCapable"
+        android:isAsciiCapable="false"
+        />
     <!-- TODO: This Uzbek keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher_dark"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Label for "switch to alphabetic" key.
+     U+0623: "ا" ARABIC LETTER ALEF WITH HAMZA ABOVE
+     U+0628: "ب" ARABIC LETTER BEH
+     U+200C: ZERO WIDTH NON-JOINER
+     U+062C: "پ" URDU LETTER PEH -->
+    <string name="keylabel_to_alpha">&#x0627;&#x0628;&#x200C;&#x067E;</string>
+    <!-- U+060C: "،" ARABIC COMMA -->
+    <string name="keyspec_comma">&#x060C;</string>
+
+    <!-- Label for "switch to symbols" key.
+     U+061F: "؟" ARABIC QUESTION MARK -->
+    <string name="keylabel_to_symbol">&#x06F3;&#x06F2;&#x06F1;&#x061F;</string>
+
+    <string name="additional_morekeys_symbols_1">&#x06F1;</string>
+    <string name="additional_morekeys_symbols_2">&#x06F2;</string>
+    <string name="additional_morekeys_symbols_3">&#x06F3;</string>
+    <string name="additional_morekeys_symbols_4">&#x06F4;</string>
+    <string name="additional_morekeys_symbols_5">&#x06F5;</string>
+    <string name="additional_morekeys_symbols_6">&#x06F6;</string>
+    <string name="additional_morekeys_symbols_7">&#x06F7;</string>
+    <string name="additional_morekeys_symbols_8">&#x06F8;</string>
+    <string name="additional_morekeys_symbols_9">&#x06F9;</string>
+    <string name="additional_morekeys_symbols_0">&#x06F0;</string>
+
+    <!-- U+06D4 ARABIC FULL STOP-->
+    <string name="keyspec_period">&#x6d4;</string>
+
+    <!-- U+061F ARABIC QUESTION MARK
+         U+060C ARABIC COMMA
+         U+0021 EXCLAMATION MARK
+         U+002E PERIOD
+         U+002D HYPHEN MINUS -->
+    <string name="morekeys_period">&#x061F;,&#x060C;,&#x0021;,&#x002E;,&#x002D;</string>
+
+    <string name="keyspec_symbols_question">&#x061F;</string>
+    <string name="keyspec_symbols_semicolon">&#x061B;</string>
+
+    <string name="keyspec_symbols_percent">&#x066A;</string>
+    <!-- U+2030: "‰" PER MILLE SIGN -->
+    <string name="morekeys_symbols_percent">\\%,&#x2030;</string>
+
+    <!-- U+2605: "★" BLACK STAR
+     U+066D: "٭" ARABIC FIVE POINTED STAR -->
+    <string name="morekeys_star">&#x2605;,&#x066D;</string>
+    <!-- The all letters need to be mirrored are found at
+     http://www.unicode.org/Public/6.1.0/ucd/BidiMirroring.txt -->
+    <!-- U+FD3E: "﴾" ORNATE LEFT PARENTHESIS
+         U+FD3F: "﴿" ORNATE RIGHT PARENTHESIS -->
+    <string name="morekeys_left_parenthesis">!fixedColumnOrder!4,&#xFD3E;|&#xFD3F;,!text/keyspecs_left_parenthesis_more_keys</string>
+    <string name="morekeys_right_parenthesis">!fixedColumnOrder!4,&#xFD3F;|&#xFD3E;,!text/keyspecs_right_parenthesis_more_keys</string>
+    <!-- U+2264: "≤" LESS-THAN OR EQUAL TO
+         U+2265: "≥" GREATER-THAN EQUAL TO
+         U+00AB: "«" LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+         U+00BB: "»" RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+         U+2039: "‹" SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+         U+203A: "›" SINGLE RIGHT-POINTING ANGLE QUOTATION MARK -->
+    <string name="morekeys_less_than">!fixedColumnOrder!3,!text/keyspec_left_single_angle_quote,!text/keyspec_less_than_equal,!text/keyspec_less_than</string>
+    <string name="morekeys_greater_than">!fixedColumnOrder!3,!text/keyspec_right_single_angle_quote,!text/keyspec_greater_than_equal,!text/keyspec_greater_than</string>
+    <string name="keyspec_left_parenthesis">(|)</string>
+    <string name="keyspec_right_parenthesis">)|(</string>
+    <string name="keyspec_left_square_bracket">[|]</string>
+    <string name="keyspec_right_square_bracket">]|[</string>
+    <string name="keyspec_left_curly_bracket">{|}</string>
+    <string name="keyspec_right_curly_bracket">}|{</string>
+    <string name="keyspec_less_than">&lt;|&gt;</string>
+    <string name="keyspec_greater_than">&gt;|&lt;</string>
+    <string name="keyspec_less_than_equal">&#x2264;|&#x2265;</string>
+    <string name="keyspec_greater_than_equal">&#x2265;|&#x2264;</string>
+    <string name="keyspec_left_double_angle_quote">&#x00AB;|&#x00BB;</string>
+    <string name="keyspec_right_double_angle_quote">&#x00BB;|&#x00AB;</string>
+    <string name="keyspec_left_single_angle_quote">&#x2039;|&#x203A;</string>
+    <string name="keyspec_right_single_angle_quote">&#x203A;|&#x2039;</string>
+</resources>
