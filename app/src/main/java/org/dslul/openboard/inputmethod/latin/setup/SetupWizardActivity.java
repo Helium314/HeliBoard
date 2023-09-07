@@ -179,7 +179,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 (TextView)findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_step3,
-                R.string.setup_step3_action_new);
+                R.string.setup_step3_action);
         step3.setAction(new Runnable() {
             @Override
             public void run() {

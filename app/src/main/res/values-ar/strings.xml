@@ -17,14 +17,12 @@
 ** limitations under the License.
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options">"خيارات الإرسال"</string>
     <string name="use_contacts_for_spellchecking_option_title">"بحث في أسماء جهات الاتصال"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"يستخدم المدقق الإملائي إدخالات من قائمة جهات الاتصال"</string>
     <string name="vibrate_on_keypress">"اهتزاز عند ضغط مفتاح"</string>
     <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
     <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
     <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"الحسابات والخصوصية"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
     <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
@@ -43,7 +41,6 @@
     <string name="use_contacts_dict">"اقتراح أسماء جهات الاتصال"</string>
     <string name="use_contacts_dict_summary">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"اقتراحات مخصصة"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">حسِّن <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period">"نقطة المسافة المزدوجة"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
     <string name="auto_cap" msgid="1719746674854628252">"أحرف كبيرة تلقائيًا"</string>
@@ -78,13 +75,6 @@
     <string name="select_language" msgid="5709487854987078367">"اللغات"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"انقر مرة أخرى للحفظ"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"انقر هنا للحفظ"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"القاموس متاح"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"مظهر لوحة المفاتيح"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"تبديل الحسابات"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"لم يتم تحديد أي حساب"</string>
-    <string name="account_selected" msgid="2846876462199625974">يتم حاليًا استخدام <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"الخروج"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"تحديد حساب لاستخدامه"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"الإسبانية (الأميركية)"</string>
@@ -111,10 +101,6 @@
     <string name="save" msgid="7646738597196767214">"حفظ"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"اللغة"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"التخطيط"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"يجب تفعيل نمط الإدخال المخصص قبل استخدامه. هل تريد تفعيله الآن؟"</string>
-    <string name="enable" msgid="5031294444630523247">"تفعيل"</string>
-    <string name="not_now" msgid="6172462888202790482">"ليس الآن"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">أسلوب الإدخال ذاته موجود من قبل: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"مدة اهتزاز الضغط على المفاتيح"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"مستوى صوت الضغط على المفاتيح"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"مهلة الضغط مع الاستمرار على المفاتيح"</string>
@@ -135,31 +121,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"تبديل أساليب الإدخال"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">تهانينا ، لقد انتهيت من الإعداد!</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">الآن أصبح بإمكانك الكتابة في جميع تطبيقاتك المفضلة باستخدام <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"تهيئة اللغات الإضافية"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"إنهاء العملية"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"عرض رمز التطبيق"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"عرض رمز التطبيق في المشغل"</string>
     <string name="app_name" msgid="6320102637491234792">"مقدم القاموس"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"مقدم القاموس"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"خدمة القاموس"</string>
-    <string name="download_description" msgid="6014835283119198591">"معلومات تحديث القاموس"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"القواميس الإضافية"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"إعدادات القواميس"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"قواميس المستخدم"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"قاموس المستخدم"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"القاموس متاح"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"يتم حاليًا التنزيل"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"تم التثبيت"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"مثبت، غير مفعّل"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"مشكلة في الاتصال بخدمة القاموس"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"لا تتوفر أي قواميس"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"تحديث"</string>
     <string name="last_update" msgid="730467549913588780">"تاريخ آخر تحديث"</string>
-    <string name="message_updating" msgid="4457761393932375219">"جارٍ البحث عن تحديثات"</string>
-    <string name="message_loading" msgid="5638680861387748936">"جارٍ التحميل…"</string>
     <string name="main_dict_description">"القاموس الرئيسي"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"إعدادات"</string>
-    <string name="install_dict" msgid="180852772562189365">"تثبيت"</string>
     <string name="delete_dict" msgid="756853268088330054">"حذف"</string>
     <string name="version_text" msgid="2715354215568469385">الإصدار <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"إضافة"</string>

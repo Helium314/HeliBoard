@@ -121,10 +121,6 @@
     <string name="spoken_descrption_emoji_category_people">People</string>
     <!-- Description of the emoji category icon of Objects. -->
     <string name="spoken_descrption_emoji_category_objects">Objects</string>
-    <!-- Description of the emoji category icon of Nature. -->
-    <string name="spoken_descrption_emoji_category_nature">Nature</string>
-    <!-- Description of the emoji category icon of Places. -->
-    <string name="spoken_descrption_emoji_category_places">Places</string>
     <!-- Description of the emoji category icon of Symbols. -->
     <string name="spoken_descrption_emoji_category_symbols">Symbols</string>
     <!-- Description of the emoji category icon of Flags. -->

@@ -17,14 +17,12 @@
 ** limitations under the License.
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Opzioni inserimento"</string>
     <string name="use_contacts_for_spellchecking_option_title">"Cerca in nomi contatti"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"La funzione di controllo ortografico usa voci dell\'elenco contatti"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrazione tasti"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Suono tasti"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Popup tasti"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferenze"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Account e privacy"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aspetto e layout"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Digitazione gestuale"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correzione testo"</string>
@@ -43,7 +41,6 @@
     <string name="use_contacts_dict">"Suggerisci nomi di contatti"</string>
     <string name="use_contacts_dict_summary">"Utilizza nomi di Contatti per suggerimenti e correzioni"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Suggerimenti personalizzati"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">Migliora <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Doppio spazio per punto"</string>
     <string name="use_double_space_period_summary">"Tocca due volte barra spaziatr. per inserire punto seguito da spazio"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Maiuscole automatiche"</string>
@@ -78,13 +75,6 @@
     <string name="select_language" msgid="5709487854987078367">"Lingue"</string>
     <string name="hint_add_to_dictionary">"Tocca di nuovo per salvare"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Tocca qui per salvare"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Dizionario disponibile"</string>
-    <string name="keyboard_layout">"Tema della tastiera"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Cambia account"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Nessun account selezionato"</string>
-    <string name="account_selected" msgid="2846876462199625974">Attualmente in uso <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Esci"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Seleziona un account da utilizzare"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Inglese (Regno Unito)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Inglese (Stati Uniti)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Spagnolo (Stati Uniti)</string>
@@ -111,10 +101,6 @@
     <string name="save" msgid="7646738597196767214">"Salva"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Lingua"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Layout"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Lo stile di ingresso personalizzato deve essere attivato prima dell\'utilizzo. Vuoi attivarlo?"</string>
-    <string name="enable" msgid="5031294444630523247">"Attiva"</string>
-    <string name="not_now" msgid="6172462888202790482">"Non ora"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Lo stile di immissione esiste già: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durata vibrazione pressione tasto"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volume audio a pressione tasto"</string>
     <string name="prefs_key_longpress_timeout_settings">"Ritardo pressione lunga tasti"</string>
@@ -135,31 +121,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Cambia metodo di immissione"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Grazie, adesso sei pronto!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Puoi usare <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> per digitare in tutte le tue app preferite.</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Configura altre lingue"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Terminato"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Mostra icona app"</string>
     <string name="show_setup_wizard_icon_summary">"Mostra l\'icona dell\'app in Avvio app"</string>
     <string name="app_name">"Dictionary Provider"</string>
     <string name="dictionary_provider_name">"Dictionary Provider"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Servizio dizionario"</string>
-    <string name="download_description" msgid="6014835283119198591">"Informazioni aggiornamento dizionari"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Dizionari aggiuntivi"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Impostazioni per dizionari"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Dizionari utente"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Dizionario utente"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Dizionario disponibile"</string>
-    <string name="dictionary_downloading">"In fase di download"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Installato"</string>
-    <string name="dictionary_disabled">"Installato, disabilitato"</string>
     <string name="cannot_connect_to_dict_service">"Conness. diz. imposs"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Nessun dizionario"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Aggiorna"</string>
     <string name="last_update" msgid="730467549913588780">"Ultimo aggiornamento"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Verifica disponibilità aggiornamenti"</string>
-    <string name="message_loading">"Caricamento..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Dizionario principale"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Impostazioni"</string>
-    <string name="install_dict" msgid="180852772562189365">"Installa"</string>
     <string name="delete_dict" msgid="756853268088330054">"Elimina"</string>
     <string name="version_text" msgid="2715354215568469385">Versione <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Aggiungi"</string>

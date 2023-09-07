@@ -17,14 +17,12 @@
 ** limitations under the License.
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options">"Opcije ulaza"</string>
     <string name="use_contacts_for_spellchecking_option_title">"Potražite imena kontakata"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Provjera pravopisa upotrebljava unose iz vašeg popisa kontakata"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibracija pri pritisku na tipku"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress">"Povećani font na pritisak tipke"</string>
     <string name="settings_screen_preferences">"Postavke"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Računi i privatnost"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi"</string>
     <string name="settings_screen_gesture">"Pisanje kretnjama"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravljanje teksta"</string>
@@ -43,7 +41,6 @@
     <string name="use_contacts_dict">"Predlaži imena kontakata"</string>
     <string name="use_contacts_dict_summary">"Koristi imena iz Kontakata za prijedloge i ispravke"</string>
     <string name="use_personalized_dicts">"Prilagođeni prijedlozi"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">Poboljšaj <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period">"Točka s dva razmaka"</string>
     <string name="use_double_space_period_summary">"Dvostrukim dodirivanjem razmaknice umeću se točka i razmak"</string>
     <string name="auto_cap">"Autom. veliko početno slovo"</string>
@@ -78,13 +75,6 @@
     <string name="select_language" msgid="5709487854987078367">"Jezici"</string>
     <string name="hint_add_to_dictionary">"Dodirnite ponovo za spremanje"</string>
     <string name="hint_add_to_dictionary_without_word">"Dodirnite ovdje za spremanje"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Rječnik je dostupan"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Tema tipkovnice"</string>
-    <string name="switch_accounts">"Prijelaz na drugi račun"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Nije odabran nijedan račun"</string>
-    <string name="account_selected" msgid="2846876462199625974">Trenutačno se koristi <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_sign_out">"Odjava"</string>
-    <string name="account_select_title">"Odaberite račun za upotrebu"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>
@@ -111,10 +101,6 @@
     <string name="save" msgid="7646738597196767214">"Spremi"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Jezik"</string>
     <string name="keyboard_layout_set">"Izgled"</string>
-    <string name="custom_input_style_note_message">"Prilagođeni stil unosa mora biti omogućen. Omogućiti sada?"</string>
-    <string name="enable">"Omogući"</string>
-    <string name="not_now" msgid="6172462888202790482">"Ne sada"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Isti stil unosa već postoji: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings">"Trajanje vibracije pritiska"</string>
     <string name="prefs_keypress_sound_volume_settings">"Glasnoća pritiska tipke"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Trajanje dugog pritiska tipke"</string>
@@ -135,31 +121,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">Prijeđi na drugi način unosa</string>
     <string name="setup_step3_title" msgid="3154757183631490281">Čestitamo, sve je spremno!</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Sada možeš pisati u svim svojim omiljenim aplikacijama pomoću aplikacije <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Konfiguriraj dodatne jezike"</string>
     <string name="setup_finish_action">"Završeno"</string>
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
     <string name="app_name">"Davatelj rječnika"</string>
     <string name="dictionary_provider_name">"Davatelj rječnika"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Usluga rječnika"</string>
-    <string name="download_description">"Ažurirane informacije rječnika"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Rječnici kao dodaci"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Postavke za rječnike"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Korisnički rječnici"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Korisnički rječnik"</string>
     <string name="dictionary_available">"Dostupan je rječnik"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Trenutačno se preuzima"</string>
-    <string name="dictionary_installed">"Instalirano"</string>
-    <string name="dictionary_disabled">"Instalirano, onemogućeno"</string>
     <string name="cannot_connect_to_dict_service">"Nema usluge rječnika"</string>
     <string name="no_dictionaries_available">"Rječnici nedostupni"</string>
     <string name="check_for_updates_now">"Osvježavanje"</string>
     <string name="last_update" msgid="730467549913588780">"Zadnje ažuriranje"</string>
-    <string name="message_updating">"Provjera ažuriranja"</string>
-    <string name="message_loading">"Učitavanje…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Glavni rječnik"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Postavke"</string>
-    <string name="install_dict" msgid="180852772562189365">"Instaliraj"</string>
     <string name="delete_dict" msgid="756853268088330054">"Izbriši"</string>
     <string name="version_text" msgid="2715354215568469385">Verzija <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Dodavanje"</string>
