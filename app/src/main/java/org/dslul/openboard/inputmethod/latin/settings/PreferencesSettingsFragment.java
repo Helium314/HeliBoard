@@ -86,11 +86,11 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        setPreferenceEnabled(Settings.PREF_VIBRATION_DURATION_SETTINGS,
+        setPreferenceVisible(Settings.PREF_VIBRATION_DURATION_SETTINGS,
                 Settings.readVibrationEnabled(prefs, res));
-        setPreferenceEnabled(Settings.PREF_KEYPRESS_SOUND_VOLUME,
+        setPreferenceVisible(Settings.PREF_KEYPRESS_SOUND_VOLUME,
                 Settings.readKeypressSoundEnabled(prefs, res));
-        setPreferenceEnabled(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+        setPreferenceVisible(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
                 Settings.readClipboardHistoryEnabled(prefs));
     }
 
