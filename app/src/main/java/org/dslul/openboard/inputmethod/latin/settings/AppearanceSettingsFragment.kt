@@ -50,7 +50,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         needsReload = false
     }
 
-    override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
         super.onSharedPreferenceChanged(prefs, key)
         needsReload = true // may not always be the necessary, but that's ok
     }

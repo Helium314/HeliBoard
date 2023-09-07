@@ -14,16 +14,17 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            //shrinkResources true todo: test before enabling, a lot of resources are accessed via getIdentifier and possibly not all have been marked with "keep"
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'src/main/proguard.flags'
         }
         debug {
-            minifyEnabled false
+            minifyEnabled true
             jniDebuggable false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'src/main/proguard.flags'
             applicationIdSuffix ".debug"
         }
         archivesBaseName = "openboard_" + defaultConfig.versionName
