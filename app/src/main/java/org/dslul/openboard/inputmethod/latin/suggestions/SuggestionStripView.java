@@ -148,7 +148,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackgroundColor(word.getBackground(), BackgroundType.BACKGROUND);
+            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -186,7 +186,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mOtherKey.setImageDrawable(iconIncognito);
 
-        colors.setBackgroundColor(getBackground(), BackgroundType.BACKGROUND);
+        colors.setKeyboardBackground(this);
         mClipboardKey.setColorFilter(colors.getKeyText());
         mVoiceKey.setColorFilter(colors.getKeyText());
         mOtherKey.setColorFilter(colors.getKeyText());
@@ -386,10 +386,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsView.setKeyboard(builder.build());
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        final MoreKeysPanel moreKeysPanel = mMoreSuggestionsView;
         final int pointX = stripWidth / 2;
         final int pointY = -layoutHelper.mMoreSuggestionsBottomGap;
-        moreKeysPanel.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
+        mMoreSuggestionsView.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
                 mMoreSuggestionsListener);
         mOriginX = mLastX;
         mOriginY = mLastY;

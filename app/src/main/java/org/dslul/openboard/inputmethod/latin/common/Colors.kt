@@ -14,9 +14,9 @@ import androidx.core.graphics.drawable.DrawableCompat
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
-import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
+import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
 import org.dslul.openboard.inputmethod.latin.utils.*
 
 class Colors (
@@ -128,6 +128,9 @@ class Colors (
             BackgroundType.ACTION -> actionKeyStateList
             BackgroundType.SPACE -> spaceBarStateList
             BackgroundType.ADJUSTED_BACKGROUND -> adjustedBackgroundStateList
+            BackgroundType.SUGGESTION -> if (!hasKeyBorders && themeStyle == KeyboardTheme.THEME_STYLE_MATERIAL)
+                    adjustedBackgroundStateList
+                else backgroundStateList
         }
         DrawableCompat.setTintMode(background, PorterDuff.Mode.MULTIPLY)
         DrawableCompat.setTintList(background, colorStateList)
@@ -139,7 +142,7 @@ class Colors (
 
     fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable {
         val drawable = when (type) {
-            BackgroundType.KEY, BackgroundType.ADJUSTED_BACKGROUND, BackgroundType.BACKGROUND ->
+            BackgroundType.KEY, BackgroundType.ADJUSTED_BACKGROUND, BackgroundType.BACKGROUND, BackgroundType.SUGGESTION ->
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)?.mutate()
             BackgroundType.SPACE -> attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)?.mutate()
@@ -157,6 +160,7 @@ class Colors (
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
             is EmojiPageKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // to make EmojiPalettesView background visible, which does not scroll
+            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
             else -> if (keyboardBackground != null) view.background = keyboardBackground
                 else view.background.colorFilter = backgroundFilter
         }
@@ -165,5 +169,5 @@ class Colors (
 }
 
 enum class BackgroundType {
-    BACKGROUND, KEY, FUNCTIONAL, ACTION, SPACE, ADJUSTED_BACKGROUND
+    BACKGROUND, KEY, FUNCTIONAL, ACTION, SPACE, ADJUSTED_BACKGROUND, SUGGESTION
 }
