@@ -283,17 +283,10 @@ final public class BinaryDictionaryGetter {
 
         if (!foundMainDict && dictPackSettings.isWordListActive(mainDictId)) {
             final File dict = loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable);
-            final AssetFileAddress fallbackAsset;
-            if (dict == null) {
-                // fall back to the old way (maybe remove? will not work if files are compressed)
-                final int fallbackResId =
-                        DictionaryInfoUtils.getMainDictionaryResourceId(context.getResources(), locale);
-                fallbackAsset = loadFallbackResource(context, fallbackResId);
-            } else {
-                fallbackAsset = AssetFileAddress.makeFromFileName(dict.getPath());
-            }
-            if (null != fallbackAsset) {
-                fileList.add(fallbackAsset);
+            if (dict != null) {
+                final AssetFileAddress fallbackAsset = AssetFileAddress.makeFromFileName(dict.getPath());
+                if (fallbackAsset != null)
+                    fileList.add(fallbackAsset);
             }
         }
 
