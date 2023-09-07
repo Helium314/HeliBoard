@@ -19,7 +19,7 @@
 -->
 
 <resources>
-    <style name="KeyboardIcons.LXX_Light" parent="KeyboardIcons.LXX_Light.Parent">
+    <style name="KeyboardIcons.LXX_Light" parent="KeyboardIcons.LXX_Light_Parent">
         <!-- Use system accent color for shifted shift key -->
         <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_locked_lxx_light_system_accent</item>
     </style>
