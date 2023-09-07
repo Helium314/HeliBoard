@@ -133,7 +133,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 if (value < 0) {
                     return res.getString(R.string.settings_system_default);
                 }
-                return res.getString(R.string.abbreviation_unit_milliseconds, value);
+                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
             }
         });
     }
@@ -146,7 +146,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         }
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final AudioManager am = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager am = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
         pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
             private static final float PERCENTAGE_FLOAT = 100.0f;
 
@@ -228,7 +228,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 if (value <= 0) {
                     return res.getString(R.string.settings_no_limit);
                 }
-                return res.getString(R.string.abbreviation_unit_minutes, value);
+                return res.getString(R.string.abbreviation_unit_minutes, Integer.toString(value));
             }
 
             @Override

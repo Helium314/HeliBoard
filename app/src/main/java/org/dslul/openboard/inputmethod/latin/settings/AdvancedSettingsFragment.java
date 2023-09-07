@@ -18,7 +18,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -31,9 +30,9 @@ import androidx.preference.Preference;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver;
+import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.define.JniLibName;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -56,8 +55,7 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_advanced);
 
-        final Resources res = getResources();
-        final Context context = getActivity();
+        final Context context = requireContext();
 
         // When we are called from the Settings application but we are not already running, some
         // singleton and utility classes may not have been initialized.  We have to call
@@ -71,44 +69,35 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
         }
 
         setupKeyLongpressTimeoutSettings();
-        final Preference bla = findPreference("load_gesture_library");
-        if (bla != null) {
-            bla.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    // get architecture for telling user which file to use
-                    String abi;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        abi = Build.SUPPORTED_ABIS[0];
-                    } else {
-                        abi = Build.CPU_ABI;
-                    }
-                    // show delete / add dialog
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                            .setTitle(R.string.load_gesture_library)
-                            .setMessage(context.getString(R.string.load_gesture_library_message, abi))
-                            .setPositiveButton(R.string.load_gesture_library_button_load, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
-                                            .addCategory(Intent.CATEGORY_OPENABLE)
-                                            .setType("application/octet-stream");
-                                    startActivityForResult(intent, REQUEST_CODE_GESTURE_LIBRARY);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.cancel, null);
-                    libfile = new File(context.getFilesDir().getAbsolutePath() + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME);
-                    if (libfile.exists())
-                        builder.setNeutralButton(R.string.load_gesture_library_button_delete, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                libfile.delete();
-                                Runtime.getRuntime().exit(0);
-                            }
-                        });
-                    builder.show();
-                    return true;
+        final Preference loadGestureLibrary = findPreference("load_gesture_library");
+        if (loadGestureLibrary != null) {
+            loadGestureLibrary.setOnPreferenceClickListener(preference -> {
+                // get architecture for telling user which file to use
+                String abi;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    abi = Build.SUPPORTED_ABIS[0];
+                } else {
+                    abi = Build.CPU_ABI;
                 }
+                // show delete / add dialog
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                        .setTitle(R.string.load_gesture_library)
+                        .setMessage(context.getString(R.string.load_gesture_library_message, abi))
+                        .setPositiveButton(R.string.load_gesture_library_button_load, (dialogInterface, i) -> {
+                            final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                                    .addCategory(Intent.CATEGORY_OPENABLE)
+                                    .setType("application/octet-stream");
+                            startActivityForResult(intent, REQUEST_CODE_GESTURE_LIBRARY);
+                        })
+                        .setNegativeButton(android.R.string.cancel, null);
+                libfile = new File(context.getFilesDir().getAbsolutePath() + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME);
+                if (libfile.exists())
+                    builder.setNeutralButton(R.string.load_gesture_library_button_delete, (dialogInterface, i) -> {
+                        libfile.delete();
+                        Runtime.getRuntime().exit(0);
+                    });
+                builder.show();
+                return true;
             });
         }
     }
@@ -118,17 +107,11 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
         if (requestCode != REQUEST_CODE_GESTURE_LIBRARY || resultCode != Activity.RESULT_OK || resultData == null) return;
         if (resultData.getData() != null && libfile != null) {
             try {
-                FileOutputStream out = new FileOutputStream(libfile);
-                final InputStream in = getActivity().getContentResolver().openInputStream(resultData.getData());
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-                out.flush();
-                Runtime.getRuntime().exit(0);
+                final InputStream in = requireContext().getContentResolver().openInputStream(resultData.getData());
+                FileUtils.copyStreamToNewFile(in, libfile);
+                Runtime.getRuntime().exit(0); // exit will restart the app, so library will be loaded
             } catch (IOException e) {
-                // should inform user
+                // todo: should inform user
             }
         }
     }
@@ -165,7 +148,7 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
 
             @Override
             public String getValueText(final int value) {
-                return res.getString(R.string.abbreviation_unit_milliseconds, value);
+                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
             }
 
             @Override
@@ -176,7 +159,7 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         if (key.equals(Settings.PREF_SHOW_SETUP_WIZARD_ICON)) {
-            SystemBroadcastReceiver.toggleAppIcon(getActivity());
+            SystemBroadcastReceiver.toggleAppIcon(requireContext());
         }
     }
 }

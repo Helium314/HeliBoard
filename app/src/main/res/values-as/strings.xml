@@ -20,7 +20,6 @@
     <string name="key_preview_popup_dismiss_delay">"কী প\'পআপৰ প্ৰত্যাখ্যান বিলম্ব"</string>
     <string name="key_preview_popup_dismiss_no_delay">"কোনো বিলম্ব নাই"</string>
     <string name="key_preview_popup_dismiss_default_delay">"ডিফ\'ল্ট"</string>
-    <string name="abbreviation_unit_milliseconds">"</string>
     <string name="settings_system_default">"ছিষ্টেম ডিফ\'ল্ট"</string>
     <string name="use_contacts_dict">"সম্পৰ্ক নামৰ পৰামৰ্শ দিয়ক"</string>
     <string name="use_contacts_dict_summary">"পৰামৰ্শ আৰু শুধৰণিৰ বাবে সম্পৰ্কসূচীৰ পৰা নামবোৰ ব্যৱহাৰ কৰক"</string>
@@ -67,7 +66,6 @@
     <string name="prefs_enable_emoji_alt_physical_key">"কায়িক কীব\'ৰ্ডৰ বাবে ইম\'জী"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"কায়িক Alt কীয়ে ইম\'জী পেলেট দেখুৱায়"</string>
     <string name="button_default">"ডিফ\'ল্ট"</string>
-    <string name="setup_welcome_title">"</string>
     <string name="setup_welcome_additional_description">"আঙুলি পিছলাই দিয়া নিৰ্দেশেৰে টাইপ কৰাৰ সুবিধাৰ সৈতে"</string>
     <string name="setup_start_action">"আৰম্ভ কৰক"</string>
     <string name="setup_next_action">"পৰৱৰ্তী পদক্ষেপ"</string>

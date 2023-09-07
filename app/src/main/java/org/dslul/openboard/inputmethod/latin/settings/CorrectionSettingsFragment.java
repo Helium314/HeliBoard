@@ -118,8 +118,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     }
 
     private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {
-        final Activity activity = getActivity();
-        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(activity);
+        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
         if (null == localeList) {
             // The locale list is null if and only if the user dictionary service is
             // not present or disabled. In this case we need to remove the preference.

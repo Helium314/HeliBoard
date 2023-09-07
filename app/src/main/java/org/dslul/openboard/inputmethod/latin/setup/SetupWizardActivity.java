@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
@@ -93,15 +92,13 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             if (setupWizardActivity == null) {
                 return;
             }
-            switch (msg.what) {
-            case MSG_POLLING_IME_SETTINGS:
+            if (msg.what == MSG_POLLING_IME_SETTINGS) {
                 if (UncachedInputMethodManagerUtils.isThisImeEnabled(setupWizardActivity,
                         mImmInHandler)) {
                     setupWizardActivity.invokeSetupWizardOfThisIme();
                     return;
                 }
                 startPollingImeSettings();
-                break;
             }
         }
 
@@ -137,6 +134,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
         welcomeTitle.setText(getString(R.string.setup_welcome_title, applicationName));
 
+        // disable the "with gesture typing" for now, as it's not really correct, even though it can be enabled...
+        final TextView welcomeDescription = findViewById(R.id.setup_welcome_description);
+        welcomeDescription.setText("");
+
         mSetupScreen = findViewById(R.id.setup_steps_screen);
         final TextView stepsTitle = findViewById(R.id.setup_title);
         stepsTitle.setText(getString(R.string.setup_steps_title, applicationName));
@@ -153,12 +154,9 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 R.string.setup_step1_finished_instruction, R.drawable.ic_setup_step1,
                 R.string.setup_step1_action);
         final SettingsPoolingHandler handler = mHandler;
-        step1.setAction(new Runnable() {
-            @Override
-            public void run() {
-                invokeLanguageAndInputSettings();
-                handler.startPollingImeSettings();
-            }
+        step1.setAction(() -> {
+            invokeLanguageAndInputSettings();
+            handler.startPollingImeSettings();
         });
         mSetupStepGroup.addStep(step1);
 
@@ -167,12 +165,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_step2,
                 R.string.setup_step2_action);
-        step2.setAction(new Runnable() {
-            @Override
-            public void run() {
-                invokeInputMethodPicker();
-            }
-        });
+        step2.setAction(this::invokeInputMethodPicker);
         mSetupStepGroup.addStep(step2);
 
         final SetupStep step3 = new SetupStep(STEP_3, applicationName,
@@ -180,14 +173,11 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_step3,
                 R.string.setup_step3_action);
-        step3.setAction(new Runnable() {
-            @Override
-            public void run() {
-                final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                intent.setAction(Intent.ACTION_VIEW);
-                startActivity(intent);
-                finish();
-            }
+        step3.setAction(() -> {
+            final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            startActivity(intent);
+            finish();
         });
         mSetupStepGroup.addStep(step3);
 
@@ -197,22 +187,16 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 .path(Integer.toString(R.raw.setup_welcome_video))
                 .build();
         final VideoView welcomeVideoView = findViewById(R.id.setup_welcome_video);
-        welcomeVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(final MediaPlayer mp) {
-                // Now VideoView has been laid-out and ready to play, remove background of it to
-                // reveal the video.
-                welcomeVideoView.setBackgroundResource(0);
-                mp.setLooping(true);
-            }
+        welcomeVideoView.setOnPreparedListener(mp -> {
+            // Now VideoView has been laid-out and ready to play, remove background of it to
+            // reveal the video.
+            welcomeVideoView.setBackgroundResource(0);
+            mp.setLooping(true);
         });
-        welcomeVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(final MediaPlayer mp, final int what, final int extra) {
-                Log.e(TAG, "Playing welcome video causes error: what=" + what + " extra=" + extra);
-                hideWelcomeVideoAndShowWelcomeImage();
-                return true;
-            }
+        welcomeVideoView.setOnErrorListener((mp, what, extra) -> {
+            Log.e(TAG, "Playing welcome video causes error: what=" + what + " extra=" + extra);
+            hideWelcomeVideoAndShowWelcomeImage();
+            return true;
         });
         mWelcomeVideoView = welcomeVideoView;
         mWelcomeImageView = findViewById(R.id.setup_welcome_image);
@@ -365,7 +349,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
     void hideWelcomeVideoAndShowWelcomeImage() {
         mWelcomeVideoView.setVisibility(View.GONE);
-        mWelcomeImageView.setImageResource(R.raw.setup_welcome_image);
+        mWelcomeImageView.setImageResource(R.drawable.setup_welcome_image);
         mWelcomeImageView.setVisibility(View.VISIBLE);
     }
 
@@ -471,10 +455,8 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         @Override
         public void onClick(final View v) {
-            if (v == mActionLabel && mAction != null) {
+            if (v == mActionLabel && mAction != null)
                 mAction.run();
-                return;
-            }
         }
     }
 

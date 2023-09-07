@@ -123,7 +123,6 @@ public final class SeekBarDialogPreference extends Preference
             final int value = getClippedValueFromProgress(mSeekBar.getProgress());
             setSummary(mValueProxy.getValueText(value));
             mValueProxy.writeValue(value, key);
-            return;
         }
     }
 

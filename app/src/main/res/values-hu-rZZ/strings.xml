@@ -162,7 +162,6 @@
     <string name="settings_category_suggestions">Javaslatok</string>
     <string name="settings_category_experimental">Kísérlet</string>
     <string name="settings_category_miscellaneous">Vegyes</string>
-    <string name="abbreviation_unit_minutes">&lt;xliff:g xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\" id=\"MINUTES\"&gt;perc.</string>
     <string name="settings_no_limit">Nincs korlát</string>
     <string name="enable_clipboard_history">A vágólap előzményeinek engedélyezése</string>
     <string name="theme_family">Téma család</string>
