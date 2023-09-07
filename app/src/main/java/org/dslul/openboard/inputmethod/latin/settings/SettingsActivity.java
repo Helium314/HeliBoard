@@ -60,6 +60,12 @@ public final class SettingsActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     public Intent getIntent() {
         final Intent intent = super.getIntent();
         final String fragment = intent.getStringExtra(EXTRA_SHOW_FRAGMENT);
