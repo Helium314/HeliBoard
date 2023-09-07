@@ -188,11 +188,11 @@ class DeadKeyCombiner : Combiner {
     // TODO: make this a list of events instead
     val mDeadSequence = StringBuilder()
 
-    override fun processEvent(previousEvents: ArrayList<Event>?, event: Event?): Event? {
+    override fun processEvent(previousEvents: ArrayList<Event>?, event: Event?): Event {
         if (TextUtils.isEmpty(mDeadSequence)) { // No dead char is currently being tracked: this is the most common case.
             if (event!!.isDead) { // The event was a dead key. Start tracking it.
                 mDeadSequence.appendCodePoint(event.mCodePoint)
-                return Event.Companion.createConsumedEvent(event)
+                return Event.createConsumedEvent(event)
             }
             // Regular keystroke when not keeping track of a dead key. Simply said, there are
 // no dead keys at all in the current input, so this combiner has nothing to do and
@@ -201,8 +201,7 @@ class DeadKeyCombiner : Combiner {
         }
         if (Character.isWhitespace(event!!.mCodePoint)
                 || event.mCodePoint == mDeadSequence.codePointBefore(mDeadSequence.length)) { // When whitespace or twice the same dead key, we should output the dead sequence as is.
-            val resultEvent = createEventChainFromSequence(mDeadSequence.toString(),
-                    event)
+            val resultEvent = createEventChainFromSequence(mDeadSequence.toString(), event)
             mDeadSequence.setLength(0)
             return resultEvent
         }
@@ -211,13 +210,13 @@ class DeadKeyCombiner : Combiner {
                 val trimIndex = mDeadSequence.length - Character.charCount(
                         mDeadSequence.codePointBefore(mDeadSequence.length))
                 mDeadSequence.setLength(trimIndex)
-                return Event.Companion.createConsumedEvent(event)
+                return Event.createConsumedEvent(event)
             }
             return event
         }
         if (event.isDead) {
             mDeadSequence.appendCodePoint(event.mCodePoint)
-            return Event.Companion.createConsumedEvent(event)
+            return Event.createConsumedEvent(event)
         }
         // Combine normally.
         val sb = StringBuilder()
@@ -248,17 +247,16 @@ class DeadKeyCombiner : Combiner {
         get() = mDeadSequence
 
     companion object {
-        private fun createEventChainFromSequence(text: CharSequence,
-                                                 originalEvent: Event?): Event? {
+        private fun createEventChainFromSequence(text: CharSequence, originalEvent: Event): Event {
             var index = text.length
             if (index <= 0) {
                 return originalEvent
             }
-            var lastEvent: Event? = null
+            lateinit var lastEvent: Event
             do {
                 val codePoint = Character.codePointBefore(text, index)
-                lastEvent = Event.Companion.createHardwareKeypressEvent(codePoint,
-                        originalEvent!!.mKeyCode, lastEvent, false /* isKeyRepeat */)
+                lastEvent = Event.createHardwareKeypressEvent(codePoint,
+                        originalEvent.mKeyCode, lastEvent, false /* isKeyRepeat */)
                 index -= Character.charCount(codePoint)
             } while (index > 0)
             return lastEvent

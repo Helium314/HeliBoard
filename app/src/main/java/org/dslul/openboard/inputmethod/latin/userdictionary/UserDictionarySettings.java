@@ -159,7 +159,7 @@ public class UserDictionarySettings extends ListFragment {
     public void onResume() {
         super.onResume();
         ListAdapter adapter = getListView().getAdapter();
-        if (adapter != null && adapter instanceof MyAdapter) {
+        if (adapter instanceof MyAdapter) {
             // The list view is forced refreshed here. This allows the changes done 
             // in UserDictionaryAddWordFragment (update/delete/insert) to be seen when 
             // user goes back to this view. 
@@ -292,28 +292,24 @@ public class UserDictionarySettings extends ListFragment {
     private static class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
         private AlphabetIndexer mIndexer;
 
-        private ViewBinder mViewBinder = new ViewBinder() {
-
-            @Override
-            public boolean setViewValue(final View v, final Cursor c, final int columnIndex) {
-                if (!IS_SHORTCUT_API_SUPPORTED) {
-                    // just let SimpleCursorAdapter set the view values
-                    return false;
-                }
-                if (columnIndex == INDEX_SHORTCUT) {
-                    final String shortcut = c.getString(INDEX_SHORTCUT);
-                    if (TextUtils.isEmpty(shortcut)) {
-                        v.setVisibility(View.GONE);
-                    } else {
-                        ((TextView)v).setText(shortcut);
-                        v.setVisibility(View.VISIBLE);
-                    }
-                    v.invalidate();
-                    return true;
-                }
-
+        private final ViewBinder mViewBinder = (v, c, columnIndex) -> {
+            if (!IS_SHORTCUT_API_SUPPORTED) {
+                // just let SimpleCursorAdapter set the view values
                 return false;
             }
+            if (columnIndex == INDEX_SHORTCUT) {
+                final String shortcut = c.getString(INDEX_SHORTCUT);
+                if (TextUtils.isEmpty(shortcut)) {
+                    v.setVisibility(View.GONE);
+                } else {
+                    ((TextView)v).setText(shortcut);
+                    v.setVisibility(View.VISIBLE);
+                }
+                v.invalidate();
+                return true;
+            }
+
+            return false;
         };
 
         public MyAdapter(final Context context, final int layout, final Cursor c,

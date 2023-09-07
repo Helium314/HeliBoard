@@ -175,8 +175,7 @@ public class NgramContext {
                 }
             }
         }
-        final String[] contextStringArray = prevTermList.toArray(new String[prevTermList.size()]);
-        return contextStringArray;
+        return prevTermList.toArray(new String[prevTermList.size()]);
     }
 
     public boolean isValid() {
@@ -227,7 +226,7 @@ public class NgramContext {
     public int hashCode() {
         int hashValue = 0;
         for (final WordInfo wordInfo : mPrevWordsInfo) {
-            if (wordInfo == null || !WordInfo.EMPTY_WORD_INFO.equals(wordInfo)) {
+            if (!WordInfo.EMPTY_WORD_INFO.equals(wordInfo)) {
                 break;
             }
             hashValue ^= wordInfo.hashCode();
@@ -267,7 +266,7 @@ public class NgramContext {
 
     @Override
     public String toString() {
-        final StringBuffer builder = new StringBuffer();
+        final StringBuilder builder = new StringBuilder();
         for (int i = 0; i < mPrevWordsCount; i++) {
             final WordInfo wordInfo = mPrevWordsInfo[i];
             builder.append("PrevWord[");
