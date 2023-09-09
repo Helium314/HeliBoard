@@ -259,4 +259,8 @@ private val systemSubtypes = mutableListOf<InputMethodSubtype>()
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
 
+@Suppress("deprecation") // it's deprecated, but no replacement for API < 24
+// todo: add language tags in method.xml, and adjust this method to use locale only if necessary
+//  but then language tag should be converted to locale, or other way!
+//  see also InputMethodSubtypeCompatUtils
 fun InputMethodSubtype.locale() = locale

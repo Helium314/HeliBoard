@@ -87,6 +87,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             layoutManager = StaggeredGridLayoutManager(colCount, StaggeredGridLayoutManager.VERTICAL)
             val dividerHeight = resources.getDimensionPixelSize(R.dimen.config_clipboard_divider_height)
             addItemDecoration(ClipboardHistoryRecyclerView.BottomDividerItemDecoration(dividerHeight, dividerColor))
+            @Suppress("deprecation") // no cache should be fine according to warning in https://developer.android.com/reference/android/view/ViewGroup#setPersistentDrawingCache(int)
             persistentDrawingCache = PERSISTENT_NO_CACHE
             clipboardLayoutParams.setListProperties(this)
             placeholderView = this@ClipboardHistoryView.placeholderView
@@ -222,8 +223,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.smoothScrollToPosition(at)
     }
 
-    override fun onClipboardHistoryEntriesRemoved(position: Int, count: Int) {
-        clipboardAdapter.notifyItemRangeRemoved(position, count)
+    override fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int) {
+        clipboardAdapter.notifyItemRangeRemoved(pos, count)
     }
 
     override fun onClipboardHistoryEntryMoved(from: Int, to: Int) {

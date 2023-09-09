@@ -1,10 +1,12 @@
 package org.dslul.openboard.inputmethod.accessibility
 
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityRecord
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityEventCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -91,12 +93,12 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
     fun createAccessibilityEvent(key: Key, eventType: Int): AccessibilityEvent {
         val virtualViewId = getVirtualViewIdOf(key)
         val keyDescription = getKeyDescription(key)
-        val event = AccessibilityEvent.obtain(eventType)
+        val event = AccessibilityUtils.obtainEvent(eventType)
         event.packageName = mKeyboardView!!.context.packageName
         event.className = key.javaClass.name
         event.contentDescription = keyDescription
         event.isEnabled = true
-        val record = AccessibilityEventCompat.asRecord(event)
+        val record: AccessibilityRecord = event
         record.setSource(mKeyboardView, virtualViewId)
         return event
     }
@@ -111,16 +113,16 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
 // announcements.
         mHoveringNodeId = id
         // Invalidate the node info of the key.
-        sendAccessibilityEventForKey(key, AccessibilityEventCompat.TYPE_WINDOW_CONTENT_CHANGED)
-        sendAccessibilityEventForKey(key, AccessibilityEventCompat.TYPE_VIEW_HOVER_ENTER)
+        sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
+        sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_VIEW_HOVER_ENTER)
     }
 
     fun onHoverExitFrom(key: Key) {
         mHoveringNodeId = UNDEFINED
         // Invalidate the node info of the key to be able to revert the change we have done
 // in {@link #onHoverEnterTo(Key)}.
-        sendAccessibilityEventForKey(key, AccessibilityEventCompat.TYPE_WINDOW_CONTENT_CHANGED)
-        sendAccessibilityEventForKey(key, AccessibilityEventCompat.TYPE_VIEW_HOVER_EXIT)
+        sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
+        sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_VIEW_HOVER_EXIT)
     }
 
     /**
@@ -292,8 +294,8 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
     }
 
     init {
-        mKeyCodeDescriptionMapper = KeyCodeDescriptionMapper.Companion.instance
-        mAccessibilityUtils = AccessibilityUtils.Companion.instance
+        mKeyCodeDescriptionMapper = KeyCodeDescriptionMapper.instance
+        mAccessibilityUtils = AccessibilityUtils.instance
         mKeyboardView = keyboardView
         mDelegate = delegate
         // Since this class is constructed lazily, we might not get a subsequent

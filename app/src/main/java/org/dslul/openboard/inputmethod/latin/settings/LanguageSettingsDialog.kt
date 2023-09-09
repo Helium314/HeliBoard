@@ -3,7 +3,6 @@ package org.dslul.openboard.inputmethod.latin.settings
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -179,7 +178,7 @@ class LanguageSettingsDialog(
     private fun fillDictionariesView(dictionariesView: LinearLayout) {
         dictionariesView.findViewById<ImageView>(R.id.add_dictionary).setOnClickListener {
             val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
-            val message = Html.fromHtml(context.getString(R.string.add_dictionary, link))
+            val message = SpannableStringUtils.fromHtml(context.getString(R.string.add_dictionary, link))
             val dialog = Builder(context)
                 .setTitle(R.string.add_new_dictionary_title)
                 .setMessage(message)
