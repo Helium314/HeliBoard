@@ -39,7 +39,6 @@ import org.dslul.openboard.inputmethod.compat.TabHostCompat;
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -161,14 +160,8 @@ public final class EmojiPalettesView extends LinearLayout
                 R.layout.emoji_keyboard_tab_icon, null);
         // TODO: Replace background color with its own setting rather than using the
         //       category page indicator background as a workaround.
-        iconView.setBackgroundColor(mCategoryPageIndicatorBackground); // only necessary for holo?
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        iconView.setColorFilter(colors.getKeyTextFilter());
-        // todo: this should not be here, but whatever...
-        if (categoryId != 0 && colors.getThemeStyle().equals(KeyboardTheme.THEME_STYLE_MATERIAL)) {
-            iconView.setScaleX(0.75f);
-            iconView.setScaleY(0.75f);
-        }
+        iconView.setBackgroundColor(mCategoryPageIndicatorBackground);
+        iconView.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
         iconView.setContentDescription(mEmojiCategory.getAccessibilityDescription(categoryId));
         tspec.setIndicator(iconView);
@@ -282,7 +275,6 @@ public final class EmojiPalettesView extends LinearLayout
         colors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
         colors.setKeyboardBackground(this); // todo: color on top appears a little darker than on normal keyboard, what is wrong?
         mEmojiCategoryPageIndicatorView.setColors(colors.getAccent(), colors.getAdjustedBackground());
-        findViewById(R.id.emoji_tab_strip).setBackgroundColor(colors.getAdjustedBackground());
     }
 
     @Override
@@ -306,11 +298,8 @@ public final class EmojiPalettesView extends LinearLayout
         if (mCurrentTab != null)
             mCurrentTab.setColorFilter(colors.getKeyTextFilter());
         mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
-        // todo (later): update the lxx recents icon
-        if (categoryId == 0 && colors.getThemeStyle().equals(KeyboardTheme.THEME_STYLE_MATERIAL))
-            mCurrentTab.setColorFilter(colors.getAccent());
-        else
-            mCurrentTab.setColorFilter(colors.getAccentColorFilter());
+//        mCurrentTab.setColorFilter(colors.accentColorFilter); not working because of lxx icon color
+        mCurrentTab.setColorFilter(colors.getAccent());
     }
 
     /**
