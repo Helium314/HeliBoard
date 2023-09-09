@@ -32,10 +32,8 @@
     <string name="settings_screen_advanced">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‎‎‏‎‏‎‎‎‏‏‏‎‏‏‏‏‎‎‏‎‏‏‎‏‏‏‎‏‏‎‎‏‏‎‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‎‏‎‏‎‏‏‎‎Advanced‎‏‎‎‏‎"</string>
     <string name="settings_screen_theme">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‎‎‎‎‎‏‏‏‏‎‎‎‏‏‎‎‎‎‎‎‏‏‎‎‎‏‎‏‏‏‎‎‎‎‏‎‏‎‏‎‎‎‎‎‏‏‎‏‏‎‎‎Theme‎‏‎‎‏‎"</string>
     <string name="enable_split_keyboard">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‎‏‎‎‏‏‎‏‎‎‎‏‏‏‎‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‎‎‏‏‎‏‎‎‏‏‏‎‏‎‎‎‏‏‎‏‏‏‎‎‏‎‎Enable split keyboard‎‏‎‎‏‎"</string>
-    <string name="include_other_imes_in_language_switch_list">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‏‎‎‎‎‎‎‏‏‏‎‏‏‏‎‎‎‏‎‏‏‎‎‎‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‎‏‎‏‏‎Switch to other input methods‎‏‎‎‏‎"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‎‎‎‏‎‏‎‏‏‎‎‏‎‎‎‎‏‏‏‏‏‎‏‎‏‎‏‏‏‎‎‏‎‏‏‏‎‎‏‎‎‏‎‏‎‎‏‏‎‏‎‏‎‎Language switch key covers other input methods too‎‏‎‎‏‎"</string>
+    <string name="language_switch_key_switch_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‏‎‎‎‎‎‎‏‏‏‎‏‏‏‎‎‎‏‎‏‏‎‎‎‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‎‏‎‏‏‎Switch to other input methods‎‏‎‎‏‎"</string>
     <string name="show_language_switch_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‎‏‎‎‏‎‏‏‏‏‎‎‎‏‎‏‏‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‎‎‎‏‏‏‎‏‏‎‏‏‎‎‎‎‎‏‏‎Language switch key‎‏‎‎‏‎"</string>
-    <string name="show_language_switch_key_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‏‏‎‏‏‏‏‎‎‎‏‎‏‎‎‏‏‏‎‎‏‎‎‎‎‏‏‎‎‎‏‎‎‏‎‏‏‎‎‏‏‎‎‎‏‏‎‎‏‏‎‏‎‎Show when multiple input languages are enabled‎‏‎‎‏‎"</string>
     <string name="key_preview_popup_dismiss_delay">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‎‏‏‏‏‏‎‎‎‏‎‎‏‏‎‏‏‏‏‎‏‏‏‏‎‎‎‏‎‎‏‏‎‎‏‏‎‎‏‎‏‎Key popup dismiss delay‎‏‎‎‏‎"</string>
     <string name="key_preview_popup_dismiss_no_delay">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‎‎‎‎‎‎‎‏‎‎‏‎‎‎‎‎‏‏‏‎‎‏‏‏‏‎‏‏‏‎‎‏‏‎‎‏‏‏‎‎‎‎‎‎‎‎‎‎‎‎‏‏‎‏‎‎‎No delay‎‏‎‎‏‎"</string>
     <string name="key_preview_popup_dismiss_default_delay">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‎‎‎‎‏‏‏‏‏‏‎‏‎‏‏‏‏‏‎‏‎‏‏‏‏‎‏‎‎‎‎‎‏‏‏‏‎‏‎‏‎‎‏‏‎‎‏‎‎‏‎‎‎‎‎‎Default‎‏‎‎‏‎"</string>

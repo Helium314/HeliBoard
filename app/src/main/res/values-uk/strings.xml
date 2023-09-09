@@ -29,10 +29,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Додатково"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Тема"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Увімкнути розділену клавіатуру"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Інші методи введення"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"Клавіша зміни мови дозволяє змінювати методи введення"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Інші методи введення"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Клавіша зміни мови"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Показувати, коли ввімкнено декілька мов введення"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Затримка закривання"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Без затримки"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"За умовчанням"</string>

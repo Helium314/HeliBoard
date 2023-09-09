@@ -95,7 +95,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     }
 
     private void setupKeypressVibrationDurationSettings() {
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_VIBRATION_DURATION_SETTINGS);
         if (pref == null) {
             return;
@@ -139,7 +139,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     }
 
     private void setupKeypressSoundVolumeSettings() {
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_KEYPRESS_SOUND_VOLUME);
         if (pref == null) {
             return;
@@ -197,7 +197,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     private void setupHistoryRetentionTimeSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
         if (pref == null) {
             return;

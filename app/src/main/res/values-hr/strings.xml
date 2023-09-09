@@ -29,10 +29,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard">"Omogući razdvojenu tipkovnicu"</string>
-    <string name="include_other_imes_in_language_switch_list">"Prebaci na druge unose"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"Tipka za prebacivanje jezika pokriva i druge načine unosa"</string>
+    <string name="language_switch_key_switch_input_method">"Prebaci na druge unose"</string>
     <string name="show_language_switch_key">"Tipka za izmjenjivanje jezika"</string>
-    <string name="show_language_switch_key_summary">"Prikaži kada je omogućen unos na više jezika"</string>
     <string name="key_preview_popup_dismiss_delay">"Odgoda odbac. poveć. fonta"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Bez odgode"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Zadano"</string>

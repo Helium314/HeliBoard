@@ -30,10 +30,8 @@
     <string name="settings_screen_advanced">"Avançadas"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard">"Ativar teclado dividido"</string>
-    <string name="include_other_imes_in_language_switch_list">"Mudar p/ outros mét. ent."</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"A tecla de mudança de idioma abrange outros métodos de entrada"</string>
+    <string name="language_switch_key_switch_input_method">"Mudar p/ outros mét. ent."</string>
     <string name="show_language_switch_key">"Tecla alterar idioma"</string>
-    <string name="show_language_switch_key_summary">"Mostrar quando estão ativados vários idiomas de entrada"</string>
     <string name="key_preview_popup_dismiss_delay">"Atraso p/ ignorar pop-up"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sem atraso"</string>
     <string name="key_preview_popup_dismiss_default_delay">"Predefinido"</string>

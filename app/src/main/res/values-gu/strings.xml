@@ -32,10 +32,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"વિગતવાર"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"થીમ"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"વિભાજિત કીબોર્ડ સક્ષમ કરો"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"અન્ય ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"ભાષા સ્વિચ કી અન્ય ઇનપુટ પદ્ધતિઓને પણ આવરે છે"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"અન્ય ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"ભાષા સ્વિચ કી"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"જ્યારે બહુવિધ ઇનપુટ ભાષાઓ સક્ષમ હોય ત્યારે બતાવો"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"કી પોપઅપ કાઢી નાખવામાં વિલંબ"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"કોઈ વિલંબ નથી"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"ડિફોલ્ટ"</string>

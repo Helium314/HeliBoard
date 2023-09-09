@@ -716,7 +716,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             final boolean selected = keyboardLayoutSetMatched && keyboardLayoutSetElementMatched
                     && keyboardThemeMacthed && modeMatched && navigateNextMatched
                     && navigatePreviousMatched && passwordInputMatched && clobberSettingsKeyMatched
-                    && hasShortcutKeyMatched && numberRowEnabledMatched  && languageSwitchKeyEnabledMatched
+                    && hasShortcutKeyMatched && numberRowEnabledMatched && languageSwitchKeyEnabledMatched
                     && emojiKeyEnabledMatched && isMultiLineMatched && imeActionMatched && isIconDefinedMatched
                     && localeCodeMatched && languageCodeMatched && countryCodeMatched
                     && splitLayoutMatched && oneHandedModeEnabledMatched;

@@ -32,10 +32,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"အဆင့်မြင့်"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"အပြင်အဆင်"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"ကီးဘုတ် ခွဲခြမ်းမှု ဖွင့်ထားရန်"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"အခြားထည့်သွင်းမည့် နည်းလမ်းများသို့ ပြောင်းရန်"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"ဘာသာပြောင်းသည့် ကီးသည် အခြားထည့်သွင်းရန် နည်းလမ်းများလည်း ပါဝင်သည်"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"အခြားထည့်သွင်းမည့် နည်းလမ်းများသို့ ပြောင်းရန်"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"ဘာသာစကား ပြောင်းခလုတ်"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"များပြားသည့် ထည့်သွင်းရန်နည်းလမ်းများဖွင့်ထားလျှင် ပြပါ"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"ကီးပေါ်လာ၍ ပယ်ရန်နှုန်း"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"နောက်မကျ"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"မူရင်းအတိုင်း"</string>

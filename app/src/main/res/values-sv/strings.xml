@@ -29,10 +29,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avancerat"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Aktivera delat tangentbord"</string>
-    <string name="include_other_imes_in_language_switch_list">"Byt till annan inmatning"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"Språkbytesknappen omfattar även andra inmatningsmetoder"</string>
+    <string name="language_switch_key_switch_input_method">"Byt till annan inmatning"</string>
     <string name="show_language_switch_key">"Knapp för att byta språk"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Visa när flera inmatningsspråk är aktiverade"</string>
     <string name="key_preview_popup_dismiss_delay">"Ta bort popup-fördröjning"</string>
     <string name="key_preview_popup_dismiss_no_delay">"Fördröj inte"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Standard"</string>

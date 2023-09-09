@@ -29,10 +29,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"გაფართოებული"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"თემა"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"გაყოფილი კლავიატურის გააქტიურება"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"შეყვანის სხვა მეთოდებზე გადართვა"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"ენის გადართვის ღილაკს შეყვანის სხვა მეთოდებსაც შეიცავს"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"შეყვანის სხვა მეთოდებზე გადართვა"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"ენის გადართვის კლავიში"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"აჩვენე, როდესაც ჩართულია სხვადასხვა შეყვანის ენა"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"ამომხტ.კლავიშის დაყოვნება"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"არ დაყოვნდეს"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"ნაგულისხმევი"</string>

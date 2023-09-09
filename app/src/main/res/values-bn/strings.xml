@@ -40,10 +40,8 @@
     <string name="settings_category_experimental">পরীক্ষামূলক</string>
     <string name="settings_category_miscellaneous">বিবিধ</string>
     <string name="enable_split_keyboard">বিভক্ত কিবোর্ড সক্রিয়করণ</string>
-    <string name="include_other_imes_in_language_switch_list">অন্য ইনপুট পদ্ধতিতে পরিবর্তন</string>
-    <string name="include_other_imes_in_language_switch_list_summary">ভাষা পরিবর্তন বোতামে অন্যান্য ইনপুট পদ্ধতিও রয়েছে</string>
+    <string name="language_switch_key_switch_input_method">অন্য ইনপুট পদ্ধতিতে পরিবর্তন</string>
     <string name="show_language_switch_key">ভাষা পরিবর্তন বোতাম</string>
-    <string name="show_language_switch_key_summary">একাধিক ইনপুট ভাষা সক্ষম থাকাকালীন প্রদর্শন</string>
     <string name="show_emoji_key">ইমোজি বোতাম</string>
     <string name="key_preview_popup_dismiss_delay">বোতামের পপআপ অপসারণের বিলম্ব</string>
     <string name="key_preview_popup_dismiss_no_delay">তাৎক্ষণিক</string>

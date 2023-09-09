@@ -71,11 +71,11 @@ public class SettingsValues {
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
-    public final boolean mIncludesOtherImesInLanguageSwitchList;
+    public final boolean mLanguageSwitchKeyToOtherImes;
+    public final boolean mLanguageSwitchKeyToOtherSubtypes;
     public final boolean mShowsNumberRow;
     public final boolean mShowsHints;
     public final boolean mSpaceForLangChange;
-    public final boolean mShowsLanguageSwitchKey;
     public final boolean mShowsEmojiKey;
     public final boolean mShowsClipboardKey;
     public final boolean mUsePersonalizedDicts;
@@ -161,11 +161,12 @@ public class SettingsValues {
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
         mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs, res) && mInputAttributes.mShouldShowVoiceInputKey;
-        mIncludesOtherImesInLanguageSwitchList = !Settings.ENABLE_SHOW_LANGUAGE_SWITCH_KEY_SETTINGS || prefs.getBoolean(Settings.PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST, false) /* forcibly */;
+        final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "off");
+        mLanguageSwitchKeyToOtherImes = languagePref.equals("input_method") || languagePref.equals("both");
+        mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
-        mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
         mShowsClipboardKey = prefs.getBoolean(Settings.PREF_SHOW_CLIPBOARD_KEY, false);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
@@ -306,14 +307,18 @@ public class SettingsValues {
     }
 
     public boolean isLanguageSwitchKeyEnabled() {
-        if (!mShowsLanguageSwitchKey) {
+        if (!mLanguageSwitchKeyToOtherImes && !mLanguageSwitchKeyToOtherSubtypes) {
             return false;
         }
         final RichInputMethodManager imm = RichInputMethodManager.getInstance();
-        if (mIncludesOtherImesInLanguageSwitchList) {
+        if (!mLanguageSwitchKeyToOtherSubtypes) {
             return imm.hasMultipleEnabledIMEsOrSubtypes(false /* include aux subtypes */);
         }
-        return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */);
+        if (!mLanguageSwitchKeyToOtherImes) {
+            return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */);
+        }
+        return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */)
+            || imm.hasMultipleEnabledIMEsOrSubtypes(false /* include aux subtypes */);
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
@@ -410,10 +415,10 @@ public class SettingsValues {
         sb.append("" + mKeyPreviewPopupOn);
         sb.append("\n   mShowsVoiceInputKey = ");
         sb.append("" + mShowsVoiceInputKey);
-        sb.append("\n   mIncludesOtherImesInLanguageSwitchList = ");
-        sb.append("" + mIncludesOtherImesInLanguageSwitchList);
-        sb.append("\n   mShowsLanguageSwitchKey = ");
-        sb.append("" + mShowsLanguageSwitchKey);
+        sb.append("\n   mLanguageSwitchKeyToOtherImes = ");
+        sb.append("" + mLanguageSwitchKeyToOtherImes);
+        sb.append("\n   mLanguageSwitchKeyToOtherSubtypes = ");
+        sb.append("" + mLanguageSwitchKeyToOtherSubtypes);
         sb.append("\n   mUsePersonalizedDicts = ");
         sb.append("" + mUsePersonalizedDicts);
         sb.append("\n   mUseDoubleSpacePeriod = ");

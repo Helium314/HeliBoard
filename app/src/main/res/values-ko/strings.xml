@@ -29,10 +29,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"고급"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"테마"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"분할 키보드 사용"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"다른 입력 방법으로 전환"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"언어 전환 키가 제공하는 기타 입력 방법"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"다른 입력 방법으로 전환"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"언어 전환 키"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"여러 입력 언어를 사용하도록 설정할 때 표시"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"키 팝업 해제 지연"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"지연 없음"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"기본값"</string>

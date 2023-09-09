@@ -32,10 +32,8 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"កម្រិត​ខ្ពស់"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"រូបរាង"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"បើក​ការ​បំបែក​ក្ដារចុច"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"ប្ដូរ​ទៅ​​​វិធីសាស្ត្រ​បញ្ចូល​​​ផ្សេង​ទៀត"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"គ្រាប់ចុច​ប្ដូរ​ភាសា​តាម​វិធីសាស្ត្រ​បញ្ចូល​ផ្សេងទៀត"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"ប្ដូរ​ទៅ​​​វិធីសាស្ត្រ​បញ្ចូល​​​ផ្សេង​ទៀត"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"គ្រាប់​ចុច​ប្ដូរ​​ភាសា"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"បង្ហាញ​នៅ​ពេល​ដែល​បើក​ភាសា​បញ្ចូល​ច្រើន"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"​សោ​លេចឡើង​បោះបង់​ការ​​ពន្យារពេល​"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"គ្មាន​ការ​ពន្យារពេល"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"លំនាំដើម"</string>

@@ -29,10 +29,8 @@
     <string name="settings_screen_advanced">"Dodatno"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard">"Omogoči razdeljeno tipkovnico"</string>
-    <string name="include_other_imes_in_language_switch_list">"Prekl. na drug nač. vnosa"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"Tipka za preklop jezika, ki vključuje tudi druge načine vnosa"</string>
+    <string name="language_switch_key_switch_input_method">"Prekl. na drug nač. vnosa"</string>
     <string name="show_language_switch_key">"Tipka za preklop med jeziki"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Pokaži, ko je omogočenih več jezikov vnosa"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Trajanje povečanja tipke"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Brez zakasnitve"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Privzeto"</string>

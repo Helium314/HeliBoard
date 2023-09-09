@@ -96,14 +96,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT;
     public static final boolean SHOULD_SHOW_LXX_SUGGESTION_UI =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-    public static final String PREF_SHOW_LANGUAGE_SWITCH_KEY =
-            "pref_show_language_switch_key";
+    public static final String PREF_LANGUAGE_SWITCH_KEY =
+            "pref_language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY =
             "pref_show_emoji_key";
     public static final String PREF_SHOW_CLIPBOARD_KEY =
             "pref_show_clipboard_key";
-    public static final String PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST =
-            "pref_include_other_imes_in_language_switch_list";
     public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";

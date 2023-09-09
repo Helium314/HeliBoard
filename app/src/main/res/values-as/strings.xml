@@ -13,10 +13,8 @@
     <string name="settings_screen_advanced">"উচ্চখাপৰ"</string>
     <string name="settings_screen_theme">"থীম"</string>
     <string name="enable_split_keyboard">"বিভক্ত কীবর্ড সক্ষম কৰক"</string>
-    <string name="include_other_imes_in_language_switch_list">"আন ইনপুট পদ্ধতিলৈ সলনি কৰক"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"ভাষা সলনি কৰা কীটোৱে আন ইনপুট পদ্ধতিসমূহকো সামৰি লয়"</string>
+    <string name="language_switch_key_switch_input_method">"আন ইনপুট পদ্ধতিলৈ সলনি কৰক"</string>
     <string name="show_language_switch_key">"ভাষা সলনি কৰা কী"</string>
-    <string name="show_language_switch_key_summary">"যেতিয়া একাধিক ইনপুট ভাষা সক্ষম কৰি থোৱা থাকে তেতিয়া দেখুৱাওক"</string>
     <string name="key_preview_popup_dismiss_delay">"কী প\'পআপৰ প্ৰত্যাখ্যান বিলম্ব"</string>
     <string name="key_preview_popup_dismiss_no_delay">"কোনো বিলম্ব নাই"</string>
     <string name="key_preview_popup_dismiss_default_delay">"ডিফ\'ল্ট"</string>

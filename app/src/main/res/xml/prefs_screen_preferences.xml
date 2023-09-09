@@ -67,10 +67,13 @@
             android:defaultValue="false"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
-            android:key="pref_show_language_switch_key"
+        <ListPreference
+            android:key="pref_language_switch_key"
             android:title="@string/show_language_switch_key"
-            android:defaultValue="false"
+            android:entries="@array/language_switch_key_entries"
+            android:entryValues="@array/language_switch_key_values"
+            android:defaultValue="off"
+            android:summary="%s"
             android:persistent="true" />
 
         <SwitchPreferenceCompat

@@ -63,14 +63,14 @@
     <string name="settings_category_miscellaneous">Miscellaneous</string>
     <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
-    <!-- Option name for including other IMEs in the language switch list [CHAR LIMIT=30] -->
-    <string name="include_other_imes_in_language_switch_list">Switch to other input methods</string>
-    <!-- Option summary for including other IMEs in the language switch list [CHAR LIMIT=65] -->
-    <string name="include_other_imes_in_language_switch_list_summary">Language switch key covers other input methods too</string>
+    <!-- Option name for including other IMEs in the language key switch list [CHAR LIMIT=30] -->
+    <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
+    <!-- Option name for switching language / subtype only [CHAR LIMIT=30] -->
+    <string name="language_switch_key_switch_subtype">Switch Language</string>
+    <!-- Option name for switching language / subtype and input method [CHAR LIMIT=30] -->
+    <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key [CHAR LIMIT=30] -->
     <string name="show_language_switch_key">Language switch key</string>
-    <!-- Option summary for showing language switch key [CHAR LIMIT=65] -->
-    <string name="show_language_switch_key_summary">Show when multiple input languages are enabled</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
     <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->

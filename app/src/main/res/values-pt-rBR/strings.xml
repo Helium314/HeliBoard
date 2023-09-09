@@ -15,7 +15,6 @@
     <string name="settings_category_miscellaneous">Outros</string>
     <string name="enable_split_keyboard">Ativar teclado dividido</string>
     <string name="settings_category_experimental">Experimental</string>
-    <string name="include_other_imes_in_language_switch_list_summary">Tecla para mudar de idioma também cobre outros métodos de entrada</string>
     <string name="key_preview_popup_dismiss_no_delay">Sem atraso</string>
     <string name="key_preview_popup_dismiss_default_delay">Padrão</string>
     <string name="use_contacts_dict_summary">Usar nomes de contatos para correções e sugestões</string>
@@ -116,7 +115,6 @@
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILISEGUNDOS">%s</xliff:g>ms</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTOS">%s</xliff:g>min.</string>
     <string name="settings_no_limit">Sem limite</string>
-    <string name="show_language_switch_key_summary">Mostrar se estiverem ativados vários idiomas</string>
     <string name="settings_system_default">Padrão do Sistema</string>
     <string name="use_contacts_dict">Sugerir nomes de contatos</string>
     <string name="edit_personal_dictionary">Dicionário pessoal</string>
@@ -171,7 +169,7 @@
     <string name="user_dict_settings_context_menu_edit_title">Editar</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">A aparência seguirá as configurações de tema do sistema</string>
-    <string name="include_other_imes_in_language_switch_list">Mudar para outros métodos de entrada</string>
+    <string name="language_switch_key_switch_input_method">Mudar para outros métodos de entrada</string>
     <string name="show_language_switch_key">Tecla para mudar de idioma</string>
     <string name="show_emoji_key">Tecla de Emojis</string>
     <string name="subtype_generic_compact">Hindi <xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
