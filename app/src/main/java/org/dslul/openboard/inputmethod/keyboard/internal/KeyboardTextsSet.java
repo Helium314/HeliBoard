@@ -21,10 +21,14 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 
 // TODO: Make this an immutable class.
@@ -39,7 +43,7 @@ public final class KeyboardTextsSet {
     private Resources mResources;
     private Locale mResourceLocale;
     private String mResourcePackageName;
-    private String[] mTextsTable;
+    private final ArrayList<String[]> mTextsTables = new ArrayList<>();
 
     public void setLocale(final Locale locale, final Context context) {
         final Resources res = context.getResources();
@@ -56,11 +60,21 @@ public final class KeyboardTextsSet {
         // Null means the current system locale.
         mResourceLocale = SubtypeLocaleUtils.NO_LANGUAGE.equals(locale.toString()) ? null : locale;
         mResourcePackageName = resourcePackageName;
-        mTextsTable = KeyboardTextsTable.getTextsTable(locale);
+        mTextsTables.clear();
+        mTextsTables.add(KeyboardTextsTable.getTextsTable(locale));
+        if (locale != RichInputMethodManager.getInstance().getCurrentSubtypeLocale())
+            return; // emojiCategory calls this several times with "zz" locale
+        for (final Locale secondaryLocale : Settings.getInstance().getCurrent().mSecondaryLocales) {
+            mTextsTables.add(KeyboardTextsTable.getTextsTable(secondaryLocale));
+        }
+    }
+
+    private String getTextInternal(final String name, final int localeIndex) {
+        return KeyboardTextsTable.getText(name, mTextsTables.get(localeIndex));
     }
 
     public String getText(final String name) {
-        return KeyboardTextsTable.getText(name, mTextsTable);
+        return getTextInternal(name, 0); // only used for emoji and clipboard keyboards
     }
 
     private static int searchTextNameEnd(final String text, final int start) {
@@ -77,13 +91,47 @@ public final class KeyboardTextsSet {
     }
 
     // TODO: Resolve text reference when creating {@link KeyboardTextsTable} class.
+    // todo: this style of merging for different locales it not good, but how to do it better?
     public String resolveTextReference(final String rawText) {
         if (TextUtils.isEmpty(rawText)) {
             return null;
         }
+        if (mTextsTables.size() == 1 || !rawText.startsWith("!text/more")) {
+            // no need for locale-specific stuff, as they are used for moreKeys only
+            String text = resolveTextReferenceInternal(rawText, 0);
+            if (text.isEmpty())
+                return null;
+            return text;
+        }
+        // get for all languages and merge if necessary
+        // this is considerably slower than the simple version above, but still for all ~60 calls
+        // when creation a keyboard, that's only a few ms on S4 mini -> should be acceptable
+        final ArrayList<String> texts = new ArrayList<>(mTextsTables.size());
+        for (int i = 0; i < mTextsTables.size(); i++) {
+            final String text = resolveTextReferenceInternal(rawText, i);
+            if (text.length() == 0)
+                continue;
+            texts.add(text);
+        }
+        if (texts.isEmpty())
+            return null;
+        if (texts.size() == 1)
+            return texts.get(0);
+        final LinkedHashSet<String> moreKeys = new LinkedHashSet<>();
+        for (final String text : texts) {
+            // no thanks linter, we don't want to create an intermediate list
+            for (final String c : text.split(",")) {
+                moreKeys.add(c);
+            }
+        }
+        return String.join(",", moreKeys);
+    }
+
+    public String resolveTextReferenceInternal(final String rawText, final int localeIndex) {
         int level = 0;
         String text = rawText;
         StringBuilder sb;
+        final int prefixLength = PREFIX_TEXT.length();
         do {
             level++;
             if (level >= MAX_REFERENCE_INDIRECTION) {
@@ -91,7 +139,6 @@ public final class KeyboardTextsSet {
                         " reference indirection: " + text);
             }
 
-            final int prefixLength = PREFIX_TEXT.length();
             final int size = text.length();
             if (size < prefixLength) {
                 break;
@@ -104,12 +151,12 @@ public final class KeyboardTextsSet {
                     if (sb == null) {
                         sb = new StringBuilder(text.substring(0, pos));
                     }
-                    pos = expandReference(text, pos, PREFIX_TEXT, sb);
+                    pos = expandReference(text, pos, PREFIX_TEXT, sb, localeIndex);
                 } else if (text.startsWith(PREFIX_RESOURCE, pos)) {
                     if (sb == null) {
                         sb = new StringBuilder(text.substring(0, pos));
                     }
-                    pos = expandReference(text, pos, PREFIX_RESOURCE, sb);
+                    pos = expandReference(text, pos, PREFIX_RESOURCE, sb, localeIndex);
                 } else if (c == BACKSLASH) {
                     if (sb != null) {
                         // Append both escape character and escaped character.
@@ -125,26 +172,27 @@ public final class KeyboardTextsSet {
                 text = sb.toString();
             }
         } while (sb != null);
-        return TextUtils.isEmpty(text) ? null : text;
+        return text;
     }
 
     private int expandReference(final String text, final int pos, final String prefix,
-            final StringBuilder sb) {
+            final StringBuilder sb, final int localeIndex) {
         final int prefixLength = prefix.length();
         final int end = searchTextNameEnd(text, pos + prefixLength);
         final String name = text.substring(pos + prefixLength, end);
         if (prefix.equals(PREFIX_TEXT)) {
-            sb.append(getText(name));
+            sb.append(getTextInternal(name, localeIndex));
         } else { // PREFIX_RESOURCE
             final String resourcePackageName = mResourcePackageName;
             final RunInLocale<String> getTextJob = new RunInLocale<String>() {
                 @Override
                 protected String job(final Resources res) {
-                    // this is for identifiers in strings-action-keys.xml (100% only?)
+                    // this is for identifiers in strings-action-keys.xml (100% sure nothing else?)
                     final int resId = res.getIdentifier(name, "string", resourcePackageName);
                     return res.getString(resId);
                 }
             };
+            // no need to do it in locale, it's just labels
             sb.append(getTextJob.runInLocale(mResources, mResourceLocale));
         }
         return end - 1;
