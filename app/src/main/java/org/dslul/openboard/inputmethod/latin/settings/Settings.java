@@ -88,39 +88,28 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE = "show_suggestions_setting";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "pref_key_use_personalized_dicts";
-    public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD =
-            "pref_key_use_double_space_period";
-    public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE =
-            "pref_key_block_potentially_offensive";
-    public static final boolean ENABLE_SHOW_LANGUAGE_SWITCH_KEY_SETTINGS =
-            Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT;
+    public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "pref_key_use_double_space_period";
+    public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "pref_key_block_potentially_offensive";
     public static final boolean SHOULD_SHOW_LXX_SUGGESTION_UI =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-    public static final String PREF_LANGUAGE_SWITCH_KEY =
-            "pref_language_switch_key";
-    public static final String PREF_SHOW_EMOJI_KEY =
-            "pref_show_emoji_key";
-    public static final String PREF_SHOW_CLIPBOARD_KEY =
-            "pref_show_clipboard_key";
+    public static final String PREF_LANGUAGE_SWITCH_KEY = "pref_language_switch_key";
+    public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
+    public static final String PREF_SHOW_CLIPBOARD_KEY = "pref_show_clipboard_key";
     public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
     public static final String PREF_SPACE_TRACKPAD = "pref_space_trackpad";
     public static final String PREF_DELETE_SWIPE = "pref_delete_swipe";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "pref_autospace_after_punctuation";
-    public static final String PREF_ALWAYS_INCOGNITO_MODE =
-            "pref_always_incognito_mode";
+    public static final String PREF_ALWAYS_INCOGNITO_MODE = "pref_always_incognito_mode";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
     public static final String PREF_GESTURE_INPUT = "gesture_input";
-    public static final String PREF_VIBRATION_DURATION_SETTINGS =
-            "pref_vibration_duration_settings";
+    public static final String PREF_VIBRATION_DURATION_SETTINGS = "pref_vibration_duration_settings";
     public static final String PREF_KEYPRESS_SOUND_VOLUME = "pref_keypress_sound_volume";
     public static final String PREF_KEY_LONGPRESS_TIMEOUT = "pref_key_longpress_timeout";
-    public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY =
-            "pref_enable_emoji_alt_physical_key";
+    public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "pref_enable_emoji_alt_physical_key";
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "pref_gesture_preview_trail";
-    public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT =
-            "pref_gesture_floating_preview_text";
+    public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "pref_gesture_floating_preview_text";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
@@ -128,10 +117,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_KEY_IS_INTERNAL = "pref_key_is_internal";
 
-    public static final String PREF_ENABLE_METRICS_LOGGING = "pref_enable_metrics_logging";
-    
-    public static final String PREF_SHOW_NUMBER_ROW =
-            "pref_show_number_row";
+    public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
 
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
 
@@ -147,6 +133,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
     public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
+    public static final String PREF_SHOW_ALL_MORE_KEYS = "pref_show_all_more_keys";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
 

@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -89,6 +90,7 @@ public class SettingsValues {
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
     public final boolean mNarrowKeyGaps;
+    public final boolean mShowAllMoreKeys;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -101,7 +103,6 @@ public class SettingsValues {
     public final boolean mShowAppIcon;
     public final boolean mIsShowAppIconSettingInPreferences;
     public final boolean mCloudSyncEnabled;
-    public final boolean mEnableMetricsLogging;
     public final boolean mShouldShowLxxSuggestionUi;
     // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
@@ -180,7 +181,6 @@ public class SettingsValues {
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        mEnableMetricsLogging = prefs.getBoolean(Settings.PREF_ENABLE_METRICS_LOGGING, true);
         mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false);
         mScreenMetrics = Settings.readScreenMetrics(res);
 
@@ -250,7 +250,9 @@ public class SettingsValues {
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale());
+        final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
+        mShowAllMoreKeys = selectedSubtype.isAsciiCapable() && prefs.getBoolean(Settings.PREF_SHOW_ALL_MORE_KEYS, false);
 
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
@@ -258,10 +260,6 @@ public class SettingsValues {
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
-    }
-
-    public boolean isMetricsLoggingEnabled() {
-        return mEnableMetricsLogging;
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

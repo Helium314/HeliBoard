@@ -82,6 +82,12 @@
             android:summary="@string/autospace_after_punctuation_summary"
             android:defaultValue="false" />
 
+        <SwitchPreferenceCompat
+            android:key="pref_show_all_more_keys"
+            android:title="@string/show_all_more_keys_title"
+            android:summary="@string/show_all_more_keys_summary"
+            android:defaultValue="false" />
+
         <Preference
             android:key="load_gesture_library"
             android:title="@string/load_gesture_library"

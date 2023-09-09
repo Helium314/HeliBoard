@@ -27,6 +27,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver;
@@ -160,6 +161,8 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         if (key.equals(Settings.PREF_SHOW_SETUP_WIZARD_ICON)) {
             SystemBroadcastReceiver.toggleAppIcon(requireContext());
+        } else if (key.equals(Settings.PREF_SHOW_ALL_MORE_KEYS)) {
+            KeyboardLayoutSet.onKeyboardThemeChanged();
         }
     }
 }

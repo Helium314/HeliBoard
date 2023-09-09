@@ -61,6 +61,10 @@ public final class KeyboardTextsSet {
         mResourceLocale = SubtypeLocaleUtils.NO_LANGUAGE.equals(locale.toString()) ? null : locale;
         mResourcePackageName = resourcePackageName;
         mTextsTables.clear();
+        if (Settings.getInstance().getCurrent().mShowAllMoreKeys) {
+            mTextsTables.add(KeyboardTextsTable.getTextsTable(new Locale(SubtypeLocaleUtils.NO_LANGUAGE)));
+            return;
+        }
         mTextsTables.add(KeyboardTextsTable.getTextsTable(locale));
         if (locale != RichInputMethodManager.getInstance().getCurrentSubtypeLocale())
             return; // emojiCategory calls this several times with "zz" locale
