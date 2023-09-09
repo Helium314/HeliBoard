@@ -242,11 +242,11 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         final EditorInfo editorInfo = new EditorInfo();
         editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(this, editorInfo);
-        builder.setKeyboardGeometry(
-                SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT);
-        builder.setSubtype(RichInputMethodSubtype.getRichInputMethodSubtype(subtype));
-        builder.setIsSpellChecker(true /* isSpellChecker */);
-        builder.disableTouchPositionCorrectionData();
-        return builder.build();
+        return builder
+                .setKeyboardGeometry(SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT)
+                .setSubtype(RichInputMethodSubtype.getRichInputMethodSubtype(subtype))
+                .setIsSpellChecker(true /* isSpellChecker */)
+                .disableTouchPositionCorrectionData()
+                .build();
     }
 }

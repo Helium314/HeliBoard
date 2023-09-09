@@ -28,7 +28,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
-import org.dslul.openboard.inputmethod.compat.UserManagerCompatUtils;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.UniqueKeysCache;
@@ -51,6 +50,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.UserManagerCompat;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard
@@ -88,7 +88,6 @@ public final class KeyboardLayoutSet {
     private final static HashMap<InputMethodSubtype, Integer> sScriptIdsForSubtypes =
             new HashMap<>();
 
-    @SuppressWarnings("serial")
     public static final class KeyboardLayoutSetException extends RuntimeException {
         public final KeyboardId mKeyboardId;
 
@@ -165,8 +164,6 @@ public final class KeyboardLayoutSet {
         mContext = context;
         mParams = params;
     }
-
-    public static final String LOCALE_GEORGIAN = "ka";
 
     @NonNull
     public Keyboard getKeyboard(final int baseKeyboardLayoutSetElementId) {
@@ -287,10 +284,7 @@ public final class KeyboardLayoutSet {
 
             // When the device is still unlocked, features like showing the IME setting app need to
             // be locked down.
-            // TODO: Switch to {@code UserManagerCompat.isUserUnlocked()} in the support-v4 library
-            // when it becomes publicly available.
-            @UserManagerCompatUtils.LockState final int lockState = UserManagerCompatUtils.getUserLockState(context);
-            if (lockState == UserManagerCompatUtils.LOCK_STATE_LOCKED) {
+            if (!UserManagerCompat.isUserUnlocked(context)) {
                 params.mNoSettingsKey = true;
             }
         }
@@ -363,8 +357,7 @@ public final class KeyboardLayoutSet {
             final String layoutSetName = KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX
                     + SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
             final int xmlId = getXmlId(resources, layoutSetName);
-            final XmlResourceParser parser = resources.getXml(xmlId);
-            try {
+            try (XmlResourceParser parser = resources.getXml(xmlId)) {
                 while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
                     // Bovinate through the XML stupidly searching for TAG_FEATURE, and read
                     // the script Id from it.
@@ -376,8 +369,6 @@ public final class KeyboardLayoutSet {
                 }
             } catch (final IOException | XmlPullParserException e) {
                 throw new RuntimeException(e.getMessage() + " in " + layoutSetName, e);
-            } finally {
-                parser.close();
             }
             // If the tag is not found, then the default script is Latin.
             return ScriptUtils.SCRIPT_LATIN;
@@ -419,8 +410,7 @@ public final class KeyboardLayoutSet {
 
         private void parseKeyboardLayoutSet(final Resources res, final int resId)
                 throws XmlPullParserException, IOException {
-            final XmlResourceParser parser = res.getXml(resId);
-            try {
+            try (XmlResourceParser parser = res.getXml(resId)) {
                 while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
                     final int event = parser.next();
                     if (event == XmlPullParser.START_TAG) {
@@ -432,8 +422,6 @@ public final class KeyboardLayoutSet {
                         }
                     }
                 }
-            } finally {
-                parser.close();
             }
         }
 

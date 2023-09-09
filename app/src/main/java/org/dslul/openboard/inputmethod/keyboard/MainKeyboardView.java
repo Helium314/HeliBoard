@@ -393,7 +393,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
      * @param keyboard the keyboard to display in this view
      */
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         // Remove any pending messages, except dismissing preview and key repeat.
         mTimerHandler.cancelLongPressTimers();
         super.setKeyboard(keyboard);
@@ -804,8 +804,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
-    protected void onDrawKeyTopVisuals(final Key key, final Canvas canvas, final Paint paint,
-            final KeyDrawParams params) {
+    protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (key.altCodeWhileTyping() && key.isEnabled()) {
             params.mAnimAlpha = mAltCodeKeyWhileTypingAnimAlpha;
         }

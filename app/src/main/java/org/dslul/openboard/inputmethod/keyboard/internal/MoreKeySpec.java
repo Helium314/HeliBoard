@@ -222,7 +222,7 @@ public final class MoreKeySpec {
         if (remain != null) {
             list.add(remain);
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     @NonNull
@@ -247,7 +247,7 @@ public final class MoreKeySpec {
         if (out == null) {
             return array;
         }
-        return out.toArray(new String[out.size()]);
+        return out.toArray(new String[0]);
     }
 
     public static String[] insertAdditionalMoreKeys(@Nullable final String[] moreKeySpecs,
@@ -300,7 +300,7 @@ public final class MoreKeySpec {
         if (out == null && moreKeysCount > 0) {
             return moreKeys;
         } else if (out != null && out.size() > 0) {
-            return out.toArray(new String[out.size()]);
+            return out.toArray(new String[0]);
         } else {
             return null;
         }

@@ -10,8 +10,8 @@ object ViewOutlineProviderCompatUtils {
         override fun setInsets(insets: InputMethodService.Insets) {}
     }
 
-    @kotlin.jvm.JvmStatic
-    fun setInsetsOutlineProvider(view: View): InsetsUpdater? {
+    @JvmStatic
+    fun setInsetsOutlineProvider(view: View): InsetsUpdater {
         return if (Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
             EMPTY_INSETS_UPDATER
         } else ViewOutlineProviderCompatUtilsLXX.setInsetsOutlineProvider(view)

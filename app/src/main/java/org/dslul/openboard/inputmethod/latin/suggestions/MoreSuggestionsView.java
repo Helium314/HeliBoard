@@ -20,6 +20,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
@@ -53,7 +55,7 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
 
     // TODO: Remove redundant override method.
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         super.setKeyboard(keyboard);
         mIsInModalMode = false;
         // With accessibility mode off, {@link #mAccessibilityDelegate} is set to null at the
@@ -69,7 +71,7 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
 
     @Override
     protected int getDefaultCoordX() {
-        final MoreSuggestions pane = (MoreSuggestions)getKeyboard();
+        final MoreSuggestions pane = (MoreSuggestions) getKeyboard();
         return pane.mOccupiedWidth / 2;
     }
 

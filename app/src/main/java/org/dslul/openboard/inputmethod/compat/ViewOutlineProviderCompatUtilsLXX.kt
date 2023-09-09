@@ -2,10 +2,13 @@ package org.dslul.openboard.inputmethod.compat
 
 import android.graphics.Outline
 import android.inputmethodservice.InputMethodService
+import android.os.Build
 import android.view.View
 import android.view.ViewOutlineProvider
+import androidx.annotation.RequiresApi
 import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils.InsetsUpdater
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 internal object ViewOutlineProviderCompatUtilsLXX {
     fun setInsetsOutlineProvider(view: View): InsetsUpdater {
         val provider = InsetsOutlineProvider(view)
@@ -29,8 +32,7 @@ internal object ViewOutlineProviderCompatUtilsLXX {
                 return
             }
             // TODO: Revisit this when floating/resize keyboard is supported.
-            outline.setRect(
-                    view.left, mLastVisibleTopInsets, view.right, view.bottom)
+            outline.setRect(view.left, mLastVisibleTopInsets, view.right, view.bottom)
         }
 
         companion object {

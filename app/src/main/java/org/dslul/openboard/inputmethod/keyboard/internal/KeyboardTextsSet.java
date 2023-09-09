@@ -140,6 +140,7 @@ public final class KeyboardTextsSet {
             final RunInLocale<String> getTextJob = new RunInLocale<String>() {
                 @Override
                 protected String job(final Resources res) {
+                    // this is for identifiers in strings-action-keys.xml (100% only?)
                     final int resId = res.getIdentifier(name, "string", resourcePackageName);
                     return res.getString(resId);
                 }

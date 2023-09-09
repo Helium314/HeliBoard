@@ -129,20 +129,19 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         final Resources res = mThemeContext.getResources();
         final int keyboardWidth = ResourceUtils.getKeyboardWidth(res, settingsValues);
         final int keyboardHeight = ResourceUtils.getKeyboardHeight(res, settingsValues);
-        builder.setKeyboardGeometry(keyboardWidth, keyboardHeight);
-        builder.setSubtype(mRichImm.getCurrentSubtype());
-        builder.setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey);
-        builder.setNumberRowEnabled(settingsValues.mShowsNumberRow);
-        builder.setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled());
-        builder.setEmojiKeyEnabled(settingsValues.mShowsEmojiKey);
-        builder.setSplitLayoutEnabledByUser(ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED
-                && settingsValues.mIsSplitKeyboardEnabled);
         final boolean oneHandedModeEnabled = settingsValues.mOneHandedModeEnabled;
-        builder.setOneHandedModeEnabled(oneHandedModeEnabled);
-        mKeyboardLayoutSet = builder.build();
+        mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
+                .setSubtype(mRichImm.getCurrentSubtype())
+                .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
+                .setNumberRowEnabled(settingsValues.mShowsNumberRow)
+                .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
+                .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
+                .setSplitLayoutEnabledByUser(ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED
+                        && settingsValues.mIsSplitKeyboardEnabled)
+                .setOneHandedModeEnabled(oneHandedModeEnabled)
+                .build();
         try {
-            mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState,
-                    oneHandedModeEnabled);
+            mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
             mKeyboardTextsSet.setLocale(mRichImm.getCurrentSubtypeLocale(), mThemeContext);
         } catch (KeyboardLayoutSetException e) {
             Log.w(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
