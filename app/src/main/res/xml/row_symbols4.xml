@@ -30,5 +30,6 @@
     <!-- U+2026: "…" HORIZONTAL ELLIPSIS -->
     <Key
         latin:keySpec="."
-        latin:moreKeys="&#x2026;" />
+        latin:moreKeys="&#x2026;"
+        latin:keyLabelFlags="hasPopupHint" />
 </merge>
