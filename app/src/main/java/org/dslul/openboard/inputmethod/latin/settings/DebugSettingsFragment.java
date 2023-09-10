@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Process;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.TwoStatePreference;
@@ -57,8 +58,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
             removePreference(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI);
         }
 
-        final PreferenceGroup dictDumpPreferenceGroup =
-                (PreferenceGroup)findPreference(PREF_KEY_DUMP_DICTS);
+        final PreferenceGroup dictDumpPreferenceGroup = (PreferenceGroup)findPreference(PREF_KEY_DUMP_DICTS);
         for (final String dictName : DictionaryFacilitatorImpl.DICT_TYPE_TO_CLASS.keySet()) {
             final Preference pref = new DictDumpPreference(getActivity(), dictName);
             pref.setOnPreferenceClickListener(this);
@@ -99,15 +99,14 @@ public final class DebugSettingsFragment extends SubScreenFragment
     }
 
     @Override
-    public boolean onPreferenceClick(final Preference pref) {
-        final Context context = getActivity();
+    public boolean onPreferenceClick(@NonNull final Preference pref) {
         if (pref instanceof DictDumpPreference) {
             final DictDumpPreference dictDumpPref = (DictDumpPreference)pref;
             final String dictName = dictDumpPref.mDictName;
             final Intent intent = new Intent(
                     DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
             intent.putExtra(DictionaryDumpBroadcastReceiver.DICTIONARY_NAME_KEY, dictName);
-            context.sendBroadcast(intent);
+            pref.getContext().sendBroadcast(intent);
             return true;
         }
         return true;
@@ -127,11 +126,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
             mDebugMode.setChecked(prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false));
             updateDebugMode();
             mServiceNeedsRestart = true;
-            return;
-        }
-        if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
+        } else if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
             mServiceNeedsRestart = true;
-            return;
         }
     }
 
@@ -230,7 +226,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
 
             @Override
             public String getValueText(final int value) {
-                return res.getString(R.string.abbreviation_unit_milliseconds, value);
+                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
             }
 
             @Override

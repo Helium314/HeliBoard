@@ -84,7 +84,6 @@
     <string name="main_dict_description">"মুখ্য অভিধান"</string>
     <string name="go_to_settings">"ছেটিংসমূহ"</string>
     <string name="delete_dict">"মচক"</string>
-    <string name="version_text">"সংস্কৰণ </string>
     <string name="user_dict_settings_add_menu_title">"যোগ কৰক"</string>
     <string name="user_dict_settings_add_dialog_title">"অভিধানত যোগ কৰক"</string>
     <string name="user_dict_settings_add_screen_title">"বাক্যাংশ"</string>

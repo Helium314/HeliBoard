@@ -76,8 +76,8 @@
         android:key="pref_key_preview_dismiss_duration"
         android:title="@string/prefs_key_popup_dismiss_duration_settings"
         latin:maxValue="100" /> <!-- milliseconds -->
-    <SwitchPreferenceCompat
+    <PreferenceCategory
         android:key="pref_key_dump_dictionaries"
         android:title="@string/prefs_dump_dynamic_dicts">
-    </SwitchPreferenceCompat>
+    </PreferenceCategory>
 </PreferenceScreen>
