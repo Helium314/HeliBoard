@@ -164,33 +164,33 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private fun adjustColors(dark: Boolean) {
         val items = listOf(
             R.string.select_color_background,
+            R.string.select_color_key_background,
             R.string.select_color_key,
             R.string.select_color_key_hint,
             R.string.select_color_accent,
-            R.string.select_color_key_background
         ).map { requireContext().getString(it) }
-        val itemsArray = if (findPreference<TwoStatePreference>(Settings.PREF_THEME_KEY_BORDERS)!!.isChecked) items.toTypedArray()
-            else items.subList(0, 4).toTypedArray()
         AlertDialog.Builder(requireContext())
             .setPositiveButton(android.R.string.ok, null)
             .setTitle(R.string.select_color_to_adjust)
-            .setItems(itemsArray) { _, i ->
+            .setItems(items.toTypedArray()) { _, i ->
                 val (pref, default) =
                     if (dark)
                         when (i) {
                             0 -> Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND to Color.DKGRAY
-                            1 -> Settings.PREF_THEME_USER_DARK_COLOR_TEXT to Color.WHITE
-                            2 -> Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT to Color.WHITE
-                            3 -> Settings.PREF_THEME_USER_DARK_COLOR_ACCENT to Color.BLUE
-                            else -> Settings.PREF_THEME_USER_DARK_COLOR_KEYS to Color.LTGRAY
+                            1 -> Settings.PREF_THEME_USER_DARK_COLOR_KEYS to Color.LTGRAY
+                            2 -> Settings.PREF_THEME_USER_DARK_COLOR_TEXT to Color.WHITE
+                            3 -> Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT to Color.WHITE
+                            4 -> Settings.PREF_THEME_USER_DARK_COLOR_ACCENT to Color.BLUE
+                            else -> return@setItems
                         }
                     else
                         when (i) {
                             0 -> Settings.PREF_THEME_USER_COLOR_BACKGROUND to Color.DKGRAY
-                            1 -> Settings.PREF_THEME_USER_COLOR_TEXT to Color.WHITE
-                            2 -> Settings.PREF_THEME_USER_COLOR_HINT_TEXT to Color.WHITE
-                            3 -> Settings.PREF_THEME_USER_COLOR_ACCENT to Color.BLUE
-                            else -> Settings.PREF_THEME_USER_COLOR_KEYS to Color.LTGRAY
+                            1 -> Settings.PREF_THEME_USER_COLOR_KEYS to Color.LTGRAY
+                            2 -> Settings.PREF_THEME_USER_COLOR_TEXT to Color.WHITE
+                            3 -> Settings.PREF_THEME_USER_COLOR_HINT_TEXT to Color.WHITE
+                            4 -> Settings.PREF_THEME_USER_COLOR_ACCENT to Color.BLUE
+                            else -> return@setItems
                         }
                 val d = ColorPickerDialog(requireContext(), items[i], sharedPreferences, pref, default)
                 d.show()

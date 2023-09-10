@@ -103,13 +103,13 @@ class Colors (
             // need to set color to background if key borders are disabled, or there will be ugly keys
             keyBackgroundFilter = backgroundFilter
             functionalKeyBackgroundFilter = keyBackgroundFilter
-            spaceBarFilter = keyBackgroundFilter
+            spaceBarFilter = colorFilter(spaceBar)
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
             keyStateList = backgroundStateList
             functionalKeyStateList = backgroundStateList
             actionKeyStateList = if (themeStyle == KeyboardTheme.THEME_STYLE_HOLO) functionalKeyStateList
                 else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = adjustedBackgroundStateList
+            spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
         keyTextFilter = colorFilter(keyText, BlendModeCompat.SRC_ATOP)
         accentColorFilter = colorFilter(accent)
