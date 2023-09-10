@@ -375,11 +375,7 @@ public final class Suggest {
                 // list, "will" would always auto-correct to "Will" which is unwanted. Hence, no
                 // main dict => no auto-correct. Also, it would probably get obnoxious quickly.
                 // TODO: now that we have personalization, we may want to re-evaluate this decision
-                || !dictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()
-                // If the first suggestion is a shortcut we never auto-correct to it, regardless
-                // of how strong it is (whitelist entries are not KIND_SHORTCUT but KIND_WHITELIST).
-                // TODO: we may want to have shortcut-only entries auto-correct in the future.
-                || suggestionResults.first().isKindOf(SuggestedWordInfo.KIND_SHORTCUT)) {
+                || !dictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()) {
             hasAutoCorrection = false;
         } else {
             final SuggestedWordInfo firstSuggestion = suggestionResults.first();

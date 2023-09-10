@@ -348,7 +348,8 @@ public class SuggestedWords {
         }
 
         public boolean isAppropriateForAutoCorrection() {
-            return (mKindAndFlags & KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION) != 0;
+            return (mKindAndFlags & KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION) != 0
+                    || isKindOf(KIND_SHORTCUT);
         }
 
         public void setDebugString(final String str) {
