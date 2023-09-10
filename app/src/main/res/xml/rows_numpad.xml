@@ -106,10 +106,8 @@
         <!-- &#44; "," COMMA SIGN -->
         <Key
             latin:keySpec="&#44;"
-            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"
-            latin:backgroundType="functional"
+            latin:keyStyle="settingsMoreKeysStyle"
             latin:keyActionFlags="noKeyPreview"
-            latin:keyLabelFlags="hasPopupHint"
             latin:keyWidth="10%p" />
         <Key
             latin:keyStyle="symbolNumpadKeyStyle"
