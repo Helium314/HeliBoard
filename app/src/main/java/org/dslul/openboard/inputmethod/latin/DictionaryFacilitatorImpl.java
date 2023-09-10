@@ -674,7 +674,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, boolean[] validWordForDictionary) {
         // we need one clearly preferred group to assign it to the correct language
         int highestGroup = -1;
-        int highestGroupConfidence = -1;
+        // require confidence to be MAX_CONFIDENCE, to be sure about language
+        // since the word is unknown, confidence has already been reduced, but after a first miss
+        // confidence is actually reduced to MAX_CONFIDENCE if it was larger
+        int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
         for (int i = 0; i < mDictionaryGroups.size(); i ++) {
             final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
             if (dictionaryGroup.mConfidence > highestGroupConfidence) {
