@@ -28,6 +28,6 @@
     <item>
         <bitmap
             android:src="@drawable/unbundled_earth_01"
-            android:tint="@color/accent"/>
+            android:tint="@android:color/holo_blue_light"/>
     </item>
 </selector>
