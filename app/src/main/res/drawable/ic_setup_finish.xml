@@ -25,6 +25,9 @@
     <item
         android:state_pressed="true"
         android:drawable="@drawable/unbundled_check_01" />
-    <item
-        android:drawable="@drawable/unbundled_check_02" />
+    <item>
+        <bitmap
+            android:src="@drawable/unbundled_check_01"
+            android:tint="@color/accent"/>
+    </item>
 </selector>
