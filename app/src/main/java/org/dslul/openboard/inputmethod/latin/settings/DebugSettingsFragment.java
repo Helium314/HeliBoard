@@ -58,7 +58,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
             removePreference(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI);
         }
 
-        final PreferenceGroup dictDumpPreferenceGroup = (PreferenceGroup)findPreference(PREF_KEY_DUMP_DICTS);
+        final PreferenceGroup dictDumpPreferenceGroup = findPreference(PREF_KEY_DUMP_DICTS);
         for (final String dictName : DictionaryFacilitatorImpl.DICT_TYPE_TO_CLASS.keySet()) {
             final Preference pref = new DictDumpPreference(getActivity(), dictName);
             pref.setOnPreferenceClickListener(this);
@@ -83,7 +83,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
                 defaultKeyPreviewDismissEndScale);
 
         mServiceNeedsRestart = false;
-        mDebugMode = (TwoStatePreference) findPreference(DebugSettings.PREF_DEBUG_MODE);
+        mDebugMode = findPreference(DebugSettings.PREF_DEBUG_MODE);
         updateDebugMode();
     }
 
@@ -116,7 +116,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     public void onStop() {
         super.onStop();
         if (mServiceNeedsRestart) {
-            Process.killProcess(Process.myPid());
+            Runtime.getRuntime().exit(0);
         }
     }
 
@@ -147,7 +147,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     private void setupKeyPreviewAnimationScale(final String prefKey, final float defaultValue) {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(prefKey);
+        final SeekBarDialogPreference pref = findPreference(prefKey);
         if (pref == null) {
             return;
         }
@@ -199,7 +199,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     private void setupKeyPreviewAnimationDuration(final String prefKey, final int defaultValue) {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(prefKey);
+        final SeekBarDialogPreference pref = findPreference(prefKey);
         if (pref == null) {
             return;
         }

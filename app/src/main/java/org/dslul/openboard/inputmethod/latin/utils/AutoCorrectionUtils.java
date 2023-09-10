@@ -55,7 +55,9 @@ public final class AutoCorrectionUtils {
             //       the normalized score of the second suggestion, behave less aggressive.
             final float normalizedScore;
             if (BuildConfig.DEBUG && Build.VERSION.SDK_INT == 0)
-                normalizedScore = calcNormalizedScore(StringUtils.toCodePointArray(consideredWord), StringUtils.toCodePointArray(suggestion.mWord), autoCorrectionSuggestionScore, editDistance(consideredWord, suggestion.mWord));
+                normalizedScore = calcNormalizedScore(StringUtils.toCodePointArray(consideredWord),
+                        StringUtils.toCodePointArray(suggestion.mWord), autoCorrectionSuggestionScore,
+                        editDistance(consideredWord, suggestion.mWord));
             else
                 normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(
                     consideredWord, suggestion.mWord, autoCorrectionSuggestionScore);

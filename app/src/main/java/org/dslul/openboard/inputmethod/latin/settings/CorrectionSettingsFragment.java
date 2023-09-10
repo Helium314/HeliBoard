@@ -19,7 +19,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import static org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager.get;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -112,7 +111,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
     private void refreshEnabledSettings() {
         setPreferenceVisible(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
-                Settings.readAutoCorrectEnabled(getSharedPreferences(), getResources()));
+                Settings.readAutoCorrectEnabled(getSharedPreferences()));
         setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         turnOffLookupContactsIfNoPermission();
     }

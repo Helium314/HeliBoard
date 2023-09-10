@@ -87,15 +87,6 @@ public final class Suggest {
         mAutoCorrectionThreshold = threshold;
     }
 
-    /**
-     * Set the normalized-score threshold for what we consider a "plausible" suggestion, in
-     * the same dimension as the auto-correction threshold.
-     * @param threshold the threshold
-     */
-    public void setPlausibilityThreshold(final float threshold) {
-        mPlausibilityThreshold = threshold;
-    }
-
     public interface OnGetSuggestedWordsCallback {
         void onGetSuggestedWords(final SuggestedWords suggestedWords);
     }

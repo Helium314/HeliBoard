@@ -110,6 +110,7 @@ public class SettingsValues {
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
+    public final float mKeyboardHeightScale;
 
     // From the input box
     @NonNull
@@ -121,7 +122,6 @@ public class SettingsValues {
     private final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final int mScoreLimitForAutocorrect;
-    public final float mPlausibilityThreshold;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
     private final boolean mSuggestionsEnabledPerUserSettings;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
@@ -132,9 +132,7 @@ public class SettingsValues {
     public final Colors mColors;
 
     // Debug settings
-    public final boolean mIsInternal;
     public final boolean mHasCustomKeyPreviewAnimationParams;
-    public final float mKeyboardHeightScale;
     public final int mKeyPreviewShowUpDuration;
     public final int mKeyPreviewDismissDuration;
     public final float mKeyPreviewShowUpStartXScale;
@@ -163,7 +161,7 @@ public class SettingsValues {
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
-        mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs, res) && mInputAttributes.mShouldShowVoiceInputKey;
+        mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs) && mInputAttributes.mShouldShowVoiceInputKey;
         final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "off");
         mLanguageSwitchKeyToOtherImes = languagePref.equals("input_method") || languagePref.equals("both");
         mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
@@ -176,7 +174,7 @@ public class SettingsValues {
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
         mBlockPotentiallyOffensive = Settings.readBlockPotentiallyOffensive(prefs, res);
-        mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs, res);
+        mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
@@ -198,7 +196,6 @@ public class SettingsValues {
                 Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mShowAppIcon = Settings.readShowSetupWizardIcon(prefs, context);
         mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
-        mPlausibilityThreshold = Settings.readPlausibilityThreshold(res);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs, res);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         mCloudSyncEnabled = prefs.getBoolean(LocalSettingsConstants.PREF_ENABLE_CLOUD_SYNC, false);
@@ -212,7 +209,6 @@ public class SettingsValues {
                 readSuggestionsEnabled(prefs);
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
-        mIsInternal = Settings.isInternal(prefs);
         mHasCustomKeyPreviewAnimationParams = prefs.getBoolean(DebugSettings.PREF_HAS_CUSTOM_KEY_PREVIEW_ANIMATION_PARAMS, false);
         mKeyboardHeightScale = Settings.readKeyboardHeight(prefs, DEFAULT_SIZE_SCALE);
         mKeyPreviewShowUpDuration = Settings.readKeyPreviewAnimationDuration(
@@ -335,17 +331,7 @@ public class SettingsValues {
         return mDisplayOrientation == configuration.orientation;
     }
 
-    private static final String SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE = "2";
-
     private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
-        if (prefs.contains(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE)) {
-            final boolean alwaysHide = SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE.equals(
-                    prefs.getString(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE, null));
-            prefs.edit()
-                    .remove(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE)
-                    .putBoolean(Settings.PREF_SHOW_SUGGESTIONS, !alwaysHide)
-                    .apply();
-        }
         return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
     }
 
@@ -387,21 +373,7 @@ public class SettingsValues {
         return autoCorrectionThreshold;
     }
 
-    private static boolean needsToShowVoiceInputKey(final SharedPreferences prefs,
-                                                    final Resources res) {
-        // Migrate preference from {@link Settings#PREF_VOICE_MODE_OBSOLETE} to
-        // {@link Settings#PREF_VOICE_INPUT_KEY}.
-        if (prefs.contains(Settings.PREF_VOICE_MODE_OBSOLETE)) {
-            final String voiceModeMain = res.getString(R.string.voice_mode_main);
-            final String voiceMode = prefs.getString(
-                    Settings.PREF_VOICE_MODE_OBSOLETE, voiceModeMain);
-            final boolean shouldShowVoiceInputKey = voiceModeMain.equals(voiceMode);
-            prefs.edit()
-                    .putBoolean(Settings.PREF_VOICE_INPUT_KEY, shouldShowVoiceInputKey)
-                    // Remove the obsolete preference if exists.
-                    .remove(Settings.PREF_VOICE_MODE_OBSOLETE)
-                    .apply();
-        }
+    private static boolean needsToShowVoiceInputKey(final SharedPreferences prefs) {
         return prefs.getBoolean(Settings.PREF_VOICE_INPUT_KEY, true);
     }
 
@@ -464,8 +436,6 @@ public class SettingsValues {
         sb.append("\n   mAppWorkarounds = ");
         final AppWorkaroundsUtils awu = mAppWorkarounds.get(null, 0);
         sb.append("" + (null == awu ? "null" : awu.toString()));
-        sb.append("\n   mIsInternal = ");
-        sb.append("" + mIsInternal);
         sb.append("\n   mKeyPreviewShowUpDuration = ");
         sb.append("" + mKeyPreviewShowUpDuration);
         sb.append("\n   mKeyPreviewDismissDuration = ");

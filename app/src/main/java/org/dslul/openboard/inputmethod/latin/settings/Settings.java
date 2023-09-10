@@ -76,16 +76,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_USER_DARK_COLOR_BACKGROUND = "theme_dark_color_background";
     public static final String PREF_THEME_USER_DARK_COLOR_KEYS = "theme_dark_color_keys";
     public static final String PREF_THEME_USER_DARK_COLOR_ACCENT = "theme_dark_color_accent";
-    // PREF_VOICE_MODE_OBSOLETE is obsolete. Use PREF_VOICE_INPUT_KEY instead.
-    public static final String PREF_VOICE_MODE_OBSOLETE = "voice_mode";
     public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
-    public static final String PREF_CLIPBOARD_CLIPBOARD_KEY = "pref_clipboard_clipboard_key";
     public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
-    public static final String PREF_ADD_DICTIONARY = "add_dictionary";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
-    // PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE is obsolete. Use PREF_SHOW_SUGGESTIONS instead.
-    public static final String PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE = "show_suggestions_setting";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "pref_key_use_personalized_dicts";
     public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "pref_key_use_double_space_period";
@@ -115,8 +109,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
     public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity";
-
-    public static final String PREF_KEY_IS_INTERNAL = "pref_key_is_internal";
 
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
 
@@ -234,10 +226,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return mSettingsValues;
     }
 
-    public boolean isInternal() {
-        return mSettingsValues.mIsInternal;
-    }
-
     public static int readScreenMetrics(final Resources res) {
         return res.getInteger(R.integer.config_screen_metrics);
     }
@@ -245,8 +233,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // Accessed from the settings interface, hence public
     public static boolean readKeypressSoundEnabled(final SharedPreferences prefs,
                                                    final Resources res) {
-        return prefs.getBoolean(PREF_SOUND_ON,
-                res.getBoolean(R.bool.config_default_sound_enabled));
+        return prefs.getBoolean(PREF_SOUND_ON, res.getBoolean(R.bool.config_default_sound_enabled));
     }
 
     public static boolean readVibrationEnabled(final SharedPreferences prefs,
@@ -256,8 +243,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 res.getBoolean(R.bool.config_default_vibration_enabled));
     }
 
-    public static boolean readAutoCorrectEnabled(final SharedPreferences prefs,
-                                                 final Resources res) {
+    public static boolean readAutoCorrectEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_AUTO_CORRECTION, true);
     }
 
@@ -265,10 +251,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                                                    final Resources res) {
         return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
                 res.getString(R.string.auto_correction_threshold_mode_index_modest));
-    }
-
-    public static float readPlausibilityThreshold(final Resources res) {
-        return Float.parseFloat(res.getString(R.string.plausibility_threshold));
     }
 
     public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs,
@@ -393,10 +375,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
     }
-    
-    public static boolean readShowsNumberRow(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, false);
-    }
 
     public static float readKeyboardHeight(final SharedPreferences prefs,
                                            final float defaultValue) {
@@ -457,10 +435,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         // is NOKEYS and if it's not hidden (e.g. folded inside the device).
         return conf.keyboard != Configuration.KEYBOARD_NOKEYS
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
-    }
-
-    public static boolean isInternal(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_KEY_IS_INTERNAL, false);
     }
 
     public void writeLastUsedPersonalizationToken(byte[] token) {

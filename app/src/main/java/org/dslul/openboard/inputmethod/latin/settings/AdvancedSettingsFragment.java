@@ -23,12 +23,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
@@ -63,9 +65,7 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
         AudioAndHapticFeedbackManager.init(context);
 
-        final SharedPreferences prefs = getSharedPreferences();
-
-        if (!Settings.isInternal(prefs)) {
+        if (!BuildConfig.DEBUG) {
             removePreference(Settings.SCREEN_DEBUG);
         }
 
@@ -112,7 +112,7 @@ public final class AdvancedSettingsFragment extends SubScreenFragment {
                 FileUtils.copyStreamToNewFile(in, libfile);
                 Runtime.getRuntime().exit(0); // exit will restart the app, so library will be loaded
             } catch (IOException e) {
-                // todo: should inform user
+                // should inform user, but probably the issues will only come when reading the library
             }
         }
     }
