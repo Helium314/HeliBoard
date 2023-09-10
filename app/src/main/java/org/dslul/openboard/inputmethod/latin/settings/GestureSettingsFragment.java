@@ -51,5 +51,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
                 Settings.readGestureInputEnabled(prefs, res));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
                 Settings.readGestureInputEnabled(prefs, res));
+        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE,
+                Settings.readGestureInputEnabled(prefs, res));
     }
 }

@@ -19,7 +19,13 @@ package org.dslul.openboard.inputmethod.latin.settings;
 public class SettingsValuesForSuggestion {
     public final boolean mBlockPotentiallyOffensive;
 
-    public SettingsValuesForSuggestion(final boolean blockPotentiallyOffensive) {
+    public SettingsValuesForSuggestion(
+            final boolean blockPotentiallyOffensive,
+            final boolean spaceAwareGesture
+            ) {
         mBlockPotentiallyOffensive = blockPotentiallyOffensive;
+        mSpaceAwareGesture = spaceAwareGesture;
     }
+
+    public final boolean mSpaceAwareGesture;
 }

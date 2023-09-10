@@ -110,6 +110,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "pref_enable_emoji_alt_physical_key";
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "pref_gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "pref_gesture_floating_preview_text";
+    public static final String PREF_GESTURE_SPACE_AWARE = "pref_gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";

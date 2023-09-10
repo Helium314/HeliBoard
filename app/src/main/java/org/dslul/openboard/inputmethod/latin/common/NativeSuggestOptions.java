@@ -35,6 +35,10 @@ public class NativeSuggestOptions {
         setBooleanOption(IS_GESTURE, value);
     }
 
+    public void setIsSpaceAwareGesture(final boolean value) {
+        setBooleanOption(SPACE_AWARE_GESTURE_ENABLED, value);
+    }
+
     public void setUseFullEditDistance(final boolean value) {
         setBooleanOption(USE_FULL_EDIT_DISTANCE, value);
     }

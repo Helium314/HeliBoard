@@ -123,6 +123,7 @@ public class SettingsValues {
     public final float mPlausibilityThreshold;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
     private final boolean mSuggestionsEnabledPerUserSettings;
+    public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
     private final AsyncResultHolder<AppWorkaroundsUtils> mAppWorkarounds;
 
@@ -260,6 +261,10 @@ public class SettingsValues {
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
+        mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
+                mBlockPotentiallyOffensive,
+                prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
+        );
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
