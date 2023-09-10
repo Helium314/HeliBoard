@@ -150,8 +150,8 @@ public class KeyboardView extends View {
         mKeyBackground.getPadding(mKeyBackgroundPadding);
         mFunctionalKeyBackground = mColors.getDrawable(BackgroundType.FUNCTIONAL, keyboardViewAttr);
         mSpacebarBackground = mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
-        if (this instanceof MoreKeysKeyboardView && mColors.getThemeStyle().equals(KeyboardTheme.THEME_STYLE_HOLO)) // todo: this logic should be in Colors
-            mActionKeyBackground = mColors.getDrawable(BackgroundType.ADJUSTED_BACKGROUND, keyboardViewAttr);
+        if (this instanceof MoreKeysKeyboardView)
+            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION_MORE_KEYS, keyboardViewAttr);
         else
             mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION, keyboardViewAttr);
 
@@ -598,11 +598,10 @@ public class KeyboardView extends View {
     }
 
     private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
-        if (key.isAccentColored() && !(mColors.getThemeStyle().equals(KeyboardTheme.THEME_STYLE_HOLO))) { // todo: this logic should not be here
+        if (key.isAccentColored()) {
             icon.setColorFilter(mColors.getActionKeyIconColorFilter());
         } else if (key.isShift() && keyboard != null) {
-            // todo (idea): replace shift icon with white one and use the normal multiply filters
-            //  this could allow different shift icon with nicer coloring
+            // todo: switch to multiply after changing keyboard symbols to white icons
             if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED

@@ -94,9 +94,9 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
 
-        // todo: got a crash because it wasn't initialized...
-        //  but sometimes wrong languages are returned when not initializing on creation of LatinIME
-        //  maybe wait until some user actually encounters this bug, initializing here is really rare
+        // sometimes wrong languages are returned when not initializing on creation of LatinIME
+        // this might be a bug, at least it's not documented
+        // but anyway, here is really rare (LatinIme should be loaded when the settings are opened)
         SubtypeSettingsKt.init(getActivity());
 
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());

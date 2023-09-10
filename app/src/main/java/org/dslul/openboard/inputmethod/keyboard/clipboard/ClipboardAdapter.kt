@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
@@ -69,8 +68,7 @@ class ClipboardAdapter(
             }
             clipboardLayoutParams.setItemProperties(view)
             val colors = Settings.getInstance().current.mColors
-            if (colors.themeStyle == KeyboardTheme.THEME_STYLE_HOLO) // todo: this logic should be in Colors, not here
-                pinnedIconView.colorFilter = colors.accentColorFilter
+            pinnedIconView.colorFilter = colors.clipboardPinFilter
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {

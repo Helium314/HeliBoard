@@ -104,7 +104,6 @@
             parent="MainKeyboardView.HoloBase"
             >
         <item name="iconPinnedClip">@drawable/ic_clipboard_pin_holo_dark</item>
-        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_holo</item>
     </style>
     <style
         name="MoreKeysKeyboard.HoloBase"

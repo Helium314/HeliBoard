@@ -208,7 +208,6 @@
     </declare-styleable>
 
     <declare-styleable name="ClipboardHistoryView">
-        <attr name="dividerBackground" format="color" />
         <attr name="iconPinnedClip" format="reference" />
     </declare-styleable>
 

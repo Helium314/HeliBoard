@@ -81,12 +81,11 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
         sortedSubtypes.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
-        // maybe make use of the map used by SubtypeSettings for performance reasons?
+        // todo: re-write this, it's hard to understand
+        //  also consider  that more _ZZ languages might be added
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->
-                // this could be rather slow with looping multiple times over all ~100 subtypes,
-                //  but usually there aren't many locales to be checked, and usually the first loop already finds a match
                 val localeString = locale.toString()
                 val iterator = allSubtypes.iterator()
                 var added = false
@@ -112,8 +111,6 @@ class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
                     }
                 }
                 // special treatment for the known languages with _ZZ types
-                // todo: later: make it a bit less weird... and probably faster
-                //  consider that more _ZZ languages might be added
                 if (!added && (locale.language == "sr" || locale.language == "hi")) {
                     val languageString = locale.language
                     val iter = allSubtypes.iterator()

@@ -120,6 +120,7 @@ public class SettingsValues {
     public final float mKeypressSoundVolume;
     private final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
+    public final int mScoreLimitForAutocorrect;
     public final float mPlausibilityThreshold;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
     private final boolean mSuggestionsEnabledPerUserSettings;
@@ -179,6 +180,8 @@ public class SettingsValues {
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
+        mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
+                : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());

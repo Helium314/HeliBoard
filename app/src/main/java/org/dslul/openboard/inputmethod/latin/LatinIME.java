@@ -211,7 +211,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
     final RestartAfterDeviceUnlockReceiver mRestartAfterDeviceUnlockReceiver = new RestartAfterDeviceUnlockReceiver();
 
-    private AlertDialog mOptionsDialog; // todo: this is always null -> remove?
+    private AlertDialog mOptionsDialog;
 
     private final boolean mIsHardwareAcceleratedDrawingEnabled;
 
@@ -1419,8 +1419,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (isShowingOptionDialog()) return false;
         if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
             if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */)) {
-                InputMethodPickerKt.showInputMethodPicker(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
-                return true; // todo: don't show and return if dialog already shown? but how can this happen?
+                mOptionsDialog = InputMethodPickerKt.createInputMethodPickerDialog(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
+                mOptionsDialog.show();
+                return true;
             }
             return false;
         }

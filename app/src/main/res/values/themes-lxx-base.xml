@@ -84,7 +84,6 @@
         parent="MainKeyboardView.LXX_Base"
         >
         <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx_light</item>
-        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
     </style>
     <style
         name="MoreKeysKeyboard.LXX_Base"
