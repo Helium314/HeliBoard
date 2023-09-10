@@ -20,7 +20,6 @@ import android.util.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -53,12 +52,8 @@ public class ExecutorUtils {
         @Override
         public Thread newThread(final Runnable runnable) {
             Thread thread = new Thread(runnable, TAG);
-            thread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-                @Override
-                public void uncaughtException(Thread thread, Throwable ex) {
-                    Log.w(mName + "-" + runnable.getClass().getSimpleName(), ex);
-                }
-            });
+            thread.setUncaughtExceptionHandler((thread1, ex) ->
+                    Log.w(mName + "-" + runnable.getClass().getSimpleName(), ex));
             return thread;
         }
     }
