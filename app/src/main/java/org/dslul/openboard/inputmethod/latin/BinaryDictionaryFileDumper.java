@@ -51,7 +51,6 @@ import java.util.Locale;
  */
 public final class BinaryDictionaryFileDumper {
     private static final String TAG = BinaryDictionaryFileDumper.class.getSimpleName();
-    private static final boolean DEBUG = false;
 
     /**
      * The size of the temporary buffer to copy files.
@@ -63,10 +62,8 @@ public final class BinaryDictionaryFileDumper {
     private static final byte[] MAGIC_NUMBER_VERSION_2 =
             new byte[] { (byte)0x9B, (byte)0xC1, (byte)0x3A, (byte)0xFE };
 
-    private static final boolean SHOULD_VERIFY_MAGIC_NUMBER =
-            DecoderSpecificConstants.SHOULD_VERIFY_MAGIC_NUMBER;
-    private static final boolean SHOULD_VERIFY_CHECKSUM =
-            DecoderSpecificConstants.SHOULD_VERIFY_CHECKSUM;
+    private static final boolean SHOULD_VERIFY_MAGIC_NUMBER = DecoderSpecificConstants.SHOULD_VERIFY_MAGIC_NUMBER;
+    private static final boolean SHOULD_VERIFY_CHECKSUM = DecoderSpecificConstants.SHOULD_VERIFY_CHECKSUM;
 
     private static final String[] DICTIONARY_PROJECTION = {"id"};
 

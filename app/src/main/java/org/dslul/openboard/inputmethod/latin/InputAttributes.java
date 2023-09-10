@@ -16,11 +16,10 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import android.os.Build;
 import android.text.InputType;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
-
-import androidx.core.view.inputmethod.EditorInfoCompat;
 
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
@@ -94,14 +93,10 @@ public final class InputAttributes {
         }
         // inputClass == InputType.TYPE_CLASS_TEXT
         final int variation = inputType & InputType.TYPE_MASK_VARIATION;
-        final boolean flagNoSuggestions =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        final boolean flagMultiLine =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        final boolean flagAutoCorrect =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
-        final boolean flagAutoComplete =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+        final boolean flagNoSuggestions = 0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        final boolean flagMultiLine = 0 != (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        final boolean flagAutoCorrect = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        final boolean flagAutoComplete = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
 
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
@@ -140,7 +135,10 @@ public final class InputAttributes {
                 && InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD != variation;
 
 
-        mNoLearning = flagNoSuggestions || (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            mNoLearning = flagNoSuggestions || (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
+        else
+            mNoLearning = flagNoSuggestions;
     }
 
     public boolean isTypeNull() {

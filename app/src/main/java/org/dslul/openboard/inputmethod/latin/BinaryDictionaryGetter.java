@@ -69,7 +69,7 @@ final public class BinaryDictionaryGetter {
     public static final String ASSETS_DICTIONARY_FOLDER = "dicts";
 
     // The key considered to read the version attribute in a dictionary file.
-    private static String VERSION_KEY = "version";
+    private static final String VERSION_KEY = "version";
 
     // Prevents this from being instantiated
     private BinaryDictionaryGetter() {}
@@ -225,15 +225,7 @@ final public class BinaryDictionaryGetter {
             // Version 18 is the first one to include the whitelist
             // Obviously this is a big ## HACK ##
             return Integer.parseInt(version) >= 18;
-        } catch (java.io.FileNotFoundException e) {
-            return false;
-        } catch (java.io.IOException e) {
-            return false;
-        } catch (NumberFormatException e) {
-            return false;
-        } catch (BufferUnderflowException e) {
-            return false;
-        } catch (UnsupportedFormatException e) {
+        } catch (IOException | NumberFormatException | BufferUnderflowException | UnsupportedFormatException e) {
             return false;
         }
     }
@@ -276,8 +268,7 @@ final public class BinaryDictionaryGetter {
                 final AssetFileAddress afa = AssetFileAddress.makeFromFileName(f.getPath());
                 if (null != afa) fileList.add(afa);
             } else {
-                Log.e(TAG, "Found a cached dictionary file for " + locale.toString()
-                        + " but cannot read or use it");
+                Log.e(TAG, "Found a cached dictionary file for " + locale + " but cannot read or use it");
             }
         }
 

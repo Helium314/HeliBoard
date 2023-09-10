@@ -34,10 +34,10 @@ import java.util.List;
  * A class for detecting Emoji-Alt physical key.
  */
 final class EmojiAltPhysicalKeyDetector {
-    private static final String TAG = "EmojiAltPhysicalKeyDetector";
+    private static final String TAG = "EmojiAltPhysKeyDetector";
     private static final boolean DEBUG = false;
 
-    private List<EmojiHotKeys> mHotKeysList;
+    private final List<EmojiHotKeys> mHotKeysList;
 
     private static class HotKeySet extends HashSet<Pair<Integer, Integer>> { }
 
@@ -120,7 +120,7 @@ final class EmojiAltPhysicalKeyDetector {
     }
 
     public EmojiAltPhysicalKeyDetector(@NonNull final Resources resources) {
-        mHotKeysList = new ArrayList<EmojiHotKeys>();
+        mHotKeysList = new ArrayList<>();
 
         final HotKeySet emojiSwitchSet = parseHotKeys(
                 resources, R.array.keyboard_switcher_emoji);
@@ -192,8 +192,8 @@ final class EmojiAltPhysicalKeyDetector {
                 Log.w(TAG, "Expected 2 integers in " + name + "[" + i + "] : " + values[i]);
             }
             try {
-                final Integer keyCode = Integer.parseInt(valuePair[0]);
-                final Integer metaState = Integer.parseInt(valuePair[1]);
+                final int keyCode = Integer.parseInt(valuePair[0]);
+                final int metaState = Integer.parseInt(valuePair[1]);
                 final Pair<Integer, Integer> key = Pair.create(
                         keyCode, KeyEvent.normalizeMetaState(metaState));
                 keySet.add(key);

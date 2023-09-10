@@ -18,6 +18,7 @@ package org.dslul.openboard.inputmethod.latin.utils;
 
 import static android.view.KeyEvent.KEYCODE_SPACE;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.util.Log;
 
@@ -37,6 +38,7 @@ public final class AutoCorrectionUtils {
         // Purely static class: can't instantiate.
     }
 
+    @SuppressLint("ObsoleteSdkInt") // SDK_INT is 0 in unit tests
     public static boolean suggestionExceedsThreshold(final SuggestedWordInfo suggestion,
             final String consideredWord, final float threshold) {
         if (null != suggestion) {
@@ -44,15 +46,15 @@ public final class AutoCorrectionUtils {
             if (suggestion.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) {
                 return true;
             }
-            // TODO: return suggestion.isAprapreateForAutoCorrection();
-            if (!suggestion.isAprapreateForAutoCorrection()) {
+            // TODO: return suggestion.isAppropriateForAutoCorrection();
+            if (!suggestion.isAppropriateForAutoCorrection()) {
                 return false;
             }
             final int autoCorrectionSuggestionScore = suggestion.mScore;
             // TODO: when the normalized score of the first suggestion is nearly equals to
             //       the normalized score of the second suggestion, behave less aggressive.
             final float normalizedScore;
-            if (BuildConfig.DEBUG && Build.VERSION.SDK_INT == 0) // SDK_INT is 0 in unit tests
+            if (BuildConfig.DEBUG && Build.VERSION.SDK_INT == 0)
                 normalizedScore = calcNormalizedScore(StringUtils.toCodePointArray(consideredWord), StringUtils.toCodePointArray(suggestion.mWord), autoCorrectionSuggestionScore, editDistance(consideredWord, suggestion.mWord));
             else
                 normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(
