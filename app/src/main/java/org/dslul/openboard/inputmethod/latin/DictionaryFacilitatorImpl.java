@@ -79,6 +79,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private volatile CountDownLatch mLatchForWaitingLoadingMainDictionaries = new CountDownLatch(0);
     // To synchronize assigning mDictionaryGroup to ensure closing dictionaries.
     private final Object mLock = new Object();
+    // library does not deal well with ngram history for auto-capitalized words, so we adjust the ngram
+    // context to store next word suggestions for such cases
+    private boolean mTryChangingWords = false;
+    private String mChangeFrom = "";
+    private String mChangeTo = "";
 
     public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
             DICT_TYPE_TO_CLASS = new HashMap<>();
@@ -731,6 +736,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (maxFreq == 0 && blockPotentiallyOffensive) {
             return;
         }
+        if (mTryChangingWords)
+            mTryChangingWords = ngramContext.changeWordIfAfterBeginningOfSentence(mChangeFrom, mChangeTo);
         final String secondWord;
         if (wasAutoCapitalized) {
             // used word with lower-case first letter instead of all lower-case, as auto-capitalize
@@ -747,6 +754,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 // If however the word is not in the dictionary, or exists as a de-capitalized word
                 // only, then we consider that was a lower-case word that had been auto-capitalized.
                 secondWord = decapitalizedWord;
+                mTryChangingWords = true;
+                mChangeFrom = word;
+                mChangeTo = secondWord;
             }
         } else {
             // HACK: We'd like to avoid adding the capitalized form of common words to the User

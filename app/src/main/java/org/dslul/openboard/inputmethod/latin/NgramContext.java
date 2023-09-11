@@ -119,6 +119,19 @@ public class NgramContext {
         mMaxPrevWordCount = maxPrevWordCount;
     }
 
+    public boolean changeWordIfAfterBeginningOfSentence(final String from, final String to) {
+        boolean beginning = false;
+        for (int i = mPrevWordsCount - 1; i >= 0; i--) {
+            WordInfo info = mPrevWordsInfo[i];
+            if (beginning && TextUtils.equals(info.mWord, from)) {
+                mPrevWordsInfo[i] = new WordInfo(to);
+                return true;
+            }
+            beginning = info.mIsBeginningOfSentence;
+        }
+        return false;
+    }
+
     /**
      * Create next prevWordsInfo using current prevWordsInfo.
      */
