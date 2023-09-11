@@ -31,11 +31,13 @@
                 latin:styleName="lessKeyStyle"
                 latin:keySpec="!text/keyspec_left_double_angle_quote"
                 latin:backgroundType="functional"
+                latin:keyLabelFlags="hasPopupHint"
                 latin:moreKeys="!text/morekeys_less_than" />
             <key-style
                 latin:styleName="greaterKeyStyle"
                 latin:keySpec="!text/keyspec_right_double_angle_quote"
                 latin:backgroundType="functional"
+                latin:keyLabelFlags="hasPopupHint"
                 latin:moreKeys="!text/morekeys_greater_than" />
         </case>
         <default>
@@ -43,11 +45,13 @@
                 latin:styleName="lessKeyStyle"
                 latin:keySpec="!text/keyspec_less_than"
                 latin:backgroundType="functional"
+                latin:keyLabelFlags="hasPopupHint"
                 latin:moreKeys="!text/morekeys_less_than" />
             <key-style
                 latin:styleName="greaterKeyStyle"
                 latin:keySpec="!text/keyspec_greater_than"
                 latin:backgroundType="functional"
+                latin:keyLabelFlags="hasPopupHint"
                 latin:moreKeys="!text/morekeys_greater_than" />
         </default>
     </switch>

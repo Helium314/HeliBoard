@@ -22,8 +22,7 @@
         latin:keyboardLayout="@xml/key_styles_less_greater" />
     <Key
         latin:keySpec="!text/keyspec_comma"
-        latin:keyStyle="settingsMoreKeysStyle"
-        latin:keyLabelFlags="hasPopupHint" />
+        latin:keyStyle="settingsMoreKeysStyle" />
     <Key
         latin:keyStyle="lessKeyStyle" />
     <include

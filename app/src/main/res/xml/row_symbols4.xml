@@ -21,8 +21,7 @@
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto" >
     <Key
         latin:keySpec="!text/keyspec_comma"
-        latin:keyStyle="settingsMoreKeysStyle"
-        latin:keyLabelFlags="hasPopupHint" />
+        latin:keyStyle="settingsMoreKeysStyle" />
     <Key
         latin:keyStyle="numpadKeyStyle" />
     <include
