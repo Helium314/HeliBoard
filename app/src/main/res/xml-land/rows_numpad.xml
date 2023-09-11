@@ -172,7 +172,7 @@
         <!-- &#44; "," COMMA SIGN -->
         <Key
             latin:keySpec="&#44;"
-            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"
+            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_start_onehanded_mode,!text/keyspec_settings"
             latin:keyActionFlags="noKeyPreview" />
         <Key
             latin:keySpec="0"
