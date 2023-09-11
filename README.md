@@ -5,24 +5,21 @@ Might end up on F-Droid...
 
 **This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best.**
 
-The rough plan for this project:
-* Theming
-  * improve user-defined coloring
-  * add pre-defined themes
-  * make automatic theme switch work with the new themes
-* Multilingual Typing
-  * fix some bugs preventing proper usage in some cases (especially concerning key popups)
-  * possibly has some undiscovered bugs, more testing required
-* Dictionaries
-  * semi-independent in a separate repository: https://codeberg.org/Helium314/aosp-dictionaries
-* Internal clean up (xml files, unused resources and classes)
-  * the current state look rather messy, with many useless / duplicate entries that make changes needlessly tricky
-* Make suggestion removal functionality more discoverable
-* Fix some bugs along the way
+## Features
+* Allow loading Glide typing library
+  * not included in the app, as there is no compatible open source library
+  * can be extracted from GApps packages (_swypelibs_), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
+ * Multilingual typing
+ * Load external dictionaries
+   * get them [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental) section (quality may vary)
+   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
+ * Adjust keyboard themes (style and colors)
+   * can follow the system's day/night setting
+ * Split keyboard
+ * Number row
+ * Number pad
 
-Once above is done, we can think about renaming and properly releasing the app. First just in this repository, and later on F-Droid.
-
-Important differences / changes to OpenBoard:
+## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
 * Allow users to add and replace built-in dictionaries
   * modified / improved from https://github.com/openboard-team/openboard/pull/569 and https://github.com/openboard-team/openboard/pull/578
@@ -41,6 +38,7 @@ Important differences / changes to OpenBoard:
   * tested with [Google libraries](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs) and [others](https://github.com/openboard-team/openboard/issues/3#issuecomment-1200456262) (when building with the [rename](https://github.com/openboard-team/openboard/tree/57d33791d7674e3fe0600eddb72f6b4317b5df00))
 * Theming: allow adjusting keyboard colors, https://github.com/openboard-team/openboard/issues/124
   * Optionally make the navigation bar follow current theme, https://github.com/Helium314/openboard/issues/4
+  * Allow defining day/night themes
 * Remove suggestions by long pressing on suggestion strip while the more suggestions popup is open, https://github.com/openboard-team/openboard/issues/106
   * suggestions get re-added if they are entered again
 * Optionally add typed words to system personal dictionary
@@ -57,18 +55,30 @@ Important differences / changes to OpenBoard:
 * Add number pad
 * Overhauled language settings
 * Updated translations
+* Open dictionary files with the app
+* Add more options to the language switch key
 
-Further plan / to do:
+## The rough plan before "full" release
+* Theming
+  * improve user-defined coloring (maybe preview, at least better UI)
+  * add pre-defined themes
+* Internal clean up (xml files, unused resources and classes)
+  * even after a lot of work here, the current state look rather messy, with many useless and duplicate entries
+* Make suggestion removal functionality more discoverable
+* Better detection when to separate words and when not (e.g. detection of email addresses and URLs)
+* Fix some bugs along the way
+  * especially the spell checker issue https://github.com/Helium314/openboard/issues/55
+  * "partial" multi-character codepoint deletion with delete gesture (e.g. for emojis), https://github.com/Helium314/openboard/issues/22
+
+Once above is done, we can think about renaming and properly releasing the app. First just in this repository, and later on F-Droid.
+
+## Further plan
 * upgrade NDK, https://github.com/openboard-team/openboard/issues/782
 * later: rename (package, app, icon), so it can be installed parallel to OpenBoard, and published on F-Droid
-* ~multi-lingual typing, https://github.com/openboard-team/openboard/pull/586, https://github.com/openboard-team/openboard/pull/593~
-  * maybe improve way of merging suggestions from both languages
+* improve multi-lingual typing
+  * maybe improve way of merging suggestions from different languages
   * test whether it works reasonably well in non-latin scripts
-* ~suggestion fixes, https://github.com/openboard-team/openboard/pull/694, https://github.com/openboard-team/openboard/issues/795, https://github.com/openboard-team/openboard/issues/660~
-* ~improve auto-space insertion, https://github.com/openboard-team/openboard/pull/576~
-* ~emoji prediction/search, https://github.com/openboard-team/openboard/pull/749 (better use emoji dictionaries, this is more flexible)~
-* ~delete suggestions, https://github.com/openboard-team/openboard/issues/106~
-  * make functionality more discoverable, e.g. add a button to the _more suggestions_ menu, or replace long-press menu and show more suggestions by scrolling suggestion strip
+* improved / less bad suggestions in some cases
 * add emojis to user history, to be used for next word
 
 -----
