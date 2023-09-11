@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetTop="9.5dp" android:insetBottom="9.5dp">
+    android:insetTop="25%p" android:insetBottom="25%p">
     <shape android:shape="rectangle">
         <solid android:color="@color/key_background_lxx_base" />
         <corners android:radius="5dp" />
