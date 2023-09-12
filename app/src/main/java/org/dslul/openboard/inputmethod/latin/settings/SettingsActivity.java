@@ -54,9 +54,10 @@ public final class SettingsActivity extends AppCompatActivity
             new NewDictionaryAdder(this, null).addDictionary(i.getData(), null);
             setIntent(new Intent()); // avoid opening again
         }
-        getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
-                .commit();
+        if (getSupportFragmentManager().getFragments().isEmpty())
+            getSupportFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, new SettingsFragment())
+                    .commit();
     }
 
     @Override
