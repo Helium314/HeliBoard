@@ -133,10 +133,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
 
-    // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
-    // This is being used only for the backward compatibility.
-    private static final String PREF_SUPPRESS_LANGUAGE_SWITCH_KEY =
-            "pref_suppress_language_switch_key";
 
     private static final String PREF_LAST_USED_PERSONALIZATION_TOKEN =
             "pref_last_used_personalization_token";
@@ -150,6 +146,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_EMOJI_CATEGORY_LAST_TYPED_ID = "emoji_category_last_typed_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
+
+    // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
+    public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
@@ -535,7 +534,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
-        final boolean isNight = ResourceUtils.isNight(context.getResources());
+        boolean isNight = ResourceUtils.isNight(context.getResources());
+        if (prefs.getBoolean(PREF_FORCE_OPPOSITE_THEME, false)) isNight = !isNight;
         final String themeColors = (isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
                 ? prefs.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
                 : prefs.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT);

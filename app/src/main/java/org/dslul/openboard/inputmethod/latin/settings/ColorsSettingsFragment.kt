@@ -46,17 +46,18 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
             val actionBar = activity.supportActionBar ?: return
             actionBar.setTitle(titleResId)
         }
-        if (isNight != ResourceUtils.isNight(requireContext().resources))
+        if (isNight != ResourceUtils.isNight(requireContext().resources)) {
             // reload to get the right configuration
-            // todo: this does not work, keyboard also reloading with some other context
+            prefs.edit { putBoolean(Settings.PREF_FORCE_OPPOSITE_THEME, true) }
             reloadKeyboard(false)
+        }
     }
 
     override fun onPause() {
         super.onPause()
+        prefs.edit { putBoolean(Settings.PREF_FORCE_OPPOSITE_THEME, false) }
         if (isNight != ResourceUtils.isNight(requireContext().resources))
             // reload again so the correct configuration is applied
-            // todo: this does not work, keyboard also reloading with some other context
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
@@ -92,7 +93,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
                 val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
                 val b = ColorPickerDialog.Builder(requireContext())
                     .setTitle(colorPrefNames[index])
-                    // todo: later it should be activated, but currently setting alpha leads to glitches,
+                    // todo: later alphy bar should be activated, but currently setting alpha leads to glitches,
                     //  e.g. when setting alpha on key text it's not applied for key icons, but for emojis
                     .attachAlphaSlideBar(false)
                     .setPositiveButton(android.R.string.ok, ColorEnvelopeListener { envelope, _ ->
@@ -142,24 +143,22 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
         //  only reloading main keyboard view is necessary...
         //  or get an actual (live) preview instead of the full keyboard?
         //  or accelerate keyboard inflate, a big here issue is emojiCategory creating many keyboards
-        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
-        // todo: this does not work, keyboard also reloading with some other context
-//        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(Settings.getDayNightContext(requireContext(), isNight))
-        if (!show) return
-        Thread.sleep(100) // some pause is necessary to avoid visual glitches
-        RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
-        return
-        // for some reason showing again does not work when running with executor
-        // but when running without it's noticeably slow, and sometimes produces glitches
-        // todo: decider whether to just hide, or have some slowdown and show again
+//        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+//        if (!show) return
+//        Thread.sleep(100) // some pause is necessary to avoid visual glitches
+//        RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
+//        return
+
+        // todo: fix slowdowns and sometimes showing glitches with above, then move away from executor
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
             if (!show) return@execute
+            // for some reason showing again does not work when running with executor
+            // but when running without it's noticeably slow, and sometimes produces glitches
             Thread.sleep(100)
             RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
         }
     }
-
 
 }
 
