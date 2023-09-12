@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.forEachIndexed
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
@@ -120,7 +119,6 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
                 else
                     Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
                 b.colorPickerView.setInitialColor(initialColor)
-                b.colorPickerView.setPadding(15)
                 // set better color drawable? neither the white circle nor the plus is nice
                 b.colorPickerView.setSelectorDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_plus))
                 b.colorPickerView.flagView = BubbleFlag(requireContext()).apply { flagMode = FlagMode.ALWAYS }
