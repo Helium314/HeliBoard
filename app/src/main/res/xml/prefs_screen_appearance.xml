@@ -36,7 +36,8 @@
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
 
-        <Preference
+        <PreferenceScreen
+            android:fragment="org.dslul.openboard.inputmethod.latin.settings.ColorsSettingsFragment"
             android:key="theme_select_colors"
             android:title="@string/select_user_colors"
             android:summary="@string/select_user_colors_summary"/>
@@ -51,7 +52,8 @@
             android:key="theme_variant_night"
             android:title="@string/theme_variant_night"/>
 
-        <Preference
+        <PreferenceScreen
+            android:fragment="org.dslul.openboard.inputmethod.latin.settings.ColorsNightSettingsFragment"
             android:key="theme_select_colors_night"
             android:title="@string/select_user_colors_night"
             android:summary="@string/select_user_colors_summary"/>

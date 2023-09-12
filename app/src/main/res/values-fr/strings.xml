@@ -217,7 +217,6 @@
     <string name="select_user_colors">Personnaliser le thème</string>
     <string name="select_user_colors_night">Personnaliser le thème (mode nuit)</string>
     <string name="select_user_colors_summary">Sélection des couleurs du texte et de l\'arrière-plan</string>
-    <string name="select_color_to_adjust">Sélection des couleurs à modifier</string>
     <string name="select_color_background">Arrière-plan du clavier</string>
     <string name="select_color_key">Texte des touches</string>
     <string name="select_color_key_hint">Indice des touches</string>

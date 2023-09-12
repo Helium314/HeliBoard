@@ -2,10 +2,8 @@ package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
@@ -137,65 +135,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
         themeVariantNightPref?.isVisible = dayNightPref?.isChecked == true
         userColorsPref.isVisible = themeVariantPref.value == KeyboardTheme.THEME_USER
-        userColorsPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            adjustColors(false)
-            true
-        }
         userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
-        userColorsPrefNight?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            adjustColors(true)
-            true
-        }
-    }
-
-    // todo: improve color selection, should at very least show a preview of the color
-    //  but maybe a separate fragment would be better
-    // idea:
-    //  left: which color (background, key, text,...)
-    //  right: color preview (always the correct one, even if determined automatically)
-    //   maybe copy parts from simple keyboard, see e.g. screenshot 4 in https://github.com/SimpleMobileTools/Simple-Keyboard/tree/main/fastlane/metadata/android/en-US/images/phoneScreenshots
-    //  below (for some colors, with indent):
-    //   enable user-defining (most colors, but definitely not background)
-    //   use system accent (for accent and text colors)
-    //  on click: color selector
-    //   maybe copy parts from simple keyboard, see e.g. screenshot 4 in https://github.com/SimpleMobileTools/Simple-Keyboard/tree/main/fastlane/metadata/android/en-US/images/phoneScreenshots
-    //    but full range would be preferable
-    //   use some color picker library? would likely allow nicer tuning
-    private fun adjustColors(dark: Boolean) {
-        val items = listOf(
-            R.string.select_color_background,
-            R.string.select_color_key_background,
-            R.string.select_color_key,
-            R.string.select_color_key_hint,
-            R.string.select_color_accent,
-        ).map { requireContext().getString(it) }
-        AlertDialog.Builder(requireContext())
-            .setPositiveButton(android.R.string.ok, null)
-            .setTitle(R.string.select_color_to_adjust)
-            .setItems(items.toTypedArray()) { _, i ->
-                val (pref, default) =
-                    if (dark)
-                        when (i) {
-                            0 -> Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND to Color.DKGRAY
-                            1 -> Settings.PREF_THEME_USER_DARK_COLOR_KEYS to Color.LTGRAY
-                            2 -> Settings.PREF_THEME_USER_DARK_COLOR_TEXT to Color.WHITE
-                            3 -> Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT to Color.WHITE
-                            4 -> Settings.PREF_THEME_USER_DARK_COLOR_ACCENT to Color.BLUE
-                            else -> return@setItems
-                        }
-                    else
-                        when (i) {
-                            0 -> Settings.PREF_THEME_USER_COLOR_BACKGROUND to Color.DKGRAY
-                            1 -> Settings.PREF_THEME_USER_COLOR_KEYS to Color.LTGRAY
-                            2 -> Settings.PREF_THEME_USER_COLOR_TEXT to Color.WHITE
-                            3 -> Settings.PREF_THEME_USER_COLOR_HINT_TEXT to Color.WHITE
-                            4 -> Settings.PREF_THEME_USER_COLOR_ACCENT to Color.BLUE
-                            else -> return@setItems
-                        }
-                val d = ColorPickerDialog(requireContext(), items[i], sharedPreferences, pref, default)
-                d.show()
-            }
-            .show()
     }
 
     private fun setupKeyboardHeight(prefKey: String, defaultValue: Float) {

@@ -111,5 +111,9 @@
     <color name="foreground_weak">#555</color>
     <color name="almost_background">#AAA</color>
 
+    <!-- accent and keyboard default background colors -->
     <color name="accent">@color/highlight_color_lxx_light</color>
+    <color name="keyboard_background">@color/keyboard_background_light</color>
+    <color name="keyboard_background_light">@color/keyboard_background_lxx_light_border</color>
+    <color name="keyboard_background_dark">#263238</color>
 </resources>

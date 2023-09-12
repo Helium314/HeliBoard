@@ -584,10 +584,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="select_user_colors">Adjust theme colors</string>
     <!-- Option for selecting custom theme colors for night mode only -->
     <string name="select_user_colors_night">Adjust theme colors (night)</string>
+    <!-- Text when determining color automatically -->
+    <string name="auto_user_color">Choose color automatically</string>
+    <!-- Hint for text field just to show keyboard (in color settings) -->
+    <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
     <string name="select_user_colors_summary">Select colors for text and background</string>
-    <!-- Dialog message when selecting color to adjust. -->
-    <string name="select_color_to_adjust">Select colors to adjust</string>
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->

@@ -7,4 +7,5 @@
     <color name="almost_background">#666</color>
 
     <color name="accent">@color/highlight_color_lxx_dark</color>
+    <color name="keyboard_background">@color/keyboard_background_dark</color>
 </resources>

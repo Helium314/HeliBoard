@@ -141,23 +141,22 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         return KEYBOARD_THEMES[DEFAULT_THEME_ID];
     }
 
-    // todo (later): material you, system accent, ...
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
         final boolean hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         switch (themeColors) {
             case THEME_USER:
-                final int accent = prefs.getInt(Settings.PREF_THEME_USER_COLOR_ACCENT, Color.BLUE);
-                final int keyBgColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_KEYS, Color.LTGRAY);
-                final int keyTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_TEXT, Color.WHITE);
-                final int hintTextColor = prefs.getInt(Settings.PREF_THEME_USER_COLOR_HINT_TEXT, Color.WHITE);
-                final int background = prefs.getInt(Settings.PREF_THEME_USER_COLOR_BACKGROUND, Color.DKGRAY);
+                final int accent = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false);
+                final int keyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false);
+                final int keyTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false);
+                final int hintTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false);
+                final int background = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false);
                 return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, ColorUtilKt.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
             case THEME_USER_NIGHT:
-                final int accent2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_ACCENT, Color.BLUE);
-                final int keyBgColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_KEYS, Color.LTGRAY);
-                final int keyTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_TEXT, Color.WHITE);
-                final int hintTextColor2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT, Color.WHITE);
-                final int background2 = prefs.getInt(Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND, Color.DKGRAY);
+                final int accent2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true);
+                final int keyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true);
+                final int keyTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true);
+                final int hintTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true);
+                final int background2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true);
                 return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, ColorUtilKt.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
             case THEME_DARK:
                 return new Colors(

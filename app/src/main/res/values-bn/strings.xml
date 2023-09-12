@@ -230,7 +230,6 @@
     <string name="theme_name_user">ব্যবহারকারী নির্ধারিত</string>
     <string name="select_user_colors">থিমের রং সমন্বয়</string>
     <string name="select_user_colors_summary">লেখা এবং পটভূমির জন্য রং নির্বাচন</string>
-    <string name="select_color_to_adjust">সমন্বয়ের জন্য রং নির্বাচন</string>
     <string name="select_color_background">কিবোর্ডের পটভূমি</string>
     <string name="select_color_key">বোতামের লেখা</string>
     <string name="select_color_key_hint">বোতামের পরামর্শের লেখা</string>

@@ -34,4 +34,8 @@
     <color name="action_key_background_lxx_dark">@color/highlight_color_lxx_dark</color>
     <color name="action_key_background_pressed_lxx_dark">@android:color/system_accent1_200</color>
     <color name="icon_tint_system_accent_lxx_dark">@color/highlight_color_lxx_dark</color>
+
+    <!-- colors used when user sets keyboard background color to be determined automatically -->
+    <color name="keyboard_background_light">@android:color/system_neutral1_100</color>
+    <color name="keyboard_background_dark">@android:color/system_neutral1_800</color>
 </resources>

@@ -185,7 +185,6 @@
     <string name="theme_name_user">Користувальницька</string>
     <string name="select_user_colors">Налаштування кольорів теми</string>
     <string name="select_user_colors_summary">Виберіть кольори для тексту та фону</string>
-    <string name="select_color_to_adjust">Виберіть кольори для налаштування</string>
     <string name="select_color_background">Фон клавіатури</string>
     <string name="select_color_key">Текст клавіш</string>
     <string name="select_color_key_hint">Текст спецсимволів клавіш</string>

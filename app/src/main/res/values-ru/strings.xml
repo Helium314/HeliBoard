@@ -208,7 +208,6 @@
     <string name="theme_name_user">Пользовательская</string>
     <string name="select_user_colors">Настройка цветов темы</string>
     <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
-    <string name="select_color_to_adjust">Выберите цвета для настройки</string>
     <string name="select_color_background">Фон клавиатуры</string>
     <string name="select_color_key">Текст клавиш</string>
     <string name="select_color_key_hint">Текст спецсимволов клавиш</string>

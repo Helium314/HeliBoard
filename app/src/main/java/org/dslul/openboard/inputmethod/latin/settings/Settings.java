@@ -22,12 +22,16 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
@@ -37,6 +41,7 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
@@ -66,16 +71,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_VARIANT_NIGHT = "theme_variant_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
-    public static final String PREF_THEME_USER_COLOR_TEXT = "theme_color_text";
-    public static final String PREF_THEME_USER_COLOR_HINT_TEXT = "theme_color_hint_text";
-    public static final String PREF_THEME_USER_COLOR_BACKGROUND = "theme_color_background";
-    public static final String PREF_THEME_USER_COLOR_KEYS = "theme_color_keys";
-    public static final String PREF_THEME_USER_COLOR_ACCENT = "theme_color_accent";
-    public static final String PREF_THEME_USER_DARK_COLOR_TEXT = "theme_dark_color_text";
-    public static final String PREF_THEME_USER_DARK_COLOR_HINT_TEXT = "theme_dark_color_hint_text";
-    public static final String PREF_THEME_USER_DARK_COLOR_BACKGROUND = "theme_dark_color_background";
-    public static final String PREF_THEME_USER_DARK_COLOR_KEYS = "theme_dark_color_keys";
-    public static final String PREF_THEME_USER_DARK_COLOR_ACCENT = "theme_dark_color_accent";
+    public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
+    public static final String PREF_THEME_USER_COLOR_NIGHT_PREFIX = "theme_dark_color_";
+    public static final String PREF_COLOR_KEYS_SUFFIX = "keys";
+    public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
+    public static final String PREF_COLOR_TEXT_SUFFIX = "text";
+    public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
+    public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
+    public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
     public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
     public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
@@ -532,14 +535,67 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
-        // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
-        final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-        final String themeColors = (isNight && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
+        final boolean isNight = ResourceUtils.isNight(context.getResources());
+        final String themeColors = (isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
                 ? prefs.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
                 : prefs.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL);
 
         return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs);
+    }
+
+    public static int readUserColor(final SharedPreferences prefs, final Context context, final String colorName, final boolean isNight) {
+        final String pref = getColorPref(colorName, isNight);
+        if (prefs.getBoolean(pref + PREF_AUTO_USER_COLOR_SUFFIX, true)) {
+            return determineAutoColor(prefs, context, colorName, isNight);
+        }
+        if (prefs.contains(pref))
+            return prefs.getInt(pref, Color.GRAY);
+        else return determineAutoColor(prefs, context, colorName, isNight);
+    }
+
+    public static String getColorPref(final String color, final boolean isNight) {
+        return (isNight ? PREF_THEME_USER_COLOR_NIGHT_PREFIX : PREF_THEME_USER_COLOR_PREFIX) + color;
+    }
+
+    private static int determineAutoColor(final SharedPreferences prefs, final Context context, final String color, final boolean isNight) {
+        switch (color) {
+            case PREF_COLOR_ACCENT_SUFFIX:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                    // try determining accent color on Android 10 & 11, accent is not available in resources
+                    // todo: test whether this actually works
+                    final Context wrapper = new ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault);
+                    final TypedValue value = new TypedValue();
+                    if (wrapper.getTheme().resolveAttribute(android.R.attr.colorAccent, value, true))
+                        return value.data;
+                }
+                return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
+            case PREF_COLOR_TEXT_SUFFIX:
+                // base it on background color, and not key, because it's also used for suggestions
+                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight))) return Color.BLACK;
+                else return Color.WHITE;
+            case PREF_COLOR_HINT_TEXT_SUFFIX:
+                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
+                else return Color.LTGRAY;
+            case PREF_COLOR_KEYS_SUFFIX:
+                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight), isNight);
+            case PREF_COLOR_BACKGROUND_SUFFIX:
+            default:
+                return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);
+        }
+    }
+
+    public static Context getDayNightContext(final Context context, final boolean wantNight) {
+        final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        if (isNight == wantNight)
+            return context;
+        final Configuration config = new Configuration(context.getResources().getConfiguration());
+        final int night = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        final int uiModeWithNightBitsZero = config.uiMode - night;
+        config.uiMode = uiModeWithNightBitsZero + (wantNight ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO);
+        final ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.platformActivityTheme);
+        wrapper.applyOverrideConfiguration(config);
+        return wrapper;
     }
 
 }
