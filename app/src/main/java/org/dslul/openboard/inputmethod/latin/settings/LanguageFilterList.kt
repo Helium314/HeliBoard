@@ -26,7 +26,7 @@ class LanguageFilterListFakePreference(searchField: EditText, recyclerView: Recy
     private val adapter = LanguageAdapter(emptyList(), recyclerView.context)
     private val sortedSubtypes = mutableListOf<MutableList<SubtypeInfo>>()
 
-    fun setSettingsFragment(newFragment: LanguageFakeSettingsFragment?) {
+    fun setSettingsFragment(newFragment: LanguageSettingsFragment?) {
         adapter.fragment = newFragment
     }
 
@@ -50,7 +50,7 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var onlySystemLocales = false
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    var fragment: LanguageFakeSettingsFragment? = null
+    var fragment: LanguageSettingsFragment? = null
 
     var list: List<MutableList<SubtypeInfo>> = list
         set(value) {

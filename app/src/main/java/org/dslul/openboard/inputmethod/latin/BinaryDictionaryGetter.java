@@ -16,7 +16,7 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import static org.dslul.openboard.inputmethod.latin.settings.LanguageFakeSettingsFragmentKt.USER_DICTIONARY_SUFFIX;
+import static org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragmentKt.USER_DICTIONARY_SUFFIX;
 
 import android.content.Context;
 import android.content.SharedPreferences;

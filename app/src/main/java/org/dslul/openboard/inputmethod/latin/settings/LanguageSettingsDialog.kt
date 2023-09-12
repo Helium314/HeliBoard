@@ -22,10 +22,10 @@ import java.util.*
 class LanguageSettingsDialog(
     context: Context,
     private val infos: MutableList<SubtypeInfo>,
-    private val fragment: LanguageFakeSettingsFragment?,
+    private val fragment: LanguageSettingsFragment?,
     private val onlySystemLocales: Boolean,
     private val onSubtypesChanged: () -> Unit
-) : AlertDialog(context), LanguageFakeSettingsFragment.Listener {
+) : AlertDialog(context), LanguageSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
     private val mainLocaleString = infos.first().subtype.locale()

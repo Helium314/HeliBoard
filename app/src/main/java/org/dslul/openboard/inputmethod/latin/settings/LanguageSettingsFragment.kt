@@ -24,7 +24,7 @@ import java.util.*
 
 // not a SettingsFragment, because with androidx.preferences it's very complicated or
 // impossible to have the languages RecyclerView scrollable (this way it works nicely out of the box)
-class LanguageFakeSettingsFragment : Fragment(R.layout.language_fake_settings) {
+class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
