@@ -71,6 +71,12 @@
             android:defaultValue="true" />
 
         <SwitchPreferenceCompat
+            android:key="pref_space_language_slide"
+            android:title="@string/space_language_slide"
+            android:summary="@string/space_language_slide_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
             android:key="pref_delete_swipe"
             android:title="@string/delete_swipe"
             android:summary="@string/delete_swipe_summary"

@@ -77,6 +77,7 @@ public class SettingsValues {
     public final boolean mShowsNumberRow;
     public final boolean mShowsHints;
     public final boolean mSpaceForLangChange;
+    public final boolean mSpaceLanguageSlide;
     public final boolean mShowsEmojiKey;
     public final boolean mShowsClipboardKey;
     public final boolean mUsePersonalizedDicts;
@@ -168,6 +169,7 @@ public class SettingsValues {
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
+        mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
         mShowsClipboardKey = prefs.getBoolean(Settings.PREF_SHOW_CLIPBOARD_KEY, false);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);

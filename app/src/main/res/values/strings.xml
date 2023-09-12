@@ -172,6 +172,12 @@
     <string name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
     <!-- Preferences item for enabling trackpad space key -->
     <string name="space_trackpad">Space bar trackpad</string>
+    <!-- Description for "space_trackpad" option. -->
+    <string name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
+    <!-- Preferences item for enabling subtype / language switch on sliding upwards space key -->
+    <string name="space_language_slide">Space bar language slide</string>
+    <!-- Description for "space_language_slide" option. -->
+    <string name="space_language_slide_summary">Swipe upwards on the spacebar to change the language</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Preferences item for loading an external gesture typing library -->
@@ -185,8 +191,6 @@
     <string name="load_gesture_library_button_load">Load library</string>
     <!-- Button text for deleting gesture library -->
     <string name="load_gesture_library_button_delete">Delete library</string>
-    <!-- Description for "space_trackpad" option. -->
-    <string name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
     <!-- Preferences item for enabling inserting more spaces key -->
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <!-- Description for "insert_more_spaces" option. -->
