@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -58,8 +59,10 @@ import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.Mor
 import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -300,6 +303,35 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
                 Constants.NOT_A_CODE, this);
+        if (view instanceof TextView) {
+            final Drawable icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_delete);
+            icon.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
+            int w = icon.getIntrinsicWidth();
+            int h = icon.getIntrinsicWidth();
+            final TextView wordView = (TextView) view;
+            wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            wordView.setEllipsize(TextUtils.TruncateAt.END);
+            AtomicBoolean downOk = new AtomicBoolean(false);
+            wordView.setOnTouchListener((view1, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    final float x = motionEvent.getX();
+                    final float y = motionEvent.getY();
+                    if (0 < x && x < w && 0 < y && y < h) {
+                        removeSuggestion(wordView);
+                        wordView.cancelLongPress();
+                        wordView.setPressed(false);
+                        return true;
+                    }
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    final float x = motionEvent.getX();
+                    final float y = motionEvent.getY();
+                    if (0 < x && x < w && 0 < y && y < h) {
+                        downOk.set(true);
+                    }
+                }
+                return false;
+            });
+        }
         if (isShowingMoreSuggestionPanel() || !showMoreSuggestions()) {
             for (int i = 0; i <= mStartIndexOfMoreSuggestions; i++) {
                 if (view == mWordViews.get(i)) {
@@ -334,37 +366,42 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 }
                 return true;
             }
-            mListener.removeSuggestion(word);
-            mMoreSuggestionsView.dismissMoreKeysPanel();
-            // show suggestions, but without the removed word
-            final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
-            for (int i = 0; i < mSuggestedWords.size(); i ++) {
-                final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
-                if (!info.getWord().equals(word))
-                    sw.add(info);
-            }
-            ArrayList<SuggestedWordInfo> rs = null;
-            if (mSuggestedWords.mRawSuggestions != null) {
-                rs = mSuggestedWords.mRawSuggestions;
-                for (int i = 0; i < rs.size(); i ++) {
-                    if (rs.get(i).getWord().equals(word)) {
-                        rs.remove(i);
-                        break;
-                    }
-                }
-            }
-            // copied code from setSuggestions, but without the Rtl part
-            clear();
-            mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
-                    mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
-                    mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
-                    mSuggestedWords.mSequenceNumber);
-            mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                    getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
-            mStripVisibilityGroup.showSuggestionsStrip();
+            removeSuggestion(wordView);
             return true;
         });
         menu.show();
+    }
+
+    private void removeSuggestion(TextView wordView) {
+        final String word = wordView.getText().toString();
+        mListener.removeSuggestion(word);
+        mMoreSuggestionsView.dismissMoreKeysPanel();
+        // show suggestions, but without the removed word
+        final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
+        for (int i = 0; i < mSuggestedWords.size(); i ++) {
+            final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
+            if (!info.getWord().equals(word))
+                sw.add(info);
+        }
+        ArrayList<SuggestedWordInfo> rs = null;
+        if (mSuggestedWords.mRawSuggestions != null) {
+            rs = mSuggestedWords.mRawSuggestions;
+            for (int i = 0; i < rs.size(); i ++) {
+                if (rs.get(i).getWord().equals(word)) {
+                    rs.remove(i);
+                    break;
+                }
+            }
+        }
+        // copied code from setSuggestions, but without the Rtl part
+        clear();
+        mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
+                mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
+                mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
+                mSuggestedWords.mSequenceNumber);
+        mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
+                getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+        mStripVisibilityGroup.showSuggestionsStrip();
     }
 
     boolean showMoreSuggestions() {
