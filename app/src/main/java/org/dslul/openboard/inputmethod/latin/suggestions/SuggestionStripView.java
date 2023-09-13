@@ -25,7 +25,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -390,7 +389,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     boolean showMoreSuggestions() {
-        Log.i("test1", "show more");
         final Keyboard parentKeyboard = mMainKeyboardView.getKeyboard();
         if (parentKeyboard == null) {
             return false;
