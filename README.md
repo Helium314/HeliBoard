@@ -18,6 +18,7 @@ Might end up on F-Droid...
  * Split keyboard
  * Number row
  * Number pad
+ * Show all available extra characters on long pressing a key
 
 ## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
@@ -58,28 +59,26 @@ Might end up on F-Droid...
 * Open dictionary files with the app
 * Add more options to the language switch key
 
-## The rough plan before "full" release
-* Theming
-  * improve user-defined coloring (maybe preview, at least better UI)
-  * add pre-defined themes
+## The rough plan/todo before "full" release
+* Add/change pre-defined themes
 * Internal clean up (xml files, unused resources and classes)
   * even after a lot of work here, the current state look rather messy, with many useless and duplicate entries
+* work through _todo_s in code
 * Make suggestion removal functionality more discoverable
 * Better detection when to separate words and when not (e.g. detection of email addresses and URLs)
-* Fix some bugs along the way
+* Fix some bugs
   * especially the spell checker issue https://github.com/Helium314/openboard/issues/55
   * "partial" multi-character codepoint deletion with delete gesture (e.g. for emojis), https://github.com/Helium314/openboard/issues/22
 
-Once above is done, we can think about renaming and properly releasing the app. First just in this repository, and later on F-Droid.
+Once above is done, we can think about properly releasing the app. First just in this repository, and later on F-Droid.
+This would include renaming the app and the package, changing the icon and using a localization tool (most likely weblate).
 
 ## Further plan
-* upgrade NDK, https://github.com/openboard-team/openboard/issues/782
-* later: rename (package, app, icon), so it can be installed parallel to OpenBoard, and published on F-Droid
-* improve multi-lingual typing
-  * maybe improve way of merging suggestions from different languages
-  * test whether it works reasonably well in non-latin scripts
+* more customizable theming
 * improved / less bad suggestions in some cases
-* add emojis to user history, to be used for next word
+* add emojis to user history, to be used for next word suggestions
+* sliding key input for numpad and emojis (like `?123` and _shift_ sliding input)
+* updated suggestion strip, maybe add tools or make the suggestions scroll
 
 -----
 # readme for original version of OpenBoard below
