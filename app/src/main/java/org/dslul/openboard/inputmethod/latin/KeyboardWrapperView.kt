@@ -60,6 +60,8 @@ class KeyboardWrapperView @JvmOverloads constructor(
         switchOneHandedModeBtn.colorFilter = colors.keyTextFilter
         colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND)
         colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND)
+        setBackgroundColor(Color.WHITE) // otherwise background might be null
+        colors.setKeyboardBackground(this)
     }
 
     @SuppressLint("RtlHardcoded")
@@ -93,7 +95,6 @@ class KeyboardWrapperView @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         if (!oneHandedModeEnabled) {
             super.onLayout(changed, left, top, right, bottom)
-            Settings.getInstance().current.mColors.setKeyboardBackground(keyboardView) // otherwise issue in clipboard view after switching oneHandedMode
             return
         }
 
@@ -122,7 +123,6 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 buttonsLeft + (spareWidth + switchOneHandedModeBtn.measuredWidth) / 2,
                 2 * stopOneHandedModeBtn.measuredHeight + switchOneHandedModeBtn.measuredHeight
         )
-        Settings.getInstance().current.mColors.setKeyboardBackground(this)
     }
 
     init {
@@ -131,8 +131,5 @@ class KeyboardWrapperView @JvmOverloads constructor(
         iconStopOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconStopOneHandedMode, 0)
         iconSwitchOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconSwitchOneHandedMode, 0)
         keyboardAttr.recycle()
-
-        setBackgroundColor(Color.WHITE)
-        Settings.getInstance().current.mColors.setKeyboardBackground(this)
     }
 }

@@ -13,8 +13,12 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.THEME_STYLE_HOLO
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.THEME_STYLE_MATERIAL
+import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
+import org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
+import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView
+import org.dslul.openboard.inputmethod.latin.KeyboardWrapperView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
@@ -171,10 +175,14 @@ class Colors (
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
-            is EmojiPageKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // to make EmojiPalettesView background visible, which does not scroll
             is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
-            else -> if (keyboardBackground != null) view.background = keyboardBackground
+            is EmojiPageKeyboardView, // to make EmojiPalettesView background visible, which does not scroll
+            is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // otherwise causes issues with wrapper view when using one-handed mode
+            is KeyboardWrapperView, is EmojiPalettesView, is ClipboardHistoryView -> {
+                if (keyboardBackground != null) view.background = keyboardBackground
                 else view.background.colorFilter = backgroundFilter
+            }
+            else -> view.background.colorFilter = backgroundFilter
         }
     }
 
