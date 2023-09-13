@@ -618,6 +618,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="dialog_close">Close</string>
     <!-- Preference for selecting system locales -->
     <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
+    <!-- Hint for users to tap the languages for settings -->
+    <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
     <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]
