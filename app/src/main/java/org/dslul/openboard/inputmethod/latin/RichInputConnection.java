@@ -699,7 +699,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * @return a range containing the text surrounding the cursor
      */
     public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final int scriptId) {
+            final int scriptId, final boolean justDeleted) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -718,43 +718,24 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return null;
         }
 
-        // issue:
-        //  type 2 words and space, press delete twice -> remaining word and space before are selected
-        //   now on next key press, the space before the word is removed
-        //  or complete a word by choosing a suggestion than press backspace -> same thing
-        // what is sometimes happening (depending on app, or maybe input field attributes):
-        //  we just pressed delete, and getTextBeforeCursor gets the correct text,
-        //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
-        //  -> we try to detect this difference, and then try to fix it
-        // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
-        //  mCommittedTextBeforeComposingText where the text is cached
-        // what could be actually going on? we probably need to fetch the text because we want updated styles if any
-
-        // we need text before, and text after is always empty or a separator or similar
-        if (before.length() > 0 && (after.length() == 0 || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, scriptId))) {
-            final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
-            // check whether before ends with the same codepoint as getTextBeforeCursor
-            int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
-            CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
-            if (codePointBeforeCursor.length() != 0 && Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
-                // they are different, as is expected from the issue
-                // now check whether they are the same if the last codepoint of before is removed
-                final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
-                final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
-                if (beforeCursor.length() == beforeWithoutLast.length()) {
-                    boolean same = true;
-                    // CharSequence has undefined equals, so we need to compare characters
-                    for (int i = 0; i < beforeCursor.length(); i++) {
-                        if (beforeCursor.charAt(i) != beforeWithoutLast.charAt(i)) {
-                            same = false;
-                            break;
-                        }
-                    }
-                    if (same) {
-                        before = beforeWithoutLast;
-                    }
-                }
-            }
+        // we need text before, and text after is either empty or a separator or similar
+        if (justDeleted && before.length() > 0 &&
+                (after.length() == 0
+                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, scriptId)
+                )
+        ) {
+            // issue:
+            //  type 2 words and space, press delete twice -> remaining word and space before are selected
+            //   now on next key press, the space before the word is removed
+            //  or complete a word by choosing a suggestion, then press backspace -> same thing
+            // what is sometimes happening (depending on app, or maybe input field attributes):
+            //  we just pressed delete, and getTextBeforeCursor gets the correct text,
+            //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
+            //  -> we try to detect this difference, and then try to fix it
+            // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
+            //  mCommittedTextBeforeComposingText, where the text is cached
+            // what could be actually going on? we probably need to fetch the text, because we want updated styles (if any)
+            before = fixIncorrectLength(before);
         }
 
         // Going backward, find the first breaking point (separator)
@@ -792,6 +773,37 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
                         startIndexInBefore, before.length() + endIndexInAfter, before.length(),
                         hasUrlSpans);
+    }
+
+    // mostly fixes an issue where the space before the word is selected after deleting a codepoint,
+    // because the text length is not yet updated in the field (i.e. trying to select "word length"
+    // before cursor, but the last letter has just been deleted and thus the space before is also selected)
+    private CharSequence fixIncorrectLength(final CharSequence before) {
+        // don't use codepoints, just do the simple thing...
+        int initialCheckLength = Math.min(3, before.length());
+        // this should have been checked before calling this method, but better be safe
+        if (initialCheckLength == 0) return before;
+        final CharSequence lastCharsInBefore = before.subSequence(before.length() - initialCheckLength, before.length());
+        final CharSequence lastCharsBeforeCursor = getTextBeforeCursor(initialCheckLength, 0);
+        // if the last 3 chars are equal, we can be relatively sure to not have this bug (can still be e.g. rrrr, which is not detected)
+        // (we could also check everything though, it's just a little slower)
+        if (TextUtils.equals(lastCharsInBefore, lastCharsBeforeCursor)) return before;
+
+        // delete will hopefully have deleted a codepoint, not only a char
+        // we want to compare whether the text before the cursor is the same as "before" without
+        // the last codepoint. if yes, return "before" without the last codepoint
+        final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
+        int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
+        final CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
+        if (codePointBeforeCursor.length() == 0) return before;
+
+        // now check whether they are the same if the last codepoint of before is removed
+        final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
+        final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
+        if (beforeCursor.length() != beforeWithoutLast.length()) return before;
+        if (TextUtils.equals(beforeCursor, beforeWithoutLast))
+            return beforeWithoutLast;
+        return before;
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,

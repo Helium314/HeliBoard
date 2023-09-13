@@ -1255,7 +1255,7 @@ public final class InputLogic {
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
             final TextRange range = mConnection.getWordRangeAtCursor(
                     settingsValues.mSpacingAndPunctuations,
-                    currentKeyboardScriptId);
+                    currentKeyboardScriptId, false);
             if (range != null) {
                 return range.mWord.toString();
             }
@@ -1603,7 +1603,7 @@ public final class InputLogic {
             return;
         }
         final TextRange range = mConnection.getWordRangeAtCursor(
-                settingsValues.mSpacingAndPunctuations, currentKeyboardScriptId);
+                settingsValues.mSpacingAndPunctuations, currentKeyboardScriptId, true);
         if (null == range) return; // Happens if we don't have an input connection at all
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
