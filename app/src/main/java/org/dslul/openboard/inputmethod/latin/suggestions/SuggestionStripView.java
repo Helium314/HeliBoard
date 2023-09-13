@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -303,7 +304,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
                 Constants.NOT_A_CODE, this);
-        if (view instanceof TextView) {
+        if (view instanceof TextView && mWordViews.contains(view)) {
             final Drawable icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_delete);
             icon.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
             int w = icon.getIntrinsicWidth();
@@ -331,45 +332,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 }
                 return false;
             });
-        }
-        if (isShowingMoreSuggestionPanel() || !showMoreSuggestions()) {
-            for (int i = 0; i <= mStartIndexOfMoreSuggestions; i++) {
-                if (view == mWordViews.get(i)) {
-                    showDeleteSuggestionDialog(mWordViews.get(i));
-                    return true;
-                }
-            }
-        }
-        return true;
+            if (BuildConfig.DEBUG && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
+                showSourceDict(wordView);
+                return true;
+            } else return showMoreSuggestions();
+        } else return showMoreSuggestions();
     }
 
-    private void showDeleteSuggestionDialog(final TextView wordView) {
+    private void showSourceDict(final TextView wordView) {
         final String word = wordView.getText().toString();
-
-        final PopupMenu menu = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
-        menu.getMenu().add(Menu.NONE, 1, Menu.NONE, R.string.remove_suggestions);
-        if (BuildConfig.DEBUG)
-            menu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Show source dictionary");
-        menu.setOnMenuItemClickListener(menuItem -> {
-            if (menuItem.getItemId() == 2) {
-                for (int i = 0; i < mSuggestedWords.size(); i ++) {
-                    final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
-                    if (info.getWord().equals(word)) {
-                        final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-                        // apparently toast is not working on some Android versions, probably
-                        // Android 13 with the notification permission
-                        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-                        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
-                        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
-                        uglyWorkaround.show();
-                    }
-                }
-                return true;
-            }
-            removeSuggestion(wordView);
-            return true;
-        });
-        menu.show();
+        final int index;
+        if (wordView.getTag() instanceof Integer) {
+            index = (int) wordView.getTag();
+        } else return;
+        if (index >= mSuggestedWords.size()) return;
+        final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
+        if (!info.getWord().equals(word)) return;
+        final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
+        // apparently toast is not working on some Android versions, probably
+        // Android 13 with the notification permission
+        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
+        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
+        uglyWorkaround.show();
     }
 
     private void removeSuggestion(TextView wordView) {
@@ -405,6 +390,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     boolean showMoreSuggestions() {
+        Log.i("test1", "show more");
         final Keyboard parentKeyboard = mMainKeyboardView.getKeyboard();
         if (parentKeyboard == null) {
             return false;
