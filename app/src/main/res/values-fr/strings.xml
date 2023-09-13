@@ -60,7 +60,6 @@
     <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Très proactive"</string>
     <string name="bigram_prediction" msgid="1084449187723948550">"Suggestions pour le mot suivant"</string>
     <string name="bigram_prediction_summary" msgid="3896362682751109677">"Utilise le mot précédent pour les suggestions"</string>
-    <string name="remove_suggestions">Supprimer suggestion</string>
     <string name="gesture_input" msgid="826951152254563827">"Activer la saisie gestuelle"</string>
     <string name="gesture_input_summary" msgid="9180350639305731231">"Saisit un mot en faisant glisser le doigt sur les lettres"</string>
     <string name="gesture_preview_trail" msgid="3802333369335722221">"Afficher le tracé du geste"</string>

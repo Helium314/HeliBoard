@@ -75,7 +75,6 @@
     <string name="auto_correction_threshold_mode_very_aggressive">অতি আগ্রাসী</string>
     <string name="bigram_prediction">পরবর্তী শব্দের পরামর্শ</string>
     <string name="bigram_prediction_summary">পরামর্শ দিতে পূর্ববর্তী শব্দ ব্যবহার</string>
-    <string name="remove_suggestions">শব্দের প্রস্তাবনা অপসারণ</string>
     <string name="gesture_input">অঙ্গুলিহেলন টাইপিং সক্ষম করুন</string>
     <string name="gesture_input_summary">বর্ণের মাঝে স্লাইড করে শব্দ সন্নিবেশ</string>
     <string name="gesture_preview_trail">অঙ্গুলিহেলনের শেষাংশ প্রদর্শন</string>
