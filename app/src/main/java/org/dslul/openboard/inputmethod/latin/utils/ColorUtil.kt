@@ -36,7 +36,11 @@ fun adjustLuminosityAndKeepAlpha(@ColorInt color: Int, amount: Float): Int {
 }
 
 @ColorInt
-fun brighten(@ColorInt color: Int) = adjustLuminosityAndKeepAlpha(color, 0.06f)
+fun brighten(@ColorInt color: Int) =
+    if (Color.red(color) < 20 && Color.green(color) < 15 && Color.blue(color) < 25)
+        adjustLuminosityAndKeepAlpha(color, 0.09f) // really dark colors need more brightening
+    else
+        adjustLuminosityAndKeepAlpha(color, 0.06f)
 
 @ColorInt
 fun darken(@ColorInt color: Int) = adjustLuminosityAndKeepAlpha(color, -0.06f)
