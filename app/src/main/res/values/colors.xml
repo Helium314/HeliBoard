@@ -97,7 +97,7 @@
     <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
 
     <!-- Colors that are different for night theme -->
-    <color name="foreground">?android:colorForeground</color>
+    <color name="foreground">#000</color>
     <color name="foreground_weak">#555</color>
     <color name="almost_background">#AAA</color>
     <color name="highlight_color_lxx_light">#1A73E8</color> <!-- todo: remove / replace with accent? -->

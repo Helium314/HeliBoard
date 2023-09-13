@@ -100,7 +100,13 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // todo: these caches are never even set, as the corresponding functions are not called...
     //  and even if they were set, one is only written, but never read, and the other one
-    //  is only read and thus empty and useless -> why? seems they are not needed anyway
+    //  is only read and thus empty and useless -> why?
+    //  anyway, we could just set the same cache using the set functions
+    //  but before doing this, check the potential performance gains
+    //   i.e. how long does a "isValidWord" check take -> on S4 mini 300 µs per dict if ok, but
+    //   sometimes it can also be a few ms
+    //   os if the spell checker is enabled, it's definitely reasonable to cache the results
+    //   but this needs to be done internally, as it should be by language
     private LruCache<String, Boolean> mValidSpellingWordReadCache;
     private LruCache<String, Boolean> mValidSpellingWordWriteCache;
 

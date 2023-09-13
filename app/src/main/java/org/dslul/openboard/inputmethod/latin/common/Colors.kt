@@ -39,10 +39,6 @@ class Colors (
     // todo (later): evaluate which colors, colorFilters and colorStateLists are actually necessary
     //  also, ideally the color filters would be private and chosen internally depending on type
     val backgroundFilter: ColorFilter
-    // workaround for error in ClipboardHistoryRecyclerView
-    // java.lang.IllegalAccessError: Field 'org.dslul.openboard.inputmethod.latin.common.Colors.backgroundFilter' is inaccessible to class 'org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryRecyclerView$BottomDividerItemDecoration'
-    // this should not happen, maybe it's a bug in kotlin? because it also doesn't recognize if the filter is accessed there, and wants to set it private
-    fun getThatBackgroundFilter() = backgroundFilter
     val adjustedBackgroundFilter: ColorFilter
     val keyBackgroundFilter: ColorFilter
     val functionalKeyBackgroundFilter: ColorFilter

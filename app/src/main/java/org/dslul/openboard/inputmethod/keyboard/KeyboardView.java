@@ -601,13 +601,12 @@ public class KeyboardView extends View {
         if (key.isAccentColored()) {
             icon.setColorFilter(mColors.getActionKeyIconColorFilter());
         } else if (key.isShift() && keyboard != null) {
-            // todo: switch to multiply after changing keyboard symbols to white icons
             if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
-                icon.setColorFilter(mColors.getAccent(), PorterDuff.Mode.SRC_ATOP); // accent if shifted, needs SRC_ATOP because of underlying drawable
+                icon.setColorFilter(mColors.getAccent(), PorterDuff.Mode.SRC_ATOP); // todo: switch to accentColorFilter after changing keyboard symbols to white icons
             else
                 icon.setColorFilter(mColors.getKeyTextFilter()); // key text if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {

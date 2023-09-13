@@ -116,7 +116,7 @@ public class RichInputMethodManager {
     public @Nullable InputMethodSubtype getNextSubtypeInThisIme(final boolean onlyCurrentIme) {
         final InputMethodSubtype currentSubtype = getCurrentSubtype().getRawSubtype();
         final List<InputMethodSubtype> enabledSubtypes = getMyEnabledInputMethodSubtypeList(true);
-        final int currentIndex = getSubtypeIndexInList(currentSubtype, enabledSubtypes);
+        final int currentIndex = enabledSubtypes.indexOf(currentSubtype);
         if (currentIndex == INDEX_NOT_FOUND) {
             Log.w(TAG, "Can't find current subtype in enabled subtypes: subtype="
                     + SubtypeLocaleUtils.getSubtypeNameForLogging(currentSubtype));
@@ -195,36 +195,15 @@ public class RichInputMethodManager {
     }
 
     public boolean checkIfSubtypeBelongsToThisImeAndEnabled(final InputMethodSubtype subtype) {
-        return checkIfSubtypeBelongsToList(subtype,
-                getEnabledInputMethodSubtypeList(
-                        getInputMethodInfoOfThisIme(),
-                        true /* allowsImplicitlySelectedSubtypes */));
+        return getEnabledInputMethodSubtypeList(getInputMethodInfoOfThisIme(), true)
+                .contains(subtype);
     }
 
-    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
-            final InputMethodSubtype subtype) {
+    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(final InputMethodSubtype subtype) {
         final boolean subtypeEnabled = checkIfSubtypeBelongsToThisImeAndEnabled(subtype);
-        final boolean subtypeExplicitlyEnabled = checkIfSubtypeBelongsToList(subtype,
-                getMyEnabledInputMethodSubtypeList(false /* allowsImplicitlySelectedSubtypes */));
+        final boolean subtypeExplicitlyEnabled = getMyEnabledInputMethodSubtypeList(false)
+                .contains(subtype);
         return subtypeEnabled && !subtypeExplicitlyEnabled;
-    }
-
-    private static boolean checkIfSubtypeBelongsToList(final InputMethodSubtype subtype,
-            final List<InputMethodSubtype> subtypes) {
-        return getSubtypeIndexInList(subtype, subtypes) != INDEX_NOT_FOUND;
-    }
-
-    private static int getSubtypeIndexInList(final InputMethodSubtype subtype,
-            final List<InputMethodSubtype> subtypes) {
-        // todo: why not simply subtypes.indexOf(subtype)? should do exactly the same, even return the same value -1 if not found
-        final int count = subtypes.size();
-        for (int index = 0; index < count; index++) {
-            final InputMethodSubtype ims = subtypes.get(index);
-            if (ims.equals(subtype)) {
-                return index;
-            }
-        }
-        return INDEX_NOT_FOUND;
     }
 
     public void onSubtypeChanged(@NonNull final InputMethodSubtype newSubtype) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <color name="foreground">#FFF</color>
     <color name="foreground_weak">#BBB</color>
     <color name="almost_background">#666</color>
 

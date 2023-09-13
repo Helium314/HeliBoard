@@ -45,6 +45,11 @@ public final class DictionaryFactory {
      * @param locale the locale for which to create the dictionary
      * @return an initialized instance of DictionaryCollection
      */
+    // todo: this should be adjusted
+    //  ONE call to getDictionaryFiles
+    //  should return AssetFileAddress and locale (and maybe match level)
+    //   this should consider the he/iw mess-up
+    //  only if compressed dict needs to be used it should be extracted
     public static DictionaryCollection createMainDictionaryFromManager(final Context context,
             final Locale locale) {
         if (null == locale) {
@@ -55,7 +60,7 @@ public final class DictionaryFactory {
 
         final LinkedList<Dictionary> dictList = new LinkedList<>();
         ArrayList<AssetFileAddress> assetFileList =
-                BinaryDictionaryGetter.getDictionaryFiles(locale, context, true, false);
+                BinaryDictionaryGetter.getDictionaryFiles(locale, context, false);
 
         boolean mainFound = false;
         for (AssetFileAddress fileAddress : assetFileList) {
@@ -65,7 +70,7 @@ public final class DictionaryFactory {
             }
         }
         if (!mainFound) // try again and allow weaker match
-            assetFileList = BinaryDictionaryGetter.getDictionaryFiles(locale, context, true, true);
+            assetFileList = BinaryDictionaryGetter.getDictionaryFiles(locale, context, true);
 
         for (final AssetFileAddress f : assetFileList) {
             final ReadOnlyBinaryDictionary readOnlyBinaryDictionary =

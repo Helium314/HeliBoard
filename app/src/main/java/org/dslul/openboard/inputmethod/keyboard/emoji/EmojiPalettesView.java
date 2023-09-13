@@ -273,7 +273,7 @@ public final class EmojiPalettesView extends LinearLayout
         colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
         colors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
         colors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
-        colors.setKeyboardBackground(this); // todo: color on top appears a little darker than on normal keyboard, what is wrong?
+        colors.setKeyboardBackground(this);
         mEmojiCategoryPageIndicatorView.setColors(colors.getAccent(), colors.getAdjustedBackground());
     }
 
