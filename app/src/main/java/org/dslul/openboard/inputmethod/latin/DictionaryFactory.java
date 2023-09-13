@@ -23,6 +23,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
 
 import java.io.File;
@@ -45,11 +46,6 @@ public final class DictionaryFactory {
      * @param locale the locale for which to create the dictionary
      * @return an initialized instance of DictionaryCollection
      */
-    // todo: this should be adjusted
-    //  ONE call to getDictionaryFiles
-    //  should return AssetFileAddress and locale (and maybe match level)
-    //   this should consider the he/iw mess-up
-    //  only if compressed dict needs to be used it should be extracted
     public static DictionaryCollection createMainDictionaryFromManager(final Context context,
             final Locale locale) {
         if (null == locale) {
@@ -73,9 +69,15 @@ public final class DictionaryFactory {
             assetFileList = BinaryDictionaryGetter.getDictionaryFiles(locale, context, true);
 
         for (final AssetFileAddress f : assetFileList) {
+            final DictionaryHeader header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(new File(f.mFilename), f.mOffset, f.mLength);
+            String dictType = Dictionary.TYPE_MAIN;
+            if (header != null) {
+                // make sure the suggested words dictionary has the correct type
+                dictType = header.mIdString.split(":")[0];
+            }
             final ReadOnlyBinaryDictionary readOnlyBinaryDictionary =
                     new ReadOnlyBinaryDictionary(f.mFilename, f.mOffset, f.mLength,
-                            false /* useFullEditDistance */, locale, Dictionary.TYPE_MAIN);
+                            false /* useFullEditDistance */, locale, dictType);
             if (readOnlyBinaryDictionary.isValidDictionary()) {
                 dictList.add(readOnlyBinaryDictionary);
             } else {
