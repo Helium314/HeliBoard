@@ -11,8 +11,8 @@ class HangulCombiner : Combiner {
     val history: MutableList<HangulSyllable> = mutableListOf()
     val syllable: HangulSyllable? get() = history.lastOrNull()
 
-    override fun processEvent(previousEvents: ArrayList<Event>?, event: Event?): Event? {
-        if(event == null || event.mKeyCode == Constants.CODE_SHIFT) return event
+    override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
+        if(event.mKeyCode == Constants.CODE_SHIFT) return event
         if(Character.isWhitespace(event.mCodePoint)) {
             val text = combiningStateFeedback
             reset()
