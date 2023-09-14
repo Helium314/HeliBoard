@@ -609,6 +609,7 @@
             <enum name="tamil" value="15" />
             <enum name="telugu" value="16" />
             <enum name="thai" value="17" />
+            <enum name="bulgarian" value="18" />
         </attr>
     </declare-styleable>
 
