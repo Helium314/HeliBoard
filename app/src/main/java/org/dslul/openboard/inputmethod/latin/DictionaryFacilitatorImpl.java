@@ -622,16 +622,14 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         boolean[] validWordForDictionary; // store results to avoid unnecessary duplicate lookups
         if (mDictionaryGroups.size() > 1 && words.length == 1) {
             validWordForDictionary = new boolean[mDictionaryGroups.size()];
-            // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
-            final String decapitalizedSuggestion;
-            if (wasAutoCapitalized)
-                decapitalizedSuggestion = suggestion.substring(0, 1).toLowerCase() + suggestion.substring(1);
-            else
-                decapitalizedSuggestion = suggestion;
             for (int i = 0; i < mDictionaryGroups.size(); i ++) {
                 final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
                 final boolean isValidWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup);
-                if (isValidWord || (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)))
+                // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
+                if (isValidWord
+                        || (wasAutoCapitalized
+                        && isValidWord(StringUtils.decapitalizeFirstCodePoint(suggestion, dictionaryGroup.mLocale), ALL_DICTIONARY_TYPES, dictionaryGroup)
+                ))
                     dictionaryGroup.increaseConfidence();
                 else dictionaryGroup.decreaseConfidence();
                 validWordForDictionary[i] = isValidWord;

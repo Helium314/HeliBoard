@@ -208,10 +208,13 @@ public final class StringUtils {
     }
 
     @NonNull
-    public static String capitalizeFirstCodePoint(@NonNull final String s,
-                                                  @NonNull final Locale locale) {
+    // usually it's just the first code point, but in case of Dutch IJ (as two letters) we need to downcase both
+    public static String capitalizeFirstCodePoint(@NonNull final String s, @NonNull final Locale locale) {
         if (s.length() <= 1) {
             return s.toUpperCase(getLocaleUsedForToTitleCase(locale));
+        }
+        if (locale.getLanguage().equals(LANGUAGE_DUTCH) && s.substring(0, 2).toUpperCase(locale).equals("IJ")) {
+            return "IJ" + s.substring(2);
         }
         // Please refer to the comment below in
         // {@link #capitalizeFirstAndDowncaseRest(String,Locale)} as this has the same shortcomings
@@ -221,21 +224,38 @@ public final class StringUtils {
     }
 
     @NonNull
-    public static String capitalizeFirstAndDowncaseRest(@NonNull final String s,
-                                                        @NonNull final Locale locale) {
+    public static String capitalizeFirstAndDowncaseRest(@NonNull final String s, @NonNull final Locale locale) {
         if (s.length() <= 1) {
             return s.toUpperCase(getLocaleUsedForToTitleCase(locale));
         }
-        // TODO: fix the bugs below
+        // TODO: fix the remaining bug for Serbian (do we want title or upper case?)
         // - It does not work for Serbian, because it fails to account for the "lj" character,
         // which should be "Lj" in title case and "LJ" in upper case.
-        // - It does not work for Dutch, because it fails to account for the "ij" digraph when it's
-        // written as two separate code points. They are two different characters but both should
-        // be capitalized as "IJ" as if they were a single letter in most words (not all). If the
-        // unicode char for the ligature is used however, it works.
+
+        // Account for the "ij" digraph when it's written as two separate code points. They are two
+        // different characters but both should be capitalized as "IJ" as if they were a single
+        // letter in most words (not all). If the unicode char for the ligature is used however, it works.
+        if (locale.getLanguage().equals(LANGUAGE_DUTCH) && s.substring(0, 2).toUpperCase(locale).equals("IJ")) {
+            return "IJ" + s.substring(2).toLowerCase(locale);
+        }
+
         final int cutoff = s.offsetByCodePoints(0, 1);
         return s.substring(0, cutoff).toUpperCase(getLocaleUsedForToTitleCase(locale))
                 + s.substring(cutoff).toLowerCase(locale);
+    }
+
+    @NonNull
+    // usually it's just the first code point, but in case of Dutch IJ (as two letters) we need to downcase both
+    public static String decapitalizeFirstCodePoint(@NonNull final String s, @NonNull final Locale locale) {
+        if (s.length() <= 1) {
+            return s.toLowerCase(locale);
+        }
+        if (locale.getLanguage().equals(LANGUAGE_DUTCH) && s.substring(0, 2).toUpperCase(locale).equals("IJ")) {
+            return "ij" + s.substring(2);
+        }
+        final int cutoff = s.offsetByCodePoints(0, 1);
+        return s.substring(0, cutoff).toUpperCase(getLocaleUsedForToTitleCase(locale))
+                + s.substring(cutoff);
     }
 
     @NonNull
@@ -329,6 +349,7 @@ public final class StringUtils {
     }
 
     // This method assumes the text is not null. For the empty string, it returns CAPITALIZE_NONE.
+    // todo: use this in facilitator?
     public static int getCapitalizationType(@NonNull final String text) {
         // If the first char is not uppercase, then the word is either all lower case or
         // camel case, and in either case we return CAPITALIZE_NONE.
@@ -594,6 +615,7 @@ public final class StringUtils {
     }
 
     private static final String LANGUAGE_GREEK = "el";
+    private static final String LANGUAGE_DUTCH = "nl";
 
     @NonNull
     private static Locale getLocaleUsedForToTitleCase(@NonNull final Locale locale) {

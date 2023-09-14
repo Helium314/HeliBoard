@@ -80,7 +80,7 @@ public final class WordComposer {
     /**
      * Whether the composing word has the only first char capitalized.
      */
-    private boolean mIsOnlyFirstCharCapitalized;
+    private boolean mIsOnlyFirstCodePointCapitalized;
 
     public WordComposer() {
         mCombinerChain = new CombinerChain("");
@@ -119,7 +119,7 @@ public final class WordComposer {
         mAutoCorrection = null;
         mCapsCount = 0;
         mDigitsCount = 0;
-        mIsOnlyFirstCharCapitalized = false;
+        mIsOnlyFirstCodePointCapitalized = false;
         mIsResumed = false;
         mIsBatchMode = false;
         mCursorPositionWithinWord = 0;
@@ -185,7 +185,7 @@ public final class WordComposer {
         mCursorPositionWithinWord = mCodePointSize;
         // We may have deleted the last one.
         if (0 == mCodePointSize) {
-            mIsOnlyFirstCharCapitalized = false;
+            mIsOnlyFirstCodePointCapitalized = false;
         }
         if (Constants.CODE_DELETE != event.getMKeyCode()) {
             if (newIndex < MAX_WORD_LENGTH) {
@@ -198,10 +198,21 @@ public final class WordComposer {
                 }
             }
             if (0 == newIndex) {
-                mIsOnlyFirstCharCapitalized = Character.isUpperCase(primaryCode);
+                mIsOnlyFirstCodePointCapitalized = Character.isUpperCase(primaryCode);
             } else {
-                mIsOnlyFirstCharCapitalized = mIsOnlyFirstCharCapitalized
+                mIsOnlyFirstCodePointCapitalized = mIsOnlyFirstCodePointCapitalized
                         && !Character.isUpperCase(primaryCode);
+
+                if (mIsOnlyFirstCodePointCapitalized) {
+                    if (RichInputMethodManager.getInstance().getCurrentSubtypeLocale().getLanguage().equals("nl")
+                            && primaryCode == 'J') {
+                        // special treatment for IJ when written as two characters (like it's in the dictionary)
+                        // todo: probably we should use some codepointAt instead of charAt, but usually it will be fine
+                        mIsOnlyFirstCodePointCapitalized = mTypedWordCache.charAt(newIndex - 1) == 'I';
+                    } else {
+                        mIsOnlyFirstCodePointCapitalized = !Character.isUpperCase(primaryCode);
+                    }
+                }
             }
             if (Character.isUpperCase(primaryCode)) mCapsCount++;
             if (Character.isDigit(primaryCode)) mDigitsCount++;
@@ -318,8 +329,8 @@ public final class WordComposer {
      *
      * @return capitalization preference
      */
-    public boolean isOrWillBeOnlyFirstCharCapitalized() {
-        return isComposingWord() ? mIsOnlyFirstCharCapitalized
+    public boolean isOrWillBeOnlyFirstCodePointCapitalized() {
+        return isComposingWord() ? mIsOnlyFirstCodePointCapitalized
                 : (CAPS_MODE_OFF != mCapitalizedMode);
     }
 
@@ -434,7 +445,7 @@ public final class WordComposer {
         mCombinerChain.reset();
         mEvents.clear();
         mCodePointSize = 0;
-        mIsOnlyFirstCharCapitalized = false;
+        mIsOnlyFirstCodePointCapitalized = false;
         mCapitalizedMode = CAPS_MODE_OFF;
         refreshTypedWordCache();
         mAutoCorrection = null;

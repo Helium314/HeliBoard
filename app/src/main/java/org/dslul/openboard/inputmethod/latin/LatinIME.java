@@ -767,6 +767,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 this /* DictionaryInitializationListener */);
     }
 
+    public Locale getCurrentDictionaryLocale() {
+        return mDictionaryFacilitator.getCurrentLocale();
+    }
+
     @Override
     public void onDestroy() {
         mClipboardHistoryManager.onDestroy();

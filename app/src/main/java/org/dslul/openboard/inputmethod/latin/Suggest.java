@@ -111,19 +111,19 @@ public final class Suggest {
             final int trailingSingleQuotesCount, final Locale defaultLocale) {
         final boolean shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase()
                 && !wordComposer.isResumed();
-        final boolean isOnlyFirstCharCapitalized =
-                wordComposer.isOrWillBeOnlyFirstCharCapitalized();
+        final boolean isOnlyFirstCodePointCapitalized =
+                wordComposer.isOrWillBeOnlyFirstCodePointCapitalized();
 
         final ArrayList<SuggestedWordInfo> suggestionsContainer = new ArrayList<>(results);
         final int suggestionsCount = suggestionsContainer.size();
-        if (isOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase
+        if (isOnlyFirstCodePointCapitalized || shouldMakeSuggestionsAllUpperCase
                 || 0 != trailingSingleQuotesCount) {
             for (int i = 0; i < suggestionsCount; ++i) {
                 final SuggestedWordInfo wordInfo = suggestionsContainer.get(i);
                 final Locale wordLocale = wordInfo.mSourceDict.mLocale;
                 final SuggestedWordInfo transformedWordInfo = getTransformedSuggestedWordInfo(
                         wordInfo, null == wordLocale ? defaultLocale : wordLocale,
-                        shouldMakeSuggestionsAllUpperCase, isOnlyFirstCharCapitalized,
+                        shouldMakeSuggestionsAllUpperCase, isOnlyFirstCodePointCapitalized,
                         trailingSingleQuotesCount);
                 suggestionsContainer.set(i, transformedWordInfo);
             }
@@ -437,7 +437,7 @@ public final class Suggest {
         final ArrayList<SuggestedWordInfo> suggestionsContainer =
                 new ArrayList<>(suggestionResults);
         final int suggestionsCount = suggestionsContainer.size();
-        final boolean isFirstCharCapitalized = wordComposer.wasShiftedNoLock();
+        final boolean isFirstCharCapitalized = wordComposer.wasShiftedNoLock(); // todo: this really only affects first codepoint -> what do?
         final boolean isAllUpperCase = wordComposer.isAllUpperCase();
         if (isFirstCharCapitalized || isAllUpperCase) {
             for (int i = 0; i < suggestionsCount; ++i) {
@@ -547,11 +547,11 @@ public final class Suggest {
 
     /* package for test */ static SuggestedWordInfo getTransformedSuggestedWordInfo(
             final SuggestedWordInfo wordInfo, final Locale locale, final boolean isAllUpperCase,
-            final boolean isOnlyFirstCharCapitalized, final int trailingSingleQuotesCount) {
+            final boolean isOnlyFirstCodePointCapitalized, final int trailingSingleQuotesCount) {
         final StringBuilder sb = new StringBuilder(wordInfo.mWord.length());
         if (isAllUpperCase) {
             sb.append(wordInfo.mWord.toUpperCase(locale));
-        } else if (isOnlyFirstCharCapitalized) {
+        } else if (isOnlyFirstCodePointCapitalized) {
             sb.append(StringUtils.capitalizeFirstCodePoint(wordInfo.mWord, locale));
         } else {
             sb.append(wordInfo.mWord);

@@ -49,6 +49,8 @@ import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 
+import java.util.Locale;
+
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();
 
@@ -592,5 +594,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public void switchToSubtype(InputMethodSubtype subtype) {
         mLatinIME.switchToSubtype(subtype);
+    }
+
+    public Locale getCurrentDictionaryLocale() {
+        return mLatinIME.getCurrentDictionaryLocale();
     }
 }
