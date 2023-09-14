@@ -955,6 +955,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mCommittedTextBeforeComposingText.lastIndexOf(" ") < mCommittedTextBeforeComposingText.lastIndexOf("@");
     }
 
+    public CharSequence textBeforeCursorUntilLastSpace() {
+        int afterLastSpace = 0;
+        for (int i = mCommittedTextBeforeComposingText.length() - 1; i >= 0; i--) {
+            final char c = mCommittedTextBeforeComposingText.charAt(i);
+            if (Character.isSpaceChar(c)) {
+                afterLastSpace = i + 1;
+                break;
+            }
+        }
+        return mCommittedTextBeforeComposingText.subSequence(afterLastSpace, mCommittedTextBeforeComposingText.length());
+    }
+
     /**
      * Looks at the text just before the cursor to find out if we are inside a double quote.
      *
@@ -1042,19 +1054,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public boolean isCursorPositionKnown() {
         return INVALID_CURSOR_POSITION != mExpectedSelStart;
-    }
-
-    /**
-     * Work around a bug that was present before Jelly Bean upon rotation.
-     *
-     * Before Jelly Bean, there is a bug where setComposingRegion and other committing
-     * functions on the input connection get ignored until the cursor moves. This method works
-     * around the bug by wiggling the cursor first, which reactivates the connection and has
-     * the subsequent methods work, then restoring it to its original position.
-     *
-     * On platforms on which this method is not present, this is a no-op.
-     */
-    public void maybeMoveTheCursorAroundAndRestoreToWorkaroundABug() {
     }
 
     /**

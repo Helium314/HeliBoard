@@ -662,6 +662,9 @@ public final class InputLogic {
                 if (mSuggestedWords.isPrediction()) {
                     inputTransaction.setRequiresUpdateSuggestions();
                 }
+                if (inputTransaction.getMSettingsValues().mAutospaceAfterPunctuationEnabled
+                        && mSpaceState == SpaceState.PHANTOM && mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD)
+                    mSpaceState = SpaceState.NONE;
                 break;
             case Constants.CODE_CAPSLOCK:
                 // Note: Changing keyboard to shift lock state is handled in
@@ -845,6 +848,19 @@ public final class InputLogic {
         // not the same.
         boolean isComposingWord = mWordComposer.isComposingWord();
 
+        int bc = mConnection.getCodePointBeforeCursor();
+        if (!isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
+                && (bc == '.' || bc == '/' || bc == '_')
+        ) {
+            // now resume suggestions
+            //restartSuggestionsOnWordTouchedByCursor(settingsValues, false, 11); // hardcoded latin for testing
+            //   nah, this needs many modifications to override the separators
+            final CharSequence text = mConnection.textBeforeCursorUntilLastSpace();
+            final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
+            Log.i("test1", "triggered, "+text+", "+mConnection.mExpectedSelStart);
+            isComposingWord = true;
+            restartSuggestions(range, mConnection.mExpectedSelStart);
+        }
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
         if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
@@ -1106,8 +1122,7 @@ public final class InputLogic {
                                 .mCurrentLanguageHasSpaces
                         && !mConnection.isCursorFollowedByWordCharacter(
                                 inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
-                    restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(),
-                            false /* forStartInput */, currentKeyboardScriptId);
+                    restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScriptId);
                 }
                 return;
             }
@@ -1243,8 +1258,7 @@ public final class InputLogic {
                             .mCurrentLanguageHasSpaces
                     && !mConnection.isCursorFollowedByWordCharacter(
                             inputTransaction.getMSettingsValues().mSpacingAndPunctuations)) {
-                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(),
-                        false /* forStartInput */, currentKeyboardScriptId);
+                restartSuggestionsOnWordTouchedByCursor(inputTransaction.getMSettingsValues(), currentKeyboardScriptId);
             }
         }
     }
@@ -1569,12 +1583,8 @@ public final class InputLogic {
      * do nothing.
      *
      * @param settingsValues the current values of the settings.
-     * @param forStartInput whether we're doing this in answer to starting the input (as opposed
-     *   to a cursor move, for example). In ICS, there is a platform bug that we need to work
-     *   around only when we come here at input start time.
      */
     public void restartSuggestionsOnWordTouchedByCursor(final SettingsValues settingsValues,
-            final boolean forStartInput,
             // TODO: remove this argument, put it into settingsValues
             final int currentKeyboardScriptId) {
         // HACK: We may want to special-case some apps that exhibit bad behavior in case of
@@ -1616,6 +1626,14 @@ public final class InputLogic {
         // edits to a linkified text through batch commands would ruin the URL spans, and unless
         // we take very complicated steps to preserve the whole link, we can't do things right so
         // we just do not resume because it's safer.
+        if (!isResumableWord(settingsValues, range.mWord.toString())) {
+            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+            return;
+        }
+        restartSuggestions(range, expectedCursorPosition);
+    }
+
+    private void restartSuggestions(final TextRange range, final int expectedCursorPosition) {
         final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();
         if (numberOfCharsInWordBeforeCursor > expectedCursorPosition) return;
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
@@ -1626,10 +1644,6 @@ public final class InputLogic {
                 SuggestedWordInfo.NOT_AN_INDEX /* indexOfTouchPointOfSecondWord */,
                 SuggestedWordInfo.NOT_A_CONFIDENCE /* autoCommitFirstWordConfidence */);
         suggestions.add(typedWordInfo);
-        if (!isResumableWord(settingsValues, typedWordString)) {
-            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            return;
-        }
         int i = 0;
         for (final SuggestionSpan span : range.getSuggestionSpansAtWord()) {
             for (final String s : span.getSuggestions()) {
@@ -1649,9 +1663,6 @@ public final class InputLogic {
                 mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
         mWordComposer.setCursorPositionWithinWord(
         typedWordString.codePointCount(0, numberOfCharsInWordBeforeCursor));
-        if (forStartInput) {
-            mConnection.maybeMoveTheCursorAroundAndRestoreToWorkaroundABug();
-        }
         mConnection.setComposingRegion(expectedCursorPosition - numberOfCharsInWordBeforeCursor,
                 expectedCursorPosition + range.getNumberOfCharsInWordAfterCursor());
         if (suggestions.size() <= 1) {
