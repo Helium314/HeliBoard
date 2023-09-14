@@ -21,7 +21,8 @@
     <include
         latin:keyboardLayout="@xml/key_styles_less_greater" />
     <Key
-        latin:keySpec="!text/keyspec_comma" />
+        latin:keySpec="!text/keyspec_comma"
+        latin:keyStyle="settingsMoreKeysStyle" />
     <Key
         latin:keyStyle="lessKeyStyle" />
     <include
@@ -31,5 +32,6 @@
     <!-- U+2026: "…" HORIZONTAL ELLIPSIS -->
     <Key
         latin:keySpec="."
-        latin:moreKeys="&#x2026;" />
+        latin:moreKeys="&#x2026;"
+        latin:keyLabelFlags="hasPopupHint" />
 </merge>

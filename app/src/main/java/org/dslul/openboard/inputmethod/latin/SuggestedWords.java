@@ -203,7 +203,7 @@ public class SuggestedWords {
     }
 
     @NonNull
-    public static final SuggestedWords getEmptyInstance() {
+    public static SuggestedWords getEmptyInstance() {
         return SuggestedWords.EMPTY;
     }
 
@@ -347,8 +347,9 @@ public class SuggestedWords {
             return (mKindAndFlags & KIND_FLAG_EXACT_MATCH_WITH_INTENTIONAL_OMISSION) != 0;
         }
 
-        public boolean isAprapreateForAutoCorrection() {
-            return (mKindAndFlags & KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION) != 0;
+        public boolean isAppropriateForAutoCorrection() {
+            return (mKindAndFlags & KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION) != 0
+                    || isKindOf(KIND_SHORTCUT);
         }
 
         public void setDebugString(final String str) {

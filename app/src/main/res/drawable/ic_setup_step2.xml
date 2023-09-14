@@ -25,6 +25,9 @@
     <item
         android:state_pressed="true"
         android:drawable="@drawable/unbundled_select_01" />
-    <item
-        android:drawable="@drawable/unbundled_select_02" />
+    <item>
+        <bitmap
+            android:src="@drawable/unbundled_select_01"
+            android:tint="@android:color/holo_blue_light"/>
+    </item>
 </selector>

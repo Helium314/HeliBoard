@@ -19,5 +19,5 @@
 -->
 
 <resources>
-    <style name="KeyboardIcons.LXX_Light" parent="KeyboardIcons.LXX_Light.Parent" />
+    <style name="KeyboardIcons.LXX_Light" parent="KeyboardIcons.LXX_Light_Parent" />
 </resources>

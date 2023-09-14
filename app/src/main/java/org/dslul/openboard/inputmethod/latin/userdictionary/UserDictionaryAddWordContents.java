@@ -83,15 +83,13 @@ public class UserDictionaryAddWordContents {
             // it's too long to be edited.
             mWordEditText.setSelection(mWordEditText.getText().length());
         }
-        final String shortcut;
         if (UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
-            shortcut = args.getString(EXTRA_SHORTCUT);
+            final String shortcut = args.getString(EXTRA_SHORTCUT);
             if (null != shortcut && null != mShortcutEditText) {
                 mShortcutEditText.setText(shortcut);
             }
             mOldShortcut = args.getString(EXTRA_SHORTCUT);
         } else {
-            shortcut = null;
             mOldShortcut = null;
         }
         mMode = args.getInt(EXTRA_MODE); // default return value for #getInt() is 0 = MODE_EDIT

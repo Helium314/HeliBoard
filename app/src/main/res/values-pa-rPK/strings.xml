@@ -10,7 +10,6 @@
     <string name="settings_screen_advanced">اُنت</string>
     <string name="settings_category_miscellaneous">ہور چوݨاں</string>
     <string name="ime_settings">سیٹنگاں</string>
-    <string name="english_ime_input_options">اینپُٹ چوݨاں</string>
     <string name="settings_screen_correction">لکھت نوں ٹھیک کرن</string>
     <string name="settings_category_additional_keys">ہور کنجیاں</string>
     <string name="settings_category_clipboard_history">کاپی پیسٹ تریخ</string>
@@ -24,9 +23,6 @@
     <string name="subtype_hi_ZZ">ہِنگریزی</string>
     <string name="subtype_emoji">ایموجی</string>
     <string name="keyboard_layout_set">کیبورڈ دی چوݨ</string>
-    <string name="enable">چالو کرو</string>
-    <string name="message_loading">لوڈ کر رہا اے۔ ۔ ۔</string>
-    <string name="install_dict">اینسٹال کرو</string>
     <string name="delete_dict">مٹاؤ</string>
     <string name="user_dict_settings_add_menu_title">شامل کرو</string>
     <string name="user_dict_settings_add_word_option_name">لفظ:</string>
@@ -47,7 +43,6 @@
     <string name="setup_finish_action">پورا ہویا</string>
     <string name="subtype_locale">بولی</string>
     <string name="go_to_settings">سیٹنگاں</string>
-    <string name="dictionary_installed">اینسٹال کیتا</string>
     <string name="check_for_updates_now">تازہ کرو</string>
     <string name="user_dict_settings_add_shortcut_option_name">شورٹکٹ:</string>
     <string name="use_double_space_period">دو خالی تھاں ڈنڈی</string>

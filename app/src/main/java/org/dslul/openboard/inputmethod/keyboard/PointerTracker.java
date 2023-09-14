@@ -23,6 +23,7 @@ import android.content.res.TypedArray;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,14 +40,17 @@ import org.dslul.openboard.inputmethod.keyboard.internal.PointerTrackerQueue;
 import org.dslul.openboard.inputmethod.keyboard.internal.TimerProxy;
 import org.dslul.openboard.inputmethod.keyboard.internal.TypingTimeRecorder;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class PointerTracker implements PointerTrackerQueue.Element,
         BatchInputArbiterListener {
@@ -54,7 +58,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static final boolean DEBUG_EVENT = false;
     private static final boolean DEBUG_MOVE_EVENT = false;
     private static final boolean DEBUG_LISTENER = false;
-    private static boolean DEBUG_MODE = DebugFlags.DEBUG_ENABLED || DEBUG_EVENT;
+    private static final boolean DEBUG_MODE = DebugFlags.DEBUG_ENABLED || DEBUG_EVENT;
 
     static final class PointerTrackerParams {
         public final boolean mKeySelectionByDraggingFinger;
@@ -83,11 +87,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private static GestureEnabler sGestureEnabler = new GestureEnabler();
+    private static final GestureEnabler sGestureEnabler = new GestureEnabler();
 
     // Parameters for pointer handling.
     private static PointerTrackerParams sParams;
-    private static int sPointerStep = (int)(10.0 * Resources.getSystem().getDisplayMetrics().density);
+    private static final int sPointerStep = (int)(10.0 * Resources.getSystem().getDisplayMetrics().density);
     private static GestureStrokeRecognitionParams sGestureStrokeRecognitionParams;
     private static GestureStrokeDrawingParams sGestureStrokeDrawingParams;
     private static boolean sNeedsPhantomSuddenMoveEventHack;
@@ -132,8 +136,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private int mLastY;
     private int mStartX;
     private int mStartY;
+    private int mPreviousY;
     private long mStartTime;
     private boolean mCursorMoved = false;
+    private boolean mLanguageSlideStarted = false;
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
@@ -715,6 +721,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             setPressedKeyGraphics(key, eventTime);
             mStartX = x;
             mStartY = y;
+            mPreviousY = y;
             mStartTime = System.currentTimeMillis();
         }
     }
@@ -915,12 +922,33 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void onMoveEventInternal(final int x, final int y, final long eventTime) {
         final Key oldKey = mCurrentKey;
+        final SettingsValues sv = Settings.getInstance().getCurrent();
 
-        if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE && Settings.getInstance().getCurrent().mSpaceTrackpadEnabled) {
-            //Pointer slider
-            int steps = (x - mStartX) / sPointerStep;
-            final int longpressTimeout = 2 * Settings.getInstance().getCurrent().mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
-            if (steps != 0 && mStartTime + longpressTimeout < System.currentTimeMillis()) {
+        if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
+            int dX = x - mStartX;
+            int dY = y - mStartY;
+            // language switch: upwards movement
+            if (!mCursorMoved && sv.mSpaceLanguageSlide && -dY > abs(dX) && dY / sPointerStep != 0) {
+                List<InputMethodSubtype> subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false);
+                if (subtypes.size() > 1) { // only allow if we have more than one subtype
+                    mLanguageSlideStarted = true;
+                    if (abs(y - mPreviousY) / sPointerStep < 4)
+                        // we want large enough steps between switches
+                        return;
+
+                    // decide next or previous dependent on up or down
+                    InputMethodSubtype current = RichInputMethodManager.getInstance().getCurrentSubtype().getRawSubtype();
+                    int wantedIndex = (subtypes.indexOf(current) + ((y - mPreviousY > 0) ? 1 : -1)) % subtypes.size();
+                    if (wantedIndex < 0) wantedIndex += subtypes.size();
+                    KeyboardSwitcher.getInstance().switchToSubtype(subtypes.get(wantedIndex));
+                    mPreviousY = y;
+                    return;
+                }
+            }
+            // Pointer slider: sideways movement
+            int steps = dX / sPointerStep;
+            final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
+            if (sv.mSpaceTrackpadEnabled && !mLanguageSlideStarted && steps != 0 && mStartTime + longpressTimeout < System.currentTimeMillis()) {
                 mCursorMoved = true;
                 mStartX += steps * sPointerStep;
                 sListener.onMovePointer(steps);
@@ -928,8 +956,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (oldKey != null && oldKey.getCode() == Constants.CODE_DELETE && Settings.getInstance().getCurrent().mDeleteSwipeEnabled) {
-            //Delete slider
+        if (oldKey != null && oldKey.getCode() == Constants.CODE_DELETE && sv.mDeleteSwipeEnabled) {
+            // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mCursorMoved && steps != 0)) {
                 sTimerProxy.cancelKeyTimersOf(this);
@@ -1030,8 +1058,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (mCursorMoved) {
+        if (mCursorMoved || mLanguageSlideStarted) {
             mCursorMoved = false;
+            mLanguageSlideStarted = false;
             return;
         }
 

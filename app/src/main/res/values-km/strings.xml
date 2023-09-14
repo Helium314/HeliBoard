@@ -20,24 +20,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"ជម្រើស​​បញ្ចូល"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"រក​មើល​ឈ្មោះ​ទំនាក់ទំនង"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"កម្មវិធី​ពិនិត្យ​អក្ខរាវិរុទ្ធ​ប្រើ​ធាតុ​ពី​​ក្នុង​បញ្ជី​ទំនាក់ទំនង​របស់​អ្នក"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"ញ័រ​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"សំឡេង​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"លេច​ឡើង​នៅ​​ពេល​ចុច​គ្រាប់​ចុច"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ចំណូលចិត្ត"</string>
-    <string name="settings_screen_accounts">"គណនី &amp; ភាពឯកជន"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"រូបរាង &amp;amp ប្លង់"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"កាយវិការ​បញ្ចូល"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ការ​កែ​​អត្ថបទ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"កម្រិត​ខ្ពស់"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"រូបរាង"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"បើក​ការ​បំបែក​ក្ដារចុច"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"ប្ដូរ​ទៅ​​​វិធីសាស្ត្រ​បញ្ចូល​​​ផ្សេង​ទៀត"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"គ្រាប់ចុច​ប្ដូរ​ភាសា​តាម​វិធីសាស្ត្រ​បញ្ចូល​ផ្សេងទៀត"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"ប្ដូរ​ទៅ​​​វិធីសាស្ត្រ​បញ្ចូល​​​ផ្សេង​ទៀត"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"គ្រាប់​ចុច​ប្ដូរ​​ភាសា"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"បង្ហាញ​នៅ​ពេល​ដែល​បើក​ភាសា​បញ្ចូល​ច្រើន"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"​សោ​លេចឡើង​បោះបង់​ការ​​ពន្យារពេល​"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"គ្មាន​ការ​ពន្យារពេល"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"លំនាំដើម"</string>
@@ -46,7 +42,6 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"ស្នើ​ឈ្មោះ​ទំនាក់ទំនង"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">"ប្រើ​ឈ្មោះ​ពី​ទំនាក់ទំនង​សម្រាប់​ការ​​ស្នើ និង​​​កែ"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"ការ​ស្នើ​ផ្ទាល់​ខ្លួន"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"ធ្វើឲ្យ <xliff:g id="APPLICATION_NAME">%s</xliff:g> ប្រសើរ​ឡើង"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"រយៈ​ពេល​ចុច​ដកឃ្លា​ពីរដង"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"ប៉ះ​ដកឃ្លា​ពីរ​​ដង​បញ្ចូល​​​រយៈ​ពេល​ដែល​អនុវត្ត​តាម​ដកឃ្លា"</string>
     <string name="auto_cap" msgid="1719746674854628252">"ការ​សរសេរ​ជា​អក្សរ​ធំ​​ស្វ័យប្រវត្តិ​"</string>
@@ -81,13 +76,6 @@
     <string name="select_language" msgid="5709487854987078367">"ភាសា"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"ប៉ះម្តងទៀតដើម្បីរក្សាទុក"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"ប៉ះទីនេះដើម្បីរក្សាទុក"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"មាន​វចនានុក្រម"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"រូបរាង​ក្ដារចុច"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"ប្ដូរ​គណនី"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"មិន​បាន​ជ្រើស​គណនី"</string>
-    <string name="account_selected" msgid="2846876462199625974">"កំពុង​ប្រើ <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"ចេញ"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"ជ្រើស​គណនី​ដើម្បី​ប្រើ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"អង់គ្លេស (​អង់គ្លេស)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"អង់គ្លេស (សហរដ្ឋ​អាមេរិក)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"អេស្ប៉ាញ (សហរដ្ឋ​អាមេរិក​)"</string>
@@ -114,10 +102,6 @@
     <string name="save" msgid="7646738597196767214">"រក្សាទុក"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"ភាសា"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"ប្លង់"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"ចាំបាច់​ត្រូវ​បើក​រចនាប័ទ្ម​បញ្ចូល​ផ្ទាល់​ខ្លួន​របស់​អ្នក មុន​ពេល​អ្នក​ចាប់ផ្ដើម​ប្រើ​វា។ តើ​អ្នក​ចង់​បើក​វា​ឥឡូវ​នេះ​ឬ?"</string>
-    <string name="enable" msgid="5031294444630523247">"បើក"</string>
-    <string name="not_now" msgid="6172462888202790482">"មិនមែន​ឥឡូវ"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"មាន​រចនាប័ទ្ម​បញ្ចូល​ដូច​គ្នា​ដូច​ហើយ៖ <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"ថិរវេលា​​ញ័រ​​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"កម្រិត​សំឡេង​ពេល​ចុច​គ្រាប់​ចុច"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"ពន្យារពេល​​​ចុច​គ្រាប់​ចុច​ឲ្យ​​យូរ"</string>
@@ -138,31 +122,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"ប្ដូរ​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"សូម​អបអរ​សាទរ,​ អ្នក​​បាន​កំណត់​​រួចរាល់​ហើយ!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">"ឥឡូវ​​អ្នក​អាច​​វាយ​បញ្ចូល​នៅ​ក្នុង​​កម្មវិធី​​ពេញ​ចិត្ត​របស់​អ្នក​ទាំងអស់​ជាមួយ <xliff:g id="APPLICATION_NAME">%s</xliff:g> ។"</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"កំណត់​រចនា​សម្ព័ន្ធ​ភាសា​បន្ថែម"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"បាន​បញ្ចប់"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"បង្ហាញ​រូប​កម្មវិធី"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"បង្ហាញ​រូប​កម្មវិធី​នៅ​ក្នុង​កម្ម​​វិធី​ចាប់ផ្ដើម"</string>
     <string name="app_name" msgid="6320102637491234792">"កម្មវិធី​ផ្ដល់​វចនានុក្រម"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"កម្មវិធី​ផ្ដល់​វចនានុក្រម"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"សេវាកម្ម​​វចនានុក្រម"</string>
-    <string name="download_description" msgid="6014835283119198591">"ព័ត៌មាន​បច្ចុប្បន្នភាព​វចនានុក្រម"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"ផ្នែក​បន្ថែម​វចនានុក្រម​​"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"ការ​កំណត់​សម្រាប់​វចនានុក្រម"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"វចនានុក្រម​​​អ្នក​ប្រើ"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"វចនានុក្រម​អ្នកប្រើ"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"វចនានុក្រម​​​អាច​ប្រើ​បាន"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"បច្ចុប្បន្ន​កំពុង​ទាញ​យក"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"បាន​ដំឡើង"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"បាន​ដំឡើង បាន​បិទ"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"មាន​បញ្ហា​ក្នុង​ការ​​ភ្ជាប់​ទៅ​​សេវា​កម្ម​វចនានុក្រម"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"គ្មាន​វចនានុក្រម"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"ផ្ទុក​ឡើងវិញ"</string>
     <string name="last_update" msgid="730467549913588780">"បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"</string>
-    <string name="message_updating" msgid="4457761393932375219">"ពិនិត្យមើល​បច្ចុប្បន្នភាព"</string>
-    <string name="message_loading" msgid="5638680861387748936">"កំពុង​ផ្ទុក..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"វចនានុក្រម​ចម្បង"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"ការ​កំណត់"</string>
-    <string name="install_dict" msgid="180852772562189365">"ដំឡើង"</string>
     <string name="delete_dict" msgid="756853268088330054">"លុប"</string>
     <string name="version_text" msgid="2715354215568469385">"កំណែ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"បន្ថែម"</string>

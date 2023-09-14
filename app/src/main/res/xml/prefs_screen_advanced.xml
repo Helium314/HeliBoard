@@ -71,6 +71,12 @@
             android:defaultValue="true" />
 
         <SwitchPreferenceCompat
+            android:key="pref_space_language_slide"
+            android:title="@string/space_language_slide"
+            android:summary="@string/space_language_slide_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
             android:key="pref_delete_swipe"
             android:title="@string/delete_swipe"
             android:summary="@string/delete_swipe_summary"
@@ -80,6 +86,12 @@
             android:key="pref_autospace_after_punctuation"
             android:title="@string/autospace_after_punctuation"
             android:summary="@string/autospace_after_punctuation_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            android:key="pref_show_all_more_keys"
+            android:title="@string/show_all_more_keys_title"
+            android:summary="@string/show_all_more_keys_summary"
             android:defaultValue="false" />
 
         <Preference

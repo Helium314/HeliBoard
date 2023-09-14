@@ -167,8 +167,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
     public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
         mParams.mId = id;
-        final XmlResourceParser parser = mResources.getXml(xmlId);
-        try {
+        try (XmlResourceParser parser = mResources.getXml(xmlId)) {
             parseKeyboard(parser);
         } catch (XmlPullParserException e) {
             Log.w(BUILDER_TAG, "keyboard XML parse error", e);
@@ -176,8 +175,6 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         } catch (IOException e) {
             Log.w(BUILDER_TAG, "keyboard XML parse error", e);
             throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            parser.close();
         }
         return this;
     }
@@ -481,9 +478,8 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 final int width = (int)keyWidth;
                 final int height = row.getRowHeight();
                 final String hintLabel = moreKeySpecs != null ? "\u25E5" : null;
-                final KeyboardParams params = mParams;
                 final Key key = new Key(label, code, outputText,  hintLabel, moreKeySpecs,
-                        labelFlags, backgroundType, x, y, width, height, params);
+                        labelFlags, backgroundType, x, y, width, height, mParams);
                 endKey(key);
                 row.advanceXPos(keyWidth);
             }
@@ -555,7 +551,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         final TypedArray keyboardAttr = mResources.obtainAttributes(
                 attr, R.styleable.Keyboard_Include);
         final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
-        int keyboardLayout = 0;
+        final int keyboardLayout;
         try {
             XmlParseUtils.checkAttributeExists(
                     keyboardAttr, R.styleable.Keyboard_Include_keyboardLayout, "keyboardLayout",
@@ -578,15 +574,13 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             startEndTag("<%s keyboardLayout=%s />",TAG_INCLUDE,
                     mResources.getResourceEntryName(keyboardLayout));
         }
-        final XmlResourceParser parserForInclude = mResources.getXml(keyboardLayout);
-        try {
+        try (XmlResourceParser parserForInclude = mResources.getXml(keyboardLayout)) {
             parseMerge(parserForInclude, row, skip);
         } finally {
             if (row != null) {
                 // Restore Row attributes.
                 row.popRowAttributes();
             }
-            parserForInclude.close();
         }
     }
 
@@ -716,7 +710,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
             final boolean selected = keyboardLayoutSetMatched && keyboardLayoutSetElementMatched
                     && keyboardThemeMacthed && modeMatched && navigateNextMatched
                     && navigatePreviousMatched && passwordInputMatched && clobberSettingsKeyMatched
-                    && hasShortcutKeyMatched && numberRowEnabledMatched  && languageSwitchKeyEnabledMatched
+                    && hasShortcutKeyMatched && numberRowEnabledMatched && languageSwitchKeyEnabledMatched
                     && emojiKeyEnabledMatched && isMultiLineMatched && imeActionMatched && isIconDefinedMatched
                     && localeCodeMatched && languageCodeMatched && countryCodeMatched
                     && splitLayoutMatched && oneHandedModeEnabledMatched;

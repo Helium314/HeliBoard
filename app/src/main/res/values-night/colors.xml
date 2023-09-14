@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Colors for preferences_styles -->
+<resources>
     <color name="foreground">#FFF</color>
     <color name="foreground_weak">#BBB</color>
     <color name="almost_background">#666</color>
 
     <color name="accent">@color/highlight_color_lxx_dark</color>
+    <color name="keyboard_background">@color/keyboard_background_dark</color>
 </resources>

@@ -208,7 +208,6 @@
     </declare-styleable>
 
     <declare-styleable name="ClipboardHistoryView">
-        <attr name="dividerBackground" format="color" />
         <attr name="iconPinnedClip" format="reference" />
     </declare-styleable>
 
@@ -610,6 +609,7 @@
             <enum name="tamil" value="15" />
             <enum name="telugu" value="16" />
             <enum name="thai" value="17" />
+            <enum name="bulgarian" value="18" />
             <enum name="hangul" value="19" />
         </attr>
     </declare-styleable>

@@ -16,6 +16,8 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -34,5 +36,22 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_gesture);
+        refreshSettingsEnablement();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
+        refreshSettingsEnablement();
+    }
+
+    private void refreshSettingsEnablement() {
+        final SharedPreferences prefs = getSharedPreferences();
+        final Resources res = getResources();
+        setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL,
+                Settings.readGestureInputEnabled(prefs, res));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
+                Settings.readGestureInputEnabled(prefs, res));
+        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE,
+                Settings.readGestureInputEnabled(prefs, res));
     }
 }

@@ -16,7 +16,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.Colors
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
@@ -30,7 +30,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context.resources)
     private val pinIconId: Int
-    private val dividerColor: Int
     private val functionalKeyBackgroundId: Int
     private val keyBackgroundId: Int
 
@@ -46,15 +45,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
     init {
         val clipboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.ClipboardHistoryView, defStyle, R.style.ClipboardHistoryView)
-        pinIconId = clipboardViewAttr.getResourceId(
-                R.styleable.ClipboardHistoryView_iconPinnedClip, 0)
-        dividerColor = clipboardViewAttr.getColor(
-                R.styleable.ClipboardHistoryView_dividerBackground, 0)
+        pinIconId = clipboardViewAttr.getResourceId(R.styleable.ClipboardHistoryView_iconPinnedClip, 0)
         clipboardViewAttr.recycle()
-        val keyboardViewAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
-        keyBackgroundId = keyboardViewAttr.getResourceId(
-                R.styleable.KeyboardView_keyBackground, 0)
+        val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
+        keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         functionalKeyBackgroundId = keyboardViewAttr.getResourceId(
                 R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId)
         keyboardViewAttr.recycle()
@@ -64,8 +58,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        val width = (ResourceUtils.getDefaultKeyboardWidth(res)
-                + paddingLeft + paddingRight)
+        val width = (ResourceUtils.getDefaultKeyboardWidth(res) + paddingLeft + paddingRight)
         val height = (ResourceUtils.getDefaultKeyboardHeight(res)
                 + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
                 + paddingTop + paddingBottom)
@@ -74,6 +67,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+        val colors = Settings.getInstance().current.mColors
+        colors.setKeyboardBackground(this)
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
             pinnedIconResId = pinIconId
@@ -82,8 +77,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView = findViewById<ClipboardHistoryRecyclerView>(R.id.clipboard_list).apply {
             val colCount = resources.getInteger(R.integer.config_clipboard_keyboard_col_count)
             layoutManager = StaggeredGridLayoutManager(colCount, StaggeredGridLayoutManager.VERTICAL)
-            val dividerHeight = resources.getDimensionPixelSize(R.dimen.config_clipboard_divider_height)
-            addItemDecoration(ClipboardHistoryRecyclerView.BottomDividerItemDecoration(dividerHeight, dividerColor))
+            @Suppress("deprecation") // "no cache" should be fine according to warning in https://developer.android.com/reference/android/view/ViewGroup#setPersistentDrawingCache(int)
             persistentDrawingCache = PERSISTENT_NO_CACHE
             clipboardLayoutParams.setListProperties(this)
             placeholderView = this@ClipboardHistoryView.placeholderView
@@ -100,21 +94,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clearKey = findViewById<ImageButton>(R.id.clipboard_clear).apply {
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
+            colorFilter = colors.keyTextFilter
         }
-        val colors = Settings.getInstance().current.mColors
-        clearKey.colorFilter = colors.keyTextFilter
-        val colorBackground = colors.keyboardBackground
-        if (colorBackground != null)
-            background = colorBackground
-        else
-            background.colorFilter = colors.backgroundFilter
     }
 
     private fun setupAlphabetKey(key: TextView?, label: String, params: KeyDrawParams) {
         key?.apply {
             text = label
             typeface = params.mTypeface
-            Settings.getInstance().current.mColors.setBackgroundColor(this.background, Colors.TYPE_FUNCTIONAL)
+            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
@@ -225,8 +213,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.smoothScrollToPosition(at)
     }
 
-    override fun onClipboardHistoryEntriesRemoved(position: Int, count: Int) {
-        clipboardAdapter.notifyItemRangeRemoved(position, count)
+    override fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int) {
+        clipboardAdapter.notifyItemRangeRemoved(pos, count)
     }
 
     override fun onClipboardHistoryEntryMoved(from: Int, to: Int) {

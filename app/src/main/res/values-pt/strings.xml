@@ -17,24 +17,20 @@
 ** limitations under the License.
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options">"Opções de entrada"</string>
     <string name="use_contacts_for_spellchecking_option_title">"Buscar nomes de contatos"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"O corretor ortográfico usa entradas de sua lista de contatos"</string>
     <string name="vibrate_on_keypress">"Vibrar ao digitar"</string>
     <string name="sound_on_keypress">"Som ao tocar a tecla"</string>
     <string name="popup_on_keypress">"Mostrar letra em pop-up ao digitar"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferências"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Contas e privacidade"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">Aparência e esquemas</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escrita com gestos"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correção de texto"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avançado"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Ativar teclado dividido"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Outros métodos de entrada"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"A tecla p/ mudar o idioma também cobre outros métodos de entrada"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Outros métodos de entrada"</string>
     <string name="show_language_switch_key">"Tecla de seleção de idioma"</string>
-    <string name="show_language_switch_key_summary">"Mostrar quando vários idiomas de entrada estiverem ativados"</string>
     <string name="key_preview_popup_dismiss_delay">"Duração de popup da tecla"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sem atraso"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Padrão"</string>
@@ -43,7 +39,6 @@
     <string name="use_contacts_dict">"Sugerir nomes de contato"</string>
     <string name="use_contacts_dict_summary">"Usa nomes dos Contatos para sugestões e correções"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Sugestões personalizadas"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">Melhorar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period">"Duplo espaço para ponto"</string>
     <string name="use_double_space_period_summary">"Tocar duas vezes na barra de espaço insere um ponto seguido de espaço"</string>
     <string name="auto_cap">"Capitalização automática"</string>
@@ -78,13 +73,6 @@
     <string name="select_language" msgid="5709487854987078367">"Idiomas"</string>
     <string name="hint_add_to_dictionary">"Tocar novamente para salvar"</string>
     <string name="hint_add_to_dictionary_without_word">"Tocar aqui para salvar"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Dicionário disponível"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Tema do teclado"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Alternar contas"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Nenhuma conta selecionada"</string>
-    <string name="account_selected" msgid="2846876462199625974">Está a utilizar <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Sair"</string>
-    <string name="account_select_title">"Selecionar uma conta para usar"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Inglês (Reino Unido)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Inglês (EUA)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Espanhol (EUA)</string>
@@ -111,10 +99,6 @@
     <string name="save">"Salvar"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Idioma"</string>
     <string name="keyboard_layout_set">"Layout"</string>
-    <string name="custom_input_style_note_message">"Quer ativar e usar o estilo de entrada personalizado?"</string>
-    <string name="enable" msgid="5031294444630523247">"Ativar"</string>
-    <string name="not_now" msgid="6172462888202790482">"Agora não"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">O estilo de entrada já existe: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Duração da vibração ao tocar"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volume ao tocar na tela"</string>
     <string name="prefs_key_longpress_timeout_settings">"Atraso ao pressionar teclas"</string>
@@ -135,31 +119,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">Alternar métodos de introdução</string>
     <string name="setup_step3_title" msgid="3154757183631490281">Parabéns, configuração terminada!</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para escrever nas suas aplicações.</string>
-    <string name="setup_step3_action" msgid="600879797256942259">Configurar idiomas extra</string>
     <string name="setup_finish_action">"Concluído"</string>
     <string name="show_setup_wizard_icon">"Mostrar ícone do app"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone do app no iniciador"</string>
     <string name="app_name">"Provedor de dicionário"</string>
     <string name="dictionary_provider_name">"Provedor de dicionário"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Serviço de dicionário"</string>
-    <string name="download_description" msgid="6014835283119198591">"Informações de atualização do dicionário"</string>
     <string name="dictionary_settings_title">"Dicionários complementares"</string>
     <string name="dictionary_settings_summary">"Configurações dos dicionários"</string>
     <string name="user_dictionaries">"Dicionários do usuário"</string>
     <string name="default_user_dict_pref_name">"Dicionário do usuário"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Dicionário disponível"</string>
-    <string name="dictionary_downloading">"Fazendo download..."</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Instalado"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Instalado, desativado"</string>
     <string name="cannot_connect_to_dict_service">"Prob. conexão dic."</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Nenhum dicionário disponível"</string>
     <string name="check_for_updates_now">"Atualizar"</string>
     <string name="last_update" msgid="730467549913588780">"Última atualização"</string>
-    <string name="message_updating">"Verificando atualizações"</string>
-    <string name="message_loading">"Carregando…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Dicionário principal"</string>
     <string name="go_to_settings">"Configurações"</string>
-    <string name="install_dict" msgid="180852772562189365">"Instalar"</string>
     <string name="delete_dict">"Excluir"</string>
     <string name="version_text" msgid="2715354215568469385">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Adicionar"</string>
@@ -199,7 +174,6 @@
     <string name="delete_swipe">Deslize para eliminar</string>
     <string name="more_keys_strip_description">Mais teclas</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla Eliminar para selecionar e remover grandes porções de texto de uma vez</string>
-    <string name="prefs_resize_keyboard">Ativar redimensionamento do teclado</string>
     <string name="prefs_keyboard_height_scale">Altura do teclado</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de introdução</string>
     <string name="show_hints">Mostrar dicas de teclas</string>

@@ -26,6 +26,7 @@ import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import org.dslul.openboard.inputmethod.latin.utils.AutoCorrectionUtils;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
@@ -84,15 +85,6 @@ public final class Suggest {
      */
     public void setAutoCorrectionThreshold(final float threshold) {
         mAutoCorrectionThreshold = threshold;
-    }
-
-    /**
-     * Set the normalized-score threshold for what we consider a "plausible" suggestion, in
-     * the same dimension as the auto-correction threshold.
-     * @param threshold the threshold
-     */
-    public void setPlausibilityThreshold(final float threshold) {
-        mPlausibilityThreshold = threshold;
     }
 
     public interface OnGetSuggestedWordsCallback {
@@ -306,9 +298,6 @@ public final class Suggest {
             final int firstOccurrenceOfTypedWordInSuggestions,
             final SuggestedWordInfo typedWordFirstOccurrenceWordInfo
     ) {
-        // todo:
-        //  tune the suggestion score thresholds (currently 900k, maybe should depend on autocorrect)
-        //  maybe tune the empty word suggestion min difference (currently 20, seems quite ok)
         final String consideredWord = trailingSingleQuotesCount > 0
                 ? typedWordString.substring(0, typedWordString.length() - trailingSingleQuotesCount)
                 : typedWordString;
@@ -322,6 +311,7 @@ public final class Suggest {
         // We allow auto-correction if whitelisting is not required or the word is whitelisted,
         // or if the word had more than one char and was not suggested.
         final boolean allowsToBeAutoCorrected;
+        final int scoreLimit = Settings.getInstance().getCurrent().mScoreLimitForAutocorrect;
         if ((SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION || whitelistedWord != null)
                 || (consideredWord.length() > 1 && (sourceDictionaryOfRemovedWord == null)) // more than 1 letter and not in dictionary
         ) {
@@ -331,7 +321,7 @@ public final class Suggest {
             putEmptyWordSuggestions.run();
             final SuggestedWordInfo first = firstAndTypedWordEmptyInfos.get(0);
             final SuggestedWordInfo typed = firstAndTypedWordEmptyInfos.get(1);
-            if (firstSuggestionInContainer.mScore > 900000) {
+            if (firstSuggestionInContainer.mScore > scoreLimit) {
                 allowsToBeAutoCorrected = true; // suggestion has good score, allow
             } else if (first == null) {
                 allowsToBeAutoCorrected = false; // no autocorrect if first suggestion unknown in this context
@@ -375,11 +365,7 @@ public final class Suggest {
                 // list, "will" would always auto-correct to "Will" which is unwanted. Hence, no
                 // main dict => no auto-correct. Also, it would probably get obnoxious quickly.
                 // TODO: now that we have personalization, we may want to re-evaluate this decision
-                || !dictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()
-                // If the first suggestion is a shortcut we never auto-correct to it, regardless
-                // of how strong it is (whitelist entries are not KIND_SHORTCUT but KIND_WHITELIST).
-                // TODO: we may want to have shortcut-only entries auto-correct in the future.
-                || suggestionResults.first().isKindOf(SuggestedWordInfo.KIND_SHORTCUT)) {
+                || !dictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()) {
             hasAutoCorrection = false;
         } else {
             final SuggestedWordInfo firstSuggestion = suggestionResults.first();
@@ -400,23 +386,21 @@ public final class Suggest {
             // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
             // TODO: this should not have its own logic here but be handled by the dictionary.
             final boolean allowed = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion);
-            if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > 900000) {
+            if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > scoreLimit) {
                 // typed word is valid and has good score
                 // do not auto-correct if typed word is better match than first suggestion
                 final SuggestedWordInfo first = firstSuggestionInContainer != null ? firstSuggestionInContainer : firstSuggestion;
                 final Locale dictLocale = dictionaryFacilitator.getCurrentLocale();
 
-                if (first.mScore < 900000) {
+                if (first.mScore < scoreLimit) {
                     // don't allow if suggestion has too low score
-                    // todo: maybe lower this to ~600k? 500k will be too aggressive
-                    //  or make it depend on autocorrect threshold
                     return new boolean[]{ true, false };
                 }
                 if (first.mSourceDict.mLocale != typedWordFirstOccurrenceWordInfo.mSourceDict.mLocale) {
                     // dict locale different -> return the better match
                     return new boolean[]{ true, dictLocale == first.mSourceDict.mLocale };
                 }
-                // todo: this may need tuning, especially the score difference thing
+                // the score difference may need tuning, but so far it seems alright
                 final int firstWordBonusScore = (first.isKindOf(SuggestedWordInfo.KIND_WHITELIST) ? 20 : 0) // large bonus because it's wanted by dictionary
                         + (StringUtils.isLowerCaseAscii(typedWordString) ? 5 : 0) // small bonus because typically only ascii is typed (applies to latin keyboards only)
                         + (first.mScore > typedWordFirstOccurrenceWordInfo.mScore ? 5 : 0); // small bonus if score is higher

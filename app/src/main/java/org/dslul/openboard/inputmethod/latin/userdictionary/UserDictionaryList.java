@@ -22,9 +22,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceGroup;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodInfo;
@@ -32,6 +29,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
@@ -44,18 +44,17 @@ import java.util.TreeSet;
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryList.java
 // in order to deal with some devices that have issues with the user dictionary handling
 
-public class UserDictionaryList extends PreferenceFragment {
+public class UserDictionaryList extends PreferenceFragmentCompat {
 
     public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =
             "android.settings.USER_DICTIONARY_SETTINGS";
 
     @Override
-    public void onCreate(final Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreatePreferences(@Nullable Bundle bundle, @Nullable String s) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             getPreferenceManager().setStorageDeviceProtected();
         }
-        setPreferenceScreen(getPreferenceManager().createPreferenceScreen(getActivity()));
+        setPreferenceScreen(getPreferenceManager().createPreferenceScreen(requireContext()));
     }
 
     public static TreeSet<String> getUserDictionaryLocalesSet(final Activity activity) {
@@ -115,10 +114,12 @@ public class UserDictionaryList extends PreferenceFragment {
      * @param userDictGroup The group to put the settings in.
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
-        final Activity activity = getActivity();
         userDictGroup.removeAll();
-        final TreeSet<String> localeSet =
-                UserDictionaryList.getUserDictionaryLocalesSet(activity);
+        final TreeSet<String> localeSet = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
+        if (localeSet == null) {
+            userDictGroup.addPreference(createUserDictionaryPreference(null));
+            return;
+        }
 
         if (localeSet.size() > 1) {
             // Have an "All languages" entry in the languages list if there are two or more active
@@ -141,7 +142,7 @@ public class UserDictionaryList extends PreferenceFragment {
      * @return The corresponding preference.
      */
     protected Preference createUserDictionaryPreference(@Nullable final String localeString) {
-        final Preference newPref = new Preference(getActivity());
+        final Preference newPref = new Preference(requireContext());
         final Intent intent = new Intent(USER_DICTIONARY_SETTINGS_INTENT_ACTION);
         if (null == localeString) {
             newPref.setTitle(Locale.getDefault().getDisplayName());

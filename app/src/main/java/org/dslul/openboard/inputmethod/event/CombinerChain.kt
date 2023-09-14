@@ -46,13 +46,13 @@ class CombinerChain(initialText: String?) {
      * new event. However it may never be null.
      */
     fun processEvent(previousEvents: ArrayList<Event>?,
-                     newEvent: Event?): Event? {
+                     newEvent: Event): Event {
         val modifiablePreviousEvents = ArrayList(previousEvents!!)
         var event = newEvent
         for (combiner in mCombiners) { // A combiner can never return more than one event; it can return several
 // code points, but they should be encapsulated within one event.
             event = combiner.processEvent(modifiablePreviousEvents, event)
-            if (event!!.isConsumed) { // If the event is consumed, then we don't pass it to subsequent combiners:
+            if (event.isConsumed) { // If the event is consumed, then we don't pass it to subsequent combiners:
 // they should not see it at all.
                 break
             }

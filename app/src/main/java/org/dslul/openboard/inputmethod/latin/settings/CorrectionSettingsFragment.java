@@ -19,8 +19,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import static org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager.get;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -68,8 +66,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_correction);
 
-        final Context context = getActivity();
-        final PackageManager pm = context.getPackageManager();
+        final PackageManager pm = requireContext().getPackageManager();
 
         final Preference editPersonalDictionary =
                 findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
@@ -79,7 +76,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);
         }
-        mLookupContactsPreference = (SwitchPreferenceCompat) findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+        mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
 
         refreshEnabledSettings();
     }
@@ -91,7 +88,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                 && !PermissionsUtil.checkAllPermissionsGranted(
                 getActivity() /* context */, Manifest.permission.READ_CONTACTS)
         ) {
-            get(getActivity() /* context */).requestPermissions(this /* PermissionsResultCallback */,
+            get(requireContext()).requestPermissions(this /* PermissionsResultCallback */,
                     getActivity() /* activity */, Manifest.permission.READ_CONTACTS);
         }
         refreshEnabledSettings();
@@ -113,15 +110,14 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     }
 
     private void refreshEnabledSettings() {
-        setPreferenceEnabled(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
-                Settings.readAutoCorrectEnabled(getSharedPreferences(), getResources()));
-        setPreferenceEnabled(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
+        setPreferenceVisible(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
+                Settings.readAutoCorrectEnabled(getSharedPreferences()));
+        setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         turnOffLookupContactsIfNoPermission();
     }
 
     private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {
-        final Activity activity = getActivity();
-        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(activity);
+        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
         if (null == localeList) {
             // The locale list is null if and only if the user dictionary service is
             // not present or disabled. In this case we need to remove the preference.

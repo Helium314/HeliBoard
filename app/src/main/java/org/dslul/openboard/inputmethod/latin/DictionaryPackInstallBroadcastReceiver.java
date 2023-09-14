@@ -95,7 +95,6 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
             }
             // If we come here none of the authorities matched the one we searched for.
             // We can exit safely.
-            return;
         } else if (action.equals(Intent.ACTION_PACKAGE_REMOVED)
                 && !intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) {
             if (null == mService) {
@@ -120,22 +119,6 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
                 return;
             }
             mService.resetSuggestMainDict();
-        } else if (action.equals(DictionaryPackConstants.UNKNOWN_DICTIONARY_PROVIDER_CLIENT)) {
-            if (null != mService) {
-                // Careful! This is returning if the service is NOT null. This is because we
-                // should come here instantiated by the framework in reaction to a broadcast of
-                // the above action, so we should gave gone through the no-args constructor.
-                Log.e(TAG, "Called with intent " + action + " but we have a reference to the "
-                        + "service: this should never happen");
-                return;
-            }
-            // The dictionary provider does not know about some client. We check that it's really
-            // us that it needs to know about, and if it's the case, we register with the provider.
-            final String wantedClientId =
-                    intent.getStringExtra(DictionaryPackConstants.DICTIONARY_PROVIDER_CLIENT_EXTRA);
-            final String myClientId = context.getString(R.string.dictionary_pack_client_id);
-            if (!wantedClientId.equals(myClientId)) return; // Not for us
-            BinaryDictionaryFileDumper.initializeClientRecordHelper(context, myClientId);
         }
     }
 }

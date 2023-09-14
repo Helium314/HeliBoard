@@ -7,7 +7,7 @@ import org.dslul.openboard.inputmethod.compat.CompatUtils.ToBooleanMethodWrapper
 object InputConnectionCompatUtils {
     private var sInputConnectionType: ClassWrapper? = null
     private var sRequestCursorUpdatesMethod: ToBooleanMethodWrapper? = null
-    val isRequestCursorUpdatesAvailable: Boolean
+    private val isRequestCursorUpdatesAvailable: Boolean
         get() = sRequestCursorUpdatesMethod != null
 
     /**
@@ -31,7 +31,7 @@ object InputConnectionCompatUtils {
      * as soon as possible to notify the current cursor/anchor position to the input method.
      * @return `false` if the request is not handled. Otherwise returns `true`.
      */
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun requestCursorUpdates(inputConnection: InputConnection,
                              enableMonitor: Boolean, requestImmediateCallback: Boolean): Boolean {
         val cursorUpdateMode = ((if (enableMonitor) CURSOR_UPDATE_MONITOR else 0)

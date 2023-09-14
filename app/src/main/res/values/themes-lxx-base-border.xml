@@ -23,7 +23,7 @@
         parent="KeyboardView.LXX_Base">
         <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
         <item name="spacebarBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
     </style>
 
@@ -32,7 +32,7 @@
         parent="MainKeyboardView.LXX_Base">
         <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
         <item name="spacebarBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
     </style>
 
@@ -42,7 +42,7 @@
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base_border</item>
         <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
         <item name="spacebarBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
     </style>
 
@@ -51,7 +51,7 @@
         parent="ClipboardHistoryView.LXX_Base">
         <item name="android:background">@drawable/keyboard_background_lxx_base_border</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base_border</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base_border</item>
     </style>
 
     <style

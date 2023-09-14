@@ -16,6 +16,7 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -198,11 +199,8 @@ public final class ResourceUtils {
 
     public static int getKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
         final int defaultKeyboardHeight = getDefaultKeyboardHeight(res);
-        if (settingsValues.mHasKeyboardResize) {
-            // mKeyboardHeightScale Ranges from [.5,1.2], from xml/prefs_screen_debug.xml
-            return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
-        }
-        return defaultKeyboardHeight;
+        // mKeyboardHeightScale Ranges from [.5,1.5], from xml/prefs_screen_appearance.xml
+        return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
     }
 
     public static int getDefaultKeyboardHeight(final Resources res) {
@@ -300,5 +298,10 @@ public final class ResourceUtils {
 
     public static boolean isStringValue(final TypedValue v) {
         return v.type == TypedValue.TYPE_STRING;
+    }
+
+    public static boolean isNight(final Resources res) {
+        // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
+        return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 }

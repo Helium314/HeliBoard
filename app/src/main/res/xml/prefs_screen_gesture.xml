@@ -26,15 +26,19 @@
         android:persistent="true" />
     <SwitchPreferenceCompat
         android:key="pref_gesture_floating_preview_text"
-        android:dependency="gesture_input"
         android:title="@string/gesture_floating_preview_text"
         android:summary="@string/gesture_floating_preview_text_summary"
         android:defaultValue="true"
         android:persistent="true" />
     <SwitchPreferenceCompat
         android:key="pref_gesture_preview_trail"
-        android:dependency="gesture_input"
         android:title="@string/gesture_preview_trail"
         android:defaultValue="true"
+        android:persistent="true" />
+    <SwitchPreferenceCompat
+        android:key="pref_gesture_space_aware"
+        android:title="@string/gesture_space_aware"
+        android:summary="@string/gesture_space_aware_summary"
+        android:defaultValue="false"
         android:persistent="true" />
 </PreferenceScreen>

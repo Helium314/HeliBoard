@@ -27,8 +27,6 @@
     <!-- Title for the spell checking service settings screen. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="2970535894327288421" -->
     <string name="android_spell_checker_settings">OpenBoard Spell Checker Settings</string>
-    <!-- Title for Latin keyboard input options dialog [CHAR LIMIT=25] -->
-    <string name="english_ime_input_options">Input options</string>
     <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->
     <string name="use_contacts_for_spellchecking_option_title">Look up contact names</string>
     <!-- Description for the spell checker option to turn on/off contact names lookup. [CHAR LIMIT=65] -->
@@ -41,8 +39,6 @@
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Settings screen title for preferences [CHAR LIMIT=33]-->
     <string name="settings_screen_preferences">Preferences</string>
-    <!-- Settings screen title for accounts and privacy preferences [CHAR LIMIT=33]-->
-    <string name="settings_screen_accounts">Accounts &amp; Privacy</string>
     <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
     <string name="settings_screen_gesture">Gesture Typing</string>
     <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
@@ -67,26 +63,14 @@
     <string name="settings_category_miscellaneous">Miscellaneous</string>
     <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
-    <!-- Option title for enabling cloud sync feature [CHAR LIMIT=33]-->
-    <!-- Option summary when cloud sync feature is enabled  [CHAR LIMIT=65] -->
-    <!-- Option summary when cloud sync feature is disabled  [CHAR LIMIT=65] -->
-    <!-- Option title for starting the sync cycle now. [CHAR LIMIT=33]-->
-    <!-- Option title for letting user delete synced google keyboard data from Google servers.  [CHAR LIMIT=35] -->
-    <!-- Option summary for letting user delete synced google keyboard data from Google servers. [CHAR LIMIT=65] -->
-    <!-- Text for confirmation dialog box asking user to confirm deletion of cloud data. [CHAR LIMIT=65] -->
-    <!-- Option to confirm deleting of user data from cloud [CHAR LIMIT=20] -->
-    <!-- Option to cancel the deletion of user data from cloud [CHAR LIMIT=20] -->
-    <!-- Option to agree to terms and conditions for enabling cloud sync feature. -->
-    <!-- Text to tell the user to add a Google account to the device to enable the cloud sync feature. [CHAR LIMIT=65]-->
-    <!-- Text to tell the user that sync feature is disabled because they have Google Apps for Business account(s) on their device. [CHAR LIMIT=80]-->
-    <!-- Option name for including other IMEs in the language switch list [CHAR LIMIT=30] -->
-    <string name="include_other_imes_in_language_switch_list">Switch to other input methods</string>
-    <!-- Option summary for including other IMEs in the language switch list [CHAR LIMIT=65] -->
-    <string name="include_other_imes_in_language_switch_list_summary">Language switch key covers other input methods too</string>
+    <!-- Option name for including other IMEs in the language key switch list [CHAR LIMIT=30] -->
+    <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
+    <!-- Option name for switching language / subtype only [CHAR LIMIT=30] -->
+    <string name="language_switch_key_switch_subtype">Switch Language</string>
+    <!-- Option name for switching language / subtype and input method [CHAR LIMIT=30] -->
+    <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key [CHAR LIMIT=30] -->
     <string name="show_language_switch_key">Language switch key</string>
-    <!-- Option summary for showing language switch key [CHAR LIMIT=65] -->
-    <string name="show_language_switch_key_summary">Show when multiple input languages are enabled</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
     <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->
@@ -113,8 +97,6 @@
     <string name="add_to_personal_dictionary">Add words to user dictionary</string>
     <!-- Description for option to add learned words to system-wide user dictionary -->
     <string name="add_to_personal_dictionary_summary">Use device personal dictionary to store learned words</string>
-    <!-- Option to enable sending usage statistics -->
-    <string name="enable_metrics_logging">"Improve <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
     <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=30] -->
     <string name="use_double_space_period">Double-space period</string>
     <!-- Description for option enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=65] -->
@@ -156,8 +138,6 @@
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
-    <!-- Menu item for removing a suggestion-->
-    <string name="remove_suggestions">Remove suggestion</string>
     <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
     <string name="gesture_input">Enable gesture typing</string>
     <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->
@@ -190,6 +170,12 @@
     <string name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
     <!-- Preferences item for enabling trackpad space key -->
     <string name="space_trackpad">Space bar trackpad</string>
+    <!-- Description for "space_trackpad" option. -->
+    <string name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
+    <!-- Preferences item for enabling subtype / language switch on sliding upwards space key -->
+    <string name="space_language_slide">Space bar language slide</string>
+    <!-- Description for "space_language_slide" option. -->
+    <string name="space_language_slide_summary">Swipe upwards on the spacebar to change the language</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Preferences item for loading an external gesture typing library -->
@@ -203,12 +189,14 @@
     <string name="load_gesture_library_button_load">Load library</string>
     <!-- Button text for deleting gesture library -->
     <string name="load_gesture_library_button_delete">Delete library</string>
-    <!-- Description for "space_trackpad" option. -->
-    <string name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
     <!-- Preferences item for enabling inserting more spaces key -->
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <!-- Description for "insert_more_spaces" option. -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
+    <!-- Preferences item for showing all available keys in long-press popup -->
+    <string name="show_all_more_keys_title">Show all keys in popup</string>
+    <!-- Description for "show_all_more_keys" option. -->
+    <string name="show_all_more_keys_summary">When using a latin keyboard, more characters are available on long-pressing a key</string>
     <!-- Preferences item for disabling word learning -->
     <string name="prefs_force_incognito_mode">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
@@ -228,10 +216,6 @@
     <string name="hint_add_to_dictionary">Tap again to save</string>
     <!-- Add to dictionary hint -->
     <string name="hint_add_to_dictionary_without_word">Tap here to save</string>
-    <!-- Inform the user that a particular language has an available dictionary -->
-    <string name="has_dictionary">Dictionary available</string>
-    <!-- Title of the item to change the keyboard theme [CHAR LIMIT=20]-->
-    <string name="keyboard_layout">Keyboard theme</string>
     <!-- Title of the settings to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
@@ -240,28 +224,14 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
-    <!-- Title of the settings enbaling long press on space key to change IME -->
+    <!-- Title of the settings enabling long press on space key to change IME -->
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
-    <!-- Title of the settings to enable keyboard resizing -->
-    <string name="prefs_resize_keyboard">Enable keyboard resizing</string>
     <!-- Title of the setting for reduced distance between keys -->
     <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
     <!-- Title of the settings for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
-    <!-- Title of the preference item for switching accounts [CHAR LIMIT=30] -->
-    <string name="switch_accounts">Switch accounts</string>
-    <!-- Summary of the preference item for switching accounts when no accounts
-         are selected [CHAR LIMIT=65] -->
-    <string name="no_accounts_selected">No accounts selected</string>
-    <!-- Summary of the preference item for switching accounts when an account
-         is selected [CHAR LIMIT=65] -->
-    <string name="account_selected">Currently using <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <!-- Text for signing out of an account -->
-    <string name="account_select_sign_out">Sign out</string>
-    <!-- Title of the account picker dialog for selecting an account [CHAR LIMIT=40] -->
-    <string name="account_select_title">Select an account to use</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -411,14 +381,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="subtype_locale">Language</string>
     <!-- Title of the spinner for choosing a keyboard layout of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="keyboard_layout_set">Layout</string>
-    <!-- The message of the dialog to note that a custom input style needs to be enabled. [CHAR LIMIT=130] -->
-    <string name="custom_input_style_note_message">"Your custom input style needs to be enabled before you start using it. Do you want to enable it now?"</string>
-    <!-- Title of the button to enable a custom input style entry in the settings dialog [CHAR LIMIT=15] -->
-    <string name="enable">Enable</string>
-    <!-- Title of the button to postpone enabling a custom input style entry in the settings dialog [CHAR LIMIT=15] -->
-    <string name="not_now">Not now</string>
-    <!-- Toast text to describe the same input style already exists [CHAR LIMIT=64]-->
-    <string name="custom_input_style_already_exists">"The same input style already exists: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g>"</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
@@ -465,10 +427,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="setup_step3_title">"Congratulations, you're all set!"</string>
     <!-- Detailed instruction of the 3rd step in the setup wizard. [CHAR LIMIT=120] -->
     <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <!-- The label of the button that triggers the screen for configuaring additional languages of the keyboard. [CHAR_LIMIT=64] -->
-    <string name="setup_step3_action">Configure additional languages</string>
     <!-- The label of the button that triggers the settings screen for the keyboard. [CHAR_LIMIT=64] -->
-    <string name="setup_step3_action_new">Configure the keyboard</string>
+    <string name="setup_step3_action">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
     <string name="setup_finish_action">Finished</string>
     <!-- Option to show setup wizard icon. [CHAR LIMIT=30]-->
@@ -479,10 +439,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="app_name">Dictionary Provider</string>
     <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
     <string name="dictionary_provider_name">Dictionary Provider</string>
-    <!-- The dictionary provider Service name. Visible in Settings/Applications/Running services. -->
-    <string name="dictionary_service_name">Dictionary Service</string>
-    <!-- Downloadable dictionaries will get update information through the network. This describes the associated download. -->
-    <string name="download_description">Dictionary update information</string>
     <!-- Title and summary of the dictionary settings screen -->
     <string name="dictionary_settings_title">Add-on dictionaries</string>
     <!-- Title for the prompt dialog which informs the user that a dictionary is available for the current language and asks to decide whether to download it over 3g -->
@@ -490,7 +446,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title for dictionaries preference screen -->
     <string name="dictionary_settings_category">Dictionaries</string>
     <!-- Summary text for built-in dictionary -->
-    <string name="internal_dictionary_summary">Built-in dictionary</string>
+    <string name="internal_dictionary_summary">Internal main dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
     <!-- Message when opening a dictionary file, showing type and dictionary language, prompting to choose a language to add it to -->
@@ -532,12 +488,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="default_user_dict_pref_name">User dictionary</string>
     <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
     <string name="dictionary_available">Dictionary available</string>
-    <!-- Message about some dictionary indicating it is downloading and should be available soon -->
-    <string name="dictionary_downloading">Currently downloading</string>
-    <!-- Message about some dictionary indicating it is already installed -->
-    <string name="dictionary_installed">Installed</string>
-    <!-- Message about some dictionary indicating the file is installed, but the dictionary is disabled -->
-    <string name="dictionary_disabled">Installed, disabled</string>
     <!-- Message to display in the dictionaries setting screen when some error prevented us to list installed dictionaries [CHAR LIMIT=20] -->
     <string name="cannot_connect_to_dict_service">Problem connecting to dictionary service</string>
     <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available [CHAR LIMIT=20]-->
@@ -546,23 +496,14 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="check_for_updates_now">Refresh</string>
     <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. [CHAR LIMIT=45] -->
     <string name="last_update">Last updated</string>
-    <!-- Message to display in a dialog box while we are actively updating the word list [CHAR LIMIT=60] -->
-    <string name="message_updating">Checking for updates</string>
-    <!-- Message to display while the add-on dictionary list is updating [no space constraints on this, there is plenty of space but shorter is better because it's only on the screen for a second] -->
-    <string name="message_loading">Loading…</string>
     <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
     <string name="main_dict_description">Main dictionary</string>
     <!-- Title of the button in a dialog box. The button takes the user to the keyboard settings. [CHAR LIMIT=15] -->
     <string name="go_to_settings">Settings</string>
-    <!-- Action to download and install a dictionary [CHAR_LIMIT=15] -->
-    <string name="install_dict">Install</string>
     <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
     <string name="delete_dict">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <!-- User dictionary settings -->
-    <!-- User dictionary settings.  The summary of the listem item to go into the User dictionary settings screen. -->
-    <string name="user_dict_settings_summary" translatable="false">""</string>
     <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->
     <!-- This resource is corresponding to  msgid="4056762757149923551" -->
     <string name="user_dict_settings_add_menu_title">Add</string>
@@ -624,23 +565,19 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Option for choosing theme family variant [CHAR LIMIT=33] -->
     <string name="theme_variant">Theme variant</string>
     <!-- Option for choosing theme family variant (night) [CHAR LIMIT=33] -->
-    <string name="theme_variant_night">Theme variant (night mode)</string>
+    <string name="theme_variant_night">Theme variant (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode">Auto day/night mode</string>
-    <!-- Message for the dialog to choose which user-defined theme to edit -->
-    <string name="day_or_night_colors">Edit day or night colors?</string>
-    <!-- Button of the dialog above for "day"-->
-    <string name="day_or_night_day">Day</string>
-    <!-- Button of the dialog above for "night"-->
-    <string name="day_or_night_night">Night</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
     <!-- Option for setting navbar to follow keyboard color -->
     <string name="theme_navbar">Color navigation bar</string>
     <!-- Theme name for light theme -->
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Light</string>
+    <!-- Theme name for holo white theme -->
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo White</string>
     <!-- Theme name for dark theme (based on old no-border dark) -->
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dark</string>
     <!-- Theme name for darker theme (based on old border dark), todo: re-consider that stupid name -->
@@ -649,12 +586,18 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
+    <!-- Theme name for user-defined theme night mode theme -->
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
     <!-- Option for selecting custom theme colors -->
     <string name="select_user_colors">Adjust theme colors</string>
+    <!-- Option for selecting custom theme colors for night mode only -->
+    <string name="select_user_colors_night">Adjust theme colors (night)</string>
+    <!-- Text when determining color automatically -->
+    <string name="auto_user_color">Choose color automatically</string>
+    <!-- Hint for text field just to show keyboard (in color settings) -->
+    <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
     <string name="select_user_colors_summary">Select colors for text and background</string>
-    <!-- Dialog message when selecting color to adjust. -->
-    <string name="select_color_to_adjust">Select colors to adjust</string>
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->
@@ -679,6 +622,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="dialog_close">Close</string>
     <!-- Preference for selecting system locales -->
     <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
+    <!-- Hint for users to tap the languages for settings -->
+    <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
     <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]

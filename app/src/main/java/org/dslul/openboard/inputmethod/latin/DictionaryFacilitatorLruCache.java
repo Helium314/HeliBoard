@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * This class automatically creates and releases up to 3 facilitator instances using LRU policy.
  */
 public class DictionaryFacilitatorLruCache {
-    private static final String TAG = "DictionaryFacilitatorLruCache";
+    private static final String TAG = "DictFacilitatorLruCache";
     private static final int WAIT_FOR_LOADING_MAIN_DICT_IN_MILLISECONDS = 1000;
     private static final int MAX_RETRY_COUNT_FOR_WAITING_FOR_LOADING_DICT = 5;
 

@@ -20,6 +20,7 @@
             latin:additionalMoreKeys="&#40;,&#60;,&#177;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
+            latin:keyLabelFlags="hasPopupHint"
             latin:keyWidth="15%p" />
         <Key
             latin:keySpec="1"
@@ -36,6 +37,7 @@
             latin:keyStyle="currencyHintStyle"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
+            latin:keyLabelFlags="hasPopupHint"
             latin:keyWidth="fillRight" />
     </Row>
     <!-- Second row -->
@@ -50,6 +52,7 @@
             latin:additionalMoreKeys="&#41;,&#62;,&#126;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
+            latin:keyLabelFlags="hasPopupHint"
             latin:keyWidth="15%p" />
         <Key
             latin:keySpec="4"
@@ -80,6 +83,7 @@
             latin:additionalMoreKeys="&#47;,&#215;,&#247;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
+            latin:keyLabelFlags="hasPopupHint"
             latin:keyWidth="15%p" />
         <Key
             latin:keySpec="7"
@@ -102,9 +106,7 @@
         <!-- &#44; "," COMMA SIGN -->
         <Key
             latin:keySpec="&#44;"
-            latin:keyLabelFlags="hasPopupHint"
-            latin:additionalMoreKeys="!text/keyspec_clipboard_normal_key,!text/keyspec_emoji_normal_key,!text/keyspec_language_switch,!text/keyspec_settings"
-            latin:backgroundType="functional"
+            latin:keyStyle="settingsMoreKeysStyle"
             latin:keyActionFlags="noKeyPreview"
             latin:keyWidth="10%p" />
         <Key
@@ -136,6 +138,7 @@
             latin:additionalMoreKeys="&#58;,&#8230;,&#59;,&#8734;,&#960;,&#8730;,&#176;,&#94;"
             latin:backgroundType="functional"
             latin:keyActionFlags="noKeyPreview"
+            latin:keyLabelFlags="hasPopupHint"
             latin:keyWidth="10%p" />
         <Key
             latin:keyStyle="enterKeyStyle"

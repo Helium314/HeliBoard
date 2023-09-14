@@ -35,11 +35,9 @@ import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
 
@@ -118,7 +116,7 @@ public class RichInputMethodManager {
     public @Nullable InputMethodSubtype getNextSubtypeInThisIme(final boolean onlyCurrentIme) {
         final InputMethodSubtype currentSubtype = getCurrentSubtype().getRawSubtype();
         final List<InputMethodSubtype> enabledSubtypes = getMyEnabledInputMethodSubtypeList(true);
-        final int currentIndex = getSubtypeIndexInList(currentSubtype, enabledSubtypes);
+        final int currentIndex = enabledSubtypes.indexOf(currentSubtype);
         if (currentIndex == INDEX_NOT_FOUND) {
             Log.w(TAG, "Can't find current subtype in enabled subtypes: subtype="
                     + SubtypeLocaleUtils.getSubtypeNameForLogging(currentSubtype));
@@ -197,36 +195,15 @@ public class RichInputMethodManager {
     }
 
     public boolean checkIfSubtypeBelongsToThisImeAndEnabled(final InputMethodSubtype subtype) {
-        return checkIfSubtypeBelongsToList(subtype,
-                getEnabledInputMethodSubtypeList(
-                        getInputMethodInfoOfThisIme(),
-                        true /* allowsImplicitlySelectedSubtypes */));
+        return getEnabledInputMethodSubtypeList(getInputMethodInfoOfThisIme(), true)
+                .contains(subtype);
     }
 
-    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
-            final InputMethodSubtype subtype) {
+    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(final InputMethodSubtype subtype) {
         final boolean subtypeEnabled = checkIfSubtypeBelongsToThisImeAndEnabled(subtype);
-        final boolean subtypeExplicitlyEnabled = checkIfSubtypeBelongsToList(subtype,
-                getMyEnabledInputMethodSubtypeList(false /* allowsImplicitlySelectedSubtypes */));
+        final boolean subtypeExplicitlyEnabled = getMyEnabledInputMethodSubtypeList(false)
+                .contains(subtype);
         return subtypeEnabled && !subtypeExplicitlyEnabled;
-    }
-
-    private static boolean checkIfSubtypeBelongsToList(final InputMethodSubtype subtype,
-            final List<InputMethodSubtype> subtypes) {
-        return getSubtypeIndexInList(subtype, subtypes) != INDEX_NOT_FOUND;
-    }
-
-    private static int getSubtypeIndexInList(final InputMethodSubtype subtype,
-            final List<InputMethodSubtype> subtypes) {
-        // todo: why not simply subtypes.indexOf(subtype)? should do exactly the same, even return the same value -1 if not found
-        final int count = subtypes.size();
-        for (int index = 0; index < count; index++) {
-            final InputMethodSubtype ims = subtypes.get(index);
-            if (ims.equals(subtype)) {
-                return index;
-            }
-        }
-        return INDEX_NOT_FOUND;
     }
 
     public void onSubtypeChanged(@NonNull final InputMethodSubtype newSubtype) {
@@ -392,38 +369,13 @@ public class RichInputMethodManager {
         updateShortcutIme();
     }
 
-    // todo: remove?
-    public boolean isSystemLocaleSameAsLocaleOfAllEnabledSubtypesOfEnabledImes() {
-        final Locale systemLocale = mContext.getResources().getConfiguration().locale;
-        final Set<InputMethodSubtype> enabledSubtypesOfEnabledImes = new HashSet<>();
-        final InputMethodManager inputMethodManager = getInputMethodManager();
-        final List<InputMethodInfo> enabledInputMethodInfoList =
-                inputMethodManager.getEnabledInputMethodList();
-        for (final InputMethodInfo info : enabledInputMethodInfoList) {
-            final List<InputMethodSubtype> enabledSubtypes =
-                    inputMethodManager.getEnabledInputMethodSubtypeList(
-                            info, true /* allowsImplicitlySelectedSubtypes */);
-            if (enabledSubtypes.isEmpty()) {
-                // An IME with no subtypes is found.
-                return false;
-            }
-            enabledSubtypesOfEnabledImes.addAll(enabledSubtypes);
-        }
-        for (final InputMethodSubtype subtype : enabledSubtypesOfEnabledImes) {
-            if (!subtype.isAuxiliary() && !subtype.getLocale().isEmpty()
-                    && !systemLocale.equals(SubtypeLocaleUtils.getSubtypeLocale(subtype))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
         SubtypeSettingsKt.setSelectedSubtype(DeviceProtectedUtils.getSharedPreferences(mContext), subtype);
         mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
-    // todo: what is shortcutIme? the voice input? if yes, rename it and other things like mHasShortcutKey
+    // todo: is shortcutIme only voice input, or can it be something else?
+    //  if always voice input, rename it and other things like mHasShortcutKey
     private void updateShortcutIme() {
         if (DEBUG) {
             Log.d(TAG, "Update shortcut IME from : "
@@ -495,12 +447,6 @@ public class RichInputMethodManager {
     }
 
     public boolean isShortcutImeReady() {
-        if (mShortcutInputMethodInfo == null) {
-            return false;
-        }
-        if (mShortcutSubtype == null) {
-            return true;
-        }
-        return true;
+        return mShortcutInputMethodInfo != null;
     }
 }

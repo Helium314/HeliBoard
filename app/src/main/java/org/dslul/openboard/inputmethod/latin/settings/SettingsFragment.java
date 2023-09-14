@@ -27,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -93,9 +94,9 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
 
-        // todo: got a crash because it wasn't initialized...
-        //  but sometimes wrong languages are returned when not initializing on creation of LatinIME
-        //  maybe wait until some user actually encounters this bug, initializing here is really rare
+        // sometimes wrong languages are returned when not initializing on creation of LatinIME
+        // this might be a bug, at least it's not documented
+        // but anyway, here is really rare (LatinIme should be loaded when the settings are opened)
         SubtypeSettingsKt.init(getActivity());
 
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
@@ -104,7 +105,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull final Menu menu, @NonNull final MenuInflater inflater) {
         if (FeedbackUtils.isHelpAndFeedbackFormSupported()) {
             menu.add(NO_MENU_GROUP, MENU_HELP_AND_FEEDBACK /* itemId */,
                     MENU_HELP_AND_FEEDBACK /* order */, R.string.help_and_feedback);
@@ -116,7 +117,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         final Activity activity = getActivity();
         if (!isUserSetupComplete(activity)) {
             // If setup is not complete, it's not safe to launch Help or other activities
@@ -151,14 +152,14 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         for (final InputMethodSubtype subtype : subtypes) {
             if (sb.length() > 0)
                 sb.append(", ");
-            sb.append(subtype.getDisplayName(getActivity(), getActivity().getPackageName(), getActivity().getApplicationInfo()));
+            sb.append(subtype.getDisplayName(getActivity(), requireContext().getPackageName(), requireContext().getApplicationInfo()));
         }
         return sb.toString();
     }
 
     private void askAboutCrashReports() {
         // find crash report files
-        final File dir = getActivity().getExternalFilesDir(null);
+        final File dir = requireContext().getExternalFilesDir(null);
         if (dir == null) return;
         final File[] allFiles = dir.listFiles();
         if (allFiles == null) return;
@@ -168,7 +169,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
                 crashReportFiles.add(file);
         }
         if (crashReportFiles.isEmpty()) return;
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(requireContext())
                 .setMessage("Crash report files found")
                 .setPositiveButton("get", (dialogInterface, i) -> {
                     final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
@@ -196,7 +197,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         if (uri == null) return;
         final OutputStream os;
         try {
-            os = getActivity().getContentResolver().openOutputStream(uri);
+            os = requireContext().getContentResolver().openOutputStream(uri);
             final BufferedOutputStream bos = new BufferedOutputStream(os);
             final ZipOutputStream z = new ZipOutputStream(bos);
             for (File file : crashReportFiles) {

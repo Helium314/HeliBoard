@@ -1,6 +1,6 @@
 ---
 name: Other
-about: Anything that does not fit into the other categories
+about: Anything that does not fit into the other categories. Please don't use this for questions or discussions.
 ---
 
 <!--

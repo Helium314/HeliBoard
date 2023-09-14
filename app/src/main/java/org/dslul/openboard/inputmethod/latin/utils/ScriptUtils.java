@@ -30,6 +30,7 @@ public class ScriptUtils {
     // Used for hardware keyboards
     public static final int SCRIPT_UNKNOWN = -1;
 
+    // These should be aligned with KeyboardLayoutSet_Feature values in attrs.xml.
     public static final int SCRIPT_ARABIC = 0;
     public static final int SCRIPT_ARMENIAN = 1;
     public static final int SCRIPT_BENGALI = 2;

@@ -1,7 +1,6 @@
 package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
-import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
@@ -49,7 +48,7 @@ fun showMissingDictionaryDialog(context: Context, locale: Locale) {
     val dictionaryLink = "<a href='$DICTIONARY_URL/src/branch/main/dictionaries/main_$locale.dict'>" + context.getString(
         R.string.dictionary_link_text) + "</a>"
 
-    val message = Html.fromHtml(context.getString(
+    val message = SpannableStringUtils.fromHtml(context.getString(
         R.string.no_dictionary_message,
         repositoryLink,
         locale.toString(),

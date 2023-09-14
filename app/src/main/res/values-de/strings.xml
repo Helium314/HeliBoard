@@ -17,24 +17,20 @@
 ** limitations under the License.
 */
  --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Eingabeoptionen"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Kontakte erkennen"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Rechtschreibprüfung kann Einträge aus meiner Kontaktliste verwenden"</string>
     <string name="vibrate_on_keypress">"Bei Tastendruck vibrieren"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Ton bei Tastendruck"</string>
     <string name="popup_on_keypress">"Bei Tastendruck Pop-up"</string>
     <string name="settings_screen_preferences">"Einstellungen"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Konten &amp; Datenschutz"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Darstellung &amp; Layouts"</string>
     <string name="settings_screen_gesture">"Gesteneingabe"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Textkorrektur"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Erweitert"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Design"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Geteilte Tastatur aktivieren"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Eingabemethoden wechseln"</string>
-    <string name="include_other_imes_in_language_switch_list_summary">"Sprachwechseltaste umfasst auch andere Eingabemethoden."</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Eingabemethoden wechseln"</string>
     <string name="show_language_switch_key">"Sprachwechsel"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Anzeigen, wenn mehrere Eingabesprachen aktiviert sind"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Tasten-Pop-up"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Keine Verzögerung"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Standard"</string>
@@ -43,7 +39,6 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"Kontakte vorschlagen"</string>
     <string name="use_contacts_dict_summary">"Namen aus \"Kontakte\" als Vorschläge und Korrekturmöglichkeiten anzeigen"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Personalisierte Vorschläge"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> verbessern</string>
     <string name="use_double_space_period">"Punkt plus Leerzeichen"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Doppeltippen auf Leertaste fügt Punkt und Leerzeichen ein"</string>
     <string name="auto_cap">"Autom. Groß-/Kleinschreibung"</string>
@@ -78,13 +73,6 @@
     <string name="select_language" msgid="5709487854987078367">"Sprachen"</string>
     <string name="hint_add_to_dictionary">"Zum Speichern noch einmal tippen"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Zum Speichern hier tippen"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Wörterbuch verfügbar"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Tastaturdesign"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Konto wechseln"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Keine Konten ausgewählt"</string>
-    <string name="account_selected" msgid="2846876462199625974">Derzeit wird <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g> verwendet</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Abmelden"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Zu verwendendes Konto auswählen"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Englisch (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Englisch (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spanisch (USA)"</string>
@@ -111,10 +99,6 @@
     <string name="save" msgid="7646738597196767214">"Speichern"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Sprache"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Layout"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Dein benutzerdefinierter Eingabestil muss vor der Verwendung aktiviert werden. Möchtest du ihn jetzt aktivieren?"</string>
-    <string name="enable" msgid="5031294444630523247">"Aktivieren"</string>
-    <string name="not_now" msgid="6172462888202790482">"Später"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Der gleiche Eingabestil ist bereits vorhanden: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Vibrationsdauer bei Tastendruck"</string>
     <string name="prefs_keypress_sound_volume_settings">"Tonlautstärke bei Tastendruck"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Dauer für langen Tastendruck"</string>
@@ -135,31 +119,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Eingabemethode wechseln"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">Hurra, die Einrichtung ist abgeschlossen!</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Jetzt kannst du in all deinen Lieblingsapps mit <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> schreiben.</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Weitere Sprachen konfigurieren"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Fertig"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"App-Symbol anzeigen"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"App-Symbol in der Übersicht anzeigen"</string>
     <string name="app_name">"Wörterbuchbereitstellung"</string>
     <string name="dictionary_provider_name">"Wörterbuchbereitstellung"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Wörterbuch"</string>
-    <string name="download_description" msgid="6014835283119198591">"Update-Informationen für Wörterbuch"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Erweiterte Wörterbücher"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Einstellungen für Wörterbücher"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Meine Wörterbücher"</string>
     <string name="default_user_dict_pref_name">"Mein Wörterbuch"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Wörterbuch verfügbar"</string>
-    <string name="dictionary_downloading">"Wird heruntergeladen..."</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Installiert"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Installiert, deaktiviert"</string>
     <string name="cannot_connect_to_dict_service">"Kein Wörterbuchdienst"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Keine Wörterbücher"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Aktualisieren"</string>
     <string name="last_update" msgid="730467549913588780">"Zuletzt aktualisiert"</string>
-    <string name="message_updating">"Suche nach Updates..."</string>
-    <string name="message_loading" msgid="5638680861387748936">"Wird geladen…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Allgemeines Wörterbuch"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Einstellungen"</string>
-    <string name="install_dict" msgid="180852772562189365">"Installieren"</string>
     <string name="delete_dict" msgid="756853268088330054">"Löschen"</string>
     <string name="version_text" msgid="2715354215568469385">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Hinzufügen"</string>
@@ -213,7 +188,6 @@
     <string name="autospace_after_punctuation">Automatisches Leerzeichen nach Punkt</string>
     <string name="show_hints_summary">Hinweise bei langem Halten anzeigen</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Eingabemethode mit der Leertaste ändern</string>
-    <string name="prefs_resize_keyboard">Tastatur-Größenanpassung aktivieren</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langes Halten der Leertaste öffnet das Eingabemethoden-Menü</string>
     <string name="theme_family">Designsprache</string>
     <string name="prefs_keyboard_height_scale">Tastaturgröße</string>

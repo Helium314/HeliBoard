@@ -25,9 +25,9 @@
         name="KeyboardView.LXX_Base"
         parent="KeyboardView.LXX"
         >
-        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
+        <item name="android:background">@color/keyboard_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base</item>
         <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_lxx_base</item>
         <item name="keyTextColor">@color/key_text_color_lxx_light</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
@@ -67,24 +67,23 @@
         <item name="categoryIndicatorEnabled">false</item>
         <item name="categoryPageIndicatorColor">@color/highlight_color_lxx_light</item>
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
-        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx_light</item>
-        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx_light</item>
-        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx_light</item>
-        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx_light</item>
-        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_lxx_light</item>
-        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_lxx_light</item>
-        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_lxx_light</item>
-        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_lxx_light</item>
-        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_lxx_light</item>
-        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_lxx_light</item>
-        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_lxx_light</item>
+        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx_wrap</item>
+        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx</item>
+        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx</item>
+        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx</item>
+        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_lxx</item>
+        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_lxx</item>
+        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_lxx</item>
+        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_lxx</item>
+        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_lxx</item>
+        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_lxx</item>
+        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_lxx</item>
     </style>
     <style
         name="ClipboardHistoryView.LXX_Base"
         parent="MainKeyboardView.LXX_Base"
         >
         <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx_light</item>
-        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
     </style>
     <style
         name="MoreKeysKeyboard.LXX_Base"

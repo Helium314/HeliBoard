@@ -62,14 +62,6 @@ public class DictionaryInfoUtils {
     private static final int MAX_HEX_DIGITS_FOR_CODEPOINT = 6;
 
     public static class DictionaryInfo {
-        private static final String LOCALE_COLUMN = "locale";
-        private static final String WORDLISTID_COLUMN = "id";
-        private static final String LOCAL_FILENAME_COLUMN = "filename";
-        private static final String DESCRIPTION_COLUMN = "description";
-        private static final String DATE_COLUMN = "date";
-        private static final String FILESIZE_COLUMN = "filesize";
-        private static final String VERSION_COLUMN = "version";
-
         @NonNull public final String mId;
         @NonNull public final Locale mLocale;
         @Nullable public final String mDescription;
@@ -88,18 +80,6 @@ public class DictionaryInfoUtils {
             mFilesize = filesize;
             mModifiedTimeMillis = modifiedTimeMillis;
             mVersion = version;
-        }
-
-        public ContentValues toContentValues() {
-            final ContentValues values = new ContentValues();
-            values.put(WORDLISTID_COLUMN, mId);
-            values.put(LOCALE_COLUMN, mLocale.toString());
-            values.put(DESCRIPTION_COLUMN, mDescription);
-            values.put(LOCAL_FILENAME_COLUMN, mFilename != null ? mFilename : "");
-            values.put(DATE_COLUMN, TimeUnit.MILLISECONDS.toSeconds(mModifiedTimeMillis));
-            values.put(FILESIZE_COLUMN, mFilesize);
-            values.put(VERSION_COLUMN, mVersion);
-            return values;
         }
 
         @Override

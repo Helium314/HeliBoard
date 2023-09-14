@@ -4,7 +4,7 @@
     android:shape="oval">
 
     <solid
-        android:color="@color/action_key_background_pressed_lxx_base"/>
+        android:color="@color/key_background_lxx_base"/>
 
     <size
         android:width="35dp"

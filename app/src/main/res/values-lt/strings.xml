@@ -20,24 +20,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Įvesties parinktys"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Kontaktų vardų paieška"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Rašybos tikrinimo progr. naudoja įrašus, esančius kontaktų sąraše"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibruoti, kai paspaudžiami klavišai"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Klavišo paspaudimo garsas"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Iššoka paspaudus klavišą"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Nuostatos"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Paskyros ir privatumas"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Išvaizda ir išdėstymai"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Įvestis gestais"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Teksto taisymas"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Išplėstiniai"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Įgalinti suskaidytą klaviatūrą"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Perj. į kt. įvesties būd."</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Kalbos perjungimo klavišu taip pat perjungiami įvesties būdai"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Perj. į kt. įvesties būd."</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Kalbos keitimo klavišas"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Rodyti, kai įgalintos kelios įvesties kalbos"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Pagr. išš. l. atsis. d."</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Be delsos"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Numatytasis"</string>
@@ -46,7 +42,6 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"Siūlyti kontaktų vardus"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Siūlant ir taisant naudoti vardus iš „Kontaktų“"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Suasmeninti pasiūlymai"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Patobulinti „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Tšk. ir tarp. pal. dukart"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Dukart palietus tarpo klavišą įterpiamas taškas ir tarpas."</string>
     <string name="auto_cap" msgid="1719746674854628252">"Automatinis didžiųjų raidžių rašymas"</string>
@@ -81,13 +76,6 @@
     <string name="select_language" msgid="5709487854987078367">"Kalbos"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Palieskite dar kartą, kad išsaugotumėte"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Palieskite čia, kad išsaugotumėte"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Žodynas galimas"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Klaviatūros tema"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Perjungti paskyras"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Nepasirinkta jokia paskyra"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Šiuo metu naudojama <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Atsijungti"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Pasirinkite norimą naudoti paskyrą"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Anglų k. (JK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Anglų k. (JAV)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Ispanų k. (JAV)"</string>
@@ -114,10 +102,6 @@
     <string name="save" msgid="7646738597196767214">"Išsaugoti"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Kalba"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Išdėstymas"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Norint pradėti naudoti pasirinkiamą įvesties stilių, reikia jį įgalinti. Ar norite įgalinti jį dabar?"</string>
-    <string name="enable" msgid="5031294444630523247">"Įgalinti"</string>
-    <string name="not_now" msgid="6172462888202790482">"Ne dabar"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Toks pat įvesties stilius jau yra: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Vibrav. paspaudus mygt. trukmė"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Garso paspaudus mygt. garsumas"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Klavišo ilgo paspaudimo delsa"</string>
@@ -138,31 +122,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Perjungti įvesties metodus"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Sveikiname, viską nustatėte!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">"Dabar galite įvesti visas mėgstamas programas naudodami „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Konfigūruokite papildomas kalbas"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Baigta"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Rodyti programos piktogramą"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Pateikti programos piktogramą paleidimo priemonėje"</string>
     <string name="app_name" msgid="6320102637491234792">"Žodyno teikėjas"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Žodyno teikėjas"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Žodyno paslauga"</string>
-    <string name="download_description" msgid="6014835283119198591">"Žodyno atnaujinimo informacija"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Papildomi žodynai"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Žodynų nustatymai"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Naudotojo žodynai"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Naudotojo žodynas"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Galimas žodynas"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Šiuo metu atsisiunčiama"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Įdiegta"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Įdiegta, neleidžiama"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Prisijung. problema"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Nėra galimų žodynų"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Atnaujinti"</string>
     <string name="last_update" msgid="730467549913588780">"Paskutinį kartą atnaujinta"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Ieškoma naujinių"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Įkeliama…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Pagrindinis žodynas"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Nustatymai"</string>
-    <string name="install_dict" msgid="180852772562189365">"Įdiegti"</string>
     <string name="delete_dict" msgid="756853268088330054">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt" msgid="6737084685073734292">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; <xliff:g id="LANGUAGE_NAME">%1$s</xliff:g> žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
 )  -->

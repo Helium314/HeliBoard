@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -48,6 +49,7 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
@@ -57,8 +59,10 @@ import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.Mor
 import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -147,7 +151,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackgroundColor(word.getBackground(), Colors.TYPE_BACKGROUND);
+            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION); // only necessary in some Android versions
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -185,10 +189,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mOtherKey.setImageDrawable(iconIncognito);
 
-        colors.setBackgroundColor(getBackground(), Colors.TYPE_BACKGROUND);
-        mClipboardKey.setColorFilter(colors.keyText);
-        mVoiceKey.setColorFilter(colors.keyText);
-        mOtherKey.setColorFilter(colors.keyText);
+        colors.setKeyboardBackground(this);
+        mClipboardKey.setColorFilter(colors.getKeyText());
+        mVoiceKey.setColorFilter(colors.getKeyText());
+        mOtherKey.setColorFilter(colors.getKeyText());
+
+        // only necessary in some Android versions
+        colors.setBackgroundColor(mClipboardKey.getBackground(), BackgroundType.SUGGESTION);
+        colors.setBackgroundColor(mVoiceKey.getBackground(), BackgroundType.SUGGESTION);
+        colors.setBackgroundColor(mOtherKey.getBackground(), BackgroundType.SUGGESTION);
     }
 
     /**
@@ -299,71 +308,89 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
                 Constants.NOT_A_CODE, this);
-        if (isShowingMoreSuggestionPanel() || !showMoreSuggestions()) {
-            for (int i = 0; i <= mStartIndexOfMoreSuggestions; i++) {
-                if (view == mWordViews.get(i)) {
-                    showDeleteSuggestionDialog(mWordViews.get(i));
-                    return true;
+        if (view instanceof TextView && mWordViews.contains(view)) {
+            final Drawable icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_delete);
+            icon.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
+            int w = icon.getIntrinsicWidth();
+            int h = icon.getIntrinsicWidth();
+            final TextView wordView = (TextView) view;
+            wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            wordView.setEllipsize(TextUtils.TruncateAt.END);
+            AtomicBoolean downOk = new AtomicBoolean(false);
+            wordView.setOnTouchListener((view1, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    final float x = motionEvent.getX();
+                    final float y = motionEvent.getY();
+                    if (0 < x && x < w && 0 < y && y < h) {
+                        removeSuggestion(wordView);
+                        wordView.cancelLongPress();
+                        wordView.setPressed(false);
+                        return true;
+                    }
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    final float x = motionEvent.getX();
+                    final float y = motionEvent.getY();
+                    if (0 < x && x < w && 0 < y && y < h) {
+                        downOk.set(true);
+                    }
+                }
+                return false;
+            });
+            if (BuildConfig.DEBUG && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
+                showSourceDict(wordView);
+                return true;
+            } else return showMoreSuggestions();
+        } else return showMoreSuggestions();
+    }
+
+    private void showSourceDict(final TextView wordView) {
+        final String word = wordView.getText().toString();
+        final int index;
+        if (wordView.getTag() instanceof Integer) {
+            index = (int) wordView.getTag();
+        } else return;
+        if (index >= mSuggestedWords.size()) return;
+        final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
+        if (!info.getWord().equals(word)) return;
+        final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
+        // apparently toast is not working on some Android versions, probably
+        // Android 13 with the notification permission
+        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
+        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
+        uglyWorkaround.show();
+    }
+
+    private void removeSuggestion(TextView wordView) {
+        final String word = wordView.getText().toString();
+        mListener.removeSuggestion(word);
+        mMoreSuggestionsView.dismissMoreKeysPanel();
+        // show suggestions, but without the removed word
+        final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
+        for (int i = 0; i < mSuggestedWords.size(); i ++) {
+            final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
+            if (!info.getWord().equals(word))
+                sw.add(info);
+        }
+        ArrayList<SuggestedWordInfo> rs = null;
+        if (mSuggestedWords.mRawSuggestions != null) {
+            rs = mSuggestedWords.mRawSuggestions;
+            for (int i = 0; i < rs.size(); i ++) {
+                if (rs.get(i).getWord().equals(word)) {
+                    rs.remove(i);
+                    break;
                 }
             }
         }
-        return true;
-    }
-
-    private void showDeleteSuggestionDialog(final TextView wordView) {
-        final String word = wordView.getText().toString();
-
-        final PopupMenu menu = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
-        menu.getMenu().add(Menu.NONE, 1, Menu.NONE, R.string.remove_suggestions);
-        if (BuildConfig.DEBUG)
-            menu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Show source dictionary");
-        menu.setOnMenuItemClickListener(menuItem -> {
-            if (menuItem.getItemId() == 2) {
-                for (int i = 0; i < mSuggestedWords.size(); i ++) {
-                    final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
-                    if (info.getWord().equals(word)) {
-                        final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-                        // apparently toast is not working on some Android versions, probably
-                        // Android 13 with the notification permission
-                        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-                        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
-                        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
-                        uglyWorkaround.show();
-                    }
-                }
-                return true;
-            }
-            mListener.removeSuggestion(word);
-            mMoreSuggestionsView.dismissMoreKeysPanel();
-            // show suggestions, but without the removed word
-            final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
-            for (int i = 0; i < mSuggestedWords.size(); i ++) {
-                final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
-                if (!info.getWord().equals(word))
-                    sw.add(info);
-            }
-            ArrayList<SuggestedWordInfo> rs = null;
-            if (mSuggestedWords.mRawSuggestions != null) {
-                rs = mSuggestedWords.mRawSuggestions;
-                for (int i = 0; i < rs.size(); i ++) {
-                    if (rs.get(i).getWord().equals(word)) {
-                        rs.remove(i);
-                        break;
-                    }
-                }
-            }
-            // copied code from setSuggestions, but without the Rtl part
-            clear();
-            mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
-                    mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
-                    mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
-                    mSuggestedWords.mSequenceNumber);
-            mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                    getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
-            mStripVisibilityGroup.showSuggestionsStrip();
-            return true;
-        });
-        menu.show();
+        // copied code from setSuggestions, but without the Rtl part
+        clear();
+        mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
+                mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
+                mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
+                mSuggestedWords.mSequenceNumber);
+        mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
+                getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+        mStripVisibilityGroup.showSuggestionsStrip();
     }
 
     boolean showMoreSuggestions() {
@@ -385,10 +412,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsView.setKeyboard(builder.build());
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        final MoreKeysPanel moreKeysPanel = mMoreSuggestionsView;
         final int pointX = stripWidth / 2;
         final int pointY = -layoutHelper.mMoreSuggestionsBottomGap;
-        moreKeysPanel.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
+        mMoreSuggestionsView.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
                 mMoreSuggestionsListener);
         mOriginX = mLastX;
         mOriginY = mLastY;

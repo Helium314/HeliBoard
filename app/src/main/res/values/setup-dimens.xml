@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <!-- Setup wizard dimensions for small-phone/portrait. -->
+    <dimen name="setup_title_text_size">40sp</dimen>
+    <dimen name="setup_welcome_description_text_size">20sp</dimen>
+    <dimen name="setup_step_bullet_text_size">18sp</dimen>
+    <dimen name="setup_step_triangle_indicator_height">18dp</dimen>
+    <dimen name="setup_step_title_text_size">18sp</dimen>
+    <dimen name="setup_step_instruction_text_size">14sp</dimen>
+    <dimen name="setup_step_action_text_size">16sp</dimen>
+    <dimen name="setup_vertical_padding">2dp</dimen>
+    <dimen name="setup_horizontal_padding">12dp</dimen>
+    <dimen name="setup_step_action_height">46dp</dimen>
+    <dimen name="setup_step_horizontal_padding">20dp</dimen>
+    <dimen name="setup_step_horizontal_padding_half">10dp</dimen>
+    <dimen name="setup_step_action_padding">6dp</dimen>
+    <dimen name="setup_step_vertical_padding">12dp</dimen>
+    <dimen name="setup_step_horizontal_line_height">2dp</dimen>
+    <integer name="setup_title_weight_in_screen">40</integer>
+    <integer name="setup_body_weight_in_screen">60</integer>
+    <dimen name="setup_title_end_margin">16dp</dimen>
+    <dimen name="setup_welcome_description_top_margin">4dp</dimen>
+    <dimen name="setup_welcome_video_top_padding">12dp</dimen>
+    <dimen name="setup_welcome_video_bottom_padding">12dp</dimen>
+    <integer name="setup_welcome_video_weight_in_screen">30</integer>
+    <integer name="setup_welcome_video_end_padding_weight_in_screen">5</integer>
+</resources>

@@ -5,7 +5,7 @@ import java.util.*
 
 object EditorInfoCompatUtils {
     // Note that EditorInfo.IME_FLAG_FORCE_ASCII has been introduced
-// in API level 16 (Build.VERSION_CODES.JELLY_BEAN).
+    // in API level 16 (Build.VERSION_CODES.JELLY_BEAN).
     private val FIELD_IME_FLAG_FORCE_ASCII = CompatUtils.getField(
             EditorInfo::class.java, "IME_FLAG_FORCE_ASCII")
     private val OBJ_IME_FLAG_FORCE_ASCII: Int? = CompatUtils.getFieldValue(
@@ -13,12 +13,12 @@ object EditorInfoCompatUtils {
     private val FIELD_HINT_LOCALES = CompatUtils.getField(
             EditorInfo::class.java, "hintLocales")
 
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun hasFlagForceAscii(imeOptions: Int): Boolean {
         return if (OBJ_IME_FLAG_FORCE_ASCII == null) false else imeOptions and OBJ_IME_FLAG_FORCE_ASCII != 0
     }
 
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun imeActionName(imeOptions: Int): String {
         val actionId = imeOptions and EditorInfo.IME_MASK_ACTION
         return when (actionId) {
@@ -49,10 +49,10 @@ object EditorInfoCompatUtils {
         if (hasFlagForceAscii(imeOptions)) {
             flags.append("flagForceAscii|")
         }
-        return if (action != null) flags.toString() + action else flags.toString()
+        return flags.toString() + action
     }
 
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun getPrimaryHintLocale(editorInfo: EditorInfo?): Locale? {
         if (editorInfo == null) {
             return null
@@ -61,6 +61,6 @@ object EditorInfoCompatUtils {
                 ?: return null
         return if (LocaleListCompatUtils.isEmpty(localeList)) {
             null
-        } else LocaleListCompatUtils.get(localeList, 0)
+        } else LocaleListCompatUtils[localeList, 0]
     }
 }

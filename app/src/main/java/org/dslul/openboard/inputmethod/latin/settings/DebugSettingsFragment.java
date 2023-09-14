@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Process;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.TwoStatePreference;
@@ -57,8 +58,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
             removePreference(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI);
         }
 
-        final PreferenceGroup dictDumpPreferenceGroup =
-                (PreferenceGroup)findPreference(PREF_KEY_DUMP_DICTS);
+        final PreferenceGroup dictDumpPreferenceGroup = findPreference(PREF_KEY_DUMP_DICTS);
         for (final String dictName : DictionaryFacilitatorImpl.DICT_TYPE_TO_CLASS.keySet()) {
             final Preference pref = new DictDumpPreference(getActivity(), dictName);
             pref.setOnPreferenceClickListener(this);
@@ -81,11 +81,9 @@ public final class DebugSettingsFragment extends SubScreenFragment
                 defaultKeyPreviewDismissEndScale);
         setupKeyPreviewAnimationScale(DebugSettings.PREF_KEY_PREVIEW_DISMISS_END_Y_SCALE,
                 defaultKeyPreviewDismissEndScale);
-        setupKeyboardHeight(
-                DebugSettings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE);
 
         mServiceNeedsRestart = false;
-        mDebugMode = (TwoStatePreference) findPreference(DebugSettings.PREF_DEBUG_MODE);
+        mDebugMode = findPreference(DebugSettings.PREF_DEBUG_MODE);
         updateDebugMode();
     }
 
@@ -101,15 +99,14 @@ public final class DebugSettingsFragment extends SubScreenFragment
     }
 
     @Override
-    public boolean onPreferenceClick(final Preference pref) {
-        final Context context = getActivity();
+    public boolean onPreferenceClick(@NonNull final Preference pref) {
         if (pref instanceof DictDumpPreference) {
             final DictDumpPreference dictDumpPref = (DictDumpPreference)pref;
             final String dictName = dictDumpPref.mDictName;
             final Intent intent = new Intent(
                     DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
             intent.putExtra(DictionaryDumpBroadcastReceiver.DICTIONARY_NAME_KEY, dictName);
-            context.sendBroadcast(intent);
+            pref.getContext().sendBroadcast(intent);
             return true;
         }
         return true;
@@ -119,7 +116,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     public void onStop() {
         super.onStop();
         if (mServiceNeedsRestart) {
-            Process.killProcess(Process.myPid());
+            Runtime.getRuntime().exit(0);
         }
     }
 
@@ -129,11 +126,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
             mDebugMode.setChecked(prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false));
             updateDebugMode();
             mServiceNeedsRestart = true;
-            return;
-        }
-        if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
+        } else if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
             mServiceNeedsRestart = true;
-            return;
         }
     }
 
@@ -153,7 +147,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     private void setupKeyPreviewAnimationScale(final String prefKey, final float defaultValue) {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(prefKey);
+        final SeekBarDialogPreference pref = findPreference(prefKey);
         if (pref == null) {
             return;
         }
@@ -205,7 +199,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     private void setupKeyPreviewAnimationDuration(final String prefKey, final int defaultValue) {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(prefKey);
+        final SeekBarDialogPreference pref = findPreference(prefKey);
         if (pref == null) {
             return;
         }
@@ -232,7 +226,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
 
             @Override
             public String getValueText(final int value) {
-                return res.getString(R.string.abbreviation_unit_milliseconds, value);
+                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
             }
 
             @Override
@@ -240,49 +234,4 @@ public final class DebugSettingsFragment extends SubScreenFragment
         });
     }
 
-    private void setupKeyboardHeight(final String prefKey, final float defaultValue) {
-        final SharedPreferences prefs = getSharedPreferences();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(prefKey);
-        if (pref == null) {
-            return;
-        }
-        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
-            private static final float PERCENTAGE_FLOAT = 100.0f;
-            private float getValueFromPercentage(final int percentage) {
-                return percentage / PERCENTAGE_FLOAT;
-            }
-
-            private int getPercentageFromValue(final float floatValue) {
-                return (int)(floatValue * PERCENTAGE_FLOAT);
-            }
-
-            @Override
-            public void writeValue(final int value, final String key) {
-                prefs.edit().putFloat(key, getValueFromPercentage(value)).apply();
-            }
-
-            @Override
-            public void writeDefaultValue(final String key) {
-                prefs.edit().remove(key).apply();
-            }
-
-            @Override
-            public int readValue(final String key) {
-                return getPercentageFromValue(Settings.readKeyboardHeight(prefs, defaultValue));
-            }
-
-            @Override
-            public int readDefaultValue(final String key) {
-                return getPercentageFromValue(defaultValue);
-            }
-
-            @Override
-            public String getValueText(final int value) {
-                return String.format(Locale.ROOT, "%d%%", value);
-            }
-
-            @Override
-            public void feedbackValue(final int value) {}
-        });
-    }
 }

@@ -166,7 +166,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
      * {@inheritDoc}
      */
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(keyboard, 0 /* correctionX */, 0 /* correctionY */);
         mMoreKeysKeyboardCache.clear();
@@ -321,22 +321,12 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     private void registerPress(final Key key) {
         // Do not trigger key-down effect right now in case this is actually a fling action.
-        mPendingKeyDown = new Runnable() {
-            @Override
-            public void run() {
-                callListenerOnPressKey(key);
-            }
-        };
+        mPendingKeyDown = () -> callListenerOnPressKey(key);
         mHandler.postDelayed(mPendingKeyDown, KEY_PRESS_DELAY_TIME);
     }
 
     private void registerLongPress(final Key key) {
-        mPendingLongPress = new Runnable() {
-            @Override
-            public void run() {
-                onLongPressed(key);
-            }
-        };
+        mPendingLongPress = () -> onLongPressed(key);
         mHandler.postDelayed(mPendingLongPress, getLongPressTimeout());
     }
 

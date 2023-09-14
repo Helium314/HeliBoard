@@ -73,8 +73,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
      * @param text The text to send with the event.
      */
     protected fun sendWindowStateChanged(text: String?) {
-        val stateChange = AccessibilityEvent.obtain(
-                AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+        val stateChange = AccessibilityUtils.obtainEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
         mKeyboardView!!.onInitializeAccessibilityEvent(stateChange)
         stateChange.text.add(text)
         stateChange.contentDescription = null

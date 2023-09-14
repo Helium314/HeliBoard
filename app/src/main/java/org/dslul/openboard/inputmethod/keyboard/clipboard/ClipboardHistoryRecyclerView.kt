@@ -1,12 +1,9 @@
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         context: Context,
@@ -56,25 +53,4 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         adapter?.registerAdapterDataObserver(adapterDataObserver)
     }
 
-    class BottomDividerItemDecoration(dividerHeight: Int, dividerColor: Int) : RecyclerView.ItemDecoration() {
-
-        private val paint = Paint()
-
-        init {
-            paint.color = dividerColor
-            paint.strokeWidth = dividerHeight.toFloat()
-            paint.colorFilter = Settings.getInstance().current.mColors.backgroundFilter
-        }
-
-        override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: State) {
-            super.onDrawOver(canvas, parent, state)
-            canvas.drawLine(parent.paddingLeft.toFloat(),
-                    parent.height - paint.strokeWidth / 2,
-                    parent.width.toFloat() - parent.paddingRight.toFloat(),
-                    parent.height - paint.strokeWidth / 2 ,
-                    paint
-            )
-        }
-
-    }
 }

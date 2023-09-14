@@ -2,13 +2,14 @@ package org.dslul.openboard.inputmethod.latin
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
-import org.dslul.openboard.inputmethod.latin.common.Colors
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 
@@ -57,8 +58,10 @@ class KeyboardWrapperView @JvmOverloads constructor(
         val colors = Settings.getInstance().current.mColors
         stopOneHandedModeBtn.colorFilter = colors.keyTextFilter
         switchOneHandedModeBtn.colorFilter = colors.keyTextFilter
-        colors.setBackgroundColor(stopOneHandedModeBtn.background, Colors.TYPE_BACKGROUND)
-        colors.setBackgroundColor(switchOneHandedModeBtn.background, Colors.TYPE_BACKGROUND)
+        colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND)
+        colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND)
+        setBackgroundColor(Color.WHITE) // otherwise background might be null
+        colors.setKeyboardBackground(this)
     }
 
     @SuppressLint("RtlHardcoded")
@@ -120,22 +123,13 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 buttonsLeft + (spareWidth + switchOneHandedModeBtn.measuredWidth) / 2,
                 2 * stopOneHandedModeBtn.measuredHeight + switchOneHandedModeBtn.measuredHeight
         )
-        Settings.getInstance().current.mColors.keyboardBackground?.let { background = it }
     }
 
     init {
-        val keyboardAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.Keyboard, defStyle, R.style.Keyboard)
+        @SuppressLint("CustomViewStyleable")
+        val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.Keyboard)
         iconStopOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconStopOneHandedMode, 0)
         iconSwitchOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconSwitchOneHandedMode, 0)
         keyboardAttr.recycle()
-
-        val themeAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.KeyboardTheme, defStyle, 0)
-        val keyboardViewStyleId = themeAttr.getResourceId(R.styleable.KeyboardTheme_mainKeyboardViewStyle, 0)
-        themeAttr.recycle()
-        val styleAttr = context.obtainStyledAttributes(keyboardViewStyleId, intArrayOf(android.R.attr.background))
-        setBackgroundResource(styleAttr.getResourceId(0, 0))
-        styleAttr.recycle()
     }
 }

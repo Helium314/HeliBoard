@@ -29,8 +29,6 @@ public final class DebugSettings {
     public static final String PREF_FORCE_NON_DISTINCT_MULTITOUCH = "force_non_distinct_multitouch";
     public static final String PREF_HAS_CUSTOM_KEY_PREVIEW_ANIMATION_PARAMS =
             "pref_has_custom_key_preview_animation_params";
-    public static final String PREF_RESIZE_KEYBOARD = "pref_resize_keyboard";
-    public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
     public static final String PREF_KEY_PREVIEW_DISMISS_DURATION =
             "pref_key_preview_dismiss_duration";
     public static final String PREF_KEY_PREVIEW_DISMISS_END_X_SCALE =

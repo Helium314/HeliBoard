@@ -228,7 +228,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
                 return key.label!!.trim { it <= ' ' }
             }
             resId = when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> R.string.spoken_description_search
+                EditorInfo.IME_ACTION_SEARCH -> R.string.label_search_key
                 EditorInfo.IME_ACTION_GO -> R.string.label_go_key
                 EditorInfo.IME_ACTION_SEND -> R.string.label_send_key
                 EditorInfo.IME_ACTION_NEXT -> R.string.label_next_key

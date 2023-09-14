@@ -86,16 +86,16 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        setPreferenceEnabled(Settings.PREF_VIBRATION_DURATION_SETTINGS,
+        setPreferenceVisible(Settings.PREF_VIBRATION_DURATION_SETTINGS,
                 Settings.readVibrationEnabled(prefs, res));
-        setPreferenceEnabled(Settings.PREF_KEYPRESS_SOUND_VOLUME,
+        setPreferenceVisible(Settings.PREF_KEYPRESS_SOUND_VOLUME,
                 Settings.readKeypressSoundEnabled(prefs, res));
-        setPreferenceEnabled(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+        setPreferenceVisible(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
                 Settings.readClipboardHistoryEnabled(prefs));
     }
 
     private void setupKeypressVibrationDurationSettings() {
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_VIBRATION_DURATION_SETTINGS);
         if (pref == null) {
             return;
@@ -133,20 +133,20 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 if (value < 0) {
                     return res.getString(R.string.settings_system_default);
                 }
-                return res.getString(R.string.abbreviation_unit_milliseconds, value);
+                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
             }
         });
     }
 
     private void setupKeypressSoundVolumeSettings() {
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_KEYPRESS_SOUND_VOLUME);
         if (pref == null) {
             return;
         }
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final AudioManager am = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager am = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
         pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
             private static final float PERCENTAGE_FLOAT = 100.0f;
 
@@ -197,7 +197,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     private void setupHistoryRetentionTimeSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
         if (pref == null) {
             return;
@@ -228,7 +228,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 if (value <= 0) {
                     return res.getString(R.string.settings_no_limit);
                 }
-                return res.getString(R.string.abbreviation_unit_minutes, value);
+                return res.getString(R.string.abbreviation_unit_minutes, Integer.toString(value));
             }
 
             @Override

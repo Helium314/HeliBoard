@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.Colors
-import org.dslul.openboard.inputmethod.latin.common.HoloColors
+import org.dslul.openboard.inputmethod.latin.common.BackgroundType
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class ClipboardAdapter(
@@ -56,7 +55,7 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
-                Settings.getInstance().current.mColors.setBackgroundColor(background, Colors.TYPE_KEY)
+                Settings.getInstance().current.mColors.setBackgroundColor(background, BackgroundType.KEY)
             }
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
                 visibility = View.GONE
@@ -69,8 +68,7 @@ class ClipboardAdapter(
             }
             clipboardLayoutParams.setItemProperties(view)
             val colors = Settings.getInstance().current.mColors
-            if (colors is HoloColors) // todo: this logic should be in Colors, not here
-                pinnedIconView.colorFilter = colors.accentColorFilter
+            pinnedIconView.colorFilter = colors.clipboardPinFilter
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {

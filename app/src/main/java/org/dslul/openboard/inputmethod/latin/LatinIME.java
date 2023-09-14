@@ -63,7 +63,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
-import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
@@ -160,7 +159,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @UsedForTesting final KeyboardSwitcher mKeyboardSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
     private EmojiAltPhysicalKeyDetector mEmojiAltPhysicalKeyDetector;
-    private StatsUtilsManager mStatsUtilsManager;
+    private final StatsUtilsManager mStatsUtilsManager;
     // Working variable for {@link #startShowingInputView()} and
     // {@link #onEvaluateInputViewShown()}.
     private boolean mIsExecutingStartShowingInputView;
@@ -213,7 +212,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
     final RestartAfterDeviceUnlockReceiver mRestartAfterDeviceUnlockReceiver = new RestartAfterDeviceUnlockReceiver();
 
-    private AlertDialog mOptionsDialog; // todo: this is always null -> remove?
+    private AlertDialog mOptionsDialog;
 
     private final boolean mIsHardwareAcceleratedDrawingEnabled;
 
@@ -754,7 +753,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mInputLogic.mSuggest.setAutoCorrectionThreshold(
                     settingsValues.mAutoCorrectionThreshold);
         }
-        mInputLogic.mSuggest.setPlausibilityThreshold(settingsValues.mPlausibilityThreshold);
     }
 
     /**
@@ -1070,8 +1068,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 suggest.setAutoCorrectionThreshold(
                         currentSettingsValues.mAutoCorrectionThreshold);
             }
-            suggest.setPlausibilityThreshold(currentSettingsValues.mPlausibilityThreshold);
-
             switcher.loadKeyboard(editorInfo, currentSettingsValues, getCurrentAutoCapsState(),
                     getCurrentRecapitalizeState());
             if (needToCallLoadKeyboardLater) {
@@ -1419,13 +1415,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public boolean onCustomRequest(final int requestCode) {
         if (isShowingOptionDialog()) return false;
-        switch (requestCode) {
-            case Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER:
-                if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */)) {
-                    InputMethodPickerKt.showInputMethodPicker(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
-                    return true; // todo: don't show and return if dialog already shown? but how can this happen?
-                }
-                return false;
+        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
+            if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */)) {
+                mOptionsDialog = InputMethodPickerKt.createInputMethodPickerDialog(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
+                mOptionsDialog.show();
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -1475,28 +1471,57 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         return mOptionsDialog != null && mOptionsDialog.isShowing();
     }
 
-    // TODO: Revise the language switch key behavior to make it much smarter and more reasonable.
+    // called when language switch key is pressed (either the keyboard key, or long-press comma)
     public void switchToNextSubtype() {
-        if (shouldSwitchToOtherInputMethods()) {
-            // todo: this is the old behavior, is this actually wanted?
-            //  maybe make the language switch key more configurable
-            boolean moreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
-            final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(moreThanOneSubtype);
-            if (nextSubtype != null) {
-                switchToSubtype(nextSubtype);
-            } else {
-                // we are at end of the internal subtype list, switch to next input method
-                // (for now) don't care about which input method and subtype exactly, let the system choose
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    switchToNextInputMethod(false);
-                } else {
-                    final IBinder token = getWindow().getWindow().getAttributes().token;
-                    mRichImm.getInputMethodManager().switchToNextInputMethod(token, false);
-                }
-            }
+        final boolean switchSubtype = mSettings.getCurrent().mLanguageSwitchKeyToOtherSubtypes;
+        final boolean switchIme = mSettings.getCurrent().mLanguageSwitchKeyToOtherImes;
+
+        // switch IME if wanted and possible
+        if (switchIme && !switchSubtype && switchInputMethod())
+            return;
+        final boolean hasMoreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
+        // switch subtype if wanted and possible
+        if (switchSubtype && !switchIme && hasMoreThanOneSubtype) {
+            // switch to previous subtype if current one was used, otherwise cycle through list
+            mSubtypeState.switchSubtype(mRichImm);
             return;
         }
+        // language key set to switch both, or language key is not shown on keyboard -> switch both
+        if (hasMoreThanOneSubtype && mSubtypeState.mCurrentSubtypeHasBeenUsed) {
+            mSubtypeState.switchSubtype(mRichImm);
+            return;
+        }
+        if (shouldSwitchToOtherInputMethods()) {
+            final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(false);
+            // todo (later): this will switch IME if we are at the end of the list, but ideally we
+            //  want to switch IME only if all internal subtypes are unused
+            //  -> need to store used/unused subtypes in mSubtypeState
+            if (nextSubtype != null) {
+                switchToSubtype(nextSubtype);
+                return;
+            } else if (switchInputMethod()){
+                return;
+            }
+        }
         mSubtypeState.switchSubtype(mRichImm);
+    }
+
+    private boolean switchInputMethod() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            return switchToNextInputMethod(false);
+        final IBinder token = getWindow().getWindow().getAttributes().token;
+        return mRichImm.getInputMethodManager().switchToNextInputMethod(token, false);
+    }
+
+    @SuppressWarnings("deprecation")
+    public boolean shouldSwitchToOtherInputMethods() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            return shouldOfferSwitchingToNextInputMethod();
+        final IBinder token = getWindow().getWindow().getAttributes().token;
+        if (token == null) {
+            return mSettings.getCurrent().mLanguageSwitchKeyToOtherImes;
+        }
+        return mRichImm.getInputMethodManager().shouldOfferSwitchingToNextInputMethod(token);
     }
 
     public void switchInputMethodAndSubtype(final InputMethodInfo imi, final InputMethodSubtype subtype) {
@@ -1974,10 +1999,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     public void debugDumpStateAndCrashWithException(final String context) {
         final SettingsValues settingsValues = mSettings.getCurrent();
-        final StringBuilder s = new StringBuilder(settingsValues.toString());
-        s.append("\nAttributes : ").append(settingsValues.mInputAttributes)
-                .append("\nContext : ").append(context);
-        throw new RuntimeException(s.toString());
+        String s = settingsValues.toString() + "\nAttributes : " + settingsValues.mInputAttributes +
+                "\nContext : " + context;
+        throw new RuntimeException(s);
     }
 
     @Override
@@ -1997,32 +2021,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // TODO: Dump all settings values
     }
 
-    public boolean shouldSwitchToOtherInputMethods() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-            return shouldOfferSwitchingToNextInputMethod();
-        // TODO: Revisit here to reorganize the settings. Probably we can/should use different
-        // strategy once the implementation of
-        // {@link InputMethodManager#shouldOfferSwitchingToNextInputMethod} is defined well.
-        final IBinder token = getWindow().getWindow().getAttributes().token;
-        if (token == null) {
-            return mSettings.getCurrent().mIncludesOtherImesInLanguageSwitchList;
-        }
-        return mRichImm.getInputMethodManager().shouldOfferSwitchingToNextInputMethod(token);
-    }
-
-    public boolean shouldShowLanguageSwitchKey() {
-        // TODO: Revisit here to reorganize the settings. Probably we can/should use different
-        // strategy once the implementation of
-        // {@link InputMethodManager#shouldOfferSwitchingToNextInputMethod} is defined well.
-        return mSettings.getCurrent().isLanguageSwitchKeyEnabled();
-    }
-
     // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
     private void setNavigationBarColor() {
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mCustomNavBarColor)
             return;
-        final int color = settingsValues.mColors.navBar;
+        final int color = settingsValues.mColors.getNavBar();
         final Window window = getWindow().getWindow();
         if (window == null)
             return;

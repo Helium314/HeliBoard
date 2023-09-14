@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,11 +72,12 @@ public class SettingsValues {
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
-    public final boolean mIncludesOtherImesInLanguageSwitchList;
+    public final boolean mLanguageSwitchKeyToOtherImes;
+    public final boolean mLanguageSwitchKeyToOtherSubtypes;
     public final boolean mShowsNumberRow;
     public final boolean mShowsHints;
     public final boolean mSpaceForLangChange;
-    public final boolean mShowsLanguageSwitchKey;
+    public final boolean mSpaceLanguageSlide;
     public final boolean mShowsEmojiKey;
     public final boolean mShowsClipboardKey;
     public final boolean mUsePersonalizedDicts;
@@ -89,6 +91,7 @@ public class SettingsValues {
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
     public final boolean mNarrowKeyGaps;
+    public final boolean mShowAllMoreKeys;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -101,7 +104,6 @@ public class SettingsValues {
     public final boolean mShowAppIcon;
     public final boolean mIsShowAppIconSettingInPreferences;
     public final boolean mCloudSyncEnabled;
-    public final boolean mEnableMetricsLogging;
     public final boolean mShouldShowLxxSuggestionUi;
     // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
@@ -109,6 +111,7 @@ public class SettingsValues {
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
+    public final float mKeyboardHeightScale;
 
     // From the input box
     @NonNull
@@ -119,9 +122,10 @@ public class SettingsValues {
     public final float mKeypressSoundVolume;
     private final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
-    public final float mPlausibilityThreshold;
+    public final int mScoreLimitForAutocorrect;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
     private final boolean mSuggestionsEnabledPerUserSettings;
+    public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
     private final AsyncResultHolder<AppWorkaroundsUtils> mAppWorkarounds;
 
@@ -129,10 +133,7 @@ public class SettingsValues {
     public final Colors mColors;
 
     // Debug settings
-    public final boolean mIsInternal;
     public final boolean mHasCustomKeyPreviewAnimationParams;
-    public final boolean mHasKeyboardResize;
-    public final float mKeyboardHeightScale;
     public final int mKeyPreviewShowUpDuration;
     public final int mKeyPreviewDismissDuration;
     public final float mKeyPreviewShowUpStartXScale;
@@ -161,26 +162,29 @@ public class SettingsValues {
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
-        mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs, res) && mInputAttributes.mShouldShowVoiceInputKey;
-        mIncludesOtherImesInLanguageSwitchList = !Settings.ENABLE_SHOW_LANGUAGE_SWITCH_KEY_SETTINGS || prefs.getBoolean(Settings.PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST, false) /* forcibly */;
+        mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs) && mInputAttributes.mShouldShowVoiceInputKey;
+        final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "off");
+        mLanguageSwitchKeyToOtherImes = languagePref.equals("input_method") || languagePref.equals("both");
+        mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
-        mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false);
+        mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
         mShowsClipboardKey = prefs.getBoolean(Settings.PREF_SHOW_CLIPBOARD_KEY, false);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
         mBlockPotentiallyOffensive = Settings.readBlockPotentiallyOffensive(prefs, res);
-        mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs, res);
+        mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
+        mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
+                : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        mEnableMetricsLogging = prefs.getBoolean(Settings.PREF_ENABLE_METRICS_LOGGING, true);
         mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false);
         mScreenMetrics = Settings.readScreenMetrics(res);
 
@@ -194,7 +198,6 @@ public class SettingsValues {
                 Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mShowAppIcon = Settings.readShowSetupWizardIcon(prefs, context);
         mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
-        mPlausibilityThreshold = Settings.readPlausibilityThreshold(res);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs, res);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         mCloudSyncEnabled = prefs.getBoolean(LocalSettingsConstants.PREF_ENABLE_CLOUD_SYNC, false);
@@ -208,10 +211,7 @@ public class SettingsValues {
                 readSuggestionsEnabled(prefs);
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
-        mIsInternal = Settings.isInternal(prefs);
-        mHasCustomKeyPreviewAnimationParams = prefs.getBoolean(
-                DebugSettings.PREF_HAS_CUSTOM_KEY_PREVIEW_ANIMATION_PARAMS, false);
-        mHasKeyboardResize = prefs.getBoolean(DebugSettings.PREF_RESIZE_KEYBOARD, false);
+        mHasCustomKeyPreviewAnimationParams = prefs.getBoolean(DebugSettings.PREF_HAS_CUSTOM_KEY_PREVIEW_ANIMATION_PARAMS, false);
         mKeyboardHeightScale = Settings.readKeyboardHeight(prefs, DEFAULT_SIZE_SCALE);
         mKeyPreviewShowUpDuration = Settings.readKeyPreviewAnimationDuration(
                 prefs, DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_DURATION,
@@ -252,19 +252,20 @@ public class SettingsValues {
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale());
+        final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
+        mShowAllMoreKeys = selectedSubtype.isAsciiCapable() && prefs.getBoolean(Settings.PREF_SHOW_ALL_MORE_KEYS, false);
 
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
-        mColors.createColorFilters(prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false));
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
-    }
-
-    public boolean isMetricsLoggingEnabled() {
-        return mEnableMetricsLogging;
+        mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
+                mBlockPotentiallyOffensive,
+                prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
+        );
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -310,14 +311,18 @@ public class SettingsValues {
     }
 
     public boolean isLanguageSwitchKeyEnabled() {
-        if (!mShowsLanguageSwitchKey) {
+        if (!mLanguageSwitchKeyToOtherImes && !mLanguageSwitchKeyToOtherSubtypes) {
             return false;
         }
         final RichInputMethodManager imm = RichInputMethodManager.getInstance();
-        if (mIncludesOtherImesInLanguageSwitchList) {
+        if (!mLanguageSwitchKeyToOtherSubtypes) {
             return imm.hasMultipleEnabledIMEsOrSubtypes(false /* include aux subtypes */);
         }
-        return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */);
+        if (!mLanguageSwitchKeyToOtherImes) {
+            return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */);
+        }
+        return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */)
+            || imm.hasMultipleEnabledIMEsOrSubtypes(false /* include aux subtypes */);
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
@@ -328,17 +333,7 @@ public class SettingsValues {
         return mDisplayOrientation == configuration.orientation;
     }
 
-    private static final String SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE = "2";
-
     private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
-        if (prefs.contains(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE)) {
-            final boolean alwaysHide = SUGGESTIONS_VISIBILITY_HIDE_VALUE_OBSOLETE.equals(
-                    prefs.getString(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE, null));
-            prefs.edit()
-                    .remove(Settings.PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE)
-                    .putBoolean(Settings.PREF_SHOW_SUGGESTIONS, !alwaysHide)
-                    .apply();
-        }
         return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
     }
 
@@ -380,21 +375,7 @@ public class SettingsValues {
         return autoCorrectionThreshold;
     }
 
-    private static boolean needsToShowVoiceInputKey(final SharedPreferences prefs,
-                                                    final Resources res) {
-        // Migrate preference from {@link Settings#PREF_VOICE_MODE_OBSOLETE} to
-        // {@link Settings#PREF_VOICE_INPUT_KEY}.
-        if (prefs.contains(Settings.PREF_VOICE_MODE_OBSOLETE)) {
-            final String voiceModeMain = res.getString(R.string.voice_mode_main);
-            final String voiceMode = prefs.getString(
-                    Settings.PREF_VOICE_MODE_OBSOLETE, voiceModeMain);
-            final boolean shouldShowVoiceInputKey = voiceModeMain.equals(voiceMode);
-            prefs.edit()
-                    .putBoolean(Settings.PREF_VOICE_INPUT_KEY, shouldShowVoiceInputKey)
-                    // Remove the obsolete preference if exists.
-                    .remove(Settings.PREF_VOICE_MODE_OBSOLETE)
-                    .apply();
-        }
+    private static boolean needsToShowVoiceInputKey(final SharedPreferences prefs) {
         return prefs.getBoolean(Settings.PREF_VOICE_INPUT_KEY, true);
     }
 
@@ -414,10 +395,10 @@ public class SettingsValues {
         sb.append("" + mKeyPreviewPopupOn);
         sb.append("\n   mShowsVoiceInputKey = ");
         sb.append("" + mShowsVoiceInputKey);
-        sb.append("\n   mIncludesOtherImesInLanguageSwitchList = ");
-        sb.append("" + mIncludesOtherImesInLanguageSwitchList);
-        sb.append("\n   mShowsLanguageSwitchKey = ");
-        sb.append("" + mShowsLanguageSwitchKey);
+        sb.append("\n   mLanguageSwitchKeyToOtherImes = ");
+        sb.append("" + mLanguageSwitchKeyToOtherImes);
+        sb.append("\n   mLanguageSwitchKeyToOtherSubtypes = ");
+        sb.append("" + mLanguageSwitchKeyToOtherSubtypes);
         sb.append("\n   mUsePersonalizedDicts = ");
         sb.append("" + mUsePersonalizedDicts);
         sb.append("\n   mUseDoubleSpacePeriod = ");
@@ -457,8 +438,6 @@ public class SettingsValues {
         sb.append("\n   mAppWorkarounds = ");
         final AppWorkaroundsUtils awu = mAppWorkarounds.get(null, 0);
         sb.append("" + (null == awu ? "null" : awu.toString()));
-        sb.append("\n   mIsInternal = ");
-        sb.append("" + mIsInternal);
         sb.append("\n   mKeyPreviewShowUpDuration = ");
         sb.append("" + mKeyPreviewShowUpDuration);
         sb.append("\n   mKeyPreviewDismissDuration = ");

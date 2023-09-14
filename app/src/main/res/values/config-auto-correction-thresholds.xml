@@ -32,12 +32,6 @@
         <item>floatNegativeInfinity</item>
     </string-array>
 
-    <!-- Chosen to be slightly less than the "aggressive" threshold. This is the threshold for
-         a mildly plausible suggestion given the input; if no "plausible" suggestion is present
-         for a language, it's a strong indicator the user is not typing in this language, so we
-         may be more forgiving of whitelist entries in another language. -->
-    <string name="plausibility_threshold" translatable="false">0.065</string>
-
     <!-- The index of the auto correction threshold values array. -->
     <string name="auto_correction_threshold_mode_index_modest" translatable="false">0</string>
     <string name="auto_correction_threshold_mode_index_aggressive" translatable="false">1</string>

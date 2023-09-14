@@ -36,18 +36,26 @@
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
 
+        <PreferenceScreen
+            android:fragment="org.dslul.openboard.inputmethod.latin.settings.ColorsSettingsFragment"
+            android:key="theme_select_colors"
+            android:title="@string/select_user_colors"
+            android:summary="@string/select_user_colors_summary"/>
+
         <SwitchPreferenceCompat
             android:key="theme_auto_day_night"
             android:title="@string/day_night_mode"
+            android:defaultValue="@bool/day_night_default"
             android:summary="@string/day_night_mode_summary"/>
 
         <ListPreference
-            android:key="custom_theme_variant_night"
+            android:key="theme_variant_night"
             android:title="@string/theme_variant_night"/>
 
-        <Preference
-            android:key="theme_select_colors"
-            android:title="@string/select_user_colors"
+        <PreferenceScreen
+            android:fragment="org.dslul.openboard.inputmethod.latin.settings.ColorsNightSettingsFragment"
+            android:key="theme_select_colors_night"
+            android:title="@string/select_user_colors_night"
             android:summary="@string/select_user_colors_summary"/>
 
         <SwitchPreferenceCompat
@@ -66,19 +74,12 @@
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat
-            android:key="pref_resize_keyboard"
-            android:title="@string/prefs_resize_keyboard"
-            android:defaultValue="false"
-            android:persistent="true" />
-
-        <SwitchPreferenceCompat
             android:key="pref_narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
             android:defaultValue="true"
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:dependency="pref_resize_keyboard"
             android:key="pref_keyboard_height_scale"
             android:title="@string/prefs_keyboard_height_scale"
             latin:minValue="50"

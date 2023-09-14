@@ -1,28 +1,9 @@
-/*
- * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.SharedPreferences
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.edit
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
@@ -37,39 +18,42 @@ import java.util.*
 /**
  * "Appearance" settings sub screen.
  */
-@Suppress("Deprecation") // yes everything here is deprecated, but only work on this if really necessary
-// todo: simplify when removing old themes (or migrating holo to same style as user themes)
-//  there is a bunch of ugly things in the theme settings, and mostly for historic reasons...
-// idea for color selection
-//  left: which color (background, key, text,...)
-//  right: color preview (always the correct one, even if determined automatically)
-//   maybe copy parts from simple keyboard, see e.g. screenshot 4 in https://github.com/SimpleMobileTools/Simple-Keyboard/tree/main/fastlane/metadata/android/en-US/images/phoneScreenshots
-//  below (for some colors, with indent):
-//   enable user-defining (most colors, but definitely not background)
-//   use system accent (for accent and text colors)
-//  on click: color selector
-//   maybe copy parts from simple keyboard, see e.g. screenshot 4 in https://github.com/SimpleMobileTools/Simple-Keyboard/tree/main/fastlane/metadata/android/en-US/images/phoneScreenshots
-//    but full range would be preferable
-//   use some color picker library? would likely allow nicer tuning
-class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceChangeListener, OnSharedPreferenceChangeListener {
+class AppearanceSettingsFragment : SubScreenFragment() {
 
-    private var selectedThemeId = 0
     private var needsReload = false
 
-    private lateinit var themeFamilyPref: ListPreference
-    private lateinit var themeVariantPref: ListPreference
-    private var customThemeVariantNightPref: ListPreference? = null
-    private lateinit var keyBordersPref: TwoStatePreference
-    private var dayNightPref: TwoStatePreference? = null
-    private lateinit var userColorsPref: Preference
+    private val themeFamilyPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
+    private val themeVariantPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT)!! }
+    private val themeVariantNightPref: ListPreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT_NIGHT) }
+    private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
+    private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
+    private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
 
 
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         addPreferencesFromResource(R.xml.prefs_screen_appearance)
-        val keyboardTheme = KeyboardTheme.getKeyboardTheme(activity)
-        selectedThemeId = keyboardTheme.mThemeId
 
+        removeUnsuitablePreferences()
+        setupTheme()
+        setThemeVariantPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL)!!)
+
+        setupKeyboardHeight(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (needsReload)
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        needsReload = false
+    }
+
+    override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
+        super.onSharedPreferenceChanged(prefs, key)
+        needsReload = true // may not always be the necessary, but that's ok
+    }
+
+    private fun removeUnsuitablePreferences() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             removePreference(Settings.PREF_THEME_DAY_NIGHT)
             removePreference(Settings.PREF_THEME_VARIANT_NIGHT)
@@ -81,243 +65,77 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
             ) {
                 removePreference(Settings.PREF_THEME_DAY_NIGHT)
                 removePreference(Settings.PREF_THEME_VARIANT_NIGHT)
+                removePreference("theme_select_colors_night")
             }
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // todo: consider removing the preference, and always set the navbar color
             removePreference(Settings.PREF_NAVBAR_COLOR)
         }
-        setupTheme()
-
-
         val metrics = requireContext().resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
         val heightDp = metrics.heightPixels / metrics.density
         if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED || (min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
             removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
         }
-
-        setupKeyboardHeight(
-                Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateThemePreferencesState()
-        updateAfterPreferenceChanged()
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        if (needsReload) // todo: until re-working settings, just always reload
-            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
-        needsReload = false
-    }
-
-    override fun onPreferenceChange(preference: Preference, value: Any?): Boolean {
-        (preference as? ListPreference)?.apply {
-            summary = entries[entryValues.indexOfFirst { it == value }]
-        }
-        saveSelectedThemeId()
-        return true
-    }
-
-    override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
-        super.onSharedPreferenceChanged(prefs, key)
-        updateAfterPreferenceChanged()
-    }
-
-    // doing things on changing, but with the old values is not good, this is at least a little better
-    private fun updateAfterPreferenceChanged() {
-        customThemeVariantNightPref?.apply {
-            if (true) { //KeyboardTheme.getIsCustom(selectedThemeId)) {
-                // show preference to allow choosing a night theme
-                // can't hide a preference, at least not without category or maybe some androidx things
-                // -> just disable it instead (for now...)
-                isEnabled = sharedPreferences!!.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
-            } else
-                isEnabled = false
-
-            val variant = sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
-            val variants = KeyboardTheme.THEME_VARIANTS_DARK
-            entries = variants.map {
-                // todo: this workaround get the same string as for "user" theme, maybe clarify that it's a separate theme
-                val name = if (it == "user_dark") "theme_name_user" else "theme_name_$it"
-                val resId = resources.getIdentifier(name, "string", requireContext().packageName)
+    private fun setThemeVariantPrefs(themeFamily: String) {
+        themeVariantPref.apply {
+            entryValues = if (themeFamily == KeyboardTheme.THEME_STYLE_HOLO) KeyboardTheme.THEME_VARIANTS
+                else KeyboardTheme.THEME_VARIANTS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
+            entries = entryValues.map {
+                val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
                 if (resId == 0) it else getString(resId)
             }.toTypedArray()
-            entryValues = variants
-            value = variant
-            val name = if (variant == "user_dark") "theme_name_user" else "theme_name_$variant"
-            val resId = resources.getIdentifier(name, "string", requireContext().packageName)
-            summary = if (resId == 0) variant else getString(resId)
-        }
-        userColorsPref.apply {
-            isEnabled = true //KeyboardTheme.getIsCustom(selectedThemeId)
-                    && (sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER
-                        || (sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER) == KeyboardTheme.THEME_USER_DARK
-                            && sharedPreferences!!.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
-                    ))
-            isEnabled = true
-        }
-    }
+            if (value !in entryValues)
+                value = entryValues.first().toString()
+            summary = entries[entryValues.indexOfFirst { it == value }]
 
-    private fun saveSelectedThemeId(
-            family: String = themeFamilyPref.value,
-            variant: String = themeVariantPref.value,
-            keyBorders: Boolean = keyBordersPref.isChecked
-    ) {
-//        selectedThemeId = KeyboardTheme.getThemeForParameters(family, variant, keyBorders)
-//        KeyboardTheme.saveKeyboardThemeId(selectedThemeId, sharedPreferences)
-    }
-
-    private fun updateThemePreferencesState(skipThemeFamily: Boolean = false, skipThemeVariant: Boolean = false) {
-        val themeFamily = KeyboardTheme.getThemeFamily(selectedThemeId)
-        val isLegacyFamily = KeyboardTheme.THEME_STYLE_HOLO == themeFamily
-        if (!skipThemeFamily) {
-            themeFamilyPref.apply {
-                value = themeFamily
-                summary = themeFamily
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
+                summary = entries[entryValues.indexOfFirst { it == value }]
+                userColorsPref.isVisible = value == KeyboardTheme.THEME_USER
+                true
             }
         }
-        val variants = KeyboardTheme.THEME_VARIANTS
-        val variant = sharedPreferences.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT)
-        if (!skipThemeVariant) {
-            themeVariantPref.apply {
-                entries = if (isLegacyFamily) variants // todo: translatable string for holo, not internal name
-                    else variants.map {
-                        val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
-                        if (resId == 0) it else getString(resId)
-                    }.toTypedArray()
-                entryValues = variants
-                value = variant ?: variants[0]
-                summary = if (isLegacyFamily) variant
-                    else {
-                        val resId = resources.getIdentifier("theme_name_$variant", "string", requireContext().packageName)
-                        if (resId == 0) variant else getString(resId)
-                    }
+        themeVariantNightPref?.apply {
+            entryValues = if (themeFamily == KeyboardTheme.THEME_STYLE_HOLO) KeyboardTheme.THEME_VARIANTS_DARK
+                else KeyboardTheme.THEME_VARIANTS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
+            entries = entryValues.map {
+                val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
+                if (resId == 0) it else getString(resId)
+            }.toTypedArray()
+            if (value !in entryValues)
+                value = entryValues.first().toString()
+            summary = entries[entryValues.indexOfFirst { it == value }]
+
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
+                summary = entries[entryValues.indexOfFirst { it == value }]
+                userColorsPrefNight?.isVisible = value == KeyboardTheme.THEME_USER_NIGHT
+                true
             }
-        }
-        keyBordersPref.apply {
-            isEnabled = !isLegacyFamily
-            isChecked = isLegacyFamily || KeyboardTheme.getHasKeyBorders(selectedThemeId)
-        }
-        dayNightPref?.apply {
-            isEnabled = !isLegacyFamily
-            isChecked = !isLegacyFamily && /*KeyboardTheme.getIsCustom(selectedThemeId) &&*/ sharedPreferences!!.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)
         }
     }
 
     private fun setupTheme() {
-        themeFamilyPref = preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!!
         themeFamilyPref.apply {
             entries = KeyboardTheme.THEME_STYLES
             entryValues = KeyboardTheme.THEME_STYLES
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
-                saveSelectedThemeId(family = value as String)
-                updateThemePreferencesState(skipThemeFamily = true)
+                setThemeVariantPrefs(value.toString())
                 true
             }
+            summary = entries[entryValues.indexOfFirst { it == value }]
         }
-        // todo: remove!
-        themeVariantPref = preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT)!!
-        themeVariantPref.apply {
-            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-                summary = entries[entryValues.indexOfFirst { it == value }]
-
-                if (themeFamilyPref.value == KeyboardTheme.THEME_STYLE_MATERIAL) {
-                    // not so nice workaround, could be removed in the necessary re-work: new value seems
-                    // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now
-                    if (value == sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT))
-                        return@OnPreferenceChangeListener true // avoid infinite loop
-                    sharedPreferences!!.edit { putString(Settings.PREF_THEME_VARIANT, value as String) }
-
-                    summary = entries[entryValues.indexOfFirst { it == value }]
-                    needsReload = true
-                }
-                saveSelectedThemeId(variant = value as String)
-                updateThemePreferencesState(skipThemeFamily = true, skipThemeVariant = true)
-                true
-            }
-        }
-        keyBordersPref = preferenceScreen.findPreference(Settings.PREF_THEME_KEY_BORDERS)!!
-        keyBordersPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            saveSelectedThemeId(keyBorders = value as Boolean)
-            updateThemePreferencesState(skipThemeFamily = true)
-            true
-        }
-        dayNightPref = preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT)!!
         dayNightPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            updateThemePreferencesState(skipThemeFamily = true)
+            themeVariantNightPref?.isVisible = value as Boolean
+            userColorsPrefNight?.isVisible = value && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
             true
         }
-        customThemeVariantNightPref = preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT_NIGHT) as? ListPreference
-        customThemeVariantNightPref?.apply {
-            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-                // not so nice workaround, could be removed in the necessary re-work: new value seems
-                // to be stored only after this method call, but we update the summary and user-defined color enablement in here -> store it now
-                if (value == sharedPreferences!!.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARK))
-                    return@OnPreferenceChangeListener true // avoid infinite loop
-                sharedPreferences!!.edit { putString(Settings.PREF_THEME_VARIANT_NIGHT, value as String) }
-
-                summary = entries[entryValues.indexOfFirst { it == value }]
-                needsReload = true
-
-                true
-            }
-        }
-        userColorsPref = preferenceScreen.findPreference(Settings.PREF_THEME_USER)!!
-        userColorsPref.onPreferenceClickListener = Preference.OnPreferenceClickListener { _ ->
-            if (sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false) && sharedPreferences.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER)
-                AlertDialog.Builder(requireContext())
-                    .setMessage(R.string.day_or_night_colors)
-                    .setPositiveButton(R.string.day_or_night_night) { _, _ -> adjustColors(true)}
-                    .setNegativeButton(R.string.day_or_night_day) { _, _ -> adjustColors(false)}
-                    .show()
-            else if (sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false)) // only night theme custom
-                adjustColors(true)
-            else // customize day theme
-                adjustColors(false)
-            true
-        }
-        preferenceScreen.findPreference<Preference>(Settings.PREF_NARROW_KEY_GAPS)?.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, _ ->
-                needsReload = true
-                true
-            }
-    }
-
-    private fun adjustColors(dark: Boolean) {
-        val items = listOf(R.string.select_color_background, R.string.select_color_key, R.string.select_color_key_hint, R.string.select_color_accent, R.string.select_color_key_background)
-            .map { requireContext().getString(it) }
-        val itemsArray = if (keyBordersPref.isChecked) items.toTypedArray()
-        else items.subList(0, 4).toTypedArray()
-        AlertDialog.Builder(requireContext())
-            .setPositiveButton(android.R.string.ok, null)
-            .setTitle(R.string.select_color_to_adjust)
-            .setItems(itemsArray) { _, i ->
-                val (pref, default) =
-                    if (dark)
-                        when (i) {
-                            0 -> Settings.PREF_THEME_USER_DARK_COLOR_BACKGROUND to Color.DKGRAY
-                            1 -> Settings.PREF_THEME_USER_DARK_COLOR_TEXT to Color.WHITE
-                            2 -> Settings.PREF_THEME_USER_DARK_COLOR_HINT_TEXT to Color.WHITE
-                            3 -> Settings.PREF_THEME_USER_DARK_COLOR_ACCENT to Color.BLUE
-                            else -> Settings.PREF_THEME_USER_DARK_COLOR_KEYS to Color.LTGRAY
-                        }
-                    else
-                        when (i) {
-                            0 -> Settings.PREF_THEME_USER_COLOR_BACKGROUND to Color.DKGRAY
-                            1 -> Settings.PREF_THEME_USER_COLOR_TEXT to Color.WHITE
-                            2 -> Settings.PREF_THEME_USER_COLOR_HINT_TEXT to Color.WHITE
-                            3 -> Settings.PREF_THEME_USER_COLOR_ACCENT to Color.BLUE
-                            else -> Settings.PREF_THEME_USER_COLOR_KEYS to Color.LTGRAY
-                        }
-                val d = ColorPickerDialog(requireContext(), items[i], sharedPreferences, pref, default) { needsReload = true}
-                d.show()
-            }
-            .show()
+        themeVariantNightPref?.isVisible = dayNightPref?.isChecked == true
+        userColorsPref.isVisible = themeVariantPref.value == KeyboardTheme.THEME_USER
+        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
     }
 
     private fun setupKeyboardHeight(prefKey: String, defaultValue: Float) {
@@ -343,10 +161,6 @@ class AppearanceSettingsFragment : SubScreenFragment(), Preference.OnPreferenceC
 
             override fun feedbackValue(value: Int) = Unit
         })
-    }
-
-    override fun onDisplayPreferenceDialog(preference: Preference) {
-        super.onDisplayPreferenceDialog(preference)
     }
 
     companion object {

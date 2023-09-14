@@ -58,7 +58,6 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
-import org.dslul.openboard.inputmethod.latin.common.HoloColors;
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -165,7 +164,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     // Gesture floating preview text
     // TODO: Make this parameter customizable by user via settings.
-    private int mGestureFloatingPreviewTextLingerTimeout;
+    private final int mGestureFloatingPreviewTextLingerTimeout;
 
     private final KeyDetector mKeyDetector;
     private final NonDistinctMultitouchHelper mNonDistinctMultitouchHelper;
@@ -219,10 +218,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors instanceof HoloColors) // todo: this logic should be in Colors
-            mLanguageOnSpacebarTextColor = colors.keyText;
-        else
-            mLanguageOnSpacebarTextColor = colors.keyHintText; //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
+        mLanguageOnSpacebarTextColor = colors.getSpaceBarText(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);
@@ -394,7 +390,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
      * @param keyboard the keyboard to display in this view
      */
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         // Remove any pending messages, except dismissing preview and key repeat.
         mTimerHandler.cancelLongPressTimers();
         super.setKeyboard(keyboard);
@@ -542,9 +538,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public void showGestureFloatingPreviewText(@NonNull final SuggestedWords suggestedWords,
             final boolean dismissDelayed) {
         locatePreviewPlacerView();
-        final GestureFloatingTextDrawingPreview gestureFloatingTextDrawingPreview =
-                mGestureFloatingTextDrawingPreview;
-        gestureFloatingTextDrawingPreview.setSuggestedWords(suggestedWords);
+        mGestureFloatingTextDrawingPreview.setSuggestedWords(suggestedWords);
         if (dismissDelayed) {
             mTimerHandler.postDismissGestureFloatingPreviewText(
                     mGestureFloatingPreviewTextLingerTimeout);
@@ -805,8 +799,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
-    protected void onDrawKeyTopVisuals(final Key key, final Canvas canvas, final Paint paint,
-            final KeyDrawParams params) {
+    protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (key.altCodeWhileTyping() && key.isEnabled()) {
             params.mAnimAlpha = mAltCodeKeyWhileTypingAnimAlpha;
         }
@@ -920,7 +914,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         // Draw language text with shadow
         final float descent = paint.descent();
         final float textHeight = -paint.ascent() + descent;
-        final float baseline = height / 2 + textHeight / 2;
+        final float baseline = height / 2f + textHeight / 2;
         if (mLanguageOnSpacebarTextShadowRadius > 0.0f) {
             paint.setShadowLayer(mLanguageOnSpacebarTextShadowRadius, 0, 0,
                     mLanguageOnSpacebarTextShadowColor);
@@ -929,7 +923,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
         paint.setColor(mLanguageOnSpacebarTextColor);
         paint.setAlpha(mLanguageOnSpacebarAnimAlpha);
-        canvas.drawText(language, width / 2, baseline - descent, paint);
+        canvas.drawText(language, width / 2f, baseline - descent, paint);
         paint.clearShadowLayer();
         paint.setTextScaleX(1.0f);
     }

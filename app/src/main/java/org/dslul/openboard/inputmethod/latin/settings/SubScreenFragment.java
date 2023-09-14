@@ -42,11 +42,11 @@ public abstract class SubScreenFragment extends PreferenceFragmentCompat
         implements OnSharedPreferenceChangeListener {
     private OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
 
-    static void setPreferenceEnabled(final String prefKey, final boolean enabled,
-            final PreferenceScreen screen) {
+    static void setPreferenceVisible(final String prefKey, final boolean visible,
+                                     final PreferenceScreen screen) {
         final Preference preference = screen.findPreference(prefKey);
         if (preference != null) {
-            preference.setEnabled(enabled);
+            preference.setVisible(visible);
         }
     }
 
@@ -76,8 +76,8 @@ public abstract class SubScreenFragment extends PreferenceFragmentCompat
         listPreference.setSummary(entryIndex < 0 ? null : entries[entryIndex]);
     }
 
-    final void setPreferenceEnabled(final String prefKey, final boolean enabled) {
-        setPreferenceEnabled(prefKey, enabled, getPreferenceScreen());
+    final void setPreferenceVisible(final String prefKey, final boolean visible) {
+        setPreferenceVisible(prefKey, visible, getPreferenceScreen());
     }
 
     final void removePreference(final String prefKey) {

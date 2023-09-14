@@ -160,12 +160,13 @@
         </receiver>
 
         <!-- Content providers -->
+        <!--
         <provider android:name="org.dslul.openboard.inputmethod.dictionarypack.DictionaryProvider"
                 android:grantUriPermissions="true"
                 android:exported="false"
                 android:authorities="@string/authority"
                 android:multiprocess="false"
                 android:label="@string/dictionary_provider_name">
-        </provider>
+        </provider>-->
     </application>
 </manifest>
