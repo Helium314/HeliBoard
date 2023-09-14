@@ -17,6 +17,7 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -25,8 +26,11 @@ import android.widget.FrameLayout;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class InputView extends FrameLayout {
     private final Rect mInputViewRect = new Rect();
@@ -49,7 +53,16 @@ public final class InputView extends FrameLayout {
                 mMainKeyboardView, suggestionStripView);
         mMoreSuggestionsViewCanceler = new MoreSuggestionsViewCanceler(
                 mMainKeyboardView, suggestionStripView);
-    }
+/*        final AtomicBoolean doIt = new AtomicBoolean(true);
+        getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            // todo: not working, uses full screen size
+            if (doIt.get()) {
+                setBackgroundColor(Color.WHITE);
+                Settings.getInstance().getCurrent().mColors.setKeyboardBackground(this);
+                doIt.set(false);
+            }
+        });
+*/    }
 
     public void setKeyboardTopPadding(final int keyboardTopPadding) {
         mKeyboardTopPaddingForwarder.setKeyboardTopPadding(keyboardTopPadding);

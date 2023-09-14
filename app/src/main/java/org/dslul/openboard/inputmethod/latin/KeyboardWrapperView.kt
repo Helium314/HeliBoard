@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import androidx.core.view.doOnNextLayout
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
 import org.dslul.openboard.inputmethod.latin.common.BackgroundType
 import org.dslul.openboard.inputmethod.latin.common.Constants
@@ -60,8 +61,13 @@ class KeyboardWrapperView @JvmOverloads constructor(
         switchOneHandedModeBtn.colorFilter = colors.keyTextFilter
         colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND)
         colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND)
-        setBackgroundColor(Color.WHITE) // otherwise background might be null
-        colors.setKeyboardBackground(this)
+
+        // necessary so view has a height when Colors.setKeyboardBackground is called
+        // this is important because BitmapDrawable doesn't scale
+        doOnNextLayout {
+            setBackgroundColor(Color.WHITE) // otherwise background might be null
+            colors.setKeyboardBackground(this)
+        }
     }
 
     @SuppressLint("RtlHardcoded")
