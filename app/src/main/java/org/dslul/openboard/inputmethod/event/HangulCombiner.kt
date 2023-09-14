@@ -160,6 +160,9 @@ class HangulCombiner : Combiner {
                             history += currentSyllable.copy(final = jamo)
                         }
                     }
+                    // compiler bug? when it's not added, compiler complains that it's missing
+                    // but when added, linter (correctly) states it's unreachable anyway
+                    is HangulJamo.NonHangul -> Unit
                 }
             }
         }
