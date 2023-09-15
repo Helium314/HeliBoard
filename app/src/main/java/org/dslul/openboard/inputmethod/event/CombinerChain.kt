@@ -2,6 +2,7 @@ package org.dslul.openboard.inputmethod.event
 
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import java.util.*
 
@@ -37,12 +38,20 @@ class CombinerChain(initialText: String) {
     init {
         // The dead key combiner is always active, and always first
         mCombiners.add(DeadKeyCombiner())
-        mCombiners.add(HangulCombiner())
     }
 
     fun reset() {
         mCombinedText.setLength(0)
         mStateFeedback.clear()
+        // todo: the first word after language switch is still affected
+        if (KeyboardSwitcher.getInstance().keyboard?.mId?.mSubtype?.locale?.language == "ko") {
+            // if the hangul combiner is added for other keyboards, it leads to weird behavior,
+            // e.g. for latin script, period is seen as part of a word
+            if (mCombiners.none { it is HangulCombiner })
+                mCombiners.add(HangulCombiner())
+        } else {
+            mCombiners.removeAll { it is HangulCombiner }
+        }
         for (c in mCombiners) {
             c.reset()
         }

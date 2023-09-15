@@ -104,8 +104,7 @@ public final class WordComposer {
     public void restartCombining(final String combiningSpec) {
         final String nonNullCombiningSpec = null == combiningSpec ? "" : combiningSpec;
         if (!nonNullCombiningSpec.equals(mCombiningSpec)) {
-            mCombinerChain = new CombinerChain(
-                    mCombinerChain.getComposingWordWithCombiningFeedback().toString());
+            mCombinerChain = new CombinerChain(mCombinerChain.getComposingWordWithCombiningFeedback().toString());
             mCombiningSpec = nonNullCombiningSpec;
         }
     }

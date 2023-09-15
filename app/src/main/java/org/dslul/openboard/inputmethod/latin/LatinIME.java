@@ -1888,7 +1888,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
         final Event event;
         if (mRichImm.getCurrentSubtypeLocale().getLanguage().equals("ko")) {
-            event = HangulEventDecoder.decodeHardwareKeyEvent(mRichImm.getCurrentSubtype(), keyEvent,
+            final RichInputMethodSubtype subtype = mKeyboardSwitcher.getKeyboard() == null
+                    ? mRichImm.getCurrentSubtype()
+                    : mKeyboardSwitcher.getKeyboard().mId.mSubtype;
+            event = HangulEventDecoder.decodeHardwareKeyEvent(subtype, keyEvent,
                         () -> getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent));
         } else {
             event = getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent);
