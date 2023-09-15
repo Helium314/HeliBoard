@@ -412,8 +412,9 @@ public class KeyboardView extends View {
             labelBaseline = centerY + labelCharHeight / 2.0f;
 
             // Horizontal label text alignment
-            if (key.isAlignLabelOffCenter()) {
-                // The label is placed off center of the key. Used mainly on "phone number" layout.
+            if (key.isAlignLabelOffCenter() && mShowsHints) {
+                // The label is placed off center of the key. Currently used only on "phone number" layout
+                // to have letter hints shown nicely. We don't want to align it off center if hints are off.
                 labelX = centerX + params.mLabelOffCenterRatio * labelCharWidth;
                 paint.setTextAlign(Align.LEFT);
             } else {
