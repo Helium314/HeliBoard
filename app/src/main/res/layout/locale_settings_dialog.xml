@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:showDividers="middle"
     android:divider="@drawable/ic_divider"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
+    <!-- layout appears unnecessary, but more views will be added -->
     <LinearLayout
         android:id="@+id/subtypes"
         android:orientation="vertical"
@@ -15,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables"> <!-- view gets an onClickListener -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -31,8 +34,9 @@
                 android:src="@drawable/ic_plus" />
         </LinearLayout>
     </LinearLayout>
+    <!-- layout appears unnecessary, but more views will be added -->
     <LinearLayout
-        android:id="@+id/secondary_languages"
+        android:id="@+id/secondary_locales"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -57,6 +61,7 @@
                 android:src="@drawable/ic_plus" />
         </LinearLayout>
     </LinearLayout>
+    <!-- layout appears unnecessary, but more views will be added -->
     <LinearLayout
         android:id="@+id/dictionaries"
         android:orientation="vertical"
