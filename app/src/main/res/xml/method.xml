@@ -122,7 +122,8 @@
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
         android:settingsActivity="org.dslul.openboard.inputmethod.latin.settings.SettingsActivity"
         android:isDefault="@bool/im_is_default"
-        android:supportsSwitchingToNextInputMethod="true">
+        android:supportsSwitchingToNextInputMethod="true"
+        android:supportsInlineSuggestions="true">
     <subtype android:icon="@drawable/ic_ime_switcher_dark"
             android:label="@string/subtype_generic"
             android:subtypeId="0xc9194f97"

@@ -25,6 +25,7 @@ import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Debug;
 import android.os.IBinder;
 import android.os.Message;
@@ -33,6 +34,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
+import android.util.Size;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -42,8 +44,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InlineSuggestion;
+import android.view.inputmethod.InlineSuggestionsRequest;
+import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.inline.InlinePresentationSpec;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -101,6 +107,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
 /**
@@ -1356,6 +1363,55 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void updateFullscreenMode() {
         super.updateFullscreenMode();
         updateSoftInputWindowLayoutParameters();
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(Bundle uiExtras) {
+        final int minWidth = getResources().getDimensionPixelSize(R.dimen.config_suggestion_min_width);
+        // todo: max width?
+        //  maybe screen width minus config_suggestions_strip_horizontal_margin, but need to consider the voice input and clipboard keys
+        //final int maxWidth = getResources().getDimensionPixelSize(R.dimen.);
+        final int maxWidth = getResources().getDisplayMetrics().widthPixels / 4; // for now, this should approximately work
+        // height may break if the user rotates the phone (because value depends on orientation)
+        // though maybe Android just sends a new request in that case
+        final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
+
+        final ArrayList<InlinePresentationSpec> list = new ArrayList<>();
+        final Size min = new Size(minWidth, height);
+        final Size max = new Size(maxWidth, height);
+        final InlinePresentationSpec spec = new InlinePresentationSpec.Builder(min, max)
+                // Style is needed according to https://developer.android.com/reference/android/widget/inline/InlinePresentationSpec.Builder#setStyle(android.os.Bundle)
+                // but all info provided is essentially "use androidx.autofill.inline.UiVersions.StylesBuilder",
+                // which is more of a joke than documentation. For something as generic as a Bundle,
+                // more info is absolutely necessary...
+                // The style should somehow contain information of R.attr.suggestionWordStyle,
+                // and the custom colors and background
+//                .setStyle()
+                .build();
+        list.add(spec);
+        return new InlineSuggestionsRequest.Builder(list)
+                // todo: do we have max suggestions somewhere as code constant, or in resources?
+                //  would be good, especially in case we allow a horizontally scrolling suggestion bar
+                .setMaxSuggestionCount(3)
+                // any more things to set?
+                .build();
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
+        final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
+        mSuggestionStripView.clear(); // remove current suggestions
+        for (final InlineSuggestion s : response.getInlineSuggestions()) {
+            s.inflate(this, new Size(LayoutParams.WRAP_CONTENT, height), getMainExecutor(), (view) -> {
+                if (view != null)
+                    // todo test whether this actually works!
+                    mSuggestionStripView.addSuggestionView(view);
+            });
+        }
+        // and now? will it fill in the text on clicking, or is there more to be done?
+        return true; // means they will be rendered
     }
 
     private void updateSoftInputWindowLayoutParameters() {

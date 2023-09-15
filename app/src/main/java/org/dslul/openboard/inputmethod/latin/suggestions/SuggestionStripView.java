@@ -227,6 +227,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStripVisibilityGroup.showSuggestionsStrip();
     }
 
+    public void addSuggestionView(final View view) {
+        // this still doesn't look right, maybe check how mLayoutHelper does it
+        if (mSuggestionsStrip.getChildCount() > 0) {
+            final View divider = LayoutInflater.from(getContext()).inflate(R.layout.suggestion_divider, null);
+            mSuggestionsStrip.addView(divider);
+        }
+        mSuggestionsStrip.addView(view);
+    }
+
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
