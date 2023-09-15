@@ -17,12 +17,29 @@ import java.util.*
  * feedback on the composing state and will typically be shown with different styling such as
  * a colored background.
  */
-class CombinerChain(initialText: String?) {
+class CombinerChain(initialText: String) {
     // The already combined text, as described above
-    private val mCombinedText: StringBuilder
+    private val mCombinedText = StringBuilder(initialText)
     // The feedback on the composing state, as described above
-    private val mStateFeedback: SpannableStringBuilder
-    private val mCombiners: ArrayList<Combiner>
+    private val mStateFeedback = SpannableStringBuilder()
+    private val mCombiners = ArrayList<Combiner>()
+
+    /**
+     * Create an combiner chain.
+     *
+     * The combiner chain takes events as inputs and outputs code points and combining state.
+     * For example, if the input language is Japanese, the combining chain will typically perform
+     * kana conversion. This takes a string for initial text, taken to be present before the
+     * cursor: we'll start after this.
+     *
+     * @param initialText The text that has already been combined so far.
+     */
+    init {
+        // The dead key combiner is always active, and always first
+        mCombiners.add(DeadKeyCombiner())
+        mCombiners.add(HangulCombiner())
+    }
+
     fun reset() {
         mCombinedText.setLength(0)
         mStateFeedback.clear()
@@ -45,15 +62,16 @@ class CombinerChain(initialText: String?) {
      * @return the processed event. It may be the same event, or a consumed event, or a completely
      * new event. However it may never be null.
      */
-    fun processEvent(previousEvents: ArrayList<Event>?,
-                     newEvent: Event): Event {
+    fun processEvent(previousEvents: ArrayList<Event>?, newEvent: Event): Event {
         val modifiablePreviousEvents = ArrayList(previousEvents!!)
         var event = newEvent
-        for (combiner in mCombiners) { // A combiner can never return more than one event; it can return several
-// code points, but they should be encapsulated within one event.
+        for (combiner in mCombiners) {
+            // A combiner can never return more than one event; it can return several
+            // code points, but they should be encapsulated within one event.
             event = combiner.processEvent(modifiablePreviousEvents, event)
-            if (event.isConsumed) { // If the event is consumed, then we don't pass it to subsequent combiners:
-// they should not see it at all.
+            if (event.isConsumed) {
+                // If the event is consumed, then we don't pass it to subsequent combiners:
+                // they should not see it at all.
                 break
             }
         }
@@ -93,22 +111,4 @@ class CombinerChain(initialText: String?) {
             return s.append(mStateFeedback)
         }
 
-    /**
-     * Create an combiner chain.
-     *
-     * The combiner chain takes events as inputs and outputs code points and combining state.
-     * For example, if the input language is Japanese, the combining chain will typically perform
-     * kana conversion. This takes a string for initial text, taken to be present before the
-     * cursor: we'll start after this.
-     *
-     * @param initialText The text that has already been combined so far.
-     */
-    init {
-        mCombiners = ArrayList()
-        // The dead key combiner is always active, and always first
-        mCombiners.add(DeadKeyCombiner())
-        mCombiners.add(HangulCombiner())
-        mCombinedText = StringBuilder(initialText!!)
-        mStateFeedback = SpannableStringBuilder()
-    }
 }

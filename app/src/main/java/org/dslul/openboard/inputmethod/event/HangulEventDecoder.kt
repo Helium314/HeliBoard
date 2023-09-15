@@ -22,7 +22,7 @@ object HangulEventDecoder {
         else Event.createCombiningEvent(event)
     }
 
-    val LAYOUT_DUBEOLSIK_STANDARD = mapOf<Int, Pair<Int, Int>>(
+    private val LAYOUT_DUBEOLSIK_STANDARD = mapOf<Int, Pair<Int, Int>>(
             45 to (0x3142 to 0x3143),
             51 to (0x3148 to 0x3149),
             33 to (0x3137 to 0x3138),
@@ -53,7 +53,7 @@ object HangulEventDecoder {
             41 to (0x3161 to 0x3161)
     )
 
-    val LAYOUT_SEBEOLSIK_390 = mapOf<Int, Pair<Int, Int>>(
+    private val LAYOUT_SEBEOLSIK_390 = mapOf<Int, Pair<Int, Int>>(
             8 to (0x11c2 to 0x11bd),
             9 to (0x11bb to 0x0040),
             10 to (0x11b8 to 0x0023),
@@ -100,7 +100,7 @@ object HangulEventDecoder {
             76 to (0x1169 to 0x003f)
     )
 
-    val LAYOUT_SEBEOLSIK_FINAL = mapOf<Int, Pair<Int, Int>>(
+    private val LAYOUT_SEBEOLSIK_FINAL = mapOf<Int, Pair<Int, Int>>(
             68 to (0x002a to 0x203b),
 
             8 to (0x11c2 to 0x11a9),
@@ -154,7 +154,7 @@ object HangulEventDecoder {
             76 to (0x1169 to 0x0021)
     )
 
-    val LAYOUTS = mapOf<String, Map<Int, Pair<Int, Int>>>(
+    private val LAYOUTS = mapOf<String, Map<Int, Pair<Int, Int>>>(
             "korean" to LAYOUT_DUBEOLSIK_STANDARD,
             "korean_sebeolsik_390" to LAYOUT_SEBEOLSIK_390,
             "korean_sebeolsik_final" to LAYOUT_SEBEOLSIK_FINAL

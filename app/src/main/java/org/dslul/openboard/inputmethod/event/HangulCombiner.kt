@@ -6,22 +6,21 @@ import java.util.ArrayList
 
 class HangulCombiner : Combiner {
 
-    val composingWord = StringBuilder()
+    private val composingWord = StringBuilder()
 
     val history: MutableList<HangulSyllable> = mutableListOf()
-    val syllable: HangulSyllable? get() = history.lastOrNull()
+    private val syllable: HangulSyllable? get() = history.lastOrNull()
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
-        if(event.mKeyCode == Constants.CODE_SHIFT) return event
-        if(Character.isWhitespace(event.mCodePoint)) {
+        if (event.mKeyCode == Constants.CODE_SHIFT) return event
+        if (Character.isWhitespace(event.mCodePoint)) {
             val text = combiningStateFeedback
             reset()
             return createEventChainFromSequence(text, event)
-        } else if(event.isFunctionalKeyEvent) {
+        } else if (event.isFunctionalKeyEvent) {
             if(event.mKeyCode == Constants.CODE_DELETE) {
                 return when {
-                    history.size == 1 && composingWord.isEmpty() ||
-                            history.isEmpty() && composingWord.length == 1 -> {
+                    history.size == 1 && composingWord.isEmpty() || history.isEmpty() && composingWord.length == 1 -> {
                         reset()
                         Event.createHardwareKeypressEvent(0x20, Constants.CODE_SPACE, event, event.isKeyRepeat)
                     }
@@ -42,37 +41,39 @@ class HangulCombiner : Combiner {
         } else {
             val currentSyllable = syllable ?: HangulSyllable()
             val jamo = HangulJamo.of(event.mCodePoint)
-            if(!event.isCombining || jamo is HangulJamo.NonHangul) {
+            if (!event.isCombining || jamo is HangulJamo.NonHangul) {
                 composingWord.append(currentSyllable.string)
                 composingWord.append(jamo.string)
                 history.clear()
             } else {
-                when(jamo) {
+                when (jamo) {
                     is HangulJamo.Consonant -> {
                         val initial = jamo.toInitial()
                         val final = jamo.toFinal()
-                        if(currentSyllable.initial != null && currentSyllable.medial != null) {
-                            if(currentSyllable.final == null) {
+                        if (currentSyllable.initial != null && currentSyllable.medial != null) {
+                            if (currentSyllable.final == null) {
                                 val combination = COMBINATION_TABLE_DUBEOLSIK[currentSyllable.initial.codePoint to (initial?.codePoint ?: -1)]
-                                if(combination != null) {
-                                    history += currentSyllable.copy(initial = HangulJamo.Initial(combination))
-                                } else {
-                                    if(final != null) history += currentSyllable.copy(final = final)
-                                    else {
-                                        composingWord.append(currentSyllable.string)
-                                        history.clear()
-                                        history += HangulSyllable(initial = initial)
+                                history +=
+                                    if (combination != null) {
+                                        currentSyllable.copy(initial = HangulJamo.Initial(combination))
+                                    } else {
+                                        if (final != null) {
+                                            currentSyllable.copy(final = final)
+                                        } else {
+                                            composingWord.append(currentSyllable.string)
+                                            history.clear()
+                                            HangulSyllable(initial = initial)
+                                        }
                                     }
-                                }
                             } else {
                                 val pair = currentSyllable.final.codePoint to (final?.codePoint ?: -1)
                                 val combination = COMBINATION_TABLE_DUBEOLSIK[pair]
-                                if(combination != null) {
-                                    history += currentSyllable.copy(final = HangulJamo.Final(combination, combinationPair = pair))
+                                history += if (combination != null) {
+                                    currentSyllable.copy(final = HangulJamo.Final(combination, combinationPair = pair))
                                 } else {
                                     composingWord.append(currentSyllable.string)
                                     history.clear()
-                                    history += HangulSyllable(initial = initial)
+                                    HangulSyllable(initial = initial)
                                 }
                             }
                         } else {
@@ -83,20 +84,21 @@ class HangulCombiner : Combiner {
                     }
                     is HangulJamo.Vowel -> {
                         val medial = jamo.toMedial()
-                        if(currentSyllable.final == null) {
-                            if(currentSyllable.medial != null) {
-                                val combination = COMBINATION_TABLE_DUBEOLSIK[currentSyllable.medial.codePoint to (medial?.codePoint ?: -1)]
-                                if(combination != null) {
-                                    history += currentSyllable.copy(medial = HangulJamo.Medial(combination))
-                                } else {
-                                    composingWord.append(currentSyllable.string)
-                                    history.clear()
-                                    history += HangulSyllable(medial = medial)
-                                }
+                        if (currentSyllable.final == null) {
+                            history +=
+                                if (currentSyllable.medial != null) {
+                                    val combination = COMBINATION_TABLE_DUBEOLSIK[currentSyllable.medial.codePoint to (medial?.codePoint ?: -1)]
+                                    if (combination != null) {
+                                        currentSyllable.copy(medial = HangulJamo.Medial(combination))
+                                    } else {
+                                        composingWord.append(currentSyllable.string)
+                                        history.clear()
+                                        HangulSyllable(medial = medial)
+                                    }
                             } else {
-                                history += currentSyllable.copy(medial = medial)
+                                currentSyllable.copy(medial = medial)
                             }
-                        } else if(currentSyllable.final.combinationPair != null) {
+                        } else if (currentSyllable.final.combinationPair != null) {
                             val pair = currentSyllable.final.combinationPair
 
                             history.removeAt(history.lastIndex)
@@ -119,46 +121,49 @@ class HangulCombiner : Combiner {
                         }
                     }
                     is HangulJamo.Initial -> {
-                        if(currentSyllable.initial != null) {
-                            val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.initial.codePoint to jamo.codePoint]
-                            if(combination != null && currentSyllable.medial == null && currentSyllable.final == null) {
-                                history += currentSyllable.copy(initial = HangulJamo.Initial(combination))
+                        history +=
+                            if (currentSyllable.initial != null) {
+                                val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.initial.codePoint to jamo.codePoint]
+                                if (combination != null && currentSyllable.medial == null && currentSyllable.final == null) {
+                                    currentSyllable.copy(initial = HangulJamo.Initial(combination))
+                                } else {
+                                    composingWord.append(currentSyllable.string)
+                                    history.clear()
+                                    HangulSyllable(initial = jamo)
+                                }
                             } else {
-                                composingWord.append(currentSyllable.string)
-                                history.clear()
-                                history += HangulSyllable(initial = jamo)
+                                currentSyllable.copy(initial = jamo)
                             }
-                        } else {
-                            history += currentSyllable.copy(initial = jamo)
-                        }
                     }
                     is HangulJamo.Medial -> {
-                        if(currentSyllable.medial != null) {
-                            val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.medial.codePoint to jamo.codePoint]
-                            if(combination != null) {
-                                history += currentSyllable.copy(medial = HangulJamo.Medial(combination))
+                        history +=
+                            if (currentSyllable.medial != null) {
+                                val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.medial.codePoint to jamo.codePoint]
+                                if (combination != null) {
+                                    currentSyllable.copy(medial = HangulJamo.Medial(combination))
+                                } else {
+                                    composingWord.append(currentSyllable.string)
+                                    history.clear()
+                                    HangulSyllable(medial = jamo)
+                                }
                             } else {
-                                composingWord.append(currentSyllable.string)
-                                history.clear()
-                                history += HangulSyllable(medial = jamo)
+                                currentSyllable.copy(medial = jamo)
                             }
-                        } else {
-                            history += currentSyllable.copy(medial = jamo)
-                        }
                     }
                     is HangulJamo.Final -> {
-                        if(currentSyllable.final != null) {
-                            val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.final.codePoint to jamo.codePoint]
-                            if(combination != null) {
-                                history += currentSyllable.copy(final = HangulJamo.Final(combination))
+                        history +=
+                            if (currentSyllable.final != null) {
+                                val combination = COMBINATION_TABLE_SEBEOLSIK[currentSyllable.final.codePoint to jamo.codePoint]
+                                if (combination != null) {
+                                    currentSyllable.copy(final = HangulJamo.Final(combination))
+                                } else {
+                                    composingWord.append(currentSyllable.string)
+                                    history.clear()
+                                    HangulSyllable(final = jamo)
+                                }
                             } else {
-                                composingWord.append(currentSyllable.string)
-                                history.clear()
-                                history += HangulSyllable(final = jamo)
+                                currentSyllable.copy(final = jamo)
                             }
-                        } else {
-                            history += currentSyllable.copy(final = jamo)
-                        }
                     }
                     // compiler bug? when it's not added, compiler complains that it's missing
                     // but when added, linter (correctly) states it's unreachable anyway
@@ -190,8 +195,8 @@ class HangulCombiner : Combiner {
             val ordinal: Int get() = codePoint - 0x1100
             fun toConsonant(): Consonant? {
                 val codePoint = COMPAT_CONSONANTS.getOrNull(CONVERT_INITIALS.indexOf(codePoint.toChar())) ?: return null
-                if(codePoint.toInt() == 0) return null
-                return Consonant(codePoint.toInt())
+                if(codePoint.code == 0) return null
+                return Consonant(codePoint.code)
             }
         }
         data class Medial(override val codePoint: Int) : HangulJamo() {
@@ -199,7 +204,7 @@ class HangulCombiner : Combiner {
             val ordinal: Int get() = codePoint - 0x1161
             fun toVowel(): Vowel? {
                 val codePoint = COMPAT_VOWELS.getOrNull(CONVERT_MEDIALS.indexOf(codePoint.toChar())) ?: return null
-                return Vowel(codePoint.toInt())
+                return Vowel(codePoint.code)
             }
         }
         data class Final(override val codePoint: Int, val combinationPair: Pair<Int, Int>? = null) : HangulJamo() {
@@ -207,8 +212,8 @@ class HangulCombiner : Combiner {
             val ordinal: Int get() = codePoint - 0x11a7
             fun toConsonant(): Consonant? {
                 val codePoint = COMPAT_CONSONANTS.getOrNull(CONVERT_FINALS.indexOf(codePoint.toChar())) ?: return null
-                if(codePoint.toInt() == 0) return null
-                return Consonant(codePoint.toInt())
+                if(codePoint.code == 0) return null
+                return Consonant(codePoint.code)
             }
         }
         data class Consonant(override val codePoint: Int) : HangulJamo() {
@@ -216,13 +221,13 @@ class HangulCombiner : Combiner {
             val ordinal: Int get() = codePoint - 0x3131
             fun toInitial(): Initial? {
                 val codePoint = CONVERT_INITIALS.getOrNull(COMPAT_CONSONANTS.indexOf(codePoint.toChar())) ?: return null
-                if(codePoint.toInt() == 0) return null
-                return Initial(codePoint.toInt())
+                if(codePoint.code == 0) return null
+                return Initial(codePoint.code)
             }
             fun toFinal(): Final? {
                 val codePoint = CONVERT_FINALS.getOrNull(COMPAT_CONSONANTS.indexOf(codePoint.toChar())) ?: return null
-                if(codePoint.toInt() == 0) return null
-                return Final(codePoint.toInt())
+                if(codePoint.code == 0) return null
+                return Final(codePoint.code)
             }
         }
         data class Vowel(override val codePoint: Int) : HangulJamo() {
@@ -230,8 +235,8 @@ class HangulCombiner : Combiner {
             val ordinal: Int get() = codePoint - 0x314f1
             fun toMedial(): Medial? {
                 val codePoint = CONVERT_MEDIALS.getOrNull(COMPAT_VOWELS.indexOf(codePoint.toChar())) ?: return null
-                if(codePoint.toInt() == 0) return null
-                return Medial(codePoint.toInt())
+                if(codePoint.code == 0) return null
+                return Medial(codePoint.code)
             }
         }
         companion object {
@@ -265,7 +270,7 @@ class HangulCombiner : Combiner {
         val uncombined: String get() = (initial?.string ?: "") + (medial?.string ?: "") + (final?.string ?: "")
         val uncombinedCompat: String get() = (initial?.toConsonant()?.string ?: "") +
                 (medial?.toVowel()?.string ?: "") + (final?.toConsonant()?.string ?: "")
-        val string: String get() = if(this.combinable) this.combined else this.uncombinedCompat
+        val string: String get() = if (this.combinable) this.combined else this.uncombinedCompat
     }
 
     companion object {
@@ -320,7 +325,7 @@ class HangulCombiner : Combiner {
                 0x11ba to 0x11ba to 0x11bb	// ㅆ
         )
         private fun createEventChainFromSequence(text: CharSequence, originalEvent: Event): Event {
-            return Event.createSoftwareTextEvent(text, Constants.CODE_OUTPUT_TEXT, originalEvent);
+            return Event.createSoftwareTextEvent(text, Constants.CODE_OUTPUT_TEXT, originalEvent)
         }
     }
 
