@@ -59,6 +59,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
 
@@ -444,10 +445,15 @@ public final class InputLogic {
     public InputTransaction onCodeInput(final SettingsValues settingsValues,
             @NonNull final Event event, final int keyboardShiftMode,
             final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
-        final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
-        final Event processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+        final Event processedEvent;
+        if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL) {
+            final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
+            processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+        } else {
+            processedEvent = mWordComposer.processEvent(event);
+        }
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
@@ -739,6 +745,8 @@ public final class InputLogic {
                 inputTransaction.setDidAffectContents();
                 break;
             case Constants.CODE_OUTPUT_TEXT:
+                // added in the hangul branch, but without this a space after a period crashes
+                // -> where is the change?
                 mWordComposer.applyProcessedEvent(event);
                 break;
             case Constants.CODE_START_ONE_HANDED_MODE:
