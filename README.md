@@ -14,11 +14,30 @@ Might end up on F-Droid...
    * get them [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental) section (quality may vary)
    * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
  * Adjust keyboard themes (style and colors)
-   * can follow the system's day/night setting
- * Split keyboard
+   * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
+ * Split keyboard (if the screen is large enough)
  * Number row
  * Number pad
  * Show all available extra characters on long pressing a key
+
+## Hidden functionality
+Features that may go unnoticed
+* Long pressing the clipboard key (the optional one in suggestion strip) pastes system clipboard contents
+* Long-press comma to access clipboard view, emoji view, one-handed mode, settings, or switch language
+  * emoji view and language switch will disappear if you have the corresponding key enabled
+  * for some layouts it's not the comma-key, but the key at the same position (e.g. it's `q` for Dvorak layout)
+* Sliding key input: swipe from shift to another key to type a single uppercase key
+  * also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys
+* Long-press a suggestion to show more suggestions, and a delete button to remove this suggestion
+* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it
+* You can add dictionaries by opening them in a file explorer
+  * only works with content-uris and not with file-uris, meaning that it may not work with some file explorers
+* Debug APK only
+  * Long-press a suggestion to show the source dictionary
+  * Debug settings in advanced preferences, though not very useful except for dumping dictionaries into the log
+  * When the app crashes, you will be asked whether you want crash logs when you open the settings
+* For users doing manual backups with root access: starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot.
+  * file  is located in `/data/user_de/0/<package_id>/shared_prefs/`, though this may depend on the device and Android version
 
 ## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
