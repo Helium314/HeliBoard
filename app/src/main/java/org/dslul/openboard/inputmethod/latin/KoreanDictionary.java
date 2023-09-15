@@ -39,9 +39,14 @@ public class KoreanDictionary extends Dictionary {
     }
 
     @Override
-    public ArrayList<SuggestedWords.SuggestedWordInfo> getSuggestions(ComposedData composedData, NgramContext ngramContext, long proximityInfoHandle, SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId, float weightForLocale, float[] inOutWeightOfLangModelVsSpatialModel) {
-        composedData = new ComposedData(composedData.mInputPointers, composedData.mIsBatchMode, processInput(composedData.mTypedWord));
-        ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData, ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId, weightForLocale, inOutWeightOfLangModelVsSpatialModel);
+    public ArrayList<SuggestedWords.SuggestedWordInfo> getSuggestions(ComposedData composedData,
+                  NgramContext ngramContext, long proximityInfoHandle, SettingsValuesForSuggestion settingsValuesForSuggestion,
+                  int sessionId, float weightForLocale, float[] inOutWeightOfLangModelVsSpatialModel) {
+        composedData = new ComposedData(composedData.mInputPointers,
+                composedData.mIsBatchMode, processInput(composedData.mTypedWord));
+        ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData,
+                ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId,
+                weightForLocale, inOutWeightOfLangModelVsSpatialModel);
         ArrayList<SuggestedWords.SuggestedWordInfo> result = new ArrayList<>();
         for (SuggestedWords.SuggestedWordInfo info : suggestions) {
             result.add(new SuggestedWords.SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,

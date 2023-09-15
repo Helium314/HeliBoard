@@ -8,17 +8,17 @@ import org.dslul.openboard.inputmethod.event.HangulCombiner.HangulJamo
 object HangulEventDecoder {
 
     @JvmStatic
-    fun decodeHardwareKeyEvent(subtype: RichInputMethodSubtype, event: KeyEvent, defaultEvent: Event): Event {
-        val layout = LAYOUTS[subtype.keyboardLayoutSetName] ?: return defaultEvent
-        val codePoint = layout[event.keyCode]?.let { if(event.isShiftPressed) it.second else it.first } ?: return defaultEvent
+    fun decodeHardwareKeyEvent(subtype: RichInputMethodSubtype, event: KeyEvent, defaultEvent: () -> Event): Event {
+        val layout = LAYOUTS[subtype.keyboardLayoutSetName] ?: return defaultEvent()
+        val codePoint = layout[event.keyCode]?.let { if (event.isShiftPressed) it.second else it.first } ?: return defaultEvent()
         val hardwareEvent = Event.createHardwareKeypressEvent(codePoint, event.keyCode, null, event.repeatCount != 0)
         return decodeSoftwareKeyEvent(hardwareEvent)
     }
 
     @JvmStatic
     fun decodeSoftwareKeyEvent(event: Event): Event {
-        if(event.isCombining) return event
-        return if(HangulJamo.of(event.mCodePoint) is HangulJamo.NonHangul) event
+        if (event.isCombining) return event
+        return if (HangulJamo.of(event.mCodePoint) is HangulJamo.NonHangul) event
         else Event.createCombiningEvent(event)
     }
 

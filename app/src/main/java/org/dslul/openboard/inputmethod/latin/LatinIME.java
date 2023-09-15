@@ -1886,13 +1886,17 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED) {
             return super.onKeyDown(keyCode, keyEvent);
         }
-        final Event event = getHardwareKeyEventDecoder(
-                keyEvent.getDeviceId()).decodeHardwareKey(keyEvent);
+        final Event event;
+        if (mRichImm.getCurrentSubtypeLocale().getLanguage().equals("ko")) {
+            event = HangulEventDecoder.decodeHardwareKeyEvent(mRichImm.getCurrentSubtype(), keyEvent,
+                        () -> getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent));
+        } else {
+            event = getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent);
+        }
         // If the event is not handled by LatinIME, we just pass it to the parent implementation.
         // If it's handled, we return true because we did handle it.
         if (event.isHandled()) {
-            Event hangulDecodedEvent = HangulEventDecoder.decodeHardwareKeyEvent(mKeyboardSwitcher.getKeyboard().mId.mSubtype, keyEvent, event);
-            mInputLogic.onCodeInput(mSettings.getCurrent(), hangulDecodedEvent,
+            mInputLogic.onCodeInput(mSettings.getCurrent(), event,
                     mKeyboardSwitcher.getKeyboardShiftMode(),
                     // TODO: this is not necessarily correct for a hardware keyboard right now
                     mKeyboardSwitcher.getCurrentKeyboardScriptId(),
