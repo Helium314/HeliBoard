@@ -236,6 +236,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         removeAllDebugInfoViews();
         mStripVisibilityGroup.showSuggestionsStrip();
         dismissMoreSuggestionsPanel();
+        for (final TextView word : mWordViews) {
+            word.setOnTouchListener(null);
+        }
     }
 
     private void removeAllDebugInfoViews() {
