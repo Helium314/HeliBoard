@@ -35,12 +35,6 @@
 
     <integer name="config_ignore_alt_code_key_timeout">350</integer>
 
-    <integer name="config_key_preview_show_up_duration">0</integer>
-    <integer name="config_key_preview_dismiss_duration">0</integer>
-    <fraction name="config_key_preview_show_up_start_scale">100%</fraction>
-    <fraction name="config_key_preview_dismiss_end_scale">100%</fraction>
-    <!-- TODO: consolidate key preview linger timeout with the above animation parameters. -->
-    <integer name="config_key_preview_linger_timeout">0</integer>
     <!-- Suppress showing key preview duration after batch input in millisecond -->
     <integer name="config_suppress_key_preview_after_batch_input_duration">100</integer>
 
@@ -53,8 +47,6 @@
     <integer name="config_longpress_timeout_step">10</integer>
     <integer name="config_accessibility_long_press_key_timeout">3000</integer>
     <integer name="config_max_more_keys_column">5</integer>
-    <integer name="config_more_keys_keyboard_fadein_anim_time">0</integer>
-    <integer name="config_more_keys_keyboard_fadeout_anim_time">100</integer>
 
     <!-- Long pressing shift will invoke caps-lock if > 0, never invoke caps-lock if == 0 -->
     <integer name="config_longpress_shift_lock_timeout">1200</integer>
@@ -69,7 +61,7 @@
     <dimen name="config_key_hysteresis_distance_for_sliding_modifier">8.0dp</dimen>
 
     <integer name="config_language_on_spacebar_final_alpha">128</integer>
-    <dimen name="config_language_on_spacebar_horizontal_margin">1dp</dimen>
+    <dimen name="config_language_on_spacebar_horizontal_margin">3dp</dimen>
 
     <integer name="config_gesture_floating_preview_text_linger_timeout">200</integer>
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
@@ -146,8 +138,4 @@
     <dimen name="config_accessibility_edge_slop">8dp</dimen>
 
     <integer name="config_user_dictionary_max_word_length">48</integer>
-
-    <!-- Personalization configuration -->
-    <!-- -1 means periocical wipe of the personalization dict is disabled. -->
-    <integer name="config_personalization_dict_wipe_interval_in_days">-1</integer>
 </resources>

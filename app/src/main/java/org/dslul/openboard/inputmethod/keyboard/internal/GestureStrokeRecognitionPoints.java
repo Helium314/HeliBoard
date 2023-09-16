@@ -146,7 +146,7 @@ public final class GestureStrokeRecognitionPoints {
     }
 
     // TODO: Make this package private
-    public final boolean isStartOfAGesture() {
+    public boolean isStartOfAGesture() {
         if (!hasDetectedFastMove()) {
             return false;
         }
@@ -225,7 +225,7 @@ public final class GestureStrokeRecognitionPoints {
         mLastMajorEventY = y;
     }
 
-    private final boolean hasDetectedFastMove() {
+    private boolean hasDetectedFastMove() {
         return mDetectFastMoveTime > 0;
     }
 
@@ -303,18 +303,18 @@ public final class GestureStrokeRecognitionPoints {
     }
 
     // TODO: Make this package private
-    public final boolean hasRecognitionTimePast(
+    public boolean hasRecognitionTimePast(
             final long currentTime, final long lastRecognitionTime) {
         return currentTime > lastRecognitionTime + mRecognitionParams.mRecognitionMinimumTime;
     }
 
     // TODO: Make this package private
-    public final void appendAllBatchPoints(final InputPointers out) {
+    public void appendAllBatchPoints(final InputPointers out) {
         appendBatchPoints(out, getLength());
     }
 
     // TODO: Make this package private
-    public final void appendIncrementalBatchPoints(final InputPointers out) {
+    public void appendIncrementalBatchPoints(final InputPointers out) {
         appendBatchPoints(out, mIncrementalRecognitionSize);
     }
 

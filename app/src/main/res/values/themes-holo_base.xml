@@ -64,8 +64,6 @@
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_holo_white</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_holo</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_holo</item>
-        <item name="keyPreviewShowUpAnimator">@anim/key_preview_show_up_holo</item>
-        <item name="keyPreviewDismissAnimator">@anim/key_preview_dismiss_holo</item>
         <item name="gestureFloatingPreviewTextColor">@color/highlight_color_holo_white</item>
         <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_holo</item>
         <item name="gestureTrailColor">@color/highlight_color_holo_white</item>

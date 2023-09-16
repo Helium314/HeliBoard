@@ -19,6 +19,8 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.event.Event;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -73,8 +75,9 @@ public final class KeyboardState {
 
     private final SwitchActions mSwitchActions;
 
-    private ShiftKeyState mShiftKeyState = new ShiftKeyState("Shift");
-    private ModifierKeyState mSymbolKeyState = new ModifierKeyState("Symbol");
+    private final ShiftKeyState mShiftKeyState = new ShiftKeyState("Shift");
+    private final ModifierKeyState mSymbolKeyState = new ModifierKeyState("Symbol");
+    private final AlphabetShiftState mAlphabetShiftState = new AlphabetShiftState();
 
     // TODO: Merge {@link #mSwitchState}, {@link #mIsAlphabetMode}, {@link #mAlphabetShiftState},
     // {@link #mIsSymbolShifted}, {@link #mPrevMainKeyboardWasShiftLocked}, and
@@ -93,7 +96,6 @@ public final class KeyboardState {
     private static final int MODE_CLIPBOARD = 3;
     private static final int MODE_NUMPAD = 4;
     private int mMode = MODE_ALPHABET;
-    private AlphabetShiftState mAlphabetShiftState = new AlphabetShiftState();
     private boolean mIsSymbolShifted;
     private boolean mPrevMainKeyboardWasShiftLocked;
     private boolean mPrevSymbolsKeyboardWasShifted;
@@ -111,6 +113,7 @@ public final class KeyboardState {
         public int mMode;
         public int mShiftMode;
 
+        @NonNull
         @Override
         public String toString() {
             if (!mIsValid) {

@@ -27,20 +27,6 @@
     <string name="sliding_key_input_preview" translatable="false">Show slide indicator</string>
     <!-- Option summary to enable sliding key input indicator. The user can see a rubber band-like effect during sliding key input. [CHAR LIMIT=66]-->
     <string name="sliding_key_input_preview_summary" translatable="false">Display visual cue while sliding from Shift or Symbol keys</string>
-    <!-- Title of the settings for customize key popup animation parameters [CHAR LIMIT=35] -->
-    <string name="prefs_customize_key_preview_animation" translatable="false">Customize key preview animation</string>
-    <!-- Title of the settings for key popup show up animation duration (in milliseconds) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_show_up_duration_settings" translatable="false">Key popup show up duration</string>
-    <!-- Title of the settings for key popup dismiss animation duration (in milliseconds) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_dismiss_duration_settings" translatable="false">Key popup dismiss duration</string>
-    <!-- Title of the settings for key popup show up animation start X-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_show_up_start_x_scale_settings" translatable="false">Key popup show up start X scale</string>
-    <!-- Title of the settings for key popup show up animation start Y-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_show_up_start_y_scale_settings" translatable="false">Key popup show up start Y scale</string>
-    <!-- Title of the settings for key popup dismiss animation end X-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_dismiss_end_x_scale_settings" translatable="false">Key popup dismiss end X scale</string>
-    <!-- Title of the settings for key popup dismiss animation end Y-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_dismiss_end_y_scale_settings" translatable="false">Key popup dismiss end Y scale</string>
-    <!-- Title of the settings group for dumpping dictionary files that have been created on the device [CHAR LIMIT=35] -->
+    <!-- Title of the settings group for dumping dictionary files that have been created on the device [CHAR LIMIT=35] -->
     <string name="prefs_dump_dynamic_dicts" translatable="false">Dump dictionary</string>
 </resources>

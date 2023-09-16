@@ -111,13 +111,11 @@ public class ProximityInfo {
         return count;
     }
 
-    private long createNativeProximityInfo(
-            @NonNull final TouchPositionCorrection touchPositionCorrection) {
-        final List<Key>[] gridNeighborKeys = mGridNeighbors;
+    private long createNativeProximityInfo(@NonNull final TouchPositionCorrection touchPositionCorrection) {
         final int[] proximityCharsArray = new int[mGridSize * MAX_PROXIMITY_CHARS_SIZE];
         Arrays.fill(proximityCharsArray, Constants.NOT_A_CODE);
         for (int i = 0; i < mGridSize; ++i) {
-            final List<Key> neighborKeys = gridNeighborKeys[i];
+            final List<Key> neighborKeys = mGridNeighbors[i];
             final int proximityCharsLength = neighborKeys.size();
             int infoIndex = i * MAX_PROXIMITY_CHARS_SIZE;
             for (int j = 0; j < proximityCharsLength; ++j) {
@@ -243,10 +241,9 @@ public class ProximityInfo {
     }
 
     private void computeNearestNeighbors() {
-        final int defaultWidth = mMostCommonKeyWidth;
         final int keyCount = mSortedKeys.size();
         final int gridSize = mGridNeighbors.length;
-        final int threshold = (int) (defaultWidth * SEARCH_DISTANCE);
+        final int threshold = (int) (mMostCommonKeyWidth * SEARCH_DISTANCE);
         final int thresholdSquared = threshold * threshold;
         // Round-up so we don't have any pixels outside the grid
         final int lastPixelXCoordinate = mGridWidth * mCellWidth - 1;

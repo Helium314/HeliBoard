@@ -21,6 +21,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.keyboard.PointerTracker;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
@@ -79,7 +81,7 @@ public final class SlidingKeyInputDrawingPreview extends AbstractDrawingPreview 
      * @param canvas The canvas where the preview is drawn.
      */
     @Override
-    public void drawPreview(final Canvas canvas) {
+    public void drawPreview(@NonNull final Canvas canvas) {
         if (!isPreviewEnabled() || !mShowsSlidingKeyInputPreview) {
             return;
         }

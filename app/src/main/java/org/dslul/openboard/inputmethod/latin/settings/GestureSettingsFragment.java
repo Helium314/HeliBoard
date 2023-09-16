@@ -48,10 +48,10 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL,
-                Settings.readGestureInputEnabled(prefs, res));
+                Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
-                Settings.readGestureInputEnabled(prefs, res));
+                Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE,
-                Settings.readGestureInputEnabled(prefs, res));
+                Settings.readGestureInputEnabled(prefs));
     }
 }
