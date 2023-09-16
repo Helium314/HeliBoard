@@ -742,7 +742,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * @param locale the locale
      */
     // TODO: make sure the current settings always have the right locales, and read from them.
-    private void resetDictionaryFacilitator(final Locale locale) {
+    private void resetDictionaryFacilitator(@NonNull final Locale locale) {
         final SettingsValues settingsValues = mSettings.getCurrent();
         mDictionaryFacilitator.resetDictionaries(this /* context */, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUsePersonalizedDicts,
