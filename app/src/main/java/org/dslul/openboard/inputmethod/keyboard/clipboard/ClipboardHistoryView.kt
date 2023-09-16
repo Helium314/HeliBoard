@@ -95,6 +95,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
             colorFilter = colors.keyTextFilter
+            colors.setBackgroundColor(background, BackgroundType.SUGGESTION)
         }
     }
 

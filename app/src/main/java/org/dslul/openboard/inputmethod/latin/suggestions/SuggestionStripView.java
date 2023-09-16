@@ -150,7 +150,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION); // only necessary in some Android versions
+            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -192,7 +192,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mVoiceKey.setColorFilter(colors.getKeyText());
         mOtherKey.setColorFilter(colors.getKeyText());
 
-        // only necessary in some Android versions
         colors.setBackgroundColor(mClipboardKey.getBackground(), BackgroundType.SUGGESTION);
         colors.setBackgroundColor(mVoiceKey.getBackground(), BackgroundType.SUGGESTION);
         colors.setBackgroundColor(mOtherKey.getBackground(), BackgroundType.SUGGESTION);

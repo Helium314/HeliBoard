@@ -36,7 +36,10 @@ class Colors (
     val keyHintText: Int
 ) {
     val navBar: Int
+    /** brightened or darkened variant of [background], to be used if exact background color would be
+     *  bad contrast, e.g. more keys popup or no border space bar */
     val adjustedBackground: Int
+    /** brightened or darkened variant of [keyText] */
     val adjustedKeyText: Int
     val spaceBarText: Int
 
@@ -49,7 +52,9 @@ class Colors (
     val spaceBarFilter: ColorFilter
     val keyTextFilter: ColorFilter
     val accentColorFilter: ColorFilter
+    /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
     val actionKeyIconColorFilter: ColorFilter?
+    /** color filter for the clipboard pin, used only in holo theme */
     val clipboardPinFilter: ColorFilter?
 
     private val backgroundStateList: ColorStateList
@@ -58,8 +63,10 @@ class Colors (
     private val actionKeyStateList: ColorStateList
     private val spaceBarStateList: ColorStateList
     private val adjustedBackgroundStateList: ColorStateList
+    private val suggestionBackgroundList: ColorStateList
 
-    val keyboardBackground: Drawable?
+    /** custom drawable used for keyboard background */
+    private val keyboardBackground: Drawable?
 
     init {
         accentColorFilter = colorFilter(accent)
@@ -86,14 +93,20 @@ class Colors (
         backgroundFilter = colorFilter(background)
         adjustedKeyText = brightenOrDarken(keyText, true)
 
-        // color to be used if exact background color would be bad contrast, e.g. more keys popup or no border space bar
+        val doubleAdjustedBackground: Int
         if (isDarkColor(background)) {
             adjustedBackground = brighten(background)
-            adjustedBackgroundStateList = stateList(brighten(adjustedBackground), adjustedBackground)
+            doubleAdjustedBackground = brighten(adjustedBackground)
         } else {
             adjustedBackground = darken(background)
-            adjustedBackgroundStateList = stateList(darken(adjustedBackground), adjustedBackground)
+            doubleAdjustedBackground = darken(adjustedBackground)
         }
+        adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
+        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == THEME_STYLE_MATERIAL)
+            stateList(doubleAdjustedBackground, Color.TRANSPARENT)
+        else
+            stateList(adjustedBackground, Color.TRANSPARENT)
+
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
         if (hasKeyBorders) {
             keyBackgroundFilter = colorFilter(keyBackground)
@@ -148,7 +161,7 @@ class Colors (
         DrawableCompat.setTintList(background, colorStateList)
     }
 
-    // using !! for the color filter because null is only returned for unsupported modes, which are not used
+    // using !! for the color filter because null is only returned for unsupported blend modes, which are not used
     private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter =
         BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, mode)!!
 
@@ -189,5 +202,20 @@ class Colors (
 }
 
 enum class BackgroundType {
-    BACKGROUND, KEY, FUNCTIONAL, ACTION, ACTION_MORE_KEYS, SPACE, ADJUSTED_BACKGROUND, SUGGESTION
+    /** generic background */
+    BACKGROUND,
+    /** key background */
+    KEY,
+    /** functional key background */
+    FUNCTIONAL,
+    /** action key background */
+    ACTION,
+    /** action key more keys background */
+    ACTION_MORE_KEYS,
+    /** space bar background */
+    SPACE,
+    /** background with some contrast to [BACKGROUND], based on adjustedBackground color */
+    ADJUSTED_BACKGROUND,
+    /** background for suggestions and similar, transparent when not pressed */
+    SUGGESTION
 }
