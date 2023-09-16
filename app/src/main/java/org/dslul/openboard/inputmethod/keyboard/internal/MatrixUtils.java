@@ -21,6 +21,7 @@ import android.util.Log;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Utilities for matrix operations. Don't instantiate objects inside this class to prevent
@@ -154,10 +155,10 @@ public class MatrixUtils {
         Log.d(TAG, "Dump matrix: " + title);
         Log.d(TAG, "/*---------------------");
         final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < row; ++i) {
+        for (float[] floats : a) {
             sb.setLength(0);
             for (int j = 0; j < column; ++j) {
-                sb.append(String.format("%4f", a[i][j])).append(' ');
+                sb.append(String.format(Locale.ROOT, "%4f", floats[j])).append(' ');
             }
             Log.d(TAG, sb.toString());
         }

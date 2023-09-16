@@ -16,6 +16,7 @@
 
 package org.dslul.openboard.inputmethod.latin.suggestions;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -125,8 +126,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     /**
      * Construct a {@link SuggestionStripView} for showing suggestions to be picked by the user.
-     * @param context
-     * @param attrs
      */
     public SuggestionStripView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.suggestionStripViewStyle);
@@ -172,8 +171,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final Resources res = context.getResources();
         mMoreSuggestionsModalTolerance = res.getDimensionPixelOffset(
                 R.dimen.config_more_suggestions_modal_tolerance);
-        mMoreSuggestionsSlidingDetector = new GestureDetector(
-                context, mMoreSuggestionsSlidingListener);
+        mMoreSuggestionsSlidingDetector = new GestureDetector(context, mMoreSuggestionsSlidingListener);
 
         final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
@@ -202,7 +200,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     /**
      * A connection back to the input method.
-     * @param listener
      */
     public void setListener(final Listener listener, final View inputView) {
         mListener = listener;
@@ -231,6 +228,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
 
+    @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     public void clear() {
         mSuggestionsStrip.removeAllViews();
         removeAllDebugInfoViews();
@@ -291,6 +289,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
     public boolean onLongClick(final View view) {
         if (view == mClipboardKey) {
             ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -490,6 +489,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility") // ok, perform click again, but why?
     public boolean onTouchEvent(final MotionEvent me) {
         if (!mMoreSuggestionsView.isShowingInParent()) {
             // Ignore any touch event while more suggestions panel hasn't been shown.

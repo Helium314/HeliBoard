@@ -18,6 +18,8 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public final class PointerTrackerQueue {
@@ -176,10 +178,9 @@ public final class PointerTrackerQueue {
 
     public boolean hasModifierKeyOlderThan(final Element pointer) {
         synchronized (mExpandableArrayOfActivePointers) {
-            final ArrayList<Element> expandableArray = mExpandableArrayOfActivePointers;
             final int arraySize = mArraySize;
             for (int index = 0; index < arraySize; index++) {
-                final Element element = expandableArray.get(index);
+                final Element element = mExpandableArrayOfActivePointers.get(index);
                 if (element == pointer) {
                     return false; // Stop searching modifier key.
                 }
@@ -193,10 +194,9 @@ public final class PointerTrackerQueue {
 
     public boolean isAnyInDraggingFinger() {
         synchronized (mExpandableArrayOfActivePointers) {
-            final ArrayList<Element> expandableArray = mExpandableArrayOfActivePointers;
             final int arraySize = mArraySize;
             for (int index = 0; index < arraySize; index++) {
-                final Element element = expandableArray.get(index);
+                final Element element = mExpandableArrayOfActivePointers.get(index);
                 if (element.isInDraggingFinger()) {
                     return true;
                 }
@@ -210,29 +210,28 @@ public final class PointerTrackerQueue {
             if (DEBUG) {
                 Log.d(TAG, "cancelAllPointerTracker: " + this);
             }
-            final ArrayList<Element> expandableArray = mExpandableArrayOfActivePointers;
             final int arraySize = mArraySize;
             for (int index = 0; index < arraySize; index++) {
-                final Element element = expandableArray.get(index);
+                final Element element = mExpandableArrayOfActivePointers.get(index);
                 element.cancelTrackingForAction();
             }
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         synchronized (mExpandableArrayOfActivePointers) {
             final StringBuilder sb = new StringBuilder();
-            final ArrayList<Element> expandableArray = mExpandableArrayOfActivePointers;
             final int arraySize = mArraySize;
             for (int index = 0; index < arraySize; index++) {
-                final Element element = expandableArray.get(index);
+                final Element element = mExpandableArrayOfActivePointers.get(index);
                 if (sb.length() > 0) {
                     sb.append(" ");
                 }
                 sb.append(element.toString());
             }
-            return "[" + sb.toString() + "]";
+            return "[" + sb + "]";
         }
     }
 }

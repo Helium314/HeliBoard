@@ -18,6 +18,8 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 public final class AlphabetShiftState {
     private static final String TAG = AlphabetShiftState.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -112,6 +114,7 @@ public final class AlphabetShiftState {
         return mState == MANUAL_SHIFTED_FROM_AUTO;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return toString(mState);

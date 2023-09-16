@@ -16,14 +16,8 @@
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.res.TypedArray;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 
 import org.dslul.openboard.inputmethod.latin.R;
 

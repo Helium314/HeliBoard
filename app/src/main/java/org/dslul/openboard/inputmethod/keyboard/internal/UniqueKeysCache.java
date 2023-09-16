@@ -35,8 +35,9 @@ public abstract class UniqueKeysCache {
         @Override
         public void clear() {}
 
+        @NonNull
         @Override
-        public Key getUniqueKey(Key key) { return key; }
+        public Key getUniqueKey(@NonNull Key key) { return key; }
     };
 
     @NonNull
@@ -63,8 +64,9 @@ public abstract class UniqueKeysCache {
             mCache.clear();
         }
 
+        @NonNull
         @Override
-        public Key getUniqueKey(final Key key) {
+        public Key getUniqueKey(@NonNull final Key key) {
             if (!mEnabled) {
                 return key;
             }

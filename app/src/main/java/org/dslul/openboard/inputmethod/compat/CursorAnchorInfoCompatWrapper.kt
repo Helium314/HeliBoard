@@ -147,7 +147,7 @@ open class CursorAnchorInfoCompatWrapper internal constructor() {
          */
         const val FLAG_IS_RTL = 0x04
 
-        @kotlin.jvm.JvmStatic
+        @JvmStatic
         @TargetApi(VERSION_CODES.LOLLIPOP)
         fun wrap(instance: CursorAnchorInfo?): CursorAnchorInfoCompatWrapper? {
             return if (Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
