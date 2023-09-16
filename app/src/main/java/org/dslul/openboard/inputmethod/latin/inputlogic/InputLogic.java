@@ -449,9 +449,11 @@ public final class InputLogic {
         mJustRevertedACommit = false;
         final Event processedEvent;
         if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL) {
+            mWordComposer.setHangul(true);
             final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
             processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
         } else {
+            mWordComposer.setHangul(false);
             processedEvent = mWordComposer.processEvent(event);
         }
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,

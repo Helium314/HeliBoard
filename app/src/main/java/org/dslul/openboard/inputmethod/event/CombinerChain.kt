@@ -2,7 +2,6 @@ package org.dslul.openboard.inputmethod.event
 
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import java.util.*
 
@@ -24,6 +23,19 @@ class CombinerChain(initialText: String) {
     // The feedback on the composing state, as described above
     private val mStateFeedback = SpannableStringBuilder()
     private val mCombiners = ArrayList<Combiner>()
+    // Hangul combiner affects other scripts, e.g. period is seen as port of a word for latin,
+    // so we need to remove the combiner when not writing in hangul script.
+    // Maybe it would be better to always have the Hangul combiner, but make sure it doesn't affect
+    // events for other scripts, but how?
+    var isHangul = false
+        set(value) {
+            if (field == value) return
+            field = value
+            if (!value)
+                mCombiners.removeAll { it is HangulCombiner }
+            else if (mCombiners.none { it is HangulCombiner })
+                mCombiners.add(HangulCombiner())
+        }
 
     /**
      * Create an combiner chain.
@@ -43,15 +55,6 @@ class CombinerChain(initialText: String) {
     fun reset() {
         mCombinedText.setLength(0)
         mStateFeedback.clear()
-        // todo: the first word after language switch is still affected
-        if (KeyboardSwitcher.getInstance().keyboard?.mId?.mSubtype?.locale?.language == "ko") {
-            // if the hangul combiner is added for other keyboards, it leads to weird behavior,
-            // e.g. for latin script, period is seen as part of a word
-            if (mCombiners.none { it is HangulCombiner })
-                mCombiners.add(HangulCombiner())
-        } else {
-            mCombiners.removeAll { it is HangulCombiner }
-        }
         for (c in mCombiners) {
             c.reset()
         }

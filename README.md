@@ -9,16 +9,17 @@ Might end up on F-Droid...
 * Allow loading Glide typing library
   * not included in the app, as there is no compatible open source library
   * can be extracted from GApps packages (_swypelibs_), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
- * Multilingual typing
- * Load external dictionaries
-   * get them [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental) section (quality may vary)
-   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
- * Adjust keyboard themes (style and colors)
-   * can follow the system's day/night setting
- * Split keyboard
- * Number row
- * Number pad
- * Show all available extra characters on long pressing a key
+* Multilingual typing
+* Load external dictionaries
+  * get them [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental) section (quality may vary)
+  * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
+  * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
+* Adjust keyboard themes (style and colors)
+  * can follow the system's day/night setting
+* Split keyboard
+* Number row
+* Number pad
+* Show all available extra characters on long pressing a key
 
 ## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
