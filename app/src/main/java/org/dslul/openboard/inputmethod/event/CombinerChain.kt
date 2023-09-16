@@ -27,6 +27,7 @@ class CombinerChain(initialText: String) {
     // so we need to remove the combiner when not writing in hangul script.
     // Maybe it would be better to always have the Hangul combiner, but make sure it doesn't affect
     // events for other scripts, but how?
+    // todo: this really should be done properly, hangul combiner should do nothing when it's not needed
     var isHangul = false
         set(value) {
             if (field == value) return
