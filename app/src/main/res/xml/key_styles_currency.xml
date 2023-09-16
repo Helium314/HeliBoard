@@ -110,7 +110,7 @@
              th: Thai (Baht)
              uk: Ukrainian (Hryvnia)
              vi: Vietnamese (Dong)  -->
-        <case latin:languageCode="fa|hi|iw|lo|mn|ne|th|uk|vi">
+        <case latin:languageCode="fa|hi|iw|ko|lo|mn|ne|th|uk|vi">
             <include latin:keyboardLayout="@xml/key_styles_currency_generic" />
         </case>
         <!-- hy: Armenian (Armenian Dram) -->

@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.event.CombinerChain;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.keyboard.Keyboard;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -91,6 +93,11 @@ public final class WordComposer {
         mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
+        final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+        if (keyboard != null)
+            // initializing with the right state is important for the spell checker,
+            // which creates a new WordComposer when receiving suggestions
+            mCombinerChain.setHangul(keyboard.mId.mSubtype.getLocale().getLanguage().equals("ko"));
     }
 
     public ComposedData getComposedDataSnapshot() {
@@ -104,11 +111,13 @@ public final class WordComposer {
     public void restartCombining(final String combiningSpec) {
         final String nonNullCombiningSpec = null == combiningSpec ? "" : combiningSpec;
         if (!nonNullCombiningSpec.equals(mCombiningSpec)) {
-            mCombinerChain = new CombinerChain(
-                    mCombinerChain.getComposingWordWithCombiningFeedback().toString());
+            mCombinerChain = new CombinerChain(mCombinerChain.getComposingWordWithCombiningFeedback().toString());
             mCombiningSpec = nonNullCombiningSpec;
         }
     }
+
+    /** Forwards the state to CombinerChain, which disables or enables the Hangul combiner */
+    public void setHangul(final boolean enabled) { mCombinerChain.setHangul(enabled); }
 
     /**
      * Clear out the keys registered so far.
@@ -275,8 +284,7 @@ public final class WordComposer {
             final int codePoint = Character.codePointAt(word, i);
             // We don't want to override the batch input points that are held in mInputPointers
             // (See {@link #add(int,int,int)}).
-            final Event processedEvent =
-                    processEvent(Event.createEventForCodePointFromUnknownSource(codePoint));
+            final Event processedEvent = processEvent(Event.createEventForCodePointFromUnknownSource(codePoint));
             applyProcessedEvent(processedEvent);
         }
     }
@@ -293,8 +301,9 @@ public final class WordComposer {
         for (int i = 0; i < length; ++i) {
             final Event processedEvent =
                     processEvent(Event.createEventForCodePointFromAlreadyTypedText(codePoints[i],
-                    CoordinateUtils.xFromArray(coordinates, i),
-                    CoordinateUtils.yFromArray(coordinates, i)));
+                        CoordinateUtils.xFromArray(coordinates, i),
+                        CoordinateUtils.yFromArray(coordinates, i))
+                    );
             applyProcessedEvent(processedEvent);
         }
         mIsResumed = true;

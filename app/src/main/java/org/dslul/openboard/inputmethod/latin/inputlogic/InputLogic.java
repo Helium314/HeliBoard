@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.compat.SuggestionSpanUtils;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.event.HangulEventDecoder;
 import org.dslul.openboard.inputmethod.event.InputTransaction;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
@@ -58,6 +59,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
 
@@ -445,7 +447,18 @@ public final class InputLogic {
             final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
-        final Event processedEvent = mWordComposer.processEvent(event);
+        final Event processedEvent;
+        if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL
+                // only use the Hangul chain if codepoint may actually be Hangul
+                // todo: this whole hangul-related logic should probably be somewhere else
+                && event.getMCodePoint() >= 0x1100) {
+            mWordComposer.setHangul(true);
+            final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
+            processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+        } else {
+            mWordComposer.setHangul(false);
+            processedEvent = mWordComposer.processEvent(event);
+        }
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
@@ -735,6 +748,11 @@ public final class InputLogic {
                 // Shift + Enter is treated as a functional key but it results in adding a new
                 // line, so that does affect the contents of the editor.
                 inputTransaction.setDidAffectContents();
+                break;
+            case Constants.CODE_OUTPUT_TEXT:
+                // added in the hangul branch, but without this a space after a period crashes
+                // -> where is the change?
+                mWordComposer.applyProcessedEvent(event);
                 break;
             case Constants.CODE_START_ONE_HANDED_MODE:
             case Constants.CODE_STOP_ONE_HANDED_MODE:
