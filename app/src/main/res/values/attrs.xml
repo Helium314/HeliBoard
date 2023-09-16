@@ -119,13 +119,6 @@
         <attr name="keyPreviewOffset" format="dimension" />
         <!-- Height of the key press feedback popup. -->
         <attr name="keyPreviewHeight" format="dimension" />
-        <!-- TODO: consolidate key preview linger timeout with the key preview animation parameters. -->
-        <!-- Delay after key releasing and key press feedback dismissing in millisecond -->
-        <attr name="keyPreviewLingerTimeout" format="integer" />
-        <!-- Key preview show up animator -->
-        <attr name="keyPreviewShowUpAnimator" format="reference" />
-        <!-- Key preview dismiss animator -->
-        <attr name="keyPreviewDismissAnimator" format="reference" />
         <!-- Layout resource for more keys keyboard -->
         <attr name="moreKeysKeyboardLayout" format="reference" />
         <!-- Layout resource for more keys keyboard of action key -->

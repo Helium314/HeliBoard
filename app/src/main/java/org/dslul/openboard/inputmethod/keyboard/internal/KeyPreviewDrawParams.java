@@ -99,10 +99,4 @@ public final class KeyPreviewDrawParams {
         return mShowPopup;
     }
 
-    public void setAnimationParams(final boolean hasCustomAnimationParams,
-            final float showUpStartXScale, final float showUpStartYScale, final int showUpDuration,
-            final float dismissEndXScale, final float dismissEndYScale, final int dismissDuration) {
-        //TODO: remove
-    }
-
 }

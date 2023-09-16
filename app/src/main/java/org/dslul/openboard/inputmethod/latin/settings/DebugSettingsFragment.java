@@ -19,9 +19,7 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Process;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
@@ -32,9 +30,6 @@ import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
 import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
-import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
-
-import java.util.Locale;
 
 /**
  * "Debug mode" settings sub screen.
@@ -64,23 +59,6 @@ public final class DebugSettingsFragment extends SubScreenFragment
             pref.setOnPreferenceClickListener(this);
             dictDumpPreferenceGroup.addPreference(pref);
         }
-        final Resources res = getResources();
-        setupKeyPreviewAnimationDuration(DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_DURATION,
-                res.getInteger(R.integer.config_key_preview_show_up_duration));
-        setupKeyPreviewAnimationDuration(DebugSettings.PREF_KEY_PREVIEW_DISMISS_DURATION,
-                res.getInteger(R.integer.config_key_preview_dismiss_duration));
-        final float defaultKeyPreviewShowUpStartScale = ResourceUtils.getFloatFromFraction(
-                res, R.fraction.config_key_preview_show_up_start_scale);
-        final float defaultKeyPreviewDismissEndScale = ResourceUtils.getFloatFromFraction(
-                res, R.fraction.config_key_preview_dismiss_end_scale);
-        setupKeyPreviewAnimationScale(DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_START_X_SCALE,
-                defaultKeyPreviewShowUpStartScale);
-        setupKeyPreviewAnimationScale(DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_START_Y_SCALE,
-                defaultKeyPreviewShowUpStartScale);
-        setupKeyPreviewAnimationScale(DebugSettings.PREF_KEY_PREVIEW_DISMISS_END_X_SCALE,
-                defaultKeyPreviewDismissEndScale);
-        setupKeyPreviewAnimationScale(DebugSettings.PREF_KEY_PREVIEW_DISMISS_END_Y_SCALE,
-                defaultKeyPreviewDismissEndScale);
 
         mServiceNeedsRestart = false;
         mDebugMode = findPreference(DebugSettings.PREF_DEBUG_MODE);
@@ -142,96 +120,6 @@ public final class DebugSettingsFragment extends SubScreenFragment
             mDebugMode.setTitle(getString(R.string.prefs_debug_mode));
             mDebugMode.setSummary(version);
         }
-    }
-
-    private void setupKeyPreviewAnimationScale(final String prefKey, final float defaultValue) {
-        final SharedPreferences prefs = getSharedPreferences();
-        final Resources res = getResources();
-        final SeekBarDialogPreference pref = findPreference(prefKey);
-        if (pref == null) {
-            return;
-        }
-        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
-            private static final float PERCENTAGE_FLOAT = 100.0f;
-
-            private float getValueFromPercentage(final int percentage) {
-                return percentage / PERCENTAGE_FLOAT;
-            }
-
-            private int getPercentageFromValue(final float floatValue) {
-                return (int)(floatValue * PERCENTAGE_FLOAT);
-            }
-
-            @Override
-            public void writeValue(final int value, final String key) {
-                prefs.edit().putFloat(key, getValueFromPercentage(value)).apply();
-            }
-
-            @Override
-            public void writeDefaultValue(final String key) {
-                prefs.edit().remove(key).apply();
-            }
-
-            @Override
-            public int readValue(final String key) {
-                return getPercentageFromValue(
-                        Settings.readKeyPreviewAnimationScale(prefs, key, defaultValue));
-            }
-
-            @Override
-            public int readDefaultValue(final String key) {
-                return getPercentageFromValue(defaultValue);
-            }
-
-            @Override
-            public String getValueText(final int value) {
-                if (value < 0) {
-                    return res.getString(R.string.settings_system_default);
-                }
-                return String.format(Locale.ROOT, "%d%%", value);
-            }
-
-            @Override
-            public void feedbackValue(final int value) {}
-        });
-    }
-
-    private void setupKeyPreviewAnimationDuration(final String prefKey, final int defaultValue) {
-        final SharedPreferences prefs = getSharedPreferences();
-        final Resources res = getResources();
-        final SeekBarDialogPreference pref = findPreference(prefKey);
-        if (pref == null) {
-            return;
-        }
-        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
-            @Override
-            public void writeValue(final int value, final String key) {
-                prefs.edit().putInt(key, value).apply();
-            }
-
-            @Override
-            public void writeDefaultValue(final String key) {
-                prefs.edit().remove(key).apply();
-            }
-
-            @Override
-            public int readValue(final String key) {
-                return Settings.readKeyPreviewAnimationDuration(prefs, key, defaultValue);
-            }
-
-            @Override
-            public int readDefaultValue(final String key) {
-                return defaultValue;
-            }
-
-            @Override
-            public String getValueText(final int value) {
-                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
-            }
-
-            @Override
-            public void feedbackValue(final int value) {}
-        });
     }
 
 }
