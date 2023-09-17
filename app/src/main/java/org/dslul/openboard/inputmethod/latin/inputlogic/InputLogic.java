@@ -148,8 +148,7 @@ public final class InputLogic {
             // For messaging apps that offer send button, the IME does not get the opportunity
             // to capture the last word. This block should capture those uncommitted words.
             // The timestamp at which it is captured is not accurate but close enough.
-            StatsUtils.onWordCommitUserTyped(
-                    mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
+            StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
         }
         mWordComposer.restartCombining(combiningSpec);
         resetComposingState(true /* alsoResetLastComposedWord */);
@@ -169,8 +168,7 @@ public final class InputLogic {
         }
 
         if (settingsValues.mShouldShowLxxSuggestionUi) {
-            mConnection.requestCursorUpdates(true /* enableMonitor */,
-                    true /* requestImmediateCallback */);
+            mConnection.requestCursorUpdates(true, true);
         }
     }
 
@@ -1024,9 +1022,9 @@ public final class InputLogic {
                 // phantom space state when typing decimal numbers, with the drawback of not
                 // setting phantom space state after ending a sentence with a non-word.
                 if (wasComposingWord
-                    && settingsValues.mAutospaceAfterPunctuationEnabled
-                    && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
-                mSpaceState = SpaceState.PHANTOM;
+                        && settingsValues.mAutospaceAfterPunctuationEnabled
+                        && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
+                    mSpaceState = SpaceState.PHANTOM;
             }
 
             sendKeyCodePoint(settingsValues, codePoint);
@@ -1579,11 +1577,12 @@ public final class InputLogic {
             return;
         }
         final int expectedCursorPosition = mConnection.getExpectedSelectionStart();
-        if (!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations,
-                    true /* checkTextAfter */)) {
+        if (!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations, true /* checkTextAfter */)) {
             // Show predictions.
             mWordComposer.setCapitalizedModeAtStartComposingTime(WordComposer.CAPS_MODE_OFF);
             mLatinIME.mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_RECORRECTION);
+            // "unselect" the previous text
+            mConnection.finishComposingText();
             return;
         }
         final TextRange range = mConnection.getWordRangeAtCursor(
@@ -1596,10 +1595,17 @@ public final class InputLogic {
         }
         // If for some strange reason (editor bug or so) we measure the text before the cursor as
         // longer than what the entire text is supposed to be, the safe thing to do is bail out.
-        if (range.mHasUrlSpans) return; // If there are links, we don't resume suggestions. Making
+        if (range.mHasUrlSpans) return;
+        // If there are links, we don't resume suggestions. Making
         // edits to a linkified text through batch commands would ruin the URL spans, and unless
         // we take very complicated steps to preserve the whole link, we can't do things right so
         // we just do not resume because it's safer.
+        if (!isResumableWord(settingsValues, range.mWord.toString())) {
+            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+            // "unselect" the previous text
+            mConnection.finishComposingText();
+            return;
+        }
         final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();
         if (numberOfCharsInWordBeforeCursor > expectedCursorPosition) return;
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
@@ -1610,10 +1616,6 @@ public final class InputLogic {
                 SuggestedWordInfo.NOT_AN_INDEX /* indexOfTouchPointOfSecondWord */,
                 SuggestedWordInfo.NOT_A_CONFIDENCE /* autoCommitFirstWordConfidence */);
         suggestions.add(typedWordInfo);
-        if (!isResumableWord(settingsValues, typedWordString)) {
-            mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            return;
-        }
         int i = 0;
         for (final SuggestionSpan span : range.getSuggestionSpansAtWord()) {
             for (final String s : span.getSuggestions()) {
