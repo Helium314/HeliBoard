@@ -233,9 +233,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         private static final int MSG_RESET_CACHES = 7;
         private static final int MSG_WAIT_FOR_DICTIONARY_LOAD = 8;
         private static final int MSG_DEALLOCATE_MEMORY = 9;
-        private static final int MSG_RESUME_SUGGESTIONS_FOR_START_INPUT = 10;
-        private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 11;
-        private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 12;
+        private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
+        private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 11;
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
 
@@ -291,12 +290,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     break;
                 case MSG_RESUME_SUGGESTIONS:
                     latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
-                            latinIme.mSettings.getCurrent(), false /* forStartInput */,
-                            latinIme.mKeyboardSwitcher.getCurrentKeyboardScriptId());
-                    break;
-                case MSG_RESUME_SUGGESTIONS_FOR_START_INPUT:
-                    latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
-                            latinIme.mSettings.getCurrent(), true /* forStartInput */,
+                            latinIme.mSettings.getCurrent(),
                             latinIme.mKeyboardSwitcher.getCurrentKeyboardScriptId());
                     break;
                 case MSG_REOPEN_DICTIONARIES:
@@ -350,8 +344,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             sendMessage(obtainMessage(MSG_REOPEN_DICTIONARIES));
         }
 
-        private void postResumeSuggestionsInternal(final boolean shouldDelay,
-                                                   final boolean forStartInput) {
+        public void postResumeSuggestions(final boolean shouldDelay) {
             final LatinIME latinIme = getOwnerInstance();
             if (latinIme == null) {
                 return;
@@ -360,23 +353,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 return;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);
-            removeMessages(MSG_RESUME_SUGGESTIONS_FOR_START_INPUT);
-            final int message = forStartInput ? MSG_RESUME_SUGGESTIONS_FOR_START_INPUT
-                    : MSG_RESUME_SUGGESTIONS;
+            final int message = MSG_RESUME_SUGGESTIONS;
             if (shouldDelay) {
                 sendMessageDelayed(obtainMessage(message),
                         mDelayInMillisecondsToUpdateSuggestions);
             } else {
                 sendMessage(obtainMessage(message));
             }
-        }
-
-        public void postResumeSuggestions(final boolean shouldDelay) {
-            postResumeSuggestionsInternal(shouldDelay, false /* forStartInput */);
-        }
-
-        public void postResumeSuggestionsForStartInput(final boolean shouldDelay) {
-            postResumeSuggestionsInternal(shouldDelay, true /* forStartInput */);
         }
 
         public void postResetCaches(final boolean tryResumeSuggestions, final int remainingTries) {
@@ -1048,7 +1031,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
                 mInputLogic.mConnection.tryFixLyingCursorPosition();
-                mHandler.postResumeSuggestionsForStartInput(true /* shouldDelay */);
+                mHandler.postResumeSuggestions(true /* shouldDelay */);
                 needToCallLoadKeyboardLater = false;
             }
         } else {
@@ -1445,8 +1428,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
-        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(),
-                false, mKeyboardSwitcher.getCurrentKeyboardScriptId());
+        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());
     }
 
     @Override
