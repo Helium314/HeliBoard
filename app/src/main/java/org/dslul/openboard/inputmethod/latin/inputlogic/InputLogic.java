@@ -148,8 +148,7 @@ public final class InputLogic {
             // For messaging apps that offer send button, the IME does not get the opportunity
             // to capture the last word. This block should capture those uncommitted words.
             // The timestamp at which it is captured is not accurate but close enough.
-            StatsUtils.onWordCommitUserTyped(
-                    mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
+            StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
         }
         mWordComposer.restartCombining(combiningSpec);
         resetComposingState(true /* alsoResetLastComposedWord */);
@@ -169,8 +168,7 @@ public final class InputLogic {
         }
 
         if (settingsValues.mShouldShowLxxSuggestionUi) {
-            mConnection.requestCursorUpdates(true /* enableMonitor */,
-                    true /* requestImmediateCallback */);
+            mConnection.requestCursorUpdates(true, true);
         }
     }
 
@@ -443,7 +441,9 @@ public final class InputLogic {
         if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL
                 // only use the Hangul chain if codepoint may actually be Hangul
                 // todo: this whole hangul-related logic should probably be somewhere else
-                && event.getMCodePoint() >= 0x1100) {
+                // need to use hangul combiner for whitespace, because otherwise the current word
+                // seems to get deleted / replaced by space during mConnection.endBatchEdit()
+                && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()))) {
             mWordComposer.setHangul(true);
             final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
             processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
@@ -744,9 +744,10 @@ public final class InputLogic {
                 inputTransaction.setDidAffectContents();
                 break;
             case Constants.CODE_OUTPUT_TEXT:
-                // added in the hangul branch, but without this a space after a period crashes
-                // -> where is the change?
-                mWordComposer.applyProcessedEvent(event);
+                // added in the hangul branch, createEventChainFromSequence
+                // this introduces issues like space being added behind cursor, or input deleting
+                // a word, but the keepCursorPosition applyProcessedEvent seems to help here
+                mWordComposer.applyProcessedEvent(event, true);
                 break;
             case Constants.CODE_START_ONE_HANDED_MODE:
             case Constants.CODE_STOP_ONE_HANDED_MODE:
@@ -1040,9 +1041,9 @@ public final class InputLogic {
                 // phantom space state when typing decimal numbers, with the drawback of not
                 // setting phantom space state after ending a sentence with a non-word.
                 if (wasComposingWord
-                    && settingsValues.mAutospaceAfterPunctuationEnabled
-                    && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
-                mSpaceState = SpaceState.PHANTOM;
+                        && settingsValues.mAutospaceAfterPunctuationEnabled
+                        && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
+                    mSpaceState = SpaceState.PHANTOM;
             }
 
             sendKeyCodePoint(settingsValues, codePoint);
@@ -1512,8 +1513,7 @@ public final class InputLogic {
                 ngramContext, timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
     }
 
-    public void performUpdateSuggestionStripSync(final SettingsValues settingsValues,
-            final int inputStyle) {
+    public void performUpdateSuggestionStripSync(final SettingsValues settingsValues, final int inputStyle) {
         long startTimeMillis = 0;
         if (DebugFlags.DEBUG_ENABLED) {
             startTimeMillis = System.currentTimeMillis();
@@ -1581,47 +1581,50 @@ public final class InputLogic {
         // recorrection. This is a temporary, stopgap measure that will be removed later.
         // TODO: remove this.
         if (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-        // If no suggestions are requested, don't try restarting suggestions.
+                // If no suggestions are requested, don't try restarting suggestions.
                 || !settingsValues.needsToLookupSuggestions()
-        // If we are currently in a batch input, we must not resume suggestions, or the result
-        // of the batch input will replace the new composition. This may happen in the corner case
-        // that the app moves the cursor on its own accord during a batch input.
+                // If we are currently in a batch input, we must not resume suggestions, or the result
+                // of the batch input will replace the new composition. This may happen in the corner case
+                // that the app moves the cursor on its own accord during a batch input.
                 || mInputLogicHandler.isInBatchInput()
-        // If the cursor is not touching a word, or if there is a selection, return right away.
+                // If the cursor is not touching a word, or if there is a selection, return right away.
                 || mConnection.hasSelection()
-        // If we don't know the cursor location, return.
+                // If we don't know the cursor location, return.
                 || mConnection.getExpectedSelectionStart() < 0) {
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             return;
         }
         final int expectedCursorPosition = mConnection.getExpectedSelectionStart();
-        if (!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations,
-                    true /* checkTextAfter */)) {
+        if (!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations, true /* checkTextAfter */)) {
             // Show predictions.
             mWordComposer.setCapitalizedModeAtStartComposingTime(WordComposer.CAPS_MODE_OFF);
             mLatinIME.mHandler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_RECORRECTION);
+            // "unselect" the previous text
+            mConnection.finishComposingText();
             return;
         }
-        final TextRange range = mConnection.getWordRangeAtCursor(
-                settingsValues.mSpacingAndPunctuations, currentKeyboardScriptId, true);
+        final TextRange range =
+                mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScriptId, true);
         if (null == range) return; // Happens if we don't have an input connection at all
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
             mLatinIME.setNeutralSuggestionStrip();
+            mConnection.finishComposingText();
             return;
         }
         // If for some strange reason (editor bug or so) we measure the text before the cursor as
         // longer than what the entire text is supposed to be, the safe thing to do is bail out.
-        if (range.mHasUrlSpans) return; // If there are links, we don't resume suggestions. Making
+        if (range.mHasUrlSpans) return;
+        // If there are links, we don't resume suggestions. Making
         // edits to a linkified text through batch commands would ruin the URL spans, and unless
         // we take very complicated steps to preserve the whole link, we can't do things right so
         // we just do not resume because it's safer.
         if (!isResumableWord(settingsValues, range.mWord.toString())) {
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+            // "unselect" the previous text
+            mConnection.finishComposingText();
             return;
         }
-        restartSuggestions(range, expectedCursorPosition);
-    }
 
     private void restartSuggestions(final TextRange range, final int expectedCursorPosition) {
         final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();
@@ -1649,10 +1652,8 @@ public final class InputLogic {
             }
         }
         final int[] codePoints = StringUtils.toCodePointArray(typedWordString);
-        mWordComposer.setComposingWord(codePoints,
-                mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
-        mWordComposer.setCursorPositionWithinWord(
-        typedWordString.codePointCount(0, numberOfCharsInWordBeforeCursor));
+        mWordComposer.setComposingWord(codePoints, mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
+        mWordComposer.setCursorPositionWithinWord(typedWordString.codePointCount(0, numberOfCharsInWordBeforeCursor));
         mConnection.setComposingRegion(expectedCursorPosition - numberOfCharsInWordBeforeCursor,
                 expectedCursorPosition + range.getNumberOfCharsInWordAfterCursor());
         if (suggestions.size() <= 1) {

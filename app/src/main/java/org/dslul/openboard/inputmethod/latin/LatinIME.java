@@ -1009,8 +1009,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             // span, so we should reset our state unconditionally, even if restarting is true.
             // We also tell the input logic about the combining rules for the current subtype, so
             // it can adjust its combiners if needed.
-            mInputLogic.startInput(mRichImm.getCombiningRulesExtraValueOfCurrentSubtype(),
-                    currentSettingsValues);
+            mInputLogic.startInput(mRichImm.getCombiningRulesExtraValueOfCurrentSubtype(), currentSettingsValues);
 
             resetDictionaryFacilitatorIfNecessary();
 
@@ -1048,11 +1047,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             currentSettingsValues = mSettings.getCurrent();
 
             if (currentSettingsValues.mAutoCorrectionEnabledPerUserSettings) {
-                suggest.setAutoCorrectionThreshold(
-                        currentSettingsValues.mAutoCorrectionThreshold);
+                suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
             }
-            switcher.loadKeyboard(editorInfo, currentSettingsValues, getCurrentAutoCapsState(),
-                    getCurrentRecapitalizeState());
+            switcher.loadKeyboard(editorInfo, currentSettingsValues, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
             if (needToCallLoadKeyboardLater) {
                 // If we need to call loadKeyboard again later, we need to save its state now. The
                 // later call will be done in #retryResetCaches.
@@ -1061,14 +1058,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         } else if (restarting) {
             // TODO: Come up with a more comprehensive way to reset the keyboard layout when
             // a keyboard layout set doesn't get reloaded in this method.
-            switcher.resetKeyboardStateToAlphabet(getCurrentAutoCapsState(),
-                    getCurrentRecapitalizeState());
+            switcher.resetKeyboardStateToAlphabet(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
             // In apps like Talk, we come here when the text is sent and the field gets emptied and
             // we need to re-evaluate the shift state, but not the whole layout which would be
             // disruptive.
             // Space state must be updated before calling updateShiftState
-            switcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
-                    getCurrentRecapitalizeState());
+            switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
@@ -1076,11 +1071,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         mHandler.cancelUpdateSuggestionStrip();
 
-        mainKeyboardView.setMainDictionaryAvailability(
-                mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
+        mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
-        mainKeyboardView.setSlidingKeyInputPreviewEnabled(
-                currentSettingsValues.mSlidingKeyInputPreviewEnabled);
+        mainKeyboardView.setSlidingKeyInputPreviewEnabled(currentSettingsValues.mSlidingKeyInputPreviewEnabled);
         mainKeyboardView.setGestureHandlingEnabledByUser(
                 currentSettingsValues.mGestureInputEnabled,
                 currentSettingsValues.mGestureTrailEnabled,
