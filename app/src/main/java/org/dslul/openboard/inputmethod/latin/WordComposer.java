@@ -185,13 +185,20 @@ public final class WordComposer {
      * @param event the event to apply. Must not be null.
      */
     public void applyProcessedEvent(final Event event) {
+        applyProcessedEvent(event, false);
+    }
+
+    // specifically for that Constants.CODE_OUTPUT_TEXT Hangul event: try keeping cursor position
+    // because typically nothing changes, todo: if really nothing changes maybe there is a better way to do it
+    public void applyProcessedEvent(final Event event, final boolean keepCursorPosition) {
         mCombinerChain.applyProcessedEvent(event);
         final int primaryCode = event.getMCodePoint();
         final int keyX = event.getMX();
         final int keyY = event.getMY();
         final int newIndex = size();
         refreshTypedWordCache();
-        mCursorPositionWithinWord = mCodePointSize;
+        if (!keepCursorPosition || newIndex == mCodePointSize)
+            mCursorPositionWithinWord = mCodePointSize;
         // We may have deleted the last one.
         if (0 == mCodePointSize) {
             mIsOnlyFirstCharCapitalized = false;

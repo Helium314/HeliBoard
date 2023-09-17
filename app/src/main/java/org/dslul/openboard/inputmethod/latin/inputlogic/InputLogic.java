@@ -441,7 +441,9 @@ public final class InputLogic {
         if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL
                 // only use the Hangul chain if codepoint may actually be Hangul
                 // todo: this whole hangul-related logic should probably be somewhere else
-                && event.getMCodePoint() >= 0x1100) {
+                // need to use hangul combiner for whitespace, because otherwise the current word
+                // seems to get deleted / replaced by space during mConnection.endBatchEdit()
+                && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()))) {
             mWordComposer.setHangul(true);
             final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
             processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
@@ -739,9 +741,10 @@ public final class InputLogic {
                 inputTransaction.setDidAffectContents();
                 break;
             case Constants.CODE_OUTPUT_TEXT:
-                // added in the hangul branch, but without this a space after a period crashes
-                // -> where is the change?
-                mWordComposer.applyProcessedEvent(event);
+                // added in the hangul branch, createEventChainFromSequence
+                // this introduces issues like space being added behind cursor, or input deleting
+                // a word, but the keepCursorPosition applyProcessedEvent seems to help here
+                mWordComposer.applyProcessedEvent(event, true);
                 break;
             case Constants.CODE_START_ONE_HANDED_MODE:
             case Constants.CODE_STOP_ONE_HANDED_MODE:
@@ -1494,8 +1497,7 @@ public final class InputLogic {
                 ngramContext, timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
     }
 
-    public void performUpdateSuggestionStripSync(final SettingsValues settingsValues,
-            final int inputStyle) {
+    public void performUpdateSuggestionStripSync(final SettingsValues settingsValues, final int inputStyle) {
         long startTimeMillis = 0;
         if (DebugFlags.DEBUG_ENABLED) {
             startTimeMillis = System.currentTimeMillis();
@@ -1563,15 +1565,15 @@ public final class InputLogic {
         // recorrection. This is a temporary, stopgap measure that will be removed later.
         // TODO: remove this.
         if (!settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-        // If no suggestions are requested, don't try restarting suggestions.
+                // If no suggestions are requested, don't try restarting suggestions.
                 || !settingsValues.needsToLookupSuggestions()
-        // If we are currently in a batch input, we must not resume suggestions, or the result
-        // of the batch input will replace the new composition. This may happen in the corner case
-        // that the app moves the cursor on its own accord during a batch input.
+                // If we are currently in a batch input, we must not resume suggestions, or the result
+                // of the batch input will replace the new composition. This may happen in the corner case
+                // that the app moves the cursor on its own accord during a batch input.
                 || mInputLogicHandler.isInBatchInput()
-        // If the cursor is not touching a word, or if there is a selection, return right away.
+                // If the cursor is not touching a word, or if there is a selection, return right away.
                 || mConnection.hasSelection()
-        // If we don't know the cursor location, return.
+                // If we don't know the cursor location, return.
                 || mConnection.getExpectedSelectionStart() < 0) {
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             return;
@@ -1585,12 +1587,13 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        final TextRange range = mConnection.getWordRangeAtCursor(
-                settingsValues.mSpacingAndPunctuations, currentKeyboardScriptId, true);
+        final TextRange range =
+                mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScriptId, true);
         if (null == range) return; // Happens if we don't have an input connection at all
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
             mLatinIME.setNeutralSuggestionStrip();
+            mConnection.finishComposingText();
             return;
         }
         // If for some strange reason (editor bug or so) we measure the text before the cursor as
@@ -1631,10 +1634,8 @@ public final class InputLogic {
             }
         }
         final int[] codePoints = StringUtils.toCodePointArray(typedWordString);
-        mWordComposer.setComposingWord(codePoints,
-                mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
-        mWordComposer.setCursorPositionWithinWord(
-        typedWordString.codePointCount(0, numberOfCharsInWordBeforeCursor));
+        mWordComposer.setComposingWord(codePoints, mLatinIME.getCoordinatesForCurrentKeyboard(codePoints));
+        mWordComposer.setCursorPositionWithinWord(typedWordString.codePointCount(0, numberOfCharsInWordBeforeCursor));
         mConnection.setComposingRegion(expectedCursorPosition - numberOfCharsInWordBeforeCursor,
                 expectedCursorPosition + range.getNumberOfCharsInWordAfterCursor());
         if (suggestions.size() <= 1) {
