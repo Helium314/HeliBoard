@@ -18,6 +18,8 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 /* package */ final class ShiftKeyState extends ModifierKeyState {
     private static final int PRESSING_ON_SHIFTED = 3; // both temporary shifted & shift locked
     private static final int IGNORING = 4;
@@ -53,6 +55,7 @@ import android.util.Log;
         return mState == IGNORING;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return toString(mState);

@@ -1045,19 +1045,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     /**
-     * Work around a bug that was present before Jelly Bean upon rotation.
-     *
-     * Before Jelly Bean, there is a bug where setComposingRegion and other committing
-     * functions on the input connection get ignored until the cursor moves. This method works
-     * around the bug by wiggling the cursor first, which reactivates the connection and has
-     * the subsequent methods work, then restoring it to its original position.
-     *
-     * On platforms on which this method is not present, this is a no-op.
-     */
-    public void maybeMoveTheCursorAroundAndRestoreToWorkaroundABug() {
-    }
-
-    /**
      * Requests the editor to call back {@link InputMethodManager#updateCursorAnchorInfo}.
      * @param enableMonitor {@code true} to request the editor to call back the method whenever the
      * cursor/anchor position is changed.

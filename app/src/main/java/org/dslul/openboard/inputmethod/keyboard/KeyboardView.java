@@ -304,7 +304,7 @@ public class KeyboardView extends View {
 
         mShowsHints = Settings.getInstance().getCurrent().mShowsHints;
         final float scale = Settings.getInstance().getCurrent().mKeyboardHeightScale;
-        mIconScaleFactor = scale < 0.8f ? scale + 0.2f : scale;
+        mIconScaleFactor = scale < 0.8f ? scale + 0.2f : 1f;
         final Paint paint = mPaint;
         final Drawable background = getBackground();
         // Calculate clip region and set.

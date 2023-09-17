@@ -41,41 +41,6 @@
         android:summary="@string/sliding_key_input_preview_summary"
         android:defaultValue="true"
         android:persistent="true" />
-    <SwitchPreferenceCompat
-        android:key="pref_has_custom_key_preview_animation_params"
-        android:title="@string/prefs_customize_key_preview_animation"
-        android:defaultValue="false"
-        android:persistent="true" />
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_has_custom_key_preview_animation_params"
-        android:key="pref_key_preview_show_up_start_x_scale"
-        android:title="@string/prefs_key_popup_show_up_start_x_scale_settings"
-        latin:maxValue="100" /> <!-- percent -->
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_has_custom_key_preview_animation_params"
-        android:key="pref_key_preview_show_up_start_y_scale"
-        android:title="@string/prefs_key_popup_show_up_start_y_scale_settings"
-        latin:maxValue="100" /> <!-- percent -->
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_has_custom_key_preview_animation_params"
-        android:key="pref_key_preview_dismiss_end_x_scale"
-        android:title="@string/prefs_key_popup_dismiss_end_x_scale_settings"
-        latin:maxValue="100" /> <!-- percent -->
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_has_custom_key_preview_animation_params"
-        android:key="pref_key_preview_dismiss_end_y_scale"
-        android:title="@string/prefs_key_popup_dismiss_end_y_scale_settings"
-        latin:maxValue="100" /> <!-- percent -->
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_has_custom_key_preview_animation_params"
-        android:key="pref_key_preview_show_up_duration"
-        android:title="@string/prefs_key_popup_show_up_duration_settings"
-        latin:maxValue="100" /> <!-- milliseconds -->
-    <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:dependency="pref_has_custom_key_preview_animation_params"
-        android:key="pref_key_preview_dismiss_duration"
-        android:title="@string/prefs_key_popup_dismiss_duration_settings"
-        latin:maxValue="100" /> <!-- milliseconds -->
     <PreferenceCategory
         android:key="pref_key_dump_dictionaries"
         android:title="@string/prefs_dump_dynamic_dicts">

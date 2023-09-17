@@ -262,17 +262,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 res.getBoolean(R.bool.config_block_potentially_offensive));
     }
 
-    public static boolean readFromBuildConfigIfGestureInputEnabled(final Resources res) {
-        if (!JniUtils.sHaveGestureLib) {
-            return false;
-        }
-        return res.getBoolean(R.bool.config_gesture_input_enabled_by_build_config);
-    }
-
-    public static boolean readGestureInputEnabled(final SharedPreferences prefs,
-                                                  final Resources res) {
-        return readFromBuildConfigIfGestureInputEnabled(res)
-                && prefs.getBoolean(PREF_GESTURE_INPUT, true);
+    public static boolean readGestureInputEnabled(final SharedPreferences prefs) {
+        return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
     public static boolean readFromBuildConfigIfToShowKeyPreviewPopupOption(final Resources res) {

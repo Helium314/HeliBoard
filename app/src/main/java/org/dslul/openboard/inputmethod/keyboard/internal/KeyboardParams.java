@@ -91,15 +91,12 @@ public class KeyboardParams {
             new TouchPositionCorrection();
 
     // Comparator to sort {@link Key}s from top-left to bottom-right order.
-    private static final Comparator<Key> ROW_COLUMN_COMPARATOR = new Comparator<Key>() {
-        @Override
-        public int compare(final Key lhs, final Key rhs) {
-            if (lhs.getY() < rhs.getY()) return -1;
-            if (lhs.getY() > rhs.getY()) return 1;
-            if (lhs.getX() < rhs.getX()) return -1;
-            if (lhs.getX() > rhs.getX()) return 1;
-            return 0;
-        }
+    private static final Comparator<Key> ROW_COLUMN_COMPARATOR = (lhs, rhs) -> {
+        if (lhs.getY() < rhs.getY()) return -1;
+        if (lhs.getY() > rhs.getY()) return 1;
+        if (lhs.getX() < rhs.getX()) return -1;
+        if (lhs.getX() > rhs.getX()) return 1;
+        return 0;
     };
 
     public KeyboardParams() {

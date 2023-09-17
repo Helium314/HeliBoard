@@ -19,7 +19,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 import android.content.res.TypedArray;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 /**

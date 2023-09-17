@@ -30,7 +30,7 @@ public final class NonDistinctMultitouchHelper {
     private static final int MAIN_POINTER_TRACKER_ID = 0;
     private int mOldPointerCount = 1;
     private Key mOldKey;
-    private int[] mLastCoords = CoordinateUtils.newInstance();
+    private final int[] mLastCoords = CoordinateUtils.newInstance();
 
     public void processMotionEvent(final MotionEvent me, final KeyDetector keyDetector) {
         final int pointerCount = me.getPointerCount();

@@ -126,7 +126,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
     }
 
     @Override
-    public void setPreviewPosition(final PointerTracker tracker) {
+    public void setPreviewPosition(@NonNull final PointerTracker tracker) {
         if (!isPreviewEnabled()) {
             return;
         }
@@ -139,7 +139,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
      * @param canvas The canvas where preview text is drawn.
      */
     @Override
-    public void drawPreview(final Canvas canvas) {
+    public void drawPreview(@NonNull final Canvas canvas) {
         if (!isPreviewEnabled() || mSuggestedWords.isEmpty()
                 || TextUtils.isEmpty(mSuggestedWords.getWord(0))) {
             return;
@@ -161,8 +161,6 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
         }
         final String text = mSuggestedWords.getWord(0);
 
-        final RectF rectangle = mGesturePreviewRectangle;
-
         final int textHeight = mParams.mGesturePreviewTextHeight;
         final float textWidth = mParams.getTextPaint().measureText(text);
         final float hPad = mParams.mGesturePreviewHorizontalPadding;
@@ -175,7 +173,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
                 mParams.mDisplayWidth - rectWidth);
         final float rectY = CoordinateUtils.y(mLastPointerCoords)
                 - mParams.mGesturePreviewTextOffset - rectHeight;
-        rectangle.set(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
+        mGesturePreviewRectangle.set(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
 
         mPreviewTextX = (int)(rectX + hPad + textWidth / 2.0f);
         mPreviewTextY = (int)(rectY + vPad) + textHeight;

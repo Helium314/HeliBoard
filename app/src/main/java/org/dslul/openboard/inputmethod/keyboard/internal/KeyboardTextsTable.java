@@ -59,7 +59,7 @@ public final class KeyboardTextsTable {
             return text;
         }
         // Validity check.
-        if (index >= 0 && index < TEXTS_DEFAULT.length) {
+        if (index < TEXTS_DEFAULT.length) {
             return TEXTS_DEFAULT[index];
         }
         // Throw exception for debugging purpose.

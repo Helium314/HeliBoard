@@ -18,6 +18,8 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 /* package */ class ModifierKeyState {
     protected static final String TAG = ModifierKeyState.class.getSimpleName();
     protected static final boolean DEBUG = false;
@@ -67,6 +69,7 @@ import android.util.Log;
         return mState == CHORDING;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return toString(mState);
