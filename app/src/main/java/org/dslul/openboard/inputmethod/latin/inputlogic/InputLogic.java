@@ -666,8 +666,10 @@ public final class InputLogic {
                 if (mSuggestedWords.isPrediction()) {
                     inputTransaction.setRequiresUpdateSuggestions();
                 }
-                if (inputTransaction.getMSettingsValues().mAutospaceAfterPunctuationEnabled
-                        && mSpaceState == SpaceState.PHANTOM && mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD)
+                // undo phantom space if it's because after punctuation
+                // users who want to start a sentence with a lowercase letter may not like it
+                if (mSpaceState == SpaceState.PHANTOM
+                        && inputTransaction.getMSettingsValues().isUsuallyFollowedBySpace(mConnection.getCodePointBeforeCursor()))
                     mSpaceState = SpaceState.NONE;
                 break;
             case Constants.CODE_CAPSLOCK:
@@ -821,9 +823,13 @@ public final class InputLogic {
             final LatinIME.UIHandler handler) {
         final int codePoint = event.getMCodePoint();
         mSpaceState = SpaceState.NONE;
-        if (inputTransaction.getMSettingsValues().isWordSeparator(codePoint)
-                || Character.getType(codePoint) == Character.OTHER_SYMBOL) {
-            handleSeparatorEvent(event, inputTransaction, handler);
+        // don't treat separators as separators in some cases, e.g. for URL handling
+        if ((inputTransaction.getMSettingsValues().isWordSeparator(codePoint)
+                && (Character.isWhitespace(codePoint)
+                    || !inputTransaction.getMSettingsValues().mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord())
+                   )
+            ) || Character.getType(codePoint) == Character.OTHER_SYMBOL) {
+                handleSeparatorEvent(event, inputTransaction, handler);
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
                 if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
@@ -856,16 +862,12 @@ public final class InputLogic {
         // not the same.
         boolean isComposingWord = mWordComposer.isComposingWord();
 
-        int bc = mConnection.getCodePointBeforeCursor();
+        // if we continue directly after a sometimesWordConnector, restart suggestions for the whole word
         if (!isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
-                && (bc == '.' || bc == '/' || bc == '_')
+                && settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCodePointBeforeCursor())
         ) {
-            // now resume suggestions
-            //restartSuggestionsOnWordTouchedByCursor(settingsValues, false, 11); // hardcoded latin for testing
-            //   nah, this needs many modifications to override the separators
-            final CharSequence text = mConnection.textBeforeCursorUntilLastSpace();
+            final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespace();
             final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
-            Log.i("test1", "triggered, "+text+", "+mConnection.mExpectedSelStart);
             isComposingWord = true;
             restartSuggestions(range, mConnection.mExpectedSelStart);
         }
@@ -1625,6 +1627,8 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
+        restartSuggestions(range, expectedCursorPosition);
+    }
 
     private void restartSuggestions(final TextRange range, final int expectedCursorPosition) {
         final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();

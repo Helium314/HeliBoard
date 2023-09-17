@@ -33,6 +33,10 @@ public final class SpacingAndPunctuations {
     private final int[] mSortedSymbolsFollowedBySpace;
     private final int[] mSortedSymbolsClusteringTogether;
     private final int[] mSortedWordConnectors;
+    // todo: rename? it's more like they act as sort of glue
+    //  and as a very simple workaround for potential issues: make them empty if the language doesn't have spaces
+    //  also there should be a separate setting to enable this, it should really be exerimental for now
+    private final int[] mSortedSometimesWordConnectors;
     public final int[] mSortedWordSeparators;
     public final PunctuationSuggestions mSuggestPuncList;
     private final int mSentenceSeparator;
@@ -45,20 +49,15 @@ public final class SpacingAndPunctuations {
 
     public SpacingAndPunctuations(final Resources res) {
         // To be able to binary search the code point. See {@link #isUsuallyPrecededBySpace(int)}.
-        mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_preceded_by_space));
+        mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_preceded_by_space));
         // To be able to binary search the code point. See {@link #isUsuallyFollowedBySpace(int)}.
-        mSortedSymbolsFollowedBySpace = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_followed_by_space));
-        mSortedSymbolsClusteringTogether = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_clustering_together));
+        mSortedSymbolsFollowedBySpace = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_followed_by_space));
+        mSortedSymbolsClusteringTogether = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_clustering_together));
         // To be able to binary search the code point. See {@link #isWordConnector(int)}.
-        mSortedWordConnectors = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_word_connectors));
-        mSortedWordSeparators = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_word_separators));
-        mSortedSentenceTerminators = StringUtils.toSortedCodePointArray(
-                res.getString(R.string.symbols_sentence_terminators));
+        mSortedWordConnectors = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_connectors));
+        mSortedSometimesWordConnectors = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors));
+        mSortedWordSeparators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_separators));
+        mSortedSentenceTerminators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sentence_terminators));
         mSentenceSeparator = res.getInteger(R.integer.sentence_separator);
         mAbbreviationMarker = res.getInteger(R.integer.abbreviation_marker);
         mSentenceSeparatorAndSpace = new String(new int[] {
@@ -81,6 +80,7 @@ public final class SpacingAndPunctuations {
         mSortedSymbolsFollowedBySpace = model.mSortedSymbolsFollowedBySpace;
         mSortedSymbolsClusteringTogether = model.mSortedSymbolsClusteringTogether;
         mSortedWordConnectors = model.mSortedWordConnectors;
+        mSortedSometimesWordConnectors = model.mSortedSometimesWordConnectors;
         mSortedWordSeparators = overrideSortedWordSeparators;
         mSortedSentenceTerminators = model.mSortedSentenceTerminators;
         mSuggestPuncList = model.mSuggestPuncList;
@@ -98,6 +98,19 @@ public final class SpacingAndPunctuations {
 
     public boolean isWordConnector(final int code) {
         return Arrays.binarySearch(mSortedWordConnectors, code) >= 0;
+    }
+
+    public boolean isSometimesWordConnector(final int code) {
+        return Arrays.binarySearch(mSortedSometimesWordConnectors, code) >= 0;
+    }
+
+    public boolean containsSometimesWordConnector(final CharSequence word) {
+        // todo: this only works if all mSortedSometimesWordConnectors are simple chars
+        for (int i = 0; i < word.length(); i++) {
+            if (isSometimesWordConnector(word.charAt(i)))
+                return true;
+        }
+        return false;
     }
 
     public boolean isWordCodePoint(final int code) {

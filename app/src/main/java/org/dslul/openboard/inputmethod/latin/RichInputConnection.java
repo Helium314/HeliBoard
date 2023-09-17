@@ -738,11 +738,28 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             before = fixIncorrectLength(before);
         }
 
-        // Going backward, find the first breaking point (separator)
+        // some optimizations are possible, not sure whether relevant though
         int startIndexInBefore = before.length();
+        int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
             final int codePoint = Character.codePointBefore(before, startIndexInBefore);
             if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                    break;
+                // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                for (int i = startIndexInBefore - 1; i >= 0; i--) {
+                    final char c = before.charAt(i);
+                    if (spacingAndPunctuations.isSometimesWordConnector(c)) {
+                        // if yes -> whitespace is the index
+                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
+                        final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
+                        endIndexInAfter = firstSpaceAfter == -1 ? (after.length() - 1) : firstSpaceAfter -1;
+                        break;
+                    } else if (Character.isWhitespace(c)) {
+                        // if no, just break normally
+                        break;
+                    }
+                }
                 break;
             }
             --startIndexInBefore;
@@ -752,15 +769,37 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
 
         // Find last word separator after the cursor
-        int endIndexInAfter = -1;
-        while (++endIndexInAfter < after.length()) {
-            final int codePoint = Character.codePointAt(after, endIndexInAfter);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
-                break;
+        if (endIndexInAfter == -1) {
+            while (++endIndexInAfter < after.length()) {
+                final int codePoint = Character.codePointAt(after, endIndexInAfter);
+                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                    if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                        break;
+                    // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                    for (int i = endIndexInAfter; i < after.length(); i++) {
+                        final char c = after.charAt(i);
+                        if (spacingAndPunctuations.isSometimesWordConnector(c)) {
+                            // if yes -> whitespace is next to the index
+                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
+                            final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
+                            endIndexInAfter = firstSpaceAfter == -1 ? (after.length() - 1) : firstSpaceAfter - 1;
+                            break;
+                        } else if (Character.isWhitespace(c)) {
+                            // if no, just break normally
+                            break;
+                        }
+                    }
+                    break;
+                }
+                if (Character.isSupplementaryCodePoint(codePoint)) {
+                    ++endIndexInAfter;
+                }
             }
-            if (Character.isSupplementaryCodePoint(codePoint)) {
-                ++endIndexInAfter;
-            }
+        }
+
+        // we don't want the last character if it's a comma, period, ...
+        if (endIndexInAfter > 0 && spacingAndPunctuations.isUsuallyFollowedBySpace(after.charAt(endIndexInAfter - 1))) {
+            --endIndexInAfter;
         }
 
         final boolean hasUrlSpans =
@@ -955,11 +994,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mCommittedTextBeforeComposingText.lastIndexOf(" ") < mCommittedTextBeforeComposingText.lastIndexOf("@");
     }
 
-    public CharSequence textBeforeCursorUntilLastSpace() {
+    public CharSequence textBeforeCursorUntilLastWhitespace() {
         int afterLastSpace = 0;
         for (int i = mCommittedTextBeforeComposingText.length() - 1; i >= 0; i--) {
             final char c = mCommittedTextBeforeComposingText.charAt(i);
-            if (Character.isSpaceChar(c)) {
+            if (Character.isWhitespace(c)) {
                 afterLastSpace = i + 1;
                 break;
             }

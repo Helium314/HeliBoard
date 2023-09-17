@@ -738,4 +738,24 @@ public final class StringUtils {
         }
         return true;
     }
+
+    public static int charIndexOfFirstWhitespace(final CharSequence s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            final char c = s.charAt(i);
+            if (Character.isWhitespace(c)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int charIndexOfLastWhitespace(final CharSequence s) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            final char c = s.charAt(i);
+            if (Character.isWhitespace(c)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
 }
