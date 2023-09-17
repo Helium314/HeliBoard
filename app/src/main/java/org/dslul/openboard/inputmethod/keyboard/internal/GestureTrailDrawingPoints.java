@@ -102,9 +102,8 @@ final class GestureTrailDrawingPoints {
                 eventTimes[i] -= elapsedTime;
             }
             final int[] xCoords = mXCoordinates.getPrimitiveArray();
-            final int downIndex = trailSize;
-            xCoords[downIndex] = markAsDownEvent(xCoords[downIndex]);
-            mCurrentTimeBase = downTime - eventTimes[downIndex];
+            xCoords[trailSize] = markAsDownEvent(xCoords[trailSize]);
+            mCurrentTimeBase = downTime - eventTimes[trailSize];
             mCurrentStrokeId = strokeId;
         }
     }

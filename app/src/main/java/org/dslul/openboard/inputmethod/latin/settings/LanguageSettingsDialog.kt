@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
@@ -15,6 +16,8 @@ import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.databinding.LanguageListItemBinding
+import org.dslul.openboard.inputmethod.latin.databinding.LocaleSettingsDialogBinding
 import org.dslul.openboard.inputmethod.latin.utils.*
 import java.io.File
 import java.util.*
@@ -24,26 +27,28 @@ class LanguageSettingsDialog(
     private val infos: MutableList<SubtypeInfo>,
     private val fragment: LanguageSettingsFragment?,
     private val onlySystemLocales: Boolean,
-    private val onSubtypesChanged: () -> Unit
+    private val reloadSetting: () -> Unit
 ) : AlertDialog(context), LanguageSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
-    private val view = LayoutInflater.from(context).inflate(R.layout.locale_settings_dialog, null)
+    private val binding = LocaleSettingsDialogBinding.inflate(LayoutInflater.from(context))
     private val mainLocaleString = infos.first().subtype.locale()
     private val mainLocale = mainLocaleString.toLocale()
+    private var hasInternalDictForLanguage = false
+    private lateinit var userDicts: MutableSet<File>
 
     init {
         setTitle(infos.first().displayName)
-        setView(ScrollView(context).apply { addView(view) })
+        setView(ScrollView(context).apply { addView(binding.root) })
         setButton(BUTTON_NEGATIVE, context.getString(R.string.dialog_close)) { _, _ ->
             dismiss()
         }
 
         if (onlySystemLocales)
-            view.findViewById<View>(R.id.subtypes).isGone = true
+            binding.subtypes.isGone = true
         else
-            fillSubtypesView(view.findViewById(R.id.subtypes))
-        fillSecondaryLocaleView(view.findViewById(R.id.secondary_languages))
-        fillDictionariesView(view.findViewById(R.id.dictionaries))
+            fillSubtypesView()
+        fillSecondaryLocaleView()
+        fillDictionariesView()
     }
 
     override fun onStart() {
@@ -56,9 +61,9 @@ class LanguageSettingsDialog(
         fragment?.setListener(null)
     }
 
-    private fun fillSubtypesView(subtypesView: LinearLayout) {
+    private fun fillSubtypesView() {
         if (infos.any { it.subtype.isAsciiCapable }) { // currently can only add subtypes for latin keyboards
-            subtypesView.findViewById<ImageView>(R.id.add_subtype).setOnClickListener {
+            binding.addSubtype.setOnClickListener {
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
                     .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
                 val displayNames = layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
@@ -70,23 +75,23 @@ class LanguageSettingsDialog(
                         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
                         addAdditionalSubtype(prefs, context.resources, newSubtype)
                         addEnabledSubtype(prefs, newSubtype)
-                        addSubtypeToView(newSubtypeInfo, subtypesView)
+                        addSubtypeToView(newSubtypeInfo)
                         infos.add(newSubtypeInfo)
-                        onSubtypesChanged()
+                        reloadSetting()
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
             }
         } else
-            subtypesView.findViewById<View>(R.id.add_subtype).isGone = true
+            binding.addSubtype.isGone = true
 
         // add subtypes
         infos.sortedBy { it.displayName }.forEach {
-            addSubtypeToView(it, subtypesView)
+            addSubtypeToView(it)
         }
     }
 
-    private fun addSubtypeToView(subtype: SubtypeInfo, subtypesView: LinearLayout) {
+    private fun addSubtypeToView(subtype: SubtypeInfo) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
@@ -104,7 +109,7 @@ class LanguageSettingsDialog(
                 else
                     removeEnabledSubtype(prefs, subtype.subtype)
                 subtype.isEnabled = b
-                onSubtypesChanged()
+                reloadSetting()
             }
         }
         if (isAdditionalSubtype(subtype.subtype)) {
@@ -113,19 +118,19 @@ class LanguageSettingsDialog(
                 isVisible = true
                 setOnClickListener {
                     // can be re-added easily, no need for confirmation dialog
-                    subtypesView.removeView(row)
+                    binding.subtypes.removeView(row)
                     infos.remove(subtype)
 
                     removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
                     removeEnabledSubtype(prefs, subtype.subtype)
-                    onSubtypesChanged()
+                    reloadSetting()
                 }
             }
         }
-        subtypesView.addView(row)
+        binding.subtypes.addView(row)
     }
 
-    private fun fillSecondaryLocaleView(secondaryLocalesView: LinearLayout) {
+    private fun fillSecondaryLocaleView() {
         // can only use multilingual typing if there is more than one dictionary available
         val availableSecondaryLocales = getAvailableSecondaryLocales(
             context,
@@ -134,10 +139,10 @@ class LanguageSettingsDialog(
         )
         val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocaleString)
         selectedSecondaryLocales.forEach {
-            addSecondaryLocaleView(it, secondaryLocalesView)
+            addSecondaryLocaleView(it)
         }
         if (availableSecondaryLocales.isNotEmpty()) {
-            secondaryLocalesView.findViewById<ImageView>(R.id.add_secondary_language).apply {
+            binding.addSecondaryLanguage.apply {
                 isVisible = true
                 setOnClickListener {
                     val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString)).sortedBy { it.displayName }
@@ -148,35 +153,37 @@ class LanguageSettingsDialog(
                             val locale = locales[i]
                             val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
                             Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings + locale.toString())
-                            addSecondaryLocaleView(locale, secondaryLocalesView)
+                            addSecondaryLocaleView(locale)
                             di.dismiss()
+                            reloadSetting()
                         }
                         .setNegativeButton(android.R.string.cancel, null)
                         .show()
                 }
             }
         } else if (selectedSecondaryLocales.isEmpty())
-            secondaryLocalesView.isGone = true
+            binding.secondaryLocales.isGone = true
     }
 
-    private fun addSecondaryLocaleView(locale: Locale, secondaryLocalesView: LinearLayout) {
-        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
-        row.findViewById<Switch>(R.id.language_switch).isGone = true
-        row.findViewById<Switch>(R.id.language_details).isGone = true
-        row.findViewById<TextView>(R.id.language_name).text = locale.displayName
-        row.findViewById<ImageView>(R.id.delete_button).apply {
+    private fun addSecondaryLocaleView(locale: Locale) {
+        val rowBinding = LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
+        rowBinding.languageSwitch.isGone = true
+        rowBinding.languageDetails.isGone = true
+        rowBinding.languageName.text = locale.displayName
+        rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
                 val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
                 Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings - locale.toString())
-                secondaryLocalesView.removeView(row)
+                binding.secondaryLocales.removeView(rowBinding.root)
+                reloadSetting()
             }
         }
-        secondaryLocalesView.addView(row)
+        binding.secondaryLocales.addView(rowBinding.root)
     }
 
-    private fun fillDictionariesView(dictionariesView: LinearLayout) {
-        dictionariesView.findViewById<ImageView>(R.id.add_dictionary).setOnClickListener {
+    private fun fillDictionariesView() {
+        binding.addDictionary.setOnClickListener {
             val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
             val message = SpannableStringUtils.fromHtml(context.getString(R.string.add_dictionary, link))
             val dialog = Builder(context)
@@ -188,9 +195,11 @@ class LanguageSettingsDialog(
             dialog.show()
             (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
         }
-        val (userDicts, hasInternalDictForLanguage) = getUserAndInternalDictionaries(context, mainLocaleString)
+        val (_userDicts, _hasInternalDictForLanguage) = getUserAndInternalDictionaries(context, mainLocaleString)
+        userDicts = _userDicts.toMutableSet()
+        hasInternalDictForLanguage = _hasInternalDictForLanguage
         if (hasInternalDictForLanguage) {
-            dictionariesView.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
+            binding.dictionaries.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                 setText(R.string.internal_dictionary_summary)
                 textSize *= 0.8f
                 setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
@@ -198,25 +207,31 @@ class LanguageSettingsDialog(
             })
         }
         userDicts.sorted().forEach {
-            addDictionaryToView(it, dictionariesView)
+            addDictionaryToView(it)
         }
     }
 
     override fun onNewDictionary(uri: Uri?) {
         NewDictionaryAdder(context) { replaced, dictFile ->
-            if (!replaced)
-                addDictionaryToView(dictFile, view.findViewById(R.id.dictionaries))
+            if (!replaced) {
+                addDictionaryToView(dictFile)
+                userDicts.add(dictFile)
+                if (hasInternalDictForLanguage) {
+                    binding.dictionaries[1].isEnabled =
+                        userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
+                }
+            }
         }.addDictionary(uri, mainLocale)
     }
 
-    private fun addDictionaryToView(dictFile: File, dictionariesView: LinearLayout) {
+    private fun addDictionaryToView(dictFile: File) {
         if (!infos.first().hasDictionary) {
             infos.forEach { it.hasDictionary = true }
         }
         val dictType = dictFile.name.substringBefore("_${USER_DICTIONARY_SUFFIX}")
-        val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
-        row.findViewById<TextView>(R.id.language_name).text = dictType
-        row.findViewById<TextView>(R.id.language_details).apply {
+        val rowBinding = LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
+        rowBinding.languageName.text = dictType
+        rowBinding.languageDetails.apply {
             val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
             if (header?.description == null) {
                 isGone = true
@@ -225,8 +240,8 @@ class LanguageSettingsDialog(
                 text = header.description
             }
         }
-        row.findViewById<Switch>(R.id.language_switch).isGone = true
-        row.findViewById<ImageView>(R.id.delete_button).apply {
+        rowBinding.languageSwitch.isGone = true
+        rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
                 confirmDialog(context, context.getString(R.string.remove_dictionary_message, dictType), context.getString(
@@ -237,15 +252,19 @@ class LanguageSettingsDialog(
                         parent.delete()
                     val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
                     fragment?.activity?.sendBroadcast(newDictBroadcast)
-                    dictionariesView.removeView(row)
-                    if (dictionariesView.size < 2) { // first view is "Dictionaries"
+                    binding.dictionaries.removeView(rowBinding.root)
+                    if (binding.dictionaries.size < 2) { // first view is "Dictionaries"
                         infos.forEach { it.hasDictionary = false }
                     }
-
+                    userDicts.remove(dictFile)
+                    if (hasInternalDictForLanguage) {
+                        binding.dictionaries[1].isEnabled =
+                            userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
+                    }
                 }
             }
         }
-        dictionariesView.addView(row)
+        binding.dictionaries.addView(rowBinding.root)
     }
 }
 

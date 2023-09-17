@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2014, The Android Open Source Project
+** Copyright 2012, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -18,15 +18,23 @@
 */
 -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <objectAnimator
-        android:propertyName="scaleX"
-        android:duration="53"
-        android:valueFrom="1.00"
-        android:valueTo="1.00" />
-    <objectAnimator
-        android:propertyName="scaleY"
-        android:duration="53"
-        android:valueFrom="1.00"
-        android:valueTo="0.94" />
-</set>
+<merge xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <Key
+        latin:keySpec="&#x3141;" />
+    <Key
+        latin:keySpec="&#x3134;" />
+    <Key
+        latin:keySpec="&#x3147;" />
+    <Key
+        latin:keySpec="&#x3139;" />
+    <Key
+        latin:keySpec="&#x314e;" />
+    <Key
+        latin:keySpec="&#x3157;" />
+    <Key
+        latin:keySpec="&#x3153;" />
+    <Key
+        latin:keySpec="&#x314f;" />
+    <Key
+        latin:keySpec="&#x3163;" />
+</merge>

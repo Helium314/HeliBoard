@@ -110,18 +110,22 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 keyboardView.measuredHeight
         )
 
+        val scale = Settings.getInstance().current.mKeyboardHeightScale
+        // scale one-handed mode button height if keyboard height scale is < 80%
+        // more relevant: also change the distance, so the buttons are actually visible
+        val heightScale = if (scale < 0.8f) scale + 0.2f else 1f
         val buttonsLeft = if (isLeftGravity) keyboardView.measuredWidth else 0
         stopOneHandedModeBtn.layout(
                 buttonsLeft + (spareWidth - stopOneHandedModeBtn.measuredWidth) / 2,
-                stopOneHandedModeBtn.measuredHeight / 2,
+                (heightScale * stopOneHandedModeBtn.measuredHeight / 2).toInt(),
                 buttonsLeft + (spareWidth + stopOneHandedModeBtn.measuredWidth) / 2,
-                3 * stopOneHandedModeBtn.measuredHeight / 2
+                (heightScale * 3 * stopOneHandedModeBtn.measuredHeight / 2).toInt()
         )
         switchOneHandedModeBtn.layout(
                 buttonsLeft + (spareWidth - switchOneHandedModeBtn.measuredWidth) / 2,
-                2 * stopOneHandedModeBtn.measuredHeight,
+                (heightScale * 2 * stopOneHandedModeBtn.measuredHeight).toInt(),
                 buttonsLeft + (spareWidth + switchOneHandedModeBtn.measuredWidth) / 2,
-                2 * stopOneHandedModeBtn.measuredHeight + switchOneHandedModeBtn.measuredHeight
+                (heightScale * (2 * stopOneHandedModeBtn.measuredHeight + switchOneHandedModeBtn.measuredHeight)).toInt()
         )
     }
 

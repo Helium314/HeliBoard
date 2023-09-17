@@ -46,7 +46,7 @@ public final class DrawingPreviewPlacerView extends RelativeLayout {
     }
 
     public void addPreview(final AbstractDrawingPreview preview) {
-        if (mPreviews.indexOf(preview) < 0) {
+        if (!mPreviews.contains(preview)) {
             mPreviews.add(preview);
         }
     }

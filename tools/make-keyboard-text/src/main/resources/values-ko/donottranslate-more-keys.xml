@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- U+20B9: "￦" FULLWIDTH WON SIGN -->
+    <string name="keyspec_currency">&#xFFE6;</string>
+    <!-- Label for "switch to alphabetic" key.
+         U+0995: "ᄀ" HANGUL LETTER KIYEOK
+         U+0996: "ㄴ" HANGUL LETTER NIEUN
+         U+0997: "ㄷ" HANGUL LETTER TIKEUT -->
+    <string name="keylabel_to_alpha">&#x3131;&#x3134;&#x3137;</string>
+</resources>

@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2012, The Android Open Source Project
+** Copyright 2008, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -18,10 +18,9 @@
 */
 -->
 
-<objectAnimator
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:propertyName="altCodeKeyWhileTypingAnimAlpha"
-    android:valueType="intType"
-    android:duration="1000"
-    android:valueFrom="128"
-    android:valueTo="255" />
+<Keyboard
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+>
+    <include
+        latin:keyboardLayout="@xml/rows_korean_sebeolsik_final" />
+</Keyboard>

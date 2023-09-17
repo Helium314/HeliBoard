@@ -6,12 +6,9 @@ import java.util.*
 object EditorInfoCompatUtils {
     // Note that EditorInfo.IME_FLAG_FORCE_ASCII has been introduced
     // in API level 16 (Build.VERSION_CODES.JELLY_BEAN).
-    private val FIELD_IME_FLAG_FORCE_ASCII = CompatUtils.getField(
-            EditorInfo::class.java, "IME_FLAG_FORCE_ASCII")
-    private val OBJ_IME_FLAG_FORCE_ASCII: Int? = CompatUtils.getFieldValue(
-            null /* receiver */, null /* defaultValue */, FIELD_IME_FLAG_FORCE_ASCII) as Int
-    private val FIELD_HINT_LOCALES = CompatUtils.getField(
-            EditorInfo::class.java, "hintLocales")
+    private val FIELD_IME_FLAG_FORCE_ASCII = CompatUtils.getField(EditorInfo::class.java, "IME_FLAG_FORCE_ASCII")
+    private val OBJ_IME_FLAG_FORCE_ASCII: Int? = CompatUtils.getFieldValue(null, null, FIELD_IME_FLAG_FORCE_ASCII) as? Int
+    private val FIELD_HINT_LOCALES = CompatUtils.getField(EditorInfo::class.java, "hintLocales")
 
     @JvmStatic
     fun hasFlagForceAscii(imeOptions: Int): Boolean {
@@ -20,8 +17,7 @@ object EditorInfoCompatUtils {
 
     @JvmStatic
     fun imeActionName(imeOptions: Int): String {
-        val actionId = imeOptions and EditorInfo.IME_MASK_ACTION
-        return when (actionId) {
+        return when (val actionId = imeOptions and EditorInfo.IME_MASK_ACTION) {
             EditorInfo.IME_ACTION_UNSPECIFIED -> "actionUnspecified"
             EditorInfo.IME_ACTION_NONE -> "actionNone"
             EditorInfo.IME_ACTION_GO -> "actionGo"
@@ -57,8 +53,7 @@ object EditorInfoCompatUtils {
         if (editorInfo == null) {
             return null
         }
-        val localeList = CompatUtils.getFieldValue(editorInfo, null, FIELD_HINT_LOCALES)
-                ?: return null
+        val localeList = CompatUtils.getFieldValue(editorInfo, null, FIELD_HINT_LOCALES) ?: return null
         return if (LocaleListCompatUtils.isEmpty(localeList)) {
             null
         } else LocaleListCompatUtils[localeList, 0]

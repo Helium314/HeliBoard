@@ -153,7 +153,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         /**
          * The locale associated with the dictionary group.
          */
-        @Nullable public final Locale mLocale;
+        @NonNull public final Locale mLocale;
 
         /**
          * The user account associated with the dictionary group.
@@ -202,10 +202,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 new ConcurrentHashMap<>();
 
         public DictionaryGroup() {
-            this(null /* locale */, null /* mainDict */, null /* account */, Collections.emptyMap() /* subDicts */);
+            this(new Locale(""), null /* mainDict */, null /* account */, Collections.emptyMap() /* subDicts */);
         }
 
-        public DictionaryGroup(@Nullable final Locale locale,
+        public DictionaryGroup(@NonNull final Locale locale,
                 @Nullable final Dictionary mainDict,
                 @Nullable final String account,
                 @NonNull final Map<String, ExpandableBinaryDictionary> subDicts) {
@@ -288,7 +288,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public boolean isActive() {
-        return mDictionaryGroups.get(0).mLocale != null;
+        return !mDictionaryGroups.get(0).mLocale.getLanguage().isEmpty();
     }
 
     // used in
@@ -340,12 +340,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Nullable
     static DictionaryGroup findDictionaryGroupWithLocale(final List<DictionaryGroup> dictionaryGroups,
-            final Locale locale) {
+            @NonNull final Locale locale) {
         if (dictionaryGroups == null) return null;
         for (DictionaryGroup dictionaryGroup : dictionaryGroups) {
-            if (locale == null && dictionaryGroup.mLocale == null)
-                return dictionaryGroup;
-            if (locale != null && locale.equals(dictionaryGroup.mLocale))
+            if (locale.equals(dictionaryGroup.mLocale))
                 return dictionaryGroup;
         }
         return null;
@@ -354,7 +352,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     // original
     public void resetDictionaries(
             final Context context,
-            final Locale newLocale,
+            @NonNull final Locale newLocale,
             final boolean useContactsDict,
             final boolean usePersonalizedDicts,
             final boolean forceReloadMainDictionary,
@@ -399,10 +397,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         final ArrayList<DictionaryGroup> newDictionaryGroups = new ArrayList<>(allLocales.size());
         for (Locale locale : allLocales) {
             // get existing dictionary group for new locale
-            final DictionaryGroup oldDictionaryGroupForLocale =
-                    findDictionaryGroupWithLocale(mDictionaryGroups, locale);
-            final ArrayList<String> dictTypesToCleanupForLocale =
-                    existingDictionariesToCleanup.get(locale);
+            final DictionaryGroup oldDictionaryGroupForLocale = findDictionaryGroupWithLocale(mDictionaryGroups, locale);
+            final ArrayList<String> dictTypesToCleanupForLocale = existingDictionariesToCleanup.get(locale);
             final boolean noExistingDictsForThisLocale = (null == oldDictionaryGroupForLocale);
 
             // create new or re-use already loaded main dict
@@ -542,12 +538,12 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 final File dictFile = dictionaryFiles.get(dictType);
                 final ExpandableBinaryDictionary dict = getSubDict(
                         dictType, context, locale, dictFile, "" /* dictNamePrefix */, account);
+                if (dict == null) {
+                    throw new RuntimeException("Unknown dictionary type: " + dictType);
+                }
                 if (additionalDictAttributes.containsKey(dictType)) {
                     dict.clearAndFlushDictionaryWithAdditionalAttributes(
                             additionalDictAttributes.get(dictType));
-                }
-                if (dict == null) {
-                    throw new RuntimeException("Unknown dictionary type: " + dictType);
                 }
                 dict.reloadDictionaryIfRequired();
                 dict.waitAllTasksForTests();
@@ -939,9 +935,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (TextUtils.isEmpty(word)) {
             return false;
         }
-        if (dictionaryGroup.mLocale == null) {
-            return false;
-        }
         if (isBlacklisted(word)) return false;
         for (final String dictType : dictionariesToCheck) {
             final Dictionary dictionary = dictionaryGroup.getDict(dictType);
@@ -992,7 +985,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         } else isInContacts = false;
 
         // add to blacklist if in main or contacts dictionaries
-        if ((isInContacts || group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)) && group.blacklist.add(word)) {
+        if ((isInContacts || (group.hasDict(Dictionary.TYPE_MAIN, null) && group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)))
+                && group.blacklist.add(word)) {
             // write to file if word wasn't already in blacklist
             ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
                 try {

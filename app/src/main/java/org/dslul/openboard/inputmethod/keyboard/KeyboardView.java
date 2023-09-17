@@ -124,6 +124,8 @@ public class KeyboardView extends View {
     private Bitmap mOffscreenBuffer;
     /** Flag for whether the key hints should be displayed */
     private boolean mShowsHints;
+    /** Scale for downscaling icons and fixed size backgrounds if keyboard height is set below 80% */
+    private float mIconScaleFactor;
     /** The canvas for the above mutable keyboard bitmap */
     @NonNull
     private final Canvas mOffscreenCanvas = new Canvas();
@@ -301,6 +303,8 @@ public class KeyboardView extends View {
         }
 
         mShowsHints = Settings.getInstance().getCurrent().mShowsHints;
+        final float scale = Settings.getInstance().getCurrent().mKeyboardHeightScale;
+        mIconScaleFactor = scale < 0.8f ? scale + 0.2f : 1f;
         final Paint paint = mPaint;
         final Drawable background = getBackground();
         // Calculate clip region and set.
@@ -370,8 +374,8 @@ public class KeyboardView extends View {
         if (key.needsToKeepBackgroundAspectRatio(mDefaultKeyLabelFlags)
                 // HACK: To disable expanding normal/functional key background.
                 && !key.hasCustomActionLabel()) {
-            bgWidth = background.getIntrinsicWidth();
-            bgHeight = background.getIntrinsicHeight();
+            bgWidth = (int) (background.getIntrinsicWidth() * mIconScaleFactor);
+            bgHeight = (int) (background.getIntrinsicHeight() * mIconScaleFactor);
             bgX = (keyWidth - bgWidth) / 2;
             bgY = (keyHeight - bgHeight) / 2;
         } else {
@@ -412,8 +416,9 @@ public class KeyboardView extends View {
             labelBaseline = centerY + labelCharHeight / 2.0f;
 
             // Horizontal label text alignment
-            if (key.isAlignLabelOffCenter()) {
-                // The label is placed off center of the key. Used mainly on "phone number" layout.
+            if (key.isAlignLabelOffCenter() && mShowsHints) {
+                // The label is placed off center of the key. Currently used only on "phone number" layout
+                // to have letter hints shown nicely. We don't want to align it off center if hints are off.
                 labelX = centerX + params.mLabelOffCenterRatio * labelCharWidth;
                 paint.setTextAlign(Align.LEFT);
             } else {
@@ -496,11 +501,11 @@ public class KeyboardView extends View {
         if (label == null && icon != null) {
             final int iconWidth;
             if (key.getCode() == Constants.CODE_SPACE && icon instanceof NinePatchDrawable) {
-                iconWidth = (int)(keyWidth * mSpacebarIconWidthRatio);
+                iconWidth = (int) (keyWidth * mSpacebarIconWidthRatio * mIconScaleFactor);
             } else {
-                iconWidth = Math.min(icon.getIntrinsicWidth(), keyWidth);
+                iconWidth = (int) (Math.min(icon.getIntrinsicWidth(), keyWidth) * mIconScaleFactor);
             }
-            final int iconHeight = icon.getIntrinsicHeight();
+            final int iconHeight = (int) (icon.getIntrinsicHeight() * mIconScaleFactor);
             final int iconY;
             if (key.isAlignIconToBottom()) {
                 iconY = keyHeight - iconHeight;

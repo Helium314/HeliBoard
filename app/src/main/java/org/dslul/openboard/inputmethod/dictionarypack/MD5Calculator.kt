@@ -8,8 +8,7 @@ import java.security.NoSuchAlgorithmException
 object MD5Calculator {
     @Throws(IOException::class)
     fun checksum(`in`: InputStream): String? { // This code from the Android documentation for MessageDigest. Nearly verbatim.
-        val digester: MessageDigest
-        digester = try {
+        val digester: MessageDigest = try {
             MessageDigest.getInstance("MD5")
         } catch (e: NoSuchAlgorithmException) {
             return null // Platform does not support MD5 : can't check, so return null

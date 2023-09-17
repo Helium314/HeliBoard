@@ -16,8 +16,6 @@
 
 package org.dslul.openboard.inputmethod.latin.common;
 
-import android.renderscript.Script;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

@@ -25,11 +25,13 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardView
  *
  * @param <KV> The keyboard view class type.
 </KV> */
-open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyboardView: KV, protected val mKeyDetector: KeyDetector) : AccessibilityDelegateCompat() {
+open class KeyboardAccessibilityDelegate<KV : KeyboardView>(
+    protected val mKeyboardView: KV,
+    protected val mKeyDetector: KeyDetector
+    ) : AccessibilityDelegateCompat() {
     private var mKeyboard: Keyboard? = null
     private var mAccessibilityNodeProvider: KeyboardAccessibilityNodeProvider<KV>? = null
     private var mLastHoverKey: Key? = null
-
 
     protected open var lastHoverKey: Key?
         get() = mLastHoverKey
@@ -45,14 +47,14 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
      * @param keyboard The keyboard that is being set to the wrapping view.
      */
     open var keyboard: Keyboard?
-    get() = mKeyboard
-    set(keyboard) {
-        if (keyboard == null) {
-            return
+        get() = mKeyboard
+        set(keyboard) {
+            if (keyboard == null) {
+                return
+            }
+            mAccessibilityNodeProvider?.setKeyboard(keyboard)
+            mKeyboard = keyboard
         }
-        mAccessibilityNodeProvider?.setKeyboard(keyboard)
-        mKeyboard = keyboard
-    }
 
     /**
      * Sends a window state change event with the specified string resource id.
@@ -63,7 +65,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
         if (resId == 0) {
             return
         }
-        val context = mKeyboardView!!.context
+        val context = mKeyboardView.context
         sendWindowStateChanged(context.getString(resId))
     }
 
@@ -74,7 +76,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
      */
     protected fun sendWindowStateChanged(text: String?) {
         val stateChange = AccessibilityUtils.obtainEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
-        mKeyboardView!!.onInitializeAccessibilityEvent(stateChange)
+        mKeyboardView.onInitializeAccessibilityEvent(stateChange)
         stateChange.text.add(text)
         stateChange.contentDescription = null
         val parent = mKeyboardView.parent
@@ -91,19 +93,21 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
      */
     override fun getAccessibilityNodeProvider(host: View): KeyboardAccessibilityNodeProvider<KV> {
         return accessibilityNodeProvider
-    }// Instantiate the provide only when requested. Since the system
-// will call this method multiple times it is a good practice to
-// cache the provider instance.
+    }
+    // Instantiate the provide only when requested. Since the system
+    // will call this method multiple times it is a good practice to
+    // cache the provider instance.
 
     /**
      * @return A lazily-instantiated node provider for this view delegate.
      */
     protected val accessibilityNodeProvider: KeyboardAccessibilityNodeProvider<KV>
-    get() { // Instantiate the provide only when requested. Since the system
-// will call this method multiple times it is a good practice to
-// cache the provider instance.
-        return mAccessibilityNodeProvider ?: KeyboardAccessibilityNodeProvider(mKeyboardView, this)
-    }
+        get() {
+            // Instantiate the provide only when requested. Since the system
+            // will call this method multiple times it is a good practice to
+            // cache the provider instance.
+            return mAccessibilityNodeProvider ?: KeyboardAccessibilityNodeProvider(mKeyboardView, this)
+        }
 
     /**
      * Get a key that a hover event is on.
@@ -177,7 +181,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
         lastKey?.let { onHoverExitFrom(it) }
         val key = getHoverKeyOf(event)
         // Make sure we're not getting an EXIT event because the user slid
-// off the keyboard area, then force a key press.
+        // off the keyboard area, then force a key press.
         key?.let { performClickOn(it)
         onHoverExitFrom(it) }
         mLastHoverKey = null
@@ -208,7 +212,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
         val eventTime = SystemClock.uptimeMillis()
         val touchEvent = MotionEvent.obtain(
                 eventTime, eventTime, touchAction, x.toFloat(), y.toFloat(), 0 /* metaState */)
-        mKeyboardView!!.onTouchEvent(touchEvent)
+        mKeyboardView.onTouchEvent(touchEvent)
         touchEvent.recycle()
     }
 
@@ -222,7 +226,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
             Log.d(TAG, "onHoverEnterTo: key=$key")
         }
         key.onPressed()
-        mKeyboardView!!.invalidateKey(key)
+        mKeyboardView.invalidateKey(key)
         val provider = accessibilityNodeProvider
         provider.onHoverEnterTo(key)
         provider.performActionForKey(key, AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS)
@@ -245,7 +249,7 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
             Log.d(TAG, "onHoverExitFrom: key=$key")
         }
         key.onReleased()
-        mKeyboardView!!.invalidateKey(key)
+        mKeyboardView.invalidateKey(key)
         val provider = accessibilityNodeProvider
         provider.onHoverExitFrom(key)
     }
@@ -255,17 +259,18 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView?>(protected val mKeyb
      *
      * @param key A key to be long pressed on.
      */
-    open fun performLongClickOn(key: Key) { // A extended class should override this method to implement long press.
+    open fun performLongClickOn(key: Key) {
+        // A extended class should override this method to implement long press.
     }
 
     companion object {
-    private val TAG = KeyboardAccessibilityDelegate::class.java.simpleName
-    const val DEBUG_HOVER = false
-    const val HOVER_EVENT_POINTER_ID = 0
+        private val TAG = KeyboardAccessibilityDelegate::class.java.simpleName
+        const val DEBUG_HOVER = false
+        const val HOVER_EVENT_POINTER_ID = 0
     }
 
     init {
         // Ensure that the view has an accessibility delegate.
-        ViewCompat.setAccessibilityDelegate(mKeyboardView!!, this)
+        ViewCompat.setAccessibilityDelegate(mKeyboardView, this) // todo: see the warning, this may be bad
     }
 }

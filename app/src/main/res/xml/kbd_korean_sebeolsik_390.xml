@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2014, The Android Open Source Project
+** Copyright 2008, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -18,15 +18,9 @@
 */
 -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <objectAnimator
-        android:propertyName="scaleX"
-        android:duration="53"
-        android:valueFrom="1.00"
-        android:valueTo="0.94" />
-    <objectAnimator
-        android:propertyName="scaleY"
-        android:duration="53"
-        android:valueFrom="1.00"
-        android:valueTo="0.94" />
-</set>
+<Keyboard
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+>
+    <include
+        latin:keyboardLayout="@xml/rows_korean_sebeolsik_390" />
+</Keyboard>

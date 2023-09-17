@@ -52,6 +52,7 @@ import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils;
 import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils.InsetsUpdater;
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.event.HangulEventDecoder;
 import org.dslul.openboard.inputmethod.event.HardwareEventDecoder;
 import org.dslul.openboard.inputmethod.event.HardwareKeyboardEventDecoder;
 import org.dslul.openboard.inputmethod.event.InputTransaction;
@@ -724,7 +725,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * @param locale the locale
      */
     // TODO: make sure the current settings always have the right locales, and read from them.
-    private void resetDictionaryFacilitator(final Locale locale) {
+    private void resetDictionaryFacilitator(@NonNull final Locale locale) {
         final SettingsValues settingsValues = mSettings.getCurrent();
         mDictionaryFacilitator.resetDictionaries(this /* context */, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUsePersonalizedDicts,
@@ -1427,8 +1428,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
-        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(),
-                mKeyboardSwitcher.getCurrentKeyboardScriptId());
+        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());
     }
 
     @Override
@@ -1868,8 +1868,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (!ProductionFlags.IS_HARDWARE_KEYBOARD_SUPPORTED) {
             return super.onKeyDown(keyCode, keyEvent);
         }
-        final Event event = getHardwareKeyEventDecoder(
-                keyEvent.getDeviceId()).decodeHardwareKey(keyEvent);
+        final Event event;
+        if (mRichImm.getCurrentSubtypeLocale().getLanguage().equals("ko")) {
+            final RichInputMethodSubtype subtype = mKeyboardSwitcher.getKeyboard() == null
+                    ? mRichImm.getCurrentSubtype()
+                    : mKeyboardSwitcher.getKeyboard().mId.mSubtype;
+            event = HangulEventDecoder.decodeHardwareKeyEvent(subtype, keyEvent,
+                        () -> getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent));
+        } else {
+            event = getHardwareKeyEventDecoder(keyEvent.getDeviceId()).decodeHardwareKey(keyEvent);
+        }
         // If the event is not handled by LatinIME, we just pass it to the parent implementation.
         // If it's handled, we return true because we did handle it.
         if (event.isHandled()) {

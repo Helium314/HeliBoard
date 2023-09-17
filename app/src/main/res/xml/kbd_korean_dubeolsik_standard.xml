@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2013, The Android Open Source Project
+** Copyright 2008, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@
 ** limitations under the License.
 */
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="dictionary_pack_client_id" translatable="false">org.dslul.openboard.inputmethod.latin</string>
-    <string name="dictionary_pack_metadata_uri" translatable="false"></string>
-    <string name="local_metadata_filename" translatable="false">metadata.json</string>
-</resources>
+
+<Keyboard
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+>
+    <include
+        latin:keyboardLayout="@xml/rows_korean_dubeolsik_standard" />
+</Keyboard>

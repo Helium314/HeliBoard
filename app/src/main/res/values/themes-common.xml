@@ -78,13 +78,11 @@
         <item name="keyRepeatInterval">@integer/config_key_repeat_interval</item>
         <item name="longPressShiftLockTimeout">@integer/config_longpress_shift_lock_timeout</item>
         <item name="ignoreAltCodeKeyTimeout">@integer/config_ignore_alt_code_key_timeout</item>
-        <!-- TODO: consolidate key preview linger timeout with the key preview animation parameters. -->
-        <item name="keyPreviewLingerTimeout">@integer/config_key_preview_linger_timeout</item>
         <item name="moreKeysKeyboardLayout">@layout/more_keys_keyboard</item>
         <item name="showMoreKeysKeyboardAtTouchedPoint">@bool/config_show_more_keys_keyboard_at_touched_point</item>
         <item name="languageOnSpacebarTextRatio">@fraction/config_language_on_spacebar_text_ratio</item>
         <item name="languageOnSpacebarFinalAlpha">@integer/config_language_on_spacebar_final_alpha</item>
-        <item name="languageOnSpacebarFadeoutAnimator">@anim/language_on_spacebar_fadeout</item>
+        <item name="languageOnSpacebarFadeoutAnimator">@animator/language_on_spacebar_fadeout</item>
         <!-- Remove animations for now because it could drain a non-negligible amount of battery while typing.
         <item name="altCodeKeyWhileTypingFadeoutAnimator">@anim/alt_code_key_while_typing_fadeout</item>
         <item name="altCodeKeyWhileTypingFadeinAnimator">@anim/alt_code_key_while_typing_fadein</item>
