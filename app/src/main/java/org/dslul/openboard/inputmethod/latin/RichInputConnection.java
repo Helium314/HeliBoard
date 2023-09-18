@@ -401,7 +401,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public int getCharBeforeBeforeCursor() {
         final int length = mCommittedTextBeforeComposingText.length();
         if (length < 2) return Constants.NOT_A_CODE;
-        return mCommittedTextBeforeComposingText.charAt(length - 1);
+        return mCommittedTextBeforeComposingText.charAt(length - 2);
     }
 
     public CharSequence getTextBeforeCursor(final int n, final int flags) {
