@@ -446,6 +446,9 @@ public final class InputLogic {
                 && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()))) {
             mWordComposer.setHangul(true);
             final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
+            // todo: here hangul combiner does already consume the event, and appends typed codepoint
+            //  to the current word instead of considering the cursor position
+            //  position is actually not visible to the combiner, how to fix?
             processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
         } else {
             mWordComposer.setHangul(false);
@@ -865,6 +868,8 @@ public final class InputLogic {
         // if we continue directly after a sometimesWordConnector, restart suggestions for the whole word
         if (!isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
                 && settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCodePointBeforeCursor())
+                // but not if there are two consecutive sometimesWordConnectors (e.g. "...bla")
+                && !settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCharBeforeBeforeCursor())
         ) {
             final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespace();
             final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);

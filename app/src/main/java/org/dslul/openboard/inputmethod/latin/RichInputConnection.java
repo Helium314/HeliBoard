@@ -398,9 +398,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return Character.codePointBefore(mCommittedTextBeforeComposingText, length);
     }
 
+    public int getCharBeforeBeforeCursor() {
+        final int length = mCommittedTextBeforeComposingText.length();
+        if (length < 2) return Constants.NOT_A_CODE;
+        return mCommittedTextBeforeComposingText.charAt(length - 1);
+    }
+
     public CharSequence getTextBeforeCursor(final int n, final int flags) {
-        final int cachedLength =
-                mCommittedTextBeforeComposingText.length() + mComposingText.length();
+        final int cachedLength = mCommittedTextBeforeComposingText.length() + mComposingText.length();
         // If we have enough characters to satisfy the request, or if we have all characters in
         // the text field, then we can return the cached version right away.
         // However, if we don't have an expected cursor position, then we should always
@@ -736,6 +741,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
 
         // Going backward, find the first breaking point (separator)
+        // todo: break if there are 2 consecutive sometimesWordConnectors (more complicated once again, great...)
         int startIndexInBefore = before.length();
         int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
@@ -794,7 +800,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             }
         }
 
-        // we don't want the end characters to be word separators (maybe could make an exception for /
+        // we don't want the end characters to be word separators
         while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
             --endIndexInAfter;
         }
