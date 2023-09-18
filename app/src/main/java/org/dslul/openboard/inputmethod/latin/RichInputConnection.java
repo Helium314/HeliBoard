@@ -651,7 +651,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
     }
 
-    @SuppressWarnings("unused")
     @NonNull
     public NgramContext getNgramContextFromNthPreviousWord(
             final SpacingAndPunctuations spacingAndPunctuations, final int n) {
@@ -672,14 +671,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             if (internal.length() > checkLength) {
                 internal.delete(0, internal.length() - checkLength);
                 if (!(reference.equals(internal.toString()))) {
-                    final String context =
-                            "Expected text = " + internal + "\nActual text = " + reference;
+                    final String context = "Expected text = " + internal + "\nActual text = " + reference;
                     ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
                 }
             }
         }
-        return NgramContextUtils.getNgramContextFromNthPreviousWord(
-                prev, spacingAndPunctuations, n);
+        return NgramContextUtils.getNgramContextFromNthPreviousWord(prev, spacingAndPunctuations, n);
     }
 
     private static boolean isPartOfCompositionForScript(final int codePoint,
@@ -738,7 +735,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             before = fixIncorrectLength(before);
         }
 
-        // some optimizations are possible, not sure whether relevant though
+        // Going backward, find the first breaking point (separator)
         int startIndexInBefore = before.length();
         int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
@@ -797,9 +794,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             }
         }
 
-        // we don't want the last character if it's a comma, period, ...
-        if (endIndexInAfter > 0 && spacingAndPunctuations.isUsuallyFollowedBySpace(after.charAt(endIndexInAfter - 1))) {
+        // we don't want the end characters to be word separators (maybe could make an exception for /
+        while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
             --endIndexInAfter;
+        }
+        while (startIndexInBefore < before.length() && spacingAndPunctuations.isWordSeparator(before.charAt(startIndexInBefore))) {
+            ++startIndexInBefore;
         }
 
         final boolean hasUrlSpans =
