@@ -619,6 +619,9 @@ public class KeyboardView extends View {
         } else if (this instanceof MoreKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
             icon.setColorFilter(mColors.getKeyTextFilter());
+        } else if (key.getCode() == Constants.CODE_SPACE) {
+            // set color of default number pad space bar icon for Holo style
+            icon.setColorFilter(mColors.getKeyTextFilter());
         }
     }
 
