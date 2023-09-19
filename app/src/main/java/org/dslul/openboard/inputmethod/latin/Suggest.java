@@ -18,6 +18,7 @@ package org.dslul.openboard.inputmethod.latin;
 
 import android.text.TextUtils;
 
+import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -203,8 +204,6 @@ public final class Suggest {
                 keyboard.mId.mMode,
                 wordComposer,
                 suggestionResults,
-                mDictionaryFacilitator,
-                mAutoCorrectionThreshold,
                 firstOccurrenceOfTypedWordInSuggestions,
                 typedWordFirstOccurrenceWordInfo
         );
@@ -282,7 +281,8 @@ public final class Suggest {
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
-    static boolean[] shouldBeAutoCorrected(
+    @UsedForTesting
+    boolean[] shouldBeAutoCorrected(
             final int trailingSingleQuotesCount,
             final String typedWordString,
             final List<SuggestedWordInfo> suggestionsContainer,
@@ -293,8 +293,6 @@ public final class Suggest {
             final int keyboardIdMode,
             final WordComposer wordComposer,
             final SuggestionResults suggestionResults,
-            final DictionaryFacilitator dictionaryFacilitator,
-            final float autoCorrectionThreshold,
             final int firstOccurrenceOfTypedWordInSuggestions,
             final SuggestedWordInfo typedWordFirstOccurrenceWordInfo
     ) {
@@ -365,7 +363,7 @@ public final class Suggest {
                 // list, "will" would always auto-correct to "Will" which is unwanted. Hence, no
                 // main dict => no auto-correct. Also, it would probably get obnoxious quickly.
                 // TODO: now that we have personalization, we may want to re-evaluate this decision
-                || !dictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()) {
+                || !mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()) {
             hasAutoCorrection = false;
         } else {
             final SuggestedWordInfo firstSuggestion = suggestionResults.first();
@@ -376,7 +374,7 @@ public final class Suggest {
                 return new boolean[]{ true, true };
             }
             if (!AutoCorrectionUtils.suggestionExceedsThreshold(
-                    firstSuggestion, consideredWord, autoCorrectionThreshold)) {
+                    firstSuggestion, consideredWord, mAutoCorrectionThreshold)) {
                 // todo: maybe also do something here depending on ngram context?
                 // Score is too low for autocorrect
                 return new boolean[]{ true, false };
@@ -390,7 +388,7 @@ public final class Suggest {
                 // typed word is valid and has good score
                 // do not auto-correct if typed word is better match than first suggestion
                 final SuggestedWordInfo first = firstSuggestionInContainer != null ? firstSuggestionInContainer : firstSuggestion;
-                final Locale dictLocale = dictionaryFacilitator.getCurrentLocale();
+                final Locale dictLocale = mDictionaryFacilitator.getCurrentLocale();
 
                 if (first.mScore < scoreLimit) {
                     // don't allow if suggestion has too low score
