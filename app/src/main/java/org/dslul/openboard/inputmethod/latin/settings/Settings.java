@@ -58,7 +58,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
     // Settings screens
-    public static final String SCREEN_THEME = "screen_theme";
     public static final String SCREEN_DEBUG = "screen_debug";
     public static final String SCREEN_GESTURE = "screen_gesture";
     // In the same order as xml/prefs.xml
@@ -200,7 +199,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } finally {
             mSettingsValuesLock.unlock();
         }
-        if (key.equals(PREF_CUSTOM_INPUT_STYLES)) {
+        if (PREF_CUSTOM_INPUT_STYLES.equals(key)) {
             final String additionalSubtypes = readPrefAdditionalSubtypes(prefs, mContext.getResources());
             SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
         }
