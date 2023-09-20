@@ -8,10 +8,10 @@ import android.text.InputType
 import android.view.KeyEvent
 import android.view.inputmethod.*
 import androidx.core.content.edit
-import androidx.test.runner.AndroidJUnit4
 import org.dslul.openboard.inputmethod.event.Event
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
+import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
 import org.dslul.openboard.inputmethod.latin.inputlogic.InputLogic
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -23,6 +23,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.robolectric.Robolectric
+import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
@@ -30,7 +31,7 @@ import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.math.min
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
     ShadowLocaleManagerCompat::class,
     ShadowInputMethodManager2::class,
@@ -69,11 +70,20 @@ class InputLogicTest {
     }
 
     @Test fun delete() {
-
+        reset()
+        setText("hello there ")
+        functionalKeyPress(Constants.CODE_DELETE)
+        assertEquals("hello there", text)
+        assertEquals("there", composingText)
     }
 
-    @Test fun deleteInWeirdEditor() { // todo: try reproducing the thing requiring to fix incorrect length
-
+    @Test fun deleteInsideWord() {
+        reset()
+        setText("hello you there")
+        setCursorPosition(8) // after o in you
+        functionalKeyPress(Constants.CODE_DELETE)
+        assertEquals("hello yu there", text)
+        assertEquals("", composingText) // todo: do we really want an empty composing text in this case?
     }
 
     @Test fun insertLetterIntoWord() {
@@ -85,6 +95,7 @@ class InputLogicTest {
         assertEquals("helilo", getText())
         assertEquals(4, getCursorPosition())
         assertEquals(4, cursor)
+        assertEquals("", composingText)
     }
 
     @Test fun insertLetterIntoWordWithWeirdEditor() {
@@ -123,10 +134,37 @@ class InputLogicTest {
         assertEquals(4, cursor)
     }
 
-    @Test fun setAutospace() {
-        println(settingsValues.mAutospaceAfterPunctuationEnabled)
-        setAutospaceAfterPunctuation(true)
-        println(settingsValues.mAutospaceAfterPunctuationEnabled)
+    // todo: try the same if there is text afterwards (not touching)
+    @Test fun autospace() {
+        reset()
+        setText("hello")
+        input('.'.code)
+        input('a'.code)
+        assertEquals("hello.a", textBeforeCursor)
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        assert(settingsValues.mAutospaceAfterPunctuationEnabled)
+        setText("hello")
+        input('.'.code)
+        input('a'.code)
+        assertEquals("hello. a", textBeforeCursor)
+    }
+
+    @Test fun autospaceButWithTextAfter() {
+        reset()
+        setText("hello there")
+        setCursorPosition(5) // after hello
+        input('.'.code)
+        input('a'.code)
+        assertEquals("hello.a", textBeforeCursor)
+        assertEquals("hello.a there", text)
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        assert(settingsValues.mAutospaceAfterPunctuationEnabled)
+        setText("hello there")
+        setCursorPosition(5) // after hello
+        input('.'.code)
+        input('a'.code)
+        assertEquals("hello. a", textBeforeCursor)
+        assertEquals("hello. a there", text)
     }
 
     // ------- helper functions ---------
@@ -162,9 +200,16 @@ class InputLogicTest {
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        assertEquals(oldBefore + insert, textBeforeCursor)
+        if (!settingsValues.mAutospaceAfterPunctuationEnabled)
+            assertEquals(oldBefore + insert, textBeforeCursor)
         assertEquals(oldAfter, textAfterCursor)
         assertEquals(textBeforeCursor + textAfterCursor, getText())
+        checkConnectionConsistency()
+    }
+
+    private fun functionalKeyPress(keyCode: Int) {
+        latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
+        handleMessages()
         checkConnectionConsistency()
     }
 
@@ -259,8 +304,8 @@ class InputLogicTest {
 
     private fun checkConnectionConsistency() {
         println("consistency: $selectionStart, ${connection.expectedSelectionStart}, $selectionEnd, ${connection.expectedSelectionEnd}, $textBeforeComposingText, " +
-                "$connectionTextBeforeComposingText, $composingText, $connectionComposingText, $textBeforeCursor, ${connection.getTextBeforeCursor(textBeforeCursor.length, 0)}," +
-                " $textAfterCursor, ${connection.getTextBeforeCursor(textAfterCursor.length, 0)}")
+                "$connectionTextBeforeComposingText, $composingText, $connectionComposingText, $textBeforeCursor, ${connection.getTextBeforeCursor(textBeforeCursor.length, 0)}" +
+                ", $textAfterCursor, ${connection.getTextAfterCursor(textAfterCursor.length, 0)}")
         assertEquals(selectionStart, connection.expectedSelectionStart)
         assertEquals(selectionEnd, connection.expectedSelectionEnd)
         assertEquals(textBeforeComposingText, connectionTextBeforeComposingText)
@@ -271,13 +316,6 @@ class InputLogicTest {
 
     private fun getText() =
         connection.getTextBeforeCursor(100, 0).toString() + connection.getTextAfterCursor(100, 0)
-
-    // nice, this really reloads the prefs!!
-    private fun setAutospaceAfterPunctuation(enabled: Boolean) {
-        DeviceProtectedUtils.getSharedPreferences(latinIME)
-            .edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, enabled) }
-        assertEquals(enabled, settingsValues.mAutospaceAfterPunctuationEnabled)
-    }
 
     // always need to handle messages for proper simulation
     private fun handleMessages() {
@@ -330,7 +368,7 @@ private val composingText get() = if (composingStart == -1 || composingEnd == -1
 private val ic = object : InputConnection {
     // pretty clear (though this may be slow depending on the editor)
     // bad return value here is likely the cause for that weird bug improved/fixed by fixIncorrectLength
-    override fun getTextBeforeCursor(p0: Int, p1: Int): CharSequence  = textBeforeCursor.take(p0)
+    override fun getTextBeforeCursor(p0: Int, p1: Int): CharSequence = textBeforeCursor.take(p0)
     // pretty clear (though this may be slow depending on the editor)
     override fun getTextAfterCursor(p0: Int, p1: Int): CharSequence = textAfterCursor.take(p0)
     // pretty clear
@@ -338,9 +376,10 @@ private val ic = object : InputConnection {
         else text.substring(selectionStart, selectionEnd)
     // inserts text at cursor (right?), and sets it as composing text
     // this REPLACES currently composing text (even if at a different position)
-    // moves the cursor: positive means relative to composing text, negative means relative to start
+    // moves the cursor: positive means relative to composing text start, negative means relative to start
     override fun setComposingText(newText: CharSequence, cursor: Int): Boolean {
-        // first remove the composing text if necessary
+        println("set composing text $newText, $cursor")
+        // first remove the composing text if any
         if (composingStart != -1 && composingEnd != -1)
             text = textBeforeComposingText + text.substring(composingEnd)
         else // no composing span active, we should remove selected text
@@ -354,8 +393,11 @@ private val ic = object : InputConnection {
         text = text.substring(0, insertStart) + newText + text.substring(insertStart)
         composingStart = insertStart
         composingEnd = insertStart + newText.length
-        selectionStart = if (insertStart > 0) insertStart + cursor
-        else cursor
+        // the cursor -1 is not clear in documentation, but
+        // "So a value of 1 will always advance you to the position after the full text being inserted"
+        // means that 1 must be composingEnd
+        selectionStart = if (cursor > 0) composingEnd + cursor - 1
+            else -cursor
         selectionEnd = selectionStart
         // todo: this should call InputMethodManager#updateSelection(View, int, int, int, int)
         //  but only after batch edit has ended
@@ -405,9 +447,36 @@ private val ic = object : InputConnection {
         // todo: call InputMethodService.onUpdateSelection(int, int, int, int, int, int), but only after batch edit is done!
         return true
     }
+    // delete beforeLength before cursor position, and afterLength after cursor position
+    // chars, not codepoints or glyphs
+    // todo: may delete only one half of a surrogate pair, but this should be avoided by RichInputConnection (maybe throw error)
+    override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
+        // delete only before or after selection
+        text = textBeforeCursor.substring(0, textBeforeCursor.length - beforeLength) +
+                text.substring(selectionStart, selectionEnd) +
+                textAfterCursor.substring(afterLength)
+
+        // if parts of the composing span are deleted, shorten the span (set end to shorter)
+        if (selectionStart <= composingStart) {
+            composingStart -= beforeLength // is this correct?
+            composingEnd -= beforeLength
+        } else if (selectionStart <= composingEnd) {
+            composingEnd -= beforeLength // is this correct?
+        }
+        if (selectionEnd <= composingStart) {
+            composingStart -= afterLength
+            composingEnd -= afterLength
+        } else if (selectionEnd <= composingEnd) {
+            composingEnd -= afterLength
+        }
+        // update selection
+        selectionStart -= beforeLength
+        selectionEnd -= beforeLength
+        return true;
+    }
+    // implement only when necessary
     override fun getCursorCapsMode(p0: Int): Int = TODO("Not yet implemented")
     override fun getExtractedText(p0: ExtractedTextRequest?, p1: Int): ExtractedText = TODO("Not yet implemented")
-    override fun deleteSurroundingText(p0: Int, p1: Int): Boolean = TODO("Not yet implemented")
     override fun deleteSurroundingTextInCodePoints(p0: Int, p1: Int): Boolean = TODO("Not yet implemented")
     override fun commitCompletion(p0: CompletionInfo?): Boolean = TODO("Not yet implemented")
     override fun commitCorrection(p0: CorrectionInfo?): Boolean = TODO("Not yet implemented")
