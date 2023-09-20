@@ -24,7 +24,8 @@ private class CrashReportExceptionHandler(val appContext: Context) : Thread.Unca
 
     fun install(): Boolean {
         val ueh = Thread.getDefaultUncaughtExceptionHandler()
-        check(ueh !is CrashReportExceptionHandler) { "May not install several CrashReportExceptionHandlers!" }
+        if (ueh is CrashReportExceptionHandler)
+            return false
         defaultUncaughtExceptionHandler = ueh
         Thread.setDefaultUncaughtExceptionHandler(this)
         return true
