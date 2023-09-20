@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
+import android.widget.Toast
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
@@ -239,10 +240,11 @@ private fun loadEnabledSubtypes(context: Context) {
 
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
-        if (BuildConfig.DEBUG) // should not happen, but should not crash for normal user
-            require(subtype != null)
-        else if (subtype == null)
+        if (subtype == null) {
+            if (BuildConfig.DEBUG)
+                Toast.makeText(context, "subtype $localeAndLayout could not be loaded", Toast.LENGTH_LONG).show()
             continue
+        }
 
         enabledSubtypes.add(subtype)
     }
