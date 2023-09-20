@@ -839,7 +839,6 @@ public final class InputLogic {
                     )
                 )
         ) {
-            Log.i("test1", "separator");
             handleSeparatorEvent(event, inputTransaction, handler);
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
@@ -854,7 +853,6 @@ public final class InputLogic {
                     commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
                 }
             }
-            Log.i("test1", "nonseparator");
             handleNonSeparatorEvent(event, sv, inputTransaction);
         }
     }

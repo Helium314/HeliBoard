@@ -977,27 +977,38 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
 
         final ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
-        final boolean isInContacts;
         if (contactsDict != null) {
-            isInContacts = contactsDict.isInDictionary(word);
-            if (isInContacts)
+            if (contactsDict.isInDictionary(word)) {
                 contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
-        } else isInContacts = false;
-
-        // add to blacklist if in main or contacts dictionaries
-        if ((isInContacts || (group.hasDict(Dictionary.TYPE_MAIN, null) && group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)))
-                && group.blacklist.add(word)) {
-            // write to file if word wasn't already in blacklist
-            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
-                try {
-                    FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
-                    fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
-                    fos.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "Exception while trying to write blacklist", e);
-                }
-            });
+                addToBlacklist(word, group);
+                return;
+            }
         }
+        if (!group.hasDict(Dictionary.TYPE_MAIN, null))
+            return;
+        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)) {
+            addToBlacklist(word, group);
+            return;
+        }
+        final String lowercase = word.toLowerCase(group.mLocale);
+        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(lowercase)) {
+            addToBlacklist(lowercase, group);
+        }
+    }
+
+    private void addToBlacklist(final String word, final DictionaryGroup group) {
+        if (!group.blacklist.add(word))
+            return;
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
+            try {
+                Log.i("test1", "adding to blacklist file" + group.blacklistFileName);
+                FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
+                fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
+                fos.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Exception while trying to write blacklist", e);
+            }
+        });
     }
 
     private ArrayList<String> readBlacklistFile(final String filename) {
