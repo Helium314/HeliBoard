@@ -611,7 +611,7 @@ public class KeyboardView extends View {
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
-                icon.setColorFilter(mColors.getAccent(), PorterDuff.Mode.SRC_ATOP); // todo: switch to accentColorFilter after changing keyboard symbols to white icons
+                icon.setColorFilter(mColors.getAccentColorFilter());
             else
                 icon.setColorFilter(mColors.getKeyTextFilter()); // key text if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
