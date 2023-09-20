@@ -105,7 +105,6 @@
         latin:keySpec="!icon/space_key_for_number_layout|!code/key_space"
         latin:keyLabelFlags="alignIconToBottom"
         latin:keyActionFlags="enableLongPress"
-        latin:backgroundType="functional"
         latin:parentStyle="numKeyBaseStyle" />
     <!-- TODO: Consolidate these space key styles with numSpaceKeyStyle above by introducing <case>
          predicator that checks device form-factor. -->
