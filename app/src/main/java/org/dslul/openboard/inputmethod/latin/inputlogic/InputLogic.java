@@ -1534,9 +1534,9 @@ public final class InputLogic {
         final String result;
         if (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(word.length()))) {
             int endIndex = word.length() - 1;
-            while (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(endIndex)))
+            while (endIndex != 0 && settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(endIndex)))
                 --endIndex;
-            result = word.substring(0, endIndex);
+            result = (endIndex > 0) ? word.substring(0, endIndex) : word;
         } else
             result = word;
         return result;
