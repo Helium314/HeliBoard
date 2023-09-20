@@ -446,6 +446,9 @@ public final class InputLogic {
                 && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()))) {
             mWordComposer.setHangul(true);
             final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
+            // todo: here hangul combiner does already consume the event, and appends typed codepoint
+            //  to the current word instead of considering the cursor position
+            //  position is actually not visible to the combiner, how to fix?
             processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
         } else {
             mWordComposer.setHangul(false);
@@ -666,6 +669,11 @@ public final class InputLogic {
                 if (mSuggestedWords.isPrediction()) {
                     inputTransaction.setRequiresUpdateSuggestions();
                 }
+                // undo phantom space if it's because after punctuation
+                // users who want to start a sentence with a lowercase letter may not like it
+                if (mSpaceState == SpaceState.PHANTOM
+                        && inputTransaction.getMSettingsValues().isUsuallyFollowedBySpace(mConnection.getCodePointBeforeCursor()))
+                    mSpaceState = SpaceState.NONE;
                 break;
             case Constants.CODE_CAPSLOCK:
                 // Note: Changing keyboard to shift lock state is handled in
@@ -818,8 +826,20 @@ public final class InputLogic {
             final LatinIME.UIHandler handler) {
         final int codePoint = event.getMCodePoint();
         mSpaceState = SpaceState.NONE;
-        if (inputTransaction.getMSettingsValues().isWordSeparator(codePoint)
-                || Character.getType(codePoint) == Character.OTHER_SYMBOL) {
+        final SettingsValues sv = inputTransaction.getMSettingsValues();
+        // don't treat separators as for handling URLs and similar
+        //  otherwise it would work too, but whenever a separator is entered, the word is not selected
+        //  until the next character is entered, and the word is added to history
+        //  -> the changing selection would be confusing, and adding to history is usually bad
+        if (Character.getType(codePoint) == Character.OTHER_SYMBOL
+                || (sv.isWordSeparator(codePoint)
+                    && (!sv.mUrlDetectionEnabled
+                        || Character.isWhitespace(codePoint)
+                        || !sv.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord())
+                    )
+                )
+        ) {
+            Log.i("test1", "separator");
             handleSeparatorEvent(event, inputTransaction, handler);
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
@@ -827,14 +847,15 @@ public final class InputLogic {
                     // If we are in the middle of a recorrection, we need to commit the recorrection
                     // first so that we can insert the character at the current cursor position.
                     // We also need to unlearn the original word that is now being corrected.
-                    unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getMSettingsValues(), Constants.EVENT_BACKSPACE);
+                    unlearnWord(mWordComposer.getTypedWord(), sv, Constants.EVENT_BACKSPACE);
                     resetEntireInputState(mConnection.getExpectedSelectionStart(),
                             mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
                 } else {
-                    commitTyped(inputTransaction.getMSettingsValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
                 }
             }
-            handleNonSeparatorEvent(event, inputTransaction.getMSettingsValues(), inputTransaction);
+            Log.i("test1", "nonseparator");
+            handleNonSeparatorEvent(event, sv, inputTransaction);
         }
     }
 
@@ -853,6 +874,18 @@ public final class InputLogic {
         // not the same.
         boolean isComposingWord = mWordComposer.isComposingWord();
 
+        // if we continue directly after a sometimesWordConnector, restart suggestions for the whole word
+        // (only with URL detection enabled)
+        if (settingsValues.mUrlDetectionEnabled && !isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
+                && settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCodePointBeforeCursor())
+                // but not if there are two consecutive sometimesWordConnectors (e.g. "...bla")
+                && !settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCharBeforeBeforeCursor())
+        ) {
+            final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespace();
+            final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
+            isComposingWord = true;
+            restartSuggestions(range, mConnection.mExpectedSelStart);
+        }
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
         if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
@@ -1493,8 +1526,22 @@ public final class InputLogic {
                 mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(
                 System.currentTimeMillis());
-        mDictionaryFacilitator.addToUserHistory(suggestion, wasAutoCapitalized,
+        mDictionaryFacilitator.addToUserHistory(stripWordSeparatorsFromEnd(suggestion, settingsValues), wasAutoCapitalized,
                 ngramContext, timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
+    }
+
+    // strip word separators from end (may be necessary for urls, e.g. when the user has typed
+    //  "go to example.com, and" -> we don't want the ",")
+    private String stripWordSeparatorsFromEnd(final String word, final SettingsValues settingsValues) {
+        final String result;
+        if (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(word.length()))) {
+            int endIndex = word.length() - 1;
+            while (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(endIndex)))
+                --endIndex;
+            result = word.substring(0, endIndex);
+        } else
+            result = word;
+        return result;
     }
 
     public void performUpdateSuggestionStripSync(final SettingsValues settingsValues, final int inputStyle) {
@@ -1609,6 +1656,10 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
+        restartSuggestions(range, expectedCursorPosition);
+    }
+
+    private void restartSuggestions(final TextRange range, final int expectedCursorPosition) {
         final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();
         if (numberOfCharsInWordBeforeCursor > expectedCursorPosition) return;
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();

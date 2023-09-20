@@ -59,7 +59,6 @@ public class SettingsValues {
 
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
-    public final int mDelayInMillisecondsToUpdateOldSuggestions;
     public final long mDoubleSpacePeriodTimeout;
     // From configuration:
     public final Locale mLocale;
@@ -111,6 +110,7 @@ public class SettingsValues {
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
+    public final boolean mUrlDetectionEnabled;
 
     // From the input box
     @NonNull
@@ -138,8 +138,6 @@ public class SettingsValues {
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
         // Get the resources
-        mDelayInMillisecondsToUpdateOldSuggestions =
-                res.getInteger(R.integer.config_delay_in_milliseconds_to_update_old_suggestions);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res);
 
         // Store the input attributes
@@ -233,6 +231,7 @@ public class SettingsValues {
                 mBlockPotentiallyOffensive,
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
+        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -350,8 +349,6 @@ public class SettingsValues {
         final StringBuilder sb = new StringBuilder("Current settings :");
         sb.append("\n   mSpacingAndPunctuations = ");
         sb.append("" + mSpacingAndPunctuations.dump());
-        sb.append("\n   mDelayInMillisecondsToUpdateOldSuggestions = ");
-        sb.append("" + mDelayInMillisecondsToUpdateOldSuggestions);
         sb.append("\n   mAutoCap = ");
         sb.append("" + mAutoCap);
         sb.append("\n   mVibrateOn = ");

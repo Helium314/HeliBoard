@@ -297,8 +297,8 @@ fun suggestion(word: String, score: Int, locale: Locale) =
 
 @Implements(DictionaryFacilitatorImpl::class)
 class ShadowFacilitator {
-     @Implementation
-     fun getCurrentLocale() = currentTypingLocale
+    @Implementation
+    fun getCurrentLocale() = currentTypingLocale
     @Implementation
     fun hasAtLeastOneInitializedMainDictionary() = true // otherwise no autocorrect
 }

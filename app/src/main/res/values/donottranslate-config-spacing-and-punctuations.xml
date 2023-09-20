@@ -33,6 +33,12 @@
     <string name="symbols_word_separators">"&#x0009;&#x0020;&#x000A;&#x00A0;"()[]{}*&amp;&lt;&gt;+=|.,;:!?/_\"„“</string>
     <!-- Word connectors -->
     <string name="symbols_word_connectors">\'-</string>
+    <!-- Symbols that may act as word connectors, e.g. in URLs or mail addresses
+         / is not included, because a URL typically contains . or : before /, and including it might be unwanted in some cases
+         @ is not a word separator, but including it here allows continuing suggestions when typing a period of a mail address
+         todo: keep _ or not?
+     -->
+    <string name="symbols_sometimes_word_connectors">.:_@</string>
     <!-- The sentence separator code point, for capitalization and auto-insertion -->
     <!-- U+002E: "." FULL STOP   ; 2Eh = 46d -->
     <integer name="sentence_separator">46</integer>

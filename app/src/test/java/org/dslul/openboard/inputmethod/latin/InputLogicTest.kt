@@ -38,6 +38,7 @@ import kotlin.math.min
     ShadowInputMethodService::class,
     ShadowKeyboardSwitcher::class,
     ShadowHandler::class,
+    ShadowFacilitator2::class,
 ])
 class InputLogicTest {
     private lateinit var latinIME: LatinIME
@@ -134,6 +135,14 @@ class InputLogicTest {
         assertEquals(4, cursor)
     }
 
+    @Test fun separatorUnselectsWord() {
+        reset()
+        setText("hello")
+        assertEquals("hello", composingText)
+        input('.'.code)
+        assertEquals("", composingText)
+    }
+
     // todo: try the same if there is text afterwards (not touching)
     @Test fun autospace() {
         reset()
@@ -142,7 +151,6 @@ class InputLogicTest {
         input('a'.code)
         assertEquals("hello.a", textBeforeCursor)
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
-        assert(settingsValues.mAutospaceAfterPunctuationEnabled)
         setText("hello")
         input('.'.code)
         input('a'.code)
@@ -158,13 +166,68 @@ class InputLogicTest {
         assertEquals("hello.a", textBeforeCursor)
         assertEquals("hello.a there", text)
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
-        assert(settingsValues.mAutospaceAfterPunctuationEnabled)
         setText("hello there")
         setCursorPosition(5) // after hello
         input('.'.code)
         input('a'.code)
         assertEquals("hello. a", textBeforeCursor)
         assertEquals("hello. a there", text)
+    }
+
+    @Test fun urlDetectionThings() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        input('.'.code)
+        input('.'.code)
+        input('.'.code)
+        input('h'.code)
+        assertEquals("...h", text)
+        assertEquals("h", composingText)
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        input("bla")
+        input('.'.code)
+        input('.'.code)
+        assertEquals("bla..", text)
+        assertEquals("", composingText)
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        input("bla")
+        input('.'.code)
+        input('c'.code)
+        assertEquals("bla.c", text)
+        assertEquals("bla.c", composingText)
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        input("bla")
+        input('.'.code)
+        functionalKeyPress(Constants.CODE_SHIFT) // should remove the phantom space (in addition to normal effect)
+        input('c'.code)
+        assertEquals("bla.c", text)
+        assertEquals("bla.c", composingText)
+    }
+
+    @Test fun stripSeparatorsBeforeAddingToHistoryWithURLDetection() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setText("example.co")
+        input('m'.code)
+        input('.'.code)
+        assertEquals("example.com.", composingText)
+        input(' '.code)
+        assertEquals("example.com", ShadowFacilitator2.lastAddedWord)
+    }
+
+    @Test fun dontSelectConsecutiveSeparatorsWithURLDetection() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setText("bl")
+        input('a'.code)
+        input('.'.code)
+        input('.'.code)
+        assertEquals("", composingText)
+        assertEquals("bla..", text)
     }
 
     // ------- helper functions ---------
@@ -185,11 +248,7 @@ class InputLogicTest {
 
         currentInputType = InputType.TYPE_CLASS_TEXT
 
-        // todo: does setText("") work?
-        //  plus restarting = true maybe?
-        //  that may be the better method for setting a new text field
-        connection.setSelection(0, 0) // resets cache
-        inputLogic.restartSuggestionsOnWordTouchedByCursor(settingsValues, currentScript)
+        setText("")
     }
 
     private fun input(codePoint: Int) {
@@ -218,7 +277,7 @@ class InputLogicTest {
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
 
-        latinIME.onTextInput(text)
+        latinIME.onTextInput(insert)
         handleMessages()
 
         assertEquals(oldBefore + insert, textBeforeCursor)
@@ -232,13 +291,6 @@ class InputLogicTest {
         currentScript,
         false
     ).mWord
-
-    private fun getUnderlinedWord(): String {
-        val word = getText().substring(inputLogic.composingStart, inputLogic.composingStart + inputLogic.composingLength)
-        assertEquals(word, composingText)
-        assertEquals(word, connectionComposingText) // no, this will fail as it returns only text until the cursor
-        return word
-    }
 
     private fun setCursorPosition(start: Int, end: Int = start, weirdTextField: Boolean = false) {
         val ei = EditorInfo()
@@ -263,7 +315,6 @@ class InputLogicTest {
         handleMessages()
 
         if (weirdTextField) {
-            // todo: when to handle messages from update selection?
             latinIME.mHandler.onStartInput(ei, true) // essentially does nothing
             latinIME.mHandler.onStartInputView(ei, true) // does the thing
             handleMessages()
@@ -283,8 +334,6 @@ class InputLogicTest {
     }
 
     // just sets the text and starts input so connection it set up correctly
-    // todo: update selection to automatically set composing span?
-    //  here it's -1, -1 in the end, but it probably shouldn't be (and isn't in tests)
     private fun setText(newText: String) {
         text = newText
         selectionStart = newText.length
@@ -324,7 +373,9 @@ class InputLogicTest {
             messages.removeFirst()
         }
         while (delayedMessages.isNotEmpty()) {
-            latinIME.mHandler.handleMessage(delayedMessages.first())
+            val msg = delayedMessages.first()
+            if (msg.what != 2) // MSG_UPDATE_SUGGESTION_STRIP, we want to ignore it because it's irrelevant and has a 500 ms timeout
+                latinIME.mHandler.handleMessage(delayedMessages.first())
             delayedMessages.removeFirst()
             // delayed messages may post further messages, handle before next delayed message
             while (messages.isNotEmpty()) {
@@ -378,7 +429,6 @@ private val ic = object : InputConnection {
     // this REPLACES currently composing text (even if at a different position)
     // moves the cursor: positive means relative to composing text start, negative means relative to start
     override fun setComposingText(newText: CharSequence, cursor: Int): Boolean {
-        println("set composing text $newText, $cursor")
         // first remove the composing text if any
         if (composingStart != -1 && composingEnd != -1)
             text = textBeforeComposingText + text.substring(composingEnd)
@@ -537,4 +587,17 @@ class ShadowKeyboardSwitcher {
     @Implementation
     // only affects view
     fun getCurrentKeyboardScriptId() = currentScript
+}
+
+@Implements(DictionaryFacilitatorImpl::class)
+class ShadowFacilitator2 {
+    @Implementation
+    fun addToUserHistory(suggestion: String, wasAutoCapitalized: Boolean,
+                         ngramContext: NgramContext, timeStampInSeconds: Long,
+                         blockPotentiallyOffensive: Boolean) {
+        lastAddedWord = suggestion
+    }
+    companion object {
+        var lastAddedWord = ""
+    }
 }
