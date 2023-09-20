@@ -34,6 +34,18 @@
         latin:stepValue="@integer/config_longpress_timeout_step" />
 
     <SwitchPreferenceCompat
+        android:key="pref_space_trackpad"
+        android:title="@string/space_trackpad"
+        android:summary="@string/space_trackpad_summary"
+        android:defaultValue="true" />
+
+    <SwitchPreferenceCompat
+        android:key="pref_delete_swipe"
+        android:title="@string/delete_swipe"
+        android:summary="@string/delete_swipe_summary"
+        android:defaultValue="true" />
+
+    <SwitchPreferenceCompat
         android:key="prefs_long_press_keyboard_to_change_lang"
         android:title="@string/prefs_long_press_keyboard_to_change_lang"
         android:summary="@string/prefs_long_press_keyboard_to_change_lang_summary"
@@ -65,27 +77,9 @@
         android:title="@string/settings_category_experimental">
 
         <SwitchPreferenceCompat
-            android:key="pref_space_trackpad"
-            android:title="@string/space_trackpad"
-            android:summary="@string/space_trackpad_summary"
-            android:defaultValue="true" />
-
-        <SwitchPreferenceCompat
             android:key="pref_space_language_slide"
             android:title="@string/space_language_slide"
             android:summary="@string/space_language_slide_summary"
-            android:defaultValue="false" />
-
-        <SwitchPreferenceCompat
-            android:key="pref_delete_swipe"
-            android:title="@string/delete_swipe"
-            android:summary="@string/delete_swipe_summary"
-            android:defaultValue="true" />
-
-        <SwitchPreferenceCompat
-            android:key="pref_autospace_after_punctuation"
-            android:title="@string/autospace_after_punctuation"
-            android:summary="@string/autospace_after_punctuation_summary"
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat
