@@ -826,13 +826,16 @@ public final class InputLogic {
             final LatinIME.UIHandler handler) {
         final int codePoint = event.getMCodePoint();
         mSpaceState = SpaceState.NONE;
-        // don't treat separators as separators in some cases, e.g. for URL handling
-        if ((inputTransaction.getMSettingsValues().isWordSeparator(codePoint)
-                && (Character.isWhitespace(codePoint)
-                    || !inputTransaction.getMSettingsValues().mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord())
-                   )
-            ) || Character.getType(codePoint) == Character.OTHER_SYMBOL) {
-                handleSeparatorEvent(event, inputTransaction, handler);
+        final SpacingAndPunctuations sp = inputTransaction.getMSettingsValues().mSpacingAndPunctuations;
+        // don't treat separators as for handling URLs and similar
+        //  otherwise it would work too, but whenever a separator is entered, the word is not selected
+        //  until the next character is entered, and the word is added to history
+        //  -> the changing selection would be confusing, and adding to history is usually bad
+        if (Character.getType(codePoint) == Character.OTHER_SYMBOL
+                || (inputTransaction.getMSettingsValues().isWordSeparator(codePoint)
+                    && (Character.isWhitespace(codePoint) || !sp.containsSometimesWordConnector(mWordComposer.getTypedWord())))
+        ) {
+            handleSeparatorEvent(event, inputTransaction, handler);
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
                 if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
@@ -1516,8 +1519,22 @@ public final class InputLogic {
                 mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(
                 System.currentTimeMillis());
-        mDictionaryFacilitator.addToUserHistory(suggestion, wasAutoCapitalized,
+        mDictionaryFacilitator.addToUserHistory(stripWordSeparatorsFromEnd(suggestion, settingsValues), wasAutoCapitalized,
                 ngramContext, timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
+    }
+
+    // strip word separators from end (may be necessary for urls, e.g. when the user has typed
+    //  "go to example.com, and" -> we don't want the ",")
+    private String stripWordSeparatorsFromEnd(final String word, final SettingsValues settingsValues) {
+        final String result;
+        if (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(word.length()))) {
+            int endIndex = word.length() - 1;
+            while (settingsValues.mSpacingAndPunctuations.isWordSeparator(word.codePointBefore(endIndex)))
+                --endIndex;
+            result = word.substring(0, endIndex);
+        } else
+            result = word;
+        return result;
     }
 
     public void performUpdateSuggestionStripSync(final SettingsValues settingsValues, final int inputStyle) {
