@@ -110,6 +110,7 @@ public class SettingsValues {
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
+    public final boolean mUrlDetectionEnabled;
 
     // From the input box
     @NonNull
@@ -230,6 +231,7 @@ public class SettingsValues {
                 mBlockPotentiallyOffensive,
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
+        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

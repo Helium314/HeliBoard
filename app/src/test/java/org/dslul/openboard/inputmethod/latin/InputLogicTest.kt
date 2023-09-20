@@ -135,6 +135,14 @@ class InputLogicTest {
         assertEquals(4, cursor)
     }
 
+    @Test fun separatorUnselectsWord() {
+        reset()
+        setText("hello")
+        assertEquals("hello", composingText)
+        input('.'.code)
+        assertEquals("", composingText)
+    }
+
     // todo: try the same if there is text afterwards (not touching)
     @Test fun autospace() {
         reset()
@@ -168,6 +176,7 @@ class InputLogicTest {
 
     @Test fun urlDetectionThings() {
         reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         input('.'.code)
         input('.'.code)
         input('.'.code)
@@ -175,18 +184,21 @@ class InputLogicTest {
         assertEquals("...h", text)
         assertEquals("h", composingText)
         reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         input("bla")
         input('.'.code)
         input('.'.code)
         assertEquals("bla..", text)
         assertEquals("", composingText)
         reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         input("bla")
         input('.'.code)
         input('c'.code)
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
         reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         input("bla")
         input('.'.code)
@@ -196,14 +208,26 @@ class InputLogicTest {
         assertEquals("bla.c", composingText)
     }
 
-    @Test fun stripSeparatorsBeforeAddingToHistory() {
+    @Test fun stripSeparatorsBeforeAddingToHistoryWithURLDetection() {
         reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("example.co")
         input('m'.code)
         input('.'.code)
         assertEquals("example.com.", composingText)
         input(' '.code)
         assertEquals("example.com", ShadowFacilitator2.lastAddedWord)
+    }
+
+    @Test fun dontSelectConsecutiveSeparatorsWithURLDetection() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setText("bl")
+        input('a'.code)
+        input('.'.code)
+        input('.'.code)
+        assertEquals("", composingText)
+        assertEquals("bla..", text)
     }
 
     // ------- helper functions ---------

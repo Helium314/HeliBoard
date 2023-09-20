@@ -94,6 +94,12 @@
             android:summary="@string/show_all_more_keys_summary"
             android:defaultValue="false" />
 
+        <SwitchPreferenceCompat
+            android:key="pref_url_detection"
+            android:title="@string/url_detection_title"
+            android:summary="@string/url_detection_summary"
+            android:defaultValue="false" />
+
         <Preference
             android:key="load_gesture_library"
             android:title="@string/load_gesture_library"

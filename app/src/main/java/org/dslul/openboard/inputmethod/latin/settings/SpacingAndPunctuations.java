@@ -33,10 +33,7 @@ public final class SpacingAndPunctuations {
     private final int[] mSortedSymbolsFollowedBySpace;
     private final int[] mSortedSymbolsClusteringTogether;
     private final int[] mSortedWordConnectors;
-    // todo: rename? it's more like they act as sort of glue
-    //  and as a very simple workaround for potential issues: make them empty if the language doesn't have spaces
-    //  also there should be a separate setting to enable this, it should really be exerimental for now
-    private final int[] mSortedSometimesWordConnectors;
+    private final int[] mSortedSometimesWordConnectors; // maybe rename... they are some sort of glue for words containing separators
     public final int[] mSortedWordSeparators;
     public final PunctuationSuggestions mSuggestPuncList;
     private final int mSentenceSeparator;
@@ -55,7 +52,6 @@ public final class SpacingAndPunctuations {
         mSortedSymbolsClusteringTogether = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_clustering_together));
         // To be able to binary search the code point. See {@link #isWordConnector(int)}.
         mSortedWordConnectors = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_connectors));
-        mSortedSometimesWordConnectors = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors));
         mSortedWordSeparators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_separators));
         mSortedSentenceTerminators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sentence_terminators));
         mSentenceSeparator = res.getInteger(R.integer.sentence_separator);
@@ -63,6 +59,8 @@ public final class SpacingAndPunctuations {
         mSentenceSeparatorAndSpace = new String(new int[] {
                 mSentenceSeparator, Constants.CODE_SPACE }, 0, 2);
         mCurrentLanguageHasSpaces = res.getBoolean(R.bool.current_language_has_spaces);
+        // make it empty if language doesn't have spaces, to avoid weird glitches
+        mSortedSometimesWordConnectors = mCurrentLanguageHasSpaces ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
         final Locale locale = res.getConfiguration().locale;
         // Heuristic: we use American Typography rules because it's the most common rules for all
         // English variants. German rules (not "German typography") also have small gotchas.

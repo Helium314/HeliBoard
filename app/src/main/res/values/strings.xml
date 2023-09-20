@@ -197,6 +197,10 @@
     <string name="show_all_more_keys_title">Show all keys in popup</string>
     <!-- Description for "show_all_more_keys" option. -->
     <string name="show_all_more_keys_summary">When using a latin keyboard, more characters are available on long-pressing a key</string>
+    <!-- Preferences item for enabling URL detection -->
+    <string name="url_detection_title">URL detection</string>
+    <!-- Description for "url_detection_title" option. -->
+    <string name="url_detection_summary">Try to detect URLs and similar as a single word</string>
     <!-- Preferences item for disabling word learning -->
     <string name="prefs_force_incognito_mode">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->

@@ -826,15 +826,20 @@ public final class InputLogic {
             final LatinIME.UIHandler handler) {
         final int codePoint = event.getMCodePoint();
         mSpaceState = SpaceState.NONE;
-        final SpacingAndPunctuations sp = inputTransaction.getMSettingsValues().mSpacingAndPunctuations;
+        final SettingsValues sv = inputTransaction.getMSettingsValues();
         // don't treat separators as for handling URLs and similar
         //  otherwise it would work too, but whenever a separator is entered, the word is not selected
         //  until the next character is entered, and the word is added to history
         //  -> the changing selection would be confusing, and adding to history is usually bad
         if (Character.getType(codePoint) == Character.OTHER_SYMBOL
-                || (inputTransaction.getMSettingsValues().isWordSeparator(codePoint)
-                    && (Character.isWhitespace(codePoint) || !sp.containsSometimesWordConnector(mWordComposer.getTypedWord())))
+                || (sv.isWordSeparator(codePoint)
+                    && (!sv.mUrlDetectionEnabled
+                        || Character.isWhitespace(codePoint)
+                        || !sv.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord())
+                    )
+                )
         ) {
+            Log.i("test1", "separator");
             handleSeparatorEvent(event, inputTransaction, handler);
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
@@ -842,14 +847,15 @@ public final class InputLogic {
                     // If we are in the middle of a recorrection, we need to commit the recorrection
                     // first so that we can insert the character at the current cursor position.
                     // We also need to unlearn the original word that is now being corrected.
-                    unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getMSettingsValues(), Constants.EVENT_BACKSPACE);
+                    unlearnWord(mWordComposer.getTypedWord(), sv, Constants.EVENT_BACKSPACE);
                     resetEntireInputState(mConnection.getExpectedSelectionStart(),
                             mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
                 } else {
-                    commitTyped(inputTransaction.getMSettingsValues(), LastComposedWord.NOT_A_SEPARATOR);
+                    commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
                 }
             }
-            handleNonSeparatorEvent(event, inputTransaction.getMSettingsValues(), inputTransaction);
+            Log.i("test1", "nonseparator");
+            handleNonSeparatorEvent(event, sv, inputTransaction);
         }
     }
 
@@ -869,7 +875,8 @@ public final class InputLogic {
         boolean isComposingWord = mWordComposer.isComposingWord();
 
         // if we continue directly after a sometimesWordConnector, restart suggestions for the whole word
-        if (!isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
+        // (only with URL detection enabled)
+        if (settingsValues.mUrlDetectionEnabled && !isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
                 && settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCodePointBeforeCursor())
                 // but not if there are two consecutive sometimesWordConnectors (e.g. "...bla")
                 && !settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCharBeforeBeforeCursor())
