@@ -64,7 +64,7 @@ Features that may go unnoticed
   * suggestions get re-added if they are entered again
 * Optionally add typed words to system personal dictionary
 * Improve issues with emoji deletion (still happens with delete gesture), https://github.com/Helium314/openboard/issues/22
-* Add Unicode 15 emojis, https://github.com/openboard-team/openboard/issues/25
+* Add Unicode 15 emojis, https://github.com/Helium314/openboard/pull/25
 * Better currency selection, https://github.com/Helium314/openboard/pull/21 / https://github.com/Helium314/openboard/commit/0d1106649f95ecbd7d8f6d950428547666059564
 * Reduce space between keys, with option to use old values, https://github.com/Helium314/openboard/pull/8
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
