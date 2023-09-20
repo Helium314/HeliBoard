@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.MainKeyboardAccessibilityDelegate;
@@ -120,7 +121,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private Key mSpaceKey;
     // Stuff to draw language name on spacebar.
     private final int mLanguageOnSpacebarFinalAlpha;
-    private ObjectAnimator mLanguageOnSpacebarFadeoutAnimator;
+    private final ObjectAnimator mLanguageOnSpacebarFadeoutAnimator;
     private int mLanguageOnSpacebarFormatType;
     private boolean mHasMultipleEnabledIMEsOrSubtypes;
     private int mLanguageOnSpacebarAnimAlpha = Constants.Color.ALPHA_OPAQUE;
@@ -179,7 +180,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         super(context, attrs, defStyle);
 
         final DrawingPreviewPlacerView drawingPreviewPlacerView =
-                new DrawingPreviewPlacerView(context, attrs);
+                new DrawingPreviewPlacerView(new ContextThemeWrapper(context, R.style.platformActivityTheme), attrs);
 
         final TypedArray mainKeyboardViewAttr = context.obtainStyledAttributes(
                 attrs, R.styleable.MainKeyboardView, defStyle, R.style.MainKeyboardView);
@@ -187,15 +188,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 R.styleable.MainKeyboardView_ignoreAltCodeKeyTimeout, 0);
         final int gestureRecognitionUpdateTime = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureRecognitionUpdateTime, 0);
-        mTimerHandler = new TimerHandler(
-                this, ignoreAltCodeKeyTimeout, gestureRecognitionUpdateTime);
+        mTimerHandler = new TimerHandler(this, ignoreAltCodeKeyTimeout, gestureRecognitionUpdateTime);
 
         final float keyHysteresisDistance = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_keyHysteresisDistance, 0.0f);
         final float keyHysteresisDistanceForSlidingModifier = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_keyHysteresisDistanceForSlidingModifier, 0.0f);
-        mKeyDetector = new KeyDetector(
-                keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
+        mKeyDetector = new KeyDetector(keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
 
         PointerTracker.init(mainKeyboardViewAttr, mTimerHandler, this /* DrawingProxy */);
 
@@ -205,8 +204,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final boolean hasDistinctMultitouch = context.getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT)
                 && !forceNonDistinctMultitouch;
-        mNonDistinctMultitouchHelper = hasDistinctMultitouch ? null
-                : new NonDistinctMultitouchHelper();
+        mNonDistinctMultitouchHelper = hasDistinctMultitouch ? null : new NonDistinctMultitouchHelper();
 
         final int backgroundDimAlpha = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_backgroundDimAlpha, 0);
@@ -245,8 +243,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mGestureFloatingPreviewTextLingerTimeout = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureFloatingPreviewTextLingerTimeout, 0);
 
-        mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(
-                mainKeyboardViewAttr);
+        mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(mainKeyboardViewAttr);
         mGestureFloatingTextDrawingPreview.setDrawingView(drawingPreviewPlacerView);
 
         mGestureTrailsDrawingPreview = new GestureTrailsDrawingPreview(mainKeyboardViewAttr);
@@ -260,14 +257,10 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
         mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
-        mMoreKeysKeyboardForActionContainer = inflater.inflate(
-                moreKeysKeyboardForActionLayoutId, null);
-        mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(
-                languageOnSpacebarFadeoutAnimatorResId, this);
-        mAltCodeKeyWhileTypingFadeoutAnimator = loadObjectAnimator(
-                altCodeKeyWhileTypingFadeoutAnimatorResId, this);
-        mAltCodeKeyWhileTypingFadeinAnimator = loadObjectAnimator(
-                altCodeKeyWhileTypingFadeinAnimatorResId, this);
+        mMoreKeysKeyboardForActionContainer = inflater.inflate(moreKeysKeyboardForActionLayoutId, null);
+        mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(languageOnSpacebarFadeoutAnimatorResId, this);
+        mAltCodeKeyWhileTypingFadeoutAnimator = loadObjectAnimator(altCodeKeyWhileTypingFadeoutAnimatorResId, this);
+        mAltCodeKeyWhileTypingFadeinAnimator = loadObjectAnimator(altCodeKeyWhileTypingFadeinAnimatorResId, this);
 
         mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
 
@@ -367,14 +360,12 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         PointerTracker.setKeyboardActionListener(listener);
     }
 
-    // TODO: We should reconsider which coordinate system should be used to represent keyboard
-    // event.
+    // TODO: We should reconsider which coordinate system should be used to represent keyboard event.
     public int getKeyX(final int x) {
         return Constants.isValidCoordinate(x) ? mKeyDetector.getTouchX(x) : x;
     }
 
-    // TODO: We should reconsider which coordinate system should be used to represent keyboard
-    // event.
+    // TODO: We should reconsider which coordinate system should be used to represent keyboard event.
     public int getKeyY(final int y) {
         return Constants.isValidCoordinate(y) ? mKeyDetector.getTouchY(y) : y;
     }
