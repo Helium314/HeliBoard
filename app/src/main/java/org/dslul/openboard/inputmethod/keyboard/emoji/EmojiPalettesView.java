@@ -273,7 +273,6 @@ public final class EmojiPalettesView extends LinearLayout
         colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
         colors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
         colors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
-        colors.setKeyboardBackground(this);
         mEmojiCategoryPageIndicatorView.setColors(colors.getAccent(), colors.getAdjustedBackground());
     }
 
@@ -408,6 +407,7 @@ public final class EmojiPalettesView extends LinearLayout
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
                     true /* force */);
         }
+        Settings.getInstance().getCurrent().mColors.setKeyboardBackground(this);
     }
 
     public void stopEmojiPalettes() {

@@ -68,7 +68,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onFinishInflate() {
         super.onFinishInflate()
         val colors = Settings.getInstance().current.mColors
-        colors.setKeyboardBackground(this)
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
             pinnedIconResId = pinIconId
@@ -154,6 +153,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
         }
+        Settings.getInstance().current.mColors.setKeyboardBackground(this)
     }
 
     fun stopClipboardHistory() {
