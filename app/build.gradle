@@ -44,7 +44,7 @@ android {
         abortOnError false
     }
 
-    ndkVersion '23.2.8568313'
+    ndkVersion '25.2.9519653'
     androidResources {
         noCompress 'main.dict'
         noCompress 'empty.dict'
