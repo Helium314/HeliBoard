@@ -230,6 +230,13 @@ class InputLogicTest {
         assertEquals("bla..", text)
     }
 
+    @Test fun selectDoesSelect() {
+        reset()
+        setText("this is some text")
+        setCursorPosition(3, 8)
+        assertEquals("s is ", text.substring(3, 8))
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -301,7 +308,7 @@ class InputLogicTest {
 
         // adjust text in inputConnection first, otherwise fixLyingCursorPosition will move cursor
         // to the end of the text
-        val fullText = textBeforeCursor + textAfterCursor
+        val fullText = textBeforeCursor + selectedText + textAfterCursor
         assertEquals(fullText, getText())
 
         // need to update ic before, otherwise when reloading text cache from ic, ric will load wrong text before cursor
@@ -309,7 +316,7 @@ class InputLogicTest {
         val oldEnd = selectionEnd
         selectionStart = start
         selectionEnd = end
-        assertEquals(fullText, textBeforeCursor + textAfterCursor)
+        assertEquals(fullText, textBeforeCursor + selectedText + textAfterCursor)
 
         latinIME.onUpdateSelection(oldStart, oldEnd, start, end, composingStart, composingEnd)
         handleMessages()
@@ -320,7 +327,7 @@ class InputLogicTest {
             handleMessages()
         }
 
-        assertEquals(fullText, getText()) // this may only be correct after start input?
+        assertEquals(fullText, getText())
         assertEquals(start, selectionStart)
         assertEquals(end, selectionEnd)
         checkConnectionConsistency()
@@ -364,7 +371,7 @@ class InputLogicTest {
     }
 
     private fun getText() =
-        connection.getTextBeforeCursor(100, 0).toString() + connection.getTextAfterCursor(100, 0)
+        connection.getTextBeforeCursor(100, 0).toString() + (connection.getSelectedText(0) ?: "") + connection.getTextAfterCursor(100, 0)
 
     // always need to handle messages for proper simulation
     private fun handleMessages() {
@@ -403,6 +410,7 @@ private var composingEnd = -1
 // convenience for access
 private val textBeforeCursor get() = text.substring(0, selectionStart)
 private val textAfterCursor get() = text.substring(selectionEnd)
+private val selectedText get() = text.substring(selectionStart, selectionEnd)
 private val cursor get() = if (selectionStart == selectionEnd) selectionStart else -1
 
 // todo: maybe this is not correct? seems to return only up to the cursor
