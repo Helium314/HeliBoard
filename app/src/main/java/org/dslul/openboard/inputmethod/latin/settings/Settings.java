@@ -115,6 +115,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
 
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
+    public static final String PREF_SHOW_POPUP_HINTS = "pref_show_popup_hints";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_SPACE_LANGUAGE_SLIDE = "pref_space_language_slide";

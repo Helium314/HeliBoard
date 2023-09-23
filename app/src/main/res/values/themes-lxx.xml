@@ -39,7 +39,7 @@
         <item name="keyHintLabelOffCenterRatio">300%</item>
         <item name="keyLabelFlags">alignHintLabelToBottom</item>
         <item name="spacebarIconWidthRatio">0.9</item>
-        <!-- No popup hint letter -->
-        <item name="keyPopupHintLetter"></item>
+        <!-- U+2026: "…" HORIZONTAL ELLIPSIS -->
+        <item name="keyPopupHintLetter">&#x2026;</item>
     </style>
 </resources>

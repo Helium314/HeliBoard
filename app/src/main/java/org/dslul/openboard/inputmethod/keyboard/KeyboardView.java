@@ -161,8 +161,9 @@ public class KeyboardView extends View {
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
         mKeyHintLetterPadding = keyboardViewAttr.getDimension(
                 R.styleable.KeyboardView_keyHintLetterPadding, 0.0f);
-        mKeyPopupHintLetter = keyboardViewAttr.getString(
-                R.styleable.KeyboardView_keyPopupHintLetter);
+        mKeyPopupHintLetter = Settings.getInstance().getCurrent().mShowsPopupHints
+                ? keyboardViewAttr.getString(R.styleable.KeyboardView_keyPopupHintLetter)
+                : "";
         mKeyPopupHintLetterPadding = keyboardViewAttr.getDimension(
                 R.styleable.KeyboardView_keyPopupHintLetterPadding, 0.0f);
         mKeyShiftedLetterHintPadding = keyboardViewAttr.getDimension(
