@@ -41,9 +41,9 @@
         <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_holo_dark</item>
         <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_holo_dark</item>
         <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_holo_dark</item>
-        <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_holo_dark</item>
-        <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_holo_dark</item>
-        <item name="iconSwitchOneHandedMode">@drawable/sym_keyboard_switch_onehanded_holo_dark</item>
+        <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_holo</item>
+        <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_holo</item>
+        <item name="iconSwitchOneHandedMode">@drawable/sym_keyboard_switch_onehanded_holo</item>
         <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_holo_dark</item>
     </style>
 </resources>
