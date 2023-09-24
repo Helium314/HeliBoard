@@ -62,6 +62,18 @@
             <include
                 android:id="@+id/suggestions_strip_settings_key"
                 layout="@layout/suggestions_strip_settings_key" />
+            <include
+                android:id="@+id/suggestions_strip_left_key"
+                layout="@layout/suggestions_strip_left_key" />
+            <include
+                android:id="@+id/suggestions_strip_right_key"
+                layout="@layout/suggestions_strip_right_key" />
+            <include
+                android:id="@+id/suggestions_strip_up_key"
+                layout="@layout/suggestions_strip_up_key" />
+            <include
+                android:id="@+id/suggestions_strip_down_key"
+                layout="@layout/suggestions_strip_down_key" />
         </LinearLayout>
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->

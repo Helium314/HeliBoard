@@ -766,6 +766,18 @@ public final class InputLogic {
             case Constants.CODE_SELECT_ALL:
                 mConnection.selectAll();
                 break;
+            case Constants.CODE_LEFT:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
+                break;
+            case Constants.CODE_RIGHT:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_RIGHT);
+                break;
+            case Constants.CODE_UP:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_UP);
+                break;
+            case Constants.CODE_DOWN:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_DOWN);
+                break;
             default:
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }

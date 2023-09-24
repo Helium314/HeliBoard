@@ -88,6 +88,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private static final String SETTINGS_KEY_TAG = "settings_key";
     private static final String SELECT_ALL_KEY_TAG = "select_all_key";
     private static final String ONE_HANDED_KEY_TAG = "one_handed_key";
+    private static final String LEFT_KEY_TAG = "left_key";
+    private static final String RIGHT_KEY_TAG = "right_key";
+    private static final String UP_KEY_TAG = "up_key";
+    private static final String DOWN_KEY_TAG = "down_key";
 
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mOtherKey;
@@ -201,7 +205,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         oneHandedKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconStartOneHandedMode));
         keyboardAttr.recycle();
 
-        mToolbarArrowIcon = ContextCompat.getDrawable(context, R.drawable.sym_keyboard_next_lxx_light);
+        mToolbarArrowIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right);
         mDefaultBackground = mOtherKey.getBackground();
         colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);
         mEnabledToolKeyBackground.setColors(new int[] {colors.getAccent(), Color.TRANSPARENT});
@@ -615,6 +619,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 case SETTINGS_KEY_TAG:
                     mListener.onCodeInput(Constants.CODE_SETTINGS, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
+                case LEFT_KEY_TAG:
+                    mListener.onCodeInput(Constants.CODE_LEFT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case RIGHT_KEY_TAG:
+                    mListener.onCodeInput(Constants.CODE_RIGHT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case UP_KEY_TAG:
+                    mListener.onCodeInput(Constants.CODE_UP, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case DOWN_KEY_TAG:
+                    mListener.onCodeInput(Constants.CODE_DOWN, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
             }
         }
         if (view == mOtherKey) {
@@ -685,6 +701,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 return R.layout.suggestions_strip_select_all_key;
             case ONE_HANDED_KEY_TAG:
                 return R.layout.suggestions_strip_one_handed_key;
+            case LEFT_KEY_TAG:
+                return R.layout.suggestions_strip_left_key;
+            case RIGHT_KEY_TAG:
+                return R.layout.suggestions_strip_right_key;
+            case UP_KEY_TAG:
+                return R.layout.suggestions_strip_up_key;
+            case DOWN_KEY_TAG:
+                return R.layout.suggestions_strip_down_key;
         }
         return 0;
     }

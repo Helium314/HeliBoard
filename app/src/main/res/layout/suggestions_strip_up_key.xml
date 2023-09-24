@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+    android:layout_height="fill_parent"
+    android:src="@drawable/ic_arrow_up"
+    android:scaleX="1.2"
+    android:scaleY="1.2"
+    android:tag="up_key"
+    style="?attr/suggestionWordStyle" />
