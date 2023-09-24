@@ -230,15 +230,24 @@ class LanguageSettingsDialog(
         }
         val dictType = dictFile.name.substringBefore("_${USER_DICTIONARY_SUFFIX}")
         val rowBinding = LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
+        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
         rowBinding.languageName.text = dictType
         rowBinding.languageDetails.apply {
-            val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
             if (header?.description == null) {
                 isGone = true
             } else {
                 // what would potentially be interesting? locale? description? version? timestamp?
                 text = header.description
             }
+        }
+        rowBinding.languageText.setOnClickListener {
+            if (header == null) return@setOnClickListener
+            val locale = LocaleUtils.constructLocaleFromString(header.mLocaleString).getDisplayName(context.resources.configuration.locale)
+            val message = dictType + "\n" + locale + "\nv" + header.mVersionString + "\n" + header.description
+            Builder(context)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
         }
         rowBinding.languageSwitch.isGone = true
         rowBinding.deleteButton.apply {
