@@ -78,7 +78,6 @@ public class SettingsValues {
     public final boolean mSpaceForLangChange;
     public final boolean mSpaceLanguageSlide;
     public final boolean mShowsEmojiKey;
-    public final boolean mShowsClipboardKey;
     public final boolean mUsePersonalizedDicts;
     public final boolean mUseDoubleSpacePeriod;
     public final boolean mBlockPotentiallyOffensive;
@@ -112,6 +111,7 @@ public class SettingsValues {
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
+    public final List<String> mPinnedKeys;
 
     // From the input box
     @NonNull
@@ -151,7 +151,7 @@ public class SettingsValues {
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
-        mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs) && mInputAttributes.mShouldShowVoiceInputKey;
+        mShowsVoiceInputKey = mInputAttributes.mShouldShowVoiceInputKey;
         final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "off");
         mLanguageSwitchKeyToOtherImes = languagePref.equals("input_method") || languagePref.equals("both");
         mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
@@ -161,7 +161,6 @@ public class SettingsValues {
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
-        mShowsClipboardKey = prefs.getBoolean(Settings.PREF_SHOW_CLIPBOARD_KEY, false);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
@@ -234,6 +233,7 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
+        mPinnedKeys = Settings.readPinnedKeys(prefs);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -341,10 +341,6 @@ public class SettingsValues {
             return Float.MAX_VALUE;
         }
         return autoCorrectionThreshold;
-    }
-
-    private static boolean needsToShowVoiceInputKey(final SharedPreferences prefs) {
-        return prefs.getBoolean(Settings.PREF_VOICE_INPUT_KEY, true);
     }
 
     public String dump() {

@@ -248,8 +248,9 @@ public final class Constants {
     public static final int CODE_NUMPAD = -20;
     public static final int CODE_ALPHA_FROM_NUMPAD = -21;
     public static final int CODE_SYMBOL_FROM_NUMPAD = -22;
+    public static final int CODE_SELECT_ALL = -23;
     // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -23;
+    public static final int CODE_UNSPECIFIED = -24;
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;

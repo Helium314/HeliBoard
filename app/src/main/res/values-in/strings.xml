@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Lihat kata yang disarankan saat melakukan isyarat"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gesture frasa"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Masukkan spasi dalam isyarat dengan meluncur ke tombol spasi"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tombol masukan suara"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Tidak ada metode masukan suara yang diaktifkan. Periksa setelan Bahasan &amp; masukan."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurasikan metode masukan"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Bahasa"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Bantuan &amp; masukan"</string>
@@ -170,7 +168,6 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="spell_checker_service_name">Pemeriksa Ejaan OpenBoard</string>
     <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan OpenBoard</string>
-    <string name="show_clipboard_key">Tombol clipboard</string>
     <string name="number_row">Baris angka</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ubah metode masukan dengan tombol spasi</string>
     <string name="prefs_force_incognito_mode">Paksa mode privat</string>

@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Праглядаць прапанаванае слова падчас жэсту"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Жэст фразы"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Уводзьце прабелы паміж жэстамі, праводзячы па клавішы прабелу"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ключ галасавога ўводу"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Не ўключана ніводнага спосабу галасавога ўводу. Праверце налады параметра \"Мовы і ўвод\"."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Налада метадаў уводу"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Мовы"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Даведка і водгукі"</string>
@@ -212,7 +210,6 @@
     <string name="theme_variant_night">Варыянт тэмы (цёмная тэма)</string>
     <string name="key_borders">Контуры клавіш</string>
     <string name="day_night_mode">Аўтаматычны рэжым дня/ночы</string>
-    <string name="show_clipboard_key">Клавіша буфера абмену</string>
     <string name="delete_swipe_summary">Правядзіце пальцам ад клавішы выдалення, каб выбраць і выдаліць адразу большыя часткі тэксту</string>
     <string name="autospace_after_punctuation_summary">Аўтаматычна ўстаўляць прабел пасля знакаў прыпынку пры ўводзе новага слова</string>
     <string name="autospace_after_punctuation">Аўтапрабел пасля знакаў прыпынку</string>

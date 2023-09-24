@@ -66,8 +66,6 @@
     <string name="gesture_floating_preview_text_summary">"Показывать подсказки при вводе текста"</string>
     <string name="gesture_space_aware">"Непрерывный ввод фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Проводите по клавише пробела после каждого слова"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Клавиша голосового ввода"</string>
-    <string name="voice_input_disabled_summary">"Голосовой способ ввода не включен. Проверьте раздел настроек \"Язык и ввод\"."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Настройка способов ввода"</string>
     <string name="language_selection_title">"Выберите язык"</string>
     <string name="help_and_feedback">"Справка/отзыв"</string>
@@ -174,7 +172,6 @@
     <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
     <string name="spell_checker_service_name">Проверка правописания OpenBoard</string>
     <string name="android_spell_checker_settings">Настройки проверки правописания</string>
-    <string name="show_clipboard_key">Клавиша буфера обмена</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин.</string>
     <string name="ime_settings">Настройки OpenBoard</string>
     <string name="settings_no_limit">Без ограничения</string>

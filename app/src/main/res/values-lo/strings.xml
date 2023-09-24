@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ເບິ່ງຄຳທີ່ຖືກແນະນຳໃນເວລາທີ່ກຳລັງຊີ້"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ການສະແດງທ່າທາງດ້ວຍປະໂຫຍກ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ໃສ່ຍະຫວ່າງເຂົ້າໄປໃນຂະນະທີ່ສະແດງທ່າທາງ ໂດຍການເລື່ອນໄປທີ່ປຸ່ມຍະຫວ່າງ"</string>
-    <string name="voice_input" msgid="3583258583521397548">"ປຸ່ມປ້ອນຂໍ້ມູນດ້ວຍສຽງ"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"ບໍ່ມີວິທີການປ້ອນສຽງເປີດນໍາໃຊ້. ໃຫ້ກວດເບິ່ງການຕັ້ງຄ່າໃນເມນູ ພາສາ ແລະ ການປ້ອນຂໍ້ມູນ."</string>
     <string name="configure_input_method" msgid="373356270290742459">"ຕັ້ງຄ່າຮູບແບບການປ້ອນຂໍ້ມູນ"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ພາ​ສາ"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"ຊ່ວຍ​ເຫຼືອ &amp; ຄຳ​ຕິ​ຊົມ"</string>

@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Visualizza la parola suggerita durante il gesto"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gesto frase"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Inserisci spazi durante gesti facendo scivolare dito su spazio"</string>
-    <string name="voice_input">"Tasto input vocale"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nessun metodo di immissione vocale attivo. Controlla le impostazioni Lingua e immissione."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configura metodi di immissione"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Lingue"</string>
     <string name="help_and_feedback">"Guida e feedback"</string>
@@ -190,7 +188,6 @@
     <string name="settings_category_miscellaneous">Varie</string>
     <string name="settings_category_input">Immissione</string>
     <string name="ime_settings">OpenBoard - Impostazioni</string>
-    <string name="show_clipboard_key">Tasto appunti</string>
     <string name="prefs_force_incognito_mode_summary">Disattiva l\'apprendimento di nuove parole</string>
     <string name="theme_family">Famiglia tema</string>
     <string name="theme_variant">Variante tema</string>

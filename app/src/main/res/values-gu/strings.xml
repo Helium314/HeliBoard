@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"હાવભાવ કરતી વખતે સૂચિત શબ્દ જુઓ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"શબ્દસમૂહ હાવભાવ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"સ્પેસ કી પર જઈને હાવભાવ દરમિયાન સ્પેસ ઇનપુટ કરો"</string>
-    <string name="voice_input" msgid="3583258583521397548">"વૉઇસ ઇનપુટ કી"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"કોઈ વૉઇસ ઇનપુટ પદ્ધતિઓ સક્ષમ કરેલ નથી. ભાષાઓ અને ઇનપુટ સેટિંગ્સને ચેક કરો."</string>
     <string name="configure_input_method" msgid="373356270290742459">"ઇનપુટ પદ્ધતિઓ ગોઠવો"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ભાષાઓ"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"સહાય અને પ્રતિસાદ"</string>

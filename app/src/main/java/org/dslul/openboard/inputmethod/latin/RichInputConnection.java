@@ -628,6 +628,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return reloadTextCache();
     }
 
+    public void selectAll() {
+        mIC.performContextMenuAction(android.R.id.selectAll);
+        // the rest is done via LatinIME.onUpdateSelection
+    }
+
     public void commitCorrection(final CorrectionInfo correctionInfo) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();

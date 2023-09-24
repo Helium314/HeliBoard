@@ -763,6 +763,9 @@ public final class InputLogic {
                 // Note: Switching one-handed side is being
                 // handled in {@link KeyboardState#onEvent(Event,int)}.
                 break;
+            case Constants.CODE_SELECT_ALL:
+                mConnection.selectAll();
+                break;
             default:
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }

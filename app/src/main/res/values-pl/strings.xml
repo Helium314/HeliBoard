@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Podczas pisania gestami zobaczysz podpowiadane słowo"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gest wyrażenia"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Wpisuj spacje podczas gestów, przesuwając palec do klawisza spacji"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Klawisz rozpoznawania mowy"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nie włączono żadnych metod wprowadzania głosowego. Sprawdź ustawienia Język i wprowadzanie tekstu."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfiguruj metody wprowadzania"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Języki"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoc i opinie"</string>
@@ -171,7 +169,6 @@
     <string name="enable_clipboard_history">Włącz historię schowka</string>
     <string name="prefs_force_incognito_mode">Wymuś tryb incognito</string>
     <string name="clipboard_history_retention_time">Czas przechowywania historii</string>
-    <string name="show_clipboard_key">Klawisz schowka</string>
     <string name="number_row_summary">Zawsze pokazuj rząd numeryczny</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Zmień metodę wprowadzania za pomocą spacji</string>
     <string name="show_hints_summary">Pokazuj wskazówki dotyczące długiego naciśnięcia przycisku</string>

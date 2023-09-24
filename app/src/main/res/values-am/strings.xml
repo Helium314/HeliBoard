@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ምልክት እየሰጡ ሳሉ በአስተያየት የተጠቆመው ቃል ይመልከቱ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"የሐረግ ምልክት"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ምልክት በሚሰጡበት ጊዜ ወደ ክፍተት ቁልፉ በማንሸራተት ክፍተቶችን ያስገቡ"</string>
-    <string name="voice_input" msgid="3583258583521397548">"የድምፅ ግቤት ቁልፍ"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"ምንም የግቤት ስልቶች አልነቁም። የቋንቋ እና የግቤት ቅንብሮችን ይፈትሹ።"</string>
     <string name="configure_input_method" msgid="373356270290742459">"ግቤት ሜተዶችን አዋቀር"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ቋንቋዎች"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"እገዛ እና ግብረመልስ"</string>

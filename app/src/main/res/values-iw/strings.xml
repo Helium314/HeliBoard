@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ראה את המילה המוצעת תוך כדי הזזת האצבע"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"הקלדה רציפה של משפט"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"הזן רווחים במהלך התנועה על ידי החלקה אל מקש הרווח"</string>
-    <string name="voice_input" msgid="3583258583521397548">"מקש קלט קולי"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"לא הופעלו שיטות של קלט קולי. בדוק את הגדרות השפה והקלט."</string>
     <string name="configure_input_method" msgid="373356270290742459">"הגדרת שיטות קלט"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"שפות"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"עזרה ומשוב"</string>
@@ -188,7 +186,6 @@
     <string name="settings_category_additional_keys">מפתחות נוספים</string>
     <string name="settings_category_correction">תיקונים</string>
     <string name="settings_category_suggestions">הצעות</string>
-    <string name="show_clipboard_key">לוח מקשים</string>
     <string name="delete_swipe">מחיקת החלקה</string>
     <string name="delete_swipe_summary">בצע החלקה על מקש המחיקה כדי לבחור ולהסיר חלקים גדולים יותר של טקסט בבת אחת</string>
     <string name="space_trackpad">משטח עקיבה של מקש רווח</string>

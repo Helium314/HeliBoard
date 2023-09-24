@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Jest zamanı təklif edilmiş sözə baxın"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Jest bildirin"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Jest zamanı boşluq düyməsinə toxunmaqla boşluq daxil edin"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Səs daxiletmə klavişi"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Heç bir səs daxiletmə metodu aktiv deyil. Dillər və daxiletmə ayarlarını yoxlayın."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Daxiletmə üsullarını sazla"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Dillər"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Yardım və geri əlaqə"</string>

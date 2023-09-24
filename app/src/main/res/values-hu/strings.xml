@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"A javasolt szó megtekintése kézmozdulat közben"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Kifejezés-kézmozdulat"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Szóköz írása kézmozdulatok során: húzza el ujját a szóköz felett"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Hangbeviteli gomb"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nincs engedélyezett hangbeviteli módszer. Nézze meg a Nyelvek és bevitel alatti beállításokat."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Beviteli módok beállítása"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Nyelvek"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Súgó és visszajelzés"</string>

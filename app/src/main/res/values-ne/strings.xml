@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"इशारा गर्दा सुझाव दिइएको शब्द हेर्नुहोस्"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"वाक्यांश इशारा"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"इशाराको बखतमा स्पेस कुञ्जीमा ग्लाईडिंग द्वारा आगत खाली ठाउँहरू"</string>
-    <string name="voice_input" msgid="3583258583521397548">"आवाज इनपुट कुञ्जी"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"कुनै पनि आवाज इनपुट विधिलाई सक्रिय गरिएको छैन। भाषा र इनपुट सम्बन्धी सेटिङहरूलाई जाँच गर्नुहोस्।"</string>
     <string name="configure_input_method" msgid="373356270290742459">"इनपुट विधिहरू कन्फिगर गर्नुहोस्"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"भाषाहरू"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"मद्दत र प्रतिक्रिया"</string>

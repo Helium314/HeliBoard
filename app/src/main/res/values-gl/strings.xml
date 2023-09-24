@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mostra a palabra suxerida mentres se fan xestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Xesto de frase"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Para introducir espazos nos xestos, pasa o dedo cara a tecla de espazo"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tecla de entrada de voz"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Non hai métodos de entrada de voz activado. Comproba a configuración Idioma e introdución de texto."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de entrada"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Axuda e suxerencias"</string>

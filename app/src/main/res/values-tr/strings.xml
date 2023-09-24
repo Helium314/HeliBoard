@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Hareket sırasında önerilen kelimeyi göster"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Kelime öbeği hareketi"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Hareketle girişte boşlukları, boşluk tuşuna kaydırarak girin"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ses girişi tuşu"</string>
-    <string name="voice_input_disabled_summary">"Hiçbir ses girişi yöntemi etkinleştirilmedi. Dil ve giriş ayarlarını kontrol edin."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Giriş yöntemlerini yapılandır"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Diller"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Yardım ve geri bildirim"</string>
@@ -160,7 +158,6 @@
     <string name="settings_category_experimental">Deneysel</string>
     <string name="settings_category_miscellaneous">Çeşitli</string>
     <string name="settings_no_limit">Sınır yok</string>
-    <string name="show_clipboard_key">Pano tuşu</string>
     <string name="space_trackpad_summary">İmleci hareket ettirmek için boşluk tuşu üzerinde kaydırın</string>
     <string name="prefs_force_incognito_mode">Gizli modu zorla</string>
     <string name="prefs_force_incognito_mode_summary">Yeni sözcüklerin öğrenilmesini devre dışı bırak</string>

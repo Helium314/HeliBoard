@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"제스처에 따라 추천 단어 보기"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"구문 제스처"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"동작 중에 스페이스바 쪽으로 움직여 공백 입력"</string>
-    <string name="voice_input" msgid="3583258583521397548">"음성 입력 키"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"사용 설정된 음성 입력 방법이 없습니다. 언어 및 입력 설정을 확인하세요."</string>
     <string name="configure_input_method" msgid="373356270290742459">"입력 방법 설정"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"언어"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"고객센터"</string>
@@ -167,7 +165,6 @@
     <string name="settings_category_suggestions">추천</string>
     <string name="settings_category_experimental">실험적 기능</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>분.</string>
-    <string name="show_clipboard_key">클립보드 키</string>
     <string name="enable_clipboard_history">클립보드 기록 활성화</string>
     <string name="delete_swipe">스와이프 삭제</string>
     <string name="show_emoji_key">이모지 키</string>

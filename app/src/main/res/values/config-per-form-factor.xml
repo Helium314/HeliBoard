@@ -24,7 +24,6 @@
     <!-- Whether or not Popup on key press is enabled by default -->
     <bool name="config_default_key_preview_popup">true</bool>
     <bool name="config_default_sound_enabled">false</bool>
-    <bool name="config_enable_show_voice_key_option">true</bool>
     <bool name="config_key_selection_by_dragging_finger">true</bool>
     <!-- Showing more keys keyboard, just above the touched point if true, aligned to the key if
          false -->

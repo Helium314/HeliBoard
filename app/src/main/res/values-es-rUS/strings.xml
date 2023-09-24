@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mira la palabra sugerida mientras haces gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frase gestual"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Desliza el dedo hasta la tecla de espacio para ingresar espacios."</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tecla de entrada por voz"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"No hay métodos de entrada de voz habilitados. Comprueba la configuración de Teclado e idioma."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de entrada"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Ayuda y comentarios"</string>
@@ -160,7 +158,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <string name="spell_checker_service_name">Corrector ortográfico de OpenBoard</string>
     <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de OpenBoard</string>
-    <string name="show_clipboard_key">Tecla de portapapeles</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles si lo hay</string>

@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Matn kiritishda so‘zlar taklif qilinsin"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Qo‘l uzmasdan yozish"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Barmoqni har bir so‘zdan so‘ng bo‘sh joy qoldirish tugmasiga olib borish"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ovoz bilan yozish tugmasi"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Ovoz bilan yozish usuli yoqilmagan. “Tillar va matn kiritish” sozlamalarini tekshiring."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Matn kiritish usullarini sozlash"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Tillar"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Yordam va fikr-mulohaza"</string>
@@ -172,7 +170,6 @@
     <string name="day_night_mode_summary">Tashqi ko\'rinish tizim sozlamalariga binoan</string>
     <string name="spell_checker_service_name">OpenBoard Imlo tekshiruvi</string>
     <string name="android_spell_checker_settings">OpenBoard Imlo Tekshiruvi Sozlamalari</string>
-    <string name="show_clipboard_key">Bufer tugmasi</string>
     <string name="delete_swipe">Svayp bilan o\'chirish</string>
     <string name="prefs_force_incognito_mode_summary">Yangi so\'zlarni o\'rganishni o\'chirib qo\'yish</string>
     <string name="number_row">Sonlar qatori</string>

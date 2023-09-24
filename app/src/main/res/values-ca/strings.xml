@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mostra la paraula suggerida en fer els gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gest de frase"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Per afegir espais als gestos, apropa el dit a la tecla d\'espai"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tecla d\'entrada de veu"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"No hi ha cap mètode d\'introducció de veu activat. Comprova la configuració d\'Idioma i introducció de text."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configura mètodes d\'introducció"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomes"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Ajuda i suggeriments"</string>
@@ -157,7 +155,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
     <string name="settings_no_limit">Sense límit</string>
-    <string name="show_clipboard_key">Tecla del porta-retalls</string>
     <string name="enable_clipboard_history_summary">Si es desactiva, la tecla del porta-retalls enganxarà els continguts del porta-retalls en cas que contingui alguna cosa.</string>
     <string name="clipboard_history_retention_time">Temps de manteniment a l\'historial</string>
     <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop.</string>

@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"使用滑行輸入時顯示建議字詞"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"詞組手勢"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"手勢輸入時，滑過空格鍵即可輸入空格"</string>
-    <string name="voice_input" msgid="3583258583521397548">"語音輸入按鍵"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"尚未啟用語音輸入法，請檢查語言與輸入設定。"</string>
     <string name="configure_input_method" msgid="373356270290742459">"設定輸入法"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"語言"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"說明與意見回饋"</string>

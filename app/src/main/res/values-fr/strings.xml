@@ -67,8 +67,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Affiche le mot suggéré lors des gestes"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Geste multiterme"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Saisir des espaces lors des gestes en glissant vers la barre d\'espace"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Touche de saisie vocale"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Aucun mode de saisie vocale activé. Activez les paramètres de langues et de saisie."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurer les modes de saisie"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Langues"</string>
     <string name="help_and_feedback">"Aide et commentaires"</string>
@@ -231,7 +229,6 @@
     <string name="prefs_narrow_key_gaps">Réduire l\'espace entre les touches</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
-    <string name="show_clipboard_key">Touche du presse-papier</string>
     <string name="show_emoji_key">Touche d\'accès aux émojis</string>
     <string name="settings_category_additional_keys">Touches supplémentaires</string>
     <string name="settings_category_clipboard_history">Historique du presse-papier</string>

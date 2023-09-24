@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ඉංගිතය කරන අතරතුර යෝජිත වචන බලන්න"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ජේද ඉංගිතය"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ඉංගිතයන් අතරතුර space යතුර වෙත ලිස්සීම මඟින් ඉඩ ඇතුල් කරන්න"</string>
-    <string name="voice_input" msgid="3583258583521397548">"හඬ ආදාන යතුර"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"හඬ ආදාන ක්‍රම සබල කර නැත. භාෂාව සහ ආදාන සැකසීම් පරීක්ෂා කරන්න."</string>
     <string name="configure_input_method" msgid="373356270290742459">"ආදාන ක්‍රම වින්‍යාස කරන්න"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"භාෂා"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"උදවු සහ ප්‍රතිපෝෂණ"</string>

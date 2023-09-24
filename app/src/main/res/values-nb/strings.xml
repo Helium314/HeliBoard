@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary">"Se det foreslåtte ordet mens du utfører bevegelser"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frasebevegelse"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Sett inn mellomrom ved å dra fingeren til mellomromstasten"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tast for taleinndata"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Ingen taleinndatametoder er slått på. Sjekk Språk og inndata-innstillingene."</string>
     <string name="configure_input_method">"Konfigurer inndatametoder"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Språk"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Hjelp og tilbakemelding"</string>
@@ -177,7 +175,6 @@
     <string name="settings_category_miscellaneous">Ymse</string>
     <string name="settings_category_suggestions">Forslag</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Endre inndatametode med mellomromstast</string>
-    <string name="show_clipboard_key">Utklippstavletast</string>
     <string name="prefs_force_incognito_mode_summary">Skru av innlæring av nye ord</string>
     <string name="prefs_keyboard_height_scale">Skalering av tastaturhøyde</string>
     <string name="more_keys_strip_description">Flere taster</string>

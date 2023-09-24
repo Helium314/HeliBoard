@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ジェスチャーで入力候補を表示できます"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"フレーズジェスチャー"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Spaceキーに指を滑らせると、ジェスチャー中にスペースを入力できます"</string>
-    <string name="voice_input" msgid="3583258583521397548">"音声入力キー"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"有効になっている音声入力方法がありません。[言語と入力] 設定をご確認ください。"</string>
     <string name="configure_input_method" msgid="373356270290742459">"入力方法を設定"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"言語"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"ヘルプとフィードバック"</string>

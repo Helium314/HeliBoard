@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary">"Ordförslaget visas i rörelsen medan du skriver"</string>
     <string name="gesture_space_aware">"Frasrörelse"</string>
     <string name="gesture_space_aware_summary">"Infoga blanksteg genom att dra fingret över blankstegstangenten"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Röstinmatningsknapp"</string>
-    <string name="voice_input_disabled_summary">"Ingen röstinmatningsmetod har aktiverats. Kontrollera språk- och inmatningsinställningarna."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurera inmatningsmetoder"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Språk"</string>
     <string name="help_and_feedback">"Hjälp och feedback"</string>
@@ -176,7 +174,6 @@
     <string name="prefs_force_incognito_mode">Tvinga inkognitoläge</string>
     <string name="prefs_force_incognito_mode_summary">Inaktivera inlärningen av nya ord</string>
     <string name="settings_category_input">Inmatning</string>
-    <string name="show_clipboard_key">Urklippsknapp</string>
     <string name="enable_clipboard_history">Aktivera urklippshistorik</string>
     <string name="enable_clipboard_history_summary">Urklippsknappen kommer att klistra in eventuellt urklippsinnehåll om denna är inaktiverad</string>
     <string name="clipboard_history_retention_time">Lagringstid för historik</string>

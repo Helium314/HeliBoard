@@ -49,7 +49,9 @@ import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -78,7 +80,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
     public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
@@ -90,7 +91,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     public static final String PREF_LANGUAGE_SWITCH_KEY = "pref_language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
-    public static final String PREF_SHOW_CLIPBOARD_KEY = "pref_show_clipboard_key";
     public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
@@ -134,6 +134,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_URL_DETECTION = "pref_url_detection";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
+    public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
 
 
     private static final String PREF_LAST_USED_PERSONALIZATION_TOKEN =
@@ -501,6 +502,25 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static int readLastShownEmojiCategoryPageId(
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
+    }
+
+    public static List<String> readPinnedKeys(final SharedPreferences prefs) {
+        final String pinnedKeysString = prefs.getString(Settings.PREF_PINNED_KEYS, "");
+        if (pinnedKeysString.isEmpty())
+            return new ArrayList<>();
+        return Arrays.asList(pinnedKeysString.split(";"));
+    }
+
+    public static void addPinnedKey(final SharedPreferences prefs, final String key) {
+        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+        keys.add(key);
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+    }
+
+    public static void removePinnedKey(final SharedPreferences prefs, final String key) {
+        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+        keys.remove(key);
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {

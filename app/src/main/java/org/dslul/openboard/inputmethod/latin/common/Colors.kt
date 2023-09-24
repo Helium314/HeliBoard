@@ -39,6 +39,8 @@ class Colors (
     /** brightened or darkened variant of [background], to be used if exact background color would be
      *  bad contrast, e.g. more keys popup or no border space bar */
     val adjustedBackground: Int
+    /** further brightened or darkened variant of [adjustedBackground] */
+    val doubleAdjustedBackground: Int
     /** brightened or darkened variant of [keyText] */
     val adjustedKeyText: Int
     val spaceBarText: Int
@@ -85,15 +87,13 @@ class Colors (
 
         // create color filters, todo: maybe better / simplify
         val states = arrayOf(intArrayOf(android.R.attr.state_pressed), intArrayOf(-android.R.attr.state_pressed))
-        fun stateList(pressed: Int, normal: Int) =
-            ColorStateList(states, intArrayOf(pressed, normal))
+        fun stateList(pressed: Int, normal: Int) = ColorStateList(states, intArrayOf(pressed, normal))
         // todo (idea): make better use of the states?
         //  could also use / create StateListDrawables in colors (though that's a style than a color...)
         //  this would better allow choosing e.g. cornered/rounded drawables for moreKeys or moreSuggestions
         backgroundFilter = colorFilter(background)
         adjustedKeyText = brightenOrDarken(keyText, true)
 
-        val doubleAdjustedBackground: Int
         if (isDarkColor(background)) {
             adjustedBackground = brighten(background)
             doubleAdjustedBackground = brighten(adjustedBackground)

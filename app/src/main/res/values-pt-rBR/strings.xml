@@ -38,7 +38,6 @@
     <string name="gesture_floating_preview_text">Previsão dinâmica flutuante</string>
     <string name="gesture_floating_preview_text_summary">Ver a palavra sugerida ao usar gestos</string>
     <string name="gesture_space_aware_summary">Inserir espaços durante gestos ao deslizar até a tecla de espaço</string>
-    <string name="show_clipboard_key">Tecla da área de transferência</string>
     <string name="enable_clipboard_history">Ativar área de transferência</string>
     <string name="delete_swipe_summary">Deslize a tecla delete para selecionar e remover partes maiores de texto de uma só vez</string>
     <string name="delete_swipe">Deslizar para apagar</string>
@@ -126,7 +125,6 @@
     <string name="bigram_prediction_summary">Utilizar palavra anterior para efetuar sugestões</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de entrada com a tecla Espaço</string>
     <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
-    <string name="voice_input_disabled_summary">Nenhum método de entrada por voz ativado. Verifique as configurações de Idiomas e Entrada.</string>
     <string name="clipboard_history_retention_time">Tempo de retenção do histórico</string>
     <string name="space_trackpad_summary">Deslize na barra de espaço para mover o cursor</string>
     <string name="number_row">Linha de números</string>
@@ -174,7 +172,6 @@
     <string name="show_emoji_key">Tecla de Emojis</string>
     <string name="subtype_generic_compact">Hindi <xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
     <string name="key_preview_popup_dismiss_delay">Duração do pop-up da tecla</string>
-    <string name="voice_input">Tecla de Entrada por Voz</string>
     <string name="enable_clipboard_history_summary">Se desativada, a tecla da área de transferência colará o conteúdo na área de transferência, caso exista</string>
     <string name="hint_add_to_dictionary_without_word">Toque novamente para salvar</string>
     <string name="autospace_after_punctuation">Espaço automático após pontuação</string>

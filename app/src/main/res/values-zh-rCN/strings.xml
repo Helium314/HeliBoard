@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"在滑行输入过程中显示建议字词"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"词组滑行输入"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"滑行输入时，滑过空格键即可输入空格"</string>
-    <string name="voice_input" msgid="3583258583521397548">"语音输入键"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"未启用任何语音输入法。请检查“语言和输入法”设置。"</string>
     <string name="configure_input_method" msgid="373356270290742459">"配置输入法"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"语言"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"帮助和反馈"</string>
@@ -170,7 +168,6 @@
     <string name="show_hints">显示主要提示</string>
     <string name="theme_family">主题背景</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
-    <string name="show_clipboard_key">粘贴键</string>
     <string name="space_trackpad">空格键</string>
     <string name="space_trackpad_summary">滑行输入</string>
     <string name="delete_swipe">滑动删除</string>

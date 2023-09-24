@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary">"Ver palabra sugerida al hacer gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gestos con tecla Espacio"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Desliza el dedo a Espacio para introducir espacios durante gestos"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tecla de entrada de voz"</string>
-    <string name="voice_input_disabled_summary">"No hay métodos de entrada de voz habilitados. Comprueba la opción Idioma e introducción de texto."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de entrada"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Ayuda y sugerencias"</string>
@@ -164,7 +162,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Al presionar por mucho tiempo la barra espaciadora, aparecerá el menú de selección del método de entrada</string>
     <string name="spell_checker_service_name">Corrector ortográfico de OpenBoard</string>
     <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de OpenBoard</string>
-    <string name="show_clipboard_key">Tecla de portapapeles</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="delete_swipe">Borrar deslizando</string>
     <string name="delete_swipe_summary">Deslice el dedo desde la tecla Borrar para seleccionar y eliminar porciones más grandes de texto de una vez</string>

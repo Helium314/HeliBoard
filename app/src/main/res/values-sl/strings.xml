@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Prikaz predlagane besede med vnosom s prstom"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Vnos besed s potezami"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Vnos presledkov pri vnašanju s potezami z drsenjem po preslednici"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tipka za glasovni vnos"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Ni omogočenih glasovnih načinov vnosa. Preverite nastavitve v razdelku »Jeziki in vnos«."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Nastavitev načinov vnosa"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jeziki"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoč in povratne informacije"</string>
@@ -176,7 +174,6 @@
     <string name="enable_clipboard_history_summary">Onemogočite, da boste s tipko odložišča lahko prilepili vsebino</string>
     <string name="more_keys_strip_description">Več tipk</string>
     <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja OpenBoard</string>
-    <string name="show_clipboard_key">Tipka odložišča</string>
     <string name="day_night_mode">Samodejni dnevni/nočni način</string>
     <string name="prefs_keyboard_height_scale">Spremeni višino tipkovnice</string>
     <string name="theme_family">Skupina tem</string>

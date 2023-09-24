@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"See the suggested word while gesturing"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Phrase gesture"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Input spaces during gestures by gliding to the space key"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Voice input key"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"No voice input methods enabled. Check Languages &amp; input settings."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configure input methods"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Languages"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Help &amp; feedback"</string>

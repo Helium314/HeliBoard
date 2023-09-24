@@ -89,18 +89,6 @@
             android:defaultValue="false"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
-            android:key="pref_voice_input_key"
-            android:title="@string/voice_input"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SwitchPreferenceCompat
-            android:key="pref_show_clipboard_key"
-            android:title="@string/show_clipboard_key"
-            android:defaultValue="false"
-            android:persistent="true" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">

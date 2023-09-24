@@ -24,6 +24,7 @@ Might end up on F-Droid...
 ## Hidden functionality
 Features that may go unnoticed
 * Long pressing the clipboard key (the optional one in suggestion strip) pastes system clipboard contents
+* Long pressing keys in the suggestion strip toolbar pins them to the suggestion strip
 * Long-press comma to access clipboard view, emoji view, one-handed mode, settings, or switch language
   * emoji view and language switch will disappear if you have the corresponding key enabled
   * for some layouts it's not the comma-key, but the key at the same position (e.g. it's `q` for Dvorak layout)

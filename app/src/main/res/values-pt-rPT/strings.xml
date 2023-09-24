@@ -66,8 +66,6 @@
     <string name="gesture_floating_preview_text_summary">"Ver palavra sugerida enquanto toca"</string>
     <string name="gesture_space_aware">"Toque de expressão"</string>
     <string name="gesture_space_aware_summary">"Deslize p/ a tecla de espaço p/ introduzir espaços durante toques"</string>
-    <string name="voice_input">"Chave de entrada por voz"</string>
-    <string name="voice_input_disabled_summary">"Nenhum método de entrada de texto por voz ativado. Verifique as definições de Idioma e introdução."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de introdução"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback">"Ajuda e comentários"</string>
@@ -172,7 +170,6 @@
     <string name="settings_category_suggestions">Sugestões</string>
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_miscellaneous">Outras</string>
-    <string name="show_clipboard_key">Tecla da área de transferência</string>
     <string name="space_trackpad_summary">Deslize na barra de espaço para mover o cursor</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>

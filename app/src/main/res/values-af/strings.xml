@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Sien die voorgestelde woord tydens gebare"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frasegebaar"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Voer spasies tydens gebare in deur na die spasiesleutel te gly"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Steminvoerinstellings"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Geen steminvoermetodes is geaktiveer nie. Gaan Tale- en invoer-instellings na."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Stel invoermetodes op"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Tale"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Hulp en terugvoering"</string>
@@ -167,7 +165,6 @@
     <string name="key_borders">Sleutelgrense</string>
     <string name="spell_checker_service_name">OpenBoard Spell Checker</string>
     <string name="android_spell_checker_settings">OpenBoard Spell Checker Settings</string>
-    <string name="show_clipboard_key">Knipbord sleutel</string>
     <string name="number_row">Nommers ry</string>
     <string name="number_row_summary">Wys altyd die nommers ry</string>
     <string name="show_hints">Wys sleutel wenke</string>

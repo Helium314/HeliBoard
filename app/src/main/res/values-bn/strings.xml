@@ -82,9 +82,6 @@
     <string name="gesture_floating_preview_text_summary">অঙ্গুলিহেলনের সময় প্রস্তাবিত শব্দ দেখুন</string>
     <string name="gesture_space_aware">শব্দগুচ্ছ অঙ্গুলিহেলন</string>
     <string name="gesture_space_aware_summary">অঙ্গুলিহেলনের সময় স্পেস বোতামের মাধ্যমে স্পেস সন্নিবেশ</string>
-    <string name="voice_input">ভয়েস ইনপুট বোতাম</string>
-    <string name="voice_input_disabled_summary">কোনো ভয়েস ইনপুট পদ্ধতি সক্ষম নয়। ভাষা এবং ইনপুট সেটিংস যাচাই করুন।</string>
-    <string name="show_clipboard_key">ক্লিপবোর্ড বোতাম</string>
     <string name="enable_clipboard_history">ক্লিপবোর্ড ইতিহাস সক্রিয়করণ</string>
     <string name="enable_clipboard_history_summary">বন্ধ থাকলে ক্লিপবোর্ড বোতাম ক্লিপবোর্ডে থাকা আধেয় পেস্ট করবে</string>
     <string name="clipboard_history_retention_time">ইতিহাস স্থিতির সময়কাল</string>

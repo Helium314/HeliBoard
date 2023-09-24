@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Ver a palavra sugerida ao usar gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gesto de frase"</string>
     <string name="gesture_space_aware_summary">"Inserir espaços durante gestos deslizando até a tecla de espaço"</string>
-    <string name="voice_input">"Tecla p/ inserir texto por voz"</string>
-    <string name="voice_input_disabled_summary">"Nenhum método de entrada de texto por voz ativado. Verifique as configurações de idioma e entrada."</string>
     <string name="configure_input_method">"Configurar métodos de entrada"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback">"Ajuda e feedback"</string>
@@ -157,7 +155,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="spell_checker_service_name">Verificação ortográfica OpenBoard</string>
     <string name="android_spell_checker_settings">Definições de verificação ortográfica OpenBoard</string>
-    <string name="show_clipboard_key">Tecla da área de transferência</string>
     <string name="number_row">Número de linha</string>
     <string name="number_row_summary">Mostrar sempre n.º de linha</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>

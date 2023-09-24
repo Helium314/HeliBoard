@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Het voorgestelde woord weergeven tijdens het tekenen"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gebaar voor woordgroep"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Spaties invoeren door naar de spatietoets te bewegen"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Toets voor spraakinvoer"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Geen spraakinvoermethoden ingeschakeld. Bekijk de instellingen bij \'Talen en invoer\'."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Invoermethoden configureren"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Talen"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Hulp en feedback"</string>
@@ -173,7 +171,6 @@
     <string name="delete_swipe_summary">Voer een veegbeweging uit vanaf de delete-toets om grotere delen van tekst tegelijk te selecteren en te verwijderen</string>
     <string name="spell_checker_service_name">OpenBoard spellingcontrole</string>
     <string name="android_spell_checker_settings">OpenBoard spellingscontrole instellingen</string>
-    <string name="show_clipboard_key">Klembordtoets</string>
     <string name="number_row">Nummer rij</string>
     <string name="prefs_force_incognito_mode">Incognitomodus forceren</string>
     <string name="space_trackpad_summary">Veeg over de spatiebalk om de cursor te verplaatsen</string>

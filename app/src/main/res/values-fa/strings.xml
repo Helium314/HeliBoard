@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"مشاهده کلمه پیشنهادی در حین انجام حرکات"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"‫ورود عبارت با حرکت اشاره‌ای"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"با سراندن انگشت روی کلید فاصله در زمان استفاده از حرکات، فاصله وارد کنید"</string>
-    <string name="voice_input" msgid="3583258583521397548">"کلید ورودی صوتی"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"هیچ روش ورودی گفتاری‌ای فعال نشده است. تنظیمات «زبان‌ها و ورودی» را بررسی کنید."</string>
     <string name="configure_input_method" msgid="373356270290742459">"پیکربندی روش‌های ورودی"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"زبان‌ها"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"راهنما و بازخورد"</string>
@@ -162,7 +160,6 @@
     <string name="settings_category_clipboard_history">تاریخچهٔ تخته‌گیره</string>
     <string name="spell_checker_service_name">غلط‌یاب املایی OpenBoard</string>
     <string name="android_spell_checker_settings">تنظیمات غلط‌یاب املایی OpenBoard</string>
-    <string name="show_clipboard_key">کلید تخته‌گیره</string>
     <string name="show_emoji_key">دکمهٔ شکلک</string>
     <string name="ime_settings">تنظیمات OpenBoard</string>
     <string name="settings_category_additional_keys">کلیدهای افزوده</string>

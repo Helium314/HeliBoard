@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Zobrazení navrhovaného slova při psaní gesty"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frázové gesto"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Mezery mezi gesty zadáte přejetím po klávese mezerníku."</string>
-    <string name="voice_input" msgid="3583258583521397548">"Klávesa hlasového zadávání"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nejsou povoleny žádné metody hlasového vstupu. Zkontrolujte nastavení Jazyky a zadávání."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurace metod zadávání"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jazyky"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Nápověda a zpětná vazba"</string>
@@ -190,7 +188,6 @@
     <string name="subtype_no_language_workman">Abeceda (Workman)</string>
     <string name="enable_clipboard_history_summary">Pokud vypnuto, tlačítko schránky vloží obsah schránky, pokud nějaký existuje</string>
     <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
-    <string name="show_clipboard_key">Klávesa schránky</string>
     <string name="autospace_after_punctuation">Automatická mezera po znaménkách</string>
     <string name="more_keys_strip_description">Více kláves</string>
     <string name="delete_swipe_summary">Posuňte prstem z tlačítka Delete a mažte větší části textu společně</string>

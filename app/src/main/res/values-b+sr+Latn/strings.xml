@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Prikazuje predloženu reč pri unosu pokretom"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Pokret za fraze"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Unosite razmake tokom pokreta prelaskom do tastera za razmak"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Taster za glasovni unos"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nijedan metod glasovnog unosa nije omogućen. Proverite Podešavanja jezika i unosa."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurisanje metoda unosa"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>

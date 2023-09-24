@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
     <string name="gesture_space_aware">"عبارة الإيماء"</string>
     <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
-    <string name="voice_input" msgid="3583258583521397548">"مفتاح الإدخال الصوتي"</string>
-    <string name="voice_input_disabled_summary">"لم يتم تفعيل أي أساليب إدخال صوتي. تحقق من إعدادات اللغات والإدخال."</string>
     <string name="configure_input_method" msgid="373356270290742459">"تهيئة طرق الإدخال"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"اللغات"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"المساعدة والتعليقات"</string>
@@ -169,7 +167,6 @@
     <string name="settings_category_miscellaneous">متنوعة</string>
     <string name="spell_checker_service_name">المدقق الإملائي لـ OpenBoard</string>
     <string name="android_spell_checker_settings">إعدادات المدقق الإملائي لـ OpenBoard</string>
-    <string name="show_clipboard_key">مفتاح الحافظة</string>
     <string name="number_row">صف الأرقام</string>
     <string name="number_row_summary">إظهار صف الأرقام دائما</string>
     <string name="day_night_mode_summary">سيتبع المظهر إعدادات النظام</string>

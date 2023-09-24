@@ -68,8 +68,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ดูคำแนะนำในขณะที่ใช้ท่าทางสัมผัส"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ท่าทางสัมผัสสำหรับวลี"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ใส่ช่องว่างระหว่างท่าทางสัมผัสโดยเลื่อนไปยังแป้นเคาะวรรค"</string>
-    <string name="voice_input" msgid="3583258583521397548">"แป้นการป้อนข้อมูลด้วยเสียง"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"ไม่ได้เปิดใช้วิธีป้อนข้อมูลด้วยเสียง โปรดตรวจสอบการตั้งค่าภาษาและการป้อนข้อมูล"</string>
     <string name="configure_input_method" msgid="373356270290742459">"กำหนดค่าวิธีการป้อนข้อมูล"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ภาษา"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"ความช่วยเหลือและความคิดเห็น"</string>

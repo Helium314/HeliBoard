@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Vorgeschlagenes Wort bei Bewegung anzeigen"</string>
     <string name="gesture_space_aware">"Phrasengeste"</string>
     <string name="gesture_space_aware_summary">"Leerzeichen durch Bewegung über die Leertaste einfügen"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Taste für Spracheingabe"</string>
-    <string name="voice_input_disabled_summary">"Keine Spracheingabemethoden aktiviert. Rufe die Einstellungen für \"Sprache &amp; Eingabe\" auf."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Eingabemethoden konfigurieren"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Sprachen"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Hilfe &amp; Feedback"</string>
@@ -173,7 +171,6 @@
     <string name="enable_clipboard_history">Zwischenablage-Verlauf aktivieren</string>
     <string name="delete_swipe_summary">Wische über die Löschen-Taste, um mehr Text auf einmal auszuwählen und zu löschen</string>
     <string name="clipboard_history_retention_time">Speicherdauer des Zwischenablage-Verlaufs</string>
-    <string name="show_clipboard_key">Taste für Zwischenablage</string>
     <string name="delete_swipe">Löschen durch Wischen</string>
     <string name="space_trackpad_summary">Wische über die Leertaste, um den Zeiger zu bewegen</string>
     <string name="space_trackpad">Cursorsteuerung durch Leertaste</string>

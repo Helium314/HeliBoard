@@ -22,16 +22,11 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Bundle;
 
-import androidx.preference.Preference;
-
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 
 public final class PreferencesSettingsFragment extends SubScreenFragment {
-
-    private static final boolean VOICE_IME_ENABLED =
-            true;
 
     @Override
     public void onCreate(final Bundle icicle) {
@@ -46,11 +41,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
         RichInputMethodManager.init(context);
 
-        final boolean showVoiceKeyOption = res.getBoolean(
-                R.bool.config_enable_show_voice_key_option);
-        if (!showVoiceKeyOption) {
-            removePreference(Settings.PREF_VOICE_INPUT_KEY);
-        }
         if (!AudioAndHapticFeedbackManager.getInstance().hasVibrator()) {
             removePreference(Settings.PREF_VIBRATE_ON);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
@@ -68,14 +58,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     @Override
     public void onResume() {
         super.onResume();
-        final Preference voiceInputKeyOption = findPreference(Settings.PREF_VOICE_INPUT_KEY);
-        if (voiceInputKeyOption != null) {
-            RichInputMethodManager.getInstance().refreshSubtypeCaches();
-            boolean voiceKeyEnabled = VOICE_IME_ENABLED && RichInputMethodManager.getInstance().hasShortcutIme();
-            voiceInputKeyOption.setEnabled(voiceKeyEnabled);
-            voiceInputKeyOption.setSummary(voiceKeyEnabled
-                    ? null : getText(R.string.voice_input_disabled_summary));
-        }
     }
 
     @Override

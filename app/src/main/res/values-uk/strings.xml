@@ -65,8 +65,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ключ голосового вводу"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Способи голосового вводу не ввімкнено. Перейдіть у налаштування мови та введення."</string>
     <string name="configure_input_method">"Налаштування методів введення"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Мови"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Довідка й відгуки"</string>
@@ -174,7 +172,6 @@
     <string name="settings_no_limit">Без обмежень</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>хв.</string>
     <string name="enable_clipboard_history">Увімкнути історію буфера обміну</string>
-    <string name="show_clipboard_key">Клавіша буфера обміну</string>
     <string name="enable_clipboard_history_summary">Якщо вимкнено, клавіша буфера обміну вставляє вміст, якщо він є</string>
     <string name="clipboard_history_retention_time">Час зберігання історії</string>
     <string name="theme_navbar">Колір навігаційної панелі</string>
