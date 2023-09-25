@@ -28,9 +28,10 @@ Features that may go unnoticed
 * Long-press comma to access clipboard view, emoji view, one-handed mode, settings, or switch language
   * emoji view and language switch will disappear if you have the corresponding key enabled
   * for some layouts it's not the comma-key, but the key at the same position (e.g. it's `q` for Dvorak layout)
+* Press the incognito icon to get the toolbar (probably only hidden if you use _force incognito mode_)
 * Sliding key input: swipe from shift to another key to type a single uppercase key
   * also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys
-* Long-press a suggestion to show more suggestions, and a delete button to remove this suggestion
+* Long-press a suggestion in suggestion strip to show more suggestions, and a delete button to remove this suggestion
 * Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it
 * You can add dictionaries by opening them in a file explorer
   * only works with content-uris and not with file-uris, meaning that it may not work with some file explorers

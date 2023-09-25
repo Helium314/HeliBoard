@@ -61,7 +61,7 @@ class InputLogicTest {
 
     @Test fun inputCode() {
         reset()
-        input('c'.code)
+        input('c')
         assertEquals("c", textBeforeCursor)
         assertEquals("c", getText())
         assertEquals("", textAfterCursor)
@@ -91,7 +91,7 @@ class InputLogicTest {
         reset()
         setText("hello")
         setCursorPosition(3) // after first l
-        input('i'.code)
+        input('i')
         assertEquals("helilo", getWordAtCursor())
         assertEquals("helilo", getText())
         assertEquals(4, getCursorPosition())
@@ -104,7 +104,7 @@ class InputLogicTest {
         currentInputType = 180225 // should not change much, but just to be sure
         setText("hello")
         setCursorPosition(3, weirdTextField = true) // after first l
-        input('i'.code)
+        input('i')
         assertEquals("helilo", getWordAtCursor())
         assertEquals("helilo", getText())
         assertEquals(4, getCursorPosition())
@@ -115,7 +115,7 @@ class InputLogicTest {
         reset()
         setText("hello my friend")
         setCursorPosition(7) // between m and y
-        input('a'.code)
+        input('a')
         assertEquals("may", getWordAtCursor())
         assertEquals("hello may friend", getText())
         assertEquals(8, getCursorPosition())
@@ -127,7 +127,7 @@ class InputLogicTest {
         currentScript = ScriptUtils.SCRIPT_HANGUL
         setText("ㅛㅎㄹㅎㅕㅛ")
         setCursorPosition(3)
-        input('ㄲ'.code) // fails, as expected from the hangul issue when processing the event in onCodeInput
+        input('ㄲ') // fails, as expected from the hangul issue when processing the event in onCodeInput
         assertEquals("ㅛㅎㄹㄲㅎㅕㅛ", getWordAtCursor())
         assertEquals("ㅛㅎㄹㄲㅎㅕㅛ", getText())
         assertEquals("ㅛㅎㄹㄲㅎㅕㅛ", textBeforeCursor + textAfterCursor)
@@ -139,7 +139,7 @@ class InputLogicTest {
         reset()
         setText("hello")
         assertEquals("hello", composingText)
-        input('.'.code)
+        input('.')
         assertEquals("", composingText)
     }
 
@@ -147,13 +147,13 @@ class InputLogicTest {
     @Test fun autospace() {
         reset()
         setText("hello")
-        input('.'.code)
-        input('a'.code)
+        input('.')
+        input('a')
         assertEquals("hello.a", textBeforeCursor)
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello")
-        input('.'.code)
-        input('a'.code)
+        input('.')
+        input('a')
         assertEquals("hello. a", textBeforeCursor)
     }
 
@@ -161,15 +161,15 @@ class InputLogicTest {
         reset()
         setText("hello there")
         setCursorPosition(5) // after hello
-        input('.'.code)
-        input('a'.code)
+        input('.')
+        input('a')
         assertEquals("hello.a", textBeforeCursor)
         assertEquals("hello.a there", text)
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello there")
         setCursorPosition(5) // after hello
-        input('.'.code)
-        input('a'.code)
+        input('.')
+        input('a')
         assertEquals("hello. a", textBeforeCursor)
         assertEquals("hello. a there", text)
     }
@@ -177,33 +177,33 @@ class InputLogicTest {
     @Test fun urlDetectionThings() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        input('.'.code)
-        input('.'.code)
-        input('.'.code)
-        input('h'.code)
+        input('.')
+        input('.')
+        input('.')
+        input('h')
         assertEquals("...h", text)
         assertEquals("h", composingText)
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         input("bla")
-        input('.'.code)
-        input('.'.code)
+        input('.')
+        input('.')
         assertEquals("bla..", text)
         assertEquals("", composingText)
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         input("bla")
-        input('.'.code)
-        input('c'.code)
+        input('.')
+        input('c')
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         input("bla")
-        input('.'.code)
+        input('.')
         functionalKeyPress(Constants.CODE_SHIFT) // should remove the phantom space (in addition to normal effect)
-        input('c'.code)
+        input('c')
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
     }
@@ -212,10 +212,10 @@ class InputLogicTest {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("example.co")
-        input('m'.code)
-        input('.'.code)
+        input('m')
+        input('.')
         assertEquals("example.com.", composingText)
-        input(' '.code)
+        input(' ')
         assertEquals("example.com", ShadowFacilitator2.lastAddedWord)
     }
 
@@ -223,9 +223,9 @@ class InputLogicTest {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("bl")
-        input('a'.code)
-        input('.'.code)
-        input('.'.code)
+        input('a')
+        input('.')
+        input('.')
         assertEquals("", composingText)
         assertEquals("bla..", text)
     }
@@ -235,6 +235,18 @@ class InputLogicTest {
         setText("this is some text")
         setCursorPosition(3, 8)
         assertEquals("s is ", text.substring(3, 8))
+    }
+
+    @Test fun noComposingForPasswordFields() {
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+        input('a')
+        input('b')
+        assertEquals("", composingText)
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        input('.')
+        input('c')
+        assertEquals("", composingText)
     }
 
     // ------- helper functions ---------
@@ -258,6 +270,7 @@ class InputLogicTest {
         setText("")
     }
 
+    private fun input(char: Char) = input(char.code)
     private fun input(codePoint: Int) {
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
@@ -372,6 +385,12 @@ class InputLogicTest {
 
     private fun getText() =
         connection.getTextBeforeCursor(100, 0).toString() + (connection.getSelectedText(0) ?: "") + connection.getTextAfterCursor(100, 0)
+
+    private fun setInputType(inputType: Int) {
+        // set text to actually apply input type
+        currentInputType = inputType
+        setText(text)
+    }
 
     // always need to handle messages for proper simulation
     private fun handleMessages() {

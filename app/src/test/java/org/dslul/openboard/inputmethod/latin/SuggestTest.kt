@@ -1,7 +1,6 @@
 package org.dslul.openboard.inputmethod.latin
 
 import androidx.core.content.edit
-import androidx.test.runner.AndroidJUnit4
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
@@ -15,13 +14,14 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
+import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
     ShadowLocaleManagerCompat::class,
     ShadowInputMethodManager2::class,
@@ -46,7 +46,7 @@ class SuggestTest {
             .edit { putBoolean(Settings.PREF_AUTO_CORRECTION, true) } // need to enable, off by default
     }
 
-    @Test fun `"on" to "in" if "in" was used before in this context`() {
+    @Test fun `'on' to 'in' if 'in' was used before in this context`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "on",
@@ -60,7 +60,7 @@ class SuggestTest {
         // not corrected because first suggestion score is too low
     }
 
-    @Test fun `"ill" to "I'll" if "ill" not used before in this context, and I'll has shortcut`() {
+    @Test fun `'ill' to 'I'll' if 'ill' not used before in this context, and I'll has shortcut`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -74,7 +74,7 @@ class SuggestTest {
         // correction because both empty scores are 0, which should be fine (next check is comparing empty scores)
     }
 
-    @Test fun `not "ill" to "I'll" if only "ill" was used before in this context`() {
+    @Test fun `not 'ill' to 'I'll' if only 'ill' was used before in this context`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -88,7 +88,7 @@ class SuggestTest {
         // not corrected because first empty score not high enough
     }
 
-    @Test fun `"ill" to "I'll" if both have same ngram score`() {
+    @Test fun `'ill' to 'I'll' if both have same ngram score`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -101,7 +101,7 @@ class SuggestTest {
         assert(result.last()) // should be corrected
     }
 
-    @Test fun `no "ill" to "I'll" if "ill" has somewhat better ngram score`() {
+    @Test fun `no 'ill' to 'I'll' if 'ill' has somewhat better ngram score`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -114,7 +114,7 @@ class SuggestTest {
         assert(!result.last()) // should not be corrected
     }
 
-    @Test fun `no English "I" for Polish "i" when typing in Polish`() {
+    @Test fun `no English 'I' for Polish 'i' when typing in Polish`() {
         val result = shouldBeAutoCorrected(
             "i",
             listOf(suggestion("I", Int.MAX_VALUE, Locale.ENGLISH), suggestion("i", 1500000, Locale("pl"))),
@@ -128,7 +128,7 @@ class SuggestTest {
         // if very aggressive, still no correction because locale matches with typed word only
     }
 
-    @Test fun `English "I" instead of Polish "i" when typing in English`() {
+    @Test fun `English 'I' instead of Polish 'i' when typing in English`() {
         val result = shouldBeAutoCorrected(
             "i",
             listOf(suggestion("I", Int.MAX_VALUE, Locale.ENGLISH), suggestion("i", 1500000, Locale("pl"))),
@@ -144,7 +144,7 @@ class SuggestTest {
         //     todo: consider special score for case-only difference?
     }
 
-    @Test fun `no English "in" instead of French "un" when typing in French`() {
+    @Test fun `no English 'in' instead of French 'un' when typing in French`() {
         val result = shouldBeAutoCorrected(
             "un",
             listOf(suggestion("in", Int.MAX_VALUE, Locale.ENGLISH), suggestion("un", 1500000, Locale.FRENCH)),
@@ -157,7 +157,7 @@ class SuggestTest {
         // not corrected because of locale matching
     }
 
-    @Test fun `no "né" instead of "ne"`() {
+    @Test fun `no 'né' instead of 'ne'`() {
         val result = shouldBeAutoCorrected(
             "ne",
             listOf(suggestion("ne", 1900000, Locale.FRENCH), suggestion("né", 1900000-1, Locale.FRENCH)),
@@ -170,7 +170,7 @@ class SuggestTest {
         // not corrected because score is lower
     }
 
-    @Test fun `"né" instead of "ne" if "né" in ngram context`() {
+    @Test fun `'né' instead of 'ne' if 'né' in ngram context`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "ne",
@@ -183,7 +183,7 @@ class SuggestTest {
         assert(result.last()) // should be corrected
     }
 
-    @Test fun `"né" instead of "ne" if "né" has clearly better score in ngram context`() {
+    @Test fun `'né' instead of 'ne' if 'né' has clearly better score in ngram context`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "ne",
@@ -196,7 +196,7 @@ class SuggestTest {
         assert(result.last()) // should be corrected
     }
 
-    @Test fun `no "né" instead of "ne" if both with same score in ngram context`() {
+    @Test fun `no 'né' instead of 'ne' if both with same score in ngram context`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "ne",
@@ -209,7 +209,7 @@ class SuggestTest {
         assert(!result.last()) // should not be corrected
     }
 
-    @Test fun `no "ne" instead of "né"`() {
+    @Test fun `no 'ne' instead of 'né'`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "né",
@@ -298,7 +298,7 @@ fun suggestion(word: String, score: Int, locale: Locale) =
 @Implements(DictionaryFacilitatorImpl::class)
 class ShadowFacilitator {
     @Implementation
-    fun getCurrentLocale() = currentTypingLocale
+    fun getCurrentLocale(): Locale = currentTypingLocale
     @Implementation
     fun hasAtLeastOneInitializedMainDictionary() = true // otherwise no autocorrect
 }
