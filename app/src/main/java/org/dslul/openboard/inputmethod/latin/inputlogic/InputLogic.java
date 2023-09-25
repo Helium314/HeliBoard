@@ -888,8 +888,9 @@ public final class InputLogic {
         boolean isComposingWord = mWordComposer.isComposingWord();
 
         // if we continue directly after a sometimesWordConnector, restart suggestions for the whole word
-        // (only with URL detection enabled)
-        if (settingsValues.mUrlDetectionEnabled && !isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
+        // (only with URL detection and suggestions enabled)
+        if (settingsValues.mUrlDetectionEnabled && settingsValues.needsToLookupSuggestions()
+                && !isComposingWord && SpaceState.NONE == inputTransaction.getMSpaceState()
                 && settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCodePointBeforeCursor())
                 // but not if there are two consecutive sometimesWordConnectors (e.g. "...bla")
                 && !settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCharBeforeBeforeCursor())
