@@ -845,12 +845,12 @@ public final class InputLogic {
         // don't treat separators as for handling URLs and similar
         //  otherwise it would work too, but whenever a separator is entered, the word is not selected
         //  until the next character is entered, and the word is added to history
-        //  -> the changing selection would be confusing, and adding to history is usually bad
+        //  -> the changing selection would be confusing, and adding partial URLs to history is probably bad
         if (Character.getType(codePoint) == Character.OTHER_SYMBOL
                 || (sv.isWordSeparator(codePoint)
-                    && (!sv.mUrlDetectionEnabled
-                        || Character.isWhitespace(codePoint)
-                        || !sv.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord())
+                    && (Character.isWhitespace(codePoint) // whitespace is always a separator
+                        || !textBeforeCursorMayBeUrlOrSimilar(sv) // if text before is not URL or similar, it's a separator
+                        || (codePoint == '/' && mWordComposer.lastChar() == '/') // break composing at 2 consecutive slashes
                     )
                 )
         ) {
@@ -2108,24 +2108,26 @@ public final class InputLogic {
     private void insertAutomaticSpaceIfOptionsAndTextAllow(final SettingsValues settingsValues) {
         if (settingsValues.shouldInsertSpacesAutomatically()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                && !textBeforeCursorMayBeURL()
-                && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail())) {
+                && !textBeforeCursorMayBeUrlOrSimilar(settingsValues)
+                && !mConnection.textBeforeCursorLooksLikeURL() // adding this check to textBeforeCursorMayBeUrlOrSimilar might not be wanted for word continuation (see effect on unit tests)
+                && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail())
+        ) {
             sendKeyCodePoint(settingsValues, Constants.CODE_SPACE);
         }
     }
 
-    private boolean textBeforeCursorMayBeURL() {
-        if (mConnection.textBeforeCursorLooksLikeURL()) return true;
-        // doesn't look like URL, but we may be in URL field and user may want to enter example.com
-        if (mConnection.getCodePointBeforeCursor() != Constants.CODE_PERIOD && mConnection.getCodePointBeforeCursor() != ':')
-            return false;
+    private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues) {
         final EditorInfo ei = getCurrentInputEditorInfo();
-        if (ei == null) return false;
-        int inputType = ei.inputType;
-        if ((inputType & InputType.TYPE_TEXT_VARIATION_URI) != 0)
-            return !mConnection.spaceBeforeCursor();
-        else
-            return false;
+        // URL field and no space -> may be URL
+        if (ei != null && (ei.inputType & InputType.TYPE_TEXT_VARIATION_URI) != 0 && !mConnection.spaceBeforeCursor())
+            return true;
+        // already contains a SometimesWordConnector -> may be URL (not so sure, only do with detection enabled
+        if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))
+            return true;
+        // "://" before typed word -> very much looks like URL
+        if (mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0).toString().startsWith("://"))
+            return true;
+        return false;
     }
 
     /**

@@ -356,6 +356,11 @@ public final class WordComposer {
                 || mCapitalizedMode == CAPS_MODE_MANUAL_SHIFTED;
     }
 
+    public char lastChar() {
+        if (!isComposingWord()) return 0;
+        return mTypedWordCache.charAt(mTypedWordCache.length() - 1);
+    }
+
     /**
      * Returns true if more than one character is upper case, otherwise returns false.
      */

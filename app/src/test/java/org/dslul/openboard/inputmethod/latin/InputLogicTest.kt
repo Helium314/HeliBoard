@@ -85,7 +85,10 @@ class InputLogicTest {
         setCursorPosition(8) // after o in you
         functionalKeyPress(Constants.CODE_DELETE)
         assertEquals("hello yu there", text)
-        assertEquals("", composingText) // todo: do we really want an empty composing text in this case?
+        // todo: do we really want an empty composing text in this case?
+        //  setting whole word composing will delete text behind cursor
+        //  setting part before cursor as composing may be bad if user just wants to adjust a letter and result is some autocorrect
+        assertEquals("", composingText)
     }
 
     @Test fun insertLetterIntoWord() {
@@ -123,6 +126,7 @@ class InputLogicTest {
         assertEquals(8, cursor)
     }
 
+    // todo: make it work, but it might not be that simple because adding is done in combiner
     @Test fun insertLetterIntoWordHangul() {
         reset()
         currentScript = ScriptUtils.SCRIPT_HANGUL
@@ -144,7 +148,6 @@ class InputLogicTest {
         assertEquals("", composingText)
     }
 
-    // todo: try the same if there is text afterwards (not touching)
     @Test fun autospace() {
         reset()
         setText("hello")
@@ -173,6 +176,44 @@ class InputLogicTest {
         input('a')
         assertEquals("hello. a", textBeforeCursor)
         assertEquals("hello. a there", text)
+    }
+
+    @Test fun noAutospaceInUrlField() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("example.net")
+        assertEquals("example. net", text)
+        lastAddedWord = ""
+        setText("")
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("example.net")
+        assertEquals("", lastAddedWord)
+        assertEquals("example.net", text)
+        assertEquals("example.net", composingText)
+    }
+
+    @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("http://example.net")
+        assertEquals("http://example.net", text)
+        assertEquals("http", lastAddedWord)
+        assertEquals("example.net", composingText)
+    }
+
+    @Test fun noAutospaceForDetectedEmail() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("mail@example.com")
+        assertEquals("mail@example.com", text)
+        assertEquals("mail@example", lastAddedWord) // todo: do we want this? not really nice, but don't want to be too aggressive with URL detection disabled
+        assertEquals("com", composingText) // todo: maybe this should still see the whole address as a single word? or don't be too aggressive?
+        setText("")
+        lastAddedWord = ""
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        chainInput("mail@example.com")
+        assertEquals("", lastAddedWord)
+        assertEquals("mail@example.com", composingText)
     }
 
     @Test fun urlDetectionThings() {
@@ -208,7 +249,7 @@ class InputLogicTest {
         chainInput("example.com.")
         assertEquals("example.com.", composingText)
         input(' ')
-        assertEquals("example.com", ShadowFacilitator2.lastAddedWord)
+        assertEquals("example.com", lastAddedWord)
     }
 
     @Test fun dontSelectConsecutiveSeparatorsWithURLDetection() {
@@ -228,7 +269,7 @@ class InputLogicTest {
 
     @Test fun noComposingForPasswordFields() {
         reset()
-        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
         input('a')
         input('b')
         assertEquals("", composingText)
@@ -263,15 +304,12 @@ class InputLogicTest {
         assertEquals("example.com", composingText)
     }
 
-    @Test fun protocolStrippedWhenAddingUrlToHistory() {
+    @Test fun `don't add partial URL to history`() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        chainInput("http://bla.")
-        // todo, and is this really wanted? i guess yes...
-        //  actually protocol shouldn't even be selected, maybe?
-        assertEquals("bla", lastAddedWord) // current state
-        assertEquals("", lastAddedWord) // that's the first goal here, right?
-        // todo: further, when entering actual full urls we really want the protocol stripped (at least for http(s), but possibly all)
+        setText("http:/") // just so lastAddedWord isn't set to http
+        chainInput("/bla.com")
+        assertEquals("", lastAddedWord)
     }
 
     @Test fun urlProperlySelected() {
@@ -282,15 +320,11 @@ class InputLogicTest {
         functionalKeyPress(Constants.CODE_DELETE)
         functionalKeyPress(Constants.CODE_DELETE)
         functionalKeyPress(Constants.CODE_DELETE) // delete com
-        // todo: do we want this?
-        //  probably not
-        //  when doing the same for a non-url we still have everything selected
-        //  so at least don't do it wrong in both cases...
+        // todo: do we really want no composing text?
+        //  probably not... try not to break composing
         assertEquals("", composingText)
-        input('n')
-        input('e')
-        input('t')
-        assertEquals("http://example.net", composingText) // todo: maybe without http://?
+        chainInput("net")
+        assertEquals("example.net", composingText)
     }
 
     @Test fun dontCommitPartialUrlBeforeFirstPeriod() {
@@ -298,24 +332,72 @@ class InputLogicTest {
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         // type http://bla. -> bla not selected, but clearly url, also means http://bla is committed which we probably don't want
         chainInput("http://bla.")
-        assertEquals("", composingText) // current state
-        assertEquals("bla.", composingText) // ideally we want "bla.", is this doable?
+        assertEquals("bla.", composingText)
     }
 
-    @Test fun `no intermediate commit in URL field`() {
+    @Test fun `intermediate commits in text field without protocol`() {
         reset()
-        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("bla.")
+        assertEquals("bla", lastAddedWord)
+        chainInput("com/")
+        assertEquals("com", lastAddedWord)
+        chainInput("img.jpg")
+        assertEquals("img", lastAddedWord)
+        assertEquals("jpg", composingText)
+    }
+
+    @Test fun `intermediate commit in text field without protocol and with URL detection`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        chainInput("bla.com/img.jpg")
+        assertEquals("bla", lastAddedWord)
+        assertEquals("bla.com/img.jpg", composingText)
+    }
+
+    @Test fun `only protocol commit in text field with protocol and URL detection`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("http://bla.com/img.jpg")
-        assertEquals("", lastAddedWord) // failing
-        assertEquals("http://bla.com/img.jpg", composingText) // maybe without the http://
+        assertEquals("http", lastAddedWord)
+        assertEquals("bla.com/img.jpg", composingText)
+    }
+
+    @Test fun `no intermediate commit in URL field with protocol`() {
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("http://bla.com/img.jpg")
+        assertEquals("http", lastAddedWord) // todo: somehow avoid?
+        assertEquals("http://bla.com/img.jpg", text)
+        assertEquals("bla.com/img.jpg", composingText)
+    }
+
+    @Test fun `no intermediate commit in URL field with protocol and URL detection`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("http://bla.com/img.jpg")
+        assertEquals("http", lastAddedWord) // todo: somehow avoid?
+        assertEquals("http://bla.com/img.jpg", text)
+        assertEquals("bla.com/img.jpg", composingText)
     }
 
     @Test fun `no intermediate commit in URL field without protocol`() {
         reset()
-        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_URI)
-        chainInput("http://bla.com/img.jpg")
-        assertEquals("", lastAddedWord) // failing
-        assertEquals("http://bla.com/img.jpg", composingText) // maybe without the http://
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("bla.com/img.jpg")
+        assertEquals("", lastAddedWord)
+        assertEquals("bla.com/img.jpg", text)
+        assertEquals("bla.com/img.jpg", composingText)
+    }
+
+    @Test fun `no intermediate commit in URL field without protocol and with URL detection`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("bla.com/img.jpg")
+        assertEquals("", lastAddedWord)
+        assertEquals("bla.com/img.jpg", text)
+        assertEquals("bla.com/img.jpg", composingText)
     }
 
     // ------- helper functions ---------
