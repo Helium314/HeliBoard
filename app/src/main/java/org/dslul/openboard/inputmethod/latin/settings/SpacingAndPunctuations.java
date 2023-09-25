@@ -44,7 +44,7 @@ public final class SpacingAndPunctuations {
     public final boolean mUsesAmericanTypography;
     public final boolean mUsesGermanRules;
 
-    public SpacingAndPunctuations(final Resources res) {
+    public SpacingAndPunctuations(final Resources res, final Boolean urlDetection) {
         // To be able to binary search the code point. See {@link #isUsuallyPrecededBySpace(int)}.
         mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_preceded_by_space));
         // To be able to binary search the code point. See {@link #isUsuallyFollowedBySpace(int)}.
@@ -60,7 +60,7 @@ public final class SpacingAndPunctuations {
                 mSentenceSeparator, Constants.CODE_SPACE }, 0, 2);
         mCurrentLanguageHasSpaces = res.getBoolean(R.bool.current_language_has_spaces);
         // make it empty if language doesn't have spaces, to avoid weird glitches
-        mSortedSometimesWordConnectors = mCurrentLanguageHasSpaces ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
+        mSortedSometimesWordConnectors = (urlDetection && mCurrentLanguageHasSpaces) ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
         final Locale locale = res.getConfiguration().locale;
         // Heuristic: we use American Typography rules because it's the most common rules for all
         // English variants. German rules (not "German typography") also have small gotchas.

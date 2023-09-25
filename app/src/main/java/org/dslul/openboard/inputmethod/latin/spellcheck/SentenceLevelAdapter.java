@@ -17,6 +17,7 @@
 package org.dslul.openboard.inputmethod.latin.spellcheck;
 
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.view.textservice.SentenceSuggestionsInfo;
@@ -26,6 +27,7 @@ import android.view.textservice.TextInfo;
 import org.dslul.openboard.inputmethod.compat.TextInfoCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 
 import java.util.ArrayList;
@@ -82,7 +84,7 @@ public class SentenceLevelAdapter {
                     new RunInLocale<SpacingAndPunctuations>() {
                 @Override
                 protected SpacingAndPunctuations job(final Resources r) {
-                    return new SpacingAndPunctuations(r);
+                    return new SpacingAndPunctuations(r, false);
                 }
             };
             mSpacingAndPunctuations = job.runInLocale(res, locale);

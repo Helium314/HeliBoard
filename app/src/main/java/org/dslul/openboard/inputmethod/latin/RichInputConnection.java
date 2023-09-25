@@ -745,7 +745,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
 
         // Going backward, find the first breaking point (separator)
-        // todo: break if there are 2 consecutive sometimesWordConnectors (more complicated once again, great...)
         int startIndexInBefore = before.length();
         int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
@@ -758,9 +757,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                     final char c = before.charAt(i);
                     if (spacingAndPunctuations.isSometimesWordConnector(c)) {
                         // if yes -> whitespace is the index
-                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
+                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
                         final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
-                        endIndexInAfter = firstSpaceAfter == -1 ? (after.length() - 1) : firstSpaceAfter -1;
+                        endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter -1;
                         break;
                     } else if (Character.isWhitespace(c)) {
                         // if no, just break normally
@@ -789,7 +788,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                             // if yes -> whitespace is next to the index
                             startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
                             final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
-                            endIndexInAfter = firstSpaceAfter == -1 ? (after.length() - 1) : firstSpaceAfter - 1;
+                            endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter - 1;
                             break;
                         } else if (Character.isWhitespace(c)) {
                             // if no, just break normally
@@ -803,6 +802,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 }
             }
         }
+
+        // strip stuff before "//" (i.e. ignore http and other protocols)
+        final String beforeConsideringStart = before.subSequence(startIndexInBefore, before.length()).toString();
+        final int protocolEnd = beforeConsideringStart.lastIndexOf("//");
+        if (protocolEnd != -1)
+            startIndexInBefore += protocolEnd + 1;
 
         // we don't want the end characters to be word separators
         while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
@@ -1004,16 +1009,26 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mCommittedTextBeforeComposingText.lastIndexOf(" ") < mCommittedTextBeforeComposingText.lastIndexOf("@");
     }
 
-    public CharSequence textBeforeCursorUntilLastWhitespace() {
-        int afterLastSpace = 0;
+    public CharSequence textBeforeCursorUntilLastWhitespaceOrDoubleSlash() {
+        int startIndex = 0;
+        boolean previousWasSlash = false;
         for (int i = mCommittedTextBeforeComposingText.length() - 1; i >= 0; i--) {
             final char c = mCommittedTextBeforeComposingText.charAt(i);
             if (Character.isWhitespace(c)) {
-                afterLastSpace = i + 1;
+                startIndex = i + 1;
                 break;
             }
+            if (c == '/') {
+                if (previousWasSlash) {
+                    startIndex = i + 2;
+                    break;
+                }
+                previousWasSlash = true;
+            } else {
+                previousWasSlash = false;
+            }
         }
-        return mCommittedTextBeforeComposingText.subSequence(afterLastSpace, mCommittedTextBeforeComposingText.length());
+        return mCommittedTextBeforeComposingText.subSequence(startIndex, mCommittedTextBeforeComposingText.length());
     }
 
     /**

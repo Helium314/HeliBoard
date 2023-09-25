@@ -11,6 +11,7 @@ import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.event.Event
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
+import org.dslul.openboard.inputmethod.latin.ShadowFacilitator2.Companion.lastAddedWord
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
 import org.dslul.openboard.inputmethod.latin.inputlogic.InputLogic
@@ -177,24 +178,17 @@ class InputLogicTest {
     @Test fun urlDetectionThings() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        input('.')
-        input('.')
-        input('.')
-        input('h')
+        chainInput("...h")
         assertEquals("...h", text)
         assertEquals("h", composingText)
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        input("bla")
-        input('.')
-        input('.')
+        chainInput("bla..")
         assertEquals("bla..", text)
         assertEquals("", composingText)
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        input("bla")
-        input('.')
-        input('c')
+        chainInput("bla.c")
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
         reset()
@@ -211,9 +205,7 @@ class InputLogicTest {
     @Test fun stripSeparatorsBeforeAddingToHistoryWithURLDetection() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        setText("example.co")
-        input('m')
-        input('.')
+        chainInput("example.com.")
         assertEquals("example.com.", composingText)
         input(' ')
         assertEquals("example.com", ShadowFacilitator2.lastAddedWord)
@@ -222,10 +214,7 @@ class InputLogicTest {
     @Test fun dontSelectConsecutiveSeparatorsWithURLDetection() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        setText("bl")
-        input('a')
-        input('.')
-        input('.')
+        chainInput("bla..")
         assertEquals("", composingText)
         assertEquals("bla..", text)
     }
@@ -249,29 +238,109 @@ class InputLogicTest {
         assertEquals("", composingText)
     }
 
+    @Test fun `don't select whole thing as composing word if URL detection disabled`() {
+        reset()
+        setText("http://example.com")
+        setCursorPosition(13) // between l and e
+        assertEquals("example", composingText)
+    }
+
+    @Test fun `select whole thing except http(s) as composing word if URL detection enabled and selecting`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setText("http://example.com")
+        setCursorPosition(13) // between l and e
+        assertEquals("example.com", composingText)
+        setText("http://bla.com http://example.com ")
+        setCursorPosition(29) // between l and e
+        assertEquals("example.com", composingText)
+    }
+
+    @Test fun `select whole thing except http(s) as composing word if URL detection enabled and typing`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        chainInput("http://example.com")
+        assertEquals("example.com", composingText)
+    }
+
+    @Test fun protocolStrippedWhenAddingUrlToHistory() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        chainInput("http://bla.")
+        // todo, and is this really wanted? i guess yes...
+        //  actually protocol shouldn't even be selected, maybe?
+        assertEquals("bla", lastAddedWord) // current state
+        assertEquals("", lastAddedWord) // that's the first goal here, right?
+        // todo: further, when entering actual full urls we really want the protocol stripped (at least for http(s), but possibly all)
+    }
+
+    @Test fun urlProperlySelected() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setText("http://example.com/here")
+        setCursorPosition(18) // after .com
+        functionalKeyPress(Constants.CODE_DELETE)
+        functionalKeyPress(Constants.CODE_DELETE)
+        functionalKeyPress(Constants.CODE_DELETE) // delete com
+        // todo: do we want this?
+        //  probably not
+        //  when doing the same for a non-url we still have everything selected
+        //  so at least don't do it wrong in both cases...
+        assertEquals("", composingText)
+        input('n')
+        input('e')
+        input('t')
+        assertEquals("http://example.net", composingText) // todo: maybe without http://?
+    }
+
+    @Test fun dontCommitPartialUrlBeforeFirstPeriod() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        // type http://bla. -> bla not selected, but clearly url, also means http://bla is committed which we probably don't want
+        chainInput("http://bla.")
+        assertEquals("", composingText) // current state
+        assertEquals("bla.", composingText) // ideally we want "bla.", is this doable?
+    }
+
+    @Test fun `no intermediate commit in URL field`() {
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("http://bla.com/img.jpg")
+        assertEquals("", lastAddedWord) // failing
+        assertEquals("http://bla.com/img.jpg", composingText) // maybe without the http://
+    }
+
+    @Test fun `no intermediate commit in URL field without protocol`() {
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("http://bla.com/img.jpg")
+        assertEquals("", lastAddedWord) // failing
+        assertEquals("http://bla.com/img.jpg", composingText) // maybe without the http://
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
     private fun reset() {
-        // reset input connection
+        // reset input connection & facilitator
         currentScript = ScriptUtils.SCRIPT_LATIN
         text = ""
-        selectionStart = 0
-        selectionEnd = 0
-        composingStart = 0
-        composingEnd = 0
         batchEdit = 0
+        currentInputType = InputType.TYPE_CLASS_TEXT
+        lastAddedWord = ""
 
         // reset settings
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { clear() }
 
-        currentInputType = InputType.TYPE_CLASS_TEXT
-
-        setText("")
+        setText("") // (re)sets selection and composing word
     }
 
+    private fun chainInput(text: String) = text.forEach { input(it.code) }
+
     private fun input(char: Char) = input(char.code)
+
     private fun input(codePoint: Int) {
+        require(codePoint > 0) { "not a codePoint: $codePoint" }
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
         val insert = StringUtils.newSingleCodePointString(codePoint)
@@ -287,6 +356,7 @@ class InputLogicTest {
     }
 
     private fun functionalKeyPress(keyCode: Int) {
+        require(keyCode < 0) { "not a functional key code: $keyCode" }
         latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
         handleMessages()
         checkConnectionConsistency()
@@ -372,13 +442,20 @@ class InputLogicTest {
     }
 
     private fun checkConnectionConsistency() {
+        // RichInputConnection only has composing text up to cursor, but InputConnection has full composing text
+        val expectedConnectionComposingText = if (composingStart == -1 || composingEnd == -1) ""
+        else text.substring(composingStart, min(composingEnd, selectionEnd))
+        assert(composingText.startsWith(expectedConnectionComposingText))
+        // RichInputConnection only returns text up to cursor
+        val textBeforeComposingText = if (composingStart == -1) textBeforeCursor else text.substring(0, composingStart)
+
         println("consistency: $selectionStart, ${connection.expectedSelectionStart}, $selectionEnd, ${connection.expectedSelectionEnd}, $textBeforeComposingText, " +
                 "$connectionTextBeforeComposingText, $composingText, $connectionComposingText, $textBeforeCursor, ${connection.getTextBeforeCursor(textBeforeCursor.length, 0)}" +
                 ", $textAfterCursor, ${connection.getTextAfterCursor(textAfterCursor.length, 0)}")
         assertEquals(selectionStart, connection.expectedSelectionStart)
         assertEquals(selectionEnd, connection.expectedSelectionEnd)
         assertEquals(textBeforeComposingText, connectionTextBeforeComposingText)
-        assertEquals(composingText, connectionComposingText)
+        assertEquals(expectedConnectionComposingText, connectionComposingText)
         assertEquals(textBeforeCursor, connection.getTextBeforeCursor(textBeforeCursor.length, 0).toString())
         assertEquals(textAfterCursor, connection.getTextAfterCursor(textAfterCursor.length, 0).toString())
     }
@@ -432,15 +509,9 @@ private val textAfterCursor get() = text.substring(selectionEnd)
 private val selectedText get() = text.substring(selectionStart, selectionEnd)
 private val cursor get() = if (selectionStart == selectionEnd) selectionStart else -1
 
-// todo: maybe this is not correct? seems to return only up to the cursor
-//private val textBeforeComposingText get() = if (composingStart == -1) text else text.substring(0, composingStart)
-private val textBeforeComposingText get() = if (composingStart == -1) textBeforeCursor else text.substring(0, composingStart)
-
-// todo: maybe this is not correct? seems to return only up to the cursor
-//private val composingText get() = if (composingStart == -1 || composingEnd == -1) ""
-//    else text.substring(composingStart, composingEnd)
+// composingText should return everything, but RichInputConnection.mComposingText only returns up to cursor
 private val composingText get() = if (composingStart == -1 || composingEnd == -1) ""
-    else text.substring(composingStart, min(composingEnd, selectionEnd)) // will crash if composing start is after cursor, but maybe it should?
+    else text.substring(composingStart, composingEnd)
 
 // essentially this is the text field we're editing in
 private val ic = object : InputConnection {
@@ -458,7 +529,7 @@ private val ic = object : InputConnection {
     override fun setComposingText(newText: CharSequence, cursor: Int): Boolean {
         // first remove the composing text if any
         if (composingStart != -1 && composingEnd != -1)
-            text = textBeforeComposingText + text.substring(composingEnd)
+            text = text.substring(0, composingStart) + text.substring(composingEnd)
         else // no composing span active, we should remove selected text
             if (selectionStart != selectionEnd) {
                 text = textBeforeCursor + textAfterCursor
@@ -483,6 +554,7 @@ private val ic = object : InputConnection {
         return true
     }
     override fun setComposingRegion(p0: Int, p1: Int): Boolean {
+        println("setComposingRegion, $p0, $p1")
         composingStart = p0
         composingEnd = p1
         return true // never checked

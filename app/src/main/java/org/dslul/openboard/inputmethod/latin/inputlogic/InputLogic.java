@@ -895,7 +895,7 @@ public final class InputLogic {
                 // but not if there are two consecutive sometimesWordConnectors (e.g. "...bla")
                 && !settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCharBeforeBeforeCursor())
         ) {
-            final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespace();
+            final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespaceOrDoubleSlash();
             final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
             isComposingWord = true;
             restartSuggestions(range, mConnection.mExpectedSelStart);

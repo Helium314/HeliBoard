@@ -138,8 +138,6 @@ public class SettingsValues {
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
-        // Get the resources
-        mSpacingAndPunctuations = new SpacingAndPunctuations(res);
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -221,7 +219,6 @@ public class SettingsValues {
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
         mShowAllMoreKeys = selectedSubtype.isAsciiCapable() && prefs.getBoolean(Settings.PREF_SHOW_ALL_MORE_KEYS, false);
-
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
@@ -234,6 +231,7 @@ public class SettingsValues {
         );
         mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
         mPinnedKeys = Settings.readPinnedKeys(prefs);
+        mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
