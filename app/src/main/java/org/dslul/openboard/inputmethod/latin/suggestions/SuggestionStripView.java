@@ -98,6 +98,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
     private final ViewGroup mToolbar;
+    private final View mToolbarContainer;
     private final ViewGroup mPinnedKeys;
     private final GradientDrawable mEnabledToolKeyBackground = new GradientDrawable();
     private final Drawable mDefaultBackground;
@@ -162,6 +163,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStripVisibilityGroup = new StripVisibilityGroup(this, mSuggestionsStrip);
         mPinnedKeys = findViewById(R.id.pinned_keys);
         mToolbar = findViewById(R.id.toolbar);
+        mToolbarContainer = findViewById(R.id.toolbar_container);
         final ImageButton voiceKey = findViewById(R.id.suggestions_strip_voice_key);
         final ImageButton clipboardKey = findViewById(R.id.suggestions_strip_clipboard_key);
         final ImageButton selectAllKey = findViewById(R.id.suggestions_strip_select_all_key);
@@ -227,7 +229,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mToolbar.findViewWithTag(pinnedKey).setBackground(mEnabledToolKeyBackground);
             addKeyToPinnedKeys(pinnedKey, inflater);
         }
-        mToolbar.setVisibility(GONE);
 
         colors.setKeyboardBackground(this);
     }
@@ -249,7 +250,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
         mOtherKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mOtherKey.setScaleX(currentSettingsValues.mIncognitoModeEnabled || mToolbar.getVisibility() != VISIBLE ? 1f : -1f);
+        mOtherKey.setScaleX(currentSettingsValues.mIncognitoModeEnabled || mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
     }
 
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
@@ -268,7 +269,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void clear() {
         mSuggestionsStrip.removeAllViews();
         removeAllDebugInfoViews();
-        if (mToolbar.getVisibility() != VISIBLE)
+        if (mToolbarContainer.getVisibility() != VISIBLE)
             mStripVisibilityGroup.showSuggestionsStrip();
         dismissMoreSuggestionsPanel();
         for (final TextView word : mWordViews) {
@@ -500,7 +501,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         @Override
         public boolean onScroll(MotionEvent down, MotionEvent me, float deltaX, float deltaY) {
             final float dy = me.getY() - down.getY();
-            if (deltaY > 0 && dy < 0) {
+            if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
                 return showMoreSuggestions();
             }
             return false;
@@ -634,16 +635,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
         if (view == mOtherKey) {
-            if (mToolbar.getVisibility() == VISIBLE) {
-                mToolbar.setVisibility(GONE);
+            if (mToolbarContainer.getVisibility() == VISIBLE) {
+                mToolbarContainer.setVisibility(GONE);
                 mSuggestionsStrip.setVisibility(VISIBLE);
                 mPinnedKeys.setVisibility(VISIBLE);
             } else {
-                mToolbar.setVisibility(VISIBLE);
+                mToolbarContainer.setVisibility(VISIBLE);
                 mSuggestionsStrip.setVisibility(GONE);
                 mPinnedKeys.setVisibility(GONE);
             }
-            mOtherKey.setScaleX(mOtherKey.getDrawable() == mIncognitoIcon || mToolbar.getVisibility() != VISIBLE ? 1f : -1f);
+            mOtherKey.setScaleX(mOtherKey.getDrawable() == mIncognitoIcon || mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
         }
 
 
