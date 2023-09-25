@@ -262,7 +262,9 @@ private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
 
 @Suppress("deprecation") // it's deprecated, but no replacement for API < 24
-// todo: add language tags in method.xml, and adjust this method to use locale only if necessary
-//  but then language tag should be converted to locale, or other way!
+// todo: subtypes should now have language tags -> use them for api >= 24
+//  but only replace subtype-related usage, otherwise the api mess will be horrible
+//  maybe rather return a locale instead of a string...
+//   is this acceptable for performance? any place where there are many call to locale()?
 //  see also InputMethodSubtypeCompatUtils
 fun InputMethodSubtype.locale() = locale

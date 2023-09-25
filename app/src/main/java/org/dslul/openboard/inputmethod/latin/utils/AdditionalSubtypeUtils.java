@@ -16,12 +16,14 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
 import java.util.ArrayList;
@@ -64,7 +66,7 @@ public final class AdditionalSubtypeUtils {
                 localeString, keyboardLayoutSetName, isAsciiCapable, isEmojiCapable);
         final int platformVersionIndependentSubtypeId =
                 getPlatformVersionIndependentSubtypeId(localeString, keyboardLayoutSetName);
-        return new InputMethodSubtype.InputMethodSubtypeBuilder()
+        final InputMethodSubtype.InputMethodSubtypeBuilder builder = new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeNameResId(nameId)
                 .setSubtypeIconResId(R.drawable.ic_ime_switcher_dark)
                 .setSubtypeLocale(localeString)
@@ -73,8 +75,10 @@ public final class AdditionalSubtypeUtils {
                 .setIsAuxiliary(false)
                 .setOverridesImplicitlyEnabledSubtype(false)
                 .setSubtypeId(platformVersionIndependentSubtypeId)
-                .setIsAsciiCapable(isAsciiCapable)
-                .build();
+                .setIsAsciiCapable(isAsciiCapable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            builder.setLanguageTag(LocaleUtils.constructLocaleFromString(localeString).toLanguageTag());
+        return builder.build();
     }
 
     public static InputMethodSubtype createDummyAdditionalSubtype(
