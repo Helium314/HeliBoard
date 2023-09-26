@@ -2119,7 +2119,9 @@ public final class InputLogic {
     private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues) {
         final EditorInfo ei = getCurrentInputEditorInfo();
         // URL field and no space -> may be URL
-        if (ei != null && (ei.inputType & InputType.TYPE_TEXT_VARIATION_URI) != 0 && !mConnection.spaceBeforeCursor())
+        // for whatever absurd reason long message, postal address and email subject have type values that return true when filtering for URI, see https://developer.android.com/reference/android/text/InputType
+        // so we really need to specifically require URI as only type variation
+        if (ei != null && (ei.inputType & 0x000000f0) == 0x00000010 && !mConnection.spaceBeforeCursor())
             return true;
         // already contains a SometimesWordConnector -> may be URL (not so sure, only do with detection enabled
         if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))

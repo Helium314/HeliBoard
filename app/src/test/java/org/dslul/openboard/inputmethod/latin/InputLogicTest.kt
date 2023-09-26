@@ -416,6 +416,15 @@ class InputLogicTest {
         assertEquals("bla.com/img.jpg", composingText)
     }
 
+    @Test fun `don't accidentally detect some other text fields as URI`() {
+        // see comment in InputLogic.textBeforeCursorMayBeUrlOrSimilar
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE)
+        chainInput("Hey,why")
+        assertEquals("Hey, why", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
