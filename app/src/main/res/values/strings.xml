@@ -459,6 +459,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_add_to_language">"Add to %s"</string>
     <!-- Message for user dictionary replacement dialog -->
     <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
+    <!-- Message for user dictionary replacement dialog -->
+    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%1$s\"?\n
+Current dictionary:
+%2$s\n
+New dictionary:
+%3$s"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
     <!-- Message for user dictionary remove dialog -->

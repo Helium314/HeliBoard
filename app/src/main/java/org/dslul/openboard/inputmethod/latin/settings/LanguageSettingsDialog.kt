@@ -242,10 +242,8 @@ class LanguageSettingsDialog(
         }
         rowBinding.languageText.setOnClickListener {
             if (header == null) return@setOnClickListener
-            val locale = LocaleUtils.constructLocaleFromString(header.mLocaleString).getDisplayName(context.resources.configuration.locale)
-            val message = dictType + "\n" + locale + "\nv" + header.mVersionString + "\n" + header.description
             Builder(context)
-                .setMessage(message)
+                .setMessage(header.info(context.resources.configuration.locale))
                 .setPositiveButton(android.R.string.ok, null)
                 .show()
         }

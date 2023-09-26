@@ -13,6 +13,7 @@ import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
 import org.dslul.openboard.inputmethod.latin.settings.*
 import java.io.File
 import java.io.IOException
+import java.text.DateFormat
 import java.util.*
 
 class NewDictionaryAdder(private val context: Context, private val onAdded: ((Boolean, File) -> Unit)?) {
@@ -128,7 +129,11 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
         if (!dictFile.exists()) {
             return moveDict(false)
         }
-        confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType), context.getString(
+
+        val systemLocale = context.resources.configuration.locale
+        val newInfo = header.info(systemLocale)
+        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(systemLocale)
+        confirmDialog(context, context.getString(R.string.replace_dictionary_message2, dictionaryType, newInfo, oldInfo), context.getString(
             R.string.replace_dictionary)) {
             moveDict(true)
         }
