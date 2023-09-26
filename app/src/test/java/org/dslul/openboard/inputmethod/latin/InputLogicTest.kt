@@ -315,6 +315,7 @@ class InputLogicTest {
     @Test fun urlProperlySelected() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
         functionalKeyPress(Constants.CODE_DELETE)
@@ -325,6 +326,21 @@ class InputLogicTest {
         assertEquals("", composingText)
         chainInput("net")
         assertEquals("example.net", composingText)
+    }
+
+    @Test fun urlProperlySelectedWhenNotDeletingFullTld() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setText("http://example.com/here")
+        setCursorPosition(18) // after .com
+        functionalKeyPress(Constants.CODE_DELETE)
+        functionalKeyPress(Constants.CODE_DELETE) // delete om
+        // todo: this is a weird difference to deleting the full TLD (see urlProperlySelected)
+        //  what do we want here? (probably consistency)
+        assertEquals("example.c/here", composingText)
+        chainInput("z")
+        assertEquals("", composingText) // todo: this is a weird difference to deleting the full TLD
+//        assertEquals("example.cz", composingText) // fails, but probably would be better than above
     }
 
     @Test fun dontCommitPartialUrlBeforeFirstPeriod() {
