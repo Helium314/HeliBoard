@@ -182,7 +182,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         private const val SPOKEN_EMOTICON_RESOURCE_NAME_PREFIX = "spoken_emoticon"
         private const val SPOKEN_EMOTICON_CODE_POINT_FORMAT = "_%02X"
         // The resource ID of the string spoken for obscured keys
-        private const val OBSCURED_KEY_RES_ID = R.string.spoken_description_dot
+        private val OBSCURED_KEY_RES_ID = R.string.spoken_description_dot
         val instance = KeyCodeDescriptionMapper()
 
         /**

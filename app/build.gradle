@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
 
     defaultConfig {
         applicationId "org.dslul.openboard.inputmethod.latin"
@@ -27,12 +27,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'src/main/proguard.flags'
             applicationIdSuffix ".debug"
         }
-        buildFeatures {
-            viewBinding true
-        }
         archivesBaseName = "openboard_" + defaultConfig.versionName
     }
 
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
 
     externalNativeBuild {
         ndkBuild {
@@ -45,7 +46,7 @@ android {
     }
 
     ndkVersion '25.2.9519653'
-    androidResources {
+    androidResources { // todo: check, probably both can be removed (together with searching dicts in res/raw)
         noCompress 'main.dict'
         noCompress 'empty.dict'
     }
@@ -62,13 +63,24 @@ android {
             includeAndroidResources = true
         }
     }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+
+    namespace "org.dslul.openboard.inputmethod.latin"
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.preference:preference:1.2.1' // includes appcompat
     implementation 'androidx.recyclerview:recyclerview:1.3.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.github.skydoves:colorpickerview:2.2.4'
 
     testImplementation 'junit:junit:4.13.2'
@@ -76,5 +88,5 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:3.12.4'
     testImplementation 'org.robolectric:robolectric:4.9'
     testImplementation 'androidx.test:runner:1.5.2'
-    testImplementation 'androidx.test:core:1.4.0'
+    testImplementation 'androidx.test:core:1.5.0'
 }
