@@ -1,6 +1,4 @@
-<!--
- taken from https://github.com/streetcomplete/StreetComplete/blob/v53.3/app/src/main/res/drawable/ic_delete_24dp.xml
- -->
+<!-- clipart available in Android Studio, Apache License 2.0 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="32dp"
     android:height="32dp"

@@ -81,7 +81,7 @@
         name="ClipboardHistoryView.LXX_Base"
         parent="MainKeyboardView.LXX_Base"
         >
-        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx_light</item>
+        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx</item>
     </style>
     <style
         name="MoreKeysKeyboard.LXX_Base"
