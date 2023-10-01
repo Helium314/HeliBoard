@@ -21,29 +21,29 @@
 <resources>
     <style name="KeyboardIcons.Holo">
         <!-- Keyboard icons -->
-        <item name="iconShiftKey">@drawable/sym_keyboard_shift_holo_dark</item>
-        <item name="iconDeleteKey">@drawable/sym_keyboard_delete_holo_dark</item>
-        <item name="iconSettingsKey">@drawable/sym_keyboard_settings_holo_dark</item>
+        <item name="iconShiftKey">@drawable/sym_keyboard_shift_holo</item>
+        <item name="iconDeleteKey">@drawable/sym_keyboard_delete_holo</item>
+        <item name="iconSettingsKey">@drawable/sym_keyboard_settings_holo</item>
         <item name="iconSpaceKey">@null</item>
-        <item name="iconEnterKey">@drawable/sym_keyboard_return_holo_dark</item>
-        <item name="iconSearchKey">@drawable/sym_keyboard_search_holo_dark</item>
-        <item name="iconTabKey">@drawable/sym_keyboard_tab_holo_dark</item>
-        <item name="iconShortcutKey">@drawable/sym_keyboard_voice_holo_dark</item>
-        <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_dark</item>
-        <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_holo_dark</item>
-        <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_locked_holo_dark</item>
-        <item name="iconShortcutKeyDisabled">@drawable/sym_keyboard_voice_off_holo_dark</item>
-        <item name="iconLanguageSwitchKey">@drawable/sym_keyboard_language_switch_dark</item>
-        <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_holo_dark</item>
-        <item name="iconZwjKey">@drawable/sym_keyboard_zwj_holo_dark</item>
-        <item name="iconEmojiActionKey">@drawable/sym_keyboard_smiley_holo_dark</item>
-        <item name="iconEmojiNormalKey">@drawable/sym_keyboard_smiley_holo_dark</item>
-        <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_holo_dark</item>
-        <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_holo_dark</item>
-        <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_holo_dark</item>
+        <item name="iconEnterKey">@drawable/sym_keyboard_return_holo</item>
+        <item name="iconSearchKey">@drawable/sym_keyboard_search_holo</item>
+        <item name="iconTabKey">@drawable/sym_keyboard_tab_holo</item>
+        <item name="iconShortcutKey">@drawable/sym_keyboard_voice_holo</item>
+        <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_holo</item>
+        <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_holo</item>
+        <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_locked_holo</item>
+        <item name="iconShortcutKeyDisabled">@drawable/sym_keyboard_voice_off_holo</item>
+        <item name="iconLanguageSwitchKey">@drawable/sym_keyboard_language_switch_holo</item>
+        <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_holo</item>
+        <item name="iconZwjKey">@drawable/sym_keyboard_zwj_holo</item>
+        <item name="iconEmojiActionKey">@drawable/sym_keyboard_smiley_holo</item>
+        <item name="iconEmojiNormalKey">@drawable/sym_keyboard_smiley_holo</item>
+        <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_holo</item>
+        <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_holo</item>
+        <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_holo</item>
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_holo</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_holo</item>
         <item name="iconSwitchOneHandedMode">@drawable/sym_keyboard_switch_onehanded_holo</item>
-        <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_holo_dark</item>
+        <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_holo</item>
     </style>
 </resources>

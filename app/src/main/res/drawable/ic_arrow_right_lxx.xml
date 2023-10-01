@@ -1,0 +1,5 @@
+<!-- clipart available in Android Studio, Apache License 2.0 -->
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="180"
+    android:drawable="@drawable/ic_arrow_left_lxx">
+</rotate>

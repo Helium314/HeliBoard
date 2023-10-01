@@ -1,9 +1,9 @@
-<!-- clipart available in Android Studio, Apache License 2.0 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
-    android:viewportHeight="24"
-    android:viewportWidth="24"  >
-    <path android:fillColor="#FFF"
-        android:pathData="M12,8.41L16.59,13 18,11.59l-6,-6 -6,6L7.41,13 12,8.41zM6,18h12v-2H6v2z"/>
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="#FFF"
+        android:pathData="M280,720Q263,720 251.5,708.5Q240,697 240,680Q240,663 251.5,651.5Q263,640 280,640L680,640Q697,640 708.5,651.5Q720,663 720,680Q720,697 708.5,708.5Q697,720 680,720L280,720ZM480,336L324,492Q313,503 296,503Q279,503 268,492Q257,481 257,464Q257,447 268,436L452,252Q464,240 480,240Q496,240 508,252L692,436Q703,447 703,464Q703,481 692,492Q681,503 664,503Q647,503 636,492L480,336Z"/>
 </vector>
