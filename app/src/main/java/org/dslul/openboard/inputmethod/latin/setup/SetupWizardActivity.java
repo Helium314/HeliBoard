@@ -151,7 +151,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step1 = new SetupStep(STEP_1, applicationName,
                 mStep1Bullet, findViewById(R.id.setup_step1),
                 R.string.setup_step1_title, R.string.setup_step1_instruction,
-                R.string.setup_step1_finished_instruction, R.drawable.ic_setup_step1,
+                R.string.setup_step1_finished_instruction, R.drawable.unbundled_key,
                 R.string.setup_step1_action);
         final SettingsPoolingHandler handler = mHandler;
         step1.setAction(() -> {
@@ -163,7 +163,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step2 = new SetupStep(STEP_2, applicationName,
                 (TextView)findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
-                0 /* finishedInstruction */, R.drawable.ic_setup_step2,
+                0 /* finishedInstruction */, R.drawable.unbundled_select,
                 R.string.setup_step2_action);
         step2.setAction(this::invokeInputMethodPicker);
         mSetupStepGroup.addStep(step2);
@@ -171,7 +171,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step3 = new SetupStep(STEP_3, applicationName,
                 (TextView)findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
-                0 /* finishedInstruction */, R.drawable.ic_setup_step3,
+                0 /* finishedInstruction */, R.drawable.unbundled_earth,
                 R.string.setup_step3_action);
         step3.setAction(() -> {
             final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -206,7 +206,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
         mActionFinish = findViewById(R.id.setup_finish);
-        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_setup_finish),
+        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(getResources().getDrawable(R.drawable.unbundled_check),
                                                         null, null, null);
         mActionFinish.setOnClickListener(this);
     }
