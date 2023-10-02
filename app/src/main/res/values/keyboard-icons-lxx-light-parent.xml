@@ -24,6 +24,8 @@
         <item name="iconShiftKey">@drawable/sym_keyboard_shift_lxx</item>
         <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_lxx</item>
         <item name="iconDeleteKey">@drawable/sym_keyboard_delete_lxx</item>
+        <item name="iconBinKey">@drawable/sym_keyboard_bin_lxx</item>
+        <item name="iconSelectAllKey">@drawable/sym_keyboard_select_all_lxx</item>
         <item name="iconTabKey">@drawable/sym_keyboard_tab_lxx</item>
         <item name="iconSettingsKey">@drawable/sym_keyboard_settings_lxx</item>
         <item name="iconSpaceKey">@null</item>

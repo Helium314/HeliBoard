@@ -96,6 +96,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mOtherKey;
     private final Drawable mIncognitoIcon;
+    private final Drawable mBinIcon;
     private final Drawable mToolbarArrowIcon;
     private final ViewGroup mToolbar;
     private final View mToolbarContainer;
@@ -200,10 +201,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
+        mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBinKey);
         voiceKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconShortcutKey));
         clipboardKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey));
         settingsKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSettingsKey));
-        selectAllKey.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_select_all));
+        selectAllKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSelectAllKey));
         oneHandedKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconStartOneHandedMode));
         keyboardAttr.recycle();
 
@@ -373,7 +375,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
     private boolean onLongClickSuggestion(final TextView wordView) {
-        final Drawable icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_delete);
+        final Drawable icon = mBinIcon;
         icon.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
         int w = icon.getIntrinsicWidth();
         int h = icon.getIntrinsicWidth();

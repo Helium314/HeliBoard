@@ -256,6 +256,8 @@
              {@link org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet#NAMES_AND_ATTR_IDS} -->
         <attr name="iconShiftKey" format="reference" />
         <attr name="iconDeleteKey" format="reference" />
+        <attr name="iconBinKey" format="reference" />
+        <attr name="iconSelectAllKey" format="reference" />
         <attr name="iconSettingsKey" format="reference" />
         <attr name="iconSpaceKey" format="reference" />
         <attr name="iconEnterKey" format="reference" />

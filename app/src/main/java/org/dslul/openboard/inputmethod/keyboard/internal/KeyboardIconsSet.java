@@ -40,6 +40,8 @@ public final class KeyboardIconsSet {
     public static final String NAME_SHIFT_KEY = "shift_key";
     public static final String NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted";
     public static final String NAME_DELETE_KEY = "delete_key";
+    public static final String NAME_BIN_KEY = "bin_key";
+    public static final String NAME_SELECT_ALL_KEY = "select_all_key";
     public static final String NAME_SETTINGS_KEY = "settings_key";
     public static final String NAME_SPACE_KEY = "space_key";
     public static final String NAME_SPACE_KEY_FOR_NUMBER_LAYOUT = "space_key_for_number_layout";
@@ -76,6 +78,8 @@ public final class KeyboardIconsSet {
         NAME_UNDEFINED,                   ATTR_UNDEFINED,
         NAME_SHIFT_KEY,                   R.styleable.Keyboard_iconShiftKey,
         NAME_DELETE_KEY,                  R.styleable.Keyboard_iconDeleteKey,
+        NAME_BIN_KEY,                     R.styleable.Keyboard_iconBinKey,
+        NAME_SELECT_ALL_KEY,              R.styleable.Keyboard_iconSelectAllKey,
         NAME_SETTINGS_KEY,                R.styleable.Keyboard_iconSettingsKey,
         NAME_SPACE_KEY,                   R.styleable.Keyboard_iconSpaceKey,
         NAME_ENTER_KEY,                   R.styleable.Keyboard_iconEnterKey,

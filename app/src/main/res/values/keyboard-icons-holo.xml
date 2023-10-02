@@ -23,6 +23,8 @@
         <!-- Keyboard icons -->
         <item name="iconShiftKey">@drawable/sym_keyboard_shift_holo</item>
         <item name="iconDeleteKey">@drawable/sym_keyboard_delete_holo</item>
+        <item name="iconBinKey">@drawable/sym_keyboard_bin_holo</item>
+        <item name="iconSelectAllKey">@drawable/sym_keyboard_select_all_holo</item>
         <item name="iconSettingsKey">@drawable/sym_keyboard_settings_holo</item>
         <item name="iconSpaceKey">@null</item>
         <item name="iconEnterKey">@drawable/sym_keyboard_return_holo</item>
