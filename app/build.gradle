@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdk 33
+    buildToolsVersion '33.0.2'
 
     defaultConfig {
         applicationId "org.dslul.openboard.inputmethod.latin"
