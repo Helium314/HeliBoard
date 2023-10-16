@@ -849,7 +849,7 @@ public final class InputLogic {
         if (Character.getType(codePoint) == Character.OTHER_SYMBOL
                 || (sv.isWordSeparator(codePoint)
                     && (Character.isWhitespace(codePoint) // whitespace is always a separator
-                        || !textBeforeCursorMayBeUrlOrSimilar(sv) // if text before is not URL or similar, it's a separator
+                        || !textBeforeCursorMayBeUrlOrSimilar(sv, false) // if text before is not URL or similar, it's a separator
                         || (codePoint == '/' && mWordComposer.lastChar() == '/') // break composing at 2 consecutive slashes
                     )
                 )
@@ -894,6 +894,8 @@ public final class InputLogic {
                 && settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCodePointBeforeCursor())
                 // but not if there are two consecutive sometimesWordConnectors (e.g. "...bla")
                 && !settingsValues.mSpacingAndPunctuations.isSometimesWordConnector(mConnection.getCharBeforeBeforeCursor())
+                // and not if there is no letter before the separator
+                && mConnection.hasLetterBeforeLastSpaceBeforeCursor()
         ) {
             final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespaceOrDoubleSlash();
             final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
@@ -2108,7 +2110,7 @@ public final class InputLogic {
     private void insertAutomaticSpaceIfOptionsAndTextAllow(final SettingsValues settingsValues) {
         if (settingsValues.shouldInsertSpacesAutomatically()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
-                && !textBeforeCursorMayBeUrlOrSimilar(settingsValues)
+                && !textBeforeCursorMayBeUrlOrSimilar(settingsValues, true)
                 && !mConnection.textBeforeCursorLooksLikeURL() // adding this check to textBeforeCursorMayBeUrlOrSimilar might not be wanted for word continuation (see effect on unit tests)
                 && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail())
         ) {
@@ -2116,12 +2118,15 @@ public final class InputLogic {
         }
     }
 
-    private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues) {
+    private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues, final Boolean forAutoSpace) {
         final EditorInfo ei = getCurrentInputEditorInfo();
         // URL field and no space -> may be URL
         // for whatever absurd reason long message, postal address and email subject have type values that return true when filtering for URI, see https://developer.android.com/reference/android/text/InputType
         // so we really need to specifically require URI as only type variation
-        if (ei != null && (ei.inputType & 0x000000f0) == 0x00000010 && !mConnection.spaceBeforeCursor())
+        if (ei != null && (ei.inputType & 0x000000f0) == 0x00000010 &&
+                // we never want to commit the first part of the url, but we want to insert autospace if text might be a normal word
+                (forAutoSpace ? mConnection.nonWordCodePointAndNoSpaceBeforeCursor(settingsValues.mSpacingAndPunctuations) // avoid detecting URL if it could be a word
+                : !mConnection.spaceBeforeCursor()))
             return true;
         // already contains a SometimesWordConnector -> may be URL (not so sure, only do with detection enabled
         if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))

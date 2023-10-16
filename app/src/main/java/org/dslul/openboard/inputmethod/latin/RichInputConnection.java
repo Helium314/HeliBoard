@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.common.UnicodeSurrogate;
 import org.dslul.openboard.inputmethod.latin.inputlogic.PrivateCommandPerformer;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -1001,8 +1002,16 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return StringUtils.lastPartLooksLikeURL(mCommittedTextBeforeComposingText);
     }
 
+    public boolean nonWordCodePointAndNoSpaceBeforeCursor(final SpacingAndPunctuations spacingAndPunctuations) {
+        return StringUtilsKt.nonWordCodePointAndNoSpaceBeforeCursor(mCommittedTextBeforeComposingText, spacingAndPunctuations);
+    }
+
     public boolean spaceBeforeCursor() {
         return mCommittedTextBeforeComposingText.indexOf(" ") != -1;
+    }
+
+    public boolean hasLetterBeforeLastSpaceBeforeCursor() {
+        return StringUtilsKt.hasLetterBeforeLastSpaceBeforeCursor(mCommittedTextBeforeComposingText);
     }
 
     public boolean wordBeforeCursorMayBeEmail() {
