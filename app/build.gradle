@@ -12,10 +12,20 @@ android {
         versionName '1.4.5'
     }
 
+    splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            universalApk true
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             //shrinkResources true todo: test before enabling, a lot of resources are accessed via getIdentifier and possibly not all have been marked with "keep"
+            crunchPngs true
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
@@ -23,6 +33,7 @@ android {
         }
         debug {
             minifyEnabled true
+            crunchPngs true
             jniDebuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'src/main/proguard.flags'
             applicationIdSuffix ".debug"
