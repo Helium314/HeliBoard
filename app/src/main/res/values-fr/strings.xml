@@ -246,7 +246,4 @@
     <string name="settings_screen_appearance">"Apparence"</string>
     <string name="dialog_close">Fermer</string>
     <string name="text_tap_languages">Appuyez sur la langue pour ouvrir les paramètres</string>
-    <string name="select_input_method">Choisissez la méthode d'entrée</string>
-    <string name="settings_screen_appearance_and_layouts">Apparence &amp; Dispositions</string>
-    <string name="settings_screen_appearance">"Apparence"</string>
 </resources>
