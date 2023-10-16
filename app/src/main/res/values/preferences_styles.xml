@@ -12,4 +12,8 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/foreground_weak</item>
     </style>
+    <style name="ColorPickerDialog.Dark" parent="Theme.AppCompat.DayNight.Dialog">
+        <!-- To match with day and night themes, we have to add this style.
+        See https://github.com/fennifith/ColorPickerDialog#theming -->
+    </style>
 </resources>
