@@ -19,8 +19,14 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.preference.Preference;
 
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -32,6 +38,16 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_preferences);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // need to set icon tint because old android versions don't use the vector drawables
+            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                final Preference p = getPreferenceScreen().getPreference(0);
+                final Drawable icon = p.getIcon();
+                if (icon != null)
+                    DrawableCompat.setTint(icon, Color.WHITE);
+            }
+        }
 
         final Resources res = getResources();
         final Context context = getActivity();
