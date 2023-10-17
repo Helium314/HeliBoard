@@ -56,6 +56,8 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
+import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags;
 import org.dslul.openboard.inputmethod.latin.inputlogic.InputLogic;
@@ -1397,8 +1399,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
             steps = -steps;
-            
-        mInputLogic.finishInput();
+
         if (steps < 0) {
             int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();
             steps = availableCharacters < -steps ? -availableCharacters : steps;
@@ -1409,6 +1410,14 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         } else
             return;
 
+        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(steps)) {
+            // no need to finish input and restart suggestions if we're still in the word
+            // this is a noticeable performance improvement
+            int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
+            mInputLogic.mConnection.setSelection(newPosition, newPosition);
+            return;
+        }
+        mInputLogic.finishInput();
         int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());

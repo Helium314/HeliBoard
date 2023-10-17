@@ -241,6 +241,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     private boolean reloadTextCache() {
         mCommittedTextBeforeComposingText.setLength(0);
+        // Clearing composing text was not in original AOSP and OpenBoard, but why? should actually
+        // be necessary when reloading text. Only when called by setSelection, mComposingText isn't
+        // always empty, but looks like things still work normally
+        mComposingText.setLength(0);
         mIC = mParent.getCurrentInputConnection();
         // Call upon the inputconnection directly since our own method is using the cache, and
         // we want to refresh it.
@@ -382,14 +386,17 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 spacingAndPunctuations, hasSpaceBefore);
     }
 
-    public int getCodePointBeforeCursor() {
-        final int length = mCommittedTextBeforeComposingText.length();
+    public int getCodePointBeforeCursor() { // todo: behavior still correct? also should do this to getCharBeforeBeforeCursor
+        final CharSequence text = mComposingText.length() == 0 ? mCommittedTextBeforeComposingText : mComposingText;
+        final int length = text.length();
         if (length < 1) return Constants.NOT_A_CODE;
-        return Character.codePointBefore(mCommittedTextBeforeComposingText, length);
+        return Character.codePointBefore(text, length);
     }
 
-    public int getCharBeforeBeforeCursor() {
+    public int getCharBeforeBeforeCursor() { // todo: behavior still correct?
+        if (mComposingText.length() >= 2) return mComposingText.charAt(mComposingText.length() - 2);
         final int length = mCommittedTextBeforeComposingText.length();
+        if (mComposingText.length() == 1) return mCommittedTextBeforeComposingText.charAt(length - 1);
         if (length < 2) return Constants.NOT_A_CODE;
         return mCommittedTextBeforeComposingText.charAt(length - 2);
     }

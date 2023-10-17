@@ -409,6 +409,10 @@ public final class InputLogic {
         return true;
     }
 
+    public boolean moveCursorByAndReturnIfInsideComposingWord(int distance) {
+        return mWordComposer.moveCursorByAndReturnIfInsideComposingWord(distance);
+    }
+
     /**
      * React to a code input. It may be a code point to insert, or a symbolic value that influences
      * the keyboard behavior.
