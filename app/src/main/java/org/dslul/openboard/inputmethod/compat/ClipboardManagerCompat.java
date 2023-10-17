@@ -12,7 +12,12 @@ public class ClipboardManagerCompat {
     @TargetApi(Build.VERSION_CODES.P)
     public static void clearPrimaryClip(ClipboardManager cm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            cm.clearPrimaryClip();
+            try {
+                cm.clearPrimaryClip();
+            } catch (Exception e) {
+                // workaround for system-caused crash in https://github.com/Helium314/openboard/issues/203
+                cm.setPrimaryClip(ClipData.newPlainText("", ""));
+            }
         } else {
             cm.setPrimaryClip(ClipData.newPlainText("", ""));
         }
