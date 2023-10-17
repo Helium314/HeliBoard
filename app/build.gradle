@@ -81,7 +81,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.1' // includes appcompat
     implementation 'androidx.recyclerview:recyclerview:1.3.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'com.github.skydoves:colorpickerview:2.2.4'
+    implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.12.4'
@@ -89,4 +89,8 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.9'
     testImplementation 'androidx.test:runner:1.5.2'
     testImplementation 'androidx.test:core:1.5.0'
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
 }
