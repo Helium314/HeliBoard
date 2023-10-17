@@ -56,8 +56,6 @@ class Colors (
     val accentColorFilter: ColorFilter
     /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
     val actionKeyIconColorFilter: ColorFilter?
-    /** color filter for the clipboard pin, used only in holo theme */
-    val clipboardPinFilter: ColorFilter?
 
     private val backgroundStateList: ColorStateList
     private val keyStateList: ColorStateList
@@ -77,12 +75,10 @@ class Colors (
             navBar = darkerBackground
             keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
             spaceBarText = keyText
-            clipboardPinFilter = accentColorFilter
         } else {
             navBar = background
             keyboardBackground = null
             spaceBarText = keyHintText
-            clipboardPinFilter = null
         }
 
         // create color filters, todo: maybe better / simplify
