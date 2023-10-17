@@ -18,9 +18,11 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import java.util.Collections;
@@ -308,10 +310,10 @@ public class RichInputMethodManager {
 
     public InputMethodSubtype findSubtypeByLocale(final Locale locale) {
         // Find the best subtype based on a straightforward matching algorithm.
-        // TODO: Use LocaleList#getFirstMatch() instead.
         final List<InputMethodSubtype> subtypes =
                 getMyEnabledInputMethodSubtypeList(true /* allowsImplicitlySelectedSubtypes */);
         final int count = subtypes.size();
+        // search for exact match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
@@ -319,6 +321,7 @@ public class RichInputMethodManager {
                 return subtype;
             }
         }
+        // search for language + country + variant match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
@@ -328,6 +331,7 @@ public class RichInputMethodManager {
                 return subtype;
             }
         }
+        // search for language + country match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
@@ -336,11 +340,48 @@ public class RichInputMethodManager {
                 return subtype;
             }
         }
+        // search for secondary locale match
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        for (int i = 0; i < count; ++i) {
+            final InputMethodSubtype subtype = subtypes.get(i);
+            final String subtypeLocale = subtype.getLocale();
+            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
+            for (final Locale secondaryLocale : secondaryLocales) {
+                if (secondaryLocale.equals(locale)) {
+                    return subtype;
+                }
+            }
+        }
+        // search for language match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage())) {
                 return subtype;
+            }
+        }
+        // search for secondary language match
+        for (int i = 0; i < count; ++i) {
+            final InputMethodSubtype subtype = subtypes.get(i);
+            final String subtypeLocale = subtype.getLocale();
+            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
+            for (final Locale secondaryLocale : secondaryLocales) {
+                if (secondaryLocale.getLanguage().equals(locale.getLanguage())) {
+                    return subtype;
+                }
+            }
+        }
+
+        // extra: if current script is not compatible to current subtype, search for compatible script
+        // this is acceptable only because this function is only used for switching to a certain locale using EditorInfo.hintLocales
+        final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);
+        if (script != ScriptUtils.getScriptFromSpellCheckerLocale(getCurrentSubtypeLocale())) {
+            for (int i = 0; i < count; ++i) {
+                final InputMethodSubtype subtype = subtypes.get(i);
+                final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+                if (ScriptUtils.getScriptFromSpellCheckerLocale(subtypeLocale) == script) {
+                    return subtype;
+                }
             }
         }
         return null;

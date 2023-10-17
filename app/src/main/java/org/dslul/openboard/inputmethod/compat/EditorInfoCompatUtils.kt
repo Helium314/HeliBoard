@@ -6,20 +6,12 @@
 
 package org.dslul.openboard.inputmethod.compat
 
+import android.os.Build
 import android.view.inputmethod.EditorInfo
 import java.util.*
+import kotlin.collections.ArrayList
 
 object EditorInfoCompatUtils {
-    // Note that EditorInfo.IME_FLAG_FORCE_ASCII has been introduced
-    // in API level 16 (Build.VERSION_CODES.JELLY_BEAN).
-    private val FIELD_IME_FLAG_FORCE_ASCII = CompatUtils.getField(EditorInfo::class.java, "IME_FLAG_FORCE_ASCII")
-    private val OBJ_IME_FLAG_FORCE_ASCII: Int? = CompatUtils.getFieldValue(null, null, FIELD_IME_FLAG_FORCE_ASCII) as? Int
-    private val FIELD_HINT_LOCALES = CompatUtils.getField(EditorInfo::class.java, "hintLocales")
-
-    @JvmStatic
-    fun hasFlagForceAscii(imeOptions: Int): Boolean {
-        return if (OBJ_IME_FLAG_FORCE_ASCII == null) false else imeOptions and OBJ_IME_FLAG_FORCE_ASCII != 0
-    }
 
     @JvmStatic
     fun imeActionName(imeOptions: Int): String {
@@ -36,32 +28,16 @@ object EditorInfoCompatUtils {
         }
     }
 
-    fun imeOptionsName(imeOptions: Int): String {
-        val action = imeActionName(imeOptions)
-        val flags = StringBuilder()
-        if (imeOptions and EditorInfo.IME_FLAG_NO_ENTER_ACTION != 0) {
-            flags.append("flagNoEnterAction|")
-        }
-        if (imeOptions and EditorInfo.IME_FLAG_NAVIGATE_NEXT != 0) {
-            flags.append("flagNavigateNext|")
-        }
-        if (imeOptions and EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS != 0) {
-            flags.append("flagNavigatePrevious|")
-        }
-        if (hasFlagForceAscii(imeOptions)) {
-            flags.append("flagForceAscii|")
-        }
-        return flags.toString() + action
-    }
-
     @JvmStatic
-    fun getPrimaryHintLocale(editorInfo: EditorInfo?): Locale? {
-        if (editorInfo == null) {
+    fun getHintLocales(editorInfo: EditorInfo?): List<Locale>? {
+        if (editorInfo == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             return null
         }
-        val localeList = CompatUtils.getFieldValue(editorInfo, null, FIELD_HINT_LOCALES) ?: return null
-        return if (LocaleListCompatUtils.isEmpty(localeList)) {
-            null
-        } else LocaleListCompatUtils[localeList, 0]
+        val localeList = editorInfo.hintLocales ?: return null
+        val locales = ArrayList<Locale>(localeList.size())
+        for (i in 0 until localeList.size()) {
+            locales[i] = localeList.get(i)
+        }
+        return locales
     }
 }

@@ -290,8 +290,7 @@ public final class KeyboardLayoutSet {
             // TODO: Consolidate with {@link InputAttributes}.
             @SuppressWarnings("deprecation") final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
                     mPackageName, FORCE_ASCII, mParams.mEditorInfo);
-            final boolean forceAscii = EditorInfoCompatUtils.hasFlagForceAscii(
-                    mParams.mEditorInfo.imeOptions)
+            final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0
                     || deprecatedForceAscii;
             final RichInputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
                     ? RichInputMethodSubtype.getNoLanguageSubtype()

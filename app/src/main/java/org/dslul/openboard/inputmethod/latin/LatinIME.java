@@ -897,18 +897,18 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
 
-        // If the primary hint language does not match the current subtype language, then try
-        // to switch to the primary hint language.
-        // TODO: Support all the locales in EditorInfo#hintLocales.
-        final Locale primaryHintLocale = EditorInfoCompatUtils.getPrimaryHintLocale(editorInfo);
-        if (primaryHintLocale == null) {
+        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
+        if (hintLocales == null) {
             return;
         }
-        final InputMethodSubtype newSubtype = mRichImm.findSubtypeByLocale(primaryHintLocale);
-        if (newSubtype == null || newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype())) {
-            return;
+        // Try switching to a subtype matching the hint language.
+        for (final Locale hintLocale : hintLocales) {
+            final InputMethodSubtype newSubtype = mRichImm.findSubtypeByLocale(hintLocale);
+            if (newSubtype == null) continue;
+            if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
+                return; // no need to switch, we already use the correct locale
+            mHandler.postSwitchLanguage(newSubtype);
         }
-        mHandler.postSwitchLanguage(newSubtype);
     }
 
     @SuppressWarnings("deprecation")
