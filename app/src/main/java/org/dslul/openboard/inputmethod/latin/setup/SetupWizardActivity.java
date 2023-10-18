@@ -19,7 +19,10 @@ package org.dslul.openboard.inputmethod.latin.setup;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
@@ -32,6 +35,8 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
@@ -151,7 +156,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step1 = new SetupStep(STEP_1, applicationName,
                 mStep1Bullet, findViewById(R.id.setup_step1),
                 R.string.setup_step1_title, R.string.setup_step1_instruction,
-                R.string.setup_step1_finished_instruction, R.drawable.unbundled_key,
+                R.string.setup_step1_finished_instruction, R.drawable.ic_setup_key,
                 R.string.setup_step1_action);
         final SettingsPoolingHandler handler = mHandler;
         step1.setAction(() -> {
@@ -163,7 +168,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step2 = new SetupStep(STEP_2, applicationName,
                 (TextView)findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
-                0 /* finishedInstruction */, R.drawable.unbundled_select,
+                0 /* finishedInstruction */, R.drawable.ic_setup_select,
                 R.string.setup_step2_action);
         step2.setAction(this::invokeInputMethodPicker);
         mSetupStepGroup.addStep(step2);
@@ -171,7 +176,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step3 = new SetupStep(STEP_3, applicationName,
                 (TextView)findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
-                0 /* finishedInstruction */, R.drawable.unbundled_earth,
+                0 /* finishedInstruction */, R.drawable.ic_setup_earth,
                 R.string.setup_step3_action);
         step3.setAction(() -> {
             final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -206,8 +211,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
         mActionFinish = findViewById(R.id.setup_finish);
-        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(getResources().getDrawable(R.drawable.unbundled_check),
-                                                        null, null, null);
+        final Drawable finishDrawable = ContextCompat.getDrawable(this, R.drawable.ic_setup_check);
+        DrawableCompat.setTintList(finishDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
+                new int[]{Color.WHITE, Color.WHITE, step1.mActivatedColor}));
+        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
     }
 
@@ -430,12 +437,15 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
             mActionLabel = mStepView.findViewById(R.id.setup_step_action_label);
             mActionLabel.setText(res.getString(actionLabel));
+            final Drawable actionIconDrawable = res.getDrawable(actionIcon);
+            DrawableCompat.setTintList(actionIconDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
+                    new int[]{Color.WHITE, Color.WHITE, this.mActivatedColor}));
             if (actionIcon == 0) {
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
                 mActionLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        res.getDrawable(actionIcon), null, null, null);
+                        actionIconDrawable, null, null, null);
             }
         }
 
