@@ -24,6 +24,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Powiększ po naciśnięciu"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Ustawienia"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Wygląd i układy"</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">"Wygląd"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanie gestami"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Korekta tekstu"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Zaawansowane"</string>
@@ -71,19 +72,19 @@
     <string name="select_language" msgid="5709487854987078367">"Języki"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Kliknij ponownie, by zapisać"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Kliknij tutaj, by zapisać"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"angielski (Wielka Brytania)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"angielski (Stany Zjednoczone)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"hiszpański (USA)"</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">"Angielski (Wielka Brytania)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Angielski (Stany Zjednoczone)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Hiszpański (USA)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"serbski (alfabet łaciński)"</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbski (alfabet łaciński)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Angielski (Wielka Brytania) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Angielski (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Hiszpański (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradycyjny)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktowa)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Bez języka (alfabet)"</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">"Standardowy (Alfabet)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabet (QWERTZ)"</string>
     <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Alfabet (AZERTY)"</string>
