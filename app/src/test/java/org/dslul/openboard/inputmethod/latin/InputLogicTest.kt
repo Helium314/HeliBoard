@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin
 
 import android.inputmethodservice.InputMethodService
@@ -12,9 +14,11 @@ import org.dslul.openboard.inputmethod.event.Event
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
 import org.dslul.openboard.inputmethod.latin.ShadowFacilitator2.Companion.lastAddedWord
+import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
 import org.dslul.openboard.inputmethod.latin.inputlogic.InputLogic
+import org.dslul.openboard.inputmethod.latin.inputlogic.SpaceState
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
@@ -48,6 +52,8 @@ class InputLogicTest {
     private val connection: RichInputConnection get() = inputLogic.mConnection
     private val composerReader = InputLogic::class.java.getDeclaredField("mWordComposer").apply { isAccessible = true }
     private val composer get() = composerReader.get(inputLogic) as WordComposer
+    private val spaceStateReader = InputLogic::class.java.getDeclaredField("mSpaceState").apply { isAccessible = true }
+    private val spaceState get() = spaceStateReader.get(inputLogic) as Int
     private val beforeComposingReader = RichInputConnection::class.java.getDeclaredField("mCommittedTextBeforeComposingText").apply { isAccessible = true }
     private val connectionTextBeforeComposingText get() = (beforeComposingReader.get(connection) as CharSequence).toString()
     private val composingReader = RichInputConnection::class.java.getDeclaredField("mComposingText").apply { isAccessible = true }
@@ -425,6 +431,38 @@ class InputLogicTest {
         assertEquals("Hey, why", text)
     }
 
+    @Test fun `URL detection does not trigger on non-words`() {
+        // first make sure it works without URL detection
+        reset()
+        chainInput("15:50-17")
+        assertEquals("15:50-17", text)
+        assertEquals("", composingText)
+        // then with URL detection
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        chainInput("15:50-17")
+        assertEquals("15:50-17", text)
+        assertEquals("", composingText)
+    }
+
+    @Test fun `autospace after selecting a suggestion`() {
+        reset()
+        pickSuggestion("this")
+        input('b')
+        assertEquals("this b", text)
+        assertEquals("b", composingText)
+    }
+
+    @Test fun `autospace works in URL field when input isn't URL`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        pickSuggestion("this")
+        input('b')
+        assertEquals("this b", text)
+        assertEquals("b", composingText)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -451,12 +489,15 @@ class InputLogicTest {
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
         val insert = StringUtils.newSingleCodePointString(codePoint)
+        val phantomSpaceToInsert = if (spaceState == SpaceState.PHANTOM) " " else ""
 
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        if (!settingsValues.mAutospaceAfterPunctuationEnabled)
-            assertEquals(oldBefore + insert, textBeforeCursor)
+        if (phantomSpaceToInsert.isEmpty())
+            assertEquals(oldBefore + phantomSpaceToInsert + insert, textBeforeCursor)
+        else // in some cases autospace might be suppressed
+            assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
         assertEquals(oldAfter, textAfterCursor)
         assertEquals(textBeforeCursor + textAfterCursor, getText())
         checkConnectionConsistency()
@@ -545,6 +586,13 @@ class InputLogicTest {
         latinIME.mHandler.onStartInput(ei, false)
         latinIME.mHandler.onStartInputView(ei, false)
         handleMessages() // this is important so the composing span is set correctly
+        checkConnectionConsistency()
+    }
+
+    // like selecting a suggestion from strip
+    private fun pickSuggestion(suggestion: String) {
+        val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
+        latinIME.pickSuggestionManually(info)
         checkConnectionConsistency()
     }
 
@@ -730,6 +778,34 @@ private val ic = object : InputConnection {
         selectionEnd -= beforeLength
         return true;
     }
+    override fun sendKeyEvent(p0: KeyEvent): Boolean {
+        if (p0.action != KeyEvent.ACTION_DOWN) return true // only change the text on key down, like RichInputConnection does
+        if (p0.keyCode == KeyEvent.KEYCODE_DEL) {
+            if (selectionEnd == 0) return true // nothing to delete
+            if (selectedText.isEmpty()) {
+                text = text.substring(0, selectionStart - 1) + text.substring(selectionEnd)
+                selectionStart -= 1
+            } else {
+                text = text.substring(0, selectionStart) + text.substring(selectionEnd)
+            }
+            selectionEnd = selectionStart
+            return true
+        }
+        val textToAdd = when (p0.keyCode) {
+            KeyEvent.KEYCODE_ENTER -> "\n"
+            KeyEvent.KEYCODE_DEL -> null
+            KeyEvent.KEYCODE_UNKNOWN -> p0.characters
+            else -> StringUtils.newSingleCodePointString(p0.unicodeChar)
+        }
+        if (textToAdd != null) {
+            text = text.substring(0, selectionStart) + textToAdd + text.substring(selectionEnd)
+            selectionStart += textToAdd.length
+            selectionEnd = selectionStart
+            composingStart = -1
+            composingEnd = -1
+        }
+        return true
+    }
     // implement only when necessary
     override fun getCursorCapsMode(p0: Int): Int = TODO("Not yet implemented")
     override fun getExtractedText(p0: ExtractedTextRequest?, p1: Int): ExtractedText = TODO("Not yet implemented")
@@ -738,7 +814,6 @@ private val ic = object : InputConnection {
     override fun commitCorrection(p0: CorrectionInfo?): Boolean = TODO("Not yet implemented")
     override fun performEditorAction(p0: Int): Boolean = TODO("Not yet implemented")
     override fun performContextMenuAction(p0: Int): Boolean = TODO("Not yet implemented")
-    override fun sendKeyEvent(p0: KeyEvent?): Boolean = TODO("Not yet implemented")
     override fun clearMetaKeyStates(p0: Int): Boolean = TODO("Not yet implemented")
     override fun reportFullscreenMode(p0: Boolean): Boolean = TODO("Not yet implemented")
     override fun performPrivateCommand(p0: String?, p1: Bundle?): Boolean = TODO("Not yet implemented")

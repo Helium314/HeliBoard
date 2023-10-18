@@ -26,6 +26,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="4dp"
         android:hapticFeedbackEnabled="false"
         android:soundEffectsEnabled="false">
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.

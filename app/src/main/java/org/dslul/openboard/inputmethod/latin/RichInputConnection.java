@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -36,6 +26,7 @@ import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.common.UnicodeSurrogate;
 import org.dslul.openboard.inputmethod.latin.inputlogic.PrivateCommandPerformer;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -250,6 +241,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     private boolean reloadTextCache() {
         mCommittedTextBeforeComposingText.setLength(0);
+        // Clearing composing text was not in original AOSP and OpenBoard, but why? should actually
+        // be necessary when reloading text. Only when called by setSelection, mComposingText isn't
+        // always empty, but looks like things still work normally
+        mComposingText.setLength(0);
         mIC = mParent.getCurrentInputConnection();
         // Call upon the inputconnection directly since our own method is using the cache, and
         // we want to refresh it.
@@ -391,14 +386,17 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 spacingAndPunctuations, hasSpaceBefore);
     }
 
-    public int getCodePointBeforeCursor() {
-        final int length = mCommittedTextBeforeComposingText.length();
+    public int getCodePointBeforeCursor() { // todo: behavior still correct? also should do this to getCharBeforeBeforeCursor
+        final CharSequence text = mComposingText.length() == 0 ? mCommittedTextBeforeComposingText : mComposingText;
+        final int length = text.length();
         if (length < 1) return Constants.NOT_A_CODE;
-        return Character.codePointBefore(mCommittedTextBeforeComposingText, length);
+        return Character.codePointBefore(text, length);
     }
 
-    public int getCharBeforeBeforeCursor() {
+    public int getCharBeforeBeforeCursor() { // todo: behavior still correct?
+        if (mComposingText.length() >= 2) return mComposingText.charAt(mComposingText.length() - 2);
         final int length = mCommittedTextBeforeComposingText.length();
+        if (mComposingText.length() == 1) return mCommittedTextBeforeComposingText.charAt(length - 1);
         if (length < 2) return Constants.NOT_A_CODE;
         return mCommittedTextBeforeComposingText.charAt(length - 2);
     }
@@ -1001,8 +999,16 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return StringUtils.lastPartLooksLikeURL(mCommittedTextBeforeComposingText);
     }
 
+    public boolean nonWordCodePointAndNoSpaceBeforeCursor(final SpacingAndPunctuations spacingAndPunctuations) {
+        return StringUtilsKt.nonWordCodePointAndNoSpaceBeforeCursor(mCommittedTextBeforeComposingText, spacingAndPunctuations);
+    }
+
     public boolean spaceBeforeCursor() {
         return mCommittedTextBeforeComposingText.indexOf(" ") != -1;
+    }
+
+    public boolean hasLetterBeforeLastSpaceBeforeCursor() {
+        return StringUtilsKt.hasLetterBeforeLastSpaceBeforeCursor(mCommittedTextBeforeComposingText);
     }
 
     public boolean wordBeforeCursorMayBeEmail() {

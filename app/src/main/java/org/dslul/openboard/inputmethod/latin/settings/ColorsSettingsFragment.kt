@@ -1,20 +1,20 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.app.Activity
-import android.graphics.Color
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.CompoundButton
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.forEachIndexed
 import androidx.fragment.app.Fragment
-import com.skydoves.colorpickerview.ColorPickerDialog
-import com.skydoves.colorpickerview.flag.BubbleFlag
-import com.skydoves.colorpickerview.flag.FlagMode
-import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import com.rarepebble.colorpicker.ColorPickerView
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
@@ -90,39 +90,54 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
 
             val clickListener = View.OnClickListener {
                 val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
-                val b = ColorPickerDialog.Builder(requireContext())
+                val initialColor = Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
+                val picker = ColorPickerView(requireContext())
+                // todo: later alpha bar should be activated, but currently setting alpha leads to glitches,
+                //  e.g. when setting alpha on key text it's not applied for key icons, but for emojis
+                picker.showAlpha(false)
+                picker.showHex(true)
+                picker.showPreview(true)
+                picker.color = initialColor
+                picker.addColorObserver { observer ->
+                    prefs.edit { putInt(prefPrefix + colorPrefs[index], observer.color) }
+                    if (!csb.colorSwitch.isChecked) {
+                        prefs.edit { putBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, false) }
+                        csb.colorSwitch.setOnCheckedChangeListener(null)
+                        csb.colorSwitch.isChecked = true
+                        csb.colorSummary.text = ""
+                        csb.colorSwitch.setOnCheckedChangeListener(switchListener)
+                        updateColorPreviews()
+                        return@addColorObserver
+                    }
+                    updateColorPreviews()
+                }
+                val builder = AlertDialog.Builder(requireContext())
+                builder
                     .setTitle(colorPrefNames[index])
-                    // todo: later alphy bar should be activated, but currently setting alpha leads to glitches,
-                    //  e.g. when setting alpha on key text it's not applied for key icons, but for emojis
-                    .attachAlphaSlideBar(false)
-                    .setPositiveButton(android.R.string.ok, ColorEnvelopeListener { envelope, _ ->
-                        prefs.edit { putInt(prefPrefix + colorPrefs[index], envelope.color) }
+                    .setView(picker)
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->
+                        // If the slider is disabled, we simply want to close the dialog when no color is selected.
+                        if (csb.colorSwitch.isChecked)
+                            picker.color = initialColor
+                    }
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        // When the slider is disabled, we want to define the default color as a custom color
                         if (!csb.colorSwitch.isChecked) {
-                            prefs.edit { putBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, false) }
-                            csb.colorSwitch.setOnCheckedChangeListener(null)
-                            csb.colorSwitch.isChecked = true
-                            csb.colorSummary.text = ""
-                            csb.colorSwitch.setOnCheckedChangeListener(switchListener)
-                            reloadKeyboard(hidden)
-                            updateColorPreviews()
-                            return@ColorEnvelopeListener
+                            csb.colorSwitch.toggle()
+                            picker.color = initialColor
                         }
                         reloadKeyboard(hidden)
-                        updateColorPreviews()
-                    })
-                    .setNegativeButton(android.R.string.cancel) { _, _ ->
-                        if (hidden)
-                            RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
                     }
-                val initialColor = if (prefs.contains(prefPrefix + colorPref))
-                    prefs.getInt(prefPrefix + colorPref, Color.GRAY)
+                val dialog = builder.create()
+                dialog.show()
+                // Reduce the size of the dialog in portrait mode
+                val wrapContent = WindowManager.LayoutParams.WRAP_CONTENT
+                val widthPortrait = (resources.displayMetrics.widthPixels * 0.80f).toInt()
+                val orientation = (resources.configuration.orientation)
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    dialog.window?.setLayout(wrapContent, wrapContent)
                 else
-                    Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
-                b.colorPickerView.setInitialColor(initialColor)
-                // set better color drawable? neither the white circle nor the plus is nice
-                b.colorPickerView.setSelectorDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_plus))
-                b.colorPickerView.flagView = BubbleFlag(requireContext()).apply { flagMode = FlagMode.ALWAYS }
-                b.show()
+                    dialog.window?.setLayout(widthPortrait, wrapContent)
             }
             csb.colorTextContainer.setOnClickListener(clickListener)
             csb.colorPreview.setOnClickListener(clickListener)

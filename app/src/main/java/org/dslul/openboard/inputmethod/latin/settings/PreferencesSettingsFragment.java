@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -19,8 +9,14 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.preference.Preference;
 
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -32,6 +28,16 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_preferences);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // need to set icon tint because old android versions don't use the vector drawables
+            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                final Preference p = getPreferenceScreen().getPreference(0);
+                final Drawable icon = p.getIcon();
+                if (icon != null)
+                    DrawableCompat.setTint(icon, Color.WHITE);
+            }
+        }
 
         final Resources res = getResources();
         final Context context = getActivity();

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.graphics.Typeface
@@ -68,7 +70,7 @@ class ClipboardAdapter(
             }
             clipboardLayoutParams.setItemProperties(view)
             val colors = Settings.getInstance().current.mColors
-            pinnedIconView.colorFilter = colors.clipboardPinFilter
+            pinnedIconView.colorFilter = colors.accentColorFilter
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {

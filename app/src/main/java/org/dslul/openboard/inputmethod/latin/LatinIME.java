@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -66,6 +56,8 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
+import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags;
 import org.dslul.openboard.inputmethod.latin.inputlogic.InputLogic;
@@ -907,18 +899,18 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
 
-        // If the primary hint language does not match the current subtype language, then try
-        // to switch to the primary hint language.
-        // TODO: Support all the locales in EditorInfo#hintLocales.
-        final Locale primaryHintLocale = EditorInfoCompatUtils.getPrimaryHintLocale(editorInfo);
-        if (primaryHintLocale == null) {
+        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
+        if (hintLocales == null) {
             return;
         }
-        final InputMethodSubtype newSubtype = mRichImm.findSubtypeByLocale(primaryHintLocale);
-        if (newSubtype == null || newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype())) {
-            return;
+        // Try switching to a subtype matching the hint language.
+        for (final Locale hintLocale : hintLocales) {
+            final InputMethodSubtype newSubtype = mRichImm.findSubtypeByLocale(hintLocale);
+            if (newSubtype == null) continue;
+            if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
+                return; // no need to switch, we already use the correct locale
+            mHandler.postSwitchLanguage(newSubtype);
         }
-        mHandler.postSwitchLanguage(newSubtype);
     }
 
     @SuppressWarnings("deprecation")
@@ -1407,8 +1399,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
             steps = -steps;
-            
-        mInputLogic.finishInput();
+
         if (steps < 0) {
             int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();
             steps = availableCharacters < -steps ? -availableCharacters : steps;
@@ -1419,6 +1410,14 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         } else
             return;
 
+        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(steps)) {
+            // no need to finish input and restart suggestions if we're still in the word
+            // this is a noticeable performance improvement
+            int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
+            mInputLogic.mConnection.setSelection(newPosition, newPosition);
+            return;
+        }
+        mInputLogic.finishInput();
         int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());
