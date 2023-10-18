@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--clipart available in Android Studio, Apache License 2.0-->
+<!--
+    icon available in Android Studio
+    SPDX-License-Identifier: Apache-2.0
+-->
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="32dp"
     android:width="32dp"

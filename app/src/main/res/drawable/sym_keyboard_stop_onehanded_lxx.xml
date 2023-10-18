@@ -1,4 +1,8 @@
-<!-- clipart available in Android Studio, Apache License 2.0 -->
+<!--
+    icon available in Android Studio
+    SPDX-License-Identifier: Apache-2.0
+-->
+<!-- todo: remove / merge with sym_keyboard_stop_onehanded_holo -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="24dp"
     android:width="24dp"
