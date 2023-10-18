@@ -66,8 +66,8 @@
     <string name="gesture_floating_preview_text_summary">"Показывать подсказки при вводе текста"</string>
     <string name="gesture_space_aware">"Непрерывный ввод фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Проводите по клавише пробела после каждого слова"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Настройка способов ввода"</string>
-    <string name="language_selection_title">"Выберите язык"</string>
+    <string name="configure_input_method" msgid="373356270290742459">"Настройка методов ввода"</string>
+    <string name="language_selection_title">"Языки"</string>
     <string name="help_and_feedback">"Справка/отзыв"</string>
     <string name="select_language" msgid="5709487854987078367">"Язык"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Чтобы сохранить, нажмите ещё раз"</string>
@@ -164,7 +164,7 @@
     <string name="space_trackpad">Пробел в качестве трекпада</string>
     <string name="delete_swipe_summary">Быстрое удаление текста жестом по клавише удаления в направлении \"стрелки\"</string>
     <string name="space_trackpad_summary">Перемещать курсор при помощи жестов на клавише пробела</string>
-    <string name="more_keys_strip_description">"Ещё клавиши"</string>
+    <string name="more_keys_strip_description">Больше клавиш</string>
     <string name="prefs_force_incognito_mode">Включить режим инкогнито</string>
     <string name="prefs_force_incognito_mode_summary">Отключить запоминание слов</string>
     <string name="show_emoji_key">Клавиша эмодзи</string>
