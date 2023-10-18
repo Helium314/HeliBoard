@@ -71,9 +71,9 @@
     <string name="select_language" msgid="5709487854987078367">"Мовы"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Дакраніцеся зноў, каб захаваць"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Дакраніцеся тут, каб захаваць"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"англійская (Вялікабрытанія)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"англійская (ЗША)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"iспанская (ЗША)"</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">"Англійская (Вялікабрытанія)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Англійская (ЗША)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Іспанская (ЗША)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хінгліш"</string>
     <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербская (лацініца)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -152,7 +152,7 @@
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Выдаліць"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>
     <string name="settings_category_suggestions">Прапановы</string>
