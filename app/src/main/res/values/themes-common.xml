@@ -101,6 +101,8 @@
         <item name="gestureRecognitionUpdateTime">@integer/config_gesture_recognition_update_time</item>
         <item name="gestureRecognitionSpeedThreshold">@fraction/config_gesture_recognition_speed_threshold</item>
         <item name="suppressKeyPreviewAfterBatchInputDuration">@integer/config_suppress_key_preview_after_batch_input_duration</item>
+
+        <item name="spacebarNoBorderBackground">@drawable/btn_keyboard_spacebar_base</item>
     </style>
     <style
         name="MainKeyboardView"

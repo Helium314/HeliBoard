@@ -28,7 +28,6 @@
         <item name="android:background">@color/keyboard_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base</item>
         <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base</item>
-        <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_lxx_base</item>
         <item name="keyTextColor">@color/key_text_color_lxx_light</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
         <item name="functionalTextColor">@color/key_functional_text_color_lxx_light</item>

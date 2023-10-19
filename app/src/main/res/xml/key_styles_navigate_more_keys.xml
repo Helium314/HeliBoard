@@ -22,7 +22,7 @@
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
     <switch>
-        <case latin:keyboardTheme="HoloBase|HoloBaseNoBorder">
+        <case latin:keyboardTheme="HoloBase">
             <key-style
                 latin:styleName="navigateNextMoreKeysStyle"
                 latin:keyLabelFlags="hasPopupHint|preserveCase"

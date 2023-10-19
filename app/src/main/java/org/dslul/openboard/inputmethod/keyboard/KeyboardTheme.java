@@ -43,21 +43,18 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
     public static final int THEME_ID_HOLO_BASE = 0;
-    public static final int THEME_ID_HOLO_BASE_NO_BORDER = 1;
-    public static final int THEME_ID_LXX_BASE = 2;
-    public static final int THEME_ID_LXX_BASE_BORDER = 3;
+    public static final int THEME_ID_LXX_BASE = 1;
+    public static final int THEME_ID_LXX_BASE_BORDER = 2;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_BASE;
 
     /* package private for testing */
     static final KeyboardTheme[] KEYBOARD_THEMES = {
             new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase,
                     VERSION_CODES.BASE),
-            new KeyboardTheme(THEME_ID_HOLO_BASE_NO_BORDER, "HoloBaseNoBorder", R.style.KeyboardTheme_HoloBaseNoBorder,
-                    VERSION_CODES.BASE),
-        new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
-                VERSION_CODES.LOLLIPOP),
-        new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
-                VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
+                    VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
+                    VERSION_CODES.LOLLIPOP),
     };
 
     static {
@@ -121,7 +118,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         final boolean borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         final int matchingId;
         if (style.equals(THEME_STYLE_HOLO))
-            matchingId = borders ? THEME_ID_HOLO_BASE : THEME_ID_HOLO_BASE_NO_BORDER;
+            matchingId = THEME_ID_HOLO_BASE;
         else
             matchingId = borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE;
         for (KeyboardTheme keyboardTheme : KEYBOARD_THEMES) {

@@ -20,7 +20,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.HoloBase" parent="KeyboardIcons.Holo">
-        <item name="inputViewStyle">@style/InputView.Holo</item>
+        <item name="inputViewStyle">@style/InputView</item>
         <item name="keyboardStyle">@style/Keyboard.HoloBase</item>
         <item name="keyboardViewStyle">@style/KeyboardView.HoloBase</item>
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.HoloBase</item>
@@ -42,8 +42,20 @@
     </style>
     <style
         name="KeyboardView.HoloBase"
-        parent="KeyboardView.Holo"
+        parent="KeyboardView"
     >
+        <item name="keyTypeface">bold</item>
+        <item name="keyLetterSize">@fraction/config_key_letter_ratio_holo</item>
+        <item name="keyLabelSize">@fraction/config_key_label_ratio_holo</item>
+        <item name="keyHintLetterRatio">@fraction/config_key_hint_letter_ratio_holo</item>
+        <item name="keyShiftedLetterHintRatio">@fraction/config_key_shifted_letter_hint_ratio_holo</item>
+        <item name="keyLargeLetterRatio">@fraction/config_key_large_letter_ratio_holo</item>
+        <item name="keyLabelOffCenterRatio">-175%</item>
+        <item name="keyHintLabelRatio">@fraction/config_key_hint_label_ratio_holo</item>
+        <item name="keyHintLabelOffCenterRatio">200%</item>
+        <!-- U+2026: "…" HORIZONTAL ELLIPSIS -->
+        <item name="keyPopupHintLetter">&#x2026;</item>
+
         <item name="android:background">@android:color/white</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_holo_white</item>
         <item name="functionalKeyBackground">@drawable/btn_keyboard_key_pressed_klp_light</item>

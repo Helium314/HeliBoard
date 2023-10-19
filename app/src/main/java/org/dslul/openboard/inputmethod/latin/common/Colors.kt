@@ -124,8 +124,8 @@ class Colors (
             functionalKeyBackgroundFilter = keyBackgroundFilter
             spaceBarFilter = colorFilter(spaceBar)
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = backgroundStateList
-            functionalKeyStateList = backgroundStateList
+            keyStateList = stateList(brightenOrDarken(background, true), Color.TRANSPARENT)
+            functionalKeyStateList = keyStateList
             actionKeyStateList = if (themeStyle == THEME_STYLE_HOLO) functionalKeyStateList
                 else stateList(brightenOrDarken(accent, true), accent)
             spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
@@ -169,7 +169,10 @@ class Colors (
             BackgroundType.SUGGESTION, BackgroundType.ACTION_MORE_KEYS ->
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
-            BackgroundType.SPACE -> attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+            BackgroundType.SPACE -> {
+                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+                else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
+            }
             BackgroundType.ACTION -> {
                 if (themeStyle == THEME_STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
                     attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
