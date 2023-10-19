@@ -84,7 +84,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private static final String DOWN_KEY_TAG = "down_key";
 
     private final ViewGroup mSuggestionsStrip;
-    private final ImageButton mOtherKey;
+    private final ImageButton mToolbarKey;
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
     private final ViewGroup mToolbar;
@@ -149,7 +149,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         inflater.inflate(R.layout.suggestions_strip, this);
 
         mSuggestionsStrip = findViewById(R.id.suggestions_strip);
-        mOtherKey = findViewById(R.id.suggestions_strip_other_key);
+        mToolbarKey = findViewById(R.id.suggestions_strip_toolbar_key);
         mStripVisibilityGroup = new StripVisibilityGroup(this, mSuggestionsStrip);
         mPinnedKeys = findViewById(R.id.pinned_keys);
         mToolbar = findViewById(R.id.toolbar);
@@ -198,19 +198,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         keyboardAttr.recycle();
 
         mToolbarArrowIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right);
-        mDefaultBackground = mOtherKey.getBackground();
+        mDefaultBackground = mToolbarKey.getBackground();
         colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);
         mEnabledToolKeyBackground.setColors(new int[] {colors.getAccent(), Color.TRANSPARENT});
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
-        mEnabledToolKeyBackground.setGradientRadius(mOtherKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
+        mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
-        mOtherKey.setOnClickListener(this);
-        mOtherKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mOtherKey.setColorFilter(colors.getKeyText()); // maybe different color?
-        mOtherKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
-        mOtherKey.getBackground().setColorFilter(colors.getDoubleAdjustedBackground(), PorterDuff.Mode.SRC_ATOP);
-        mOtherKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
-        mOtherKey.getLayoutParams().width *= 0.82;
+        mToolbarKey.setOnClickListener(this);
+        mToolbarKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        mToolbarKey.setColorFilter(colors.getKeyText()); // maybe different color?
+        mToolbarKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
+        mToolbarKey.getBackground().setColorFilter(colors.getDoubleAdjustedBackground(), PorterDuff.Mode.SRC_ATOP);
+        mToolbarKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
+        mToolbarKey.getLayoutParams().width *= 0.82;
 
         for (int i = 0; i < mToolbar.getChildCount(); i++) {
             setupKey((ImageButton) mToolbar.getChildAt(i), colors);
@@ -239,8 +239,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(VOICE_KEY_TAG);
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        mOtherKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mOtherKey.setScaleX(currentSettingsValues.mIncognitoModeEnabled || mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+        mToolbarKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
     }
 
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
@@ -624,7 +624,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     return;
             }
         }
-        if (view == mOtherKey) {
+        if (view == mToolbarKey) {
             if (mToolbarContainer.getVisibility() == VISIBLE) {
                 mToolbarContainer.setVisibility(GONE);
                 mSuggestionsStrip.setVisibility(VISIBLE);
@@ -634,7 +634,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestionsStrip.setVisibility(GONE);
                 mPinnedKeys.setVisibility(GONE);
             }
-            mOtherKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+            mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
         }
 
 
