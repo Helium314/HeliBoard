@@ -634,7 +634,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestionsStrip.setVisibility(GONE);
                 mPinnedKeys.setVisibility(GONE);
             }
-            mOtherKey.setScaleX(mOtherKey.getDrawable() == mIncognitoIcon || mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+            mOtherKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
         }
 
 

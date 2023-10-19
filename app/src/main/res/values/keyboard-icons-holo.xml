@@ -29,7 +29,7 @@
         <item name="iconSearchKey">@drawable/sym_keyboard_search_holo_dark</item>
         <item name="iconTabKey">@drawable/sym_keyboard_tab_holo_dark</item>
         <item name="iconShortcutKey">@drawable/sym_keyboard_voice_holo_dark</item>
-        <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_dark</item>
+        <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_holo</item>
         <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_holo_dark</item>
         <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_locked_holo_dark</item>
         <item name="iconShortcutKeyDisabled">@drawable/sym_keyboard_voice_off_holo_dark</item>
