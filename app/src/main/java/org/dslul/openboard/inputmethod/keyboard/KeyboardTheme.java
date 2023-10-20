@@ -24,8 +24,8 @@ import java.util.Arrays;
 public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     // old themes
-    public static final String THEME_STYLE_MATERIAL = "Material";
-    public static final String THEME_STYLE_HOLO = "Holo";
+    public static final String STYLE_MATERIAL = "Material";
+    public static final String STYLE_HOLO = "Holo";
 
     // new themes using the custom colors
     public static final String THEME_LIGHT = "light";
@@ -35,10 +35,10 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
     public static final String THEME_USER_NIGHT = "user_night";
-    public static final String[] THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
-    public static final String[] THEME_VARIANTS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT};
+    public static final String[] COLORS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
+    public static final String[] COLORS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT};
 
-    public static final String[] THEME_STYLES = { THEME_STYLE_MATERIAL, THEME_STYLE_HOLO };
+    public static final String[] STYLES = { STYLE_MATERIAL, STYLE_HOLO };
 
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
@@ -114,10 +114,10 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     public static KeyboardTheme getKeyboardTheme(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        final String style = prefs.getString(Settings.PREF_THEME_STYLE, THEME_STYLE_MATERIAL);
+        final String style = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL);
         final boolean borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         final int matchingId;
-        if (style.equals(THEME_STYLE_HOLO))
+        if (style.equals(STYLE_HOLO))
             matchingId = THEME_ID_HOLO_BASE;
         else
             matchingId = borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE;

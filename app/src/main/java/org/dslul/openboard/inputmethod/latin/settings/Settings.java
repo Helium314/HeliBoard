@@ -55,8 +55,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_THEME_STYLE = "theme_style";
-    public static final String PREF_THEME_VARIANT = "theme_variant";
-    public static final String PREF_THEME_VARIANT_NIGHT = "theme_variant_night";
+    public static final String PREF_THEME_COLORS = "theme_variant";
+    public static final String PREF_THEME_COLORS_NIGHT = "theme_variant_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
     public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
@@ -473,9 +473,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (prefs.getBoolean(PREF_FORCE_OPPOSITE_THEME, false)) isNight = !isNight;
         final String themeColors = (isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
-                ? prefs.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
-                : prefs.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT);
-        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL);
+                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARKER)
+                : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
+        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);
 
         return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs);
     }

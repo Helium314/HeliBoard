@@ -13,8 +13,8 @@ import android.view.View
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.THEME_STYLE_HOLO
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.THEME_STYLE_MATERIAL
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_HOLO
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_MATERIAL
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
@@ -70,7 +70,7 @@ class Colors (
 
     init {
         accentColorFilter = colorFilter(accent)
-        if (themeStyle == THEME_STYLE_HOLO) {
+        if (themeStyle == STYLE_HOLO) {
             val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
             navBar = darkerBackground
             keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
@@ -98,7 +98,7 @@ class Colors (
             doubleAdjustedBackground = darken(adjustedBackground)
         }
         adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
-        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == THEME_STYLE_MATERIAL)
+        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
             stateList(doubleAdjustedBackground, Color.TRANSPARENT)
         else
             stateList(adjustedBackground, Color.TRANSPARENT)
@@ -109,12 +109,12 @@ class Colors (
             functionalKeyBackgroundFilter = colorFilter(functionalKey)
             spaceBarFilter = colorFilter(spaceBar)
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = if (themeStyle == THEME_STYLE_HOLO) stateList(keyBackground, keyBackground)
+            keyStateList = if (themeStyle == STYLE_HOLO) stateList(keyBackground, keyBackground)
                 else stateList(brightenOrDarken(keyBackground, true), keyBackground)
             functionalKeyStateList = stateList(brightenOrDarken(functionalKey, true), functionalKey)
-            actionKeyStateList = if (themeStyle == THEME_STYLE_HOLO) functionalKeyStateList
+            actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
                 else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = if (themeStyle == THEME_STYLE_HOLO) stateList(spaceBar, spaceBar)
+            spaceBarStateList = if (themeStyle == STYLE_HOLO) stateList(spaceBar, spaceBar)
                 else stateList(brightenOrDarken(spaceBar, true), spaceBar)
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
@@ -124,13 +124,13 @@ class Colors (
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
             keyStateList = stateList(brightenOrDarken(background, true), Color.TRANSPARENT)
             functionalKeyStateList = keyStateList
-            actionKeyStateList = if (themeStyle == THEME_STYLE_HOLO) functionalKeyStateList
+            actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
                 else stateList(brightenOrDarken(accent, true), accent)
             spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
         keyTextFilter = colorFilter(keyText, BlendModeCompat.SRC_ATOP)
         actionKeyIconColorFilter = when {
-            themeStyle == THEME_STYLE_HOLO -> keyTextFilter
+            themeStyle == STYLE_HOLO -> keyTextFilter
             // the white icon may not have enough contrast, and can't be adjusted by the user
             isBrightColor(accent) -> colorFilter(Color.DKGRAY, BlendModeCompat.SRC_ATOP)
             else -> null
@@ -146,10 +146,10 @@ class Colors (
             BackgroundType.ACTION -> actionKeyStateList
             BackgroundType.SPACE -> spaceBarStateList
             BackgroundType.ADJUSTED_BACKGROUND -> adjustedBackgroundStateList
-            BackgroundType.SUGGESTION -> if (!hasKeyBorders && themeStyle == THEME_STYLE_MATERIAL)
+            BackgroundType.SUGGESTION -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
                     adjustedBackgroundStateList
                 else backgroundStateList
-            BackgroundType.ACTION_MORE_KEYS -> if (themeStyle == THEME_STYLE_HOLO)
+            BackgroundType.ACTION_MORE_KEYS -> if (themeStyle == STYLE_HOLO)
                     adjustedBackgroundStateList
                 else actionKeyStateList
         }
@@ -172,7 +172,7 @@ class Colors (
                 else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
             }
             BackgroundType.ACTION -> {
-                if (themeStyle == THEME_STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
+                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
                     attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
                 else
                     attr.getDrawable(R.styleable.KeyboardView_keyBackground)

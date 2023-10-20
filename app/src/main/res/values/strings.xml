@@ -556,11 +556,15 @@ New dictionary:
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
     <!-- This resource is corresponding to msgid="5433275485499039199" -->
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <!-- Option for choosing theme family [CHAR LIMIT=33] -->
+    <!-- Option for choosing theme style [CHAR LIMIT=33] -->
+    <string name="theme_style">Style</string>
+    <!-- Option for choosing colors [CHAR LIMIT=33] -->
+    <string name="theme_colors">Colors</string>
+    <!-- Option for choosing colors for night mode [CHAR LIMIT=33] -->
+    <string name="theme_colors_night">Colors (night)</string>
+    <!-- TODO: remove the 3 strings below from all files, translation editor could do it but seems completely broken -->
     <string name="theme_family">Theme family</string>
-    <!-- Option for choosing theme family variant [CHAR LIMIT=33] -->
     <string name="theme_variant">Theme variant</string>
-    <!-- Option for choosing theme family variant (night) [CHAR LIMIT=33] -->
     <string name="theme_variant_night">Theme variant (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
@@ -585,15 +589,15 @@ New dictionary:
     <!-- Theme name for user-defined theme night mode theme -->
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
     <!-- Option for selecting custom theme colors -->
-    <string name="select_user_colors">Adjust theme colors</string>
+    <string name="select_user_colors">Adjust colors</string>
     <!-- Option for selecting custom theme colors for night mode only -->
-    <string name="select_user_colors_night">Adjust theme colors (night)</string>
+    <string name="select_user_colors_night">Adjust colors (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
-    <string name="select_user_colors_summary">Select colors for text and background</string>
+    <string name="select_user_colors_summary">Select colors for text and backgrounds</string>
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->

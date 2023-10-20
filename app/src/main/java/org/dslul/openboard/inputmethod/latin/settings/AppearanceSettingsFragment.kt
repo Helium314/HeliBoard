@@ -24,9 +24,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
     private var needsReload = false
 
-    private val themeFamilyPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
-    private val themeVariantPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT)!! }
-    private val themeVariantNightPref: ListPreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT_NIGHT) }
+    private val stylePref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
+    private val colorsPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_COLORS)!! }
+    private val colorsNightPref: ListPreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_COLORS_NIGHT) }
     private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
@@ -38,7 +38,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
         removeUnsuitablePreferences()
         setupTheme()
-        setThemeVariantPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL)!!)
+        setThemeVariantPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
 
         setupKeyboardHeight(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
     }
@@ -58,7 +58,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private fun removeUnsuitablePreferences() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             removePreference(Settings.PREF_THEME_DAY_NIGHT)
-            removePreference(Settings.PREF_THEME_VARIANT_NIGHT)
+            removePreference(Settings.PREF_THEME_COLORS_NIGHT)
         } else {
             // on P there is experimental support for night mode, exposed by some roms like LineageOS
             // try to detect this using UI_MODE_NIGHT_UNDEFINED, but actually the system could always report day too?
@@ -66,7 +66,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 && (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_UNDEFINED
             ) {
                 removePreference(Settings.PREF_THEME_DAY_NIGHT)
-                removePreference(Settings.PREF_THEME_VARIANT_NIGHT)
+                removePreference(Settings.PREF_THEME_COLORS_NIGHT)
                 removePreference("theme_select_colors_night")
             }
         }
@@ -83,9 +83,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun setThemeVariantPrefs(themeFamily: String) {
-        themeVariantPref.apply {
-            entryValues = if (themeFamily == KeyboardTheme.THEME_STYLE_HOLO) KeyboardTheme.THEME_VARIANTS
-                else KeyboardTheme.THEME_VARIANTS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
+        colorsPref.apply {
+            entryValues = if (themeFamily == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS
+                else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.map {
                 val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
                 if (resId == 0) it else getString(resId)
@@ -100,9 +100,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 true
             }
         }
-        themeVariantNightPref?.apply {
-            entryValues = if (themeFamily == KeyboardTheme.THEME_STYLE_HOLO) KeyboardTheme.THEME_VARIANTS_DARK
-                else KeyboardTheme.THEME_VARIANTS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
+        colorsNightPref?.apply {
+            entryValues = if (themeFamily == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK
+                else KeyboardTheme.COLORS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.map {
                 val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
                 if (resId == 0) it else getString(resId)
@@ -120,9 +120,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun setupTheme() {
-        themeFamilyPref.apply {
-            entries = KeyboardTheme.THEME_STYLES
-            entryValues = KeyboardTheme.THEME_STYLES
+        stylePref.apply {
+            entries = KeyboardTheme.STYLES
+            entryValues = KeyboardTheme.STYLES
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
                 setThemeVariantPrefs(value.toString())
@@ -131,13 +131,13 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             summary = entries[entryValues.indexOfFirst { it == value }]
         }
         dayNightPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            themeVariantNightPref?.isVisible = value as Boolean
-            userColorsPrefNight?.isVisible = value && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+            colorsNightPref?.isVisible = value as Boolean
+            userColorsPrefNight?.isVisible = value && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
             true
         }
-        themeVariantNightPref?.isVisible = dayNightPref?.isChecked == true
-        userColorsPref.isVisible = themeVariantPref.value == KeyboardTheme.THEME_USER
-        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+        colorsNightPref?.isVisible = dayNightPref?.isChecked == true
+        userColorsPref.isVisible = colorsPref.value == KeyboardTheme.THEME_USER
+        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
     }
 
     private fun setupKeyboardHeight(prefKey: String, defaultValue: Float) {
