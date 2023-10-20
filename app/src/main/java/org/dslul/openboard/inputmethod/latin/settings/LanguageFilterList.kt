@@ -11,7 +11,10 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -48,7 +51,7 @@ class LanguageFilterListFakePreference(searchField: EditText, recyclerView: Recy
 
 }
 
-class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
+private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var onlySystemLocales = false
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
@@ -107,8 +110,8 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                         else isVisible = true
                 }
 
-                view.findViewById<Switch>(R.id.language_switch).apply {
-                    isEnabled = !onlySystemLocales && infos.size == 1
+                view.findViewById<SwitchCompat>(R.id.language_switch).apply {
+                    isEnabled = !onlySystemLocales
                     // take care: isChecked changes if the language is scrolled out of view and comes back!
                     // disable the change listener when setting the checked status on scroll
                     // so it's only triggered on user interactions
@@ -116,24 +119,24 @@ class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: 
                     isChecked = onlySystemLocales || infos.any { it.isEnabled }
                     setOnCheckedChangeListener { _, b ->
                         if (b) {
-                            if (infos.size == 1) {
-                                if (!infos.first().hasDictionary)
-                                    showMissingDictionaryDialog(context, infos.first().subtype.locale().toLocale())
-                                addEnabledSubtype(prefs, infos.first().subtype)
-                                infos.single().isEnabled = true
-                            } else {
-                                // currently switch is disabled in this case
-                                LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
-                            }
+                            if (!infos.first().hasDictionary)
+                                showMissingDictionaryDialog(context, infos.first().subtype.locale().toLocale())
+                            addEnabledSubtype(prefs, infos.first().subtype)
+                            infos.first().isEnabled = true
                         } else {
-                            if (infos.size == 1) {
-                                removeEnabledSubtype(prefs, infos.first().subtype)
-                                infos.single().isEnabled = false
-                            } else {
-                                // currently switch is disabled in this case
-                                LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
-                            }
+                            removeEnabledSubtype(prefs, infos.first().subtype)
+                            infos.first().isEnabled = false
                         }
+                    }
+                }
+                view.findViewById<TextView>(R.id.blocker).apply {
+                    if (infos.size < 2) {
+                        isGone = true
+                        return@apply
+                    }
+                    isVisible = true
+                    setOnClickListener {
+                        LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
                     }
                 }
             }
