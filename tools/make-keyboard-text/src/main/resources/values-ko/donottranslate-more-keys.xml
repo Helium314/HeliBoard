@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- U+20B9: "￦" FULLWIDTH WON SIGN -->
     <string name="keyspec_currency">&#xFFE6;</string>

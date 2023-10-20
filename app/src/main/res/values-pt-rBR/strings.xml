@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_settings">Configurações do OpenBoard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>

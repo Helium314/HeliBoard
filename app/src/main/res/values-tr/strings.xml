@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Kişi adlarını denetle"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Yazım denetleyici, kişi listenizdeki girişleri kullanır"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Tuşa basıldığında titret"</string>

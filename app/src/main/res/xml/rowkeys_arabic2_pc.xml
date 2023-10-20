@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+    Copyright (C) 2012 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
     <!-- U+0634: "ش" ARABIC LETTER SHEEN
          U+069C: "ڜ" ARABIC LETTER SEEN WITH THREE DOTS BELOW AND THREE DOTS ABOVE -->

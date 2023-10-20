@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
 <org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

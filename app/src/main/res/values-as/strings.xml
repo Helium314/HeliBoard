@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
 <resources>
     <string name="use_system_language_to_select_input_method_subtypes">"ছিষ্টেমৰ ভাষা ব্যৱহাৰ কৰক"</string>
     <string name="select_input_method">"ইনপুট পদ্ধতি বাছনি কৰক"</string>
