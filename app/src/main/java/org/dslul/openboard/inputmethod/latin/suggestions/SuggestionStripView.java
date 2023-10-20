@@ -197,6 +197,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         oneHandedKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconStartOneHandedMode));
         keyboardAttr.recycle();
 
+        final int toolbarHeight = Math.min(mToolbarKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
+        mToolbarKey.getLayoutParams().height = toolbarHeight;
+        mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
         mToolbarArrowIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right);
         mDefaultBackground = mToolbarKey.getBackground();
         colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);

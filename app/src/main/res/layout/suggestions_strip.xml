@@ -22,8 +22,6 @@
             android:id="@+id/suggestions_strip_toolbar_key"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
             android:layout_height="@dimen/config_suggestions_strip_edge_key_width"
-            android:maxHeight="@dimen/config_suggestions_strip_height"
-            android:maxWidth="@dimen/config_suggestions_strip_height"
             android:layout_gravity="center_vertical"
             android:layout_weight="0"
             style="?attr/suggestionWordStyle"
