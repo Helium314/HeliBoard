@@ -236,11 +236,6 @@ final class EmojiCategory {
         return mCurrentCategoryPageId;
     }
 
-    public void saveLastTypedCategoryPage() {
-        Settings.writeLastTypedEmojiCategoryPageId(
-                mPrefs, mCurrentCategoryId, mCurrentCategoryPageId);
-    }
-
     public boolean isInRecentTab() {
         return mCurrentCategoryId == EmojiCategory.ID_RECENTS;
     }

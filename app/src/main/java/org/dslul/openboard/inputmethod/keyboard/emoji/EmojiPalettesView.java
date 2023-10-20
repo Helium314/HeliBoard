@@ -353,7 +353,6 @@ public final class EmojiPalettesView extends LinearLayout
     @Override
     public void onReleaseKey(final Key key) {
         mEmojiPalettesAdapter.addRecentKey(key);
-        mEmojiCategory.saveLastTypedCategoryPage();
         final int code = key.getCode();
         if (code == Constants.CODE_OUTPUT_TEXT) {
             mKeyboardActionListener.onTextInput(key.getOutputText());

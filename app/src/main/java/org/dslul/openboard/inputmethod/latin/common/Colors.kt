@@ -47,8 +47,6 @@ class Colors (
     val adjustedKeyText: Int
     val spaceBarText: Int
 
-    // todo (later): evaluate which colors, colorFilters and colorStateLists are actually necessary
-    //  also, ideally the color filters would be private and chosen internally depending on type
     val backgroundFilter: ColorFilter
     val adjustedBackgroundFilter: ColorFilter
     val keyBackgroundFilter: ColorFilter
@@ -83,7 +81,7 @@ class Colors (
             spaceBarText = keyHintText
         }
 
-        // create color filters, todo: maybe better / simplify
+        // create color filters
         val states = arrayOf(intArrayOf(android.R.attr.state_pressed), intArrayOf(-android.R.attr.state_pressed))
         fun stateList(pressed: Int, normal: Int) = ColorStateList(states, intArrayOf(pressed, normal))
         // todo (idea): make better use of the states?

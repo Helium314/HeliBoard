@@ -17,7 +17,6 @@ import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
 
 import java.io.File;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -97,10 +96,8 @@ public final class DictionaryFactory {
     public static void killDictionary(final Context context, final AssetFileAddress f) {
         if (f.pointsToPhysicalFile()) {
             f.deleteUnderlyingFile();
-            // notify the user
-            // todo: use an alertDialog to avoid the toast not showing up on Android 13+
-            //  but asyncTask doesn't work because android.view.WindowManager$BadTokenException: Unable to add window -- token null is not valid; is your activity running?
-            //  https://stackoverflow.com/questions/7199014/show-an-alertdialog-from-a-background-thread-with-the-appcontext
+            // notify the user if possible (toast not showing up on Android 13+)
+            //  but not that important, as the not working dictionary should be obvious
             final String wordlistId = DictionaryInfoUtils.getWordListIdFromFileName(new File(f.mFilename).getName());
             new Handler(Looper.getMainLooper()).post(() ->
                     Toast.makeText(context, "dictionary "+wordlistId+" is invalid, deleting", Toast.LENGTH_LONG).show()

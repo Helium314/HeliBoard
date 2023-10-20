@@ -46,10 +46,6 @@ android {
     }
 
     ndkVersion '25.2.9519653'
-    androidResources { // todo: check, probably both can be removed (together with searching dicts in res/raw)
-        noCompress 'main.dict'
-        noCompress 'empty.dict'
-    }
 
     packagingOptions {
         jniLibs {

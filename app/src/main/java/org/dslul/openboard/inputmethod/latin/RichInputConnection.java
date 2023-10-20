@@ -297,8 +297,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         mCommittedTextBeforeComposingText.append(text);
         // TODO: the following is exceedingly error-prone. Right now when the cursor is in the
-        // middle of the composing word mComposingText only holds the part of the composing text
-        // that is before the cursor, so this actually works, but it's terribly confusing. Fix this.
+        //  middle of the composing word mComposingText only holds the part of the composing text
+        //  that is before the cursor, so this actually works, but it's terribly confusing. Fix this.
         mExpectedSelStart += text.length() - mComposingText.length();
         mExpectedSelEnd = mExpectedSelStart;
         mComposingText.setLength(0);
@@ -368,10 +368,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return TextUtils.CAP_MODE_CHARACTERS & inputType;
         }
         // TODO: this will generally work, but there may be cases where the buffer contains SOME
-        // information but not enough to determine the caps mode accurately. This may happen after
-        // heavy pressing of delete, for example DEFAULT_TEXT_CACHE_SIZE - 5 times or so.
-        // getCapsMode should be updated to be able to return a "not enough info" result so that
-        // we can get more context only when needed.
+        //  information but not enough to determine the caps mode accurately. This may happen after
+        //  heavy pressing of delete, for example DEFAULT_TEXT_CACHE_SIZE - 5 times or so.
+        //  getCapsMode should be updated to be able to return a "not enough info" result so that
+        //  we can get more context only when needed.
         if (TextUtils.isEmpty(mCommittedTextBeforeComposingText) && 0 != mExpectedSelStart) {
             if (!reloadTextCache()) {
                 Log.w(TAG, "Unable to connect to the editor. "
@@ -381,19 +381,19 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // This never calls InputConnection#getCapsMode - in fact, it's a static method that
         // never blocks or initiates IPC.
         // TODO: don't call #toString() here. Instead, all accesses to
-        // mCommittedTextBeforeComposingText should be done on the main thread.
+        //  mCommittedTextBeforeComposingText should be done on the main thread.
         return CapsModeUtils.getCapsMode(mCommittedTextBeforeComposingText.toString(), inputType,
                 spacingAndPunctuations, hasSpaceBefore);
     }
 
-    public int getCodePointBeforeCursor() { // todo: behavior still correct? also should do this to getCharBeforeBeforeCursor
+    public int getCodePointBeforeCursor() {
         final CharSequence text = mComposingText.length() == 0 ? mCommittedTextBeforeComposingText : mComposingText;
         final int length = text.length();
         if (length < 1) return Constants.NOT_A_CODE;
         return Character.codePointBefore(text, length);
     }
 
-    public int getCharBeforeBeforeCursor() { // todo: behavior still correct?
+    public int getCharBeforeBeforeCursor() {
         if (mComposingText.length() >= 2) return mComposingText.charAt(mComposingText.length() - 2);
         final int length = mCommittedTextBeforeComposingText.length();
         if (mComposingText.length() == 1) return mCommittedTextBeforeComposingText.charAt(length - 1);
@@ -474,8 +474,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void deleteTextBeforeCursor(final int beforeLength) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         // TODO: the following is incorrect if the cursor is not immediately after the composition.
-        // Right now we never come here in this case because we reset the composing state before we
-        // come here in this case, but we need to fix this.
+        //  Right now we never come here in this case because we reset the composing state before we
+        //  come here in this case, but we need to fix this.
         final int remainingChars = mComposingText.length() - beforeLength;
         if (remainingChars >= 0) {
             mComposingText.setLength(remainingChars);
@@ -591,7 +591,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mComposingText.setLength(0);
         mComposingText.append(text);
         // TODO: support values of newCursorPosition != 1. At this time, this is never called with
-        // newCursorPosition != 1.
+        //  newCursorPosition != 1.
         if (isConnected()) {
             mIC.setComposingText(text, newCursorPosition);
         }
@@ -671,8 +671,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             final String reference = prev.length() <= checkLength ? prev.toString()
                     : prev.subSequence(prev.length() - checkLength, prev.length()).toString();
             // TODO: right now the following works because mComposingText holds the part of the
-            // composing text that is before the cursor, but this is very confusing. We should
-            // fix it.
+            //  composing text that is before the cursor, but this is very confusing. We should
+            //  fix it.
             final StringBuilder internal = new StringBuilder()
                     .append(mCommittedTextBeforeComposingText).append(mComposingText);
             if (internal.length() > checkLength) {

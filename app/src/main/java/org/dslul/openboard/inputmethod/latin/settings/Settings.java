@@ -29,7 +29,6 @@ import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -40,11 +39,9 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -126,17 +123,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
     public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
 
-
-    private static final String PREF_LAST_USED_PERSONALIZATION_TOKEN =
-            "pref_last_used_personalization_token";
-    private static final String PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME =
-            "pref_last_used_personalization_dict_wiped_time";
-    private static final String PREF_CORPUS_HANDLES_FOR_PERSONALIZATION =
-            "pref_corpus_handles_for_personalization";
-
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
-    public static final String PREF_EMOJI_CATEGORY_LAST_TYPED_ID = "emoji_category_last_typed_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
@@ -334,18 +322,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 R.array.keypress_vibration_durations, DEFAULT_KEYPRESS_VIBRATION_DURATION));
     }
 
-    public static float readKeyPreviewAnimationScale(final SharedPreferences prefs,
-                                                     final String prefKey, final float defaultValue) {
-        final float fraction = prefs.getFloat(prefKey, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (fraction != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? fraction : defaultValue;
-    }
-
-    public static int readKeyPreviewAnimationDuration(final SharedPreferences prefs,
-                                                      final String prefKey, final int defaultValue) {
-        final int milliseconds = prefs.getInt(prefKey, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds : defaultValue;
-    }
-
     public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_ENABLE_CLIPBOARD_HISTORY, true);
     }
@@ -423,55 +399,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
     }
 
-    public void writeLastUsedPersonalizationToken(byte[] token) {
-        if (token == null) {
-            mPrefs.edit().remove(PREF_LAST_USED_PERSONALIZATION_TOKEN).apply();
-        } else {
-            final String tokenStr = StringUtils.byteArrayToHexString(token);
-            mPrefs.edit().putString(PREF_LAST_USED_PERSONALIZATION_TOKEN, tokenStr).apply();
-        }
-    }
-
-    public byte[] readLastUsedPersonalizationToken() {
-        final String tokenStr = mPrefs.getString(PREF_LAST_USED_PERSONALIZATION_TOKEN, null);
-        return StringUtils.hexStringToByteArray(tokenStr);
-    }
-
-    public void writeLastPersonalizationDictWipedTime(final long timestamp) {
-        mPrefs.edit().putLong(PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME, timestamp).apply();
-    }
-
-    public long readLastPersonalizationDictGeneratedTime() {
-        return mPrefs.getLong(PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME, 0);
-    }
-
-    public void writeCorpusHandlesForPersonalization(final Set<String> corpusHandles) {
-        mPrefs.edit().putStringSet(PREF_CORPUS_HANDLES_FOR_PERSONALIZATION, corpusHandles).apply();
-    }
-
-    public Set<String> readCorpusHandlesForPersonalization() {
-        final Set<String> emptySet = Collections.emptySet();
-        return mPrefs.getStringSet(PREF_CORPUS_HANDLES_FOR_PERSONALIZATION, emptySet);
-    }
-
     public static void writeEmojiRecentKeys(final SharedPreferences prefs, String str) {
         prefs.edit().putString(PREF_EMOJI_RECENT_KEYS, str).apply();
     }
 
     public static String readEmojiRecentKeys(final SharedPreferences prefs) {
         return prefs.getString(PREF_EMOJI_RECENT_KEYS, "");
-    }
-
-    public static void writeLastTypedEmojiCategoryPageId(
-            final SharedPreferences prefs, final int categoryId, final int categoryPageId) {
-        final String key = PREF_EMOJI_CATEGORY_LAST_TYPED_ID + categoryId;
-        prefs.edit().putInt(key, categoryPageId).apply();
-    }
-
-    public static int readLastTypedEmojiCategoryPageId(
-            final SharedPreferences prefs, final int categoryId) {
-        final String key = PREF_EMOJI_CATEGORY_LAST_TYPED_ID + categoryId;
-        return prefs.getInt(key, 0);
     }
 
     public static void writeLastShownEmojiCategoryId(
@@ -566,7 +499,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case PREF_COLOR_ACCENT_SUFFIX:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                     // try determining accent color on Android 10 & 11, accent is not available in resources
-                    // todo: test whether this actually works
                     final Context wrapper = new ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault);
                     final TypedValue value = new TypedValue();
                     if (wrapper.getTheme().resolveAttribute(android.R.attr.colorAccent, value, true))
