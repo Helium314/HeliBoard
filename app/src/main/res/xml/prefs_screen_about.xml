@@ -7,21 +7,38 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_screen_about"
     android:key="@string/settings_screen_about">
+
     <Preference
         android:icon="@mipmap/ic_launcher"
         android:title="@string/english_ime_name"
         android:summary="@string/app_slogan"/>
+
     <Preference
         android:title="@string/version"
         android:summary="@string/version_text"
-        android:key="pref_key_version" />
-    <Preference android:title="@string/license"
-        android:summary="@string/gnu_gpl">
+        android:key="pref_key_version"
+        android:icon="@drawable/ic_settings_about"/>
+
+    <Preference
+        android:title="@string/license"
+        android:summary="@string/gnu_gpl"
+        android:icon="@drawable/ic_settings_about_license">
         <intent android:action="android.intent.action.VIEW"
             android:data="https://github.com/Helium314/openboard/blob/master/LICENSE" />
     </Preference>
-    <Preference android:title="@string/about_github_link">
-        <intent android:action="android.intent.action.VIEW"
+
+    <Preference
+        android:title="@string/hidden_features_title"
+        android:summary="@string/hidden_features_summary"
+        android:key="hidden_features"
+        android:icon="@drawable/ic_settings_about_hidden_features">
+    </Preference>
+
+    <Preference
+        android:title="@string/about_github_link"
+        android:icon="@drawable/ic_settings_about_github">
+        <intent
+            android:action="android.intent.action.VIEW"
             android:data="https://github.com/Helium314/openboard" />
     </Preference>
 </PreferenceScreen>
