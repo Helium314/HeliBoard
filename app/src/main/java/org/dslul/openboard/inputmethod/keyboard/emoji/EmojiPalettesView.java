@@ -62,7 +62,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.NOT_A_COORD
 public final class EmojiPalettesView extends LinearLayout
         implements OnTabChangeListener, View.OnClickListener, View.OnTouchListener,
         OnKeyEventListener {
-    private final Drawable mFunctionalKeyBackground;
+    private final int mFunctionalKeyBackgroundId;
     private final Drawable mSpacebarBackground;
     private final boolean mCategoryIndicatorEnabled;
     private final int mCategoryIndicatorDrawableResId;
@@ -97,9 +97,11 @@ public final class EmojiPalettesView extends LinearLayout
         super(context, attrs, defStyle);
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mFunctionalKeyBackground = colors.getDrawable(BackgroundType.FUNCTIONAL, keyboardViewAttr);
-        mSpacebarBackground = colors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
+        final int keyBackgroundId = keyboardViewAttr.getResourceId(
+                R.styleable.KeyboardView_keyBackground, 0);
+        mFunctionalKeyBackgroundId = keyboardViewAttr.getResourceId(
+                R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId);
+        mSpacebarBackground = Settings.getInstance().getCurrent().mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
         keyboardViewAttr.recycle();
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
@@ -232,7 +234,7 @@ public final class EmojiPalettesView extends LinearLayout
 
         // deleteKey depends only on OnTouchListener.
         mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
-        mDeleteKey.setBackground(mFunctionalKeyBackground);
+        mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
         mDeleteKey.setColorFilter(colors.getKeyTextFilter());
         mDeleteKey.setTag(Constants.CODE_DELETE);
         mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
@@ -245,7 +247,7 @@ public final class EmojiPalettesView extends LinearLayout
         // The text on alphabet keys are set at
         // {@link #startEmojiPalettes(String,int,float,Typeface)}.
         mAlphabetKeyLeft = findViewById(R.id.emoji_keyboard_alphabet_left);
-        mAlphabetKeyLeft.setBackground(mFunctionalKeyBackground);
+        mAlphabetKeyLeft.setBackgroundResource(mFunctionalKeyBackgroundId);
         mAlphabetKeyLeft.setTag(Constants.CODE_ALPHA_FROM_EMOJI);
         mAlphabetKeyLeft.setOnTouchListener(this);
         mAlphabetKeyLeft.setOnClickListener(this);
