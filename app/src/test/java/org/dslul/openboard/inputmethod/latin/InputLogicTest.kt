@@ -136,12 +136,12 @@ class InputLogicTest {
     @Test fun insertLetterIntoWordHangul() {
         reset()
         currentScript = ScriptUtils.SCRIPT_HANGUL
-        setText("ㅛㅎㄹㅎㅕㅛ")
+        chainInput("ㅛㅎㄹㅎㅕㅛ")
         setCursorPosition(3)
         input('ㄲ') // fails, as expected from the hangul issue when processing the event in onCodeInput
-        assertEquals("ㅛㅎㄹㄲㅎㅕㅛ", getWordAtCursor())
-        assertEquals("ㅛㅎㄹㄲㅎㅕㅛ", getText())
-        assertEquals("ㅛㅎㄹㄲㅎㅕㅛ", textBeforeCursor + textAfterCursor)
+        assertEquals("ㅛㅎㄹㄲ혀ㅛ", getWordAtCursor())
+        assertEquals("ㅛㅎㄹㄲ혀ㅛ", getText())
+        assertEquals("ㅛㅎㄹㄲ혀ㅛ", textBeforeCursor + textAfterCursor)
         assertEquals(4, getCursorPosition())
         assertEquals(4, cursor)
     }
@@ -525,10 +525,12 @@ class InputLogicTest {
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        if (phantomSpaceToInsert.isEmpty())
-            assertEquals(oldBefore + insert, textBeforeCursor)
-        else // in some cases autospace might be suppressed
-            assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
+        if (currentScript != ScriptUtils.SCRIPT_HANGUL) { // check fails if hangul combiner merges symbols
+            if (phantomSpaceToInsert.isEmpty())
+                assertEquals(oldBefore + insert, textBeforeCursor)
+            else // in some cases autospace might be suppressed
+                assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
+        }
         assertEquals(oldAfter, textAfterCursor)
         assertEquals(textBeforeCursor + textAfterCursor, getText())
         checkConnectionConsistency()

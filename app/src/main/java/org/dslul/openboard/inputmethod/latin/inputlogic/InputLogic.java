@@ -434,12 +434,14 @@ public final class InputLogic {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
         final Event processedEvent;
+        Log.i("test", "cp "+event.getMCodePoint()+", code "+event.getMKeyCode());
         if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL
                 // only use the Hangul chain if codepoint may actually be Hangul
                 // todo: this whole hangul-related logic should probably be somewhere else
                 // need to use hangul combiner for whitespace, because otherwise the current word
                 // seems to get deleted / replaced by space during mConnection.endBatchEdit()
-                && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()))) {
+                // similar for functional keys (codePoint -1)
+                && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()) || event.getMCodePoint() == -1)) {
             mWordComposer.setHangul(true);
             final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
             // todo: here hangul combiner does already consume the event, and appends typed codepoint
