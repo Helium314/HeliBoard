@@ -875,7 +875,7 @@ public final class InputLogic {
     private void addToHistoryIfEmoji(final String text, final SettingsValues settingsValues) {
         if (mLastComposedWord == LastComposedWord.NOT_A_COMPOSED_WORD // we want a last composed word, also to avoid storing consecutive emojis
                 || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
-                || !settingsValues.mAutoCorrectionEnabledPerUserSettings
+                || !settingsValues.mBigramPredictionEnabled // this is for next word suggestions, so they need to be enabled
                 || settingsValues.mIncognitoModeEnabled // add nothing
                 || !StringUtilsKt.isEmoji(text) // obviously we need an emoji
         ) return;
