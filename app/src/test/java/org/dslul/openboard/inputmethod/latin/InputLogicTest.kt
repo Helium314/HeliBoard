@@ -463,6 +463,37 @@ class InputLogicTest {
         assertEquals("b", composingText)
     }
 
+    @Test fun `emoji is added to dictionary`() {
+        // check both text and codepoint input
+        reset()
+        chainInput("hello ")
+        input(0x1F36D)
+        assertEquals(StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
+        reset()
+        chainInput("hello ")
+        input("🤗")
+        assertEquals("\uD83E\uDD17", lastAddedWord)
+
+        reset()
+        chainInput("hello ")
+        input("why 🤗 ") // not added because it's not only emoji (input can come from pasting)
+        assertEquals("hello", lastAddedWord)
+    }
+
+    @Test fun `emoji uses phantom space`() {
+        // check both text and codepoint input
+        reset()
+        pickSuggestion("hi")
+        input("🤗")
+        assertEquals("\uD83E\uDD17", lastAddedWord)
+        assertEquals("hi \uD83E\uDD17", text)
+        reset()
+        pickSuggestion("hi")
+        input(0x1F36D)
+        assertEquals(StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
+        assertEquals("hi ${StringUtils.newSingleCodePointString(0x1F36D)}", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -495,7 +526,7 @@ class InputLogicTest {
         handleMessages()
 
         if (phantomSpaceToInsert.isEmpty())
-            assertEquals(oldBefore + phantomSpaceToInsert + insert, textBeforeCursor)
+            assertEquals(oldBefore + insert, textBeforeCursor)
         else // in some cases autospace might be suppressed
             assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
         assertEquals(oldAfter, textAfterCursor)
@@ -514,11 +545,16 @@ class InputLogicTest {
     private fun input(insert: String) {
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
+        val phantomSpaceToInsert = if (spaceState == SpaceState.PHANTOM) " " else ""
 
         latinIME.onTextInput(insert)
         handleMessages()
 
-        assertEquals(oldBefore + insert, textBeforeCursor)
+        if (phantomSpaceToInsert.isEmpty())
+            assertEquals(oldBefore + insert, textBeforeCursor)
+        else // in some cases autospace might be suppressed
+            assert(oldBefore + phantomSpaceToInsert + insert == textBeforeCursor || oldBefore + insert == textBeforeCursor)
+        assert(oldBefore + insert == textBeforeCursor || "$oldBefore $insert" == textBeforeCursor)
         assertEquals(oldAfter, textAfterCursor)
         assertEquals(textBeforeCursor + textAfterCursor, getText())
         checkConnectionConsistency()

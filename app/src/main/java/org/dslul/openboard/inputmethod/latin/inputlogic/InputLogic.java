@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.inputlogic;
 
 import android.graphics.Color;
 import android.os.SystemClock;
-import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -42,6 +41,7 @@ import org.dslul.openboard.inputmethod.latin.WordComposer;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -231,7 +231,9 @@ public final class InputLogic {
         mConnection.beginBatchEdit();
         if (mWordComposer.isComposingWord()) {
             commitCurrentAutoCorrection(settingsValues, rawText, handler);
+            addToHistoryIfEmoji(rawText, settingsValues); // add emoji after committing text
         } else {
+            addToHistoryIfEmoji(rawText, settingsValues); // add emoji before resetting, otherwise lastComposedWord is empty
             resetComposingState(true /* alsoResetLastComposedWord */);
         }
         handler.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_TYPING);
@@ -841,6 +843,7 @@ public final class InputLogic {
         //  until the next character is entered, and the word is added to history
         //  -> the changing selection would be confusing, and adding partial URLs to history is probably bad
         if (Character.getType(codePoint) == Character.OTHER_SYMBOL
+                || (Character.getType(codePoint) == Character.UNASSIGNED && StringUtils.mightBeEmoji(codePoint)) // outdated java doesn't detect some emojis
                 || (sv.isWordSeparator(codePoint)
                     && (Character.isWhitespace(codePoint) // whitespace is always a separator
                         || !textBeforeCursorMayBeUrlOrSimilar(sv, false) // if text before is not URL or similar, it's a separator
@@ -849,6 +852,7 @@ public final class InputLogic {
                 )
         ) {
             handleSeparatorEvent(event, inputTransaction, handler);
+            addToHistoryIfEmoji(StringUtils.newSingleCodePointString(codePoint), sv);
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()) {
                 if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
@@ -864,6 +868,25 @@ public final class InputLogic {
             }
             handleNonSeparatorEvent(event, sv, inputTransaction);
         }
+    }
+
+    private void addToHistoryIfEmoji(final String text, final SettingsValues settingsValues) {
+        if (mLastComposedWord == LastComposedWord.NOT_A_COMPOSED_WORD // we want a last composed word, also to avoid storing consecutive emojis
+                || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
+                || !settingsValues.mAutoCorrectionEnabledPerUserSettings
+                || settingsValues.mIncognitoModeEnabled // add nothing
+                || !StringUtilsKt.isEmoji(text) // obviously we need an emoji
+        ) return;
+        mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD; // avoid storing consecutive emojis
+
+        // commit emoji to dictionary, so it ends up in history and can be suggested as next word
+        mDictionaryFacilitator.addToUserHistory(
+                text,
+                false,
+                mConnection.getNgramContextFromNthPreviousWord(settingsValues.mSpacingAndPunctuations, 2),
+                (int) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()),
+                settingsValues.mBlockPotentiallyOffensive
+        );
     }
 
     /**
@@ -1017,7 +1040,7 @@ public final class InputLogic {
                         mConnection.getCodePointBeforeCursor())) {
             needsPrecedingSpace = false;
         } else {
-            needsPrecedingSpace = settingsValues.isUsuallyPrecededBySpace(codePoint);
+            needsPrecedingSpace = settingsValues.isUsuallyPrecededBySpace(codePoint) || StringUtilsKt.isEmoji(codePoint);
         }
 
         if (needsPrecedingSpace) {
@@ -1246,9 +1269,9 @@ public final class InputLogic {
                     }
                     final int lengthToDelete =
                             Character.isSupplementaryCodePoint(codePointBeforeCursor) ? 2 : 1;
-                    if (StringUtils.probablyIsEmojiCodePoint(codePointBeforeCursor)) {
+                    if (StringUtils.mightBeEmoji(codePointBeforeCursor)) {
                         // emoji length varies, so we'd need to find out length to delete correctly
-                        // this is not optimal, but a reasonable workaround for issues when trying to delete emojis
+                        // the solution is not optimal, but a reasonable workaround for issues when trying to delete emojis
                         sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
                     } else {
                         mConnection.deleteTextBeforeCursor(lengthToDelete);
@@ -1532,10 +1555,8 @@ public final class InputLogic {
         }
 
         if (TextUtils.isEmpty(suggestion)) return;
-        final boolean wasAutoCapitalized =
-                mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
-        final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(
-                System.currentTimeMillis());
+        final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
+        final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         mDictionaryFacilitator.addToUserHistory(stripWordSeparatorsFromEnd(suggestion, settingsValues), wasAutoCapitalized,
                 ngramContext, timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
     }

@@ -700,23 +700,24 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean probablyContainsEmoji(final String s) {
+    public static boolean mightBeEmoji(final String s) {
         int offset = 0;
         final int length = s.length();
         while (offset < length) {
             int c = Character.codePointAt(s, offset);
-            if (probablyIsEmojiCodePoint(c))
+            if (mightBeEmoji(c))
                 return true;
             offset += Character.charCount(c);
         }
         return false;
     }
 
-    // seemingly arbitrary ranges taken from "somewhere on the internet"
-    public static boolean probablyIsEmojiCodePoint(final int c) {
-        return (0x200D <= c && c <= 0x3299) // ??
-                || (0x1F004 <= c && c <= 0x1F251) // ??
-                || (0x1F300 <= c && c <= 0x1FFFF) // ??
+    // unicode blocks that contain emojis
+    // very fast check, but there are very few blocks that exclusively contain emojis,
+    public static boolean mightBeEmoji(final int c) {
+        return (0x200D <= c && c <= 0x2BFF) // unicode blocks from General Punctuation to Miscellaneous Symbols and Arrows
+                || (0x1F104 <= c && c <= 0x1FAFF) // unicode blocks from Mahjong Tiles to Symbols and Pictographs Extended-A
+                || (0xE0000 <= c && c <= 0xE007F) // unicode block Tags
                 || c == 0xFE0F; // variation selector emoji with color
     }
 
