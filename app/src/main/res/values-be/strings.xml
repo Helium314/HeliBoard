@@ -12,6 +12,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Па націску на клавішы ўсплывае акно"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметры"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Знешні выгляд і раскладкі"</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">"Знешні выгляд"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Жэставы набор"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Выпраўленне тэксту"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Дадатковыя"</string>
@@ -59,11 +60,11 @@
     <string name="select_language" msgid="5709487854987078367">"Мовы"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Дакраніцеся зноў, каб захаваць"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Дакраніцеся тут, каб захаваць"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"англійская (Вялікабрытанія)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"англійская (ЗША)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"iспанская (ЗША)"</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">"Англійская (Вялікабрытанія)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Англійская (ЗША)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Іспанская (ЗША)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хінгліш"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербская (лацініца)"</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербская (Лацініца)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -71,7 +72,7 @@
     <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традыцыйная)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Кампактная)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Мова не выбрана (лацініца)"</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">"Стандартная (Лацініца)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Лацініца (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Лацініца (QWERTZ)"</string>
     <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Лацініца (AZERTY)"</string>
@@ -140,7 +141,7 @@
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Выдаліць"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>
     <string name="settings_category_suggestions">Прапановы</string>
