@@ -18,11 +18,14 @@ import android.os.Bundle;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.preference.Preference;
 
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 
 public final class PreferencesSettingsFragment extends SubScreenFragment {
+
+    private boolean mReloadKeyboard = false;
 
     @Override
     public void onCreate(final Bundle icicle) {
@@ -69,6 +72,16 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
+        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key))
+            mReloadKeyboard = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mReloadKeyboard)
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
+        mReloadKeyboard = false;
     }
 
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {
