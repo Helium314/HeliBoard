@@ -343,7 +343,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Settings.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
             } else {
                 Settings.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
-                mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground);
+                mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
             }
         }
