@@ -202,8 +202,6 @@ Nouveau dictionnaire:
     <string name="show_popup_hints">Afficher les indices sur les touches fonctionnelles</string>
     <string name="show_popup_hints_summary">Affiche un signe ( <b>…</b> ) sur les touches où un appui long déclenche une fonctionnalité supplémentaire</string>
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>
-    <string name="theme_variant">Variante de thème</string>
-    <string name="theme_variant_night">Variante de thème (mode nuit)</string>
     <string name="day_night_mode_summary">L\'apparence suivra les paramètres système</string>
     <string name="theme_navbar">Colorer la barre de navigation</string>
     <string name="theme_name_light">Clair</string>
@@ -227,7 +225,9 @@ Nouveau dictionnaire:
     <string name="about_github_link" >Lien vers GitHub</string>
     <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
-    <string name="theme_family">Famille de thème</string>
+    <string name="theme_style">Style</string>
+    <string name="theme_colors">Couleurs</string>
+    <string name="theme_colors_night">Couleurs (mode nuit)</string>
     <string name="key_borders">Bordures des touches</string>
     <string name="day_night_mode">Mode jour/nuit automatique</string>
     <string name="prefs_narrow_key_gaps">Réduire l\'espace entre les touches</string>
@@ -264,15 +264,15 @@ Nouveau dictionnaire:
         \t&#8226; l\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
         \t&#8226; pour certaines dispositions, ce n\'est pas sur la touche virgule, mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
         &#9658; Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
-        &#9658; Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper une seule touche majuscule : &lt;br&gt;
-        \t&#8226; fonctionne également pour la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
-        &#9658; Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions, et un bouton de suppression permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
+        &#9658; Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
+        \t&#8226; fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
+        &#9658; Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
         &#9658; Balayez vers le haut à partir d\'une suggestion pour ouvrir d\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt;
         &#9658; Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt;
-        \t&#8226; ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie qu\'il peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
+        \t&#8226; ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
         &lt;i&gt; Version Debug uniquement &lt;/i&gt; &lt;br&gt;
         &#9658; Un appui-long sur une suggestion montre la source du dictionnaire.&lt;br&gt; &lt;br&gt;
-        &#9658; Paramètres de débogage dans les préférences avancées, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
+        &#9658; Affichage des paramètres de débogage dans les paramètres avancés, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
         &#9658; Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
         &#9658; Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut, car l\'application utilise le %s. &lt;br&gt;
         Cela est nécessaire pour que les paramètres puissent être lus avant que l\'appareil ne soit déverrouillé, par exemple au démarrage. &lt;br&gt;
