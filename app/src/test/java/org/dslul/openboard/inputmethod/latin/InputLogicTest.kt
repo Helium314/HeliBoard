@@ -463,6 +463,8 @@ class InputLogicTest {
         assertEquals("b", composingText)
     }
 
+    // https://github.com/Helium314/openboard/issues/215
+    // https://github.com/Helium314/openboard/issues/229
     @Test fun `autospace works in URL field when input isn't URL, also for multiple suggestions`() {
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
@@ -506,6 +508,19 @@ class InputLogicTest {
         input(0x1F36D)
         assertEquals(StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
         assertEquals("hi ${StringUtils.newSingleCodePointString(0x1F36D)}", text)
+    }
+
+    // https://github.com/Helium314/openboard/issues/230
+    // todo: make it work
+    @Test fun `no autospace after opening quotes`() {
+        reset()
+        chainInput("\"Hi\" \"h")
+        assertEquals("\"Hi\" \"h", text)
+        assertEquals("h", composingText)
+        reset()
+        chainInput("\"Hi\", \"h")
+        assertEquals("\"Hi\", \"h", text)
+        assertEquals("", composingText)
     }
 
     // ------- helper functions ---------
