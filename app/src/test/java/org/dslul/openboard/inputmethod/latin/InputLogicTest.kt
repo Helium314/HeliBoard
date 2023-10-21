@@ -463,6 +463,20 @@ class InputLogicTest {
         assertEquals("b", composingText)
     }
 
+    @Test fun `autospace works in URL field when input isn't URL, also for multiple suggestions`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        pickSuggestion("this")
+        pickSuggestion("is")
+        assertEquals("this is", text)
+        pickSuggestion("not")
+        assertEquals("this is not", text)
+        input('c')
+        assertEquals("this is not c", text)
+        assertEquals("c", composingText)
+    }
+
     @Test fun `emoji is added to dictionary`() {
         // check both text and codepoint input
         reset()

@@ -34,9 +34,9 @@ fun nonWordCodePointAndNoSpaceBeforeCursor(s: CharSequence, spacingAndPunctuatio
             space = true
         if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it))
             nonWordCodePoint = true
-        space && nonWordCodePoint
+        space && nonWordCodePoint // stop if both are found
     }
-    return space && nonWordCodePoint
+    return nonWordCodePoint && !space // return true if an non-word codepoint and no space was found
 }
 
 fun hasLetterBeforeLastSpaceBeforeCursor(s: CharSequence): Boolean {
