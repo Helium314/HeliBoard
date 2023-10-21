@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:inset="@dimen/settings_screen_icon_inset"
+    android:drawable="@drawable/ic_settings_about_license_foreground"/>
