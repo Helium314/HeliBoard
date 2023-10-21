@@ -44,7 +44,7 @@ import kotlin.math.min
     ShadowKeyboardSwitcher::class,
     ShadowHandler::class,
     ShadowFacilitator2::class,
-])
+], sdk = [33]) // todo: remove workaround after upgrading robolectric to 4.11
 class InputLogicTest {
     private lateinit var latinIME: LatinIME
     private val settingsValues get() = Settings.getInstance().current
