@@ -606,6 +606,10 @@ New dictionary:
     <string name="select_color_key_hint">Key hint text</string>
     <!-- Selection: key color. -->
     <string name="select_color_key_background">Key background</string>
+    <!-- Selection: functional key color. -->
+    <string name="select_color_functional_key_background">Functional key background</string>
+    <!-- Selection: space bar color. -->
+    <string name="select_color_space_bar_background">Space bar background</string>
     <!-- Selection: accent color. -->
     <string name="select_color_accent">Accent</string>
     <!-- Settings screen title for about [CHAR LIMIT=33]-->

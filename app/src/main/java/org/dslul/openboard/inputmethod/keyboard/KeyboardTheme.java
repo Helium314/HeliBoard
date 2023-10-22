@@ -134,17 +134,21 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_USER:
                 final int accent = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false);
                 final int keyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false);
+                final int functionalKeyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false);
+                final int spaceBarBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACE_BAR_SUFFIX, false);
                 final int keyTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false);
                 final int hintTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false);
                 final int background = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false);
-                return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, ColorUtilKt.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
+                return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, functionalKeyBgColor, spaceBarBgColor, keyTextColor, hintTextColor);
             case THEME_USER_NIGHT:
                 final int accent2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true);
                 final int keyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true);
+                final int functionalKeyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true);
+                final int spaceBarBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACE_BAR_SUFFIX, true);
                 final int keyTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true);
                 final int hintTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true);
                 final int background2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true);
-                return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, ColorUtilKt.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
+                return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, functionalKeyBgColor2, spaceBarBgColor2, keyTextColor2, hintTextColor2);
             case THEME_DARK:
                 return new Colors(
                         themeStyle,
