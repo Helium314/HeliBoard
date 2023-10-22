@@ -1078,7 +1078,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         super.onWindowShown();
         if (isInputViewShown())
             setNavigationBarColor();
-            setStatusBarColor(); // Only for Android 12 (issue #231)
+            setStatusBarColor(); // Only for HUAWEI devices with Android 12 (issue #231)
     }
 
     @Override
@@ -2040,15 +2040,17 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         view.setSystemUiVisibility(mOriginalNavBarFlags);
     }
 
-    // On some devices with Android 12 where a white bar may appear in landscape mode (issue #231)
+    // On HUAWEI devices with Android 12: a white bar may appear in landscape mode (issue #231)
     // We therefore need to make the color of the status bar transparent
     private void setStatusBarColor() {
         final Window window = getWindow().getWindow();
         if (window == null) {
             return;
         }
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S) {
-            window.setStatusBarColor(Color.TRANSPARENT);
+        if (Build.MANUFACTURER.equals("HUAWEI")) {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S) {
+                window.setStatusBarColor(Color.TRANSPARENT);
+            }
         }
     }
 
