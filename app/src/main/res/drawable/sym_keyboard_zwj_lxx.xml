@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2013 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="1350"
+    android:viewportWidth="1350">
+    <path
+        android:fillColor="#FFF"
+        android:pathData="M617.5,221.2c-0.3,0.7 -0.4,204.5 -0.3,452.8l0.3,451.5 56.5,-0 56.5,-0 0,-452.5 0,-452.5 -56.3,-0.3c-44.5,-0.2 -56.4,-0 -56.7,1z"/>
+    <path
+        android:fillColor="#FFF"
+        android:pathData="M272.5,449.2c-0.3,0.7 -0.4,102.5 -0.3,226.3 0.3,210.2 0.4,225 2,225 0.9,-0 52.8,-50.8 115.4,-113l113.7,-113 -113.9,-113.2c-62.6,-62.3 -114.5,-113.3 -115.2,-113.3 -0.7,-0 -1.5,0.6 -1.7,1.2z"/>
+    <path
+        android:fillColor="#FFF"
+        android:pathData="M958.6,561.3l-113.9,113.2 113.7,113c62.6,62.2 114.5,113 115.4,113 1.6,-0 1.7,-15 1.7,-226 0,-200.1 -0.2,-226 -1.5,-226.2 -0.9,-0.2 -50.6,48.5 -115.4,113z"/>
+</vector>
