@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
@@ -56,8 +57,6 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
-import org.dslul.openboard.inputmethod.latin.common.StringUtils;
-import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags;
 import org.dslul.openboard.inputmethod.latin.inputlogic.InputLogic;
@@ -1079,6 +1078,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         super.onWindowShown();
         if (isInputViewShown())
             setNavigationBarColor();
+            setStatusBarColor(); // Only for Android 12 (issue #231)
     }
 
     @Override
@@ -2038,6 +2038,18 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return;
         final View view = window.getDecorView();
         view.setSystemUiVisibility(mOriginalNavBarFlags);
+    }
+
+    // On some devices with Android 12 where a white bar may appear in landscape mode (issue #231)
+    // We therefore need to make the color of the status bar transparent
+    private void setStatusBarColor() {
+        final Window window = getWindow().getWindow();
+        if (window == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S) {
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 
 }
