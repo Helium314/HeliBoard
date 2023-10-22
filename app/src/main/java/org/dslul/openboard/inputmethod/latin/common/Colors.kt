@@ -35,7 +35,8 @@ class Colors (
     val functionalKey: Int,
     val spaceBar: Int,
     val keyText: Int,
-    val keyHintText: Int
+    val keyHintText: Int,
+    val spaceBarText: Int
 ) {
     val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
@@ -45,7 +46,6 @@ class Colors (
     val doubleAdjustedBackground: Int
     /** brightened or darkened variant of [keyText] */
     val adjustedKeyText: Int
-    val spaceBarText: Int
 
     val backgroundFilter: ColorFilter
     val adjustedBackgroundFilter: ColorFilter
@@ -74,11 +74,9 @@ class Colors (
             val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
             navBar = darkerBackground
             keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
-            spaceBarText = keyText
         } else {
             navBar = background
             keyboardBackground = null
-            spaceBarText = keyHintText
         }
 
         // create color filters

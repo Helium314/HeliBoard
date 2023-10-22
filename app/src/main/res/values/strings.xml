@@ -609,7 +609,9 @@ New dictionary:
     <!-- Selection: functional key color. -->
     <string name="select_color_functional_key_background">Functional key background</string>
     <!-- Selection: space bar color. -->
-    <string name="select_color_space_bar_background">Space bar background</string>
+    <string name="select_color_spacebar_background">Space bar background</string>
+    <!-- Selection: space bar text color. -->
+    <string name="select_color_spacebar_text">Space bar text</string>
     <!-- Selection: accent color. -->
     <string name="select_color_accent">Accent</string>
     <!-- Settings screen title for about [CHAR LIMIT=33]-->
