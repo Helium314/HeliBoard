@@ -23,24 +23,23 @@ Might end up on F-Droid...
 
 ## Hidden functionality
 Features that may go unnoticed
-* Long pressing the clipboard key (the optional one in suggestion strip) pastes system clipboard contents
-* Long pressing keys in the suggestion strip toolbar pins them to the suggestion strip
-* Long-press comma to access clipboard view, emoji view, one-handed mode, settings, or switch language
-  * emoji view and language switch will disappear if you have the corresponding key enabled
-  * for some layouts it's not the comma-key, but the key at the same position (e.g. it's `q` for Dvorak layout)
-* Press the incognito icon to get the toolbar (probably only hidden if you use _force incognito mode_)
-* Sliding key input: swipe from shift to another key to type a single uppercase key
-  * also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys
-* Long-press a suggestion in suggestion strip to show more suggestions, and a delete button to remove this suggestion
-* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it
-* You can add dictionaries by opening them in a file explorer
-  * only works with content-uris and not with file-uris, meaning that it may not work with some file explorers
-* Debug APK only
-  * Long-press a suggestion to show the source dictionary
-  * Debug settings in advanced preferences, though not very useful except for dumping dictionaries into the log
-  * When the app crashes, you will be asked whether you want crash logs when you open the settings
-* For users doing manual backups with root access: starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot.
-  * file  is located in `/data/user_de/0/<package_id>/shared_prefs/`, though this may depend on the device and Android version
+* Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents. 
+* Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. 
+* Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: 
+  * Emoji View and Language Switch will disappear if you have the corresponding key enabled; 
+  * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout). 
+* Press the Incognito icon to access the toolbar. 
+* Sliding key input: Swipe from shift to another key to type a single uppercase key: 
+  * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys. 
+* Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. 
+* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. 
+* You can add dictionaries by opening them in a file explorer: 
+  * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers. 
+* _Debug APK only_
+  * Long-press a suggestion to show the source dictionary.
+  * The Debug Settings are located within the Advanced Preferences, though the usability is limited except for dumping dictionaries into the log. 
+  * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. 
+  * For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot. The file is located in `/data/user_de/0/package_id/shared_prefs/`, though this may depend on the device and Android version.
 
 ## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
