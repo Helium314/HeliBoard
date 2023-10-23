@@ -130,7 +130,13 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
                     }
                 // The Default button appears only when a color has already been defined
                 if (csb.colorSwitch.isChecked) {
-                    builder.setNeutralButton(R.string.button_default, null)
+                    // Reset the color and the color picker to their initial state
+                    builder.setNeutralButton(R.string.button_default) { _, _ ->
+                        csb.colorSwitch.isChecked = false
+                        val resetColor = Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
+                        picker.color = resetColor
+                        csb.colorSwitch.toggle()
+                    }
                 }
                 val dialog = builder.create()
                 dialog.show()
@@ -142,14 +148,6 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
                     dialog.window?.setLayout(wrapContent, wrapContent)
                 else
                     dialog.window?.setLayout(widthPortrait, wrapContent)
-                // Reset the color and the color picker to their initial state
-                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
-                    csb.colorSwitch.isChecked = false
-                    val resetColor = Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
-                    picker.color = resetColor
-                    csb.colorSwitch.toggle()
-                    dialog.dismiss()
-                }
             }
             csb.colorTextContainer.setOnClickListener(clickListener)
             csb.colorPreview.setOnClickListener(clickListener)
