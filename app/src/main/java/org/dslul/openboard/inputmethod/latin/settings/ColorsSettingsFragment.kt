@@ -128,6 +128,16 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
                         }
                         reloadKeyboard(hidden)
                     }
+                // The Default button appears only when a color has already been defined
+                if (csb.colorSwitch.isChecked) {
+                    // Reset the color and the color picker to their initial state
+                    builder.setNeutralButton(R.string.button_default) { _, _ ->
+                        csb.colorSwitch.isChecked = false
+                        val resetColor = Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
+                        picker.color = resetColor
+                        csb.colorSwitch.toggle()
+                    }
+                }
                 val dialog = builder.create()
                 dialog.show()
                 // Reduce the size of the dialog in portrait mode
