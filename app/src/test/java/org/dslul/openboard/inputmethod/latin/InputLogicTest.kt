@@ -133,6 +133,7 @@ class InputLogicTest {
     }
 
     // todo: make it work, but it might not be that simple because adding is done in combiner
+    //  https://github.com/Helium314/openboard/issues/214
     @Test fun insertLetterIntoWordHangul() {
         reset()
         currentScript = ScriptUtils.SCRIPT_HANGUL
@@ -511,7 +512,6 @@ class InputLogicTest {
     }
 
     // https://github.com/Helium314/openboard/issues/230
-    // todo: make it work
     @Test fun `no autospace after opening quotes`() {
         reset()
         chainInput("\"Hi\" \"h")
@@ -520,7 +520,7 @@ class InputLogicTest {
         reset()
         chainInput("\"Hi\", \"h")
         assertEquals("\"Hi\", \"h", text)
-        assertEquals("", composingText)
+        assertEquals("h", composingText)
     }
 
     // ------- helper functions ---------

@@ -13,17 +13,20 @@ class StringUtilsTest {
         assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes"))
     }
 
+    @Test fun `inside double quotes with quote at start`() {
+        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("\"hello yes"))
+    }
+
     // maybe this is not that bad, should be correct after entering next text
     @Test fun `not inside double quotes directly after closing quote`() {
         assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\""))
     }
 
-    @Test fun `not inside double quotes after closing quote0`() {
+    @Test fun `not inside double quotes after closing quote`() {
         assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" "))
     }
 
-    // todo: fix it!
-    @Test fun `not inside double quotes after closing quote1`() {
+    @Test fun `not inside double quotes after closing quote followed by comma`() {
         assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", "))
     }
 
@@ -31,7 +34,7 @@ class StringUtilsTest {
         assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" \"h"))
     }
 
-    @Test fun `inside double quotes after opening another quote2`() {
+    @Test fun `inside double quotes after opening another quote with closing quote followed by comma`() {
         assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", \"h"))
     }
 

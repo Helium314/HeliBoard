@@ -500,6 +500,9 @@ public final class StringUtils {
      * double quote character, and looking at whether it's followed by whitespace. If so, that
      * was a closing quotation mark, so we're not inside a double quote. If it's not followed
      * by whitespace, then it was an opening quotation mark, and we're inside a quotation.
+     * However, on the way to the double quote we can determine, some double quotes might be
+     * ignored, e.g. because they are followed by punctuation. These double quotes are counted and
+     * taken into account.
      *
      * @param text the text to examine.
      * @return whether we're inside a double quote.
@@ -514,26 +517,33 @@ public final class StringUtils {
             return true;
         }
         int prevCodePoint = 0;
+        int ignoredDoubleQuoteCount = 0;
         while (i > 0) {
             codePoint = Character.codePointBefore(text, i);
             if (Constants.CODE_DOUBLE_QUOTE == codePoint) {
                 // If we see a double quote followed by whitespace, then that
                 // was a closing quote.
                 if (Character.isWhitespace(prevCodePoint)) {
-                    return false;
+                    return ignoredDoubleQuoteCount % 2 == 1;
                 }
             }
             if (Character.isWhitespace(codePoint) && Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
                 // If we see a double quote preceded by whitespace, then that
                 // was an opening quote. No need to continue seeking.
-                return true;
+                return ignoredDoubleQuoteCount % 2 == 0;
+            }
+            if (Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
+                ignoredDoubleQuoteCount++;
             }
             i -= Character.charCount(codePoint);
             prevCodePoint = codePoint;
         }
         // We reached the start of text. If the first char is a double quote, then we're inside
         // a double quote. Otherwise we're not.
-        return Constants.CODE_DOUBLE_QUOTE == codePoint;
+        if (ignoredDoubleQuoteCount % 2 == 0)
+            return Constants.CODE_DOUBLE_QUOTE == codePoint;
+        else
+            return Constants.CODE_DOUBLE_QUOTE != codePoint;
     }
 
     public static boolean isEmptyStringOrWhiteSpaces(@NonNull final String s) {
