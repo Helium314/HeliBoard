@@ -514,7 +514,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 else return Color.WHITE;
             case PREF_COLOR_HINT_TEXT_SUFFIX:
                 if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
-                else return Color.LTGRAY;
+                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
             case PREF_COLOR_KEYS_SUFFIX:
                 return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight), isNight);
             case PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX:
@@ -523,7 +523,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 return readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight);
             case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
                 if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight))) return Color.DKGRAY;
-                else return Color.LTGRAY;
+                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
             case PREF_COLOR_BACKGROUND_SUFFIX:
             default:
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);
