@@ -36,7 +36,7 @@ object EditorInfoCompatUtils {
         val localeList = editorInfo.hintLocales ?: return null
         val locales = ArrayList<Locale>(localeList.size())
         for (i in 0 until localeList.size()) {
-            locales[i] = localeList.get(i)
+            locales.add(localeList.get(i))
         }
         return locales
     }
