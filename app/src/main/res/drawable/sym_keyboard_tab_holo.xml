@@ -3,6 +3,7 @@
     Copyright (C) 2013 The Android Open Source Project
     SPDX-License-Identifier: Apache-2.0
 -->
+<!-- todo (low priority): simplify unnecessarily long paths -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="28dp"
     android:width="28dp"
