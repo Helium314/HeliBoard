@@ -24,18 +24,18 @@
         <item name="iconShortcutKey">@drawable/sym_keyboard_voice_lxx</item>
         <item name="iconShortcutKeyDisabled">@drawable/sym_keyboard_voice_off_lxx</item>
         <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_lxx</item>
-        <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_lxx_light</item>
+        <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_lxx</item>
         <item name="iconLanguageSwitchKey">@drawable/sym_keyboard_language_switch_lxx</item>
-        <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_lxx_light</item>
-        <item name="iconZwjKey">@drawable/sym_keyboard_zwj_lxx_light</item>
+        <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_lxx</item>
+        <item name="iconZwjKey">@drawable/sym_keyboard_zwj_lxx</item>
         <item name="iconEmojiActionKey">@drawable/sym_keyboard_smiley_lxx</item>
         <item name="iconEmojiNormalKey">@drawable/sym_keyboard_smiley_lxx</item>
-        <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_lxx_dark</item>
-        <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_lxx_light</item>
-        <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_lxx_light</item>
+        <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_lxx</item>
+        <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_lxx</item>
+        <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_lxx</item>
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_lxx</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_lxx</item>
         <item name="iconSwitchOneHandedMode">@drawable/ic_arrow_left</item>
-        <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_lxx_light</item>
+        <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_lxx</item>
     </style>
 </resources>
