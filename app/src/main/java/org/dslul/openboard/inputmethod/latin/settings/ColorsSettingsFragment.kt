@@ -98,9 +98,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
                 val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
                 val initialColor = Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
                 val picker = ColorPickerView(requireContext())
-                // todo: later alpha bar should be activated, but currently setting alpha leads to glitches,
-                //  e.g. when setting alpha on key text it's not applied for key icons, but for emojis
-                picker.showAlpha(false)
+                picker.showAlpha(colorPref != Settings.PREF_COLOR_BACKGROUND_SUFFIX) // background behind background looks broken and sometimes is dark, sometimes light
                 picker.showHex(true)
                 picker.showPreview(true)
                 picker.color = initialColor

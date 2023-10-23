@@ -64,10 +64,8 @@ import java.util.WeakHashMap;
  * A view that is responsible for detecting key presses and touch movements.
  *
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextRatio
- * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextColor
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextShadowRadius
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextShadowColor
- * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarFinalAlpha
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarFadeoutAnimator
  * @attr ref R.styleable#MainKeyboardView_altCodeKeyWhileTypingFadeoutAnimator
  * @attr ref R.styleable#MainKeyboardView_altCodeKeyWhileTypingFadeinAnimator
@@ -203,15 +201,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mLanguageOnSpacebarTextColor = colors.getSpaceBarText(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
+        mLanguageOnSpacebarTextColor = colors.getSpaceBarText();
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);
         mLanguageOnSpacebarTextShadowColor = mainKeyboardViewAttr.getColor(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowColor, 0);
-        mLanguageOnSpacebarFinalAlpha = mainKeyboardViewAttr.getInt(
-                R.styleable.MainKeyboardView_languageOnSpacebarFinalAlpha,
-                Constants.Color.ALPHA_OPAQUE);
+        mLanguageOnSpacebarFinalAlpha = Color.alpha(mLanguageOnSpacebarTextColor);
         final int languageOnSpacebarFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_languageOnSpacebarFadeoutAnimator, 0);
         final int altCodeKeyWhileTypingFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
@@ -249,6 +245,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
         mMoreKeysKeyboardForActionContainer = inflater.inflate(moreKeysKeyboardForActionLayoutId, null);
         mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(languageOnSpacebarFadeoutAnimatorResId, this);
+        if (mLanguageOnSpacebarFadeoutAnimator != null)
+            mLanguageOnSpacebarFadeoutAnimator.setIntValues(255, mLanguageOnSpacebarFinalAlpha);
         mAltCodeKeyWhileTypingFadeoutAnimator = loadObjectAnimator(altCodeKeyWhileTypingFadeoutAnimatorResId, this);
         mAltCodeKeyWhileTypingFadeinAnimator = loadObjectAnimator(altCodeKeyWhileTypingFadeinAnimatorResId, this);
 

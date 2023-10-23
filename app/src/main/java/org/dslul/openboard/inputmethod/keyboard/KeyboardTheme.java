@@ -177,7 +177,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#282828"),
-                        Color.parseColor("#282828")
+                        Color.parseColor("#80FFFFFF")
                 );
             case THEME_DARKER:
                 return new Colors(

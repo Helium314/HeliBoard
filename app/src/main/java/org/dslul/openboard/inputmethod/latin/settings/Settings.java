@@ -522,8 +522,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case PREF_COLOR_SPACEBAR_SUFFIX:
                 return readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight);
             case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
-                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight))) return Color.DKGRAY;
-                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
+                final int spacebar = readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight);
+                final int hintText = readUserColor(prefs, context, PREF_COLOR_HINT_TEXT_SUFFIX, isNight);
+                if (ColorUtilKt.colorDistanceSquared(hintText, spacebar) > 80 * 80) return hintText & 0x80FFFFFF; // add some transparency
+                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight) & 0x80FFFFFF;
             case PREF_COLOR_BACKGROUND_SUFFIX:
             default:
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);

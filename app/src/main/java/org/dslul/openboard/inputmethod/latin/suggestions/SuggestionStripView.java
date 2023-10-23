@@ -203,13 +203,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarArrowIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right);
         mDefaultBackground = mToolbarKey.getBackground();
         colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);
-        mEnabledToolKeyBackground.setColors(new int[] {colors.getAccent(), Color.TRANSPARENT});
+        mEnabledToolKeyBackground.setColors(new int[] {colors.getAccent() | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
         mToolbarKey.setOnClickListener(this);
         mToolbarKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mToolbarKey.setColorFilter(colors.getKeyText()); // maybe different color?
+        mToolbarKey.setColorFilter(colors.getKeyTextFilter()); // maybe different color?
         mToolbarKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
         mToolbarKey.getBackground().setColorFilter(colors.getDoubleAdjustedBackground(), PorterDuff.Mode.SRC_ATOP);
         mToolbarKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)

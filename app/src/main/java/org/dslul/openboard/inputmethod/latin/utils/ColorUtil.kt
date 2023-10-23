@@ -5,6 +5,8 @@ package org.dslul.openboard.inputmethod.latin.utils
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
+import kotlin.math.max
+import kotlin.math.min
 
 fun isBrightColor(@ColorInt color: Int) =
     if (android.R.color.transparent == color) true
@@ -13,6 +15,13 @@ fun isBrightColor(@ColorInt color: Int) =
 fun isDarkColor(@ColorInt color: Int) =
     if (android.R.color.transparent == color) true
     else getBrightnessSquared(color) < 50 * 50
+
+fun colorDistanceSquared(@ColorInt color1: Int, @ColorInt color2: Int): Int {
+    val diffR = Color.red(color1) - Color.red(color2)
+    val diffG = Color.green(color1) - Color.green(color2)
+    val diffB = Color.blue(color1) - Color.blue(color2)
+    return diffR * diffR + diffB * diffB + diffG * diffG
+}
 
 @ColorInt
 fun brightenOrDarken(@ColorInt color: Int, preferDarken: Boolean) =

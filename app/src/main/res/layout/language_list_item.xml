@@ -3,6 +3,7 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="16dp"
     android:paddingVertical="4dp"
     android:minHeight="48dp"
@@ -31,6 +32,7 @@
         android:id="@+id/delete_button"
         android:paddingEnd="10dp"
         android:src="@drawable/ic_delete"
+        app:tint="@color/foreground_weak"
         android:visibility="gone"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"

@@ -49,7 +49,7 @@
 
     <!-- Color resources for the old LXX_Light theme, now used for THEME_LIGHT. -->
     <color name="key_hint_letter_color_lxx_light">#B337474F</color>
-    <color name="spacebar_letter_color_lxx_light">#B337474F</color>
+    <color name="spacebar_letter_color_lxx_light">#8037474F</color>
     <color name="key_text_color_lxx_light">#37474F</color>
 
     <!-- Color resources for the old LXX_Dark theme, now used for several dark themes. -->

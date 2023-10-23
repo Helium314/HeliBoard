@@ -70,11 +70,9 @@
     <declare-styleable name="MainKeyboardView">
         <!-- Size of the text for spacebar language label, in the proportion of key height. -->
         <attr name="languageOnSpacebarTextRatio" format="fraction" />
-        <attr name="languageOnSpacebarTextColor" format="color" />
         <attr name="languageOnSpacebarTextShadowRadius" format="float" />
         <attr name="languageOnSpacebarTextShadowColor" format="color" />
         <!-- Fadeout animator for spacebar language label. -->
-        <attr name="languageOnSpacebarFinalAlpha" format="integer" />
         <attr name="languageOnSpacebarFadeoutAnimator" format="reference" />
         <!-- Fadeout and fadein animator for altCodeWhileTyping keys. -->
         <attr name="altCodeKeyWhileTypingFadeoutAnimator" format="reference" />

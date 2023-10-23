@@ -67,7 +67,6 @@
         <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_holo</item>
         <item name="gestureTrailColor">@color/highlight_color_holo_white</item>
         <item name="slidingKeyInputPreviewColor">@color/highlight_translucent_color_holo_white</item>
-        <item name="languageOnSpacebarTextColor">@color/spacebar_text_color_holo</item>
         <item name="languageOnSpacebarTextShadowRadius">1.0</item>
         <item name="languageOnSpacebarTextShadowColor">@color/spacebar_text_shadow_color_holo</item>
     </style>

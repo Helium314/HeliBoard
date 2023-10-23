@@ -126,11 +126,11 @@ class Colors (
                 else stateList(brightenOrDarken(accent, true), accent)
             spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
-        keyTextFilter = colorFilter(keyText, BlendModeCompat.SRC_ATOP)
+        keyTextFilter = colorFilter(keyText)
         actionKeyIconColorFilter = when {
             themeStyle == STYLE_HOLO -> keyTextFilter
             // the white icon may not have enough contrast, and can't be adjusted by the user
-            isBrightColor(accent) -> colorFilter(Color.DKGRAY, BlendModeCompat.SRC_ATOP)
+            isBrightColor(accent) -> colorFilter(Color.DKGRAY)
             else -> null
         }
     }

@@ -12,4 +12,4 @@
     android:startOffset="1200"
     android:duration="200"
     android:valueFrom="255"
-    android:valueTo="@integer/config_language_on_spacebar_final_alpha" />
+    android:valueTo="128" />
