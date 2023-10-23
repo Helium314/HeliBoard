@@ -62,6 +62,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
     public static final String PREF_THEME_USER_COLOR_NIGHT_PREFIX = "theme_dark_color_";
     public static final String PREF_COLOR_KEYS_SUFFIX = "keys";
+    public static final String PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX = "functional_keys";
+    public static final String PREF_COLOR_SPACEBAR_SUFFIX = "spacebar";
+    public static final String PREF_COLOR_SPACEBAR_TEXT_SUFFIX = "spacebar_text";
     public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
     public static final String PREF_COLOR_TEXT_SUFFIX = "text";
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
@@ -511,9 +514,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 else return Color.WHITE;
             case PREF_COLOR_HINT_TEXT_SUFFIX:
                 if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
-                else return Color.LTGRAY;
+                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
             case PREF_COLOR_KEYS_SUFFIX:
                 return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight), isNight);
+            case PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX:
+                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight), true);
+            case PREF_COLOR_SPACEBAR_SUFFIX:
+                return readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight);
+            case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
+                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight))) return Color.DKGRAY;
+                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
             case PREF_COLOR_BACKGROUND_SUFFIX:
             default:
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);

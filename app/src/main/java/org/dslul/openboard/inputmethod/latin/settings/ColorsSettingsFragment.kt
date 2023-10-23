@@ -33,8 +33,11 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
     private val colorPrefs = listOf(
         Settings.PREF_COLOR_BACKGROUND_SUFFIX,
         Settings.PREF_COLOR_KEYS_SUFFIX,
+        Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX,
+        Settings.PREF_COLOR_SPACEBAR_SUFFIX,
         Settings.PREF_COLOR_TEXT_SUFFIX,
         Settings.PREF_COLOR_HINT_TEXT_SUFFIX,
+        Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
         Settings.PREF_COLOR_ACCENT_SUFFIX,
     )
 
@@ -65,8 +68,11 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
         val colorPrefNames = listOf(
             R.string.select_color_background,
             R.string.select_color_key_background,
+            R.string.select_color_functional_key_background,
+            R.string.select_color_spacebar_background,
             R.string.select_color_key,
             R.string.select_color_key_hint,
+            R.string.select_color_spacebar_text,
             R.string.select_color_accent,
         ).map { requireContext().getString(it) }
         val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
