@@ -35,6 +35,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -135,10 +136,13 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
     protected final Resources mResources;
 
     private int mCurrentY = 0;
+    // currently not used, but will be relevant when resizing a row or inserting a new key
+    private float mCurrentX = 0f;
     private KeyboardRow mCurrentRow = null;
     private boolean mLeftEdge;
     private boolean mTopEdge;
     private Key mRightEdgeKey = null;
+    private final ArrayList<ArrayList<Key.KeyParams>> keysInRows = new ArrayList<>();
 
     public KeyboardBuilder(final Context context, @NonNull final KP params) {
         mContext = context;
@@ -151,10 +155,15 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         params.GRID_HEIGHT = res.getInteger(R.integer.config_keyboard_grid_height);
     }
 
-    public void setAllowRedundantMoreKes(final boolean enabled) {
+    public void setAllowRedundantMoreKeys(final boolean enabled) {
         mParams.mAllowRedundantMoreKeys = enabled;
     }
 
+    // todo:
+    //  split the parser from the builder
+    //  parser should just setup the params (parseKeyboardAttributes)
+    //   and return something like keysInRows
+    //  then builder can nicely adjust the keyboard, maybe dimensions, maybe insert keys/spacers
     public KeyboardBuilder<KP> load(final int xmlId, final KeyboardId id) {
         mParams.mId = id;
         try (XmlResourceParser parser = mResources.getXml(xmlId)) {
@@ -180,6 +189,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
     @NonNull
     public Keyboard build() {
+        addKeysToParams();
         return new Keyboard(mParams);
     }
 
@@ -402,6 +412,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 R.styleable.Keyboard_GridRows_textsArray, 0);
         final int moreCodesArrayId = gridRowAttr.getResourceId(
                 R.styleable.Keyboard_GridRows_moreCodesArray, 0);
+        // todo: read relative key width, key / row height and gaps (but they might also be absolute, see getDimensionOrFraction)
         gridRowAttr.recycle();
         if (codesArrayId == 0 && textsArrayId == 0) {
             throw new XmlParseUtils.ParseException(
@@ -429,6 +440,7 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         for (int index = 0; index < counts; index += numColumns) {
             final KeyboardRow row = new KeyboardRow(mResources, mParams, parser, mCurrentY);
             startRow(row);
+            final ArrayList<Key.KeyParams> keyParamsRow = keysInRows.get(keysInRows.size() - 1);
             for (int c = 0; c < numColumns; c++) {
                 final int i = index + c;
                 if (i >= counts) {
@@ -468,9 +480,10 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                 final int width = (int)keyWidth;
                 final int height = row.getRowHeight();
                 final String hintLabel = moreKeySpecs != null ? "\u25E5" : null;
-                final Key key = new Key(label, code, outputText,  hintLabel, moreKeySpecs,
+                final Key.KeyParams key = new Key.KeyParams(label, code, outputText,  hintLabel, moreKeySpecs,
                         labelFlags, backgroundType, x, y, width, height, mParams);
-                endKey(key);
+                // todo: add relative width and others
+                keyParamsRow.add(key);
                 row.advanceXPos(keyWidth);
             }
             endRow(row);
@@ -493,14 +506,15 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         if (TextUtils.isEmpty(keySpec)) {
             throw new ParseException("Empty keySpec", parser);
         }
-        final Key key = new Key(keySpec, keyAttr, keyStyle, mParams, row);
+        final Key.KeyParams key = new Key.KeyParams(keySpec, keyAttr, keyStyle, mParams, row);
         keyAttr.recycle();
+        // todo: add relative width and others
         if (DEBUG) {
-            startEndTag("<%s%s %s moreKeys=%s />", TAG_KEY, (key.isEnabled() ? "" : " disabled"),
-                    key, Arrays.toString(key.getMoreKeys()));
+            startEndTag("<%s%s %s moreKeys=%s />", TAG_KEY, (key.mEnabled ? "" : " disabled"),
+                    key, Arrays.toString(key.mMoreKeys));
         }
         XmlParseUtils.checkEndTag(TAG_KEY, parser);
-        endKey(key);
+        keysInRows.get(keysInRows.size() - 1).add(key);
     }
 
     private void parseSpacer(final XmlPullParser parser, final KeyboardRow row, final boolean skip)
@@ -513,11 +527,12 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         final TypedArray keyAttr = mResources.obtainAttributes(
                 Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
         final KeyStyle keyStyle = mParams.mKeyStyles.getKeyStyle(keyAttr, parser);
-        final Key spacer = new Key.Spacer(keyAttr, keyStyle, mParams, row);
+        final Key.KeyParams spacer = Key.KeyParams.newSpacer(keyAttr, keyStyle, mParams, row);
         keyAttr.recycle();
+        // todo: add relative width and others
+        keysInRows.get(keysInRows.size() - 1).add(spacer);
         if (DEBUG) startEndTag("<%s />", TAG_SPACER);
         XmlParseUtils.checkEndTag(TAG_SPACER, parser);
-        endKey(spacer);
     }
 
     private void parseIncludeKeyboardContent(final XmlPullParser parser, final boolean skip)
@@ -861,6 +876,13 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         mCurrentRow = row;
         mLeftEdge = true;
         mRightEdgeKey = null;
+        keysInRows.add(new ArrayList<>());
+    }
+
+    private void startRowNew() {
+        addEdgeSpaceNew(mParams.mLeftPadding);
+        mLeftEdge = true;
+        mRightEdgeKey = null;
     }
 
     private void endRow(final KeyboardRow row) {
@@ -874,6 +896,18 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         addEdgeSpace(mParams.mRightPadding, row);
         mCurrentY += row.getRowHeight();
         mCurrentRow = null;
+        mTopEdge = false;
+    }
+
+    private void endRowNew() {
+        int lastKeyHeight = 0;
+        if (mRightEdgeKey != null) {
+            mRightEdgeKey.markAsRightEdge(mParams);
+            lastKeyHeight = mRightEdgeKey.getHeight() + mRightEdgeKey.getVerticalGap();
+            mRightEdgeKey = null;
+        }
+        addEdgeSpaceNew(mParams.mRightPadding);
+        mCurrentY += lastKeyHeight;
         mTopEdge = false;
     }
 
@@ -897,8 +931,29 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
         mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight);
     }
 
+    private void addKeysToParams() {
+        // need to reset it, we need to sum it up to get the height nicely
+        // (though in the end we could just not touch it at all, final used value is the same as the one before resetting)
+        mCurrentY = 0;
+        startKeyboard();
+        for (ArrayList<Key.KeyParams> row : keysInRows) {
+            startRowNew();
+            for (Key.KeyParams keyParams : row) {
+                endKey(keyParams.createKey());
+            }
+            endRowNew();
+        }
+        endKeyboard();
+    }
+
     private void addEdgeSpace(final float width, final KeyboardRow row) {
         row.advanceXPos(width);
+        mLeftEdge = false;
+        mRightEdgeKey = null;
+    }
+
+    private void addEdgeSpaceNew(final float width) {
+        mCurrentX += width;
         mLeftEdge = false;
         mRightEdgeKey = null;
     }

@@ -17,7 +17,6 @@ import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
-import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.UniqueKeysCache;
@@ -217,7 +216,7 @@ public final class KeyboardLayoutSet {
         final KeyboardBuilder<KeyboardParams> builder =
                 new KeyboardBuilder<>(mContext, new KeyboardParams(sUniqueKeysCache));
         sUniqueKeysCache.setEnabled(id.isAlphabetKeyboard());
-        builder.setAllowRedundantMoreKes(elementParams.mAllowRedundantMoreKeys);
+        builder.setAllowRedundantMoreKeys(elementParams.mAllowRedundantMoreKeys);
         final int keyboardXmlId = elementParams.mKeyboardXmlId;
         builder.load(keyboardXmlId, id);
         if (mParams.mDisableTouchPositionCorrectionDataForTest) {
