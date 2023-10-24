@@ -94,6 +94,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -628,16 +629,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter);
+        ContextCompat.registerReceiver(this, mDictionaryPackInstallReceiver, newDictFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
         dictDumpFilter.addAction(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
-        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter);
+        ContextCompat.registerReceiver(this, mDictionaryDumpBroadcastReceiver, dictDumpFilter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         final IntentFilter hideSoftInputFilter = new IntentFilter();
         hideSoftInputFilter.addAction(ACTION_HIDE_SOFT_INPUT);
-        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT,
-                null /* scheduler */);
+        ContextCompat.registerReceiver(this, mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT,
+                null /* scheduler */, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter restartAfterUnlockFilter = new IntentFilter();
         restartAfterUnlockFilter.addAction(Intent.ACTION_USER_UNLOCKED);
