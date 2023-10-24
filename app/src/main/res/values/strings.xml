@@ -82,7 +82,7 @@
     <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
     <!-- Option name for adding learned words to personal dictionary -->
-    <string name="add_to_personal_dictionary">Add words to user dictionary</string>
+    <string name="add_to_personal_dictionary">Add words to personal dictionary</string>
     <!-- Description for option to add learned words to system-wide user dictionary -->
     <string name="add_to_personal_dictionary_summary">Use device personal dictionary to store learned words</string>
     <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=30] -->
