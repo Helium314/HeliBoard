@@ -434,7 +434,6 @@ public final class InputLogic {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
         final Event processedEvent;
-        Log.i("test", "cp "+event.getMCodePoint()+", code "+event.getMKeyCode());
         if (currentKeyboardScriptId == ScriptUtils.SCRIPT_HANGUL
                 // only use the Hangul chain if codepoint may actually be Hangul
                 // todo: this whole hangul-related logic should probably be somewhere else

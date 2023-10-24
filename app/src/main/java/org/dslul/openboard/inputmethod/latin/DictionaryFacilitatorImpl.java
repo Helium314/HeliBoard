@@ -654,27 +654,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // main and secondary isValid provided to avoid duplicate lookups
     private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, boolean[] validWordForDictionary) {
-        // we need one clearly preferred group to assign it to the correct language
-        int highestGroup = -1;
-        // require confidence to be MAX_CONFIDENCE, to be sure about language
-        // since the word is unknown, confidence has already been reduced, but after a first miss
-        // confidence is actually reduced to MAX_CONFIDENCE if it was larger
-        int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
-        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
-            final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
-            if (dictionaryGroup.mConfidence > highestGroupConfidence) {
-                highestGroup = i;
-                highestGroupConfidence = dictionaryGroup.mConfidence;
-            } else if (dictionaryGroup.mConfidence == highestGroupConfidence) {
-                highestGroup = -1;
-            }
-        }
-        // no preferred group or word is valid -> do nothing
-        if (highestGroup == -1) return;
-        final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(highestGroup);
+        final DictionaryGroup dictionaryGroup = getClearlyPreferredDictionaryGroupOrNull();
+        if (dictionaryGroup == null) return;
         if (validWordForDictionary == null
                 ? isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)
-                : validWordForDictionary[highestGroup]
+                : validWordForDictionary[mDictionaryGroups.indexOf(dictionaryGroup)]
         )
             return;
 
@@ -690,7 +674,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                     UserDictionary.Words.addWord(userDict.mContext, suggestion,
                     250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale));
         }
-
     }
 
     private void putWordIntoValidSpellingWordCache(
@@ -786,6 +769,26 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
         }
         return dictGroup;
+    }
+
+    private DictionaryGroup getClearlyPreferredDictionaryGroupOrNull() {
+        // we want one clearly preferred group and return null otherwise
+        if (mDictionaryGroups.size() == 1)
+            return mDictionaryGroups.get(0);
+        // that preferred group should have at least MAX_CONFIDENCE
+        int highestGroup = -1;
+        int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
+        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
+            final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
+            if (dictionaryGroup.mConfidence > highestGroupConfidence) {
+                highestGroup = i;
+                highestGroupConfidence = dictionaryGroup.mConfidence;
+            } else if (dictionaryGroup.mConfidence == highestGroupConfidence) {
+                highestGroup = -1; // unset group on a tie
+            }
+        }
+        if (highestGroup == -1) return null;
+        return mDictionaryGroups.get(highestGroup);
     }
 
     private void removeWord(final String dictName, final String word) {
