@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ new ]
+    branches: [ patch-1 ]
   pull_request:
     branches: [ new ]
 
