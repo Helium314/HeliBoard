@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ new ]
   pull_request:
-    branches: [ master ]
+    branches: [ new ]
 
 jobs:
   build:
@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
@@ -28,13 +28,14 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v2.2.0
+        uses: actions/upload-artifact@v3
         with:
-          name: APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: OpenBoard-debug
+          path: app/build/outputs/apk/debug/*-debug*.apk
 
-      - name: Upload lint report
-        uses: actions/upload-artifact@v2.2.0
+      - name: Archive reports for failed job
+        uses: actions/upload-artifact@v3
         with:
-          name: Lint report
-          path: app/build/reports/lint-results-debug.html
+          name: reports
+          path: '*/build/reports'
+        if: ${{ failure() }}
