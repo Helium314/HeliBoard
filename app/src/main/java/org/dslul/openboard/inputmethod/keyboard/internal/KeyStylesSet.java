@@ -13,6 +13,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.XmlParseUtils;
 import org.xmlpull.v1.XmlPullParser;
@@ -179,13 +180,13 @@ public final class KeyStylesSet {
         final String styleName = keyStyleAttr.getString(R.styleable.Keyboard_KeyStyle_styleName);
         if (styleName == null) {
             throw new XmlParseUtils.ParseException(
-                    KeyboardBuilder.TAG_KEY_STYLE + " has no styleName attribute", parser);
+                    XmlKeyboardParser.TAG_KEY_STYLE + " has no styleName attribute", parser);
         }
         if (DEBUG) {
             Log.d(TAG, String.format("<%s styleName=%s />",
-                    KeyboardBuilder.TAG_KEY_STYLE, styleName));
+                    XmlKeyboardParser.TAG_KEY_STYLE, styleName));
             if (mStyles.containsKey(styleName)) {
-                Log.d(TAG, KeyboardBuilder.TAG_KEY_STYLE + " " + styleName + " is overridden at "
+                Log.d(TAG, XmlKeyboardParser.TAG_KEY_STYLE + " " + styleName + " is overridden at "
                         + parser.getPositionDescription());
             }
         }

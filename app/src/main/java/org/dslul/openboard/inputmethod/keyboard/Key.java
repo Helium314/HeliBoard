@@ -18,7 +18,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyStyle;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
-import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardRow;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardRow;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -973,7 +973,7 @@ public class Key implements Comparable<Key> {
         int yPos;
 
         public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
-                                   final KeyboardParams params, final KeyboardRow row) {
+                                   final KeyboardParams params, final XmlKeyboardRow row) {
             final KeyParams keyParams = new KeyParams(null, keyAttr, keyStyle, params, row);
             keyParams.isSpacer = true;
             return keyParams;
@@ -1017,7 +1017,7 @@ public class Key implements Comparable<Key> {
          */
         public KeyParams(@Nullable final String keySpec, @NonNull final TypedArray keyAttr,
                          @NonNull final KeyStyle style, @NonNull final KeyboardParams params,
-                         @NonNull final KeyboardRow row) {
+                         @NonNull final XmlKeyboardRow row) {
             mHorizontalGap = params.mHorizontalGap;
             mVerticalGap = params.mVerticalGap;
 

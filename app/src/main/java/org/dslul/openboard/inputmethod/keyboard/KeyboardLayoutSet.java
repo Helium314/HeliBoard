@@ -218,7 +218,7 @@ public final class KeyboardLayoutSet {
         sUniqueKeysCache.setEnabled(id.isAlphabetKeyboard());
         builder.setAllowRedundantMoreKeys(elementParams.mAllowRedundantMoreKeys);
         final int keyboardXmlId = elementParams.mKeyboardXmlId;
-        builder.load(keyboardXmlId, id);
+        builder.loadFromXml(keyboardXmlId, id);
         if (mParams.mDisableTouchPositionCorrectionDataForTest) {
             builder.disableTouchPositionCorrectionDataForTest();
         }

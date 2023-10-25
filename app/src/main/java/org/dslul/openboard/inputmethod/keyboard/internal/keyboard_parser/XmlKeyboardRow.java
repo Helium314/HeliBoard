@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package org.dslul.openboard.inputmethod.keyboard.internal;
+package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -12,6 +12,7 @@ import android.util.Xml;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
+import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.xmlpull.v1.XmlPullParser;
@@ -23,7 +24,7 @@ import java.util.ArrayDeque;
  * Some of the key size defaults can be overridden per row from what the {@link Keyboard}
  * defines.
  */
-public final class KeyboardRow {
+public final class XmlKeyboardRow {
     // keyWidth enum constants
     private static final int KEYWIDTH_NOT_ENUM = 0;
     private static final int KEYWIDTH_FILL_RIGHT = -1;
@@ -82,8 +83,8 @@ public final class KeyboardRow {
     // Will be updated by {@link Key}'s constructor.
     private float mCurrentX;
 
-    public KeyboardRow(final Resources res, final KeyboardParams params,
-            final XmlPullParser parser, final int y) {
+    public XmlKeyboardRow(final Resources res, final KeyboardParams params,
+                          final XmlPullParser parser, final int y) {
         mParams = params;
         final TypedArray keyboardAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.Keyboard);
