@@ -16,14 +16,12 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.keyboard.internal.CodesArrayParser;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyStyle;
-import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreCodesArrayParser;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
-import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.XmlParseUtils;
 import org.xmlpull.v1.XmlPullParser;
@@ -121,9 +119,6 @@ public class XmlKeyboardParser implements AutoCloseable {
     private static final String TAG_DEFAULT = "default";
     public static final String TAG_KEY_STYLE = "key-style";
 
-    private static final int DEFAULT_KEYBOARD_COLUMNS = 10;
-    private static final int DEFAULT_KEYBOARD_ROWS = 4;
-
     protected final Context mContext;
     protected final Resources mResources;
     private final XmlResourceParser mParser;
@@ -189,74 +184,7 @@ public class XmlKeyboardParser implements AutoCloseable {
     /** this and parseKeyStyle are the only place where anything is written to params */
     private void parseKeyboardAttributes(final XmlPullParser parser) {
         final AttributeSet attr = Xml.asAttributeSet(parser);
-        final TypedArray keyboardAttr = mContext.obtainStyledAttributes(
-                attr, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
-        final TypedArray keyAttr = mResources.obtainAttributes(attr, R.styleable.Keyboard_Key);
-        final KeyboardParams params = mParams;
-        try {
-            final int height = params.mId.mHeight;
-            final int width = params.mId.mWidth;
-            params.mOccupiedHeight = height;
-            params.mOccupiedWidth = width;
-            params.mTopPadding = (int)keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardTopPadding, height, height, 0);
-            params.mBottomPadding = (int)keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardBottomPadding, height, height, 0);
-            params.mLeftPadding = (int)keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardLeftPadding, width, width, 0);
-            params.mRightPadding = (int)keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardRightPadding, width, width, 0);
-
-            final int baseWidth =
-                    params.mOccupiedWidth - params.mLeftPadding - params.mRightPadding;
-            params.mBaseWidth = baseWidth;
-            params.mDefaultKeyWidth = (int)keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
-                    baseWidth, baseWidth, baseWidth / DEFAULT_KEYBOARD_COLUMNS);
-
-            // todo: actually settings should not be accessed from here
-            //  maybe parse normal key gaps and adjust them later (using the relative params!)
-            if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
-                params.mHorizontalGap = (int) keyboardAttr.getFraction(
-                        R.styleable.Keyboard_horizontalGapNarrow, baseWidth, baseWidth, 0);
-                params.mVerticalGap = (int) keyboardAttr.getFraction(
-                        R.styleable.Keyboard_verticalGapNarrow, height, height, 0);
-            } else {
-                params.mHorizontalGap = (int) keyboardAttr.getFraction(
-                        R.styleable.Keyboard_horizontalGap, baseWidth, baseWidth, 0);
-                // TODO: Fix keyboard geometry calculation clearer. Historically vertical gap between
-                // rows are determined based on the entire keyboard height including top and bottom
-                // paddings.
-                params.mVerticalGap = (int) keyboardAttr.getFraction(
-                        R.styleable.Keyboard_verticalGap, height, height, 0);
-            }
-
-            final int baseHeight = params.mOccupiedHeight - params.mTopPadding
-                    - params.mBottomPadding + params.mVerticalGap;
-            params.mBaseHeight = baseHeight;
-            params.mDefaultRowHeight = (int) ResourceUtils.getDimensionOrFraction(keyboardAttr,
-                    R.styleable.Keyboard_rowHeight, baseHeight, baseHeight / DEFAULT_KEYBOARD_ROWS);
-
-            params.mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
-
-            params.mMoreKeysTemplate = keyboardAttr.getResourceId(
-                    R.styleable.Keyboard_moreKeysTemplate, 0);
-            params.mMaxMoreKeysKeyboardColumn = keyAttr.getInt(
-                    R.styleable.Keyboard_Key_maxMoreKeysColumn, 5);
-
-            params.mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
-            params.mIconsSet.loadIcons(keyboardAttr);
-            params.mTextsSet.setLocale(params.mId.getLocale(), mContext);
-
-            final int resourceId = keyboardAttr.getResourceId(
-                    R.styleable.Keyboard_touchPositionCorrectionData, 0);
-            if (resourceId != 0) {
-                final String[] data = mResources.getStringArray(resourceId);
-                params.mTouchPositionCorrection.load(data);
-            }
-        } finally {
-            keyAttr.recycle();
-            keyboardAttr.recycle();
-        }
+        mParams.readAttributes(mContext, attr);
     }
 
     private void parseKeyboardContent(final XmlPullParser parser, final boolean skip)
@@ -366,7 +294,6 @@ public class XmlKeyboardParser implements AutoCloseable {
                 R.styleable.Keyboard_GridRows_textsArray, 0);
         final int moreCodesArrayId = gridRowAttr.getResourceId(
                 R.styleable.Keyboard_GridRows_moreCodesArray, 0);
-        // todo: read relative key width, key / row height and gaps (but they might also be absolute, see getDimensionOrFraction)
         gridRowAttr.recycle();
         if (codesArrayId == 0 && textsArrayId == 0) {
             throw new XmlParseUtils.ParseException(
@@ -436,7 +363,9 @@ public class XmlKeyboardParser implements AutoCloseable {
                 final String hintLabel = moreKeySpecs != null ? "\u25E5" : null;
                 final Key.KeyParams key = new Key.KeyParams(label, code, outputText,  hintLabel, moreKeySpecs,
                         labelFlags, backgroundType, x, y, width, height, mParams);
-                // todo: add relative width and others
+                // (relative) width is always default when using gridRows.getKeyWidth(null, 0.0f)
+                key.mRelativeWidth = mParams.mDefaultRelativeKeyWidth;
+                key.mRelativeHeight = gridRows.mRelativeRowHeight;
                 keyParamsRow.add(key);
                 row.advanceXPos(keyWidth);
             }
@@ -462,7 +391,6 @@ public class XmlKeyboardParser implements AutoCloseable {
         }
         final Key.KeyParams key = new Key.KeyParams(keySpec, keyAttr, keyStyle, mParams, row);
         keyAttr.recycle();
-        // todo: add relative width and others
         if (DEBUG) {
             startEndTag("<%s%s %s moreKeys=%s />", TAG_KEY, (key.mEnabled ? "" : " disabled"),
                     key, Arrays.toString(key.mMoreKeys));
@@ -483,7 +411,6 @@ public class XmlKeyboardParser implements AutoCloseable {
         final KeyStyle keyStyle = mParams.mKeyStyles.getKeyStyle(keyAttr, parser);
         final Key.KeyParams spacer = Key.KeyParams.newSpacer(keyAttr, keyStyle, mParams, row);
         keyAttr.recycle();
-        // todo: add relative width and others
         keysInRows.get(keysInRows.size() - 1).add(spacer);
         if (DEBUG) startEndTag("<%s />", TAG_SPACER);
         XmlParseUtils.checkEndTag(TAG_SPACER, parser);

@@ -57,6 +57,8 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
 
     public KeyboardBuilder<KP> loadFromXml(final int xmlId, final KeyboardId id) {
         mParams.mId = id;
+        // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
+        // attrs may be null, then default values are used (looks good for "normal" keyboards)
         try (XmlKeyboardParser keyboardParser = new XmlKeyboardParser(xmlId, mParams, mContext)) {
             keysInRows = keyboardParser.parseKeyboard();
         } catch (XmlPullParserException e) {

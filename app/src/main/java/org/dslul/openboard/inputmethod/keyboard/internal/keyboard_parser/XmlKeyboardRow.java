@@ -32,6 +32,7 @@ public final class XmlKeyboardRow {
     private final KeyboardParams mParams;
     /** The height of this row. */
     private final int mRowHeight;
+    final public float mRelativeRowHeight;
 
     private final ArrayDeque<RowAttributes> mRowAttributesStack = new ArrayDeque<>();
 
@@ -88,9 +89,16 @@ public final class XmlKeyboardRow {
         mParams = params;
         final TypedArray keyboardAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.Keyboard);
-        mRowHeight = (int)ResourceUtils.getDimensionOrFraction(keyboardAttr,
-                R.styleable.Keyboard_rowHeight, params.mBaseHeight, params.mDefaultRowHeight);
+        float relativeRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
+                R.styleable.Keyboard_rowHeight, 1, params.mDefaultRelativeRowHeight);
         keyboardAttr.recycle();
+        if (relativeRowHeight > 1) {
+            mRelativeRowHeight = -relativeRowHeight;
+            mRowHeight = (int) relativeRowHeight;
+        } else {
+            mRelativeRowHeight = relativeRowHeight;
+            mRowHeight = (int) (relativeRowHeight * params.mBaseHeight);
+        }
         final TypedArray keyAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.Keyboard_Key);
         mRowAttributesStack.push(new RowAttributes(
@@ -155,6 +163,17 @@ public final class XmlKeyboardRow {
         // its left hand side.
         final int keyboardRightEdge = mParams.mOccupiedWidth - mParams.mRightPadding;
         return Math.max(keyXPos + keyboardRightEdge, mCurrentX);
+    }
+
+    public float getRelativeKeyWidth(final TypedArray keyAttr) {
+        if (keyAttr == null)
+            return mParams.mDefaultRelativeKeyWidth;
+        final int widthType = ResourceUtils.getEnumValue(keyAttr,
+                R.styleable.Keyboard_Key_keyWidth, KEYWIDTH_NOT_ENUM);
+        if (widthType == KEYWIDTH_FILL_RIGHT)
+            return -1;
+        return keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
+                1, 1, mParams.mDefaultRelativeKeyWidth);
     }
 
     public float getKeyWidth(final TypedArray keyAttr, final float keyXPos) {
