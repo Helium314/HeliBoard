@@ -28,3 +28,4 @@
 
 # after upgrading to gradle 8, stack traces contain "unknown source", which is horribly bad making them rather useless
 -keepattributes SourceFile,LineNumberTable
+-dontobfuscate
