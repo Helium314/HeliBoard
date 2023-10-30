@@ -49,9 +49,9 @@ class Colors (
 
     val backgroundFilter: ColorFilter
     val adjustedBackgroundFilter: ColorFilter
-    val keyBackgroundFilter: ColorFilter
-    val functionalKeyBackgroundFilter: ColorFilter
-    val spaceBarFilter: ColorFilter
+//    val keyBackgroundFilter: ColorFilter
+//    val functionalKeyBackgroundFilter: ColorFilter
+//    val spaceBarFilter: ColorFilter
     val keyTextFilter: ColorFilter
     val accentColorFilter: ColorFilter
     /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
@@ -103,9 +103,9 @@ class Colors (
 
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
         if (hasKeyBorders) {
-            keyBackgroundFilter = colorFilter(keyBackground)
-            functionalKeyBackgroundFilter = colorFilter(functionalKey)
-            spaceBarFilter = colorFilter(spaceBar)
+//            keyBackgroundFilter = colorFilter(keyBackground)
+//            functionalKeyBackgroundFilter = colorFilter(functionalKey)
+//            spaceBarFilter = colorFilter(spaceBar)
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
             keyStateList = if (themeStyle == STYLE_HOLO) stateList(keyBackground, keyBackground)
                 else stateList(brightenOrDarken(keyBackground, true), keyBackground)
@@ -116,9 +116,9 @@ class Colors (
                 else stateList(brightenOrDarken(spaceBar, true), spaceBar)
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
-            keyBackgroundFilter = backgroundFilter
-            functionalKeyBackgroundFilter = keyBackgroundFilter
-            spaceBarFilter = colorFilter(spaceBar)
+//            keyBackgroundFilter = backgroundFilter
+//            functionalKeyBackgroundFilter = keyBackgroundFilter
+//            spaceBarFilter = colorFilter(spaceBar)
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
             keyStateList = stateList(brightenOrDarken(background, true), Color.TRANSPARENT)
             functionalKeyStateList = keyStateList
