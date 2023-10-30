@@ -282,18 +282,21 @@ public class Key implements Comparable<Key> {
         mEnabled = keyParams.mEnabled;
 
         // stuff to create
-        mWidth = keyParams.mWidth;
-        mHeight = keyParams.mHeight;
+        mWidth = Math.round(keyParams.mWidth);
+        // todo: height better should be rounded, but this may end up shifting all keys up by one pixel,
+        //  increasing the keyboard height by one pixel, but not for emoji keyboard -> the 1 pixel shift feels very wrong
+        //  how to do it properly?
+        mHeight = (int) keyParams.mHeight;
         if (!isSpacer() && (mWidth == 0 || mHeight == 0)) {
             throw new IllegalStateException("key needs positive width and height");
         }
-        mHorizontalGap = isSpacer() ? 0 : keyParams.mHorizontalGap;
-        mVerticalGap = keyParams.mVerticalGap;
+        mHorizontalGap = isSpacer() ? 0 : Math.round(keyParams.mHorizontalGap);
+        mVerticalGap = Math.round(keyParams.mVerticalGap);
         // Horizontal gap is divided equally to both sides of the key.
-        mX = Math.round(keyParams.xPos + ((float) keyParams.mHorizontalGap) / 2);
-        mY = keyParams.yPos;
-        mHitBox.set(Math.round(keyParams.xPos), keyParams.yPos, Math.round(keyParams.xPos + mWidth + mHorizontalGap) + 1,
-                keyParams.yPos + mHeight + mHorizontalGap);
+        mX = Math.round(keyParams.xPos + keyParams.mHorizontalGap / 2);
+        mY = Math.round(keyParams.yPos);
+        mHitBox.set(Math.round(keyParams.xPos), (int) keyParams.yPos, Math.round(keyParams.xPos + mWidth + mHorizontalGap) + 1,
+                Math.round(keyParams.yPos + mHeight + mHorizontalGap));
         mHashCode = computeHashCode(this);
     }
 
@@ -939,11 +942,12 @@ public class Key implements Comparable<Key> {
         // params for building
         boolean isSpacer;
         private final KeyboardParams mParams; // for reading gaps and keyboard width / height
-        public float mRelativeWidth; // also allows -1f as value, this means "fill right"
-        public float mRelativeHeight; // also allows negative values, indicating absolute height is defined
+        public float mRelativeWidth;
+        public boolean fillRight = false;
+        public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
 
         // stuff that likely remains after constructor, maybe make final
-        final int mCode;
+        public final int mCode;
         @Nullable final String mLabel;
         @Nullable final String mHintLabel;
         final int mLabelFlags;
@@ -957,18 +961,25 @@ public class Key implements Comparable<Key> {
         public boolean mEnabled = true;
 
         // stuff that may very well change
-        private int mWidth;
-        private int mHeight;
-        private int mHorizontalGap;
-        private int mVerticalGap;
-        private float xPos;
-        private int yPos;
+        // todo: make all float and convert when creating the key
+        //  maybe also make params float? but first check where they are used
+        //  use "raw width" (without gaps) here and convert it only when creating the key?
+        public float mWidth;
+        public float mHeight;
+        public float mHorizontalGap;
+        public float mVerticalGap;
+        public float xPos;
+        public float yPos;
 
         public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
                                    final KeyboardParams params, final XmlKeyboardRow row) {
             final KeyParams keyParams = new KeyParams(null, keyAttr, keyStyle, params, row);
             keyParams.isSpacer = true;
             return keyParams;
+        }
+
+        public static KeyParams newSpacer(final KeyboardParams params) {
+            return new KeyParams(params);
         }
 
         public Key createKey() {
@@ -978,29 +989,35 @@ public class Key implements Comparable<Key> {
 
         // todo: use it
         //  first for inserting spacers to get a split keyboard
+        //   still testing...
         //  any use for adjusting width or height?
         //   width is already more or less done with one-handed mode, but this could be more flexible
         //   height is already implemented via the setting
         //  any use in combination with number row?
         //   when completely replacing number row stuff, also moreKeys stuff would need to be adjusted
-        public void setDimensionsFromRelativeSize(final int newX, final int newY) {
-            if (mRelativeHeight == 0 || mRelativeWidth == 0)
+
+        // this function may change size of the default keys a little, because now gaps are float
+        // before: width = 54, gap 5.8 -> 54 - (int) 5.8 = 49
+        // after: width = 54, gap 5.8 -> 54 - 5.8 = 48.2 -> 48 as int
+        // but overall it's a slight improvement
+        public void setDimensionsFromRelativeSize(final float newX, final float newY) {
+            if (mRelativeHeight == 0 || (!fillRight && mRelativeWidth == 0))
                 throw new IllegalStateException("can't use setUsingRelativeHeight, not all fields are set");
             if (mRelativeHeight < 0)
-                throw new IllegalStateException("can't (yet) deal with absolute height"); // todo: decide... maybe just use it and deal with it properly when it needs to be adjusted?
+                // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing moreKeys or moreSuggestions
+                throw new IllegalStateException("can't (yet) deal with absolute height");
             xPos = newX;
             yPos = newY;
-            float horizontalGap = isSpacer ? 0f : mParams.mRelativeHorizontalGap * mParams.mId.mWidth; // gap width / height is based on params.mId.height / width
-            float verticalGap = mParams.mRelativeVerticalGap * mParams.mId.mHeight;
-            mHorizontalGap = (int) horizontalGap;
-            mVerticalGap = (int) verticalGap;
+            mHorizontalGap = isSpacer ? 0f : mParams.mRelativeHorizontalGap * mParams.mId.mWidth; // gap width / height is based on params.mId.height / width
+            mVerticalGap = mParams.mRelativeVerticalGap * mParams.mId.mHeight;
             float keyWidth;
-            if (mRelativeWidth > 0)
-                keyWidth = mRelativeWidth * mParams.mBaseWidth; // key width / height is based on params.mBaseHeight / width
-            else // fillRight
+            if (fillRight)
                 keyWidth = (mParams.mOccupiedWidth - mParams.mRightPadding) - xPos; // right keyboard edge - x
-            mWidth = Math.round(keyWidth - horizontalGap);
-            mHeight = (int) (mRelativeHeight * mParams.mBaseHeight - verticalGap);
+            else
+                keyWidth = mRelativeWidth * mParams.mBaseWidth; // key width / height is based on params.mBaseHeight / width
+
+            mWidth = keyWidth - mHorizontalGap;
+            mHeight = mRelativeHeight * mParams.mBaseHeight - mVerticalGap;
         }
 
         /**
@@ -1020,10 +1037,13 @@ public class Key implements Comparable<Key> {
             mParams = params;
             mRelativeHeight = row.mRelativeRowHeight;
             mRelativeWidth = row.getRelativeKeyWidth(keyAttr);
+            if (mRelativeWidth == -1f) {
+                mRelativeWidth = 0f;
+                fillRight = true;
+            }
             mHorizontalGap = params.mHorizontalGap;
             mVerticalGap = params.mVerticalGap;
 
-            final float horizontalGapFloat = mHorizontalGap;
             final int rowHeight = row.getRowHeight();
             mHeight = rowHeight - mVerticalGap;
 
@@ -1031,7 +1051,7 @@ public class Key implements Comparable<Key> {
             final float keyWidth = row.getKeyWidth(keyAttr, xPos);
             yPos = row.getKeyY();
 
-            mWidth = Math.round(keyWidth - horizontalGapFloat);
+            mWidth = keyWidth - mHorizontalGap;
             // Update row to have current x coordinate.
             row.setXPos(xPos + keyWidth);
 
@@ -1234,6 +1254,51 @@ public class Key implements Comparable<Key> {
             mEnabled = (code != CODE_UNSPECIFIED);
             mIconId = KeyboardIconsSet.ICON_UNDEFINED;
             mKeyVisualAttributes = null;
+        }
+
+        /** constructor for a spacer whose size MUST be determined using setDimensionsFromRelativeSize */
+        private KeyParams(final KeyboardParams params) {
+            isSpacer = true; // this is only for spacer!
+            mParams = params;
+
+            mCode = CODE_UNSPECIFIED;
+            mLabel = null;
+            mHintLabel = null;
+            mKeyVisualAttributes = null;
+            mOptionalAttributes = null;
+            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
+            mBackgroundType = BACKGROUND_TYPE_NORMAL;
+            mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
+            mMoreKeys = null;
+            mMoreKeysColumnAndFlags = 0;
+            mLabelFlags = LABEL_FLAGS_FONT_NORMAL;
+        }
+
+        public KeyParams(final KeyParams keyParams) {
+            xPos = keyParams.xPos;
+            yPos = keyParams.yPos;
+            mRelativeWidth = keyParams.mRelativeWidth;
+            mRelativeHeight = keyParams.mRelativeHeight;
+            isSpacer = keyParams.isSpacer;
+            mParams = keyParams.mParams;
+            mEnabled = keyParams.mEnabled;
+            fillRight = keyParams.fillRight;
+
+            mCode = keyParams.mCode;
+            mLabel = keyParams.mLabel;
+            mHintLabel = keyParams.mHintLabel;
+            mLabelFlags = keyParams.mLabelFlags;
+            mIconId = keyParams.mIconId;
+            mWidth = keyParams.mWidth;
+            mHeight = keyParams.mHeight;
+            mHorizontalGap = keyParams.mHorizontalGap;
+            mVerticalGap = keyParams.mVerticalGap;
+            mMoreKeys = keyParams.mMoreKeys;
+            mMoreKeysColumnAndFlags = keyParams.mMoreKeysColumnAndFlags;
+            mBackgroundType = keyParams.mBackgroundType;
+            mActionFlags = keyParams.mActionFlags;
+            mKeyVisualAttributes = keyParams.mKeyVisualAttributes;
+            mOptionalAttributes = keyParams.mOptionalAttributes;
         }
     }
 }

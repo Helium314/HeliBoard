@@ -38,8 +38,8 @@ public final class XmlKeyboardRow {
 
     // TODO: Add keyActionFlags.
     private static class RowAttributes {
-        /** Default width of a key in this row. */
-        public final float mDefaultKeyWidth;
+        /** Default width of a key in this row, relative to keyboard width */
+        public final float mDefaultRelativeKeyWidth;
         /** Default keyLabelFlags in this row. */
         public final int mDefaultKeyLabelFlags;
         /** Default backgroundType for this row */
@@ -49,13 +49,11 @@ public final class XmlKeyboardRow {
          * Parse and create key attributes. This constructor is used to parse Row tag.
          *
          * @param keyAttr an attributes array of Row tag.
-         * @param defaultKeyWidth a default key width.
-         * @param keyboardWidth the keyboard width that is required to calculate keyWidth attribute.
+         * @param defaultRelativeKeyWidth a default key width relative to keyboardWidth.
          */
-        public RowAttributes(final TypedArray keyAttr, final float defaultKeyWidth,
-                final int keyboardWidth) {
-            mDefaultKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
-                    keyboardWidth, keyboardWidth, defaultKeyWidth);
+        public RowAttributes(final TypedArray keyAttr, final float defaultRelativeKeyWidth) {
+            mDefaultRelativeKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
+                    1, 1, defaultRelativeKeyWidth);
             mDefaultKeyLabelFlags = keyAttr.getInt(R.styleable.Keyboard_Key_keyLabelFlags, 0);
             mDefaultBackgroundType = keyAttr.getInt(R.styleable.Keyboard_Key_backgroundType,
                     Key.BACKGROUND_TYPE_NORMAL);
@@ -67,12 +65,10 @@ public final class XmlKeyboardRow {
          *
          * @param keyAttr an attributes array of include tag.
          * @param defaultRowAttr default Row attributes.
-         * @param keyboardWidth the keyboard width that is required to calculate keyWidth attribute.
          */
-        public RowAttributes(final TypedArray keyAttr, final RowAttributes defaultRowAttr,
-                final int keyboardWidth) {
-            mDefaultKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
-                    keyboardWidth, keyboardWidth, defaultRowAttr.mDefaultKeyWidth);
+        public RowAttributes(final TypedArray keyAttr, final RowAttributes defaultRowAttr) {
+            mDefaultRelativeKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
+                    1, 1, defaultRowAttr.mDefaultRelativeKeyWidth);
             mDefaultKeyLabelFlags = keyAttr.getInt(R.styleable.Keyboard_Key_keyLabelFlags, 0)
                     | defaultRowAttr.mDefaultKeyLabelFlags;
             mDefaultBackgroundType = keyAttr.getInt(R.styleable.Keyboard_Key_backgroundType,
@@ -101,8 +97,7 @@ public final class XmlKeyboardRow {
         }
         final TypedArray keyAttr = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.Keyboard_Key);
-        mRowAttributesStack.push(new RowAttributes(
-                keyAttr, params.mDefaultKeyWidth, params.mBaseWidth));
+        mRowAttributesStack.push(new RowAttributes(keyAttr, params.mDefaultRelativeKeyWidth));
         keyAttr.recycle();
 
         mCurrentY = y;
@@ -114,8 +109,7 @@ public final class XmlKeyboardRow {
     }
 
     public void pushRowAttributes(final TypedArray keyAttr) {
-        final RowAttributes newAttributes = new RowAttributes(
-                keyAttr, mRowAttributesStack.peek(), mParams.mBaseWidth);
+        final RowAttributes newAttributes = new RowAttributes(keyAttr, mRowAttributesStack.peek());
         mRowAttributesStack.push(newAttributes);
     }
 
@@ -123,8 +117,8 @@ public final class XmlKeyboardRow {
         mRowAttributesStack.pop();
     }
 
-    public float getDefaultKeyWidth() {
-        return mRowAttributesStack.peek().mDefaultKeyWidth;
+    public float getDefaultRelativeKeyWidth() {
+        return mRowAttributesStack.peek().mDefaultRelativeKeyWidth;
     }
 
     public int getDefaultKeyLabelFlags() {
@@ -167,30 +161,24 @@ public final class XmlKeyboardRow {
 
     public float getRelativeKeyWidth(final TypedArray keyAttr) {
         if (keyAttr == null)
-            return mParams.mDefaultRelativeKeyWidth;
+            return getDefaultRelativeKeyWidth();
         final int widthType = ResourceUtils.getEnumValue(keyAttr,
                 R.styleable.Keyboard_Key_keyWidth, KEYWIDTH_NOT_ENUM);
         if (widthType == KEYWIDTH_FILL_RIGHT)
-            return -1;
+            return -1f;
+        // else KEYWIDTH_NOT_ENUM
         return keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
-                1, 1, mParams.mDefaultRelativeKeyWidth);
+                1, 1, getDefaultRelativeKeyWidth());
     }
 
     public float getKeyWidth(final TypedArray keyAttr, final float keyXPos) {
-        if (keyAttr == null) {
-            return getDefaultKeyWidth();
-        }
-        final int widthType = ResourceUtils.getEnumValue(keyAttr,
-                R.styleable.Keyboard_Key_keyWidth, KEYWIDTH_NOT_ENUM);
-        switch (widthType) {
-        case KEYWIDTH_FILL_RIGHT:
+        final float relativeWidth = getRelativeKeyWidth(keyAttr);
+        if (relativeWidth == -1f) {
             // If keyWidth is fillRight, the actual key width will be determined to fill
             // out the area up to the right edge of the keyboard.
             final int keyboardRightEdge = mParams.mOccupiedWidth - mParams.mRightPadding;
             return keyboardRightEdge - keyXPos;
-        default: // KEYWIDTH_NOT_ENUM
-            return keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
-                    mParams.mBaseWidth, mParams.mBaseWidth, getDefaultKeyWidth());
         }
+        return relativeWidth * mParams.mBaseWidth;
     }
 }
