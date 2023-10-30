@@ -246,9 +246,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
     }
 
+    public void setRtl(final boolean isRtlLanguage) {
+        mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
+    }
+
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
         clear();
-        mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
+        setRtl(isRtlLanguage);
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);

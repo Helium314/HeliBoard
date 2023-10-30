@@ -889,6 +889,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
         loadKeyboard();
+        mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
     }
 
     /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
