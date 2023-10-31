@@ -81,25 +81,22 @@ Features that may go unnoticed
 * Add more options to the language switch key
 
 ## The rough plan/todo before "full" release
-* Add/change pre-defined themes
-* Internal clean up (xml files, unused resources and classes)
-  * even after a lot of work here, the current state look rather messy, with many useless and duplicate entries
-* work through _todo_s in code
-* Make suggestion removal functionality more discoverable
-* Better detection when to separate words and when not (e.g. detection of email addresses and URLs)
-* Fix some bugs
-  * especially the spell checker issue https://github.com/Helium314/openboard/issues/55
-  * "partial" multi-character codepoint deletion with delete gesture (e.g. for emojis), https://github.com/Helium314/openboard/issues/22
+* Add/update pre-defined themes
+* Internal clean up (xml files, unused resources, some _todo_s in code)
+* Solve some [issues](https://github.com/Helium314/openboard/milestone/1)
 
-Once above is done, we can think about properly releasing the app. First just in this repository, and later on F-Droid.
-This would include renaming the app and the package, changing the icon and using a localization tool (most likely weblate).
+Once above is done, we can think about properly releasing the app:
+* Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
+* Rename app, package and this repository
+* New icon
+* Use a translation tool (e.g. weblate)
+* Release on F-Droid
+* Maybe add a version that does not allow prodiving a glide typing library, for people concerned about security
 
 ## Further plan
-* more customizable theming
-* improved / less bad suggestions in some cases
-* add emojis to user history, to be used for next word suggestions
-* sliding key input for numpad and emojis (like `?123` and _shift_ sliding input)
-* updated suggestion strip, maybe add tools or make the suggestions scroll
+* More customizable theming
+* Improved / less bad suggestions in some cases
+* Sliding key input for numpad and emojis (like `?123` and _shift_ sliding input)
 
 -----
 # readme for original version of OpenBoard below
