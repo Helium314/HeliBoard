@@ -946,7 +946,7 @@ public class Key implements Comparable<Key> {
         public boolean fillRight = false;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
 
-        // stuff that likely remains after constructor, maybe make final
+        // stuff that likely remains after constructor
         public final int mCode;
         @Nullable final String mLabel;
         @Nullable final String mHintLabel;
@@ -954,7 +954,7 @@ public class Key implements Comparable<Key> {
         final int mIconId;
         public final MoreKeySpec[] mMoreKeys;
         final int mMoreKeysColumnAndFlags;
-        final int mBackgroundType;
+        public final int mBackgroundType;
         final int mActionFlags;
         @Nullable final KeyVisualAttributes mKeyVisualAttributes;
         @Nullable final OptionalAttributes mOptionalAttributes;

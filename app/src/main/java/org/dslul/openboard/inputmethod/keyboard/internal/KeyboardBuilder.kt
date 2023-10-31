@@ -129,15 +129,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         }
     }
 
-    // todo:
-    //  differences to old implementation require a little tuning
-    //   symbols and action keys should be smaller (by how much?)
-    //    symbol 15% -> 8% (land), 10% stable for both sw600
-    //    action key is always fillRight... portrait 15%, land 15% -> 11%
-    //    consider that sw600 does have the action key in a different row
-    //    -> set symbol to 10% and action to 11% (only if initially larger)
-    //     then resize entire row? or just the space bar?
-    //     this will need some tuning, because different key widths may look awkward (though already exists e.g. for swiss german)
     private fun addSplit() {
         if (!Settings.getInstance().current.mIsSplitKeyboardEnabled) return // todo: remove parsing for split layouts and read params, not settings
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
@@ -161,6 +152,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
             if (row.any { it.mCode == Constants.CODE_SPACE }) {
                 val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
+                reduceSymbolAndActionKeyWidth(row)
                 insertIndex = row.indexOf(spaceLeft) + 1
                 val widthBeforeSpace = row.subList(0, insertIndex - 1).sumOf { it.mRelativeWidth }
                 val widthAfterSpace = row.subList(insertIndex, row.size).sumOf { it.mRelativeWidth }
@@ -196,6 +188,27 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 it.setDimensionsFromRelativeSize(currentX, y)
                 currentX += it.mWidth + it.mHorizontalGap
             }
+        }
+    }
+
+    // reduce width of symbol and action key if in the row, and add this width to space to keep other key size constant
+    // todo: this may reduce the key size too much if the keyboard width is low
+    //  maybe that's just an issue when testing on S4 mini that shouldn't be able to split (plus, it's only portrait mode)
+    private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
+        val spaceKey = row.first { it.mBackgroundType == Key.BACKGROUND_TYPE_SPACEBAR }
+        val symbolKey = row.firstOrNull { it.mCode == Constants.CODE_SWITCH_ALPHA_SYMBOL }
+        val symbolKeyWidth = symbolKey?.mRelativeWidth ?: 0f
+        if (symbolKeyWidth > mParams.mDefaultRelativeKeyWidth) {
+            val widthToChange = symbolKey!!.mRelativeWidth - mParams.mDefaultRelativeKeyWidth
+            symbolKey.mRelativeWidth -= widthToChange
+            spaceKey.mRelativeWidth += widthToChange
+        }
+        val actionKey = row.firstOrNull { it.mBackgroundType == Key.BACKGROUND_TYPE_ACTION }
+        val actionKeyWidth = actionKey?.mRelativeWidth ?: 0f
+        if (actionKeyWidth > mParams.mDefaultRelativeKeyWidth * 1.1f) { // allow it to stay a little wider
+            val widthToChange = actionKey!!.mRelativeWidth - mParams.mDefaultRelativeKeyWidth * 1.1f
+            actionKey.mRelativeWidth -= widthToChange
+            spaceKey.mRelativeWidth += widthToChange
         }
     }
 
