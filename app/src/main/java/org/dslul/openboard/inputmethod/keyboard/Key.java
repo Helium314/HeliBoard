@@ -996,6 +996,13 @@ public class Key implements Comparable<Key> {
         //  any use in combination with number row?
         //   when completely replacing number row stuff, also moreKeys stuff would need to be adjusted
 
+        // todo: is there a reason to keep fillRight at all? we could just do this when creating the params
+        public void setRelativeWithFromFillRight() {
+            if (!fillRight) return;
+            mRelativeWidth = (mWidth + mHorizontalGap) / mParams.mBaseWidth;
+            fillRight = false;
+        }
+
         // this function may change size of the default keys a little, because now gaps are float
         // before: width = 54, gap 5.8 -> 54 - (int) 5.8 = 49
         // after: width = 54, gap 5.8 -> 54 - 5.8 = 48.2 -> 48 as int
@@ -1003,6 +1010,8 @@ public class Key implements Comparable<Key> {
         public void setDimensionsFromRelativeSize(final float newX, final float newY) {
             if (mRelativeHeight == 0 || (!fillRight && mRelativeWidth == 0))
                 throw new IllegalStateException("can't use setUsingRelativeHeight, not all fields are set");
+            if (fillRight)
+                throw new IllegalStateException("don't use fillRight...");
             if (mRelativeHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing moreKeys or moreSuggestions
                 throw new IllegalStateException("can't (yet) deal with absolute height");

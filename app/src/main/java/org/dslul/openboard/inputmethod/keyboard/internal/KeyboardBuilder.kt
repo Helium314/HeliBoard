@@ -70,6 +70,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
+        keysInRows.forEach { it.forEach { it.setRelativeWithFromFillRight() } } // necessary for being able to multiply relative width without awkward results
         addSplit()
 //        useRelative()
         addKeysToParams()
@@ -130,17 +131,21 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     // todo:
     //  differences to old implementation require a little tuning
-    //   shift key edges align with inner edges of keys above
-    //    only for some layouts, maybe do it automatically if difference is small?
-    //   symbols and action keys should be smaller (how much?)
+    //   symbols and action keys should be smaller (by how much?)
+    //    symbol 15% -> 8% (land), 10% stable for both sw600
+    //    action key is always fillRight... portrait 15%, land 15% -> 11%
+    //    consider that sw600 does have the action key in a different row
+    //    -> set symbol to 10% and action to 11% (only if initially larger)
+    //     then resize entire row? or just the space bar?
+    //     this will need some tuning, because different key widths may look awkward (though already exists e.g. for swiss german)
     //   space bar edges align with inner edges of innermost key in the rows above
     private fun addSplit() {
         if (!Settings.getInstance().current.mIsSplitKeyboardEnabled) return // todo: remove parsing for split layouts and read params, not settings
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         val metrics = mResources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
-//        if (widthDp < 600) return // similar to requiring sw600dp to split in portrait mode, disabled for testing
-        // adapted relative space width to (current) screen width (ca between 0.15 - 0.25), maybe make it further adjustable by the user (sth like 50-200%)
+//        if (widthDp < 600) return // similar to requiring sw600dp to split in portrait mode, todo: disabled for testing
+        // adapted relative space width to (current) screen width (ca between 0.15 - 0.25), todo: maybe make it further adjustable by the user (sth like 50-200%)
         val spacerRelativeWidth = ((widthDp - 600) / 6000f + 0.15f).coerceAtLeast(0.15f).coerceAtMost(0.25f)
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth) // adjust gaps for the whole keyboard, so it's the same for all rows
         for (row in keysInRows) {
@@ -163,8 +168,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 //  find a way to deal with it
                 //  idea:
                 //   set sizes of space keys so they align with innermost above edge (may need some minimum width)
-                //    but... this can't be done here, because action key uses fillRight (and thus has relativeWidth 0)
-                //    maybe get rid of fillRight (i.e. determine relativeWidth from absolute width and use it)?
+                //    if size of both space keys is too large (sth like 90% of old space key), just don't insert second space and spacer
                 //   then set spacer size so that old space.mRelativeWidth + spacerRelativeWidth == space1.mRelativeWidth + space2.mRelativeWidth + spacer.mRelativeWidth
             }
             row.add(insertIndex, spacer)
