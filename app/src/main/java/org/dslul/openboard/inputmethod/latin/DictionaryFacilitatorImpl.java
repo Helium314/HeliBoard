@@ -405,7 +405,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             final Map<String, ExpandableBinaryDictionary> subDicts = new HashMap<>();
             for (final String subDictType : subDictTypesToUse) {
                 final ExpandableBinaryDictionary subDict;
-                if (noExistingDictsForThisLocale
+                if (noExistingDictsForThisLocale || forceReloadMainDictionary
                         || !oldDictionaryGroupForLocale.hasDict(subDictType, account)) {
                     // Create a new dictionary.
                     subDict = getSubDict(subDictType, context, locale, null /* dictFile */, dictNamePrefix, account);

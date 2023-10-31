@@ -280,14 +280,6 @@ class LanguageSettingsDialog(
     }
 }
 
-fun confirmDialog(context: Context, message: String, confirmButton: String, onConfirmed: (() -> Unit)) {
-    AlertDialog.Builder(context)
-        .setMessage(message)
-        .setNegativeButton(android.R.string.cancel, null)
-        .setPositiveButton(confirmButton) { _, _ -> onConfirmed() }
-        .show()
-}
-
 /** @return list of user dictionary files and whether an internal dictionary exists */
 fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<File>, Boolean> {
     val localeString = locale.lowercase() // internal files and folders always use lowercase

@@ -56,6 +56,10 @@
         android:defaultValue="true"
         android:persistent="true" />
 
+    <Preference
+        android:key="pref_backup_restore"
+        android:title="@string/backup_restore_title" />
+
     <PreferenceScreen
             android:fragment="org.dslul.openboard.inputmethod.latin.settings.DebugSettingsFragment"
             android:key="screen_debug"
