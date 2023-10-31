@@ -138,7 +138,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     //    -> set symbol to 10% and action to 11% (only if initially larger)
     //     then resize entire row? or just the space bar?
     //     this will need some tuning, because different key widths may look awkward (though already exists e.g. for swiss german)
-    //   space bar edges align with inner edges of innermost key in the rows above
     private fun addSplit() {
         if (!Settings.getInstance().current.mIsSplitKeyboardEnabled) return // todo: remove parsing for split layouts and read params, not settings
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
@@ -148,6 +147,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         // adapted relative space width to (current) screen width (ca between 0.15 - 0.25), todo: maybe make it further adjustable by the user (sth like 50-200%)
         val spacerRelativeWidth = ((widthDp - 600) / 6000f + 0.15f).coerceAtLeast(0.15f).coerceAtMost(0.25f)
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth) // adjust gaps for the whole keyboard, so it's the same for all rows
+        var maxWidthBeforeSpacer = 0f
+        var maxWidthAfterSpacer = 0f
         for (row in keysInRows) {
             fillGapsWithSpacers(row)
             val y = row.first().yPos // all have the same y, so this is fine
@@ -160,18 +161,31 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
             if (row.any { it.mCode == Constants.CODE_SPACE }) {
                 val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
-                spaceLeft.mRelativeWidth *= 0.5f
                 insertIndex = row.indexOf(spaceLeft) + 1
-                val spaceRight = KeyParams(spaceLeft)
-                row.add(insertIndex, spaceRight)
-                // todo: this is/looks bad, see above
-                //  find a way to deal with it
-                //  idea:
-                //   set sizes of space keys so they align with innermost above edge (may need some minimum width)
-                //    if size of both space keys is too large (sth like 90% of old space key), just don't insert second space and spacer
-                //   then set spacer size so that old space.mRelativeWidth + spacerRelativeWidth == space1.mRelativeWidth + space2.mRelativeWidth + spacer.mRelativeWidth
+                val widthBeforeSpace = row.subList(0, insertIndex - 1).sumOf { it.mRelativeWidth }
+                val widthAfterSpace = row.subList(insertIndex, row.size).sumOf { it.mRelativeWidth }
+                val spaceLeftWidth = (maxWidthBeforeSpacer - widthBeforeSpace).coerceAtLeast(mParams.mDefaultRelativeKeyWidth)
+                val spaceRightWidth = (maxWidthAfterSpacer - widthAfterSpace).coerceAtLeast(mParams.mDefaultRelativeKeyWidth)
+                val spacerWidth = spaceLeft.mRelativeWidth + spacerRelativeWidth - spaceLeftWidth - spaceRightWidth
+                if (spacerWidth > 0.05f) {
+                    // only insert if the spacer has a reasonable width
+                    val spaceRight = KeyParams(spaceLeft)
+                    spaceLeft.mRelativeWidth = spaceLeftWidth
+                    spaceRight.mRelativeWidth = spaceRightWidth
+                    spacer.mRelativeWidth = spacerWidth
+                    row.add(insertIndex, spaceRight)
+                    row.add(insertIndex, spacer)
+                } else {
+                    // otherwise increase space width, so other keys are resized properly
+                    spaceLeft.mRelativeWidth += spacerWidth
+                }
+            } else {
+                val widthBeforeSpacer = row.subList(0, insertIndex).sumOf { it.mRelativeWidth }
+                val widthAfterSpacer = row.subList(insertIndex, row.size).sumOf { it.mRelativeWidth }
+                maxWidthBeforeSpacer = maxWidthBeforeSpacer.coerceAtLeast(widthBeforeSpacer)
+                maxWidthAfterSpacer = maxWidthAfterSpacer.coerceAtLeast(widthAfterSpacer)
+                row.add(insertIndex, spacer)
             }
-            row.add(insertIndex, spacer)
             // re-calculate relative widths
             val relativeWidthSumNew = row.sumOf { it.mRelativeWidth }
             val widthFactor = relativeWidthSum / relativeWidthSumNew

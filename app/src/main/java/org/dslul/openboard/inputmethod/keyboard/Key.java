@@ -963,7 +963,8 @@ public class Key implements Comparable<Key> {
         // stuff that may very well change
         // todo: make all float and convert when creating the key
         //  maybe also make params float? but first check where they are used
-        //  use "raw width" (without gaps) here and convert it only when creating the key?
+        //  use "raw width" (without removing gaps) here and convert it only when creating the key?
+        //   should make no difference in the end, is there actually any place where gaps need to be re-added?
         public float mWidth;
         public float mHeight;
         public float mHorizontalGap;
