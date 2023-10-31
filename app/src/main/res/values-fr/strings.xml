@@ -179,6 +179,12 @@ Nouveau dictionnaire:
     <string name="space_trackpad_summary">Glissez sur la barre d\'espace pour déplacer le curseur</string>
     <string name="space_language_slide">Changer de langue avec la barre d\'espace</string>
     <string name="space_language_slide_summary">Glissez sur la barre d\'espace vers le haut pour changer de langue</string>
+    <string name="backup_restore_title">Sauvegarde et restauration</string>
+    <string name="backup_restore_message">Sauvegarde ou chargement à partir d\'un fichier. Attention : la restauration écrasera les données existantes.</string>
+    <string name="backup_error">Erreur lors de la sauvegarde</string>
+    <string name="restore_error">Erreur lors de la restauration de la sauvegarde : %s</string>
+    <string name="button_backup">Sauvegarder</string>
+    <string name="button_restore">Restaurer</string>
     <string name="secondary_locale">Saisie multilingue</string>
     <string name="load_gesture_library">Charger la bibliothèque de saisie gestuelle</string>
     <string name="load_gesture_library_summary">Fournir une bibliothèque native pour activer la saisie gestuelle</string>
@@ -209,8 +215,8 @@ Nouveau dictionnaire:
     <string name="theme_name_dark">Sombre</string>
     <string name="theme_name_darker">Noir</string>
     <string name="theme_name_black">Amoled</string>
-    <string name="theme_name_user">Personalisé</string>
-    <string name="theme_name_user_night">Personalisé (mode nuit)</string>
+    <string name="theme_name_user">Personnalisé</string>
+    <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
     <string name="select_user_colors">Personnaliser le thème</string>
     <string name="select_user_colors_night">Personnaliser le thème (mode nuit)</string>
     <string name="auto_user_color">Choix automatique de la couleur</string>
@@ -263,9 +269,9 @@ Nouveau dictionnaire:
     <string name="hidden_features_message">
         &#9658; Un appui long sur la touche presse-papiers (celle qui est optionnelle dans la bande de suggestions) permet de coller le contenu du presse-papiers. &lt;br&gt; &lt;br&gt;
         &#9658; Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
-        &#9658; Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emoji, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
+        &#9658; Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
         \t&#8226; l\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
-        \t&#8226; pour certaines dispositions, ce n\'est pas sur la touche virgule, mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
+        \t&#8226; pour certaines dispositions, ce n\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
         &#9658; Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
         &#9658; Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
         \t&#8226; fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
@@ -277,7 +283,7 @@ Nouveau dictionnaire:
         &#9658; Un appui-long sur une suggestion montre la source du dictionnaire.&lt;br&gt; &lt;br&gt;
         &#9658; Affichage des paramètres de débogage dans les paramètres avancés, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
         &#9658; Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
-        &#9658; Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut, car l\'application utilise le %s. &lt;br&gt;
+        &#9658; Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut car l\'application utilise le %s. &lt;br&gt;
         Cela est nécessaire pour que les paramètres puissent être lus avant que l\'appareil ne soit déverrouillé, par exemple au démarrage. &lt;br&gt;
         Le fichier se trouve dans &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt;, mais cela peut dépendre de l\'appareil et de la version d\'Android.</string>
 </resources>
