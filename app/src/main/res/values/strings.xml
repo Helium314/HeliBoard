@@ -158,6 +158,18 @@
     <string name="space_language_slide">Space bar language slide</string>
     <!-- Description for "space_language_slide" option. -->
     <string name="space_language_slide_summary">Swipe upwards on the spacebar to change the language</string>
+    <!-- Preferences item and dialog title for backup and restore -->
+    <string name="backup_restore_title">Backup and restore</string>
+    <!-- Message for backup and restore dialog -->
+    <string name="backup_restore_message">Save or load from file. Warning: restore will overwrite existing data</string>
+    <!-- Error message for backup -->
+    <string name="backup_error">Backup error</string>
+    <!-- Error message for restore, %s is replaced by the error message -->
+    <string name="restore_error">Error restoring the backup: %s</string>
+    <!-- backup button -->
+    <string name="button_backup">Backup</string>
+    <!-- restore button -->
+    <string name="button_restore">Restore</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Preferences item for loading an external gesture typing library -->

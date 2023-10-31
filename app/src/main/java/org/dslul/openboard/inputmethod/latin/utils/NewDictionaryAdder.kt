@@ -5,7 +5,6 @@ package org.dslul.openboard.inputmethod.latin.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.R
@@ -15,7 +14,6 @@ import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
 import org.dslul.openboard.inputmethod.latin.settings.*
 import java.io.File
 import java.io.IOException
-import java.text.DateFormat
 import java.util.*
 
 class NewDictionaryAdder(private val context: Context, private val onAdded: ((Boolean, File) -> Unit)?) {
@@ -146,10 +144,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 //        Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
         // show a dialog because toasts are not showing up on some Android versions
         // possibly Android 13 because of notification permission
-        AlertDialog.Builder(context)
-            .setMessage(messageId)
-            .setNegativeButton(R.string.dialog_close, null)
-            .show()
+        infoDialog(context, messageId)
     }
 }
 
