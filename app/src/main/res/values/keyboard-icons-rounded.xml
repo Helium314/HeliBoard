@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2014 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources>
+    <style name="KeyboardIcons.Rounded">
+        <!-- Keyboard icons -->
+        <item name="iconShiftKey">@drawable/sym_keyboard_shift_rounded</item>
+        <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_rounded</item>
+        <item name="iconDeleteKey">@drawable/sym_keyboard_delete_rounded</item>
+        <item name="iconTabKey">@drawable/sym_keyboard_tab_rounded</item>
+        <item name="iconSettingsKey">@drawable/sym_keyboard_settings_rounded</item>
+        <item name="iconSpaceKey">@null</item>
+        <item name="iconEnterKey">@drawable/sym_keyboard_return_rounded</item>
+        <item name="iconGoKey">@drawable/sym_keyboard_go_rounded</item>
+        <item name="iconSearchKey">@drawable/sym_keyboard_search_rounded</item>
+        <item name="iconSendKey">@drawable/sym_keyboard_send_rounded</item>
+        <item name="iconNextKey">@drawable/ic_arrow_right_rounded</item>
+        <item name="iconDoneKey">@drawable/sym_keyboard_done_rounded</item>
+        <item name="iconPreviousKey">@drawable/ic_arrow_left_rounded</item>
+        <item name="iconShortcutKey">@drawable/sym_keyboard_voice_rounded</item>
+        <item name="iconShortcutKeyDisabled">@drawable/sym_keyboard_voice_off_rounded</item>
+        <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_lxx</item>
+        <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_rounded</item>
+        <item name="iconLanguageSwitchKey">@drawable/sym_keyboard_language_switch_lxx</item>
+        <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_lxx</item>
+        <item name="iconZwjKey">@drawable/sym_keyboard_zwj_lxx</item>
+        <item name="iconEmojiActionKey">@drawable/sym_keyboard_smiley_rounded</item>
+        <item name="iconEmojiNormalKey">@drawable/sym_keyboard_smiley_rounded</item>
+        <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_rounded</item>
+        <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_rounded</item>
+        <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_rounded</item>
+        <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_rounded</item>
+        <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_rounded</item>
+        <item name="iconSwitchOneHandedMode">@drawable/ic_arrow_left_rounded</item>
+        <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_lxx</item>
+        <item name="iconToolbarKey">@drawable/ic_arrow_right_rounded</item>
+        <item name="iconSelectAll">@drawable/ic_select_all_rounded</item>
+        <item name="iconArrowLeft">@drawable/ic_arrow_left_rounded</item>
+        <item name="iconArrowRight">@drawable/ic_arrow_right_rounded</item>
+        <item name="iconArrowUp">@drawable/ic_arrow_up_rounded</item>
+        <item name="iconArrowDown">@drawable/ic_arrow_down_rounded</item>
+        <item name="iconBin">@drawable/ic_delete_rounded</item>
+    </style>
+</resources>

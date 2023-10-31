@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="KeyboardTheme.Rounded_Base" parent="KeyboardIcons.Rounded">
+        <item name="inputViewStyle">@style/InputView</item>
+        <item name="keyboardStyle">@style/Keyboard.Rounded_Base</item>
+        <item name="keyboardViewStyle">@style/KeyboardView.Rounded_Base</item>
+        <item name="mainKeyboardViewStyle">@style/MainKeyboardView.Rounded_Base</item>
+        <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.Rounded_Base</item>
+        <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.Rounded_Base</item>
+        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.Rounded_Base</item>
+        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.Rounded_Base</item>
+        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.Rounded_Base.Action</item>
+        <item name="suggestionStripViewStyle">@style/SuggestionStripView.Rounded_Base</item>
+        <item name="suggestionWordStyle">@style/SuggestionWord.Rounded_Base</item>
+    </style>
+
+    <style
+        name="Keyboard.Rounded_Base"
+        parent="Keyboard"
+    >
+        <!-- This should be aligned with KeyboardTheme.THEME_ID_* -->
+        <item name="themeId">RoundedBase</item>
+    </style>
+
+    <style
+        name="KeyboardView.Rounded_Base"
+        parent="KeyboardView.LXX"
+        >
+        <item name="android:background">@color/keyboard_background_lxx_base</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_rounded_base</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_rounded_base</item>
+        <item name="keyTextColor">@color/key_text_color_lxx_light</item>
+        <item name="keyTextInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
+        <item name="functionalTextColor">@color/key_functional_text_color_lxx_light</item>
+        <item name="keyHintLetterColor">@color/key_hint_letter_color_lxx_light</item>
+        <item name="keyHintLabelColor">@color/key_text_inactive_color_lxx_light</item>
+        <item name="keyShiftedLetterHintInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
+        <item name="keyShiftedLetterHintActivatedColor">@color/key_text_color_lxx_light</item>
+        <item name="keyPreviewTextColor">@color/key_text_color_lxx_light</item>
+        <!-- Specific attributes for this theme -->
+        <item name="keyHintLetterPadding">3dp</item>
+        <item name="keyHintLabelVerticalAdjustment">15%p</item> <!-- For normal keys -->
+    </style>
+
+    <style
+        name="MainKeyboardView.Rounded_Base"
+        parent="KeyboardView.Rounded_Base"
+        >
+        <item name="moreKeysKeyboardForActionLayout">@layout/more_keys_keyboard_for_action_lxx</item>
+        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_light</item>
+        <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
+        <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
+        <item name="gestureFloatingPreviewTextColor">@color/auto_correct_color_lxx_light</item>
+        <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_lxx_light</item>
+        <item name="gestureTrailColor">@color/gesture_trail_color_lxx_light</item>
+        <item name="slidingKeyInputPreviewColor">@color/sliding_key_input_preview_color_lxx_light</item>
+        <!-- A negative value to disable text shadow layer. -->
+        <item name="languageOnSpacebarTextShadowRadius">-1.0</item>
+    </style>
+
+    <!-- Though {@link org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView} doesn't extend
+         {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}, some views inside it, for instance
+         delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
+         attributes. -->
+    <style
+        name="EmojiPalettesView.Rounded_Base"
+        parent="MainKeyboardView.Rounded_Base"
+        >
+        <item name="categoryIndicatorEnabled">false</item>
+        <item name="categoryPageIndicatorColor">@color/highlight_color_lxx_light</item>
+        <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
+        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_rounded</item>
+        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_rounded</item>
+        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_rounded</item>
+        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx</item>
+        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_rounded</item>
+        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_rounded</item>
+        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_rounded</item>
+        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_rounded</item>
+        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_rounded</item>
+        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_rounded</item>
+        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_rounded</item>
+    </style>
+
+    <style
+        name="ClipboardHistoryView.Rounded_Base"
+        parent="MainKeyboardView.Rounded_Base"
+        >
+        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_rounded</item>
+    </style>
+
+    <style
+        name="MoreKeysKeyboard.Rounded_Base"
+        parent="Keyboard.Rounded_Base"
+        >
+        <item name="keyboardTopPadding">0%p</item>
+        <item name="keyboardBottomPadding">0%p</item>
+        <item name="horizontalGap">0%p</item>
+        <item name="horizontalGapNarrow">0%p</item>
+        <item name="touchPositionCorrectionData">@null</item>
+    </style>
+
+    <style
+        name="MoreKeysKeyboardView.Rounded_Base"
+        parent="KeyboardView.Rounded_Base"
+        >
+        <item name="android:background">@drawable/keyboard_popup_panel_background_rounded_base</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_rounded_base</item>
+        <item name="divider">@drawable/more_keys_divider</item>
+        <item name="keyTypeface">normal</item>
+        <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
+    </style>
+
+    <style
+        name="MoreKeysKeyboardView.Rounded_Base.Action"
+        parent="MoreKeysKeyboardView.Rounded_Base"
+        >
+        <item name="android:background">@android:color/transparent</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_action_lxx_base</item>
+        <item name="divider">@null</item>
+        <item name="keyLabelFlags">keepBackgroundAspectRatio</item>
+    </style>
+
+    <style
+        name="SuggestionStripView.Rounded_Base"
+        parent="KeyboardView.Rounded_Base"
+        >
+        <item name="suggestionsCountInStrip">@integer/config_suggestions_count_in_strip</item>
+        <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
+        <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
+        <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
+        <item name="android:background">@drawable/keyboard_suggest_strip_rounded_base</item>
+        <item name="android:src">@drawable/suggestions_strip_divider_lxx_light</item>
+        <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
+        <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
+        <item name="colorTypedWord">@color/typed_word_color_lxx_light</item>
+        <item name="colorAutoCorrect">@color/auto_correct_color_lxx_light</item>
+        <item name="colorSuggested">@color/suggested_word_color_lxx_light</item>
+        <item name="alphaObsoleted">70%</item>
+    </style>
+
+    <style
+        name="SuggestionWord.Rounded_Base"
+        parent="SuggestionWord"
+        >
+        <item name="android:background">@drawable/btn_suggestion_rounded_base</item>
+        <item name="android:textColor">@color/highlight_color_lxx_light</item>
+    </style>
+
+</resources>
