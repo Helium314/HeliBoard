@@ -29,7 +29,11 @@ public class ExecutorUtils {
     private static ScheduledExecutorService sSpellingExecutorService = newExecutorService(SPELLING);
 
     private static ScheduledExecutorService newExecutorService(final String name) {
-        return Executors.newSingleThreadScheduledExecutor(new ExecutorFactory(name));
+        // use more than a single thread, to reduce the occasional wait (mostly relevant when using multiple languages)
+        // limit number to cores / 2 to never interfere with whatever some other app is doing
+        final int cores = Runtime.getRuntime().availableProcessors();
+        final int threads = Math.max(cores / 2, 1);
+        return Executors.newScheduledThreadPool(threads, new ExecutorFactory(name));
     }
 
     private static class ExecutorFactory implements ThreadFactory {
