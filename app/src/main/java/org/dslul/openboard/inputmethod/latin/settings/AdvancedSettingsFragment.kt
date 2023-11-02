@@ -11,7 +11,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
@@ -19,7 +19,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.define.JniLibName
@@ -55,6 +54,24 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         //  possibly some obfuscation thing that occurred after upgrading to gradle 8?
     ) }
 
+    private val libraryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        copyLibrary(uri)
+    }
+
+    private val backupFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        backup(uri)
+    }
+
+    private val restoreFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        restore(uri)
+    }
+
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         addPreferencesFromResource(R.xml.prefs_screen_advanced)
@@ -87,7 +104,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                         .addCategory(Intent.CATEGORY_OPENABLE)
                         .setType("application/octet-stream")
-                    startActivityForResult(intent, REQUEST_CODE_GESTURE_LIBRARY)
+                    libraryFilePicker.launch(intent)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
         libfile = File(requireContext().filesDir.absolutePath + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME)
@@ -99,16 +116,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         builder.show()
         return true
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, result: Intent?) {
-        val uri = result?.data
-        if (resultCode != Activity.RESULT_OK || uri == null) return
-        when (requestCode) {
-            REQUEST_CODE_GESTURE_LIBRARY -> copyLibrary(uri)
-            REQUEST_CODE_BACKUP -> backup(uri)
-            REQUEST_CODE_RESTORE -> restore(uri)
-        }
     }
 
     private fun copyLibrary(uri: Uri) {
@@ -135,14 +142,14 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                             .replace(" ", "_") + "_backup.zip"
                     )
                     .setType("application/zip")
-                startActivityForResult(intent, REQUEST_CODE_BACKUP)
+                backupFilePicker.launch(intent)
             }
             .setPositiveButton(android.R.string.cancel, null)
             .setNeutralButton(R.string.button_restore) { _, _ ->
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .setType("application/zip")
-                startActivityForResult(intent, REQUEST_CODE_RESTORE)
+                restoreFilePicker.launch(intent)
             }
             .show()
         return true
@@ -232,7 +239,3 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
     }
 }
-
-private const val REQUEST_CODE_GESTURE_LIBRARY = 570289
-private const val REQUEST_CODE_BACKUP = 98665973
-private const val REQUEST_CODE_RESTORE = 98665974

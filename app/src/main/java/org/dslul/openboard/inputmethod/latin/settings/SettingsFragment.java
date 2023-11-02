@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -51,7 +53,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     private static final int MENU_ABOUT = Menu.FIRST;
     // The second menu item id and order.
     private static final int MENU_HELP_AND_FEEDBACK = Menu.FIRST + 1;
-    private static final int CRASH_REPORT_REQUEST_CODE = 985287532;
     // for storing crash report files, so onActivityResult can actually use them
     private final ArrayList<File> crashReportFiles = new ArrayList<>();
 
@@ -166,7 +167,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip");
                     intent.setType("application/zip");
-                    startActivityForResult(intent, CRASH_REPORT_REQUEST_CODE);
+                    crashReportFilePicker.launch(intent);
                 })
                 .setNeutralButton("delete", (dialogInterface, i) -> {
                     for (File file : crashReportFiles) {
@@ -177,17 +178,19 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
                 .show();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK || data == null) return;
-        if (requestCode != CRASH_REPORT_REQUEST_CODE) return;
-        if (crashReportFiles.isEmpty()) return;
-        final Uri uri = data.getData();
-        if (uri == null) return;
+    final ActivityResultLauncher<Intent> crashReportFilePicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (intent) -> {
+        if (intent.getResultCode() != Activity.RESULT_OK || intent.getData() == null) return;
+        final Uri uri = intent.getData().getData();
+        if (uri != null)
+            saveCrashReport(uri);
+    });
+
+    private void saveCrashReport(final Uri uri) {
+        if (uri == null || crashReportFiles.isEmpty()) return;
         final OutputStream os;
         try {
             os = requireContext().getContentResolver().openOutputStream(uri);
+            if (os == null) return;
             final BufferedOutputStream bos = new BufferedOutputStream(os);
             final ZipOutputStream z = new ZipOutputStream(bos);
             for (File file : crashReportFiles) {
