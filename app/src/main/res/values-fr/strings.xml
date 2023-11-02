@@ -229,6 +229,7 @@ Nouveau dictionnaire:
     <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
     <string name="theme_style">Style</string>
+    <string name="style_name_Rounded">Arrondi</string>
     <string name="theme_colors">Couleurs</string>
     <string name="theme_colors_night">Couleurs (mode nuit)</string>
     <string name="key_borders">Bordures des touches</string>

@@ -570,6 +570,8 @@ New dictionary:
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
+    <!-- Style name for Rounded style -->
+    <string name="style_name_Rounded">Rounded</string>
     <!-- Option for choosing colors [CHAR LIMIT=33] -->
     <string name="theme_colors">Colors</string>
     <!-- Option for choosing colors for night mode [CHAR LIMIT=33] -->
