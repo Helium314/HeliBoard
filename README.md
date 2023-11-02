@@ -11,7 +11,7 @@ Might end up on F-Droid...
   * can be extracted from GApps packages (_swypelibs_), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
 * Multilingual typing
 * Load external dictionaries
-  * get them [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental) section (quality may vary)
+  * get them [here]( https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
 * Adjust keyboard themes (style and colors)
@@ -20,6 +20,7 @@ Might end up on F-Droid...
 * Number row
 * Number pad
 * Show all available extra characters on long pressing a key
+* Backup your learned word / history data
 
 ## Hidden functionality
 Features that may go unnoticed
