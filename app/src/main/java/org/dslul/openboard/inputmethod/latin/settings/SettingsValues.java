@@ -95,6 +95,7 @@ public class SettingsValues {
     public final boolean mShouldShowLxxSuggestionUi;
     // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
+    public final float mSpacerRelativeWidth;
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
@@ -162,9 +163,12 @@ public class SettingsValues {
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false)
-                // require display width of 600 dp for split
-                && res.getDisplayMetrics().widthPixels / res.getDisplayMetrics().density > 600;
+        final float widthDp = res.getDisplayMetrics().widthPixels / res.getDisplayMetrics().density;
+        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && widthDp > 600; // require display width of 600 dp for split
+        // determine spacerWidth from display width and setting
+        mSpacerRelativeWidth = mIsSplitKeyboardEnabled
+                ? Math.min(Math.max((widthDp - 600) / 6000f + 0.15f, 0.15f), 0.25f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+                : 0f;
         mScreenMetrics = Settings.readScreenMetrics(res);
 
         mShouldShowLxxSuggestionUi = Settings.SHOULD_SHOW_LXX_SUGGESTION_UI
@@ -190,7 +194,7 @@ public class SettingsValues {
                 readSuggestionsEnabled(prefs);
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
-        mKeyboardHeightScale = Settings.readKeyboardHeight(prefs, DEFAULT_SIZE_SCALE);
+        mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
         mAppWorkarounds = new AsyncResultHolder<>("AppWorkarounds");
         final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(

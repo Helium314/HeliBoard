@@ -131,11 +131,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun addSplit() {
-        val metrics = mResources.displayMetrics
-        val widthDp = metrics.widthPixels / metrics.density
-        // adapted relative space width to (current) screen width (ca between 0.15 - 0.25), todo: maybe make it further adjustable by the user (sth like 50-200%)
-        val spacerRelativeWidth = ((widthDp - 600) / 6000f + 0.15f).coerceAtLeast(0.15f).coerceAtMost(0.25f)
-        // adjust gaps for the whole keyboard, so it's the same for all rows, todo: maybe remove? not sure if more narrow gaps are desirable
+        val spacerRelativeWidth = Settings.getInstance().current.mSpacerRelativeWidth
+        // adjust gaps for the whole keyboard, so it's the same for all rows
+        // todo: maybe remove? not sure if narrower gaps are desirable
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
         var maxWidthBeforeSpacer = 0f

@@ -21,7 +21,6 @@ import java.util.*
  * "Appearance" settings sub screen.
  */
 class AppearanceSettingsFragment : SubScreenFragment() {
-
     private var needsReload = false
 
     private val stylePref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
@@ -30,17 +29,26 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
+    private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
+    private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
 
-
-    override fun onCreate(icicle: Bundle?) {
-        super.onCreate(icicle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.prefs_screen_appearance)
 
         removeUnsuitablePreferences()
         setupTheme()
         setThemeVariantPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
 
-        setupKeyboardHeight(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        if (splitScalePref != null) {
+            setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+            splitScalePref?.isVisible = splitPref?.isChecked == true
+            splitPref?.setOnPreferenceChangeListener { _, value ->
+                splitScalePref?.isVisible = value as Boolean
+                true
+            }
+        }
     }
 
     override fun onPause() {
@@ -52,7 +60,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
         super.onSharedPreferenceChanged(prefs, key)
-        needsReload = true // may not always be the necessary, but that's ok
+        needsReload = true // may not always necessary, but that's ok
     }
 
     private fun removeUnsuitablePreferences() {
@@ -77,9 +85,10 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         val metrics = requireContext().resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
         val heightDp = metrics.heightPixels / metrics.density
-//        if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED || (min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
-//            removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) // todo: disabled for testing
-//        }
+        if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED || (min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
+            removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
+            removePreference(Settings.PREF_SPLIT_SPACER_SCALE)
+        }
     }
 
     private fun setThemeVariantPrefs(themeFamily: String) {
@@ -140,7 +149,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
     }
 
-    private fun setupKeyboardHeight(prefKey: String, defaultValue: Float) {
+    private fun setupScalePrefs(prefKey: String, defaultValue: Float) {
         val prefs = sharedPreferences
         val pref = findPreference(prefKey) as? SeekBarDialogPreference
         pref?.setInterface(object : SeekBarDialogPreference.ValueProxy {
@@ -149,13 +158,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
             private fun getPercentageFromValue(floatValue: Float) = (floatValue * PERCENTAGE_FLOAT).toInt()
 
-            override fun writeValue(value: Int, key: String) = prefs.edit()
-                    .putFloat(key, getValueFromPercentage(value)).apply()
+            override fun writeValue(value: Int, key: String) = prefs.edit().putFloat(key, getValueFromPercentage(value)).apply()
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = getPercentageFromValue(
-                    Settings.readKeyboardHeight(prefs, defaultValue))
+            override fun readValue(key: String) = getPercentageFromValue(prefs.getFloat(prefKey, defaultValue))
 
             override fun readDefaultValue(key: String) = getPercentageFromValue(defaultValue)
 

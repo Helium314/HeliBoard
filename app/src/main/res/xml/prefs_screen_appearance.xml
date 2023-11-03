@@ -63,6 +63,12 @@
             android:persistent="true"
             android:defaultValue="false" />
 
+        <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
+            android:key="pref_split_spacer_scale"
+            android:title="@string/split_spacer_scale"
+            latin:minValue="50"
+            latin:maxValue="200" /> <!-- percentage -->
+
         <SwitchPreferenceCompat
             android:key="pref_narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
