@@ -163,11 +163,11 @@ public class SettingsValues {
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        final float widthDp = res.getDisplayMetrics().widthPixels / res.getDisplayMetrics().density;
-        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && widthDp > 600; // require display width of 600 dp for split
-        // determine spacerWidth from display width and setting
+        final float displayWidthDp = res.getDisplayMetrics().widthPixels / res.getDisplayMetrics().density;
+        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && displayWidthDp > 600; // require display width of 600 dp for split
+        // determine spacerWidth from display width and scale setting
         mSpacerRelativeWidth = mIsSplitKeyboardEnabled
-                ? Math.min(Math.max((widthDp - 600) / 6000f + 0.15f, 0.15f), 0.25f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+                ? Math.min(Math.max((displayWidthDp - 600) / 6000f + 0.15f, 0.15f), 0.25f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
                 : 0f;
         mScreenMetrics = Settings.readScreenMetrics(res);
 

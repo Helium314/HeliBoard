@@ -70,7 +70,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        if (Settings.getInstance().current.mIsSplitKeyboardEnabled // todo: remove parsing for split layouts and read params, not settings
+        if (Settings.getInstance().current.mIsSplitKeyboardEnabled
                 && mParams.mId.mElementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             addSplit()
         }

@@ -457,8 +457,7 @@ public final class KeyboardLayoutSet {
                 elementParams.mProximityCharsCorrectionEnabled = a.getBoolean(
                         R.styleable.KeyboardLayoutSet_Element_enableProximityCharsCorrection,
                         false);
-                elementParams.mSupportsSplitLayout = false; //a.getBoolean( // todo: disabled for testing
-                        //R.styleable.KeyboardLayoutSet_Element_supportsSplitLayout, false);
+                elementParams.mSupportsSplitLayout = false; // this is to avoid xml parser reading split layouts, todo (later): remove mSupportsSplitLayout
                 elementParams.mAllowRedundantMoreKeys = a.getBoolean(
                         R.styleable.KeyboardLayoutSet_Element_allowRedundantMoreKeys, true);
                 mParams.mKeyboardLayoutSetElementIdToParamsMap.put(elementName, elementParams);
