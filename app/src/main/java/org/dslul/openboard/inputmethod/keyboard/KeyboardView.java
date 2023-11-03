@@ -463,6 +463,7 @@ public class KeyboardView extends View {
             blendAlpha(paint, params.mAnimAlpha);
             final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
             final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
+            final boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.isFunctional();
             final float hintX, hintBaseline;
             if (key.hasHintLabel()) {
                 // The hint label is placed just right of the key label. Used mainly on
@@ -485,15 +486,15 @@ public class KeyboardView extends View {
                 final float hintDigitWidth = TypefaceUtils.getReferenceDigitWidth(paint);
                 final float hintLabelWidth = TypefaceUtils.getStringWidth(hintLabel, paint);
                 hintBaseline = -paint.ascent();
-                hintX = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.isFunctional() ?
-                        keyWidth - hintBaseline :
-                        keyWidth - mKeyHintLetterPadding - Math.max(hintDigitWidth, hintLabelWidth) / 2.0f;
+                hintX = isFunctionalKeyAndRoundedStyle
+                        ? keyWidth - hintBaseline
+                        : keyWidth - mKeyHintLetterPadding - Math.max(hintDigitWidth, hintLabelWidth) / 2.0f;
                 paint.setTextAlign(Align.CENTER);
             }
-            final float adjustmentY = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.isFunctional() ?
-                    hintBaseline * 0.5f : params.mHintLabelVerticalAdjustment * labelCharHeight;
-            canvas.drawText(
-                    hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
+            final float adjustmentY = isFunctionalKeyAndRoundedStyle
+                    ? hintBaseline * 0.5f
+                    : params.mHintLabelVerticalAdjustment * labelCharHeight;
+            canvas.drawText(hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
         }
 
         // Draw key icon.
@@ -521,6 +522,7 @@ public class KeyboardView extends View {
         }
     }
 
+    // Draw popup hint "..." at the center or bottom right corner of the key, depending on style.
     protected void drawKeyPopupHint(@NonNull final Key key, @NonNull final Canvas canvas,
             @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (TextUtils.isEmpty(mKeyPopupHintLetter)) {
@@ -535,7 +537,7 @@ public class KeyboardView extends View {
         paint.setTextSize(params.mHintLetterSize);
         paint.setColor(params.mHintLabelColor);
         paint.setTextAlign(Align.CENTER);
-        if(mColors.getThemeStyle().equals(STYLE_ROUNDED)) {
+        if (mColors.getThemeStyle().equals(STYLE_ROUNDED)) {
             if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR)
                 hintX = keyWidth + hintBaseline + labelCharWidth * 0.1f;
             else
