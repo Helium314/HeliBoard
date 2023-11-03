@@ -70,7 +70,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        keysInRows.forEach { it.forEach { it.setRelativeWithFromFillRight() } } // necessary for being able to multiply relative width without awkward results
         addSplit()
 //        useRelative()
         addKeysToParams()
@@ -90,7 +89,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             var currentX = 0f
             row.forEach {
                 it.setDimensionsFromRelativeSize(currentX, y)
-                currentX += it.mWidth + it.mHorizontalGap
+                currentX += it.mFullWidth
             }
         }
     }
@@ -116,7 +115,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 i++
                 currentX += currentKeyXPos - currentX
             }
-            currentX += row[i].mWidth + row[i].mHorizontalGap
+            currentX += row[i].mFullWidth
             i++
         }
         if (currentX < mParams.mOccupiedWidth) {
@@ -137,7 +136,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 //        if (widthDp < 600) return // similar to requiring sw600dp to split in portrait mode, todo: disabled for testing
         // adapted relative space width to (current) screen width (ca between 0.15 - 0.25), todo: maybe make it further adjustable by the user (sth like 50-200%)
         val spacerRelativeWidth = ((widthDp - 600) / 6000f + 0.15f).coerceAtLeast(0.15f).coerceAtMost(0.25f)
-        mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth) // adjust gaps for the whole keyboard, so it's the same for all rows
+        // adjust gaps for the whole keyboard, so it's the same for all rows, todo: maybe remove? not sure if more narrow gaps are desirable
+        mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
+        mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
         var maxWidthBeforeSpacer = 0f
         var maxWidthAfterSpacer = 0f
         for (row in keysInRows) {
@@ -148,7 +149,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             spacer.mRelativeWidth = spacerRelativeWidth
             spacer.mRelativeHeight = row.first().mRelativeHeight
             // insert spacer before first key that starts right of the center (also consider gap)
-            var insertIndex = row.indexOfFirst { it.xPos + it.mHorizontalGap / 2 > mParams.mOccupiedWidth / 2 }
+            var insertIndex = row.indexOfFirst { it.xPos > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
             if (row.any { it.mCode == Constants.CODE_SPACE }) {
                 val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
@@ -186,7 +187,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             row.forEach {
                 it.mRelativeWidth *= widthFactor
                 it.setDimensionsFromRelativeSize(currentX, y)
-                currentX += it.mWidth + it.mHorizontalGap
+                currentX += it.mFullWidth
             }
         }
     }
@@ -195,7 +196,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // todo: this may reduce the key size too much if the keyboard width is low
     //  maybe that's just an issue when testing on S4 mini that shouldn't be able to split (plus, it's only portrait mode)
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
-        val spaceKey = row.first { it.mBackgroundType == Key.BACKGROUND_TYPE_SPACEBAR }
+        val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
         val symbolKey = row.firstOrNull { it.mCode == Constants.CODE_SWITCH_ALPHA_SYMBOL }
         val symbolKeyWidth = symbolKey?.mRelativeWidth ?: 0f
         if (symbolKeyWidth > mParams.mDefaultRelativeKeyWidth) {
