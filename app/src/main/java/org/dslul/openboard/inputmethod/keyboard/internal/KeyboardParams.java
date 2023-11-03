@@ -210,8 +210,9 @@ public class KeyboardParams {
             mOccupiedWidth = width;
             mTopPadding = (int) keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardTopPadding, height, height, 0);
-            mBottomPadding = (int) keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardBottomPadding, height, height, 0);
+            mBottomPadding = (int) (keyboardAttr.getFraction(
+                    R.styleable.Keyboard_keyboardBottomPadding, height, height, 0)
+                    * Settings.getInstance().getCurrent().mBottomPaddingScale);
             mLeftPadding = (int) keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardLeftPadding, width, width, 0);
             mRightPadding = (int) keyboardAttr.getFraction(

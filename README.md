@@ -21,6 +21,7 @@ Might end up on F-Droid...
 * Number pad
 * Show all available extra characters on long pressing a key
 * Backup your learned word / history data
+* Adjustable bottom padding
 
 ## Hidden functionality
 Features that may go unnoticed

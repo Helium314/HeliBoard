@@ -81,6 +81,13 @@
             latin:minValue="50"
             latin:maxValue="150" /> <!-- percentage -->
 
+        <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
+            android:key="pref_bottom_padding_scale"
+            android:title="@string/prefs_bottom_padding_scale"
+            android:summary="@string/prefs_bottom_padding_scale_summary"
+            latin:minValue="0"
+            latin:maxValue="500" /> <!-- percentage -->
+
     </PreferenceCategory>
 
 </PreferenceScreen>

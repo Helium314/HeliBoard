@@ -40,8 +40,8 @@ class ClipboardLayoutParams(res: Resources) {
             keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo,
                 defaultKeyboardWidth, defaultKeyboardWidth).toInt()
         }
-        bottomPadding = res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+        bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight) * Settings.getInstance().current.mBottomPaddingScale).toInt()
         topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 

@@ -42,18 +42,14 @@ final class EmojiLayoutParams {
             mKeyHorizontalGap = (int) (res.getFraction(R.fraction.config_key_horizontal_gap_holo,
                     defaultKeyboardWidth, defaultKeyboardWidth));
         }
-        mBottomPadding = (int) res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight);
+        mBottomPadding = (int) (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight) * Settings.getInstance().getCurrent().mBottomPaddingScale);
         mTopPadding = (int) res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight);
-        mEmojiCategoryPageIdViewHeight =
-                (int) (res.getDimension(R.dimen.config_emoji_category_page_id_height));
-        final int baseheight = defaultKeyboardHeight - mBottomPadding - mTopPadding
-                + mKeyVerticalGap;
-        mEmojiActionBarHeight = baseheight / DEFAULT_KEYBOARD_ROWS
-                - (mKeyVerticalGap - mBottomPadding) / 2;
-        mEmojiListHeight = defaultKeyboardHeight - mEmojiActionBarHeight
-                - mEmojiCategoryPageIdViewHeight;
+        mEmojiCategoryPageIdViewHeight = (int) (res.getDimension(R.dimen.config_emoji_category_page_id_height));
+        final int baseheight = defaultKeyboardHeight - mBottomPadding - mTopPadding + mKeyVerticalGap;
+        mEmojiActionBarHeight = baseheight / DEFAULT_KEYBOARD_ROWS - (mKeyVerticalGap - mBottomPadding) / 2;
+        mEmojiListHeight = defaultKeyboardHeight - mEmojiActionBarHeight - mEmojiCategoryPageIdViewHeight;
         mEmojiListBottomMargin = 0;
         mEmojiKeyboardHeight = mEmojiListHeight - mEmojiListBottomMargin - 1;
     }

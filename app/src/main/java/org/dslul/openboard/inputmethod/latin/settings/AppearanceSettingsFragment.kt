@@ -41,6 +41,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         setColorPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
 
         setupScalePrefs(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
         if (splitScalePref != null) {
             setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
             splitScalePref?.isVisible = splitPref?.isChecked == true

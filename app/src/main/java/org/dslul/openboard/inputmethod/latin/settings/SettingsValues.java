@@ -103,6 +103,7 @@ public class SettingsValues {
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
     public final List<String> mPinnedKeys;
+    public final float mBottomPaddingScale;
 
     // From the input box
     @NonNull
@@ -228,6 +229,7 @@ public class SettingsValues {
         mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
         mPinnedKeys = Settings.readPinnedKeys(prefs);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
+        mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

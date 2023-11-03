@@ -85,6 +85,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
     public static final String PREF_SPLIT_SPACER_SCALE = "pref_split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
+    public static final String PREF_BOTTOM_PADDING_SCALE = "pref_bottom_padding_scale";
     public static final String PREF_SPACE_TRACKPAD = "pref_space_trackpad";
     public static final String PREF_DELETE_SWIPE = "pref_delete_swipe";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "pref_autospace_after_punctuation";
