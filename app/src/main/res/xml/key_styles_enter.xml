@@ -199,7 +199,7 @@
     </switch>
     <!-- Enter key style -->
     <switch>
-        <case latin:keyboardTheme="HoloBase|LXXBaseBorder">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder|RoundedBaseBorder">
             <key-style
                 latin:styleName="defaultEnterKeyStyle"
                 latin:keySpec="!icon/enter_key|!code/key_enter"

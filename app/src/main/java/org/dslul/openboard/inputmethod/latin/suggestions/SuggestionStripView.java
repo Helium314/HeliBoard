@@ -58,7 +58,6 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -87,6 +86,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final ImageButton mToolbarKey;
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
+    private final Drawable mBinIcon;
     private final ViewGroup mToolbar;
     private final View mToolbarContainer;
     private final ViewGroup mPinnedKeys;
@@ -159,6 +159,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final ImageButton selectAllKey = findViewById(R.id.suggestions_strip_select_all_key);
         final ImageButton settingsKey = findViewById(R.id.suggestions_strip_settings_key);
         final ImageButton oneHandedKey = findViewById(R.id.suggestions_strip_one_handed_key);
+        final ImageButton arrowLeft = findViewById(R.id.suggestions_strip_left_key);
+        final ImageButton arrowRight = findViewById(R.id.suggestions_strip_right_key);
+        final ImageButton arrowUp = findViewById(R.id.suggestions_strip_up_key);
+        final ImageButton arrowDown = findViewById(R.id.suggestions_strip_down_key);
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -190,17 +194,22 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
+        mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
+        mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
         voiceKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconShortcutKey));
         clipboardKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey));
         settingsKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSettingsKey));
-        selectAllKey.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_select_all));
+        selectAllKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSelectAll));
+        arrowLeft.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowLeft));
+        arrowRight.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowRight));
+        arrowUp.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowUp));
+        arrowDown.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowDown));
         oneHandedKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconStartOneHandedMode));
         keyboardAttr.recycle();
 
         final int toolbarHeight = Math.min(mToolbarKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
         mToolbarKey.getLayoutParams().height = toolbarHeight;
         mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
-        mToolbarArrowIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_right);
         mDefaultBackground = mToolbarKey.getBackground();
         colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);
         mEnabledToolKeyBackground.setColors(new int[] {colors.getAccent() | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
@@ -370,7 +379,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
     private boolean onLongClickSuggestion(final TextView wordView) {
-        final Drawable icon = ContextCompat.getDrawable(getContext(), R.drawable.ic_delete);
+        final Drawable icon = mBinIcon;
         icon.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
         int w = icon.getIntrinsicWidth();
         int h = icon.getIntrinsicWidth();

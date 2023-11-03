@@ -216,6 +216,8 @@
             <enum name="HoloBase" value="0" />
             <enum name="LXXBase" value="1" />
             <enum name="LXXBaseBorder" value="2" />
+            <enum name="RoundedBase" value="3" />
+            <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
@@ -269,6 +271,13 @@
         <attr name="iconStopOneHandedMode" format="reference" />
         <attr name="iconSwitchOneHandedMode" format="reference" />
         <attr name="iconNumpadKey" format="reference" />
+        <attr name="iconToolbarKey" format="reference" />
+        <attr name="iconSelectAll" format="reference" />
+        <attr name="iconArrowLeft" format="reference" />
+        <attr name="iconArrowRight" format="reference" />
+        <attr name="iconArrowUp" format="reference" />
+        <attr name="iconArrowDown" format="reference" />
+        <attr name="iconBin" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_GridRows">
@@ -473,6 +482,8 @@
             <enum name="HoloBase" value="0" />
             <enum name="LXXBase" value="1" />
             <enum name="LXXBaseBorder" value="2" />
+            <enum name="RoundedBase" value="3" />
+            <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- This should be aligned with
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->

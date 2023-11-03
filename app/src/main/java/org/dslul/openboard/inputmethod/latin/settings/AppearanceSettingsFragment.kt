@@ -131,8 +131,14 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
     private fun setupTheme() {
         stylePref.apply {
-            entries = KeyboardTheme.STYLES
             entryValues = KeyboardTheme.STYLES
+            entries = entryValues.map {
+                val resId = resources.getIdentifier("style_name_$it", "string", requireContext().packageName)
+                if (resId == 0) it else getString(resId)
+            }.toTypedArray()
+            if (value !in entryValues)
+                value = entryValues.first().toString()
+
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
                 setColorPrefs(value.toString())

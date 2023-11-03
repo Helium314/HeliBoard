@@ -26,6 +26,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     // old themes
     public static final String STYLE_MATERIAL = "Material";
     public static final String STYLE_HOLO = "Holo";
+    public static final String STYLE_ROUNDED = "Rounded";
 
     // new themes using the custom colors
     public static final String THEME_LIGHT = "light";
@@ -36,15 +37,17 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_USER = "user";
     public static final String THEME_USER_NIGHT = "user_night";
     public static final String[] COLORS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
-    public static final String[] COLORS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT};
+    public static final String[] COLORS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT };
 
-    public static final String[] STYLES = { STYLE_MATERIAL, STYLE_HOLO };
+    public static final String[] STYLES = { STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED };
 
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
     public static final int THEME_ID_HOLO_BASE = 0;
     public static final int THEME_ID_LXX_BASE = 1;
     public static final int THEME_ID_LXX_BASE_BORDER = 2;
+    public static final int THEME_ID_ROUNDED_BASE = 3;
+    public static final int THEME_ID_ROUNDED_BASE_BORDER = 4;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_BASE;
 
     /* package private for testing */
@@ -55,6 +58,10 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                     VERSION_CODES.LOLLIPOP),
             new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
                     VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_ROUNDED_BASE, "RoundedBase", R.style.KeyboardTheme_Rounded_Base,
+                    VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_ROUNDED_BASE_BORDER, "RoundedBaseBorder", R.style.KeyboardTheme_Rounded_Base_Border,
+                    VERSION_CODES.LOLLIPOP)
     };
 
     static {
@@ -119,6 +126,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         final int matchingId;
         if (style.equals(STYLE_HOLO))
             matchingId = THEME_ID_HOLO_BASE;
+        else if (style.equals(STYLE_ROUNDED))
+            matchingId = borders ? THEME_ID_ROUNDED_BASE_BORDER : THEME_ID_ROUNDED_BASE;
         else
             matchingId = borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE;
         for (KeyboardTheme keyboardTheme : KEYBOARD_THEMES) {
