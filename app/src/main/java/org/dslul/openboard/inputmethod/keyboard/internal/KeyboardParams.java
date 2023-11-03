@@ -217,11 +217,10 @@ public class KeyboardParams {
             mRightPadding = (int) keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardRightPadding, width, width, 0);
 
-            final int baseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
-            mBaseWidth = baseWidth;
+            mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
             mDefaultRelativeKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     1, 1, 1f / DEFAULT_KEYBOARD_COLUMNS);
-            mDefaultKeyWidth = (int) (mDefaultRelativeKeyWidth * baseWidth);
+            mDefaultKeyWidth = (int) (mDefaultRelativeKeyWidth * mBaseWidth);
 
             // todo: maybe settings should not be accessed from here?
             if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
@@ -241,15 +240,14 @@ public class KeyboardParams {
             mHorizontalGap = (int) (mRelativeHorizontalGap * width);
             mVerticalGap = (int) (mRelativeVerticalGap * height);
 
-            final int baseHeight = mOccupiedHeight - mTopPadding - mBottomPadding + mVerticalGap;
-            mBaseHeight = baseHeight;
+            mBaseHeight = mOccupiedHeight - mTopPadding - mBottomPadding + mVerticalGap;
             mDefaultRelativeRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
                     R.styleable.Keyboard_rowHeight, 1, 1f / DEFAULT_KEYBOARD_ROWS);
             if (mDefaultRelativeRowHeight > 1) { // can be absolute size, in that case will be > 1
                 mDefaultRowHeight = (int) mDefaultRelativeRowHeight;
                 mDefaultRelativeRowHeight *= -1; // make it negative when it's absolute
             } else {
-                mDefaultRowHeight = (int) (mDefaultRelativeRowHeight * baseHeight);
+                mDefaultRowHeight = (int) (mDefaultRelativeRowHeight * mBaseHeight);
             }
 
             mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);

@@ -83,6 +83,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
     public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
+    public static final String PREF_SPLIT_SPACER_SCALE = "pref_split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
     public static final String PREF_SPACE_TRACKPAD = "pref_space_trackpad";
     public static final String PREF_DELETE_SWIPE = "pref_delete_swipe";
@@ -339,13 +340,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
-    }
-
-    public static float readKeyboardHeight(final SharedPreferences prefs,
-                                           final float defaultValue) {
-        final float percentage = prefs.getFloat(
-                Settings.PREF_KEYBOARD_HEIGHT_SCALE, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (percentage != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? percentage : defaultValue;
     }
 
     public static boolean readSpaceTrackpadEnabled(final SharedPreferences prefs) {
