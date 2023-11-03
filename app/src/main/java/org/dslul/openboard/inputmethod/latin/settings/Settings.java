@@ -504,7 +504,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
             case PREF_COLOR_TEXT_SUFFIX:
                 // base it on background color, and not key, because it's also used for suggestions
-                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight))) return Color.BLACK;
+                final int background = readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight);
+                if (ColorUtilKt.isBrightColor(background)) {
+                    // but if key borders are enabled, we still want reasonable contrast
+                    if (!prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+                            || ColorUtilKt.isGoodContrast(Color.BLACK, readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight)))
+                        return Color.BLACK;
+                    else
+                        return Color.GRAY;
+                }
                 else return Color.WHITE;
             case PREF_COLOR_HINT_TEXT_SUFFIX:
                 if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
@@ -518,8 +526,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
                 final int spacebar = readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight);
                 final int hintText = readUserColor(prefs, context, PREF_COLOR_HINT_TEXT_SUFFIX, isNight);
-                if (ColorUtilKt.colorDistanceSquared(hintText, spacebar) > 80 * 80) return hintText & 0x80FFFFFF; // add some transparency
-                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight) & 0x80FFFFFF;
+                if (ColorUtilKt.isGoodContrast(hintText, spacebar)) return hintText & 0x80FFFFFF; // add some transparency
+                final int text = readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
+                if (ColorUtilKt.isGoodContrast(text, spacebar)) return text & 0x80FFFFFF;
+                if (ColorUtilKt.isBrightColor(spacebar)) return Color.BLACK & 0x80FFFFFF;
+                else return Color.WHITE & 0x80FFFFFF;
             case PREF_COLOR_BACKGROUND_SUFFIX:
             default:
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);
