@@ -941,7 +941,7 @@ public class Key implements Comparable<Key> {
     public static class KeyParams {
         // params for building
         boolean isSpacer;
-        private final KeyboardParams mParams; // for reading gaps and keyboard width / height
+        private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public boolean fillRight = false;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
@@ -962,9 +962,9 @@ public class Key implements Comparable<Key> {
 
         // stuff that may very well change
         // todo: make all float and convert when creating the key
-        //  maybe also make params float? but first check where they are used
         //  use "raw width" (without removing gaps) here and convert it only when creating the key?
         //   should make no difference in the end, is there actually any place where gaps need to be re-added?
+        // call it fullWidth, and dont even store gaps in params?
         public float mWidth;
         public float mHeight;
         public float mHorizontalGap;
@@ -1000,7 +1000,7 @@ public class Key implements Comparable<Key> {
         // todo: is there a reason to keep fillRight at all? we could just do this when creating the params
         public void setRelativeWithFromFillRight() {
             if (!fillRight) return;
-            mRelativeWidth = (mWidth + mHorizontalGap) / mParams.mBaseWidth;
+            mRelativeWidth = (mWidth + mHorizontalGap) / mKeyboardParams.mBaseWidth;
             fillRight = false;
         }
 
@@ -1018,16 +1018,16 @@ public class Key implements Comparable<Key> {
                 throw new IllegalStateException("can't (yet) deal with absolute height");
             xPos = newX;
             yPos = newY;
-            mHorizontalGap = isSpacer ? 0f : mParams.mRelativeHorizontalGap * mParams.mId.mWidth; // gap width / height is based on params.mId.height / width
-            mVerticalGap = mParams.mRelativeVerticalGap * mParams.mId.mHeight;
+            mHorizontalGap = isSpacer ? 0f : mKeyboardParams.mRelativeHorizontalGap * mKeyboardParams.mId.mWidth; // gap width / height is based on params.mId.height / width
+            mVerticalGap = mKeyboardParams.mRelativeVerticalGap * mKeyboardParams.mId.mHeight;
             float keyWidth;
             if (fillRight)
-                keyWidth = (mParams.mOccupiedWidth - mParams.mRightPadding) - xPos; // right keyboard edge - x
+                keyWidth = (mKeyboardParams.mOccupiedWidth - mKeyboardParams.mRightPadding) - xPos; // right keyboard edge - x
             else
-                keyWidth = mRelativeWidth * mParams.mBaseWidth; // key width / height is based on params.mBaseHeight / width
+                keyWidth = mRelativeWidth * mKeyboardParams.mBaseWidth; // key width / height is based on params.mBaseHeight / width
 
             mWidth = keyWidth - mHorizontalGap;
-            mHeight = mRelativeHeight * mParams.mBaseHeight - mVerticalGap;
+            mHeight = mRelativeHeight * mKeyboardParams.mBaseHeight - mVerticalGap;
         }
 
         /**
@@ -1044,7 +1044,7 @@ public class Key implements Comparable<Key> {
         public KeyParams(@Nullable final String keySpec, @NonNull final TypedArray keyAttr,
                          @NonNull final KeyStyle style, @NonNull final KeyboardParams params,
                          @NonNull final XmlKeyboardRow row) {
-            mParams = params;
+            mKeyboardParams = params;
             mRelativeHeight = row.mRelativeRowHeight;
             mRelativeWidth = row.getRelativeKeyWidth(keyAttr);
             if (mRelativeWidth == -1f) {
@@ -1200,7 +1200,7 @@ public class Key implements Comparable<Key> {
                    @Nullable final String hintLabel, @Nullable final String moreKeySpecs,
                    final int labelFlags, final int backgroundType, final int x, final int y,
                    final int width, final int height, final KeyboardParams params) {
-            mParams = params;
+            mKeyboardParams = params;
             mWidth = width - params.mHorizontalGap;
             mHeight = height - params.mVerticalGap;
             mHorizontalGap = params.mHorizontalGap;
@@ -1269,7 +1269,7 @@ public class Key implements Comparable<Key> {
         /** constructor for a spacer whose size MUST be determined using setDimensionsFromRelativeSize */
         private KeyParams(final KeyboardParams params) {
             isSpacer = true; // this is only for spacer!
-            mParams = params;
+            mKeyboardParams = params;
 
             mCode = CODE_UNSPECIFIED;
             mLabel = null;
@@ -1290,7 +1290,7 @@ public class Key implements Comparable<Key> {
             mRelativeWidth = keyParams.mRelativeWidth;
             mRelativeHeight = keyParams.mRelativeHeight;
             isSpacer = keyParams.isSpacer;
-            mParams = keyParams.mParams;
+            mKeyboardParams = keyParams.mKeyboardParams;
             mEnabled = keyParams.mEnabled;
             fillRight = keyParams.fillRight;
 
