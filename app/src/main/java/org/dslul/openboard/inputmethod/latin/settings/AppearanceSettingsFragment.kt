@@ -38,7 +38,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
         removeUnsuitablePreferences()
         setupTheme()
-        setThemeVariantPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
+        setColorPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
 
         setupScalePrefs(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
         if (splitScalePref != null) {
@@ -91,9 +91,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
     }
 
-    private fun setThemeVariantPrefs(themeFamily: String) {
+    private fun setColorPrefs(style: String) {
         colorsPref.apply {
-            entryValues = if (themeFamily == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS
+            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS
                 else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.map {
                 val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
@@ -110,7 +110,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
         }
         colorsNightPref?.apply {
-            entryValues = if (themeFamily == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK
+            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK
                 else KeyboardTheme.COLORS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.map {
                 val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
@@ -134,7 +134,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             entryValues = KeyboardTheme.STYLES
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
-                setThemeVariantPrefs(value.toString())
+                setColorPrefs(value.toString())
                 true
             }
             summary = entries[entryValues.indexOfFirst { it == value }]
