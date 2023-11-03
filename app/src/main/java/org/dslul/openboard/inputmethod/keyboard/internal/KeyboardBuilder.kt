@@ -70,16 +70,19 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        addSplit()
-//        useRelative()
+        if (Settings.getInstance().current.mIsSplitKeyboardEnabled // todo: remove parsing for split layouts and read params, not settings
+                && mParams.mId.mElementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+            addSplit()
+        }
         addKeysToParams()
         return Keyboard(mParams)
     }
 
     // resize keyboard using relative params
     // ideally this should not change anything
-    //  but it does a little, but should not be more than a pixel (rounding stuff)
-    // remove once it's reliable (or leave it for testing)
+    //  but it does a little, depending on how float -> int is done (cast or round, and when to sum up gaps and width)
+    //  still should not be more than a pixel difference
+    // keep it around for a while, for testing
     private fun useRelative() {
         for (row in keysInRows) {
             if (row.isEmpty()) continue
@@ -98,7 +101,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // without adding spacers whose width can then be adjusted, we would have to deal with keyXPos,
     // which is more complicated than expected
     private fun fillGapsWithSpacers(row: MutableList<KeyParams>) {
-        // emoji keyboard completely breaks... why does it actually want to add spacers?
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         if (row.isEmpty()) return
         var currentX = 0f + mParams.mLeftPadding
@@ -129,11 +131,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun addSplit() {
-        if (!Settings.getInstance().current.mIsSplitKeyboardEnabled) return // todo: remove parsing for split layouts and read params, not settings
-        if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         val metrics = mResources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
-//        if (widthDp < 600) return // similar to requiring sw600dp to split in portrait mode, todo: disabled for testing
         // adapted relative space width to (current) screen width (ca between 0.15 - 0.25), todo: maybe make it further adjustable by the user (sth like 50-200%)
         val spacerRelativeWidth = ((widthDp - 600) / 6000f + 0.15f).coerceAtLeast(0.15f).coerceAtMost(0.25f)
         // adjust gaps for the whole keyboard, so it's the same for all rows, todo: maybe remove? not sure if more narrow gaps are desirable
@@ -193,8 +192,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // reduce width of symbol and action key if in the row, and add this width to space to keep other key size constant
-    // todo: this may reduce the key size too much if the keyboard width is low
-    //  maybe that's just an issue when testing on S4 mini that shouldn't be able to split (plus, it's only portrait mode)
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
         val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
         val symbolKey = row.firstOrNull { it.mCode == Constants.CODE_SWITCH_ALPHA_SYMBOL }

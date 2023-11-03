@@ -162,7 +162,9 @@ public class SettingsValues {
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false);
+        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false)
+                // require display width of 600 dp for split
+                && res.getDisplayMetrics().widthPixels / res.getDisplayMetrics().density > 600;
         mScreenMetrics = Settings.readScreenMetrics(res);
 
         mShouldShowLxxSuggestionUi = Settings.SHOULD_SHOW_LXX_SUGGESTION_UI

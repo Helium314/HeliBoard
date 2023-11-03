@@ -1026,8 +1026,7 @@ public class Key implements Comparable<Key> {
             // Update row to have current x coordinate.
             row.setXPos(xPos + mFullWidth);
 
-            mBackgroundType = style.getInt(keyAttr,
-                    R.styleable.Keyboard_Key_backgroundType, row.getDefaultBackgroundType());
+            mBackgroundType = style.getInt(keyAttr, R.styleable.Keyboard_Key_backgroundType, row.getDefaultBackgroundType());
 
             final int baseWidth = params.mBaseWidth;
             final int visualInsetsLeft = Math.round(keyAttr.getFraction(
@@ -1049,13 +1048,11 @@ public class Key implements Comparable<Key> {
             int value;
             if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
                 // Override with fixed column order number and set a relevant mode value.
-                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER
-                        | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
             }
             if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
                 // Override with fixed column order number and set a relevant mode value.
-                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER
-                        | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
             }
             if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
                 moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
@@ -1072,8 +1069,7 @@ public class Key implements Comparable<Key> {
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
                 additionalMoreKeys = null;
             } else {
-                additionalMoreKeys = style.getStringArray(keyAttr,
-                        R.styleable.Keyboard_Key_additionalMoreKeys);
+                additionalMoreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_additionalMoreKeys);
             }
             moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, additionalMoreKeys);
             if (moreKeys != null) {
@@ -1108,8 +1104,7 @@ public class Key implements Comparable<Key> {
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
             } else {
-                final String hintLabel = style.getString(
-                        keyAttr, R.styleable.Keyboard_Key_keyHintLabel);
+                final String hintLabel = style.getString(keyAttr, R.styleable.Keyboard_Key_keyHintLabel);
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
                         : hintLabel;
@@ -1119,12 +1114,12 @@ public class Key implements Comparable<Key> {
                 outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
             }
             // Choose the first letter of the label as primary code if not specified.
-            if (code == CODE_UNSPECIFIED && TextUtils.isEmpty(outputText)
-                    && !TextUtils.isEmpty(mLabel)) {
+            if (code == CODE_UNSPECIFIED && TextUtils.isEmpty(outputText) && !TextUtils.isEmpty(mLabel)) {
                 if (StringUtils.codePointCount(mLabel) == 1) {
                     // Use the first letter of the hint label if shiftedLetterActivated flag is
                     // specified.
-                    if ((mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0 && (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0 && !TextUtils.isEmpty(mHintLabel)) {
+                    if ((mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0 && (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0
+                            && !TextUtils.isEmpty(mHintLabel)) {
                         mCode = mHintLabel.codePointAt(0);
                     } else {
                         mCode = mLabel.codePointAt(0);
@@ -1143,8 +1138,7 @@ public class Key implements Comparable<Key> {
                     mCode = CODE_OUTPUT_TEXT;
                 }
             } else {
-                mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing)
-                        : code;
+                mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing) : code;
             }
             final int altCodeInAttr = KeySpecParser.parseCode(
                     style.getString(keyAttr, R.styleable.Keyboard_Key_altCode), CODE_UNSPECIFIED);
@@ -1174,8 +1168,7 @@ public class Key implements Comparable<Key> {
             if (moreKeySpecs != null) {
                 String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
                 // Get maximum column order number and set a relevant mode value.
-                int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER
-                        | params.mMaxMoreKeysKeyboardColumn;
+                int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
                 int value;
                 if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
                     // Override with fixed column order number and set a relevant mode value.
@@ -1184,8 +1177,7 @@ public class Key implements Comparable<Key> {
                 }
                 if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
                     // Override with fixed column order number and set a relevant mode value.
-                    moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER
-                            | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+                    moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
                 }
                 if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
                     moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
