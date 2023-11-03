@@ -96,10 +96,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         colorsPref.apply {
             entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS
                 else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
-            entries = entryValues.map {
-                val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
-                if (resId == 0) it else getString(resId)
-            }.toTypedArray()
+            entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
             if (value !in entryValues)
                 value = entryValues.first().toString()
             summary = entries[entryValues.indexOfFirst { it == value }]
@@ -113,10 +110,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         colorsNightPref?.apply {
             entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK
                 else KeyboardTheme.COLORS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
-            entries = entryValues.map {
-                val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
-                if (resId == 0) it else getString(resId)
-            }.toTypedArray()
+            entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
             if (value !in entryValues)
                 value = entryValues.first().toString()
             summary = entries[entryValues.indexOfFirst { it == value }]
@@ -132,10 +126,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private fun setupTheme() {
         stylePref.apply {
             entryValues = KeyboardTheme.STYLES
-            entries = entryValues.map {
-                val resId = resources.getIdentifier("style_name_$it", "string", requireContext().packageName)
-                if (resId == 0) it else getString(resId)
-            }.toTypedArray()
+            entries = entryValues.getNamesFromResourcesIfAvailable("style_name_")
             if (value !in entryValues)
                 value = entryValues.first().toString()
 
@@ -178,6 +169,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             override fun feedbackValue(value: Int) = Unit
         })
     }
+
+    private fun Array<CharSequence>.getNamesFromResourcesIfAvailable(prefix: String) =
+        map { val resId = resources.getIdentifier("$prefix$it", "string", requireContext().packageName)
+            if (resId == 0) it else getString(resId)
+        }.toTypedArray()
 
     companion object {
         private const val PERCENTAGE_FLOAT = 100.0f

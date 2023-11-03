@@ -238,8 +238,6 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the settings for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
-    <!-- Description of prefs_bottom_padding_scale -->
-    <string name="prefs_bottom_padding_scale_summary">Set size of the empty space below the keyboard</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
