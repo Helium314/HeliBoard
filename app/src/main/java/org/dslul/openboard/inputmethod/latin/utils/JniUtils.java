@@ -9,44 +9,50 @@ package org.dslul.openboard.inputmethod.latin.utils;
 import android.app.Application;
 import android.util.Log;
 
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.define.JniLibName;
 import java.io.File;
 
 public final class JniUtils {
     private static final String TAG = JniUtils.class.getSimpleName();
 
-    // try loading keyboard libraries
-    // first try user-provided library
-    // then try google library for gesture typing (needs library in system, and app as system app)
-    // finally fall back to internal library
     public static boolean sHaveGestureLib = false;
     static {
+        String filesDir;
         try {
-            // first try loading imported library, and fall back to default
-            String filesDir;
+            // try using reflection to get (app)context: https://stackoverflow.com/a/38967293
+            final Application app = (Application) Class.forName("android.app.ActivityThread")
+                    .getMethod("currentApplication").invoke(null, (Object[]) null);
+            filesDir = app.getFilesDir().getAbsolutePath();
+        } catch (Exception e) {
+            // fall back to hardcoded default path, may not work on all phones
+            filesDir = "/data/data/" + BuildConfig.APPLICATION_ID + "/files";
+        }
+        final File userSuppliedLibrary = new File(filesDir + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME);
+        if (userSuppliedLibrary.exists()) {
             try {
-                // try using reflection to get (app)context: https://stackoverflow.com/a/38967293
-                final Application app = (Application) Class.forName("android.app.ActivityThread")
-                        .getMethod("currentApplication").invoke(null, (Object[]) null);
-                filesDir = app.getFilesDir().getAbsolutePath();
-            } catch (Exception e) {
-                // fall back to hardcoded default path, may not work on all phones
-                filesDir = "/data/data/org.dslul.openboard.inputmethod.latin/files";
+                System.load(filesDir + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME);
+                sHaveGestureLib = true; // this is an assumption, any way to actually check?
+            } catch (Throwable t) { // catch everything, maybe provided library simply doesn't work
+                Log.w(TAG, "Could not load user-supplied library", t);
             }
-            System.load(filesDir + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME);
-            sHaveGestureLib = true; // this is an assumption, any way to actually check?
-        } catch (Throwable t) { // catch everything, maybe provided library simply doesn't work
-            Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_IMPORT_FILE_NAME, t);
+        }
+
+        if (!sHaveGestureLib) {
+            // try loading google library, will fail unless it's in system and this is a system app
             try {
                 System.loadLibrary(JniLibName.JNI_LIB_NAME_GOOGLE);
                 sHaveGestureLib = true;
             } catch (UnsatisfiedLinkError ul) {
-                Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME_GOOGLE, ul);
-                try {
-                    System.loadLibrary(JniLibName.JNI_LIB_NAME);
-                } catch (UnsatisfiedLinkError ule) {
-                    Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME, ule);
-                }
+                Log.w(TAG, "Could not load system glide typing library " + JniLibName.JNI_LIB_NAME_GOOGLE, ul);
+            }
+        }
+        if (!sHaveGestureLib) {
+            // try loading built-in library
+            try {
+                System.loadLibrary(JniLibName.JNI_LIB_NAME);
+            } catch (UnsatisfiedLinkError ul) {
+                Log.w(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME, ul);
             }
         }
     }
