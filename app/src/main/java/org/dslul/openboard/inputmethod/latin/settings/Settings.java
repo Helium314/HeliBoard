@@ -39,6 +39,7 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -133,6 +134,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
+    public static final String PREF_PINNED_CLIPS = "pinned_clips";
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
 
@@ -146,6 +148,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
 
     private static final Settings sInstance = new Settings();
+
+    // preferences that are not used in SettingsValues
+    private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
+        add(PREF_FORCE_OPPOSITE_THEME);
+        add(PREF_PINNED_CLIPS);
+        add(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
+        add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
+        add(PREF_EMOJI_RECENT_KEYS);
+        add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
+    }};
 
     public static Settings getInstance() {
         return sInstance;
@@ -172,6 +184,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
+        if (dontReloadOnChanged.contains(key))
+            return;
         mSettingsValuesLock.lock();
         try {
             if (mSettingsValues == null) {
@@ -423,6 +437,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static int readLastShownEmojiCategoryPageId(
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
+    }
+
+    public static String readPinnedClipString(final SharedPreferences prefs) {
+        return prefs.getString(PREF_PINNED_CLIPS, "");
+    }
+
+    public static void writePinnedClipString(final SharedPreferences prefs, final String clips) {
+        prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
     }
 
     public static List<String> readPinnedKeys(final SharedPreferences prefs) {
