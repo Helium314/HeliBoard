@@ -165,7 +165,7 @@
     <!-- Message for backup and restore dialog -->
     <string name="backup_restore_message">Save or load from file. Warning: restore will overwrite existing data</string>
     <!-- Error message for backup -->
-    <string name="backup_error">Backup error</string>
+    <string name="backup_error">Backup error: %s</string>
     <!-- Error message for restore, %s is replaced by the error message -->
     <string name="restore_error">Error restoring the backup: %s</string>
     <!-- backup button -->

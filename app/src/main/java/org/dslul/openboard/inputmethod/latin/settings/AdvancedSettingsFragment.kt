@@ -11,6 +11,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
@@ -23,9 +24,13 @@ import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.define.JniLibName
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
+import java.io.Writer
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
@@ -43,6 +48,7 @@ import java.util.zip.ZipOutputStream
  * - Debug settings
  */
 class AdvancedSettingsFragment : SubScreenFragment() {
+    private val TAG = this::class.simpleName
     private var libfile: File? = null
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
@@ -166,10 +172,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             if (backupFilePatterns.any { path.matches(it) })
                 files.add(file)
         }
-        if (files.isEmpty()) {
-            infoDialog(requireContext(), R.string.backup_error)
-            return
-        }
         try {
             activity?.contentResolver?.openOutputStream(uri)?.use { os ->
                 // write files to zip
@@ -181,11 +183,14 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     fileStream.close()
                     zipStream.closeEntry()
                 }
+                zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
+                zipStream.bufferedWriter().use { settingsToJsonStream(sharedPreferences.all, it) }
                 zipStream.close()
             }
         } catch (t: Throwable) {
             // inform about every error
-            infoDialog(requireContext(), R.string.backup_error)
+            Log.w(TAG, "error during backup", t)
+            infoDialog(requireContext(), requireContext().getString(R.string.backup_error, t.message))
         }
     }
 
@@ -199,6 +204,10 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                         if (backupFilePatterns.any { entry!!.name.matches(it) }) {
                             val file = File(filesDir, entry.name)
                             FileUtils.copyStreamToNewFile(zip, file)
+                        } else if (entry.name == PREFS_FILE_NAME) {
+                            val prefLines = String(zip.readBytes()).split("\n")
+                            sharedPreferences.edit().clear().apply()
+                            readJsonLinesToSettings(prefLines)
                         }
                         zip.closeEntry()
                         entry = zip.nextEntry
@@ -207,8 +216,13 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             activity?.sendBroadcast(newDictBroadcast)
+            // reload current prefs screen
+            preferenceScreen.removeAll()
+            onCreate(null)
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         } catch (t: Throwable) {
             // inform about every error
+            Log.w(TAG, "error during restore", t)
             infoDialog(requireContext(), requireContext().getString(R.string.restore_error, t.message))
         }
     }
@@ -231,6 +245,50 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
+    @Suppress("UNCHECKED_CAST") // it is checked... but whatever (except string set, because can't check for that))
+    private fun settingsToJsonStream(settings: Map<String, Any?>, out: Writer) {
+        val booleans = settings.filterValues { it is Boolean } as Map<String, Boolean>
+        val ints = settings.filterValues { it is Int } as Map<String, Int>
+        val longs = settings.filterValues { it is Long } as Map<String, Long>
+        val floats = settings.filterValues { it is Float } as Map<String, Float>
+        val strings = settings.filterValues { it is String } as Map<String, String>
+        val stringSets = settings.filterValues { it is Set<*> } as Map<String, Set<String>>
+        // now write
+        out.appendLine("boolean settings")
+        out.appendLine( Json.encodeToString(booleans))
+        out.appendLine("int settings")
+        out.appendLine( Json.encodeToString(ints))
+        out.appendLine("long settings")
+        out.appendLine( Json.encodeToString(longs))
+        out.appendLine("float settings")
+        out.appendLine( Json.encodeToString(floats))
+        out.appendLine("string settings")
+        out.appendLine( Json.encodeToString(strings))
+        out.appendLine("string set settings")
+        out.appendLine( Json.encodeToString(stringSets))
+    }
+
+    private fun readJsonLinesToSettings(list: List<String>): Boolean {
+        val i = list.iterator()
+        val e = sharedPreferences.edit()
+        try {
+            while (i.hasNext()) {
+                when (i.next()) {
+                    "boolean settings" -> Json.decodeFromString<Map<String, Boolean>>(i.next()).forEach { e.putBoolean(it.key, it.value) }
+                    "int settings" -> Json.decodeFromString<Map<String, Int>>(i.next()).forEach { e.putInt(it.key, it.value) }
+                    "long settings" -> Json.decodeFromString<Map<String, Long>>(i.next()).forEach { e.putLong(it.key, it.value) }
+                    "float settings" -> Json.decodeFromString<Map<String, Float>>(i.next()).forEach { e.putFloat(it.key, it.value) }
+                    "string settings" -> Json.decodeFromString<Map<String, String>>(i.next()).forEach { e.putString(it.key, it.value) }
+                    "string set settings" -> Json.decodeFromString<Map<String, Set<String>>>(i.next()).forEach { e.putStringSet(it.key, it.value) }
+                }
+            }
+            e.apply()
+            return true
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         if (Settings.PREF_SHOW_SETUP_WIZARD_ICON == key) {
             SystemBroadcastReceiver.toggleAppIcon(requireContext())
@@ -239,3 +297,5 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
     }
 }
+
+private const val PREFS_FILE_NAME = "preferences.json"

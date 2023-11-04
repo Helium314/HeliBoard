@@ -181,7 +181,7 @@ Nouveau dictionnaire:
     <string name="space_language_slide_summary">Glissez sur la barre d\'espace vers le haut pour changer de langue</string>
     <string name="backup_restore_title">Sauvegarde et restauration</string>
     <string name="backup_restore_message">Sauvegarde ou chargement à partir d\'un fichier. Attention : la restauration écrasera les données existantes.</string>
-    <string name="backup_error">Erreur lors de la sauvegarde</string>
+    <string name="backup_error">Erreur lors de la sauvegarde : %s</string>
     <string name="restore_error">Erreur lors de la restauration de la sauvegarde : %s</string>
     <string name="button_backup">Sauvegarder</string>
     <string name="button_restore">Restaurer</string>
