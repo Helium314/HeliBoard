@@ -1104,7 +1104,7 @@ public class Key implements Comparable<Key> {
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
             } else {
-                final String hintLabel = style.getString(keyAttr, R.styleable.Keyboard_Key_keyHintLabel);
+                final String hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
                         : hintLabel;
