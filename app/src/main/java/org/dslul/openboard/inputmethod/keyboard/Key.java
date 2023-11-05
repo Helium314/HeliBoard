@@ -1104,7 +1104,11 @@ public class Key implements Comparable<Key> {
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
             } else {
-                final String hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
+                String hintLabel = additionalMoreKeys == null ? null : additionalMoreKeys[0];
+                if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!"))
+                    hintLabel = null;
+                if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
+                    hintLabel = hintLabel.replace("\\", "");
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
                         : hintLabel;
