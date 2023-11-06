@@ -632,6 +632,8 @@ New dictionary:
     <string name="select_color_spacebar_text">Space bar text</string>
     <!-- Selection: accent color. -->
     <string name="select_color_accent">Accent</string>
+    <!-- Selection: gesture color. -->
+    <string name="select_color_gesture">Gesture input</string>
     <!-- Settings screen title for about [CHAR LIMIT=33]-->
     <string name="settings_screen_about">About</string>
     <!-- version for about screen-->

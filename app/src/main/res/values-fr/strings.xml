@@ -230,6 +230,7 @@ Nouveau dictionnaire:
     <string name="select_color_spacebar_background">Arrière-plan de la barre d\'espace</string>
     <string name="select_color_spacebar_text">Texte de la barre d\'espace</string>
     <string name="select_color_accent">Couleur d\'accentuation</string>
+    <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
     <string name="about_github_link" >Lien vers GitHub</string>
     <string name="license" >Licence Open-source</string>

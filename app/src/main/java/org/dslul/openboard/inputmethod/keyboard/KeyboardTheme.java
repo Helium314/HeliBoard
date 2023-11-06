@@ -142,6 +142,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         switch (themeColors) {
             case THEME_USER:
                 final int accent = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false);
+                final int gesture = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false);
                 final int keyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false);
                 final int functionalKeyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false);
                 final int spaceBarBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false);
@@ -149,9 +150,10 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 final int hintTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false);
                 final int spaceBarTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false);
                 final int background = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false);
-                return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, functionalKeyBgColor, spaceBarBgColor, keyTextColor, hintTextColor, spaceBarTextColor);
+                return new Colors(themeStyle, hasBorders, accent, gesture, background, keyBgColor, functionalKeyBgColor, spaceBarBgColor, keyTextColor, hintTextColor, spaceBarTextColor);
             case THEME_USER_NIGHT:
                 final int accent2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true);
+                final int gesture2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false);
                 final int keyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true);
                 final int functionalKeyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true);
                 final int spaceBarBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true);
@@ -159,11 +161,12 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 final int hintTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true);
                 final int spaceBarTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true);
                 final int background2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true);
-                return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, functionalKeyBgColor2, spaceBarBgColor2, keyTextColor2, hintTextColor2, spaceBarTextColor2);
+                return new Colors(themeStyle, hasBorders, accent2, gesture2, background2, keyBgColor2, functionalKeyBgColor2, spaceBarBgColor2, keyTextColor2, hintTextColor2, spaceBarTextColor2);
             case THEME_DARK:
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         // colors taken from the drawable
                         Color.parseColor("#263238"),
@@ -179,6 +182,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         Color.parseColor("#FFFFFF"),
+                        Color.parseColor("#FFFFFF"),
                         // colors taken from the drawable
                         Color.parseColor("#282828"),
                         Color.parseColor("#FFFFFF"), // transparency!
@@ -193,6 +197,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_functional_lxx_dark_border),
@@ -205,6 +210,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_black),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
@@ -219,6 +225,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),

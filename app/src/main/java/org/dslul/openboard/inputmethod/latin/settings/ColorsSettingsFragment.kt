@@ -39,6 +39,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
         Settings.PREF_COLOR_HINT_TEXT_SUFFIX,
         Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
         Settings.PREF_COLOR_ACCENT_SUFFIX,
+        Settings.PREF_COLOR_GESTURE_SUFFIX,
     )
 
     override fun onResume() {
@@ -74,6 +75,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
             R.string.select_color_key_hint,
             R.string.select_color_spacebar_text,
             R.string.select_color_accent,
+            R.string.select_color_gesture,
         ).map { requireContext().getString(it) }
         val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
         colorPrefs.forEachIndexed { index, colorPref ->
