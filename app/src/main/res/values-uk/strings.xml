@@ -145,9 +145,14 @@
     <string name="ime_settings">Налаштування OpenBoard</string>
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
+    <string name="theme_style">Стиль теми</string>
+    <string name="style_name_Rounded">Rounded</string>
+    <string name="theme_colors">Кольори теми</string>
+    <string name="theme_colors_night">Кольори теми (темна тема)</string>
+    <string name="theme_family">Сімейство тем</string>
     <string name="theme_variant">Варіант теми</string>
     <string name="theme_variant_night">Варіант теми (темна тема)</string>
-    <string name="day_night_mode">Автоматичний режим день/ніч</string>
+    <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Аккгор)</string>
     <string name="autospace_after_punctuation">Авто-пробіл після знаків пунктуації</string>
@@ -169,12 +174,19 @@
     <string name="theme_name_darker">Сіра</string>
     <string name="theme_name_black">Чорна</string>
     <string name="theme_name_user">Користувальницька</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Користувальницька (темна тема)</string>
     <string name="select_user_colors">Налаштування кольорів теми</string>
+    <string name="select_user_colors_night">Налаштування кольорів теми (темна тема)</string>
+    <string name="auto_user_color">Автоматичний вибір кольору</string>
+    <string name="hint_show_keyboard">Натисніть, щоб переглянути</string>
     <string name="select_user_colors_summary">Виберіть кольори для тексту та фону</string>
     <string name="select_color_background">Фон клавіатури</string>
     <string name="select_color_key">Текст клавіш</string>
     <string name="select_color_key_hint">Текст спецсимволів клавіш</string>
     <string name="select_color_key_background">Фон клавіш</string>
+    <string name="select_color_functional_key_background">Фон функціональних клавіш</string>
+    <string name="select_color_spacebar_background">Фон пробілу</string>
+    <string name="select_color_spacebar_text">Текст пробілу</string>
     <string name="select_color_accent">Акцент</string>
     <string name="settings_screen_about">Довідка</string>
     <string name="version">Версія</string>
@@ -182,6 +194,10 @@
     <string name="license" >Ліцензія з відкритим кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
     <string name="use_system_language_to_select_input_method_subtypes">Використовувати мови системи</string>
+    <string name="dialog_close">Закрити</string>
+    <string name="text_tap_languages">Натисніть мову, щоб відкрити налаштування</string>
+    <string name="hidden_features_title">Опис прихованих функцій</string>
+    <string name="hidden_features_summary">Показати функції, які можуть залишитися непоміченими</string>
     <string name="select_input_method">Вибрати метод введення</string>
     <string name="space_trackpad">Клавіша пробіл як трекпад</string>
     <string name="prefs_force_incognito_mode">Примусовий режим інкогніто</string>
@@ -195,14 +211,26 @@
     <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>
+    <string name="url_detection_title">Виявлення URL-адреси</string>
+    <string name="url_detection_summary">Спробувати виявити URL-адреси та подібні до них рядки, як одне слово</string>
     <string name="space_trackpad_summary">Ковзання по клавіші пробіл переміщає курсор</string>
+    <string name="space_language_slide">Свайп зміни мови</string>
+    <string name="space_language_slide_summary">Проведіть пальцем вгору пробілом, щоб змінити мову</string>
+    <string name="backup_restore_title">Резервне копіювання та відновлення</string>
+    <string name="backup_restore_message">Збережіть або завантажте файл. Увага: відновлення перезапише наявні дані</string>
+    <string name="backup_error">Помилка резервного копіювання: %s</string>
+    <string name="restore_error">Помилка відновлення з резервної копії: %s</string>
+    <string name="button_backup">Резервне копіювання</string>
+    <string name="button_restore">Відновлення</string>
+    <string name="secondary_locale">Багатомовний набір тексту</string>
+    <string name="load_gesture_library">Завантажити бібліотеку введення жестами</string>
+    <string name="load_gesture_library_summary">Надайте вбудовану бібліотеку для увімкнення введення жестами</string>
     <string name="more_keys_strip_description">Більше клавіш</string>
     <string name="prefs_keyboard_height_scale">Масштабування клавіатури по висоті</string>
     <string name="number_row">Рядок цифр</string>
     <string name="number_row_summary">Завжди показувати рядок цифр</string>
     <string name="key_borders">Контури клавіш</string>
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
-    <string name="theme_family">Сімейство тем</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
 </resources>
