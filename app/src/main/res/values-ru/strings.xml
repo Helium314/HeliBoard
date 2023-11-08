@@ -155,7 +155,7 @@
     <string name="delete_swipe_summary">Быстрое удаление текста жестом по клавише удаления в направлении \"стрелки\"</string>
     <string name="space_trackpad_summary">Перемещать курсор при помощи жестов на клавише пробела</string>
     <string name="space_language_slide">Свайп смены языка</string>
-    <string name="space_language_slide_summary">Проведите пальцем вверх по пробелу, чтобы изменить язык.</string>
+    <string name="space_language_slide_summary">Проведите пальцем вверх по пробелу, чтобы изменить язык</string>
     <string name="backup_restore_title">Резервное копирование и восстановление</string>
     <string name="backup_restore_message">Сохраните или загрузите из файла. Внимание: восстановление перезапишет существующие данные</string>
     <string name="backup_error">Ошибка резервного копирования: %s</string>
@@ -180,12 +180,12 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
     <string name="subtype_no_language_workman">Латиница (Workman)</string>
     <string name="key_borders">Контуры клавиш</string>
-    <string name="day_night_mode">Использовать системную тему</string>
+    <string name="day_night_mode">Использовать тему системы</string>
     <string name="theme_style">Стиль темы</string>
     <string name="style_name_Rounded">Rounded</string>
     <string name="theme_colors">Цвета темы</string>
     <string name="theme_colors_night">Цвета темы (тёмная тема)</string>
-    <string name="theme_family">Стиль темы</string>
+    <string name="theme_family">Семейство тем</string>
     <string name="theme_variant">Вариант темы</string>
     <string name="theme_variant_night">Вариант темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
