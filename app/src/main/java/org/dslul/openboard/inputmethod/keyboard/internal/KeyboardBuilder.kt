@@ -13,9 +13,11 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.NewKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
+import org.dslul.openboard.inputmethod.latin.common.StringUtils
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -42,7 +44,59 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mAllowRedundantMoreKeys = enabled
     }
 
+    fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
+        mParams.mId = id
+        keysInRows = NewKeyboardParser(mParams, mContext).parse()
+        useRelative()
+
+        // todo: further plan after this thing is merged, but unused
+        //  create languageMoreKeys list from stuff in keyboard-text tools
+        //   probably use files in assets, and cache them in a weak hash map with localestring as key
+        //    or better 2 letter code, and join codes when combining languageMoreKeys for multiple
+        //    or no caching if loading and combining is fast anyway
+        //    the locale morekeys then should be a map label -> moreKeys
+        //    the whole moreKeys map for the current keyboard could be in mParams to simplify access
+        //   file format? it's easy to switch, but still... text like above? json?
+        //    resources? could look like donottranslate-more-keys files
+        //    test first whether something like morekeys_&#x1002;, or morekeys_&#x00F8; or better morekeys_ø actually works
+        //     if not, definitely don't use resources
+        //   consider the % placeholder, this should still be used and documented
+        //    though maybe has issues when merging languages
+        //   doing it in resources should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
+        //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
+        //  migrate latin layouts to this style
+        //   allow users to define their own layouts
+        //    some sort of proper UI, or simply text input?
+        //     better text import for the start because of much work
+        //     ui follows later (consider that users need to be able to start from existing layouts!)
+        //    some warning if more than 2 characters on a key
+        //     currently can't resize keys, but could set autoXScale
+        //    check whether emojis are correctly not colored when on main keyboard
+        //   write up how things work, also regarding language more keys
+        //  migrate symbol layouts to this style
+        //   maybe allow users to define their own symbol and shift-symbol layouts
+        //  migrate emoji layouts to this style
+        //   emojis are defined in that string array, should be simple to handle
+        //   more dynamic / lazy way for loading the 10 emoji keyboards?
+        //   parsing could be done into a single row, which is then split as needed
+        //    this might help with split layout (no change in key size, but in number of rows!)
+        //  migrate keypad layouts to this style
+        //   will need more configurable layout definition -> another parser (json? xml?), and check how to handle code that is needed in both
+        //  migrate moreKeys and moreSuggestions to this style
+        //  migrate other languages to this style
+        //   may be difficult in some cases, like additional row, or no shift key, or pc qwerty layout
+        //   also the (integrated) number row might cause issues
+        //   at least some of these layouts will need more complicated definition, not just a simple text file
+        //  remove all the keyboard layout related xmls if possible
+        //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
+        //   and the texts_table and its source tools
+        return this
+    }
+
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
+        // need to check for exact class, otherwise moreKeys look weird
+        if (id.mElementId == KeyboardId.ELEMENT_ALPHABET && this::class == KeyboardBuilder::class)
+            return loadSimpleKeyboard(id) // lets try...
         mParams.mId = id
         // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
         // attrs may be null, then default values are used (looks good for "normal" keyboards)
@@ -57,6 +111,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             Log.w(BUILDER_TAG, "keyboard XML parse error", e)
             throw RuntimeException(e.message, e)
         }
+        if (id.isAlphabetKeyboard && this::class == KeyboardBuilder::class)
+            useRelative()
         return this
     }
 
@@ -84,16 +140,20 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     //  still should not be more than a pixel difference
     // keep it around for a while, for testing
     private fun useRelative() {
+        var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
             if (row.isEmpty()) continue
             fillGapsWithSpacers(row)
-            val y = row.first().yPos
-            assert(row.all { it.yPos == y })
+            require(row.all { it.yPos == row.first().yPos }) { "not all yPos equal" } // this is if yPos is already pre-filled
             var currentX = 0f
             row.forEach {
-                it.setDimensionsFromRelativeSize(currentX, y)
+                it.setDimensionsFromRelativeSize(currentX, currentY)
+                Log.i("test", "key ${it.mCode} / ${StringUtils.newSingleCodePointString(it.mCode)}: ${it.xPos} + ${it.mFullWidth}")
                 currentX += it.mFullWidth
             }
+            // need to truncate here, otherwise it may end up one pixel lower than original
+            // though actually not truncating would be more correct... but that's already an y / height issue somewhere in Key
+            currentY += row.first().mFullHeight.toInt()
         }
     }
 
@@ -103,6 +163,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     private fun fillGapsWithSpacers(row: MutableList<KeyParams>) {
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         if (row.isEmpty()) return
+        if (row.all { it.xPos == 0f }) return // need existing xPos to determine gaps
         var currentX = 0f + mParams.mLeftPadding
         var i = 0
         while (i < row.size) {
@@ -270,7 +331,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 }
 
 // adapted from Kotlin source: https://github.com/JetBrains/kotlin/blob/7a7d392b3470b38d42f80c896b7270678d0f95c3/libraries/stdlib/common/src/generated/_Collections.kt#L3004
-private inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
+// todo: move to some utils
+inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
     var sum = 0f
     for (element in this) {
         sum += selector(element)

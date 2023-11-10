@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser;
@@ -51,38 +52,38 @@ public class Key implements Comparable<Key> {
     private final String mHintLabel;
     /** Flags of the label */
     private final int mLabelFlags;
-    private static final int LABEL_FLAGS_ALIGN_HINT_LABEL_TO_BOTTOM = 0x02;
-    private static final int LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM = 0x04;
-    private static final int LABEL_FLAGS_ALIGN_LABEL_OFF_CENTER = 0x08;
+    public static final int LABEL_FLAGS_ALIGN_HINT_LABEL_TO_BOTTOM = 0x02;
+    public static final int LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM = 0x04;
+    public static final int LABEL_FLAGS_ALIGN_LABEL_OFF_CENTER = 0x08;
     // Font typeface specification.
     private static final int LABEL_FLAGS_FONT_MASK = 0x30;
-    private static final int LABEL_FLAGS_FONT_NORMAL = 0x10;
-    private static final int LABEL_FLAGS_FONT_MONO_SPACE = 0x20;
-    private static final int LABEL_FLAGS_FONT_DEFAULT = 0x30;
+    public static final int LABEL_FLAGS_FONT_NORMAL = 0x10;
+    public static final int LABEL_FLAGS_FONT_MONO_SPACE = 0x20;
+    public static final int LABEL_FLAGS_FONT_DEFAULT = 0x30;
     // Start of key text ratio enum values
     private static final int LABEL_FLAGS_FOLLOW_KEY_TEXT_RATIO_MASK = 0x1C0;
-    private static final int LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO = 0x40;
-    private static final int LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO = 0x80;
-    private static final int LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO = 0xC0;
-    private static final int LABEL_FLAGS_FOLLOW_KEY_HINT_LABEL_RATIO = 0x140;
+    public static final int LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO = 0x40;
+    public static final int LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO = 0x80;
+    public static final int LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO = 0xC0;
+    public static final int LABEL_FLAGS_FOLLOW_KEY_HINT_LABEL_RATIO = 0x140;
     // End of key text ratio mask enum values
-    private static final int LABEL_FLAGS_HAS_POPUP_HINT = 0x200;
-    private static final int LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT = 0x400;
-    private static final int LABEL_FLAGS_HAS_HINT_LABEL = 0x800;
+    public static final int LABEL_FLAGS_HAS_POPUP_HINT = 0x200;
+    public static final int LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT = 0x400;
+    public static final int LABEL_FLAGS_HAS_HINT_LABEL = 0x800;
     // The bit to calculate the ratio of key label width against key width. If autoXScale bit is on
     // and autoYScale bit is off, the key label may be shrunk only for X-direction.
     // If both autoXScale and autoYScale bits are on, the key label text size may be auto scaled.
-    private static final int LABEL_FLAGS_AUTO_X_SCALE = 0x4000;
-    private static final int LABEL_FLAGS_AUTO_Y_SCALE = 0x8000;
-    private static final int LABEL_FLAGS_AUTO_SCALE = LABEL_FLAGS_AUTO_X_SCALE
+    public static final int LABEL_FLAGS_AUTO_X_SCALE = 0x4000;
+    public static final int LABEL_FLAGS_AUTO_Y_SCALE = 0x8000;
+    public static final int LABEL_FLAGS_AUTO_SCALE = LABEL_FLAGS_AUTO_X_SCALE
             | LABEL_FLAGS_AUTO_Y_SCALE;
-    private static final int LABEL_FLAGS_PRESERVE_CASE = 0x10000;
-    private static final int LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED = 0x20000;
-    private static final int LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL = 0x40000;
-    private static final int LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR = 0x80000;
-    private static final int LABEL_FLAGS_KEEP_BACKGROUND_ASPECT_RATIO = 0x100000;
-    private static final int LABEL_FLAGS_DISABLE_HINT_LABEL = 0x40000000;
-    private static final int LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS = 0x80000000;
+    public static final int LABEL_FLAGS_PRESERVE_CASE = 0x10000;
+    public static final int LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED = 0x20000;
+    public static final int LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL = 0x40000;
+    public static final int LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR = 0x80000;
+    public static final int LABEL_FLAGS_KEEP_BACKGROUND_ASPECT_RATIO = 0x100000;
+    public static final int LABEL_FLAGS_DISABLE_HINT_LABEL = 0x40000000;
+    public static final int LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS = 0x80000000;
 
     /** Icon to display instead of a label. Icon takes precedence over a label */
     private final int mIconId;
@@ -282,9 +283,9 @@ public class Key implements Comparable<Key> {
         mEnabled = keyParams.mEnabled;
 
         // stuff to create
-        // interestingly it looks a little better when rounding horizontalGap to int immediately instead of using horizontalGapFloat
-        // but using float for determining mX and mWidth is more correct and keyboard ends up looking exactly like before introduction of KeyParams
-        final float horizontalGapFloat = isSpacer() ? 0 : keyParams.mKeyboardParams.mHorizontalGap;
+        // get the "correct" float gap
+        // this may shift many keys by one pixel, but results in more uniform gaps between keys and thus is preferable
+        final float horizontalGapFloat = isSpacer() ? 0 : (keyParams.mKeyboardParams.mRelativeHorizontalGap * keyParams.mKeyboardParams.mOccupiedWidth);
         mHorizontalGap = Math.round(horizontalGapFloat);
         mVerticalGap = Math.round(keyParams.mKeyboardParams.mVerticalGap);
         mWidth = Math.round(keyParams.mFullWidth - horizontalGapFloat);
@@ -300,6 +301,7 @@ public class Key implements Comparable<Key> {
         mY = Math.round(keyParams.yPos);
         mHitBox.set(Math.round(keyParams.xPos), (int) keyParams.yPos, Math.round(keyParams.xPos + keyParams.mFullWidth) + 1,
                 Math.round(keyParams.yPos + keyParams.mFullHeight));
+        Log.i("test", "new key "+mLabel+" at x "+mX+", "+mHorizontalGap+", "+horizontalGapFloat+", "+mWidth+", "+(keyParams.mFullWidth - horizontalGapFloat)+", "+mLabelFlags);
         mHashCode = computeHashCode(this);
     }
 
@@ -985,6 +987,8 @@ public class Key implements Comparable<Key> {
         }
 
         public void setDimensionsFromRelativeSize(final float newX, final float newY) {
+            if (isSpacer && mRelativeHeight == 0)
+                mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight; // actually this could always be default...
             if (mRelativeHeight == 0 || mRelativeWidth == 0)
                 throw new IllegalStateException("can't use setUsingRelativeHeight, not all fields are set");
             if (mRelativeHeight < 0)
@@ -1148,6 +1152,169 @@ public class Key implements Comparable<Key> {
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
                     disabledIconId, visualInsetsLeft, visualInsetsRight);
             mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
+            mEnabled = true;
+        }
+
+        /** WIP for the new simplified parsing
+         *  does not fill absolute values, setDimensionsFromRelativeSize needs to be called before creating the key
+         *  currently no language-dependent moreKeys
+         *  maybe some label flags should be set in here?
+         */
+        public KeyParams(
+                // todo (much later): don't like the keySpec... replace it? but would also mean the parser needs to be updated
+                @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (can't use !text references)
+                @NonNull final KeyboardParams params,
+                final float relativeWidth,
+                final int labelFlags, // todo: currently mostly 0, even though they should be different (check key style)
+                final int backgroundType, // should be clear, just consider that comma and period have difference bg when replaced
+                @Nullable final String[] moreKeys // same style as current moreKeys (relevant for the special keys), maybe allow a list too
+        ) {
+            mKeyboardParams = params;
+            mRelativeHeight = params.mDefaultRelativeRowHeight;
+            mRelativeWidth = relativeWidth;
+
+            mBackgroundType = backgroundType;
+
+            mLabelFlags = labelFlags;
+            final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
+            final Locale localeForUpcasing = params.mId.getLocale();
+            int actionFlags = 0;
+
+            // Get maximum column order number and set a relevant mode value.
+            int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
+            int value;
+            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
+                // Override with fixed column order number and set a relevant mode value.
+                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+            }
+            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
+                // Override with fixed column order number and set a relevant mode value.
+                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+            }
+            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
+                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
+            }
+            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NEEDS_DIVIDERS)) {
+                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NEEDS_DIVIDERS;
+            }
+            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NO_PANEL_AUTO_MORE_KEY)) {
+                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
+            }
+            mMoreKeysColumnAndFlags = moreKeysColumnAndFlags;
+
+            final String[] languageMoreKeys;
+            if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
+                languageMoreKeys = null;
+            } else {
+                // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
+                // todo: read from assets or xml, and cache the results for quick reading again
+                languageMoreKeys = null; // todo (later, convert the xmls): getLanguageMoreKeys(keySpec, mKeyboardParams.mId.getLocale());
+            }
+            // yes, really insert moreKeys into languageMoreKeys
+            final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, moreKeys);
+            if (finalMoreKeys != null) {
+                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
+                mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
+                for (int i = 0; i < finalMoreKeys.length; i++) {
+                    mMoreKeys[i] = new MoreKeySpec(finalMoreKeys[i], needsToUpcase, localeForUpcasing);
+                }
+            } else {
+                mMoreKeys = null;
+            }
+
+            mIconId = KeySpecParser.getIconId(keySpec);
+
+            final int code = KeySpecParser.getCode(keySpec); // todo: does not resolve text refs
+            if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
+                mLabel = params.mId.mCustomActionLabel;
+            } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+                // This is a workaround to have a key that has a supplementary code point in its label.
+                // Because we can put a string in resource neither as a XML entity of a supplementary
+                // code point nor as a surrogate pair.
+                mLabel = new StringBuilder().appendCodePoint(code).toString();
+            } else {
+                final String label = KeySpecParser.getLabel(keySpec);
+                mLabel = needsToUpcase
+                        ? StringUtils.toTitleCaseOfKeyLabel(label, localeForUpcasing)
+                        : label;
+            }
+            if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
+                mHintLabel = null;
+            } else {
+                // maybe also always null for comma and period keys
+                final boolean hintLabelAlwaysFromFirstLongPressKey = false; // todo (later): read from settings
+                String hintLabel;
+                if (hintLabelAlwaysFromFirstLongPressKey) {
+                    hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
+                } else {
+                    hintLabel = moreKeys == null ? null : moreKeys[0];
+                    if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!"))
+                        hintLabel = null;
+                    if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
+                        hintLabel = hintLabel.replace("\\", "");
+                }
+                mHintLabel = needsToUpcase
+                        ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
+                        : hintLabel;
+            }
+            String outputText = KeySpecParser.getOutputText(keySpec);
+            if (needsToUpcase) {
+                outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
+            }
+            // Choose the first letter of the label as primary code if not specified.
+            if (code == CODE_UNSPECIFIED && TextUtils.isEmpty(outputText) && !TextUtils.isEmpty(mLabel)) {
+                if (StringUtils.codePointCount(mLabel) == 1) {
+                    // Use the first letter of the hint label if shiftedLetterActivated flag is
+                    // specified.
+                    if ((mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0 && (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0
+                            && !TextUtils.isEmpty(mHintLabel)) {
+                        mCode = mHintLabel.codePointAt(0);
+                    } else {
+                        mCode = mLabel.codePointAt(0);
+                    }
+                } else {
+                    // In some locale and case, the character might be represented by multiple code
+                    // points, such as upper case Eszett of German alphabet.
+                    outputText = mLabel;
+                    mCode = CODE_OUTPUT_TEXT;
+                }
+            } else if (code == CODE_UNSPECIFIED && outputText != null) {
+                if (StringUtils.codePointCount(outputText) == 1) {
+                    mCode = outputText.codePointAt(0);
+                    outputText = null;
+                } else {
+                    mCode = CODE_OUTPUT_TEXT;
+                }
+            } else {
+                mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing) : code;
+            }
+
+            if (backgroundType == BACKGROUND_TYPE_SPACEBAR || mCode == Constants.CODE_LANGUAGE_SWITCH)
+                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
+            if (backgroundType == BACKGROUND_TYPE_FUNCTIONAL || backgroundType == BACKGROUND_TYPE_ACTION)
+                actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
+            if (mCode == Constants.CODE_DELETE)
+                actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
+            if (mCode == Constants.CODE_SETTINGS || mCode == Constants.CODE_LANGUAGE_SWITCH)
+                actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
+            mActionFlags = actionFlags;
+
+            // todo: for what it is actually used? maybe it could be removed?
+            final int altCodeInAttr; // settings and language switch keys have alt code space, all others nothing
+            if (mCode == Constants.CODE_SETTINGS || mCode == Constants.CODE_LANGUAGE_SWITCH)
+                altCodeInAttr = Constants.CODE_SPACE;
+            else
+                altCodeInAttr = CODE_UNSPECIFIED;
+            final int altCode = needsToUpcase
+                    ? StringUtils.toTitleCaseOfKeyCode(altCodeInAttr, localeForUpcasing)
+                    : altCodeInAttr;
+            mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
+                    KeyboardIconsSet.ICON_UNDEFINED, 0, 0); // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
+            // todo: what to do here? there are some in params, but are those wanted? not a new instance anyway
+            //  and they may contain sth relevant for the actual key...
+            //  just set it null now and look for issues (typeface, letter size, colors,...)
+            //  no issues so far, but possibly only happens in certain layouts / languages
+            mKeyVisualAttributes = null;//KeyVisualAttributes.newInstance(keyAttr);
             mEnabled = true;
         }
 
