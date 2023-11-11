@@ -88,37 +88,31 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
         keysInRows.add(getBottomRowAndAdjustBaseKeys(spaceRowDef, baseKeys))
 
         baseKeys.reversed().forEachIndexed { i, row ->
-            val functionalKeysInRow = if (i < functionalKeysReversed.size) functionalKeysReversed[i]
-                else listOf("", "")
-            val functionalKeyLeft = if (functionalKeysInRow.first().isEmpty()) null
-                else getFunctionalKeyParams(functionalKeysInRow.first())
-            val functionalKeyRight = if (functionalKeysInRow.last().isEmpty()) null
-                else getFunctionalKeyParams(functionalKeysInRow.last())
-            val paramsRow = ArrayList<KeyParams>()
+            // parse functional keys for this row (if any)
+            val functionalKeysDefs = if (i < functionalKeysReversed.size) functionalKeysReversed[i]
+                else emptyList<String>() to emptyList()
+            val functionalKeysLeft = functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
+            val functionalKeysRight = functionalKeysDefs.second.map { getFunctionalKeyParams(it) }
+            val paramsRow = ArrayList<KeyParams>(functionalKeysLeft)
 
             // determine key width, maybe scale factor for keys, and spacers to add
             val usedKeyWidth = params.mDefaultRelativeKeyWidth * row.size
-            val availableWidth = 1f - (functionalKeyLeft?.mRelativeWidth ?: 0f) - (functionalKeyRight?.mRelativeWidth ?: 0f)
-            functionalKeyLeft?.let { paramsRow.add(it) }
+            val availableWidth = 1f - (functionalKeysLeft.sumOf { it.mRelativeWidth }) - (functionalKeysRight.sumOf { it.mRelativeWidth })
             val width: Float
             val spacerWidth: Float
-            if (availableWidth - usedKeyWidth > 0.001f) {
+            if (availableWidth - usedKeyWidth > 0.0001f) { // don't add spacers if only a tiny bit is empty
                 // width available, add spacer
                 width = params.mDefaultRelativeKeyWidth
                 spacerWidth = (availableWidth - usedKeyWidth) / 2
             } else {
-                // need more width, re-scale (may leave width essentially unchanged...)
+                // need more width, re-scale
                 spacerWidth = 0f
                 width = availableWidth / row.size
             }
             if (spacerWidth != 0f) {
                 paramsRow.add(KeyParams.newSpacer(params).apply { mRelativeWidth = spacerWidth })
             }
-            // some checks?
-            //  last row should have 2 keys, then it will replace the comma keys
-            //  may also have 0, or be omitted (or not?)
-            //   how to check for omission?
-            //  only allow 4 rows max, and the 2 key bottom row?
+
             for (key in row) {
                 paramsRow.add(KeyParams(
                     key.label,
@@ -132,9 +126,10 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
             if (spacerWidth != 0f) {
                 paramsRow.add(KeyParams.newSpacer(params).apply { mRelativeWidth = spacerWidth })
             }
-            functionalKeyRight?.let { paramsRow.add(it) }
+            functionalKeysRight.forEach { paramsRow.add(it) }
             keysInRows.add(0, paramsRow) // we're doing it backwards, so add on top
         }
+        // rescale height if we have more than 4 rows
         val heightRescale = if (keysInRows.size > 4) 4f / keysInRows.size else 1f
         if (params.mId.mNumberRowEnabled)
             keysInRows.add(0, getNumberRow())
@@ -156,10 +151,11 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
         BaseKey(split.first(), moreKeys)
     } }
 
-    // todo: how to nicely work with more than a single key, like it's necessary for the ? and ! keys in tablet?
-    //  have a list for the right side and a list for the left side!
-    private fun parseFunctionalKeys(): List<List<String>> =
-        functionalKeyDef.split("\n").map { it.split(",") }
+    private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =
+        functionalKeyDef.split("\n").map { line ->
+            val p = line.split(";")
+            p.first().split(",") to p.last().split(",")
+        }
 
     private fun getNumberRow(): ArrayList<KeyParams> {
         val row = ArrayList<KeyParams>()
@@ -176,10 +172,6 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
         return row
     }
 
-    // todo: bottomBaseKeys for symbol and shift-symbol?
-    //  here more flexibility should be allowed, e.g. only having 1 or 2 keys, but a longer space bar
-    //  add some function like getNumberOfAvailableBottomRowKeys, that returns 2, 3, or 4 depending on current mElementId
-    // todo: merge moreKeys of baseKeys with default
     private fun getBottomRowAndAdjustBaseKeys(bottomRowDef: String, baseKeys: MutableList<List<BaseKey>>): ArrayList<KeyParams> {
         val adjustableKeyCount = when (params.mId.mElementId) {
             KeyboardId.ELEMENT_SYMBOLS -> 3
@@ -361,6 +353,22 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
                 Key.BACKGROUND_TYPE_FUNCTIONAL,
                 null
             )
+            KEY_EXCLAMATION -> KeyParams(
+                "!",
+                params,
+                width,
+                Key.LABEL_FLAGS_FONT_DEFAULT,
+                Key.BACKGROUND_TYPE_NORMAL,
+                arrayOf("¡") // todo (later) may depend on language
+            )
+            KEY_QUESTION -> KeyParams(
+                "\\?",
+                params,
+                width,
+                Key.LABEL_FLAGS_FONT_DEFAULT,
+                Key.BACKGROUND_TYPE_NORMAL,
+                arrayOf("¿") // todo (later) may depend on language
+            )
             else -> throw IllegalArgumentException("unknown key definition $key")
         }
     }
@@ -516,7 +524,7 @@ private class BaseKey(
     val moreKeys: Array<String>? = null,
 )
 
-/** moreKeys for numbers, same order as [numbers] */
+/** moreKeys for numbers, order is 1-9 and then 0  */
 private val numbersMoreKeys = arrayOf(
     arrayOf("¹", "½", "⅓","¼", "⅛"),
     arrayOf("²", "⅔"),
@@ -570,13 +578,11 @@ m ?"""
 
 // possible simple string definition of functional keys
 // possibly should be in resources because it depends on screen size
-private val functionalKeyDef = """,
-,
-shift 15%, delete 15%"""
+private val functionalKeyDef = "shift 15%, delete 15%"
 
-private val functionalKeyDefTablet = """, delete 10%
-, action 10%
-shift 10%, shift""" // todo: in tablet layout, exclamation and question keys are in the last row on the right (all layouts, or just latin?)
+private val functionalKeyDefTablet = """delete 10%
+; action 10%
+shift 10%; exclamation, question, shift"""
 
 private val spaceRowDef = "symbol 15%, comma, space, period, action 15%" // in web, the comma gets replaced with slash, but that should just affect the key code, not the position
 private val spaceRowDefTablet = "symbol, comma, space, period, com_emoji"
@@ -604,3 +610,5 @@ private const val KEY_SHIFT = "shift"
 private const val KEY_NUMPAD = "numpad"
 private const val KEY_SYMBOL = "symbol"
 private const val KEY_ALPHA = "alphabet"
+private const val KEY_QUESTION = "question"
+private const val KEY_EXCLAMATION = "exclamation"

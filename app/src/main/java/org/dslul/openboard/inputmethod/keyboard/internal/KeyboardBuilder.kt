@@ -68,7 +68,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    is this handled by KeyboardParams.removeRedundantMoreKeys?
         //   doing it in resources should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
         //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
-        //  migrate latin layouts to this style
+        //  migrate latin layouts to this style (need to make exception for pcqwerty!)
         //   allow users to define their own layouts
         //    some sort of proper UI, or simply text input?
         //     better text import for the start because of much work
@@ -77,6 +77,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //     currently can't resize keys, but could set autoXScale
         //    check whether emojis are correctly not colored when on main keyboard
         //   write up how things work, also regarding language more keys
+        //   need to solve the scaling issue with number row and 5 row keyboards
         //  migrate symbol layouts to this style
         //   maybe allow users to define their own symbol and shift-symbol layouts
         //   write a new parser, most of the code should be re-usable anyway
