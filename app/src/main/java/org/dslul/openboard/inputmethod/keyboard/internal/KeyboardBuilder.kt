@@ -13,7 +13,7 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.NewKeyboardParser
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleLayoutParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
@@ -46,7 +46,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        keysInRows = NewKeyboardParser(mParams, mContext).parse()
+        keysInRows = SimpleLayoutParser(mParams, mContext).parse()
         useRelative()
 
         // todo: further plan after this thing is merged, but unused
@@ -62,6 +62,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //     if not, definitely don't use resources
         //   consider the % placeholder, this should still be used and documented
         //    though maybe has issues when merging languages
+        //   how to deal with unnecessary moreKeys?
+        //    e.g. german should have ö as moreKey on o, but swiss german layout has ö as separate key
+        //    still have ö on o (like now), or remove it? or make it optional?
+        //    is this handled by KeyboardParams.removeRedundantMoreKeys?
         //   doing it in resources should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
         //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
         //  migrate latin layouts to this style
@@ -75,11 +79,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   write up how things work, also regarding language more keys
         //  migrate symbol layouts to this style
         //   maybe allow users to define their own symbol and shift-symbol layouts
+        //   write a new parser, most of the code should be re-usable anyway
         //  migrate emoji layouts to this style
         //   emojis are defined in that string array, should be simple to handle
         //   more dynamic / lazy way for loading the 10 emoji keyboards?
         //   parsing could be done into a single row, which is then split as needed
         //    this might help with split layout (no change in key size, but in number of rows!)
+        //   write another parser, it should already consider split
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser (json? xml?), and check how to handle code that is needed in both
         //  migrate moreKeys and moreSuggestions to this style
