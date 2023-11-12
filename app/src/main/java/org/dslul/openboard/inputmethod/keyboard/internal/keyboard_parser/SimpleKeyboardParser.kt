@@ -25,24 +25,23 @@ import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
  *  a different (more configurable) layout definition style, and therefore a different parser.
  *  Also number, phone and numpad layouts are not compatible with this parser.
  */
-class SimpleLayoutParser(private val params: KeyboardParams, private val context: Context) {
+class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) {
 
     private val numbers = (1..9).map { it.toString() } + "0" // todo (later): may depend on language for non-latin layouts... or should the number row always be latin?
 
     // todo:
-    //  test, also row definitions for tablet
-    //   phone looks ok
-    //   is the comma long press key order different? language key left of clipboard instead of right of emoji like on other phone, but for all layouts...
     //  decide / make clear which code parts and classes can be re-used
     //   maybe make abstract base class, and from there simple, keypad, emoji, and json parsers
     //   depends on how code parts can be most easily re-used
-    //  what to do with the fake keyboard definition file?
 
-    fun parse(): ArrayList<ArrayList<KeyParams>> {
+    fun parseFromAssets(layoutName: String) =
+        parse(context.assets.open("layouts/$layoutName.txt").reader().readText())
+
+    fun parse(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
 
-        val baseKeys: MutableList<List<BaseKey>> = parseAdjustablePartOfLayout()
+        val baseKeys: MutableList<List<BaseKey>> = parseAdjustablePartOfLayout(layoutContent)
         if (!params.mId.mNumberRowEnabled) {
             // todo (later): not all layouts have numbers on first row, so maybe have some layout flag to switch it off (or an option)
             //  but for latin it's fine, so don't care now
@@ -116,12 +115,13 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
         return keysInRows
     }
 
-    private fun parseAdjustablePartOfLayout() =
-        keyboardFileContents.split("\n\n").mapTo(mutableListOf()) { row -> row.split("\n").map {
-        val split = it.split(" ")
-        val moreKeys = if (split.size == 1) null else Array(split.size - 1) { split[it + 1] }
-        BaseKey(split.first(), moreKeys)
-    } }
+    private fun parseAdjustablePartOfLayout(layoutContent: String) =
+        layoutContent.split("\n\n").mapTo(mutableListOf()) { row -> row.split("\n").mapNotNull {
+            if (it.isBlank()) return@mapNotNull null
+            val split = it.split(" ")
+            val moreKeys = if (split.size == 1) null else Array(split.size - 1) { split[it + 1] }
+            BaseKey(split.first(), moreKeys)
+        } }
 
     private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =
         context.getString(R.string.key_def_functional).split("\n").mapNotNull { line ->
@@ -511,44 +511,6 @@ private val numbersMoreKeys = arrayOf(
     null,
     arrayOf("ⁿ", "∅"),
 )
-
-// remove later, this is just one idea how it could be defined in a very simple way
-// alternative very simple way:
-//q w e r t y u i o p
-//a s d f g h j k l
-//z x c v b n m
-// and repeat for the symbols
-// looks better, but only allows a single symbol
-// idea: allow setting layout depending on orientation?
-// idea: allow some special symbol for currency key, like $$?
-private val keyboardFileContents = """q %
-w \
-e |
-r =
-t [
-y ]
-u < ü
-i >
-o { ö
-p }
-
-a @ ä
-s # ß
-d $ €
-f _ 😜
-g &
-h -
-j +
-k (
-l )
-
-z *
-x "
-c '
-v :
-b ;
-n !
-m ?"""
 
 // could use 1 string per key, and make arrays right away
 private const val MORE_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"

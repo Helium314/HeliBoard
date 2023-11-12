@@ -13,11 +13,10 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleLayoutParser
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
-import org.dslul.openboard.inputmethod.latin.common.StringUtils
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -46,7 +45,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        keysInRows = SimpleLayoutParser(mParams, mContext).parse()
+        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets("qwerty")
         useRelative()
 
         // todo: further plan to make is actually useful
@@ -68,10 +67,15 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    is this handled by KeyboardParams.removeRedundantMoreKeys?
         //   doing it in resources should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
         //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
+        //   need some placeholder for currency key, like $$$
         //   have an explicit all more keys definition, which is created from a script merging all available moreKeys
         //    only letter forms and nothing else, right?
         //  migrate latin layouts to this style (need to make exception for pcqwerty!)
-        //   where to actually get the desired layout, so it can be chosen?
+        //   fix layout format
+        //    keep like now: nice, because simple and allows defining any number of moreKeys
+        //    rows of letters, separated with space: very straightforward, but moreKeys are annoying and only one possible
+        //    consider the current layout maybe doesn't have the correct moreKeys
+        //   where to actually get the selected layout, so it can be converted to a name?
         //    maybe KeyboardLayoutSet will need to be replaced
         //   allow users to define their own layouts
         //    some sort of proper UI, or simply text input?
