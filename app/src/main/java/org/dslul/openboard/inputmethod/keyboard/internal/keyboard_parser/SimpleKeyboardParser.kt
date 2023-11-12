@@ -29,11 +29,6 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
 
     private val numbers = (1..9).map { it.toString() } + "0" // todo (later): may depend on language for non-latin layouts... or should the number row always be latin?
 
-    // todo:
-    //  decide / make clear which code parts and classes can be re-used
-    //   maybe make abstract base class, and from there simple, keypad, emoji, and json parsers
-    //   depends on how code parts can be most easily re-used
-
     fun parseFromAssets(layoutName: String) =
         parse(context.assets.open("layouts/$layoutName.txt").reader().readText())
 
@@ -131,21 +126,6 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                     p.last().let { if (it.isBlank()) emptyList() else it.split(",") }
         }
 
-    private fun getNumberRow(): ArrayList<KeyParams> {
-        val row = ArrayList<KeyParams>()
-        numbers.forEachIndexed { i, n ->
-            row.add(KeyParams(
-                n,
-                params,
-                params.mDefaultRelativeKeyWidth,
-                Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo (later): maybe optional or enable (but then all numbers should have hints)
-                Key.BACKGROUND_TYPE_NORMAL,
-                numbersMoreKeys[i] // todo (later, non-latin): language may add some (either alt numbers, or latin numbers if they are replaced above, see number todo)
-            ))
-        }
-        return row
-    }
-
     private fun getBottomRowAndAdjustBaseKeys(baseKeys: MutableList<List<BaseKey>>): ArrayList<KeyParams> {
         val adjustableKeyCount = when (params.mId.mElementId) {
             KeyboardId.ELEMENT_SYMBOLS -> 3
@@ -211,6 +191,26 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         val space = bottomRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_SPACEBAR }
         space.mRelativeWidth = 1f - bottomRow.filter { it != space }.sumOf { it.mRelativeWidth }
         return bottomRow
+    }
+
+    // todo: everything below here likely can and should be shared with the planned parser for more complicated layouts
+    //  abstract class?
+    //  interface?
+    //  utils file?
+
+    private fun getNumberRow(): ArrayList<KeyParams> {
+        val row = ArrayList<KeyParams>()
+        numbers.forEachIndexed { i, n ->
+            row.add(KeyParams(
+                n,
+                params,
+                params.mDefaultRelativeKeyWidth,
+                Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo (later): maybe optional or enable (but then all numbers should have hints)
+                Key.BACKGROUND_TYPE_NORMAL,
+                numbersMoreKeys[i] // todo (later, non-latin): language may add some (either alt numbers, or latin numbers if they are replaced above, see number todo)
+            ))
+        }
+        return row
     }
 
     // for comma and period: label will override default, moreKeys will be appended
