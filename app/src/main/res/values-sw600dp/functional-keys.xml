@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_def_functional">
-;delete 10%
+    <string name="key_def_functional">";delete 10%
 ;action 10%
-shift 10%; exclamation, question, shift
-    </string>
+shift 10%; exclamation, question, shift"</string>
     <string name="key_def_bottom_row">"symbol, comma, space, period, emoji_com"</string>
 </resources>

@@ -11,7 +11,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser;
@@ -301,7 +300,6 @@ public class Key implements Comparable<Key> {
         mY = Math.round(keyParams.yPos);
         mHitBox.set(Math.round(keyParams.xPos), (int) keyParams.yPos, Math.round(keyParams.xPos + keyParams.mFullWidth) + 1,
                 Math.round(keyParams.yPos + keyParams.mFullHeight));
-        Log.i("test", "new key "+mLabel+" at x "+mX+", "+mHorizontalGap+", "+horizontalGapFloat+", "+mWidth+", "+(keyParams.mFullWidth - horizontalGapFloat)+", "+mLabelFlags);
         mHashCode = computeHashCode(this);
     }
 

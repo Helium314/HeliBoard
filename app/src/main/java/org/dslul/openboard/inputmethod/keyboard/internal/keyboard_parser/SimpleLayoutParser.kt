@@ -31,9 +31,12 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
 
     // todo:
     //  test, also row definitions for tablet
+    //   phone looks ok
+    //   is the comma long press key order different? language key left of clipboard instead of right of emoji like on other phone, but for all layouts...
     //  decide / make clear which code parts and classes can be re-used
     //   maybe make abstract base class, and from there simple, keypad, emoji, and json parsers
     //   depends on how code parts can be most easily re-used
+    //  what to do with the fake keyboard definition file?
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
@@ -124,7 +127,8 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
         context.getString(R.string.key_def_functional).split("\n").mapNotNull { line ->
             if (line.isBlank()) return@mapNotNull null
             val p = line.split(";")
-            p.first().split(",") to p.last().split(",")
+            p.first().let { if (it.isBlank()) emptyList() else it.split(",") } to
+                    p.last().let { if (it.isBlank()) emptyList() else it.split(",") }
         }
 
     private fun getNumberRow(): ArrayList<KeyParams> {
@@ -339,7 +343,7 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
                 Key.BACKGROUND_TYPE_NORMAL,
                 arrayOf("¿") // todo (later) may depend on language
             )
-            else -> throw IllegalArgumentException("unknown key definition $key")
+            else -> throw IllegalArgumentException("unknown key definition \"$key\"")
         }
     }
 

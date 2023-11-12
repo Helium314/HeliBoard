@@ -188,7 +188,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             var currentX = 0f
             row.forEach {
                 it.setDimensionsFromRelativeSize(currentX, currentY)
-                Log.i("test", "key ${it.mCode} / ${StringUtils.newSingleCodePointString(it.mCode)}: ${it.xPos} + ${it.mFullWidth}")
                 currentX += it.mFullWidth
             }
             // need to truncate here, otherwise it may end up one pixel lower than original
