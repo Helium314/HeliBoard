@@ -49,7 +49,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         keysInRows = SimpleLayoutParser(mParams, mContext).parse()
         useRelative()
 
-        // todo: further plan after this thing is merged, but unused
+        // todo: further plan to make is actually useful
         //  create languageMoreKeys list from stuff in keyboard-text tools
         //   probably use files in assets, and cache them in a weak hash map with localestring as key
         //    or better 2 letter code, and join codes when combining languageMoreKeys for multiple
@@ -68,7 +68,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    is this handled by KeyboardParams.removeRedundantMoreKeys?
         //   doing it in resources should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
         //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
+        //   have an explicit all more keys definition, which is created from a script merging all available moreKeys
+        //    only letter forms and nothing else, right?
         //  migrate latin layouts to this style (need to make exception for pcqwerty!)
+        //   where to actually get the desired layout, so it can be chosen?
+        //    maybe KeyboardLayoutSet will need to be replaced
         //   allow users to define their own layouts
         //    some sort of proper UI, or simply text input?
         //     better text import for the start because of much work
@@ -97,6 +101,35 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  remove all the keyboard layout related xmls if possible
         //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
         //   and the texts_table and its source tools
+
+        // todo: labelFlags should be set correctly (keep this todo until at least latin layouts are migrated)
+        //  alignHintLabelToBottom: on lxx and rounded themes
+        //  alignIconToBottom: space_key_for_number_layout
+        //  alignLabelOffCenter: number keys in phone layout
+        //  fontNormal: turkish (rows 1 and 2 only), .com, emojis, numModeKeyStyle, a bunch of non-latin languages
+        //  fontMonoSpace: unused (not really: fontDefault is monospace + normal)
+        //  fontDefault: keyExclamationQuestion, a bunch of "normal" keys in fontNormal layouts like thai
+        //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
+        //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
+        //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
+        //  followKeyHintLabelRatio: unused (but includes some others)
+        //  hasPopupHint: basically the long-pressable functional keys
+        //  hasShiftedLetterHint: period key and some keys on pcqwerty
+        //  hasHintLabel: number keys in number layouts
+        //  autoXScale: com key, action keys, some on phone layout, some non-latin languages
+        //  autoScale: only one single letter in khmer layout (includes autoXScale)
+        //  preserveCase: action key + more keys, com key, shift keys
+        //  shiftedLetterActivated: period and some keys on pcqwerty, tablet only
+        //  fromCustomActionLabel: action key with customLabelActionKeyStyle -> check parser where to get this info
+        //  followFunctionalTextColor: number mode keys, action key
+        //  keepBackgroundAspectRatio: lxx and rounded action more keys, lxx no-border action and emoji, moreKeys keyboard view
+        //  disableKeyHintLabel: keys in pcqwerty row 1 and number row
+        //  disableAdditionalMoreKeys: keys in pcqwerty row 1
+        //  -> probably can't define the related layouts in a simple way, better use some json or xml or anything more reasonable than the simple text format
+        //   maybe remove some of the flags? or keep supporting them?
+        //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
+        //   actually period key also has shifted letter hint
+
         return this
     }
 

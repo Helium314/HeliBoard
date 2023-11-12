@@ -987,10 +987,10 @@ public class Key implements Comparable<Key> {
         }
 
         public void setDimensionsFromRelativeSize(final float newX, final float newY) {
-            if (isSpacer && mRelativeHeight == 0)
-                mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight; // actually this could always be default...
-            if (mRelativeHeight == 0 || mRelativeWidth == 0)
-                throw new IllegalStateException("can't use setUsingRelativeHeight, not all fields are set");
+            if (mRelativeHeight == 0)
+                mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight;
+            if (mRelativeWidth == 0)
+                mRelativeWidth = mKeyboardParams.mDefaultRelativeKeyWidth;
             if (mRelativeHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing moreKeys or moreSuggestions
                 throw new IllegalStateException("can't (yet) deal with absolute height");
@@ -1161,13 +1161,13 @@ public class Key implements Comparable<Key> {
          *  maybe some label flags should be set in here?
          */
         public KeyParams(
-                // todo (much later): don't like the keySpec... replace it? but would also mean the parser needs to be updated
-                @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (can't use !text references)
+                // todo (much later): replace keySpec? these encoded icons and codes are not really great
+                @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (avoid using !text, should be removed)
                 @NonNull final KeyboardParams params,
                 final float relativeWidth,
-                final int labelFlags, // todo: currently mostly 0, even though they should be different (check key style)
-                final int backgroundType, // should be clear, just consider that comma and period have difference bg when replaced
-                @Nullable final String[] moreKeys // same style as current moreKeys (relevant for the special keys), maybe allow a list too
+                final int labelFlags,
+                final int backgroundType,
+                @Nullable final String[] moreKeys // same style as current moreKeys (relevant for the special keys)
         ) {
             mKeyboardParams = params;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
@@ -1208,7 +1208,7 @@ public class Key implements Comparable<Key> {
             } else {
                 // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
                 // todo: read from assets or xml, and cache the results for quick reading again
-                languageMoreKeys = null; // todo (later, convert the xmls): getLanguageMoreKeys(keySpec, mKeyboardParams.mId.getLocale());
+                languageMoreKeys = null; // todo: getLanguageMoreKeys(keySpec, mKeyboardParams.mId.getLocale());
             }
             // yes, really insert moreKeys into languageMoreKeys
             final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, moreKeys);
@@ -1224,7 +1224,7 @@ public class Key implements Comparable<Key> {
 
             mIconId = KeySpecParser.getIconId(keySpec);
 
-            final int code = KeySpecParser.getCode(keySpec); // todo: does not resolve text refs
+            final int code = KeySpecParser.getCode(keySpec);
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
                 mLabel = params.mId.mCustomActionLabel;
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
@@ -1248,7 +1248,7 @@ public class Key implements Comparable<Key> {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 } else {
                     hintLabel = moreKeys == null ? null : moreKeys[0];
-                    if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!"))
+                    if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
                         hintLabel = null;
                     if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
                         hintLabel = hintLabel.replace("\\", "");
@@ -1309,12 +1309,17 @@ public class Key implements Comparable<Key> {
                     ? StringUtils.toTitleCaseOfKeyCode(altCodeInAttr, localeForUpcasing)
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
-                    KeyboardIconsSet.ICON_UNDEFINED, 0, 0); // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-            // todo: what to do here? there are some in params, but are those wanted? not a new instance anyway
-            //  and they may contain sth relevant for the actual key...
-            //  just set it null now and look for issues (typeface, letter size, colors,...)
-            //  no issues so far, but possibly only happens in certain layouts / languages
-            mKeyVisualAttributes = null;//KeyVisualAttributes.newInstance(keyAttr);
+                    // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
+                    // todo (later): can the 3 below be removed completely?
+                    KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
+            // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
+            // could be used e.g. for having a color gradient on key color
+            // where is it used / which attribute?
+            //  keyLetterSize in some keyboards
+            //  keyShiftedLetterHintRatio same
+            //  keyHintLabelVerticalAdjustment same
+            // todo (later): make sure these keys look ok when migrating the layouts
+            mKeyVisualAttributes = null;
             mEnabled = true;
         }
 

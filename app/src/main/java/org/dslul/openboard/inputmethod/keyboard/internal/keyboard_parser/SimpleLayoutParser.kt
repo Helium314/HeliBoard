@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
@@ -9,10 +10,9 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.sumOf
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 
-// todo:
-//  no plan yet about the format
 /**
  *  Parser for simple layouts like qwerty or symbol, defined only as rows of (normal) keys with moreKeys.
  *  Functional keys are pre-defined and can't be changed, with exception of comma, period and similar
@@ -30,41 +30,10 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
     private val numbers = (1..9).map { it.toString() } + "0" // todo (later): may depend on language for non-latin layouts... or should the number row always be latin?
 
     // todo:
-    //  functional keys and bottom row should be merged, and definitions put to some other place (probably resources)
-    //   under name like simple_layout_functional_keys
-    //  re-think the style of adding comma and period, and other keys on bottom row...
-    //  some todos in key.java
+    //  test, also row definitions for tablet
     //  decide / make clear which code parts and classes can be re-used
     //   maybe make abstract base class, and from there simple, keypad, emoji, and json parsers
     //   depends on how code parts can be most easily re-used
-
-    // todo: labelFlags should be set correctly (keep this todo until at least latin layouts are migrated)
-    //  alignHintLabelToBottom: on lxx and rounded themes
-    //  alignIconToBottom: space_key_for_number_layout
-    //  alignLabelOffCenter: number keys in phone layout
-    //  fontNormal: turkish (rows 1 and 2 only), .com, emojis, numModeKeyStyle, a bunch of non-latin languages
-    //  fontMonoSpace: unused (not really: fontDefault is monospace + normal)
-    //  fontDefault: keyExclamationQuestion, a bunch of "normal" keys in fontNormal layouts like thai
-    //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
-    //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
-    //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
-    //  followKeyHintLabelRatio: unused (but includes some others)
-    //  hasPopupHint: basically the long-pressable functional keys
-    //  hasShiftedLetterHint: period key and some keys on pcqwerty
-    //  hasHintLabel: number keys in number layouts
-    //  autoXScale: com key, action keys, some on phone layout, some non-latin languages
-    //  autoScale: only one single letter in khmer layout (includes autoXScale)
-    //  preserveCase: action key + more keys, com key, shift keys
-    //  shiftedLetterActivated: period and some keys on pcqwerty, tablet only
-    //  fromCustomActionLabel: action key with customLabelActionKeyStyle -> check parser where to get this info
-    //  followFunctionalTextColor: number mode keys, action key
-    //  keepBackgroundAspectRatio: lxx and rounded action more keys, lxx no-border action and emoji, moreKeys keyboard view
-    //  disableKeyHintLabel: keys in pcqwerty row 1 and number row
-    //  disableAdditionalMoreKeys: keys in pcqwerty row 1
-    //  -> probably can't define the related layouts in a simple way, better use some json or xml or anything more reasonable than the simple text format
-    //   maybe remove some of the flags? or keep supporting them?
-    //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
-    //   actually period key also has shifted letter hint
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
@@ -85,7 +54,7 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
 
         // keyboard parsed bottom-up because the number of rows is not fixed, but the functional keys
         // are always added to the rows near the bottom
-        keysInRows.add(getBottomRowAndAdjustBaseKeys(spaceRowDef, baseKeys))
+        keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys))
 
         baseKeys.reversed().forEachIndexed { i, row ->
             // parse functional keys for this row (if any)
@@ -152,7 +121,8 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
     } }
 
     private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =
-        functionalKeyDef.split("\n").map { line ->
+        context.getString(R.string.key_def_functional).split("\n").mapNotNull { line ->
+            if (line.isBlank()) return@mapNotNull null
             val p = line.split(";")
             p.first().split(",") to p.last().split(",")
         }
@@ -164,15 +134,15 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
                 n,
                 params,
                 params.mDefaultRelativeKeyWidth,
-                Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo: maybe optional?
+                Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo (later): maybe optional or enable (but then all numbers should have hints)
                 Key.BACKGROUND_TYPE_NORMAL,
-                numbersMoreKeys[i] // todo (non-latin): language may add some (either alt numbers, or latin numbers if they are replaced above)
+                numbersMoreKeys[i] // todo (later, non-latin): language may add some (either alt numbers, or latin numbers if they are replaced above, see number todo)
             ))
         }
         return row
     }
 
-    private fun getBottomRowAndAdjustBaseKeys(bottomRowDef: String, baseKeys: MutableList<List<BaseKey>>): ArrayList<KeyParams> {
+    private fun getBottomRowAndAdjustBaseKeys(baseKeys: MutableList<List<BaseKey>>): ArrayList<KeyParams> {
         val adjustableKeyCount = when (params.mId.mElementId) {
             KeyboardId.ELEMENT_SYMBOLS -> 3
             KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> 4
@@ -183,7 +153,7 @@ class SimpleLayoutParser(private val params: KeyboardParams, private val context
         if (adjustedKeys != null)
             baseKeys.removeLast()
         val bottomRow = ArrayList<KeyParams>()
-        bottomRowDef.split(",").forEach {
+        context.getString(R.string.key_def_bottom_row).split(",").forEach {
             val key = it.trim().split(" ").first()
             val adjustKey = when (key) {
                 KEY_COMMA -> adjustedKeys?.first()
@@ -575,18 +545,6 @@ v :
 b ;
 n !
 m ?"""
-
-// possible simple string definition of functional keys
-// possibly should be in resources because it depends on screen size
-private val functionalKeyDef = "shift 15%, delete 15%"
-
-private val functionalKeyDefTablet = """delete 10%
-; action 10%
-shift 10%; exclamation, question, shift"""
-
-private val spaceRowDef = "symbol 15%, comma, space, period, action 15%" // in web, the comma gets replaced with slash, but that should just affect the key code, not the position
-private val spaceRowDefTablet = "symbol, comma, space, period, com_emoji"
-private val spaceRowDefSymbol = "alphabet, comma, numpad, space, slash, period, action" // when shift, numpad and slash are replaced with < and >
 
 // could use 1 string per key, and make arrays right away
 private const val MORE_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
