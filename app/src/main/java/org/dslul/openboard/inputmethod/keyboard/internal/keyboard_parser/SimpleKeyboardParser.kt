@@ -9,9 +9,9 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
-import org.dslul.openboard.inputmethod.keyboard.internal.sumOf
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
+import org.dslul.openboard.inputmethod.latin.utils.sumOf
 
 /**
  *  Parser for simple layouts like qwerty or symbol, defined only as rows of (normal) keys with moreKeys.
@@ -26,8 +26,6 @@ import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
  *  Also number, phone and numpad layouts are not compatible with this parser.
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) {
-
-    private val numbers = (1..9).map { it.toString() } + "0" // todo (later): may depend on language for non-latin layouts... or should the number row always be latin?
 
     fun parseFromAssets(layoutName: String) =
         parse(context.assets.open("layouts/$layoutName.txt").reader().readText())
@@ -498,7 +496,11 @@ private class BaseKey(
     val moreKeys: Array<String>? = null,
 )
 
-/** moreKeys for numbers, order is 1-9 and then 0  */
+// todo (later): may depend on language for non-latin layouts... or should the number row always be latin?
+private val numbers = (1..9).map { it.toString() } + "0"
+
+// moreKeys for numbers, order is 1-9 and then 0
+// todo (later): like numbers, for non-latin layouts this depends on language and therefore should not be in the parser
 private val numbersMoreKeys = arrayOf(
     arrayOf("¹", "½", "⅓","¼", "⅛"),
     arrayOf("²", "⅔"),

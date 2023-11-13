@@ -18,6 +18,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyb
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 
@@ -140,9 +141,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
-        // need to check for exact class, otherwise moreKeys look weird
-        if (id.mElementId == KeyboardId.ELEMENT_ALPHABET && this::class == KeyboardBuilder::class)
-            return loadSimpleKeyboard(id) // lets try...
         mParams.mId = id
         // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
         // attrs may be null, then default values are used (looks good for "normal" keyboards)
@@ -157,8 +155,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             Log.w(BUILDER_TAG, "keyboard XML parse error", e)
             throw RuntimeException(e.message, e)
         }
-        if (id.isAlphabetKeyboard && this::class == KeyboardBuilder::class)
-            useRelative()
         return this
     }
 
@@ -190,14 +186,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         for (row in keysInRows) {
             if (row.isEmpty()) continue
             fillGapsWithSpacers(row)
-            require(row.all { it.yPos == row.first().yPos }) { "not all yPos equal" } // this is if yPos is already pre-filled
             var currentX = 0f
             row.forEach {
                 it.setDimensionsFromRelativeSize(currentX, currentY)
                 currentX += it.mFullWidth
             }
-            // need to truncate here, otherwise it may end up one pixel lower than original
+            // need to truncate to int here, otherwise it may end up one pixel lower than original
             // though actually not truncating would be more correct... but that's already an y / height issue somewhere in Key
+            // todo (later): round, and do the change together with the some thing in Key(KeyParams keyParams)
             currentY += row.first().mFullHeight.toInt()
         }
     }
@@ -376,14 +372,4 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     companion object {
         private const val BUILDER_TAG = "Keyboard.Builder"
     }
-}
-
-// adapted from Kotlin source: https://github.com/JetBrains/kotlin/blob/7a7d392b3470b38d42f80c896b7270678d0f95c3/libraries/stdlib/common/src/generated/_Collections.kt#L3004
-// todo: move to some utils
-inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
-    var sum = 0f
-    for (element in this) {
-        sum += selector(element)
-    }
-    return sum
 }

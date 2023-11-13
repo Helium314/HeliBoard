@@ -1286,7 +1286,7 @@ public class Key implements Comparable<Key> {
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
                     // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-                    // todo (later): can the 3 below be removed completely?
+                    // todo (much later): can the 3 below be removed completely?
                     KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color
@@ -1294,7 +1294,7 @@ public class Key implements Comparable<Key> {
             //  keyLetterSize in some keyboards
             //  keyShiftedLetterHintRatio same
             //  keyHintLabelVerticalAdjustment same
-            // todo (later): make sure these keys look ok when migrating the layouts
+            // todo (later): make sure these keys look ok when migrating the non-latin layouts (+pc qwerty)
             mKeyVisualAttributes = null;
             mEnabled = true;
         }
