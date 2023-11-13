@@ -1165,14 +1165,14 @@ public class Key implements Comparable<Key> {
                 final float relativeWidth,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final String[] moreKeys // same style as current moreKeys (relevant for the special keys)
+                @Nullable final String[] layoutMoreKeys // same style as current moreKeys (relevant for the special keys)
         ) {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
             mLabelFlags = labelFlags;
             mRelativeWidth = relativeWidth;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, layoutMoreKeys);
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
@@ -1187,8 +1187,7 @@ public class Key implements Comparable<Key> {
                 // todo: read from assets or xml, and cache the results for quick reading again
                 languageMoreKeys = null; // todo: getLanguageMoreKeys(keySpec, mKeyboardParams.mId.getLocale());
             }
-            // yes, really insert moreKeys into languageMoreKeys
-            final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, moreKeys);
+            final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
                 mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
@@ -1222,7 +1221,7 @@ public class Key implements Comparable<Key> {
                 if (hintLabelAlwaysFromFirstLongPressKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 } else {
-                    hintLabel = moreKeys == null ? null : moreKeys[0];
+                    hintLabel = layoutMoreKeys == null ? null : layoutMoreKeys[0];
                     if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
                         hintLabel = null;
                     if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))

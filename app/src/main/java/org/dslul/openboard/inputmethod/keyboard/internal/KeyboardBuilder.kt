@@ -52,55 +52,68 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         // todo: further plan to make is actually useful
         //  create languageMoreKeys list from stuff in keyboard-text tools
         //   probably use files in assets, and cache them in a weak hash map with localestring as key
-        //    or better 2 letter code, and join codes when combining languageMoreKeys for multiple
-        //    or no caching if loading and combining is fast anyway
+        //    or better 2 letter code, and join codes when combining languageMoreKeys for multiple locales
+        //     or maybe locale tag, but that's super annoying for api < 24(?)
+        //    or no caching if loading and combining is fast anyway (need to test)
         //    the locale morekeys then should be a map label -> moreKeys
-        //    the whole moreKeys map for the current keyboard could be in mParams to simplify access
-        //   file format? it's easy to switch, but still... text like above? json?
-        //    resources? could look like donottranslate-more-keys files
+        //    the whole moreKeys map for the current keyboard could be in mParams to simplify access when creating keys
+        //    file format? it's easy to switch, but still... text like above? json?
+        //   or use resources? could look like donottranslate-more-keys files
+        //    should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
+        //     also would be a bit annoying as it would require to have empty base strings for all possible keys
         //    test first whether something like morekeys_&#x1002;, or morekeys_&#x00F8; or better morekeys_ø actually works
         //     if not, definitely don't use resources
         //   consider the % placeholder, this should still be used and documented
-        //    though maybe has issues when merging languages
+        //    though maybe has issues when merging languages?
         //   how to deal with unnecessary moreKeys?
         //    e.g. german should have ö as moreKey on o, but swiss german layout has ö as separate key
         //    still have ö on o (like now), or remove it? or make it optional?
         //    is this handled by KeyboardParams.removeRedundantMoreKeys?
-        //   doing it in resources should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
         //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
         //   need some placeholder for currency key, like $$$
-        //   have an explicit all more keys definition, which is created from a script merging all available moreKeys
+        //   have an explicit all-more-keys definition, which is created from a script merging all available moreKeys
         //    only letter forms and nothing else, right?
+        //    maybe some most-but-not-all? e.g. only all that occur for more than one language
         //  migrate latin layouts to this style (need to make exception for pcqwerty!)
-        //   fix layout format
+        //   finalize simple layout format
         //    keep like now: nice, because simple and allows defining any number of moreKeys
         //    rows of letters, separated with space: very straightforward, but moreKeys are annoying and only one possible
         //    consider the current layout maybe doesn't have the correct moreKeys
-        //   where to actually get the selected layout, so it can be converted to a name?
+        //   where to actually get the current keyboard layout name, so it can be used to select the correct file?
         //    maybe KeyboardLayoutSet will need to be replaced
-        //   allow users to define their own layouts
-        //    some sort of proper UI, or simply text input?
-        //     better text import for the start because of much work
-        //     ui follows later (consider that users need to be able to start from existing layouts!)
-        //    some warning if more than 2 characters on a key
-        //     currently can't resize keys, but could set autoXScale
-        //    check whether emojis are correctly not colored when on main keyboard
-        //    careful about moreKeys: if moreKeys don't fit on screen, parser throws an exception!
-        //    popup and (single key) long press preview rescale the label on x only, which may deform emojis
-        //   write up how things work, also regarding language more keys
         //   need to solve the scaling issue with number row and 5 row keyboards
+        //   allow users to switch to old style (keep it until all layouts are switched)
+        //    really helps to find differences
+        //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
+        //   label flags to do (top part is for latin!)
+        //  allow users to define their own layouts
+        //   write up how things work for users, also regarding language more keys
+        //    readme, maybe also some "help" button in a dialog
+        //   some sort of proper UI, or simply text input?
+        //    better text import for the start because of much work
+        //    ui follows later (consider that users need to be able to start from existing layouts!)
+        //   some warning if more than 2 or 3 characters on a single label
+        //    currently can't resize keys, but could set autoXScale (does only decrease size, never increase)
+        //   careful about moreKeys: if moreKeys don't fit on screen, parser throws an exception!
+        //    need to somehow test for this
+        //    is that autoColumnOrder thing a workaround for that?
+        //     still would crash for a single huge label
+        //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
         //  migrate symbol layouts to this style
         //   maybe allow users to define their own symbol and shift-symbol layouts
-        //   write a new parser, most of the code should be re-usable anyway
         //  migrate emoji layouts to this style
         //   emojis are defined in that string array, should be simple to handle
-        //   more dynamic / lazy way for loading the 10 emoji keyboards?
         //   parsing could be done into a single row, which is then split as needed
         //    this might help with split layout (no change in key size, but in number of rows!)
         //   write another parser, it should already consider split
+        //   more dynamic / lazy way for loading the 10 emoji keyboards?
+        //    use recyclerView instead of a keyboard?
+        //    or recyclerView with one keyboardView per row?
+        //    could be possible if creating the keyboards is fast enough... but also need to check whether it's ok for memory use and stuff
         //  migrate keypad layouts to this style
-        //   will need more configurable layout definition -> another parser (json? xml?), and check how to handle code that is needed in both
-        //  migrate moreKeys and moreSuggestions to this style
+        //   will need more configurable layout definition -> another parser
+        //  migrate moreKeys and moreSuggestions to this style?
+        //   at least they should not make use of the KeyTextsSet/Table and of the XmlKeyboardParser
         //  migrate other languages to this style
         //   may be difficult in some cases, like additional row, or no shift key, or pc qwerty layout
         //   also the (integrated) number row might cause issues
@@ -109,7 +122,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
         //   and the texts_table and its source tools
 
-        // todo: labelFlags should be set correctly (keep this todo until at least latin layouts are migrated)
+        // todo: label flags
+        //  alignHintLabelToBottom -> what does it do?
+        //  fontNormal -> check / compare turkish layout
+        //  fontDefault -> check exclamation and question keys
+        //  hasShiftedLetterHint, shiftedLetterActivated -> what is the effect on period key?
+        // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes
         //  alignIconToBottom: space_key_for_number_layout
         //  alignLabelOffCenter: number keys in phone layout
@@ -119,7 +137,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
         //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
         //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
-        //  followKeyHintLabelRatio: unused (but includes some others)
+        //  followKeyHintLabelRatio: unused directly (but includes some others)
         //  hasPopupHint: basically the long-pressable functional keys
         //  hasShiftedLetterHint: period key and some keys on pcqwerty
         //  hasHintLabel: number keys in number layouts
