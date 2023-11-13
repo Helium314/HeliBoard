@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.Arrays;
@@ -137,29 +136,41 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         return KEYBOARD_THEMES[DEFAULT_THEME_ID];
     }
 
+    public static int getThemeActionAndEmojiKeyLabelFlags(final int themeId) {
+        if (themeId == THEME_ID_LXX_BASE || themeId == THEME_ID_ROUNDED_BASE)
+            return Key.LABEL_FLAGS_KEEP_BACKGROUND_ASPECT_RATIO;
+        return 0;
+    }
+
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
         final boolean hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         switch (themeColors) {
             case THEME_USER:
-                final int accent = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false);
-                final int keyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false);
-                final int functionalKeyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false);
-                final int spaceBarBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false);
-                final int keyTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false);
-                final int hintTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false);
-                final int spaceBarTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false);
-                final int background = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false);
-                return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, functionalKeyBgColor, spaceBarBgColor, keyTextColor, hintTextColor, spaceBarTextColor);
+                return new Colors(
+                        themeStyle,
+                        hasBorders,
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false)
+                );
             case THEME_USER_NIGHT:
-                final int accent2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true);
-                final int keyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true);
-                final int functionalKeyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true);
-                final int spaceBarBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true);
-                final int keyTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true);
-                final int hintTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true);
-                final int spaceBarTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true);
-                final int background2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true);
-                return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, functionalKeyBgColor2, spaceBarBgColor2, keyTextColor2, hintTextColor2, spaceBarTextColor2);
+                return new Colors(
+                        themeStyle,
+                        hasBorders,
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true)
+                );
             case THEME_DARK:
                 return new Colors(
                         themeStyle,
