@@ -282,8 +282,8 @@ public class Key implements Comparable<Key> {
         mEnabled = keyParams.mEnabled;
 
         // stuff to create
-        // get the "correct" float gap
-        // this may shift many keys by one pixel, but results in more uniform gaps between keys and thus is preferable
+
+        // get the "correct" float gap: may shift keys by one pixel, but results in more uniform gaps between keys
         final float horizontalGapFloat = isSpacer() ? 0 : (keyParams.mKeyboardParams.mRelativeHorizontalGap * keyParams.mKeyboardParams.mOccupiedWidth);
         mHorizontalGap = Math.round(horizontalGapFloat);
         mVerticalGap = Math.round(keyParams.mKeyboardParams.mVerticalGap);
@@ -435,16 +435,16 @@ public class Key implements Comparable<Key> {
     }
 
     private static String backgroundName(final int backgroundType) {
-        switch (backgroundType) {
-        case BACKGROUND_TYPE_EMPTY: return "empty";
-        case BACKGROUND_TYPE_NORMAL: return "normal";
-        case BACKGROUND_TYPE_FUNCTIONAL: return "functional";
-        case BACKGROUND_TYPE_STICKY_OFF: return "stickyOff";
-        case BACKGROUND_TYPE_STICKY_ON: return "stickyOn";
-        case BACKGROUND_TYPE_ACTION: return "action";
-        case BACKGROUND_TYPE_SPACEBAR: return "spacebar";
-        default: return null;
-        }
+        return switch (backgroundType) {
+            case BACKGROUND_TYPE_EMPTY -> "empty";
+            case BACKGROUND_TYPE_NORMAL -> "normal";
+            case BACKGROUND_TYPE_FUNCTIONAL -> "functional";
+            case BACKGROUND_TYPE_STICKY_OFF -> "stickyOff";
+            case BACKGROUND_TYPE_STICKY_ON -> "stickyOn";
+            case BACKGROUND_TYPE_ACTION -> "action";
+            case BACKGROUND_TYPE_SPACEBAR -> "spacebar";
+            default -> null;
+        };
     }
 
     public int getCode() {
@@ -998,6 +998,30 @@ public class Key implements Comparable<Key> {
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
         }
 
+        private static int getMoreKeysColumnAndFlags(final KeyboardParams params, final String[] moreKeys) {
+            // Get maximum column order number and set a relevant mode value.
+            int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
+            int value;
+            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
+                // Override with fixed column order number and set a relevant mode value.
+                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+            }
+            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
+                // Override with fixed column order number and set a relevant mode value.
+                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
+            }
+            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
+                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
+            }
+            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NEEDS_DIVIDERS)) {
+                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NEEDS_DIVIDERS;
+            }
+            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NO_PANEL_AUTO_MORE_KEY)) {
+                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
+            }
+            return moreKeysColumnAndFlags;
+        }
+
         /**
          * Create keyParams with the given top-left coordinate and extract its attributes from a key
          * specification string, Key attribute array, key style, and etc.
@@ -1042,30 +1066,7 @@ public class Key implements Comparable<Key> {
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyActionFlags);
             String[] moreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_moreKeys);
-
-            // Get maximum column order number and set a relevant mode value.
-            int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER
-                    | style.getInt(keyAttr, R.styleable.Keyboard_Key_maxMoreKeysColumn,
-                    params.mMaxMoreKeysKeyboardColumn);
-            int value;
-            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
-                // Override with fixed column order number and set a relevant mode value.
-                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
-            }
-            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
-                // Override with fixed column order number and set a relevant mode value.
-                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
-            }
-            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
-                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
-            }
-            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NEEDS_DIVIDERS)) {
-                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NEEDS_DIVIDERS;
-            }
-            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NO_PANEL_AUTO_MORE_KEY)) {
-                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
-            }
-            mMoreKeysColumnAndFlags = moreKeysColumnAndFlags;
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
 
             final String[] additionalMoreKeys;
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
@@ -1153,10 +1154,9 @@ public class Key implements Comparable<Key> {
             mEnabled = true;
         }
 
-        /** WIP for the new simplified parsing
-         *  does not fill absolute values, setDimensionsFromRelativeSize needs to be called before creating the key
-         *  currently no language-dependent moreKeys
-         *  maybe some label flags should be set in here?
+        /**
+         *  constructor that does not require attrs, style or absolute key dimension / position
+         *  setDimensionsFromRelativeSize needs to be called before creating the key
          */
         public KeyParams(
                 // todo (much later): replace keySpec? these encoded icons and codes are not really great
@@ -1168,37 +1168,16 @@ public class Key implements Comparable<Key> {
                 @Nullable final String[] moreKeys // same style as current moreKeys (relevant for the special keys)
         ) {
             mKeyboardParams = params;
-            mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mRelativeWidth = relativeWidth;
-
             mBackgroundType = backgroundType;
-
             mLabelFlags = labelFlags;
+            mRelativeWidth = relativeWidth;
+            mRelativeHeight = params.mDefaultRelativeRowHeight;
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
+            mIconId = KeySpecParser.getIconId(keySpec);
+
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
-
-            // Get maximum column order number and set a relevant mode value.
-            int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
-            int value;
-            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
-                // Override with fixed column order number and set a relevant mode value.
-                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
-            }
-            if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
-                // Override with fixed column order number and set a relevant mode value.
-                moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
-            }
-            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
-                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
-            }
-            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NEEDS_DIVIDERS)) {
-                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NEEDS_DIVIDERS;
-            }
-            if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NO_PANEL_AUTO_MORE_KEY)) {
-                moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
-            }
-            mMoreKeysColumnAndFlags = moreKeysColumnAndFlags;
 
             final String[] languageMoreKeys;
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
@@ -1220,8 +1199,6 @@ public class Key implements Comparable<Key> {
                 mMoreKeys = null;
             }
 
-            mIconId = KeySpecParser.getIconId(keySpec);
-
             final int code = KeySpecParser.getCode(keySpec);
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
                 mLabel = params.mId.mCustomActionLabel;
@@ -1240,7 +1217,7 @@ public class Key implements Comparable<Key> {
                 mHintLabel = null;
             } else {
                 // maybe also always null for comma and period keys
-                final boolean hintLabelAlwaysFromFirstLongPressKey = false; // todo (later): read from settings
+                final boolean hintLabelAlwaysFromFirstLongPressKey = false; // todo (later): add the setting, and use it (store in params?)
                 String hintLabel;
                 if (hintLabelAlwaysFromFirstLongPressKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
@@ -1287,9 +1264,10 @@ public class Key implements Comparable<Key> {
                 mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing) : code;
             }
 
+            // action flags don't need to be specified, they can be deduced from the key
             if (backgroundType == BACKGROUND_TYPE_SPACEBAR || mCode == Constants.CODE_LANGUAGE_SWITCH)
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-            if (backgroundType == BACKGROUND_TYPE_FUNCTIONAL || backgroundType == BACKGROUND_TYPE_ACTION)
+            if (mCode <= Constants.CODE_SPACE && mCode != CODE_OUTPUT_TEXT)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
             if (mCode == Constants.CODE_DELETE)
                 actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
@@ -1321,7 +1299,7 @@ public class Key implements Comparable<Key> {
             mEnabled = true;
         }
 
-        /** for <GridRows/> */
+        /** constructor for <GridRows/> */
         public KeyParams(@Nullable final String label, final int code, @Nullable final String outputText,
                    @Nullable final String hintLabel, @Nullable final String moreKeySpecs,
                    final int labelFlags, final int backgroundType, final int x, final int y,
@@ -1337,28 +1315,7 @@ public class Key implements Comparable<Key> {
 
             if (moreKeySpecs != null) {
                 String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
-                // Get maximum column order number and set a relevant mode value.
-                int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
-                int value;
-                if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_AUTO_COLUMN_ORDER, -1)) > 0) {
-                    // Override with fixed column order number and set a relevant mode value.
-                    moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_AUTO_ORDER
-                            | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
-                }
-                if ((value = MoreKeySpec.getIntValue(moreKeys, MORE_KEYS_FIXED_COLUMN_ORDER, -1)) > 0) {
-                    // Override with fixed column order number and set a relevant mode value.
-                    moreKeysColumnAndFlags = MORE_KEYS_MODE_FIXED_COLUMN_WITH_FIXED_ORDER | (value & MORE_KEYS_COLUMN_NUMBER_MASK);
-                }
-                if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_HAS_LABELS)) {
-                    moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_HAS_LABELS;
-                }
-                if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NEEDS_DIVIDERS)) {
-                    moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NEEDS_DIVIDERS;
-                }
-                if (MoreKeySpec.getBooleanValue(moreKeys, MORE_KEYS_NO_PANEL_AUTO_MORE_KEY)) {
-                    moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
-                }
-                mMoreKeysColumnAndFlags = moreKeysColumnAndFlags;
+                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
 
                 moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
                 int actionFlags = 0;

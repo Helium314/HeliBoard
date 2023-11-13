@@ -84,6 +84,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    some warning if more than 2 characters on a key
         //     currently can't resize keys, but could set autoXScale
         //    check whether emojis are correctly not colored when on main keyboard
+        //    careful about moreKeys: if moreKeys don't fit on screen, parser throws an exception!
+        //    popup and (single key) long press preview rescale the label on x only, which may deform emojis
         //   write up how things work, also regarding language more keys
         //   need to solve the scaling issue with number row and 5 row keyboards
         //  migrate symbol layouts to this style
@@ -362,6 +364,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             startRow()
             for (keyParams in row) {
                 endKey(keyParams.createKey())
+                // todo (later): markAsBottomKey if in bottom row?
+                //  this is not done in original parsing style, but why not?
+                //  just test it (with different bottom paddings)
             }
             endRow()
         }
