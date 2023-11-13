@@ -5,6 +5,9 @@ package org.dslul.openboard.inputmethod.latin.settings
 import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.CompoundButton
@@ -12,7 +15,9 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.core.view.MenuProvider
 import androidx.core.view.forEachIndexed
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
@@ -24,11 +29,16 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
 
-open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
+open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvider {
 
     private val binding by viewBinding(ColorSettingsBinding::bind)
     open val isNight = false
     open val titleResId = R.string.select_user_colors
+    private var moreColors: Boolean
+        get() = prefs.getBoolean("testsetting", false)
+        set(value) {
+            prefs.edit().putBoolean("testsetting", value).apply()
+        }
     private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
     private val colorPrefs = listOf(
         Settings.PREF_COLOR_BACKGROUND_SUFFIX,
@@ -39,6 +49,13 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
         Settings.PREF_COLOR_HINT_TEXT_SUFFIX,
         Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
         Settings.PREF_COLOR_ACCENT_SUFFIX,
+        Settings.PREF_COLOR_GESTURE_SUFFIX,
+    )
+    private val moreColorPrefs = listOfNotNull(
+        if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) null
+            else Settings.PREF_COLOR_KEYS_SUFFIX,
+        Settings.PREF_COLOR_SPACEBAR_SUFFIX,
+        Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
         Settings.PREF_COLOR_GESTURE_SUFFIX,
     )
 
@@ -64,8 +81,33 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.addMenuProvider(this)
+    }
+
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
+        if (menu.size() == 1) menu[0].setTitle(getMenuTitle())
+        else menu.add(getMenuTitle())
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        moreColors = !moreColors
+        menuItem.setTitle(getMenuTitle())
+        updateColorPrefs()
+        return true
+    }
+
+    private fun getMenuTitle(): String =
+        if (moreColors) "Show less colors" else "Show all colors" // todo: should be resId
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateColorPrefs()
+    }
+
+    private fun updateColorPrefs() {
+        binding.colorSettingsContainer.removeAllViews()
         val colorPrefNames = listOf(
             R.string.select_color_background,
             R.string.select_color_key_background,
@@ -79,8 +121,11 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings) {
         ).map { requireContext().getString(it) }
         val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
         colorPrefs.forEachIndexed { index, colorPref ->
+            val autoColor = prefs.getBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
+            if (!moreColors && colorPref in moreColorPrefs && autoColor)
+                return@forEachIndexed
             val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
-            csb.colorSwitch.isChecked = !prefs.getBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
+            csb.colorSwitch.isChecked = !autoColor
             csb.colorPreview.setColorFilter(Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight))
             csb.colorText.text = colorPrefNames[index]
             if (!csb.colorSwitch.isChecked) {
