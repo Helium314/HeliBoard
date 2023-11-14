@@ -2,7 +2,6 @@
 
 package org.dslul.openboard.inputmethod.latin.settings
 
-import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -36,9 +35,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     open val titleResId = R.string.select_user_colors
     private var moreColors: Boolean
         get() = prefs.getBoolean("testsetting", false)
-        set(value) {
-            prefs.edit().putBoolean("testsetting", value).apply()
-        }
+        set(value) { prefs.edit().putBoolean("testsetting", value).apply() }
     private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
     private val colorPrefs = listOf(
         Settings.PREF_COLOR_BACKGROUND_SUFFIX,
@@ -51,17 +48,16 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         Settings.PREF_COLOR_ACCENT_SUFFIX,
         Settings.PREF_COLOR_GESTURE_SUFFIX,
     )
-    private val moreColorPrefs = listOfNotNull(
-        if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) null
-            else Settings.PREF_COLOR_KEYS_SUFFIX,
-        Settings.PREF_COLOR_SPACEBAR_SUFFIX,
-        Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
-        Settings.PREF_COLOR_GESTURE_SUFFIX,
-    )
+    private val colorPrefsToHideInitially by lazy {
+        listOf(Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, Settings.PREF_COLOR_GESTURE_SUFFIX) +
+            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false))
+                listOf(Settings.PREF_COLOR_SPACEBAR_SUFFIX)
+            else listOf(Settings.PREF_COLOR_KEYS_SUFFIX, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX)
+    }
 
     override fun onResume() {
         super.onResume()
-        val activity: Activity? = activity
+        val activity = activity
         if (activity is AppCompatActivity) {
             val actionBar = activity.supportActionBar ?: return
             actionBar.setTitle(titleResId)
@@ -71,6 +67,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             prefs.edit { putBoolean(Settings.PREF_FORCE_OPPOSITE_THEME, true) }
             reloadKeyboard(false)
         }
+        activity?.addMenuProvider(this)
     }
 
     override fun onPause() {
@@ -79,11 +76,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         if (isNight != ResourceUtils.isNight(requireContext().resources))
             // reload again so the correct configuration is applied
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity?.addMenuProvider(this)
+        activity?.removeMenuProvider(this)
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
@@ -122,7 +115,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
         colorPrefs.forEachIndexed { index, colorPref ->
             val autoColor = prefs.getBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
-            if (!moreColors && colorPref in moreColorPrefs && autoColor)
+            if (!moreColors && colorPref in colorPrefsToHideInitially && autoColor)
                 return@forEachIndexed
             val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
             csb.colorSwitch.isChecked = !autoColor
