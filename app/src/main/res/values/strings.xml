@@ -612,6 +612,10 @@ New dictionary:
     <string name="select_user_colors_night">Adjust colors (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
+    <!-- Menu item for showing fewer colors -->
+    <string name="main_colors">Show main colors only</string>
+    <!-- Menu item for showing all colors -->
+    <string name="all_colors">Show all colors</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->

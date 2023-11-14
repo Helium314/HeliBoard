@@ -34,8 +34,8 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     open val isNight = false
     open val titleResId = R.string.select_user_colors
     private var moreColors: Boolean
-        get() = prefs.getBoolean("testsetting", false)
-        set(value) { prefs.edit().putBoolean("testsetting", value).apply() }
+        get() = prefs.getBoolean(Settings.PREF_SHOW_ALL_COLORS, false)
+        set(value) { prefs.edit().putBoolean(Settings.PREF_SHOW_ALL_COLORS, value).apply() }
     private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
     private val colorPrefs = listOf(
         Settings.PREF_COLOR_BACKGROUND_SUFFIX,
@@ -91,8 +91,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         return true
     }
 
-    private fun getMenuTitle(): String =
-        if (moreColors) "Show less colors" else "Show all colors" // todo: should be resId
+    private fun getMenuTitle() = if (moreColors) R.string.main_colors else R.string.all_colors
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

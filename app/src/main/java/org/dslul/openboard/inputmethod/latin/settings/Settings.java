@@ -138,6 +138,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
+    public static final String PREF_SHOW_ALL_COLORS = "pref_show_all_colors";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
@@ -150,7 +151,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     private static final Settings sInstance = new Settings();
 
-    // preferences that are not used in SettingsValues
+    // preferences that are not used in SettingsValues and thus should not trigger reload when changed
     private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
         add(PREF_FORCE_OPPOSITE_THEME);
         add(PREF_PINNED_CLIPS);
@@ -158,6 +159,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
+        add(PREF_SHOW_ALL_COLORS);
     }};
 
     public static Settings getInstance() {
