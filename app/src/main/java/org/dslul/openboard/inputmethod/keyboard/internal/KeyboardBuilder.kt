@@ -15,6 +15,7 @@ import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.putLanguageMoreKeysAndLabels
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -46,34 +47,37 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets("qwerty")
+        putLanguageMoreKeysAndLabels(mContext, mParams)
+        Log.i("test", "${id.mSubtype.keyboardLayoutSetName}, ${id.mSubtype.rawSubtype.extraValue}")
+        val layout = when (id.mSubtype.keyboardLayoutSetName) { // todo: move to separate function
+            "nordic", "spanish" -> "qwerty"
+            "german", "swiss", "serbian_qwertz" -> "qwertz"
+            else -> id.mSubtype.keyboardLayoutSetName
+        }
+        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets(layout) // todo: try-catch, and maybe a way to inform whether this is "default" layout?
         useRelative()
 
-        // todo: further plan to make is actually useful
-        //  create languageMoreKeys list from stuff in keyboard-text tools
-        //   probably use files in assets, and cache them in a weak hash map with localestring as key
-        //    or better 2 letter code, and join codes when combining languageMoreKeys for multiple locales
-        //     or maybe locale tag, but that's super annoying for api < 24(?)
-        //    or no caching if loading and combining is fast anyway (need to test)
-        //    the locale morekeys then should be a map label -> moreKeys
-        //    the whole moreKeys map for the current keyboard could be in mParams to simplify access when creating keys
-        //    file format? it's easy to switch, but still... text like above? json?
-        //   or use resources? could look like donottranslate-more-keys files
-        //    should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
-        //     also would be a bit annoying as it would require to have empty base strings for all possible keys
-        //    test first whether something like morekeys_&#x1002;, or morekeys_&#x00F8; or better morekeys_ø actually works
-        //     if not, definitely don't use resources
-        //   consider the % placeholder, this should still be used and documented
-        //    though maybe has issues when merging languages?
-        //   how to deal with unnecessary moreKeys?
-        //    e.g. german should have ö as moreKey on o, but swiss german layout has ö as separate key
-        //    still have ö on o (like now), or remove it? or make it optional?
-        //    is this handled by KeyboardParams.removeRedundantMoreKeys?
-        //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
-        //   need some placeholder for currency key, like $$$
-        //   have an explicit all-more-keys definition, which is created from a script merging all available moreKeys
-        //    only letter forms and nothing else, right?
-        //    maybe some most-but-not-all? e.g. only all that occur for more than one language
+        // todo: moreKeys
+        //  tablet_punctuation -> only has ' at a different place, and ? and ! removed (latter should be done automatically anyway, right?)
+        // todo:
+        //  eo needs its own layout
+        //  extra keys are added to all layouts, but should only be added to the "default"
+        //  more sophisticated moreKeys merging for multilingual typing
+        //  labels on holo are always english (system locale) now, used to be keyboard locale
+        //   -> use it, and make sr_zz work
+        //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
+        //   create files using some script
+        // todo: documentation needed
+        //  key and then (optionally) moreKeys, separated by space
+        //  backslash before some characters (check which ones... ?, @, comma and a few more)
+        //   for user-defined stuff not necessary (will be inserted as needed when reading)
+        //  % for language morekeys (also other placeholders, but usually not necessary)
+        //  language morekeys should never contain "special" morekeys, i.e. those starting with !
+        //   exception for punctuation
+        //   if it's necessary that they contain special stuff, parsing of those things needs to be adapted
+        //  placeholder for currency key: $$$
+
+        // todo: further plan to make it actually useful
         //  migrate latin layouts to this style (need to make exception for pcqwerty!)
         //   finalize simple layout format
         //    keep like now: nice, because simple and allows defining any number of moreKeys
@@ -81,10 +85,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    consider the current layout maybe doesn't have the correct moreKeys
         //   where to actually get the current keyboard layout name, so it can be used to select the correct file?
         //    maybe KeyboardLayoutSet will need to be replaced
+        //    method.xml: imeSubtypeExtraValue has KeyboardLayoutSet=german and similar
+        //     but de doesn't have german, only de_DE, and no hint for qwertz (same for french, no hit to azerty)
         //   need to solve the scaling issue with number row and 5 row keyboards
         //   allow users to switch to old style (keep it until all layouts are switched)
         //    really helps to find differences
         //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
+        //   add a separate layout for eo (base on qwerty, the key replacement mechanism really is not great to have everywhere when it's not used by any other language)
         //   label flags to do (top part is for latin!)
         //  allow users to define their own layouts
         //   write up how things work for users, also regarding language more keys
@@ -118,6 +125,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   may be difficult in some cases, like additional row, or no shift key, or pc qwerty layout
         //   also the (integrated) number row might cause issues
         //   at least some of these layouts will need more complicated definition, not just a simple text file
+        //   some languages also change symbol view, e.g. fa changes symbols row 3
+        //   add more layouts before doing this? or just keep the layout conversion script
         //  remove all the keyboard layout related xmls if possible
         //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
         //   and the texts_table and its source tools
@@ -160,6 +169,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
+        if (id.mElementId == KeyboardId.ELEMENT_ALPHABET && this::class == KeyboardBuilder::class) {
+            loadSimpleKeyboard(id)
+            return this
+        }
         // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
         // attrs may be null, then default values are used (looks good for "normal" keyboards)
         try {

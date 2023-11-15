@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTexts;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -84,6 +85,8 @@ public class KeyboardParams {
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantMoreKeys;
+    @NonNull
+    public LocaleKeyTexts mLocaleKeyTexts;
 
     public int mMostCommonKeyHeight = 0;
     public int mMostCommonKeyWidth = 0;

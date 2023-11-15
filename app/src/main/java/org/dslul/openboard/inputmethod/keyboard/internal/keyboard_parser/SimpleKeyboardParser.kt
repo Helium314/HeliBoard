@@ -109,12 +109,26 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
     }
 
     private fun parseAdjustablePartOfLayout(layoutContent: String) =
-        layoutContent.split("\n\n").mapTo(mutableListOf()) { row -> row.split("\n").mapNotNull {
-            if (it.isBlank()) return@mapNotNull null
-            val split = it.split(" ")
-            val moreKeys = if (split.size == 1) null else Array(split.size - 1) { split[it + 1] }
-            BaseKey(split.first(), moreKeys)
-        } }
+        layoutContent.split("\n\n").mapIndexedTo(mutableListOf()) { i, row ->
+            row.split("\n").mapNotNull {
+                if (it.isBlank()) return@mapNotNull null
+                val split = it.split(" ")
+                val moreKeys = if (split.size == 1) {
+                    null
+                } else if (split.size == 2 && split.last() == "$$$") {
+                    // todo (later): could improve handling and show more currency moreKeys
+                    if (params.mId.passwordInput())
+                        arrayOf("$")
+                    else
+                        arrayOf(getCurrencyKey(params.mId.locale).first)
+                } else {
+                    Array(split.size - 1) { split[it + 1] }
+                }
+                BaseKey(split.first(), moreKeys)
+            } +
+                    // todo: extra keys ONLY for default layout (how to get the default layout?)
+                    (params.mLocaleKeyTexts.getExtraKeys(i + 1)?.let { it.map { BaseKey(it.first, it.second) } } ?: emptyList())
+        }
 
     private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =
         context.getString(R.string.key_def_functional).split("\n").mapNotNull { line ->
@@ -331,7 +345,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 width,
                 Key.LABEL_FLAGS_FONT_DEFAULT,
                 Key.BACKGROUND_TYPE_NORMAL,
-                arrayOf("¡") // todo (later) may depend on language
+                arrayOf("¡") // todo (later) may depend on language (armenian)
             )
             KEY_QUESTION -> KeyParams(
                 "\\?",
@@ -339,7 +353,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 width,
                 Key.LABEL_FLAGS_FONT_DEFAULT,
                 Key.BACKGROUND_TYPE_NORMAL,
-                arrayOf("¿") // todo (later) may depend on language
+                arrayOf("¿") // todo (later) may depend on language (armenian)
             )
             else -> throw IllegalArgumentException("unknown key definition \"$key\"")
         }
@@ -434,20 +448,14 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         return context.getString(id)
     }
 
-    // todo: may depend on language
-    private fun getAlphabetLabel(): String {
-        return "ABC"
-    }
+    private fun getAlphabetLabel() = params.mLocaleKeyTexts.labelAlphabet
 
-    // todo: may depend on language
-    private fun getSymbolLabel(): String {
-        return "\\?123"
-    }
+    private fun getSymbolLabel() = params.mLocaleKeyTexts.labelSymbols
 
     private fun getShiftLabel(): String {
         val elementId = params.mId.mElementId
         if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            return "=\\<" // todo: may depend on language
+            return params.mLocaleKeyTexts.labelShiftSymbols
         if (elementId == KeyboardId.ELEMENT_SYMBOLS)
             return getSymbolLabel()
         if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
@@ -485,7 +493,8 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         //  morekeys_period is also changed by some languages
         //  period key always uses morekeys_period, except for dvorak layout which is the only user of morekeys_punctuation
         //  -> clean it up when implementing the language-dependent moreKeys
-        return arrayOf("!autoColumnOrder!8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+        return params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
+            arrayOf("!autoColumnOrder!8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
 
 }

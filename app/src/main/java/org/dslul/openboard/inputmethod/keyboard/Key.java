@@ -998,7 +998,7 @@ public class Key implements Comparable<Key> {
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
         }
 
-        private static int getMoreKeysColumnAndFlags(final KeyboardParams params, final String[] moreKeys) {
+        private static int getMoreKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] moreKeys) {
             // Get maximum column order number and set a relevant mode value.
             int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
             int value;
@@ -1066,7 +1066,7 @@ public class Key implements Comparable<Key> {
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyActionFlags);
             String[] moreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_moreKeys);
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
 
             final String[] additionalMoreKeys;
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
@@ -1172,7 +1172,7 @@ public class Key implements Comparable<Key> {
             mLabelFlags = labelFlags;
             mRelativeWidth = relativeWidth;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, layoutMoreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, layoutMoreKeys);
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
@@ -1184,8 +1184,7 @@ public class Key implements Comparable<Key> {
                 languageMoreKeys = null;
             } else {
                 // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
-                // todo: read from assets or xml, and cache the results for quick reading again
-                languageMoreKeys = null; // todo: getLanguageMoreKeys(keySpec, mKeyboardParams.mId.getLocale());
+                languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
             }
             final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
             if (finalMoreKeys != null) {
@@ -1314,7 +1313,7 @@ public class Key implements Comparable<Key> {
 
             if (moreKeySpecs != null) {
                 String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
-                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
+                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
 
                 moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
                 int actionFlags = 0;
