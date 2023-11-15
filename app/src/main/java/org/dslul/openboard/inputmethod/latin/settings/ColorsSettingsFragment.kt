@@ -85,10 +85,15 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        moreColors = !moreColors
-        menuItem.setTitle(getMenuTitle())
-        updateColorPrefs()
-        return true
+        return if (menuItem.itemId == android.R.id.home) {
+            activity?.onBackPressed()
+            true
+        } else {
+            moreColors = !moreColors
+            menuItem.setTitle(getMenuTitle())
+            updateColorPrefs()
+            true
+        }
     }
 
     private fun getMenuTitle() = if (moreColors) R.string.main_colors else R.string.all_colors
