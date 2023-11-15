@@ -81,19 +81,19 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         if (menu.size() == 1) menu[0].setTitle(getMenuTitle())
-        else menu.add(getMenuTitle())
+        else menu.add(Menu.NONE, 1, Menu.NONE, getMenuTitle())
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return if (menuItem.itemId == android.R.id.home) {
-            activity?.onBackPressed()
-            true
-        } else {
+        // necessary, even though we only have a single menu item
+        // because the back arrow on top absurdly is implemented as a menu item
+        if (menuItem.itemId == 1) {
             moreColors = !moreColors
             menuItem.setTitle(getMenuTitle())
             updateColorPrefs()
-            true
+            return true
         }
+        return false
     }
 
     private fun getMenuTitle() = if (moreColors) R.string.main_colors else R.string.all_colors
