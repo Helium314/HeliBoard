@@ -3,7 +3,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -88,7 +87,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 width = availableWidth / row.size
             }
             if (spacerWidth != 0f) {
-                paramsRow.add(KeyParams.newSpacer(params).apply { mRelativeWidth = spacerWidth })
+                paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
             }
 
             for (key in row) {
@@ -102,11 +101,12 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 ))
             }
             if (spacerWidth != 0f) {
-                paramsRow.add(KeyParams.newSpacer(params).apply { mRelativeWidth = spacerWidth })
+                paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
             }
             functionalKeysRight.forEach { paramsRow.add(it) }
             keysInRows.add(0, paramsRow) // we're doing it backwards, so add on top
         }
+        resizeLastNormalRowIfNecessaryForAlignment(keysInRows)
         // rescale height if we have more than 4 rows
         val heightRescale = if (keysInRows.size > 4) 4f / keysInRows.size else 1f
         if (params.mId.mNumberRowEnabled)
@@ -120,6 +120,31 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
             keysInRows.forEach { it.forEach { it.mRelativeHeight *= heightRescale } }
 
         return keysInRows
+    }
+
+    // resize keys in last row if they are wider than keys in the row above
+    // this is done so the keys align with the keys above
+    // done e.g. for french and swiss layouts
+    private fun resizeLastNormalRowIfNecessaryForAlignment(keysInRows: ArrayList<ArrayList<KeyParams>>) {
+        if (keysInRows.size < 3)
+            return
+        val lastNormalRow = keysInRows[keysInRows.lastIndex - 1]
+        val rowAboveLastNormalRow = keysInRows[keysInRows.lastIndex - 2]
+        if (lastNormalRow.any { it.isSpacer } || rowAboveLastNormalRow.any { it.isSpacer })
+            return // annoying to deal with, and probably no resize needed anyway
+        val lastNormalRowKeyWidth = lastNormalRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
+        val rowAboveLastNormalRowKeyWidth = rowAboveLastNormalRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
+        if (lastNormalRowKeyWidth <= rowAboveLastNormalRowKeyWidth + 0.0001f)
+            return // no need
+        if (lastNormalRow.any { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL && it.mRelativeWidth != lastNormalRowKeyWidth })
+            return // normal keys have different width, don't deal with this
+        val numberOfNormalKeys = lastNormalRow.count { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }
+        val widthBefore = numberOfNormalKeys * lastNormalRowKeyWidth
+        val widthAfter = numberOfNormalKeys * rowAboveLastNormalRowKeyWidth
+        val spacerWidth = (widthBefore - widthAfter) / 2
+        lastNormalRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mRelativeWidth = rowAboveLastNormalRowKeyWidth }
+        lastNormalRow.add(lastNormalRow.indexOfFirst { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }, KeyParams.newSpacer(params, spacerWidth))
+        lastNormalRow.add(lastNormalRow.indexOfLast { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL } + 1, KeyParams.newSpacer(params, spacerWidth))
     }
 
     private fun parseAdjustablePartOfLayout(layoutContent: String) =

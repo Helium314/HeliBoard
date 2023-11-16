@@ -61,8 +61,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo:
         //  layouts
-        //   in some layouts the bottom row has a little wider keys than above, because less "compression" is necessary e.g. fr_CH
-        //    -> set default key width to the actual key width of the row above (dammit, with the reverse parsing...)
         //   need to check ALL
         //    compare with shift
         //    check currency key hint label
@@ -254,10 +252,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             val currentKeyXPos = row[i].xPos
             if (currentKeyXPos > currentX) {
                 // insert spacer
-                val spacer = KeyParams.newSpacer(mParams)
-                spacer.mRelativeWidth = (currentKeyXPos - currentX) / mParams.mBaseWidth
+                val spacer = KeyParams.newSpacer(mParams, (currentKeyXPos - currentX) / mParams.mBaseWidth)
                 spacer.yPos = row[i].yPos
-                spacer.mRelativeHeight = row[i].mRelativeHeight
                 row.add(i, spacer)
                 i++
                 currentX += currentKeyXPos - currentX
@@ -267,9 +263,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         }
         if (currentX < mParams.mOccupiedWidth) {
             // insert spacer
-            val spacer = KeyParams.newSpacer(mParams)
-            spacer.mRelativeWidth = (mParams.mOccupiedWidth - currentX) / mParams.mBaseWidth
-            spacer.mRelativeHeight = row.last().mRelativeHeight
+            val spacer = KeyParams.newSpacer(mParams, (mParams.mOccupiedWidth - currentX) / mParams.mBaseWidth)
             spacer.yPos = row.last().yPos
             row.add(spacer)
         }
@@ -287,9 +281,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             fillGapsWithSpacers(row)
             val y = row.first().yPos // all have the same y, so this is fine
             val relativeWidthSum = row.sumOf { it.mRelativeWidth } // sum up relative widths
-            val spacer = KeyParams.newSpacer(mParams)
-            spacer.mRelativeWidth = spacerRelativeWidth
-            spacer.mRelativeHeight = row.first().mRelativeHeight
+            val spacer = KeyParams.newSpacer(mParams, spacerRelativeWidth)
             // insert spacer before first key that starts right of the center (also consider gap)
             var insertIndex = row.indexOfFirst { it.xPos > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error

@@ -943,7 +943,7 @@ public class Key implements Comparable<Key> {
     // for creating keys that might get modified later
     public static class KeyParams {
         // params for building
-        private boolean isSpacer;
+        public boolean isSpacer;
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
@@ -975,8 +975,10 @@ public class Key implements Comparable<Key> {
             return keyParams;
         }
 
-        public static KeyParams newSpacer(final KeyboardParams params) {
-            return new KeyParams(params);
+        public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
+            final KeyParams spacer = new KeyParams(params);
+            spacer.mRelativeWidth = relativeWidth;
+            return spacer;
         }
 
         public Key createKey() {
