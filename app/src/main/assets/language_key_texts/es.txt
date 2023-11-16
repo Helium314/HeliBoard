@@ -7,3 +7,6 @@ u ú ü ù û ū
 n ñ ń
 c ç ć č
 punctuation !autoColumnOrder!9 \, ? ! # ) ( / ; ¡ ' @ : - " + \% & ¿
+
+[extra_keys]
+2: ñ

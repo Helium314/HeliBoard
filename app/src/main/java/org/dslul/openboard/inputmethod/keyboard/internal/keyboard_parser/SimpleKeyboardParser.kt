@@ -2,9 +2,8 @@
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
-import android.content.res.Configuration
 import android.content.res.Resources
-import android.view.ContextThemeWrapper
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -30,20 +29,16 @@ import org.dslul.openboard.inputmethod.latin.utils.sumOf
  *  Also number, phone and numpad layouts are not compatible with this parser.
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) {
-    private val keyboardLocaleContext: Context // todo: got resources not found exception, doesn't this fall back to default values?
-    init {
-        val config = Configuration(context.resources.configuration)
-        config.locale = params.mId.locale
-        keyboardLocaleContext = ContextThemeWrapper(context, R.style.platformActivityTheme)
-        keyboardLocaleContext.applyOverrideConfiguration(config)
-    }
 
     private var addExtraKeys = false
     fun parseFromAssets(layoutName: String): ArrayList<ArrayList<KeyParams>> {
         val layoutFile = when (layoutName) {
-            "nordic", "spanish" -> { addExtraKeys = true; "qwerty" }
+            "nordic" -> { addExtraKeys = true; "qwerty" }
+            "spanish" -> {
+                if (params.mId.locale.language == "eo") "eo" // this behaves a bit different than before, but probably still fine
+                else { addExtraKeys = true; "qwerty" }
+            }
             "german", "swiss", "serbian_qwertz" -> { addExtraKeys = true; "qwertz" }
-            "qwerty" -> if (params.mId.locale.language == "eo") "eo" else "qwerty" // this behaves a bit different than before, but probably still fine
             else -> layoutName
         }
         return parse(context.assets.open("layouts/$layoutFile.txt").reader().readText())
@@ -463,7 +458,10 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
     private fun String.replaceIconWithLabelIfNoDrawable(): String {
         if (params.mIconsSet.getIconDrawable(KeyboardIconsSet.getIconId(this)) != null) return this
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
-        return context.getString(id) // todo: should be keyboard locale, and also consider sr_zz
+        val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?
+            override fun job(res: Resources) = res.getString(id)
+        }
+        return ril.runInLocale(context.resources, params.mId.locale)
     }
 
     private fun getAlphabetLabel() = params.mLocaleKeyTexts.labelAlphabet

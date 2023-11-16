@@ -18,7 +18,9 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyb
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.putLanguageMoreKeysAndLabels
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -59,15 +61,16 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo:
         //  layouts
-        //   need to check ALL
-        //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
-        //   serbian qwertz extra keys are missing
-        //   spanish us and latin america don't add the extra key (there is no file for those)
-        //   in some layouts the bottom row has a little wider keys than above, because less "compression" is necessary e.g. fr_CA
+        //   in some layouts the bottom row has a little wider keys than above, because less "compression" is necessary e.g. fr_CH
         //    -> set default key width to the actual key width of the row above (dammit, with the reverse parsing...)
+        //   need to check ALL
+        //    compare with shift
+        //    check currency key hint label
+        //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
+        //    hmm, could do the key replacement thing, which i did not have / want with eo only
+        //    de_DE also has ß bonus letter in row 3, check whether upcasing is done correctly, maybe also need such replacement mechanism here
+        //   make sure generic layouts can be added properly, e.g. german (swiss) and adding qwertz should not have the extra keys added
         //  more sophisticated moreKeys merging for multilingual typing
-        //  labels on holo are always english (or system locale) now, used to be keyboard locale
-        //   -> use keyboard locale again, and make sr_zz work
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
         //  tablet_punctuation morekey is ignored (also in py script now)
@@ -174,7 +177,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        if (id.mElementId == KeyboardId.ELEMENT_ALPHABET && this::class == KeyboardBuilder::class) {
+        if (id.mElementId == KeyboardId.ELEMENT_ALPHABET // todo: id.isAlphabetKeyboard (and check the setting, to be implemented)
+            && this::class == KeyboardBuilder::class
+            && ScriptUtils.getScriptFromSpellCheckerLocale(mParams.mId.locale) == ScriptUtils.SCRIPT_LATIN
+            && id.mSubtype.keyboardLayoutSetName != "pcqwerty"
+        ) {
             loadSimpleKeyboard(id)
             return this
         }

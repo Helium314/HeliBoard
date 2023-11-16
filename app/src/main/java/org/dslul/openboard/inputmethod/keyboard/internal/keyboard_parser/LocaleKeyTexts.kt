@@ -1,9 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.util.Log
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
-import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.InputStream
 import java.util.Locale
@@ -69,6 +69,9 @@ class LocaleKeyTexts(dataStream: InputStream?) {
 
 // todo: this is a little too simple, actually there may be more than one % which should be considered
 //  further the first of the added moreKeys should be close to the beginning, as they are more likely to be used
+// todo: careful about punctuation moreKeys, because of autoColumnOrder and stuff
+//  is it possible to just take the larger list here for a start?
+//  -> no, will be bad with es + ca, and that's probably not an unusual combination
 private fun mergeMoreKeys(old: Array<String>, added: List<String>): Array<String> {
     val moreKeys = old.toMutableSet()
     moreKeys.addAll(added)
