@@ -48,25 +48,30 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         putLanguageMoreKeysAndLabels(mContext, mParams)
-        Log.i("test", "${id.mSubtype.keyboardLayoutSetName}, ${id.mSubtype.rawSubtype.extraValue}")
-        val layout = when (id.mSubtype.keyboardLayoutSetName) { // todo: move to separate function
-            "nordic", "spanish" -> "qwerty"
-            "german", "swiss", "serbian_qwertz" -> "qwertz"
-            else -> id.mSubtype.keyboardLayoutSetName
+        keysInRows = try {
+            SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
+        } catch (e: Exception) {
+            Log.e(TAG, "parsing layout \"${id.mSubtype.keyboardLayoutSetName}\" failed, trying fallback to qwerty", e)
+            SimpleKeyboardParser(mParams, mContext).parseFromAssets("qwerty")
         }
-        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets(layout) // todo: try-catch, and maybe a way to inform whether this is "default" layout?
+
         useRelative()
 
-        // todo: moreKeys
-        //  tablet_punctuation -> only has ' at a different place, and ? and ! removed (latter should be done automatically anyway, right?)
         // todo:
-        //  eo needs its own layout
-        //  extra keys are added to all layouts, but should only be added to the "default"
+        //  layouts
+        //   need to check ALL
+        //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
+        //   serbian qwertz extra keys are missing
+        //   spanish us and latin america don't add the extra key (there is no file for those)
+        //   in some layouts the bottom row has a little wider keys than above, because less "compression" is necessary e.g. fr_CA
+        //    -> set default key width to the actual key width of the row above (dammit, with the reverse parsing...)
         //  more sophisticated moreKeys merging for multilingual typing
-        //  labels on holo are always english (system locale) now, used to be keyboard locale
-        //   -> use it, and make sr_zz work
+        //  labels on holo are always english (or system locale) now, used to be keyboard locale
+        //   -> use keyboard locale again, and make sr_zz work
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
+        //  tablet_punctuation morekey is ignored (also in py script now)
+        //   only has ' at a different place, and ? and ! removed (latter should be done automatically anyway? no, depends on some setting in params!)
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)
@@ -180,10 +185,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 keysInRows = keyboardParser.parseKeyboard()
             }
         } catch (e: XmlPullParserException) {
-            Log.w(BUILDER_TAG, "keyboard XML parse error", e)
+            Log.w(TAG, "keyboard XML parse error", e)
             throw IllegalArgumentException(e.message, e)
         } catch (e: IOException) {
-            Log.w(BUILDER_TAG, "keyboard XML parse error", e)
+            Log.w(TAG, "keyboard XML parse error", e)
             throw RuntimeException(e.message, e)
         }
         return this
@@ -401,6 +406,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     companion object {
-        private const val BUILDER_TAG = "Keyboard.Builder"
+        private const val TAG = "Keyboard.Builder"
     }
 }

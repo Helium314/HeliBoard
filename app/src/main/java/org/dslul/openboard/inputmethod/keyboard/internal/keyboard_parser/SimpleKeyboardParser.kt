@@ -2,6 +2,9 @@
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
+import android.view.ContextThemeWrapper
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -11,6 +14,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
+import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 
 /**
@@ -26,9 +30,24 @@ import org.dslul.openboard.inputmethod.latin.utils.sumOf
  *  Also number, phone and numpad layouts are not compatible with this parser.
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) {
+    private val keyboardLocaleContext: Context // todo: got resources not found exception, doesn't this fall back to default values?
+    init {
+        val config = Configuration(context.resources.configuration)
+        config.locale = params.mId.locale
+        keyboardLocaleContext = ContextThemeWrapper(context, R.style.platformActivityTheme)
+        keyboardLocaleContext.applyOverrideConfiguration(config)
+    }
 
-    fun parseFromAssets(layoutName: String) =
-        parse(context.assets.open("layouts/$layoutName.txt").reader().readText())
+    private var addExtraKeys = false
+    fun parseFromAssets(layoutName: String): ArrayList<ArrayList<KeyParams>> {
+        val layoutFile = when (layoutName) {
+            "nordic", "spanish" -> { addExtraKeys = true; "qwerty" }
+            "german", "swiss", "serbian_qwertz" -> { addExtraKeys = true; "qwertz" }
+            "qwerty" -> if (params.mId.locale.language == "eo") "eo" else "qwerty" // this behaves a bit different than before, but probably still fine
+            else -> layoutName
+        }
+        return parse(context.assets.open("layouts/$layoutFile.txt").reader().readText())
+    }
 
     fun parse(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
@@ -125,9 +144,9 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                     Array(split.size - 1) { split[it + 1] }
                 }
                 BaseKey(split.first(), moreKeys)
-            } +
-                    // todo: extra keys ONLY for default layout (how to get the default layout?)
+            } + if (addExtraKeys)
                     (params.mLocaleKeyTexts.getExtraKeys(i + 1)?.let { it.map { BaseKey(it.first, it.second) } } ?: emptyList())
+                else listOf()
         }
 
     private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =
@@ -384,7 +403,6 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
             "!code/key_shift_enter"
         else "!code/key_enter"
 
-
     private fun getActionKeyMoreKeys(): Array<String>? {
         val action = params.mId.imeAction()
         val navigatePrev = params.mId.navigatePrevious()
@@ -445,7 +463,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
     private fun String.replaceIconWithLabelIfNoDrawable(): String {
         if (params.mIconsSet.getIconDrawable(KeyboardIconsSet.getIconId(this)) != null) return this
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
-        return context.getString(id)
+        return context.getString(id) // todo: should be keyboard locale, and also consider sr_zz
     }
 
     private fun getAlphabetLabel() = params.mLocaleKeyTexts.labelAlphabet

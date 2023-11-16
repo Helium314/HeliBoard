@@ -126,7 +126,7 @@ def get_morekeys_texts():
                     f.write(f"{k} {v}\n")
                 if len(keys["extra_keys"]) > 0:
                     f.write("\n")
-            if len(keys["extra_keys"]) > 0:
+            if len(keys["extra_keys"]) > 0 and locc != "eo":  # eo has the extra key moved into the layout
                 f.write("[extra_keys]\n")
                 # clarify somewhere that extra keys only apply to default layout (where to get?)
                 for k, v in sorted(keys["extra_keys"].items()):

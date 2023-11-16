@@ -20,6 +20,3 @@ h ĥ ħ
 w w ŵ
 q q
 x x
-
-[extra_keys]
-2: ĵ
