@@ -60,17 +60,18 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         useRelative()
 
         // todo:
-        //  layouts
-        //   need to check ALL
-        //    compare with shift
-        //    check currency key hint label
-        //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
-        //    hmm, could do the key replacement thing, which i did not have / want with eo only
-        //    de_DE also has ß bonus letter in row 3, check whether upcasing is done correctly, maybe also need such replacement mechanism here
-        //   make sure generic layouts can be added properly, e.g. german (swiss) and adding qwertz should not have the extra keys added
         //  more sophisticated moreKeys merging for multilingual typing
+        //   + test it
+        //  layouts
+        //   test tablet layouts
+        //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
+        //    there should be the language moreKeys for ', currently they are not
+        //    hmm, could do the key replacement thing, which i did not have / want with eo only
+        //    de_DE also has ß bonus letter in row 3, upcasing results in ss instead of ẞ, maybe also need such replacement mechanism here
+        //     but that should be simple, change in stringUtils.toTitleCaseOfKeyLabel
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
+        //   and extend the pref to use them both
         //  tablet_punctuation morekey is ignored (also in py script now)
         //   only has ' at a different place, and ? and ! removed (latter should be done automatically anyway? no, depends on some setting in params!)
         // todo: documentation needed
@@ -112,6 +113,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    is that autoColumnOrder thing a workaround for that?
         //     still would crash for a single huge label
         //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
+        //   does glide typing work with multiple letters on one key? if not, users should be notified
         //  migrate symbol layouts to this style
         //   maybe allow users to define their own symbol and shift-symbol layouts
         //  migrate emoji layouts to this style
@@ -137,18 +139,15 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
         //   and the texts_table and its source tools
 
-        // todo: label flags
-        //  alignHintLabelToBottom -> what does it do?
-        //  fontNormal -> check / compare turkish layout
-        //  fontDefault -> check exclamation and question keys
-        //  hasShiftedLetterHint, shiftedLetterActivated -> what is the effect on period key?
         // labelFlags should be set correctly
-        //  alignHintLabelToBottom: on lxx and rounded themes
+        //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
         //  alignIconToBottom: space_key_for_number_layout
         //  alignLabelOffCenter: number keys in phone layout
         //  fontNormal: turkish (rows 1 and 2 only), .com, emojis, numModeKeyStyle, a bunch of non-latin languages
-        //  fontMonoSpace: unused (not really: fontDefault is monospace + normal)
+        //    -> switches to normal typeface, only relevant for holo which has bold
+        //  fontMonoSpace: unused
         //  fontDefault: keyExclamationQuestion, a bunch of "normal" keys in fontNormal layouts like thai
+        //    -> switches to default defined typeface, useful e.g. if row has fontNormal
         //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
         //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
         //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
@@ -177,7 +176,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mId = id
         if (id.mElementId == KeyboardId.ELEMENT_ALPHABET // todo: id.isAlphabetKeyboard (and check the setting, to be implemented)
             && this::class == KeyboardBuilder::class
-            && ScriptUtils.getScriptFromSpellCheckerLocale(mParams.mId.locale) == ScriptUtils.SCRIPT_LATIN
+            && ScriptUtils.getScriptFromSpellCheckerLocale(mParams.mId.locale) == ScriptUtils.SCRIPT_LATIN // todo: fails in too many cases, wtf? better go by layout name
             && id.mSubtype.keyboardLayoutSetName != "pcqwerty"
         ) {
             loadSimpleKeyboard(id)

@@ -3,6 +3,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Resources
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -74,27 +75,38 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
 
             // determine key width, maybe scale factor for keys, and spacers to add
             val usedKeyWidth = params.mDefaultRelativeKeyWidth * row.size
-            val availableWidth = 1f - (functionalKeysLeft.sumOf { it.mRelativeWidth }) - (functionalKeysRight.sumOf { it.mRelativeWidth })
-            val width: Float
+            val functionalKeyWidth = (functionalKeysLeft.sumOf { it.mRelativeWidth }) + (functionalKeysRight.sumOf { it.mRelativeWidth })
+            val availableWidth = 1f - functionalKeyWidth
+            var keyWidth: Float
             val spacerWidth: Float
             if (availableWidth - usedKeyWidth > 0.0001f) { // don't add spacers if only a tiny bit is empty
                 // width available, add spacer
-                width = params.mDefaultRelativeKeyWidth
+                keyWidth = params.mDefaultRelativeKeyWidth
                 spacerWidth = (availableWidth - usedKeyWidth) / 2
             } else {
                 // need more width, re-scale
                 spacerWidth = 0f
-                width = availableWidth / row.size
+                keyWidth = availableWidth / row.size
             }
             if (spacerWidth != 0f) {
                 paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
+            }
+            if (keyWidth < params.mDefaultRelativeKeyWidth * 0.82 && spacerWidth == 0f) {
+                // keys are very narrow, also rescale the functional keys to make keys a little wider
+                // 0.82 is just some guess for "too narrow"
+                // todo (maybe): works reasonably well, but actually functional keys could give some more of their width,
+                //  as long as they end up above mDefaultRelativeKeyWidth
+                val allKeyScale = 1f / (functionalKeyWidth + row.size * params.mDefaultRelativeKeyWidth)
+                keyWidth = params.mDefaultRelativeKeyWidth * allKeyScale
+                functionalKeysLeft.forEach { it.mRelativeWidth *= allKeyScale }
+                functionalKeysRight.forEach { it.mRelativeWidth *= allKeyScale }
             }
 
             for (key in row) {
                 paramsRow.add(KeyParams(
                     key.label,
                     params,
-                    width, // any reasonable way to scale width if there is a long text? might be allowed in user-defined layout
+                    keyWidth, // any reasonable way to scale width if there is a long text? might be allowed in user-defined layout
                     0, // todo: maybe autoScale / autoXScale if label has more than 2 characters (exception for emojis?)
                     Key.BACKGROUND_TYPE_NORMAL,
                     key.moreKeys
