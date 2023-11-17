@@ -15,7 +15,13 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     var labelSymbols = "\\?123"
     var labelAlphabet = "ABC"
     var labelShiftSymbols = "=\\<"
-    init { readStream(dataStream, false) }
+    init {
+        readStream(dataStream, false)
+        if ("\'" !in moreKeys)
+            moreKeys["\'"] = arrayOf("‚", "‘", "’", "‹", "›")
+        if ("\"" !in moreKeys)
+            moreKeys["\""] = arrayOf("„", "“", "”", "«", "»")
+    }
 
     private fun readStream(stream: InputStream?, onlyMoreKeys: Boolean) {
         if (stream == null) return

@@ -8,7 +8,6 @@ n ñ ń
 c ç ć č
 l l·l ł
 punctuation !autoColumnOrder!9 \, ? ! · # ) ( / ; ' @ : - " + \% &
-tablet_punctuation !autoColumnOrder!8 \, ' · # ) ( / ; @ : - " + \% &
 
 [extra_keys]
 2: ç

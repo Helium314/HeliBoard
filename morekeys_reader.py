@@ -11,6 +11,20 @@ default_file = pathlib.Path(__file__).parent / f"{xml_folder}/values/donottransl
 out_folder = "app/src/main/assets/language_key_texts/"
 
 
+def append_to_morekeys(morekeys, text, label):
+    if label in morekeys:
+        morekeys[label] = morekeys[label] + " " + text
+    else:
+        morekeys[label] = text
+
+
+def prepend_to_morekeys(morekeys, text, label):
+    if label in morekeys:
+        morekeys[label] = text + " " + morekeys[label]
+    else:
+        morekeys[label] = text
+
+
 def read_keys(file):
     root = ET.parse(file).getroot()
     morekeys = dict()
@@ -18,33 +32,43 @@ def read_keys(file):
     for key in root.iter("resources"):
         for string in key.iter("string"):
             for tag, value in string.items():
-                text = resolve_text(string.text, file)
+                if tag != "name":
+                    print("ignoring tag " + tag)
+                    continue
+                if string.text is None:
+                    text = ""
+                else:
+                    text = resolve_text(string.text, file)
                 if "!text/" in text:
                     raise ValueError(f"can't have !text/ in {text} (from {string.text})")
                 if "  " in text:
                     raise ValueError(f"can't have consecutive spaces in {text} (from {string.text})")
-                if tag == "name" and value.startswith("keyspec_") and "_row" in value:
+                if value.startswith("keyspec_") and "_row" in value:
                     # put additional key labels (for nordic, spanish, swiss)
                     key = value.split("_row")[1]
                     d = extra_keys.get(key, dict())
                     d["label"] = text
                     extra_keys[key] = d
-                elif tag == "name" and value.startswith("morekeys_") and "_row" in value:
+                elif value.startswith("morekeys_") and "_row" in value:
                     # put additional key morekeys (for nordic, spanish, swiss)
                     key = value.split("_row")[1]
                     d = extra_keys.get(key, dict())
                     d["morekeys"] = text
                     extra_keys[key] = d
-                elif tag == "name" and value.startswith("morekeys_"):
+                elif value.startswith("morekeys_"):
                     key_label = value.split("morekeys_")[1]
                     if len(key_label) > 1 and key_label != "punctuation":
                         print(f"ignoring long more key: {key_label}: {text}")
                         continue
                     morekeys[key_label] = text
-                elif tag == "name" and (value == "single_quotes" or value == "single_angle_quotes"):
-                    morekeys['\''] = text
-                elif tag == "name" and (value == "double_quotes" or value == "double_angle_quotes"):
-                    morekeys['\"'] = text
+                elif value == "single_quotes":
+                    prepend_to_morekeys(morekeys, text, '\'')
+                elif value == "single_angle_quotes":
+                    append_to_morekeys(morekeys, text, '\'')
+                elif value == "double_quotes":
+                    prepend_to_morekeys(morekeys, text, '\"')
+                elif value == "double_angle_quotes":
+                    append_to_morekeys(morekeys, text, '\"')
                 # todo: labels should be in [labels] and use sth like symbols: ?123
                 else:
                     print(f"ignored tag: {tag}={value}, {text}")
@@ -85,13 +109,35 @@ def resolve_text(text, file):
         for tag, value in key.items():
             if tag == "name" and value == required:
                 return resolve_text(key.text, file)
-    raise LookupError(f"{text} not found in {file}")
+    raise LookupError(text + " not found in " + str(file))
 
 
 def read_locale_from_folder(folder):
     if folder.startswith("values-"):
         return folder.split("values-")[1]
     return None
+
+
+def write_keys(outfile, keys, locc=""):
+    with open(outfile, "w") as f:
+        # write section [more_keys], then [extra_keys], skip if empty
+        if len(keys["morekeys"]) > 0:
+            f.write("[morekeys]\n")
+            for k, v in keys["morekeys"].items():
+                f.write(f"{k} {v}\n")
+            if len(keys["extra_keys"]) > 0:
+                f.write("\n")
+        if len(keys["extra_keys"]) > 0 and locc != "eo":  # eo has the extra key moved into the layout
+            f.write("[extra_keys]\n")
+            # clarify somewhere that extra keys only apply to default layout (where to get?)
+            for k, v in sorted(keys["extra_keys"].items()):
+                row = k.split("_")[0]
+                morekeys = v.get("morekeys", "")
+                label = v["label"]
+                if len(morekeys) == 0:
+                    f.write(f"{row}: {label}\n")
+                else:
+                    f.write(f"{row}: {label} {morekeys}\n")
 
 
 def get_morekeys_texts():
@@ -118,33 +164,12 @@ def get_morekeys_texts():
         outfile_name = locc.replace("-r", "_").lower() + ".txt"
         outfile = pathlib.Path(out_folder + outfile_name)
         outfile.parent.mkdir(exist_ok=True, parents=True)
-        with open(outfile, "w") as f:
-            # write section [more_keys], then [extra_keys], skip if empty
-            if len(keys["morekeys"]) > 0:
-                f.write("[morekeys]\n")
-                for k, v in keys["morekeys"].items():
-                    f.write(f"{k} {v}\n")
-                if len(keys["extra_keys"]) > 0:
-                    f.write("\n")
-            if len(keys["extra_keys"]) > 0 and locc != "eo":  # eo has the extra key moved into the layout
-                f.write("[extra_keys]\n")
-                # clarify somewhere that extra keys only apply to default layout (where to get?)
-                for k, v in sorted(keys["extra_keys"].items()):
-                    row = k.split("_")[0]
-                    morekeys = v.get("morekeys", "")
-                    label = v["label"]
-                    if len(morekeys) == 0:
-                        f.write(f"{row}: {label}\n")
-                    else:
-                        f.write(f"{row}: {label} {morekeys}\n")
-
-        # ignored:
-        #  the key labels for sr-Latn: test it later, current state: sr-Cyrl has cyrillic labels, sr-Latn has default locale labels
-        #  currency: better move vietnamese currency key to the normal currency key style
-        # issue:
+        write_keys(outfile, keys, locc)
 
 
 def main():
+#    k = read_keys(default_file)
+#    write_keys(pathlib.Path(__file__).parent / f"defaultkeys.txt", k)
     get_morekeys_texts()
 
 # need to check strings:
