@@ -220,6 +220,8 @@ Nouveau dictionnaire:
     <string name="select_user_colors">Personnaliser le thème</string>
     <string name="select_user_colors_night">Personnaliser le thème (mode nuit)</string>
     <string name="auto_user_color">Choix automatique de la couleur</string>
+    <string name="main_colors">Afficher les couleurs principales</string>
+    <string name="all_colors">Afficher toutes les couleurs</string>
     <string name="hint_show_keyboard">Cliquez pour voir l\'aperçu</string>
     <string name="select_user_colors_summary">Sélection des couleurs du texte et de l\'arrière-plan</string>
     <string name="select_color_background">Arrière-plan du clavier</string>
@@ -230,6 +232,7 @@ Nouveau dictionnaire:
     <string name="select_color_spacebar_background">Arrière-plan de la barre d\'espace</string>
     <string name="select_color_spacebar_text">Texte de la barre d\'espace</string>
     <string name="select_color_accent">Couleur d\'accentuation</string>
+    <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
     <string name="about_github_link" >Lien vers GitHub</string>
     <string name="license" >Licence Open-source</string>

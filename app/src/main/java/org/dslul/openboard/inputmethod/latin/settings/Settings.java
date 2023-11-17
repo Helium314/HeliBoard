@@ -67,6 +67,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_SPACEBAR_SUFFIX = "spacebar";
     public static final String PREF_COLOR_SPACEBAR_TEXT_SUFFIX = "spacebar_text";
     public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
+    public static final String PREF_COLOR_GESTURE_SUFFIX = "gesture";
     public static final String PREF_COLOR_TEXT_SUFFIX = "text";
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
@@ -137,6 +138,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
+    public static final String PREF_SHOW_ALL_COLORS = "pref_show_all_colors";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
@@ -149,7 +151,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     private static final Settings sInstance = new Settings();
 
-    // preferences that are not used in SettingsValues
+    // preferences that are not used in SettingsValues and thus should not trigger reload when changed
     private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
         add(PREF_FORCE_OPPOSITE_THEME);
         add(PREF_PINNED_CLIPS);
@@ -157,6 +159,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
+        add(PREF_SHOW_ALL_COLORS);
     }};
 
     public static Settings getInstance() {
@@ -525,6 +528,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                         return value.data;
                 }
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
+            case PREF_COLOR_GESTURE_SUFFIX:
+                return readUserColor(prefs, context, PREF_COLOR_ACCENT_SUFFIX, isNight);
             case PREF_COLOR_TEXT_SUFFIX:
                 // base it on background color, and not key, because it's also used for suggestions
                 final int background = readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight);

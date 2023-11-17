@@ -30,6 +30,7 @@ class Colors (
     val themeStyle: String,
     val hasKeyBorders: Boolean,
     val accent: Int,
+    val gesture: Int,
     val background: Int,
     val keyBackground: Int,
     val functionalKey: Int,

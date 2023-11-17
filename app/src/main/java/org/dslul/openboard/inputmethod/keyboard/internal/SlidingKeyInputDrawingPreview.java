@@ -38,7 +38,7 @@ public final class SlidingKeyInputDrawingPreview extends AbstractDrawingPreview 
     private final Paint mPaint = new Paint();
 
     public SlidingKeyInputDrawingPreview(final TypedArray mainKeyboardViewAttr) {
-        final int previewColor = Settings.getInstance().getCurrent().mColors.getAccent(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_slidingKeyInputPreviewColor, 0);
+        final int previewColor = Settings.getInstance().getCurrent().mColors.getGesture(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_slidingKeyInputPreviewColor, 0);
         final float previewRadius = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_slidingKeyInputPreviewWidth, 0) / 2.0f;
         final int PERCENTAGE_INT = 100;

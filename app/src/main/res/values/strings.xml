@@ -612,6 +612,10 @@ New dictionary:
     <string name="select_user_colors_night">Adjust colors (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
+    <!-- Menu item for showing fewer colors -->
+    <string name="main_colors">Show main colors only</string>
+    <!-- Menu item for showing all colors -->
+    <string name="all_colors">Show all colors</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
@@ -632,6 +636,8 @@ New dictionary:
     <string name="select_color_spacebar_text">Space bar text</string>
     <!-- Selection: accent color. -->
     <string name="select_color_accent">Accent</string>
+    <!-- Selection: gesture color. -->
+    <string name="select_color_gesture">Gesture input</string>
     <!-- Settings screen title for about [CHAR LIMIT=33]-->
     <string name="settings_screen_about">About</string>
     <!-- version for about screen-->

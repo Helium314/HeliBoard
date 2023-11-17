@@ -150,6 +150,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false),
@@ -163,6 +164,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
@@ -175,6 +177,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         // colors taken from the drawable
                         Color.parseColor("#263238"),
@@ -190,6 +193,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         Color.parseColor("#FFFFFF"),
+                        Color.parseColor("#FFFFFF"),
                         // colors taken from the drawable
                         Color.parseColor("#282828"),
                         Color.parseColor("#FFFFFF"), // transparency!
@@ -204,6 +208,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_functional_lxx_dark_border),
@@ -216,6 +221,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_black),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
@@ -230,6 +236,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
