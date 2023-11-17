@@ -207,7 +207,12 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);
         mLanguageOnSpacebarTextShadowColor = mainKeyboardViewAttr.getColor(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowColor, 0);
-        mLanguageOnSpacebarFinalAlpha = Color.alpha(mLanguageOnSpacebarTextColor);
+        // Add the alpha value here for fading dynamic colors, as system_accent or system_neutral colors have no alpha value.
+        if (colors.getThemeColors().equals(KeyboardTheme.THEME_DYNAMIC_LIGHT) || colors.getThemeColors().equals(KeyboardTheme.THEME_DYNAMIC_DARK)) {
+            mLanguageOnSpacebarFinalAlpha = Color.alpha(applyAlpha(mLanguageOnSpacebarTextColor, 0.5f));
+        } else {
+            mLanguageOnSpacebarFinalAlpha = Color.alpha(mLanguageOnSpacebarTextColor);
+        }
         final int languageOnSpacebarFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_languageOnSpacebarFadeoutAnimator, 0);
         final int altCodeKeyWhileTypingFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
@@ -881,6 +886,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         canvas.drawText(language, width / 2f, baseline - descent, paint);
         paint.clearShadowLayer();
         paint.setTextScaleX(1.0f);
+    }
+
+    private static int applyAlpha(final int color, final float alpha) {
+        final int newAlpha = (int)(Color.alpha(color) * alpha);
+        return Color.argb(newAlpha, Color.red(color), Color.green(color), Color.blue(color));
     }
 
     @Override

@@ -9,6 +9,7 @@ package org.dslul.openboard.inputmethod.keyboard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Build.VERSION_CODES;
 
 import androidx.core.content.ContextCompat;
@@ -33,10 +34,16 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_DARK = "dark";
     public static final String THEME_DARKER = "darker";
     public static final String THEME_BLACK = "black";
+    public static final String THEME_DYNAMIC_LIGHT = "dynamic_light";
+    public static final String THEME_DYNAMIC_DARK = "dynamic_dark";
     public static final String THEME_USER = "user";
     public static final String THEME_USER_NIGHT = "user_night";
-    public static final String[] COLORS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
-    public static final String[] COLORS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT };
+    public static final String[] COLORS = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
+            ? new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER }
+            : new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_DYNAMIC_LIGHT, THEME_USER } ;
+    public static final String[] COLORS_DARK = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
+            ? new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT }
+            : new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_DYNAMIC_DARK, THEME_USER_NIGHT } ;
 
     public static final String[] STYLES = { STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED };
 
@@ -148,6 +155,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_USER:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
@@ -162,6 +170,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_USER_NIGHT:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
@@ -176,6 +185,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_DARK:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
@@ -191,6 +201,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_HOLO_WHITE:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
@@ -206,6 +217,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_DARKER:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
@@ -220,6 +232,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_BLACK:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
@@ -231,10 +244,41 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
+            case THEME_DYNAMIC_LIGHT:
+                return new Colors(
+                        themeStyle,
+                        themeColors,
+                        hasBorders,
+                        ContextCompat.getColor(context, R.color.action_key_background_dynamic_light),
+                        ContextCompat.getColor(context, R.color.gesture_dynamic_light),
+                        ContextCompat.getColor(context, R.color.keyboard_background_dynamic_light),
+                        ContextCompat.getColor(context, R.color.key_background_dynamic_light),
+                        ContextCompat.getColor(context, R.color.functional_key_background_dynamic_light),
+                        ContextCompat.getColor(context, R.color.key_background_dynamic_light),
+                        ContextCompat.getColor(context, R.color.text_color_dynamic_light),
+                        ContextCompat.getColor(context, R.color.hint_color_dynamic_light),
+                        ContextCompat.getColor(context, R.color.hint_color_dynamic_light)
+                    );
+            case THEME_DYNAMIC_DARK:
+                return new Colors(
+                        themeStyle,
+                        themeColors,
+                        hasBorders,
+                        ContextCompat.getColor(context, R.color.action_key_background_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.gesture_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.keyboard_background_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.key_background_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.functional_key_background_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.key_background_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.text_color_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.text_color_dynamic_dark),
+                        ContextCompat.getColor(context, R.color.text_color_dynamic_dark)
+                );
             case THEME_LIGHT:
             default:
                 return new Colors(
                         themeStyle,
+                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),

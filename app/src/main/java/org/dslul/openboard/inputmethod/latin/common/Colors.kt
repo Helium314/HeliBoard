@@ -15,6 +15,8 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_HOLO
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_MATERIAL
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.THEME_DYNAMIC_DARK
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.THEME_DYNAMIC_LIGHT
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
@@ -28,6 +30,7 @@ import org.dslul.openboard.inputmethod.latin.utils.*
 
 class Colors (
     val themeStyle: String,
+    val themeColors: String,
     val hasKeyBorders: Boolean,
     val accent: Int,
     val gesture: Int,
@@ -70,7 +73,10 @@ class Colors (
     private val keyboardBackground: Drawable?
 
     init {
-        accentColorFilter = colorFilter(accent)
+        accentColorFilter =
+            if (themeColors == THEME_DYNAMIC_LIGHT || themeColors == THEME_DYNAMIC_DARK ) colorFilter(doubleDarken(accent))
+            else colorFilter(accent)
+
         if (themeStyle == STYLE_HOLO) {
             val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
             navBar = darkerBackground
@@ -96,7 +102,16 @@ class Colors (
             adjustedBackground = darken(background)
             doubleAdjustedBackground = darken(adjustedBackground)
         }
-        adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
+        adjustedBackgroundStateList =
+            if (themeColors != THEME_DYNAMIC_LIGHT && themeColors != THEME_DYNAMIC_DARK) {
+                stateList(doubleAdjustedBackground, adjustedBackground)
+            } else if (themeColors == THEME_DYNAMIC_DARK) {
+                if (hasKeyBorders) stateList(doubleDarken(accent), keyBackground)
+                else stateList(darken(accent), brighten(keyBackground))
+            } else {
+                // For THEME_DYNAMIC_LIGHT with and without key borders
+                stateList(accent, Color.WHITE)
+            }
         suggestionBackgroundList = if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
             stateList(doubleAdjustedBackground, Color.TRANSPARENT)
         else
@@ -107,25 +122,53 @@ class Colors (
 //            keyBackgroundFilter = colorFilter(keyBackground)
 //            functionalKeyBackgroundFilter = colorFilter(functionalKey)
 //            spaceBarFilter = colorFilter(spaceBar)
-            backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = if (themeStyle == STYLE_HOLO) stateList(keyBackground, keyBackground)
+            backgroundStateList = when (themeColors) {
+                THEME_DYNAMIC_LIGHT -> stateList(darken(functionalKey), background)
+                THEME_DYNAMIC_DARK -> stateList(brightenOrDarken(keyBackground, true), background)
+                else -> stateList(brightenOrDarken(background, true), background)
+            }
+            keyStateList =
+                if (themeStyle == STYLE_HOLO) stateList(keyBackground, keyBackground)
+                else if (themeColors == THEME_DYNAMIC_LIGHT) stateList(adjustedBackground, keyBackground)
                 else stateList(brightenOrDarken(keyBackground, true), keyBackground)
-            functionalKeyStateList = stateList(brightenOrDarken(functionalKey, true), functionalKey)
-            actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
+            functionalKeyStateList = when (themeColors) {
+                THEME_DYNAMIC_LIGHT -> stateList(doubleDarken(functionalKey), functionalKey)
+                THEME_DYNAMIC_DARK -> stateList(functionalKey, brighten(brighten(keyBackground)))
+                else -> stateList(brightenOrDarken(functionalKey, true), functionalKey)
+            }
+            actionKeyStateList =
+                if (themeStyle == STYLE_HOLO) functionalKeyStateList
+                else if (themeColors == THEME_DYNAMIC_LIGHT) stateList(gesture, accent)
+                else if (themeColors == THEME_DYNAMIC_DARK) stateList(doubleDarken(accent), accent)
                 else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = if (themeStyle == STYLE_HOLO) stateList(spaceBar, spaceBar)
+            spaceBarStateList =
+                if (themeStyle == STYLE_HOLO) stateList(spaceBar, spaceBar)
+                else if (themeColors == THEME_DYNAMIC_LIGHT || themeColors == THEME_DYNAMIC_DARK) keyStateList
                 else stateList(brightenOrDarken(spaceBar, true), spaceBar)
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
 //            keyBackgroundFilter = backgroundFilter
 //            functionalKeyBackgroundFilter = keyBackgroundFilter
 //            spaceBarFilter = colorFilter(spaceBar)
-            backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = stateList(brightenOrDarken(background, true), Color.TRANSPARENT)
+            backgroundStateList = when (themeColors) {
+                THEME_DYNAMIC_LIGHT -> stateList(darken(functionalKey), background)
+                THEME_DYNAMIC_DARK -> stateList(brighten(keyBackground), background)
+                else -> stateList(brightenOrDarken(background, true), background)
+            }
+            keyStateList = when (themeColors) {
+                THEME_DYNAMIC_LIGHT -> stateList(darken(functionalKey), Color.TRANSPARENT)
+                THEME_DYNAMIC_DARK -> stateList(functionalKey, Color.TRANSPARENT)
+                else -> stateList(brightenOrDarken(background, true), Color.TRANSPARENT)
+            }
             functionalKeyStateList = keyStateList
-            actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
+            actionKeyStateList =
+                if (themeStyle == STYLE_HOLO) functionalKeyStateList
+                else if (themeColors == THEME_DYNAMIC_LIGHT) stateList(gesture, accent)
+                else if (themeColors == THEME_DYNAMIC_DARK) stateList(doubleDarken(accent), accent)
                 else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
+            spaceBarStateList =
+                if (themeColors == THEME_DYNAMIC_LIGHT) stateList(gesture, darken(functionalKey))
+                else stateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
         actionKeyIconColorFilter = when {
@@ -185,7 +228,10 @@ class Colors (
     fun setKeyboardBackground(view: View) {
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
-            is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
+            is MoreKeysKeyboardView ->
+                if (themeColors == THEME_DYNAMIC_LIGHT || themeColors == THEME_DYNAMIC_DARK)
+                    setBackgroundColor(view.background, BackgroundType.ADJUSTED_BACKGROUND)
+                else view.background.colorFilter = adjustedBackgroundFilter
             is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
             is EmojiPageKeyboardView, // to make EmojiPalettesView background visible, which does not scroll
             is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // otherwise causes issues with wrapper view when using one-handed mode

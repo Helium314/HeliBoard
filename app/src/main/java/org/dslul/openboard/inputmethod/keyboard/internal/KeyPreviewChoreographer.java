@@ -7,10 +7,12 @@
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -108,7 +110,11 @@ public final class KeyPreviewChoreographer {
         final boolean hasMoreKeys = (key.getMoreKeys() != null);
         keyPreviewView.setPreviewBackground(hasMoreKeys, keyPreviewPosition);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        keyPreviewView.getBackground().setColorFilter(colors.getAdjustedBackgroundFilter());
+        if (colors.getThemeColors().equals(KeyboardTheme.THEME_DYNAMIC_LIGHT) || colors.getThemeColors().equals(KeyboardTheme.THEME_DYNAMIC_DARK)) {
+            keyPreviewView.getBackground().setColorFilter(colors.getKeyBackground(), PorterDuff.Mode.SRC);
+        } else {
+            keyPreviewView.getBackground().setColorFilter(colors.getAdjustedBackgroundFilter());
+        }
         // The key preview is placed vertically above the top edge of the parent key with an
         // arbitrary offset.
         final int previewY = key.getY() - previewHeight + key.getHeight() - mParams.mPreviewOffset
