@@ -64,12 +64,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   + test it
         //  layouts
         //   test tablet layouts, especially care about the comma moreKeys
+        //    looks fine i'd say, except for the unneeded comma morekeys (! and ?)
         //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
         //    there should be the language moreKeys for ', currently they are not
         //    hmm, could do the key replacement thing, which i did not have / want with eo only
-        //    de_DE also has ß bonus letter in row 3, upcasing results in ss instead of ẞ, maybe also need such replacement mechanism here
-        //     but that should be simple, change in stringUtils.toTitleCaseOfKeyLabel
-        //     also, if i switch: remove the capital ẞ from moreKeys
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
         //   and extend the pref to use them both
