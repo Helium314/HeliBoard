@@ -3,7 +3,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -537,6 +536,9 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         return keys.toTypedArray()
     }
 
+    // todo: remove ! and ? if it's a tablet, and also reduce the number in autoColumnOrder
+    //  or just set to null, then they should be ignored later anyway
+    //  maybe set number in autoColumnOrder to (array.size - 1) / 2
     private fun getPeriodMoreKeys(): Array<String> {
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
