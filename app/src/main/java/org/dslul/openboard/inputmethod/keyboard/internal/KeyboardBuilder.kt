@@ -62,17 +62,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         // todo:
         //  more sophisticated moreKeys merging for multilingual typing
         //   + test it
-        //  layouts
-        //   test tablet layouts, especially care about the comma moreKeys
-        //    looks fine i'd say, except for the unneeded comma morekeys (! and ?)
-        //   azerty layout: bottom right key changes label with shift, and has the single_quotes and single_angle_quotes in moreKeys
-        //    there should be the language moreKeys for ', currently they are not
-        //    hmm, could do the key replacement thing, which i did not have / want with eo only
+        //  azerty ' missing morekeys: single_quotes and single_angle_quotes
+        //  any default moreKeys necessary?
+        //   probably for ' and "
+        //   now also for default layout because of azerty, so do it now instead of later
+        //  azerty layout: bottom right key changes label with shift (only manual), just ignore it?
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
         //   and extend the pref to use them both
-        //  tablet_punctuation morekey is ignored (also in py script now)
-        //   only has ' at a different place, and ? and ! removed (latter should be done automatically anyway? no, depends on some setting in params!)
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)

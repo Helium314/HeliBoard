@@ -536,20 +536,21 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         return keys.toTypedArray()
     }
 
-    // todo: remove ! and ? if it's a tablet, and also reduce the number in autoColumnOrder
-    //  or just set to null, then they should be ignored later anyway
-    //  maybe set number in autoColumnOrder to (array.size - 1) / 2
     private fun getPeriodMoreKeys(): Array<String> {
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
-        // todo: language-dependent, also influences the number after autoColumnOrder
-        //  there is a weird messup with morekeys_punctuation and morekeys_period
-        //  by default, morekeys_period is taken from morekeys_punctuation, but some languages override this
-        //  morekeys_period is also changed by some languages
-        //  period key always uses morekeys_period, except for dvorak layout which is the only user of morekeys_punctuation
-        //  -> clean it up when implementing the language-dependent moreKeys
-        return params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
+        val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
             arrayOf("!autoColumnOrder!8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+        if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
+            // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
+            // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
+            moreKeys[moreKeys.indexOf("!")] = ""
+            moreKeys[moreKeys.indexOf("?")] = ""
+            val columns = moreKeys[0].substringAfter("!autoColumnOrder!").toIntOrNull()
+            if (columns != null)
+                moreKeys[0] = "!autoColumnOrder!${columns - 1}"
+        }
+        return moreKeys
     }
 
 }
