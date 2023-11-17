@@ -13,12 +13,14 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTexts
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_ALL
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_MORE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.putLanguageMoreKeysAndLabels
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
-import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
@@ -50,6 +52,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         putLanguageMoreKeysAndLabels(mContext, mParams)
+        when (Settings.getInstance().current.mShowMoreKeys) {
+            MORE_KEYS_ALL -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/all_more_keys.txt"))
+            MORE_KEYS_MORE -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/more_more_keys.txt"))
+        }
         keysInRows = try {
             SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
         } catch (e: Exception) {
@@ -60,15 +66,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         useRelative()
 
         // todo:
-        //  azerty ' missing morekeys: single_quotes and single_angle_quotes
-        //  any default moreKeys necessary?
-        //   probably for ' and "
-        //   now also for default layout because of azerty, so do it now instead of later
-        //  azerty layout: bottom right key changes label with shift (only manual), just ignore it?
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
         //   and extend the pref to use them both
         //   how to use them: add them like another language (after all languages), using the moreKeys join system
+        //   alphabet(qwerty), i.e. zz, should show more moreKeys as language default
+        //    is this really parsed+ using the simple parser?
         //  add the other latin layouts (dvorak and so on) except pcqwerty
         //  allow users to switch to old style (keep it until all layouts are switched)
         //   really helps to find differences
@@ -77,6 +80,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    would be good for users, but need to inform them so they can provide stack traces
         //  problem (already exists): joined moreKeys are in cached keyboard, so removing a language doesn't change anything
         //   -> remove from cache, if necessary just reload all
+        //   also happens when changing the more more keys setting
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)

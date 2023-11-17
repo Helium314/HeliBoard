@@ -17,6 +17,8 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     var labelShiftSymbols = "=\\<"
     init {
         readStream(dataStream, false)
+        // set default quote moreKeys if necessary
+        // should this also be done with punctuation moreKeys??
         if ("\'" !in moreKeys)
             moreKeys["\'"] = arrayOf("‚", "‘", "’", "‹", "›")
         if ("\"" !in moreKeys)
@@ -68,7 +70,7 @@ class LocaleKeyTexts(dataStream: InputStream?) {
         if (row > extraKeys.size) null
             else extraKeys[row]
 
-    fun addLanguage(dataStream: InputStream?) {
+    fun addFile(dataStream: InputStream?) {
         readStream(dataStream, true)
     }
 
@@ -121,7 +123,7 @@ fun putLanguageMoreKeysAndLabels(context: Context, params: KeyboardParams) {
         val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context))
         locales.forEach { locale ->
             if (locale == params.mId.locale) return@forEach
-            lkt.addLanguage(getStreamForLocale(locale, context))
+            lkt.addFile(getStreamForLocale(locale, context))
         }
         lkt
     }
@@ -129,7 +131,8 @@ fun putLanguageMoreKeysAndLabels(context: Context, params: KeyboardParams) {
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        context.assets.open("language_key_texts/${locale.toString().lowercase()}.txt")
+        if (locale.toString() == "zz") context.assets.open("language_key_texts/more_more_keys.txt")
+        else context.assets.open("language_key_texts/${locale.toString().lowercase()}.txt")
     } catch (_: Exception) {
         try {
             context.assets.open("language_key_texts/${locale.language.lowercase()}.txt")
@@ -201,3 +204,7 @@ private val ruble = "₽" to arrayOf("€", "$", "£", "¥")
 private val lira = "₺" to arrayOf("€", "$", "£", "¥")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
+
+const val MORE_KEYS_ALL = 2;
+const val MORE_KEYS_MORE = 1;
+const val MORE_KEYS_NORMAL = 0;

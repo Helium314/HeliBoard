@@ -16,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
-import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
@@ -26,6 +25,7 @@ import org.dslul.openboard.inputmethod.latin.define.JniLibName
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import java.io.File
 import java.io.FileInputStream
@@ -56,8 +56,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         "userunigram.*/userunigram.*\\.(body|header)".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "spellcheck_userunigram.*/spellcheck_userunigram.*\\.(body|header)".toRegex(),
-        // todo: found "b.<locale>.dict" folder, where does it come from?
-        //  possibly some obfuscation thing that occurred after upgrading to gradle 8?
     ) }
 
     private val libraryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -292,7 +290,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         if (Settings.PREF_SHOW_SETUP_WIZARD_ICON == key) {
             SystemBroadcastReceiver.toggleAppIcon(requireContext())
-        } else if (Settings.PREF_SHOW_ALL_MORE_KEYS == key) {
+        } else if (Settings.PREF_MORE_MORE_KEYS == key) {
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
     }

@@ -140,7 +140,8 @@ def write_keys(outfile, keys, locc=""):
                     f.write(f"{row}: {label} {morekeys}\n")
 
 
-def get_morekeys_texts():
+def get_morekeys_texts(write=False):
+    val = []
     for file in (pathlib.Path(__file__).parent / xml_folder).iterdir():
         locc = read_locale_from_folder(file.name)
         if locc is None:
@@ -159,18 +160,49 @@ def get_morekeys_texts():
             continue  # skip non-latin scripts for now
         print(file)
         keys = read_keys(f"{file}/donottranslate-more-keys.xml")
-        if not locc.startswith("defff"):
+        val.append(keys)
+        if not write:
             continue
         outfile_name = locc.replace("-r", "_").lower() + ".txt"
         outfile = pathlib.Path(out_folder + outfile_name)
         outfile.parent.mkdir(exist_ok=True, parents=True)
         write_keys(outfile, keys, locc)
+    return val
+
+
+def write_combined_lists(keys):
+    infos_by_letters = dict()
+    for key in keys:
+        for k, v in key["morekeys"].items():
+            infos = infos_by_letters.get(k, dict())
+            for l in v.split(" "):
+                if l == "%":
+                    continue
+                infos[l] = infos.get(l, 0) + 1
+            infos_by_letters[k] = infos
+    with open(out_folder + "all_more_keys.txt", 'w') as f:
+        f.write("[morekeys]\n")
+        for letter, info in infos_by_letters.items():
+            f.write(letter + " " + " ".join(info.keys()) + "\n")
+    with open(out_folder + "more_more_keys.txt", 'w') as f:
+        f.write("[morekeys]\n")
+        for letter, info in infos_by_letters.items():
+            morekeys = []
+            for morekey, count in info.items():
+                if count > 1:
+                    morekeys.append(morekey)
+            if len(morekeys) > 0:
+                f.write(letter + " " + " ".join(morekeys) + "\n")
 
 
 def main():
 #    k = read_keys(default_file)
 #    write_keys(pathlib.Path(__file__).parent / f"defaultkeys.txt", k)
-    get_morekeys_texts()
+    keys = get_morekeys_texts()
+    write_combined_lists(keys)
+
+
+
 
 # need to check strings:
 # latin, but only in symbol layout

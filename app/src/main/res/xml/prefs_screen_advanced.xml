@@ -56,6 +56,15 @@
         android:defaultValue="true"
         android:persistent="true" />
 
+    <ListPreference
+        android:key="pref_more_more_keys"
+        android:title="@string/show_more_keys_title"
+        android:entries="@array/show_more_keys_entries"
+        android:entryValues="@array/show_more_keys_values"
+        android:defaultValue="normal"
+        android:summary="%s"
+        android:persistent="true" />
+
     <Preference
         android:key="pref_backup_restore"
         android:title="@string/backup_restore_title" />
@@ -74,12 +83,6 @@
             android:key="pref_space_language_slide"
             android:title="@string/space_language_slide"
             android:summary="@string/space_language_slide_summary"
-            android:defaultValue="false" />
-
-        <SwitchPreferenceCompat
-            android:key="pref_show_all_more_keys"
-            android:title="@string/show_all_more_keys_title"
-            android:summary="@string/show_all_more_keys_summary"
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat

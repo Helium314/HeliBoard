@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -123,7 +124,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
     public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
-    public static final String PREF_SHOW_ALL_MORE_KEYS = "pref_show_all_more_keys";
+    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
     public static final String PREF_URL_DETECTION = "pref_url_detection";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
@@ -464,6 +465,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
         keys.remove(key);
         prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+    }
+
+    public static int readMoreMoreKeysPref(final SharedPreferences prefs) {
+        return switch (prefs.getString(Settings.PREF_MORE_MORE_KEYS, "normal")) {
+            case "all" -> LocaleKeyTextsKt.MORE_KEYS_ALL;
+            case "more" -> LocaleKeyTextsKt.MORE_KEYS_MORE;
+            default -> LocaleKeyTextsKt.MORE_KEYS_NORMAL;
+        };
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {

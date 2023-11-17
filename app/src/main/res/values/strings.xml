@@ -189,10 +189,14 @@
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <!-- Description for "insert_more_spaces" option. -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
-    <!-- Preferences item for showing all available keys in long-press popup -->
-    <string name="show_all_more_keys_title">Show all keys in popup</string>
-    <!-- Description for "show_all_more_keys" option. -->
-    <string name="show_all_more_keys_summary">When using a latin keyboard, more characters are available on long-pressing a key</string>
+    <!-- Preferences item for showing more keys in long-press popup -->
+    <string name="show_more_keys_title">Show more letter diacritics in popup</string>
+    <!-- Option for showing only letters defined in the current language file in long-press popup -->
+    <string name="show_more_keys_normal">Show variants defined in active languages (default)</string>
+    <!-- Option for showing letters defined in at least two locales -->
+    <string name="show_more_keys_more">Add variants used in many languages</string>
+    <!-- Option for showing letters defined in any locale -->
+    <string name="show_more_keys_all">Add all available variants</string>
     <!-- Preferences item for enabling URL detection -->
     <string name="url_detection_title">URL detection</string>
     <!-- Description for "url_detection_title" option. -->

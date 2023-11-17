@@ -254,8 +254,6 @@ Nouveau dictionnaire:
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Espace automatique après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
-    <string name="show_all_more_keys_title">Afficher tous les caractères dans les popups</string>
-    <string name="show_all_more_keys_summary">Lorsque l\'on utilise un clavier latin, un appui long sur une touche permet d\'obtenir davantage de caractères</string>
     <string name="url_detection_title">Détection d\'URL</string>
     <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
