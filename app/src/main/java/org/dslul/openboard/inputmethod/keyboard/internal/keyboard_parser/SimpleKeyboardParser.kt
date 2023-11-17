@@ -540,15 +540,15 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
         val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
-            arrayOf("!autoColumnOrder!8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+            arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
         if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
             // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
             // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
             moreKeys[moreKeys.indexOf("!")] = ""
             moreKeys[moreKeys.indexOf("?")] = ""
-            val columns = moreKeys[0].substringAfter("!autoColumnOrder!").toIntOrNull()
+            val columns = moreKeys[0].substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
             if (columns != null)
-                moreKeys[0] = "!autoColumnOrder!${columns - 1}"
+                moreKeys[0] = "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
         }
         return moreKeys
     }

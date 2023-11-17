@@ -60,8 +60,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         useRelative()
 
         // todo:
-        //  more sophisticated moreKeys merging for multilingual typing
-        //   + test it
         //  azerty ' missing morekeys: single_quotes and single_angle_quotes
         //  any default moreKeys necessary?
         //   probably for ' and "
@@ -70,6 +68,15 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
         //   create files using some script
         //   and extend the pref to use them both
+        //   how to use them: add them like another language (after all languages), using the moreKeys join system
+        //  add the other latin layouts (dvorak and so on) except pcqwerty
+        //  allow users to switch to old style (keep it until all layouts are switched)
+        //   really helps to find differences
+        //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
+        //   have some fallback to the old style when parse or build fails?
+        //    would be good for users, but need to inform them so they can provide stack traces
+        //  problem (already exists): joined moreKeys are in cached keyboard, so removing a language doesn't change anything
+        //   -> remove from cache, if necessary just reload all
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)
@@ -81,22 +88,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  placeholder for currency key: $$$
 
         // todo: further plan to make it actually useful
-        //  migrate latin layouts to this style (need to make exception for pcqwerty!)
-        //   finalize simple layout format
-        //    keep like now: nice, because simple and allows defining any number of moreKeys
-        //    rows of letters, separated with space: very straightforward, but moreKeys are annoying and only one possible
-        //    consider the current layout maybe doesn't have the correct moreKeys
-        //   where to actually get the current keyboard layout name, so it can be used to select the correct file?
-        //    maybe KeyboardLayoutSet will need to be replaced
-        //    method.xml: imeSubtypeExtraValue has KeyboardLayoutSet=german and similar
-        //     but de doesn't have german, only de_DE, and no hint for qwertz (same for french, no hit to azerty)
-        //   need to solve the scaling issue with number row and 5 row keyboards
-        //   allow users to switch to old style (keep it until all layouts are switched)
-        //    really helps to find differences
-        //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
-        //   add a separate layout for eo (base on qwerty, the key replacement mechanism really is not great to have everywhere when it's not used by any other language)
-        //   label flags to do (top part is for latin!)
+        //  make the remove duplicate moreKey thing an option?
+        //   why is it on for serbian (latin), but not for german (german)?
+        //   only nordic and serbian_qwertz layouts have it disabled, default it enabled
+        //  migrate symbol layouts to this style
+        //   better before user-defined layouts
+        //   should be straightforward to do
         //  allow users to define their own layouts
+        //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
         //    readme, maybe also some "help" button in a dialog
         //   some sort of proper UI, or simply text input?
@@ -110,7 +109,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //     still would crash for a single huge label
         //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
         //   does glide typing work with multiple letters on one key? if not, users should be notified
-        //  migrate symbol layouts to this style
         //   maybe allow users to define their own symbol and shift-symbol layouts
         //  migrate emoji layouts to this style
         //   emojis are defined in that string array, should be simple to handle
@@ -124,16 +122,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser
         //  migrate moreKeys and moreSuggestions to this style?
-        //   at least they should not make use of the KeyTextsSet/Table and of the XmlKeyboardParser
+        //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
         //  migrate other languages to this style
         //   may be difficult in some cases, like additional row, or no shift key, or pc qwerty layout
         //   also the (integrated) number row might cause issues
         //   at least some of these layouts will need more complicated definition, not just a simple text file
         //   some languages also change symbol view, e.g. fa changes symbols row 3
         //   add more layouts before doing this? or just keep the layout conversion script
-        //  remove all the keyboard layout related xmls if possible
-        //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
-        //   and the texts_table and its source tools
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...

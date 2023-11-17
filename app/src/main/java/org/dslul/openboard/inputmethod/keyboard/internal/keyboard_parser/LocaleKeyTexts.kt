@@ -2,11 +2,12 @@
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
-import android.util.Log
+import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.InputStream
 import java.util.Locale
+import kotlin.math.round
 
 class LocaleKeyTexts(dataStream: InputStream?) {
     private val moreKeys = hashMapOf<String, Array<String>>()
@@ -19,15 +20,15 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     private fun readStream(stream: InputStream?, onlyMoreKeys: Boolean) {
         if (stream == null) return
         stream.reader().use { reader ->
-            var mode = MODE_NONE
+            var mode = READER_MODE_NONE
             reader.forEachLine { l ->
                 val line = l.trim()
                 when (line) {
-                    "[morekeys]" -> { mode = MODE_MORE_KEYS; return@forEachLine }
-                    "[extra_keys]" -> { mode = MODE_EXTRA_KEYS; return@forEachLine }
-                    "[labels]" -> { mode = MODE_LABELS; return@forEachLine }
+                    "[morekeys]" -> { mode = READER_MODE_MORE_KEYS; return@forEachLine }
+                    "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
+                    "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
                 }
-                if (mode == MODE_MORE_KEYS) {
+                if (mode == READER_MODE_MORE_KEYS) {
                     val split = line.split(" ")
                     if (split.size == 1) return@forEachLine
                     val existingMoreKeys = moreKeys[split.first()]
@@ -35,14 +36,14 @@ class LocaleKeyTexts(dataStream: InputStream?) {
                         moreKeys[split.first()] = Array(split.size - 1) { split[it + 1] }
                     else
                         moreKeys[split.first()] = mergeMoreKeys(existingMoreKeys, split.drop(1))
-                } else if (mode == MODE_EXTRA_KEYS && !onlyMoreKeys) {
+                } else if (mode == READER_MODE_EXTRA_KEYS && !onlyMoreKeys) {
                     val row = line.substringBefore(": ").toInt()
                     val split = line.substringAfter(": ").split(" ")
                     val morekeys = if (split.size == 1) null else Array(split.size - 1) { split[it + 1] }
                     if (extraKeys[row] == null)
                         extraKeys[row] = mutableListOf()
                     extraKeys[row]?.add(split.first() to morekeys)
-                } else if (mode == MODE_LABELS && !onlyMoreKeys) {
+                } else if (mode == READER_MODE_LABELS && !onlyMoreKeys) {
                     val split = line.split(": ")
                     when (split.first()) {
                         "symbols" -> labelSymbols = split.last()
@@ -67,14 +68,44 @@ class LocaleKeyTexts(dataStream: InputStream?) {
 
 }
 
-// todo: this is a little too simple, actually there may be more than one % which should be considered
-//  further the first of the added moreKeys should be close to the beginning, as they are more likely to be used
-// todo: careful about punctuation moreKeys, because of autoColumnOrder and stuff
-//  is it possible to just take the larger list here for a start?
-//  -> no, will be bad with es + ca, and that's probably not an unusual combination
-private fun mergeMoreKeys(old: Array<String>, added: List<String>): Array<String> {
-    val moreKeys = old.toMutableSet()
-    moreKeys.addAll(added)
+private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<String> {
+    val markerIndexInOriginal = original.indexOf("%")
+    val markerIndexInAddedIndex = added.indexOf("%")
+    val moreKeys = mutableSetOf<String>()
+    if (markerIndexInOriginal != -1 && markerIndexInAddedIndex != -1) {
+        // add original and then added until %
+        original.forEachIndexed { index, s -> if (index < markerIndexInOriginal) moreKeys.add(s) }
+        added.forEachIndexed { index, s -> if (index < markerIndexInAddedIndex) moreKeys.add(s) }
+        // add % and remaining moreKeys
+        original.forEachIndexed { index, s -> if (index >= markerIndexInOriginal) moreKeys.add(s) }
+        added.forEachIndexed { index, s -> if (index > markerIndexInAddedIndex) moreKeys.add(s) }
+        return moreKeys.toTypedArray()
+    } else if (markerIndexInOriginal != -1) {
+        // add original until %, then added, then remaining original
+        original.forEachIndexed { index, s -> if (index <= markerIndexInOriginal) moreKeys.add(s) }
+        moreKeys.addAll(added)
+        original.forEachIndexed { index, s -> if (index > markerIndexInOriginal) moreKeys.add(s) }
+    } else if (markerIndexInAddedIndex != -1) {
+        // add added until %, then original, then remaining added
+        added.forEachIndexed { index, s -> if (index <= markerIndexInAddedIndex) moreKeys.add(s) }
+        moreKeys.addAll(original)
+        added.forEachIndexed { index, s -> if (index > markerIndexInAddedIndex) moreKeys.add(s) }
+    } else {
+        moreKeys.addAll(original)
+        moreKeys.addAll(added)
+    }
+    if (moreKeys.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }) {
+        val originalColumnCount = original.firstOrNull { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
+            ?.substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
+        val l = moreKeys.filterNot { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
+        if (originalColumnCount != null && moreKeys.size <= 20 // not for too wide layout
+            && originalColumnCount == round((original.size - 1 + 0.1f) / 2f).toInt()) { // +0.1 f against rounding issues
+            // we had 2 rows, and want it again
+            return (l + "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}").toTypedArray()
+        }
+        // just drop autoColumnOrder otherwise (maybe not? depends on arising issues)
+        return l.toTypedArray()
+    }
     return moreKeys.toTypedArray()
 }
 
@@ -104,33 +135,33 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
 // cache the texts, so they don't need to be read over and over
 private val moreKeysAndLabels = hashMapOf<String, LocaleKeyTexts>()
 
-private const val MODE_NONE = 0
-private const val MODE_MORE_KEYS = 1
-private const val MODE_EXTRA_KEYS = 2
-private const val MODE_LABELS = 3
+private const val READER_MODE_NONE = 0
+private const val READER_MODE_MORE_KEYS = 1
+private const val READER_MODE_EXTRA_KEYS = 2
+private const val READER_MODE_LABELS = 3
 
 // probably could be improved and extended
 fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
     if (locale.country.matches(euroCountries))
-        return STYLE_EURO
+        return euro
     if (locale.toString().matches(euroLocales))
-        return STYLE_EURO
+        return euro
     if (locale.language.matches("ca|eu|lb|mt".toRegex()))
-        return STYLE_EURO
+        return euro
     if (locale.language.matches("fa|iw|ko|lo|mn|ne|th|uk|vi".toRegex()))
         return genericCurrencyKey(getCurrency(locale))
     if (locale.language == "hy")
-        return STYLE_DRAM
+        return dram
     if (locale.language == "tr")
-        return STYLE_LIRA
+        return lira
     if (locale.language == "ru")
-        return STYLE_RUBLE
+        return ruble
     if (locale.country == "LK" || locale.country == "BD")
         return genericCurrencyKey(getCurrency(locale))
     if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te".toRegex()))
-        return STYLE_RUPEE
+        return rupee
     if (locale.country == "GB")
-        return STYLE_POUND
+        return pound
     return genericCurrencyKey("$")
 }
 
@@ -156,11 +187,11 @@ private fun getCurrency(locale: Locale): String {
 }
 
 // needs at least 4 moreKeys for working shift-symbol keyboard
-private val STYLE_EURO = "€" to arrayOf("¢", "£", "$", "¥", "₱")
-private val STYLE_DRAM = "֏" to arrayOf("€", "$", "₽", "¥", "£")
-private val STYLE_RUPEE = "₹" to arrayOf("¢", "£", "€", "¥", "₱")
-private val STYLE_POUND = "£" to arrayOf("¢", "$", "€", "¥", "₱")
-private val STYLE_RUBLE = "₽" to arrayOf("€", "$", "£", "¥")
-private val STYLE_LIRA = "₺" to arrayOf("€", "$", "£", "¥")
+private val euro = "€" to arrayOf("¢", "£", "$", "¥", "₱")
+private val dram = "֏" to arrayOf("€", "$", "₽", "¥", "£")
+private val rupee = "₹" to arrayOf("¢", "£", "€", "¥", "₱")
+private val pound = "£" to arrayOf("¢", "$", "€", "¥", "₱")
+private val ruble = "₽" to arrayOf("€", "$", "£", "¥")
+private val lira = "₺" to arrayOf("€", "$", "£", "¥")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()

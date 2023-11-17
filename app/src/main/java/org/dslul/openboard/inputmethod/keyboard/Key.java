@@ -131,7 +131,7 @@ public class Key implements Comparable<Key> {
     private static final int MORE_KEYS_FLAGS_NEEDS_DIVIDERS = 0x20000000;
     private static final int MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY = 0x10000000;
     // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
-    private static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
+    public static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
     private static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
     private static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
     private static final String MORE_KEYS_NEEDS_DIVIDERS = "!needsDividers!";
