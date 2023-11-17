@@ -66,12 +66,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         useRelative()
 
         // todo:
-        //  more moreKeys file, and all moreKeys file (more ignores moreKeys coming from a single locale only)
-        //   create files using some script
-        //   and extend the pref to use them both
-        //   how to use them: add them like another language (after all languages), using the moreKeys join system
-        //   alphabet(qwerty), i.e. zz, should show more moreKeys as language default
-        //    is this really parsed+ using the simple parser?
         //  add the other latin layouts (dvorak and so on) except pcqwerty
         //  allow users to switch to old style (keep it until all layouts are switched)
         //   really helps to find differences
