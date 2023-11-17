@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser;
@@ -1188,11 +1189,19 @@ public class Key implements Comparable<Key> {
                 // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
                 languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
             }
+            if (languageMoreKeys != null)
+                Log.e("Key", "language morekeys for "+keySpec+": "+Arrays.toString(languageMoreKeys));
+            if (languageMoreKeys != null)
+                Log.e("Key", "layout morekeys for "+keySpec+": "+Arrays.toString(layoutMoreKeys));
             final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            if (finalMoreKeys != null)
+                Log.e("Key", "morekeys for "+keySpec+": "+Arrays.toString(finalMoreKeys));
+
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
                 mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
                 for (int i = 0; i < finalMoreKeys.length; i++) {
+                    Log.e("Key", "insert \""+finalMoreKeys[i]+"\" into moreKeys");
                     mMoreKeys[i] = new MoreKeySpec(finalMoreKeys[i], needsToUpcase, localeForUpcasing);
                 }
             } else {

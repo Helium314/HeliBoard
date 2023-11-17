@@ -3,7 +3,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -174,9 +173,6 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                         arrayOf(getCurrencyKey(params.mId.locale).first)
                 } else {
                     Array(split.size - 1) { split[it + 1] }
-                }
-                if (split.first().isBlank()) {
-                    Log.e("SimpleParser", "empty label at index $i in $row, full layout: $layoutContent")
                 }
                 BaseKey(split.first(), moreKeys)
             } + if (addExtraKeys)

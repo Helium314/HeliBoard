@@ -64,7 +64,8 @@ class LocaleKeyTexts(dataStream: InputStream?) {
 
     }
 
-    fun getMoreKeys(label: String): Array<String>? = moreKeys[label]
+    // need tp provide a copy because MoreKeySpec.insertAdditionalMoreKeys may modify the array
+    fun getMoreKeys(label: String): Array<String>? = moreKeys[label]?.copyOf()
 
     fun getExtraKeys(row: Int): List<Pair<String, Array<String>?>>? =
         if (row > extraKeys.size) null
