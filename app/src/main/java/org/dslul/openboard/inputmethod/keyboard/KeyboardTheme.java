@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
@@ -257,7 +258,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_background_dynamic_light),
                         ContextCompat.getColor(context, R.color.text_color_dynamic_light),
                         ContextCompat.getColor(context, R.color.hint_color_dynamic_light),
-                        ContextCompat.getColor(context, R.color.hint_color_dynamic_light)
+                        ColorUtils.setAlphaComponent(ContextCompat.getColor(context, R.color.hint_color_dynamic_light), 127)
                     );
             case THEME_DYNAMIC_DARK:
                 return new Colors(
@@ -272,7 +273,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_background_dynamic_dark),
                         ContextCompat.getColor(context, R.color.text_color_dynamic_dark),
                         ContextCompat.getColor(context, R.color.text_color_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.text_color_dynamic_dark)
+                        ColorUtils.setAlphaComponent(ContextCompat.getColor(context, R.color.text_color_dynamic_dark), 127)
                 );
             case THEME_LIGHT:
             default:
