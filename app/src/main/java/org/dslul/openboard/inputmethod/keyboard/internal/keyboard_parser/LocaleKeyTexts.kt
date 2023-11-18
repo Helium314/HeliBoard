@@ -4,6 +4,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 import android.content.Context
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
+import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.InputStream
 import java.util.Locale
@@ -29,6 +30,7 @@ class LocaleKeyTexts(dataStream: InputStream?) {
         if (stream == null) return
         stream.reader().use { reader ->
             var mode = READER_MODE_NONE
+            val colonSpaceRegex = ":\\s+".toRegex()
             reader.forEachLine { l ->
                 val line = l.trim()
                 when (line) {
@@ -37,7 +39,7 @@ class LocaleKeyTexts(dataStream: InputStream?) {
                     "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
                 }
                 if (mode == READER_MODE_MORE_KEYS) {
-                    val split = line.split(" ")
+                    val split = line.splitOnWhitespace()
                     if (split.size == 1) return@forEachLine
                     val existingMoreKeys = moreKeys[split.first()]
                     if (existingMoreKeys == null)
@@ -45,14 +47,17 @@ class LocaleKeyTexts(dataStream: InputStream?) {
                     else
                         moreKeys[split.first()] = mergeMoreKeys(existingMoreKeys, split.drop(1))
                 } else if (mode == READER_MODE_EXTRA_KEYS && !onlyMoreKeys) {
-                    val row = line.substringBefore(": ").toInt()
-                    val split = line.substringAfter(": ").split(" ")
-                    val morekeys = if (split.size == 1) null else Array(split.size - 1) { split[it + 1] }
+                    val splitLine = line.split(colonSpaceRegex, 1)
+                    if (splitLine.size < 2) return@forEachLine
+                    val row = splitLine.first().toIntOrNull() ?: return@forEachLine
+                    val keys = splitLine.last().splitOnWhitespace()
+                    val morekeys = if (keys.size == 1) null else Array(keys.size - 1) { keys[it + 1] }
                     if (extraKeys[row] == null)
                         extraKeys[row] = mutableListOf()
-                    extraKeys[row]?.add(split.first() to morekeys)
+                    extraKeys[row]?.add(keys.first() to morekeys)
                 } else if (mode == READER_MODE_LABELS && !onlyMoreKeys) {
-                    val split = line.split(": ")
+                    val split = line.split(colonSpaceRegex, 1)
+                    if (split.size < 2) return@forEachLine
                     when (split.first()) {
                         "symbols" -> labelSymbols = split.last()
                         "alphabet" -> labelAlphabet = split.last()

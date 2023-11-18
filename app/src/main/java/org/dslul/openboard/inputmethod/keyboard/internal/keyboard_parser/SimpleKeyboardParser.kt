@@ -11,6 +11,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
@@ -159,10 +160,10 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
     }
 
     private fun parseAdjustablePartOfLayout(layoutContent: String) =
-        layoutContent.split("\n\n").mapIndexedTo(mutableListOf()) { i, row ->
+        layoutContent.replace("\r\n", "\n").split("\n\n").mapIndexedTo(mutableListOf()) { i, row ->
             row.split("\n").mapNotNull {
                 if (it.isBlank()) return@mapNotNull null
-                val split = it.split(" ")
+                val split = it.splitOnWhitespace()
                 val moreKeys = if (split.size == 1) {
                     null
                 } else if (split.size == 2 && split.last() == "$$$") {
@@ -200,7 +201,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
             baseKeys.removeLast()
         val bottomRow = ArrayList<KeyParams>()
         context.getString(R.string.key_def_bottom_row).split(",").forEach {
-            val key = it.trim().split(" ").first()
+            val key = it.trim().splitOnWhitespace().first()
             val adjustKey = when (key) {
                 KEY_COMMA -> adjustedKeys?.first()
                 KEY_PERIOD -> adjustedKeys?.last()
@@ -277,7 +278,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
 
     // for comma and period: label will override default, moreKeys will be appended
     private fun getFunctionalKeyParams(def: String, label: String? = null, moreKeys: Array<String>? = null): KeyParams {
-        val split = def.trim().split(" ")
+        val split = def.trim().splitOnWhitespace()
         val key = split[0]
         val width = if (split.size == 2) split[1].substringBefore("%").toFloat() / 100f
             else params.mDefaultRelativeKeyWidth
