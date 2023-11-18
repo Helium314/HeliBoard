@@ -1202,6 +1202,11 @@ public class Key implements Comparable<Key> {
                 mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
                 for (int i = 0; i < finalMoreKeys.length; i++) {
                     Log.e("Key", "insert \""+finalMoreKeys[i]+"\" into moreKeys");
+                    if (finalMoreKeys[i].contains("|"))
+                        for (int k = 0; k < finalMoreKeys[i].length(); k++) {
+                            int c = finalMoreKeys[i].charAt(k);
+                            Log.e("Key", "contains char "+c);
+                        }
                     mMoreKeys[i] = new MoreKeySpec(finalMoreKeys[i], needsToUpcase, localeForUpcasing);
                 }
             } else {

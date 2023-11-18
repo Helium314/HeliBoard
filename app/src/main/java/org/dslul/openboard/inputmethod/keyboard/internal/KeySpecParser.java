@@ -12,6 +12,8 @@ import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_OUTPUT_TEXT;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_UNSPECIFIED;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -91,6 +93,7 @@ public final class KeySpecParser {
                     // Treat a sole vertical bar as a special case of key label.
                     return -1;
                 }
+                Log.e("KeySpecParser", "vertical bar at start, length is "+length+", last char code is "+((int)keySpec.charAt(length-1)));
                 throw new KeySpecParserError("Empty label");
             }
             return labelEnd;
