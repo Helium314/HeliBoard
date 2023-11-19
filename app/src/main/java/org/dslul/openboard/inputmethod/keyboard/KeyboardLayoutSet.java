@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.UniqueKeysCache;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
@@ -127,6 +128,7 @@ public final class KeyboardLayoutSet {
 
     public static void onSystemLocaleChanged() {
         clearKeyboardCache();
+        LocaleKeyTextsKt.clearCache();
     }
 
     public static void onKeyboardThemeChanged() {

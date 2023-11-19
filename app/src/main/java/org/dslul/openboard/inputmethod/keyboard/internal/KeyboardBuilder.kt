@@ -21,7 +21,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.putLang
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
-import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -60,17 +59,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo:
-        //  add the other simple latin layouts, and make sure only those are using the simple parser
-        //   should add some mechanism to find which parser to use, e.g. try reading a json and use simple parser if it fails
-        //   not add: azerty, dvorak, colemak (both)
         //  move the extra key moreKeys into languageMoreKeys?
         //   would hide the moreKeys in normal mode
         //   but also would possibly unexpectedly add them in custom layout
-        //  allow users to switch to old style (keep it until all layouts are switched)
-        //   really helps to find differences
-        //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
-        //   have some fallback to the old style when parse or build fails?
-        //    would be good for users, but need to inform them so they can provide stack traces
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)
@@ -170,7 +161,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        if (id.mElementId == KeyboardId.ELEMENT_ALPHABET // todo: id.isAlphabetKeyboard (and check the setting, to be implemented)
+        if (Settings.getInstance().current.mUseNewKeyboardParsing
+            && id.isAlphabetKeyboard
             && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions
             && SimpleKeyboardParser.hasLayoutFile(mParams.mId.mSubtype.keyboardLayoutSetName)
         ) {

@@ -288,10 +288,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     }
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
-        if (Settings.PREF_SHOW_SETUP_WIZARD_ICON == key) {
-            SystemBroadcastReceiver.toggleAppIcon(requireContext())
-        } else if (Settings.PREF_MORE_MORE_KEYS == key) {
-            KeyboardLayoutSet.onKeyboardThemeChanged()
+        when (key) {
+            Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
+            Settings.PREF_MORE_MORE_KEYS, Settings.PREF_USE_NEW_KEYBOARD_PARSING -> KeyboardLayoutSet.onSystemLocaleChanged()
         }
     }
 }

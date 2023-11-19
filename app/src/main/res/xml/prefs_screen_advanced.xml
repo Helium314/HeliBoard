@@ -80,6 +80,12 @@
         android:title="@string/settings_category_experimental">
 
         <SwitchPreferenceCompat
+            android:key="pref_use_new_keyboard_parsing"
+            android:title="@string/use_new_keyboard_parsing"
+            android:summary="@string/use_new_keyboard_parsing_summary"
+            android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
             android:key="pref_space_language_slide"
             android:title="@string/space_language_slide"
             android:summary="@string/space_language_slide_summary"

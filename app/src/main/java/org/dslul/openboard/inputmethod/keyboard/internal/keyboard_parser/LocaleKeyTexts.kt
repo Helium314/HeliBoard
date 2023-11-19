@@ -147,6 +147,8 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
+fun clearCache() = moreKeysAndLabels.clear()
+
 // cache the texts, so they don't need to be read over and over
 private val moreKeysAndLabels = hashMapOf<String, LocaleKeyTexts>()
 
