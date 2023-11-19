@@ -24,6 +24,10 @@ class LocaleKeyTexts(dataStream: InputStream?) {
             moreKeys["\'"] = arrayOf("‚", "‘", "’", "‹", "›")
         if ("\"" !in moreKeys)
             moreKeys["\""] = arrayOf("„", "“", "”", "«", "»")
+        if ("!" !in moreKeys)
+            moreKeys["!"] = arrayOf("¡")
+        if ("?" !in moreKeys)
+            moreKeys["?"] = arrayOf("¿")
     }
 
     private fun readStream(stream: InputStream?, onlyMoreKeys: Boolean) {

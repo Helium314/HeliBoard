@@ -59,9 +59,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo:
-        //  increasing bottom padding now much different than before
-        //   the top doesn't move at all, key height rescaled instead
-        //   what is going on? should definitely be fixed!
         //  move the extra key moreKeys into languageMoreKeys?
         //   would hide the moreKeys in normal mode
         //   but also would possibly unexpectedly add them in custom layout

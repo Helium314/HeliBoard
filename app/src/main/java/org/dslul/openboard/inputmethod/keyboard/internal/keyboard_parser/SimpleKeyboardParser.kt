@@ -65,7 +65,14 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         // are always added to the rows near the bottom
         keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys))
 
-        baseKeys.reversed().forEachIndexed { i, row ->
+        baseKeys.reversed().forEachIndexed { i, it ->
+            val row: List<BaseKey> = if (i == 0) {
+                // add bottom row extra keys
+                it + context.getString(R.string.key_def_extra_bottom_right)
+                    .split(",").mapNotNull { if (it.isBlank()) null else BaseKey(it.trim()) }
+            } else {
+                it
+            }
             // parse functional keys for this row (if any)
             val functionalKeysDefs = if (i < functionalKeysReversed.size) functionalKeysReversed[i]
                 else emptyList<String>() to emptyList()
@@ -390,22 +397,6 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 Key.BACKGROUND_TYPE_FUNCTIONAL,
                 null
             )
-            KEY_EXCLAMATION -> KeyParams(
-                "!",
-                params,
-                width,
-                Key.LABEL_FLAGS_FONT_DEFAULT,
-                Key.BACKGROUND_TYPE_NORMAL,
-                arrayOf("¡") // todo (later) may depend on language (armenian)
-            )
-            KEY_QUESTION -> KeyParams(
-                "\\?",
-                params,
-                width,
-                Key.LABEL_FLAGS_FONT_DEFAULT,
-                Key.BACKGROUND_TYPE_NORMAL,
-                arrayOf("¿") // todo (later) may depend on language (armenian)
-            )
             else -> throw IllegalArgumentException("unknown key definition \"$key\"")
         }
     }
@@ -609,5 +600,3 @@ private const val KEY_SHIFT = "shift"
 private const val KEY_NUMPAD = "numpad"
 private const val KEY_SYMBOL = "symbol"
 private const val KEY_ALPHA = "alphabet"
-private const val KEY_QUESTION = "question"
-private const val KEY_EXCLAMATION = "exclamation"

@@ -2,6 +2,7 @@
 <resources>
     <string name="key_def_functional">";delete 10%
 ;action 10%
-shift 10%; exclamation, question, shift"</string>
+shift 10%; shift"</string>
+    <string name="key_def_extra_bottom_right">"!, ?"</string>
     <string name="key_def_bottom_row">"symbol, comma, space, period, emoji_com"</string>
 </resources>
