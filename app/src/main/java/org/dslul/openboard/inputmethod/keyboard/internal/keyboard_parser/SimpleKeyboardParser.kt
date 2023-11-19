@@ -320,7 +320,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 width,
                 Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT, // todo (later): check what LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT does, maybe remove the flag here
                 if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL else Key.BACKGROUND_TYPE_FUNCTIONAL,
-                moreKeys?.let { getPeriodMoreKeys() + it } ?: getPeriodMoreKeys()
+                moreKeys?.let { getPunctuationMoreKeys() + it } ?: getPunctuationMoreKeys()
             )
             KEY_ACTION -> KeyParams(
                 "${getActionKeyLabel()}|${getActionKeyCode()}",
@@ -528,10 +528,11 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         return keys.toTypedArray()
     }
 
-    private fun getPeriodMoreKeys(): Array<String> {
+    private fun getPunctuationMoreKeys(): Array<String> {
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
         val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
+            // todo: some languages have different parenthesis keys
             arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
         if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
             // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder

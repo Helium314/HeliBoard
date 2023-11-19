@@ -58,10 +58,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         determineAbsoluteValues()
         return this
 
-        // todo:
-        //  move the extra key moreKeys into languageMoreKeys?
-        //   would hide the moreKeys in normal mode
-        //   but also would possibly unexpectedly add them in custom layout
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)
