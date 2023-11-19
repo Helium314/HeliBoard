@@ -131,7 +131,7 @@ public class Key implements Comparable<Key> {
     private static final int MORE_KEYS_FLAGS_NEEDS_DIVIDERS = 0x20000000;
     private static final int MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY = 0x10000000;
     // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
-    private static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
+    public static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
     private static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
     private static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
     private static final String MORE_KEYS_NEEDS_DIVIDERS = "!needsDividers!";
@@ -943,7 +943,7 @@ public class Key implements Comparable<Key> {
     // for creating keys that might get modified later
     public static class KeyParams {
         // params for building
-        private boolean isSpacer;
+        public boolean isSpacer;
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
@@ -975,8 +975,10 @@ public class Key implements Comparable<Key> {
             return keyParams;
         }
 
-        public static KeyParams newSpacer(final KeyboardParams params) {
-            return new KeyParams(params);
+        public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
+            final KeyParams spacer = new KeyParams(params);
+            spacer.mRelativeWidth = relativeWidth;
+            return spacer;
         }
 
         public Key createKey() {
@@ -987,7 +989,7 @@ public class Key implements Comparable<Key> {
         public void setDimensionsFromRelativeSize(final float newX, final float newY) {
             if (mRelativeHeight == 0)
                 mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight;
-            if (mRelativeWidth == 0)
+            if (!isSpacer && mRelativeWidth == 0)
                 mRelativeWidth = mKeyboardParams.mDefaultRelativeKeyWidth;
             if (mRelativeHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing moreKeys or moreSuggestions
@@ -998,7 +1000,7 @@ public class Key implements Comparable<Key> {
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
         }
 
-        private static int getMoreKeysColumnAndFlags(final KeyboardParams params, final String[] moreKeys) {
+        private static int getMoreKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] moreKeys) {
             // Get maximum column order number and set a relevant mode value.
             int moreKeysColumnAndFlags = MORE_KEYS_MODE_MAX_COLUMN_WITH_AUTO_ORDER | params.mMaxMoreKeysKeyboardColumn;
             int value;
@@ -1066,7 +1068,7 @@ public class Key implements Comparable<Key> {
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyActionFlags);
             String[] moreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_moreKeys);
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
 
             final String[] additionalMoreKeys;
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
@@ -1172,7 +1174,7 @@ public class Key implements Comparable<Key> {
             mLabelFlags = labelFlags;
             mRelativeWidth = relativeWidth;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, layoutMoreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, layoutMoreKeys);
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
@@ -1184,10 +1186,10 @@ public class Key implements Comparable<Key> {
                 languageMoreKeys = null;
             } else {
                 // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
-                // todo: read from assets or xml, and cache the results for quick reading again
-                languageMoreKeys = null; // todo: getLanguageMoreKeys(keySpec, mKeyboardParams.mId.getLocale());
+                languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
             }
             final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
                 mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
@@ -1314,7 +1316,7 @@ public class Key implements Comparable<Key> {
 
             if (moreKeySpecs != null) {
                 String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
-                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlags(params, moreKeys);
+                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
 
                 moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
                 int actionFlags = 0;

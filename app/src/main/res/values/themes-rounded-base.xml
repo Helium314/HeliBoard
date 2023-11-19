@@ -135,7 +135,7 @@
         <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
         <item name="android:background">@drawable/keyboard_background_lxx_base</item>
-        <item name="android:src">@drawable/suggestions_strip_divider_lxx_light</item>
+        <item name="android:src">@drawable/suggestions_strip_divider</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
         <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
         <item name="colorTypedWord">@color/typed_word_color_lxx_light</item>

@@ -609,6 +609,8 @@ public final class StringUtils {
         if (label == null || !ScriptUtils.scriptSupportsUppercase(locale)) {
             return label;
         }
+        if (label.equals("ß"))
+            return "ẞ"; // upcasing of standalone ß, SS is not useful as s is on the keyboard anyway
 
         return label.toUpperCase(getLocaleUsedForToTitleCase(locale));
     }

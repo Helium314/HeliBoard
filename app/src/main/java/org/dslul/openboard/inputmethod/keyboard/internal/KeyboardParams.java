@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTexts;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -84,6 +85,8 @@ public class KeyboardParams {
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantMoreKeys;
+    @NonNull
+    public LocaleKeyTexts mLocaleKeyTexts;
 
     public int mMostCommonKeyHeight = 0;
     public int mMostCommonKeyWidth = 0;
@@ -219,8 +222,10 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardRightPadding, width, width, 0);
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
+            final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2
+                    ? 0.9f : 1f;
             mDefaultRelativeKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
-                    1, 1, 1f / DEFAULT_KEYBOARD_COLUMNS);
+                    1, 1, defaultKeyWidthFactor / DEFAULT_KEYBOARD_COLUMNS);
             mDefaultKeyWidth = (int) (mDefaultRelativeKeyWidth * mBaseWidth);
 
             // todo: maybe settings should not be accessed from here?

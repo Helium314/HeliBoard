@@ -89,8 +89,6 @@
     <string name="space_trackpad_summary">কার্সর সরানোর জন্য স্পেসবারে সোয়াইপ করুন</string>
     <string name="autospace_after_punctuation">যতিচিহ্নের পরে স্বয়ংক্রিয় স্পেস</string>
     <string name="autospace_after_punctuation_summary">নতুন শব্দ লেখার সময় যতিচিহ্নের পরে স্বয়ংক্রিয়ভাবে স্পেস বসবে</string>
-    <string name="show_all_more_keys_title">পপআপে সব অক্ষর প্রদর্শন</string>
-    <string name="show_all_more_keys_summary">ল্যাটিন কিবোর্ড ব্যবহারের সময় বোতামে দীর্ঘ চাপে বেশি অক্ষর দেখাবে</string>
     <string name="url_detection_title">ইউআরএল শনাক্তকরণ</string>
     <string name="url_detection_summary">ইউআরএল এবং অনুরূপ একটি একক শব্দ হিসেবে শনাক্ত করার চেষ্টা করবে</string>
     <string name="prefs_force_incognito_mode">ছদ্মবেশী মোড আরোপ</string>

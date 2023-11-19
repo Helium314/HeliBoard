@@ -160,6 +160,10 @@
     <string name="space_language_slide">Space bar language slide</string>
     <!-- Description for "space_language_slide" option. -->
     <string name="space_language_slide_summary">Swipe upwards on the spacebar to change the language</string>
+    <!-- Preferences item for enabling the simplified keyboard parser and future other parsers (will be removed after some testing) -->
+    <string name="use_new_keyboard_parsing">Use new keyboard parser</string>
+    <!-- Description for "use_new_keyboard_parsing" option (will be removed after some testing) -->
+    <string name="use_new_keyboard_parsing_summary">Use this setting if you encounter issues with changed keyboard layouts (please report the problem). This setting will be removed at some point.</string>
     <!-- Preferences item and dialog title for backup and restore -->
     <string name="backup_restore_title">Backup and restore</string>
     <!-- Message for backup and restore dialog -->
@@ -189,10 +193,14 @@
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <!-- Description for "insert_more_spaces" option. -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
-    <!-- Preferences item for showing all available keys in long-press popup -->
-    <string name="show_all_more_keys_title">Show all keys in popup</string>
-    <!-- Description for "show_all_more_keys" option. -->
-    <string name="show_all_more_keys_summary">When using a latin keyboard, more characters are available on long-pressing a key</string>
+    <!-- Preferences item for showing more keys in long-press popup -->
+    <string name="show_more_keys_title">Show more letters with diacritics in popup</string>
+    <!-- Option for showing only letters defined in the current language file in long-press popup -->
+    <string name="show_more_keys_normal">Show variants defined in keyboard languages (default)</string>
+    <!-- Option for showing letters defined in at least two locales -->
+    <string name="show_more_keys_more">Add common variants</string>
+    <!-- Option for showing letters defined in any locale -->
+    <string name="show_more_keys_all">Add all available variants</string>
     <!-- Preferences item for enabling URL detection -->
     <string name="url_detection_title">URL detection</string>
     <!-- Description for "url_detection_title" option. -->

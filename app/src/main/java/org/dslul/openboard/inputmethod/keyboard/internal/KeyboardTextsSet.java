@@ -52,7 +52,7 @@ public final class KeyboardTextsSet {
         mResourceLocale = SubtypeLocaleUtils.NO_LANGUAGE.equals(locale.toString()) ? null : locale;
         mResourcePackageName = resourcePackageName;
         mTextsTables.clear();
-        if (Settings.getInstance().getCurrent().mShowAllMoreKeys) {
+        if (Settings.getInstance().getCurrent().mShowMoreKeys > 0) {
             mTextsTables.add(KeyboardTextsTable.getTextsTable(new Locale(SubtypeLocaleUtils.NO_LANGUAGE)));
             return;
         }
