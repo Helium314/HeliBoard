@@ -32,7 +32,8 @@ fun nonWordCodePointAndNoSpaceBeforeCursor(s: CharSequence, spacingAndPunctuatio
     loopOverCodePointsBackwards(s) {
         if (!space && Character.isWhitespace(it))
             space = true
-        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it))
+        // treat double quote like a word codepoint for the purpose of this function (not great, maybe clarify name, or extend list of chars?)
+        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it) && it != '"'.code)
             nonWordCodePoint = true
         space && nonWordCodePoint // stop if both are found
     }
