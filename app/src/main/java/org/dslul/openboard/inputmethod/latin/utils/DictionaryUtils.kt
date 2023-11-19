@@ -25,7 +25,7 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     if (cachedDirectoryList != null) {
         for (directory in cachedDirectoryList) {
             if (!directory.isDirectory) continue
-            if (directory.list()?.isNotEmpty() != true) continue
+            if (!hasAnythingOtherThanExtractedMainDictionary(directory)) continue
             val dirLocale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
             val locale = dirLocale.toLocale()
             locales.add(locale)
@@ -84,10 +84,13 @@ fun cleanUnusedMainDicts(context: Context) {
     for (dir in dirs) {
         if (!dir.isDirectory) continue
         if (dir.name in usedLocales) continue
-        if (dir.listFiles()?.any { it.name != DictionaryInfoUtils.getMainDictFilename(dir.name) } != false)
+        if (hasAnythingOtherThanExtractedMainDictionary(dir))
             continue
         dir.deleteRecursively()
     }
 }
+
+private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
+    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getMainDictFilename(dir.name) } != false
 
 const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"
