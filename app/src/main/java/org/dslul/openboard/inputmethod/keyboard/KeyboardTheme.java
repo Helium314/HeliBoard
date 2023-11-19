@@ -246,35 +246,39 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_DYNAMIC_LIGHT:
-                return new Colors(
-                        themeStyle,
-                        themeColors,
-                        hasBorders,
-                        ContextCompat.getColor(context, R.color.action_key_background_dynamic_light),
-                        ContextCompat.getColor(context, R.color.gesture_dynamic_light),
-                        ContextCompat.getColor(context, R.color.keyboard_background_dynamic_light),
-                        ContextCompat.getColor(context, R.color.key_background_dynamic_light),
-                        ContextCompat.getColor(context, R.color.functional_key_background_dynamic_light),
-                        ContextCompat.getColor(context, R.color.key_background_dynamic_light),
-                        ContextCompat.getColor(context, R.color.text_color_dynamic_light),
-                        ContextCompat.getColor(context, R.color.hint_color_dynamic_light),
-                        ColorUtils.setAlphaComponent(ContextCompat.getColor(context, R.color.hint_color_dynamic_light), 127)
-                    );
+                if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
+                    return new Colors(
+                            themeStyle,
+                            themeColors,
+                            hasBorders,
+                            ContextCompat.getColor(context, android.R.color.system_accent1_200),
+                            ContextCompat.getColor(context, android.R.color.system_accent1_600),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_50),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_0),
+                            ContextCompat.getColor(context, android.R.color.system_accent2_100),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_0),
+                            ContextCompat.getColor(context, android.R.color.system_accent3_900),
+                            ContextCompat.getColor(context, android.R.color.system_accent3_700),
+                            ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_accent3_700), 127)
+                        );
+                }
             case THEME_DYNAMIC_DARK:
-                return new Colors(
-                        themeStyle,
-                        themeColors,
-                        hasBorders,
-                        ContextCompat.getColor(context, R.color.action_key_background_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.gesture_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.keyboard_background_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.key_background_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.functional_key_background_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.key_background_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.text_color_dynamic_dark),
-                        ContextCompat.getColor(context, R.color.text_color_dynamic_dark),
-                        ColorUtils.setAlphaComponent(ContextCompat.getColor(context, R.color.text_color_dynamic_dark), 127)
-                );
+                if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
+                    return new Colors(
+                            themeStyle,
+                            themeColors,
+                            hasBorders,
+                            ContextCompat.getColor(context, android.R.color.system_accent1_100),
+                            ContextCompat.getColor(context, android.R.color.system_accent1_100),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_900),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_800),
+                            ContextCompat.getColor(context, android.R.color.system_accent2_300),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_800),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_50),
+                            ContextCompat.getColor(context, android.R.color.system_neutral1_50),
+                            ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_neutral1_50), 127)
+                    );
+                }
             case THEME_LIGHT:
             default:
                 return new Colors(
