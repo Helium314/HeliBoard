@@ -3,7 +3,7 @@
 This is an attempt to integrate changes / improvements into OpenBoard that have been sitting around for a long time due to low dev activity.
 Might end up on F-Droid...
 
-**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best.**
+**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best and always have another keyboard installed in case of really bad bugs.**
 
 ## Features
 * Allow loading Glide typing library
@@ -12,6 +12,7 @@ Might end up on F-Droid...
 * Multilingual typing
 * Load external dictionaries
   * get them [here]( https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
+  * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
 * Adjust keyboard themes (style and colors)
@@ -84,8 +85,8 @@ Features that may go unnoticed
 
 ## The rough plan/todo before "full" release
 * Add/update pre-defined themes
-* Internal clean up (xml files, unused resources, some _todo_s in code)
-* Solve some [issues](https://github.com/Helium314/openboard/milestone/1)
+* Internal clean up (xml files, unused resources, some todos in code)
+* Solve some [issues](https://github.com/Helium314/openboard/milestone/1) requiring a lot of work
 
 Once above is done, we can think about properly releasing the app:
 * Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
