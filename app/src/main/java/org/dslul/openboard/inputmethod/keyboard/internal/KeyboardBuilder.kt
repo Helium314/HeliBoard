@@ -55,10 +55,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             MORE_KEYS_MORE -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/more_more_keys.txt"))
         }
         keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
-        useRelative()
+        determineAbsoluteValues()
         return this
 
         // todo:
+        //  increasing bottom padding now much different than before
+        //   the top doesn't move at all, key height rescaled instead
+        //   what is going on? should definitely be fixed!
         //  move the extra key moreKeys into languageMoreKeys?
         //   would hide the moreKeys in normal mode
         //   but also would possibly unexpectedly add them in custom layout
@@ -203,12 +206,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return Keyboard(mParams)
     }
 
-    // resize keyboard using relative params
+    // determine key size and positions using relative width and height
     // ideally this should not change anything
     //  but it does a little, depending on how float -> int is done (cast or round, and when to sum up gaps and width)
     //  still should not be more than a pixel difference
-    // keep it around for a while, for testing
-    private fun useRelative() {
+    private fun determineAbsoluteValues() {
         var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
             if (row.isEmpty()) continue
@@ -258,7 +260,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     private fun addSplit() {
         val spacerRelativeWidth = Settings.getInstance().current.mSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
-        // todo: maybe remove? not sure if narrower gaps are desirable
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
         var maxWidthBeforeSpacer = 0f
@@ -381,9 +382,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             startRow()
             for (keyParams in row) {
                 endKey(keyParams.createKey())
-                // todo (later): markAsBottomKey if in bottom row?
-                //  this is not done in original parsing style, but why not?
-                //  just test it (with different bottom paddings)
             }
             endRow()
         }
