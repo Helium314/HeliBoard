@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: GPL-3.0-only
-
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.Context
@@ -18,6 +17,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
@@ -182,9 +182,11 @@ class LanguageSettingsDialog(
                 Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings - locale.toString())
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
+                KeyboardLayoutSet.onSystemLocaleChanged()
             }
         }
         binding.secondaryLocales.addView(rowBinding.root)
+        KeyboardLayoutSet.onSystemLocaleChanged()
     }
 
     private fun fillDictionariesView() {

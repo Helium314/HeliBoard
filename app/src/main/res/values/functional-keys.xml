@@ -8,6 +8,10 @@
 -->
     <string name="key_def_functional" translatable="false">"shift 15%; delete 15%"</string>
 <!--
+    Extra keys to be inserted at the right side into row above space (only labels, comma-separated)
+-->
+    <string name="key_def_extra_bottom_right" translatable="false">""</string>
+<!--
     Bottom row definition is similar to functional key definition, but only one row, and not
     split into two groups. Space bar will be adjusted in code for language and emoji keys,
     and other keys in symbol layouts

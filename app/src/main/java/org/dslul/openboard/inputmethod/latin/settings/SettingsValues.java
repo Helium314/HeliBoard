@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
@@ -79,7 +80,7 @@ public class SettingsValues {
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
     public final boolean mNarrowKeyGaps;
-    public final boolean mShowAllMoreKeys;
+    public final int mShowMoreKeys;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -104,6 +105,7 @@ public class SettingsValues {
     public final boolean mUrlDetectionEnabled;
     public final List<String> mPinnedKeys;
     public final float mBottomPaddingScale;
+    public final boolean mUseNewKeyboardParsing;
 
     // From the input box
     @NonNull
@@ -215,7 +217,9 @@ public class SettingsValues {
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
-        mShowAllMoreKeys = selectedSubtype.isAsciiCapable() && prefs.getBoolean(Settings.PREF_SHOW_ALL_MORE_KEYS, false);
+        mShowMoreKeys = selectedSubtype.isAsciiCapable()
+                ? Settings.readMoreMoreKeysPref(prefs)
+                : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
@@ -230,6 +234,7 @@ public class SettingsValues {
         mPinnedKeys = Settings.readPinnedKeys(prefs);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
+        mUseNewKeyboardParsing = prefs.getBoolean(Settings.PREF_USE_NEW_KEYBOARD_PARSING, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

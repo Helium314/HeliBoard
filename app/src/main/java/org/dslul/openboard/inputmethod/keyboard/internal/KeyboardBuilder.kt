@@ -13,8 +13,11 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_ALL
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_MORE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -46,47 +49,25 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets("qwerty")
-        useRelative()
+        addLocaleKeyTextsToParams(mContext, mParams)
+        when (Settings.getInstance().current.mShowMoreKeys) {
+            MORE_KEYS_ALL -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/all_more_keys.txt"))
+            MORE_KEYS_MORE -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/more_more_keys.txt"))
+        }
+        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
+        determineAbsoluteValues()
+        return this
 
-        // todo: further plan to make is actually useful
-        //  create languageMoreKeys list from stuff in keyboard-text tools
-        //   probably use files in assets, and cache them in a weak hash map with localestring as key
-        //    or better 2 letter code, and join codes when combining languageMoreKeys for multiple locales
-        //     or maybe locale tag, but that's super annoying for api < 24(?)
-        //    or no caching if loading and combining is fast anyway (need to test)
-        //    the locale morekeys then should be a map label -> moreKeys
-        //    the whole moreKeys map for the current keyboard could be in mParams to simplify access when creating keys
-        //    file format? it's easy to switch, but still... text like above? json?
-        //   or use resources? could look like donottranslate-more-keys files
-        //    should be possible with configuration and contextThemeWrapper, but probably more complicated than simple files
-        //     also would be a bit annoying as it would require to have empty base strings for all possible keys
-        //    test first whether something like morekeys_&#x1002;, or morekeys_&#x00F8; or better morekeys_ø actually works
-        //     if not, definitely don't use resources
-        //   consider the % placeholder, this should still be used and documented
-        //    though maybe has issues when merging languages?
-        //   how to deal with unnecessary moreKeys?
-        //    e.g. german should have ö as moreKey on o, but swiss german layout has ö as separate key
-        //    still have ö on o (like now), or remove it? or make it optional?
-        //    is this handled by KeyboardParams.removeRedundantMoreKeys?
-        //   not only moreKeys, also currency key and some labels keys should be translated, though not necessarily in that map
-        //   need some placeholder for currency key, like $$$
-        //   have an explicit all-more-keys definition, which is created from a script merging all available moreKeys
-        //    only letter forms and nothing else, right?
-        //    maybe some most-but-not-all? e.g. only all that occur for more than one language
-        //  migrate latin layouts to this style (need to make exception for pcqwerty!)
-        //   finalize simple layout format
-        //    keep like now: nice, because simple and allows defining any number of moreKeys
-        //    rows of letters, separated with space: very straightforward, but moreKeys are annoying and only one possible
-        //    consider the current layout maybe doesn't have the correct moreKeys
-        //   where to actually get the current keyboard layout name, so it can be used to select the correct file?
-        //    maybe KeyboardLayoutSet will need to be replaced
-        //   need to solve the scaling issue with number row and 5 row keyboards
-        //   allow users to switch to old style (keep it until all layouts are switched)
-        //    really helps to find differences
-        //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
-        //   label flags to do (top part is for latin!)
+        // todo: further plan
+        //  add a parser for more complex layouts, and slowly extend it with whatever is needed
+        //   initially it's just alternative key for shifted layout
+        //    so dvorak and azerty and colemak and others can be migrated
+        //   try to make the format compatible with florisboard
+        //  migrate symbol layouts to this style
+        //   better before user-defined layouts
+        //   should be straightforward to do
         //  allow users to define their own layouts
+        //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
         //    readme, maybe also some "help" button in a dialog
         //   some sort of proper UI, or simply text input?
@@ -98,9 +79,22 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    need to somehow test for this
         //    is that autoColumnOrder thing a workaround for that?
         //     still would crash for a single huge label
+        //   potential keyspec parsing issues:
+        //    MoreKeySpec constructor does things like KeySpecParser.getLabel and others
+        //     these work with special characters like | and \ doing things depending on their position
+        //     if used wrongly, things can crash
+        //     -> maybe disable this style of parsing when creating MoreKeySpec of a user-provided layout
+        //      or also for the simple layouts, because there is no need to have it in layouts
+        //    does the same issue apply to normal key labels?
         //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
-        //  migrate symbol layouts to this style
+        //   does glide typing work with multiple letters on one key? if not, users should be notified
         //   maybe allow users to define their own symbol and shift-symbol layouts
+        //  allow users to import layouts, which essentially just fills the text from a file
+        //   can be json too, but need to have a (close to) final definition first
+        //  make the remove duplicate moreKey thing an option?
+        //   why is it on for serbian (latin), but not for german (german)?
+        //   only nordic and serbian_qwertz layouts have it disabled, default is enabled
+        //   -> add the option, but disable it by default for all layouts
         //  migrate emoji layouts to this style
         //   emojis are defined in that string array, should be simple to handle
         //   parsing could be done into a single row, which is then split as needed
@@ -113,27 +107,23 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser
         //  migrate moreKeys and moreSuggestions to this style?
-        //   at least they should not make use of the KeyTextsSet/Table and of the XmlKeyboardParser
+        //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
         //  migrate other languages to this style
         //   may be difficult in some cases, like additional row, or no shift key, or pc qwerty layout
         //   also the (integrated) number row might cause issues
         //   at least some of these layouts will need more complicated definition, not just a simple text file
-        //  remove all the keyboard layout related xmls if possible
-        //   rows_, rowkeys_, row_, kbd_ maybe keyboard_layout_set, keys_, keystyle_, key_
-        //   and the texts_table and its source tools
+        //   some languages also change symbol view, e.g. fa changes symbols row 3
+        //   add more layouts before doing this? or just keep the layout conversion script
 
-        // todo: label flags
-        //  alignHintLabelToBottom -> what does it do?
-        //  fontNormal -> check / compare turkish layout
-        //  fontDefault -> check exclamation and question keys
-        //  hasShiftedLetterHint, shiftedLetterActivated -> what is the effect on period key?
         // labelFlags should be set correctly
-        //  alignHintLabelToBottom: on lxx and rounded themes
+        //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
         //  alignIconToBottom: space_key_for_number_layout
         //  alignLabelOffCenter: number keys in phone layout
         //  fontNormal: turkish (rows 1 and 2 only), .com, emojis, numModeKeyStyle, a bunch of non-latin languages
-        //  fontMonoSpace: unused (not really: fontDefault is monospace + normal)
+        //    -> switches to normal typeface, only relevant for holo which has bold
+        //  fontMonoSpace: unused
         //  fontDefault: keyExclamationQuestion, a bunch of "normal" keys in fontNormal layouts like thai
+        //    -> switches to default defined typeface, useful e.g. if row has fontNormal
         //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
         //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
         //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
@@ -154,12 +144,18 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   maybe remove some of the flags? or keep supporting them?
         //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
         //   actually period key also has shifted letter hint
-
-        return this
     }
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
+        if (Settings.getInstance().current.mUseNewKeyboardParsing
+            && id.isAlphabetKeyboard
+            && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions
+            && SimpleKeyboardParser.hasLayoutFile(mParams.mId.mSubtype.keyboardLayoutSetName)
+        ) {
+            loadSimpleKeyboard(id)
+            return this
+        }
         // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
         // attrs may be null, then default values are used (looks good for "normal" keyboards)
         try {
@@ -167,10 +163,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 keysInRows = keyboardParser.parseKeyboard()
             }
         } catch (e: XmlPullParserException) {
-            Log.w(BUILDER_TAG, "keyboard XML parse error", e)
+            Log.w(TAG, "keyboard XML parse error", e)
             throw IllegalArgumentException(e.message, e)
         } catch (e: IOException) {
-            Log.w(BUILDER_TAG, "keyboard XML parse error", e)
+            Log.w(TAG, "keyboard XML parse error", e)
             throw RuntimeException(e.message, e)
         }
         return this
@@ -194,12 +190,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return Keyboard(mParams)
     }
 
-    // resize keyboard using relative params
+    // determine key size and positions using relative width and height
     // ideally this should not change anything
     //  but it does a little, depending on how float -> int is done (cast or round, and when to sum up gaps and width)
     //  still should not be more than a pixel difference
-    // keep it around for a while, for testing
-    private fun useRelative() {
+    private fun determineAbsoluteValues() {
         var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
             if (row.isEmpty()) continue
@@ -229,10 +224,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             val currentKeyXPos = row[i].xPos
             if (currentKeyXPos > currentX) {
                 // insert spacer
-                val spacer = KeyParams.newSpacer(mParams)
-                spacer.mRelativeWidth = (currentKeyXPos - currentX) / mParams.mBaseWidth
+                val spacer = KeyParams.newSpacer(mParams, (currentKeyXPos - currentX) / mParams.mBaseWidth)
                 spacer.yPos = row[i].yPos
-                spacer.mRelativeHeight = row[i].mRelativeHeight
                 row.add(i, spacer)
                 i++
                 currentX += currentKeyXPos - currentX
@@ -242,9 +235,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         }
         if (currentX < mParams.mOccupiedWidth) {
             // insert spacer
-            val spacer = KeyParams.newSpacer(mParams)
-            spacer.mRelativeWidth = (mParams.mOccupiedWidth - currentX) / mParams.mBaseWidth
-            spacer.mRelativeHeight = row.last().mRelativeHeight
+            val spacer = KeyParams.newSpacer(mParams, (mParams.mOccupiedWidth - currentX) / mParams.mBaseWidth)
             spacer.yPos = row.last().yPos
             row.add(spacer)
         }
@@ -253,7 +244,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     private fun addSplit() {
         val spacerRelativeWidth = Settings.getInstance().current.mSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
-        // todo: maybe remove? not sure if narrower gaps are desirable
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
         var maxWidthBeforeSpacer = 0f
@@ -262,11 +252,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             fillGapsWithSpacers(row)
             val y = row.first().yPos // all have the same y, so this is fine
             val relativeWidthSum = row.sumOf { it.mRelativeWidth } // sum up relative widths
-            val spacer = KeyParams.newSpacer(mParams)
-            spacer.mRelativeWidth = spacerRelativeWidth
-            spacer.mRelativeHeight = row.first().mRelativeHeight
+            val spacer = KeyParams.newSpacer(mParams, spacerRelativeWidth)
             // insert spacer before first key that starts right of the center (also consider gap)
-            var insertIndex = row.indexOfFirst { it.xPos > mParams.mOccupiedWidth / 2 }
+            var insertIndex = row.indexOfFirst { it.xPos + it.mFullWidth / 3 > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
             if (row.any { it.mCode == Constants.CODE_SPACE }) {
                 val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
@@ -378,9 +366,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             startRow()
             for (keyParams in row) {
                 endKey(keyParams.createKey())
-                // todo (later): markAsBottomKey if in bottom row?
-                //  this is not done in original parsing style, but why not?
-                //  just test it (with different bottom paddings)
             }
             endRow()
         }
@@ -388,6 +373,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     companion object {
-        private const val BUILDER_TAG = "Keyboard.Builder"
+        private const val TAG = "Keyboard.Builder"
     }
 }
