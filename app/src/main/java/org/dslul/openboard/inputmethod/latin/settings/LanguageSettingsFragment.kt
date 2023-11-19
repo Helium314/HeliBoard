@@ -31,7 +31,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
-    private lateinit var languageFilterList: LanguageFilterListFakePreference
+    private lateinit var languageFilterList: LanguageFilterList
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var systemOnlySwitch: SwitchCompat
     private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
@@ -66,7 +66,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
             enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
             loadSubtypes(b)
         }
-        languageFilterList = LanguageFilterListFakePreference(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
+        languageFilterList = LanguageFilterList(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
         loadSubtypes(systemOnlySwitch.isChecked)
         return view
     }

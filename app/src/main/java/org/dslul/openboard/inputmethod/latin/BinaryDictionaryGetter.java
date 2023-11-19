@@ -16,14 +16,10 @@ import android.util.Log;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
-import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
-import org.dslul.openboard.inputmethod.latin.makedict.UnsupportedFormatException;
-import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -278,8 +274,7 @@ final public class BinaryDictionaryGetter {
         // we have a match, now copy contents of the dictionary to cached word lists folder
         final String bestMatchLocale = extractLocaleFromAssetsDictionaryFile(bestMatchName);
         if (bestMatchLocale == null) return null;
-        File dictFile = new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
-                File.separator + DictionaryInfoUtils.getMainDictFilename(locale));
+        File dictFile = DictionaryInfoUtils.getMainDictFile(locale, context);
         if (dictFile.exists())
             return dictFile;
         try {

@@ -11,6 +11,9 @@ import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.settings.getEnabledSubtypes
+import org.dslul.openboard.inputmethod.latin.settings.locale
+import java.io.File
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -66,6 +69,25 @@ fun showMissingDictionaryDialog(context: Context, locale: Locale) {
         .create()
     dialog.show()
     (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
+}
+
+fun cleanUnusedMainDicts(context: Context) {
+    val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
+    val dirs = dictionaryDir.listFiles() ?: return
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val usedLocales = hashSetOf<String>()
+    getEnabledSubtypes(prefs).forEach {
+        val locale = it.locale()
+        usedLocales.add(locale)
+        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocales.add(it.toString().lowercase()) }
+    }
+    for (dir in dirs) {
+        if (!dir.isDirectory) continue
+        if (dir.name in usedLocales) continue
+        if (dir.listFiles()?.any { it.name != DictionaryInfoUtils.getMainDictFilename(dir.name) } != false)
+            continue
+        dir.deleteRecursively()
+    }
 }
 
 const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"

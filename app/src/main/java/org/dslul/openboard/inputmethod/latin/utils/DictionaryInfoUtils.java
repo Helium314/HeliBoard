@@ -299,6 +299,11 @@ public class DictionaryInfoUtils {
         return MAIN_DICT_PREFIX + locale.toLowerCase(Locale.ENGLISH) + ".dict";
     }
 
+    public static File getMainDictFile(@NonNull final String locale, @NonNull final Context context) {
+        return new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
+                File.separator + DictionaryInfoUtils.getMainDictFilename(locale));
+    }
+
     @Nullable
     public static DictionaryHeader getDictionaryFileHeaderOrNull(final File file,
             final long offset, final long length) {

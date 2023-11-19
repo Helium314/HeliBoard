@@ -33,6 +33,8 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DictionaryUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 
@@ -71,6 +73,8 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
             final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
             preferenceScreen.removePreference(gesturePreference);
         }
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD)
+                .execute(() -> DictionaryUtilsKt.cleanUnusedMainDicts(requireContext()));
     }
 
     @Override

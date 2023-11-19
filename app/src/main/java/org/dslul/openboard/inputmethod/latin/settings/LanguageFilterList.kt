@@ -26,7 +26,7 @@ import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.showMissingDictionaryDialog
 import org.dslul.openboard.inputmethod.latin.utils.toLocale
 
-class LanguageFilterListFakePreference(searchField: EditText, recyclerView: RecyclerView) {
+class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 
     private val adapter = LanguageAdapter(emptyList(), recyclerView.context)
     private val sortedSubtypes = mutableListOf<MutableList<SubtypeInfo>>()
