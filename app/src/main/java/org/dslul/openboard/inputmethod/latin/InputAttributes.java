@@ -136,7 +136,8 @@ public final class InputAttributes {
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
-        return editorInfo.inputType == mInputType;
+        return editorInfo.inputType == mInputType
+                && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII);
     }
 
     private boolean hasNoMicrophoneKeyOption() {
