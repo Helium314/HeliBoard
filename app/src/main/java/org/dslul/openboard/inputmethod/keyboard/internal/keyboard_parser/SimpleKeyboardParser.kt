@@ -174,7 +174,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 val moreKeys = if (split.size == 1) {
                     null
                 } else if (split.size == 2 && split.last() == "$$$") {
-                    // todo (later): could improve handling and show more currency moreKeys
+                    // todo (later): could improve handling and show more currency moreKeys, depending on the moreMoreKeys setting
                     if (params.mId.passwordInput())
                         arrayOf("$")
                     else
@@ -275,7 +275,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 n,
                 params,
                 params.mDefaultRelativeKeyWidth,
-                Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo (later): maybe optional or enable (but then all numbers should have hints)
+                Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo (later): maybe optional or enable (but then all numbers should have moreKeys)
                 Key.BACKGROUND_TYPE_NORMAL,
                 numbersMoreKeys[i] // todo (later, non-latin): language may add some (either alt numbers, or latin numbers if they are replaced above, see number todo)
             ))
@@ -365,13 +365,13 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
             KEY_EMOJI_COM -> if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL)
                     getFunctionalKeyParams(KEY_COM)
                 else getFunctionalKeyParams(KEY_EMOJI)
-            KEY_COM -> KeyParams(
-                ".com", // todo: should depend on language
+            KEY_COM -> KeyParams( // todo: label and moreKeys could be in localeKeyTexts
+                ".com",
                 params,
                 width,
                 Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE,
                 Key.BACKGROUND_TYPE_FUNCTIONAL,
-                arrayOf("!hasLabels!", ".net", ".org", ".gov", ".edu") // todo: maybe should be in languageMoreKeys
+                arrayOf("!hasLabels!", ".net", ".org", ".gov", ".edu")
             )
             KEY_LANGUAGE_SWITCH -> KeyParams(
                 "!icon/language_switch_key|!code/key_language_switch",
@@ -532,12 +532,12 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
         val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
-            // todo: some languages have different parenthesis keys
+            // todo: some (non-latin) languages have different parenthesis keys
             arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
         if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
             // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
             // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
-            // todo: maybe do it as part of removing unnecessary moreKeys instead of here?
+            // todo: maybe do this as part of removing unnecessary moreKeys instead of here?
             moreKeys[moreKeys.indexOf("!")] = ""
             moreKeys[moreKeys.indexOf("?")] = ""
             val columns = moreKeys[0].substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()

@@ -58,17 +58,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         determineAbsoluteValues()
         return this
 
-        // todo: documentation needed
-        //  key and then (optionally) moreKeys, separated by space
-        //  backslash before some characters (check which ones... ?, @, comma and a few more)
-        //   for user-defined stuff not necessary (will be inserted as needed when reading)
-        //  % for language morekeys (also other placeholders, but usually not necessary)
-        //  language morekeys should never contain "special" morekeys, i.e. those starting with !
-        //   exception for punctuation
-        //   if it's necessary that they contain special stuff, parsing of those things needs to be adapted
-        //  placeholder for currency key: $$$
-
-        // todo: further plan to make it actually useful
+        // todo: further plan
         //  add a parser for more complex layouts, and slowly extend it with whatever is needed
         //   initially it's just alternative key for shifted layout
         //    so dvorak and azerty and colemak and others can be migrated
@@ -94,6 +84,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //     these work with special characters like | and \ doing things depending on their position
         //     if used wrongly, things can crash
         //     -> maybe disable this style of parsing when creating MoreKeySpec of a user-provided layout
+        //      or also for the simple layouts, because there is no need to have it in layouts
         //    does the same issue apply to normal key labels?
         //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
         //   does glide typing work with multiple letters on one key? if not, users should be notified
