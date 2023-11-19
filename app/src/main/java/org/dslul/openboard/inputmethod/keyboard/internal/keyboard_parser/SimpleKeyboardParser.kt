@@ -545,6 +545,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
             // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
             // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
+            // todo: maybe do it as part of removing unnecessary moreKeys instead of here?
             moreKeys[moreKeys.indexOf("!")] = ""
             moreKeys[moreKeys.indexOf("?")] = ""
             val columns = moreKeys[0].substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
@@ -552,6 +553,12 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 moreKeys[0] = "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
         }
         return moreKeys
+    }
+
+    companion object {
+        fun hasLayoutFile(layoutName: String) = layoutName in supportedLayouts
+        // todo: adjust when changing layout names, and of course when anything changes...
+        private val supportedLayouts = hashSetOf("qwerty", "qwertz", "halmak", "workman", "bepo", "swiss", "german", "nordic", "spanish", "serbian_qwertz")
     }
 
 }

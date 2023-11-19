@@ -989,7 +989,7 @@ public class Key implements Comparable<Key> {
         public void setDimensionsFromRelativeSize(final float newX, final float newY) {
             if (mRelativeHeight == 0)
                 mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight;
-            if (mRelativeWidth == 0)
+            if (!isSpacer && mRelativeWidth == 0)
                 mRelativeWidth = mKeyboardParams.mDefaultRelativeKeyWidth;
             if (mRelativeHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing moreKeys or moreSuggestions

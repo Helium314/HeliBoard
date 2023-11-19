@@ -13,7 +13,6 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTexts
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_ALL
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_MORE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
@@ -56,25 +55,22 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             MORE_KEYS_ALL -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/all_more_keys.txt"))
             MORE_KEYS_MORE -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/more_more_keys.txt"))
         }
-        keysInRows = try {
-            SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
-        } catch (e: Exception) {
-            Log.e(TAG, "parsing layout \"${id.mSubtype.keyboardLayoutSetName}\" failed, trying fallback to qwerty", e)
-            SimpleKeyboardParser(mParams, mContext).parseFromAssets("qwerty")
-        }
-
+        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
         useRelative()
+        return this
 
         // todo:
-        //  add the other latin layouts (dvorak and so on) except pcqwerty
+        //  add the other simple latin layouts, and make sure only those are using the simple parser
+        //   should add some mechanism to find which parser to use, e.g. try reading a json and use simple parser if it fails
+        //   not add: azerty, dvorak, colemak (both)
+        //  move the extra key moreKeys into languageMoreKeys?
+        //   would hide the moreKeys in normal mode
+        //   but also would possibly unexpectedly add them in custom layout
         //  allow users to switch to old style (keep it until all layouts are switched)
         //   really helps to find differences
         //    add a text that issues / unwanted differences should be reported, as the setting will be removed at some point
         //   have some fallback to the old style when parse or build fails?
         //    would be good for users, but need to inform them so they can provide stack traces
-        //  problem (already exists): joined moreKeys are in cached keyboard, so removing a language doesn't change anything
-        //   -> remove from cache, if necessary just reload all
-        //   also happens when changing the more more keys setting
         // todo: documentation needed
         //  key and then (optionally) moreKeys, separated by space
         //  backslash before some characters (check which ones... ?, @, comma and a few more)
@@ -86,9 +82,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  placeholder for currency key: $$$
 
         // todo: further plan to make it actually useful
-        //  make the remove duplicate moreKey thing an option?
-        //   why is it on for serbian (latin), but not for german (german)?
-        //   only nordic and serbian_qwertz layouts have it disabled, default it enabled
+        //  add a parser for more complex layouts, and slowly extend it with whatever is needed
+        //   initially it's just alternative key for shifted layout
+        //    so dvorak and azerty and colemak and others can be migrated
+        //   try to make the format compatible with florisboard
         //  migrate symbol layouts to this style
         //   better before user-defined layouts
         //   should be straightforward to do
@@ -105,9 +102,21 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    need to somehow test for this
         //    is that autoColumnOrder thing a workaround for that?
         //     still would crash for a single huge label
+        //   potential keyspec parsing issues:
+        //    MoreKeySpec constructor does things like KeySpecParser.getLabel and others
+        //     these work with special characters like | and \ doing things depending on their position
+        //     if used wrongly, things can crash
+        //     -> maybe disable this style of parsing when creating MoreKeySpec of a user-provided layout
+        //    does the same issue apply to normal key labels?
         //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
         //   does glide typing work with multiple letters on one key? if not, users should be notified
         //   maybe allow users to define their own symbol and shift-symbol layouts
+        //  allow users to import layouts, which essentially just fills the text from a file
+        //   can be json too, but need to have a (close to) final definition first
+        //  make the remove duplicate moreKey thing an option?
+        //   why is it on for serbian (latin), but not for german (german)?
+        //   only nordic and serbian_qwertz layouts have it disabled, default is enabled
+        //   -> add the option, but disable it by default for all layouts
         //  migrate emoji layouts to this style
         //   emojis are defined in that string array, should be simple to handle
         //   parsing could be done into a single row, which is then split as needed
@@ -157,16 +166,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   maybe remove some of the flags? or keep supporting them?
         //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
         //   actually period key also has shifted letter hint
-
-        return this
     }
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.mElementId == KeyboardId.ELEMENT_ALPHABET // todo: id.isAlphabetKeyboard (and check the setting, to be implemented)
-            && this::class == KeyboardBuilder::class
-            && ScriptUtils.getScriptFromSpellCheckerLocale(mParams.mId.locale) == ScriptUtils.SCRIPT_LATIN // todo: fails in too many cases, wtf? better go by layout name
-            && id.mSubtype.keyboardLayoutSetName != "pcqwerty"
+            && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions
+            && SimpleKeyboardParser.hasLayoutFile(mParams.mId.mSubtype.keyboardLayoutSetName)
         ) {
             loadSimpleKeyboard(id)
             return this
@@ -271,7 +277,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             val relativeWidthSum = row.sumOf { it.mRelativeWidth } // sum up relative widths
             val spacer = KeyParams.newSpacer(mParams, spacerRelativeWidth)
             // insert spacer before first key that starts right of the center (also consider gap)
-            var insertIndex = row.indexOfFirst { it.xPos > mParams.mOccupiedWidth / 2 }
+            var insertIndex = row.indexOfFirst { it.xPos + it.mFullWidth / 3 > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
             if (row.any { it.mCode == Constants.CODE_SPACE }) {
                 val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
