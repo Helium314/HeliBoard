@@ -42,38 +42,16 @@ class LocaleKeyTexts(dataStream: InputStream?) {
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
                     "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
                 }
-                if (mode == READER_MODE_MORE_KEYS) {
-                    val split = line.splitOnWhitespace()
-                    if (split.size == 1) return@forEachLine
-                    val existingMoreKeys = moreKeys[split.first()]
-                    if (existingMoreKeys == null)
-                        moreKeys[split.first()] = Array(split.size - 1) { split[it + 1] }
-                    else
-                        moreKeys[split.first()] = mergeMoreKeys(existingMoreKeys, split.drop(1))
-                } else if (mode == READER_MODE_EXTRA_KEYS && !onlyMoreKeys) {
-                    val splitLine = line.split(colonSpaceRegex, 1)
-                    if (splitLine.size < 2) return@forEachLine
-                    val row = splitLine.first().toIntOrNull() ?: return@forEachLine
-                    val keys = splitLine.last().splitOnWhitespace()
-                    val morekeys = if (keys.size == 1) null else Array(keys.size - 1) { keys[it + 1] }
-                    if (extraKeys[row] == null)
-                        extraKeys[row] = mutableListOf()
-                    extraKeys[row]?.add(keys.first() to morekeys)
-                } else if (mode == READER_MODE_LABELS && !onlyMoreKeys) {
-                    val split = line.split(colonSpaceRegex, 1)
-                    if (split.size < 2) return@forEachLine
-                    when (split.first()) {
-                        "symbols" -> labelSymbols = split.last()
-                        "alphabet" -> labelAlphabet = split.last()
-                        "shift_symbols" -> labelShiftSymbols = split.last()
-                    }
+                when (mode) {
+                    READER_MODE_MORE_KEYS -> addMoreKeys(line.splitOnWhitespace())
+                    READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 1))
+                    READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 1))
                 }
             }
         }
-
     }
 
-    // need tp provide a copy because MoreKeySpec.insertAdditionalMoreKeys may modify the array
+    // need tp provide a copy because some functions like MoreKeySpec.insertAdditionalMoreKeys may modify the array
     fun getMoreKeys(label: String): Array<String>? = moreKeys[label]?.copyOf()
 
     fun getExtraKeys(row: Int): List<Pair<String, Array<String>?>>? =
@@ -84,6 +62,33 @@ class LocaleKeyTexts(dataStream: InputStream?) {
         readStream(dataStream, true)
     }
 
+    private fun addMoreKeys(split: List<String>) {
+        if (split.size == 1) return
+        val existingMoreKeys = moreKeys[split.first()]
+        if (existingMoreKeys == null)
+            moreKeys[split.first()] = Array(split.size - 1) { split[it + 1] }
+        else
+            moreKeys[split.first()] = mergeMoreKeys(existingMoreKeys, split.drop(1))
+    }
+
+    private fun addExtraKey(split: List<String>) {
+        if (split.size < 2) return
+        val row = split.first().toIntOrNull() ?: return
+        val keys = split.last().splitOnWhitespace()
+        val morekeys = if (keys.size == 1) null else Array(keys.size - 1) { keys[it + 1] }
+        if (extraKeys[row] == null)
+            extraKeys[row] = mutableListOf()
+        extraKeys[row]?.add(keys.first() to morekeys)
+    }
+
+    private fun addLabel(split: List<String>) {
+        if (split.size < 2) return
+        when (split.first()) {
+            "symbols" -> labelSymbols = split.last()
+            "alphabet" -> labelAlphabet = split.last()
+            "shift_symbols" -> labelShiftSymbols = split.last()
+        }
+    }
 }
 
 private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<String> {
@@ -97,7 +102,6 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
         // add % and remaining moreKeys
         original.forEachIndexed { index, s -> if (index >= markerIndexInOriginal) moreKeys.add(s) }
         added.forEachIndexed { index, s -> if (index > markerIndexInAddedIndex) moreKeys.add(s) }
-        return moreKeys.toTypedArray()
     } else if (markerIndexInOriginal != -1) {
         // add original until %, then added, then remaining original
         original.forEachIndexed { index, s -> if (index <= markerIndexInOriginal) moreKeys.add(s) }
@@ -109,9 +113,11 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
         moreKeys.addAll(original)
         added.forEachIndexed { index, s -> if (index > markerIndexInAddedIndex) moreKeys.add(s) }
     } else {
+        // use original, then added
         moreKeys.addAll(original)
         moreKeys.addAll(added)
     }
+    // in fact this is only special treatment for the punctuation moreKeys
     if (moreKeys.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }) {
         val originalColumnCount = original.firstOrNull { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
             ?.substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
@@ -127,7 +133,7 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
     return moreKeys.toTypedArray()
 }
 
-fun putLanguageMoreKeysAndLabels(context: Context, params: KeyboardParams) {
+fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams) {
     val locales = Settings.getInstance().current.mSecondaryLocales + params.mId.locale
     params.mLocaleKeyTexts = moreKeysAndLabels.getOrPut(locales.joinToString { it.toString() }) {
         val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context))
@@ -161,7 +167,7 @@ private const val READER_MODE_MORE_KEYS = 1
 private const val READER_MODE_EXTRA_KEYS = 2
 private const val READER_MODE_LABELS = 3
 
-// probably could be improved and extended
+// probably could be improved and extended, currently this is what's done in key_styles_currency.xml
 fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
     if (locale.country.matches(euroCountries))
         return euro

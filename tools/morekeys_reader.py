@@ -6,9 +6,9 @@ import re
 
 # (WIP) script for reading moreKeys from tools used to create KeyTextsTable while resolving "!text/" references
 # plan is to create a straightforward moreKeys file per language
-xml_folder = "tools/make-keyboard-text/src/main/resources/"
+xml_folder = "make-keyboard-text/src/main/resources/"
 default_file = pathlib.Path(__file__).parent / f"{xml_folder}/values/donottranslate-more-keys.xml"
-out_folder = "app/src/main/assets/language_key_texts/"
+out_folder = pathlib.Path(__file__).parent / "../app/src/main/assets/language_key_texts/"
 
 
 def append_to_morekeys(morekeys, text, label):

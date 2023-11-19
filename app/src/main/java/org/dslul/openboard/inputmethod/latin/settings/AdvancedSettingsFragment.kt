@@ -15,18 +15,17 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.define.JniLibName
-import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
-import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -227,7 +226,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     private fun setupKeyLongpressTimeoutSettings() {
         val prefs = sharedPreferences
-        findPreference<SeekBarDialogPreference>(Settings.PREF_KEY_LONGPRESS_TIMEOUT)?.setInterface(object : ValueProxy {
+        findPreference<SeekBarDialogPreference>(Settings.PREF_KEY_LONGPRESS_TIMEOUT)?.setInterface(object :
+            SeekBarDialogPreference.ValueProxy {
             override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()

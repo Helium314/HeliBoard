@@ -48,7 +48,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         params.readAttributes(context, null)
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
 
-        val baseKeys: MutableList<List<BaseKey>> = parseAdjustablePartOfLayout(layoutContent)
+        val baseKeys: MutableList<List<BaseKey>> = parseCoreLayout(layoutContent)
         if (!params.mId.mNumberRowEnabled) {
             // todo (later): not all layouts have numbers on first row, so maybe have some layout flag to switch it off (or an option)
             //  but for latin it's fine, so don't care now
@@ -143,7 +143,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
 
     // resize keys in last row if they are wider than keys in the row above
     // this is done so the keys align with the keys above
-    // done e.g. for french and swiss layouts
+    // done e.g. for nordic and swiss layouts
     private fun resizeLastNormalRowIfNecessaryForAlignment(keysInRows: ArrayList<ArrayList<KeyParams>>) {
         if (keysInRows.size < 3)
             return
@@ -161,19 +161,20 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         val widthBefore = numberOfNormalKeys * lastNormalRowKeyWidth
         val widthAfter = numberOfNormalKeys * rowAboveLastNormalRowKeyWidth
         val spacerWidth = (widthBefore - widthAfter) / 2
+        // resize keys and add spacers
         lastNormalRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mRelativeWidth = rowAboveLastNormalRowKeyWidth }
         lastNormalRow.add(lastNormalRow.indexOfFirst { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }, KeyParams.newSpacer(params, spacerWidth))
         lastNormalRow.add(lastNormalRow.indexOfLast { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL } + 1, KeyParams.newSpacer(params, spacerWidth))
     }
 
-    private fun parseAdjustablePartOfLayout(layoutContent: String) =
+    private fun parseCoreLayout(layoutContent: String) =
         layoutContent.replace("\r\n", "\n").split("\n\n").mapIndexedTo(mutableListOf()) { i, row ->
             row.split("\n").mapNotNull {
                 if (it.isBlank()) return@mapNotNull null
                 val split = it.splitOnWhitespace()
                 val moreKeys = if (split.size == 1) {
                     null
-                } else if (split.size == 2 && split.last() == "$$$") {
+                } else if (split.size == 2 && split.last() == "$$$") { // todo: no good reason to ignore it if size > 2
                     // todo (later): could improve handling and show more currency moreKeys, depending on the moreMoreKeys setting
                     if (params.mId.passwordInput())
                         arrayOf("$")
@@ -185,7 +186,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
                 BaseKey(split.first(), moreKeys)
             } + if (addExtraKeys)
                     (params.mLocaleKeyTexts.getExtraKeys(i + 1)?.let { it.map { BaseKey(it.first, it.second) } } ?: emptyList())
-                else listOf()
+                else emptyList()
         }
 
     private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =

@@ -17,7 +17,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_MORE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.putLanguageMoreKeysAndLabels
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -49,7 +49,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        putLanguageMoreKeysAndLabels(mContext, mParams)
+        addLocaleKeyTextsToParams(mContext, mParams)
         when (Settings.getInstance().current.mShowMoreKeys) {
             MORE_KEYS_ALL -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/all_more_keys.txt"))
             MORE_KEYS_MORE -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/more_more_keys.txt"))
