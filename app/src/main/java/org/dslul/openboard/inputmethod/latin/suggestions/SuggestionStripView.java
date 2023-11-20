@@ -641,16 +641,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
         if (view == mToolbarKey) {
-            if (mToolbarContainer.getVisibility() == VISIBLE) {
-                mToolbarContainer.setVisibility(GONE);
-                mSuggestionsStrip.setVisibility(VISIBLE);
-                mPinnedKeys.setVisibility(VISIBLE);
-            } else {
-                mToolbarContainer.setVisibility(VISIBLE);
-                mSuggestionsStrip.setVisibility(GONE);
-                mPinnedKeys.setVisibility(GONE);
-            }
-            mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+            setToolbarVisibility(mToolbarContainer.getVisibility() != VISIBLE);
         }
 
 
@@ -677,6 +668,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         // Called by the framework when the size is known. Show the important notice if applicable.
         // This may be overriden by showing suggestions later, if applicable.
+    }
+
+    public void setToolbarVisibility(final boolean visible) {
+        if (visible) {
+            mPinnedKeys.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(GONE);
+            mToolbarContainer.setVisibility(VISIBLE);
+        } else {
+            mToolbarContainer.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(VISIBLE);
+            mPinnedKeys.setVisibility(VISIBLE);
+        }
+        mToolbarKey.setScaleX(visible ? -1f : 1f);
     }
 
     private void addKeyToPinnedKeys(final String pinnedKey, final LayoutInflater inflater) {
