@@ -609,11 +609,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
-
-        // TODO: Resolve mutual dependencies of {@link #loadSettings()} and
-        // {@link #resetDictionaryFacilitatorIfNecessary()}.
         loadSettings();
-        resetDictionaryFacilitatorIfNecessary();
 
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
@@ -661,10 +657,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // been displayed. Opening dictionaries never affects responsivity as dictionaries are
         // asynchronously loaded.
         if (!mHandler.hasPendingReopenDictionaries()) {
-            resetDictionaryFacilitator(locale);
+            resetDictionaryFacilitatorIfNecessary();
         }
         refreshPersonalizationDictionarySession(currentSettingsValues);
-        resetDictionaryFacilitatorIfNecessary();
         mStatsUtilsManager.onLoadSettings(this /* context */, currentSettingsValues);
     }
 
@@ -704,7 +699,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             subtypeLocale = subtypeSwitcherLocale;
         }
         if (mDictionaryFacilitator.isForLocale(subtypeLocale)
-                && mDictionaryFacilitator.isForAccount(mSettings.getCurrent().mAccount)) {
+                && mDictionaryFacilitator.isForAccount(mSettings.getCurrent().mAccount)
+                && mDictionaryFacilitator.usesContacts() == mSettings.getCurrent().mUseContactsDictionary
+                && mDictionaryFacilitator.usesPersonalization() == mSettings.getCurrent().mUsePersonalizedDicts
+        ) {
             return;
         }
         resetDictionaryFacilitator(subtypeLocale);
@@ -725,8 +723,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 settingsValues.mAccount, "" /* dictNamePrefix */,
                 this /* DictionaryInitializationListener */);
         if (settingsValues.mAutoCorrectionEnabledPerUserSettings) {
-            mInputLogic.mSuggest.setAutoCorrectionThreshold(
-                    settingsValues.mAutoCorrectionThreshold);
+            mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
         }
     }
 

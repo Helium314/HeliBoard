@@ -102,6 +102,8 @@ public interface DictionaryFacilitator {
 
     boolean usesContacts();
 
+    boolean usesPersonalization();
+
     String getAccount();
 
     void resetDictionaries(

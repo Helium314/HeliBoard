@@ -295,6 +295,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    public boolean usesPersonalization() {
+        return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_USER_HISTORY) != null;
+    }
+
+    @Override
     public String getAccount() {
         return null;
     }
