@@ -136,7 +136,7 @@ public final class InputAttributes {
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
-        return editorInfo.inputType == mInputType
+        return editorInfo.inputType == mInputType && mEditorInfo != null
                 && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII);
     }
 
