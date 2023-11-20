@@ -83,6 +83,8 @@
     <string name="use_contacts_dict_summary">Use names from Contacts for suggestions and corrections</string>
     <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
+    <!-- Dialog message informing that dictionaries will be deleted on changing the setting -->
+    <string name="disable_personalized_dicts_message">Warning: Disabling this setting will clear learned data</string>
     <!-- Option name for adding learned words to personal dictionary -->
     <string name="add_to_personal_dictionary">Add words to personal dictionary</string>
     <!-- Description for option to add learned words to system-wide user dictionary -->
