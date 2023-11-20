@@ -566,7 +566,7 @@ public class XmlKeyboardParser implements AutoCloseable {
             final boolean passwordInputMatched = matchBoolean(caseAttr,
                     R.styleable.Keyboard_Case_passwordInput, id.passwordInput());
             final boolean clobberSettingsKeyMatched = matchBoolean(caseAttr,
-                    R.styleable.Keyboard_Case_clobberSettingsKey, id.mClobberSettingsKey);
+                    R.styleable.Keyboard_Case_clobberSettingsKey, id.mDeviceLocked);
             final boolean hasShortcutKeyMatched = matchBoolean(caseAttr,
                     R.styleable.Keyboard_Case_hasShortcutKey, id.mHasShortcutKey);
             final boolean numberRowEnabledMatched = matchBoolean(caseAttr,

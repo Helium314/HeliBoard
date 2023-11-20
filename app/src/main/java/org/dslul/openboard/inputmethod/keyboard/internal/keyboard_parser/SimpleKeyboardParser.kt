@@ -518,14 +518,17 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
     }
 
     private fun getCommaMoreKeys(): Array<String> {
-        val keys = mutableListOf("!icon/clipboard_normal_key|!code/key_clipboard")
+        val keys = mutableListOf<String>()
+        if (!params.mId.mDeviceLocked)
+            keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
         if (!params.mId.mEmojiKeyEnabled)
             keys.add("!icon/emoji_normal_key|!code/key_emoji")
         if (!params.mId.mLanguageSwitchKeyEnabled)
             keys.add("!icon/language_switch_key|!code/key_language_switch")
         if (!params.mId.mOneHandedModeEnabled)
             keys.add("!icon/start_onehanded_mode_key|!code/key_start_onehanded")
-        keys.add("!icon/settings_key|!code/key_settings")
+        if (!params.mId.mDeviceLocked)
+            keys.add("!icon/settings_key|!code/key_settings")
         return keys.toTypedArray()
     }
 
