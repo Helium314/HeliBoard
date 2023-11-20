@@ -126,9 +126,9 @@ public final class InputAttributes {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            mNoLearning = flagNoSuggestions || (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
+            mNoLearning = (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
         else
-            mNoLearning = flagNoSuggestions;
+            mNoLearning = false;
     }
 
     public boolean isTypeNull() {
