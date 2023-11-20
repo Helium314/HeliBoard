@@ -228,6 +228,10 @@ public final class WordComposer {
         return mCursorPositionWithinWord != mCodePointSize;
     }
 
+    public boolean isCursorInFrontOfComposingWord() {
+        return mCursorPositionWithinWord == 0;
+    }
+
     /**
      * When the cursor is moved by the user, we need to update its position.
      * If it falls inside the currently composing word, we don't reset the composition, and

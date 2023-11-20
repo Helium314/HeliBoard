@@ -931,13 +931,17 @@ public final class InputLogic {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
 
-        if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+        if (mWordComposer.isCursorInFrontOfComposingWord()) {
+            // we add something in front of the composing word, this is likely for adding something
+            // and not for a correction
+            // keep composing and don't unlearn word in this case
+            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
+        } else if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the character at the current cursor position.
             // We also need to unlearn the original word that is now being corrected.
             unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getMSettingsValues(), Constants.EVENT_BACKSPACE);
-            resetEntireInputState(mConnection.getExpectedSelectionStart(),
-                    mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
+            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), true);
             isComposingWord = false;
         }
         // We want to find out whether to start composing a new word with this character. If so,
