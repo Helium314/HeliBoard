@@ -88,15 +88,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static final Class<?>[] DICT_FACTORY_METHOD_ARG_TYPES =
             new Class[] { Context.class, Locale.class, File.class, String.class, String.class };
 
-    // todo: these caches are never even set, as the corresponding functions are not called...
-    //  and even if they were set, one is only written, but never read, and the other one
-    //  is only read and thus empty and useless -> why?
-    //  anyway, we could just set the same cache using the set functions
-    //  but before doing this, check the potential performance gains
-    //   i.e. how long does a "isValidWord" check take -> on S4 mini 300 µs per dict if ok, but
-    //   sometimes it can also be a few ms
-    //   os if the spell checker is enabled, it's definitely reasonable to cache the results
-    //   but this needs to be done internally, as it should be by language
+    // todo: write cache never set, and never read (only written)
+    //  (initially was the same for the read cache, why?)
     private LruCache<String, Boolean> mValidSpellingWordReadCache;
     private LruCache<String, Boolean> mValidSpellingWordWriteCache;
 
@@ -460,6 +453,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         if (mValidSpellingWordWriteCache != null) {
             mValidSpellingWordWriteCache.evictAll();
+        }
+        if (mValidSpellingWordReadCache != null) {
+            mValidSpellingWordReadCache.evictAll();
         }
     }
 
@@ -912,11 +908,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 return cachedValue;
             }
         }
+        boolean result = false;
         for (DictionaryGroup dictionaryGroup : mDictionaryGroups) {
-            if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup))
-                return true;
+            if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup)) {
+                result = true;
+                break;
+            }
         }
-        return false;
+        if (mValidSpellingWordReadCache != null)
+            mValidSpellingWordReadCache.put(word, result);
+        return result;
     }
 
     // this is unused, so leave it for now (redirecting to isValidWord seems to defeat the purpose...)
