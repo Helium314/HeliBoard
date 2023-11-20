@@ -88,6 +88,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         if (!BuildConfig.DEBUG) {
             removePreference(Settings.SCREEN_DEBUG)
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
+        }
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
