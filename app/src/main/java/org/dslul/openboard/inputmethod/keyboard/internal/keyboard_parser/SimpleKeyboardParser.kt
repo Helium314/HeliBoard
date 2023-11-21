@@ -566,6 +566,17 @@ private class BaseKey(
 )
 
 // todo (later): may depend on language for non-latin layouts... or should the number row always be latin?
+//  best have number row layout in a file, and get layout file dependent on keyboard layout and some setting
+//  setting should be sth that goes like "prioritize localized numbers"
+//  idea for behavior:
+//   if no extra local number row: number row like now, no number row shows numbers in moreKeys
+//   for other numbers:
+//    language-dependent number moreKeys (latin numbers on localized variant, and localized variant on latin numbers)
+//    show whatever is selected as number row, or as morekeys if number row is off
+//    but then how to simply put both latin and local number in moreKeys when number row is disabled?
+//     consider that numbers may have more moreKeys...
+//    idea: field [numbers] where in the next line the numbers are space-separated in order 1-9 and 0
+//     would be simpler to handle than moreKeys
 private val numbers = (1..9).map { it.toString() } + "0"
 
 // moreKeys for numbers, order is 1-9 and then 0

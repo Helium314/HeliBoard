@@ -60,13 +60,16 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  add a parser for more complex layouts, and slowly extend it with whatever is needed
+        //   try to make the format compatible with florisboard, or just take it if it has all we need
+        //    if so, then make sure additional stuff unwanted in this app (if there is some) does not cause errors
+        //    probably need to deal with different functional key definition style, but only if allowing numpad and similar layouts
         //   initially it's just alternative key for shifted layout
         //    so dvorak and azerty and colemak and others can be migrated
-        //   try to make the format compatible with florisboard
         //  migrate symbol layouts to this style
-        //   better before user-defined layouts
-        //   should be straightforward to do
-        //  allow users to define their own layouts
+        //   simplified if possible, but json should be fine too
+        //  migrate keypad layouts to this style
+        //   will need more configurable layout definition -> another parser, or do it with compatible jsons
+        //  allow users to define their own layouts (maybe migrate other layouts first?)
         //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
         //    readme, maybe also some "help" button in a dialog
@@ -98,14 +101,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  migrate emoji layouts to this style
         //   emojis are defined in that string array, should be simple to handle
         //   parsing could be done into a single row, which is then split as needed
-        //    this might help with split layout (no change in key size, but in number of rows!)
+        //    this might help with split layout (no change in key size, but in number of rows)
         //   write another parser, it should already consider split
-        //   more dynamic / lazy way for loading the 10 emoji keyboards?
-        //    use recyclerView instead of a keyboard?
-        //    or recyclerView with one keyboardView per row?
-        //    could be possible if creating the keyboards is fast enough... but also need to check whether it's ok for memory use and stuff
-        //  migrate keypad layouts to this style
-        //   will need more configurable layout definition -> another parser
         //  migrate moreKeys and moreSuggestions to this style?
         //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
         //  migrate other languages to this style

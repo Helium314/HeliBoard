@@ -84,7 +84,13 @@ Features that may go unnoticed
 * Add more options to the language switch key
 
 ## The rough plan/todo before "full" release
-* Add/update pre-defined themes
+* Finish keyboard parsing upgrades
+  * In the end, layouts should be defined in either simple text files, or json files, ideally in same format as used by [FlorisBoard](https://github.com/florisboard/florisboard/tree/master/app/src/main/assets/ime/keyboard/org.florisboard.layouts/layouts)
+  * Users should be allowed to add their own layouts
+* Overhaul the view system
+  * Have a fixed height common to all views (keyboard, emoji, clipboard)
+  * Should allow for more flexible one-handed mode (though the actual one-handed mode changes may be implemented later)
+  * Should allow for background images that don't resize or get cut off when switching between views
 * Internal clean up (xml files, unused resources, some todos in code)
 * Solve some [issues](https://github.com/Helium314/openboard/milestone/1) requiring a lot of work
 
@@ -92,14 +98,20 @@ Once above is done, we can think about properly releasing the app:
 * Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
 * Rename app, package and this repository
 * New icon
-* Use a translation tool (e.g. weblate)
+* Use a translation tool (probably weblate)
 * Release on F-Droid
-* Maybe add a version that does not allow prodiving a glide typing library, for people concerned about security
+* Maybe add a version that does not allow providing a glide typing library, for people concerned about security
 
-## Further plan
+## Further ideas
 * More customizable theming
-* Improved / less bad suggestions in some cases
-* Sliding key input for numpad and emojis (like `?123` and _shift_ sliding input)
+* Improved / less bad suggestions in some specific situations
+* Sliding key input for toolbar, numpad and emojis (like `?123` and _shift_ sliding input)
+* More tunable behavior, e.g for delete and spacebar swipe, for toolbar, for spell checker,...
+* Adjust arrangement of settings, maybe hide settings irrelevant for most users behind some "more settings mode"
+* Migrate to internally use language tags (problematic due to lack of support on older Android versions)
+* More customizable toolbar
+* Support providing background images (for keyboard, and possibly also for keys)
+* and general [bug](https://github.com/Helium314/openboard/issues?q=is%3Aopen+is%3Aissue+label%3Abug) fixing
 
 -----
 # readme for original version of OpenBoard below
