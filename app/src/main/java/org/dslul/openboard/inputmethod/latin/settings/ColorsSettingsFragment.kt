@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.view.MenuProvider
-import androidx.core.view.forEachIndexed
+import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
@@ -122,6 +122,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             if (!moreColors && colorPref in colorPrefsToHideInitially && autoColor)
                 return@forEachIndexed
             val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
+            csb.root.tag = index
             csb.colorSwitch.isChecked = !autoColor
             csb.colorPreview.setColorFilter(Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight))
             csb.colorText.text = colorPrefNames[index]
@@ -203,7 +204,8 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     }
 
     private fun updateColorPreviews() {
-        binding.colorSettingsContainer.forEachIndexed { index, view ->
+        binding.colorSettingsContainer.forEach { view ->
+            val index = view.tag as Int
             val color = Settings.readUserColor(prefs, requireContext(), colorPrefs[index], isNight)
             view.findViewById<ImageView>(R.id.color_preview)?.setColorFilter(color)
         }
