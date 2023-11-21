@@ -208,7 +208,7 @@
     <string name="theme_name_darker">Серая</string>
     <string name="theme_name_black">Чёрная</string>
     <string name="theme_name_user">Пользовательская</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Пользовательская (тёмная тема)</string>
+    <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
     <string name="select_user_colors">Настройка цветов темы</string>
     <string name="select_user_colors_night">Настройка цветов темы (тёмная тема)</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>

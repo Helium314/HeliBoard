@@ -180,7 +180,7 @@
     <string name="theme_name_darker">Шэрая</string>
     <string name="theme_name_black">Чорная</string>
     <string name="theme_name_user">Карыстацкая</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Карыстацкая (цёмная тэма)</string>
+    <string name="theme_name_user_night">Карыстацкая (цёмная тэма)</string>
     <string name="select_user_colors">Настройка колераў тэмы</string>
     <string name="select_user_colors_night">Настройка колераў тэмы (цёмная тэма)</string>
     <string name="auto_user_color">Аўтаматычны выбар колеру</string>
@@ -227,7 +227,6 @@
     <string name="theme_variant">Варыянт тэмы</string>
     <string name="theme_variant_night">Варыянт тэмы (цёмная тэма)</string>
     <string name="key_borders">Контуры клавіш</string>
-    <string name="day_night_mode">Выкарыстоўваць тэму сістэмы</string>
     <string name="delete_swipe_summary">Правядзіце пальцам ад клавішы выдалення, каб выбраць і выдаліць адразу большыя часткі тэксту</string>
     <string name="autospace_after_punctuation_summary">Аўтаматычна ўстаўляць прабел пасля знакаў прыпынку пры ўводзе новага слова</string>
     <string name="autospace_after_punctuation">Аўтапрабел пасля знакаў прыпынку</string>

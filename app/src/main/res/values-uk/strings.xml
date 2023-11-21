@@ -174,7 +174,7 @@
     <string name="theme_name_darker">Сіра</string>
     <string name="theme_name_black">Чорна</string>
     <string name="theme_name_user">Користувальницька</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Користувальницька (темна тема)</string>
+    <string name="theme_name_user_night">Користувальницька (темна тема)</string>
     <string name="select_user_colors">Налаштування кольорів теми</string>
     <string name="select_user_colors_night">Налаштування кольорів теми (темна тема)</string>
     <string name="auto_user_color">Автоматичний вибір кольору</string>
