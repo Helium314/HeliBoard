@@ -19,7 +19,7 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     init {
         readStream(dataStream, false)
         // set default quote moreKeys if necessary
-        // should this also be done with punctuation moreKeys??
+        // should this also be done with punctuation moreKeys?
         if ("\'" !in moreKeys)
             moreKeys["\'"] = arrayOf("‚", "‘", "’", "‹", "›")
         if ("\"" !in moreKeys)
@@ -44,8 +44,8 @@ class LocaleKeyTexts(dataStream: InputStream?) {
                 }
                 when (mode) {
                     READER_MODE_MORE_KEYS -> addMoreKeys(line.splitOnWhitespace())
-                    READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 1))
-                    READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 1))
+                    READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 2))
+                    READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 2))
                 }
             }
         }
