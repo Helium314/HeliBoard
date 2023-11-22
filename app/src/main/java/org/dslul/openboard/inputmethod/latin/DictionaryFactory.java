@@ -96,7 +96,7 @@ public final class DictionaryFactory {
     public static void killDictionary(final Context context, final AssetFileAddress f) {
         if (f.pointsToPhysicalFile()) {
             f.deleteUnderlyingFile();
-            // notify the user if possible (toast not showing up on Android 13+)
+            // notify the user if possible (toast not showing up on Android 13+ when not in settings)
             //  but not that important, as the not working dictionary should be obvious
             final String wordlistId = DictionaryInfoUtils.getWordListIdFromFileName(new File(f.mFilename).getName());
             new Handler(Looper.getMainLooper()).post(() ->

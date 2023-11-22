@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.ReadOnlyBinaryDictionary
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
@@ -26,10 +27,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
         cachedDictionaryFile.delete()
         try {
             val i = context.contentResolver.openInputStream(uri)
-            FileUtils.copyStreamToNewFile(
-                i,
-                cachedDictionaryFile
-            )
+            FileUtils.copyStreamToNewFile(i, cachedDictionaryFile)
         } catch (e: IOException) {
             return onDictionaryLoadingError(R.string.dictionary_load_error)
         }
@@ -37,6 +35,12 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
         val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(cachedDictionaryFile, 0, cachedDictionaryFile.length())
             ?: return onDictionaryLoadingError(R.string.dictionary_file_error)
         val locale = newHeader.mLocaleString.toLocale()
+
+        val dict = ReadOnlyBinaryDictionary(cachedDictionaryFile.absolutePath, 0, cachedDictionaryFile.length(), false, locale, "test")
+        if (!dict.isValidDictionary) {
+            dict.close()
+            return onDictionaryLoadingError(R.string.dictionary_load_error)
+        }
 
         if (mainLocale == null) {
             val localeName = LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context)
@@ -141,9 +145,6 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
     private fun onDictionaryLoadingError(messageId: Int) {
         cachedDictionaryFile.delete()
-//        Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
-        // show a dialog because toasts are not showing up on some Android versions
-        // possibly Android 13 because of notification permission
         infoDialog(context, messageId)
     }
 }
