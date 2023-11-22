@@ -19,6 +19,11 @@
         android:defaultValue="false"
         android:persistent="true" />
     <SwitchPreferenceCompat
+        android:key="pref_show_suggestion_infos"
+        android:title="@string/prefs_show_suggestion_infos"
+        android:defaultValue="false"
+        android:persistent="true" />
+    <SwitchPreferenceCompat
         android:key="force_non_distinct_multitouch"
         android:title="@string/prefs_force_non_distinct_multitouch"
         android:defaultValue="false"

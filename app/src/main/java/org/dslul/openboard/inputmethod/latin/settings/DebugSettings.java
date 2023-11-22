@@ -21,6 +21,7 @@ public final class DebugSettings {
     public static final String PREF_SLIDING_KEY_INPUT_PREVIEW = "pref_sliding_key_input_preview";
     public static final String PREF_SHOW_DEBUG_SETTINGS = "pref_show_debug_settings";
 
+    public static final String PREF_SHOW_SUGGESTION_INFOS = "pref_show_suggestion_infos";
     private DebugSettings() {
         // This class is not publicly instantiable.
     }

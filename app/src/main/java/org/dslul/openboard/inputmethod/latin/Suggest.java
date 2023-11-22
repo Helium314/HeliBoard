@@ -16,9 +16,9 @@ import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
-import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
+import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
 import org.dslul.openboard.inputmethod.latin.utils.AutoCorrectionUtils;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
@@ -211,9 +211,8 @@ public final class Suggest {
         }
 
         final ArrayList<SuggestedWordInfo> suggestionsList;
-        if (DebugFlags.DEBUG_ENABLED && !suggestionsContainer.isEmpty()) {
-            suggestionsList = getSuggestionsInfoListWithDebugInfo(typedWordString,
-                    suggestionsContainer);
+        if (SuggestionStripView.DEBUG_SUGGESTIONS && !suggestionsContainer.isEmpty()) {
+            suggestionsList = getSuggestionsInfoListWithDebugInfo(typedWordString, suggestionsContainer);
         } else {
             suggestionsList = suggestionsContainer;
         }
@@ -461,7 +460,14 @@ public final class Suggest {
         final SuggestedWordInfo pseudoTypedWordInfo = suggestionsContainer.isEmpty() ? null
                 : suggestionsContainer.get(0);
 
-        callback.onGetSuggestedWords(new SuggestedWords(suggestionsContainer,
+        final ArrayList<SuggestedWordInfo> suggestionsList;
+        if (SuggestionStripView.DEBUG_SUGGESTIONS && !suggestionsContainer.isEmpty()) {
+            suggestionsList = getSuggestionsInfoListWithDebugInfo(suggestionResults.first().mWord, suggestionsContainer);
+        } else {
+            suggestionsList = suggestionsContainer;
+        }
+
+        callback.onGetSuggestedWords(new SuggestedWords(suggestionsList,
                 suggestionResults.mRawSuggestions,
                 pseudoTypedWordInfo,
                 true /* typedWordValid */,
@@ -487,7 +493,7 @@ public final class Suggest {
             if (normalizedScore > 0) {
                 scoreInfoString = String.format(
                         Locale.ROOT, "%d (%4.2f), %s", cur.mScore, normalizedScore,
-                        cur.mSourceDict.mDictType);
+                        cur.mSourceDict.mDictType + ":" + cur.mSourceDict.mLocale);
             } else {
                 scoreInfoString = Integer.toString(cur.mScore);
             }

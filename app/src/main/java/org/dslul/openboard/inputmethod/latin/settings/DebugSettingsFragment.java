@@ -16,6 +16,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.TwoStatePreference;
 
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
 import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
@@ -98,6 +99,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
             mServiceNeedsRestart = true;
         } else if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
             mServiceNeedsRestart = true;
+        } else if (key.equals(DebugSettings.PREF_SHOW_SUGGESTION_INFOS)) {
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
         }
     }
 
