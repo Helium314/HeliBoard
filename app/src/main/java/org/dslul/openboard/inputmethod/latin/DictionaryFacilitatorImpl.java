@@ -131,7 +131,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
      */
     private static class DictionaryGroup {
         private static final int MAX_CONFIDENCE = 2;
-        private static final int MIN_CONFIDENCE = 0;
 
         /**
          * The locale associated with the dictionary group.
@@ -158,8 +157,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // when decreasing confidence or getting weight factor, limit to maximum
         public void increaseConfidence() {
             mConfidence += 1;
-            if (mConfidence <= MAX_CONFIDENCE)
-                updateWeights();
         }
 
         // If confidence is above max, drop to max confidence. This does not change weights and
@@ -167,20 +164,28 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         public void decreaseConfidence() {
             if (mConfidence > MAX_CONFIDENCE)
                 mConfidence = MAX_CONFIDENCE;
-            else if (mConfidence > MIN_CONFIDENCE) {
+            else if (mConfidence > 0) {
                 mConfidence -= 1;
-                updateWeights();
             }
         }
 
-        // todo: might need some more tuning, maybe more confidence steps
-        private void updateWeights() {
-            mWeightForTypingInLocale = 1f - 0.15f * (MAX_CONFIDENCE - mConfidence);
-            mWeightForGesturingInLocale = 1f - 0.05f * (MAX_CONFIDENCE - mConfidence);
+        public float getWeightForTypingInLocale(List<DictionaryGroup> groups) {
+            return getWeightForLocale(groups, 0.15f);
         }
 
-        public float mWeightForTypingInLocale = 1f;
-        public float mWeightForGesturingInLocale = 1f;
+        public float getWeightForGesturingInLocale(List<DictionaryGroup> groups) {
+            return getWeightForLocale(groups, 0.05f);
+        }
+
+        // might need some more tuning
+        private float getWeightForLocale(final List<DictionaryGroup> groups, final float step) {
+            if (groups.size() == 1) return 1f;
+            if (mConfidence < 2) return 1f - step * (MAX_CONFIDENCE - mConfidence);
+            for (DictionaryGroup group : groups) {
+                if (group != this && group.mConfidence >= mConfidence) return 1f - step / 2f;
+            }
+            return 1f;
+        }
         public final ConcurrentHashMap<String, ExpandableBinaryDictionary> mSubDictMap =
                 new ConcurrentHashMap<>();
 
@@ -876,9 +881,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 int sessionId, long proximityInfoHandle, float[] weightOfLangModelVsSpatialModel,
                 DictionaryGroup dictGroup) {
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
-        final float weightForLocale = composedData.mIsBatchMode
-                ? dictGroup.mWeightForGesturingInLocale
-                : dictGroup.mWeightForTypingInLocale;
+        float weightForLocale = composedData.mIsBatchMode
+                ? dictGroup.getWeightForGesturingInLocale(mDictionaryGroups)
+                : dictGroup.getWeightForTypingInLocale(mDictionaryGroups);
         for (final String dictType : ALL_DICTIONARY_TYPES) {
             final Dictionary dictionary = dictGroup.getDict(dictType);
             if (null == dictionary) continue;
