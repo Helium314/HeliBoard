@@ -6,10 +6,13 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:latin="http://schemas.android.com/apk/res-auto"
-    android:title="@string/prefs_debug_mode"
+    android:title="@string/debug_settings_title"
     android:key="english_ime_debug_settings"
 >
+    <SwitchPreferenceCompat
+        android:key="pref_show_debug_settings"
+        android:title="@string/prefs_show_debug_settings"
+        android:persistent="true" />
     <SwitchPreferenceCompat
         android:key="debug_mode"
         android:title="@string/prefs_debug_mode"

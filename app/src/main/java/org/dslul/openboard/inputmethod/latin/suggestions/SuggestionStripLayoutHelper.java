@@ -364,7 +364,7 @@ final class SuggestionStripLayoutHelper {
             layoutWord(context, mCenterPositionInStrip, stripWidth - mPadding);
             stripView.addView(centerWordView);
             setLayoutWeight(centerWordView, 1.0f, ViewGroup.LayoutParams.MATCH_PARENT);
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG) {
                 layoutDebugInfo(mCenterPositionInStrip, placerView, stripWidth);
             }
             final Integer lastIndex = (Integer)centerWordView.getTag();
@@ -390,7 +390,7 @@ final class SuggestionStripLayoutHelper {
                     ViewGroup.LayoutParams.MATCH_PARENT);
             x += wordView.getMeasuredWidth();
 
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG) {
                 layoutDebugInfo(positionInStrip, placerView, x);
             }
         }
@@ -484,7 +484,7 @@ final class SuggestionStripLayoutHelper {
             wordView.setText(null);
             wordView.setTag(null);
             // Make this inactive for touches in {@link #layoutWord(int,int)}.
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG) {
                 mDebugInfoViews.get(positionInStrip).setText(null);
             }
         }
@@ -503,7 +503,7 @@ final class SuggestionStripLayoutHelper {
             wordView.setTag(indexInSuggestedWords);
             wordView.setText(getStyledSuggestedWord(suggestedWords, indexInSuggestedWords));
             wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG) {
                 mDebugInfoViews.get(positionInStrip).setText(
                         suggestedWords.getDebugString(indexInSuggestedWords));
             }

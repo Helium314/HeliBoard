@@ -167,6 +167,8 @@ public interface DictionaryFacilitator {
 
     String dump(final Context context);
 
+    String localesAndConfidences();
+
     void dumpDictionaryForDebug(final String dictName);
 
     @NonNull List<DictionaryStats> getDictionaryStats(final Context context);

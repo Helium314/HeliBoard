@@ -596,13 +596,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onCreate() {
         Settings.init(this);
-        DebugFlags.init(DeviceProtectedUtils.getSharedPreferences(this));
+        DebugFlags.init(this);
         SubtypeSettingsKt.init(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
         AccessibilityUtils.init(this);
-        mStatsUtilsManager.onCreate(this /* context */, mDictionaryFacilitator);
+        mStatsUtilsManager.onCreate(this, mDictionaryFacilitator);
         mDisplayContext = getDisplayContext();
         KeyboardSwitcher.init(this);
         super.onCreate();
@@ -738,6 +738,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 true /* forceReloadMainDictionary */,
                 settingsValues.mAccount, "" /* dictNamePrefix */,
                 this /* DictionaryInitializationListener */);
+    }
+
+    // used for debug
+    public String getLocaleAndConfidenceInfo() {
+        return mDictionaryFacilitator.localesAndConfidences();
     }
 
     @Override

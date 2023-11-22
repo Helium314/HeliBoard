@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -41,24 +42,42 @@ public final class AboutFragment extends SubScreenFragment {
             }
         }
 
-        Preference versionPreference = findPreference("pref_key_version");
-        versionPreference.setSummary(BuildConfig.VERSION_NAME);
+        setupHiddenFeatures();
+        setupVersionPref();
+    }
 
+    private void setupHiddenFeatures() {
         Preference hiddenFeaturesPreference = findPreference("hidden_features");
         hiddenFeaturesPreference.setOnPreferenceClickListener(preference -> {
             final String link = "<a href=\"https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()\">"
                     + getString(R.string.hidden_features_text) + "</a>";
-            final String message = getContext().getString(R.string.hidden_features_message, link);
+            final String message = requireContext().getString(R.string.hidden_features_message, link);
             final Spanned dialogMessage = SpannableStringUtils.fromHtml(message);
 
-            final AlertDialog builder = new AlertDialog.Builder(getContext())
+            final AlertDialog builder = new AlertDialog.Builder(requireContext())
                     .setIcon(R.drawable.ic_settings_about_hidden_features)
                     .setTitle(R.string.hidden_features_title)
                     .setMessage(dialogMessage)
                     .setPositiveButton(R.string.dialog_close, null)
                     .create();
             builder.show();
-            ((TextView)builder.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+            ((TextView) builder.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+            return true;
+        });
+    }
+
+    private void setupVersionPref() {
+        Preference versionPreference = findPreference("pref_key_version");
+        versionPreference.setSummary(BuildConfig.VERSION_NAME);
+        if (BuildConfig.DEBUG) return;
+        int[] count = new int[] {0};
+        versionPreference.setOnPreferenceClickListener((pref) -> {
+            if (getSharedPreferences().getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false))
+                return true;
+            count[0]++;
+            if (count[0] < 5) return true;
+            getSharedPreferences().edit().putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true).apply();
+            Toast.makeText(requireContext(), R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show();
             return true;
         });
     }

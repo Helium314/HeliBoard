@@ -16,6 +16,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.TwoStatePreference;
 
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
 import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -49,6 +50,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
             pref.setOnPreferenceClickListener(this);
             dictDumpPreferenceGroup.addPreference(pref);
         }
+        if (BuildConfig.DEBUG)
+            removePreference(DebugSettings.PREF_SHOW_DEBUG_SETTINGS);
 
         mServiceNeedsRestart = false;
         mDebugMode = findPreference(DebugSettings.PREF_DEBUG_MODE);
@@ -92,7 +95,6 @@ public final class DebugSettingsFragment extends SubScreenFragment
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         if (key.equals(DebugSettings.PREF_DEBUG_MODE) && mDebugMode != null) {
             mDebugMode.setChecked(prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false));
-            updateDebugMode();
             mServiceNeedsRestart = true;
         } else if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
             mServiceNeedsRestart = true;
@@ -100,16 +102,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
     }
 
     private void updateDebugMode() {
-        boolean isDebugMode = mDebugMode.isChecked();
-        final String version = getString(
-                R.string.version_text, ApplicationUtils.getVersionName(getActivity()));
-        if (!isDebugMode) {
-            mDebugMode.setTitle(version);
-            mDebugMode.setSummary(null);
-        } else {
-            mDebugMode.setTitle(getString(R.string.prefs_debug_mode));
-            mDebugMode.setSummary(version);
-        }
+        final String version = getString(R.string.version_text, ApplicationUtils.getVersionName(getActivity()));
+        mDebugMode.setSummary(version);
     }
 
 }

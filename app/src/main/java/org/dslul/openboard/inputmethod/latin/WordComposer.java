@@ -30,7 +30,6 @@ import java.util.Collections;
  */
 public final class WordComposer {
     private static final int MAX_WORD_LENGTH = DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH;
-    private static final boolean DBG = DebugFlags.DEBUG_ENABLED;
 
     public static final int CAPS_MODE_OFF = 0;
     // 1 is shift bit, 2 is caps bit, 4 is auto bit but this is just a convention as these bits
@@ -221,7 +220,7 @@ public final class WordComposer {
     }
 
     public boolean isCursorFrontOrMiddleOfComposingWord() {
-        if (DBG && mCursorPositionWithinWord > mCodePointSize) {
+        if (DebugFlags.DEBUG_ENABLED && mCursorPositionWithinWord > mCodePointSize) {
             throw new RuntimeException("Wrong cursor position : " + mCursorPositionWithinWord
                     + "in a word of size " + mCodePointSize);
         }

@@ -70,7 +70,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         CharSequence getSelection();
     }
 
-    static final boolean DBG = DebugFlags.DEBUG_ENABLED;
+    static final boolean DEBUG = DebugFlags.DEBUG_ENABLED;
     private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.0f;
     private static final String VOICE_KEY_TAG = "voice_key";
     private static final String CLIPBOARD_KEY_TAG = "clipboard_key";
@@ -405,7 +405,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
             return false;
         });
-        if (BuildConfig.DEBUG && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
+        if (DEBUG && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
             showSourceDict(wordView);
             return true;
         } else return showMoreSuggestions();

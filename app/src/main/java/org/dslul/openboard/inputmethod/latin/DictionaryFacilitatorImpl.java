@@ -1081,6 +1081,18 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    public String localesAndConfidences() {
+        if (mDictionaryGroups.size() < 2) return null;
+        final StringBuilder sb = new StringBuilder();
+        for (final DictionaryGroup dictGroup : mDictionaryGroups) {
+            if (sb.length() > 0)
+                sb.append(", ");
+            sb.append(dictGroup.mLocale).append(" ").append(dictGroup.mConfidence);
+        }
+        return sb.toString();
+    }
+
+    @Override
     public void dumpDictionaryForDebug(final String dictName) {
         final ExpandableBinaryDictionary dictToDump = mDictionaryGroups.get(0).getSubDict(dictName);
         if (dictToDump == null) {

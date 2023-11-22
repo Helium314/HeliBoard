@@ -49,7 +49,6 @@ public final class Suggest {
     // Close to -2**31
     private static final int SUPPRESS_SUGGEST_THRESHOLD = -2000000000;
 
-    private static final boolean DBG = DebugFlags.DEBUG_ENABLED;
     private final DictionaryFacilitator mDictionaryFacilitator;
 
     private static final int MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN = 12;
@@ -212,7 +211,7 @@ public final class Suggest {
         }
 
         final ArrayList<SuggestedWordInfo> suggestionsList;
-        if (DBG && !suggestionsContainer.isEmpty()) {
+        if (DebugFlags.DEBUG_ENABLED && !suggestionsContainer.isEmpty()) {
             suggestionsList = getSuggestionsInfoListWithDebugInfo(typedWordString,
                     suggestionsContainer);
         } else {

@@ -575,4 +575,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void switchToSubtype(InputMethodSubtype subtype) {
         mLatinIME.switchToSubtype(subtype);
     }
+
+    // used for debug
+    public String getLocaleAndConfidenceInfo() {
+        return mLatinIME.getLocaleAndConfidenceInfo();
+    }
 }
