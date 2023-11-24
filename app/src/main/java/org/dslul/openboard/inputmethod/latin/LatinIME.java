@@ -50,6 +50,7 @@ import org.dslul.openboard.inputmethod.event.InputTransaction;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
@@ -71,7 +72,6 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
@@ -2060,4 +2060,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        switch (level) {
+            case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
+                    KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+            // deallocateMemory always called on hiding, and should not be called when showing
+        }
+    }
 }
