@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<!-- The attributes in this XML file provide configuration information -->
+<!-- for the Input Method Manager. -->
+
+<!-- Supported subtypes
+    keyboard_locale: script_name/keyboard_layout_set
+    af: Afrikaans/qwerty
+    ar: Arabic/arabic
+    ar: Arabic/arabic_pc
+    az_AZ: Azerbaijani (Azerbaijan)/qwerty
+    be_BY: Belarusian (Belarus)/east_slavic
+    bg: Bulgarian/bulgarian
+    bg: Bulgarian/bulgarian_bds
+    bg: Bulgarian/bulgarian_bekl
+    bn_BD: Bengali (Bangladesh)/bengali_unijoy
+    bn_BD: Bengali (Bangladesh) (Akkhor)/bengali_akkhor
+    bn_IN: Bengali (India)/bengali
+    ca: Catalan/spanish
+    cs: Czech/qwertz
+    da: Danish/nordic
+    de: German/qwertz
+    de_DE: German (Germany)/german
+    de_CH: German (Switzerland)/swiss
+    el: Greek/greek
+    en_AU: English (Australia)/qwerty
+    en_IN: English (India)/qwerty
+    en_US: English (United States)/qwerty
+    en_GB: English (Great Britain)/qwerty
+    eo: Esperanto/spanish
+    es: Spanish/spanish
+    es_US: Spanish (United States)/spanish
+    es_419: Spanish (Latin America)/spanish
+    et_EE: Estonian (Estonia)/nordic
+    eu_ES: Basque (Spain)/spanish
+    fa: Persian/farsi
+    fi: Finnish/nordic
+    fr: French/azerty
+    fr_CA: French (Canada)/qwerty
+    fr_CH: French (Switzerland)/swiss
+    gl_ES: Galician (Spain)/spanish
+    hi: Hindi/hindi
+    hi: Hindi/hindi_compact
+    hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
+    hr: Croatian/qwertz
+    hu: Hungarian/qwertz
+    hu_HU: Hungarian/qwerty
+    hy_AM: Armenian (Armenia) Phonetic/armenian_phonetic
+    in: Indonesian/qwerty    # "id" is the official language code of Indonesian.
+    is: Icelandic/qwerty
+    it: Italian/qwerty
+    it_CH: Italian (Switzerland)/swiss
+    iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
+    ka_GE: Georgian (Georgia)/georgian
+    kk: Kazakh/east_slavic
+    km_KH: Khmer (Cambodia)/khmer
+    kn_IN: Kannada (India)/kannada
+    ky: Kyrgyz/east_slavic
+    lo_LA: Lao (Laos)/lao
+    lt: Lithuanian/qwerty
+    lv: Latvian/qwerty
+    mk: Macedonian/south_slavic
+    ml_IN: Malayalam (India)/malayalam
+    mn_MN: Mongolian (Mongolia)/mongolian
+    mr_IN: Marathi (India)/marathi
+    ms_MY: Malay (Malaysia)/qwerty
+    nb: Norwegian Bokmål/nordic
+    ne_NP: Nepali (Nepal) Romanized/nepali_romanized
+    ne_NP: Nepali (Nepal) Traditional/nepali_traditional
+    nl: Dutch/qwerty
+    nl_BE: Dutch (Belgium)/azerty
+    pl: Polish/qwerty
+    pt_BR: Portuguese (Brazil)/qwerty
+    pt_PT: Portuguese (Portugal)/qwerty
+    ro: Romanian/qwerty
+    ru: Russian/east_slavic
+    si_LK: Sinhala (Sri Lanka)/sinhala # This is a preliminary keyboard layout.
+    sk: Slovak/qwerty
+    sl: Slovenian/qwerty
+    sr: Serbian/south_slavic
+    sr_ZZ: Serbian (Latin)/serbian_qwertz # This is a preliminary keyboard layout.
+    sv: Swedish/nordic
+    sw: Swahili/qwerty
+    ta_IN: Tamil (India)/tamil
+    ta_LK: Tamil (Sri Lanka)/tamil # Disabled in conjunction with si_LK.
+    ta_SG: Tamil (Singapore)/tamil
+    te_IN: Telugu (India)/telugu
+    th: Thai/thai
+    tl: Tagalog/spanish
+    tr: Turkish/qwerty
+    ur_PK: Urdu Pakistan
+    uk: Ukrainian/east_slavic
+    uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
+    vi: Vietnamese/qwerty
+    zu: Zulu/qwerty
+    zz: QWERTY/qwerty
+    (zz: Emoji/emoji)
+    -->
+<!-- TODO: use <lang>_keyboard icon instead of a common keyboard icon. -->
+<!-- TODO: Remove "AsciiCapable" from the extra values when we can stop supporting JB-MR1 -->
+<!-- Note: SupportTouchPositionCorrection extra value is obsolete and maintained for backward
+     compatibility. -->
+<!-- If IME doesn't have an applicable subtype, the first subtype will be used as a default
+     subtype.-->
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+        android:settingsActivity="org.dslul.openboard.inputmethod.latin.settings.SettingsActivity"
+        android:isDefault="@bool/im_is_default"
+        android:supportsSwitchingToNextInputMethod="true"
+        android:supportsInlineSuggestions="true">
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xc9194f97"
+            android:imeSubtypeLocale="en_AU"
+            android:languageTag="en-AU"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_en_US"
+            android:subtypeId="0xc9194f98"
+            android:imeSubtypeLocale="en_US"
+            android:languageTag="en-US"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_en_GB"
+            android:subtypeId="0xb045e755"
+            android:imeSubtypeLocale="en_GB"
+            android:languageTag="en-GB"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x6f972360"
+            android:imeSubtypeLocale="af"
+            android:languageTag="af"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x590dde40"
+            android:imeSubtypeLocale="ar"
+            android:languageTag="ar"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_arabic_pc"
+            android:subtypeId="0x590dde41"
+            android:imeSubtypeLocale="ar"
+            android:languageTag="ar"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=arabic_pc,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x70b0f974"
+            android:imeSubtypeLocale="az_AZ"
+            android:languageTag="az-AZ"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x1dc3a859"
+            android:imeSubtypeLocale="be_BY"
+            android:languageTag="be-BY"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=east_slavic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x0ba9c0e8"
+            android:imeSubtypeLocale="bg"
+            android:languageTag="bg"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bulgarian,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_bulgarian_bds"
+            android:subtypeId="0x5f51ba9a"
+            android:imeSubtypeLocale="bg"
+            android:languageTag="bg"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bulgarian_bds,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_bulgarian_bekl"
+            android:subtypeId="0x5f51ba9b"
+            android:imeSubtypeLocale="bg"
+            android:languageTag="bg"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bulgarian_bekl,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xa2144b0c"
+            android:imeSubtypeLocale="bn_BD"
+            android:languageTag="bn-BD"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali_unijoy,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_with_layout_bn_BD"
+            android:subtypeId="0xa2144b0d"
+            android:imeSubtypeLocale="bn_BD"
+            android:languageTag="bn-BD"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali_akkhor,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xbff5986c"
+            android:imeSubtypeLocale="bn_IN"
+            android:languageTag="bn-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xd2e520d5"
+            android:imeSubtypeLocale="ca"
+            android:languageTag="ca"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x2d3d2ed0"
+            android:imeSubtypeLocale="cs"
+            android:languageTag="cs"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x2df4605d"
+            android:imeSubtypeLocale="da"
+            android:languageTag="da"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x2e2cbe61"
+            android:imeSubtypeLocale="de"
+            android:languageTag="de"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x7acfd0aa"
+            android:imeSubtypeLocale="de_CH"
+            android:languageTag="de-CH"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=swiss,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x00"
+            android:imeSubtypeLocale="de_DE"
+            android:languageTag="de-DE"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=german,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x0e7802d3"
+            android:imeSubtypeLocale="el"
+            android:languageTag="el"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=greek,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8d58fc2d"
+            android:imeSubtypeLocale="en_IN"
+            android:languageTag="en-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x4090554a"
+            android:imeSubtypeLocale="eo"
+            android:languageTag="eo"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x30a6e00e"
+            android:imeSubtypeLocale="es"
+            android:languageTag="es"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_es_US"
+            android:subtypeId="0x84d2efc6"
+            android:imeSubtypeLocale="es_US"
+            android:languageTag="es-US"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xa23e5d19"
+            android:imeSubtypeLocale="es_419"
+            android:languageTag="es-419"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xec2d3955"
+            android:imeSubtypeLocale="et_EE"
+            android:languageTag="et-EE"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=nordic,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x070e5c07"
+            android:imeSubtypeLocale="eu_ES"
+            android:languageTag="eu-ES"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xbe66c254"
+            android:imeSubtypeLocale="fa"
+            android:languageTag="fa"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=farsi,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x31cecda3"
+            android:imeSubtypeLocale="fi"
+            android:languageTag="fi"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x324da12c"
+            android:imeSubtypeLocale="fr"
+            android:languageTag="fr"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xeadbb691"
+            android:imeSubtypeLocale="fr_CA"
+            android:languageTag="fr-CA"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xeadc55f5"
+            android:imeSubtypeLocale="fr_CH"
+            android:languageTag="fr-CH"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=swiss,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xb939573c"
+            android:imeSubtypeLocale="gl_ES"
+            android:languageTag="gl-ES"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x39753b7f"
+            android:imeSubtypeLocale="hi"
+            android:languageTag="hi"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic_compact"
+            android:subtypeId="0xe49c89a1"
+            android:imeSubtypeLocale="hi"
+            android:languageTag="hi"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_compact,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <!-- TODO: This Hinglish keyboard is a preliminary layout.
+               This isn't based on the final specification.
+               Was disabled because there is no LM yet, and this layout does not offer anything different. -->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_hi_ZZ"
+            android:subtypeId="0x352eb37c"
+            android:imeSubtypeLocale="hi_ZZ"
+            android:languageTag="hi-ZZ"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,KeyboardLayoutSet=qwerty,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x35b7526a"
+            android:imeSubtypeLocale="hr"
+            android:languageTag="hr"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x35e198ed"
+            android:imeSubtypeLocale="hu"
+            android:languageTag="hu"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xe39ac3ca"
+            android:imeSubtypeLocale="hy_AM"
+            android:languageTag="hy-AM"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=armenian_phonetic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <!-- Java uses the deprecated "in" code instead of the standard "id" code for Indonesian. -->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x7daea460"
+            android:imeSubtypeLocale="in"
+            android:languageTag="id"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x7df519e5"
+            android:imeSubtypeLocale="is"
+            android:languageTag="is"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x37885a0b"
+            android:imeSubtypeLocale="it"
+            android:languageTag="it"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xd914fe1a"
+            android:imeSubtypeLocale="it_CH"
+            android:languageTag="it-CH"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=swiss,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <!-- Java uses the deprecated "iw" code instead of the standard "he" code for Hebrew. -->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x66fb18bd"
+            android:imeSubtypeLocale="iw"
+            android:languageTag="he"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x6e119e6a"
+            android:imeSubtypeLocale="ka_GE"
+            android:languageTag="ka-GE"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=georgian,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x2d73d2f6"
+            android:imeSubtypeLocale="kk"
+            android:languageTag="kk"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=east_slavic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x1365683a"
+            android:imeSubtypeLocale="km_KH"
+            android:languageTag="km-KH"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=khmer,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8c78064f"
+            android:imeSubtypeLocale="kn_IN"
+            android:languageTag="kn-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=kannada,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x456d04f2"
+            android:imeSubtypeLocale="ko"
+            android:languageTag="ko"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=korean,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic_sebeolsik_390"
+            android:subtypeId="0xb0bbe261"
+            android:imeSubtypeLocale="ko"
+            android:languageTag="ko"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=korean_sebeolsik_390,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic_sebeolsik_final"
+            android:subtypeId="0xb6774038"
+            android:imeSubtypeLocale="ko"
+            android:languageTag="ko"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=korean_sebeolsik_final,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x2e391c04"
+            android:imeSubtypeLocale="ky"
+            android:languageTag="ky"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=east_slavic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x6c624c55"
+            android:imeSubtypeLocale="lb"
+            android:languageTag="lb"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwertz,AsciiCapable,EmojiCapable"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8315772c"
+            android:imeSubtypeLocale="lo_LA"
+            android:languageTag="lo-LA"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=lao,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8321bb43"
+            android:imeSubtypeLocale="lt"
+            android:languageTag="lt"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x833dea45"
+            android:imeSubtypeLocale="lv"
+            android:languageTag="lv"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xaf50ab7c"
+            android:imeSubtypeLocale="mk"
+            android:languageTag="mk"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=south_slavic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xc182ebd4"
+            android:imeSubtypeLocale="ml_IN"
+            android:languageTag="ml-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=malayalam,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xcdcfc3ab"
+            android:imeSubtypeLocale="mn_MN"
+            android:languageTag="mn-MN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=mongolian,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x747b9f03"
+            android:imeSubtypeLocale="mr_IN"
+            android:languageTag="mr-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=marathi,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x84c87c61"
+            android:imeSubtypeLocale="ms_MY"
+            android:languageTag="ms-MY"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x3f12ee14"
+            android:imeSubtypeLocale="nb"
+            android:languageTag="nb"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xd80a4cee"
+            android:imeSubtypeLocale="ne_NP"
+            android:languageTag="ne-NP"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=nepali_romanized,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic_traditional"
+            android:subtypeId="0x5fafea88"
+            android:imeSubtypeLocale="ne_NP"
+            android:languageTag="ne-NP"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=nepali_traditional,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x3f9fd91e"
+            android:imeSubtypeLocale="nl"
+            android:languageTag="nl"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x500ca92c"
+            android:imeSubtypeLocale="nl_BE"
+            android:languageTag="nl-BE"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=azerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x43098a5c"
+            android:imeSubtypeLocale="pl"
+            android:languageTag="pl"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xcafff4a6"
+            android:imeSubtypeLocale="pt_BR"
+            android:languageTag="pt-BR"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xe2fffc5a"
+            android:imeSubtypeLocale="pt_PT"
+            android:languageTag="pt-PT"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8d185978"
+            android:imeSubtypeLocale="ro"
+            android:languageTag="ro"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x763a8752"
+            android:imeSubtypeLocale="ru"
+            android:languageTag="ru"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <!-- TODO: This Sinhala keyboard is a preliminary layout.
+               This isn't based on the final specification. -->
+    <!-- si_LK is currently disabled due to lack of combination rules.
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x5c6b3bde"
+            android:imeSubtypeLocale="si_LK"
+            android:languageTag="si-LK"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=sinhala,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    -->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8e94d413"
+            android:imeSubtypeLocale="sk"
+            android:languageTag="sk"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8ea2eb94"
+            android:imeSubtypeLocale="sl"
+            android:languageTag="sl"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x77c5196e"
+            android:imeSubtypeLocale="sr"
+            android:languageTag="sr"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <!-- TODO: This Serbian Latin keyboard is a preliminary layout.
+               This isn't based on the final specification. -->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_sr_ZZ"
+            android:subtypeId="0xf4a5569c"
+            android:imeSubtypeLocale="sr_ZZ"
+            android:languageTag="sr-Latn"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=serbian_qwertz,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x48b4ff43"
+            android:imeSubtypeLocale="sv"
+            android:languageTag="sv"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x8f3dee1f"
+            android:imeSubtypeLocale="sw"
+            android:languageTag="sw"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x67acea2a"
+            android:imeSubtypeLocale="ta_IN"
+            android:languageTag="ta-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <!-- TODO: Enabling/Disabling ta_LK subtype must be aligned with si_LK subtype. -->
+    <!-- ta_LK disabled alongside si_LK subtype due to lack of combination rules.
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x6ca12d84"
+            android:imeSubtypeLocale="ta_LK"
+            android:languageTag="ta-LK"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    !-->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x785abbd9"
+            android:imeSubtypeLocale="ta_SG"
+            android:languageTag="ta-SG"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x1e177389"
+            android:imeSubtypeLocale="te_IN"
+            android:languageTag="te-IN"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=telugu,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x1f94d5d4"
+            android:imeSubtypeLocale="th"
+            android:languageTag="th"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=thai,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xf08285ef"
+            android:imeSubtypeLocale="tl"
+            android:languageTag="fil"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=spanish,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x4a3179de"
+            android:imeSubtypeLocale="tr"
+            android:languageTag="tr"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x3e84492c"
+            android:imeSubtypeLocale="uk"
+            android:languageTag="uk"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=east_slavic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x1e8349fc"
+            android:imeSubtypeLocale="ur_PK"
+            android:languageTag="ur-PK"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=urdu,EmojiCapable"
+            android:isAsciiCapable="false"
+        />
+    <!-- TODO: This Uzbek keyboard is a preliminary layout.
+               This isn't based on the final specification. -->
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xad5cf7f6"
+            android:imeSubtypeLocale="uz_UZ"
+            android:languageTag="uz-UZ"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=uzbek,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x93972eee"
+            android:imeSubtypeLocale="vi"
+            android:languageTag="vi"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x9b13ab76"
+            android:imeSubtypeLocale="zu"
+            android:languageTag="zu"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_no_language_qwerty"
+            android:subtypeId="0xa239ebad"
+            android:imeSubtypeLocale="zz"
+            android:languageTag="zz"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty,AsciiCapable,EnabledWhenDefaultIsNotAsciiCapable,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <!-- Emoji subtype has to be an addtional subtype added at boot time because ICS doesn't
+         support Emoji. -->
+    <!--
+    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+            android:label="@string/subtype_emoji"
+            android:subtypeId="0xc14d88b2"
+            android:imeSubtypeLocale="zz"
+            android:languageTag="zz"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=emoji,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    -->
+</input-method>
