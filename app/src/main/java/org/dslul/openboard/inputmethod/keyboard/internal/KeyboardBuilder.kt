@@ -8,18 +8,19 @@ package org.dslul.openboard.inputmethod.keyboard.internal
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
+import android.widget.Toast
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_ALL
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_MORE
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.KeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
+import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParserException
@@ -47,24 +48,23 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mAllowRedundantMoreKeys = enabled
     }
 
-    fun loadSimpleKeyboard(id: KeyboardId): KeyboardBuilder<KP> {
+    fun loadFromAssets(id: KeyboardId): KeyboardBuilder<KP>? {
         mParams.mId = id
-        addLocaleKeyTextsToParams(mContext, mParams)
-        when (Settings.getInstance().current.mShowMoreKeys) {
-            MORE_KEYS_ALL -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/all_more_keys.txt"))
-            MORE_KEYS_MORE -> mParams.mLocaleKeyTexts.addFile(mContext.assets.open("language_key_texts/more_more_keys.txt"))
+        addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
+        try {
+            val parser = KeyboardParser.createParserForLayout(mParams, mContext) ?: return null
+            Log.d(TAG, "parsing $id using ${parser::class.simpleName}")
+            keysInRows = parser.parseLayoutFromAssets(id.mSubtype.keyboardLayoutSetName)
+        } catch (e: Throwable) {
+            if (DebugFlags.DEBUG_ENABLED || BuildConfig.DEBUG)
+                Toast.makeText(mContext, "error loading keyboard: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e(TAG, "loading $id from assets failed", e)
+            return null
         }
-        keysInRows = SimpleKeyboardParser(mParams, mContext).parseFromAssets(id.mSubtype.keyboardLayoutSetName)
         determineAbsoluteValues()
         return this
 
         // todo: further plan
-        //  add a parser for more complex layouts, and slowly extend it with whatever is needed
-        //   try to make the format compatible with florisboard, or just take it if it has all we need
-        //    if so, then make sure additional stuff unwanted in this app (if there is some) does not cause errors
-        //    probably need to deal with different functional key definition style, but only if allowing numpad and similar layouts
-        //   initially it's just alternative key for shifted layout
-        //    so dvorak and azerty and colemak and others can be migrated
         //  migrate symbol layouts to this style
         //   simplified if possible, but json should be fine too
         //  migrate keypad layouts to this style
@@ -144,15 +144,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
-        mParams.mId = id
         if (Settings.getInstance().current.mUseNewKeyboardParsing
             && id.isAlphabetKeyboard
-            && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions
-            && SimpleKeyboardParser.hasLayoutFile(mParams.mId.mSubtype.keyboardLayoutSetName)
+            && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
         ) {
-            loadSimpleKeyboard(id)
-            return this
+            if (loadFromAssets(id) != null)
+                return this
         }
+        mParams.mId = id
         // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
         // attrs may be null, then default values are used (looks good for "normal" keyboards)
         try {

@@ -4,15 +4,16 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 import android.content.Context
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
-import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.InputStream
 import java.util.Locale
 import kotlin.math.round
 
 class LocaleKeyTexts(dataStream: InputStream?) {
     private val moreKeys = hashMapOf<String, Array<String>>()
-    private val extraKeys = Array<MutableList<Pair<String, Array<String>?>>?>(5) { null }
+    private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbols = "\\?123"
     var labelAlphabet = "ABC"
     var labelShiftSymbols = "=\\<"
@@ -54,7 +55,7 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     // need tp provide a copy because some functions like MoreKeySpec.insertAdditionalMoreKeys may modify the array
     fun getMoreKeys(label: String): Array<String>? = moreKeys[label]?.copyOf()
 
-    fun getExtraKeys(row: Int): List<Pair<String, Array<String>?>>? =
+    fun getExtraKeys(row: Int): List<KeyData>? =
         if (row > extraKeys.size) null
             else extraKeys[row]
 
@@ -75,10 +76,9 @@ class LocaleKeyTexts(dataStream: InputStream?) {
         if (split.size < 2) return
         val row = split.first().toIntOrNull() ?: return
         val keys = split.last().splitOnWhitespace()
-        val morekeys = if (keys.size == 1) null else Array(keys.size - 1) { keys[it + 1] }
         if (extraKeys[row] == null)
             extraKeys[row] = mutableListOf()
-        extraKeys[row]?.add(keys.first() to morekeys)
+        extraKeys[row]?.add(keys.first().toTextKey(keys.drop(1)))
     }
 
     private fun addLabel(split: List<String>) {
@@ -127,31 +127,39 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
             // we had 2 rows, and want it again
             return (l + "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}").toTypedArray()
         }
-        // just drop autoColumnOrder otherwise (maybe not? depends on arising issues)
+        // just drop autoColumnOrder otherwise
         return l.toTypedArray()
     }
     return moreKeys.toTypedArray()
 }
 
-fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams) {
-    val locales = Settings.getInstance().current.mSecondaryLocales + params.mId.locale
+fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, moreKeysSetting: Int) {
+    val locales = params.mSecondaryLocales + params.mId.locale
     params.mLocaleKeyTexts = moreKeysAndLabels.getOrPut(locales.joinToString { it.toString() }) {
-        val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context))
-        locales.forEach { locale ->
-            if (locale == params.mId.locale) return@forEach
-            lkt.addFile(getStreamForLocale(locale, context))
-        }
-        lkt
+        createLocaleKeyTexts(context, params, moreKeysSetting)
     }
+}
+
+private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreKeysSetting: Int): LocaleKeyTexts {
+    val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context))
+    if (moreKeysSetting == MORE_KEYS_MORE)
+        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_more_keys.txt"))
+    else if (moreKeysSetting == MORE_KEYS_ALL)
+        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt"))
+    params.mSecondaryLocales.forEach { locale ->
+        if (locale == params.mId.locale) return@forEach
+        lkt.addFile(getStreamForLocale(locale, context))
+    }
+    return lkt
 }
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toString() == "zz") context.assets.open("language_key_texts/more_more_keys.txt")
-        else context.assets.open("language_key_texts/${locale.toString().lowercase()}.txt")
+        if (locale.toString() == "zz") context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
+        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toString().lowercase()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("language_key_texts/${locale.language.lowercase()}.txt")
+            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language.lowercase()}.txt")
         } catch (_: Exception) {
             null
         }
@@ -226,3 +234,5 @@ private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb
 const val MORE_KEYS_ALL = 2;
 const val MORE_KEYS_MORE = 1;
 const val MORE_KEYS_NORMAL = 0;
+
+const val LANGUAGE_TEXTS_FOLDER = "language_key_texts"

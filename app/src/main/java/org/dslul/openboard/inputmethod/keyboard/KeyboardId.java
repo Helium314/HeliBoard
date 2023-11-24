@@ -173,6 +173,11 @@ public final class KeyboardId {
         return (mEditorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
     }
 
+    public boolean isAlphabetShifted() {
+        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+                || mElementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+    }
+
     public int imeAction() {
         return InputTypeUtils.getImeOptionsActionIdFromEditorInfo(mEditorInfo);
     }

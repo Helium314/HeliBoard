@@ -956,7 +956,7 @@ public class Key implements Comparable<Key> {
 
         // params that remains constant
         public final int mCode;
-        @Nullable final String mLabel;
+        @Nullable public final String mLabel;
         @Nullable final String mHintLabel;
         final int mLabelFlags;
         final int mIconId;
@@ -1156,6 +1156,17 @@ public class Key implements Comparable<Key> {
             mEnabled = true;
         }
 
+        public KeyParams(
+                @NonNull final String keySpec,
+                @NonNull final KeyboardParams params,
+                final float relativeWidth,
+                final int labelFlags,
+                final int backgroundType,
+                @Nullable final String[] layoutMoreKeys
+        ) {
+            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, layoutMoreKeys);
+        }
+
         /**
          *  constructor that does not require attrs, style or absolute key dimension / position
          *  setDimensionsFromRelativeSize needs to be called before creating the key
@@ -1163,6 +1174,7 @@ public class Key implements Comparable<Key> {
         public KeyParams(
                 // todo (much later): replace keySpec? these encoded icons and codes are not really great
                 @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (avoid using !text, should be removed)
+                final int code,
                 @NonNull final KeyboardParams params,
                 final float relativeWidth,
                 final int labelFlags,
@@ -1200,7 +1212,6 @@ public class Key implements Comparable<Key> {
                 mMoreKeys = null;
             }
 
-            final int code = KeySpecParser.getCode(keySpec);
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
                 mLabel = params.mId.mCustomActionLabel;
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
@@ -1223,7 +1234,7 @@ public class Key implements Comparable<Key> {
                 if (hintLabelAlwaysFromFirstLongPressKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 } else {
-                    hintLabel = layoutMoreKeys == null ? null : layoutMoreKeys[0];
+                    hintLabel = layoutMoreKeys == null ? null : layoutMoreKeys[0]; // note that some entries may have been changed to other string or null
                     if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
                         hintLabel = null;
                     if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
