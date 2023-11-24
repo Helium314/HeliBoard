@@ -81,6 +81,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1" // why not working with 1.6.0?
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
+    implementation 'com.joaomgcd:taskerpluginlibrary:0.4.10'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.12.4'
