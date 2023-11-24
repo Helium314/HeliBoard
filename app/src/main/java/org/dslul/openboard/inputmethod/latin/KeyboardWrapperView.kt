@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin
 
 import android.annotation.SuppressLint
@@ -113,7 +115,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
         val scale = Settings.getInstance().current.mKeyboardHeightScale
         // scale one-handed mode button height if keyboard height scale is < 80%
         // more relevant: also change the distance, so the buttons are actually visible
-        val heightScale = scale + 0.2f
+        val heightScale = if (scale < 0.8f) scale + 0.2f else 1f
         val buttonsLeft = if (isLeftGravity) keyboardView.measuredWidth else 0
         stopOneHandedModeBtn.layout(
                 buttonsLeft + (spareWidth - stopOneHandedModeBtn.measuredWidth) / 2,

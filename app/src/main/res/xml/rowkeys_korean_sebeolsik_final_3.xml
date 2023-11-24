@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2012 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<merge xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <switch>
+        <case latin:keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted">
+            <Key
+                latin:keySpec="&#x11be;" />
+            <Key
+                latin:keySpec="&#x11b9;" />
+            <Key
+                latin:keySpec="&#x11bf;" />
+            <Key
+                latin:keySpec="&#x11aa;" />
+            <Key
+                latin:keySpec="&#x003f;" />
+            <Key
+                latin:keySpec="&#x002d;" />
+            <Key
+                latin:keySpec="&#x0022;" />
+            <Key
+                latin:keySpec="&#x00b7;" />
+        </case>
+        <default>
+            <Key
+                latin:keySpec="&#x11b7;"
+                latin:keyHintLabel="&#x11be;"
+                latin:additionalMoreKeys="&#x11be;" />
+            <Key
+                latin:keySpec="&#x11a8;"
+                latin:keyHintLabel="&#x11b9;"
+                latin:additionalMoreKeys="&#x11b9;" />
+            <Key
+                latin:keySpec="&#x1166;"
+                latin:keyHintLabel="&#x11bf;"
+                latin:additionalMoreKeys="&#x11bf;" />
+            <Key
+                latin:keySpec="&#x1169;"
+                latin:keyHintLabel="&#x11aa;"
+                latin:additionalMoreKeys="&#x11aa;" />
+            <Key
+                latin:keySpec="&#x116e;"
+                latin:keyHintLabel="&#x003f;"
+                latin:additionalMoreKeys="&#x003f;" />
+            <Key
+                latin:keySpec="&#x1109;"
+                latin:keyHintLabel="&#x002d;"
+                latin:additionalMoreKeys="&#x002d;" />
+            <Key
+                latin:keySpec="&#x1112;"
+                latin:keyHintLabel="&#x0022;"
+                latin:additionalMoreKeys="&#x0022;" />
+            <Key
+                latin:keySpec="&#x1110;"
+                latin:keyHintLabel="&#x00b7;"
+                latin:additionalMoreKeys="&#x00b7;" />
+        </default>
+    </switch>
+
+</merge>

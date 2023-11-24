@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
@@ -52,18 +42,14 @@ final class EmojiLayoutParams {
             mKeyHorizontalGap = (int) (res.getFraction(R.fraction.config_key_horizontal_gap_holo,
                     defaultKeyboardWidth, defaultKeyboardWidth));
         }
-        mBottomPadding = (int) res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight);
+        mBottomPadding = (int) (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight) * Settings.getInstance().getCurrent().mBottomPaddingScale);
         mTopPadding = (int) res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight);
-        mEmojiCategoryPageIdViewHeight =
-                (int) (res.getDimension(R.dimen.config_emoji_category_page_id_height));
-        final int baseheight = defaultKeyboardHeight - mBottomPadding - mTopPadding
-                + mKeyVerticalGap;
-        mEmojiActionBarHeight = baseheight / DEFAULT_KEYBOARD_ROWS
-                - (mKeyVerticalGap - mBottomPadding) / 2;
-        mEmojiListHeight = defaultKeyboardHeight - mEmojiActionBarHeight
-                - mEmojiCategoryPageIdViewHeight;
+        mEmojiCategoryPageIdViewHeight = (int) (res.getDimension(R.dimen.config_emoji_category_page_id_height));
+        final int baseheight = defaultKeyboardHeight - mBottomPadding - mTopPadding + mKeyVerticalGap;
+        mEmojiActionBarHeight = baseheight / DEFAULT_KEYBOARD_ROWS - (mKeyVerticalGap - mBottomPadding) / 2;
+        mEmojiListHeight = defaultKeyboardHeight - mEmojiActionBarHeight - mEmojiCategoryPageIdViewHeight;
         mEmojiListBottomMargin = 0;
         mEmojiKeyboardHeight = mEmojiListHeight - mEmojiListBottomMargin - 1;
     }

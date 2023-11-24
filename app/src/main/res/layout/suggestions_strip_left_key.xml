@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<ImageButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+    android:layout_height="fill_parent"
+    android:scaleX="1.2"
+    android:scaleY="1.2"
+    android:tag="left_key"
+    style="?attr/suggestionWordStyle" />

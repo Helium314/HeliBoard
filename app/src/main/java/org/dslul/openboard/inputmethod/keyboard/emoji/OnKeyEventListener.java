@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.keyboard.emoji;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;

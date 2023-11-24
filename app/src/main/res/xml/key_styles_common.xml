@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2010, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2010 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
@@ -78,7 +64,7 @@
         latin:backgroundType="functional" />
     <!-- emojiKeyStyle must be defined before including @xml/key_syles_enter. -->
     <switch>
-        <case latin:keyboardTheme="HoloBase|HoloBaseNoBorder|LXXBaseBorder">
+        <case latin:keyboardTheme="HoloBase|LXXBaseBorder|RoundedBaseBorder">
             <key-style
                 latin:styleName="emojiKeyStyle"
                 latin:keySpec="!icon/emoji_normal_key|!code/key_emoji"
@@ -96,57 +82,22 @@
         </default>
     </switch>
     <!-- numpadKeyStyle -->
-    <switch>
-        <case latin:keyboardTheme="HoloBase|HoloBaseNoBorder|LXXBaseBorder|LXXBase">
-            <key-style
-                latin:styleName="numpadKeyStyle"
-                latin:keySpec="!icon/numpad_key|!code/key_numpad"
-                latin:keyActionFlags="noKeyPreview"
-                latin:backgroundType="functional" />
-        </case>
-        <default>
-            <key-style
-                latin:styleName="numpadKeyStyle"
-                latin:keySpec="!icon/numpad_key|!code/key_numpad"
-                latin:keyLabelFlags="keepBackgroundAspectRatio"
-                latin:keyActionFlags="noKeyPreview"
-                latin:backgroundType="functional" />
-        </default>
-    </switch>
+    <key-style
+        latin:styleName="numpadKeyStyle"
+        latin:keySpec="!icon/numpad_key|!code/key_numpad"
+        latin:keyActionFlags="noKeyPreview"
+        latin:backgroundType="functional" />
     <!-- alphaNumpadKeyStyle -->
-    <switch>
-        <case latin:keyboardTheme="HoloBase|HoloBaseNoBorder|LXXBaseBorder|LXXBase">
-            <key-style
-                latin:styleName="alphaNumpadKeyStyle"
-                latin:keySpec="!text/keylabel_to_alpha|!code/key_alphaNumpad"
-                latin:keyActionFlags="noKeyPreview"
-                latin:backgroundType="functional" />
-        </case>
-        <default>
-            <key-style
-                latin:styleName="alphaNumpadKeyStyle"
-                latin:keySpec="!text/keylabel_to_alpha|!code/key_alphaNumpad"
-                latin:keyLabelFlags="keepBackgroundAspectRatio"
-                latin:keyActionFlags="noKeyPreview"
-                latin:backgroundType="functional" />
-        </default>
-    </switch>
+    <key-style
+        latin:styleName="alphaNumpadKeyStyle"
+        latin:keySpec="!text/keylabel_to_alpha|!code/key_alphaNumpad"
+        latin:keyActionFlags="noKeyPreview"
+        latin:backgroundType="functional" />
     <!-- symbolNumpadKeyStyle -->
-    <switch>
-        <case latin:keyboardTheme="HoloBase|HoloBaseNoBorder|LXXBaseBorder|LXXBase">
-            <key-style
-                latin:styleName="symbolNumpadKeyStyle"
-                latin:keySpec="!text/keylabel_to_symbol|!code/key_symbolNumpad"
-                latin:keyActionFlags="noKeyPreview" />
-        </case>
-        <default>
-            <key-style
-                latin:styleName="symbolNumpadKeyStyle"
-                latin:keySpec="!text/keylabel_to_symbol|!code/key_symbolNumpad"
-                latin:keyLabelFlags="keepBackgroundAspectRatio"
-                latin:keyActionFlags="noKeyPreview" />
-        </default>
-    </switch>
+    <key-style
+        latin:styleName="symbolNumpadKeyStyle"
+        latin:keySpec="!text/keylabel_to_symbol|!code/key_symbolNumpad"
+        latin:keyActionFlags="noKeyPreview" />
     <include
         latin:keyboardLayout="@xml/key_styles_enter" />
     <!-- TODO: Currently there is no way to specify icon alignment per theme. -->

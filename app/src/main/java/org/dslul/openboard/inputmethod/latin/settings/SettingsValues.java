@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -29,13 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
-import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
@@ -60,7 +50,6 @@ public class SettingsValues {
 
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
-    public final int mDelayInMillisecondsToUpdateOldSuggestions;
     public final long mDoubleSpacePeriodTimeout;
     // From configuration:
     public final Locale mLocale;
@@ -76,10 +65,10 @@ public class SettingsValues {
     public final boolean mLanguageSwitchKeyToOtherSubtypes;
     public final boolean mShowsNumberRow;
     public final boolean mShowsHints;
+    public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mSpaceLanguageSlide;
     public final boolean mShowsEmojiKey;
-    public final boolean mShowsClipboardKey;
     public final boolean mUsePersonalizedDicts;
     public final boolean mUseDoubleSpacePeriod;
     public final boolean mBlockPotentiallyOffensive;
@@ -91,7 +80,7 @@ public class SettingsValues {
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
     public final boolean mNarrowKeyGaps;
-    public final boolean mShowAllMoreKeys;
+    public final int mShowMoreKeys;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -107,11 +96,16 @@ public class SettingsValues {
     public final boolean mShouldShowLxxSuggestionUi;
     // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
+    public final float mSpacerRelativeWidth;
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
+    public final boolean mUrlDetectionEnabled;
+    public final List<String> mPinnedKeys;
+    public final float mBottomPaddingScale;
+    public final boolean mUseNewKeyboardParsing;
 
     // From the input box
     @NonNull
@@ -132,25 +126,12 @@ public class SettingsValues {
     // User-defined colors
     public final Colors mColors;
 
-    // Debug settings
-    public final boolean mHasCustomKeyPreviewAnimationParams;
-    public final int mKeyPreviewShowUpDuration;
-    public final int mKeyPreviewDismissDuration;
-    public final float mKeyPreviewShowUpStartXScale;
-    public final float mKeyPreviewShowUpStartYScale;
-    public final float mKeyPreviewDismissEndXScale;
-    public final float mKeyPreviewDismissEndYScale;
-
     @Nullable
     public final String mAccount;
 
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
-        // Get the resources
-        mDelayInMillisecondsToUpdateOldSuggestions =
-                res.getInteger(R.integer.config_delay_in_milliseconds_to_update_old_suggestions);
-        mSpacingAndPunctuations = new SpacingAndPunctuations(res);
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -162,16 +143,16 @@ public class SettingsValues {
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
-        mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs) && mInputAttributes.mShouldShowVoiceInputKey;
+        mShowsVoiceInputKey = mInputAttributes.mShouldShowVoiceInputKey;
         final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "off");
         mLanguageSwitchKeyToOtherImes = languagePref.equals("input_method") || languagePref.equals("both");
         mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
+        mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
-        mShowsClipboardKey = prefs.getBoolean(Settings.PREF_SHOW_CLIPBOARD_KEY, false);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
@@ -185,7 +166,12 @@ public class SettingsValues {
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
-        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false);
+        final float displayWidthDp = res.getDisplayMetrics().widthPixels / res.getDisplayMetrics().density;
+        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && displayWidthDp > 600; // require display width of 600 dp for split
+        // determine spacerWidth from display width and scale setting
+        mSpacerRelativeWidth = mIsSplitKeyboardEnabled
+                ? Math.min(Math.max((displayWidthDp - 600) / 6000f + 0.15f, 0.15f), 0.25f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+                : 0f;
         mScreenMetrics = Settings.readScreenMetrics(res);
 
         mShouldShowLxxSuggestionUi = Settings.SHOULD_SHOW_LXX_SUGGESTION_UI
@@ -198,7 +184,7 @@ public class SettingsValues {
                 Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mShowAppIcon = Settings.readShowSetupWizardIcon(prefs, context);
         mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
-        mGestureInputEnabled = Settings.readGestureInputEnabled(prefs, res);
+        mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         mCloudSyncEnabled = prefs.getBoolean(LocalSettingsConstants.PREF_ENABLE_CLOUD_SYNC, false);
         mAccount = prefs.getString(LocalSettingsConstants.PREF_ACCOUNT_NAME,
@@ -211,30 +197,7 @@ public class SettingsValues {
                 readSuggestionsEnabled(prefs);
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
-        mHasCustomKeyPreviewAnimationParams = prefs.getBoolean(DebugSettings.PREF_HAS_CUSTOM_KEY_PREVIEW_ANIMATION_PARAMS, false);
-        mKeyboardHeightScale = Settings.readKeyboardHeight(prefs, DEFAULT_SIZE_SCALE);
-        mKeyPreviewShowUpDuration = Settings.readKeyPreviewAnimationDuration(
-                prefs, DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_DURATION,
-                res.getInteger(R.integer.config_key_preview_show_up_duration));
-        mKeyPreviewDismissDuration = Settings.readKeyPreviewAnimationDuration(
-                prefs, DebugSettings.PREF_KEY_PREVIEW_DISMISS_DURATION,
-                res.getInteger(R.integer.config_key_preview_dismiss_duration));
-        final float defaultKeyPreviewShowUpStartScale = ResourceUtils.getFloatFromFraction(
-                res, R.fraction.config_key_preview_show_up_start_scale);
-        final float defaultKeyPreviewDismissEndScale = ResourceUtils.getFloatFromFraction(
-                res, R.fraction.config_key_preview_dismiss_end_scale);
-        mKeyPreviewShowUpStartXScale = Settings.readKeyPreviewAnimationScale(
-                prefs, DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_START_X_SCALE,
-                defaultKeyPreviewShowUpStartScale);
-        mKeyPreviewShowUpStartYScale = Settings.readKeyPreviewAnimationScale(
-                prefs, DebugSettings.PREF_KEY_PREVIEW_SHOW_UP_START_Y_SCALE,
-                defaultKeyPreviewShowUpStartScale);
-        mKeyPreviewDismissEndXScale = Settings.readKeyPreviewAnimationScale(
-                prefs, DebugSettings.PREF_KEY_PREVIEW_DISMISS_END_X_SCALE,
-                defaultKeyPreviewDismissEndScale);
-        mKeyPreviewDismissEndYScale = Settings.readKeyPreviewAnimationScale(
-                prefs, DebugSettings.PREF_KEY_PREVIEW_DISMISS_END_Y_SCALE,
-                defaultKeyPreviewDismissEndScale);
+        mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
         mAppWorkarounds = new AsyncResultHolder<>("AppWorkarounds");
         final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(
@@ -254,8 +217,9 @@ public class SettingsValues {
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
-        mShowAllMoreKeys = selectedSubtype.isAsciiCapable() && prefs.getBoolean(Settings.PREF_SHOW_ALL_MORE_KEYS, false);
-
+        mShowMoreKeys = selectedSubtype.isAsciiCapable()
+                ? Settings.readMoreMoreKeysPref(prefs)
+                : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
@@ -266,6 +230,11 @@ public class SettingsValues {
                 mBlockPotentiallyOffensive,
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
+        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
+        mPinnedKeys = Settings.readPinnedKeys(prefs);
+        mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
+        mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
+        mUseNewKeyboardParsing = prefs.getBoolean(Settings.PREF_USE_NEW_KEYBOARD_PARSING, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -375,16 +344,10 @@ public class SettingsValues {
         return autoCorrectionThreshold;
     }
 
-    private static boolean needsToShowVoiceInputKey(final SharedPreferences prefs) {
-        return prefs.getBoolean(Settings.PREF_VOICE_INPUT_KEY, true);
-    }
-
     public String dump() {
         final StringBuilder sb = new StringBuilder("Current settings :");
         sb.append("\n   mSpacingAndPunctuations = ");
         sb.append("" + mSpacingAndPunctuations.dump());
-        sb.append("\n   mDelayInMillisecondsToUpdateOldSuggestions = ");
-        sb.append("" + mDelayInMillisecondsToUpdateOldSuggestions);
         sb.append("\n   mAutoCap = ");
         sb.append("" + mAutoCap);
         sb.append("\n   mVibrateOn = ");
@@ -438,18 +401,6 @@ public class SettingsValues {
         sb.append("\n   mAppWorkarounds = ");
         final AppWorkaroundsUtils awu = mAppWorkarounds.get(null, 0);
         sb.append("" + (null == awu ? "null" : awu.toString()));
-        sb.append("\n   mKeyPreviewShowUpDuration = ");
-        sb.append("" + mKeyPreviewShowUpDuration);
-        sb.append("\n   mKeyPreviewDismissDuration = ");
-        sb.append("" + mKeyPreviewDismissDuration);
-        sb.append("\n   mKeyPreviewShowUpStartScaleX = ");
-        sb.append("" + mKeyPreviewShowUpStartXScale);
-        sb.append("\n   mKeyPreviewShowUpStartScaleY = ");
-        sb.append("" + mKeyPreviewShowUpStartYScale);
-        sb.append("\n   mKeyPreviewDismissEndScaleX = ");
-        sb.append("" + mKeyPreviewDismissEndXScale);
-        sb.append("\n   mKeyPreviewDismissEndScaleY = ");
-        sb.append("" + mKeyPreviewDismissEndYScale);
         return sb.toString();
     }
 }

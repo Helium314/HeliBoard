@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
@@ -50,6 +40,7 @@ public class ScriptUtils {
     public static final int SCRIPT_TELUGU = 16;
     public static final int SCRIPT_THAI = 17;
     public static final int SCRIPT_BULGARIAN = 18;
+    public static final int SCRIPT_HANGUL = 19;
 
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
     private final static ArraySet<Integer> UPPERCASE_SCRIPTS = new ArraySet<>();
@@ -76,6 +67,7 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("te", SCRIPT_TELUGU);
         mLanguageCodeToScriptCode.put("th", SCRIPT_THAI);
         mLanguageCodeToScriptCode.put("uk", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("ko", SCRIPT_HANGUL);
 
         // only Latin, Cyrillic, Greek and Armenian have upper/lower case
         // https://unicode.org/faq/casemap_charprop.html#3
@@ -193,6 +185,13 @@ public class ScriptUtils {
             case SCRIPT_THAI:
                 // Thai unicode block is U+0E00..U+0E7F
                 return (codePoint >= 0xE00 && codePoint <= 0xE7F);
+            case SCRIPT_HANGUL:
+                return (codePoint >= 0xAC00 && codePoint <= 0xD7A3
+                        || codePoint >= 0x3131 && codePoint <= 0x318E
+                        || codePoint >= 0x1100 && codePoint <= 0x11FF
+                        || codePoint >= 0xA960 && codePoint <= 0xA97C
+                        || codePoint >= 0xD7B0 && codePoint <= 0xD7C6
+                        || codePoint >= 0xD7CB && codePoint <= 0xD7FB);
             case SCRIPT_UNKNOWN:
                 return true;
             default:

@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -79,7 +69,12 @@ public final class DictionaryFactory {
                     new ReadOnlyBinaryDictionary(f.mFilename, f.mOffset, f.mLength,
                             false /* useFullEditDistance */, locale, dictType);
             if (readOnlyBinaryDictionary.isValidDictionary()) {
-                dictList.add(readOnlyBinaryDictionary);
+                if(locale.getLanguage().equals("ko")) {
+                    // Use KoreanDictionary for Korean locale
+                    dictList.add(new KoreanDictionary(readOnlyBinaryDictionary));
+                } else {
+                    dictList.add(readOnlyBinaryDictionary);
+                }
             } else {
                 readOnlyBinaryDictionary.close();
                 // Prevent this dictionary to do any further harm.
@@ -101,10 +96,8 @@ public final class DictionaryFactory {
     public static void killDictionary(final Context context, final AssetFileAddress f) {
         if (f.pointsToPhysicalFile()) {
             f.deleteUnderlyingFile();
-            // notify the user
-            // todo: use an alertDialog to avoid the toast not showing up on Android 13+
-            //  but asyncTask doesn't work because android.view.WindowManager$BadTokenException: Unable to add window -- token null is not valid; is your activity running?
-            //  https://stackoverflow.com/questions/7199014/show-an-alertdialog-from-a-background-thread-with-the-appcontext
+            // notify the user if possible (toast not showing up on Android 13+)
+            //  but not that important, as the not working dictionary should be obvious
             final String wordlistId = DictionaryInfoUtils.getWordListIdFromFileName(new File(f.mFilename).getName());
             new Handler(Looper.getMainLooper()).post(() ->
                     Toast.makeText(context, "dictionary "+wordlistId+" is invalid, deleting", Toast.LENGTH_LONG).show()

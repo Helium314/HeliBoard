@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Nombres de contactos"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"El corrector ortográfico usa entradas de tu lista de contactos."</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrar al presionar teclas"</string>
@@ -65,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mira la palabra sugerida mientras haces gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frase gestual"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Desliza el dedo hasta la tecla de espacio para ingresar espacios."</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tecla de entrada por voz"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"No hay métodos de entrada de voz habilitados. Comprueba la configuración de Teclado e idioma."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de entrada"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Ayuda y comentarios"</string>
@@ -160,7 +146,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <string name="spell_checker_service_name">Corrector ortográfico de OpenBoard</string>
     <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de OpenBoard</string>
-    <string name="show_clipboard_key">Tecla de portapapeles</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles si lo hay</string>

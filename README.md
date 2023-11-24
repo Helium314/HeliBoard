@@ -3,41 +3,46 @@
 This is an attempt to integrate changes / improvements into OpenBoard that have been sitting around for a long time due to low dev activity.
 Might end up on F-Droid...
 
-**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best.**
+**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best and always have another keyboard installed in case of really bad bugs.**
 
 ## Features
 * Allow loading Glide typing library
   * not included in the app, as there is no compatible open source library
   * can be extracted from GApps packages (_swypelibs_), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
- * Multilingual typing
- * Load external dictionaries
-   * get them [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/dictionaries_experimental) section (quality may vary)
-   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
- * Adjust keyboard themes (style and colors)
-   * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
- * Split keyboard (if the screen is large enough)
- * Number row
- * Number pad
- * Show all available extra characters on long pressing a key
+* Multilingual typing
+* Load external dictionaries
+  * get them [here]( https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
+  * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
+  * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
+  * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
+* Adjust keyboard themes (style and colors)
+  * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
+* Split keyboard (if the screen is large enough)
+* Number row
+* Number pad
+* Show all available extra characters on long pressing a key
+* Backup your learned word / history data
+* Adjustable bottom padding
 
 ## Hidden functionality
 Features that may go unnoticed
-* Long pressing the clipboard key (the optional one in suggestion strip) pastes system clipboard contents
-* Long-press comma to access clipboard view, emoji view, one-handed mode, settings, or switch language
-  * emoji view and language switch will disappear if you have the corresponding key enabled
-  * for some layouts it's not the comma-key, but the key at the same position (e.g. it's `q` for Dvorak layout)
-* Sliding key input: swipe from shift to another key to type a single uppercase key
-  * also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys
-* Long-press a suggestion to show more suggestions, and a delete button to remove this suggestion
-* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it
-* You can add dictionaries by opening them in a file explorer
-  * only works with content-uris and not with file-uris, meaning that it may not work with some file explorers
-* Debug APK only
-  * Long-press a suggestion to show the source dictionary
-  * Debug settings in advanced preferences, though not very useful except for dumping dictionaries into the log
-  * When the app crashes, you will be asked whether you want crash logs when you open the settings
-* For users doing manual backups with root access: starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot.
-  * file  is located in `/data/user_de/0/<package_id>/shared_prefs/`, though this may depend on the device and Android version
+* Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents. 
+* Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. 
+* Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: 
+  * Emoji View and Language Switch will disappear if you have the corresponding key enabled; 
+  * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout). 
+* Press the Incognito icon to access the toolbar. 
+* Sliding key input: Swipe from shift to another key to type a single uppercase key: 
+  * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys. 
+* Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. 
+* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. 
+* You can add dictionaries by opening them in a file explorer: 
+  * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers. 
+* _Debug APK only_
+  * Long-press a suggestion to show the source dictionary.
+  * The Debug Settings are located within the Advanced Preferences, though the usability is limited except for dumping dictionaries into the log. 
+  * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. 
+  * For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot. The file is located in `/data/user_de/0/package_id/shared_prefs/`, though this may depend on the device and Android version.
 
 ## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
@@ -63,7 +68,7 @@ Features that may go unnoticed
   * suggestions get re-added if they are entered again
 * Optionally add typed words to system personal dictionary
 * Improve issues with emoji deletion (still happens with delete gesture), https://github.com/Helium314/openboard/issues/22
-* Add Unicode 15 emojis, https://github.com/openboard-team/openboard/issues/25
+* Add Unicode 15 emojis, https://github.com/Helium314/openboard/pull/25
 * Better currency selection, https://github.com/Helium314/openboard/pull/21 / https://github.com/Helium314/openboard/commit/0d1106649f95ecbd7d8f6d950428547666059564
 * Reduce space between keys, with option to use old values, https://github.com/Helium314/openboard/pull/8
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
@@ -79,25 +84,34 @@ Features that may go unnoticed
 * Add more options to the language switch key
 
 ## The rough plan/todo before "full" release
-* Add/change pre-defined themes
-* Internal clean up (xml files, unused resources and classes)
-  * even after a lot of work here, the current state look rather messy, with many useless and duplicate entries
-* work through _todo_s in code
-* Make suggestion removal functionality more discoverable
-* Better detection when to separate words and when not (e.g. detection of email addresses and URLs)
-* Fix some bugs
-  * especially the spell checker issue https://github.com/Helium314/openboard/issues/55
-  * "partial" multi-character codepoint deletion with delete gesture (e.g. for emojis), https://github.com/Helium314/openboard/issues/22
+* Finish keyboard parsing upgrades
+  * In the end, layouts should be defined in either simple text files, or json files, ideally in same format as used by [FlorisBoard](https://github.com/florisboard/florisboard/tree/master/app/src/main/assets/ime/keyboard/org.florisboard.layouts/layouts)
+  * Users should be allowed to add their own layouts
+* Overhaul the view system
+  * Have a fixed height common to all views (keyboard, emoji, clipboard)
+  * Should allow for more flexible one-handed mode (though the actual one-handed mode changes may be implemented later)
+  * Should allow for background images that don't resize or get cut off when switching between views
+* Internal clean up (xml files, unused resources, some todos in code)
+* Solve some [issues](https://github.com/Helium314/openboard/milestone/1) requiring a lot of work
 
-Once above is done, we can think about properly releasing the app. First just in this repository, and later on F-Droid.
-This would include renaming the app and the package, changing the icon and using a localization tool (most likely weblate).
+Once above is done, we can think about properly releasing the app:
+* Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
+* Rename app, package and this repository
+* New icon
+* Use a translation tool (probably weblate)
+* Release on F-Droid
+* Maybe add a version that does not allow providing a glide typing library, for people concerned about security
 
-## Further plan
-* more customizable theming
-* improved / less bad suggestions in some cases
-* add emojis to user history, to be used for next word suggestions
-* sliding key input for numpad and emojis (like `?123` and _shift_ sliding input)
-* updated suggestion strip, maybe add tools or make the suggestions scroll
+## Further ideas
+* More customizable theming
+* Improved / less bad suggestions in some specific situations
+* Sliding key input for toolbar, numpad and emojis (like `?123` and _shift_ sliding input)
+* More tunable behavior, e.g for delete and spacebar swipe, for toolbar, for spell checker,...
+* Adjust arrangement of settings, maybe hide settings irrelevant for most users behind some "more settings mode"
+* Migrate to internally use language tags (problematic due to lack of support on older Android versions)
+* More customizable toolbar
+* Support providing background images (for keyboard, and possibly also for keys)
+* and general [bug](https://github.com/Helium314/openboard/issues?q=is%3Aopen+is%3Aissue+label%3Abug) fixing
 
 -----
 # readme for original version of OpenBoard below

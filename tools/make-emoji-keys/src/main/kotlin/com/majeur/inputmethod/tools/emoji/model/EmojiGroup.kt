@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.majeur.inputmethod.tools.emoji.model
 
 enum class EmojiGroup(val rawName: String) {

@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -19,24 +9,38 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.preference.Preference;
 
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 
 public final class PreferencesSettingsFragment extends SubScreenFragment {
 
-    private static final boolean VOICE_IME_ENABLED =
-            true;
+    private boolean mReloadKeyboard = false;
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_preferences);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // need to set icon tint because old android versions don't use the vector drawables
+            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                final Preference p = getPreferenceScreen().getPreference(0);
+                final Drawable icon = p.getIcon();
+                if (icon != null)
+                    DrawableCompat.setTint(icon, Color.WHITE);
+            }
+        }
 
         final Resources res = getResources();
         final Context context = getActivity();
@@ -46,11 +50,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
         RichInputMethodManager.init(context);
 
-        final boolean showVoiceKeyOption = res.getBoolean(
-                R.bool.config_enable_show_voice_key_option);
-        if (!showVoiceKeyOption) {
-            removePreference(Settings.PREF_VOICE_INPUT_KEY);
-        }
         if (!AudioAndHapticFeedbackManager.getInstance().hasVibrator()) {
             removePreference(Settings.PREF_VIBRATE_ON);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
@@ -68,19 +67,21 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     @Override
     public void onResume() {
         super.onResume();
-        final Preference voiceInputKeyOption = findPreference(Settings.PREF_VOICE_INPUT_KEY);
-        if (voiceInputKeyOption != null) {
-            RichInputMethodManager.getInstance().refreshSubtypeCaches();
-            boolean voiceKeyEnabled = VOICE_IME_ENABLED && RichInputMethodManager.getInstance().hasShortcutIme();
-            voiceInputKeyOption.setEnabled(voiceKeyEnabled);
-            voiceInputKeyOption.setSummary(voiceKeyEnabled
-                    ? null : getText(R.string.voice_input_disabled_summary));
-        }
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
+        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key))
+            mReloadKeyboard = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mReloadKeyboard)
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
+        mReloadKeyboard = false;
     }
 
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {

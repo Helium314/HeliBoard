@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Vyhledat kontakty"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Kontrola pravopisu používá záznamy z vašeho seznamu kontaktů."</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Při stisku klávesy vibrovat"</string>
@@ -24,6 +12,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Detail znaku při stisku klávesy"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Předvolby"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Vzhled a rozvržení"</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">"Vzhled"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Psaní gesty"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Oprava textu"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Rozšířená nastavení"</string>
@@ -65,27 +54,25 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Zobrazení navrhovaného slova při psaní gesty"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frázové gesto"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Mezery mezi gesty zadáte přejetím po klávese mezerníku."</string>
-    <string name="voice_input" msgid="3583258583521397548">"Klávesa hlasového zadávání"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nejsou povoleny žádné metody hlasového vstupu. Zkontrolujte nastavení Jazyky a zadávání."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurace metod zadávání"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jazyky"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Nápověda a zpětná vazba"</string>
     <string name="select_language" msgid="5709487854987078367">"Jazyky"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Uložte slovo opětovným klepnutím"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Uložte klepnutím sem"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"angličtina (Velká Británie)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"angličtina (USA)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"španělština (USA)"</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">"Angličtina (Velká Británie)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Angličtina (USA)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Španělština (USA)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"srbština (latinka)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"angličtina (VB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"angličtina (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"španělština (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Srbština (Latinka)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Angličtina (Velká Británie) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Angličtina (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Španělština (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"srbština (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradiční)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktní)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Žádný jazyk (latinka)"</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Srbština (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradiční)"</string>
+    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompaktní)"</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">"Standardní (Latinka)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Latinka (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Latinka (QWERTZ)"</string>
     <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Latinka (AZERTY)"</string>
@@ -165,7 +152,7 @@
     <string name="settings_no_limit">Bez limitu</string>
     <string name="enable_clipboard_history">Povolit historii schránky</string>
     <string name="clipboard_history_retention_time">Doba zachování historie</string>
-    <string name="theme_variant">Vzhled</string>
+    <string name="theme_variant">Možnost motivu</string>
     <string name="spell_checker_service_name">OpenBoard Kontrola Pravopisu</string>
     <string name="android_spell_checker_settings">Nastavení kontroly pravopisu OpenBoard</string>
     <string name="autospace_after_punctuation_summary">Automaticky vloží mezeru po ukončení slova znaménkem</string>
@@ -190,11 +177,10 @@
     <string name="subtype_no_language_workman">Abeceda (Workman)</string>
     <string name="enable_clipboard_history_summary">Pokud vypnuto, tlačítko schránky vloží obsah schránky, pokud nějaký existuje</string>
     <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
-    <string name="show_clipboard_key">Klávesa schránky</string>
     <string name="autospace_after_punctuation">Automatická mezera po znaménkách</string>
     <string name="more_keys_strip_description">Více kláves</string>
     <string name="delete_swipe_summary">Posuňte prstem z tlačítka Delete a mažte větší části textu společně</string>
     <string name="key_borders">Okraje kláves</string>
-    <string name="theme_family">Rodina vzhledu</string>
+    <string name="theme_family">Rodina motivu</string>
     <string name="day_night_mode">Automatický denní/noční režim</string>
 </resources>

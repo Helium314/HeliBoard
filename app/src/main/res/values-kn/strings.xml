@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಹುಡುಕಿ"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"ಕಾಗುಣಿತ ಪರೀಕ್ಷಕವು ನಿಮ್ಮ ಸಂಪರ್ಕ ಪಟ್ಟಿಯ ಮಾಹಿತಿಯನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತದೆ"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"ಕೀಪ್ರೆಸ್‌ನ ವೈಬ್ರೇಟ್"</string>
@@ -68,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ಗೆಸ್ಟರ್ ಮಾಡುವಾಗ ಸೂಚಿಸಿದ ಪದವನ್ನು ನೋಡಿ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ಪದಗುಚ್ಛದ ಗೆಶ್ಚರ್"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ಸ್ಪೇಸ್ ಕೀಗೆ ಗ್ಲೈಡ್ ಮಾಡುವ ಮೂಲಕ ಗೆಶ್ಚರ್‌ಗಳ ಅವಧಿಯಲ್ಲಿ ಅಂತರ ನಮೂದಿಸಿ"</string>
-    <string name="voice_input" msgid="3583258583521397548">"ಧ್ವನಿ ಇನ್‌ಪುಟ್ ಕೀ"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"ಯಾವುದೇ ಧ್ವನಿ ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿಲ್ಲ. ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."</string>
     <string name="configure_input_method" msgid="373356270290742459">"ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ಭಾಷೆಗಳು"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"ಸಹಾಯ ಮತ್ತು ಪ್ರತಿಕ್ರಿಯೆ"</string>

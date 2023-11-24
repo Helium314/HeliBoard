@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Шукати імена контактів"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Для перевірки правопису використовувати список контактів"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Вібр. при натисканні клавіш"</string>
@@ -24,6 +12,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Збільшення натиснутих"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметри"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вигляд і розкладка"</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">"Зовнішній вигляд"</string>
     <string name="settings_screen_gesture">"Введення тексту жестами"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Виправлення тексту"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Додатково"</string>
@@ -65,8 +54,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ключ голосового вводу"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Способи голосового вводу не ввімкнено. Перейдіть у налаштування мови та введення."</string>
     <string name="configure_input_method">"Налаштування методів введення"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Мови"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Довідка й відгуки"</string>
@@ -75,9 +62,9 @@
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Торкніться тут, щоб зберегти"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Англійська (Велика Британія)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Англійська (США)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"іспанська (США)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Іспанська (США)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хінґліш"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"сербська (латиниця)"</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербська (латиниця)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Англійська (Британія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Англійська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Іспанська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -92,75 +79,80 @@
     <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Латиниця (Dvorak)"</string>
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Латиниця (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Латиниця (ПК)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Cмайли Emoji"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Тема клавіатури"</string>
-    <string name="add" msgid="8299699805688017798">"Додати"</string>
-    <string name="remove" msgid="4486081658752944606">"Видалити"</string>
-    <string name="save" msgid="7646738597196767214">"Зберегти"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Мова"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Розкладка"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Вібрація при натисканні клавіш"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Гучність натискання клавіш"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Затримка довгого натискання"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Смайли для фізичної клавіатури"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Щоб переглянути смайли, натисніть фізичну клавішу Alt"</string>
-    <string name="button_default" msgid="3988017840431881491">"За умовчанням"</string>
+    <string name="subtype_emoji" msgid="7483586578074549196">Cмайли Emoji</string>
+    <string name="keyboard_theme" msgid="4909551808526178852">Тема клавіатури</string>
+    <string name="add" msgid="8299699805688017798">Додати</string>
+    <string name="remove" msgid="4486081658752944606">Видалити</string>
+    <string name="save" msgid="7646738597196767214">Зберегти</string>
+    <string name="subtype_locale" msgid="8576443440738143764">Мова</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">Розкладка</string>
+    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">Вібрація при натисканні клавіш</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">Гучність натискання клавіш</string>
+    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">Затримка довгого натискання</string>
+    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">Смайли для фізичної клавіатури</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">Щоб переглянути смайли, натисніть фізичну клавішу Alt</string>
+    <string name="button_default" msgid="3988017840431881491">За умовчанням</string>
     <string name="setup_welcome_title" msgid="6112821709832031715">Вітаємо в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"з функцією Ввід жестами"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Розпочати"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Наступний крок"</string>
+    <string name="setup_welcome_additional_description" msgid="8150252008545768953">з функцією Ввід жестами</string>
+    <string name="setup_start_action" msgid="8936036460897347708">Розпочати</string>
+    <string name="setup_next_action" msgid="371821437915144603">Наступний крок</string>
     <string name="setup_steps_title" msgid="6400373034871816182">Налаштування <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title" msgid="3147967630253462315">Увімкнути <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction" msgid="4295448056733329661">Будь ласка, перевірте \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" у налаштуваннях Мови і введення. Це дозволить запустити його на вашому пристрої.</string>
     <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> вже ввімкнено в налаштуваннях Мови і введення, тож цей крок виконано. Перейдемо до наступного!</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Увімкнути в налаштуваннях"</string>
+    <string name="setup_step1_action" msgid="4366513534999901728">Увімкнути в налаштуваннях</string>
     <string name="setup_step2_title" msgid="6860725447906690594">Перемкнути на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction" msgid="9141481964870023336">Далі виберіть \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як ваш активний спосіб введення тексту.</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Змінити метод введення"</string>
+    <string name="setup_step2_action" msgid="1660330307159824337">Змінити метод введення</string>
     <string name="setup_step3_title" msgid="3154757183631490281">Вітаємо, налаштування завершено!</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Тепер ви можете писати в усіх улюблених застосунках за допомогою <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Завершено"</string>
-    <string name="show_setup_wizard_icon">"Показувати піктограму програми"</string>
-    <string name="show_setup_wizard_icon_summary">"Відображати піктограму програми на панелі запуску"</string>
-    <string name="app_name" msgid="6320102637491234792">"Постачальник словника"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Постачальник словника"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Додаткові словники"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Налаштування для словників"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Словники користувача"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Словник користувача"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Словник доступний"</string>
+    <string name="setup_finish_action" msgid="276559243409465389">Завершено</string>
+    <string name="show_setup_wizard_icon">Показувати піктограму програми</string>
+    <string name="show_setup_wizard_icon_summary">Відображати піктограму програми на панелі запуску</string>
+    <string name="app_name" msgid="6320102637491234792">Постачальник словника</string>
+    <string name="dictionary_provider_name" msgid="3027315045397363079">Постачальник словника</string>
+    <string name="dictionary_settings_title" msgid="8091417676045693313">Додаткові словники</string>
+    <string name="dictionary_settings_summary" msgid="5305694987799824349">Налаштування для словників</string>
+    <string name="user_dictionaries" msgid="3582332055892252845">Словники користувача</string>
+    <string name="default_user_dict_pref_name" msgid="1625055720489280530">Словник користувача</string>
+    <string name="dictionary_available" msgid="4728975345815214218">Словник доступний</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Нема з’єднання зі службою словника"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Словники недоступні"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Оновити"</string>
-    <string name="last_update" msgid="730467549913588780">"Останнє оновлення"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Основний словник"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Налаштування"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Видалити"</string>
+    <string name="no_dictionaries_available" msgid="8039920716566132611">Словники недоступні</string>
+    <string name="check_for_updates_now" msgid="8087688440916388581">Оновити</string>
+    <string name="last_update" msgid="730467549913588780">Останнє оновлення</string>
+    <string name="main_dict_description" msgid="3072821352793492143">Основний словник</string>
+    <string name="go_to_settings" msgid="3876892339342569259">Налаштування</string>
+    <string name="delete_dict" msgid="756853268088330054">Видалити</string>
     <string name="version_text" msgid="2715354215568469385">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Додати"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Додати в словник"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Фраза"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Інші варіанти"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Менше опцій"</string>
+    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">Додати</string>
+    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">Додати в словник</string>
+    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">Фраза</string>
+    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">Інші варіанти</string>
+    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">Менше опцій</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Слово:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Ярлик:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Мова:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Введіть слово"</string>
+    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">Введіть слово</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Необов’язковий ярлик"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Редагувати слово"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Редагувати"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Видалити"</string>
+    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">Редагувати слово</string>
+    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Редагувати</string>
+    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">Видалити</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"У словнику користувача нічого немає. Щоб додати слово, торкніться кнопки \"Додати\" (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для всіх мов"</string>
+    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всіх мов</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Інші мови…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Видалити"</string>
+    <string name="user_dict_settings_delete" msgid="110413335187193859">Видалити</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
     <string name="ime_settings">Налаштування OpenBoard</string>
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
+    <string name="theme_style">Стиль теми</string>
+    <string name="style_name_Rounded">Rounded</string>
+    <string name="theme_colors">Кольори теми</string>
+    <string name="theme_colors_night">Кольори теми (темна тема)</string>
+    <string name="theme_family">Сімейство тем</string>
     <string name="theme_variant">Варіант теми</string>
     <string name="theme_variant_night">Варіант теми (темна тема)</string>
-    <string name="day_night_mode">Автоматичний режим день/ніч</string>
+    <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Аккгор)</string>
     <string name="autospace_after_punctuation">Авто-пробіл після знаків пунктуації</string>
@@ -174,7 +166,6 @@
     <string name="settings_no_limit">Без обмежень</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>хв.</string>
     <string name="enable_clipboard_history">Увімкнути історію буфера обміну</string>
-    <string name="show_clipboard_key">Клавіша буфера обміну</string>
     <string name="enable_clipboard_history_summary">Якщо вимкнено, клавіша буфера обміну вставляє вміст, якщо він є</string>
     <string name="clipboard_history_retention_time">Час зберігання історії</string>
     <string name="theme_navbar">Колір навігаційної панелі</string>
@@ -183,20 +174,31 @@
     <string name="theme_name_darker">Сіра</string>
     <string name="theme_name_black">Чорна</string>
     <string name="theme_name_user">Користувальницька</string>
+    <string name="theme_name_user_night">Користувальницька (темна тема)</string>
     <string name="select_user_colors">Налаштування кольорів теми</string>
+    <string name="select_user_colors_night">Налаштування кольорів теми (темна тема)</string>
+    <string name="auto_user_color">Автоматичний вибір кольору</string>
+    <string name="hint_show_keyboard">Натисніть, щоб переглянути</string>
     <string name="select_user_colors_summary">Виберіть кольори для тексту та фону</string>
     <string name="select_color_background">Фон клавіатури</string>
     <string name="select_color_key">Текст клавіш</string>
     <string name="select_color_key_hint">Текст спецсимволів клавіш</string>
     <string name="select_color_key_background">Фон клавіш</string>
+    <string name="select_color_functional_key_background">Фон функціональних клавіш</string>
+    <string name="select_color_spacebar_background">Фон пробілу</string>
+    <string name="select_color_spacebar_text">Текст пробілу</string>
     <string name="select_color_accent">Акцент</string>
     <string name="settings_screen_about">Довідка</string>
     <string name="version">Версія</string>
     <string name="about_github_link" >Подивитися на GitHub</string>
     <string name="license" >Ліцензія з відкритим кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Використовувати мови системи"</string>
-    <string name="select_input_method">"Вибрати метод введення"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">Використовувати мови системи</string>
+    <string name="dialog_close">Закрити</string>
+    <string name="text_tap_languages">Натисніть мову, щоб відкрити налаштування</string>
+    <string name="hidden_features_title">Опис прихованих функцій</string>
+    <string name="hidden_features_summary">Показати функції, які можуть залишитися непоміченими</string>
+    <string name="select_input_method">Вибрати метод введення</string>
     <string name="space_trackpad">Клавіша пробіл як трекпад</string>
     <string name="prefs_force_incognito_mode">Примусовий режим інкогніто</string>
     <string name="prefs_force_incognito_mode_summary">Вимкнути вивчення нових слів</string>
@@ -209,14 +211,26 @@
     <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>
+    <string name="url_detection_title">Виявлення URL-адреси</string>
+    <string name="url_detection_summary">Спробувати виявити URL-адреси та подібні до них рядки, як одне слово</string>
     <string name="space_trackpad_summary">Ковзання по клавіші пробіл переміщає курсор</string>
+    <string name="space_language_slide">Свайп зміни мови</string>
+    <string name="space_language_slide_summary">Проведіть пальцем вгору пробілом, щоб змінити мову</string>
+    <string name="backup_restore_title">Резервне копіювання та відновлення</string>
+    <string name="backup_restore_message">Збережіть або завантажте файл. Увага: відновлення перезапише наявні дані</string>
+    <string name="backup_error">Помилка резервного копіювання: %s</string>
+    <string name="restore_error">Помилка відновлення з резервної копії: %s</string>
+    <string name="button_backup">Резервне копіювання</string>
+    <string name="button_restore">Відновлення</string>
+    <string name="secondary_locale">Багатомовний набір тексту</string>
+    <string name="load_gesture_library">Завантажити бібліотеку введення жестами</string>
+    <string name="load_gesture_library_summary">Надайте вбудовану бібліотеку для увімкнення введення жестами</string>
     <string name="more_keys_strip_description">Більше клавіш</string>
     <string name="prefs_keyboard_height_scale">Масштабування клавіатури по висоті</string>
     <string name="number_row">Рядок цифр</string>
     <string name="number_row_summary">Завжди показувати рядок цифр</string>
     <string name="key_borders">Контури клавіш</string>
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
-    <string name="theme_family">Сімейство тем</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
 </resources>

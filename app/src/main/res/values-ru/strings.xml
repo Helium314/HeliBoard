@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Поиск в контактах"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Использовать имена контактов при проверке правописания"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Виброотклик клавиш"</string>
@@ -61,24 +49,22 @@
     <string name="bigram_prediction_summary" msgid="3896362682751109677">"Предлагать подсказки на основе предыдущего слова"</string>
     <string name="gesture_input">"Включить функцию"</string>
     <string name="gesture_input_summary" msgid="9180350639305731231">"Вводите слова, не отрывая пальца от клавиатуры"</string>
-    <string name="gesture_preview_trail">"Рисовать линию"</string>
-    <string name="gesture_floating_preview_text">"Показывать подсказки"</string>
-    <string name="gesture_floating_preview_text_summary">"Показывать подсказки при вводе текста"</string>
-    <string name="gesture_space_aware">"Непрерывный ввод фраз"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Проводите по клавише пробела после каждого слова"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Клавиша голосового ввода"</string>
-    <string name="voice_input_disabled_summary">"Голосовой способ ввода не включен. Проверьте раздел настроек \"Язык и ввод\"."</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Настройка способов ввода"</string>
-    <string name="language_selection_title">"Выберите язык"</string>
-    <string name="help_and_feedback">"Справка/отзыв"</string>
-    <string name="select_language" msgid="5709487854987078367">"Язык"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Чтобы сохранить, нажмите ещё раз"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Чтобы сохранить, нажмите здесь"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Английский (Великобритания)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Английский (США)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Испанский (США)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хинглиш"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербский (латиница)"</string>
+    <string name="gesture_preview_trail">Рисовать линию</string>
+    <string name="gesture_floating_preview_text">Показывать подсказки</string>
+    <string name="gesture_floating_preview_text_summary">Показывать подсказки при вводе текста</string>
+    <string name="gesture_space_aware">Непрерывный ввод фраз</string>
+    <string name="gesture_space_aware_summary" msgid="4371385818348528538">Проводите по клавише пробела после каждого слова</string>
+    <string name="configure_input_method" msgid="373356270290742459">Настройка методов ввода</string>
+    <string name="language_selection_title">Языки</string>
+    <string name="help_and_feedback">Справка/отзыв</string>
+    <string name="select_language" msgid="5709487854987078367">Язык</string>
+    <string name="hint_add_to_dictionary" msgid="2645988432867033007">Чтобы сохранить, нажмите ещё раз</string>
+    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">Чтобы сохранить, нажмите здесь</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">Английский (Великобритания)</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">Английский (США)</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">Испанский (США)</string>
+    <string name="subtype_hi_ZZ" msgid="8860448146262798623">Хинглиш</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">Сербский (латиница)</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Английский (Великобритания, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Английский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Испанский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -86,87 +72,100 @@
     <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (классическая)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Компактная)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">Язык не определён (Латиница)</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Латиница (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Латиница (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Латиница (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Латиница (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Латиница (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Латиница (ПК)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Эмодзи"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Тема клавиатуры"</string>
-    <string name="add" msgid="8299699805688017798">"Добавить"</string>
-    <string name="remove" msgid="4486081658752944606">"Удалить"</string>
-    <string name="save" msgid="7646738597196767214">"Сохранить"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Язык"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Раскладка"</string>
-    <string name="prefs_keypress_vibration_duration_settings">"Вибросигнал при нажатии клавиш"</string>
-    <string name="prefs_keypress_sound_volume_settings">"Звук при нажатии клавиш"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Долгое нажатие"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"Смайлики с внешней клавиатуры"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"Открывать список смайликов нажатием клавиши ALT"</string>
-    <string name="button_default" msgid="3988017840431881491">"По умолчанию"</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">Стандартная (Латиница)</string>
+    <string name="subtype_no_language_qwerty" msgid="244337630616742604">Латиница (QWERTY)</string>
+    <string name="subtype_no_language_qwertz" msgid="443066912507547976">Латиница (QWERTZ)</string>
+    <string name="subtype_no_language_azerty" msgid="8144348527575640087">Латиница (AZERTY)</string>
+    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">Латиница (Dvorak)</string>
+    <string name="subtype_no_language_colemak" msgid="5837418400010302623">Латиница (Colemak)</string>
+    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">Латиница (ПК)</string>
+    <string name="subtype_emoji" msgid="7483586578074549196">Эмодзи</string>
+    <string name="keyboard_theme" msgid="4909551808526178852">Тема клавиатуры</string>
+    <string name="add" msgid="8299699805688017798">Добавить</string>
+    <string name="remove" msgid="4486081658752944606">Удалить</string>
+    <string name="save" msgid="7646738597196767214">Сохранить</string>
+    <string name="subtype_locale" msgid="8576443440738143764">Язык</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">Раскладка</string>
+    <string name="prefs_keypress_vibration_duration_settings">Вибросигнал при нажатии клавиш</string>
+    <string name="prefs_keypress_sound_volume_settings">Звук при нажатии клавиш</string>
+    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">Долгое нажатие</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Смайлики с внешней клавиатуры</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Открывать список смайликов нажатием клавиши ALT</string>
+    <string name="button_default" msgid="3988017840431881491">По умолчанию</string>
     <string name="setup_welcome_title" msgid="6112821709832031715">Добро пожаловать в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description">"с непрерывным вводом"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Начать работу"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Далее"</string>
+    <string name="setup_welcome_additional_description">с непрерывным вводом</string>
+    <string name="setup_start_action" msgid="8936036460897347708">Начать работу</string>
+    <string name="setup_next_action" msgid="371821437915144603">Далее</string>
     <string name="setup_steps_title" msgid="6400373034871816182">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title" msgid="3147967630253462315">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction" msgid="4295448056733329661">Чтобы включить приложение \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\", установите флажок рядом с его названием в настройках языка и ввода.</string>
     <string name="setup_step1_finished_instruction" msgid="8701441895377434947">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода. Перейдите к следующему шагу!</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Включить в настройках"</string>
+    <string name="setup_step1_action" msgid="4366513534999901728">Включить в настройках</string>
     <string name="setup_step2_title" msgid="6860725447906690594">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction" msgid="9141481964870023336">Выберите приложение \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" как текущий способ ввода.</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Другой способ ввода"</string>
+    <string name="setup_step2_action" msgid="1660330307159824337">Другой способ ввода</string>
     <string name="setup_step3_title" msgid="3154757183631490281">Поздравляем, всё готово!</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Теперь вы можете использовать приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> для набора текста.</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Готово"</string>
+    <string name="setup_finish_action" msgid="276559243409465389">Готово</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">Показывать значок приложения</string>
-    <string name="show_setup_wizard_icon_summary">"Отображать значок приложения на панели запуска"</string>
-    <string name="app_name" msgid="6320102637491234792">"Поставщик словарей"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Поставщик словарей"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Дополнительные словари"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Настройки словарей"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Пользовательские словари"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Пользовательский словарь"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Доступен словарь"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Сбой подключения"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Словарей нет"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Обновить"</string>
-    <string name="last_update" msgid="730467549913588780">"Последнее обновление"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Основной словарь"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Настройки"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Удалить"</string>
+    <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
+    <string name="app_name" msgid="6320102637491234792">Поставщик словарей</string>
+    <string name="dictionary_provider_name" msgid="3027315045397363079">Поставщик словарей</string>
+    <string name="dictionary_settings_title" msgid="8091417676045693313">Дополнительные словари</string>
+    <string name="dictionary_settings_summary" msgid="5305694987799824349">Настройки словарей</string>
+    <string name="user_dictionaries" msgid="3582332055892252845">Пользовательские словари</string>
+    <string name="default_user_dict_pref_name" msgid="1625055720489280530">Пользовательский словарь</string>
+    <string name="dictionary_available" msgid="4728975345815214218">Доступен словарь</string>
+    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">Сбой подключения</string>
+    <string name="no_dictionaries_available" msgid="8039920716566132611">Словарей нет</string>
+    <string name="check_for_updates_now" msgid="8087688440916388581">Обновить</string>
+    <string name="last_update" msgid="730467549913588780">Последнее обновление</string>
+    <string name="main_dict_description" msgid="3072821352793492143">Основной словарь</string>
+    <string name="go_to_settings" msgid="3876892339342569259">Настройки</string>
+    <string name="delete_dict" msgid="756853268088330054">Удалить</string>
     <string name="version_text" msgid="2715354215568469385">Версия <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Добавить"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Добавление в словарь"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Фраза"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Больше настроек"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Меньше настроек"</string>
+    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">Добавить</string>
+    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">Добавление в словарь</string>
+    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">Фраза</string>
+    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">Больше настроек</string>
+    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">Меньше настроек</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Слово:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Быстрые клавиши:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Язык:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Введите слово"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Ярлык для фразы (необязательно)"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Изменение слова"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Изменить"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Удалить"</string>
+    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">Введите слово</string>
+    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">Ярлык для фразы (необязательно)</string>
+    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">Изменение слова</string>
+    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Изменить</string>
+    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">Удалить</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки \"Добавить (+)\"."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для всех языков"</string>
-    <string name="user_dict_settings_more_languages">"Другой язык"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Удалить"</string>
+    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всех языков</string>
+    <string name="user_dict_settings_more_languages">Другой язык</string>
+    <string name="user_dict_settings_delete" msgid="110413335187193859">Удалить</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
-    <string name="number_row">"Ряд с цифрами"</string>
+    <string name="number_row">Ряд с цифрами</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
     <string name="show_hints">"Показывать спецсимволы"</string>
-    <string name="show_hints_summary">"Показывать спецсимволы на клавишах"</string>
+    <string name="show_hints_summary">Показывать спецсимволы на клавишах</string>
     <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
-    <string name="prefs_keyboard_height_scale">"Масштабирование по высоте"</string>
-    <string name="delete_swipe">"Удаление жестом"</string>
+    <string name="prefs_keyboard_height_scale">Масштабирование по высоте</string>
+    <string name="url_detection_title">Обнаружение URL-адреса</string>
+    <string name="url_detection_summary">Попытаться обнаружить URL-адреса и подобные им строки, как одно слово</string>
+    <string name="delete_swipe">Удаление жестом</string>
     <string name="space_trackpad">Пробел в качестве трекпада</string>
     <string name="delete_swipe_summary">Быстрое удаление текста жестом по клавише удаления в направлении \"стрелки\"</string>
     <string name="space_trackpad_summary">Перемещать курсор при помощи жестов на клавише пробела</string>
-    <string name="more_keys_strip_description">"Ещё клавиши"</string>
+    <string name="space_language_slide">Свайп смены языка</string>
+    <string name="space_language_slide_summary">Проведите пальцем вверх по пробелу, чтобы изменить язык</string>
+    <string name="backup_restore_title">Резервное копирование и восстановление</string>
+    <string name="backup_restore_message">Сохраните или загрузите из файла. Внимание: восстановление перезапишет существующие данные</string>
+    <string name="backup_error">Ошибка резервного копирования: %s</string>
+    <string name="restore_error">Ошибка восстановления из резервной копии: %s</string>
+    <string name="button_backup">Резервное копирование</string>
+    <string name="button_restore">Восстановление</string>
+    <string name="secondary_locale">Многоязычный набор текста</string>
+    <string name="load_gesture_library">Загрузить библиотеку ввода жестами</string>
+    <string name="load_gesture_library_summary">Предоставьте встроенную библиотеку для включения ввода жестами</string>
+    <string name="more_keys_strip_description">Больше клавиш</string>
     <string name="prefs_force_incognito_mode">Включить режим инкогнито</string>
     <string name="prefs_force_incognito_mode_summary">Отключить запоминание слов</string>
     <string name="show_emoji_key">Клавиша эмодзи</string>
@@ -174,7 +173,6 @@
     <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
     <string name="spell_checker_service_name">Проверка правописания OpenBoard</string>
     <string name="android_spell_checker_settings">Настройки проверки правописания</string>
-    <string name="show_clipboard_key">Клавиша буфера обмена</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин.</string>
     <string name="ime_settings">Настройки OpenBoard</string>
     <string name="settings_no_limit">Без ограничения</string>
@@ -182,8 +180,12 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
     <string name="subtype_no_language_workman">Латиница (Workman)</string>
     <string name="key_borders">Контуры клавиш</string>
-    <string name="day_night_mode">Использовать системную тему</string>
-    <string name="theme_family">Стиль темы</string>
+    <string name="day_night_mode">Использовать тему системы</string>
+    <string name="theme_style">Стиль темы</string>
+    <string name="style_name_Rounded">Rounded</string>
+    <string name="theme_colors">Цвета темы</string>
+    <string name="theme_colors_night">Цвета темы (тёмная тема)</string>
+    <string name="theme_family">Семейство тем</string>
     <string name="theme_variant">Вариант темы</string>
     <string name="theme_variant_night">Вариант темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
@@ -206,18 +208,29 @@
     <string name="theme_name_darker">Серая</string>
     <string name="theme_name_black">Чёрная</string>
     <string name="theme_name_user">Пользовательская</string>
+    <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
     <string name="select_user_colors">Настройка цветов темы</string>
+    <string name="select_user_colors_night">Настройка цветов темы (тёмная тема)</string>
+    <string name="auto_user_color">Автоматический выбор цвета</string>
+    <string name="hint_show_keyboard">Нажмите для предпросмотра</string>
     <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
     <string name="select_color_background">Фон клавиатуры</string>
     <string name="select_color_key">Текст клавиш</string>
     <string name="select_color_key_hint">Текст спецсимволов клавиш</string>
     <string name="select_color_key_background">Фон клавиш</string>
+    <string name="select_color_functional_key_background">Фон функциональных клавиш</string>
+    <string name="select_color_spacebar_background">Фон пробела</string>
+    <string name="select_color_spacebar_text">Текст пробела</string>
     <string name="select_color_accent">Акцент</string>
     <string name="settings_screen_about">Справка</string>
     <string name="version">Версия</string>
     <string name="about_github_link" >Посмотреть на GitHub</string>
     <string name="license" >Лицензия с открытым исходным кодом</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Языки системы"</string>
-    <string name="select_input_method">"Выберите способ ввода"</string>
+    <string name="dialog_close">Закрыть</string>
+    <string name="use_system_language_to_select_input_method_subtypes">Языки системы</string>
+    <string name="text_tap_languages">Нажмите на язык, чтобы открыть настройки</string>
+    <string name="select_input_method">"Выберите метод ввода"</string>
+    <string name="hidden_features_title">Описание скрытых функций</string>
+    <string name="hidden_features_summary">Показать функции, которые могут остаться незамеченными</string>
 </resources>

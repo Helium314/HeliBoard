@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
@@ -47,12 +37,6 @@ public final class Constants {
          * already showing a voice search button.
          */
         public static final String NO_MICROPHONE = "noMicrophoneKey";
-
-        /**
-         * The private IME option used to indicate that no settings key should be shown for a given
-         * text field.
-         */
-        public static final String NO_SETTINGS_KEY = "noSettingsKey";
 
         /**
          * The private IME option used to indicate that the given text field needs ASCII code points
@@ -248,8 +232,13 @@ public final class Constants {
     public static final int CODE_NUMPAD = -20;
     public static final int CODE_ALPHA_FROM_NUMPAD = -21;
     public static final int CODE_SYMBOL_FROM_NUMPAD = -22;
+    public static final int CODE_SELECT_ALL = -23;
+    public static final int CODE_LEFT = -24;
+    public static final int CODE_RIGHT = -25;
+    public static final int CODE_UP = -26;
+    public static final int CODE_DOWN = -27;
     // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -23;
+    public static final int CODE_UNSPECIFIED = -28;
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;

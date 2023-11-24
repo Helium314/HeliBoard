@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.content.Context
@@ -68,7 +70,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onFinishInflate() {
         super.onFinishInflate()
         val colors = Settings.getInstance().current.mColors
-        colors.setKeyboardBackground(this)
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
             pinnedIconResId = pinIconId
@@ -95,6 +96,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
             colorFilter = colors.keyTextFilter
+            colors.setBackgroundColor(background, BackgroundType.SUGGESTION)
         }
     }
 
@@ -153,6 +155,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
         }
+        Settings.getInstance().current.mColors.setKeyboardBackground(this)
     }
 
     fun stopClipboardHistory() {

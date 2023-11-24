@@ -1,20 +1,12 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
+
+import static org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_ROUNDED;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -42,6 +34,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
@@ -161,8 +154,9 @@ public class KeyboardView extends View {
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
         mKeyHintLetterPadding = keyboardViewAttr.getDimension(
                 R.styleable.KeyboardView_keyHintLetterPadding, 0.0f);
-        mKeyPopupHintLetter = keyboardViewAttr.getString(
-                R.styleable.KeyboardView_keyPopupHintLetter);
+        mKeyPopupHintLetter = Settings.getInstance().getCurrent().mShowsPopupHints
+                ? keyboardViewAttr.getString(R.styleable.KeyboardView_keyPopupHintLetter)
+                : "";
         mKeyPopupHintLetterPadding = keyboardViewAttr.getDimension(
                 R.styleable.KeyboardView_keyPopupHintLetterPadding, 0.0f);
         mKeyShiftedLetterHintPadding = keyboardViewAttr.getDimension(
@@ -304,7 +298,7 @@ public class KeyboardView extends View {
 
         mShowsHints = Settings.getInstance().getCurrent().mShowsHints;
         final float scale = Settings.getInstance().getCurrent().mKeyboardHeightScale;
-        mIconScaleFactor = scale < 0.8f ? scale + 0.2f : scale;
+        mIconScaleFactor = scale < 0.8f ? scale + 0.2f : 1f;
         final Paint paint = mPaint;
         final Drawable background = getBackground();
         // Calculate clip region and set.
@@ -426,8 +420,7 @@ public class KeyboardView extends View {
                 paint.setTextAlign(Align.CENTER);
             }
             if (key.needsAutoXScale()) {
-                final float ratio = Math.min(1.0f, (keyWidth * MAX_LABEL_RATIO) /
-                        TypefaceUtils.getStringWidth(label, paint));
+                final float ratio = Math.min(1.0f, (keyWidth * MAX_LABEL_RATIO) / TypefaceUtils.getStringWidth(label, paint));
                 if (key.needsAutoScale()) {
                     final float autoSize = paint.getTextSize() * ratio;
                     paint.setTextSize(autoSize);
@@ -437,7 +430,10 @@ public class KeyboardView extends View {
             }
 
             if (key.isEnabled()) {
-                paint.setColor(key.selectTextColor(params));
+                if (StringUtils.mightBeEmoji(label))
+                    paint.setColor(key.selectTextColor(params) | 0xFF000000); // ignore alpha for emojis (though actually color isn't applied anyway and we could just set white)
+                else
+                    paint.setColor(key.selectTextColor(params));
                 // Set a drop shadow for the text if the shadow radius is positive value.
                 if (mKeyTextShadowRadius > 0.0f) {
                     paint.setShadowLayer(mKeyTextShadowRadius, 0.0f, 0.0f, params.mTextShadowColor);
@@ -466,6 +462,7 @@ public class KeyboardView extends View {
             blendAlpha(paint, params.mAnimAlpha);
             final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
             final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
+            final boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.isFunctional();
             final float hintX, hintBaseline;
             if (key.hasHintLabel()) {
                 // The hint label is placed just right of the key label. Used mainly on
@@ -487,14 +484,16 @@ public class KeyboardView extends View {
                 // The hint letter is placed at top-right corner of the key. Used mainly on phone.
                 final float hintDigitWidth = TypefaceUtils.getReferenceDigitWidth(paint);
                 final float hintLabelWidth = TypefaceUtils.getStringWidth(hintLabel, paint);
-                hintX = keyWidth - mKeyHintLetterPadding
-                        - Math.max(hintDigitWidth, hintLabelWidth) / 2.0f;
                 hintBaseline = -paint.ascent();
+                hintX = isFunctionalKeyAndRoundedStyle
+                        ? keyWidth - hintBaseline
+                        : keyWidth - mKeyHintLetterPadding - Math.max(hintDigitWidth, hintLabelWidth) / 2.0f;
                 paint.setTextAlign(Align.CENTER);
             }
-            final float adjustmentY = params.mHintLabelVerticalAdjustment * labelCharHeight;
-            canvas.drawText(
-                    hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
+            final float adjustmentY = isFunctionalKeyAndRoundedStyle
+                    ? hintBaseline * 0.5f
+                    : params.mHintLabelVerticalAdjustment * labelCharHeight;
+            canvas.drawText(hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
         }
 
         // Draw key icon.
@@ -522,7 +521,7 @@ public class KeyboardView extends View {
         }
     }
 
-    // Draw popup hint "..." at the bottom right corner of the key.
+    // Draw popup hint "..." at the center or bottom right corner of the key, depending on style.
     protected void drawKeyPopupHint(@NonNull final Key key, @NonNull final Canvas canvas,
             @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (TextUtils.isEmpty(mKeyPopupHintLetter)) {
@@ -530,13 +529,21 @@ public class KeyboardView extends View {
         }
         final int keyWidth = key.getDrawWidth();
         final int keyHeight = key.getHeight();
-
+        final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
+        final float hintX;
+        final float hintBaseline = paint.ascent();
         paint.setTypeface(params.mTypeface);
         paint.setTextSize(params.mHintLetterSize);
         paint.setColor(params.mHintLabelColor);
         paint.setTextAlign(Align.CENTER);
-        final float hintX = keyWidth - mKeyHintLetterPadding
-                - TypefaceUtils.getReferenceCharWidth(paint) / 2.0f;
+        if (mColors.getThemeStyle().equals(STYLE_ROUNDED)) {
+            if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR)
+                hintX = keyWidth + hintBaseline + labelCharWidth * 0.1f;
+            else
+                hintX = key.isFunctional() || key.isActionKey() ? keyWidth / 2.0f : keyWidth - mKeyHintLetterPadding - labelCharWidth / 2.0f;
+        } else {
+            hintX = keyWidth - mKeyHintLetterPadding - TypefaceUtils.getReferenceCharWidth(paint) / 2.0f;
+        }
         final float hintY = keyHeight - mKeyPopupHintLetterPadding;
         canvas.drawText(mKeyPopupHintLetter, hintX, hintY, paint);
     }
@@ -611,13 +618,16 @@ public class KeyboardView extends View {
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
-                icon.setColorFilter(mColors.getAccent(), PorterDuff.Mode.SRC_ATOP); // todo: switch to accentColorFilter after changing keyboard symbols to white icons
+                icon.setColorFilter(mColors.getAccentColorFilter());
             else
                 icon.setColorFilter(mColors.getKeyTextFilter()); // key text if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             icon.setColorFilter(mColors.getKeyTextFilter());
         } else if (this instanceof MoreKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
+            icon.setColorFilter(mColors.getKeyTextFilter());
+        } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == 0x200C) {
+            // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
             icon.setColorFilter(mColors.getKeyTextFilter());
         }
     }

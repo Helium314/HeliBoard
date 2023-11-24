@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"കോണ്ടാക്റ്റ് പേരുകൾ തിരയൂ"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"നിങ്ങളുടെ കോൺടാക്‌റ്റ് ലിസ്‌റ്റിൽ നിന്നുള്ള എൻട്രികൾ സ്പെൽചെക്കർ ഉപയോഗിക്കുന്നു"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"കീ അമർത്തുമ്പോൾ വൈബ്രേറ്റുചെയ്യുക"</string>
@@ -65,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"വിരൽചലിത ടൈപ്പിംഗ് ചെയ്യുമ്പോൾ നിർദ്ദേശിക്കപ്പെടുന്ന പദം നോക്കുക"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ഫ്രെയ്‌സ് വിരൽചലനം"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"വിരൽചലിത ടൈപ്പിംഗിൽ, സ്പെയ്‌സ് കീയിലേക്ക് വിരലുകൾ ചലിപ്പിച്ച് സ്‌പെയ്‌സുകൾ നൽകുക"</string>
-    <string name="voice_input" msgid="3583258583521397548">"വോയ്‌സ് ടൈപ്പുചെയ്യൽ കീ"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"വോയ്‌സ് ഇൻപുട്ട് രീതികളൊന്നും പ്രവർത്തനക്ഷമമാക്കിയിട്ടില്ല. ഭാഷയും ഇൻപുട്ടും ക്രമീകരണം പരിശോധിക്കുക."</string>
     <string name="configure_input_method" msgid="373356270290742459">"ടൈപ്പുചെയ്യൽ രീതികൾ കോൺഫിഗർ ചെയ്യുക"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ഭാഷകൾ"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"സഹായവും ഫീഡ്‌ബാക്കും"</string>
@@ -174,7 +160,6 @@
     <string name="ime_settings">ഓപ്പൺബോർഡ് ക്രമീകരണങ്ങൾ</string>
     <string name="settings_category_clipboard_history">ക്ലിപ്പ്ബോർഡ് ഹിസ്റ്ററി</string>
     <string name="enable_clipboard_history_summary">പ്രവർത്തനരഹിതമാക്കിയാൽ, ക്ലിപ്പ്ബോർഡ് ഉള്ളടക്കം എന്തെങ്കിലും ഉണ്ടെങ്കിൽ ക്ലിപ്പ്ബോർഡ് കീ പേസ്റ്റ് ചെയ്യും</string>
-    <string name="show_clipboard_key">ക്ലിപ്പ്ബോർഡ് കീ</string>
     <string name="enable_clipboard_history">ക്ലിപ്പ്ബോർഡ് ചരിത്രം എനേബിൾ ചെയ്യുക</string>
     <string name="delete_swipe_summary">ടെക്‌സ്‌റ്റിന്റെ വലിയ ഭാഗങ്ങൾ ഒരേസമയം തിരഞ്ഞെടുത്ത് നീക്കംചെയ്യുന്നതിന് ഡിലീറ്റ് കീ ഒന്ന് സ്വൈപ്പ് ചെയ്യുക</string>
     <string name="show_hints_summary">ദീർഘനേരം അമർത്തുന്ന സൂചനകൾ കാണിക്കുക</string>

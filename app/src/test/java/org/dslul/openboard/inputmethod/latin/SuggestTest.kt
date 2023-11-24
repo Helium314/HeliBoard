@@ -1,26 +1,54 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin
 
-import android.content.Context
-import android.util.LruCache
-import org.dslul.openboard.inputmethod.keyboard.Keyboard
+import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
 import org.dslul.openboard.inputmethod.latin.common.ComposedData
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults
+import org.junit.Before
 import org.junit.Test
-import java.io.File
+import org.junit.runner.RunWith
+import org.robolectric.Robolectric
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.Implementation
+import org.robolectric.annotation.Implements
+import org.robolectric.shadows.ShadowLog
 import java.util.*
-import java.util.concurrent.TimeUnit
 
+@RunWith(RobolectricTestRunner::class)
+@Config(shadows = [
+    ShadowLocaleManagerCompat::class,
+    ShadowInputMethodManager2::class,
+    ShadowBinaryDictionaryUtils::class,
+    ShadowFacilitator::class,
+])
 class SuggestTest {
-    private val thresholdModest = 0.185f
-    private val thresholdAggressive = 0.067f
-    private val thresholdVeryAggressive = Float.NEGATIVE_INFINITY
+    private lateinit var latinIME: LatinIME
+    private val suggest get() = latinIME.mInputLogic.mSuggest
 
-    @Test fun `"on" to "in" if "in" was used before in this context`() {
+    // values taken from the string array auto_correction_threshold_mode_indexes
+    private val thresholdModest = "0"
+    private val thresholdAggressive = "1"
+    private val thresholdVeryAggressive = "2"
+
+    @Before fun setUp() {
+        latinIME = Robolectric.setupService(LatinIME::class.java)
+        // start logging only after latinIME is created, avoids showing the stack traces if library is not found
+        ShadowLog.setupLogging()
+        ShadowLog.stream = System.out
+        DeviceProtectedUtils.getSharedPreferences(latinIME)
+            .edit { putBoolean(Settings.PREF_AUTO_CORRECTION, true) } // need to enable, off by default
+    }
+
+    @Test fun `'on' to 'in' if 'in' was used before in this context`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "on",
@@ -34,7 +62,7 @@ class SuggestTest {
         // not corrected because first suggestion score is too low
     }
 
-    @Test fun `"ill" to "I'll" if "ill" not used before in this context, and I'll has shortcut`() {
+    @Test fun `'ill' to 'I'll' if 'ill' not used before in this context, and I'll has shortcut`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -48,7 +76,7 @@ class SuggestTest {
         // correction because both empty scores are 0, which should be fine (next check is comparing empty scores)
     }
 
-    @Test fun `not "ill" to "I'll" if only "ill" was used before in this context`() {
+    @Test fun `not 'ill' to 'I'll' if only 'ill' was used before in this context`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -62,7 +90,7 @@ class SuggestTest {
         // not corrected because first empty score not high enough
     }
 
-    @Test fun `"ill" to "I'll" if both have same ngram score`() {
+    @Test fun `'ill' to 'I'll' if both have same ngram score`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -75,7 +103,7 @@ class SuggestTest {
         assert(result.last()) // should be corrected
     }
 
-    @Test fun `no "ill" to "I'll" if "ill" has somewhat better ngram score`() {
+    @Test fun `no 'ill' to 'I'll' if 'ill' has somewhat better ngram score`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -88,7 +116,7 @@ class SuggestTest {
         assert(!result.last()) // should not be corrected
     }
 
-    @Test fun `no English "I" for Polish "i" when typing in Polish`() {
+    @Test fun `no English 'I' for Polish 'i' when typing in Polish`() {
         val result = shouldBeAutoCorrected(
             "i",
             listOf(suggestion("I", Int.MAX_VALUE, Locale.ENGLISH), suggestion("i", 1500000, Locale("pl"))),
@@ -102,7 +130,7 @@ class SuggestTest {
         // if very aggressive, still no correction because locale matches with typed word only
     }
 
-    @Test fun `English "I" instead of Polish "i" when typing in English`() {
+    @Test fun `English 'I' instead of Polish 'i' when typing in English`() {
         val result = shouldBeAutoCorrected(
             "i",
             listOf(suggestion("I", Int.MAX_VALUE, Locale.ENGLISH), suggestion("i", 1500000, Locale("pl"))),
@@ -118,7 +146,7 @@ class SuggestTest {
         //     todo: consider special score for case-only difference?
     }
 
-    @Test fun `no English "in" instead of French "un" when typing in French`() {
+    @Test fun `no English 'in' instead of French 'un' when typing in French`() {
         val result = shouldBeAutoCorrected(
             "un",
             listOf(suggestion("in", Int.MAX_VALUE, Locale.ENGLISH), suggestion("un", 1500000, Locale.FRENCH)),
@@ -131,7 +159,7 @@ class SuggestTest {
         // not corrected because of locale matching
     }
 
-    @Test fun `no "né" instead of "ne"`() {
+    @Test fun `no 'né' instead of 'ne'`() {
         val result = shouldBeAutoCorrected(
             "ne",
             listOf(suggestion("ne", 1900000, Locale.FRENCH), suggestion("né", 1900000-1, Locale.FRENCH)),
@@ -144,7 +172,7 @@ class SuggestTest {
         // not corrected because score is lower
     }
 
-    @Test fun `"né" instead of "ne" if "né" in ngram context`() {
+    @Test fun `'né' instead of 'ne' if 'né' in ngram context`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "ne",
@@ -157,7 +185,7 @@ class SuggestTest {
         assert(result.last()) // should be corrected
     }
 
-    @Test fun `"né" instead of "ne" if "né" has clearly better score in ngram context`() {
+    @Test fun `'né' instead of 'ne' if 'né' has clearly better score in ngram context`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "ne",
@@ -170,7 +198,7 @@ class SuggestTest {
         assert(result.last()) // should be corrected
     }
 
-    @Test fun `no "né" instead of "ne" if both with same score in ngram context`() {
+    @Test fun `no 'né' instead of 'ne' if both with same score in ngram context`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "ne",
@@ -183,7 +211,7 @@ class SuggestTest {
         assert(!result.last()) // should not be corrected
     }
 
-    @Test fun `no "ne" instead of "né"`() {
+    @Test fun `no 'ne' instead of 'né'`() {
         val locale = Locale.FRENCH
         val result = shouldBeAutoCorrected(
             "né",
@@ -197,9 +225,64 @@ class SuggestTest {
         // not even allowed to check because of low score for ne
     }
 
+    private fun setAutCorrectThreshold(threshold: String) {
+        val prefs = DeviceProtectedUtils.getSharedPreferences(latinIME)
+        prefs.edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, threshold) }
+    }
+
+    private fun shouldBeAutoCorrected(word: String, // typed word
+                              suggestions: List<SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
+                              firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
+                              typedWordSuggestionForEmpty: SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
+                              typingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
+                              autoCorrectThreshold: String // 0, 1, or 2, but better use the vals on top with the corresponding name
+    ): List<Boolean> {
+        setAutCorrectThreshold(autoCorrectThreshold)
+        currentTypingLocale = typingLocale
+        val suggestionsContainer = ArrayList<SuggestedWordInfo>().apply { addAll(suggestions) }
+        val suggestionResults = SuggestionResults(suggestions.size, false, false)
+        suggestions.forEach { suggestionResults.add(it) }
+
+        // store the original SuggestedWordInfo for typed word, as it will be removed
+        // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
+        var typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = null
+        var foundInDictionary = false
+        var sourceDictionaryOfRemovedWord: Dictionary? = null
+        for (info in suggestionsContainer) {
+            // Search for the best dictionary, defined as the first one with the highest match
+            // quality we can find.
+            if (!foundInDictionary && word == info.mWord) {
+                // Use this source if the old match had lower quality than this match
+                sourceDictionaryOfRemovedWord = info.mSourceDict
+                foundInDictionary = true
+                typedWordFirstOccurrenceWordInfo = info
+                break
+            }
+        }
+
+        val firstOccurrenceOfTypedWordInSuggestions =
+            SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
+
+        return suggest.shouldBeAutoCorrected(
+            StringUtils.getTrailingSingleQuotesCount(word),
+            word,
+            suggestionsContainer, // todo: get from suggestions? mostly it's just removing the typed word, right?
+            sourceDictionaryOfRemovedWord,
+            listOf(firstSuggestionForEmpty, typedWordSuggestionForEmpty),
+            {}, // only used to fill above if needed
+            true, // doesn't make sense otherwise
+            0, // not really relevant here
+            WordComposer.getComposerForTest(false),
+            suggestionResults,
+            firstOccurrenceOfTypedWordInSuggestions,
+            typedWordFirstOccurrenceWordInfo
+        ).toList()
+    }
 }
 
-private fun suggestion(word: String, score: Int, locale: Locale) =
+private var currentTypingLocale = Locale.ENGLISH
+
+fun suggestion(word: String, score: Int, locale: Locale) =
     SuggestedWordInfo(
         /* word */ word,
         /* prevWordsContext */ "", // irrelevant
@@ -214,176 +297,13 @@ private fun suggestion(word: String, score: Int, locale: Locale) =
         /* autoCommitFirstWordConfidence */ 0 // irrelevant?
     )
 
-fun shouldBeAutoCorrected(word: String, // typed word
-         suggestions: List<SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
-         firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
-         typedWordSuggestionForEmpty: SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
-         currentTypingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
-         autoCorrectThreshold: Float // -inf, 0.067, 0.185 (for very aggressive, aggressive, modest)
-): List<Boolean> {
-    val suggestionsContainer = ArrayList<SuggestedWordInfo>().apply { addAll(suggestions) }
-    val suggestionResults = SuggestionResults(suggestions.size, false, false)
-    suggestions.forEach { suggestionResults.add(it) }
-
-    // store the original SuggestedWordInfo for typed word, as it will be removed
-    // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
-    var typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = null
-    var foundInDictionary = false
-    var sourceDictionaryOfRemovedWord: Dictionary? = null
-    for (info in suggestionsContainer) {
-        // Search for the best dictionary, defined as the first one with the highest match
-        // quality we can find.
-        if (!foundInDictionary && word == info.mWord) {
-            // Use this source if the old match had lower quality than this match
-            sourceDictionaryOfRemovedWord = info.mSourceDict
-            foundInDictionary = true
-            typedWordFirstOccurrenceWordInfo = info
-            break
-        }
-    }
-
-    val firstOccurrenceOfTypedWordInSuggestions =
-        SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
-
-    return Suggest.shouldBeAutoCorrected(
-        StringUtils.getTrailingSingleQuotesCount(word),
-        word,
-        suggestionsContainer, // todo: get from suggestions? mostly it's just removing the typed word, right?
-        sourceDictionaryOfRemovedWord,
-        listOf(firstSuggestionForEmpty, typedWordSuggestionForEmpty),
-        {}, // only used to fill above if needed
-        true, // doesn't make sense otherwise
-        0, // not really relevant here
-        WordComposer.getComposerForTest(false),
-        suggestionResults,
-        facilitator(currentTypingLocale),
-        autoCorrectThreshold,
-        firstOccurrenceOfTypedWordInSuggestions,
-        typedWordFirstOccurrenceWordInfo
-    ).toList()
+@Implements(DictionaryFacilitatorImpl::class)
+class ShadowFacilitator {
+    @Implementation
+    fun getCurrentLocale(): Locale = currentTypingLocale
+    @Implementation
+    fun hasAtLeastOneInitializedMainDictionary() = true // otherwise no autocorrect
 }
-
-private fun facilitator(currentTypingLocale: Locale): DictionaryFacilitator =
-    object : DictionaryFacilitator {
-        override fun setValidSpellingWordReadCache(cache: LruCache<String, Boolean>?) {
-            TODO("Not yet implemented")
-        }
-        override fun setValidSpellingWordWriteCache(cache: LruCache<String, Boolean>?) {
-            TODO("Not yet implemented")
-        }
-        override fun isForLocale(locale: Locale?): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun isForAccount(account: String?): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun onStartInput() {
-            TODO("Not yet implemented")
-        }
-        override fun onFinishInput(context: Context?) {
-            TODO("Not yet implemented")
-        }
-        override fun isActive(): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun getLocale(): Locale {
-            TODO("Not yet implemented")
-        }
-        override fun getCurrentLocale(): Locale = currentTypingLocale
-        override fun usesContacts(): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun getAccount(): String {
-            TODO("Not yet implemented")
-        }
-        override fun resetDictionaries(
-            context: Context?,
-            newLocale: Locale?,
-            useContactsDict: Boolean,
-            usePersonalizedDicts: Boolean,
-            forceReloadMainDictionary: Boolean,
-            account: String?,
-            dictNamePrefix: String?,
-            listener: DictionaryFacilitator.DictionaryInitializationListener?
-        ) {
-            TODO("Not yet implemented")
-        }
-        override fun removeWord(word: String?) {
-            TODO("Not yet implemented")
-        }
-        override fun resetDictionariesForTesting(
-            context: Context?,
-            locale: Locale?,
-            dictionaryTypes: java.util.ArrayList<String>?,
-            dictionaryFiles: HashMap<String, File>?,
-            additionalDictAttributes: MutableMap<String, MutableMap<String, String>>?,
-            account: String?
-        ) {
-            TODO("Not yet implemented")
-        }
-        override fun closeDictionaries() {
-            TODO("Not yet implemented")
-        }
-        override fun getSubDictForTesting(dictName: String?): ExpandableBinaryDictionary {
-            TODO("Not yet implemented")
-        }
-        override fun hasAtLeastOneInitializedMainDictionary(): Boolean = true
-        override fun hasAtLeastOneUninitializedMainDictionary(): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun waitForLoadingMainDictionaries(timeout: Long, unit: TimeUnit?) {
-            TODO("Not yet implemented")
-        }
-        override fun waitForLoadingDictionariesForTesting(timeout: Long, unit: TimeUnit?) {
-            TODO("Not yet implemented")
-        }
-        override fun addToUserHistory(
-            suggestion: String?,
-            wasAutoCapitalized: Boolean,
-            ngramContext: NgramContext,
-            timeStampInSeconds: Long,
-            blockPotentiallyOffensive: Boolean
-        ) {
-            TODO("Not yet implemented")
-        }
-        override fun unlearnFromUserHistory(
-            word: String?,
-            ngramContext: NgramContext,
-            timeStampInSeconds: Long,
-            eventType: Int
-        ) {
-            TODO("Not yet implemented")
-        }
-        override fun getSuggestionResults(
-            composedData: ComposedData?,
-            ngramContext: NgramContext?,
-            keyboard: Keyboard,
-            settingsValuesForSuggestion: SettingsValuesForSuggestion?,
-            sessionId: Int,
-            inputStyle: Int
-        ): SuggestionResults {
-            TODO("Not yet implemented")
-        }
-        override fun isValidSpellingWord(word: String?): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun isValidSuggestionWord(word: String?): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun clearUserHistoryDictionary(context: Context?): Boolean {
-            TODO("Not yet implemented")
-        }
-        override fun dump(context: Context?): String {
-            TODO("Not yet implemented")
-        }
-        override fun dumpDictionaryForDebug(dictName: String?) {
-            TODO("Not yet implemented")
-        }
-        override fun getDictionaryStats(context: Context?): MutableList<DictionaryStats> {
-            TODO("Not yet implemented")
-        }
-
-    }
 
 private class TestDict(locale: Locale) : Dictionary("testDict", locale) {
     override fun getSuggestions(

@@ -1,17 +1,7 @@
 /*
-7 * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (C) 2013 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -98,15 +88,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static final Class<?>[] DICT_FACTORY_METHOD_ARG_TYPES =
             new Class[] { Context.class, Locale.class, File.class, String.class, String.class };
 
-    // todo: these caches are never even set, as the corresponding functions are not called...
-    //  and even if they were set, one is only written, but never read, and the other one
-    //  is only read and thus empty and useless -> why?
-    //  anyway, we could just set the same cache using the set functions
-    //  but before doing this, check the potential performance gains
-    //   i.e. how long does a "isValidWord" check take -> on S4 mini 300 µs per dict if ok, but
-    //   sometimes it can also be a few ms
-    //   os if the spell checker is enabled, it's definitely reasonable to cache the results
-    //   but this needs to be done internally, as it should be by language
+    // todo: write cache never set, and never read (only written)
+    //  (initially was the same for the read cache, why?)
     private LruCache<String, Boolean> mValidSpellingWordReadCache;
     private LruCache<String, Boolean> mValidSpellingWordWriteCache;
 
@@ -312,6 +295,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    public boolean usesPersonalization() {
+        return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_USER_HISTORY) != null;
+    }
+
+    @Override
     public String getAccount() {
         return null;
     }
@@ -415,7 +403,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             final Map<String, ExpandableBinaryDictionary> subDicts = new HashMap<>();
             for (final String subDictType : subDictTypesToUse) {
                 final ExpandableBinaryDictionary subDict;
-                if (noExistingDictsForThisLocale
+                if (noExistingDictsForThisLocale || forceReloadMainDictionary
                         || !oldDictionaryGroupForLocale.hasDict(subDictType, account)) {
                     // Create a new dictionary.
                     subDict = getSubDict(subDictType, context, locale, null /* dictFile */, dictNamePrefix, account);
@@ -470,6 +458,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         if (mValidSpellingWordWriteCache != null) {
             mValidSpellingWordWriteCache.evictAll();
+        }
+        if (mValidSpellingWordReadCache != null) {
+            mValidSpellingWordReadCache.evictAll();
         }
     }
 
@@ -664,27 +655,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // main and secondary isValid provided to avoid duplicate lookups
     private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, boolean[] validWordForDictionary) {
-        // we need one clearly preferred group to assign it to the correct language
-        int highestGroup = -1;
-        // require confidence to be MAX_CONFIDENCE, to be sure about language
-        // since the word is unknown, confidence has already been reduced, but after a first miss
-        // confidence is actually reduced to MAX_CONFIDENCE if it was larger
-        int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
-        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
-            final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
-            if (dictionaryGroup.mConfidence > highestGroupConfidence) {
-                highestGroup = i;
-                highestGroupConfidence = dictionaryGroup.mConfidence;
-            } else if (dictionaryGroup.mConfidence == highestGroupConfidence) {
-                highestGroup = -1;
-            }
-        }
-        // no preferred group or word is valid -> do nothing
-        if (highestGroup == -1) return;
-        final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(highestGroup);
+        final DictionaryGroup dictionaryGroup = getClearlyPreferredDictionaryGroupOrNull();
+        if (dictionaryGroup == null) return;
         if (validWordForDictionary == null
                 ? isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)
-                : validWordForDictionary[highestGroup]
+                : validWordForDictionary[mDictionaryGroups.indexOf(dictionaryGroup)]
         )
             return;
 
@@ -700,7 +675,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                     UserDictionary.Words.addWord(userDict.mContext, suggestion,
                     250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale));
         }
-
     }
 
     private void putWordIntoValidSpellingWordCache(
@@ -796,6 +770,26 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
         }
         return dictGroup;
+    }
+
+    private DictionaryGroup getClearlyPreferredDictionaryGroupOrNull() {
+        // we want one clearly preferred group and return null otherwise
+        if (mDictionaryGroups.size() == 1)
+            return mDictionaryGroups.get(0);
+        // that preferred group should have at least MAX_CONFIDENCE
+        int highestGroup = -1;
+        int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
+        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
+            final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
+            if (dictionaryGroup.mConfidence > highestGroupConfidence) {
+                highestGroup = i;
+                highestGroupConfidence = dictionaryGroup.mConfidence;
+            } else if (dictionaryGroup.mConfidence == highestGroupConfidence) {
+                highestGroup = -1; // unset group on a tie
+            }
+        }
+        if (highestGroup == -1) return null;
+        return mDictionaryGroups.get(highestGroup);
     }
 
     private void removeWord(final String dictName, final String word) {
@@ -919,11 +913,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 return cachedValue;
             }
         }
+        boolean result = false;
         for (DictionaryGroup dictionaryGroup : mDictionaryGroups) {
-            if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup))
-                return true;
+            if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup)) {
+                result = true;
+                break;
+            }
         }
-        return false;
+        if (mValidSpellingWordReadCache != null)
+            mValidSpellingWordReadCache.put(word, result);
+        return result;
     }
 
     // this is unused, so leave it for now (redirecting to isValidWord seems to defeat the purpose...)
@@ -977,27 +976,38 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
 
         final ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
-        final boolean isInContacts;
         if (contactsDict != null) {
-            isInContacts = contactsDict.isInDictionary(word);
-            if (isInContacts)
+            if (contactsDict.isInDictionary(word)) {
                 contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
-        } else isInContacts = false;
-
-        // add to blacklist if in main or contacts dictionaries
-        if ((isInContacts || (group.hasDict(Dictionary.TYPE_MAIN, null) && group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)))
-                && group.blacklist.add(word)) {
-            // write to file if word wasn't already in blacklist
-            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
-                try {
-                    FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
-                    fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
-                    fos.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "Exception while trying to write blacklist", e);
-                }
-            });
+                addToBlacklist(word, group);
+                return;
+            }
         }
+        if (!group.hasDict(Dictionary.TYPE_MAIN, null))
+            return;
+        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)) {
+            addToBlacklist(word, group);
+            return;
+        }
+        final String lowercase = word.toLowerCase(group.mLocale);
+        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(lowercase)) {
+            addToBlacklist(lowercase, group);
+        }
+    }
+
+    private void addToBlacklist(final String word, final DictionaryGroup group) {
+        if (!group.blacklist.add(word))
+            return;
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
+            try {
+                Log.i("test1", "adding to blacklist file" + group.blacklistFileName);
+                FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
+                fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
+                fos.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Exception while trying to write blacklist", e);
+            }
+        });
     }
 
     private ArrayList<String> readBlacklistFile(final String filename) {

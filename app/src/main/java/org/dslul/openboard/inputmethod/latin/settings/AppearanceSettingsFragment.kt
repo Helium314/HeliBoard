@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.SharedPreferences
@@ -19,26 +21,35 @@ import java.util.*
  * "Appearance" settings sub screen.
  */
 class AppearanceSettingsFragment : SubScreenFragment() {
-
     private var needsReload = false
 
-    private val themeFamilyPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
-    private val themeVariantPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT)!! }
-    private val themeVariantNightPref: ListPreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_VARIANT_NIGHT) }
+    private val stylePref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
+    private val colorsPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_COLORS)!! }
+    private val colorsNightPref: ListPreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_COLORS_NIGHT) }
     private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
+    private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
+    private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
 
-
-    override fun onCreate(icicle: Bundle?) {
-        super.onCreate(icicle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.prefs_screen_appearance)
 
         removeUnsuitablePreferences()
         setupTheme()
-        setThemeVariantPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL)!!)
+        setColorPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
 
-        setupKeyboardHeight(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        if (splitScalePref != null) {
+            setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+            splitScalePref?.isVisible = splitPref?.isChecked == true
+            splitPref?.setOnPreferenceChangeListener { _, value ->
+                splitScalePref?.isVisible = value as Boolean
+                true
+            }
+        }
     }
 
     override fun onPause() {
@@ -50,13 +61,13 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
         super.onSharedPreferenceChanged(prefs, key)
-        needsReload = true // may not always be the necessary, but that's ok
+        needsReload = true // may not always necessary, but that's ok
     }
 
     private fun removeUnsuitablePreferences() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             removePreference(Settings.PREF_THEME_DAY_NIGHT)
-            removePreference(Settings.PREF_THEME_VARIANT_NIGHT)
+            removePreference(Settings.PREF_THEME_COLORS_NIGHT)
         } else {
             // on P there is experimental support for night mode, exposed by some roms like LineageOS
             // try to detect this using UI_MODE_NIGHT_UNDEFINED, but actually the system could always report day too?
@@ -64,7 +75,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 && (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_UNDEFINED
             ) {
                 removePreference(Settings.PREF_THEME_DAY_NIGHT)
-                removePreference(Settings.PREF_THEME_VARIANT_NIGHT)
+                removePreference(Settings.PREF_THEME_COLORS_NIGHT)
                 removePreference("theme_select_colors_night")
             }
         }
@@ -77,17 +88,15 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         val heightDp = metrics.heightPixels / metrics.density
         if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED || (min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
             removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
+            removePreference(Settings.PREF_SPLIT_SPACER_SCALE)
         }
     }
 
-    private fun setThemeVariantPrefs(themeFamily: String) {
-        themeVariantPref.apply {
-            entryValues = if (themeFamily == KeyboardTheme.THEME_STYLE_HOLO) KeyboardTheme.THEME_VARIANTS
-                else KeyboardTheme.THEME_VARIANTS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
-            entries = entryValues.map {
-                val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
-                if (resId == 0) it else getString(resId)
-            }.toTypedArray()
+    private fun setColorPrefs(style: String) {
+        colorsPref.apply {
+            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS
+                else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
+            entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
             if (value !in entryValues)
                 value = entryValues.first().toString()
             summary = entries[entryValues.indexOfFirst { it == value }]
@@ -98,13 +107,10 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 true
             }
         }
-        themeVariantNightPref?.apply {
-            entryValues = if (themeFamily == KeyboardTheme.THEME_STYLE_HOLO) KeyboardTheme.THEME_VARIANTS_DARK
-                else KeyboardTheme.THEME_VARIANTS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
-            entries = entryValues.map {
-                val resId = resources.getIdentifier("theme_name_$it", "string", requireContext().packageName)
-                if (resId == 0) it else getString(resId)
-            }.toTypedArray()
+        colorsNightPref?.apply {
+            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK
+                else KeyboardTheme.COLORS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
+            entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
             if (value !in entryValues)
                 value = entryValues.first().toString()
             summary = entries[entryValues.indexOfFirst { it == value }]
@@ -118,27 +124,30 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun setupTheme() {
-        themeFamilyPref.apply {
-            entries = KeyboardTheme.THEME_STYLES
-            entryValues = KeyboardTheme.THEME_STYLES
+        stylePref.apply {
+            entryValues = KeyboardTheme.STYLES
+            entries = entryValues.getNamesFromResourcesIfAvailable("style_name_")
+            if (value !in entryValues)
+                value = entryValues.first().toString()
+
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
-                setThemeVariantPrefs(value.toString())
+                setColorPrefs(value.toString())
                 true
             }
             summary = entries[entryValues.indexOfFirst { it == value }]
         }
         dayNightPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            themeVariantNightPref?.isVisible = value as Boolean
-            userColorsPrefNight?.isVisible = value && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+            colorsNightPref?.isVisible = value as Boolean
+            userColorsPrefNight?.isVisible = value && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
             true
         }
-        themeVariantNightPref?.isVisible = dayNightPref?.isChecked == true
-        userColorsPref.isVisible = themeVariantPref.value == KeyboardTheme.THEME_USER
-        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && themeVariantNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+        colorsNightPref?.isVisible = dayNightPref?.isChecked == true
+        userColorsPref.isVisible = colorsPref.value == KeyboardTheme.THEME_USER
+        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
     }
 
-    private fun setupKeyboardHeight(prefKey: String, defaultValue: Float) {
+    private fun setupScalePrefs(prefKey: String, defaultValue: Float) {
         val prefs = sharedPreferences
         val pref = findPreference(prefKey) as? SeekBarDialogPreference
         pref?.setInterface(object : SeekBarDialogPreference.ValueProxy {
@@ -147,13 +156,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
             private fun getPercentageFromValue(floatValue: Float) = (floatValue * PERCENTAGE_FLOAT).toInt()
 
-            override fun writeValue(value: Int, key: String) = prefs.edit()
-                    .putFloat(key, getValueFromPercentage(value)).apply()
+            override fun writeValue(value: Int, key: String) = prefs.edit().putFloat(key, getValueFromPercentage(value)).apply()
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = getPercentageFromValue(
-                    Settings.readKeyboardHeight(prefs, defaultValue))
+            override fun readValue(key: String) = getPercentageFromValue(prefs.getFloat(prefKey, defaultValue))
 
             override fun readDefaultValue(key: String) = getPercentageFromValue(defaultValue)
 
@@ -162,6 +169,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             override fun feedbackValue(value: Int) = Unit
         })
     }
+
+    private fun Array<CharSequence>.getNamesFromResourcesIfAvailable(prefix: String) =
+        map { val resId = resources.getIdentifier("$prefix$it", "string", requireContext().packageName)
+            if (resId == 0) it else getString(resId)
+        }.toTypedArray()
 
     companion object {
         private const val PERCENTAGE_FLOAT = 100.0f

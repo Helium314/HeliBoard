@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
@@ -36,6 +26,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.MainKeyboardAccessibilityDelegate;
@@ -73,10 +64,8 @@ import java.util.WeakHashMap;
  * A view that is responsible for detecting key presses and touch movements.
  *
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextRatio
- * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextColor
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextShadowRadius
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarTextShadowColor
- * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarFinalAlpha
  * @attr ref R.styleable#MainKeyboardView_languageOnSpacebarFadeoutAnimator
  * @attr ref R.styleable#MainKeyboardView_altCodeKeyWhileTypingFadeoutAnimator
  * @attr ref R.styleable#MainKeyboardView_altCodeKeyWhileTypingFadeinAnimator
@@ -92,9 +81,6 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_keyPreviewLayout
  * @attr ref R.styleable#MainKeyboardView_keyPreviewOffset
  * @attr ref R.styleable#MainKeyboardView_keyPreviewHeight
- * @attr ref R.styleable#MainKeyboardView_keyPreviewLingerTimeout
- * @attr ref R.styleable#MainKeyboardView_keyPreviewShowUpAnimator
- * @attr ref R.styleable#MainKeyboardView_keyPreviewDismissAnimator
  * @attr ref R.styleable#MainKeyboardView_moreKeysKeyboardLayout
  * @attr ref R.styleable#MainKeyboardView_moreKeysKeyboardForActionLayout
  * @attr ref R.styleable#MainKeyboardView_backgroundDimAlpha
@@ -123,7 +109,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private Key mSpaceKey;
     // Stuff to draw language name on spacebar.
     private final int mLanguageOnSpacebarFinalAlpha;
-    private ObjectAnimator mLanguageOnSpacebarFadeoutAnimator;
+    private final ObjectAnimator mLanguageOnSpacebarFadeoutAnimator;
     private int mLanguageOnSpacebarFormatType;
     private boolean mHasMultipleEnabledIMEsOrSubtypes;
     private int mLanguageOnSpacebarAnimAlpha = Constants.Color.ALPHA_OPAQUE;
@@ -182,7 +168,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         super(context, attrs, defStyle);
 
         final DrawingPreviewPlacerView drawingPreviewPlacerView =
-                new DrawingPreviewPlacerView(context, attrs);
+                new DrawingPreviewPlacerView(new ContextThemeWrapper(context, R.style.platformActivityTheme), attrs);
 
         final TypedArray mainKeyboardViewAttr = context.obtainStyledAttributes(
                 attrs, R.styleable.MainKeyboardView, defStyle, R.style.MainKeyboardView);
@@ -190,15 +176,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 R.styleable.MainKeyboardView_ignoreAltCodeKeyTimeout, 0);
         final int gestureRecognitionUpdateTime = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureRecognitionUpdateTime, 0);
-        mTimerHandler = new TimerHandler(
-                this, ignoreAltCodeKeyTimeout, gestureRecognitionUpdateTime);
+        mTimerHandler = new TimerHandler(this, ignoreAltCodeKeyTimeout, gestureRecognitionUpdateTime);
 
         final float keyHysteresisDistance = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_keyHysteresisDistance, 0.0f);
         final float keyHysteresisDistanceForSlidingModifier = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_keyHysteresisDistanceForSlidingModifier, 0.0f);
-        mKeyDetector = new KeyDetector(
-                keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
+        mKeyDetector = new KeyDetector(keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
 
         PointerTracker.init(mainKeyboardViewAttr, mTimerHandler, this /* DrawingProxy */);
 
@@ -208,8 +192,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final boolean hasDistinctMultitouch = context.getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT)
                 && !forceNonDistinctMultitouch;
-        mNonDistinctMultitouchHelper = hasDistinctMultitouch ? null
-                : new NonDistinctMultitouchHelper();
+        mNonDistinctMultitouchHelper = hasDistinctMultitouch ? null : new NonDistinctMultitouchHelper();
 
         final int backgroundDimAlpha = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_backgroundDimAlpha, 0);
@@ -218,15 +201,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mLanguageOnSpacebarTextColor = colors.getSpaceBarText(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
+        mLanguageOnSpacebarTextColor = colors.getSpaceBarText();
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);
         mLanguageOnSpacebarTextShadowColor = mainKeyboardViewAttr.getColor(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowColor, 0);
-        mLanguageOnSpacebarFinalAlpha = mainKeyboardViewAttr.getInt(
-                R.styleable.MainKeyboardView_languageOnSpacebarFinalAlpha,
-                Constants.Color.ALPHA_OPAQUE);
+        mLanguageOnSpacebarFinalAlpha = Color.alpha(mLanguageOnSpacebarTextColor);
         final int languageOnSpacebarFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_languageOnSpacebarFadeoutAnimator, 0);
         final int altCodeKeyWhileTypingFadeoutAnimatorResId = mainKeyboardViewAttr.getResourceId(
@@ -248,8 +229,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mGestureFloatingPreviewTextLingerTimeout = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureFloatingPreviewTextLingerTimeout, 0);
 
-        mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(
-                mainKeyboardViewAttr);
+        mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(mainKeyboardViewAttr);
         mGestureFloatingTextDrawingPreview.setDrawingView(drawingPreviewPlacerView);
 
         mGestureTrailsDrawingPreview = new GestureTrailsDrawingPreview(mainKeyboardViewAttr);
@@ -263,14 +243,12 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
         mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
-        mMoreKeysKeyboardForActionContainer = inflater.inflate(
-                moreKeysKeyboardForActionLayoutId, null);
-        mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(
-                languageOnSpacebarFadeoutAnimatorResId, this);
-        mAltCodeKeyWhileTypingFadeoutAnimator = loadObjectAnimator(
-                altCodeKeyWhileTypingFadeoutAnimatorResId, this);
-        mAltCodeKeyWhileTypingFadeinAnimator = loadObjectAnimator(
-                altCodeKeyWhileTypingFadeinAnimatorResId, this);
+        mMoreKeysKeyboardForActionContainer = inflater.inflate(moreKeysKeyboardForActionLayoutId, null);
+        mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(languageOnSpacebarFadeoutAnimatorResId, this);
+        if (mLanguageOnSpacebarFadeoutAnimator != null)
+            mLanguageOnSpacebarFadeoutAnimator.setIntValues(255, mLanguageOnSpacebarFinalAlpha);
+        mAltCodeKeyWhileTypingFadeoutAnimator = loadObjectAnimator(altCodeKeyWhileTypingFadeoutAnimatorResId, this);
+        mAltCodeKeyWhileTypingFadeinAnimator = loadObjectAnimator(altCodeKeyWhileTypingFadeinAnimatorResId, this);
 
         mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
 
@@ -370,14 +348,12 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         PointerTracker.setKeyboardActionListener(listener);
     }
 
-    // TODO: We should reconsider which coordinate system should be used to represent keyboard
-    // event.
+    // TODO: We should reconsider which coordinate system should be used to represent keyboard event.
     public int getKeyX(final int x) {
         return Constants.isValidCoordinate(x) ? mKeyDetector.getTouchX(x) : x;
     }
 
-    // TODO: We should reconsider which coordinate system should be used to represent keyboard
-    // event.
+    // TODO: We should reconsider which coordinate system should be used to represent keyboard event.
     public int getKeyY(final int y) {
         return Constants.isValidCoordinate(y) ? mKeyDetector.getTouchY(y) : y;
     }
@@ -420,27 +396,6 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
      */
     public void setKeyPreviewPopupEnabled(final boolean previewEnabled) {
         mKeyPreviewDrawParams.setPopupEnabled(previewEnabled);
-    }
-
-    /**
-     * Enables or disables the key preview popup animations and set animations' parameters.
-     *
-     * @param hasCustomAnimationParams false to use the default key preview popup animations
-     *   specified by keyPreviewShowUpAnimator and keyPreviewDismissAnimator attributes.
-     *   true to override the default animations with the specified parameters.
-     * @param showUpStartXScale from this x-scale the show up animation will start.
-     * @param showUpStartYScale from this y-scale the show up animation will start.
-     * @param showUpDuration the duration of the show up animation in milliseconds.
-     * @param dismissEndXScale to this x-scale the dismiss animation will end.
-     * @param dismissEndYScale to this y-scale the dismiss animation will end.
-     * @param dismissDuration the duration of the dismiss animation in milliseconds.
-     */
-    public void setKeyPreviewAnimationParams(final boolean hasCustomAnimationParams,
-            final float showUpStartXScale, final float showUpStartYScale, final int showUpDuration,
-            final float dismissEndXScale, final float dismissEndYScale, final int dismissDuration) {
-        mKeyPreviewDrawParams.setAnimationParams(hasCustomAnimationParams,
-                showUpStartXScale, showUpStartYScale, showUpDuration,
-                dismissEndXScale, dismissEndYScale, dismissDuration);
     }
 
     private void locatePreviewPlacerView() {

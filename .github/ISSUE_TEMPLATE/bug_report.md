@@ -4,7 +4,7 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-<!-- Please search open and closed issues to avoid duplicates -->
+<!-- Please search open and closed issues to avoid duplicates, and don't put several issues / bugs into one report -->
 **Does it happen in OpenBoard, or is it exclusive to this modified version?**
 
 **Describe the bug**

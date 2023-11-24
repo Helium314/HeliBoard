@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
@@ -19,6 +9,7 @@ package org.dslul.openboard.inputmethod.keyboard.emoji;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -72,7 +63,7 @@ public final class EmojiPalettesView extends LinearLayout
         implements OnTabChangeListener, View.OnClickListener, View.OnTouchListener,
         OnKeyEventListener {
     private final int mFunctionalKeyBackgroundId;
-    private final int mSpacebarBackgroundId;
+    private final Drawable mSpacebarBackground;
     private final boolean mCategoryIndicatorEnabled;
     private final int mCategoryIndicatorDrawableResId;
     private final int mCategoryIndicatorBackgroundResId;
@@ -110,11 +101,9 @@ public final class EmojiPalettesView extends LinearLayout
                 R.styleable.KeyboardView_keyBackground, 0);
         mFunctionalKeyBackgroundId = keyboardViewAttr.getResourceId(
                 R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId);
-        mSpacebarBackgroundId = keyboardViewAttr.getResourceId(
-                R.styleable.KeyboardView_spacebarBackground, keyBackgroundId);
+        mSpacebarBackground = Settings.getInstance().getCurrent().mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
         keyboardViewAttr.recycle();
-        final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
-                context, null /* editorInfo */);
+        final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
@@ -246,6 +235,7 @@ public final class EmojiPalettesView extends LinearLayout
         // deleteKey depends only on OnTouchListener.
         mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
         mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
+        mDeleteKey.setColorFilter(colors.getKeyTextFilter());
         mDeleteKey.setTag(Constants.CODE_DELETE);
         mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
 
@@ -262,7 +252,7 @@ public final class EmojiPalettesView extends LinearLayout
         mAlphabetKeyLeft.setOnTouchListener(this);
         mAlphabetKeyLeft.setOnClickListener(this);
         mSpacebar = findViewById(R.id.emoji_keyboard_space);
-        mSpacebar.setBackgroundResource(mSpacebarBackgroundId);
+        mSpacebar.setBackground(mSpacebarBackground);
         mSpacebar.setTag(Constants.CODE_SPACE);
         mSpacebar.setOnTouchListener(this);
         mSpacebar.setOnClickListener(this);
@@ -273,7 +263,6 @@ public final class EmojiPalettesView extends LinearLayout
         colors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
         colors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
         colors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
-        colors.setKeyboardBackground(this);
         mEmojiCategoryPageIndicatorView.setColors(colors.getAccent(), colors.getAdjustedBackground());
     }
 
@@ -298,8 +287,7 @@ public final class EmojiPalettesView extends LinearLayout
         if (mCurrentTab != null)
             mCurrentTab.setColorFilter(colors.getKeyTextFilter());
         mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
-//        mCurrentTab.setColorFilter(colors.accentColorFilter); not working because of lxx icon color
-        mCurrentTab.setColorFilter(colors.getAccent());
+        mCurrentTab.setColorFilter(colors.getAccentColorFilter());
     }
 
     /**
@@ -363,7 +351,6 @@ public final class EmojiPalettesView extends LinearLayout
     @Override
     public void onReleaseKey(final Key key) {
         mEmojiPalettesAdapter.addRecentKey(key);
-        mEmojiCategory.saveLastTypedCategoryPage();
         final int code = key.getCode();
         if (code == Constants.CODE_OUTPUT_TEXT) {
             mKeyboardActionListener.onTextInput(key.getOutputText());
@@ -395,11 +382,6 @@ public final class EmojiPalettesView extends LinearLayout
         if (deleteIconResId != 0) {
             mDeleteKey.setImageResource(deleteIconResId);
         }
-        final int spacebarResId = iconSet.getIconResourceId(KeyboardIconsSet.NAME_SPACE_KEY);
-        if (spacebarResId != 0) {
-            // TODO: Remove this workaround to place the spacebar icon.
-            mSpacebarIcon.setBackgroundResource(spacebarResId);
-        }
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getActionBarHeight(), keyVisualAttr);
         setupAlphabetKey(mAlphabetKeyLeft, switchToAlphaLabel, params);
@@ -408,6 +390,7 @@ public final class EmojiPalettesView extends LinearLayout
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
                     true /* force */);
         }
+        Settings.getInstance().getCurrent().mColors.setKeyboardBackground(this);
     }
 
     public void stopEmojiPalettes() {

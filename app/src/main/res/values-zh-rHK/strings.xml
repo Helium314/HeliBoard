@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"查找聯絡人姓名"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"拼字檢查程式使用您的聯絡人名單中的各項記錄"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"按鍵時震動"</string>
@@ -65,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"在啟用手勢輸入時顯示建議的字詞"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"詞組手勢"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"在手勢輸入過程中，滑過空白鍵即可輸入空格"</string>
-    <string name="voice_input" msgid="3583258583521397548">"語音輸入鍵"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"尚未啟用語音輸入法，請檢查「語言和輸入」設定。"</string>
     <string name="configure_input_method" msgid="373356270290742459">"設定輸入法"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"語言"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"說明和意見反映"</string>
@@ -159,7 +145,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>分鐘</string>
     <string name="spell_checker_service_name">拼字檢查</string>
     <string name="android_spell_checker_settings">拼字檢查設定</string>
-    <string name="show_clipboard_key">剪貼板按鍵</string>
     <string name="show_emoji_key">Emoji</string>
     <string name="prefs_force_incognito_mode">強制無痕模式</string>
     <string name="settings_category_clipboard_history">剪貼板記錄</string>

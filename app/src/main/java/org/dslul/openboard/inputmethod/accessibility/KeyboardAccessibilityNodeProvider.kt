@@ -1,7 +1,12 @@
+/*
+ * Copyright (C) 2012 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.accessibility
 
 import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -28,10 +33,14 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings
  * virtual views, thus conveying their logical structure.
  *
  */
-class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
-                                                            delegate: KeyboardAccessibilityDelegate<KV>) : AccessibilityNodeProviderCompat() {
-    private val mKeyCodeDescriptionMapper: KeyCodeDescriptionMapper
-    private val mAccessibilityUtils: AccessibilityUtils
+class KeyboardAccessibilityNodeProvider<KV : KeyboardView>(
+    /** The keyboard view to provide an accessibility node info.  */
+    private val mKeyboardView: KV,
+    /** The accessibility delegate.  */
+    private val mDelegate: KeyboardAccessibilityDelegate<KV>
+) : AccessibilityNodeProviderCompat() {
+    private val mKeyCodeDescriptionMapper: KeyCodeDescriptionMapper = KeyCodeDescriptionMapper.instance
+    private val mAccessibilityUtils: AccessibilityUtils = AccessibilityUtils.instance
     /** Temporary rect used to calculate in-screen bounds.  */
     private val mTempBoundsInScreen = Rect()
     /** The parent view's cached on-screen location.  */
@@ -40,12 +49,8 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
     private var mAccessibilityFocusedView = UNDEFINED
     /** The virtual view identifier for the hovering node.  */
     private var mHoveringNodeId = UNDEFINED
-    /** The keyboard view to provide an accessibility node info.  */
-    private val mKeyboardView: KV
-    /** The accessibility delegate.  */
-    private val mDelegate: KeyboardAccessibilityDelegate<KV>
     /** The current keyboard.  */
-    private var mKeyboard: Keyboard? = null
+    private var mKeyboard: Keyboard? = mKeyboardView.keyboard
 
     /**
      * Sets the keyboard represented by this node provider.
@@ -57,10 +62,8 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
     }
 
     private fun getKeyOf(virtualViewId: Int): Key? {
-        if (mKeyboard == null) {
-            return null
-        }
-        val sortedKeys = mKeyboard!!.sortedKeys
+        val keyboard = mKeyboard ?: return null
+        val sortedKeys = keyboard.sortedKeys
         // Use a virtual view id as an index of the sorted keys list.
         return if (virtualViewId >= 0 && virtualViewId < sortedKeys.size) {
             sortedKeys[virtualViewId]
@@ -68,10 +71,8 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
     }
 
     private fun getVirtualViewIdOf(key: Key): Int {
-        if (mKeyboard == null) {
-            return View.NO_ID
-        }
-        val sortedKeys = mKeyboard!!.sortedKeys
+        val keyboard = mKeyboard ?: return View.NO_ID
+        val sortedKeys = keyboard.sortedKeys
         val size = sortedKeys.size
         for (index in 0 until size) {
             if (sortedKeys[index] === key) { // Use an index of the sorted keys list as a virtual view id.
@@ -94,7 +95,7 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
         val virtualViewId = getVirtualViewIdOf(key)
         val keyDescription = getKeyDescription(key)
         val event = AccessibilityUtils.obtainEvent(eventType)
-        event.packageName = mKeyboardView!!.context.packageName
+        event.packageName = mKeyboardView.context.packageName
         event.className = key.javaClass.name
         event.contentDescription = keyDescription
         event.isEnabled = true
@@ -109,8 +110,8 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
             return
         }
         // Start hovering on the key. Because our accessibility model is lift-to-type, we should
-// report the node info without click and long click actions to avoid unnecessary
-// announcements.
+        // report the node info without click and long click actions to avoid unnecessary
+        // announcements.
         mHoveringNodeId = id
         // Invalidate the node info of the key.
         sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
@@ -120,7 +121,7 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
     fun onHoverExitFrom(key: Key) {
         mHoveringNodeId = UNDEFINED
         // Invalidate the node info of the key to be able to revert the change we have done
-// in {@link #onHoverEnterTo(Key)}.
+        // in {@link #onHoverEnterTo(Key)}.
         sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
         sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_VIEW_HOVER_EXIT)
     }
@@ -152,13 +153,15 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
         if (virtualViewId == UNDEFINED) {
             return null
         }
-        if (virtualViewId == View.NO_ID) { // We are requested to create an AccessibilityNodeInfo describing
-// this View, i.e. the root of the virtual sub-tree.
+        val keyboard = mKeyboard ?: return null
+        if (virtualViewId == View.NO_ID) {
+            // We are requested to create an AccessibilityNodeInfo describing
+            // this View, i.e. the root of the virtual sub-tree.
             val rootInfo = AccessibilityNodeInfoCompat.obtain(mKeyboardView)
-            ViewCompat.onInitializeAccessibilityNodeInfo(mKeyboardView!!, rootInfo)
+            ViewCompat.onInitializeAccessibilityNodeInfo(mKeyboardView, rootInfo)
             updateParentLocation()
             // Add the virtual children of the root View.
-            val sortedKeys = mKeyboard!!.sortedKeys
+            val sortedKeys = keyboard.sortedKeys
             val size = sortedKeys.size
             for (index in 0 until size) {
                 val key = sortedKeys[index]
@@ -180,12 +183,11 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
         val boundsInParent = key.hitBox
         // Calculate the key's in-screen bounds.
         mTempBoundsInScreen.set(boundsInParent)
-        mTempBoundsInScreen.offset(
-                CoordinateUtils.x(mParentLocation), CoordinateUtils.y(mParentLocation))
+        mTempBoundsInScreen.offset(CoordinateUtils.x(mParentLocation), CoordinateUtils.y(mParentLocation))
         val boundsInScreen = mTempBoundsInScreen
         // Obtain and initialize an AccessibilityNodeInfo with information about the virtual view.
         val info = AccessibilityNodeInfoCompat.obtain()
-        info.packageName = mKeyboardView!!.context.packageName
+        info.packageName = mKeyboardView.context.packageName
         info.className = key.javaClass.name
         info.contentDescription = keyDescription
         info.setBoundsInParent(boundsInParent)
@@ -195,7 +197,7 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
         info.isEnabled = key.isEnabled
         info.isVisibleToUser = true
         // Don't add ACTION_CLICK and ACTION_LONG_CLOCK actions while hovering on the key.
-// See {@link #onHoverEnterTo(Key)} and {@link #onHoverExitFrom(Key)}.
+        // See {@link #onHoverEnterTo(Key)} and {@link #onHoverExitFrom(Key)}.
         if (virtualViewId != mHoveringNodeId) {
             info.addAction(AccessibilityNodeInfoCompat.ACTION_CLICK)
             if (key.isLongPressEnabled) {
@@ -227,14 +229,12 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
         return when (action) {
             AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS -> {
                 mAccessibilityFocusedView = getVirtualViewIdOf(key)
-                sendAccessibilityEventForKey(
-                        key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
+                sendAccessibilityEventForKey(key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
                 true
             }
             AccessibilityNodeInfoCompat.ACTION_CLEAR_ACCESSIBILITY_FOCUS -> {
                 mAccessibilityFocusedView = UNDEFINED
-                sendAccessibilityEventForKey(
-                        key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED)
+                sendAccessibilityEventForKey(key, AccessibilityEventCompat.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED)
                 true
             }
             AccessibilityNodeInfoCompat.ACTION_CLICK -> {
@@ -269,14 +269,13 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
      * @return The context-specific description of the key.
      */
     private fun getKeyDescription(key: Key): String? {
-        val editorInfo = mKeyboard!!.mId.mEditorInfo
+        val editorInfo = mKeyboard?.mId?.mEditorInfo
         val shouldObscure = mAccessibilityUtils.shouldObscureInput(editorInfo)
         val currentSettings = Settings.getInstance().current
         val keyCodeDescription = mKeyCodeDescriptionMapper.getDescriptionForKey(
-                mKeyboardView!!.context, mKeyboard, key, shouldObscure)
+                mKeyboardView.context, mKeyboard, key, shouldObscure)
         return if (currentSettings.isWordSeparator(key.code)) {
-            mAccessibilityUtils.getAutoCorrectionDescription(
-                    keyCodeDescription, shouldObscure)
+            mAccessibilityUtils.getAutoCorrectionDescription(keyCodeDescription, shouldObscure)
         } else keyCodeDescription
     }
 
@@ -284,7 +283,7 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
      * Updates the parent's on-screen location.
      */
     private fun updateParentLocation() {
-        mKeyboardView!!.getLocationOnScreen(mParentLocation)
+        mKeyboardView.getLocationOnScreen(mParentLocation)
     }
 
     companion object {
@@ -293,13 +292,4 @@ class KeyboardAccessibilityNodeProvider<KV : KeyboardView?>(keyboardView: KV,
         private const val UNDEFINED = Int.MAX_VALUE
     }
 
-    init {
-        mKeyCodeDescriptionMapper = KeyCodeDescriptionMapper.instance
-        mAccessibilityUtils = AccessibilityUtils.instance
-        mKeyboardView = keyboardView
-        mDelegate = delegate
-        // Since this class is constructed lazily, we might not get a subsequent
-// call to setKeyboard() and therefore need to call it now.
-        setKeyboard(keyboardView!!.keyboard)
-    }
 }

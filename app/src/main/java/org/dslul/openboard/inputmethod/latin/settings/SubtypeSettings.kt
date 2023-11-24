@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.Context
@@ -5,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
+import android.widget.Toast
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
@@ -239,10 +242,11 @@ private fun loadEnabledSubtypes(context: Context) {
 
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
-        if (BuildConfig.DEBUG) // should not happen, but should not crash for normal user
-            require(subtype != null)
-        else if (subtype == null)
+        if (subtype == null) {
+            if (BuildConfig.DEBUG)
+                Toast.makeText(context, "subtype $localeAndLayout could not be loaded", Toast.LENGTH_LONG).show()
             continue
+        }
 
         enabledSubtypes.add(subtype)
     }
@@ -260,7 +264,9 @@ private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
 
 @Suppress("deprecation") // it's deprecated, but no replacement for API < 24
-// todo: add language tags in method.xml, and adjust this method to use locale only if necessary
-//  but then language tag should be converted to locale, or other way!
+// todo: subtypes should now have language tags -> use them for api >= 24
+//  but only replace subtype-related usage, otherwise the api mess will be horrible
+//  maybe rather return a locale instead of a string...
+//   is this acceptable for performance? any place where there are many call to locale()?
 //  see also InputMethodSubtypeCompatUtils
 fun InputMethodSubtype.locale() = locale

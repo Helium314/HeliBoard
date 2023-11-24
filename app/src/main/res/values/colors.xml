@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2012, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2012 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
@@ -62,11 +49,13 @@
 
     <!-- Color resources for the old LXX_Light theme, now used for THEME_LIGHT. -->
     <color name="key_hint_letter_color_lxx_light">#B337474F</color>
+    <color name="spacebar_letter_color_lxx_light">#8037474F</color>
     <color name="key_text_color_lxx_light">#37474F</color>
 
     <!-- Color resources for the old LXX_Dark theme, now used for several dark themes. -->
     <color name="key_text_color_lxx_dark">#FFFFFF</color>
     <color name="key_hint_letter_color_lxx_dark">#80FFFFFF</color>
+    <color name="spacebar_letter_color_lxx_dark">#80FFFFFF</color>
 
     <!-- Color resources for the old LXX_Dark_Border theme, now for THEME_DARKER. -->
     <color name="keyboard_background_lxx_dark_border">#0d0d0d</color>

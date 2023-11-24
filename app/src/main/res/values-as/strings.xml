@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
 <resources>
     <string name="use_system_language_to_select_input_method_subtypes">"ছিষ্টেমৰ ভাষা ব্যৱহাৰ কৰক"</string>
     <string name="select_input_method">"ইনপুট পদ্ধতি বাছনি কৰক"</string>
@@ -48,7 +53,6 @@
     <string name="gesture_floating_preview_text_summary">"আঙুলিৰে নিৰ্দেশ দিয়াৰ সময়ত পৰামৰ্শ দিয়া শব্দটো চাওক"</string>
     <string name="gesture_space_aware">"আঙুলি পিছলাই দিয়া নিৰ্দেশেৰে বাক্যাংশ লিখক"</string>
     <string name="gesture_space_aware_summary">"আঙুলি পিছলাই দিয়া নিৰ্দেশ দিওঁতে স্পেচ কীটোৰ ওপৰেৰে আঙুলি পিছলাই স্পেচ দিয়ক"</string>
-    <string name="voice_input">"কথনৰ দ্বাৰা লিখন কী"</string>
     <string name="configure_input_method">"ইনপুট পদ্ধতিসমূহ কনফিগাৰ কৰক"</string>
     <string name="language_selection_title">"ভাষা"</string>
     <string name="help_and_feedback">"সহায় আৰু মতামত"</string>

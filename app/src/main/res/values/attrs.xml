@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2015 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <resources>
@@ -58,6 +45,7 @@
              {@link android.graphics.drawable.StateListDrawable}, with the following possible
              states: normal, pressed. -->
         <attr name="spacebarBackground" format="reference" />
+        <attr name="spacebarNoBorderBackground" format="reference" />
         <attr name="spacebarIconWidthRatio" format="float" />
         <!-- Right padding of hint letter to the edge of the key.-->
         <attr name="keyHintLetterPadding" format="dimension" />
@@ -82,11 +70,9 @@
     <declare-styleable name="MainKeyboardView">
         <!-- Size of the text for spacebar language label, in the proportion of key height. -->
         <attr name="languageOnSpacebarTextRatio" format="fraction" />
-        <attr name="languageOnSpacebarTextColor" format="color" />
         <attr name="languageOnSpacebarTextShadowRadius" format="float" />
         <attr name="languageOnSpacebarTextShadowColor" format="color" />
         <!-- Fadeout animator for spacebar language label. -->
-        <attr name="languageOnSpacebarFinalAlpha" format="integer" />
         <attr name="languageOnSpacebarFadeoutAnimator" format="reference" />
         <!-- Fadeout and fadein animator for altCodeWhileTyping keys. -->
         <attr name="altCodeKeyWhileTypingFadeoutAnimator" format="reference" />
@@ -119,13 +105,6 @@
         <attr name="keyPreviewOffset" format="dimension" />
         <!-- Height of the key press feedback popup. -->
         <attr name="keyPreviewHeight" format="dimension" />
-        <!-- TODO: consolidate key preview linger timeout with the key preview animation parameters. -->
-        <!-- Delay after key releasing and key press feedback dismissing in millisecond -->
-        <attr name="keyPreviewLingerTimeout" format="integer" />
-        <!-- Key preview show up animator -->
-        <attr name="keyPreviewShowUpAnimator" format="reference" />
-        <!-- Key preview dismiss animator -->
-        <attr name="keyPreviewDismissAnimator" format="reference" />
         <!-- Layout resource for more keys keyboard -->
         <attr name="moreKeysKeyboardLayout" format="reference" />
         <!-- Layout resource for more keys keyboard of action key -->
@@ -235,9 +214,10 @@
             <!-- This should be aligned with
                  {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
             <enum name="HoloBase" value="0" />
-            <enum name="HoloBaseNoBorder" value="1" />
-            <enum name="LXXBase" value="2" />
-            <enum name="LXXBaseBorder" value="3" />
+            <enum name="LXXBase" value="1" />
+            <enum name="LXXBaseBorder" value="2" />
+            <enum name="RoundedBase" value="3" />
+            <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- Touch position correction -->
         <attr name="touchPositionCorrectionData" format="reference" />
@@ -291,6 +271,13 @@
         <attr name="iconStopOneHandedMode" format="reference" />
         <attr name="iconSwitchOneHandedMode" format="reference" />
         <attr name="iconNumpadKey" format="reference" />
+        <attr name="iconToolbarKey" format="reference" />
+        <attr name="iconSelectAll" format="reference" />
+        <attr name="iconArrowLeft" format="reference" />
+        <attr name="iconArrowRight" format="reference" />
+        <attr name="iconArrowUp" format="reference" />
+        <attr name="iconArrowDown" format="reference" />
+        <attr name="iconBin" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_GridRows">
@@ -389,7 +376,7 @@
              If the value is fillRight, the actual key width will be determined to fill out the
              area up to the right edge of the keyboard. -->
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.internal.KeyboardRow#KEYWIDTH_FILL_RIGHT}. -->
+             {@link org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardRow#KEYWIDTH_FILL_RIGHT}. -->
         <attr name="keyWidth" format="fraction|enum">
             <enum name="fillRight" value="-1" />
         </attr>
@@ -493,9 +480,10 @@
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
             <enum name="HoloBase" value="0" />
-            <enum name="HoloBaseNoBorder" value="1" />
-            <enum name="LXXBase" value="2" />
-            <enum name="LXXBaseBorder" value="3" />
+            <enum name="LXXBase" value="1" />
+            <enum name="LXXBaseBorder" value="2" />
+            <enum name="RoundedBase" value="3" />
+            <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- This should be aligned with
              {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->
@@ -610,6 +598,7 @@
             <enum name="telugu" value="16" />
             <enum name="thai" value="17" />
             <enum name="bulgarian" value="18" />
+            <enum name="hangul" value="19" />
         </attr>
     </declare-styleable>
 

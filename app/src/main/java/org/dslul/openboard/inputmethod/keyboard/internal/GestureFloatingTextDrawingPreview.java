@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
@@ -126,7 +116,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
     }
 
     @Override
-    public void setPreviewPosition(final PointerTracker tracker) {
+    public void setPreviewPosition(@NonNull final PointerTracker tracker) {
         if (!isPreviewEnabled()) {
             return;
         }
@@ -139,7 +129,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
      * @param canvas The canvas where preview text is drawn.
      */
     @Override
-    public void drawPreview(final Canvas canvas) {
+    public void drawPreview(@NonNull final Canvas canvas) {
         if (!isPreviewEnabled() || mSuggestedWords.isEmpty()
                 || TextUtils.isEmpty(mSuggestedWords.getWord(0))) {
             return;
@@ -161,8 +151,6 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
         }
         final String text = mSuggestedWords.getWord(0);
 
-        final RectF rectangle = mGesturePreviewRectangle;
-
         final int textHeight = mParams.mGesturePreviewTextHeight;
         final float textWidth = mParams.getTextPaint().measureText(text);
         final float hPad = mParams.mGesturePreviewHorizontalPadding;
@@ -175,7 +163,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
                 mParams.mDisplayWidth - rectWidth);
         final float rectY = CoordinateUtils.y(mLastPointerCoords)
                 - mParams.mGesturePreviewTextOffset - rectHeight;
-        rectangle.set(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
+        mGesturePreviewRectangle.set(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
 
         mPreviewTextX = (int)(rectX + hPad + textWidth / 2.0f);
         mPreviewTextY = (int)(rectY + vPad) + textHeight;

@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Шукаць імёны кантактаў"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Модуль праверкі правапісу выкарыстоўвае запісы са спісу кантактаў"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Вібрацыя пры націску клавіш"</string>
@@ -24,6 +12,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Па націску на клавішы ўсплывае акно"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметры"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Знешні выгляд і раскладкі"</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">"Знешні выгляд"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Жэставы набор"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Выпраўленне тэксту"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Дадатковыя"</string>
@@ -65,19 +54,17 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Праглядаць прапанаванае слова падчас жэсту"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Жэст фразы"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Уводзьце прабелы паміж жэстамі, праводзячы па клавішы прабелу"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Ключ галасавога ўводу"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Не ўключана ніводнага спосабу галасавога ўводу. Праверце налады параметра \"Мовы і ўвод\"."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Налада метадаў уводу"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Мовы"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Даведка і водгукі"</string>
     <string name="select_language" msgid="5709487854987078367">"Мовы"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Дакраніцеся зноў, каб захаваць"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Дакраніцеся тут, каб захаваць"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"англійская (Вялікабрытанія)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"англійская (ЗША)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"iспанская (ЗША)"</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">"Англійская (Вялікабрытанія)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Англійская (ЗША)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Іспанская (ЗША)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хінгліш"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербская (лацініца)"</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербская (Лацініца)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -85,7 +72,7 @@
     <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традыцыйная)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Кампактная)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Мова не выбрана (лацініца)"</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">"Стандартная (Лацініца)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Лацініца (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Лацініца (QWERTZ)"</string>
     <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Лацініца (AZERTY)"</string>
@@ -154,7 +141,7 @@
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы..."</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Выдаліць"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>
     <string name="settings_category_suggestions">Прапановы</string>
@@ -174,6 +161,17 @@
     <string name="prefs_force_incognito_mode_summary">Адключыць вывучэнне новых слоў</string>
     <string name="space_trackpad">Клавіша прабел як трэкпад</string>
     <string name="space_trackpad_summary">Правядзіце пальцам па прабеле, каб перамясціць курсор</string>
+    <string name="space_language_slide">Свайп змены мовы</string>
+    <string name="space_language_slide_summary">Правядзіце пальцам уверх па прабелу, каб змяніць мову</string>
+    <string name="backup_restore_title">Рэзервовае капіраванне і аднаўленне</string>
+    <string name="backup_restore_message">Захавайце ці загрузіце з файла. Увага: аднаўленне перазапіша існуючыя дадзеныя</string>
+    <string name="backup_error">Памылка рэзервовага капіявання: %s</string>
+    <string name="restore_error">Памылка аднаўлення з рэзервовай копіі: %s</string>
+    <string name="button_backup">Рэзервовае капіраванне</string>
+    <string name="button_restore">Аднаўленне</string>
+    <string name="secondary_locale">Шматмоўны набор тэксту</string>
+    <string name="load_gesture_library">Загрузіць бібліятэку ўводу жэстамі</string>
+    <string name="load_gesture_library_summary">Падайце ўбудаваную бібліятэку для ўключэння ўводу жэстамі</string>
     <string name="prefs_force_incognito_mode">Прымусовы рэжым інкогніта</string>
     <string name="more_keys_strip_description">Больш клавіш</string>
     <string name="theme_navbar">Колер панэлі навігацыі</string>
@@ -182,37 +180,53 @@
     <string name="theme_name_darker">Шэрая</string>
     <string name="theme_name_black">Чорная</string>
     <string name="theme_name_user">Карыстацкая</string>
+    <string name="theme_name_user_night">Карыстацкая (цёмная тэма)</string>
     <string name="select_user_colors">Настройка колераў тэмы</string>
+    <string name="select_user_colors_night">Настройка колераў тэмы (цёмная тэма)</string>
+    <string name="auto_user_color">Аўтаматычны выбар колеру</string>
+    <string name="hint_show_keyboard">Націсніце для прадпрагляду</string>
     <string name="select_user_colors_summary">Абярыце колеру для тэксту і фону</string>
     <string name="select_color_background">Фон клавіятуры</string>
     <string name="select_color_key">Тэкст клавіш</string>
     <string name="select_color_key_hint">Тэкст спецзнакаў клавіш</string>
     <string name="select_color_key_background">Фон клавіш</string>
+    <string name="select_color_functional_key_background">Фон функцыянальных клавіш</string>
+    <string name="select_color_spacebar_background">Фон прабелу</string>
+    <string name="select_color_spacebar_text">Тэкст прабелу</string>
     <string name="select_color_accent">Акцэнт</string>
     <string name="settings_screen_about">Даведка</string>
     <string name="version">Версія</string>
     <string name="about_github_link" >Паглядзець на GitHub</string>
     <string name="license" >Ліцэнзія з адкрытым зыходным кодам</string>
     <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="dialog_close">Закрыць</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Выкарыстоўваць мовы сістэмы"</string>
+    <string name="text_tap_languages">Націсніце на мову, каб адкрыць наладкі</string>
     <string name="select_input_method">"Выберыце метад уводу"</string>
+    <string name="hidden_features_title">Апісанне схаваных функцый</string>
+    <string name="hidden_features_summary">Паказаць функцыі, якія могуць застацца незаўважанымі</string>
     <string name="number_row_summary">Заўсёды паказваць лічбавы радок</string>
     <string name="delete_swipe">Выдаліць свайпам</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
     <string name="prefs_narrow_key_gaps">Павялічаныя клавішы</string>
     <string name="prefs_keyboard_height_scale">Шкала вышыні клавіятуры</string>
+    <string name="url_detection_title">Выяўленне URL-адрасу</string>
+    <string name="url_detection_summary">Паспрабаваць выявіць URL-адрасы і падобныя ім радкі, як адно слова</string>
     <string name="number_row">Лічбавы рад</string>
     <string name="show_hints">Паказваць ключавыя падказкі</string>
     <string name="show_hints_summary">Паказваць падказкі пры доўгім націску</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Змяняць метад уводу з дапамогай клавішы прабел</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Доўгі націск клавішы прабел адкрые меню выбару метаду ўводу</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
-    <string name="theme_family">Стыль тэмы</string>
+    <string name="day_night_mode">Выкарыстоўваць тэму сістэмы</string>
+    <string name="theme_style">Стыль тэмы</string>
+    <string name="style_name_Rounded">Rounded</string>
+    <string name="theme_colors">Колеры тэмы</string>
+    <string name="theme_colors_night">Колеры тэмы (цёмная тэма)</string>
+    <string name="theme_family">Сямейства тым</string>
     <string name="theme_variant">Варыянт тэмы</string>
     <string name="theme_variant_night">Варыянт тэмы (цёмная тэма)</string>
     <string name="key_borders">Контуры клавіш</string>
-    <string name="day_night_mode">Аўтаматычны рэжым дня/ночы</string>
-    <string name="show_clipboard_key">Клавіша буфера абмену</string>
     <string name="delete_swipe_summary">Правядзіце пальцам ад клавішы выдалення, каб выбраць і выдаліць адразу большыя часткі тэксту</string>
     <string name="autospace_after_punctuation_summary">Аўтаматычна ўстаўляць прабел пасля знакаў прыпынку пры ўводзе новага слова</string>
     <string name="autospace_after_punctuation">Аўтапрабел пасля знакаў прыпынку</string>

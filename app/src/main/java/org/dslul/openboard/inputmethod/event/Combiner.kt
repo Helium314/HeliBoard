@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.event
 
 import java.util.*
@@ -17,7 +23,7 @@ interface Combiner {
      * @param event the event to combine with the existing state.
      * @return the resulting event.
      */
-    fun processEvent(previousEvents: ArrayList<Event>?, event: Event?): Event
+    fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event
 
     /**
      * Get the feedback that should be shown to the user for the current state of this combiner.

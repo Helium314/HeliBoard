@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Nombres de contactos"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Añadir nombres de tu lista de contactos al corrector"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrar al pulsar tecla"</string>
@@ -65,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary">"Ver palabra sugerida al hacer gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gestos con tecla Espacio"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Desliza el dedo a Espacio para introducir espacios durante gestos"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tecla de entrada de voz"</string>
-    <string name="voice_input_disabled_summary">"No hay métodos de entrada de voz habilitados. Comprueba la opción Idioma e introducción de texto."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de entrada"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Ayuda y sugerencias"</string>
@@ -164,7 +150,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Al presionar por mucho tiempo la barra espaciadora, aparecerá el menú de selección del método de entrada</string>
     <string name="spell_checker_service_name">Corrector ortográfico de OpenBoard</string>
     <string name="android_spell_checker_settings">Ajustes del corrector ortográfico de OpenBoard</string>
-    <string name="show_clipboard_key">Tecla de portapapeles</string>
     <string name="prefs_keyboard_height_scale">Escala de altura del teclado</string>
     <string name="delete_swipe">Borrar deslizando</string>
     <string name="delete_swipe_summary">Deslice el dedo desde la tecla Borrar para seleccionar y eliminar porciones más grandes de texto de una vez</string>

@@ -1,18 +1,24 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.method.LinkMovementMethod
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
@@ -97,7 +103,7 @@ class LanguageSettingsDialog(
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
         row.findViewById<View>(R.id.language_details).isGone = true
-        row.findViewById<Switch>(R.id.language_switch).apply {
+        row.findViewById<SwitchCompat>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
             isEnabled = !onlySystemLocales
             setOnCheckedChangeListener { _, b ->
@@ -113,7 +119,7 @@ class LanguageSettingsDialog(
             }
         }
         if (isAdditionalSubtype(subtype.subtype)) {
-            row.findViewById<Switch>(R.id.language_switch).isEnabled = true
+            row.findViewById<SwitchCompat>(R.id.language_switch).isEnabled = true
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
@@ -177,9 +183,11 @@ class LanguageSettingsDialog(
                 Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings - locale.toString())
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
+                KeyboardLayoutSet.onSystemLocaleChanged()
             }
         }
         binding.secondaryLocales.addView(rowBinding.root)
+        KeyboardLayoutSet.onSystemLocaleChanged()
     }
 
     private fun fillDictionariesView() {
@@ -201,7 +209,10 @@ class LanguageSettingsDialog(
         if (hasInternalDictForLanguage) {
             binding.dictionaries.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                 setText(R.string.internal_dictionary_summary)
-                textSize *= 0.8f
+                // just setting a text size can be complicated...
+                val attrs = context.obtainStyledAttributes(R.style.PreferenceSubtitleText, intArrayOf(android.R.attr.textSize))
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, attrs.getDimension(0, 20f))
+                attrs.recycle()
                 setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
                 isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
             })
@@ -230,15 +241,22 @@ class LanguageSettingsDialog(
         }
         val dictType = dictFile.name.substringBefore("_${USER_DICTIONARY_SUFFIX}")
         val rowBinding = LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
+        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
         rowBinding.languageName.text = dictType
         rowBinding.languageDetails.apply {
-            val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
             if (header?.description == null) {
                 isGone = true
             } else {
                 // what would potentially be interesting? locale? description? version? timestamp?
                 text = header.description
             }
+        }
+        rowBinding.languageText.setOnClickListener {
+            if (header == null) return@setOnClickListener
+            Builder(context)
+                .setMessage(header.info(context.resources.configuration.locale))
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
         }
         rowBinding.languageSwitch.isGone = true
         rowBinding.deleteButton.apply {
@@ -266,14 +284,6 @@ class LanguageSettingsDialog(
         }
         binding.dictionaries.addView(rowBinding.root)
     }
-}
-
-fun confirmDialog(context: Context, message: String, confirmButton: String, onConfirmed: (() -> Unit)) {
-    AlertDialog.Builder(context)
-        .setMessage(message)
-        .setNegativeButton(android.R.string.cancel, null)
-        .setPositiveButton(confirmButton) { _, _ -> onConfirmed() }
-        .show()
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */

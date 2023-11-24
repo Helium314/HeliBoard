@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
@@ -26,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.Arrays;
@@ -34,8 +23,9 @@ import java.util.Arrays;
 public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     // old themes
-    public static final String THEME_STYLE_MATERIAL = "Material";
-    public static final String THEME_STYLE_HOLO = "Holo";
+    public static final String STYLE_MATERIAL = "Material";
+    public static final String STYLE_HOLO = "Holo";
+    public static final String STYLE_ROUNDED = "Rounded";
 
     // new themes using the custom colors
     public static final String THEME_LIGHT = "light";
@@ -45,29 +35,32 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final String THEME_BLACK = "black";
     public static final String THEME_USER = "user";
     public static final String THEME_USER_NIGHT = "user_night";
-    public static final String[] THEME_VARIANTS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
-    public static final String[] THEME_VARIANTS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT};
+    public static final String[] COLORS = new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER };
+    public static final String[] COLORS_DARK = new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT };
 
-    public static final String[] THEME_STYLES = { THEME_STYLE_MATERIAL, THEME_STYLE_HOLO };
+    public static final String[] STYLES = { STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED };
 
     // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
     // attributes' values in attrs.xml.
     public static final int THEME_ID_HOLO_BASE = 0;
-    public static final int THEME_ID_HOLO_BASE_NO_BORDER = 1;
-    public static final int THEME_ID_LXX_BASE = 2;
-    public static final int THEME_ID_LXX_BASE_BORDER = 3;
+    public static final int THEME_ID_LXX_BASE = 1;
+    public static final int THEME_ID_LXX_BASE_BORDER = 2;
+    public static final int THEME_ID_ROUNDED_BASE = 3;
+    public static final int THEME_ID_ROUNDED_BASE_BORDER = 4;
     public static final int DEFAULT_THEME_ID = THEME_ID_LXX_BASE;
 
     /* package private for testing */
     static final KeyboardTheme[] KEYBOARD_THEMES = {
             new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase,
                     VERSION_CODES.BASE),
-            new KeyboardTheme(THEME_ID_HOLO_BASE_NO_BORDER, "HoloBaseNoBorder", R.style.KeyboardTheme_HoloBaseNoBorder,
-                    VERSION_CODES.BASE),
-        new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
-                VERSION_CODES.LOLLIPOP),
-        new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
-                VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
+                    VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
+                    VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_ROUNDED_BASE, "RoundedBase", R.style.KeyboardTheme_Rounded_Base,
+                    VERSION_CODES.LOLLIPOP),
+            new KeyboardTheme(THEME_ID_ROUNDED_BASE_BORDER, "RoundedBaseBorder", R.style.KeyboardTheme_Rounded_Base_Border,
+                    VERSION_CODES.LOLLIPOP)
     };
 
     static {
@@ -127,11 +120,13 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     public static KeyboardTheme getKeyboardTheme(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        final String style = prefs.getString(Settings.PREF_THEME_STYLE, THEME_STYLE_MATERIAL);
+        final String style = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL);
         final boolean borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         final int matchingId;
-        if (style.equals(THEME_STYLE_HOLO))
-            matchingId = borders ? THEME_ID_HOLO_BASE : THEME_ID_HOLO_BASE_NO_BORDER;
+        if (style.equals(STYLE_HOLO))
+            matchingId = THEME_ID_HOLO_BASE;
+        else if (style.equals(STYLE_ROUNDED))
+            matchingId = borders ? THEME_ID_ROUNDED_BASE_BORDER : THEME_ID_ROUNDED_BASE;
         else
             matchingId = borders ? THEME_ID_LXX_BASE_BORDER : THEME_ID_LXX_BASE;
         for (KeyboardTheme keyboardTheme : KEYBOARD_THEMES) {
@@ -141,27 +136,48 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         return KEYBOARD_THEMES[DEFAULT_THEME_ID];
     }
 
+    public static int getThemeActionAndEmojiKeyLabelFlags(final int themeId) {
+        if (themeId == THEME_ID_LXX_BASE || themeId == THEME_ID_ROUNDED_BASE)
+            return Key.LABEL_FLAGS_KEEP_BACKGROUND_ASPECT_RATIO;
+        return 0;
+    }
+
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
         final boolean hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         switch (themeColors) {
             case THEME_USER:
-                final int accent = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false);
-                final int keyBgColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false);
-                final int keyTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false);
-                final int hintTextColor = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false);
-                final int background = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false);
-                return new Colors(themeStyle, hasBorders, accent, background, keyBgColor, ColorUtilKt.brightenOrDarken(keyBgColor, true), keyBgColor, keyTextColor, hintTextColor);
+                return new Colors(
+                        themeStyle,
+                        hasBorders,
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false)
+                );
             case THEME_USER_NIGHT:
-                final int accent2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true);
-                final int keyBgColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true);
-                final int keyTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true);
-                final int hintTextColor2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true);
-                final int background2 = Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true);
-                return new Colors(themeStyle, hasBorders, accent2, background2, keyBgColor2, ColorUtilKt.brightenOrDarken(keyBgColor2, true), keyBgColor2, keyTextColor2, hintTextColor2);
+                return new Colors(
+                        themeStyle,
+                        hasBorders,
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true)
+                );
             case THEME_DARK:
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         // colors taken from the drawable
                         Color.parseColor("#263238"),
@@ -169,12 +185,14 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Color.parseColor("#2d393f"),
                         Color.parseColor("#364248"),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
-                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_HOLO_WHITE:
                 return new Colors(
                         themeStyle,
                         hasBorders,
+                        Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
                         // colors taken from the drawable
                         Color.parseColor("#282828"),
@@ -182,31 +200,36 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Color.parseColor("#444444"), // should be 222222, but the key drawable is already grey
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
-                        Color.parseColor("#282828")
+                        Color.parseColor("#282828"),
+                        Color.parseColor("#80FFFFFF")
                 );
             case THEME_DARKER:
                 return new Colors(
                         themeStyle,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_functional_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
-                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_BLACK:
                 return new Colors(
                         themeStyle,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_black),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
-                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark)
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_LIGHT:
             default:
@@ -214,12 +237,14 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         themeStyle,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
+                        ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_functional_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
-                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light)
+                        ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
+                        ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_light)
                 );
         }
     }

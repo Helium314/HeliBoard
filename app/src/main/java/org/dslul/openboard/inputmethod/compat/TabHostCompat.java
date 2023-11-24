@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2006 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.compat;
 
 import android.content.Context;

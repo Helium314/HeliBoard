@@ -1,9 +1,10 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.R
@@ -128,7 +129,11 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
         if (!dictFile.exists()) {
             return moveDict(false)
         }
-        confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType), context.getString(
+
+        val systemLocale = context.resources.configuration.locale
+        val newInfo = header.info(systemLocale)
+        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(systemLocale)
+        confirmDialog(context, context.getString(R.string.replace_dictionary_message2, dictionaryType, newInfo, oldInfo), context.getString(
             R.string.replace_dictionary)) {
             moveDict(true)
         }
@@ -139,10 +144,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 //        Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
         // show a dialog because toasts are not showing up on some Android versions
         // possibly Android 13 because of notification permission
-        AlertDialog.Builder(context)
-            .setMessage(messageId)
-            .setNegativeButton(R.string.dialog_close, null)
-            .show()
+        infoDialog(context, messageId)
     }
 }
 

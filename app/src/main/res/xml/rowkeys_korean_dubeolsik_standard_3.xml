@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2012 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<merge xmlns:latin="http://schemas.android.com/apk/res-auto">
+    <Key
+        latin:keySpec="&#x314b;" />
+    <Key
+        latin:keySpec="&#x314c;" />
+    <Key
+        latin:keySpec="&#x314a;" />
+    <Key
+        latin:keySpec="&#x314d;" />
+    <Key
+        latin:keySpec="&#x3160;" />
+    <Key
+        latin:keySpec="&#x315c;" />
+    <Key
+        latin:keySpec="&#x3161;" />
+</merge>

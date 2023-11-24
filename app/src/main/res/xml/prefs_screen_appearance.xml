@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
+<!--
+    Copyright (C) 2014 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:latin="http://schemas.android.com/apk/res-auto"
@@ -25,22 +15,22 @@
 
         <ListPreference
             android:key="theme_style"
-            android:title="@string/theme_family"
+            android:title="@string/theme_style"
             android:defaultValue="Material"/>
 
         <ListPreference
             android:key="theme_variant"
-            android:title="@string/theme_variant"/>
-
-        <SwitchPreferenceCompat
-            android:key="theme_key_borders"
-            android:title="@string/key_borders"/>
+            android:title="@string/theme_colors"/>
 
         <PreferenceScreen
             android:fragment="org.dslul.openboard.inputmethod.latin.settings.ColorsSettingsFragment"
             android:key="theme_select_colors"
             android:title="@string/select_user_colors"
             android:summary="@string/select_user_colors_summary"/>
+
+        <SwitchPreferenceCompat
+            android:key="theme_key_borders"
+            android:title="@string/key_borders"/>
 
         <SwitchPreferenceCompat
             android:key="theme_auto_day_night"
@@ -50,7 +40,7 @@
 
         <ListPreference
             android:key="theme_variant_night"
-            android:title="@string/theme_variant_night"/>
+            android:title="@string/theme_colors_night"/>
 
         <PreferenceScreen
             android:fragment="org.dslul.openboard.inputmethod.latin.settings.ColorsNightSettingsFragment"
@@ -73,6 +63,12 @@
             android:persistent="true"
             android:defaultValue="false" />
 
+        <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
+            android:key="pref_split_spacer_scale"
+            android:title="@string/split_spacer_scale"
+            latin:minValue="50"
+            latin:maxValue="200" /> <!-- percentage -->
+
         <SwitchPreferenceCompat
             android:key="pref_narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
@@ -84,6 +80,12 @@
             android:title="@string/prefs_keyboard_height_scale"
             latin:minValue="50"
             latin:maxValue="150" /> <!-- percentage -->
+
+        <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
+            android:key="pref_bottom_padding_scale"
+            android:title="@string/prefs_bottom_padding_scale"
+            latin:minValue="0"
+            latin:maxValue="500" /> <!-- percentage -->
 
     </PreferenceCategory>
 

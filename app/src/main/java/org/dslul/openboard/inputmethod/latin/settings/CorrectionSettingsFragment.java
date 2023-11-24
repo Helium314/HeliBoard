@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -24,10 +14,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.text.TextUtils;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.preference.TwoStatePreference;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
@@ -83,13 +74,17 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (TextUtils.equals(key, AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY)
+        if (AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY.equals(key)
                 && prefs.getBoolean(key, false)
-                && !PermissionsUtil.checkAllPermissionsGranted(
-                getActivity() /* context */, Manifest.permission.READ_CONTACTS)
+                && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)
         ) {
-            get(requireContext()).requestPermissions(this /* PermissionsResultCallback */,
-                    getActivity() /* activity */, Manifest.permission.READ_CONTACTS);
+            get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
+        } else if (Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && !prefs.getBoolean(key, true)) {
+            new AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.disable_personalized_dicts_message)
+                    .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((TwoStatePreference) findPreference(key)).setChecked(true))
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
         }
         refreshEnabledSettings();
     }

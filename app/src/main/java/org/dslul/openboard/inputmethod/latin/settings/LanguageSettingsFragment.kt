@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin.settings
 
 import android.app.Activity
@@ -10,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodSubtype
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.edit
@@ -28,10 +31,16 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
-    private lateinit var languageFilterList: LanguageFilterListFakePreference
+    private lateinit var languageFilterList: LanguageFilterList
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var systemOnlySwitch: SwitchCompat
     private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
+
+    private val dictionaryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        listener?.onNewDictionary(uri)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +66,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
             enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
             loadSubtypes(b)
         }
-        languageFilterList = LanguageFilterListFakePreference(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
+        languageFilterList = LanguageFilterList(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
         loadSubtypes(systemOnlySwitch.isChecked)
         return view
     }
@@ -183,12 +192,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             .addCategory(Intent.CATEGORY_OPENABLE)
             .setType("application/octet-stream")
-        startActivityForResult(intent, DICTIONARY_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == DICTIONARY_REQUEST_CODE)
-            listener?.onNewDictionary(resultData?.data)
+        dictionaryFilePicker.launch(intent)
     }
 
 }
@@ -214,5 +218,4 @@ private fun Locale.languageConsideringZZ(): String {
         language
 }
 
-private const val DICTIONARY_REQUEST_CODE = 96834
 const val USER_DICTIONARY_SUFFIX = "user.dict"

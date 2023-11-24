@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2012 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:propertyName="languageOnSpacebarAnimAlpha"
+    android:valueType="intType"
+    android:startOffset="1200"
+    android:duration="200"
+    android:valueFrom="255"
+    android:valueTo="128" />

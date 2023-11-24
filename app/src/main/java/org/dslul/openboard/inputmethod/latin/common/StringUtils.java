@@ -1,22 +1,10 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
-
-import android.renderscript.Script;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -512,6 +500,9 @@ public final class StringUtils {
      * double quote character, and looking at whether it's followed by whitespace. If so, that
      * was a closing quotation mark, so we're not inside a double quote. If it's not followed
      * by whitespace, then it was an opening quotation mark, and we're inside a quotation.
+     * However, on the way to the double quote we can determine, some double quotes might be
+     * ignored, e.g. because they are followed by punctuation. These double quotes are counted and
+     * taken into account.
      *
      * @param text the text to examine.
      * @return whether we're inside a double quote.
@@ -526,26 +517,33 @@ public final class StringUtils {
             return true;
         }
         int prevCodePoint = 0;
+        int ignoredDoubleQuoteCount = 0;
         while (i > 0) {
             codePoint = Character.codePointBefore(text, i);
             if (Constants.CODE_DOUBLE_QUOTE == codePoint) {
                 // If we see a double quote followed by whitespace, then that
                 // was a closing quote.
                 if (Character.isWhitespace(prevCodePoint)) {
-                    return false;
+                    return ignoredDoubleQuoteCount % 2 == 1;
                 }
             }
             if (Character.isWhitespace(codePoint) && Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
                 // If we see a double quote preceded by whitespace, then that
                 // was an opening quote. No need to continue seeking.
-                return true;
+                return ignoredDoubleQuoteCount % 2 == 0;
+            }
+            if (Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
+                ignoredDoubleQuoteCount++;
             }
             i -= Character.charCount(codePoint);
             prevCodePoint = codePoint;
         }
         // We reached the start of text. If the first char is a double quote, then we're inside
         // a double quote. Otherwise we're not.
-        return Constants.CODE_DOUBLE_QUOTE == codePoint;
+        if (ignoredDoubleQuoteCount % 2 == 0)
+            return Constants.CODE_DOUBLE_QUOTE == codePoint;
+        else
+            return Constants.CODE_DOUBLE_QUOTE != codePoint;
     }
 
     public static boolean isEmptyStringOrWhiteSpaces(@NonNull final String s) {
@@ -611,6 +609,8 @@ public final class StringUtils {
         if (label == null || !ScriptUtils.scriptSupportsUppercase(locale)) {
             return label;
         }
+        if (label.equals("ß"))
+            return "ẞ"; // upcasing of standalone ß, SS is not useful as s is on the keyboard anyway
 
         return label.toUpperCase(getLocaleUsedForToTitleCase(locale));
     }
@@ -712,23 +712,24 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean probablyContainsEmoji(final String s) {
+    public static boolean mightBeEmoji(final String s) {
         int offset = 0;
         final int length = s.length();
         while (offset < length) {
             int c = Character.codePointAt(s, offset);
-            if (probablyIsEmojiCodePoint(c))
+            if (mightBeEmoji(c))
                 return true;
             offset += Character.charCount(c);
         }
         return false;
     }
 
-    // seemingly arbitrary ranges taken from "somewhere on the internet"
-    public static boolean probablyIsEmojiCodePoint(final int c) {
-        return (0x200D <= c && c <= 0x3299) // ??
-                || (0x1F004 <= c && c <= 0x1F251) // ??
-                || (0x1F300 <= c && c <= 0x1FFFF) // ??
+    // unicode blocks that contain emojis
+    // very fast check, but there are very few blocks that exclusively contain emojis,
+    public static boolean mightBeEmoji(final int c) {
+        return (0x200D <= c && c <= 0x2BFF) // unicode blocks from General Punctuation to Miscellaneous Symbols and Arrows
+                || (0x1F104 <= c && c <= 0x1FAFF) // unicode blocks from Mahjong Tiles to Symbols and Pictographs Extended-A
+                || (0xE0000 <= c && c <= 0xE007F) // unicode block Tags
                 || c == 0xFE0F; // variation selector emoji with color
     }
 
@@ -739,5 +740,25 @@ public final class StringUtils {
             if (c < 97 || c > 122) return false;
         }
         return true;
+    }
+
+    public static int charIndexOfFirstWhitespace(final CharSequence s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            final char c = s.charAt(i);
+            if (Character.isWhitespace(c)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int charIndexOfLastWhitespace(final CharSequence s) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            final char c = s.charAt(i);
+            if (Character.isWhitespace(c)) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 }

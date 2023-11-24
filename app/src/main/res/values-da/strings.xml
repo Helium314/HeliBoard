@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Anvend kontaktnavne"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Stavekontrollen bruger ord fra dine kontaktpersondata"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibration ved tastetryk"</string>
@@ -65,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Se ordforslag ved glidende indtastning"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Glidende mellemrum"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Tilføj mellemrum ved at glide til mellemrumstasten"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Knap til indtaling"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Der er ingen aktiverede indtalingsmetoder. Tjek indstillingerne for sprog og indtastning."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfigurer inputmetoder"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Sprog"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Hjælp og feedback"</string>
@@ -188,7 +174,6 @@
     <string name="settings_category_input">Input</string>
     <string name="settings_category_additional_keys">Yderligere taster</string>
     <string name="settings_category_miscellaneous">Diverse</string>
-    <string name="show_clipboard_key">Udklipsholder-tast</string>
     <string name="delete_swipe">Swipe-sletning</string>
     <string name="delete_swipe_summary">Udfør et swipe fra slet-tasten for at vælge og fjerne større dele af teksten på én gang</string>
     <string name="space_trackpad_summary">Stryg på mellemrumstasten for at flytte markøren</string>

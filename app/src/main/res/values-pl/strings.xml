@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Przeszukaj kontakty"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Sprawdzanie pisowni bierze pod uwagę wpisy z listy kontaktów."</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Wibracja przy naciśnięciu"</string>
@@ -24,6 +12,7 @@
     <string name="popup_on_keypress" msgid="123894815723512944">"Powiększ po naciśnięciu"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Ustawienia"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Wygląd i układy"</string>
+    <string name="settings_screen_appearance" msgid="7358046399111611615">"Wygląd"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanie gestami"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Korekta tekstu"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Zaawansowane"</string>
@@ -65,27 +54,25 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Podczas pisania gestami zobaczysz podpowiadane słowo"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gest wyrażenia"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Wpisuj spacje podczas gestów, przesuwając palec do klawisza spacji"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Klawisz rozpoznawania mowy"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Nie włączono żadnych metod wprowadzania głosowego. Sprawdź ustawienia Język i wprowadzanie tekstu."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Konfiguruj metody wprowadzania"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Języki"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoc i opinie"</string>
     <string name="select_language" msgid="5709487854987078367">"Języki"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Kliknij ponownie, by zapisać"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Kliknij tutaj, by zapisać"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"angielski (Wielka Brytania)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"angielski (Stany Zjednoczone)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"hiszpański (USA)"</string>
+    <string name="subtype_en_GB" msgid="88170601942311355">"Angielski (Wielka Brytania)"</string>
+    <string name="subtype_en_US" msgid="6160452336634534239">"Angielski (Stany Zjednoczone)"</string>
+    <string name="subtype_es_US" msgid="5583145191430180200">"Hiszpański (USA)"</string>
     <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"serbski (alfabet łaciński)"</string>
+    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbski (alfabet łaciński)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Angielski (Wielka Brytania) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Angielski (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Hiszpański (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradycyjny)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktowa)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Bez języka (alfabet)"</string>
+    <string name="subtype_no_language" msgid="7137390094240139495">"Standardowy (Alfabet)"</string>
     <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabet (QWERTZ)"</string>
     <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Alfabet (AZERTY)"</string>
@@ -171,7 +158,6 @@
     <string name="enable_clipboard_history">Włącz historię schowka</string>
     <string name="prefs_force_incognito_mode">Wymuś tryb incognito</string>
     <string name="clipboard_history_retention_time">Czas przechowywania historii</string>
-    <string name="show_clipboard_key">Klawisz schowka</string>
     <string name="number_row_summary">Zawsze pokazuj rząd numeryczny</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Zmień metodę wprowadzania za pomocą spacji</string>
     <string name="show_hints_summary">Pokazuj wskazówki dotyczące długiego naciśnięcia przycisku</string>

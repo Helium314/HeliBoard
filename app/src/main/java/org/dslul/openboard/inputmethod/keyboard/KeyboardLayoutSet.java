@@ -1,25 +1,17 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.os.Build;
 import android.text.InputType;
 import android.util.Log;
 import android.util.SparseArray;
@@ -27,10 +19,10 @@ import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
-import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.UniqueKeysCache;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
@@ -46,11 +38,9 @@ import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_SETTINGS_KEY;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.os.UserManagerCompat;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard
@@ -115,7 +105,7 @@ public final class KeyboardLayoutSet {
         EditorInfo mEditorInfo;
         boolean mIsPasswordField;
         boolean mVoiceInputKeyEnabled;
-        boolean mNoSettingsKey;
+        boolean mDeviceLocked;
         boolean mNumberRowEnabled;
         boolean mLanguageSwitchKeyEnabled;
         boolean mEmojiKeyEnabled;
@@ -138,6 +128,7 @@ public final class KeyboardLayoutSet {
 
     public static void onSystemLocaleChanged() {
         clearKeyboardCache();
+        LocaleKeyTextsKt.clearCache();
     }
 
     public static void onKeyboardThemeChanged() {
@@ -227,9 +218,9 @@ public final class KeyboardLayoutSet {
         final KeyboardBuilder<KeyboardParams> builder =
                 new KeyboardBuilder<>(mContext, new KeyboardParams(sUniqueKeysCache));
         sUniqueKeysCache.setEnabled(id.isAlphabetKeyboard());
-        builder.setAllowRedundantMoreKes(elementParams.mAllowRedundantMoreKeys);
+        builder.setAllowRedundantMoreKeys(elementParams.mAllowRedundantMoreKeys);
         final int keyboardXmlId = elementParams.mKeyboardXmlId;
-        builder.load(keyboardXmlId, id);
+        builder.loadFromXml(keyboardXmlId, id);
         if (mParams.mDisableTouchPositionCorrectionDataForTest) {
             builder.disableTouchPositionCorrectionDataForTest();
         }
@@ -279,13 +270,14 @@ public final class KeyboardLayoutSet {
             // TODO: Consolidate those with {@link InputAttributes}.
             params.mEditorInfo = editorInfo;
             params.mIsPasswordField = InputTypeUtils.isPasswordInputType(editorInfo.inputType);
-            params.mNoSettingsKey = InputAttributes.inPrivateImeOptions(
-                    mPackageName, NO_SETTINGS_KEY, editorInfo);
 
-            // When the device is still unlocked, features like showing the IME setting app need to
+            // When the device is still locked, features like showing the IME setting app need to
             // be locked down.
-            if (!UserManagerCompat.isUserUnlocked(context)) {
-                params.mNoSettingsKey = true;
+            final KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                params.mDeviceLocked = km.isDeviceLocked();
+            } else {
+                params.mDeviceLocked = km.isKeyguardLocked();
             }
         }
 
@@ -300,8 +292,7 @@ public final class KeyboardLayoutSet {
             // TODO: Consolidate with {@link InputAttributes}.
             @SuppressWarnings("deprecation") final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
                     mPackageName, FORCE_ASCII, mParams.mEditorInfo);
-            final boolean forceAscii = EditorInfoCompatUtils.hasFlagForceAscii(
-                    mParams.mEditorInfo.imeOptions)
+            final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0
                     || deprecatedForceAscii;
             final RichInputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
                     ? RichInputMethodSubtype.getNoLanguageSubtype()
@@ -469,8 +460,7 @@ public final class KeyboardLayoutSet {
                 elementParams.mProximityCharsCorrectionEnabled = a.getBoolean(
                         R.styleable.KeyboardLayoutSet_Element_enableProximityCharsCorrection,
                         false);
-                elementParams.mSupportsSplitLayout = a.getBoolean(
-                        R.styleable.KeyboardLayoutSet_Element_supportsSplitLayout, false);
+                elementParams.mSupportsSplitLayout = false; // this is to avoid xml parser reading split layouts, todo (later): remove mSupportsSplitLayout
                 elementParams.mAllowRedundantMoreKeys = a.getBoolean(
                         R.styleable.KeyboardLayoutSet_Element_allowRedundantMoreKeys, true);
                 mParams.mKeyboardLayoutSetElementIdToParamsMap.put(elementName, elementParams);

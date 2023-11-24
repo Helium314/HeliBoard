@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
@@ -80,7 +70,7 @@ public final class KeyboardId {
     public final int mMode;
     public final int mElementId;
     public final EditorInfo mEditorInfo;
-    public final boolean mClobberSettingsKey;
+    public final boolean mDeviceLocked;
     public final boolean mNumberRowEnabled;
     public final boolean mLanguageSwitchKeyEnabled;
     public final boolean mEmojiKeyEnabled;
@@ -98,7 +88,7 @@ public final class KeyboardId {
         mMode = params.mMode;
         mElementId = elementId;
         mEditorInfo = params.mEditorInfo;
-        mClobberSettingsKey = params.mNoSettingsKey;
+        mDeviceLocked = params.mDeviceLocked;
         mNumberRowEnabled = params.mNumberRowEnabled;
         mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
         mEmojiKeyEnabled = params.mEmojiKeyEnabled;
@@ -118,7 +108,7 @@ public final class KeyboardId {
                 id.mWidth,
                 id.mHeight,
                 id.passwordInput(),
-                id.mClobberSettingsKey,
+                id.mDeviceLocked,
                 id.mHasShortcutKey,
                 id.mNumberRowEnabled,
                 id.mLanguageSwitchKeyEnabled,
@@ -141,7 +131,7 @@ public final class KeyboardId {
                 && other.mWidth == mWidth
                 && other.mHeight == mHeight
                 && other.passwordInput() == passwordInput()
-                && other.mClobberSettingsKey == mClobberSettingsKey
+                && other.mDeviceLocked == mDeviceLocked
                 && other.mHasShortcutKey == mHasShortcutKey
                 && other.mNumberRowEnabled == mNumberRowEnabled
                 && other.mLanguageSwitchKeyEnabled == mLanguageSwitchKeyEnabled
@@ -212,7 +202,7 @@ public final class KeyboardId {
                 actionName(imeAction()),
                 (navigateNext() ? " navigateNext" : ""),
                 (navigatePrevious() ? " navigatePrevious" : ""),
-                (mClobberSettingsKey ? " clobberSettingsKey" : ""),
+                (mDeviceLocked ? " deviceLocked" : ""),
                 (passwordInput() ? " passwordInput" : ""),
                 (mHasShortcutKey ? " hasShortcutKey" : ""),
                 (mNumberRowEnabled ? " numberRowEnabled" : ""),

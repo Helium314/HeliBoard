@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.event
 
 import android.text.TextUtils
@@ -188,18 +194,18 @@ class DeadKeyCombiner : Combiner {
     // TODO: make this a list of events instead
     val mDeadSequence = StringBuilder()
 
-    override fun processEvent(previousEvents: ArrayList<Event>?, event: Event?): Event {
+    override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
         if (TextUtils.isEmpty(mDeadSequence)) { // No dead char is currently being tracked: this is the most common case.
-            if (event!!.isDead) { // The event was a dead key. Start tracking it.
+            if (event.isDead) { // The event was a dead key. Start tracking it.
                 mDeadSequence.appendCodePoint(event.mCodePoint)
                 return Event.createConsumedEvent(event)
             }
             // Regular keystroke when not keeping track of a dead key. Simply said, there are
-// no dead keys at all in the current input, so this combiner has nothing to do and
-// simply returns the event as is. The majority of events will go through this path.
+            // no dead keys at all in the current input, so this combiner has nothing to do and
+            // simply returns the event as is. The majority of events will go through this path.
             return event
         }
-        if (Character.isWhitespace(event!!.mCodePoint)
+        if (Character.isWhitespace(event.mCodePoint)
                 || event.mCodePoint == mDeadSequence.codePointBefore(mDeadSequence.length)) { // When whitespace or twice the same dead key, we should output the dead sequence as is.
             val resultEvent = createEventChainFromSequence(mDeadSequence.toString(), event)
             mDeadSequence.setLength(0)

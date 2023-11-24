@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"పరిచయ పేర్లను వెతకండి"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"స్పెల్ చెకర్ మీ పరిచయ జాబితా నుండి నమోదులను ఉపయోగిస్తుంది"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"కీని నొక్కినప్పుడు వైబ్రేట్"</string>
@@ -65,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"సంజ్ఞలు చేసేటప్పుడు సూచిత పదాన్ని చూడండి"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"పదబంధం సంజ్ఞ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"స్పేస్ కీకి గ్లైడ్ చేయడం ద్వారా సంజ్ఞల సమయంలో అంతరాలను ఇన్‌పుట్ చేయండి"</string>
-    <string name="voice_input" msgid="3583258583521397548">"వాయిస్ ఇన్‌పుట్ కీ"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"వాయిస్ ఇన్‌పుట్ పద్ధతులు ఏవీ ప్రారంభించబడలేదు. భాషలు &amp; ఇన్‌పుట్ సెట్టింగ్‌లను తనిఖీ చేయండి."</string>
     <string name="configure_input_method" msgid="373356270290742459">"ఇన్‌పుట్ పద్ధతులను కాన్ఫిగర్ చేయండి"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"భాషలు"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"సహాయం &amp; అభిప్రాయం"</string>
@@ -173,7 +159,6 @@
     <string name="number_row">సంఖ్యల వరుస</string>
     <string name="spell_checker_service_name">ఓపెన్ బోర్డ్ స్పెల్ల్ చెకర్</string>
     <string name="android_spell_checker_settings">ఓపెన్ బోర్డ్ స్పెల్ చెకర్ సెటింగ్స్</string>
-    <string name="show_clipboard_key">క్లిప్ బోర్డు కీ</string>
     <string name="show_hints">కీ సూచనలు చూపండి</string>
     <string name="ime_settings">పరికరము యొక్క సాంకేతికతను బట్టి విద్యుత్ వినియోగము తగ్గించవచ్చు</string>
     <string name="settings_category_additional_keys">అదనపు కీస్</string>

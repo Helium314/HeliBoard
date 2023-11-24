@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
---><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_name" translatable="false">OpenBoard</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
@@ -63,6 +51,8 @@
     <string name="settings_category_miscellaneous">Miscellaneous</string>
     <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
+    <!--  Option for setting distance for split keyboard -->
+    <string name="split_spacer_scale">Split distance</string>
     <!-- Option name for including other IMEs in the language key switch list [CHAR LIMIT=30] -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only [CHAR LIMIT=30] -->
@@ -93,8 +83,10 @@
     <string name="use_contacts_dict_summary">Use names from Contacts for suggestions and corrections</string>
     <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
+    <!-- Dialog message informing that dictionaries will be deleted on changing the setting -->
+    <string name="disable_personalized_dicts_message">Warning: Disabling this setting will clear learned data</string>
     <!-- Option name for adding learned words to personal dictionary -->
-    <string name="add_to_personal_dictionary">Add words to user dictionary</string>
+    <string name="add_to_personal_dictionary">Add words to personal dictionary</string>
     <!-- Description for option to add learned words to system-wide user dictionary -->
     <string name="add_to_personal_dictionary_summary">Use device personal dictionary to store learned words</string>
     <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=30] -->
@@ -152,12 +144,6 @@
     <string name="gesture_space_aware">Phrase gesture</string>
     <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input.[CHAR LIMIT=65]-->
     <string name="gesture_space_aware_summary">Input spaces during gestures by gliding to the space key</string>
-    <!-- Preferences item for enabling speech input -->
-    <string name="voice_input">Voice input key</string>
-    <!-- The summary text to describe the reason why the "Voice input key" option is disabled. [CHAR LIMIT=100] -->
-    <string name="voice_input_disabled_summary">No voice input methods enabled. Check Languages &amp; input settings.</string>
-    <!-- Preferences item for enabling clipboard key -->
-    <string name="show_clipboard_key">Clipboard key</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
@@ -176,6 +162,22 @@
     <string name="space_language_slide">Space bar language slide</string>
     <!-- Description for "space_language_slide" option. -->
     <string name="space_language_slide_summary">Swipe upwards on the spacebar to change the language</string>
+    <!-- Preferences item for enabling the simplified keyboard parser and future other parsers (will be removed after some testing) -->
+    <string name="use_new_keyboard_parsing">Use new keyboard parser</string>
+    <!-- Description for "use_new_keyboard_parsing" option (will be removed after some testing) -->
+    <string name="use_new_keyboard_parsing_summary">Use this setting if you encounter issues with changed keyboard layouts (please report the problem). This setting will be removed at some point.</string>
+    <!-- Preferences item and dialog title for backup and restore -->
+    <string name="backup_restore_title">Backup and restore</string>
+    <!-- Message for backup and restore dialog -->
+    <string name="backup_restore_message">Save or load from file. Warning: restore will overwrite existing data</string>
+    <!-- Error message for backup -->
+    <string name="backup_error">Backup error: %s</string>
+    <!-- Error message for restore, %s is replaced by the error message -->
+    <string name="restore_error">Error restoring the backup: %s</string>
+    <!-- backup button -->
+    <string name="button_backup">Backup</string>
+    <!-- restore button -->
+    <string name="button_restore">Restore</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Preferences item for loading an external gesture typing library -->
@@ -193,10 +195,18 @@
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <!-- Description for "insert_more_spaces" option. -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
-    <!-- Preferences item for showing all available keys in long-press popup -->
-    <string name="show_all_more_keys_title">Show all keys in popup</string>
-    <!-- Description for "show_all_more_keys" option. -->
-    <string name="show_all_more_keys_summary">When using a latin keyboard, more characters are available on long-pressing a key</string>
+    <!-- Preferences item for showing more keys in long-press popup -->
+    <string name="show_more_keys_title">Show more letters with diacritics in popup</string>
+    <!-- Option for showing only letters defined in the current language file in long-press popup -->
+    <string name="show_more_keys_normal">Show variants defined in keyboard languages (default)</string>
+    <!-- Option for showing letters defined in at least two locales -->
+    <string name="show_more_keys_more">Add common variants</string>
+    <!-- Option for showing letters defined in any locale -->
+    <string name="show_more_keys_all">Add all available variants</string>
+    <!-- Preferences item for enabling URL detection -->
+    <string name="url_detection_title">URL detection</string>
+    <!-- Description for "url_detection_title" option. -->
+    <string name="url_detection_summary">Try to detect URLs and similar as a single word</string>
     <!-- Preferences item for disabling word learning -->
     <string name="prefs_force_incognito_mode">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
@@ -224,6 +234,10 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
+    <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
+    <string name="show_popup_hints">Show functional hints</string>
+    <!-- Description of the show_popup_hints setting -->
+    <string name="show_popup_hints_summary">Show hints if long-pressing a key triggers additional functionality</string>
     <!-- Title of the settings enabling long press on space key to change IME -->
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->
@@ -232,6 +246,8 @@
     <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
     <!-- Title of the settings for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
+    <!-- Title of the settings for setting bottom padding height -->
+    <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -272,6 +288,12 @@
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
          (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype [CHAR LIMIT=25]
+         (Sebeolsik 390) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype [CHAR LIMIT=25]
+         (Sebeolsik Final) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
 language, hence "No language".
@@ -451,6 +473,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_add_to_language">"Add to %s"</string>
     <!-- Message for user dictionary replacement dialog -->
     <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
+    <!-- Message for user dictionary replacement dialog -->
+    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%1$s\"?\n
+Current dictionary:
+%2$s\n
+New dictionary:
+%3$s"</string>
     <!-- Title and confirm button text for user dictionary replacement dialog -->
     <string name="replace_dictionary">"Replace dictionary"</string>
     <!-- Message for user dictionary remove dialog -->
@@ -554,11 +582,17 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
     <!-- This resource is corresponding to msgid="5433275485499039199" -->
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <!-- Option for choosing theme family [CHAR LIMIT=33] -->
+    <!-- Option for choosing theme style [CHAR LIMIT=33] -->
+    <string name="theme_style">Style</string>
+    <!-- Style name for Rounded style -->
+    <string name="style_name_Rounded">Rounded</string>
+    <!-- Option for choosing colors [CHAR LIMIT=33] -->
+    <string name="theme_colors">Colors</string>
+    <!-- Option for choosing colors for night mode [CHAR LIMIT=33] -->
+    <string name="theme_colors_night">Colors (night)</string>
+    <!-- TODO: remove the 3 strings below from all files, translation editor could do it but seems completely broken -->
     <string name="theme_family">Theme family</string>
-    <!-- Option for choosing theme family variant [CHAR LIMIT=33] -->
     <string name="theme_variant">Theme variant</string>
-    <!-- Option for choosing theme family variant (night) [CHAR LIMIT=33] -->
     <string name="theme_variant_night">Theme variant (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
@@ -583,15 +617,19 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Theme name for user-defined theme night mode theme -->
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
     <!-- Option for selecting custom theme colors -->
-    <string name="select_user_colors">Adjust theme colors</string>
+    <string name="select_user_colors">Adjust colors</string>
     <!-- Option for selecting custom theme colors for night mode only -->
-    <string name="select_user_colors_night">Adjust theme colors (night)</string>
+    <string name="select_user_colors_night">Adjust colors (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
+    <!-- Menu item for showing fewer colors -->
+    <string name="main_colors">Show main colors only</string>
+    <!-- Menu item for showing all colors -->
+    <string name="all_colors">Show all colors</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
-    <string name="select_user_colors_summary">Select colors for text and background</string>
+    <string name="select_user_colors_summary">Select colors for text and backgrounds</string>
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->
@@ -600,8 +638,16 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="select_color_key_hint">Key hint text</string>
     <!-- Selection: key color. -->
     <string name="select_color_key_background">Key background</string>
+    <!-- Selection: functional key color. -->
+    <string name="select_color_functional_key_background">Functional key background</string>
+    <!-- Selection: space bar color. -->
+    <string name="select_color_spacebar_background">Space bar background</string>
+    <!-- Selection: space bar text color. -->
+    <string name="select_color_spacebar_text">Space bar text</string>
     <!-- Selection: accent color. -->
     <string name="select_color_accent">Accent</string>
+    <!-- Selection: gesture color. -->
+    <string name="select_color_gesture">Gesture input</string>
     <!-- Settings screen title for about [CHAR LIMIT=33]-->
     <string name="settings_screen_about">About</string>
     <!-- version for about screen-->
@@ -626,4 +672,31 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="settings_screen_appearance_and_layouts">Appearance &amp; Layouts</string>
     <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
     <string name="settings_screen_appearance">"Appearance"</string>
+    <!-- Hidden features title -->
+    <string name="hidden_features_title">Description of hidden features</string>
+    <!-- Hidden features summary -->
+    <string name="hidden_features_summary">Show features that may go unnoticed</string>
+    <!-- Title of the link to the web page inserted into messages -->
+    <string name="hidden_features_text">device protected storage</string>
+    <!-- Hidden features text -->
+    <string name="hidden_features_message">
+        &#9658; Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents. &lt;br&gt; &lt;br&gt;
+        &#9658; Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
+        &#9658; Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
+        \t&#8226; Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt;
+        \t&#8226; For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s \'q\' for Dvorak layout). &lt;br&gt; &lt;br&gt;
+        &#9658; Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt;
+        &#9658; Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt;
+        \t&#8226; This also works for the \'?123\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt;
+        &#9658; Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt;
+        &#9658; Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
+        &#9658; You can add dictionaries by opening them in a file explorer: &lt;br&gt;
+        \t&#8226; This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;
+        &lt;i&gt;Debug APK only&lt;/i&gt; &lt;br&gt;
+        &#9658; Long-press a suggestion to show the source dictionary.&lt;br&gt; &lt;br&gt;
+        &#9658; The Debug Settings are located within the Advanced Preferences, though the usability is limited except for dumping dictionaries into the log. &lt;br&gt; &lt;br&gt;
+        &#9658; In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
+        &#9658; For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. &lt;br&gt;
+        This is necessary so the settings can be read before the device is unlocked, e.g. at boot. &lt;br&gt;
+        The file is located in /data/user_de/0/package_id/shared_prefs/, though this may depend on the device and Android version.</string>
 </resources>

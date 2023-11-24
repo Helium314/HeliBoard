@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -34,9 +24,9 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.compat.InputConnectionCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.common.UnicodeSurrogate;
 import org.dslul.openboard.inputmethod.latin.inputlogic.PrivateCommandPerformer;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -251,6 +241,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     private boolean reloadTextCache() {
         mCommittedTextBeforeComposingText.setLength(0);
+        // Clearing composing text was not in original AOSP and OpenBoard, but why? should actually
+        // be necessary when reloading text. Only when called by setSelection, mComposingText isn't
+        // always empty, but looks like things still work normally
+        mComposingText.setLength(0);
         mIC = mParent.getCurrentInputConnection();
         // Call upon the inputconnection directly since our own method is using the cache, and
         // we want to refresh it.
@@ -303,8 +297,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         mCommittedTextBeforeComposingText.append(text);
         // TODO: the following is exceedingly error-prone. Right now when the cursor is in the
-        // middle of the composing word mComposingText only holds the part of the composing text
-        // that is before the cursor, so this actually works, but it's terribly confusing. Fix this.
+        //  middle of the composing word mComposingText only holds the part of the composing text
+        //  that is before the cursor, so this actually works, but it's terribly confusing. Fix this.
         mExpectedSelStart += text.length() - mComposingText.length();
         mExpectedSelEnd = mExpectedSelStart;
         mComposingText.setLength(0);
@@ -374,10 +368,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return TextUtils.CAP_MODE_CHARACTERS & inputType;
         }
         // TODO: this will generally work, but there may be cases where the buffer contains SOME
-        // information but not enough to determine the caps mode accurately. This may happen after
-        // heavy pressing of delete, for example DEFAULT_TEXT_CACHE_SIZE - 5 times or so.
-        // getCapsMode should be updated to be able to return a "not enough info" result so that
-        // we can get more context only when needed.
+        //  information but not enough to determine the caps mode accurately. This may happen after
+        //  heavy pressing of delete, for example DEFAULT_TEXT_CACHE_SIZE - 5 times or so.
+        //  getCapsMode should be updated to be able to return a "not enough info" result so that
+        //  we can get more context only when needed.
         if (TextUtils.isEmpty(mCommittedTextBeforeComposingText) && 0 != mExpectedSelStart) {
             if (!reloadTextCache()) {
                 Log.w(TAG, "Unable to connect to the editor. "
@@ -387,20 +381,28 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // This never calls InputConnection#getCapsMode - in fact, it's a static method that
         // never blocks or initiates IPC.
         // TODO: don't call #toString() here. Instead, all accesses to
-        // mCommittedTextBeforeComposingText should be done on the main thread.
+        //  mCommittedTextBeforeComposingText should be done on the main thread.
         return CapsModeUtils.getCapsMode(mCommittedTextBeforeComposingText.toString(), inputType,
                 spacingAndPunctuations, hasSpaceBefore);
     }
 
     public int getCodePointBeforeCursor() {
-        final int length = mCommittedTextBeforeComposingText.length();
+        final CharSequence text = mComposingText.length() == 0 ? mCommittedTextBeforeComposingText : mComposingText;
+        final int length = text.length();
         if (length < 1) return Constants.NOT_A_CODE;
-        return Character.codePointBefore(mCommittedTextBeforeComposingText, length);
+        return Character.codePointBefore(text, length);
+    }
+
+    public int getCharBeforeBeforeCursor() {
+        if (mComposingText.length() >= 2) return mComposingText.charAt(mComposingText.length() - 2);
+        final int length = mCommittedTextBeforeComposingText.length();
+        if (mComposingText.length() == 1) return mCommittedTextBeforeComposingText.charAt(length - 1);
+        if (length < 2) return Constants.NOT_A_CODE;
+        return mCommittedTextBeforeComposingText.charAt(length - 2);
     }
 
     public CharSequence getTextBeforeCursor(final int n, final int flags) {
-        final int cachedLength =
-                mCommittedTextBeforeComposingText.length() + mComposingText.length();
+        final int cachedLength = mCommittedTextBeforeComposingText.length() + mComposingText.length();
         // If we have enough characters to satisfy the request, or if we have all characters in
         // the text field, then we can return the cached version right away.
         // However, if we don't have an expected cursor position, then we should always
@@ -472,8 +474,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void deleteTextBeforeCursor(final int beforeLength) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         // TODO: the following is incorrect if the cursor is not immediately after the composition.
-        // Right now we never come here in this case because we reset the composing state before we
-        // come here in this case, but we need to fix this.
+        //  Right now we never come here in this case because we reset the composing state before we
+        //  come here in this case, but we need to fix this.
         final int remainingChars = mComposingText.length() - beforeLength;
         if (remainingChars >= 0) {
             mComposingText.setLength(remainingChars);
@@ -589,7 +591,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mComposingText.setLength(0);
         mComposingText.append(text);
         // TODO: support values of newCursorPosition != 1. At this time, this is never called with
-        // newCursorPosition != 1.
+        //  newCursorPosition != 1.
         if (isConnected()) {
             mIC.setComposingText(text, newCursorPosition);
         }
@@ -624,6 +626,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return reloadTextCache();
     }
 
+    public void selectAll() {
+        mIC.performContextMenuAction(android.R.id.selectAll);
+        // the rest is done via LatinIME.onUpdateSelection
+    }
+
     public void commitCorrection(final CorrectionInfo correctionInfo) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
@@ -651,7 +658,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
     }
 
-    @SuppressWarnings("unused")
     @NonNull
     public NgramContext getNgramContextFromNthPreviousWord(
             final SpacingAndPunctuations spacingAndPunctuations, final int n) {
@@ -665,21 +671,19 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             final String reference = prev.length() <= checkLength ? prev.toString()
                     : prev.subSequence(prev.length() - checkLength, prev.length()).toString();
             // TODO: right now the following works because mComposingText holds the part of the
-            // composing text that is before the cursor, but this is very confusing. We should
-            // fix it.
+            //  composing text that is before the cursor, but this is very confusing. We should
+            //  fix it.
             final StringBuilder internal = new StringBuilder()
                     .append(mCommittedTextBeforeComposingText).append(mComposingText);
             if (internal.length() > checkLength) {
                 internal.delete(0, internal.length() - checkLength);
                 if (!(reference.equals(internal.toString()))) {
-                    final String context =
-                            "Expected text = " + internal + "\nActual text = " + reference;
+                    final String context = "Expected text = " + internal + "\nActual text = " + reference;
                     ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
                 }
             }
         }
-        return NgramContextUtils.getNgramContextFromNthPreviousWord(
-                prev, spacingAndPunctuations, n);
+        return NgramContextUtils.getNgramContextFromNthPreviousWord(prev, spacingAndPunctuations, n);
     }
 
     private static boolean isPartOfCompositionForScript(final int codePoint,
@@ -740,9 +744,26 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
         // Going backward, find the first breaking point (separator)
         int startIndexInBefore = before.length();
+        int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
             final int codePoint = Character.codePointBefore(before, startIndexInBefore);
             if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                    break;
+                // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                for (int i = startIndexInBefore - 1; i >= 0; i--) {
+                    final char c = before.charAt(i);
+                    if (spacingAndPunctuations.isSometimesWordConnector(c)) {
+                        // if yes -> whitespace is the index
+                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
+                        final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
+                        endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter -1;
+                        break;
+                    } else if (Character.isWhitespace(c)) {
+                        // if no, just break normally
+                        break;
+                    }
+                }
                 break;
             }
             --startIndexInBefore;
@@ -752,15 +773,46 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
 
         // Find last word separator after the cursor
-        int endIndexInAfter = -1;
-        while (++endIndexInAfter < after.length()) {
-            final int codePoint = Character.codePointAt(after, endIndexInAfter);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
-                break;
+        if (endIndexInAfter == -1) {
+            while (++endIndexInAfter < after.length()) {
+                final int codePoint = Character.codePointAt(after, endIndexInAfter);
+                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                    if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                        break;
+                    // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                    for (int i = endIndexInAfter; i < after.length(); i++) {
+                        final char c = after.charAt(i);
+                        if (spacingAndPunctuations.isSometimesWordConnector(c)) {
+                            // if yes -> whitespace is next to the index
+                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
+                            final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
+                            endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter - 1;
+                            break;
+                        } else if (Character.isWhitespace(c)) {
+                            // if no, just break normally
+                            break;
+                        }
+                    }
+                    break;
+                }
+                if (Character.isSupplementaryCodePoint(codePoint)) {
+                    ++endIndexInAfter;
+                }
             }
-            if (Character.isSupplementaryCodePoint(codePoint)) {
-                ++endIndexInAfter;
-            }
+        }
+
+        // strip stuff before "//" (i.e. ignore http and other protocols)
+        final String beforeConsideringStart = before.subSequence(startIndexInBefore, before.length()).toString();
+        final int protocolEnd = beforeConsideringStart.lastIndexOf("//");
+        if (protocolEnd != -1)
+            startIndexInBefore += protocolEnd + 1;
+
+        // we don't want the end characters to be word separators
+        while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
+            --endIndexInAfter;
+        }
+        while (startIndexInBefore < before.length() && spacingAndPunctuations.isWordSeparator(before.charAt(startIndexInBefore))) {
+            ++startIndexInBefore;
         }
 
         final boolean hasUrlSpans =
@@ -947,12 +999,42 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return StringUtils.lastPartLooksLikeURL(mCommittedTextBeforeComposingText);
     }
 
+    public boolean nonWordCodePointAndNoSpaceBeforeCursor(final SpacingAndPunctuations spacingAndPunctuations) {
+        return StringUtilsKt.nonWordCodePointAndNoSpaceBeforeCursor(mCommittedTextBeforeComposingText, spacingAndPunctuations);
+    }
+
     public boolean spaceBeforeCursor() {
         return mCommittedTextBeforeComposingText.indexOf(" ") != -1;
     }
 
+    public boolean hasLetterBeforeLastSpaceBeforeCursor() {
+        return StringUtilsKt.hasLetterBeforeLastSpaceBeforeCursor(mCommittedTextBeforeComposingText);
+    }
+
     public boolean wordBeforeCursorMayBeEmail() {
         return mCommittedTextBeforeComposingText.lastIndexOf(" ") < mCommittedTextBeforeComposingText.lastIndexOf("@");
+    }
+
+    public CharSequence textBeforeCursorUntilLastWhitespaceOrDoubleSlash() {
+        int startIndex = 0;
+        boolean previousWasSlash = false;
+        for (int i = mCommittedTextBeforeComposingText.length() - 1; i >= 0; i--) {
+            final char c = mCommittedTextBeforeComposingText.charAt(i);
+            if (Character.isWhitespace(c)) {
+                startIndex = i + 1;
+                break;
+            }
+            if (c == '/') {
+                if (previousWasSlash) {
+                    startIndex = i + 2;
+                    break;
+                }
+                previousWasSlash = true;
+            } else {
+                previousWasSlash = false;
+            }
+        }
+        return mCommittedTextBeforeComposingText.subSequence(startIndex, mCommittedTextBeforeComposingText.length());
     }
 
     /**
@@ -1045,19 +1127,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     /**
-     * Work around a bug that was present before Jelly Bean upon rotation.
-     *
-     * Before Jelly Bean, there is a bug where setComposingRegion and other committing
-     * functions on the input connection get ignored until the cursor moves. This method works
-     * around the bug by wiggling the cursor first, which reactivates the connection and has
-     * the subsequent methods work, then restoring it to its original position.
-     *
-     * On platforms on which this method is not present, this is a no-op.
-     */
-    public void maybeMoveTheCursorAroundAndRestoreToWorkaroundABug() {
-    }
-
-    /**
      * Requests the editor to call back {@link InputMethodManager#updateCursorAnchorInfo}.
      * @param enableMonitor {@code true} to request the editor to call back the method whenever the
      * cursor/anchor position is changed.
@@ -1074,7 +1143,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (!isConnected()) {
             return false;
         }
-        return InputConnectionCompatUtils.requestCursorUpdates(
-                mIC, enableMonitor, requestImmediateCallback);
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP)
+            return false;
+        final int cursorUpdateMode = (enableMonitor ? InputConnection.CURSOR_UPDATE_MONITOR : 0)
+            | (requestImmediateCallback ? InputConnection.CURSOR_UPDATE_IMMEDIATE : 0);
+        return mIC.requestCursorUpdates(cursorUpdateMode);
     }
 }

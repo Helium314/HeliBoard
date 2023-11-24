@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Rechercher les noms de contacts"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Le correcteur orthographique utilise les noms des contacts."</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrer à chaque touche"</string>
@@ -30,6 +18,8 @@
     <string name="settings_screen_theme" msgid="2137262503543943871">"Thème"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Activer le clavier en deux parties"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Autres modes de saisie"</string>
+    <string name="language_switch_key_switch_subtype">Changer de langue</string>
+    <string name="language_switch_key_switch_both">Changer les deux</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Touche de sélection de langue"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Masquer touche agrandie"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sans délai"</string>
@@ -67,8 +57,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Affiche le mot suggéré lors des gestes"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Geste multiterme"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Saisir des espaces lors des gestes en glissant vers la barre d\'espace"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Touche de saisie vocale"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Aucun mode de saisie vocale activé. Activez les paramètres de langues et de saisie."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurer les modes de saisie"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Langues"</string>
     <string name="help_and_feedback">"Aide et commentaires"</string>
@@ -132,7 +120,15 @@
     <string name="dictionary_settings_category">Dictionnaires</string>
     <string name="internal_dictionary_summary">Dictionnaires intégrés</string>
     <string name="add_new_dictionary_title">"Ajouter dictionnaire"</string>
+    <string name="add_new_dictionary_ask_locale">"À quelle langue faut-il ajouter le dictionnaire \"%1$s\" pour %2$s ?"</string>
+    <string name="button_select_language">"Sélectionner la langue"</string>
+    <string name="button_add_to_language">"Ajouter à %s"</string>
     <string name="replace_dictionary_message">"Remplacer le dictionnaire utilisateur \"%s\" ?"</string>
+    <string name="replace_dictionary_message2">"Remplacer le dictionnaire utilisateur \"%1$s\"?\n
+Dictionnaire actuel:
+%2$s\n
+Nouveau dictionnaire:
+%3$s"</string>
     <string name="replace_dictionary">"Remplacer dictionnaire"</string>
     <string name="remove_dictionary_message">"Supprimer le dictionnaire utilisateur \"%1$s\" ?"</string>
     <string name="no_dictionary_message">"Sans dictionnaire, vous n\'obtiendrez que des suggestions pour le texte que vous avez déjà saisi.&lt;br&gt;&lt;br&gt;
@@ -179,8 +175,16 @@
     <string name="number_row">Ligne de chiffres</string>
     <string name="delete_swipe">Balayage sur la touche Effacer</string>
     <string name="delete_swipe_summary">Glissez sur la touche de suppression pour supprimer des parties de texte en une seule fois</string>
-    <string name="space_trackpad_summary">Glissez sur la barre d\'espace pour déplacer le curseur</string>
     <string name="space_trackpad">Balayage sur la barre d\'espace</string>
+    <string name="space_trackpad_summary">Glissez sur la barre d\'espace pour déplacer le curseur</string>
+    <string name="space_language_slide">Changer de langue avec la barre d\'espace</string>
+    <string name="space_language_slide_summary">Glissez sur la barre d\'espace vers le haut pour changer de langue</string>
+    <string name="backup_restore_title">Sauvegarde et restauration</string>
+    <string name="backup_restore_message">Sauvegarde ou chargement à partir d\'un fichier. Attention : la restauration écrasera les données existantes.</string>
+    <string name="backup_error">Erreur lors de la sauvegarde : %s</string>
+    <string name="restore_error">Erreur lors de la restauration de la sauvegarde : %s</string>
+    <string name="button_backup">Sauvegarder</string>
+    <string name="button_restore">Restaurer</string>
     <string name="secondary_locale">Saisie multilingue</string>
     <string name="load_gesture_library">Charger la bibliothèque de saisie gestuelle</string>
     <string name="load_gesture_library_summary">Fournir une bibliothèque native pour activer la saisie gestuelle</string>
@@ -199,11 +203,11 @@
     <string name="number_row_summary">Toujours afficher la ligne de chiffres</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Changer le mode de saisie avec la barre d\'espace</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Un appui long sur la barre d\'espace fera apparaître le menu de sélection des claviers</string>
-    <string name="show_hints_summary">Affiche les caractères alternatifs lors d\'un appui long</string>
     <string name="show_hints">Afficher les caractères alternatifs</string>
+    <string name="show_hints_summary">Affiche les caractères alternatifs lors d\'un appui long</string>
+    <string name="show_popup_hints">Afficher les indices sur les touches fonctionnelles</string>
+    <string name="show_popup_hints_summary">Affiche un signe ( <b>…</b> ) sur les touches où un appui long déclenche une fonctionnalité supplémentaire</string>
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>
-    <string name="theme_variant">Variante de thème</string>
-    <string name="theme_variant_night">Variante de thème (mode nuit)</string>
     <string name="day_night_mode_summary">L\'apparence suivra les paramètres système</string>
     <string name="theme_navbar">Colorer la barre de navigation</string>
     <string name="theme_name_light">Clair</string>
@@ -211,27 +215,37 @@
     <string name="theme_name_dark">Sombre</string>
     <string name="theme_name_darker">Noir</string>
     <string name="theme_name_black">Amoled</string>
-    <string name="theme_name_user">Personalisé</string>
-    <string name="theme_name_user_night">Personalisé (mode nuit)</string>
+    <string name="theme_name_user">Personnalisé</string>
+    <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
     <string name="select_user_colors">Personnaliser le thème</string>
     <string name="select_user_colors_night">Personnaliser le thème (mode nuit)</string>
+    <string name="auto_user_color">Choix automatique de la couleur</string>
+    <string name="main_colors">Afficher les couleurs principales</string>
+    <string name="all_colors">Afficher toutes les couleurs</string>
+    <string name="hint_show_keyboard">Cliquez pour voir l\'aperçu</string>
     <string name="select_user_colors_summary">Sélection des couleurs du texte et de l\'arrière-plan</string>
     <string name="select_color_background">Arrière-plan du clavier</string>
     <string name="select_color_key">Texte des touches</string>
     <string name="select_color_key_hint">Indice des touches</string>
     <string name="select_color_key_background">Arrière-plan des touches</string>
+    <string name="select_color_functional_key_background">Arrière-plan des touches fonctionnelles</string>
+    <string name="select_color_spacebar_background">Arrière-plan de la barre d\'espace</string>
+    <string name="select_color_spacebar_text">Texte de la barre d\'espace</string>
     <string name="select_color_accent">Couleur d\'accentuation</string>
+    <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
     <string name="about_github_link" >Lien vers GitHub</string>
     <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
-    <string name="theme_family">Famille de thème</string>
+    <string name="theme_style">Style</string>
+    <string name="style_name_Rounded">Arrondi</string>
+    <string name="theme_colors">Couleurs</string>
+    <string name="theme_colors_night">Couleurs (mode nuit)</string>
     <string name="key_borders">Bordures des touches</string>
     <string name="day_night_mode">Mode jour/nuit automatique</string>
     <string name="prefs_narrow_key_gaps">Réduire l\'espace entre les touches</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
-    <string name="show_clipboard_key">Touche du presse-papier</string>
     <string name="show_emoji_key">Touche d\'accès aux émojis</string>
     <string name="settings_category_additional_keys">Touches supplémentaires</string>
     <string name="settings_category_clipboard_history">Historique du presse-papier</string>
@@ -243,9 +257,35 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Espace automatique après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
+    <string name="url_detection_title">Détection d\'URL</string>
+    <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="auto_correction_confidence">Confiance dans la correction automatique</string>
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
     <string name="settings_screen_appearance">"Apparence"</string>
     <string name="dialog_close">Fermer</string>
+    <string name="text_tap_languages">Appuyez sur la langue pour ouvrir les paramètres</string>
+    <string name="hidden_features_title">Description des fonctionnalités cachées</string>
+    <string name="hidden_features_summary">Montre les caractéristiques qui peuvent passer inaperçues</string>
+    <string name="hidden_features_text">stockage protégé de l\'appareil</string>
+    <string name="hidden_features_message">
+        &#9658; Un appui long sur la touche presse-papiers (celle qui est optionnelle dans la bande de suggestions) permet de coller le contenu du presse-papiers. &lt;br&gt; &lt;br&gt;
+        &#9658; Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
+        &#9658; Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
+        \t&#8226; l\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
+        \t&#8226; pour certaines dispositions, ce n\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
+        &#9658; Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
+        &#9658; Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
+        \t&#8226; fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
+        &#9658; Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
+        &#9658; Balayez vers le haut à partir d\'une suggestion pour ouvrir d\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt;
+        &#9658; Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt;
+        \t&#8226; ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
+        &lt;i&gt; Version Debug uniquement &lt;/i&gt; &lt;br&gt;
+        &#9658; Un appui-long sur une suggestion montre la source du dictionnaire.&lt;br&gt; &lt;br&gt;
+        &#9658; Affichage des paramètres de débogage dans les paramètres avancés, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
+        &#9658; Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
+        &#9658; Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut car l\'application utilise le %s. &lt;br&gt;
+        Cela est nécessaire pour que les paramètres puissent être lus avant que l\'appareil ne soit déverrouillé, par exemple au démarrage. &lt;br&gt;
+        Le fichier se trouve dans &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt;, mais cela peut dépendre de l\'appareil et de la version d\'Android.</string>
 </resources>

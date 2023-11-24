@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -34,12 +24,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -49,16 +39,16 @@ import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
     // Settings screens
-    public static final String SCREEN_THEME = "screen_theme";
     public static final String SCREEN_DEBUG = "screen_debug";
     public static final String SCREEN_GESTURE = "screen_gesture";
     // In the same order as xml/prefs.xml
@@ -67,19 +57,22 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_THEME_STYLE = "theme_style";
-    public static final String PREF_THEME_VARIANT = "theme_variant";
-    public static final String PREF_THEME_VARIANT_NIGHT = "theme_variant_night";
+    public static final String PREF_THEME_COLORS = "theme_variant";
+    public static final String PREF_THEME_COLORS_NIGHT = "theme_variant_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
     public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
     public static final String PREF_THEME_USER_COLOR_NIGHT_PREFIX = "theme_dark_color_";
     public static final String PREF_COLOR_KEYS_SUFFIX = "keys";
+    public static final String PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX = "functional_keys";
+    public static final String PREF_COLOR_SPACEBAR_SUFFIX = "spacebar";
+    public static final String PREF_COLOR_SPACEBAR_TEXT_SUFFIX = "spacebar_text";
     public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
+    public static final String PREF_COLOR_GESTURE_SUFFIX = "gesture";
     public static final String PREF_COLOR_TEXT_SUFFIX = "text";
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
     public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
@@ -91,10 +84,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     public static final String PREF_LANGUAGE_SWITCH_KEY = "pref_language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
-    public static final String PREF_SHOW_CLIPBOARD_KEY = "pref_show_clipboard_key";
     public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
+    public static final String PREF_SPLIT_SPACER_SCALE = "pref_split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
+    public static final String PREF_BOTTOM_PADDING_SCALE = "pref_bottom_padding_scale";
     public static final String PREF_SPACE_TRACKPAD = "pref_space_trackpad";
     public static final String PREF_DELETE_SWIPE = "pref_delete_swipe";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "pref_autospace_after_punctuation";
@@ -109,6 +103,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "pref_gesture_floating_preview_text";
     public static final String PREF_GESTURE_SPACE_AWARE = "pref_gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
+    public static final String PREF_USE_NEW_KEYBOARD_PARSING = "pref_use_new_keyboard_parsing"; // todo: remove later
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
     public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity";
@@ -116,6 +111,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
 
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
+    public static final String PREF_SHOW_POPUP_HINTS = "pref_show_popup_hints";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_SPACE_LANGUAGE_SLIDE = "pref_space_language_slide";
@@ -130,26 +126,21 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
     public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
-    public static final String PREF_SHOW_ALL_MORE_KEYS = "pref_show_all_more_keys";
+    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
+    public static final String PREF_URL_DETECTION = "pref_url_detection";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
-
-
-    private static final String PREF_LAST_USED_PERSONALIZATION_TOKEN =
-            "pref_last_used_personalization_token";
-    private static final String PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME =
-            "pref_last_used_personalization_dict_wiped_time";
-    private static final String PREF_CORPUS_HANDLES_FOR_PERSONALIZATION =
-            "pref_corpus_handles_for_personalization";
+    public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
-    public static final String PREF_EMOJI_CATEGORY_LAST_TYPED_ID = "emoji_category_last_typed_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
+    public static final String PREF_PINNED_CLIPS = "pinned_clips";
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
+    public static final String PREF_SHOW_ALL_COLORS = "pref_show_all_colors";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
@@ -161,6 +152,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
 
     private static final Settings sInstance = new Settings();
+
+    // preferences that are not used in SettingsValues and thus should not trigger reload when changed
+    private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
+        add(PREF_FORCE_OPPOSITE_THEME);
+        add(PREF_PINNED_CLIPS);
+        add(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
+        add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
+        add(PREF_EMOJI_RECENT_KEYS);
+        add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
+        add(PREF_SHOW_ALL_COLORS);
+    }};
 
     public static Settings getInstance() {
         return sInstance;
@@ -187,6 +189,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
+        if (dontReloadOnChanged.contains(key))
+            return;
         mSettingsValuesLock.lock();
         try {
             if (mSettingsValues == null) {
@@ -200,7 +204,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } finally {
             mSettingsValuesLock.unlock();
         }
-        if (key.equals(PREF_CUSTOM_INPUT_STYLES)) {
+        if (PREF_CUSTOM_INPUT_STYLES.equals(key)) {
             final String additionalSubtypes = readPrefAdditionalSubtypes(prefs, mContext.getResources());
             SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
         }
@@ -262,17 +266,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 res.getBoolean(R.bool.config_block_potentially_offensive));
     }
 
-    public static boolean readFromBuildConfigIfGestureInputEnabled(final Resources res) {
-        if (!JniUtils.sHaveGestureLib) {
-            return false;
-        }
-        return res.getBoolean(R.bool.config_gesture_input_enabled_by_build_config);
-    }
-
-    public static boolean readGestureInputEnabled(final SharedPreferences prefs,
-                                                  final Resources res) {
-        return readFromBuildConfigIfGestureInputEnabled(res)
-                && prefs.getBoolean(PREF_GESTURE_INPUT, true);
+    public static boolean readGestureInputEnabled(final SharedPreferences prefs) {
+        return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
     public static boolean readFromBuildConfigIfToShowKeyPreviewPopupOption(final Resources res) {
@@ -351,18 +346,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 R.array.keypress_vibration_durations, DEFAULT_KEYPRESS_VIBRATION_DURATION));
     }
 
-    public static float readKeyPreviewAnimationScale(final SharedPreferences prefs,
-                                                     final String prefKey, final float defaultValue) {
-        final float fraction = prefs.getFloat(prefKey, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (fraction != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? fraction : defaultValue;
-    }
-
-    public static int readKeyPreviewAnimationDuration(final SharedPreferences prefs,
-                                                      final String prefKey, final int defaultValue) {
-        final int milliseconds = prefs.getInt(prefKey, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds : defaultValue;
-    }
-
     public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_ENABLE_CLIPBOARD_HISTORY, true);
     }
@@ -377,13 +360,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
-    }
-
-    public static float readKeyboardHeight(final SharedPreferences prefs,
-                                           final float defaultValue) {
-        final float percentage = prefs.getFloat(
-                Settings.PREF_KEYBOARD_HEIGHT_SCALE, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (percentage != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? percentage : defaultValue;
     }
 
     public static boolean readSpaceTrackpadEnabled(final SharedPreferences prefs) {
@@ -440,55 +416,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
     }
 
-    public void writeLastUsedPersonalizationToken(byte[] token) {
-        if (token == null) {
-            mPrefs.edit().remove(PREF_LAST_USED_PERSONALIZATION_TOKEN).apply();
-        } else {
-            final String tokenStr = StringUtils.byteArrayToHexString(token);
-            mPrefs.edit().putString(PREF_LAST_USED_PERSONALIZATION_TOKEN, tokenStr).apply();
-        }
-    }
-
-    public byte[] readLastUsedPersonalizationToken() {
-        final String tokenStr = mPrefs.getString(PREF_LAST_USED_PERSONALIZATION_TOKEN, null);
-        return StringUtils.hexStringToByteArray(tokenStr);
-    }
-
-    public void writeLastPersonalizationDictWipedTime(final long timestamp) {
-        mPrefs.edit().putLong(PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME, timestamp).apply();
-    }
-
-    public long readLastPersonalizationDictGeneratedTime() {
-        return mPrefs.getLong(PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME, 0);
-    }
-
-    public void writeCorpusHandlesForPersonalization(final Set<String> corpusHandles) {
-        mPrefs.edit().putStringSet(PREF_CORPUS_HANDLES_FOR_PERSONALIZATION, corpusHandles).apply();
-    }
-
-    public Set<String> readCorpusHandlesForPersonalization() {
-        final Set<String> emptySet = Collections.emptySet();
-        return mPrefs.getStringSet(PREF_CORPUS_HANDLES_FOR_PERSONALIZATION, emptySet);
-    }
-
     public static void writeEmojiRecentKeys(final SharedPreferences prefs, String str) {
         prefs.edit().putString(PREF_EMOJI_RECENT_KEYS, str).apply();
     }
 
     public static String readEmojiRecentKeys(final SharedPreferences prefs) {
         return prefs.getString(PREF_EMOJI_RECENT_KEYS, "");
-    }
-
-    public static void writeLastTypedEmojiCategoryPageId(
-            final SharedPreferences prefs, final int categoryId, final int categoryPageId) {
-        final String key = PREF_EMOJI_CATEGORY_LAST_TYPED_ID + categoryId;
-        prefs.edit().putInt(key, categoryPageId).apply();
-    }
-
-    public static int readLastTypedEmojiCategoryPageId(
-            final SharedPreferences prefs, final int categoryId) {
-        final String key = PREF_EMOJI_CATEGORY_LAST_TYPED_ID + categoryId;
-        return prefs.getInt(key, 0);
     }
 
     public static void writeLastShownEmojiCategoryId(
@@ -509,6 +442,41 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static int readLastShownEmojiCategoryPageId(
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
+    }
+
+    public static String readPinnedClipString(final SharedPreferences prefs) {
+        return prefs.getString(PREF_PINNED_CLIPS, "");
+    }
+
+    public static void writePinnedClipString(final SharedPreferences prefs, final String clips) {
+        prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
+    }
+
+    public static List<String> readPinnedKeys(final SharedPreferences prefs) {
+        final String pinnedKeysString = prefs.getString(Settings.PREF_PINNED_KEYS, "");
+        if (pinnedKeysString.isEmpty())
+            return new ArrayList<>();
+        return Arrays.asList(pinnedKeysString.split(";"));
+    }
+
+    public static void addPinnedKey(final SharedPreferences prefs, final String key) {
+        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+        keys.add(key);
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+    }
+
+    public static void removePinnedKey(final SharedPreferences prefs, final String key) {
+        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+        keys.remove(key);
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+    }
+
+    public static int readMoreMoreKeysPref(final SharedPreferences prefs) {
+        return switch (prefs.getString(Settings.PREF_MORE_MORE_KEYS, "normal")) {
+            case "all" -> LocaleKeyTextsKt.MORE_KEYS_ALL;
+            case "more" -> LocaleKeyTextsKt.MORE_KEYS_MORE;
+            default -> LocaleKeyTextsKt.MORE_KEYS_NORMAL;
+        };
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
@@ -538,9 +506,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (prefs.getBoolean(PREF_FORCE_OPPOSITE_THEME, false)) isNight = !isNight;
         final String themeColors = (isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
-                ? prefs.getString(Settings.PREF_THEME_VARIANT_NIGHT, KeyboardTheme.THEME_DARKER)
-                : prefs.getString(Settings.PREF_THEME_VARIANT, KeyboardTheme.THEME_LIGHT);
-        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.THEME_STYLE_MATERIAL);
+                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARKER)
+                : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
+        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);
 
         return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs);
     }
@@ -564,22 +532,43 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case PREF_COLOR_ACCENT_SUFFIX:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                     // try determining accent color on Android 10 & 11, accent is not available in resources
-                    // todo: test whether this actually works
                     final Context wrapper = new ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault);
                     final TypedValue value = new TypedValue();
                     if (wrapper.getTheme().resolveAttribute(android.R.attr.colorAccent, value, true))
                         return value.data;
                 }
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
+            case PREF_COLOR_GESTURE_SUFFIX:
+                return readUserColor(prefs, context, PREF_COLOR_ACCENT_SUFFIX, isNight);
             case PREF_COLOR_TEXT_SUFFIX:
                 // base it on background color, and not key, because it's also used for suggestions
-                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight))) return Color.BLACK;
+                final int background = readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight);
+                if (ColorUtilKt.isBrightColor(background)) {
+                    // but if key borders are enabled, we still want reasonable contrast
+                    if (!prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+                            || ColorUtilKt.isGoodContrast(Color.BLACK, readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight)))
+                        return Color.BLACK;
+                    else
+                        return Color.GRAY;
+                }
                 else return Color.WHITE;
             case PREF_COLOR_HINT_TEXT_SUFFIX:
                 if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
-                else return Color.LTGRAY;
+                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
             case PREF_COLOR_KEYS_SUFFIX:
                 return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight), isNight);
+            case PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX:
+                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight), true);
+            case PREF_COLOR_SPACEBAR_SUFFIX:
+                return readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight);
+            case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
+                final int spacebar = readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight);
+                final int hintText = readUserColor(prefs, context, PREF_COLOR_HINT_TEXT_SUFFIX, isNight);
+                if (ColorUtilKt.isGoodContrast(hintText, spacebar)) return hintText & 0x80FFFFFF; // add some transparency
+                final int text = readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
+                if (ColorUtilKt.isGoodContrast(text, spacebar)) return text & 0x80FFFFFF;
+                if (ColorUtilKt.isBrightColor(spacebar)) return Color.BLACK & 0x80FFFFFF;
+                else return Color.WHITE & 0x80FFFFFF;
             case PREF_COLOR_BACKGROUND_SUFFIX:
             default:
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);

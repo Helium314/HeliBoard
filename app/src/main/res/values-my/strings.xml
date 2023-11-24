@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"အဆက်အသွယ်အမည်များကို ရှာ"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"စာလုံးပေါင်းစစ်စနစ်က သင့်အဆက်အသွယ်စာရင်းမှ ရယူအသုံးပြုသည်"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"ခလုတ်နှိပ်သည်နှင့် တုံခါစေပါ"</string>
@@ -68,8 +53,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"အမူယာပြုလုပ်နေစဉ် အကြံပြုထားသည့် စကားလုံးကို ကြည့်ရန်"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"စကားစု အမူယာ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"နေရာခြားသည့်ကီးကိုနှိပ်ခြင်းဖြင့် အမူအယာပြုလုပ်စဉ်တွင် နေရာခြား ထည့်သွင်းရန်"</string>
-    <string name="voice_input" msgid="3583258583521397548">"အသံထည့်သွင်းရန် ခလုတ်"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"အသံဖြင့် စရိုက်စနစ် ဖွင့်မထားပါ။ ဘာသာစကားနှင့် စာရိုက်စနစ်ဆက်တင်များကို ပြန်စစ်ပါ။"</string>
     <string name="configure_input_method" msgid="373356270290742459">"ထည့်သွင်းရန် နည်းလမ်းကို ပြုပြင်မည်"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"ဘာသာစကားများ"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"အကူအညီနှင့် အကြံပြုချက်"</string>
