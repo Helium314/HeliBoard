@@ -58,7 +58,3 @@ fun brighten(@ColorInt color: Int) =
 
 @ColorInt
 fun darken(@ColorInt color: Int) = adjustLuminosityAndKeepAlpha(color, -0.06f)
-
-@ColorInt
-// used only for dynamic colors
-fun doubleDarken(@ColorInt color: Int) = adjustLuminosityAndKeepAlpha(color, -0.12f)

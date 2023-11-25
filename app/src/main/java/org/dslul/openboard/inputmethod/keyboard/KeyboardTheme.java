@@ -156,7 +156,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_USER:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
@@ -171,7 +170,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_USER_NIGHT:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
@@ -186,7 +184,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_DARK:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
@@ -202,7 +199,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_HOLO_WHITE:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
@@ -218,7 +214,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_DARKER:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
@@ -233,7 +228,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             case THEME_BLACK:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
@@ -249,7 +243,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
                     return new Colors(
                             themeStyle,
-                            themeColors,
                             hasBorders,
                             ContextCompat.getColor(context, android.R.color.system_accent1_200),
                             ContextCompat.getColor(context, android.R.color.system_accent1_600),
@@ -266,7 +259,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
                     return new Colors(
                             themeStyle,
-                            themeColors,
                             hasBorders,
                             ContextCompat.getColor(context, android.R.color.system_accent1_100),
                             ContextCompat.getColor(context, android.R.color.system_accent1_100),
@@ -283,7 +275,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             default:
                 return new Colors(
                         themeStyle,
-                        themeColors,
                         hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
