@@ -115,9 +115,9 @@
         name="MoreKeysKeyboardView.HoloBase"
         parent="KeyboardView.HoloBase"
     >
-        <item name="android:background">@drawable/keyboard_popup_panel_background_holo_white</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_popup_holo_white</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_popup_holo_white</item>
+        <item name="android:background">@drawable/keyboard_popup_panel_background_holo_base</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_popup_holo_base</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_popup_holo_base</item>
         <item name="divider">@drawable/more_keys_divider</item>
         <item name="keyTypeface">normal</item>
         <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>

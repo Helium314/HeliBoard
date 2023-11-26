@@ -61,7 +61,7 @@
     <style
         name="MoreKeysKeyboardView.LXX_Base_Border"
         parent="MoreKeysKeyboardView.LXX_Base">
-        <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_base_border</item>
+        <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_base</item>
     </style>
 

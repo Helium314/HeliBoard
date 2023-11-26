@@ -9,5 +9,5 @@
 >
     <item
         android:state_pressed="true"
-        android:drawable="@drawable/btn_keyboard_key_popup_selected_klp" />
+        android:drawable="@drawable/btn_keyboard_key_popup_holo_base" />
 </selector>
