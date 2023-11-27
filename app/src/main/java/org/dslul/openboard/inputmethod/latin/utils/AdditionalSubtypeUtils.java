@@ -58,7 +58,7 @@ public final class AdditionalSubtypeUtils {
                 getPlatformVersionIndependentSubtypeId(localeString, keyboardLayoutSetName);
         final InputMethodSubtype.InputMethodSubtypeBuilder builder = new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeNameResId(nameId)
-                .setSubtypeIconResId(R.drawable.ic_ime_switcher_dark)
+                .setSubtypeIconResId(R.drawable.ic_ime_switcher)
                 .setSubtypeLocale(localeString)
                 .setSubtypeMode(KEYBOARD_MODE)
                 .setSubtypeExtraValue(platformVersionDependentExtraValues)
