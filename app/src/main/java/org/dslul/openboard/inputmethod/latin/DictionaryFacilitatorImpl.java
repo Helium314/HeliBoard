@@ -190,7 +190,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 new ConcurrentHashMap<>();
 
         public DictionaryGroup() {
-            this(new Locale(""), null /* mainDict */, null /* account */, Collections.emptyMap() /* subDicts */);
+            this(new Locale(""), null, null, Collections.emptyMap());
         }
 
         public DictionaryGroup(@NonNull final Locale locale,
@@ -313,16 +313,15 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static ExpandableBinaryDictionary getSubDict(final String dictType,
             final Context context, final Locale locale, final File dictFile,
             final String dictNamePrefix, @Nullable final String account) {
-        final Class<? extends ExpandableBinaryDictionary> dictClass =
-                DICT_TYPE_TO_CLASS.get(dictType);
+        final Class<? extends ExpandableBinaryDictionary> dictClass = DICT_TYPE_TO_CLASS.get(dictType);
         if (dictClass == null) {
+            Log.e(TAG, "Cannot create dictionary: no class for " + dictType);
             return null;
         }
         try {
             final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
                     DICT_FACTORY_METHOD_ARG_TYPES);
-            final Object dict = factoryMethod.invoke(null /* obj */,
-                    context, locale, dictFile, dictNamePrefix, account);
+            final Object dict = factoryMethod.invoke(null, context, locale, dictFile, dictNamePrefix, account);
             return (ExpandableBinaryDictionary) dict;
         } catch (final NoSuchMethodException | SecurityException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException e) {
@@ -356,15 +355,14 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // TODO: Make subDictTypesToUse configurable by resource or a static final list.
         final HashSet<String> subDictTypesToUse = new HashSet<>();
         subDictTypesToUse.add(Dictionary.TYPE_USER);
-        final List<Locale> allLocales = new ArrayList<Locale>() {{
+        final List<Locale> allLocales = new ArrayList<>() {{
             add(newLocale);
             addAll(Settings.getInstance().getCurrent().mSecondaryLocales);
         }};
 
         // Do not use contacts dictionary if we do not have permissions to read contacts.
-        final boolean contactsPermissionGranted = PermissionsUtil.checkAllPermissionsGranted(
-                context, Manifest.permission.READ_CONTACTS);
-        if (useContactsDict && contactsPermissionGranted) {
+        if (useContactsDict
+                && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS)) {
             subDictTypesToUse.add(Dictionary.TYPE_CONTACTS);
         }
         if (usePersonalizedDicts) {
@@ -411,7 +409,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 if (noExistingDictsForThisLocale || forceReloadMainDictionary
                         || !oldDictionaryGroupForLocale.hasDict(subDictType, account)) {
                     // Create a new dictionary.
-                    subDict = getSubDict(subDictType, context, locale, null /* dictFile */, dictNamePrefix, account);
+                    subDict = getSubDict(subDictType, context, locale, null, dictNamePrefix, account);
+                    if (subDict == null) continue; // https://github.com/Helium314/openboard/issues/293
                 } else {
                     // Reuse the existing dictionary, and don't close it at the end
                     subDict = oldDictionaryGroupForLocale.getSubDict(subDictType);
@@ -528,18 +527,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         for (final String dictType : dictionaryTypes) {
             if (dictType.equals(Dictionary.TYPE_MAIN)) {
-                mainDictionary = DictionaryFactory.createMainDictionaryFromManager(context,
-                        locale);
+                mainDictionary = DictionaryFactory.createMainDictionaryFromManager(context, locale);
             } else {
                 final File dictFile = dictionaryFiles.get(dictType);
                 final ExpandableBinaryDictionary dict = getSubDict(
-                        dictType, context, locale, dictFile, "" /* dictNamePrefix */, account);
+                        dictType, context, locale, dictFile, "", account);
                 if (dict == null) {
                     throw new RuntimeException("Unknown dictionary type: " + dictType);
                 }
                 if (additionalDictAttributes.containsKey(dictType)) {
-                    dict.clearAndFlushDictionaryWithAdditionalAttributes(
-                            additionalDictAttributes.get(dictType));
+                    dict.clearAndFlushDictionaryWithAdditionalAttributes(additionalDictAttributes.get(dictType));
                 }
                 dict.reloadDictionaryIfRequired();
                 dict.waitAllTasksForTests();
