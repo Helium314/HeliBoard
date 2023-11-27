@@ -495,7 +495,9 @@ public final class Suggest {
                         Locale.ROOT, "%d (%4.2f), %s", cur.mScore, normalizedScore,
                         cur.mSourceDict.mDictType + ":" + cur.mSourceDict.mLocale);
             } else {
-                scoreInfoString = Integer.toString(cur.mScore);
+                scoreInfoString = String.format(
+                        Locale.ROOT, "%d, %s", cur.mScore,
+                        cur.mSourceDict.mDictType + ":" + cur.mSourceDict.mLocale);
             }
             cur.setDebugString(scoreInfoString);
             suggestionsList.add(cur);

@@ -890,13 +890,18 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                             weightForLocale, weightOfLangModelVsSpatialModel);
             if (null == dictionarySuggestions) continue;
 
-            // don't add blacklisted words
-            // this may not be the most efficient way, but getting suggestions is much slower anyway
+            // for some reason, garbage words are produced when glide typing
+            // for user history and main dictionary we can filter them out by checking whether the
+            // dictionary actually contains the word
+            // but personal dictionary and addon dictionaries may contain shortcuts, which do not
+            // pass an isInDictionary check (e.g. emojis)
+            // (if the main dict contains shortcuts to non-words, this will break)
+            final boolean checkForGarbage = composedData.mIsBatchMode && (dictType.equals(Dictionary.TYPE_USER_HISTORY) || dictType.equals(Dictionary.TYPE_MAIN));
             for (SuggestedWordInfo info : dictionarySuggestions) {
-                if (!isBlacklisted(info.getWord())) {
-                    // for some reason, user history produces garbage words in batch mode
-                    // this also happens for other dictionaries, but for those the score usually is much lower, so they are less visible
-                    if (composedData.mIsBatchMode && dictType.equals(Dictionary.TYPE_USER_HISTORY) && !dictionary.isInDictionary(info.getWord()))
+                if (!isBlacklisted(info.getWord())) { // don't add blacklisted words
+                    if (checkForGarbage
+                            && info.mSourceDict.mDictType.equals(dictType) // to only check history and "main main dictionary", and not addons like emoji
+                            && !dictionary.isInDictionary(info.getWord()))
                         continue;
                     suggestions.add(info);
                 }
