@@ -223,7 +223,7 @@ def get_morekeys_texts(write=False):
             script = "Latn"
         if script is None:
             raise ValueError("undefined script")
-        if script == "Latn":
+        if script != "Latn":
             continue  # skip non-latin scripts for now
         print(file)
         keys = read_keys(f"{file}/donottranslate-more-keys.xml")
@@ -249,15 +249,16 @@ def write_combined_lists(keys):
                     continue
                 infos[l] = infos.get(l, 0) + 1
             infos_by_letters[k] = infos
-    with open(out_folder + "all_more_keys.txt", 'w') as f:
+    with open(out_folder / "all_more_keys.txt", 'w') as f:
         f.write("[morekeys]\n")
         for letter, info in infos_by_letters.items():
-            f.write(letter + " " + " ".join(info.keys()) + "\n")
-    with open(out_folder + "more_more_keys.txt", 'w') as f:
+            sorted_info = dict(sorted(info.items(), key=lambda item: item[1], reverse=True))
+            f.write(letter + " " + " ".join(sorted_info.keys()) + "\n")
+    with open(out_folder / "more_more_keys.txt", 'w') as f:
         f.write("[morekeys]\n")
         for letter, info in infos_by_letters.items():
             morekeys = []
-            for morekey, count in info.items():
+            for morekey, count in sorted(info.items(), key=lambda item: item[1], reverse=True):
                 if count > 1:
                     morekeys.append(morekey)
             if len(morekeys) > 0:
@@ -267,8 +268,8 @@ def write_combined_lists(keys):
 def main():
 #    k = read_keys(default_file)
 #    write_keys(pathlib.Path(__file__).parent / f"defaultkeys.txt", k)
-    keys = get_morekeys_texts(True)
-#    write_combined_lists(keys)
+    keys = get_morekeys_texts(False)
+    write_combined_lists(keys)
 
 
 # need to check strings:
