@@ -1,0 +1,6 @@
+[labels]
+alphabet: कखग
+symbol: ?१२३
+
+[number_row]
+१ २ ३ ४ ५ ६ ७ ८ ९ ०

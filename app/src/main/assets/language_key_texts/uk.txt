@@ -1,0 +1,8 @@
+[morekeys]
+г ґ
+ь ъ
+' ’ ‚ ‘
+" ” „ “
+
+[labels]
+alphabet: АБВ

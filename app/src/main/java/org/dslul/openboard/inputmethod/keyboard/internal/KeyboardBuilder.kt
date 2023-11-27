@@ -52,12 +52,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mId = id
         addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
         try {
-            val parser = KeyboardParser.createParserForLayout(mParams, mContext) ?: return null
-            Log.d(TAG, "parsing $id using ${parser::class.simpleName}")
-            keysInRows = parser.parseLayoutFromAssets(id.mSubtype.keyboardLayoutSetName)
+            keysInRows = KeyboardParser.parseFromAssets(mParams, mContext) ?: return null
         } catch (e: Throwable) {
             if (DebugFlags.DEBUG_ENABLED || BuildConfig.DEBUG)
-                Toast.makeText(mContext, "error loading keyboard: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(mContext, "error parsing keyboard: ${e.message}", Toast.LENGTH_LONG).show()
             Log.e(TAG, "loading $id from assets failed", e)
             return null
         }
@@ -65,8 +63,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  migrate symbol layouts to this style
-        //   simplified if possible, but json should be fine too
+        //  add option for number row (latin first vs locale numbers first
+        //   show only if number row enabled
+        //  release next version before continuing
+        //  migrate other languages to this style
+        //   may be tricky in some cases, like additional row, or no shift key, or pc qwerty layout
+        //   also the integrated number row might cause issues, and should be removed / ignored
+        //   at least some of these layouts will need more complicated definition
+        //   test the zwnj key
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser, or do it with compatible jsons
         //  allow users to define their own layouts (maybe migrate other layouts first?)
@@ -105,12 +109,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   write another parser, it should already consider split
         //  migrate moreKeys and moreSuggestions to this style?
         //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
-        //  migrate other languages to this style
-        //   may be difficult in some cases, like additional row, or no shift key, or pc qwerty layout
-        //   also the (integrated) number row might cause issues
-        //   at least some of these layouts will need more complicated definition, not just a simple text file
-        //   some languages also change symbol view, e.g. fa changes symbols row 3
-        //   add more layouts before doing this? or just keep the layout conversion script
+        //  remove the old parser
+        //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
+        //   also the eo check could then be removed
+        //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
+        //    should be either both in method.xml, or both in assets (actually method might be more suitable)
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
@@ -145,7 +148,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing
-            && id.isAlphabetKeyboard
             && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
         ) {
             if (loadFromAssets(id) != null)

@@ -1,0 +1,10 @@
+[morekeys]
+punctuation !fixedColumnOrder!7  ٕ|ٕ  ْ|ْ  ّ|ّ  ٌ|ٌ  ٍ|ٍ  ً|ً  ٔ|ٔ  ٖ|ٖ  ٰ|ٰ  ٓ|ٓ  ُ|ُ  ِ|ِ  َ|َ ـــ|ـ
+
+[labels]
+alphabet: ا‌ب‌پ
+symbol: ۳۲۱؟
+comma: ،
+
+[number_row]
+۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۰

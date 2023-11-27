@@ -1,0 +1,6 @@
+[morekeys]
+' ’ ‚ ‘
+" ” „ “
+
+[labels]
+alphabet: აბგ

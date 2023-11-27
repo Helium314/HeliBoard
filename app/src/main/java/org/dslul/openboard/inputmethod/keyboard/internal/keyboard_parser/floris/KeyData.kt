@@ -11,6 +11,7 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.rtlLabel
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
 
 // taken from FlorisBoard, small modifications
@@ -113,7 +114,7 @@ interface KeyData : AbstractKeyData {
             // code will be determined from label if possible (i.e. label is single code point)
             // but also longer labels should work without issues, also for MultiTextKeyData
             KeyParams(
-                label, // todo (when supported): convert special labels to keySpec
+                label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
                 params,
                 width,
                 labelFlags, // todo (non-latin): label flags... maybe relevant for some languages
@@ -123,7 +124,7 @@ interface KeyData : AbstractKeyData {
         } else {
             KeyParams(
                 label.ifEmpty { StringUtils.newSingleCodePointString(code) },
-                code, // todo (when supported): convert codes < 0
+                code, // todo (when supported): convert codes < 0, because florisboard layouts should still be usable
                 params,
                 width,
                 labelFlags,

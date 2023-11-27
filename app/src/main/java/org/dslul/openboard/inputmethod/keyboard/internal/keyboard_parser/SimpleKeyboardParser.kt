@@ -16,7 +16,7 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
     private val addExtraKeys =
-        params.mId.locale.language != "eo"
+        params.mId.isAlphabetKeyboard && params.mId.locale.language != "eo"
             && params.mId.mSubtype.keyboardLayoutSetName in listOf("nordic", "spanish", "german", "swiss", "serbian_qwertz")
 
     override fun getLayoutFromAssets(layoutName: String) =

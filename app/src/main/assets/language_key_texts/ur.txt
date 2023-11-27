@@ -1,0 +1,11 @@
+[morekeys]
+punctuation ؟ ، ! . -
+
+[labels]
+alphabet: اب‌پ
+comma: ،
+symbol: ۳۲۱؟
+period: ۔
+
+[number_row]
+۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۰

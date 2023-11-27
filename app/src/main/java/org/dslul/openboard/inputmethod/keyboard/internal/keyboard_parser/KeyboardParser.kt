@@ -2,7 +2,9 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Resources
+import android.util.Log
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
@@ -12,9 +14,12 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
+import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 
 /**
@@ -29,6 +34,9 @@ import org.dslul.openboard.inputmethod.latin.utils.sumOf
  * Currently the number, phone and numpad layouts are not compatible with this parser.
  */
 abstract class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
+    private val defaultLabelFlags = if (!params.mId.isAlphabetKeyboard)
+            Key.LABEL_FLAGS_DISABLE_HINT_LABEL // reproduce the no-hints in symbol layouts, todo: add setting
+        else 0
 
     protected abstract fun getLayoutFromAssets(layoutName: String): String
 
@@ -42,9 +50,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
 
         val baseKeys: MutableList<List<KeyData>> = parseCoreLayout(layoutContent)
-        if (!params.mId.mNumberRowEnabled) {
-            // todo (non-latin): not all layouts have numbers on first row, so maybe have some layout flag to switch it off (or an option)
-            ((1..9) + 0).forEachIndexed { i, n -> baseKeys.first().getOrNull(i)?.popup?.number = n }
+        if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
+            // replace first symbols row with number row
+            baseKeys[0] = params.mLocaleKeyTexts.getNumberRow()
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard) {
+            // add number to the first 10 keys in first row
+            // setting the correct moreKeys is handled in PopupSet
+            baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
         }
         val functionalKeysReversed = parseFunctionalKeys().reversed()
 
@@ -62,7 +74,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             }
             // parse functional keys for this row (if any)
             val functionalKeysDefs = if (i < functionalKeysReversed.size) functionalKeysReversed[i]
-            else emptyList<String>() to emptyList()
+                else emptyList<String>() to emptyList()
             val functionalKeysLeft = functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
             val functionalKeysRight = functionalKeysDefs.second.map { getFunctionalKeyParams(it) }
             val paramsRow = ArrayList<KeyParams>(functionalKeysLeft)
@@ -98,7 +110,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             for (key in row) {
                 // todo: maybe autoScale / autoXScale if label has more than 2 characters (exception for emojis?)
                 //  but that could also be determined in toKeyParams
-                val keyParams = key.compute(params)?.toKeyParams(params, keyWidth) ?: continue
+                val keyParams = key.compute(params)?.toKeyParams(params, keyWidth, defaultLabelFlags) ?: continue
                 paramsRow.add(keyParams)
             }
             if (spacerWidth != 0f) {
@@ -165,7 +177,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             else -> 2 // must be alphabet, parser doesn't work for other elementIds
         }
         val adjustedKeys = if (baseKeys.last().size == adjustableKeyCount) baseKeys.last()
-        else null
+            else null
         if (adjustedKeys != null)
             baseKeys.removeLast()
         val bottomRow = ArrayList<KeyParams>()
@@ -185,25 +197,25 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         adjustedKeys?.get(1)?.label ?: "/",
                         params,
                         params.mDefaultRelativeKeyWidth,
-                        0,
+                        defaultLabelFlags,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
                         adjustedKeys?.get(1)?.popup?.toMoreKeys(params)
                     ))
                 } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
                     bottomRow.add(KeyParams(
-                        adjustedKeys?.get(1)?.label ?: "<",
+                        (adjustedKeys?.get(1)?.label ?: "<").rtlLabel(params),
                         params,
                         params.mDefaultRelativeKeyWidth,
-                        0,
+                        defaultLabelFlags,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
                         adjustedKeys?.get(1)?.popup?.toMoreKeys(params)
                     ))
                     bottomRow.add(keyParams)
                     bottomRow.add(KeyParams(
-                        adjustedKeys?.get(2)?.label ?: ">",
+                        (adjustedKeys?.get(2)?.label ?: ">").rtlLabel(params),
                         params,
                         params.mDefaultRelativeKeyWidth,
-                        0,
+                        defaultLabelFlags,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
                         adjustedKeys?.get(2)?.popup?.toMoreKeys(params)
                     ))
@@ -214,7 +226,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         bottomRow.add(getFunctionalKeyParams(FunctionalKey.EMOJI))
                     bottomRow.add(keyParams)
                     if (params.mId.locale.language in languagesThatNeedZwnjKey)
-                        bottomRow.add(getFunctionalKeyParams(FunctionalKey.ZWNJ)) // todo (non-latin): test it
+                        bottomRow.add(getFunctionalKeyParams(FunctionalKey.ZWNJ))
                 }
             } else {
                 bottomRow.add(keyParams)
@@ -226,20 +238,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return bottomRow
     }
 
-    private fun getNumberRow(): ArrayList<KeyParams> {
-        val row = ArrayList<KeyParams>()
-        ((1..9) + 0).forEachIndexed { i, n ->
-            row.add(KeyParams(
-                    n.toString(), // todo (non-latin): use language more keys to adjust, possibly in combination with some setting
-                    params,
-                    params.mDefaultRelativeKeyWidth,
-                    Key.LABEL_FLAGS_DISABLE_HINT_LABEL, // todo (later): maybe optional or enable (but then all numbers should have moreKeys)
-                    Key.BACKGROUND_TYPE_NORMAL,
-                    numbersMoreKeys[i] // todo (non-latin): alternative numbers should be in language more keys, which to put where needs to be decided
-            ))
+    private fun getNumberRow(): ArrayList<KeyParams> =
+        params.mLocaleKeyTexts.getNumberRow().mapTo(ArrayList()) {
+            it.toKeyParams(params, labelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
         }
-        return row
-    }
 
     private fun getFunctionalKeyParams(def: String, label: String? = null, moreKeys: Array<String>? = null): KeyParams {
         val split = def.trim().splitOnWhitespace()
@@ -254,7 +256,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val width = relativeWidth ?: params.mDefaultRelativeKeyWidth
         return when (key) {
             FunctionalKey.SYMBOL -> KeyParams(
-                "${getSymbolLabel()}|!code/key_switch_alpha_symbol", // todo (later): in numpad the code is key_symbolNumpad
+                getToSymbolLabel(),
+                getToSymbolCode(),
+                params,
+                width,
+                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
+                Key.BACKGROUND_TYPE_FUNCTIONAL,
+                null
+            )
+            FunctionalKey.ALPHA -> KeyParams(
+                params.mLocaleKeyTexts.labelAlphabet,
+                getToAlphaCode(),
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
@@ -262,14 +274,22 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 null
             )
             FunctionalKey.COMMA -> KeyParams(
-                label ?: getDefaultCommaLabel(),
+                label ?: getCommaLabel(),
                 params,
                 width,
                 Key.LABEL_FLAGS_HAS_POPUP_HINT, // previously only if normal comma, but always is more correct
-                if (label?.first()
-                        ?.isLetter() == true
-                ) Key.BACKGROUND_TYPE_NORMAL else Key.BACKGROUND_TYPE_FUNCTIONAL,
+                if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL // mimic behavior of old dvorak and halmak layouts
+                    else Key.BACKGROUND_TYPE_FUNCTIONAL,
                 moreKeys?.let { getCommaMoreKeys() + it } ?: getCommaMoreKeys()
+            )
+            FunctionalKey.PERIOD -> KeyParams(
+                label ?: params.mLocaleKeyTexts.labelPeriod,
+                params,
+                width,
+                Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT or defaultLabelFlags, // todo (later): check what LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT does, maybe remove the flag here
+                if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL
+                    else Key.BACKGROUND_TYPE_FUNCTIONAL,
+                moreKeys?.let { getPunctuationMoreKeys() + it } ?: getPunctuationMoreKeys()
             )
             FunctionalKey.SPACE -> KeyParams(
                 "!icon/space_key|!code/key_space", // !icon/space_key_for_number_layout in number layout, but not on tablet
@@ -278,16 +298,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 0, // todo (later): alignIconToBottom for non-tablet number layout
                 Key.BACKGROUND_TYPE_SPACEBAR,
                 null
-            )
-            FunctionalKey.PERIOD -> KeyParams(
-                label ?: ".",
-                params,
-                width,
-                Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT, // todo (later): check what LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT does, maybe remove the flag here
-                if (label?.first()
-                        ?.isLetter() == true
-                ) Key.BACKGROUND_TYPE_NORMAL else Key.BACKGROUND_TYPE_FUNCTIONAL,
-                moreKeys?.let { getPunctuationMoreKeys() + it } ?: getPunctuationMoreKeys()
             )
             FunctionalKey.ACTION -> KeyParams(
                 "${getActionKeyLabel()}|${getActionKeyCode()}",
@@ -345,14 +355,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 params,
                 width,
                 0,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.ALPHA -> KeyParams(
-                "${getAlphabetLabel()}|!code/key_switch_alpha_symbol", // todo (later): in numpad the code is key_alphaNumpad
-                params,
-                width,
-                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
                 Key.BACKGROUND_TYPE_FUNCTIONAL,
                 null
             )
@@ -460,34 +462,51 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     private fun String.replaceIconWithLabelIfNoDrawable(): String {
         if (params.mIconsSet.getIconDrawable(KeyboardIconsSet.getIconId(this)) != null) return this
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
+        if (id == 0) {
+            Log.w(this::class.simpleName, "no resource for label $this")
+            if (DebugFlags.DEBUG_ENABLED)
+                Toast.makeText(context, "no resource for label $this", Toast.LENGTH_LONG).show()
+            return this
+        }
         val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?
             override fun job(res: Resources) = res.getString(id)
         }
         return ril.runInLocale(context.resources, params.mId.locale)
     }
 
-    private fun getAlphabetLabel() = params.mLocaleKeyTexts.labelAlphabet
+    private fun getToSymbolLabel() =
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+            params.mLocaleKeyTexts.labelAlphabet
+        else params.mLocaleKeyTexts.labelSymbol
 
-    private fun getSymbolLabel() = params.mLocaleKeyTexts.labelSymbols
+    private fun getToSymbolCode() =
+        if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD)
+            Constants.CODE_SYMBOL_FROM_NUMPAD
+        else Constants.CODE_SWITCH_ALPHA_SYMBOL
+
+    private fun getToAlphaCode() =
+        if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD)
+            Constants.CODE_ALPHA_FROM_NUMPAD
+        else Constants.CODE_SWITCH_ALPHA_SYMBOL
 
     private fun getShiftLabel(): String {
         val elementId = params.mId.mElementId
         if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            return params.mLocaleKeyTexts.labelShiftSymbols
+            return params.mLocaleKeyTexts.labelSymbol
         if (elementId == KeyboardId.ELEMENT_SYMBOLS)
-            return getSymbolLabel()
+            return params.mLocaleKeyTexts.labelShiftSymbol
         if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
             || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
             return "!icon/shift_key_shifted"
         return "!icon/shift_key"
     }
 
-    private fun getDefaultCommaLabel(): String {
+    private fun getCommaLabel(): String {
         if (params.mId.mMode == KeyboardId.MODE_URL)
             return "/"
         if (params.mId.mMode == KeyboardId.MODE_EMAIL)
             return "\\@"
-        return ","
+        return params.mLocaleKeyTexts.labelComma
     }
 
     private fun getCommaMoreKeys(): Array<String> {
@@ -509,8 +528,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
         val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
-        // todo: some (non-latin) languages have different parenthesis keys (maybe rtl has inverted?)
-        arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+            arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
         if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
             // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
             // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
@@ -524,19 +542,26 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     companion object {
-        fun createParserForLayout(params: KeyboardParams, context: Context): KeyboardParser? {
+        fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>>? {
+            val id = params.mId
             val layoutName = params.mId.mSubtype.keyboardLayoutSetName
             val layoutFileNames = context.assets.list("layouts") ?: return null
-            if (layoutFileNames.contains("$layoutName.json"))
-                return JsonKeyboardParser(params, context)
-            val simpleLayoutName = getSimpleLayoutName(layoutName)
-            if (layoutFileNames.contains("$simpleLayoutName.txt"))
-                return SimpleKeyboardParser(params, context)
-            return null
+            return when {
+                id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC
+                    -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_arabic")
+                id.mElementId == KeyboardId.ELEMENT_SYMBOLS -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols")
+                id.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED
+                    -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_shifted")
+                !id.isAlphabetKeyboard -> null
+                layoutFileNames.contains("$layoutName.json") -> JsonKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
+                layoutFileNames.contains("${getSimpleLayoutName(layoutName)}.txt")
+                    -> SimpleKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
+                else -> null
+            }
         }
 
         @JvmStatic // unsupported without JvmStatic
-        protected fun getSimpleLayoutName(layoutName: String)= when (layoutName) {
+        protected fun getSimpleLayoutName(layoutName: String) = when (layoutName) {
                 "swiss", "german", "serbian_qwertz" -> "qwertz"
                 "nordic", "spanish" -> "qwerty"
                 else -> layoutName
@@ -548,20 +573,29 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
 }
-// moreKeys for numbers, order is 1-9 and then 0
-// todo (later): like numbers, for non-latin layouts this depends on language and therefore should not be in the parser
-private val numbersMoreKeys = arrayOf(
-    arrayOf("¹", "½", "⅓","¼", "⅛"),
-    arrayOf("²", "⅔"),
-    arrayOf("³", "¾", "⅜"),
-    arrayOf("⁴"),
-    arrayOf("⅝"),
-    null,
-    arrayOf("⅞"),
-    null,
-    null,
-    arrayOf("ⁿ", "∅"),
-)
+
+fun String.rtlLabel(params: KeyboardParams): String {
+    if (!params.mId.mSubtype.isRtlSubtype) return this
+    return when (this) {
+        "{" -> "{|}"
+        "}" -> "}|{"
+        "(" -> "(|)"
+        ")" -> ")|("
+        "[" -> "{|]"
+        "]" -> "]|["
+        "<" -> "<|>"
+        ">" -> ">|<"
+        "≤" -> "≤|≥"
+        "≥" -> "≥|≤"
+        "«" -> "«|»"
+        "»" -> "»|«"
+        "‹" -> "‹|›"
+        "›" -> "›|‹"
+        "﴾" -> "﴾|﴿"
+        "﴿" -> "﴿|﴾"
+        else -> this
+    }
+}
 
 // could make arrays right away, but they need to be copied anyway as moreKeys arrays are modified when creating KeyParams
 private const val MORE_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"

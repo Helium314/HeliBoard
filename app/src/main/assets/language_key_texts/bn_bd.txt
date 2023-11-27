@@ -1,0 +1,10 @@
+[morekeys]
+punctuation !autoColumnOrder!8 \, ॥ ? ! !icon/zwnj_key|\u200C !icon/zwj_key|\u200D # @ ( ) / ; : - + \%
+
+[labels]
+alphabet: কখগ
+symbol: ?১২৩
+period: ।
+
+[number_row]
+১ ২ ৩ ৪ ৫ ৬ ৭ ৮ ৯ ০

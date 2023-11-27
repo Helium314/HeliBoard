@@ -8,13 +8,12 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import org.dslul.openboard.inputmethod.keyboard.Key
-import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 
 // taken from FlorisBoard, small modifications (see also KeyData)
 //  internal keys removed (currently no plan to support them)
 //  added String.toTextKey
+//  currency key handling (see todo below...)
 /**
  * Data class which describes a single key and its attributes.
  *
@@ -41,6 +40,12 @@ class TextKeyData(
 //                TextKeyData(type, data.code, data.label, groupId, popup).compute(params)
 //            }
 //        }
+        if (label.startsWith("$$$")) { // currency key
+            if (label == "$$$") return params.mLocaleKeyTexts.currencyKey.let { it.first.toTextKey(it.second.toList()) }
+            val n = label.substringAfter("$$$").toIntOrNull()
+            if (n != null && n <= 4)
+                return params.mLocaleKeyTexts.currencyKey.second[n - 1].toTextKey()
+        }
         return this
     }
 

@@ -1,0 +1,7 @@
+[morekeys]
+' ‘ ’ ‚
+" “ ” „
++ ﬩
+
+[labels]
+alphabet: אבג

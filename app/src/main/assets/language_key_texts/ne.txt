@@ -1,0 +1,10 @@
+[morekeys]
+punctuation !autoColumnOrder!9 . \, ? ! # ) ( / ; ' @ : - " + \% &
+
+[labels]
+alphabet: कखग
+symbol: ?१२३
+period: ।
+
+[number_row]
+१ २ ३ ४ ५ ६ ७ ८ ९ ०

@@ -11,12 +11,34 @@ import java.io.InputStream
 import java.util.Locale
 import kotlin.math.round
 
-class LocaleKeyTexts(dataStream: InputStream?) {
+class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
     private val moreKeys = hashMapOf<String, Array<String>>()
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
-    var labelSymbols = "\\?123"
+    var labelSymbol = "\\?123"
+        private set
     var labelAlphabet = "ABC"
-    var labelShiftSymbols = "=\\<"
+        private set
+    var labelShiftSymbol = "= \\\\ <"
+        private set
+    var labelComma = ","
+        private set
+    var labelPeriod = "."
+        private set
+    val currencyKey = getCurrencyKey(locale)
+    private var numberKeys = ((1..9) + 0).map { it.toString() }
+    private val numbersMoreKeys = arrayOf(
+        mutableListOf("¹", "½", "⅓","¼", "⅛"),
+        mutableListOf("²", "⅔"),
+        mutableListOf("³", "¾", "⅜"),
+        mutableListOf("⁴"),
+        mutableListOf("⅝"),
+        mutableListOf(),
+        mutableListOf("⅞"),
+        mutableListOf(),
+        mutableListOf(),
+        mutableListOf("ⁿ", "∅"),
+    )
+
     init {
         readStream(dataStream, false)
         // set default quote moreKeys if necessary
@@ -42,11 +64,13 @@ class LocaleKeyTexts(dataStream: InputStream?) {
                     "[morekeys]" -> { mode = READER_MODE_MORE_KEYS; return@forEachLine }
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
                     "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
+                    "[number_row]" -> { mode = READER_MODE_NUMBER_ROW; return@forEachLine }
                 }
                 when (mode) {
                     READER_MODE_MORE_KEYS -> addMoreKeys(line.splitOnWhitespace())
                     READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 2))
+                    READER_MODE_NUMBER_ROW -> if (!onlyMoreKeys) setNumberRow(line.splitOnWhitespace())
                 }
             }
         }
@@ -55,6 +79,7 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     // need tp provide a copy because some functions like MoreKeySpec.insertAdditionalMoreKeys may modify the array
     fun getMoreKeys(label: String): Array<String>? = moreKeys[label]?.copyOf()
 
+    // used by simple parser only, but could be possible for json as well (if necessary)
     fun getExtraKeys(row: Int): List<KeyData>? =
         if (row > extraKeys.size) null
             else extraKeys[row]
@@ -84,10 +109,32 @@ class LocaleKeyTexts(dataStream: InputStream?) {
     private fun addLabel(split: List<String>) {
         if (split.size < 2) return
         when (split.first()) {
-            "symbols" -> labelSymbols = split.last()
+            "symbol" -> labelSymbol = split.last()
             "alphabet" -> labelAlphabet = split.last()
-            "shift_symbols" -> labelShiftSymbols = split.last()
+            "shift_symbol" -> labelShiftSymbol = split.last() // never used, but could be...
+            "comma" -> labelComma = split.last()
+            "period" -> labelPeriod = split.last()
         }
+    }
+
+    // set number row only, does not affect moreKeys
+    // setting more than 10 number keys will cause crashes, but could actually be implemented at some point
+    private fun setNumberRow(split: List<String>) {
+        if (numberKeys == split) return
+        numberKeys.forEachIndexed { i, n -> numbersMoreKeys[i].add(0, n) }
+        numberKeys = split
+    }
+
+    // get number row including moreKeys
+    fun getNumberRow(): List<KeyData> =
+        numberKeys.mapIndexed { i, label ->
+            label.toTextKey(numbersMoreKeys[i])
+        }
+
+    // get moreKeys with the number itself (as used on alphabet keyboards)
+    fun getNumberMoreKeys(numberIndex: Int?): List<String> {
+        if (numberIndex == null) return emptyList()
+        return listOf(numberKeys[numberIndex]) + numbersMoreKeys[numberIndex]
     }
 }
 
@@ -141,7 +188,7 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, moreKeys
 }
 
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreKeysSetting: Int): LocaleKeyTexts {
-    val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context))
+    val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     if (moreKeysSetting == MORE_KEYS_MORE)
         lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_more_keys.txt"))
     else if (moreKeysSetting == MORE_KEYS_ALL)
@@ -174,16 +221,17 @@ private const val READER_MODE_NONE = 0
 private const val READER_MODE_MORE_KEYS = 1
 private const val READER_MODE_EXTRA_KEYS = 2
 private const val READER_MODE_LABELS = 3
+private const val READER_MODE_NUMBER_ROW = 4
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
-fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
+private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
     if (locale.country.matches(euroCountries))
         return euro
     if (locale.toString().matches(euroLocales))
         return euro
     if (locale.language.matches("ca|eu|lb|mt".toRegex()))
         return euro
-    if (locale.language.matches("fa|iw|ko|lo|mn|ne|th|uk|vi".toRegex()))
+    if (locale.language.matches("fa|iw|ko|lo|mn|ne|si|th|uk|vi|km".toRegex()))
         return genericCurrencyKey(getCurrency(locale))
     if (locale.language == "hy")
         return dram
@@ -193,6 +241,8 @@ fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
         return ruble
     if (locale.country == "LK" || locale.country == "BD")
         return genericCurrencyKey(getCurrency(locale))
+    if (locale.country == "IN" && locale.language == "ta")
+        return genericCurrencyKey("௹")
     if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te".toRegex()))
         return rupee
     if (locale.country == "GB")
@@ -217,6 +267,7 @@ private fun getCurrency(locale: Locale): String {
         "th" -> "฿"
         "uk" -> "₴"
         "vi" -> "₫"
+        "km" -> "៛"
         else -> "$"
     }
 }
