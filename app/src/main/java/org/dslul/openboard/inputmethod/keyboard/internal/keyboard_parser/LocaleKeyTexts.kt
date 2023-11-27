@@ -7,6 +7,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.InputStream
 import java.util.Locale
 import kotlin.math.round
@@ -70,7 +71,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
                     READER_MODE_MORE_KEYS -> addMoreKeys(line.splitOnWhitespace())
                     READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 2))
-                    READER_MODE_NUMBER_ROW -> if (!onlyMoreKeys) setNumberRow(line.splitOnWhitespace())
+                    READER_MODE_NUMBER_ROW -> setNumberRow(line.splitOnWhitespace(), onlyMoreKeys)
                 }
             }
         }
@@ -119,10 +120,21 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 
     // set number row only, does not affect moreKeys
     // setting more than 10 number keys will cause crashes, but could actually be implemented at some point
-    private fun setNumberRow(split: List<String>) {
-        if (numberKeys == split) return
-        numberKeys.forEachIndexed { i, n -> numbersMoreKeys[i].add(0, n) }
-        numberKeys = split
+    private fun setNumberRow(split: List<String>, onlyAddToMoreKeys: Boolean) {
+        if (onlyAddToMoreKeys) {
+            // as of now this should never be used, but better have it
+            numberKeys.forEachIndexed { i, n ->
+                if (numberKeys[i] != n && n !in numbersMoreKeys[i])
+                    numbersMoreKeys[i].add(0, n)
+            }
+            return
+        }
+        if (Settings.getInstance().current.mLocalizedNumberRow) {
+            numberKeys.forEachIndexed { i, n -> numbersMoreKeys[i].add(0, n) }
+            numberKeys = split
+        } else {
+            split.forEachIndexed { i, n -> numbersMoreKeys[i].add(0, n) }
+        }
     }
 
     // get number row including moreKeys

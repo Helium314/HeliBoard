@@ -63,17 +63,33 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  add option for number row (latin first vs locale numbers first
-        //   show only if number row enabled
-        //  release next version before continuing
-        //  migrate other languages to this style
+        //  release next version before continuing, testing current state for a while is likely necessary
+        //  migrate other languages/layouts to this style
         //   may be tricky in some cases, like additional row, or no shift key, or pc qwerty layout
         //   also the integrated number row might cause issues, and should be removed / ignored
         //   at least some of these layouts will need more complicated definition
         //   test the zwnj key
+        //   label flags: some should be set by keyboard, not by row/letter
+        //    e.g. arabic looks weird with number row in holo being bold, but all other letters normal
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser, or do it with compatible jsons
-        //  allow users to define their own layouts (maybe migrate other layouts first?)
+        //  make the remove duplicate moreKey thing an option?
+        //   why is it on for serbian (latin), but not for german (german)?
+        //   only nordic and serbian_qwertz layouts have it disabled, default is enabled
+        //   -> add the option, but disable it by default for all layouts
+        //  migrate emoji layouts to this style
+        //   emojis are defined in that string array, should be simple to handle
+        //   parsing could be done into a single row, which is then split as needed
+        //    this might help with split layout (no change in key size, but in number of rows)
+        //   write another parser, it should already consider split
+        //  migrate moreKeys and moreSuggestions to this style?
+        //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
+        //  remove the old parser
+        //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
+        //   also the eo check could then be removed
+        //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
+        //    should be either both in method.xml, or both in assets (actually method might be more suitable)
+        //  allow users to define their own layouts (maybe do everything else first?)
         //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
         //    readme, maybe also some "help" button in a dialog
@@ -96,24 +112,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
         //   does glide typing work with multiple letters on one key? if not, users should be notified
         //   maybe allow users to define their own symbol and shift-symbol layouts
-        //  allow users to import layouts, which essentially just fills the text from a file
-        //   can be json too, but need to have a (close to) final definition first
-        //  make the remove duplicate moreKey thing an option?
-        //   why is it on for serbian (latin), but not for german (german)?
-        //   only nordic and serbian_qwertz layouts have it disabled, default is enabled
-        //   -> add the option, but disable it by default for all layouts
-        //  migrate emoji layouts to this style
-        //   emojis are defined in that string array, should be simple to handle
-        //   parsing could be done into a single row, which is then split as needed
-        //    this might help with split layout (no change in key size, but in number of rows)
-        //   write another parser, it should already consider split
-        //  migrate moreKeys and moreSuggestions to this style?
-        //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
-        //  remove the old parser
-        //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
-        //   also the eo check could then be removed
-        //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
-        //    should be either both in method.xml, or both in assets (actually method might be more suitable)
+        //   allow users to import layouts, which essentially just fills the text from a file
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...

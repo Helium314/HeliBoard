@@ -230,6 +230,10 @@
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
     <string name="number_row_summary">Always show number row</string>
+    <!-- Title of the settings to localize number row -->
+    <string name="localized_number_row">Localize number row</string>
+    <!-- Description of the settings to localize number row -->
+    <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
     <!-- Title of the settings to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
