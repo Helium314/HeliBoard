@@ -33,18 +33,18 @@ open class PopupSet<T : AbstractKeyData>(
         val moreKeys = mutableListOf<String>()
         // number + main + relevant in this order (label is later taken from first element in resulting array)
         moreKeys.addAll(params.mLocaleKeyTexts.getNumberMoreKeys(numberIndex))
-        main?.getLabel(params)?.let { moreKeys.add(it) }
-        moreKeys.addAll(relevant.map {
-            val label = it.getLabel(params)
-            if (label == "$$$") { // currency key
-                if (params.mId.passwordInput()) "$"
-                else params.mLocaleKeyTexts.currencyKey.first
-            } else if (params.mId.mSubtype.isRtlSubtype) {
-                label.rtlLabel(params)
-            } else label
-        })
+        main?.getLabel(params)?.let { moreKeys.add(transformLabel(it, params)) }
+        moreKeys.addAll(relevant.map { transformLabel(it.getLabel(params), params) })
         return moreKeys.takeIf { it.isNotEmpty() }?.toTypedArray()
     }
+
+    private fun transformLabel(label: String, params: KeyboardParams): String =
+        if (label == "$$$") { // currency key
+            if (params.mId.passwordInput()) "$"
+            else params.mLocaleKeyTexts.currencyKey.first
+        } else if (params.mId.mSubtype.isRtlSubtype) {
+            label.rtlLabel(params)
+        } else label
 
     private val popupKeys: PopupKeys<T> by lazy {
         PopupKeys(null, listOfNotNull(main), relevant)

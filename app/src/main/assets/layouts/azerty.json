@@ -32,7 +32,7 @@
     { "label": "n", "popup": { "main": { "label": "!" } } },
     { "$": "shift_state_selector",
       "shiftedManual": { "label": "?" },
-      "default": { "label": "'" }, "popup": { "main": { "label": "?" } }
+      "default": { "label": "'", "popup": { "main": { "label": "?" } } }
     }
   ]
 ]
