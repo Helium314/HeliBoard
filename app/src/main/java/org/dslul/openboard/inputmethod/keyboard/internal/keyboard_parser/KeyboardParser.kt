@@ -502,9 +502,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun getCommaLabel(): String {
-        if (params.mId.mMode == KeyboardId.MODE_URL)
+        if (params.mId.mMode == KeyboardId.MODE_URL && params.mId.isAlphabetKeyboard)
             return "/"
-        if (params.mId.mMode == KeyboardId.MODE_EMAIL)
+        if (params.mId.mMode == KeyboardId.MODE_EMAIL && params.mId.isAlphabetKeyboard)
             return "\\@"
         return params.mLocaleKeyTexts.labelComma
     }
