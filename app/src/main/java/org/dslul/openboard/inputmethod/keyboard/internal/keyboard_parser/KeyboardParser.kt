@@ -110,7 +110,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             for (key in row) {
                 // todo: maybe autoScale / autoXScale if label has more than 2 characters (exception for emojis?)
                 //  but that could also be determined in toKeyParams
-                val keyParams = key.compute(params)?.toKeyParams(params, keyWidth, defaultLabelFlags) ?: continue
+                val keyParams = key.compute(params).toKeyParams(params, keyWidth, defaultLabelFlags)
                 paramsRow.add(keyParams)
             }
             if (spacerWidth != 0f) {
@@ -130,7 +130,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             //  so the symbols keyboard is higher than the normal one
             //  not a new issue, but should be solved in this migration
             //  how? possibly scale all keyboards to height of main alphabet? (consider suggestion strip)
-            keysInRows.forEach { it.forEach { it.mRelativeHeight *= heightRescale } }
+            keysInRows.forEach { key -> key.forEach { it.mRelativeHeight *= heightRescale } }
         }
 
         return keysInRows
@@ -295,7 +295,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 "!icon/space_key|!code/key_space", // !icon/space_key_for_number_layout in number layout, but not on tablet
                 params,
                 width, // will not be used for normal space (only in number layouts)
-                0, // todo (later): alignIconToBottom for non-tablet number layout
+                0, // todo (later): alignIconToBottom for non-tablet number layout -> check what it does / whether it's necessary
                 Key.BACKGROUND_TYPE_SPACEBAR,
                 null
             )
@@ -342,7 +342,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             FunctionalKey.EMOJI_COM -> if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL)
                         getFunctionalKeyParams(FunctionalKey.COM, width)
                     else getFunctionalKeyParams(FunctionalKey.EMOJI, width)
-            FunctionalKey.COM -> KeyParams( // todo: label and moreKeys could be in localeKeyTexts, handled like currency key
+            FunctionalKey.COM -> KeyParams(
+                // todo (later): label and moreKeys could be in localeKeyTexts, handled like currency key
+                //  better not in the text files, because it should be handled in a more fine grained way
                 ".com",
                 params,
                 width,

@@ -99,6 +99,9 @@ interface KeyData : AbstractKeyData {
         const val GROUP_KANA: Int = 97
     }
 
+    // make it non-nullable for simplicity, and to reflect current implementations
+    override fun compute(params: KeyboardParams): KeyData
+
     fun isSpaceKey(): Boolean {
         return type == KeyType.CHARACTER && (code == KeyCode.SPACE || code == KeyCode.CJK_SPACE
                 || code == KeyCode.HALF_SPACE || code == KeyCode.KESHIDA)

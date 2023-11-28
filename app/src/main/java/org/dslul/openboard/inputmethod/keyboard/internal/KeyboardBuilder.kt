@@ -65,12 +65,18 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         // todo: further plan
         //  release next version before continuing, testing current state for a while is likely necessary
         //  migrate other languages/layouts to this style
-        //   may be tricky in some cases, like additional row, or no shift key, or pc qwerty layout
-        //   also the integrated number row might cause issues, and should be removed / ignored
-        //   at least some of these layouts will need more complicated definition
+        //   may be tricky in some cases, like additional row, or no shift key
+        //   also the integrated number row is weird together with the number row setting, and should be removed / ignored
+        //   at least some of these layouts will need more complicated definition and have separate shift layouts
         //   test the zwnj key
         //   label flags: some should be set by keyboard, not by row/letter
         //    e.g. arabic looks weird with number row in holo being bold, but all other letters normal
+        //  migrate pcqwerty to this style
+        //   this will be more complicated...
+        //   linked shift keys might be easy
+        //   distance below number row with high row, but reduced key height?
+        //   consider settings key needs to disappear if device is locked
+        //   ignore number row setting?
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser, or do it with compatible jsons
         //  make the remove duplicate moreKey thing an option?
