@@ -71,6 +71,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   label flags: some should be set by keyboard, not by row/letter
         //    e.g. arabic looks weird with number row in holo being bold, but all other letters normal
         //   careful with korean, iirc the layouts are copied somewhere in the code -> try reading them instead of having them duplicate hardcoded
+        //   check the kbd_files for thing like touchPositionCorrectionData
+        //   issues:
+        //    armenian has label flag fontNormal on all keys -> how to do? define on every letter, or have some other way of doing this?
+        //     add such a label flag to languageKeyTexts (apply only to alphabet layouts)
+        //     fontNormal: armenian, urdu, thai, ...
+        //    armenian bottom row: functional keys should be narrower
+        //    urdu: no labels because the moreKeys are languageMoreKeys -> need the moreKeys setting soon (at least setting to show first language moreKey if no symbol)
         //  migrate pcqwerty to this style
         //   this will be more complicated...
         //   linked shift keys might be easy
@@ -156,7 +163,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing
-//            && id.mElementId != KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED && id.mElementId != KeyboardId.ELEMENT_SYMBOLS_SHIFTED
+            && id.mElementId != KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED && id.mElementId != KeyboardId.ELEMENT_SYMBOLS_SHIFTED
             && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
         ) {
             if (loadFromAssets(id) != null)

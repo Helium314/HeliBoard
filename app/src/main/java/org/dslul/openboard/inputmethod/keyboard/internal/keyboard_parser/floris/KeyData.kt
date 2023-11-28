@@ -20,6 +20,8 @@ import org.dslul.openboard.inputmethod.latin.common.StringUtils
 //  added toKeyParams for non-abstract KeyData
 //  compute is using KeyboardParams (for shift state and variation)
 //  char_width_selector and kana_selector throw an error (not yet supported)
+//  added labelFlags to keyDate
+//  added manualOrLocked for shift_state_selector
 /**
  * Basic interface for a key data object. Base for all key data objects across the IME, such as text, emojis and
  * selectors. The implementation is as abstract as possible, as different features require different implementations.
@@ -65,6 +67,7 @@ interface KeyData : AbstractKeyData {
     val label: String
     val groupId: Int
     val popup: PopupSet<AbstractKeyData> // not nullable because can't add number otherwise
+    val labelFlags: Int
 
     // groups (currently) not supported
     companion object {
@@ -107,7 +110,7 @@ interface KeyData : AbstractKeyData {
                 || code == KeyCode.HALF_SPACE || code == KeyCode.KESHIDA)
     }
 
-    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, labelFlags: Int = 0): KeyParams {
+    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, additionalLabelFlags: Int = 0): KeyParams {
         require(type == KeyType.CHARACTER) { "currently only KeyType.CHARACTER is supported" }
         require(groupId == GROUP_DEFAULT) { "currently only KeyData.GROUP_DEFAULT is supported" }
         require(code >= 0) { "functional codes ($code) not (yet) supported" }
@@ -120,7 +123,7 @@ interface KeyData : AbstractKeyData {
                 label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
                 params,
                 width,
-                labelFlags, // todo (non-latin): label flags... maybe relevant for some languages
+                labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
                 popup.toMoreKeys(params),
             )
@@ -130,7 +133,7 @@ interface KeyData : AbstractKeyData {
                 code, // todo (when supported): convert codes < 0, because florisboard layouts should still be usable
                 params,
                 width,
-                labelFlags,
+                labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL,
                 popup.toMoreKeys(params),
             )
@@ -204,13 +207,14 @@ class ShiftStateSelector(
     val shiftedAutomatic: AbstractKeyData? = null,
     val capsLock: AbstractKeyData? = null,
     val default: AbstractKeyData? = null,
+    val manualOrLocked: AbstractKeyData? = null,
 ) : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData? {
         return when (params.mId.mElementId) {
             KeyboardId.ELEMENT_ALPHABET, KeyboardId.ELEMENT_SYMBOLS -> unshifted ?: default
-            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: manualOrLocked ?: shifted ?: default
             KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> shiftedAutomatic ?: shifted ?: default
-            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: manualOrLocked ?: shifted ?: default
             else -> default // or rather unshifted?
         }?.compute(params)
     }

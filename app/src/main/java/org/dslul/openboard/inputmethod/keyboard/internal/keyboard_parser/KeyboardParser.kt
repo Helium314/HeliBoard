@@ -240,7 +240,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     private fun getNumberRow(): ArrayList<KeyParams> =
         params.mLocaleKeyTexts.getNumberRow().mapTo(ArrayList()) {
-            it.toKeyParams(params, labelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
+            it.toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
         }
 
     private fun getFunctionalKeyParams(def: String, label: String? = null, moreKeys: Array<String>? = null): KeyParams {

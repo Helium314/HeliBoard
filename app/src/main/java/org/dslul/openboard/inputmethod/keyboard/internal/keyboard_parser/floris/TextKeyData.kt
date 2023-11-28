@@ -32,7 +32,8 @@ class TextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet()
+    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val labelFlags: Int = 0
 ) : KeyData {
     override fun compute(params: KeyboardParams): KeyData {
 //        if (evaluator.isSlot(this)) { // todo: currency key stuff probably should be taken from florisboard too
@@ -75,7 +76,8 @@ class AutoTextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet()
+    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val labelFlags: Int = 0
 ) : KeyData {
     // state and recompute not needed, as upcasing is done when creating KeyParams
 
@@ -113,7 +115,8 @@ class MultiTextKeyData(
     val codePoints: IntArray = intArrayOf(),
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet()
+    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val labelFlags: Int = 0
 ) : KeyData {
     @Transient override val code: Int = KeyCode.MULTIPLE_CODE_POINTS
 

@@ -1,0 +1,112 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "q" },
+      "default": { "label": "ქ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ჭ" },
+      "default": { "label": "წ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "e" },
+      "default": { "label": "ე" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ღ" },
+      "default": { "label": "რ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "თ" },
+      "default": { "label": "ტ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "y" },
+      "default": { "label": "ყ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "u" },
+      "default": { "label": "უ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "i" },
+      "default": { "label": "ი" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "o" },
+      "default": { "label": "ო" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "p" },
+      "default": { "label": "პ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "a" },
+      "default": { "label": "ა" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "შ" },
+      "default": { "label": "ს" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "d" },
+      "default": { "label": "დ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "f" },
+      "default": { "label": "ფ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "g" },
+      "default": { "label": "გ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "h" },
+      "default": { "label": "ჰ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ჟ" },
+      "default": { "label": "ჯ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "k" },
+      "default": { "label": "კ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "l" },
+      "default": { "label": "ლ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ძ" },
+      "default": { "label": "ზ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "x" },
+      "default": { "label": "ხ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ჩ" },
+      "default": { "label": "ც" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "v" },
+      "default": { "label": "ვ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "b" },
+      "default": { "label": "ბ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "n" },
+      "default": { "label": "ნ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "m" },
+      "default": { "label": "მ" }
+    }
+  ]
+]

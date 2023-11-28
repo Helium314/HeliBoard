@@ -224,7 +224,7 @@ def get_morekeys_texts(write=False):
         if script is None:
             raise ValueError("undefined script")
         if script != "Latn":
-            continue  # skip non-latin scripts for now
+            continue  # skip non-latin scripts
         print(file)
         keys = read_keys(f"{file}/donottranslate-more-keys.xml")
         val.append(keys)
@@ -269,7 +269,7 @@ def main():
 #    k = read_keys(default_file)
 #    write_keys(pathlib.Path(__file__).parent / f"defaultkeys.txt", k)
     keys = get_morekeys_texts(False)
-    write_combined_lists(keys)
+#    write_combined_lists(keys)
 
 
 # need to check strings:
