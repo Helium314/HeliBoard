@@ -32,8 +32,8 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
     private SwitchPreferenceCompat mLookupContactsPreference;
 
     @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.spell_checker_settings);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.setTitle(ApplicationUtils.getActivityTitleResId(getActivity(), SpellCheckerSettingsActivity.class));
@@ -54,13 +54,11 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
         }
 
         // Check for permissions.
-        if (PermissionsUtil.checkAllPermissionsGranted(
-                getActivity() /* context */, Manifest.permission.READ_CONTACTS)) {
+        if (PermissionsUtil.checkAllPermissionsGranted(getContext(), Manifest.permission.READ_CONTACTS)) {
             return; // all permissions granted, no need to request permissions.
         }
 
-        get(getActivity() /* context */).requestPermissions(this /* PermissionsResultCallback */,
-                getActivity() /* activity */, Manifest.permission.READ_CONTACTS);
+        get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
     }
 
     @Override

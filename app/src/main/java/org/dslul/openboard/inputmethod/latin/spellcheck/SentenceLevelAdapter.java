@@ -6,10 +6,7 @@
 
 package org.dslul.openboard.inputmethod.latin.spellcheck;
 
-import android.annotation.TargetApi;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Build;
 import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
@@ -17,7 +14,6 @@ import android.view.textservice.TextInfo;
 import org.dslul.openboard.inputmethod.compat.TextInfoCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 
 import java.util.ArrayList;
@@ -70,8 +66,7 @@ public class SentenceLevelAdapter {
     private static class WordIterator {
         private final SpacingAndPunctuations mSpacingAndPunctuations;
         public WordIterator(final Resources res, final Locale locale) {
-            final RunInLocale<SpacingAndPunctuations> job =
-                    new RunInLocale<SpacingAndPunctuations>() {
+            final RunInLocale<SpacingAndPunctuations> job = new RunInLocale<>() {
                 @Override
                 protected SpacingAndPunctuations job(final Resources r) {
                     return new SpacingAndPunctuations(r, false);
@@ -152,7 +147,6 @@ public class SentenceLevelAdapter {
         return new SentenceTextInfoParams(originalTextInfo, wordItems);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static SentenceSuggestionsInfo reconstructSuggestions(
             SentenceTextInfoParams originalTextInfoParams, SuggestionsInfo[] results) {
         if (results == null || results.length == 0) {
@@ -172,8 +166,7 @@ public class SentenceLevelAdapter {
         for (int i = 0; i < querySize; ++i) {
             final SentenceWordItem item = originalTextInfoParams.mItems.get(i);
             SuggestionsInfo result = null;
-            for (int j = 0; j < results.length; ++j) {
-                final SuggestionsInfo cur = results[j];
+            for (final SuggestionsInfo cur : results) {
                 if (cur != null && cur.getSequence() == item.mTextInfo.getSequence()) {
                     result = cur;
                     result.setCookieAndSequence(originalCookie, originalSequence);
