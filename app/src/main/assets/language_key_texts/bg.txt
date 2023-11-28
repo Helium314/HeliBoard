@@ -1,4 +1,5 @@
 [morekeys]
+и ѝ
 " ” „ “
 
 [labels]

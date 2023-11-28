@@ -63,7 +63,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  release next version before continuing, testing current state for a while is likely necessary
         //  migrate other languages/layouts to this style
         //   may be tricky in some cases, like additional row, or no shift key
         //   also the integrated number row is weird together with the number row setting, and should be removed / ignored
@@ -71,6 +70,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   test the zwnj key
         //   label flags: some should be set by keyboard, not by row/letter
         //    e.g. arabic looks weird with number row in holo being bold, but all other letters normal
+        //   careful with korean, iirc the layouts are copied somewhere in the code -> try reading them instead of having them duplicate hardcoded
         //  migrate pcqwerty to this style
         //   this will be more complicated...
         //   linked shift keys might be easy
@@ -119,6 +119,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   does glide typing work with multiple letters on one key? if not, users should be notified
         //   maybe allow users to define their own symbol and shift-symbol layouts
         //   allow users to import layouts, which essentially just fills the text from a file
+        //    add setting to use moreKeys from symbol layout (always, never, only if none defined)
+        //     should also have sth related to hint, because hint and start morekey maybe should stay
+        //  option to add extra keys for all layouts?
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
@@ -153,6 +156,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing
+//            && id.mElementId != KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED && id.mElementId != KeyboardId.ELEMENT_SYMBOLS_SHIFTED
             && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
         ) {
             if (loadFromAssets(id) != null)

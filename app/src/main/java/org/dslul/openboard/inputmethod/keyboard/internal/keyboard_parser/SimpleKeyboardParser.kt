@@ -20,7 +20,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
             && params.mId.mSubtype.keyboardLayoutSetName in listOf("nordic", "spanish", "german", "swiss", "serbian_qwertz")
 
     override fun getLayoutFromAssets(layoutName: String) =
-        context.assets.open("layouts/${getSimpleLayoutName(layoutName)}.txt").reader().readText()
+        context.assets.open("layouts/${getSimpleLayoutName(layoutName, params)}.txt").reader().readText()
 
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val rowStrings = layoutContent.replace("\r\n", "\n").split("\n\n")

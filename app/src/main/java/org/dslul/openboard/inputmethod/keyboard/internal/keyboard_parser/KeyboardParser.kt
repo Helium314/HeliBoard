@@ -556,16 +556,19 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_shifted")
                 !id.isAlphabetKeyboard -> null
                 layoutFileNames.contains("$layoutName.json") -> JsonKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
-                layoutFileNames.contains("${getSimpleLayoutName(layoutName)}.txt")
+                layoutFileNames.contains("${getSimpleLayoutName(layoutName, params)}.txt")
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
                 else -> null
             }
         }
 
         @JvmStatic // unsupported without JvmStatic
-        protected fun getSimpleLayoutName(layoutName: String) = when (layoutName) {
+        // todo: should be removed in the end (after removing old parser), and the internal layout names changed for easier finding
+        //  currently it's spread out everywhere... method.xml, locale_and_extra_value_to_keyboard_layout_set_map, getKeyboardLayoutNameForLocale, ...
+        protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams) = when (layoutName) {
                 "swiss", "german", "serbian_qwertz" -> "qwertz"
                 "nordic", "spanish" -> "qwerty"
+                "south_slavic", "east_slavic" -> params.mId.locale.language // layouts split per language now, much less convoluted
                 else -> layoutName
             }
     }
