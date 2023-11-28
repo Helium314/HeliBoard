@@ -236,6 +236,8 @@ public final class Suggest {
             //  and SuggestionStripView (shouldOmitTypedWord, getStyledSuggestedWord)
             //  but this could become more complicated than simply adding a duplicate word in a case
             //  where the first occurrence of that word is ignored
+            if (SuggestionStripView.DEBUG_SUGGESTIONS)
+                addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString);
             suggestionsList.add(2, typedWordFirstOccurrenceWordInfo);
         }
 
@@ -478,31 +480,25 @@ public final class Suggest {
 
     private static ArrayList<SuggestedWordInfo> getSuggestionsInfoListWithDebugInfo(
             final String typedWord, final ArrayList<SuggestedWordInfo> suggestions) {
-        final SuggestedWordInfo typedWordInfo = suggestions.get(0);
-        typedWordInfo.setDebugString("+");
         final int suggestionsSize = suggestions.size();
         final ArrayList<SuggestedWordInfo> suggestionsList = new ArrayList<>(suggestionsSize);
-        suggestionsList.add(typedWordInfo);
-        // Note: i here is the index in mScores[], but the index in mSuggestions is one more
-        // than i because we added the typed word to mSuggestions without touching mScores.
-        for (int i = 0; i < suggestionsSize - 1; ++i) {
-            final SuggestedWordInfo cur = suggestions.get(i + 1);
-            final float normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(
-                    typedWord, cur.toString(), cur.mScore);
-            final String scoreInfoString;
-            if (normalizedScore > 0) {
-                scoreInfoString = String.format(
-                        Locale.ROOT, "%d (%4.2f), %s", cur.mScore, normalizedScore,
-                        cur.mSourceDict.mDictType + ":" + cur.mSourceDict.mLocale);
-            } else {
-                scoreInfoString = String.format(
-                        Locale.ROOT, "%d, %s", cur.mScore,
-                        cur.mSourceDict.mDictType + ":" + cur.mSourceDict.mLocale);
-            }
-            cur.setDebugString(scoreInfoString);
+        for (final SuggestedWordInfo cur : suggestions) {
+            addDebugInfo(cur, typedWord);
             suggestionsList.add(cur);
         }
         return suggestionsList;
+    }
+
+    private static void addDebugInfo(final SuggestedWordInfo wordInfo, final String typedWord) {
+        final float normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(typedWord, wordInfo.toString(), wordInfo.mScore);
+        final String scoreInfoString;
+        String dict = wordInfo.mSourceDict.mDictType + ":" + wordInfo.mSourceDict.mLocale;
+        if (normalizedScore > 0) {
+            scoreInfoString = String.format(Locale.ROOT, "%d (%4.2f), %s", wordInfo.mScore, normalizedScore, dict);
+        } else {
+            scoreInfoString = String.format(Locale.ROOT, "%d, %s", wordInfo.mScore, dict);
+        }
+        wordInfo.setDebugString(scoreInfoString);
     }
 
     /**
