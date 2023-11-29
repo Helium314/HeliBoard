@@ -17,6 +17,7 @@
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Paramètres avancés"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Thème"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Activer le clavier en deux parties"</string>
+    <string name="split_spacer_scale">Distance de la séparation du clavier</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Autres modes de saisie"</string>
     <string name="language_switch_key_switch_subtype">Changer de langue</string>
     <string name="language_switch_key_switch_both">Changer les deux</string>
@@ -29,6 +30,7 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"Suggestion des contacts"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">Utilise les noms de contacts pour les suggestions et les corrections</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Suggestions personnalisées"</string>
+    <string name="disable_personalized_dicts_message">Attention : la désactivation de ce paramètre effacera les données apprises.</string>
     <string name="add_to_personal_dictionary">Ajouter les mots au dictionnaire personnel</string>
     <string name="add_to_personal_dictionary_summary">Enregistre les mots appris dans le dictionnaire personnel de l\'appareil</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Point et espace"</string>
@@ -201,6 +203,8 @@ Nouveau dictionnaire:
     <string name="prefs_force_incognito_mode_summary">Désactive l\'apprentissage de nouveaux mots</string>
     <string name="more_keys_strip_description">Touches supplémentaires</string>
     <string name="number_row_summary">Toujours afficher la ligne de chiffres</string>
+    <string name="localized_number_row">Ligne de chiffres en language local</string>
+    <string name="localized_number_row_summary">Privilégie les chiffres en language local à la place des chiffres latins</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Changer le mode de saisie avec la barre d\'espace</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Un appui long sur la barre d\'espace fera apparaître le menu de sélection des claviers</string>
     <string name="show_hints">Afficher les caractères alternatifs</string>
@@ -208,6 +212,7 @@ Nouveau dictionnaire:
     <string name="show_popup_hints">Afficher les indices sur les touches fonctionnelles</string>
     <string name="show_popup_hints_summary">Affiche un signe ( <b>…</b> ) sur les touches où un appui long déclenche une fonctionnalité supplémentaire</string>
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>
+    <string name="prefs_bottom_padding_scale">Échelle d\'espacement en bas du clavier</string>
     <string name="day_night_mode_summary">L\'apparence suivra les paramètres système</string>
     <string name="theme_navbar">Colorer la barre de navigation</string>
     <string name="theme_name_light">Clair</string>
@@ -257,6 +262,10 @@ Nouveau dictionnaire:
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Espace automatique après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
+    <string name="show_more_keys_title">Afficher plus de signes diacritiques dans les popups</string>
+    <string name="show_more_keys_normal">Afficher les variantes définies dans les langues du clavier (par défaut)</string>
+    <string name="show_more_keys_more">Ajouter des variantes générales</string>
+    <string name="show_more_keys_all">Ajouter toutes les variantes disponibles</string>
     <string name="url_detection_title">Détection d\'URL</string>
     <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
