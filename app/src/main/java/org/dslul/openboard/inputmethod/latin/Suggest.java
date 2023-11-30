@@ -33,6 +33,8 @@ import static org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConsta
 
 import androidx.annotation.NonNull;
 
+import kotlin.collections.CollectionsKt;
+
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of
  * characters. This includes corrections and completions.
@@ -60,6 +62,9 @@ public final class Suggest {
         sLanguageToMaximumAutoCorrectionWithSpaceLength.put(Locale.GERMAN.getLanguage(),
                 MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN);
     }
+
+    // cleared whenever LatinIME.loadSettings is called, notably on changing layout and switching input fields
+    public static final HashMap<NgramContext, SuggestionResults> nextWordSuggestionsCache = new HashMap<>();
 
     private float mAutoCorrectionThreshold;
     private float mPlausibilityThreshold;
@@ -144,9 +149,11 @@ public final class Suggest {
         final int trailingSingleQuotesCount =
                 StringUtils.getTrailingSingleQuotesCount(typedWordString);
 
-        final SuggestionResults suggestionResults = mDictionaryFacilitator.getSuggestionResults(
-                wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
-                settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
+        final SuggestionResults suggestionResults = typedWordString.isEmpty()
+                ? getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
+                : mDictionaryFacilitator.getSuggestionResults(
+                        wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
+                        settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
         final Locale locale = mDictionaryFacilitator.getLocale();
         final ArrayList<SuggestedWordInfo> suggestionsContainer =
                 getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
@@ -249,6 +256,8 @@ public final class Suggest {
     }
 
     // annoyingly complicated thing to avoid getting emptyWordSuggestions more than once
+    // todo: now with the cache just remove it...
+    //  and best convert the class to kotlin, that should make it much more readable
     /** puts word infos for suggestions with an empty word in [infos], based on previously typed words */
     private ArrayList<SuggestedWordInfo> putEmptyWordSuggestions(ArrayList<SuggestedWordInfo> infos, NgramContext ngramContext,
                     Keyboard keyboard, SettingsValuesForSuggestion settingsValuesForSuggestion,
@@ -256,17 +265,13 @@ public final class Suggest {
         if (infos.size() != 0) return infos;
         infos.add(null);
         infos.add(null);
-        final SuggestionResults emptyWordSuggestions = mDictionaryFacilitator.getSuggestionResults(
-                new ComposedData(new InputPointers(1), false, ""), ngramContext,
-                keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
-        for (SuggestedWordInfo info : emptyWordSuggestions) {
-            if (infos.get(1) == null && typedWordString.equals(info.getWord())) {
-                infos.set(1, info);
-            } else if (infos.get(0) == null && firstSuggestionInContainer.equals(info.getWord())) {
-                infos.set(0, info);
-            } else if (infos.get(1) != null && infos.get(0) != null)
-                break;
-        }
+        final SuggestionResults emptyWordSuggestions = getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion);
+        final SuggestedWordInfo nextWordSuggestionInfoForFirstSuggestionInContainer =
+                CollectionsKt.firstOrNull(emptyWordSuggestions, (word) -> word.mWord.equals(firstSuggestionInContainer));
+        final SuggestedWordInfo nextWordSuggestionInfoForTypedWord =
+                CollectionsKt.firstOrNull(emptyWordSuggestions, (word) -> word.mWord.equals(typedWordString));
+        infos.add(nextWordSuggestionInfoForFirstSuggestionInContainer);
+        infos.add(nextWordSuggestionInfoForTypedWord);
         return infos;
     }
 
@@ -559,5 +564,26 @@ public final class Suggest {
                 wordInfo.mScore, wordInfo.mKindAndFlags,
                 wordInfo.mSourceDict, wordInfo.mIndexOfTouchPointOfSecondWord,
                 wordInfo.mAutoCommitFirstWordConfidence);
+    }
+
+    /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do) */
+    // todo: integrate it into shouldBeAutoCorrected, remove putEmptySuggestions
+    //  and make that thing more readable
+    private SuggestionResults getNextWordSuggestions(final NgramContext ngramContext,
+             final Keyboard keyboard, final int inputStyle, final SettingsValuesForSuggestion settingsValuesForSuggestion
+    ) {
+        final SuggestionResults cachedResults = nextWordSuggestionsCache.get(ngramContext);
+        if (cachedResults != null)
+            return cachedResults;
+        final SuggestionResults newResults = mDictionaryFacilitator.getSuggestionResults(
+                new ComposedData(new InputPointers(1), false, ""),
+                ngramContext,
+                keyboard,
+                settingsValuesForSuggestion,
+                SESSION_ID_TYPING,
+                inputStyle
+        );
+        nextWordSuggestionsCache.put(ngramContext, newResults);
+        return newResults;
     }
 }
