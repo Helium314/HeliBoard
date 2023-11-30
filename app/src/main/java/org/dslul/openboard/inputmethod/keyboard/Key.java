@@ -1186,21 +1186,19 @@ public class Key implements Comparable<Key> {
             mLabelFlags = labelFlags;
             mRelativeWidth = relativeWidth;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, layoutMoreKeys);
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
 
-            final String[] languageMoreKeys;
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
-                languageMoreKeys = null;
-            } else {
-                // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
-                languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
-            }
-            final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
+            // todo: after removing old parser this could be done in a less awkward way without almostFinalMoreKeys
+            final String[] almostFinalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, almostFinalMoreKeys);
+            final String[] finalMoreKeys = almostFinalMoreKeys == null
+                    ? null 
+                    : MoreKeySpec.filterOutEmptyString(almostFinalMoreKeys);
 
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;

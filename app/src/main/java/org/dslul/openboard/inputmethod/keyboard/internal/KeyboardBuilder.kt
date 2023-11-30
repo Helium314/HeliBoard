@@ -154,9 +154,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  followFunctionalTextColor: number mode keys, action key
         //  keepBackgroundAspectRatio: lxx and rounded action more keys, lxx no-border action and emoji, moreKeys keyboard view
         //  disableKeyHintLabel: keys in pcqwerty row 1 and number row
-        //  disableAdditionalMoreKeys: keys in pcqwerty row 1
-        //  -> probably can't define the related layouts in a simple way, better use some json or xml or anything more reasonable than the simple text format
-        //   maybe remove some of the flags? or keep supporting them?
+        //  disableAdditionalMoreKeys: only keys in pcqwerty row 1 so there is no number row -> not necessary with the new layouts, just remove it completely
+        //  maybe remove some of the flags? or keep supporting them?
         //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
         //   actually period key also has shifted letter hint
     }

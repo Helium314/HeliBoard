@@ -45,9 +45,9 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         // set default quote moreKeys if necessary
         // should this also be done with punctuation moreKeys?
         if ("\'" !in moreKeys)
-            moreKeys["\'"] = arrayOf("‚", "‘", "’", "‹", "›")
+            moreKeys["\'"] = arrayOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
         if ("\"" !in moreKeys)
-            moreKeys["\""] = arrayOf("„", "“", "”", "«", "»")
+            moreKeys["\""] = arrayOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
         if ("!" !in moreKeys)
             moreKeys["!"] = arrayOf("¡")
         if ("?" !in moreKeys)
@@ -91,11 +91,14 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 
     private fun addMoreKeys(split: List<String>) {
         if (split.size == 1) return
-        val existingMoreKeys = moreKeys[split.first()]
-        if (existingMoreKeys == null)
-            moreKeys[split.first()] = Array(split.size - 1) { split[it + 1] }
-        else
-            moreKeys[split.first()] = mergeMoreKeys(existingMoreKeys, split.drop(1))
+        val key = split.first()
+        val existingMoreKeys = moreKeys[key]
+        val newMoreKeys = if (existingMoreKeys == null)
+                Array(split.size - 1) { split[it + 1] }
+            else mergeMoreKeys(existingMoreKeys, split.drop(1))
+        moreKeys[key] = if (key == "'" || key == "\"") // also do for parenthesis?
+                addFixedColumnOrder(newMoreKeys)
+            else newMoreKeys
     }
 
     private fun addExtraKey(split: List<String>) {
@@ -190,6 +193,16 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
         return l.toTypedArray()
     }
     return moreKeys.toTypedArray()
+}
+
+private fun addFixedColumnOrder(moreKeys: Array<String>): Array<String> {
+    if (moreKeys.none { it.startsWith("!fixedColumnOrder") })
+        return arrayOf("!fixedColumnOrder!${moreKeys.size}", *moreKeys)
+    val newMoreKeys = moreKeys.filterNot { it.startsWith("!fixedColumnOrder") }
+    return Array(newMoreKeys.size + 1) {
+        if (it == 0) "!fixedColumnOrder!${newMoreKeys.size}"
+        else newMoreKeys[it - 1]
+    }
 }
 
 fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, moreKeysSetting: Int) {
