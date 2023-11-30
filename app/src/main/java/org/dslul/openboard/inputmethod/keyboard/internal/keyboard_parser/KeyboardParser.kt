@@ -477,9 +477,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (params.mIconsSet.getIconDrawable(KeyboardIconsSet.getIconId(this)) != null) return this
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
         if (id == 0) {
-            Log.w(this::class.simpleName, "no resource for label $this")
+            val message = "no resource for label $this in ${params.mId}"
+            Log.w(this::class.simpleName, message)
             if (DebugFlags.DEBUG_ENABLED)
-                Toast.makeText(context, "no resource for label $this", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             return this
         }
         val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?

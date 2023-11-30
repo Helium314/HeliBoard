@@ -73,7 +73,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public static boolean DEBUG_SUGGESTIONS;
-    private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.0f;
+    private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
     private static final String VOICE_KEY_TAG = "voice_key";
     private static final String CLIPBOARD_KEY_TAG = "clipboard_key";
     private static final String SETTINGS_KEY_TAG = "settings_key";
