@@ -64,20 +64,20 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  migrate other languages/layouts to this style
-        //   may be tricky in some cases, like additional row, or no shift key
-        //   also the integrated number row is weird together with the number row setting, and should be removed / ignored
-        //   at least some of these layouts will need more complicated definition and have separate shift layouts
+        //   integrated number rows should be removed / ignored when migrating
         //   test the zwnj key
-        //   label flags: some should be set by keyboard, not by row/letter
-        //    e.g. arabic looks weird with number row in holo being bold, but all other letters normal
-        //   careful with korean, iirc the layouts are copied somewhere in the code -> try reading them instead of having them duplicate hardcoded
-        //   check the kbd_files for thing like touchPositionCorrectionData
+        //   test whether the layouts really are the same (screenshots for everything added, compare old and new parser)
+        //   check all the keyboard_layout_set and kbd_files for things like touchPositionCorrectionData
+        //    some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
+        //     that's one more reason for using language tags...
         //   issues:
-        //    armenian has label flag fontNormal on all keys -> how to do? define on every letter, or have some other way of doing this?
-        //     add such a label flag to languageKeyTexts (apply only to alphabet layouts)
-        //     fontNormal: armenian, urdu, thai, ...
         //    armenian bottom row: functional keys should be narrower
-        //    urdu: no labels because the moreKeys are languageMoreKeys -> need the moreKeys setting soon (at least setting to show first language moreKey if no symbol)
+        //    rtl parentheses hint label (urdu and more)
+        //    urdu and others: no labels because the moreKeys are languageMoreKeys -> need the moreKeys setting soon (at least setting to show first language moreKey if no symbol)
+        //     setting: symbol morekeys(s): layout default, take from symbols, layout default but fill from symbols if empty
+        //     setting: hint label: from symbol morekey only, symbol but language if none, first choice on long press
+        //     (later): setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
+        //     and have some setting to enable configuring this per locale (in language settings -> potentially should not be a dialog any more but a fragment?)
         //  migrate pcqwerty to this style
         //   this will be more complicated...
         //   linked shift keys might be easy
@@ -95,6 +95,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   parsing could be done into a single row, which is then split as needed
         //    this might help with split layout (no change in key size, but in number of rows)
         //   write another parser, it should already consider split
+        //   add a setting to display all emojis (and use emojiv2 or emojicompat or whatever is necessary)
+        //    mention in subtitle that they may not be displayed properly, depending on the app you're writing in
         //  migrate moreKeys and moreSuggestions to this style?
         //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
         //  remove the old parser
@@ -162,7 +164,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing
-            && id.mElementId != KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED && id.mElementId != KeyboardId.ELEMENT_SYMBOLS_SHIFTED
+//            && id.mElementId != KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED && id.mElementId != KeyboardId.ELEMENT_SYMBOLS_SHIFTED
             && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
         ) {
             if (loadFromAssets(id) != null)

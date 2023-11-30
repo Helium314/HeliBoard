@@ -7,6 +7,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
+import org.dslul.openboard.inputmethod.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE
+import org.dslul.openboard.inputmethod.keyboard.Key.LABEL_FLAGS_FONT_NORMAL
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
@@ -34,7 +36,8 @@ import org.dslul.openboard.inputmethod.latin.utils.sumOf
  * Currently the number, phone and numpad layouts are not compatible with this parser.
  */
 abstract class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
-    private val defaultLabelFlags = if (!params.mId.isAlphabetKeyboard)
+    private val infos = layoutInfos(params)
+    private val defaultLabelFlags = infos.defaultLabelFlags or if (!params.mId.isAlphabetKeyboard)
             Key.LABEL_FLAGS_DISABLE_HINT_LABEL // reproduce the no-hints in symbol layouts, todo: add setting
         else 0
 
@@ -47,15 +50,20 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
-        val keysInRows = ArrayList<ArrayList<KeyParams>>()
+        if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
+            params.mTouchPositionCorrection.load(emptyArray())
+        else
+            params.mTouchPositionCorrection.load(context.resources.getStringArray(infos.touchPositionCorrectionData))
 
+        val keysInRows = ArrayList<ArrayList<KeyParams>>()
         val baseKeys: MutableList<List<KeyData>> = parseCoreLayout(layoutContent)
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row
             baseKeys[0] = params.mLocaleKeyTexts.getNumberRow()
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard) {
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && params.mId.locale.language != "ko") {
             // add number to the first 10 keys in first row
             // setting the correct moreKeys is handled in PopupSet
+            // not for korean layouts, todo: should be decided in the layout, not in the parser
             baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
         }
         val functionalKeysReversed = parseFunctionalKeys().reversed()
@@ -166,9 +174,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         context.getString(R.string.key_def_functional).split("\n").mapNotNull { line ->
             if (line.isBlank()) return@mapNotNull null
             val p = line.split(";")
-            p.first().let { if (it.isBlank()) emptyList() else it.split(",") } to
-                    p.last().let { if (it.isBlank()) emptyList() else it.split(",") }
+            splitFunctionalKeyDefs(p.first()) to splitFunctionalKeyDefs(p.last())
         }
+
+    private fun splitFunctionalKeyDefs(def: String): List<String> {
+        if (def.isBlank()) return emptyList()
+        return def.split(",").filter { infos.hasShiftKey || !it.startsWith("shift") }
+    }
 
     private fun getBottomRowAndAdjustBaseKeys(baseKeys: MutableList<List<KeyData>>): ArrayList<KeyParams> {
         val adjustableKeyCount = when (params.mId.mElementId) {
@@ -225,7 +237,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     if (params.mId.mEmojiKeyEnabled)
                         bottomRow.add(getFunctionalKeyParams(FunctionalKey.EMOJI))
                     bottomRow.add(keyParams)
-                    if (params.mId.locale.language in languagesThatNeedZwnjKey)
+                    if (infos.hasZwnjKey)
                         bottomRow.add(getFunctionalKeyParams(FunctionalKey.ZWNJ))
                 }
             } else {
@@ -571,6 +583,40 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 "south_slavic", "east_slavic" -> params.mId.locale.language // layouts split per language now, much less convoluted
                 else -> layoutName
             }
+
+        // todo: layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
+        //  or somewhere else... some replacement for keyboard_layout_set xml maybe
+        //  move it after old parser is removed
+        // currently only labelFlags are used
+        // touchPositionCorrectionData needs to be loaded, currently always holo is applied in readAttributes
+        private fun layoutInfos(params: KeyboardParams): LayoutInfos {
+            val name = params.mId.mSubtype.keyboardLayoutSetName
+            val labelFlags = if (!params.mId.isAlphabetKeyboard) 0 else when (name) {
+                "armenian_phonetic", "arabic", "arabic_pc", "bengali", "bengali_akkhor", "bengali_unijoy",
+                "farsi", "hindi", "hindi_compact", "lao", "marathi", "nepali_romanized", "nepali_traditional",
+                "thai", "urdu" -> LABEL_FLAGS_FONT_NORMAL
+                "kannada", "khmer", "malayalam", "sinhala", "tamil", "telugu" -> LABEL_FLAGS_FONT_NORMAL or LABEL_FLAGS_AUTO_X_SCALE
+                else -> 0
+            }
+            // only for alphabet, but some exceptions for shift layouts
+            val enableProximityCharsCorrection = params.mId.isAlphabetKeyboard && when (name) {
+                // todo: test effect on correction (just add qwerty to the list for testing)
+                "akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
+                    params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
+                else -> true
+            }
+            // this is weird...
+            val allowRedundantMoreKeys = name != "nordic" && name != "serbian_qwertz"
+            // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
+            // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
+            // todo: null for MoreKeysKeyboard only
+            val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && name in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
+                    R.array.touch_position_correction_data_default
+                else R.array.touch_position_correction_data_holo
+            val hasZwnjKey = params.mId.locale.language in listOf("fa", "ne", "kn", "te") // determine from language, user might have custom layout
+            val hasShiftKey = name !in listOf("hindi_compact", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
+            return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantMoreKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey)
+        }
     }
 
     protected enum class FunctionalKey {
@@ -578,6 +624,20 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
 }
+
+data class LayoutInfos(
+    val defaultLabelFlags: Int = 0,
+    // disabled by default, but enabled for all alphabet layouts
+    // currently set in keyboardLayoutSet
+    val enableProximityCharsCorrection: Boolean = false,
+    val allowRedundantMoreKeys: Boolean = true, // only false for nordic and serbian_qwertz, could add a setting when doing the moreKeys customizing
+    // there is holo, default and null
+    // null only for moreKeys keyboard
+    // currently read as part of readAttributes, and thus wrong with the new parser
+    val touchPositionCorrectionData: Int? = null,
+    val hasZwnjKey: Boolean = false,
+    val hasShiftKey: Boolean = true,
+)
 
 fun String.rtlLabel(params: KeyboardParams): String {
     if (!params.mId.mSubtype.isRtlSubtype) return this
@@ -610,6 +670,3 @@ private const val MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!need
 private const val MORE_KEYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
 private const val MORE_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
 private const val MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
-
-// farsi|kannada|nepali_romanized|nepali_traditional|telugu"
-private val languagesThatNeedZwnjKey = listOf("fa", "ne", "kn", "te")
