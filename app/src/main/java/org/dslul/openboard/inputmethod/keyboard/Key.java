@@ -1232,11 +1232,10 @@ public class Key implements Comparable<Key> {
                 if (hintLabelAlwaysFromFirstLongPressKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 } else {
-                    hintLabel = layoutMoreKeys == null ? null : layoutMoreKeys[0]; // note that some entries may have been changed to other string or null
+                    hintLabel = layoutMoreKeys == null ? null : KeySpecParser.getLabel(layoutMoreKeys[0]); // note that some entries may have been changed to other string or null
+                    // todo: this should be adjusted when re-working moreKey stuff... also KeySpecParser.getLabel may throw, which is bad when users do uncommon things
                     if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
                         hintLabel = null;
-                    if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
-                        hintLabel = hintLabel.replace("\\", "");
                 }
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)

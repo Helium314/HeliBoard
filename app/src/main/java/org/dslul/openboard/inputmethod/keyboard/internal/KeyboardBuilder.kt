@@ -64,19 +64,20 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  migrate other languages/layouts to this style
-        //   integrated number rows should be removed / ignored when migrating
+        //   integrated number rows should be removed / ignored when migrating, row will be added differently
         //   test the zwnj key
         //   test whether the layouts really are the same (screenshots for everything added, compare old and new parser)
-        //   check all the keyboard_layout_set and kbd_files for things like touchPositionCorrectionData
-        //    some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
-        //     that's one more reason for using language tags...
+        //   some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
+        //    that's one more reason for using language tags...
+        //    but currently it's still read from xml outside the keyboard parser, so that's fine for now
         //   issues:
         //    armenian bottom row: functional keys should be narrower
         //    rtl parentheses hint label (urdu and more)
         //    urdu and others: no labels because the moreKeys are languageMoreKeys -> need the moreKeys setting soon (at least setting to show first language moreKey if no symbol)
-        //     setting: symbol morekeys(s): layout default, take from symbols, layout default but fill from symbols if empty
+        //     setting: symbol morekey(s): layout default, take from symbols, layout default but fill from symbols if empty
         //     setting: hint label: from symbol morekey only, symbol but language if none, first choice on long press
         //     (later): setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
+        //     (later): setting whether to show duplicate moreKeys (describe properly what it actually does)
         //     and have some setting to enable configuring this per locale (in language settings -> potentially should not be a dialog any more but a fragment?)
         //  migrate pcqwerty to this style
         //   this will be more complicated...

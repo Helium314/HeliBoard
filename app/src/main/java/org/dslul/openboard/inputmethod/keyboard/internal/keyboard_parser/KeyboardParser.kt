@@ -605,7 +605,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 else -> true
             }
-            // this is weird...
             val allowRedundantMoreKeys = name != "nordic" && name != "serbian_qwertz"
             // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
             // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
@@ -630,7 +629,7 @@ data class LayoutInfos(
     // disabled by default, but enabled for all alphabet layouts
     // currently set in keyboardLayoutSet
     val enableProximityCharsCorrection: Boolean = false,
-    val allowRedundantMoreKeys: Boolean = true, // only false for nordic and serbian_qwertz, could add a setting when doing the moreKeys customizing
+    val allowRedundantMoreKeys: Boolean = true, // only false for nordic and serbian_qwertz
     // there is holo, default and null
     // null only for moreKeys keyboard
     // currently read as part of readAttributes, and thus wrong with the new parser
