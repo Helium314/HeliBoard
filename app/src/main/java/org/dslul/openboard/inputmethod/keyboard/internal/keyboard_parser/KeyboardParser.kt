@@ -7,8 +7,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
-import org.dslul.openboard.inputmethod.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE
-import org.dslul.openboard.inputmethod.keyboard.Key.LABEL_FLAGS_FONT_NORMAL
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
@@ -298,7 +296,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 label ?: params.mLocaleKeyTexts.labelPeriod,
                 params,
                 width,
-                Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT or defaultLabelFlags, // todo (later): check what LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT does, maybe remove the flag here
+                Key.LABEL_FLAGS_HAS_POPUP_HINT
+                        // todo (later): check what LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT does, maybe remove the flag here
+                        or if (params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT else 0
+                        or defaultLabelFlags,
                 if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL
                     else Key.BACKGROUND_TYPE_FUNCTIONAL,
                 moreKeys?.let { getPunctuationMoreKeys() + it } ?: getPunctuationMoreKeys()
@@ -319,6 +320,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         or Key.LABEL_FLAGS_AUTO_X_SCALE
                         or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO
                         or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
+                        or Key.LABEL_FLAGS_HAS_POPUP_HINT
                         or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId),
                 Key.BACKGROUND_TYPE_ACTION,
                 getActionKeyMoreKeys()
@@ -335,7 +337,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 "${getShiftLabel()}|!code/key_shift",
                 params,
                 width,
-                Key.LABEL_FLAGS_PRESERVE_CASE,
+                Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0,
                 // todo (later): possibly the whole stickOn/Off stuff can be removed, currently it should only have a very slight effect in holo
                 if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
                     Key.BACKGROUND_TYPE_STICKY_ON
@@ -580,8 +582,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         //  currently it's spread out everywhere... method.xml, locale_and_extra_value_to_keyboard_layout_set_map, getKeyboardLayoutNameForLocale, ...
         protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams) = when (layoutName) {
                 "swiss", "german", "serbian_qwertz" -> "qwertz"
-                "nordic", "spanish" -> "qwerty"
-                "south_slavic", "east_slavic" -> params.mId.locale.language // layouts split per language now, much less convoluted
+                "nordic", "spanish" -> if (params.mId.locale.language == "eo") "eo" else "qwerty"
+                "south_slavic", "east_slavic" -> params.mId.locale.language // layouts are split per language now, much less convoluted
                 else -> layoutName
             }
 
@@ -595,8 +597,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val labelFlags = if (!params.mId.isAlphabetKeyboard) 0 else when (name) {
                 "armenian_phonetic", "arabic", "arabic_pc", "bengali", "bengali_akkhor", "bengali_unijoy",
                 "farsi", "hindi", "hindi_compact", "lao", "marathi", "nepali_romanized", "nepali_traditional",
-                "thai", "urdu" -> LABEL_FLAGS_FONT_NORMAL
-                "kannada", "khmer", "malayalam", "sinhala", "tamil", "telugu" -> LABEL_FLAGS_FONT_NORMAL or LABEL_FLAGS_AUTO_X_SCALE
+                "thai", "urdu" -> Key.LABEL_FLAGS_FONT_NORMAL
+                "kannada", "khmer", "malayalam", "sinhala", "tamil", "telugu" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
                 else -> 0
             }
             // only for alphabet, but some exceptions for shift layouts
@@ -614,7 +616,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     R.array.touch_position_correction_data_default
                 else R.array.touch_position_correction_data_holo
             val hasZwnjKey = params.mId.locale.language in listOf("fa", "ne", "kn", "te") // determine from language, user might have custom layout
-            val hasShiftKey = name !in listOf("hindi_compact", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
+            val hasShiftKey = name !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
             return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantMoreKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey)
         }
     }

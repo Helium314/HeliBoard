@@ -957,15 +957,15 @@ public class Key implements Comparable<Key> {
         // params that remains constant
         public final int mCode;
         @Nullable public final String mLabel;
-        @Nullable final String mHintLabel;
-        final int mLabelFlags;
-        final int mIconId;
+        @Nullable public final String mHintLabel;
+        public final int mLabelFlags;
+        public final int mIconId;
         public final MoreKeySpec[] mMoreKeys;
-        final int mMoreKeysColumnAndFlags;
+        public final int mMoreKeysColumnAndFlags;
         public final int mBackgroundType;
-        final int mActionFlags;
-        @Nullable final KeyVisualAttributes mKeyVisualAttributes;
-        @Nullable final OptionalAttributes mOptionalAttributes;
+        public final int mActionFlags;
+        @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
+        @Nullable public final OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
         public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,

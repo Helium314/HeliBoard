@@ -8,6 +8,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 
 // taken from FlorisBoard, small modifications (see also KeyData)
@@ -42,7 +43,9 @@ class TextKeyData(
 //            }
 //        }
         if (label.startsWith("$$$")) { // currency key
-            if (label == "$$$") return params.mLocaleKeyTexts.currencyKey.let { it.first.toTextKey(it.second.toList()) }
+            if (label == "$$$")
+                return params.mLocaleKeyTexts.currencyKey
+                    .let { it.first.toTextKey(it.second.toList(), labelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO) } // the flag is to match old parser, but why for main currency key, but not for others?
             val n = label.substringAfter("$$$").toIntOrNull()
             if (n != null && n <= 4)
                 return params.mLocaleKeyTexts.currencyKey.second[n - 1].toTextKey()
@@ -141,9 +144,10 @@ class MultiTextKeyData(
     }
 }
 
-fun String.toTextKey(moreKeys: Collection<String>? = null): TextKeyData =
+fun String.toTextKey(moreKeys: Collection<String>? = null, labelFlags: Int = 0): TextKeyData =
     TextKeyData(
         label = this,
+        labelFlags = labelFlags,
         popup = moreKeys
             ?.let { keys -> PopupSet(null, keys.map { it.toTextKey() }) }
             ?: PopupSet()

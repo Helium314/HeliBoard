@@ -64,14 +64,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  migrate other languages/layouts to this style
-        //   missing layouts: nepali_romanized, nepali_traditional
-        //   add a few individual key label flags: khmer, lao, thai, hindi_compact, marathi, nepali (both)
-        //   that has nine letters in first row -> needs 0 extra (check layout)
-        //   moreKeys for bangla and hindi layouts are completely mixed up -> maybe need to use layoutMoreKeys... but that's not nice
-        //   integrated number rows should be removed / ignored when migrating, row will be added differently
-        //   test the zwnj key
-        //   test whether the layouts really are the same (screenshots for everything added, compare old and new parser)
-        //    first try creating the keyParams with both parsers, and compare results, print differences
+        //   add a few individual key label flags: hindi_compact -> dammit... one key and there is need for json, marathi -> same
+        //   thai and lao number rows... they should probably have none, can't do it generically
+        //    so handle it like korean
+        //   languageMoreKeys for bengali and hindi layouts are completely mixed up -> maybe need to use layoutMoreKeys... but that's not nice
+        //   test whether the layouts really are the same
+        //    comparing params with both parsers looks good, see list of detected differences below
+        //    still need to check moreKeys, there will be many more differences that might just be minor
+        //    write down a list of differences, ask users to open issues if they don't like them
         //   some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
         //    that's one more reason for using language tags...
         //    but currently it's still read from xml outside the keyboard parser, so that's fine for now
@@ -84,6 +84,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //     (later): setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
         //     (later): setting whether to show duplicate moreKeys (describe properly what it actually does)
         //     and have some setting to enable configuring this per locale (in language settings -> potentially should not be a dialog any more but a fragment?)
+        //    label flags are horrible to "decompile" when viewing a layout
         //  migrate pcqwerty to this style
         //   this will be more complicated...
         //   linked shift keys might be easy
@@ -170,11 +171,62 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing
-//            && id.mElementId != KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED && id.mElementId != KeyboardId.ELEMENT_SYMBOLS_SHIFTED
             && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
         ) {
-            if (loadFromAssets(id) != null)
+            if (loadFromAssets(id) != null) {
+                if (!DebugFlags.DEBUG_ENABLED)
+                    return this
+                // comparison of old and new parser below, remove once testing is complete
+                val keysInRowsFromXml = XmlKeyboardParser(xmlId, mParams, mContext).use { keyboardParser ->
+                    keyboardParser.parseKeyboard()
+                }
+                if (keysInRowsFromXml.size != keysInRows.size) {
+                    Log.w(TAG, "different sizes: ${keysInRows.size} vs ${keysInRowsFromXml.size}")
+                    return this
+                }
+                keysInRowsFromXml.forEachIndexed { index, xmlRow ->
+                    val row = keysInRows[index].filter { !it.isSpacer }
+                    val xmlRow2 = xmlRow.filter { !it.isSpacer }
+                    if (row.size != xmlRow2.size) {
+                        Log.w(TAG, "different row sizes in row ${index + 1}")
+                        return@forEachIndexed
+                    }
+                    xmlRow2.forEachIndexed { index1, xmlParams ->
+                        // todo: compare moreKeys (and if different, check whether it's just the order)
+                        //  also check holo, there might be different default parameters
+                        //  and compare tablet layouts (how to best force it for both parsers?)
+                        val keyParams = row[index1]
+                        // bangla (india) has different period & symbols label (should it really be latin?)
+                        //  maybe need separate key text files for _IN and _BD
+                        // hindi compact has a key with different label flags (marathi too? maybe i overlooked)
+                        // lao has some sort of split number row, should be considered (how to deal with it?)
+                        //  thai also has this, leads to differences in hint labels and moreKeys
+                        if (keyParams.mLabel != xmlParams.mLabel)
+                            // currency keys (shift symbol) arranged differently
+                            // obviously number row differences
+                            Log.w(TAG, "label different: ${keyParams.mLabel} vs ${xmlParams.mLabel}")
+                        if (keyParams.mCode != xmlParams.mCode)
+                            Log.w(TAG, "code different: ${keyParams.mCode} vs ${xmlParams.mCode}")
+                        if (keyParams.mIconId != xmlParams.mIconId)
+                            Log.w(TAG, "icon different: ${keyParams.mIconId} vs ${xmlParams.mIconId}")
+                        if (keyParams.mHintLabel != xmlParams.mHintLabel)
+                            // extra and number keys are the difference so far
+                            // persian has small difference
+                            // khmer has some difference
+                            // urdu has a lot of difference
+                            Log.w(TAG, "hint label different: ${keyParams.mHintLabel} vs ${xmlParams.mHintLabel}")
+                        if (keyParams.mLabelFlags != xmlParams.mLabelFlags && keyParams.mCode != 10)
+                            // in symbol layout
+                            //  my version has disableHintLabel for all
+                            //  original has LABEL_FLAGS_HAS_POPUP_HINT on < > in shift symbol (but there is no popup)
+                            // armenian, arabic, bangla,... and many with "symbols" original shift and delete have LABEL_FLAGS_FONT_NORMAL, mine not (but my period has)
+                            // malayalam delete also has LABEL_FLAGS_AUTO_X_SCALE, mine not
+                            // tamil & telugu my delete has LABEL_FLAGS_AUTO_X_SCALE, original not
+                            Log.w(TAG, "label flags different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mLabelFlags.toString(16)} vs ${xmlParams.mLabelFlags.toString(16)}")
+                    }
+                }
                 return this
+            }
         }
         mParams.mId = id
         // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);

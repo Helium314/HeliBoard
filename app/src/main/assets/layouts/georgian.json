@@ -1,7 +1,7 @@
 [
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "q" },
+      "manualOrLocked": { "label": "Q" },
       "default": { "label": "ქ" }
     },
     { "$": "shift_state_selector",
@@ -9,7 +9,7 @@
       "default": { "label": "წ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "e" },
+      "manualOrLocked": { "label": "E" },
       "default": { "label": "ე" }
     },
     { "$": "shift_state_selector",
@@ -21,29 +21,29 @@
       "default": { "label": "ტ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "y" },
+      "manualOrLocked": { "label": "Y" },
       "default": { "label": "ყ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "u" },
+      "manualOrLocked": { "label": "U" },
       "default": { "label": "უ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "i" },
+      "manualOrLocked": { "label": "I" },
       "default": { "label": "ი" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "o" },
+      "manualOrLocked": { "label": "O" },
       "default": { "label": "ო" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "p" },
+      "manualOrLocked": { "label": "P" },
       "default": { "label": "პ" }
     }
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "a" },
+      "manualOrLocked": { "label": "A" },
       "default": { "label": "ა" }
     },
     { "$": "shift_state_selector",
@@ -51,19 +51,19 @@
       "default": { "label": "ს" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "d" },
+      "manualOrLocked": { "label": "D" },
       "default": { "label": "დ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "f" },
+      "manualOrLocked": { "label": "F" },
       "default": { "label": "ფ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "g" },
+      "manualOrLocked": { "label": "G" },
       "default": { "label": "გ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "h" },
+      "manualOrLocked": { "label": "H" },
       "default": { "label": "ჰ" }
     },
     { "$": "shift_state_selector",
@@ -71,11 +71,11 @@
       "default": { "label": "ჯ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "k" },
+      "manualOrLocked": { "label": "K" },
       "default": { "label": "კ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "l" },
+      "manualOrLocked": { "label": "L" },
       "default": { "label": "ლ" }
     }
   ],
@@ -85,7 +85,7 @@
       "default": { "label": "ზ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "x" },
+      "manualOrLocked": { "label": "X" },
       "default": { "label": "ხ" }
     },
     { "$": "shift_state_selector",
@@ -93,19 +93,19 @@
       "default": { "label": "ც" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "v" },
+      "manualOrLocked": { "label": "V" },
       "default": { "label": "ვ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "b" },
+      "manualOrLocked": { "label": "B" },
       "default": { "label": "ბ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "n" },
+      "manualOrLocked": { "label": "N" },
       "default": { "label": "ნ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "m" },
+      "manualOrLocked": { "label": "M" },
       "default": { "label": "მ" }
     }
   ]

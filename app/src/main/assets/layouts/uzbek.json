@@ -23,7 +23,7 @@
     { "label": "k", "popup": { "main": { "label": "(" } } },
     { "label": "l", "popup": { "main": { "label": ")" } } },
     { "label": "gʻ", "labelFlags": 128 },
-    { "label": "'" }
+    { "label": "ʼ" }
   ],
   [
     { "label": "z", "popup": { "main": { "label": "*" } } },

@@ -45,13 +45,13 @@
       "default": { "label": "ຊ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ໍ່" },
+      "manualOrLocked": { "label": "ໍ່", "labelFlags": 128 },
       "default": { "label": "ໍ" }
     }
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ົ້" },
+      "manualOrLocked": { "label": "ົ້", "labelFlags": 128 },
       "default": { "label": "ົ" }
     },
     { "$": "shift_state_selector",
@@ -59,23 +59,23 @@
       "default": { "label": "ໄ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ຳ້" },
+      "manualOrLocked": { "label": "ຳ້", "labelFlags": 128 },
       "default": { "label": "ຳ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "_" },
+      "manualOrLocked": { "label": "_", "labelFlags": 48 },
       "default": { "label": "ພ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "+" },
+      "manualOrLocked": { "label": "+", "labelFlags": 48 },
       "default": { "label": "ະ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ິ້" },
+      "manualOrLocked": { "label": "ິ້", "labelFlags": 128 },
       "default": { "label": "ິ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ີ້" },
+      "manualOrLocked": { "label": "ີ້", "labelFlags": 128 },
       "default": { "label": "ີ" }
     },
     { "$": "shift_state_selector",
@@ -91,33 +91,33 @@
       "default": { "label": "ຍ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ຫຼ" },
+      "manualOrLocked": { "label": "ຫຼ", "labelFlags": 128 },
       "default": { "label": "ບ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "”" },
+      "manualOrLocked": { "label": "”", "labelFlags": 48 },
       "default": { "label": "ລ" }
     }
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ັ້" },
+      "manualOrLocked": { "label": "ັ້", "labelFlags": 128 },
       "default": { "label": "ັ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": ";" },
+      "manualOrLocked": { "label": ";", "labelFlags": 48 },
       "default": { "label": "ຫ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "." },
+      "manualOrLocked": { "label": ".", "labelFlags": 48 },
       "default": { "label": "ກ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "," },
+      "manualOrLocked": { "label": ",", "labelFlags": 48 },
       "default": { "label": "ດ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": ":" },
+      "manualOrLocked": { "label": ":", "labelFlags": 48 },
       "default": { "label": "ເ" }
     },
     { "$": "shift_state_selector",
@@ -129,33 +129,33 @@
       "default": { "label": "່" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "!" },
+      "manualOrLocked": { "label": "!", "labelFlags": 48 },
       "default": { "label": "າ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\?" },
+      "manualOrLocked": { "label": "\\?", "labelFlags": 48 },
       "default": { "label": "ສ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "%" },
+      "manualOrLocked": { "label": "%", "labelFlags": 48 },
       "default": { "label": "ວ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "=" },
+      "manualOrLocked": { "label": "=", "labelFlags": 48 },
       "default": { "label": "ງ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "“" },
-      "default": { "label": "“" }
+      "manualOrLocked": { "label": "“", "labelFlags": 48 },
+      "default": { "label": "“", "labelFlags": 48 }
     }
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "₭" },
+      "manualOrLocked": { "label": "₭", "labelFlags": 48 },
       "default": { "label": "ຜ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "(" },
+      "manualOrLocked": { "label": "(", "labelFlags": 48 },
       "default": { "label": "ປ" }
     },
     { "$": "shift_state_selector",
@@ -163,15 +163,15 @@
       "default": { "label": "ແ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\@" },
+      "manualOrLocked": { "label": "\\@", "labelFlags": 48 },
       "default": { "label": "ອ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ຶ້" },
+      "manualOrLocked": { "label": "ຶ້", "labelFlags": 128 },
       "default": { "label": "ຶ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ື້" },
+      "manualOrLocked": { "label": "ື້", "labelFlags": 128 },
       "default": { "label": "ື" }
     },
     { "$": "shift_state_selector",
@@ -183,11 +183,11 @@
       "default": { "label": "ມ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "$" },
+      "manualOrLocked": { "label": "$", "labelFlags": 48 },
       "default": { "label": "ໃ" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": ")" },
+      "manualOrLocked": { "label": ")", "labelFlags": 48 },
       "default": { "label": "ຝ" }
     }
   ]

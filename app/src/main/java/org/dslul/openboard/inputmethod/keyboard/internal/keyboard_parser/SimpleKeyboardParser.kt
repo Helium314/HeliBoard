@@ -24,7 +24,8 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
 
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val rowStrings = layoutContent.replace("\r\n", "\n").split("\n\n")
-        return rowStrings.mapIndexedTo(mutableListOf()) { i, row ->
+        return rowStrings.mapIndexedNotNullTo(mutableListOf()) { i, row ->
+            if (row.isBlank()) return@mapIndexedNotNullTo null
             if (addExtraKeys)
                 getExtraKeys(i)?.let { parseRow(row) + it } ?: parseRow(row)
             else

@@ -113,16 +113,16 @@
       "default": { "label": "\u110b", "popup": { "main": { "label": "\u0031" } } }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\u0031" },
-      "default": { "label": "\u1100", "popup": { "main": { "label": "\u0031" } } }
+      "manualOrLocked": { "label": "\u0032" },
+      "default": { "label": "\u1100", "popup": { "main": { "label": "\u0032" } } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u0033" },
       "default": { "label": "\u110c", "popup": { "main": { "label": "\u0033" } } }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\u0033" },
-      "default": { "label": "\u1107", "popup": { "main": { "label": "\u0033" } } }
+      "manualOrLocked": { "label": "\u0034" },
+      "default": { "label": "\u1107", "popup": { "main": { "label": "\u0034" } } }
     }
   ],
   [

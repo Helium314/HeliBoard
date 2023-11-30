@@ -155,8 +155,8 @@
       "default": { "label": "\u1112", "popup": { "main": { "label": "\u0032" } } }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\u0032", "popup": { "main": { "label": "\u0022" } } },
-      "default": { "label": "\u1110", "popup": { "relevant": [{ "label": "\u0032" }, { "label": "\u0022" }] } }
+      "manualOrLocked": { "label": "\u0033", "popup": { "main": { "label": "\u0022" } } },
+      "default": { "label": "\u1110", "popup": { "relevant": [{ "label": "\u0033" }, { "label": "\u0022" }] } }
     }
   ]
 ]

@@ -101,7 +101,7 @@
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ាំ" },
+      "manualOrLocked": { "label": "ាំ", "labelFlags": 128 },
       "default": { "label": "ា" }
     },
     { "$": "shift_state_selector",
@@ -137,7 +137,7 @@
       "default": { "label": "ល" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ោះ" },
+      "manualOrLocked": { "label": "ោះ", "labelFlags": 49280 },
       "default": { "label": "ើ" }
     },
     { "$": "shift_state_selector",
@@ -163,7 +163,7 @@
       "default": { "label": "ច" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "េះ" },
+      "manualOrLocked": { "label": "េះ", "labelFlags": 128 },
       "default": { "label": "វ" }
     },
     { "$": "shift_state_selector",
@@ -179,15 +179,15 @@
       "default": { "label": "ម" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ុះ" },
-      "default": { "label": "ុំ" }
+      "manualOrLocked": { "label": "ុះ", "labelFlags": 128 },
+      "default": { "label": "ុំ", "labelFlags": 128 }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "៕" },
       "default": { "label": "។" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\?" },
+      "manualOrLocked": { "label": "\\?" },
       "default": { "label": "៊" }
     }
   ]
