@@ -15,7 +15,7 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
  *  merged with defaults.
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
-    private val addExtraKeys =
+    private val addExtraKeys = // todo (after removing old parser): add turkish layout that maps to qwerty, but enables extra keys
         params.mId.isAlphabetKeyboard && params.mId.locale.language != "eo"
             && params.mId.mSubtype.keyboardLayoutSetName in listOf("nordic", "spanish", "german", "swiss", "serbian_qwertz")
 

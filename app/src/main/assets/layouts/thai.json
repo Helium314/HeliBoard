@@ -1,0 +1,190 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "+" },
+      "default": { "label": "ๅ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๑" },
+      "default": { "label": "/" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๒" },
+      "default": { "label": "_" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๓" },
+      "default": { "label": "ภ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๔" },
+      "default": { "label": "ถ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ู|ู" },
+      "default": { "label": " ุ|ุ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "฿" },
+      "default": { "label": " ึ|ึ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๕" },
+      "default": { "label": "ค" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๖" },
+      "default": { "label": "ต" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๗" },
+      "default": { "label": "จ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๘" },
+      "default": { "label": "ข" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๙" },
+      "default": { "label": "ช" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๐" },
+      "default": { "label": "ๆ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\"" },
+      "default": { "label": "ไ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฎ" },
+      "default": { "label": "ำ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฑ" },
+      "default": { "label": "พ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ธ" },
+      "default": { "label": "ะ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ํ|ํ" },
+      "default": { "label": " ั|ั" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ๊|๊" },
+      "default": { "label": " ี|ี" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ณ" },
+      "default": { "label": "ร" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฯ" },
+      "default": { "label": "น" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ญ" },
+      "default": { "label": "ย" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฐ" },
+      "default": { "label": "บ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "," },
+      "default": { "label": "ล" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฤ" },
+      "default": { "label": "ฟ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฆ" },
+      "default": { "label": "ห" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฏ" },
+      "default": { "label": "ก" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "โ" },
+      "default": { "label": "ด" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฌ" },
+      "default": { "label": "เ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ็|็" },
+      "default": { "label": " ้|้" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ๋|๋" },
+      "default": { "label": " ่|่" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ษ" },
+      "default": { "label": "า" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ศ" },
+      "default": { "label": "ส" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ซ" },
+      "default": { "label": "ว" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "." },
+      "default": { "label": "ง" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "(" },
+      "default": { "label": "ผ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ")" },
+      "default": { "label": "ป" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฉ" },
+      "default": { "label": "แ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฮ" },
+      "default": { "label": "อ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ฺ|ฺ" },
+      "default": { "label": " ิ|ิ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ์|์" },
+      "default": { "label": " ื|ื" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\?" },
+      "default": { "label": "ท" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฒ" },
+      "default": { "label": "ม" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฬ" },
+      "default": { "label": "ใ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฦ" },
+      "default": { "label": "ฝ" }
+    }
+  ]
+]

@@ -1,2 +1,11 @@
+[morekeys]
+ඥ ෴
+ද ඳ
+ඤ ෴
+ං ඃ
+ජ ඦ
+ඩ ඬ
+ග ඟ
+
 [labels]
 alphabet: අ ආ

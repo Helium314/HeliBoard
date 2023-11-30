@@ -64,9 +64,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  migrate other languages/layouts to this style
+        //   missing layouts: nepali_romanized, nepali_traditional
+        //   add a few individual key label flags: khmer, lao, thai, hindi_compact, marathi, nepali (both)
+        //   that has nine letters in first row -> needs 0 extra (check layout)
+        //   moreKeys for bangla and hindi layouts are completely mixed up -> maybe need to use layoutMoreKeys... but that's not nice
         //   integrated number rows should be removed / ignored when migrating, row will be added differently
         //   test the zwnj key
         //   test whether the layouts really are the same (screenshots for everything added, compare old and new parser)
+        //    first try creating the keyParams with both parsers, and compare results, print differences
         //   some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
         //    that's one more reason for using language tags...
         //    but currently it's still read from xml outside the keyboard parser, so that's fine for now

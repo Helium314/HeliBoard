@@ -1,2 +1,38 @@
+[morekeys]
+! !icon/zwj_key|‍
+ៗ !icon/zwnj_key|‌
+&quot; ៑
+៛ $ €
+% ៖
+៍ ៙
+័ ៚
+៏ *
+( { «
+) } »
+៌ ×
+១ ៱
+២ ៲
+៣ ៳
+៤ ៴
+៥ ៵
+៦ ៶
+៧ ៷
+៨ ៸
+៩ ៹
+០ ៰
+ឥ  ឦ
+ឲ ឱ
+ឈ ៜ
+ឺ ៝
+ឬ ឫ
+ឪ ឧ ឱ ឳ ឩ ឨ
+ះ ៈ
+គ ឝ
+ឮ ឭ ឰ
+ព ឞ
+
+Process finished with exit code 0
+
+
 [labels]
 alphabet: កខគ
