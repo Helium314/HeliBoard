@@ -80,7 +80,7 @@
         android:title="@string/settings_category_experimental">
 
         <SwitchPreferenceCompat
-            android:key="pref_use_new_keyboard_parsing"
+            android:key="pref_use_new_keyboard_parsing1"
             android:title="@string/use_new_keyboard_parsing"
             android:summary="@string/use_new_keyboard_parsing_summary"
             android:defaultValue="true" />
