@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ public final class LanguageOnSpacebarUtils {
             return FORMAT_TYPE_FULL_LOCALE;
         }
         // Only this subtype is enabled and equals to the system locale.
-        if (sEnabledSubtypes.size() < 2 && sIsSystemLanguageSameAsInputLanguage) {
+        if (sEnabledSubtypes.size() < 2 && sIsSystemLanguageSameAsInputLanguage && Settings.getInstance().getCurrent().mSecondaryLocales.isEmpty()) {
             return FORMAT_TYPE_NONE;
         }
         final Locale locale = subtype.getLocale();
