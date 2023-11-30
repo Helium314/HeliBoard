@@ -1,0 +1,45 @@
+[
+  [
+    { "$": "variation_selector",
+      "email": { "label": "-" },
+      "url": { "label": "-" },
+      "default": { "label": "'" }
+    },
+    { "$": "variation_selector",
+      "email": { "label": "_" },
+      "url": { "label": "_" },
+      "default": { "label": "-", "popup": { "main": { "label": "_" } } }
+    },
+    { "label": "ק" },
+    { "label": "ר" },
+    { "label": "א" },
+    { "label": "ט" },
+    { "label": "ו" },
+    { "label": "ן" },
+    { "label": "ם" },
+    { "label": "פ" }
+  ],
+  [
+    { "label": "ש" },
+    { "label": "ד" },
+    { "label": "ג" },
+    { "label": "כ" },
+    { "label": "ע" },
+    { "label": "י" },
+    { "label": "ח" },
+    { "label": "ל" },
+    { "label": "ך" },
+    { "label": "ף" }
+  ],
+  [
+    { "label": "ז" },
+    { "label": "ס" },
+    { "label": "ב" },
+    { "label": "ה" },
+    { "label": "נ" },
+    { "label": "מ" },
+    { "label": "צ" },
+    { "label": "ת" },
+    { "label": "ץ" }
+  ]
+]
