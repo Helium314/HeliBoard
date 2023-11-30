@@ -79,8 +79,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         if (Settings.PREF_SHOW_POPUP_HINTS.equals(key))
             mReloadKeyboard = true;
-        if (key.equals(Settings.PREF_SHOW_NUMBER_ROW))
-            setLocalizedNumberRowVisibility();
         if (key.equals(Settings.PREF_LOCALIZED_NUMBER_ROW))
             KeyboardLayoutSet.onSystemLocaleChanged();
     }
@@ -96,12 +94,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     private void setLocalizedNumberRowVisibility() {
         final Preference pref = findPreference(Settings.PREF_LOCALIZED_NUMBER_ROW);
         if (pref == null) return;
-        if (!getSharedPreferences().getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false)) {
-            pref.setVisible(false);
-            return;
-        }
-
-        // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files isn't great either)
+        // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
         final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "hi", "mr", "ne", "ur" };
         for (final InputMethodSubtype subtype : SubtypeSettingsKt.getEnabledSubtypes(getSharedPreferences(), true)) {
             if (ArraysKt.any(numberRowLocales, (l) -> l.equals(subtype.getLocale().substring(0, 2)))) {
