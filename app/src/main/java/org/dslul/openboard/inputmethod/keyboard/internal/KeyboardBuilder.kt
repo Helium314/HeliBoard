@@ -64,10 +64,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  migrate other languages/layouts to this style
-        //   add a few individual key label flags: hindi_compact -> dammit... one key and there is need for json, marathi -> same
         //   thai and lao number rows... they should probably have none, can't do it generically
         //    so handle it like korean
         //   languageMoreKeys for bengali and hindi layouts are completely mixed up -> maybe need to use layoutMoreKeys... but that's not nice
+        //   bangla (india) has different period & symbols label (should it really be latin?)
+        //    maybe need separate key text files for _IN and _BD
         //   test whether the layouts really are the same
         //    comparing params with both parsers looks good, see list of detected differences below
         //    still need to check moreKeys, there will be many more differences that might just be minor
@@ -76,7 +77,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //    that's one more reason for using language tags...
         //    but currently it's still read from xml outside the keyboard parser, so that's fine for now
         //   issues:
-        //    armenian bottom row: functional keys should be narrower
+        //    armenian bottom row (and some more): functional keys could be narrower
         //    rtl parentheses hint label (urdu and more)
         //    urdu and others: no labels because the moreKeys are languageMoreKeys -> need the moreKeys setting soon (at least setting to show first language moreKey if no symbol)
         //     setting: symbol morekey(s): layout default, take from symbols, layout default but fill from symbols if empty
@@ -196,14 +197,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                         //  also check holo, there might be different default parameters
                         //  and compare tablet layouts (how to best force it for both parsers?)
                         val keyParams = row[index1]
-                        // bangla (india) has different period & symbols label (should it really be latin?)
-                        //  maybe need separate key text files for _IN and _BD
-                        // hindi compact has a key with different label flags (marathi too? maybe i overlooked)
-                        // lao has some sort of split number row, should be considered (how to deal with it?)
-                        //  thai also has this, leads to differences in hint labels and moreKeys
                         if (keyParams.mLabel != xmlParams.mLabel)
                             // currency keys (shift symbol) arranged differently
-                            // obviously number row differences
+                            // obviously number row differences with possibly localized variants
                             Log.w(TAG, "label different: ${keyParams.mLabel} vs ${xmlParams.mLabel}")
                         if (keyParams.mCode != xmlParams.mCode)
                             Log.w(TAG, "code different: ${keyParams.mCode} vs ${xmlParams.mCode}")
@@ -222,6 +218,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                             // armenian, arabic, bangla,... and many with "symbols" original shift and delete have LABEL_FLAGS_FONT_NORMAL, mine not (but my period has)
                             // malayalam delete also has LABEL_FLAGS_AUTO_X_SCALE, mine not
                             // tamil & telugu my delete has LABEL_FLAGS_AUTO_X_SCALE, original not
+                            // hindi / marathi: -5 has 10, mine has 0 -> delete and LABEL_FLAGS_FONT_NORMAL
                             Log.w(TAG, "label flags different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mLabelFlags.toString(16)} vs ${xmlParams.mLabelFlags.toString(16)}")
                     }
                 }
@@ -275,6 +272,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             var currentX = 0f
             row.forEach {
                 it.setDimensionsFromRelativeSize(currentX, currentY)
+                if (DebugFlags.DEBUG_ENABLED)
+                    Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mFullWidth.toInt()}")
                 currentX += it.mFullWidth
             }
             // need to truncate to int here, otherwise it may end up one pixel lower than original

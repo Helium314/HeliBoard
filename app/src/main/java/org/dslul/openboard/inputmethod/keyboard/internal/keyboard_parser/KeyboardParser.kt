@@ -61,8 +61,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && params.mId.locale.language != "ko") {
             // add number to the first 10 keys in first row
             // setting the correct moreKeys is handled in PopupSet
-            // not for korean layouts, todo: should be decided in the layout, not in the parser
+            // not for korean layouts (add thai and lao to this), todo: should be decided in the layout, not in the parser
             baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
+            if (DebugFlags.DEBUG_ENABLED && baseKeys.first().size < 10) {
+                val message = "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}"
+                Log.w(TAG, message)
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            }
         }
         val functionalKeysReversed = parseFunctionalKeys().reversed()
 
@@ -73,6 +78,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         baseKeys.reversed().forEachIndexed { i, it ->
             val row: List<KeyData> = if (i == 0) {
                 // add bottom row extra keys
+                // todo: question mark might be different -> get it from localeKeyTexts
+                //  also, maybe check device dimension int instead of getting this from resources, then using language labels is easier
                 it + context.getString(R.string.key_def_extra_bottom_right)
                     .split(",").mapNotNull { if (it.isBlank()) null else it.trim().toTextKey() }
             } else {
@@ -118,6 +125,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 //  but that could also be determined in toKeyParams
                 val keyParams = key.compute(params).toKeyParams(params, keyWidth, defaultLabelFlags)
                 paramsRow.add(keyParams)
+                if (DebugFlags.DEBUG_ENABLED)
+                    Log.d(TAG, "adding key ${keyParams.mLabel}, ${keyParams.mCode}")
             }
             if (spacerWidth != 0f) {
                 paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
@@ -480,7 +489,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
         if (id == 0) {
             val message = "no resource for label $this in ${params.mId}"
-            Log.w(this::class.simpleName, message)
+            Log.w(TAG, message)
             if (DebugFlags.DEBUG_ENABLED)
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             return this
@@ -559,6 +568,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     companion object {
+        private val TAG = KeyboardParser::class.simpleName
+
         fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>>? {
             val id = params.mId
             val layoutName = params.mId.mSubtype.keyboardLayoutSetName
