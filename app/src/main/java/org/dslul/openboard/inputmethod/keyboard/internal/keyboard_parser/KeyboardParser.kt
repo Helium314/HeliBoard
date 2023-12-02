@@ -17,6 +17,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
@@ -404,7 +405,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 params,
                 width,
                 Key.LABEL_FLAGS_HAS_POPUP_HINT,
-                Key.BACKGROUND_TYPE_SPACEBAR,
+                // this may not be a good place to make this choice, but probably it's fine (though reading from settings here is not good)
+                if (Settings.getInstance().current.mColors.hasKeyBorders) Key.BACKGROUND_TYPE_SPACEBAR else Key.BACKGROUND_TYPE_NORMAL,
                 arrayOf("!icon/zwj_key|\u200D")
             )
         }
