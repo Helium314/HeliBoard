@@ -132,8 +132,8 @@ public class Key implements Comparable<Key> {
     private static final int MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY = 0x10000000;
     // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
     public static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
-    private static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
-    private static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
+    public static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
+    public static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
     private static final String MORE_KEYS_NEEDS_DIVIDERS = "!needsDividers!";
     private static final String MORE_KEYS_NO_PANEL_AUTO_MORE_KEY = "!noPanelAutoMoreKey!";
 
@@ -960,7 +960,7 @@ public class Key implements Comparable<Key> {
         @Nullable public final String mHintLabel;
         public final int mLabelFlags;
         public final int mIconId;
-        public final MoreKeySpec[] mMoreKeys;
+        @Nullable public final MoreKeySpec[] mMoreKeys;
         public final int mMoreKeysColumnAndFlags;
         public final int mBackgroundType;
         public final int mActionFlags;
@@ -1193,6 +1193,8 @@ public class Key implements Comparable<Key> {
             int actionFlags = 0;
 
             final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
+            if (languageMoreKeys != null && layoutMoreKeys != null && languageMoreKeys[0].startsWith("!fixedColumnOrder!"))
+                languageMoreKeys[0] = null; // we change the number of keys, so better not use fixedColumnOrder to avoid awkward layout
             // todo: after removing old parser this could be done in a less awkward way without almostFinalMoreKeys
             final String[] almostFinalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
             mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, almostFinalMoreKeys);

@@ -1,6 +1,5 @@
 [morekeys]
 и ѝ
-" ” „ “
 
 [labels]
 alphabet: АБВ

@@ -64,6 +64,7 @@ punctuation !autoColumnOrder!9 \, . ? ! # ) ( / ; ' @ : - " + \% &
 म ॐ
 न ण ञ ङ
 स श ष श्र
+ऑ ॉ
 
 [labels]
 alphabet: कखग

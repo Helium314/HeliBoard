@@ -64,11 +64,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  migrate other languages/layouts to this style
-        //   thai and lao number rows... they should probably have none, can't do it generically
-        //    so handle it like korean
-        //   languageMoreKeys for bengali and hindi layouts are completely mixed up -> maybe need to use layoutMoreKeys... but that's not nice
-        //   bangla (india) has different period & symbols label (should it really be latin?)
-        //    maybe need separate key text files for _IN and _BD
         //   test whether the layouts really are the same
         //    comparing params with both parsers looks good, see list of detected differences below
         //    still need to check moreKeys, there will be many more differences that might just be minor
@@ -105,6 +100,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   write another parser, it should already consider split
         //   add a setting to display all emojis (and use emojiv2 or emojicompat or whatever is necessary)
         //    mention in subtitle that they may not be displayed properly, depending on the app you're writing in
+        //  more settings for localized number row, so it can be different in shift or symbols
         //  migrate moreKeys and moreSuggestions to this style?
         //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
         //  remove the old parser
@@ -193,32 +189,68 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                         return@forEachIndexed
                     }
                     xmlRow2.forEachIndexed { index1, xmlParams ->
-                        // todo: compare moreKeys (and if different, check whether it's just the order)
-                        //  also check holo, there might be different default parameters
-                        //  and compare tablet layouts (how to best force it for both parsers?)
+                        // todo: compare tablet layouts (how to best force it for both parsers?)
+                        //   just rename the sw600 folders to sw 360
+                        // ->
+                        //  to shift symbols label should be ~ [ <
+                        //  last symbols row should be \ = * " ' : ; ! ? (but is * " ' : ; ! ? ! ?)
+                        //  last shift symbols row should have inverted ! and ?
+                        //  some different label flags
+                        //  ar: last symbols row should be \ = * " ' : ; ! ؟ (but is * « » : ; ! ؟ ! ?)
+                        //  ar: layout should not have ! and ? added (just empty space here...)
+                        //  ru, sr (both), others don't have a right shift key (come on...)
+                        //  but bulgarian (default) has -> not even per language
+                        //  armenian (and probably other 4 row layouts) messed up (delete key should be in first for, not x from bottom)
                         val keyParams = row[index1]
                         if (keyParams.mLabel != xmlParams.mLabel)
                             // currency keys (shift symbol) arranged differently
                             // obviously number row differences with possibly localized variants
                             Log.w(TAG, "label different: ${keyParams.mLabel} vs ${xmlParams.mLabel}")
+                        if (keyParams.mMoreKeys == null && xmlParams.mMoreKeys != null)
+                            Log.w(TAG, "moreKeys null for ${keyParams.mLabel} / ${keyParams.mCode}, but xml not null")
+                        else if (xmlParams.mMoreKeys == null && keyParams.mMoreKeys != null)
+                            // for ?123 key, wtf why are there moreKeys? can't see them anyway...
+                            Log.w(TAG, "moreKeys not null for ${keyParams.mLabel} / ${keyParams.mCode}, but xml null")
+                        else if (xmlParams.mMoreKeys == null || keyParams.mMoreKeys == null || keyParams.mMoreKeys.contentEquals(xmlParams.mMoreKeys))
+                            Unit
+                        else if (keyParams.mMoreKeys.size < xmlParams.mMoreKeys.size) {
+                            if (keyParams.mMoreKeys.size - xmlParams.mMoreKeys.size == -1 && keyParams.mCode.toChar().lowercase() == "s")
+                                Log.i(TAG, "missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
+                            else
+                                Log.w(TAG, "missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
+                        } else if (keyParams.mMoreKeys.size > xmlParams.mMoreKeys.size) {
+                            if (keyParams.mMoreKeys.toList().containsAll(xmlParams.mMoreKeys.toList()))
+                                Log.i(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys.firstOrNull() == xmlParams.mMoreKeys.firstOrNull() }" +
+                                        ", contains all original: true") // not really an issue i would say
+                            else
+                                Log.w(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys.firstOrNull() == xmlParams.mMoreKeys.firstOrNull() }" +
+                                        ", contains all original: false")
+                        } else if (!keyParams.mMoreKeys.toList().containsAll(xmlParams.mMoreKeys.toList()))
+                            Log.w(TAG, "same size but missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
                         if (keyParams.mCode != xmlParams.mCode)
                             Log.w(TAG, "code different: ${keyParams.mCode} vs ${xmlParams.mCode}")
                         if (keyParams.mIconId != xmlParams.mIconId)
                             Log.w(TAG, "icon different: ${keyParams.mIconId} vs ${xmlParams.mIconId}")
-                        if (keyParams.mHintLabel != xmlParams.mHintLabel)
+                        if (keyParams.mMoreKeysColumnAndFlags != xmlParams.mMoreKeysColumnAndFlags)
+                            // symbols parentheses, symbols shift,
+                            Log.w(TAG, "mMoreKeysColumnAndFlags different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mMoreKeysColumnAndFlags} vs ${xmlParams.mMoreKeysColumnAndFlags}")
+                        if (keyParams.mHintLabel != xmlParams.mHintLabel
+                                && keyParams.mCode.toChar().lowercase() !in listOf("ö", "ä", "ü", "å", "ø", "æ", "é", "è", "à") // known, and imo irrelevant resp even better (but could be changed)
+                                && keyParams.mCode != '.'.code // happens for arabic, but really... hint label on period?
+                            )
                             // extra and number keys are the difference so far
                             // persian has small difference
                             // khmer has some difference
                             // urdu has a lot of difference
-                            Log.w(TAG, "hint label different: ${keyParams.mHintLabel} vs ${xmlParams.mHintLabel}")
-                        if (keyParams.mLabelFlags != xmlParams.mLabelFlags && keyParams.mCode != 10)
-                            // in symbol layout
-                            //  my version has disableHintLabel for all
-                            //  original has LABEL_FLAGS_HAS_POPUP_HINT on < > in shift symbol (but there is no popup)
-                            // armenian, arabic, bangla,... and many with "symbols" original shift and delete have LABEL_FLAGS_FONT_NORMAL, mine not (but my period has)
-                            // malayalam delete also has LABEL_FLAGS_AUTO_X_SCALE, mine not
-                            // tamil & telugu my delete has LABEL_FLAGS_AUTO_X_SCALE, original not
-                            // hindi / marathi: -5 has 10, mine has 0 -> delete and LABEL_FLAGS_FONT_NORMAL
+                            Log.w(TAG, "hint label different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mHintLabel} vs ${xmlParams.mHintLabel}")
+                        if (keyParams.mLabelFlags != xmlParams.mLabelFlags
+                                && !(keyParams.mLabelFlags - xmlParams.mLabelFlags == 0x40000000 && (mParams.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED || mParams.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS)) // ignore the disableHintLabel flag
+                                && !(keyParams.mCode == -5 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x10) // delete key with fontNormal (doesn't matter, happens because flags are set for entire row)
+                                && !(keyParams.mCode == -1 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x10) // shift key with fontNormal (doesn't matter, happens because flags are set for entire row)
+                                && !(keyParams.mCode == -5 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x4010) // delete key with fontNormal|autoXScale (doesn't matter, happens because flags are set for entire row)
+                                && !(keyParams.mCode == -1 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x4010) // shift key with fontNormal|autoXScale (doesn't matter, happens because flags are set for entire row)
+                                && !(keyParams.mLabelFlags - xmlParams.mLabelFlags == 0x10 && mParams.mId.mSubtype.keyboardLayoutSetName == "bengali_unijoy") // bangla (bd) doesn't have fontNormal, but for me it has -> that's fine, imo better
+                            )
                             Log.w(TAG, "label flags different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mLabelFlags.toString(16)} vs ${xmlParams.mLabelFlags.toString(16)}")
                     }
                 }

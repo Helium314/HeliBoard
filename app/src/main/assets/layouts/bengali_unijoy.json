@@ -81,8 +81,8 @@
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "য" },
-      "default": { "label": "্" }
+      "manualOrLocked": { "label": "্য" },
+      "default": { "label": "্র" }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ৌ" },

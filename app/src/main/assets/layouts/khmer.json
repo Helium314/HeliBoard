@@ -1,7 +1,7 @@
 [
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "!" },
+      "manualOrLocked": { "label": "!", "labelFlags": 48 },
       "default": { "label": "១" }
     },
     { "$": "shift_state_selector",
@@ -9,7 +9,7 @@
       "default": { "label": "២" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\"" },
+      "manualOrLocked": { "label": "\"", "labelFlags": 48 },
       "default": { "label": "៣" }
     },
     { "$": "shift_state_selector",
@@ -17,7 +17,7 @@
       "default": { "label": "៤" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "%" },
+      "manualOrLocked": { "label": "%", "labelFlags": 48 },
       "default": { "label": "៥" }
     },
     { "$": "shift_state_selector",
@@ -33,11 +33,11 @@
       "default": { "label": "៨" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "(" },
+      "manualOrLocked": { "label": "(", "labelFlags": 48 },
       "default": { "label": "៩" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": ")" },
+      "manualOrLocked": { "label": ")", "labelFlags": 48 },
       "default": { "label": "០" }
     },
     { "$": "shift_state_selector",
@@ -187,7 +187,7 @@
       "default": { "label": "។" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "\\?" },
+      "manualOrLocked": { "label": "\\?", "labelFlags": 48 },
       "default": { "label": "៊" }
     }
   ]

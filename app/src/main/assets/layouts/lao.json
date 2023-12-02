@@ -2,19 +2,19 @@
   [
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໑" },
-      "default": { "label": "ຢ" }
+      "default": { "label": "ຢ", "popup": { "relevant": [ { "label": "1" }, { "label": "໑" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໒" },
-      "default": { "label": "ຟ" }
+      "default": { "label": "ຟ", "popup": { "relevant": [ { "label": "2" }, { "label": "໒" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໓" },
-      "default": { "label": "ໂ" }
+      "default": { "label": "ໂ", "popup": { "relevant": [ { "label": "3" }, { "label": "໓" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໔" },
-      "default": { "label": "ຖ" }
+      "default": { "label": "ຖ", "popup": { "relevant": [ { "label": "4" }, { "label": "໔" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໌" },
@@ -26,23 +26,23 @@
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໕" },
-      "default": { "label": "ຄ" }
+      "default": { "label": "ຄ", "popup": { "relevant": [ { "label": "5" }, { "label": "໕" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໖" },
-      "default": { "label": "ຕ" }
+      "default": { "label": "ຕ", "popup": { "relevant": [ { "label": "6" }, { "label": "໖" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໗" },
-      "default": { "label": "ຈ" }
+      "default": { "label": "ຈ", "popup": { "relevant": [ { "label": "7" }, { "label": "໗" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໘" },
-      "default": { "label": "ຂ" }
+      "default": { "label": "ຂ", "popup": { "relevant": [ { "label": "8" }, { "label": "໘" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໙" },
-      "default": { "label": "ຊ" }
+      "default": { "label": "ຊ", "popup": { "relevant": [ { "label": "9" }, { "label": "໙" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ໍ່", "labelFlags": 128 },
@@ -56,7 +56,7 @@
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "໐" },
-      "default": { "label": "ໄ" }
+      "default": { "label": "ໄ", "popup": { "relevant": [ { "label": "0" }, { "label": "໐" } ] } }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ຳ້", "labelFlags": 128 },

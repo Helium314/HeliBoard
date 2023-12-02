@@ -1,7 +1,7 @@
 [morekeys]
 ه ﻫ|ه‍ هٔ ة
 ی ئ ي ﯨ|ى
-ا ٱ ء آ أ إ
+ا !fixedColumnOrder!5 ٱ ء آ أ إ
 ت ة
 ک ك
 و ؤ

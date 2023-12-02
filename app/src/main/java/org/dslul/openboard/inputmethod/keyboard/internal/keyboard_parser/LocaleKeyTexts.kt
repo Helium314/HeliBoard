@@ -6,6 +6,7 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
+import org.dslul.openboard.inputmethod.latin.common.splitOnFirstSpacesOnly
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.InputStream
@@ -52,6 +53,8 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             moreKeys["!"] = arrayOf("¡")
         if ("?" !in moreKeys)
             moreKeys["?"] = arrayOf("¿")
+        if ("punctuation" !in moreKeys)
+            moreKeys["punctuation"] = arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
 
     private fun readStream(stream: InputStream?, onlyMoreKeys: Boolean) {
@@ -68,7 +71,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
                     "[number_row]" -> { mode = READER_MODE_NUMBER_ROW; return@forEachLine }
                 }
                 when (mode) {
-                    READER_MODE_MORE_KEYS -> addMoreKeys(line.splitOnWhitespace())
+                    READER_MODE_MORE_KEYS -> addMoreKeys(line)
                     READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> setNumberRow(line.splitOnWhitespace(), onlyMoreKeys)
@@ -89,16 +92,22 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         readStream(dataStream, true)
     }
 
-    private fun addMoreKeys(split: List<String>) {
+    private fun addMoreKeys(line: String) {
+        val split = if (line.contains("|"))
+                // if a moreKey contains label/code separately, there are cases where space can be in there too
+                // normally this should work for all moreKeys, but if we split them on whitespace there is less chance for unnecessary issues
+                line.splitOnFirstSpacesOnly()
+            else line.splitOnWhitespace()
         if (split.size == 1) return
         val key = split.first()
         val existingMoreKeys = moreKeys[key]
         val newMoreKeys = if (existingMoreKeys == null)
                 Array(split.size - 1) { split[it + 1] }
             else mergeMoreKeys(existingMoreKeys, split.drop(1))
-        moreKeys[key] = if (key == "'" || key == "\"") // also do for parenthesis?
-                addFixedColumnOrder(newMoreKeys)
-            else newMoreKeys
+        moreKeys[key] = when (key) {
+            "'", "\"", "«", "»", ")", "(" -> addFixedColumnOrder(newMoreKeys)
+            else -> newMoreKeys
+        }
     }
 
     private fun addExtraKey(split: List<String>) {
@@ -266,17 +275,17 @@ private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
         return ruble
     if (locale.country == "LK" || locale.country == "BD")
         return genericCurrencyKey(getCurrency(locale))
-    if (locale.country == "IN" && locale.language == "ta")
+    if (locale.country != "IN" && locale.language == "ta")
         return genericCurrencyKey("௹")
     if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te".toRegex()))
         return rupee
     if (locale.country == "GB")
         return pound
-    return genericCurrencyKey("$")
+    return dollar
 }
 
 private fun genericCurrencyKey(currency: String) = currency to genericCurrencyMoreKeys
-private val genericCurrencyMoreKeys = arrayOf("$", "¢", "£", "€", "¥", "₱")
+private val genericCurrencyMoreKeys = arrayOf("£", "€", "$", "¢", "¥", "₱")
 
 private fun getCurrency(locale: Locale): String {
     if (locale.country == "BD") return "৳"
@@ -298,12 +307,13 @@ private fun getCurrency(locale: Locale): String {
 }
 
 // needs at least 4 moreKeys for working shift-symbol keyboard
-private val euro = "€" to arrayOf("¢", "£", "$", "¥", "₱")
-private val dram = "֏" to arrayOf("€", "$", "₽", "¥", "£")
-private val rupee = "₹" to arrayOf("¢", "£", "€", "¥", "₱")
-private val pound = "£" to arrayOf("¢", "$", "€", "¥", "₱")
+private val euro = "€" to arrayOf("£", "¥", "$", "¢", "₱")
+private val dram = "֏" to arrayOf("€", "₽", "$", "£", "¥")
+private val rupee = "₹" to arrayOf("£", "€", "$", "¢", "¥", "₱")
+private val pound = "£" to arrayOf("€", "¥", "$", "¢", "₱")
 private val ruble = "₽" to arrayOf("€", "$", "£", "¥")
 private val lira = "₺" to arrayOf("€", "$", "£", "¥")
+private val dollar = "$" to arrayOf("£", "¢", "€", "¥", "₱")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
 

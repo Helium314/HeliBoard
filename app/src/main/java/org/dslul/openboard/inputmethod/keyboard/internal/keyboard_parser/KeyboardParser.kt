@@ -21,6 +21,7 @@ import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
+import java.util.Locale
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,
@@ -58,10 +59,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row
             baseKeys[0] = params.mLocaleKeyTexts.getNumberRow()
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && params.mId.locale.language != "ko") {
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard
+                && params.mId.locale.language != "ko"
+                && params.mId.locale.language != "th"
+                && params.mId.locale.language != "lo"
+            ) {
             // add number to the first 10 keys in first row
             // setting the correct moreKeys is handled in PopupSet
-            // not for korean layouts (add thai and lao to this), todo: should be decided in the layout, not in the parser
+            // not for korean/lao/thai layouts, todo: should be decided in the layout, not in the parser
             baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
             if (DebugFlags.DEBUG_ENABLED && baseKeys.first().size < 10) {
                 val message = "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}"
@@ -80,8 +85,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 // add bottom row extra keys
                 // todo: question mark might be different -> get it from localeKeyTexts
                 //  also, maybe check device dimension int instead of getting this from resources, then using language labels is easier
+                //  and in shift symbols it should be inverted question/exclamation marks
                 it + context.getString(R.string.key_def_extra_bottom_right)
-                    .split(",").mapNotNull { if (it.isBlank()) null else it.trim().toTextKey() }
+                    .split(",").mapNotNull { if (it.isBlank()) null else it.trim().toTextKey(labelFlags = Key.LABEL_FLAGS_FONT_DEFAULT) }
             } else {
                 it
             }
@@ -186,7 +192,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     private fun splitFunctionalKeyDefs(def: String): List<String> {
         if (def.isBlank()) return emptyList()
-        return def.split(",").filter { infos.hasShiftKey || !it.startsWith("shift") }
+        return def.split(",").filter { infos.hasShiftKey || !it.trim().startsWith("shift") }
     }
 
     private fun getBottomRowAndAdjustBaseKeys(baseKeys: MutableList<List<KeyData>>): ArrayList<KeyParams> {
@@ -225,18 +231,18 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         (adjustedKeys?.get(1)?.label ?: "<").rtlLabel(params),
                         params,
                         params.mDefaultRelativeKeyWidth,
-                        defaultLabelFlags,
+                        defaultLabelFlags or Key.LABEL_FLAGS_HAS_POPUP_HINT,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
-                        adjustedKeys?.get(1)?.popup?.toMoreKeys(params)
+                        adjustedKeys?.get(1)?.popup?.toMoreKeys(params) ?: arrayOf("!fixedColumnOrder!3", "‹", "≤", "«")
                     ))
                     bottomRow.add(keyParams)
                     bottomRow.add(KeyParams(
                         (adjustedKeys?.get(2)?.label ?: ">").rtlLabel(params),
                         params,
                         params.mDefaultRelativeKeyWidth,
-                        defaultLabelFlags,
+                        defaultLabelFlags or Key.LABEL_FLAGS_HAS_POPUP_HINT,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
-                        adjustedKeys?.get(2)?.popup?.toMoreKeys(params)
+                        adjustedKeys?.get(2)?.popup?.toMoreKeys(params) ?: arrayOf("!fixedColumnOrder!3", "›", "≥", "»")
                     ))
                 } else { // alphabet
                     if (params.mId.mLanguageSwitchKeyEnabled)
@@ -302,7 +308,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 moreKeys?.let { getCommaMoreKeys() + it } ?: getCommaMoreKeys()
             )
             FunctionalKey.PERIOD -> KeyParams(
-                label ?: params.mLocaleKeyTexts.labelPeriod,
+                // special period moreKey only in alphabet layout, except for ar and fa
+                // todo: here is not the place to decide this, put it somewhere else (labelPeriod and labelPeriodSymbols?)
+                label ?: if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa")) params.mLocaleKeyTexts.labelPeriod else ".",
                 params,
                 width,
                 Key.LABEL_FLAGS_HAS_POPUP_HINT
@@ -351,7 +359,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
                     Key.BACKGROUND_TYPE_STICKY_ON
                 else Key.BACKGROUND_TYPE_STICKY_OFF,
-                arrayOf("!noPanelAutoMoreKey!", " |!code/key_capslock")
+                if (params.mId.isAlphabetKeyboard) arrayOf("!noPanelAutoMoreKey!", " |!code/key_capslock") else null // why the alphabe morekeys actually?
             )
             FunctionalKey.EMOJI -> KeyParams(
                 "!icon/emoji_normal_key|!code/key_emoji",
@@ -373,7 +381,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 width,
                 Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE,
                 Key.BACKGROUND_TYPE_FUNCTIONAL,
-                arrayOf("!hasLabels!", ".net", ".org", ".gov", ".edu")
+                arrayOf(Key.MORE_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu")
             )
             FunctionalKey.LANGUAGE_SWITCH -> KeyParams(
                 "!icon/language_switch_key|!code/key_language_switch",
@@ -477,8 +485,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             if (replacementText == iconName) { // i.e. we have the drawable
                 moreKeys.add(moreKey)
             } else {
-                moreKeys.add("!hasLabels!")
-                moreKeys.add(replacementText)
+                moreKeys.add(Key.MORE_KEYS_HAS_LABELS)
+                moreKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
             }
         }
         return moreKeys.toTypedArray()
@@ -497,7 +505,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?
             override fun job(res: Resources) = res.getString(id)
         }
-        return ril.runInLocale(context.resources, params.mId.locale)
+        val locale = if (params.mId.locale.toString().lowercase() == "hi_zz") Locale("en", "IN") else params.mId.locale // crappy workaround...
+        return ril.runInLocale(context.resources, locale)
     }
 
     private fun getToSymbolLabel() =
@@ -553,8 +562,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     private fun getPunctuationMoreKeys(): Array<String> {
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return arrayOf("…")
-        val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation") ?:
-            arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+        val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation")!!
+        if (params.mId.mSubtype.isRtlSubtype) {
+            for (i in moreKeys.indices)
+                moreKeys[i] = moreKeys[i].rtlLabel(params) // for parentheses
+        }
         if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
             // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
             // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
@@ -627,7 +639,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     R.array.touch_position_correction_data_default
                 else R.array.touch_position_correction_data_holo
             val hasZwnjKey = params.mId.locale.language in listOf("fa", "ne", "kn", "te") // determine from language, user might have custom layout
-            val hasShiftKey = name !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
+            val hasShiftKey = !params.mId.isAlphabetKeyboard || name !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
             return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantMoreKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey)
         }
     }
@@ -659,7 +671,7 @@ fun String.rtlLabel(params: KeyboardParams): String {
         "}" -> "}|{"
         "(" -> "(|)"
         ")" -> ")|("
-        "[" -> "{|]"
+        "[" -> "[|]"
         "]" -> "]|["
         "<" -> "<|>"
         ">" -> ">|<"

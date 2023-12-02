@@ -3,7 +3,7 @@
     { "$": "variation_selector",
       "email": { "label": "-" },
       "url": { "label": "-" },
-      "default": { "label": "'" }
+      "default": { "label": "'", "popup": { "main": { "label": "\"" } } }
     },
     { "$": "variation_selector",
       "email": { "label": "_" },

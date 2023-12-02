@@ -16,8 +16,8 @@ $$$
 &
 - _ – — ·
 + ±
-( < { [
-) > } ]
+( !fixedColumnOrder!3 < { [
+) !fixedColumnOrder!3 > } ]
 
 * † ‡ ★
 "

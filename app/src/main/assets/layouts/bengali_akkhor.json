@@ -93,7 +93,7 @@
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "।" },
+      "manualOrLocked": { "label": "।", "popup": { "main": { "label": "॥" } }, "labelFlags": 1073741824 },
       "default": { "label": "য" }
     },
     { "$": "shift_state_selector",

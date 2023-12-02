@@ -272,42 +272,5 @@ def main():
 #    write_combined_lists(keys)
 
 
-# need to check strings:
-# latin, but only in symbol layout
-#  single_quotes, double_quotes (both used in morekeys of single/double quotes in symbol keyboard)
-#  single_angle_quotes, double_angle_quotes (same place as above -> merge into the same base ' or ")
-#  -> just treat them like morekeys_' and morekeys_"
-#  ... resolving those is really horrible, check different things and maybe include all if not too much?
-# latin, but for layout and not for moreKeys
-#  keyspec_nordic_row (+swiss and spanish) -> normal keys, what do? really specify a layout? or allow modifying?
-#  keyspec_q + w, y, x (eo only -> hmm, have a separate layout?)
-# not latin, but cyrillic (and maybe other non-latin)
-#  keyspec_east_slavic_row
-#  keylabel_to_alpha
-#  label_go_key and other keys (hi-rZZ and sr-rZZ -> why here? they should be in app strings, right?)
-# not in latin (so far)
-#  keyspec_symbols
-#  additional_morekeys_symbols
-#  keyspec_currency
-#  keylabel_to_symbol
-#  keyspec_comma
-#  keyhintlabel_period -> that's with the shifted key hint maybe
-#  keyhintlabel_tablet_period
-#  keyspec_period
-#  keyspec_tablet_period
-#  keyspec_symbols_question
-#  keyspec_symbols_semicolon
-#  keyspec_symbols_percent
-#  keyspec_tablet_comma
-#  keyhintlabel_tablet_comma
-#  keyspec_left_parenthesis + right
-#  keyspec_left_square_bracket + right
-#  keyspec_left_curly_bracket + right
-#  keyspec_less_than + greater
-#  keyspec_less_than_equal + greater
-#  keyspec_left_double_angle_quote + right
-#  keyspec_left_single_angle_quote + right
-
-
 if __name__ == "__main__":
     main()

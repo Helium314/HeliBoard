@@ -95,7 +95,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         final Preference pref = findPreference(Settings.PREF_LOCALIZED_NUMBER_ROW);
         if (pref == null) return;
         // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
-        final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "hi", "mr", "ne", "ur", "th" };
+        final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "hi", "mr", "ne", "ur" };
         for (final InputMethodSubtype subtype : SubtypeSettingsKt.getEnabledSubtypes(getSharedPreferences(), true)) {
             if (ArraysKt.any(numberRowLocales, (l) -> l.equals(subtype.getLocale().substring(0, 2)))) {
                 pref.setVisible(true);
