@@ -215,8 +215,7 @@ Nouveau dictionnaire:
     <string name="theme_name_dark">Sombre</string>
     <string name="theme_name_darker">Noir</string>
     <string name="theme_name_black">Amoled</string>
-    <string name="theme_name_dynamic_light">Couleurs dynamiques</string>
-    <string name="theme_name_dynamic_dark">Couleurs dynamiques</string>
+    <string name="theme_name_dynamic">Couleurs dynamiques</string>
     <string name="theme_name_user">Personnalisé</string>
     <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
     <string name="select_user_colors">Personnaliser le thème</string>

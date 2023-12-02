@@ -7,12 +7,10 @@
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
