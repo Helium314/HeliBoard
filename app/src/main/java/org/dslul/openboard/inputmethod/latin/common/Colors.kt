@@ -124,6 +124,16 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
     /** further darkened variant of [adjustedAccent] */
     private val doubleAdjustedAccent: Int = darken(adjustedAccent)
 
+    /** darkened variant of [functionalKey] used in day mode */
+    private val adjustedFunctionalKey: Int = darken(functionalKey)
+    /** further darkened variant of [adjustedFunctionalKey] */
+    private val doubleAdjustedFunctionalKey: Int = darken(adjustedFunctionalKey)
+
+    /** brightened variant of [keyBackground] used in night mode */
+    private val adjustedKeyBackground: Int = brighten(keyBackground)
+    /** further brightened variant of [adjustedKeyBackground] */
+    private val doubleAdjustedKeyBackground: Int = brighten(adjustedKeyBackground)
+
     init {
         accentColorFilter = colorFilter(doubleAdjustedAccent)
 
@@ -154,7 +164,7 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
                 stateList(accent, adjustedBackground)
             } else if (isNight) {
                 if (hasKeyBorders) stateList(doubleAdjustedAccent, keyBackground)
-                else stateList(adjustedAccent, brighten(keyBackground))
+                else stateList(adjustedAccent, adjustedKeyBackground)
             } else {
                 stateList(accent, Color.WHITE)
             }
@@ -170,16 +180,16 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
 
         if (hasKeyBorders) {
             backgroundStateList =
-                if (!isNight) stateList(darken(functionalKey), background)
-                else stateList(brightenOrDarken(keyBackground, true), background)
+                if (!isNight) stateList(adjustedFunctionalKey, background)
+                else stateList(adjustedKeyBackground, background)
 
             keyStateList =
                 if (!isNight) stateList(adjustedBackground, keyBackground)
-                else stateList(brightenOrDarken(keyBackground, true), keyBackground)
+                else stateList(adjustedKeyBackground, keyBackground)
 
             functionalKeyStateList =
-                if (!isNight) stateList(darken(darken(functionalKey)), functionalKey)
-                else stateList(functionalKey, brighten(brighten(keyBackground)))
+                if (!isNight) stateList(doubleAdjustedFunctionalKey, functionalKey)
+                else stateList(functionalKey, doubleAdjustedKeyBackground)
 
             actionKeyStateList =
                 if (!isNight) stateList(gesture, accent)
@@ -192,11 +202,11 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
             backgroundStateList =
-                if (!isNight) stateList(darken(functionalKey), background)
-                else stateList(brighten(keyBackground), background)
+                if (!isNight) stateList(adjustedFunctionalKey, background)
+                else stateList(adjustedKeyBackground, background)
 
             keyStateList =
-                if (!isNight) stateList(darken(functionalKey), Color.TRANSPARENT)
+                if (!isNight) stateList(adjustedFunctionalKey, Color.TRANSPARENT)
                 else stateList(functionalKey, Color.TRANSPARENT)
 
             functionalKeyStateList =
@@ -209,8 +219,8 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
                 else stateList(doubleAdjustedAccent, accent)
 
             spaceBarStateList =
-                if (!isNight) stateList(gesture, darken(functionalKey))
-                else stateList(brightenOrDarken(spaceBar, true), spaceBar)
+                if (!isNight) stateList(gesture, adjustedFunctionalKey)
+                else stateList(adjustedKeyBackground, spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
 
