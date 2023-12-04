@@ -32,12 +32,20 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
-import org.dslul.openboard.inputmethod.latin.utils.*
+import org.dslul.openboard.inputmethod.latin.utils.adjustLuminosityAndKeepAlpha
+import org.dslul.openboard.inputmethod.latin.utils.brighten
+import org.dslul.openboard.inputmethod.latin.utils.brightenOrDarken
+import org.dslul.openboard.inputmethod.latin.utils.darken
+import org.dslul.openboard.inputmethod.latin.utils.isBrightColor
+import org.dslul.openboard.inputmethod.latin.utils.isDarkColor
 
 interface Colors {
     fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable
     fun setKeyboardBackground(view: View)
     fun setBackgroundColor(background: Drawable, type: BackgroundType)
+    fun haveColorsChanged(context: Context): Boolean {
+        return true
+    }
 
     val themeStyle: String
     val hasKeyBorders: Boolean
