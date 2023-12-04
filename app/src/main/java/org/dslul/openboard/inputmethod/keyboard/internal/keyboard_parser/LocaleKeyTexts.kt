@@ -3,6 +3,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import org.dslul.openboard.inputmethod.keyboard.Key
+import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
@@ -20,12 +21,13 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         private set
     var labelAlphabet = "ABC"
         private set
-    var labelShiftSymbol = "= \\\\ <"
-        private set
+    private var labelShiftSymbol = "= \\\\ <"
+    private var labelShiftSymbolTablet = "~ [ <"
     var labelComma = ","
         private set
     var labelPeriod = "."
         private set
+    private var labelQuestion = "?"
     val currencyKey = getCurrencyKey(locale)
     private var numberKeys = ((1..9) + 0).map { it.toString() }
     private val numbersMoreKeys = arrayOf(
@@ -51,8 +53,8 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             moreKeys["\""] = arrayOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
         if ("!" !in moreKeys)
             moreKeys["!"] = arrayOf("¡")
-        if ("?" !in moreKeys)
-            moreKeys["?"] = arrayOf("¿")
+        if (labelQuestion !in moreKeys)
+            moreKeys[labelQuestion] = if (labelQuestion == "?") arrayOf("¿") else arrayOf("?", "¿")
         if ("punctuation" !in moreKeys)
             moreKeys["punctuation"] = arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
@@ -79,6 +81,19 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             }
         }
     }
+
+    /** Pair(extraKeysLeft, extraKeysRight) */
+    // todo: they should be optional, or will unexpectedly appear on custom layouts
+    fun getTabletExtraKeys(elementId: Int): Pair<List<KeyData>, List<KeyData>> {
+        val flags = Key.LABEL_FLAGS_FONT_DEFAULT
+        return when (elementId) {
+            KeyboardId.ELEMENT_SYMBOLS -> listOf("\\".toTextKey(labelFlags = flags), "=".toTextKey(labelFlags = flags)) to emptyList()
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> emptyList<KeyData>() to listOf("¡".toTextKey(labelFlags = flags), "¿".toTextKey(labelFlags = flags))
+            else -> emptyList<KeyData>() to listOf("!".toTextKey(labelFlags = flags), labelQuestion.toTextKey(labelFlags = flags)) // assume alphabet
+        }
+    }
+
+    fun getShiftSymbolLabel(isTablet: Boolean) = if (isTablet) labelShiftSymbolTablet else labelShiftSymbol
 
     // need tp provide a copy because some functions like MoreKeySpec.insertAdditionalMoreKeys may modify the array
     fun getMoreKeys(label: String): Array<String>? = moreKeys[label]?.copyOf()
@@ -125,8 +140,10 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             "symbol" -> labelSymbol = split.last()
             "alphabet" -> labelAlphabet = split.last()
             "shift_symbol" -> labelShiftSymbol = split.last() // never used, but could be...
+            "shift_symbol_tablet" -> labelShiftSymbolTablet = split.last() // never used, but could be...
             "comma" -> labelComma = split.last()
             "period" -> labelPeriod = split.last()
+            "question" -> labelQuestion = split.last()
         }
     }
 

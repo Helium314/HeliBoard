@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.annotation.StringRes
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
@@ -12,7 +13,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
@@ -75,28 +75,29 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         }
-        val functionalKeysReversed = parseFunctionalKeys().reversed()
+        val functionalKeysReversed = parseFunctionalKeys(R.string.key_def_functional).reversed()
+        val functionalKeysTop = parseFunctionalKeys(R.string.key_def_functional_top_row)
 
         // keyboard parsed bottom-up because the number of rows is not fixed, but the functional keys
         // are always added to the rows near the bottom
         keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys))
 
         baseKeys.reversed().forEachIndexed { i, it ->
-            val row: List<KeyData> = if (i == 0) {
+            val row: List<KeyData> = if (i == 0 && isTablet()) {
                 // add bottom row extra keys
-                // todo: question mark might be different -> get it from localeKeyTexts
-                //  also, maybe check device dimension int instead of getting this from resources, then using language labels is easier
-                //  and in shift symbols it should be inverted question/exclamation marks
-                it + context.getString(R.string.key_def_extra_bottom_right)
-                    .split(",").mapNotNull { if (it.isBlank()) null else it.trim().toTextKey(labelFlags = Key.LABEL_FLAGS_FONT_DEFAULT) }
+                val tabletExtraKeys = params.mLocaleKeyTexts.getTabletExtraKeys(params.mId.mElementId)
+                tabletExtraKeys.first + it + tabletExtraKeys.second
             } else {
                 it
             }
             // parse functional keys for this row (if any)
+            val outerFunctionalKeyDefs = if (i == baseKeys.lastIndex && functionalKeysTop.isNotEmpty()) functionalKeysTop.first()
+                else emptyList<String>() to emptyList()
             val functionalKeysDefs = if (i < functionalKeysReversed.size) functionalKeysReversed[i]
                 else emptyList<String>() to emptyList()
-            val functionalKeysLeft = functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
-            val functionalKeysRight = functionalKeysDefs.second.map { getFunctionalKeyParams(it) }
+            // if we have a top row and top row entries from normal functional key defs, use top row as outer keys
+            val functionalKeysLeft = outerFunctionalKeyDefs.first.map { getFunctionalKeyParams(it) } + functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
+            val functionalKeysRight = functionalKeysDefs.second.map { getFunctionalKeyParams(it) } + outerFunctionalKeyDefs.second.map { getFunctionalKeyParams(it) }
             val paramsRow = ArrayList<KeyParams>(functionalKeysLeft)
 
             // determine key width, maybe scale factor for keys, and spacers to add
@@ -152,7 +153,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             //  so the symbols keyboard is higher than the normal one
             //  not a new issue, but should be solved in this migration
             //  how? possibly scale all keyboards to height of main alphabet? (consider suggestion strip)
-            keysInRows.forEach { key -> key.forEach { it.mRelativeHeight *= heightRescale } }
+            keysInRows.forEach { row -> row.forEach { it.mRelativeHeight *= heightRescale } }
         }
 
         return keysInRows
@@ -184,8 +185,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         lastNormalRow.add(lastNormalRow.indexOfLast { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL } + 1, KeyParams.newSpacer(params, spacerWidth))
     }
 
-    private fun parseFunctionalKeys(): List<Pair<List<String>, List<String>>> =
-        context.getString(R.string.key_def_functional).split("\n").mapNotNull { line ->
+    private fun parseFunctionalKeys(@StringRes id: Int): List<Pair<List<String>, List<String>>> =
+        context.getString(id).split("\n").mapNotNull { line ->
             if (line.isBlank()) return@mapNotNull null
             val p = line.split(";")
             splitFunctionalKeyDefs(p.first()) to splitFunctionalKeyDefs(p.last())
@@ -491,6 +492,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 moreKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
             }
         }
+        // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
+        // (probably not necessary, but whatever)
+        if (isTablet() && moreKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
+            val i = moreKeys.indexOfFirst { it.startsWith("!fixedColumnOrder") }
+            if (i > -1) {
+                val n = moreKeys[i].substringAfter("!fixedColumnOrder!").toIntOrNull()
+                if (n != null)
+                    moreKeys[i] = moreKeys[i].replace(n.toString(), (n - 1).toString())
+            }
+        // remove emoji on enter, because tablet layout has a separate emoji key
+        }
         return moreKeys.toTypedArray()
     }
 
@@ -531,7 +543,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return params.mLocaleKeyTexts.labelSymbol
         if (elementId == KeyboardId.ELEMENT_SYMBOLS)
-            return params.mLocaleKeyTexts.labelShiftSymbol
+            return params.mLocaleKeyTexts.getShiftSymbolLabel(isTablet())
         if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
             || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
             return "!icon/shift_key_shifted"
@@ -569,8 +581,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             for (i in moreKeys.indices)
                 moreKeys[i] = moreKeys[i].rtlLabel(params) // for parentheses
         }
-        if (context.resources.getInteger(R.integer.config_screen_metrics) >= 3 && moreKeys.contains("!") && moreKeys.contains("?")) {
-            // we have a tablet, remove ! and ? keys and reduce number in autoColumnOrder
+        if (isTablet() && moreKeys.contains("!") && moreKeys.contains("?")) {
+            // remove ! and ? keys and reduce number in autoColumnOrder
             // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
             moreKeys[moreKeys.indexOf("!")] = ""
             moreKeys[moreKeys.indexOf("?")] = ""
@@ -580,6 +592,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         return moreKeys
     }
+
+    private fun isTablet() = context.resources.getInteger(R.integer.config_screen_metrics) >= 3
 
     companion object {
         private val TAG = KeyboardParser::class.simpleName

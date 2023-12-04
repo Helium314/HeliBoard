@@ -25,6 +25,7 @@ alphabet: اب‌پ
 comma: ،
 symbol: ۳۲۱؟
 period: ۔
+question: ؟
 
 [number_row]
 ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۰

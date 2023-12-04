@@ -73,7 +73,7 @@ Features that may go unnoticed
 * Reduce space between keys, with option to use old values, https://github.com/Helium314/openboard/pull/8
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
 * Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679
-  * maybe not properly fixed, this causes some other issues
+  * maybe not properly fixed, this causes some other issues, https://github.com/Helium314/openboard/issues/55
 * Fix always-dark settings on some Android versions, https://github.com/Helium314/openboard/pull/69
 * Fix bug with space before word being deleted in some apps / input fields, https://github.com/Helium314/openboard/commit/ce0bf06545c4547d3fc5791cc769508db0a89e87
 * Allow using auto theme on some devices with Android 9
@@ -82,11 +82,14 @@ Features that may go unnoticed
 * Updated translations
 * Open dictionary files with the app
 * Add more options to the language switch key
+* New keyboard parser (no need to use `tools:make-keyboard-text:makeText` any more)
+  * Can use simple text files or JSON files as used by [FlorisBoard](https://github.com/florisboard/florisboard/tree/master/app/src/main/assets/ime/keyboard/org.florisboard.layouts/layouts)
 
 ## The rough plan/todo before "full" release
 * Finish keyboard parsing upgrades
-  * In the end, layouts should be defined in either simple text files, or json files, ideally in same format as used by [FlorisBoard](https://github.com/florisboard/florisboard/tree/master/app/src/main/assets/ime/keyboard/org.florisboard.layouts/layouts)
   * Users should be allowed to add their own layouts
+  * Determine symbol popup keys from symbols layout instead of hardcoding them to the layout (still allow layout to override or add popup keys)
+  * Allow users more control over popup keys (which hint label to show, which popup keys (language, layout, symbols) to show first or at all)
 * Overhaul the view system
   * Have a fixed height common to all views (keyboard, emoji, clipboard)
   * Should allow for more flexible one-handed mode (though the actual one-handed mode changes may be implemented later)

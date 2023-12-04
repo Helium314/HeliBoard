@@ -978,6 +978,7 @@ public class Key implements Comparable<Key> {
         public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
             final KeyParams spacer = new KeyParams(params);
             spacer.mRelativeWidth = relativeWidth;
+            spacer.mRelativeHeight = params.mDefaultRelativeRowHeight;
             return spacer;
         }
 

@@ -63,30 +63,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  migrate other languages/layouts to this style
-        //   test whether the layouts really are the same
-        //    comparing params with both parsers looks good, see list of detected differences below
-        //    still need to check moreKeys, there will be many more differences that might just be minor
-        //    write down a list of differences, ask users to open issues if they don't like them
-        //   some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
-        //    that's one more reason for using language tags...
-        //    but currently it's still read from xml outside the keyboard parser, so that's fine for now
-        //   issues:
-        //    armenian bottom row (and some more): functional keys could be narrower
-        //    rtl parentheses hint label (urdu and more)
-        //    urdu and others: no labels because the moreKeys are languageMoreKeys -> need the moreKeys setting soon (at least setting to show first language moreKey if no symbol)
-        //     setting: symbol morekey(s): layout default, take from symbols, layout default but fill from symbols if empty
-        //     setting: hint label: from symbol morekey only, symbol but language if none, first choice on long press
-        //     (later): setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
-        //     (later): setting whether to show duplicate moreKeys (describe properly what it actually does)
-        //     and have some setting to enable configuring this per locale (in language settings -> potentially should not be a dialog any more but a fragment?)
-        //    label flags are horrible to "decompile" when viewing a layout
         //  migrate pcqwerty to this style
         //   this will be more complicated...
         //   linked shift keys might be easy
         //   distance below number row with high row, but reduced key height?
         //   consider settings key needs to disappear if device is locked
-        //   ignore number row setting?
+        //   ignore number row setting to avoid duplicate number row?
+        //   and test tablet layout!
+        //  do the moreKeys thing (only now, because pc layout may change stuff)
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser, or do it with compatible jsons
         //  make the remove duplicate moreKey thing an option?
@@ -100,9 +84,16 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   write another parser, it should already consider split
         //   add a setting to display all emojis (and use emojiv2 or emojicompat or whatever is necessary)
         //    mention in subtitle that they may not be displayed properly, depending on the app you're writing in
+        //  now all layouts should be using the new parser -> throw an error instead of falling back to old parser
         //  more settings for localized number row, so it can be different in shift or symbols
         //  migrate moreKeys and moreSuggestions to this style?
         //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
+        //  setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
+        //  setting whether to show duplicate moreKeys (describe properly what it actually does)
+        //  some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
+        //   that's one more reason for using language tags...
+        //   currently it's still read from xml outside the keyboard parser, but should still go to some other place
+        //    maybe use scriptUtils to determine, just make sure it's correct (also for hindi and serbian!)
         //  remove the old parser
         //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
         //   also the eo check could then be removed
@@ -155,7 +146,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  autoXScale: com key, action keys, some on phone layout, some non-latin languages
         //  autoScale: only one single letter in khmer layout (includes autoXScale)
         //  preserveCase: action key + more keys, com key, shift keys
-        //  shiftedLetterActivated: period and some keys on pcqwerty, tablet only
+        //  shiftedLetterActivated: period and some keys on pcqwerty, tablet only (wtf, when enabled can't open moreKeys -> remove? or what would be the use?)
         //  fromCustomActionLabel: action key with customLabelActionKeyStyle -> check parser where to get this info
         //  followFunctionalTextColor: number mode keys, action key
         //  keepBackgroundAspectRatio: lxx and rounded action more keys, lxx no-border action and emoji, moreKeys keyboard view
@@ -189,18 +180,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                         return@forEachIndexed
                     }
                     xmlRow2.forEachIndexed { index1, xmlParams ->
-                        // todo: compare tablet layouts (how to best force it for both parsers?)
-                        //   just rename the sw600 folders to sw 360
-                        // ->
-                        //  to shift symbols label should be ~ [ <
-                        //  last symbols row should be \ = * " ' : ; ! ? (but is * " ' : ; ! ? ! ?)
-                        //  last shift symbols row should have inverted ! and ?
-                        //  some different label flags
-                        //  ar: last symbols row should be \ = * " ' : ; ! ؟ (but is * « » : ; ! ؟ ! ?)
-                        //  ar: layout should not have ! and ? added (just empty space here...)
-                        //  ru, sr (both), others don't have a right shift key (come on...)
-                        //  but bulgarian (default) has -> not even per language
-                        //  armenian (and probably other 4 row layouts) messed up (delete key should be in first for, not x from bottom)
                         val keyParams = row[index1]
                         if (keyParams.mLabel != xmlParams.mLabel)
                             // currency keys (shift symbol) arranged differently
