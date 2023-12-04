@@ -64,6 +64,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 && params.mId.locale.language != "ko"
                 && params.mId.locale.language != "th"
                 && params.mId.locale.language != "lo"
+                && params.mId.mSubtype.keyboardLayoutSetName != "pcqwerty"
             ) {
             // add number to the first 10 keys in first row
             // setting the correct moreKeys is handled in PopupSet

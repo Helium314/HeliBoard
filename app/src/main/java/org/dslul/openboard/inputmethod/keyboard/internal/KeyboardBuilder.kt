@@ -63,13 +63,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  migrate pcqwerty to this style
-        //   this will be more complicated...
-        //   linked shift keys might be easy
-        //   distance below number row with high row, but reduced key height?
-        //   consider settings key needs to disappear if device is locked
-        //   ignore number row setting to avoid duplicate number row?
-        //   and test tablet layout!
         //  do the moreKeys thing (only now, because pc layout may change stuff)
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser, or do it with compatible jsons
