@@ -44,7 +44,7 @@ interface Colors {
     fun setKeyboardBackground(view: View)
     fun setBackgroundColor(background: Drawable, type: BackgroundType)
     fun haveColorsChanged(context: Context): Boolean {
-        return true
+        return false
     }
 
     val themeStyle: String
