@@ -8,12 +8,15 @@ package org.dslul.openboard.inputmethod.keyboard.internal
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
+import android.util.Xml
 import android.widget.Toast
+import androidx.annotation.XmlRes
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
+import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboard
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.KeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
@@ -22,7 +25,9 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
+import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 
@@ -63,7 +68,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  do the moreKeys thing (only now, because pc layout may change stuff)
         //  migrate keypad layouts to this style
         //   will need more configurable layout definition -> another parser, or do it with compatible jsons
         //  make the remove duplicate moreKey thing an option?
@@ -151,9 +155,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
-        if (Settings.getInstance().current.mUseNewKeyboardParsing
-            && this::class == KeyboardBuilder::class // otherwise this will apply to moreKeys and moreSuggestions, and then some parameters are off
-        ) {
+        if (Settings.getInstance().current.mUseNewKeyboardParsing) {
+            if (this::class != KeyboardBuilder::class) {
+                // for MoreSuggestions and MoreKeys we only need to read the attributes
+                // but not the default ones, do it like the old parser (for now)
+                mParams.mId = id
+                readAttributes(xmlId)
+                return this
+            }
             if (loadFromAssets(id) != null) {
                 if (!DebugFlags.DEBUG_ENABLED)
                     return this
@@ -244,6 +253,22 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             throw RuntimeException(e.message, e)
         }
         return this
+    }
+
+    // todo: remnant of old parser, replace it
+    private fun readAttributes(@XmlRes xmlId: Int) {
+        val parser = mResources.getXml(xmlId)
+        while (parser.eventType != XmlPullParser.END_DOCUMENT) {
+            val event = parser.next()
+            if (event == XmlPullParser.START_TAG) {
+                val tag = parser.name;
+                if ("Keyboard" == tag) {
+                    mParams.readAttributes(mContext, Xml.asAttributeSet(parser))
+                    return
+                }
+            }
+        }
+        mParams.readAttributes(mContext, null)
     }
 
     @UsedForTesting
