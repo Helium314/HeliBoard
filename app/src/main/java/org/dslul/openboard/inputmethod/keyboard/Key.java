@@ -947,6 +947,8 @@ public class Key implements Comparable<Key> {
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
+        public float mRelativeVisualInsetLeft;
+        public float mRelativeVisualInsetRight;
 
         // params that may change
         public float mFullWidth;
@@ -965,7 +967,7 @@ public class Key implements Comparable<Key> {
         public final int mBackgroundType;
         public final int mActionFlags;
         @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
-        @Nullable public final OptionalAttributes mOptionalAttributes;
+        @Nullable public OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
         public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
@@ -999,6 +1001,18 @@ public class Key implements Comparable<Key> {
             yPos = newY;
             mFullWidth = mRelativeWidth * mKeyboardParams.mBaseWidth;
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
+
+            // set visual insets if any
+            if (mRelativeVisualInsetRight != 0f || mRelativeVisualInsetLeft != 0f) {
+                final int insetLeft = (int) (mRelativeVisualInsetLeft * mKeyboardParams.mBaseWidth);
+                final int insetRight = (int) (mRelativeVisualInsetRight * mKeyboardParams.mBaseWidth);
+                if (mOptionalAttributes == null) {
+                    mOptionalAttributes = OptionalAttributes.newInstance(null, CODE_UNSPECIFIED, ICON_UNDEFINED, insetLeft, insetRight);
+                } else {
+                    mOptionalAttributes = OptionalAttributes
+                            .newInstance(mOptionalAttributes.mOutputText, mOptionalAttributes.mAltCode, mOptionalAttributes.mDisabledIconId, insetLeft, insetRight);
+                }
+            }
         }
 
         private static int getMoreKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] moreKeys) {
@@ -1298,7 +1312,6 @@ public class Key implements Comparable<Key> {
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
                     // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-                    // todo (much later): can the 3 below be removed completely?
                     KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color

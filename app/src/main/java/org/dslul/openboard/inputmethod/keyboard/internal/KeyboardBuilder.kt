@@ -164,7 +164,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             if (loadFromAssets(id) != null) {
                 if (!DebugFlags.DEBUG_ENABLED)
                     return this
-                // comparison of old and new parser below, remove once testing is complete
+                // comparison of old and new parser below, todo: remove once testing is complete
                 val keysInRowsFromXml = XmlKeyboardParser(xmlId, mParams, mContext).use { keyboardParser ->
                     keyboardParser.parseKeyboard()
                 }
