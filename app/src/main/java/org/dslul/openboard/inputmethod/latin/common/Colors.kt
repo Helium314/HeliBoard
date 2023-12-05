@@ -43,10 +43,9 @@ interface Colors {
     fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable
     fun setKeyboardBackground(view: View)
     fun setBackgroundColor(background: Drawable, type: BackgroundType)
-    fun haveColorsChanged(context: Context): Boolean {
-        return false
-    }
+    fun haveColorsChanged(context: Context): Boolean
 
+    // todo (later): move all this out of the interface, see idea at https://github.com/Helium314/openboard/pull/277#issuecomment-1829590489
     val themeStyle: String
     val hasKeyBorders: Boolean
     val accent: Int
@@ -95,10 +94,19 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
     override val spaceBar = keyBackground
     override val keyText =if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_50)
         else ContextCompat.getColor(context, android.R.color.system_accent3_900)
-    override val keyHintText = if (isNight) keyText
-        else ContextCompat.getColor(context, android.R.color.system_accent3_700)
-    override val spaceBarText = if (isNight) ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_neutral1_50), 127)
+    override val keyHintText = getKeyHintText(context)
+    override val spaceBarText = getSpaceBarText(context)
+
+    private fun getSpaceBarText(context: Context) = if (isNight) ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_neutral1_50), 127)
         else ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_accent3_700), 127)
+
+    private fun getKeyHintText(context: Context) = if (isNight) keyText
+        else ContextCompat.getColor(context, android.R.color.system_accent3_700)
+
+    override fun haveColorsChanged(context: Context) =
+        spaceBarText != getSpaceBarText(context)
+                || keyHintText != getKeyHintText(context)
+                || ...
 
     override val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
@@ -340,6 +348,8 @@ class OriginalColors (
 
     /** custom drawable used for keyboard background */
     private val keyboardBackground: Drawable?
+
+    override fun haveColorsChanged(context: Context) = false
 
     init {
         accentColorFilter = colorFilter(accent)
