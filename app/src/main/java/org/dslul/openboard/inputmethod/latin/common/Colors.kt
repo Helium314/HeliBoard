@@ -81,32 +81,42 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
 
     override val themeStyle: String = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL)!!
     override val hasKeyBorders: Boolean = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-    override val accent = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent1_100)
-        else ContextCompat.getColor(context, android.R.color.system_accent1_200)
-    override val gesture = if (isNight) accent
-        else ContextCompat.getColor(context, android.R.color.system_accent1_600)
-    override val background = if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_900)
-        else ContextCompat.getColor(context, android.R.color.system_neutral1_50)
-    override val keyBackground = if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_800)
-        else  ContextCompat.getColor(context, android.R.color.system_neutral1_0)
-    override val functionalKey = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent2_300)
-        else ContextCompat.getColor(context, android.R.color.system_accent2_100)
-    override val spaceBar = keyBackground
-    override val keyText =if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_50)
-        else ContextCompat.getColor(context, android.R.color.system_accent3_900)
+    override val accent = getAccent(context)
+    override val gesture = getGesture(context)
+    override val background = getBackground(context)
+    override val keyBackground = getKeyBackground(context)
+    override val functionalKey = getFunctionalKey(context)
+    override val spaceBar = getKeyBackground(context)
+    override val keyText = getKeyText(context)
     override val keyHintText = getKeyHintText(context)
     override val spaceBarText = getSpaceBarText(context)
 
+    private fun getAccent(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent1_100)
+        else ContextCompat.getColor(context, android.R.color.system_accent1_200)
+    private fun getGesture(context: Context) = if (isNight) accent
+        else ContextCompat.getColor(context, android.R.color.system_accent1_600)
+    private fun getBackground(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_900)
+        else ContextCompat.getColor(context, android.R.color.system_neutral1_50)
+    private fun getKeyBackground(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_800)
+        else  ContextCompat.getColor(context, android.R.color.system_neutral1_0)
+    private fun getFunctionalKey(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent2_300)
+        else ContextCompat.getColor(context, android.R.color.system_accent2_100)
+    private fun getKeyText(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_neutral1_50)
+        else ContextCompat.getColor(context, android.R.color.system_accent3_900)
+    private fun getKeyHintText(context: Context) = if (isNight) keyText
+        else ContextCompat.getColor(context, android.R.color.system_accent3_700)
     private fun getSpaceBarText(context: Context) = if (isNight) ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_neutral1_50), 127)
         else ColorUtils.setAlphaComponent(ContextCompat.getColor(context, android.R.color.system_accent3_700), 127)
 
-    private fun getKeyHintText(context: Context) = if (isNight) keyText
-        else ContextCompat.getColor(context, android.R.color.system_accent3_700)
-
     override fun haveColorsChanged(context: Context) =
-        spaceBarText != getSpaceBarText(context)
+        accent != getAccent(context)
+                || gesture != getGesture(context)
+                || background != getBackground(context)
+                || keyBackground != getKeyBackground(context)
+                || functionalKey != getFunctionalKey(context)
+                || keyText != getKeyText(context)
                 || keyHintText != getKeyHintText(context)
-                || ...
+                || spaceBarText != getSpaceBarText(context)
 
     override val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
@@ -473,6 +483,7 @@ class OriginalColors (
     }
 
 }
+
 private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter {
     // using !! for the color filter because null is only returned for unsupported blend modes, which are not used
     return BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, mode)!!
