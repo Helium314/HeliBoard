@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -151,7 +150,6 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         return 0;
     }
 
-    @RequiresApi(api = VERSION_CODES.S)
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
         final boolean hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         switch (themeColors) {
@@ -242,7 +240,9 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_DYNAMIC:
-                return new DynamicColors(context, prefs);
+                if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
+                    return new DynamicColors(context, prefs);
+                }
             case THEME_LIGHT:
             default:
                 return new OriginalColors(
