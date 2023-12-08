@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -32,6 +33,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.adjustLuminosityAndKeepAlpha
 import org.dslul.openboard.inputmethod.latin.utils.brighten
 import org.dslul.openboard.inputmethod.latin.utils.brightenOrDarken
@@ -40,56 +42,38 @@ import org.dslul.openboard.inputmethod.latin.utils.isBrightColor
 import org.dslul.openboard.inputmethod.latin.utils.isDarkColor
 
 interface Colors {
-    fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable
-    fun setKeyboardBackground(view: View)
-    fun setBackgroundColor(background: Drawable, type: BackgroundType)
-    fun haveColorsChanged(context: Context): Boolean
-
-    // todo (later): move all this out of the interface, see idea at https://github.com/Helium314/openboard/pull/277#issuecomment-1829590489
+    /** keep here [themeStyle] because it's actually required in KeyboardView for label placement */
     val themeStyle: String
-    val hasKeyBorders: Boolean
-    val accent: Int
-    val gesture: Int
-    val background: Int
-    val keyBackground: Int
-    val functionalKey: Int
-    val spaceBar: Int
-    val keyText: Int
-    val keyHintText: Int
-    val spaceBarText: Int
-    val navBar: Int
-    /** brightened or darkened variant of [background], to be used if exact background color would be
-     *  bad contrast, e.g. more keys popup or no border space bar */
+    /**  keep adjusted background (double) as a value instead of calculating it each time */
     val adjustedBackground: Int
-    /** further brightened or darkened variant of [adjustedBackground] */
     val doubleAdjustedBackground: Int
-    /** brightened or darkened variant of [keyText] */
-    val adjustedKeyText: Int
 
-    val backgroundFilter: ColorFilter
-    val adjustedBackgroundFilter: ColorFilter
-    val keyTextFilter: ColorFilter
-    val accentColorFilter: ColorFilter
-    /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
-    val actionKeyIconColorFilter: ColorFilter?
+    fun hasKeyBorders(context: Context): Boolean {
+        val prefs: SharedPreferences = DeviceProtectedUtils.getSharedPreferences(context)
+        return prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
+    }
+    @ColorInt fun get(color: ColorType): Int?
+    fun setColorFilter(color: ColorType): ColorFilter?
+    fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable
+    fun setKeyboardBackground(view: View, context: Context)
+    fun setBackgroundColor(background: Drawable, type: BackgroundType, context: Context)
+    fun haveColorsChanged(context: Context): Boolean
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
-class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
+class DynamicColors(context: Context, override val themeStyle: String) : Colors {
 
     private val isNight = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
-    override val themeStyle: String = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL)!!
-    override val hasKeyBorders: Boolean = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-    override val accent = getAccent(context)
-    override val gesture = getGesture(context)
-    override val background = getBackground(context)
-    override val keyBackground = getKeyBackground(context)
-    override val functionalKey = getFunctionalKey(context)
-    override val spaceBar = getKeyBackground(context)
-    override val keyText = getKeyText(context)
-    override val keyHintText = getKeyHintText(context)
-    override val spaceBarText = getSpaceBarText(context)
+    private val accent = getAccent(context)
+    private val gesture = getGesture(context)
+    private val background = getBackground(context)
+    private val keyBackground = getKeyBackground(context)
+    private val functionalKey = getFunctionalKey(context)
+    private val spaceBar = getKeyBackground(context)
+    private val keyText = getKeyText(context)
+    private val keyHintText = getKeyHintText(context)
+    private val spaceBarText = getSpaceBarText(context)
 
     private fun getAccent(context: Context) = if (isNight) ContextCompat.getColor(context, android.R.color.system_accent1_100)
         else ContextCompat.getColor(context, android.R.color.system_accent1_200)
@@ -118,21 +102,21 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
                 || keyHintText != getKeyHintText(context)
                 || spaceBarText != getSpaceBarText(context)
 
-    override val navBar: Int
+    private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
      *  bad contrast, e.g. more keys popup or no border space bar */
     override val adjustedBackground: Int
     /** further brightened or darkened variant of [adjustedBackground] */
     override val doubleAdjustedBackground: Int
     /** brightened or darkened variant of [keyText] */
-    override val adjustedKeyText: Int
+    private val adjustedKeyText: Int
 
-    override val backgroundFilter: ColorFilter
-    override val adjustedBackgroundFilter: ColorFilter
-    override val keyTextFilter: ColorFilter
-    override val accentColorFilter: ColorFilter
+    private val backgroundFilter: ColorFilter
+    private val adjustedBackgroundFilter: ColorFilter
+    private val keyTextFilter: ColorFilter
+    private val accentColorFilter: ColorFilter
     /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
-    override val actionKeyIconColorFilter: ColorFilter?
+    private val actionKeyIconColorFilter: ColorFilter?
 
     private val backgroundStateList: ColorStateList
     private val keyStateList: ColorStateList
@@ -189,13 +173,13 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
             if (themeStyle == STYLE_HOLO) {
                 stateList(accent, adjustedBackground)
             } else if (isNight) {
-                if (hasKeyBorders) stateList(doubleAdjustedAccent, keyBackground)
+                if (hasKeyBorders(context)) stateList(doubleAdjustedAccent, keyBackground)
                 else stateList(adjustedAccent, adjustedKeyBackground)
             } else {
                 stateList(accent, Color.WHITE)
             }
 
-        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
+        suggestionBackgroundList = if (!hasKeyBorders(context) && themeStyle == STYLE_MATERIAL)
             stateList(doubleAdjustedBackground, Color.TRANSPARENT)
         else
             stateList(adjustedBackground, Color.TRANSPARENT)
@@ -204,7 +188,7 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
             if (themeStyle == STYLE_HOLO) colorFilter(adjustedBackground)
             else colorFilter(keyBackground)
 
-        if (hasKeyBorders) {
+        if (hasKeyBorders(context)) {
             backgroundStateList =
                 if (!isNight) stateList(adjustedFunctionalKey, background)
                 else stateList(adjustedKeyBackground, background)
@@ -258,8 +242,27 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
         }
     }
 
+    override fun get(color: ColorType): Int? = when (color) {
+        ColorType.ACCENT -> accent
+        ColorType.GESTURE -> gesture
+        ColorType.KEY_TEXT -> keyText
+        ColorType.SPACEBAR_TEXT -> spaceBarText
+        ColorType.NAV_BAR -> navBar
+        ColorType.ADJUSTED_KEY_TEXT -> brightenOrDarken(keyText, true)
+        ColorType.ACTION_KEY_ICON -> Color.WHITE
+        else -> { null }
+    }
+
+    override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
+        ColorType.ACCENT -> accentColorFilter
+        ColorType.KEY_TEXT -> keyTextFilter
+        ColorType.ADJUSTED_BACKGROUND -> adjustedBackgroundFilter
+        ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
+        else -> { null }
+    }
+
     /** set background colors including state list to the drawable  */
-    override fun setBackgroundColor(background: Drawable, type: BackgroundType) {
+    override fun setBackgroundColor(background: Drawable, type: BackgroundType, context: Context) {
         val colorStateList = when (type) {
             BackgroundType.BACKGROUND, BackgroundType.SUGGESTION -> backgroundStateList
             BackgroundType.KEY -> keyStateList
@@ -275,36 +278,36 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
         DrawableCompat.setTintList(background, colorStateList)
     }
 
-    override fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable {
+    override fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable {
         val drawable = when (type) {
             BackgroundType.KEY, BackgroundType.ADJUSTED_BACKGROUND, BackgroundType.BACKGROUND,
             BackgroundType.SUGGESTION, BackgroundType.ACTION_MORE_KEYS ->
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
             BackgroundType.SPACE -> {
-                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+                if (hasKeyBorders(context)) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
                 else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
             }
             BackgroundType.ACTION -> {
-                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
+                if (themeStyle == STYLE_HOLO && hasKeyBorders(context)) // no borders has a very small pressed drawable otherwise
                     attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
                 else
                     attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             }
         }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
 
-        setBackgroundColor(drawable, type)
+        setBackgroundColor(drawable, type, context)
         return drawable
     }
 
-    override fun setKeyboardBackground(view: View) {
+    override fun setKeyboardBackground(view: View, context: Context) {
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView ->
                 if (themeStyle != STYLE_HOLO)
-                    setBackgroundColor(view.background, BackgroundType.ADJUSTED_BACKGROUND)
+                    setBackgroundColor(view.background, BackgroundType.ADJUSTED_BACKGROUND, context)
                 else view.background.colorFilter = adjustedBackgroundFilter
-            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
+            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION, context)
             is EmojiPageKeyboardView, // to make EmojiPalettesView background visible, which does not scroll
             is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // otherwise causes issues with wrapper view when using one-handed mode
             is KeyboardWrapperView, is EmojiPalettesView, is ClipboardHistoryView -> {
@@ -317,36 +320,36 @@ class DynamicColors(context: Context, prefs: SharedPreferences) : Colors {
 }
 
 class OriginalColors (
+    context: Context,
     override val themeStyle: String,
-    override val hasKeyBorders: Boolean,
-    override val accent: Int,
-    override val gesture: Int,
-    override val background: Int,
-    override val keyBackground: Int,
-    override val functionalKey: Int,
-    override val spaceBar: Int,
-    override val keyText: Int,
-    override val keyHintText: Int,
-    override val spaceBarText: Int
+    private val accent: Int,
+    private val gesture: Int,
+    private val background: Int,
+    private val keyBackground: Int,
+    private val functionalKey: Int,
+    private val spaceBar: Int,
+    private val keyText: Int,
+    private val keyHintText: Int,
+    private val spaceBarText: Int
 ) : Colors {
-    override val navBar: Int
+    private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
      *  bad contrast, e.g. more keys popup or no border space bar */
     override val adjustedBackground: Int
     /** further brightened or darkened variant of [adjustedBackground] */
     override val doubleAdjustedBackground: Int
     /** brightened or darkened variant of [keyText] */
-    override val adjustedKeyText: Int
+    private val adjustedKeyText: Int
 
-    override val backgroundFilter: ColorFilter
-    override val adjustedBackgroundFilter: ColorFilter
+    private val backgroundFilter: ColorFilter
+    private val adjustedBackgroundFilter: ColorFilter
     //    val keyBackgroundFilter: ColorFilter
     //    val functionalKeyBackgroundFilter: ColorFilter
     //    val spaceBarFilter: ColorFilter
-    override val keyTextFilter: ColorFilter
-    override val accentColorFilter: ColorFilter
+    private val keyTextFilter: ColorFilter
+    private val accentColorFilter: ColorFilter
     /** color filter for the white action key icons in material theme, switches to gray if necessary for contrast */
-    override val actionKeyIconColorFilter: ColorFilter?
+    private val actionKeyIconColorFilter: ColorFilter?
 
     private val backgroundStateList: ColorStateList
     private val keyStateList: ColorStateList
@@ -386,13 +389,13 @@ class OriginalColors (
             doubleAdjustedBackground = darken(adjustedBackground)
         }
         adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
-        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
+        suggestionBackgroundList = if (!hasKeyBorders(context) && themeStyle == STYLE_MATERIAL)
             stateList(doubleAdjustedBackground, Color.TRANSPARENT)
         else
             stateList(adjustedBackground, Color.TRANSPARENT)
 
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
-        if (hasKeyBorders) {
+        if (hasKeyBorders(context)) {
 //            keyBackgroundFilter = colorFilter(keyBackground)
 //            functionalKeyBackgroundFilter = colorFilter(functionalKey)
 //            spaceBarFilter = colorFilter(spaceBar)
@@ -425,8 +428,27 @@ class OriginalColors (
         }
     }
 
+    override fun get(color: ColorType): Int? = when (color) {
+        ColorType.ACCENT -> accent
+        ColorType.GESTURE -> gesture
+        ColorType.KEY_TEXT -> keyText
+        ColorType.SPACEBAR_TEXT -> spaceBarText
+        ColorType.NAV_BAR -> navBar
+        ColorType.ADJUSTED_KEY_TEXT -> brightenOrDarken(keyText, true)
+        ColorType.ACTION_KEY_ICON -> Color.WHITE
+        else -> { null }
+    }
+
+    override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
+        ColorType.ACCENT -> accentColorFilter
+        ColorType.KEY_TEXT -> keyTextFilter
+        ColorType.ADJUSTED_BACKGROUND -> adjustedBackgroundFilter
+        ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
+        else -> { null }
+    }
+
     /** set background colors including state list to the drawable  */
-    override fun setBackgroundColor(background: Drawable, type: BackgroundType) {
+    override fun setBackgroundColor(background: Drawable, type: BackgroundType, context: Context) {
         val colorStateList = when (type) {
             BackgroundType.BACKGROUND -> backgroundStateList
             BackgroundType.KEY -> keyStateList
@@ -434,7 +456,7 @@ class OriginalColors (
             BackgroundType.ACTION -> actionKeyStateList
             BackgroundType.SPACE -> spaceBarStateList
             BackgroundType.ADJUSTED_BACKGROUND -> adjustedBackgroundStateList
-            BackgroundType.SUGGESTION -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
+            BackgroundType.SUGGESTION -> if (!hasKeyBorders(context) && themeStyle == STYLE_MATERIAL)
                     adjustedBackgroundStateList
                 else backgroundStateList
             BackgroundType.ACTION_MORE_KEYS -> if (themeStyle == STYLE_HOLO)
@@ -445,33 +467,33 @@ class OriginalColors (
         DrawableCompat.setTintList(background, colorStateList)
     }
 
-    override fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable {
+    override fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable {
         val drawable = when (type) {
             BackgroundType.KEY, BackgroundType.ADJUSTED_BACKGROUND, BackgroundType.BACKGROUND,
             BackgroundType.SUGGESTION, BackgroundType.ACTION_MORE_KEYS ->
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
             BackgroundType.SPACE -> {
-                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+                if (hasKeyBorders(context)) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
                 else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
             }
             BackgroundType.ACTION -> {
-                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
+                if (themeStyle == STYLE_HOLO && hasKeyBorders(context)) // no borders has a very small pressed drawable otherwise
                     attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
                 else
                     attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             }
         }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
 
-        setBackgroundColor(drawable, type)
+        setBackgroundColor(drawable, type, context)
         return drawable
     }
 
-    override fun setKeyboardBackground(view: View) {
+    override fun setKeyboardBackground(view: View, context: Context) {
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
-            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
+            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION, context)
             is EmojiPageKeyboardView, // to make EmojiPalettesView background visible, which does not scroll
             is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // otherwise causes issues with wrapper view when using one-handed mode
             is KeyboardWrapperView, is EmojiPalettesView, is ClipboardHistoryView -> {
@@ -493,6 +515,9 @@ private fun stateList(pressed: Int, normal: Int): ColorStateList {
     val states = arrayOf(intArrayOf(android.R.attr.state_pressed), intArrayOf(-android.R.attr.state_pressed))
     return ColorStateList(states, intArrayOf(pressed, normal))
 }
+
+enum class ColorType { ACCENT, GESTURE, KEY_TEXT, SPACEBAR_TEXT, NAV_BAR, ADJUSTED_BACKGROUND,
+    ADJUSTED_KEY_TEXT, ACTION_KEY_ICON }
 
 enum class BackgroundType {
     /** generic background */

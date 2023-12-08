@@ -19,6 +19,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.BackgroundType
+import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
@@ -95,8 +96,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clearKey = findViewById<ImageButton>(R.id.clipboard_clear).apply {
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
-            colorFilter = colors.keyTextFilter
-            colors.setBackgroundColor(background, BackgroundType.SUGGESTION)
+            colorFilter = colors.setColorFilter(ColorType.KEY_TEXT)
+            colors.setBackgroundColor(background, BackgroundType.SUGGESTION, context)
         }
     }
 
@@ -104,7 +105,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         key?.apply {
             text = label
             typeface = params.mTypeface
-            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL)
+            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL, context)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
@@ -155,7 +156,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
         }
-        Settings.getInstance().current.mColors.setKeyboardBackground(this)
+        Settings.getInstance().current.mColors.setKeyboardBackground(this, context)
     }
 
     fun stopClipboardHistory() {

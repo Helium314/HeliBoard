@@ -46,6 +46,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
@@ -172,7 +173,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION);
+            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION, context);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -212,14 +213,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarKey.getLayoutParams().height = toolbarHeight;
         mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
         mDefaultBackground = mToolbarKey.getBackground();
-        colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);
-        mEnabledToolKeyBackground.setColors(new int[] {colors.getAccent() | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
+        colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION, getContext());
+        mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.ACCENT) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
         mToolbarKey.setOnClickListener(this);
         mToolbarKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mToolbarKey.setColorFilter(colors.getKeyTextFilter()); // maybe different color?
+        mToolbarKey.setColorFilter(colors.setColorFilter(ColorType.KEY_TEXT)); // maybe different color?
         mToolbarKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
         mToolbarKey.getBackground().setColorFilter(colors.getDoubleAdjustedBackground(), PorterDuff.Mode.SRC_ATOP);
         mToolbarKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
@@ -233,7 +234,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             addKeyToPinnedKeys(pinnedKey, inflater);
         }
 
-        colors.setKeyboardBackground(this);
+        colors.setKeyboardBackground(this, context);
     }
 
     /**
@@ -389,7 +390,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
     private boolean onLongClickSuggestion(final TextView wordView) {
         final Drawable icon = mBinIcon;
-        icon.setColorFilter(Settings.getInstance().getCurrent().mColors.getKeyTextFilter());
+        icon.setColorFilter(Settings.getInstance().getCurrent().mColors.setColorFilter(ColorType.KEY_TEXT));
         int w = icon.getIntrinsicWidth();
         int h = icon.getIntrinsicWidth();
         wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -705,8 +706,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void setupKey(final ImageButton view, final Colors colors) {
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
-        view.setColorFilter(colors.getKeyTextFilter());
-        colors.setBackgroundColor(view.getBackground(), BackgroundType.SUGGESTION);
+        view.setColorFilter(colors.setColorFilter(ColorType.KEY_TEXT));
+        colors.setBackgroundColor(view.getBackground(), BackgroundType.SUGGESTION, getContext());
     }
 
     private static int getKeyLayoutIdForTag(final String tag) {

@@ -42,6 +42,7 @@ import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
@@ -121,10 +122,10 @@ final class SuggestionStripLayoutHelper {
                 R.styleable.SuggestionStripView_alphaObsoleted, 1.0f);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mColorValidTypedWord = colors.getAdjustedKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
-        mColorTypedWord = colors.getAdjustedKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
-        mColorAutoCorrect = colors.getKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
-        mColorSuggested = colors.getAdjustedKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
+        mColorValidTypedWord = colors.get(ColorType.ADJUSTED_KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
+        mColorTypedWord = colors.get(ColorType.ADJUSTED_KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
+        mColorAutoCorrect = colors.get(ColorType.KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
+        mColorSuggested = colors.get(ColorType.ADJUSTED_KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
 
         mSuggestionsCountInStrip = a.getInt(
                 R.styleable.SuggestionStripView_suggestionsCountInStrip,
