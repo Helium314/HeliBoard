@@ -126,9 +126,9 @@ public final class InputAttributes {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            mNoLearning = flagNoSuggestions || (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
+            mNoLearning = (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
         else
-            mNoLearning = flagNoSuggestions;
+            mNoLearning = false;
     }
 
     public boolean isTypeNull() {
@@ -136,7 +136,8 @@ public final class InputAttributes {
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
-        return editorInfo.inputType == mInputType;
+        return editorInfo.inputType == mInputType && mEditorInfo != null
+                && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII);
     }
 
     private boolean hasNoMicrophoneKeyOption() {

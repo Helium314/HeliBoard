@@ -3,7 +3,7 @@
 This is an attempt to integrate changes / improvements into OpenBoard that have been sitting around for a long time due to low dev activity.
 Might end up on F-Droid...
 
-**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best.**
+**This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best and always have another keyboard installed in case of really bad bugs.**
 
 ## Features
 * Allow loading Glide typing library
@@ -12,6 +12,7 @@ Might end up on F-Droid...
 * Multilingual typing
 * Load external dictionaries
   * get them [here]( https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
+  * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
 * Adjust keyboard themes (style and colors)
@@ -72,7 +73,7 @@ Features that may go unnoticed
 * Reduce space between keys, with option to use old values, https://github.com/Helium314/openboard/pull/8
 * Fix number row not split in split keyboard view, https://github.com/Helium314/openboard/pull/27
 * Fix issue with spell checker incorrectly flagging words before a period as wrong on newer Android versions, https://github.com/openboard-team/openboard/pull/679
-  * maybe not properly fixed, this causes some other issues
+  * maybe not properly fixed, this causes some other issues, https://github.com/Helium314/openboard/issues/55
 * Fix always-dark settings on some Android versions, https://github.com/Helium314/openboard/pull/69
 * Fix bug with space before word being deleted in some apps / input fields, https://github.com/Helium314/openboard/commit/ce0bf06545c4547d3fc5791cc769508db0a89e87
 * Allow using auto theme on some devices with Android 9
@@ -81,24 +82,39 @@ Features that may go unnoticed
 * Updated translations
 * Open dictionary files with the app
 * Add more options to the language switch key
+* New keyboard parser (no need to use `tools:make-keyboard-text:makeText` any more)
+  * Can use simple text files or JSON files as used by [FlorisBoard](https://github.com/florisboard/florisboard/tree/master/app/src/main/assets/ime/keyboard/org.florisboard.layouts/layouts)
 
 ## The rough plan/todo before "full" release
-* Add/update pre-defined themes
-* Internal clean up (xml files, unused resources, some _todo_s in code)
-* Solve some [issues](https://github.com/Helium314/openboard/milestone/1)
+* Finish keyboard parsing upgrades
+  * Users should be allowed to add their own layouts
+  * Determine symbol popup keys from symbols layout instead of hardcoding them to the layout (still allow layout to override or add popup keys)
+  * Allow users more control over popup keys (which hint label to show, which popup keys (language, layout, symbols) to show first or at all)
+* Overhaul the view system
+  * Have a fixed height common to all views (keyboard, emoji, clipboard)
+  * Should allow for more flexible one-handed mode (though the actual one-handed mode changes may be implemented later)
+  * Should allow for background images that don't resize or get cut off when switching between views
+* Internal clean up (xml files, unused resources, some todos in code)
+* Solve some [issues](https://github.com/Helium314/openboard/milestone/1) requiring a lot of work
 
 Once above is done, we can think about properly releasing the app:
 * Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
 * Rename app, package and this repository
 * New icon
-* Use a translation tool (e.g. weblate)
+* Use a translation tool (probably weblate)
 * Release on F-Droid
-* Maybe add a version that does not allow prodiving a glide typing library, for people concerned about security
+* Maybe add a version that does not allow providing a glide typing library, for people concerned about security
 
-## Further plan
+## Further ideas
 * More customizable theming
-* Improved / less bad suggestions in some cases
-* Sliding key input for numpad and emojis (like `?123` and _shift_ sliding input)
+* Improved / less bad suggestions in some specific situations
+* Sliding key input for toolbar, numpad and emojis (like `?123` and _shift_ sliding input)
+* More tunable behavior, e.g for delete and spacebar swipe, for toolbar, for spell checker,...
+* Adjust arrangement of settings, maybe hide settings irrelevant for most users behind some "more settings mode"
+* Migrate to internally use language tags (problematic due to lack of support on older Android versions)
+* More customizable toolbar
+* Support providing background images (for keyboard, and possibly also for keys)
+* and general [bug](https://github.com/Helium314/openboard/issues?q=is%3Aopen+is%3Aissue+label%3Abug) fixing
 
 -----
 # readme for original version of OpenBoard below

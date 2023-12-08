@@ -17,7 +17,6 @@ import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 // This hack is applied to certain classes of tablets.
 public final class BogusMoveEventDetector {
     private static final String TAG = BogusMoveEventDetector.class.getSimpleName();
-    private static final boolean DEBUG_MODE = DebugFlags.DEBUG_ENABLED;
 
     // Move these thresholds to resource.
     // These thresholds' unit is a diagonal length of a key.
@@ -38,7 +37,7 @@ public final class BogusMoveEventDetector {
         final int densityDpi = res.getDisplayMetrics().densityDpi;
         final boolean hasLowDensityScreen = (densityDpi < DisplayMetrics.DENSITY_HIGH);
         final boolean needsTheHack = isLargeTablet || (isSmallTablet && hasLowDensityScreen);
-        if (DEBUG_MODE) {
+        if (DebugFlags.DEBUG_ENABLED) {
             final int sw = res.getConfiguration().smallestScreenWidthDp;
             Log.d(TAG, "needsProximateBogusDownMoveUpEventHack=" + needsTheHack
                     + " smallestScreenWidthDp=" + sw + " densityDpi=" + densityDpi

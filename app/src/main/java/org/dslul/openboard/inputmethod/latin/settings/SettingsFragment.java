@@ -31,8 +31,11 @@ import androidx.preference.PreferenceScreen;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
+import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DictionaryUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 
@@ -71,6 +74,8 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
             final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
             preferenceScreen.removePreference(gesturePreference);
         }
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD)
+                .execute(() -> DictionaryUtilsKt.cleanUnusedMainDicts(requireContext()));
     }
 
     @Override
@@ -91,7 +96,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         SubtypeSettingsKt.init(getActivity());
 
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
-        if (BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             askAboutCrashReports();
     }
 

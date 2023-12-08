@@ -24,6 +24,8 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -81,6 +83,8 @@ public class KeyboardParams {
     public final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
     @NonNull
     public final KeyStylesSet mKeyStyles = new KeyStylesSet(mTextsSet);
+    @NonNull // todo: not good, this only works because params are currently always created for the active subtype
+    public final List<Locale> mSecondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
 
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;

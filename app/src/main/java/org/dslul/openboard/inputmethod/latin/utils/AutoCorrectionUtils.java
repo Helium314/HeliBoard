@@ -14,7 +14,6 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 
 public final class AutoCorrectionUtils {
-    private static final boolean DBG = DebugFlags.DEBUG_ENABLED;
     private static final String TAG = AutoCorrectionUtils.class.getSimpleName();
 
     private AutoCorrectionUtils() {
@@ -37,13 +36,13 @@ public final class AutoCorrectionUtils {
             //       the normalized score of the second suggestion, behave less aggressive.
             final float normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(
                     consideredWord, suggestion.mWord, autoCorrectionSuggestionScore);
-            if (DBG) {
+            if (DebugFlags.DEBUG_ENABLED) {
                 Log.d(TAG, "Normalized " + consideredWord + "," + suggestion + ","
                         + autoCorrectionSuggestionScore + ", " + normalizedScore
                         + "(" + threshold + ")");
             }
             if (normalizedScore >= threshold) {
-                if (DBG) {
+                if (DebugFlags.DEBUG_ENABLED) {
                     Log.d(TAG, "Exceeds threshold.");
                 }
                 return true;

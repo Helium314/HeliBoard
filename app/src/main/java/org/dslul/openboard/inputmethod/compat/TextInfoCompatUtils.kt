@@ -38,10 +38,10 @@ object TextInfoCompatUtils {
      */
     @JvmStatic
     @UsedForTesting
-    fun getCharSequenceOrString(textInfo: TextInfo?): CharSequence? {
+    fun getCharSequenceOrString(textInfo: TextInfo): CharSequence {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            return textInfo?.charSequence
-        val defaultValue: CharSequence? = textInfo?.text
-        return CompatUtils.invoke(textInfo, defaultValue!!, TEXT_INFO_GET_CHAR_SEQUENCE) as CharSequence
+            return textInfo.charSequence
+        val defaultValue = textInfo.text
+        return CompatUtils.invoke(textInfo, defaultValue, TEXT_INFO_GET_CHAR_SEQUENCE) as CharSequence
     }
 }

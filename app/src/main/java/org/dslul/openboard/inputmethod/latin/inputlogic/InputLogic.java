@@ -874,10 +874,17 @@ public final class InputLogic {
     private void addToHistoryIfEmoji(final String text, final SettingsValues settingsValues) {
         if (mLastComposedWord == LastComposedWord.NOT_A_COMPOSED_WORD // we want a last composed word, also to avoid storing consecutive emojis
                 || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
-                || !settingsValues.mBigramPredictionEnabled // this is for next word suggestions, so they need to be enabled
-                || settingsValues.mIncognitoModeEnabled // add nothing
-                || !StringUtilsKt.isEmoji(text) // obviously we need an emoji
+                || !settingsValues.mBigramPredictionEnabled // this is only for next word suggestions, so they need to be enabled
+                || settingsValues.mIncognitoModeEnabled
+                || settingsValues.mInputAttributes.mInputTypeNoAutoCorrect // see comment in performAdditionToUserHistoryDictionary
+                || !StringUtilsKt.isEmoji(text)
         ) return;
+        if (mConnection.hasSlowInputConnection()) {
+            // Since we don't unlearn when the user backspaces on a slow InputConnection,
+            // turn off learning to guard against adding typos that the user later deletes.
+            Log.w(TAG, "Skipping learning due to slow InputConnection.");
+            return;
+        }
         mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD; // avoid storing consecutive emojis
 
         // commit emoji to dictionary, so it ends up in history and can be suggested as next word
@@ -931,13 +938,17 @@ public final class InputLogic {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
 
-        if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+        if (mWordComposer.isCursorInFrontOfComposingWord()) {
+            // we add something in front of the composing word, this is likely for adding something
+            // and not for a correction
+            // keep composing and don't unlearn word in this case
+            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
+        } else if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
             // If we are in the middle of a recorrection, we need to commit the recorrection
             // first so that we can insert the character at the current cursor position.
             // We also need to unlearn the original word that is now being corrected.
             unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getMSettingsValues(), Constants.EVENT_BACKSPACE);
-            resetEntireInputState(mConnection.getExpectedSelectionStart(),
-                    mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
+            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), true);
             isComposingWord = false;
         }
         // We want to find out whether to start composing a new word with this character. If so,
@@ -1545,8 +1556,7 @@ public final class InputLogic {
         // If correction is not enabled, we don't add words to the user history dictionary.
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
-        if (!settingsValues.mAutoCorrectionEnabledPerUserSettings
-            || settingsValues.mIncognitoModeEnabled)
+        if (settingsValues.mInputAttributes.mInputTypeNoAutoCorrect || settingsValues.mIncognitoModeEnabled)
             return;
         if (mConnection.hasSlowInputConnection()) {
             // Since we don't unlearn when the user backspaces on a slow InputConnection,

@@ -14,10 +14,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.text.TextUtils;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.preference.TwoStatePreference;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
@@ -73,13 +74,17 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (TextUtils.equals(key, AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY)
+        if (AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY.equals(key)
                 && prefs.getBoolean(key, false)
-                && !PermissionsUtil.checkAllPermissionsGranted(
-                getActivity() /* context */, Manifest.permission.READ_CONTACTS)
+                && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)
         ) {
-            get(requireContext()).requestPermissions(this /* PermissionsResultCallback */,
-                    getActivity() /* activity */, Manifest.permission.READ_CONTACTS);
+            get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
+        } else if (Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && !prefs.getBoolean(key, true)) {
+            new AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.disable_personalized_dicts_message)
+                    .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((TwoStatePreference) findPreference(key)).setChecked(true))
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
         }
         refreshEnabledSettings();
     }

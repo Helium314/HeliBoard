@@ -70,7 +70,7 @@ public final class KeyboardId {
     public final int mMode;
     public final int mElementId;
     public final EditorInfo mEditorInfo;
-    public final boolean mClobberSettingsKey;
+    public final boolean mDeviceLocked;
     public final boolean mNumberRowEnabled;
     public final boolean mLanguageSwitchKeyEnabled;
     public final boolean mEmojiKeyEnabled;
@@ -88,7 +88,7 @@ public final class KeyboardId {
         mMode = params.mMode;
         mElementId = elementId;
         mEditorInfo = params.mEditorInfo;
-        mClobberSettingsKey = params.mNoSettingsKey;
+        mDeviceLocked = params.mDeviceLocked;
         mNumberRowEnabled = params.mNumberRowEnabled;
         mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
         mEmojiKeyEnabled = params.mEmojiKeyEnabled;
@@ -108,7 +108,7 @@ public final class KeyboardId {
                 id.mWidth,
                 id.mHeight,
                 id.passwordInput(),
-                id.mClobberSettingsKey,
+                id.mDeviceLocked,
                 id.mHasShortcutKey,
                 id.mNumberRowEnabled,
                 id.mLanguageSwitchKeyEnabled,
@@ -131,7 +131,7 @@ public final class KeyboardId {
                 && other.mWidth == mWidth
                 && other.mHeight == mHeight
                 && other.passwordInput() == passwordInput()
-                && other.mClobberSettingsKey == mClobberSettingsKey
+                && other.mDeviceLocked == mDeviceLocked
                 && other.mHasShortcutKey == mHasShortcutKey
                 && other.mNumberRowEnabled == mNumberRowEnabled
                 && other.mLanguageSwitchKeyEnabled == mLanguageSwitchKeyEnabled
@@ -173,6 +173,11 @@ public final class KeyboardId {
         return (mEditorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
     }
 
+    public boolean isAlphabetShifted() {
+        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+                || mElementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+    }
+
     public int imeAction() {
         return InputTypeUtils.getImeOptionsActionIdFromEditorInfo(mEditorInfo);
     }
@@ -202,7 +207,7 @@ public final class KeyboardId {
                 actionName(imeAction()),
                 (navigateNext() ? " navigateNext" : ""),
                 (navigatePrevious() ? " navigatePrevious" : ""),
-                (mClobberSettingsKey ? " clobberSettingsKey" : ""),
+                (mDeviceLocked ? " deviceLocked" : ""),
                 (passwordInput() ? " passwordInput" : ""),
                 (mHasShortcutKey ? " hasShortcutKey" : ""),
                 (mNumberRowEnabled ? " numberRowEnabled" : ""),

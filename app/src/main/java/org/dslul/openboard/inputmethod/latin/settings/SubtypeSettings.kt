@@ -14,6 +14,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
+import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
@@ -235,7 +236,7 @@ private fun loadEnabledSubtypes(context: Context) {
     for (localeAndLayout in subtypeStrings) {
         require(localeAndLayout.size == 2)
         val subtypesForLocale = resourceSubtypesByLocale[localeAndLayout.first()]
-        if (BuildConfig.DEBUG) // should not happen, but should not crash for normal user
+        if (DebugFlags.DEBUG_ENABLED) // should not happen, but should not crash for normal user
             require(subtypesForLocale != null)
         else if (subtypesForLocale == null)
             continue
@@ -243,7 +244,7 @@ private fun loadEnabledSubtypes(context: Context) {
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
         if (subtype == null) {
-            if (BuildConfig.DEBUG)
+            if (DebugFlags.DEBUG_ENABLED)
                 Toast.makeText(context, "subtype $localeAndLayout could not be loaded", Toast.LENGTH_LONG).show()
             continue
         }

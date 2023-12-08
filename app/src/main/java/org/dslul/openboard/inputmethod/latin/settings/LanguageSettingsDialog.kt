@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.method.LinkMovementMethod
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -208,7 +209,10 @@ class LanguageSettingsDialog(
         if (hasInternalDictForLanguage) {
             binding.dictionaries.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                 setText(R.string.internal_dictionary_summary)
-                textSize *= 0.8f
+                // just setting a text size can be complicated...
+                val attrs = context.obtainStyledAttributes(R.style.PreferenceSubtitleText, intArrayOf(android.R.attr.textSize))
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, attrs.getDimension(0, 20f))
+                attrs.recycle()
                 setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
                 isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
             })

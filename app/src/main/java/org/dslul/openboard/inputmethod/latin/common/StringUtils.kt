@@ -32,7 +32,8 @@ fun nonWordCodePointAndNoSpaceBeforeCursor(s: CharSequence, spacingAndPunctuatio
     loopOverCodePointsBackwards(s) {
         if (!space && Character.isWhitespace(it))
             space = true
-        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it))
+        // treat double quote like a word codepoint for the purpose of this function (not great, maybe clarify name, or extend list of chars?)
+        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it) && it != '"'.code)
             nonWordCodePoint = true
         space && nonWordCodePoint // stop if both are found
     }
@@ -50,6 +51,30 @@ fun hasLetterBeforeLastSpaceBeforeCursor(s: CharSequence): Boolean {
         else false
     }
     return letter
+}
+
+/** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
+fun String.splitOnFirstSpacesOnly(): List<String> {
+    val out = mutableListOf<String>()
+    val sb = StringBuilder()
+    var previousSpace = false
+    for (c in this) {
+        if (c != ' ') {
+            sb.append(c)
+            previousSpace = false
+            continue
+        }
+        if (!previousSpace) {
+            out.add(sb.toString())
+            sb.clear()
+            previousSpace = true
+        } else {
+            sb.append(c)
+        }
+    }
+    if (sb.isNotBlank())
+        out.add(sb.toString())
+    return out
 }
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))

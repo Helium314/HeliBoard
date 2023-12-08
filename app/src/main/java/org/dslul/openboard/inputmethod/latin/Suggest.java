@@ -7,6 +7,7 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
@@ -19,12 +20,14 @@ import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
+import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
 import org.dslul.openboard.inputmethod.latin.utils.AutoCorrectionUtils;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +35,9 @@ import static org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConsta
 import static org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants.SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import kotlin.collections.CollectionsKt;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of
@@ -49,7 +55,6 @@ public final class Suggest {
     // Close to -2**31
     private static final int SUPPRESS_SUGGEST_THRESHOLD = -2000000000;
 
-    private static final boolean DBG = DebugFlags.DEBUG_ENABLED;
     private final DictionaryFacilitator mDictionaryFacilitator;
 
     private static final int MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN = 12;
@@ -61,6 +66,9 @@ public final class Suggest {
         sLanguageToMaximumAutoCorrectionWithSpaceLength.put(Locale.GERMAN.getLanguage(),
                 MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN);
     }
+
+    // cleared whenever LatinIME.loadSettings is called, notably on changing layout and switching input fields
+    public static final HashMap<NgramContext, SuggestionResults> nextWordSuggestionsCache = new HashMap<>();
 
     private float mAutoCorrectionThreshold;
     private float mPlausibilityThreshold;
@@ -145,9 +153,11 @@ public final class Suggest {
         final int trailingSingleQuotesCount =
                 StringUtils.getTrailingSingleQuotesCount(typedWordString);
 
-        final SuggestionResults suggestionResults = mDictionaryFacilitator.getSuggestionResults(
-                wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
-                settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
+        final SuggestionResults suggestionResults = typedWordString.isEmpty()
+                ? getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
+                : mDictionaryFacilitator.getSuggestionResults(
+                        wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
+                        settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
         final Locale locale = mDictionaryFacilitator.getLocale();
         final ArrayList<SuggestedWordInfo> suggestionsContainer =
                 getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
@@ -212,9 +222,8 @@ public final class Suggest {
         }
 
         final ArrayList<SuggestedWordInfo> suggestionsList;
-        if (DBG && !suggestionsContainer.isEmpty()) {
-            suggestionsList = getSuggestionsInfoListWithDebugInfo(typedWordString,
-                    suggestionsContainer);
+        if (SuggestionStripView.DEBUG_SUGGESTIONS && !suggestionsContainer.isEmpty()) {
+            suggestionsList = getSuggestionsInfoListWithDebugInfo(typedWordString, suggestionsContainer);
         } else {
             suggestionsList = suggestionsContainer;
         }
@@ -238,6 +247,8 @@ public final class Suggest {
             //  and SuggestionStripView (shouldOmitTypedWord, getStyledSuggestedWord)
             //  but this could become more complicated than simply adding a duplicate word in a case
             //  where the first occurrence of that word is ignored
+            if (SuggestionStripView.DEBUG_SUGGESTIONS)
+                addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString);
             suggestionsList.add(2, typedWordFirstOccurrenceWordInfo);
         }
 
@@ -249,6 +260,8 @@ public final class Suggest {
     }
 
     // annoyingly complicated thing to avoid getting emptyWordSuggestions more than once
+    // todo: now with the cache just remove it...
+    //  and best convert the class to kotlin, that should make it much more readable
     /** puts word infos for suggestions with an empty word in [infos], based on previously typed words */
     private ArrayList<SuggestedWordInfo> putEmptyWordSuggestions(ArrayList<SuggestedWordInfo> infos, NgramContext ngramContext,
                     Keyboard keyboard, SettingsValuesForSuggestion settingsValuesForSuggestion,
@@ -256,17 +269,13 @@ public final class Suggest {
         if (infos.size() != 0) return infos;
         infos.add(null);
         infos.add(null);
-        final SuggestionResults emptyWordSuggestions = mDictionaryFacilitator.getSuggestionResults(
-                new ComposedData(new InputPointers(1), false, ""), ngramContext,
-                keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
-        for (SuggestedWordInfo info : emptyWordSuggestions) {
-            if (infos.get(1) == null && typedWordString.equals(info.getWord())) {
-                infos.set(1, info);
-            } else if (infos.get(0) == null && firstSuggestionInContainer.equals(info.getWord())) {
-                infos.set(0, info);
-            } else if (infos.get(1) != null && infos.get(0) != null)
-                break;
-        }
+        final SuggestionResults emptyWordSuggestions = getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion);
+        final SuggestedWordInfo nextWordSuggestionInfoForFirstSuggestionInContainer =
+                CollectionsKt.firstOrNull(emptyWordSuggestions, (word) -> word.mWord.equals(firstSuggestionInContainer));
+        final SuggestedWordInfo nextWordSuggestionInfoForTypedWord =
+                CollectionsKt.firstOrNull(emptyWordSuggestions, (word) -> word.mWord.equals(typedWordString));
+        infos.add(nextWordSuggestionInfoForFirstSuggestionInContainer);
+        infos.add(nextWordSuggestionInfoForTypedWord);
         return infos;
     }
 
@@ -419,11 +428,11 @@ public final class Suggest {
         final SuggestionResults suggestionResults = mDictionaryFacilitator.getSuggestionResults(
                 wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
                 settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle);
+        replaceSingleLetterFirstSuggestion(suggestionResults);
 
         // For transforming words that don't come from a dictionary, because it's our best bet
         final Locale locale = mDictionaryFacilitator.getLocale();
-        final ArrayList<SuggestedWordInfo> suggestionsContainer =
-                new ArrayList<>(suggestionResults);
+        final ArrayList<SuggestedWordInfo> suggestionsContainer = new ArrayList<>(suggestionResults);
         final int suggestionsCount = suggestionsContainer.size();
         final boolean isFirstCharCapitalized = wordComposer.wasShiftedNoLock();
         final boolean isAllUpperCase = wordComposer.isAllUpperCase();
@@ -438,12 +447,15 @@ public final class Suggest {
             }
         }
 
+        final SuggestedWordInfo rejected;
         if (SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION
                 && suggestionsContainer.size() > 1
                 && TextUtils.equals(suggestionsContainer.get(0).mWord,
                    wordComposer.getRejectedBatchModeSuggestion())) {
-            final SuggestedWordInfo rejected = suggestionsContainer.remove(0);
+            rejected = suggestionsContainer.remove(0);
             suggestionsContainer.add(1, rejected);
+        } else {
+            rejected = null;
         }
         SuggestedWordInfo.removeDupsAndTypedWord(null /* typedWord */, suggestionsContainer);
 
@@ -459,10 +471,17 @@ public final class Suggest {
         // (typedWordValid=true), not as an "auto correct word" (willAutoCorrect=false).
         // Note that because this method is never used to get predictions, there is no need to
         // modify inputType such in getSuggestedWordsForNonBatchInput.
-        final SuggestedWordInfo pseudoTypedWordInfo = suggestionsContainer.isEmpty() ? null
-                : suggestionsContainer.get(0);
+        final SuggestedWordInfo pseudoTypedWordInfo = preferNextWordSuggestion(suggestionsContainer.isEmpty() ? null : suggestionsContainer.get(0),
+                suggestionsContainer, getNextWordSuggestions(ngramContext, keyboard, inputStyle, settingsValuesForSuggestion), rejected);
 
-        callback.onGetSuggestedWords(new SuggestedWords(suggestionsContainer,
+        final ArrayList<SuggestedWordInfo> suggestionsList;
+        if (SuggestionStripView.DEBUG_SUGGESTIONS && !suggestionsContainer.isEmpty()) {
+            suggestionsList = getSuggestionsInfoListWithDebugInfo(suggestionResults.first().mWord, suggestionsContainer);
+        } else {
+            suggestionsList = suggestionsContainer;
+        }
+
+        callback.onGetSuggestedWords(new SuggestedWords(suggestionsList,
                 suggestionResults.mRawSuggestions,
                 pseudoTypedWordInfo,
                 true /* typedWordValid */,
@@ -471,31 +490,75 @@ public final class Suggest {
                 inputStyle, sequenceNumber));
     }
 
+    /** reduces score of the first suggestion if next one is close and has more than a single letter */
+    private void replaceSingleLetterFirstSuggestion(final SuggestionResults suggestionResults) {
+        if (suggestionResults.size() < 2 || suggestionResults.first().mWord.length() != 1) return;
+        // suppress single letter suggestions if next suggestion is close and has more than one letter
+        final Iterator<SuggestedWordInfo> iterator = suggestionResults.iterator();
+        final SuggestedWordInfo first = iterator.next();
+        final SuggestedWordInfo second = iterator.next();
+        if (second.mWord.length() > 1 && second.mScore > 0.94 * first.mScore) {
+            suggestionResults.remove(first); // remove and re-add with lower score
+            suggestionResults.add(new SuggestedWordInfo(first.mWord, first.mPrevWordsContext, (int) (first.mScore * 0.93),
+                    first.mKindAndFlags, first.mSourceDict, first.mIndexOfTouchPointOfSecondWord, first.mAutoCommitFirstWordConfidence));
+            if (DebugFlags.DEBUG_ENABLED)
+                Log.d(TAG, "reduced score of "+first.mWord+" from "+first.mScore +", new first: "+suggestionResults.first().mWord+" ("+suggestionResults.first().mScore+")");
+        }
+    }
+
+    // returns new pseudoTypedWordInfo, puts it in suggestionsContainer, modifies nextWordSuggestions
+    @Nullable
+    private SuggestedWordInfo preferNextWordSuggestion(@Nullable final SuggestedWordInfo pseudoTypedWordInfo,
+           @NonNull final ArrayList<SuggestedWordInfo> suggestionsContainer,
+           @NonNull final SuggestionResults nextWordSuggestions, @Nullable final SuggestedWordInfo rejected) {
+        if (pseudoTypedWordInfo == null
+                || !Settings.getInstance().getCurrent().mUsePersonalizedDicts
+                || !pseudoTypedWordInfo.mSourceDict.mDictType.equals(Dictionary.TYPE_MAIN)
+                || suggestionsContainer.size() < 2
+        )
+            return pseudoTypedWordInfo;
+        CollectionsKt.removeAll(nextWordSuggestions, (info) -> info.mScore < 170); // we only want reasonably often typed words, value may require tuning
+        if (nextWordSuggestions.isEmpty())
+            return pseudoTypedWordInfo;
+        // for each suggestion, check whether the word was already typed in this ngram context (i.e. is nextWordSuggestion)
+        for (final SuggestedWordInfo suggestion : suggestionsContainer) {
+            if (suggestion.mScore < pseudoTypedWordInfo.mScore * 0.93) break; // we only want reasonably good suggestions, value may require tuning
+            if (suggestion == rejected) continue; // ignore rejected suggestions
+            for (final SuggestedWordInfo nextWordSuggestion : nextWordSuggestions) {
+                if (!nextWordSuggestion.mWord.equals(suggestion.mWord))
+                    continue;
+                // if we have a high scoring suggestion in next word suggestions, take it (because it's expected that user might want to type it again)
+                suggestionsContainer.remove(suggestion);
+                suggestionsContainer.add(0, suggestion);
+                if (DebugFlags.DEBUG_ENABLED)
+                    Log.d(TAG, "replaced batch word "+pseudoTypedWordInfo+" with "+suggestion);
+                return suggestion;
+            }
+        }
+        return pseudoTypedWordInfo;
+    }
+
     private static ArrayList<SuggestedWordInfo> getSuggestionsInfoListWithDebugInfo(
             final String typedWord, final ArrayList<SuggestedWordInfo> suggestions) {
-        final SuggestedWordInfo typedWordInfo = suggestions.get(0);
-        typedWordInfo.setDebugString("+");
         final int suggestionsSize = suggestions.size();
         final ArrayList<SuggestedWordInfo> suggestionsList = new ArrayList<>(suggestionsSize);
-        suggestionsList.add(typedWordInfo);
-        // Note: i here is the index in mScores[], but the index in mSuggestions is one more
-        // than i because we added the typed word to mSuggestions without touching mScores.
-        for (int i = 0; i < suggestionsSize - 1; ++i) {
-            final SuggestedWordInfo cur = suggestions.get(i + 1);
-            final float normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(
-                    typedWord, cur.toString(), cur.mScore);
-            final String scoreInfoString;
-            if (normalizedScore > 0) {
-                scoreInfoString = String.format(
-                        Locale.ROOT, "%d (%4.2f), %s", cur.mScore, normalizedScore,
-                        cur.mSourceDict.mDictType);
-            } else {
-                scoreInfoString = Integer.toString(cur.mScore);
-            }
-            cur.setDebugString(scoreInfoString);
+        for (final SuggestedWordInfo cur : suggestions) {
+            addDebugInfo(cur, typedWord);
             suggestionsList.add(cur);
         }
         return suggestionsList;
+    }
+
+    private static void addDebugInfo(final SuggestedWordInfo wordInfo, final String typedWord) {
+        final float normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(typedWord, wordInfo.toString(), wordInfo.mScore);
+        final String scoreInfoString;
+        String dict = wordInfo.mSourceDict.mDictType + ":" + wordInfo.mSourceDict.mLocale;
+        if (normalizedScore > 0) {
+            scoreInfoString = String.format(Locale.ROOT, "%d (%4.2f), %s", wordInfo.mScore, normalizedScore, dict);
+        } else {
+            scoreInfoString = String.format(Locale.ROOT, "%d, %s", wordInfo.mScore, dict);
+        }
+        wordInfo.setDebugString(scoreInfoString);
     }
 
     /**
@@ -556,5 +619,26 @@ public final class Suggest {
                 wordInfo.mScore, wordInfo.mKindAndFlags,
                 wordInfo.mSourceDict, wordInfo.mIndexOfTouchPointOfSecondWord,
                 wordInfo.mAutoCommitFirstWordConfidence);
+    }
+
+    /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do) */
+    // todo: integrate it into shouldBeAutoCorrected, remove putEmptySuggestions
+    //  and make that thing more readable
+    private SuggestionResults getNextWordSuggestions(final NgramContext ngramContext,
+             final Keyboard keyboard, final int inputStyle, final SettingsValuesForSuggestion settingsValuesForSuggestion
+    ) {
+        final SuggestionResults cachedResults = nextWordSuggestionsCache.get(ngramContext);
+        if (cachedResults != null)
+            return cachedResults;
+        final SuggestionResults newResults = mDictionaryFacilitator.getSuggestionResults(
+                new ComposedData(new InputPointers(1), false, ""),
+                ngramContext,
+                keyboard,
+                settingsValuesForSuggestion,
+                SESSION_ID_TYPING,
+                inputStyle
+        );
+        nextWordSuggestionsCache.put(ngramContext, newResults);
+        return newResults;
     }
 }

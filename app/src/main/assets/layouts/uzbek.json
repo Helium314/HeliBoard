@@ -1,0 +1,37 @@
+[
+  [
+    { "label": "q", "popup": { "main": { "label": "%" } } },
+    { "label": "w", "popup": { "main": { "label": "\\" } } },
+    { "label": "e", "popup": { "main": { "label": "|" } } },
+    { "label": "r", "popup": { "main": { "label": "=" } } },
+    { "label": "t", "popup": { "main": { "label": "[" } } },
+    { "label": "y", "popup": { "main": { "label": "]" } } },
+    { "label": "u", "popup": { "main": { "label": "<" } } },
+    { "label": "i", "popup": { "main": { "label": ">" } } },
+    { "label": "o", "popup": { "main": { "label": "{" } } },
+    { "label": "p", "popup": { "main": { "label": "}" } } },
+    { "label": "oʻ", "labelFlags": 128 }
+  ],
+  [
+    { "label": "a", "popup": { "main": { "label": "@" } } },
+    { "label": "s", "popup": { "main": { "label": "#" } } },
+    { "label": "d", "popup": { "main": { "label": "$$$" } } },
+    { "label": "f", "popup": { "main": { "label": "_" } } },
+    { "label": "g", "popup": { "main": { "label": "&" } } },
+    { "label": "h", "popup": { "main": { "label": "-" } } },
+    { "label": "j", "popup": { "main": { "label": "+" } } },
+    { "label": "k", "popup": { "main": { "label": "(" } } },
+    { "label": "l", "popup": { "main": { "label": ")" } } },
+    { "label": "gʻ", "labelFlags": 128 },
+    { "label": "ʼ" }
+  ],
+  [
+    { "label": "z", "popup": { "main": { "label": "*" } } },
+    { "label": "x", "popup": { "main": { "label": "\"" } } },
+    { "label": "c", "popup": { "main": { "label": "'" } } },
+    { "label": "v", "popup": { "main": { "label": ":" } } },
+    { "label": "b", "popup": { "main": { "label": ";" } } },
+    { "label": "n", "popup": { "main": { "label": "!" } } },
+    { "label": "m", "popup": { "main": { "label": "?" } } }
+  ]
+]

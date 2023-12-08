@@ -1,0 +1,132 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "त्त", "labelFlags": 128 },
+      "default": { "label": "ट" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ड्ढ", "labelFlags": 128 },
+      "default": { "label": "ध" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ऐ" },
+      "default": { "label": "भ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "द्व", "labelFlags": 128 },
+      "default": { "label": "च" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ट्ट", "labelFlags": 128 },
+      "default": { "label": "त" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ठ्ठ", "labelFlags": 128 },
+      "default": { "label": "थ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ऊ" },
+      "default": { "label": "ग" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "क्ष", "labelFlags": 128 },
+      "default": { "label": "ष" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "इ" },
+      "default": { "label": "य" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ए" },
+      "default": { "label": "उ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ृ" },
+      "default": { "label": "इ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "आ" },
+      "default": { "label": "ब" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ङ्", "labelFlags": 128 },
+      "default": { "label": "क" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ड्ड", "labelFlags": 128 },
+      "default": { "label": "म" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ँ" },
+      "default": { "label": "ा" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "द्द", "labelFlags": 128 },
+      "default": { "label": "न" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "झ" },
+      "default": { "label": "ज" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ो" },
+      "default": { "label": "व" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "फ" },
+      "default": { "label": "प" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ी" },
+      "default": { "label": "ि" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ट्ठ", "labelFlags": 128 },
+      "default": { "label": "स" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ू" },
+      "default": { "label": "ु" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "क्", "labelFlags": 128 },
+      "default": { "label": "श" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ह्म", "labelFlags": 128 },
+      "default": { "label": "ह" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ऋ" },
+      "default": { "label": "अ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ॐ" },
+      "default": { "label": "ख" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ौ" },
+      "default": { "label": "द" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "द्य", "labelFlags": 128 },
+      "default": { "label": "ल" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ं" },
+      "default": { "label": "े" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ङ" },
+      "default": { "label": "्" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ै" },
+      "default": { "label": "र" }
+    }
+  ]
+]

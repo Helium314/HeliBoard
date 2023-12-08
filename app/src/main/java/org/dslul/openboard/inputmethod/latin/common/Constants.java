@@ -39,12 +39,6 @@ public final class Constants {
         public static final String NO_MICROPHONE = "noMicrophoneKey";
 
         /**
-         * The private IME option used to indicate that no settings key should be shown for a given
-         * text field.
-         */
-        public static final String NO_SETTINGS_KEY = "noSettingsKey";
-
-        /**
          * The private IME option used to indicate that the given text field needs ASCII code points
          * input.
          *

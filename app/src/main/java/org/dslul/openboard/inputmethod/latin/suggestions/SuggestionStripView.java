@@ -7,6 +7,7 @@
 package org.dslul.openboard.inputmethod.latin.suggestions;
 
 import android.annotation.SuppressLint;
+import android.app.KeyguardManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -40,7 +42,6 @@ import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysPanel;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
-import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -48,6 +49,7 @@ import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
+import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
@@ -70,8 +72,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         CharSequence getSelection();
     }
 
-    static final boolean DBG = DebugFlags.DEBUG_ENABLED;
-    private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.0f;
+    public static boolean DEBUG_SUGGESTIONS;
+    private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
     private static final String VOICE_KEY_TAG = "voice_key";
     private static final String CLIPBOARD_KEY_TAG = "clipboard_key";
     private static final String SETTINGS_KEY_TAG = "settings_key";
@@ -144,6 +146,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             final int defStyle) {
         super(context, attrs, defStyle);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
+        DEBUG_SUGGESTIONS = DeviceProtectedUtils.getSharedPreferences(context).getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.suggestions_strip, this);
@@ -174,17 +177,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
             final TextView info = new TextView(context, null, R.attr.suggestionWordStyle);
-            info.setTextColor(Color.WHITE);
+            info.setTextColor(colors.getKeyText());
             info.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEBUG_INFO_TEXT_SIZE_IN_DIP);
             mDebugInfoViews.add(info);
         }
 
-        mLayoutHelper = new SuggestionStripLayoutHelper(
-                context, attrs, defStyle, mWordViews, mDividerViews, mDebugInfoViews);
+        mLayoutHelper = new SuggestionStripLayoutHelper(context, attrs, defStyle, mWordViews, mDividerViews, mDebugInfoViews);
 
         mMoreSuggestionsContainer = inflater.inflate(R.layout.more_suggestions, null);
-        mMoreSuggestionsView = mMoreSuggestionsContainer
-                .findViewById(R.id.more_suggestions_view);
+        mMoreSuggestionsView = mMoreSuggestionsContainer.findViewById(R.id.more_suggestions_view);
         mMoreSuggestionsBuilder = new MoreSuggestions.Builder(context, mMoreSuggestionsView);
 
         final Resources res = context.getResources();
@@ -253,6 +254,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
         mToolbarKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
         mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+
+        // hide toolbar and pinned keys if device is locked
+        final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        final boolean hideClipboard = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+                ? km.isDeviceLocked()
+                : km.isKeyguardLocked();
+        mToolbarKey.setVisibility(hideClipboard ? GONE : VISIBLE);
+        mPinnedKeys.setVisibility(hideClipboard ? GONE : VISIBLE);
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -405,7 +414,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
             return false;
         });
-        if (BuildConfig.DEBUG && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
+        if (DebugFlags.DEBUG_ENABLED && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
             showSourceDict(wordView);
             return true;
         } else return showMoreSuggestions();
@@ -641,16 +650,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
         if (view == mToolbarKey) {
-            if (mToolbarContainer.getVisibility() == VISIBLE) {
-                mToolbarContainer.setVisibility(GONE);
-                mSuggestionsStrip.setVisibility(VISIBLE);
-                mPinnedKeys.setVisibility(VISIBLE);
-            } else {
-                mToolbarContainer.setVisibility(VISIBLE);
-                mSuggestionsStrip.setVisibility(GONE);
-                mPinnedKeys.setVisibility(GONE);
-            }
-            mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+            setToolbarVisibility(mToolbarContainer.getVisibility() != VISIBLE);
         }
 
 
@@ -677,6 +677,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         // Called by the framework when the size is known. Show the important notice if applicable.
         // This may be overriden by showing suggestions later, if applicable.
+    }
+
+    public void setToolbarVisibility(final boolean visible) {
+        if (visible) {
+            mPinnedKeys.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(GONE);
+            mToolbarContainer.setVisibility(VISIBLE);
+        } else {
+            mToolbarContainer.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(VISIBLE);
+            mPinnedKeys.setVisibility(VISIBLE);
+        }
+        mToolbarKey.setScaleX(visible ? -1f : 1f);
     }
 
     private void addKeyToPinnedKeys(final String pinnedKey, final LayoutInflater inflater) {

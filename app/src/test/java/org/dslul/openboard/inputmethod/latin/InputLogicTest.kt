@@ -44,7 +44,7 @@ import kotlin.math.min
     ShadowKeyboardSwitcher::class,
     ShadowHandler::class,
     ShadowFacilitator2::class,
-], sdk = [33]) // todo: remove workaround after upgrading robolectric to 4.11
+])
 class InputLogicTest {
     private lateinit var latinIME: LatinIME
     private val settingsValues get() = Settings.getInstance().current
@@ -521,6 +521,16 @@ class InputLogicTest {
         chainInput("\"Hi\", \"h")
         assertEquals("\"Hi\", \"h", text)
         assertEquals("h", composingText)
+    }
+
+    @Test fun `autospace works in URL field when starting with quotes`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        input("\"")
+        pickSuggestion("this")
+        input("i")
+        assertEquals("\"this i", text)
     }
 
     // ------- helper functions ---------

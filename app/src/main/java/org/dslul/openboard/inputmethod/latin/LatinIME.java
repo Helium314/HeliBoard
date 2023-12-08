@@ -50,6 +50,7 @@ import org.dslul.openboard.inputmethod.event.InputTransaction;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
@@ -71,7 +72,6 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
@@ -596,24 +596,20 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onCreate() {
         Settings.init(this);
-        DebugFlags.init(DeviceProtectedUtils.getSharedPreferences(this));
+        DebugFlags.init(this);
         SubtypeSettingsKt.init(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
         AccessibilityUtils.init(this);
-        mStatsUtilsManager.onCreate(this /* context */, mDictionaryFacilitator);
+        mStatsUtilsManager.onCreate(this, mDictionaryFacilitator);
         mDisplayContext = getDisplayContext();
         KeyboardSwitcher.init(this);
         super.onCreate();
 
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
-
-        // TODO: Resolve mutual dependencies of {@link #loadSettings()} and
-        // {@link #resetDictionaryFacilitatorIfNecessary()}.
         loadSettings();
-        resetDictionaryFacilitatorIfNecessary();
 
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
@@ -661,10 +657,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // been displayed. Opening dictionaries never affects responsivity as dictionaries are
         // asynchronously loaded.
         if (!mHandler.hasPendingReopenDictionaries()) {
-            resetDictionaryFacilitator(locale);
+            resetDictionaryFacilitatorIfNecessary();
         }
         refreshPersonalizationDictionarySession(currentSettingsValues);
-        resetDictionaryFacilitatorIfNecessary();
+        Suggest.nextWordSuggestionsCache.clear();
         mStatsUtilsManager.onLoadSettings(this /* context */, currentSettingsValues);
     }
 
@@ -704,7 +700,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             subtypeLocale = subtypeSwitcherLocale;
         }
         if (mDictionaryFacilitator.isForLocale(subtypeLocale)
-                && mDictionaryFacilitator.isForAccount(mSettings.getCurrent().mAccount)) {
+                && mDictionaryFacilitator.isForAccount(mSettings.getCurrent().mAccount)
+                && mDictionaryFacilitator.usesContacts() == mSettings.getCurrent().mUseContactsDictionary
+                && mDictionaryFacilitator.usesPersonalization() == mSettings.getCurrent().mUsePersonalizedDicts
+        ) {
             return;
         }
         resetDictionaryFacilitator(subtypeLocale);
@@ -725,8 +724,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 settingsValues.mAccount, "" /* dictNamePrefix */,
                 this /* DictionaryInitializationListener */);
         if (settingsValues.mAutoCorrectionEnabledPerUserSettings) {
-            mInputLogic.mSuggest.setAutoCorrectionThreshold(
-                    settingsValues.mAutoCorrectionThreshold);
+            mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
         }
     }
 
@@ -741,6 +739,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 true /* forceReloadMainDictionary */,
                 settingsValues.mAccount, "" /* dictNamePrefix */,
                 this /* DictionaryInitializationListener */);
+    }
+
+    // used for debug
+    public String getLocaleAndConfidenceInfo() {
+        return mDictionaryFacilitator.localesAndConfidences();
     }
 
     @Override
@@ -1187,6 +1190,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void hideWindow() {
+        if (mSuggestionStripView != null)
+            mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
         if (TRACE) Debug.stopMethodTracing();
@@ -2056,4 +2061,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        switch (level) {
+            case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
+                    KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+            // deallocateMemory always called on hiding, and should not be called when showing
+        }
+    }
 }

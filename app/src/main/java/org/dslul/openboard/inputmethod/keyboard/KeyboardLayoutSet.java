@@ -6,10 +6,12 @@
 
 package org.dslul.openboard.inputmethod.keyboard;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.os.Build;
 import android.text.InputType;
 import android.util.Log;
 import android.util.SparseArray;
@@ -36,11 +38,9 @@ import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_SETTINGS_KEY;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.os.UserManagerCompat;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard
@@ -105,7 +105,7 @@ public final class KeyboardLayoutSet {
         EditorInfo mEditorInfo;
         boolean mIsPasswordField;
         boolean mVoiceInputKeyEnabled;
-        boolean mNoSettingsKey;
+        boolean mDeviceLocked;
         boolean mNumberRowEnabled;
         boolean mLanguageSwitchKeyEnabled;
         boolean mEmojiKeyEnabled;
@@ -270,13 +270,14 @@ public final class KeyboardLayoutSet {
             // TODO: Consolidate those with {@link InputAttributes}.
             params.mEditorInfo = editorInfo;
             params.mIsPasswordField = InputTypeUtils.isPasswordInputType(editorInfo.inputType);
-            params.mNoSettingsKey = InputAttributes.inPrivateImeOptions(
-                    mPackageName, NO_SETTINGS_KEY, editorInfo);
 
-            // When the device is still unlocked, features like showing the IME setting app need to
+            // When the device is still locked, features like showing the IME setting app need to
             // be locked down.
-            if (!UserManagerCompat.isUserUnlocked(context)) {
-                params.mNoSettingsKey = true;
+            final KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                params.mDeviceLocked = km.isDeviceLocked();
+            } else {
+                params.mDeviceLocked = km.isKeyguardLocked();
             }
         }
 

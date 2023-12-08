@@ -25,6 +25,7 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
+import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.define.JniLibName
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
 import java.io.File
@@ -85,12 +86,19 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         // singleton and utility classes may not have been initialized.  We have to call
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
         AudioAndHapticFeedbackManager.init(context)
-        if (!BuildConfig.DEBUG) {
-            removePreference(Settings.SCREEN_DEBUG)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
         }
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
+            removePreference(Settings.SCREEN_DEBUG)
+        }
     }
 
     private fun onClickLoadLibrary(): Boolean {

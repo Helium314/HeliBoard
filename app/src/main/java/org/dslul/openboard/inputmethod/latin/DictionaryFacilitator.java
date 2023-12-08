@@ -102,6 +102,8 @@ public interface DictionaryFacilitator {
 
     boolean usesContacts();
 
+    boolean usesPersonalization();
+
     String getAccount();
 
     void resetDictionaries(
@@ -164,6 +166,8 @@ public interface DictionaryFacilitator {
     boolean clearUserHistoryDictionary(final Context context);
 
     String dump(final Context context);
+
+    String localesAndConfidences();
 
     void dumpDictionaryForDebug(final String dictName);
 

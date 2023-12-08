@@ -6,8 +6,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Title for Android keyboard debug settings activity / dialog -->
-    <string name="english_ime_debug_settings" translatable="false">Android Keyboard Debug settings</string>
+    <string name="debug_settings_title" translatable="false">Debug settings</string>
+    <string name="prefs_show_debug_settings" translatable="false">Enable debug settings</string>
+    <string name="prefs_debug_settings_enabled" translatable="false">Debug settings enabled. Find them in advanced settings.</string>
     <string name="prefs_debug_mode" translatable="false">Debug Mode</string>
+    <string name="prefs_show_suggestion_infos" translatable="false">Show suggestion infos</string>
     <string name="prefs_force_non_distinct_multitouch" translatable="false">Force non-distinct multitouch</string>
     <string name="prefs_should_show_lxx_suggestion_ui" translatable="false">Show LXX suggestion UI</string>
     <!-- Option to enable sliding key input indicator. The user can see a rubber band-like effect during sliding key input. [CHAR LIMIT=30]-->

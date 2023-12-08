@@ -1,0 +1,55 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "shifted": { "label": "\"" },
+      "default": { "$": "variation_selector",
+        "uri": { "label": "/" },
+        "email": { "label": "@" },
+        "default": { "label": "'", "popup": { "relevant": [
+          { "label": "!" },
+          { "label": "\"" }
+        ] } }
+      }
+    },
+    { "$": "shift_state_selector",
+      "shifted": { "label": "<" },
+      "default": { "label": "," }
+    },
+    { "$": "shift_state_selector",
+      "shifted": { "label": ">" },
+      "default": { "label": "." }
+    },
+    { "label": "p" },
+    { "label": "y" },
+    { "label": "f" },
+    { "label": "g" },
+    { "label": "c" },
+    { "label": "r" },
+    { "label": "l" }
+  ],
+  [
+    { "label": "a" },
+    { "label": "o" },
+    { "label": "e" },
+    { "label": "u" },
+    { "label": "i" },
+    { "label": "d" },
+    { "label": "h" },
+    { "label": "t" },
+    { "label": "n" },
+    { "label": "s" }
+  ],
+  [
+    { "label": "j" },
+    { "label": "k" },
+    { "label": "x" },
+    { "label": "b" },
+    { "label": "m" },
+    { "label": "w" },
+    { "label": "v" }
+  ],
+  [
+    { "label": "q" },
+    { "label": "z" }
+  ]
+]

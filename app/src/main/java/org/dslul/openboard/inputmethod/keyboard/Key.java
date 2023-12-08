@@ -132,8 +132,8 @@ public class Key implements Comparable<Key> {
     private static final int MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY = 0x10000000;
     // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
     public static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
-    private static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
-    private static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
+    public static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
+    public static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
     private static final String MORE_KEYS_NEEDS_DIVIDERS = "!needsDividers!";
     private static final String MORE_KEYS_NO_PANEL_AUTO_MORE_KEY = "!noPanelAutoMoreKey!";
 
@@ -947,6 +947,8 @@ public class Key implements Comparable<Key> {
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
+        public float mRelativeVisualInsetLeft;
+        public float mRelativeVisualInsetRight;
 
         // params that may change
         public float mFullWidth;
@@ -956,16 +958,16 @@ public class Key implements Comparable<Key> {
 
         // params that remains constant
         public final int mCode;
-        @Nullable final String mLabel;
-        @Nullable final String mHintLabel;
-        final int mLabelFlags;
-        final int mIconId;
-        public final MoreKeySpec[] mMoreKeys;
-        final int mMoreKeysColumnAndFlags;
+        @Nullable public final String mLabel;
+        @Nullable public final String mHintLabel;
+        public final int mLabelFlags;
+        public final int mIconId;
+        @Nullable public final MoreKeySpec[] mMoreKeys;
+        public final int mMoreKeysColumnAndFlags;
         public final int mBackgroundType;
-        final int mActionFlags;
-        @Nullable final KeyVisualAttributes mKeyVisualAttributes;
-        @Nullable final OptionalAttributes mOptionalAttributes;
+        public final int mActionFlags;
+        @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
+        @Nullable public OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
         public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
@@ -978,6 +980,7 @@ public class Key implements Comparable<Key> {
         public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
             final KeyParams spacer = new KeyParams(params);
             spacer.mRelativeWidth = relativeWidth;
+            spacer.mRelativeHeight = params.mDefaultRelativeRowHeight;
             return spacer;
         }
 
@@ -998,6 +1001,18 @@ public class Key implements Comparable<Key> {
             yPos = newY;
             mFullWidth = mRelativeWidth * mKeyboardParams.mBaseWidth;
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
+
+            // set visual insets if any
+            if (mRelativeVisualInsetRight != 0f || mRelativeVisualInsetLeft != 0f) {
+                final int insetLeft = (int) (mRelativeVisualInsetLeft * mKeyboardParams.mBaseWidth);
+                final int insetRight = (int) (mRelativeVisualInsetRight * mKeyboardParams.mBaseWidth);
+                if (mOptionalAttributes == null) {
+                    mOptionalAttributes = OptionalAttributes.newInstance(null, CODE_UNSPECIFIED, ICON_UNDEFINED, insetLeft, insetRight);
+                } else {
+                    mOptionalAttributes = OptionalAttributes
+                            .newInstance(mOptionalAttributes.mOutputText, mOptionalAttributes.mAltCode, mOptionalAttributes.mDisabledIconId, insetLeft, insetRight);
+                }
+            }
         }
 
         private static int getMoreKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] moreKeys) {
@@ -1156,6 +1171,17 @@ public class Key implements Comparable<Key> {
             mEnabled = true;
         }
 
+        public KeyParams(
+                @NonNull final String keySpec,
+                @NonNull final KeyboardParams params,
+                final float relativeWidth,
+                final int labelFlags,
+                final int backgroundType,
+                @Nullable final String[] layoutMoreKeys
+        ) {
+            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, layoutMoreKeys);
+        }
+
         /**
          *  constructor that does not require attrs, style or absolute key dimension / position
          *  setDimensionsFromRelativeSize needs to be called before creating the key
@@ -1163,6 +1189,7 @@ public class Key implements Comparable<Key> {
         public KeyParams(
                 // todo (much later): replace keySpec? these encoded icons and codes are not really great
                 @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (avoid using !text, should be removed)
+                final int code,
                 @NonNull final KeyboardParams params,
                 final float relativeWidth,
                 final int labelFlags,
@@ -1174,21 +1201,21 @@ public class Key implements Comparable<Key> {
             mLabelFlags = labelFlags;
             mRelativeWidth = relativeWidth;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, layoutMoreKeys);
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
 
-            final String[] languageMoreKeys;
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
-                languageMoreKeys = null;
-            } else {
-                // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
-                languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
-            }
-            final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
+            if (languageMoreKeys != null && layoutMoreKeys != null && languageMoreKeys[0].startsWith("!fixedColumnOrder!"))
+                languageMoreKeys[0] = null; // we change the number of keys, so better not use fixedColumnOrder to avoid awkward layout
+            // todo: after removing old parser this could be done in a less awkward way without almostFinalMoreKeys
+            final String[] almostFinalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, almostFinalMoreKeys);
+            final String[] finalMoreKeys = almostFinalMoreKeys == null
+                    ? null 
+                    : MoreKeySpec.filterOutEmptyString(almostFinalMoreKeys);
 
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
@@ -1200,7 +1227,6 @@ public class Key implements Comparable<Key> {
                 mMoreKeys = null;
             }
 
-            final int code = KeySpecParser.getCode(keySpec);
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
                 mLabel = params.mId.mCustomActionLabel;
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
@@ -1223,11 +1249,10 @@ public class Key implements Comparable<Key> {
                 if (hintLabelAlwaysFromFirstLongPressKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 } else {
-                    hintLabel = layoutMoreKeys == null ? null : layoutMoreKeys[0];
+                    hintLabel = layoutMoreKeys == null ? null : KeySpecParser.getLabel(layoutMoreKeys[0]); // note that some entries may have been changed to other string or null
+                    // todo: this should be adjusted when re-working moreKey stuff... also KeySpecParser.getLabel may throw, which is bad when users do uncommon things
                     if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
                         hintLabel = null;
-                    if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
-                        hintLabel = hintLabel.replace("\\", "");
                 }
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
@@ -1287,7 +1312,6 @@ public class Key implements Comparable<Key> {
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
                     // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-                    // todo (much later): can the 3 below be removed completely?
                     KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color

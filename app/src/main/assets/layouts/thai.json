@@ -1,0 +1,194 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "+", "labelFlags": 48 },
+      "default": { "label": "ๅ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๑" },
+      "default": { "label": "/", "labelFlags": 48, "popup": { "relevant": [ { "label": "1" }, { "label": "๑" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๒" },
+      "default": { "label": "_", "labelFlags": 48, "popup": { "relevant": [ { "label": "2" }, {"label": "๒" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๓" },
+      "default": { "label": "ภ", "popup": { "relevant": [ { "label": "3" }, { "label": "๓" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๔" },
+      "default": { "label": "ถ", "popup": { "relevant": [ { "label": "4" }, { "label": "๔" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ู|ู", "labelFlags": 128 },
+      "default": { "label": " ุ|ุ", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "฿" },
+      "default": { "label": " ึ|ึ", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๕" },
+      "default": { "label": "ค", "popup": { "relevant": [ { "label": "5" }, { "label": "๕" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๖" },
+      "default": { "label": "ต", "popup": { "relevant": [ { "label": "6" }, { "label": "๖" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๗" },
+      "default": { "label": "จ", "popup": { "relevant": [ { "label": "7" }, { "label": "๗" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๘" },
+      "default": { "label": "ข", "popup": { "relevant": [ { "label": "8" }, { "label": "๘" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๙" },
+      "default": { "label": "ช", "popup": { "relevant": [ { "label": "9" }, { "label": "๙" } ] } }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "๐" },
+      "default": { "label": "ๆ", "popup": { "relevant": [ { "label": "0" }, { "label": "๐" } ] } }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\"", "labelFlags": 48 },
+      "default": { "label": "ไ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฎ" },
+      "default": { "label": "ำ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฑ" },
+      "default": { "label": "พ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ธ" },
+      "default": { "label": "ะ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ํ|ํ", "labelFlags": 128 },
+      "default": { "label": " ั|ั", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ๊|๊", "labelFlags": 128 },
+      "default": { "label": " ี|ี", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ณ" },
+      "default": { "label": "ร" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฯ" },
+      "default": { "label": "น" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ญ" },
+      "default": { "label": "ย" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฐ" },
+      "default": { "label": "บ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ",", "labelFlags": 48 },
+      "default": { "label": "ล" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฤ" },
+      "default": { "label": "ฟ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฆ" },
+      "default": { "label": "ห" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฏ" },
+      "default": { "label": "ก" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "โ" },
+      "default": { "label": "ด" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฌ" },
+      "default": { "label": "เ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ็|็", "labelFlags": 128 },
+      "default": { "label": " ้|้", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ๋|๋", "labelFlags": 128 },
+      "default": { "label": " ่|่", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ษ" },
+      "default": { "label": "า" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ศ" },
+      "default": { "label": "ส" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ซ" },
+      "default": { "label": "ว" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ".", "labelFlags": 48 },
+      "default": { "label": "ง" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฅ" },
+      "default": { "label": "ฃ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "(", "labelFlags": 48 },
+      "default": { "label": "ผ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ")", "labelFlags": 48 },
+      "default": { "label": "ป" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฉ" },
+      "default": { "label": "แ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฮ" },
+      "default": { "label": "อ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ฺ|ฺ", "labelFlags": 128 },
+      "default": { "label": " ิ|ิ", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": " ์|์", "labelFlags": 128 },
+      "default": { "label": " ื|ื", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\\?", "labelFlags": 48 },
+      "default": { "label": "ท" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฒ" },
+      "default": { "label": "ม" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฬ" },
+      "default": { "label": "ใ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ฦ" },
+      "default": { "label": "ฝ" }
+    }
+  ]
+]

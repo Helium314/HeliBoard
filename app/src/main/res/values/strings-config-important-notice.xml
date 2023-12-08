@@ -5,5 +5,6 @@
 -->
 <resources>
     <!-- Description for option enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=68] -->
+    <!-- todo: move this string into the normal strings file below the title of the preference -->
     <string name="use_personalized_dicts_summary">Learn from your communications and typed data to improve suggestions</string>
 </resources>

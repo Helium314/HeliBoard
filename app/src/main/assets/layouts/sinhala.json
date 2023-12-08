@@ -1,0 +1,132 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ූ" },
+      "default": { "label": "ු" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "උ" },
+      "default": { "label": "අ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ෑ" },
+      "default": { "label": "ැ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඍ" },
+      "default": { "label": "ර" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඔ" },
+      "default": { "label": "එ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ශ" },
+      "default": { "label": "හ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඹ" },
+      "default": { "label": "ම" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ෂ" },
+      "default": { "label": "ස" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ධ" },
+      "default": { "label": "ද" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඡ" },
+      "default": { "label": "ච" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඥ" },
+      "default": { "label": "ඤ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ෟ" },
+      "default": { "label": "්" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ී" },
+      "default": { "label": "ි" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ෘ" },
+      "default": { "label": "ා" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ෆ" },
+      "default": { "label": "ෙ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඨ" },
+      "default": { "label": "ට" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "්‍ය" },
+      "default": { "label": "ය" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ළු" },
+      "default": { "label": "ව" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ණ" },
+      "default": { "label": "න" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඛ" },
+      "default": { "label": "ක" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ථ" },
+      "default": { "label": "ත" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "්‍ර" },
+      "default": { "label": "ඏ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඞ" },
+      "default": { "label": "ං" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඣ" },
+      "default": { "label": "ජ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඪ" },
+      "default": { "label": "ඩ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඊ" },
+      "default": { "label": "ඉ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "භ" },
+      "default": { "label": "බ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඵ" },
+      "default": { "label": "ප" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ළ" },
+      "default": { "label": "ල" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ඝ" },
+      "default": { "label": "ග" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ර්‍" },
+      "default": { "label": "ෳ" }
+    }
+  ]
+]
