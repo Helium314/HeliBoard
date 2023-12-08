@@ -52,7 +52,7 @@ interface Colors {
         val prefs: SharedPreferences = DeviceProtectedUtils.getSharedPreferences(context)
         return prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
     }
-    @ColorInt fun get(color: ColorType): Int?
+    @ColorInt fun get(color: ColorType): Int
     fun setColorFilter(color: ColorType): ColorFilter?
     fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable
     fun setKeyboardBackground(view: View, context: Context)
@@ -242,21 +242,27 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
         }
     }
 
-    override fun get(color: ColorType): Int? = when (color) {
-        ColorType.ACCENT -> accent
+    override fun get(color: ColorType): Int = when (color) {
+        ColorType.ENABLE_TOOL_KEY, ColorType.EMOJI_CATEGORY_SELECTED -> accent
+        ColorType.EMOJI_CATEGORY, ColorType.GESTURE_PREVIEW -> adjustedBackground
+        ColorType.TOOL_BAR_KEY_BACKGROUND -> doubleAdjustedBackground
         ColorType.GESTURE -> gesture
-        ColorType.KEY_TEXT -> keyText
+        ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
-        ColorType.ADJUSTED_KEY_TEXT -> brightenOrDarken(keyText, true)
-        ColorType.ACTION_KEY_ICON -> Color.WHITE
-        else -> { null }
+        ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
+        else -> Color.WHITE
     }
 
     override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
-        ColorType.ACCENT -> accentColorFilter
-        ColorType.KEY_TEXT -> keyTextFilter
-        ColorType.ADJUSTED_BACKGROUND -> adjustedBackgroundFilter
+        ColorType.EMOJI_CATEGORY_SELECTED, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON -> accentColorFilter
+
+        ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB,
+        ColorType.KEY_TEXT, ColorType.KEY_ICON, ColorType.STOP_ONE_HANDED_MODE,
+        ColorType.SUGGESTION_KEYS, ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY -> keyTextFilter
+
+        ColorType.KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
+
         ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> { null }
     }
@@ -428,21 +434,27 @@ class OriginalColors (
         }
     }
 
-    override fun get(color: ColorType): Int? = when (color) {
-        ColorType.ACCENT -> accent
+    override fun get(color: ColorType): Int = when (color) {
+        ColorType.ENABLE_TOOL_KEY, ColorType.EMOJI_CATEGORY_SELECTED -> accent
+        ColorType.EMOJI_CATEGORY, ColorType.GESTURE_PREVIEW -> adjustedBackground
+        ColorType.TOOL_BAR_KEY_BACKGROUND -> doubleAdjustedBackground
         ColorType.GESTURE -> gesture
-        ColorType.KEY_TEXT -> keyText
+        ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
-        ColorType.ADJUSTED_KEY_TEXT -> brightenOrDarken(keyText, true)
-        ColorType.ACTION_KEY_ICON -> Color.WHITE
-        else -> { null }
+        ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
+        else -> Color.WHITE
     }
 
     override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
-        ColorType.ACCENT -> accentColorFilter
-        ColorType.KEY_TEXT -> keyTextFilter
-        ColorType.ADJUSTED_BACKGROUND -> adjustedBackgroundFilter
+        ColorType.EMOJI_CATEGORY_SELECTED, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON -> accentColorFilter
+
+        ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB,
+        ColorType.KEY_TEXT, ColorType.KEY_ICON, ColorType.STOP_ONE_HANDED_MODE,
+        ColorType.SUGGESTION_KEYS, ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY -> keyTextFilter
+
+        ColorType.KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
+
         ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> { null }
     }
@@ -516,8 +528,34 @@ private fun stateList(pressed: Int, normal: Int): ColorStateList {
     return ColorStateList(states, intArrayOf(pressed, normal))
 }
 
-enum class ColorType { ACCENT, GESTURE, KEY_TEXT, SPACEBAR_TEXT, NAV_BAR, ADJUSTED_BACKGROUND,
-    ADJUSTED_KEY_TEXT, ACTION_KEY_ICON }
+enum class ColorType {
+    ACTION_KEY_ICON,
+    BIN_ICON,
+    CLEAR_KEY,
+    COLOR_AUTO_CORRECT,
+    DELETE_KEY,
+    EMOJI_CATEGORY,
+    EMOJI_CATEGORY_SELECTED,
+    EMOJI_TAB,
+    ENABLE_TOOL_KEY,
+    GESTURE,
+    GESTURE_PREVIEW,
+    KEY_ICON,
+    KEY_PREVIEW_VIEW,
+    KEY_TEXT,
+    NAV_BAR,
+    PINNED_ICON,
+    SHIFT_KEY_ICON,
+    SPACEBAR_TEXT,
+    STOP_ONE_HANDED_MODE,
+    SUGGESTION_KEYS,
+    SUGGESTED_WORD,
+    SWITCH_ONE_HANDED_MODE,
+    TOOL_BAR_KEY,
+    TOOL_BAR_KEY_BACKGROUND,
+    TYPED_WORD,
+    VALID_WORD
+}
 
 enum class BackgroundType {
     /** generic background */

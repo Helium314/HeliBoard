@@ -96,7 +96,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clearKey = findViewById<ImageButton>(R.id.clipboard_clear).apply {
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
-            colorFilter = colors.setColorFilter(ColorType.KEY_TEXT)
+            colorFilter = colors.setColorFilter(ColorType.CLEAR_KEY)
             colors.setBackgroundColor(background, BackgroundType.SUGGESTION, context)
         }
     }

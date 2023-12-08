@@ -59,8 +59,8 @@ class KeyboardWrapperView @JvmOverloads constructor(
         switchOneHandedModeBtn.setOnClickListener(this)
 
         val colors = Settings.getInstance().current.mColors
-        stopOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.KEY_TEXT)
-        switchOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.KEY_TEXT)
+        stopOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.STOP_ONE_HANDED_MODE)
+        switchOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.SWITCH_ONE_HANDED_MODE)
         colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND, context)
         colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND, context)
         setBackgroundColor(Color.WHITE) // otherwise background might be null

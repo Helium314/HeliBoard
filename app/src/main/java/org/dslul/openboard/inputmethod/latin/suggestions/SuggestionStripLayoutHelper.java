@@ -122,10 +122,10 @@ final class SuggestionStripLayoutHelper {
                 R.styleable.SuggestionStripView_alphaObsoleted, 1.0f);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mColorValidTypedWord = colors.get(ColorType.ADJUSTED_KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
-        mColorTypedWord = colors.get(ColorType.ADJUSTED_KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
-        mColorAutoCorrect = colors.get(ColorType.KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
-        mColorSuggested = colors.get(ColorType.ADJUSTED_KEY_TEXT); //a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
+        mColorValidTypedWord = colors.get(ColorType.VALID_WORD); //a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
+        mColorTypedWord = colors.get(ColorType.TYPED_WORD); //a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
+        mColorAutoCorrect = colors.get(ColorType.COLOR_AUTO_CORRECT); //a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
+        mColorSuggested = colors.get(ColorType.SUGGESTED_WORD); //a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
 
         mSuggestionsCountInStrip = a.getInt(
                 R.styleable.SuggestionStripView_suggestionsCountInStrip,

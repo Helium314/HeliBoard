@@ -427,7 +427,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 width,
                 Key.LABEL_FLAGS_HAS_POPUP_HINT,
                 // this may not be a good place to make this choice, but probably it's fine (though reading from settings here is not good)
-                if (Settings.getInstance().current.mColors.hasKeyBorders) Key.BACKGROUND_TYPE_SPACEBAR else Key.BACKGROUND_TYPE_NORMAL,
+                if (Settings.getInstance().current.mColors.hasKeyBorders(context)) Key.BACKGROUND_TYPE_SPACEBAR else Key.BACKGROUND_TYPE_NORMAL,
                 arrayOf("!icon/zwj_key|\u200D")
             )
         }

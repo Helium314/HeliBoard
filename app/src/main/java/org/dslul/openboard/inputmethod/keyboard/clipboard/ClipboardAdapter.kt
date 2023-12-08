@@ -71,7 +71,7 @@ class ClipboardAdapter(
             }
             clipboardLayoutParams.setItemProperties(view)
             val colors = Settings.getInstance().current.mColors
-            pinnedIconView.colorFilter = colors.setColorFilter(ColorType.ACCENT)
+            pinnedIconView.colorFilter = colors.setColorFilter(ColorType.PINNED_ICON)
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {

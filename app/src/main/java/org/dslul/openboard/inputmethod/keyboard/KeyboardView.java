@@ -619,17 +619,17 @@ public class KeyboardView extends View {
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
-                icon.setColorFilter(mColors.setColorFilter(ColorType.ACCENT));
+                icon.setColorFilter(mColors.setColorFilter(ColorType.SHIFT_KEY_ICON));
             else
-                icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_TEXT)); // key text if not shifted
+                icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_ICON)); // key text if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
-            icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_TEXT));
+            icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_ICON));
         } else if (this instanceof MoreKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
-            icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_TEXT));
+            icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_ICON));
         } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == 0x200C) {
             // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
-            icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_TEXT));
+            icon.setColorFilter(mColors.setColorFilter(ColorType.KEY_ICON));
         }
     }
 

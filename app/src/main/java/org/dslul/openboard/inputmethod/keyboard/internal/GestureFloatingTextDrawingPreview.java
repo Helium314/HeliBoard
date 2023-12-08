@@ -59,7 +59,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
             mGesturePreviewTextColor = colors.get(ColorType.KEY_TEXT); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_gestureFloatingPreviewTextColor, 0);
             mGesturePreviewTextOffset = mainKeyboardViewAttr.getDimensionPixelOffset(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewTextOffset, 0);
-            mGesturePreviewColor = colors.getAdjustedBackground(); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_gestureFloatingPreviewColor, 0);
+            mGesturePreviewColor = colors.get(ColorType.GESTURE_PREVIEW); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_gestureFloatingPreviewColor, 0);
             mGesturePreviewHorizontalPadding = mainKeyboardViewAttr.getDimension(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewHorizontalPadding, 0.0f);
             mGesturePreviewVerticalPadding = mainKeyboardViewAttr.getDimension(

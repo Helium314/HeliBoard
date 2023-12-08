@@ -178,7 +178,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
             final TextView info = new TextView(context, null, R.attr.suggestionWordStyle);
-            info.setTextColor(colors.getKeyText());
+            info.setTextColor(colors.get(ColorType.KEY_TEXT));
             info.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEBUG_INFO_TEXT_SIZE_IN_DIP);
             mDebugInfoViews.add(info);
         }
@@ -214,15 +214,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
         mDefaultBackground = mToolbarKey.getBackground();
         colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION, getContext());
-        mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.ACCENT) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
+        mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.ENABLE_TOOL_KEY) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
         mToolbarKey.setOnClickListener(this);
         mToolbarKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mToolbarKey.setColorFilter(colors.setColorFilter(ColorType.KEY_TEXT)); // maybe different color?
+        mToolbarKey.setColorFilter(colors.setColorFilter(ColorType.TOOL_BAR_KEY)); // maybe different color?
         mToolbarKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
-        mToolbarKey.getBackground().setColorFilter(colors.getDoubleAdjustedBackground(), PorterDuff.Mode.SRC_ATOP);
+        mToolbarKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
         mToolbarKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
         mToolbarKey.getLayoutParams().width *= 0.82;
 
@@ -390,7 +390,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
     private boolean onLongClickSuggestion(final TextView wordView) {
         final Drawable icon = mBinIcon;
-        icon.setColorFilter(Settings.getInstance().getCurrent().mColors.setColorFilter(ColorType.KEY_TEXT));
+        icon.setColorFilter(Settings.getInstance().getCurrent().mColors.setColorFilter(ColorType.BIN_ICON));
         int w = icon.getIntrinsicWidth();
         int h = icon.getIntrinsicWidth();
         wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -706,7 +706,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void setupKey(final ImageButton view, final Colors colors) {
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
-        view.setColorFilter(colors.setColorFilter(ColorType.KEY_TEXT));
+        view.setColorFilter(colors.setColorFilter(ColorType.SUGGESTION_KEYS));
         colors.setBackgroundColor(view.getBackground(), BackgroundType.SUGGESTION, getContext());
     }
 
