@@ -1,0 +1,26 @@
+[
+  [
+    { "label": "1", "type": "numeric" },
+    { "label": "2", "type": "numeric", "popup": { "main": { "label": "ABC" } } },
+    { "label": "3", "type": "numeric", "popup": { "main": { "label": "DEF" } } },
+    { "label": "-", "popup": { "main": { "label": "+" } }, "labelFlags": 1073742336 }
+  ],
+  [
+    { "label": "4", "type": "numeric", "popup": { "main": { "label": "GHI" } } },
+    { "label": "5", "type": "numeric", "popup": { "main": { "label": "JKL" } } },
+    { "label": "6", "type": "numeric", "popup": { "main": { "label": "MNO" } } },
+    { "label": "space" }
+  ],
+  [
+    { "label": "7", "type": "numeric", "popup": { "main": { "label": "PQRS" } } },
+    { "label": "8", "type": "numeric", "popup": { "main": { "label": "TUV" } } },
+    { "label": "9", "type": "numeric", "popup": { "main": { "label": "WXYZ" } } },
+    { "label": "delete" }
+  ],
+  [
+    { "label": "＊＃|!code/key_switch_alpha_symbol", "labelFlags": 524432 },
+    { "label": "0 +|0", "type": "numeric", "popup": { "relevant": [ { "label": "!noPanelAutoMoreKey!" }, { "label": "+" } ] } },
+    { "label": "." },
+    { "label": "action" }
+  ]
+]

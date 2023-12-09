@@ -1,0 +1,50 @@
+[
+  [
+    { "label": "+", "popup": {
+      "relevant": [
+        { "label": "(" },
+        { "label": "<" },
+        { "label": "±" }
+      ]
+    }, "labelFlags": 512 },
+    { "label": "1", "type": "numeric" },
+    { "label": "2", "type": "numeric" },
+    { "label": "3", "type": "numeric" },
+    { "label": "%", "popup": { "main": { "label": "$$$"} }, "labelFlags": 512 }
+  ],
+  [
+    { "label": "-", "popup": {
+      "relevant": [
+        { "label": ")" },
+        { "label": ">" },
+        { "label": "~" }
+      ]
+    }, "labelFlags": 512 },
+    { "label": "4", "type": "numeric" },
+    { "label": "5", "type": "numeric" },
+    { "label": "6", "type": "numeric" },
+    { "label": "space" }
+  ],
+  [
+    { "label": "*", "popup": {
+      "relevant": [
+        { "label": "/" },
+        { "label": "×" },
+        { "label": "÷" }
+      ]
+    }, "labelFlags": 512 },
+    { "label": "7", "type": "numeric" },
+    { "label": "8", "type": "numeric" },
+    { "label": "9", "type": "numeric" },
+    { "label": "delete" }
+  ],
+  [
+    { "label": "alpha" },
+    { "label": "comma" },
+    { "label": "symbol" },
+    { "label": "0", "type": "numeric" },
+    { "label": "=", "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "period" },
+    { "label": "enter" }
+  ]
+]

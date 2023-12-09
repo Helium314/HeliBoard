@@ -22,6 +22,7 @@ import org.dslul.openboard.inputmethod.latin.common.StringUtils
 //  char_width_selector and kana_selector throw an error (not yet supported)
 //  added labelFlags to keyDate
 //  added manualOrLocked for shift_state_selector
+//  added date, time and datetime to VariationSelector
 /**
  * Basic interface for a key data object. Base for all key data objects across the IME, such as text, emojis and
  * selectors. The implementation is as abstract as possible, as different features require different implementations.
@@ -111,9 +112,12 @@ interface KeyData : AbstractKeyData {
     }
 
     fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, additionalLabelFlags: Int = 0): KeyParams {
-        require(type == KeyType.CHARACTER) { "currently only KeyType.CHARACTER is supported" }
-        require(groupId == GROUP_DEFAULT) { "currently only KeyData.GROUP_DEFAULT is supported" }
-        require(code >= 0) { "functional codes ($code) not (yet) supported" }
+        // numeric keys are assigned a higher width in number layouts
+        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC) { "only KeyType CHARACTER or NUMERIC is supported" }
+        // allow GROUP_ENTER negative codes so original florisboard number layouts can be used, bu actually it's ignored
+        require(groupId == GROUP_DEFAULT || groupId == GROUP_ENTER) { "currently only GROUP_DEFAULT or GROUP_ENTER is supported" }
+        // allow some negative codes so original florisboard number layouts can be used, those codes are actually ignored
+        require(code >= 0 || code == -7 || code == -201 || code == -202) { "functional code $code not (yet) supported" }
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
 
         return if (code == KeyCode.UNSPECIFIED || code == KeyCode.MULTIPLE_CODE_POINTS) {
@@ -258,6 +262,9 @@ data class VariationSelector(
     val uri: AbstractKeyData? = null,
     val normal: AbstractKeyData? = null,
     val password: AbstractKeyData? = null,
+    val date: AbstractKeyData? = null,
+    val time: AbstractKeyData? = null,
+    val datetime: AbstractKeyData? = null,
 ) : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData? {
         return when {
@@ -267,6 +274,9 @@ data class VariationSelector(
             params.mId.passwordInput() -> password ?: default
             params.mId.mMode == KeyboardId.MODE_EMAIL -> email ?: default
             params.mId.mMode == KeyboardId.MODE_URL -> uri ?: default
+            params.mId.mMode == KeyboardId.MODE_DATE -> date ?: default
+            params.mId.mMode == KeyboardId.MODE_TIME -> time ?: default
+            params.mId.mMode == KeyboardId.MODE_DATETIME -> datetime ?: default
             else -> default
         }?.compute(params)
     }

@@ -958,13 +958,13 @@ public class Key implements Comparable<Key> {
 
         // params that remains constant
         public final int mCode;
-        @Nullable public final String mLabel;
+        @Nullable public String mLabel;
         @Nullable public final String mHintLabel;
         public final int mLabelFlags;
         public final int mIconId;
-        @Nullable public final MoreKeySpec[] mMoreKeys;
+        @Nullable public MoreKeySpec[] mMoreKeys;
         public final int mMoreKeysColumnAndFlags;
-        public final int mBackgroundType;
+        public int mBackgroundType;
         public final int mActionFlags;
         @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
         @Nullable public OptionalAttributes mOptionalAttributes;
@@ -1206,6 +1206,8 @@ public class Key implements Comparable<Key> {
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
+            if (params.mId.isNumberLayout())
+                actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
             final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
             if (languageMoreKeys != null && layoutMoreKeys != null && languageMoreKeys[0].startsWith("!fixedColumnOrder!"))

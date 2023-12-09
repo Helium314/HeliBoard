@@ -68,8 +68,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  migrate keypad layouts to this style
-        //   will need more configurable layout definition -> another parser, or do it with compatible jsons
         //  make the remove duplicate moreKey thing an option?
         //   why is it on for serbian (latin), but not for german (german)?
         //   only nordic and serbian_qwertz layouts have it disabled, default is enabled
@@ -81,6 +79,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   write another parser, it should already consider split
         //   add a setting to display all emojis (and use emojiv2 or emojicompat or whatever is necessary)
         //    mention in subtitle that they may not be displayed properly, depending on the app you're writing in
+        //   uncomment the toast below
+        //  number layouts missing details
+        //   landscape: numpad layout has some extra keys
+        //   tablet: number and phone layout have some extra keys (unify with numpad, so that extra keys show both in land and sw600? or only land?)
         //  now all layouts should be using the new parser -> throw an error instead of falling back to old parser
         //  more settings for localized number row, so it can be different in shift or symbols
         //  migrate moreKeys and moreSuggestions to this style?
@@ -194,19 +196,19 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                             Log.w(TAG, "moreKeys not null for ${keyParams.mLabel} / ${keyParams.mCode}, but xml null")
                         else if (xmlParams.mMoreKeys == null || keyParams.mMoreKeys == null || keyParams.mMoreKeys.contentEquals(xmlParams.mMoreKeys))
                             Unit
-                        else if (keyParams.mMoreKeys.size < xmlParams.mMoreKeys.size) {
-                            if (keyParams.mMoreKeys.size - xmlParams.mMoreKeys.size == -1 && keyParams.mCode.toChar().lowercase() == "s")
+                        else if (keyParams.mMoreKeys!!.size < xmlParams.mMoreKeys!!.size) {
+                            if (keyParams.mMoreKeys!!.size - xmlParams.mMoreKeys!!.size == -1 && keyParams.mCode.toChar().lowercase() == "s")
                                 Log.i(TAG, "missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
                             else
                                 Log.w(TAG, "missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
-                        } else if (keyParams.mMoreKeys.size > xmlParams.mMoreKeys.size) {
-                            if (keyParams.mMoreKeys.toList().containsAll(xmlParams.mMoreKeys.toList()))
-                                Log.i(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys.firstOrNull() == xmlParams.mMoreKeys.firstOrNull() }" +
+                        } else if (keyParams.mMoreKeys!!.size > xmlParams.mMoreKeys!!.size) {
+                            if (keyParams.mMoreKeys!!.toList().containsAll(xmlParams.mMoreKeys!!.toList()))
+                                Log.i(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys?.firstOrNull() == xmlParams.mMoreKeys?.firstOrNull() }" +
                                         ", contains all original: true") // not really an issue i would say
                             else
-                                Log.w(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys.firstOrNull() == xmlParams.mMoreKeys.firstOrNull() }" +
+                                Log.w(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys?.firstOrNull() == xmlParams.mMoreKeys?.firstOrNull() }" +
                                         ", contains all original: false")
-                        } else if (!keyParams.mMoreKeys.toList().containsAll(xmlParams.mMoreKeys.toList()))
+                        } else if (!keyParams.mMoreKeys!!.toList().containsAll(xmlParams.mMoreKeys!!.toList()))
                             Log.w(TAG, "same size but missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
                         if (keyParams.mCode != xmlParams.mCode)
                             Log.w(TAG, "code different: ${keyParams.mCode} vs ${xmlParams.mCode}")
@@ -236,6 +238,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                     }
                 }
                 return this
+            }
+            if (DebugFlags.DEBUG_ENABLED) {
+                // looks like only emoji keyboards are still using the old parser, which is expected
+                Log.w(TAG, "falling back to old parser for $id")
+                if (mParams.mId.mElementId < KeyboardId.ELEMENT_EMOJI_RECENTS || mParams.mId.mElementId > KeyboardId.ELEMENT_EMOJI_CATEGORY16)
+                    Toast.makeText(mContext, "using old parser for $id", Toast.LENGTH_LONG).show()
             }
         }
         mParams.mId = id
@@ -298,7 +306,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         for (row in keysInRows) {
             if (row.isEmpty()) continue
             fillGapsWithSpacers(row)
-            var currentX = 0f
+            var currentX = mParams.mLeftPadding.toFloat()
             row.forEach {
                 it.setDimensionsFromRelativeSize(currentX, currentY)
                 if (DebugFlags.DEBUG_ENABLED)
