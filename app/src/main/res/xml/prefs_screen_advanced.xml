@@ -97,6 +97,13 @@
             android:summary="@string/url_detection_summary"
             android:defaultValue="false" />
 
+        <SwitchPreferenceCompat
+            android:key="openboard_personal_dictionary"
+            android:title="@string/openboard_personal_dictionary_title"
+            android:summary="@string/openboard_personal_dictionary_summary"
+            android:defaultValue="false"
+            android:persistent="true" />
+
         <Preference
             android:key="load_gesture_library"
             android:title="@string/load_gesture_library"

@@ -6,6 +6,7 @@
 
 package org.dslul.openboard.inputmethod.latin.userdictionary;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -86,9 +87,11 @@ public class UserDictionaryAddWordFragment extends Fragment
         actionItemAdd.setShowAsAction(
                 MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0,
-                R.string.user_dict_settings_delete).setIcon(android.R.drawable.ic_menu_delete);
+                R.string.user_dict_settings_delete).setIcon(R.drawable.ic_delete);
         actionItemDelete.setShowAsAction(
                 MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        if (actionItemDelete.getIcon() != null)
+            actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
     }
 
     /**

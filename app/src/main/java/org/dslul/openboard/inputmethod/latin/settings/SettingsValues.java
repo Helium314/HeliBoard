@@ -104,6 +104,7 @@ public class SettingsValues {
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
+    public final boolean mOpenboardPersonalDictionary;
     public final List<String> mPinnedKeys;
     public final float mBottomPaddingScale;
     public final boolean mUseNewKeyboardParsing;
@@ -233,6 +234,7 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
+        mOpenboardPersonalDictionary = prefs.getBoolean(Settings.PREF_OPENBOARD_PERSONAL_DICTIONARY, false);
         mPinnedKeys = Settings.readPinnedKeys(prefs);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);

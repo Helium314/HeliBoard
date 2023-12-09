@@ -129,6 +129,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
     public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
     public static final String PREF_URL_DETECTION = "pref_url_detection";
+    public static final String PREF_OPENBOARD_PERSONAL_DICTIONARY = "openboard_personal_dictionary";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
     public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
