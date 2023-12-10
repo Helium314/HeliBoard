@@ -67,13 +67,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  number layouts missing details
-        //   landscape: numpad layout has some extra keys
-        //   tablet: number and phone layout have some extra keys (unify with numpad, so that extra keys show both in land and sw600? or only land?)
-        //  now all layouts should be using the new parser -> throw an error instead of falling back to old parser
+        //  make split layout work for emoji keyboard
         //  more settings for localized number row, so it can be different in shift or symbols
-        //  migrate moreKeys and moreSuggestions to this style?
-        //   at least they should not make use of the KeyTextsSet/Table (and of the XmlKeyboardParser?)
         //  setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
         //  setting whether to show duplicate moreKeys (describe properly what it actually does)
         //  some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
@@ -159,83 +154,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 return this
             }
             if (loadFromAssets(id) != null) {
-                if (!DebugFlags.DEBUG_ENABLED)
-                    return this
-                // comparison of old and new parser below, todo: remove once testing is complete
-                val keysInRowsFromXml = XmlKeyboardParser(xmlId, mParams, mContext).use { keyboardParser ->
-                    keyboardParser.parseKeyboard()
-                }
-                if (keysInRowsFromXml.size != keysInRows.size) {
-                    Log.w(TAG, "different sizes: ${keysInRows.size} vs ${keysInRowsFromXml.size}")
-                    return this
-                }
-                keysInRowsFromXml.forEachIndexed { index, xmlRow ->
-                    val row = keysInRows[index].filter { !it.isSpacer }
-                    val xmlRow2 = xmlRow.filter { !it.isSpacer }
-                    if (row.size != xmlRow2.size) {
-                        Log.w(TAG, "different row sizes in row ${index + 1}")
-                        return@forEachIndexed
-                    }
-                    xmlRow2.forEachIndexed { index1, xmlParams ->
-                        val keyParams = row[index1]
-                        if (keyParams.mLabel != xmlParams.mLabel)
-                            // currency keys (shift symbol) arranged differently
-                            // obviously number row differences with possibly localized variants
-                            Log.w(TAG, "label different: ${keyParams.mLabel} vs ${xmlParams.mLabel}")
-                        if (keyParams.mMoreKeys == null && xmlParams.mMoreKeys != null)
-                            Log.w(TAG, "moreKeys null for ${keyParams.mLabel} / ${keyParams.mCode}, but xml not null")
-                        else if (xmlParams.mMoreKeys == null && keyParams.mMoreKeys != null)
-                            // for ?123 key, wtf why are there moreKeys? can't see them anyway...
-                            Log.w(TAG, "moreKeys not null for ${keyParams.mLabel} / ${keyParams.mCode}, but xml null")
-                        else if (xmlParams.mMoreKeys == null || keyParams.mMoreKeys == null || keyParams.mMoreKeys.contentEquals(xmlParams.mMoreKeys))
-                            Unit
-                        else if (keyParams.mMoreKeys!!.size < xmlParams.mMoreKeys!!.size) {
-                            if (keyParams.mMoreKeys!!.size - xmlParams.mMoreKeys!!.size == -1 && keyParams.mCode.toChar().lowercase() == "s")
-                                Log.i(TAG, "missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
-                            else
-                                Log.w(TAG, "missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
-                        } else if (keyParams.mMoreKeys!!.size > xmlParams.mMoreKeys!!.size) {
-                            if (keyParams.mMoreKeys!!.toList().containsAll(xmlParams.mMoreKeys!!.toList()))
-                                Log.i(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys?.firstOrNull() == xmlParams.mMoreKeys?.firstOrNull() }" +
-                                        ", contains all original: true") // not really an issue i would say
-                            else
-                                Log.w(TAG, "more moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}, first same: ${keyParams.mMoreKeys?.firstOrNull() == xmlParams.mMoreKeys?.firstOrNull() }" +
-                                        ", contains all original: false")
-                        } else if (!keyParams.mMoreKeys!!.toList().containsAll(xmlParams.mMoreKeys!!.toList()))
-                            Log.w(TAG, "same size but missing moreKeys for ${keyParams.mLabel} / ${keyParams.mCode}")
-                        if (keyParams.mCode != xmlParams.mCode)
-                            Log.w(TAG, "code different: ${keyParams.mCode} vs ${xmlParams.mCode}")
-                        if (keyParams.mIconId != xmlParams.mIconId)
-                            Log.w(TAG, "icon different: ${keyParams.mIconId} vs ${xmlParams.mIconId}")
-                        if (keyParams.mMoreKeysColumnAndFlags != xmlParams.mMoreKeysColumnAndFlags)
-                            // symbols parentheses, symbols shift,
-                            Log.w(TAG, "mMoreKeysColumnAndFlags different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mMoreKeysColumnAndFlags} vs ${xmlParams.mMoreKeysColumnAndFlags}")
-                        if (keyParams.mHintLabel != xmlParams.mHintLabel
-                                && keyParams.mCode.toChar().lowercase() !in listOf("ö", "ä", "ü", "å", "ø", "æ", "é", "è", "à") // known, and imo irrelevant resp even better (but could be changed)
-                                && keyParams.mCode != '.'.code // happens for arabic, but really... hint label on period?
-                            )
-                            // extra and number keys are the difference so far
-                            // persian has small difference
-                            // khmer has some difference
-                            // urdu has a lot of difference
-                            Log.w(TAG, "hint label different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mHintLabel} vs ${xmlParams.mHintLabel}")
-                        if (keyParams.mLabelFlags != xmlParams.mLabelFlags
-                                && !(keyParams.mLabelFlags - xmlParams.mLabelFlags == 0x40000000 && (mParams.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED || mParams.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS)) // ignore the disableHintLabel flag
-                                && !(keyParams.mCode == -5 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x10) // delete key with fontNormal (doesn't matter, happens because flags are set for entire row)
-                                && !(keyParams.mCode == -1 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x10) // shift key with fontNormal (doesn't matter, happens because flags are set for entire row)
-                                && !(keyParams.mCode == -5 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x4010) // delete key with fontNormal|autoXScale (doesn't matter, happens because flags are set for entire row)
-                                && !(keyParams.mCode == -1 && keyParams.mLabelFlags - xmlParams.mLabelFlags == -0x4010) // shift key with fontNormal|autoXScale (doesn't matter, happens because flags are set for entire row)
-                                && !(keyParams.mLabelFlags - xmlParams.mLabelFlags == 0x10 && mParams.mId.mSubtype.keyboardLayoutSetName == "bengali_unijoy") // bangla (bd) doesn't have fontNormal, but for me it has -> that's fine, imo better
-                            )
-                            Log.w(TAG, "label flags different for ${keyParams.mLabel} / ${keyParams.mCode}: ${keyParams.mLabelFlags.toString(16)} vs ${xmlParams.mLabelFlags.toString(16)}")
-                    }
-                }
                 return this
             }
             if (DebugFlags.DEBUG_ENABLED) {
-                // looks like only emoji keyboards are still using the old parser, which is expected
-                Log.w(TAG, "falling back to old parser for $id")
+                Log.e(TAG, "falling back to old parser for $id")
                 Toast.makeText(mContext, "using old parser for $id", Toast.LENGTH_LONG).show()
+                // todo throw error?
             }
         }
         mParams.mId = id

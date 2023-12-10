@@ -222,7 +222,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     private fun createNumericRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
-        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE && params.mId.mElementId != KeyboardId.ELEMENT_NUMPAD) {
             // add padding here instead of using xml (actually this is not good... todo (later))
             params.mLeftPadding = (params.mOccupiedWidth * 0.1f).toInt()
             params.mRightPadding = (params.mOccupiedWidth * 0.1f).toInt()
@@ -729,7 +729,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun getSpaceLabel(): String =
-        if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED || isTablet())
+        if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             "!icon/space_key|!code/key_space"
         else "!icon/space_key_for_number_layout|!code/key_space"
 
@@ -748,6 +748,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols")
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_shifted")
+                id.mElementId == KeyboardId.ELEMENT_NUMPAD && context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+                    -> JsonKeyboardParser(params, context).parseLayoutFromAssets("numpad_landscape")
                 id.mElementId == KeyboardId.ELEMENT_NUMPAD -> JsonKeyboardParser(params, context).parseLayoutFromAssets("numpad")
                 id.mElementId == KeyboardId.ELEMENT_NUMBER -> JsonKeyboardParser(params, context).parseLayoutFromAssets("number")
                 id.mElementId == KeyboardId.ELEMENT_PHONE -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone")
