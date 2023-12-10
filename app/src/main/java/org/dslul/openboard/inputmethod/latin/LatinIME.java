@@ -660,6 +660,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             resetDictionaryFacilitatorIfNecessary();
         }
         refreshPersonalizationDictionarySession(currentSettingsValues);
+        Suggest.nextWordSuggestionsCache.clear();
         mStatsUtilsManager.onLoadSettings(this /* context */, currentSettingsValues);
     }
 
@@ -1404,29 +1405,45 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onMovePointer(int steps) {
+        if (steps == 0) return;
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
             steps = -steps;
 
+        final int moveSteps;
         if (steps < 0) {
             int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();
-            steps = availableCharacters < -steps ? -availableCharacters : steps;
-        }
-        else if (steps > 0) {
+            moveSteps = availableCharacters < -steps ? -availableCharacters : steps;
+            if (moveSteps == 0) {
+                // some apps don't return any text via input connection, and the cursor can't be moved
+                // we fall back to virtually pressing the left/right key one or more times instead
+                while (steps != 0) {
+                    onCodeInput(Constants.CODE_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                    ++steps;
+                }
+                return;
+            }
+        } else {
             int availableCharacters = mInputLogic.mConnection.getTextAfterCursor(64, 0).length();
-            steps = Math.min(availableCharacters, steps);
-        } else
-            return;
+            moveSteps = Math.min(availableCharacters, steps);
+            if (moveSteps == 0) {
+                while (steps != 0) {
+                    onCodeInput(Constants.CODE_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                    --steps;
+                }
+                return;
+            }
+        }
 
-        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(steps)) {
+        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement
-            int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
+            int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
             mInputLogic.mConnection.setSelection(newPosition, newPosition);
             return;
         }
         mInputLogic.finishInput();
-        int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
+        int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());
     }

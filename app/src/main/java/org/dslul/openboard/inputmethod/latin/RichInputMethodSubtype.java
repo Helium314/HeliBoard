@@ -174,7 +174,7 @@ public class RichInputMethodSubtype {
     private static final RichInputMethodSubtype DUMMY_NO_LANGUAGE_SUBTYPE =
             new RichInputMethodSubtype(new InputMethodSubtype.InputMethodSubtypeBuilder()
                     .setSubtypeNameResId(R.string.subtype_no_language_qwerty)
-                    .setSubtypeIconResId(R.drawable.ic_ime_switcher_dark)
+                    .setSubtypeIconResId(R.drawable.ic_ime_switcher)
                     .setSubtypeLocale(SubtypeLocaleUtils.NO_LANGUAGE)
                     .setSubtypeMode(KEYBOARD_MODE)
                     .setSubtypeExtraValue(EXTRA_VALUE_OF_DUMMY_NO_LANGUAGE_SUBTYPE)
@@ -194,7 +194,7 @@ public class RichInputMethodSubtype {
     private static final RichInputMethodSubtype DUMMY_EMOJI_SUBTYPE =
             new RichInputMethodSubtype(new InputMethodSubtype.InputMethodSubtypeBuilder()
                     .setSubtypeNameResId(R.string.subtype_emoji)
-                    .setSubtypeIconResId(R.drawable.ic_ime_switcher_dark)
+                    .setSubtypeIconResId(R.drawable.ic_ime_switcher)
                     .setSubtypeLocale(SubtypeLocaleUtils.NO_LANGUAGE)
                     .setSubtypeMode(KEYBOARD_MODE)
                     .setSubtypeExtraValue(EXTRA_VALUE_OF_DUMMY_EMOJI_SUBTYPE)

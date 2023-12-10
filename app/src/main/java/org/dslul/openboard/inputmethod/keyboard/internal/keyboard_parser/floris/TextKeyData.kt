@@ -9,12 +9,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.dslul.openboard.inputmethod.keyboard.Key
-import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 
 // taken from FlorisBoard, small modifications (see also KeyData)
 //  internal keys removed (currently no plan to support them)
 //  added String.toTextKey
+//  currency key handling (see todo below...)
 /**
  * Data class which describes a single key and its attributes.
  *
@@ -33,7 +33,8 @@ class TextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet()
+    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val labelFlags: Int = 0
 ) : KeyData {
     override fun compute(params: KeyboardParams): KeyData {
 //        if (evaluator.isSlot(this)) { // todo: currency key stuff probably should be taken from florisboard too
@@ -41,6 +42,14 @@ class TextKeyData(
 //                TextKeyData(type, data.code, data.label, groupId, popup).compute(params)
 //            }
 //        }
+        if (label.startsWith("$$$")) { // currency key
+            if (label == "$$$")
+                return params.mLocaleKeyTexts.currencyKey
+                    .let { it.first.toTextKey(it.second.toList(), labelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO) } // the flag is to match old parser, but why for main currency key, but not for others?
+            val n = label.substringAfter("$$$").toIntOrNull()
+            if (n != null && n <= 4)
+                return params.mLocaleKeyTexts.currencyKey.second[n - 1].toTextKey()
+        }
         return this
     }
 
@@ -70,7 +79,8 @@ class AutoTextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet()
+    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val labelFlags: Int = 0
 ) : KeyData {
     // state and recompute not needed, as upcasing is done when creating KeyParams
 
@@ -108,7 +118,8 @@ class MultiTextKeyData(
     val codePoints: IntArray = intArrayOf(),
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet()
+    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val labelFlags: Int = 0
 ) : KeyData {
     @Transient override val code: Int = KeyCode.MULTIPLE_CODE_POINTS
 
@@ -133,9 +144,10 @@ class MultiTextKeyData(
     }
 }
 
-fun String.toTextKey(moreKeys: Collection<String>? = null): TextKeyData =
+fun String.toTextKey(moreKeys: Collection<String>? = null, labelFlags: Int = 0): TextKeyData =
     TextKeyData(
         label = this,
+        labelFlags = labelFlags,
         popup = moreKeys
             ?.let { keys -> PopupSet(null, keys.map { it.toTextKey() }) }
             ?: PopupSet()

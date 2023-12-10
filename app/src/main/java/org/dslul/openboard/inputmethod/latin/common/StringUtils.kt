@@ -53,6 +53,30 @@ fun hasLetterBeforeLastSpaceBeforeCursor(s: CharSequence): Boolean {
     return letter
 }
 
+/** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
+fun String.splitOnFirstSpacesOnly(): List<String> {
+    val out = mutableListOf<String>()
+    val sb = StringBuilder()
+    var previousSpace = false
+    for (c in this) {
+        if (c != ' ') {
+            sb.append(c)
+            previousSpace = false
+            continue
+        }
+        if (!previousSpace) {
+            out.add(sb.toString())
+            sb.clear()
+            previousSpace = true
+        } else {
+            sb.append(c)
+        }
+    }
+    if (sb.isNotBlank())
+        out.add(sb.toString())
+    return out
+}
+
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
 fun isEmoji(s: String): Boolean = mightBeEmoji(s) && s.matches(emoRegex)

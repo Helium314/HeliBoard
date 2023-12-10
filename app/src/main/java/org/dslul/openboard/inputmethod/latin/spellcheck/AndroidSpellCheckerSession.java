@@ -6,10 +6,8 @@
 
 package org.dslul.openboard.inputmethod.latin.spellcheck;
 
-import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Binder;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.textservice.SentenceSuggestionsInfo;
@@ -34,7 +32,6 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
         mResources = service.getResources();
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private SentenceSuggestionsInfo fixWronglyInvalidatedWordWithSingleQuote(TextInfo ti,
             SentenceSuggestionsInfo ssi) {
         final CharSequence typedText = TextInfoCompatUtils.getCharSequenceOrString(ti);
@@ -45,7 +42,6 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
         final ArrayList<Integer> additionalOffsets = new ArrayList<>();
         final ArrayList<Integer> additionalLengths = new ArrayList<>();
         final ArrayList<SuggestionsInfo> additionalSuggestionsInfos = new ArrayList<>();
-        CharSequence currentWord = null;
         for (int i = 0; i < N; ++i) {
             final SuggestionsInfo si = ssi.getSuggestionsInfoAt(i);
             final int flags = si.getSuggestionsAttributes();
@@ -55,9 +51,6 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             final int offset = ssi.getOffsetAt(i);
             final int length = ssi.getLengthAt(i);
             final CharSequence subText = typedText.subSequence(offset, offset + length);
-            final NgramContext ngramContext =
-                    new NgramContext(new NgramContext.WordInfo(currentWord));
-            currentWord = subText;
             if (!subText.toString().contains(AndroidSpellCheckerService.SINGLE_QUOTE)) {
                 continue;
             }
@@ -68,9 +61,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             if (splitTexts == null || splitTexts.length <= 1) {
                 continue;
             }
-            final int splitNum = splitTexts.length;
-            for (int j = 0; j < splitNum; ++j) {
-                final CharSequence splitText = splitTexts[j];
+            for (final CharSequence splitText : splitTexts) {
                 if (TextUtils.isEmpty(splitText)) {
                     continue;
                 }
@@ -92,7 +83,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             }
         }
         final int additionalSize = additionalOffsets.size();
-        if (additionalSize <= 0) {
+        if (additionalSize == 0) {
             return null;
         }
         final int suggestionsSize = N + additionalSize;

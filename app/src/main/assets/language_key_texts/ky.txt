@@ -1,0 +1,9 @@
+[morekeys]
+у ү
+е ё
+н ң
+о ө
+ь ъ
+
+[labels]
+alphabet: АБВ

@@ -11,6 +11,7 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.rtlLabel
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
 
 // taken from FlorisBoard, small modifications
@@ -19,6 +20,9 @@ import org.dslul.openboard.inputmethod.latin.common.StringUtils
 //  added toKeyParams for non-abstract KeyData
 //  compute is using KeyboardParams (for shift state and variation)
 //  char_width_selector and kana_selector throw an error (not yet supported)
+//  added labelFlags to keyDate
+//  added manualOrLocked for shift_state_selector
+//  added date, time and datetime to VariationSelector
 /**
  * Basic interface for a key data object. Base for all key data objects across the IME, such as text, emojis and
  * selectors. The implementation is as abstract as possible, as different features require different implementations.
@@ -64,6 +68,7 @@ interface KeyData : AbstractKeyData {
     val label: String
     val groupId: Int
     val popup: PopupSet<AbstractKeyData> // not nullable because can't add number otherwise
+    val labelFlags: Int
 
     // groups (currently) not supported
     companion object {
@@ -98,35 +103,41 @@ interface KeyData : AbstractKeyData {
         const val GROUP_KANA: Int = 97
     }
 
+    // make it non-nullable for simplicity, and to reflect current implementations
+    override fun compute(params: KeyboardParams): KeyData
+
     fun isSpaceKey(): Boolean {
         return type == KeyType.CHARACTER && (code == KeyCode.SPACE || code == KeyCode.CJK_SPACE
                 || code == KeyCode.HALF_SPACE || code == KeyCode.KESHIDA)
     }
 
-    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, labelFlags: Int = 0): KeyParams {
-        require(type == KeyType.CHARACTER) { "currently only KeyType.CHARACTER is supported" }
-        require(groupId == GROUP_DEFAULT) { "currently only KeyData.GROUP_DEFAULT is supported" }
-        require(code >= 0) { "functional codes ($code) not (yet) supported" }
+    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, additionalLabelFlags: Int = 0): KeyParams {
+        // numeric keys are assigned a higher width in number layouts
+        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC) { "only KeyType CHARACTER or NUMERIC is supported" }
+        // allow GROUP_ENTER negative codes so original florisboard number layouts can be used, bu actually it's ignored
+        require(groupId == GROUP_DEFAULT || groupId == GROUP_ENTER) { "currently only GROUP_DEFAULT or GROUP_ENTER is supported" }
+        // allow some negative codes so original florisboard number layouts can be used, those codes are actually ignored
+        require(code >= 0 || code == -7 || code == -201 || code == -202) { "functional code $code not (yet) supported" }
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
 
         return if (code == KeyCode.UNSPECIFIED || code == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
             // but also longer labels should work without issues, also for MultiTextKeyData
             KeyParams(
-                label, // todo (when supported): convert special labels to keySpec
+                label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
                 params,
                 width,
-                labelFlags, // todo (non-latin): label flags... maybe relevant for some languages
+                labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
                 popup.toMoreKeys(params),
             )
         } else {
             KeyParams(
                 label.ifEmpty { StringUtils.newSingleCodePointString(code) },
-                code, // todo (when supported): convert codes < 0
+                code, // todo (when supported): convert codes < 0, because florisboard layouts should still be usable
                 params,
                 width,
-                labelFlags,
+                labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL,
                 popup.toMoreKeys(params),
             )
@@ -200,13 +211,14 @@ class ShiftStateSelector(
     val shiftedAutomatic: AbstractKeyData? = null,
     val capsLock: AbstractKeyData? = null,
     val default: AbstractKeyData? = null,
+    val manualOrLocked: AbstractKeyData? = null,
 ) : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData? {
         return when (params.mId.mElementId) {
             KeyboardId.ELEMENT_ALPHABET, KeyboardId.ELEMENT_SYMBOLS -> unshifted ?: default
-            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: manualOrLocked ?: shifted ?: default
             KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> shiftedAutomatic ?: shifted ?: default
-            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: manualOrLocked ?: shifted ?: default
             else -> default // or rather unshifted?
         }?.compute(params)
     }
@@ -250,6 +262,9 @@ data class VariationSelector(
     val uri: AbstractKeyData? = null,
     val normal: AbstractKeyData? = null,
     val password: AbstractKeyData? = null,
+    val date: AbstractKeyData? = null,
+    val time: AbstractKeyData? = null,
+    val datetime: AbstractKeyData? = null,
 ) : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData? {
         return when {
@@ -259,6 +274,9 @@ data class VariationSelector(
             params.mId.passwordInput() -> password ?: default
             params.mId.mMode == KeyboardId.MODE_EMAIL -> email ?: default
             params.mId.mMode == KeyboardId.MODE_URL -> uri ?: default
+            params.mId.mMode == KeyboardId.MODE_DATE -> date ?: default
+            params.mId.mMode == KeyboardId.MODE_TIME -> time ?: default
+            params.mId.mMode == KeyboardId.MODE_DATETIME -> datetime ?: default
             else -> default
         }?.compute(params)
     }

@@ -468,6 +468,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             Log.w(TAG, "Slow InputConnection: " + operationName + " took " + duration + " ms.");
             StatsUtils.onInputConnectionLaggy(operation, duration);
             mLastSlowInputConnectionTime = SystemClock.uptimeMillis();
+        } else if (duration < timeout / 5 && hasSlowInputConnection()) {
+            // we have a fast connection now, maybe the slowness was just a hickup
+            mLastSlowInputConnectionTime -= SLOW_INPUTCONNECTION_PERSIST_MS / 2;
+            Log.d(TAG, "InputConnection: much faster now, reducing persist time");
         }
     }
 

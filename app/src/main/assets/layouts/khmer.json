@@ -1,0 +1,194 @@
+[
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "!", "labelFlags": 48 },
+      "default": { "label": "១" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ៗ" },
+      "default": { "label": "២" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\"", "labelFlags": 48 },
+      "default": { "label": "៣" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៛" },
+      "default": { "label": "៤" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "%", "labelFlags": 48 },
+      "default": { "label": "៥" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៍" },
+      "default": { "label": "៦" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "័" },
+      "default": { "label": "៧" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៏" },
+      "default": { "label": "៨" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "(", "labelFlags": 48 },
+      "default": { "label": "៩" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": ")", "labelFlags": 48 },
+      "default": { "label": "០" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៌" },
+      "default": { "label": "ឥ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៎" },
+      "default": { "label": "ឲ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឈ" },
+      "default": { "label": "ឆ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឺ" },
+      "default": { "label": "ឹ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ែ" },
+      "default": { "label": "េ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឬ" },
+      "default": { "label": "រ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ទ" },
+      "default": { "label": "ត" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ួ" },
+      "default": { "label": "យ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ូ" },
+      "default": { "label": "ុ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ី" },
+      "default": { "label": "ិ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ៅ" },
+      "default": { "label": "ោ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ភ" },
+      "default": { "label": "ផ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឿ" },
+      "default": { "label": "ៀ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឰ" },
+      "default": { "label": "ឪ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ាំ", "labelFlags": 128 },
+      "default": { "label": "ា" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ៃ" },
+      "default": { "label": "ស" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឌ" },
+      "default": { "label": "ដ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ធ" },
+      "default": { "label": "ថ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "អ" },
+      "default": { "label": "ង" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ះ" },
+      "default": { "label": "ហ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ញ" },
+      "default": { "label": "្" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "គ" },
+      "default": { "label": "ក" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឡ" },
+      "default": { "label": "ល" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ោះ", "labelFlags": 49280 },
+      "default": { "label": "ើ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៉" },
+      "default": { "label": "់" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឯ" },
+      "default": { "label": "ឮ" }
+    }
+  ],
+  [
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឍ" },
+      "default": { "label": "ឋ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ឃ" },
+      "default": { "label": "ខ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ជ" },
+      "default": { "label": "ច" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "េះ", "labelFlags": 128 },
+      "default": { "label": "វ" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ព" },
+      "default": { "label": "ប" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ណ" },
+      "default": { "label": "ន" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ំ" },
+      "default": { "label": "ម" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ុះ", "labelFlags": 128 },
+      "default": { "label": "ុំ", "labelFlags": 128 }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "៕" },
+      "default": { "label": "។" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "\\?", "labelFlags": 48 },
+      "default": { "label": "៊" }
+    }
+  ]
+]

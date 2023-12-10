@@ -1,0 +1,24 @@
+[morekeys]
+ق ڨ
+ف ڤ ڢ ڥ
+ه ﻫ|ه‍
+ج چ
+ش ڜ
+ي ئ ى
+ب پ
+ل ﻻ|لا ﻷ|لأ ﻹ|لإ ﻵ|لآ
+ا !fixedColumnOrder!5 آ ء أ إ ٱ
+ك گ ک
+ى ئ
+ز ژ
+و ؤ
+punctuation !fixedColumnOrder!7  ٕ|ٕ  ٔ|ٔ  ْ|ْ  ٍ|ٍ  ٌ|ٌ  ً|ً  ّ|ّ  ٖ|ٖ  ٰ|ٰ  ٓ|ٓ  ِ|ِ  ُ|ُ  َ|َ ـــ|ـ
+
+[labels]
+alphabet: أ‌ب‌ج
+symbol: ٣٢١؟
+comma: ،
+question: ؟
+
+[number_row]
+١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ ٠

@@ -15,16 +15,17 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
  *  merged with defaults.
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
-    private val addExtraKeys =
-        params.mId.locale.language != "eo"
+    private val addExtraKeys = // todo (after removing old parser): add turkish layout that maps to qwerty, but enables extra keys
+        params.mId.isAlphabetKeyboard && params.mId.locale.language != "eo"
             && params.mId.mSubtype.keyboardLayoutSetName in listOf("nordic", "spanish", "german", "swiss", "serbian_qwertz")
 
     override fun getLayoutFromAssets(layoutName: String) =
-        context.assets.open("layouts/${getSimpleLayoutName(layoutName)}.txt").reader().readText()
+        context.assets.open("layouts/${getSimpleLayoutName(layoutName, params)}.txt").reader().readText()
 
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val rowStrings = layoutContent.replace("\r\n", "\n").split("\n\n")
-        return rowStrings.mapIndexedTo(mutableListOf()) { i, row ->
+        return rowStrings.mapIndexedNotNullTo(mutableListOf()) { i, row ->
+            if (row.isBlank()) return@mapIndexedNotNullTo null
             if (addExtraKeys)
                 getExtraKeys(i)?.let { parseRow(row) + it } ?: parseRow(row)
             else

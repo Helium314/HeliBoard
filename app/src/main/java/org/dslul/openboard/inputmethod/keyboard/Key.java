@@ -132,8 +132,8 @@ public class Key implements Comparable<Key> {
     private static final int MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY = 0x10000000;
     // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
     public static final String MORE_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
-    private static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
-    private static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
+    public static final String MORE_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
+    public static final String MORE_KEYS_HAS_LABELS = "!hasLabels!";
     private static final String MORE_KEYS_NEEDS_DIVIDERS = "!needsDividers!";
     private static final String MORE_KEYS_NO_PANEL_AUTO_MORE_KEY = "!noPanelAutoMoreKey!";
 
@@ -947,6 +947,8 @@ public class Key implements Comparable<Key> {
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
+        public float mRelativeVisualInsetLeft;
+        public float mRelativeVisualInsetRight;
 
         // params that may change
         public float mFullWidth;
@@ -956,16 +958,16 @@ public class Key implements Comparable<Key> {
 
         // params that remains constant
         public final int mCode;
-        @Nullable public final String mLabel;
-        @Nullable final String mHintLabel;
-        final int mLabelFlags;
-        final int mIconId;
-        public final MoreKeySpec[] mMoreKeys;
-        final int mMoreKeysColumnAndFlags;
-        public final int mBackgroundType;
-        final int mActionFlags;
-        @Nullable final KeyVisualAttributes mKeyVisualAttributes;
-        @Nullable final OptionalAttributes mOptionalAttributes;
+        @Nullable public String mLabel;
+        @Nullable public final String mHintLabel;
+        public final int mLabelFlags;
+        public final int mIconId;
+        @Nullable public MoreKeySpec[] mMoreKeys;
+        public final int mMoreKeysColumnAndFlags;
+        public int mBackgroundType;
+        public final int mActionFlags;
+        @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
+        @Nullable public OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
         public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
@@ -978,6 +980,7 @@ public class Key implements Comparable<Key> {
         public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
             final KeyParams spacer = new KeyParams(params);
             spacer.mRelativeWidth = relativeWidth;
+            spacer.mRelativeHeight = params.mDefaultRelativeRowHeight;
             return spacer;
         }
 
@@ -998,6 +1001,18 @@ public class Key implements Comparable<Key> {
             yPos = newY;
             mFullWidth = mRelativeWidth * mKeyboardParams.mBaseWidth;
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
+
+            // set visual insets if any
+            if (mRelativeVisualInsetRight != 0f || mRelativeVisualInsetLeft != 0f) {
+                final int insetLeft = (int) (mRelativeVisualInsetLeft * mKeyboardParams.mBaseWidth);
+                final int insetRight = (int) (mRelativeVisualInsetRight * mKeyboardParams.mBaseWidth);
+                if (mOptionalAttributes == null) {
+                    mOptionalAttributes = OptionalAttributes.newInstance(null, CODE_UNSPECIFIED, ICON_UNDEFINED, insetLeft, insetRight);
+                } else {
+                    mOptionalAttributes = OptionalAttributes
+                            .newInstance(mOptionalAttributes.mOutputText, mOptionalAttributes.mAltCode, mOptionalAttributes.mDisabledIconId, insetLeft, insetRight);
+                }
+            }
         }
 
         private static int getMoreKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] moreKeys) {
@@ -1186,21 +1201,23 @@ public class Key implements Comparable<Key> {
             mLabelFlags = labelFlags;
             mRelativeWidth = relativeWidth;
             mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, layoutMoreKeys);
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
+            if (params.mId.isNumberLayout())
+                actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
-            final String[] languageMoreKeys;
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
-                languageMoreKeys = null;
-            } else {
-                // same style as additionalMoreKeys (i.e. moreKeys with the % placeholder(s))
-                languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
-            }
-            final String[] finalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
+            if (languageMoreKeys != null && layoutMoreKeys != null && languageMoreKeys[0].startsWith("!fixedColumnOrder!"))
+                languageMoreKeys[0] = null; // we change the number of keys, so better not use fixedColumnOrder to avoid awkward layout
+            // todo: after removing old parser this could be done in a less awkward way without almostFinalMoreKeys
+            final String[] almostFinalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, almostFinalMoreKeys);
+            final String[] finalMoreKeys = almostFinalMoreKeys == null
+                    ? null 
+                    : MoreKeySpec.filterOutEmptyString(almostFinalMoreKeys);
 
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
@@ -1234,11 +1251,10 @@ public class Key implements Comparable<Key> {
                 if (hintLabelAlwaysFromFirstLongPressKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
                 } else {
-                    hintLabel = layoutMoreKeys == null ? null : layoutMoreKeys[0]; // note that some entries may have been changed to other string or null
+                    hintLabel = layoutMoreKeys == null ? null : KeySpecParser.getLabel(layoutMoreKeys[0]); // note that some entries may have been changed to other string or null
+                    // todo: this should be adjusted when re-working moreKey stuff... also KeySpecParser.getLabel may throw, which is bad when users do uncommon things
                     if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
                         hintLabel = null;
-                    if (hintLabel != null && hintLabel.length() == 2 && hintLabel.startsWith("\\"))
-                        hintLabel = hintLabel.replace("\\", "");
                 }
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
@@ -1298,7 +1314,6 @@ public class Key implements Comparable<Key> {
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
                     // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-                    // todo (much later): can the 3 below be removed completely?
                     KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color
@@ -1309,6 +1324,47 @@ public class Key implements Comparable<Key> {
             // todo (later): make sure these keys look ok when migrating the non-latin layouts (+pc qwerty)
             mKeyVisualAttributes = null;
             mEnabled = true;
+        }
+
+        /** constructor for emoji parser */ // essentially the same as the GridRows constructor, but without coordinates and outputText
+        public KeyParams(@Nullable final String label, final int code, @Nullable final String hintLabel,
+                   @Nullable final String moreKeySpecs, final int labelFlags, final KeyboardParams params) {
+            mKeyboardParams = params;
+            mHintLabel = hintLabel;
+            mLabelFlags = labelFlags;
+            mBackgroundType = BACKGROUND_TYPE_EMPTY;
+
+            if (moreKeySpecs != null) {
+                String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
+                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
+
+                moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
+                int actionFlags = 0;
+                if (moreKeys != null) {
+                    actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
+                    mMoreKeys = new MoreKeySpec[moreKeys.length];
+                    for (int i = 0; i < moreKeys.length; i++) {
+                        mMoreKeys[i] = new MoreKeySpec(moreKeys[i], false, Locale.getDefault());
+                    }
+                } else {
+                    mMoreKeys = null;
+                }
+                mActionFlags = actionFlags;
+            } else {
+                // TODO: Pass keyActionFlags as an argument.
+                mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
+                mMoreKeys = null;
+                mMoreKeysColumnAndFlags = 0;
+            }
+
+            mLabel = label;
+            mOptionalAttributes = code == Constants.CODE_OUTPUT_TEXT
+                    ? OptionalAttributes.newInstance(label, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0)
+                    : null;
+            mCode = code;
+            mEnabled = (code != CODE_UNSPECIFIED);
+            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
+            mKeyVisualAttributes = null;
         }
 
         /** constructor for <GridRows/> */

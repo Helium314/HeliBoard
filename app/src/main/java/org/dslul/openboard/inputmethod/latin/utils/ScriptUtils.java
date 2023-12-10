@@ -50,6 +50,8 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode = new TreeMap<>();
         mLanguageCodeToScriptCode.put("", SCRIPT_LATIN); // default
         mLanguageCodeToScriptCode.put("ar", SCRIPT_ARABIC);
+        mLanguageCodeToScriptCode.put("ur", SCRIPT_ARABIC);
+        mLanguageCodeToScriptCode.put("fa", SCRIPT_ARABIC);
         mLanguageCodeToScriptCode.put("hy", SCRIPT_ARMENIAN);
         mLanguageCodeToScriptCode.put("bg", SCRIPT_BULGARIAN);
         mLanguageCodeToScriptCode.put("bn", SCRIPT_BENGALI);

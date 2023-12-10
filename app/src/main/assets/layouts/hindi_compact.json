@@ -1,0 +1,40 @@
+[
+  [
+    { "label": "औ" },
+    { "label": "ऐ" },
+    { "label": "आ" },
+    { "label": "ई" },
+    { "label": "ऊ" },
+    { "label": "ब" },
+    { "label": "ह" },
+    { "label": "ग" },
+    { "label": "द" },
+    { "label": "ज" },
+    { "label": "ड" }
+  ],
+  [
+    { "label": "ओ" },
+    { "label": "ए" },
+    { "label": "अ" },
+    { "label": "इ" },
+    { "label": "उ" },
+    { "label": "प" },
+    { "label": "र" },
+    { "label": "क" },
+    { "label": "त" },
+    { "label": "च" },
+    { "label": "ट" }
+  ],
+  [
+    { "label": "ऑ" },
+    { "label": "्" },
+    { "label": "ं" },
+    { "label": "म" },
+    { "label": "न" },
+    { "label": "व" },
+    { "label": "ल" },
+    { "label": "स" },
+    { "label": "य" },
+    { "label": "क्ष", "labelFlags": 128 }
+  ]
+]

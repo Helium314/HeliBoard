@@ -6,12 +6,12 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris
 
 import kotlinx.serialization.Serializable
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.getCurrencyKey
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.rtlLabel
 
 // taken from FlorisBoard, small modifications
 //  mutable set removed (currently the moreKeys assembly is happening in KeyParams)
-//  toMoreKeys and size added
-// popupKeys not used, but might switch to this later
+//  .toMoreKeys added
+// PopupKeys not used, but might switch to this later
 //  currently hint would be taken from other, and languageMoreKeys are prioritized
 /**
  * A popup set for a single key. This set describes, if the key has a [main] character and other [relevant] popups.
@@ -29,23 +29,27 @@ open class PopupSet<T : AbstractKeyData>(
     //  could make use of PopupKeys, and also provide a hint depending on user choice
     //  then language key joining should be done in here too
     //  also what about getting the moreKeys and key hint from chosen symbol layout?
-    fun toMoreKeys(params: KeyboardParams) = if (isEmpty) null // need null instead of empty array for KeyParams
-        else (listOfNotNull(number?.toString(), main?.getLabel(params)) + relevant
-        // todo: this is not nice and creates unnecessary intermediate lists
-        //  best treat the currency key properly, like florisboard does
-        .map { it.getLabel(params) }).map {
-            if (it == "$$$") {
-                if (params.mId.passwordInput()) "$"
-                else getCurrencyKey(params.mId.locale).first
-            }
-            else it
-        }.toTypedArray()
+    fun toMoreKeys(params: KeyboardParams): Array<String>? {
+        val moreKeys = mutableListOf<String>()
+        // number + main + relevant in this order (label is later taken from first element in resulting array)
+        moreKeys.addAll(params.mLocaleKeyTexts.getNumberMoreKeys(numberIndex))
+        main?.getLabel(params)?.let { moreKeys.add(transformLabel(it, params)) }
+        moreKeys.addAll(relevant.map { transformLabel(it.getLabel(params), params) })
+        return moreKeys.takeIf { it.isNotEmpty() }?.toTypedArray()
+    }
+
+    private fun transformLabel(label: String, params: KeyboardParams): String =
+        if (label == "$$$") { // currency key
+            if (params.mId.passwordInput()) "$"
+            else params.mLocaleKeyTexts.currencyKey.first
+        } else if (params.mId.mSubtype.isRtlSubtype) {
+            label.rtlLabel(params)
+        } else label
 
     private val popupKeys: PopupKeys<T> by lazy {
         PopupKeys(null, listOfNotNull(main), relevant)
     }
-    var number: Int? = null
-    val isEmpty get() = main == null && relevant.isEmpty() && number == null
+    var numberIndex: Int? = null
 }
 
 /**
