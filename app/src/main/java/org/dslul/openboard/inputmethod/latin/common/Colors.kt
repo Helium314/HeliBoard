@@ -245,7 +245,7 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
     override fun get(color: ColorType): Int = when (color) {
         ColorType.ENABLE_TOOL_KEY, ColorType.EMOJI_CATEGORY_SELECTED -> accent
         ColorType.EMOJI_CATEGORY, ColorType.GESTURE_PREVIEW -> adjustedBackground
-        ColorType.TOOL_BAR_KEY_BACKGROUND -> doubleAdjustedBackground
+        ColorType.TOOL_BAR_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
         ColorType.GESTURE -> gesture
         ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
         ColorType.SPACEBAR_TEXT -> spaceBarText
