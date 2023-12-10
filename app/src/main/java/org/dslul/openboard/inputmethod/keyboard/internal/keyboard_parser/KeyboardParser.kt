@@ -820,7 +820,7 @@ data class LayoutInfos(
     val allowRedundantMoreKeys: Boolean = true, // only false for nordic and serbian_qwertz
     // there is holo, default and null
     // null only for moreKeys keyboard
-    // currently read as part of readAttributes, and thus wrong with the new parser
+    // currently read as part of readAttributes, and thus wrong with the new parser (but we set it correctly in parser)
     val touchPositionCorrectionData: Int? = null,
     val hasZwnjKey: Boolean = false,
     val hasShiftKey: Boolean = true,

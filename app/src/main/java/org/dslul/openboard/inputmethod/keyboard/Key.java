@@ -1246,10 +1246,12 @@ public class Key implements Comparable<Key> {
                 mHintLabel = null;
             } else {
                 // maybe also always null for comma and period keys
-                final boolean hintLabelAlwaysFromFirstLongPressKey = false; // todo (later): add the setting, and use it (store in params?)
                 String hintLabel;
-                if (hintLabelAlwaysFromFirstLongPressKey) {
+                if (mKeyboardParams.mHintLabelFromFirstMoreKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
+                    if (hintLabel != null && backgroundType == BACKGROUND_TYPE_FUNCTIONAL && mKeyboardParams.mId.isAlphabetKeyboard())
+                        // bad workaround for the ugly comma label on period key, todo: do it better when re-working moreKey stuff
+                        hintLabel = null;
                 } else {
                     hintLabel = layoutMoreKeys == null ? null : KeySpecParser.getLabel(layoutMoreKeys[0]); // note that some entries may have been changed to other string or null
                     // todo: this should be adjusted when re-working moreKey stuff... also KeySpecParser.getLabel may throw, which is bad when users do uncommon things

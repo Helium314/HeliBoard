@@ -89,6 +89,7 @@ public class KeyboardParams {
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantMoreKeys;
+    public final boolean mHintLabelFromFirstMoreKey = Settings.getInstance().getCurrent().mHintLabelFromFirstMoreKey;
     @NonNull
     public LocaleKeyTexts mLocaleKeyTexts;
 

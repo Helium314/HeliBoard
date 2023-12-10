@@ -18,6 +18,12 @@
             android:persistent="true" />
 
         <SwitchPreferenceCompat
+            android:key="pref_hint_label_from_first_more_key"
+            android:title="@string/show_hints_from_first_popup_key"
+            android:defaultValue="false"
+            android:persistent="true" />
+
+        <SwitchPreferenceCompat
             android:key="pref_show_popup_hints"
             android:title="@string/show_popup_hints"
             android:summary="@string/show_popup_hints_summary"

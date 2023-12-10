@@ -112,6 +112,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
 
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
+    public static final String PREF_HINT_LABEL_FROM_FIRST_MORE_KEY = "pref_hint_label_from_first_more_key";
     public static final String PREF_SHOW_POPUP_HINTS = "pref_show_popup_hints";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";

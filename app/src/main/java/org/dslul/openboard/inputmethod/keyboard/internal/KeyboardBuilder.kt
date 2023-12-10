@@ -67,11 +67,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  re-check the LayoutInfos, they should really to the right things!
         //  some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
         //   that's one more reason for using language tags...
         //   currently it's still read from xml outside the keyboard parser, but should still go to some other place
         //    maybe use scriptUtils to determine, just make sure it's correct (also for hindi and serbian!)
+        //  next release, and possibly don't continue working here for a while (should allow finding more regressions)
         //  remove the old parser
         //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
         //   also the eo check could then be removed
