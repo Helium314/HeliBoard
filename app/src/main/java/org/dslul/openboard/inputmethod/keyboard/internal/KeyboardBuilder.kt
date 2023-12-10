@@ -16,7 +16,7 @@ import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
 import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
-import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboard
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.EmojiParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.KeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
@@ -25,7 +25,6 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
-import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -68,18 +67,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  make the remove duplicate moreKey thing an option?
-        //   why is it on for serbian (latin), but not for german (german)?
-        //   only nordic and serbian_qwertz layouts have it disabled, default is enabled
-        //   -> add the option, but disable it by default for all layouts
-        //  migrate emoji layouts to this style
-        //   emojis are defined in that string array, should be simple to handle
-        //   parsing could be done into a single row, which is then split as needed
-        //    this might help with split layout (no change in key size, but in number of rows)
-        //   write another parser, it should already consider split
-        //   add a setting to display all emojis (and use emojiv2 or emojicompat or whatever is necessary)
-        //    mention in subtitle that they may not be displayed properly, depending on the app you're writing in
-        //   uncomment the toast below
         //  number layouts missing details
         //   landscape: numpad layout has some extra keys
         //   tablet: number and phone layout have some extra keys (unify with numpad, so that extra keys show both in land and sw600? or only land?)
@@ -165,6 +152,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 readAttributes(xmlId)
                 return this
             }
+            if (id.mElementId >= KeyboardId.ELEMENT_EMOJI_RECENTS && id.mElementId <= KeyboardId.ELEMENT_EMOJI_CATEGORY16) {
+                mParams.mId = id
+                readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
+                keysInRows = EmojiParser(mParams, mContext).parse(Settings.getInstance().current.mIsSplitKeyboardEnabled)
+                return this
+            }
             if (loadFromAssets(id) != null) {
                 if (!DebugFlags.DEBUG_ENABLED)
                     return this
@@ -242,8 +235,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             if (DebugFlags.DEBUG_ENABLED) {
                 // looks like only emoji keyboards are still using the old parser, which is expected
                 Log.w(TAG, "falling back to old parser for $id")
-                if (mParams.mId.mElementId < KeyboardId.ELEMENT_EMOJI_RECENTS || mParams.mId.mElementId > KeyboardId.ELEMENT_EMOJI_CATEGORY16)
-                    Toast.makeText(mContext, "using old parser for $id", Toast.LENGTH_LONG).show()
+                Toast.makeText(mContext, "using old parser for $id", Toast.LENGTH_LONG).show()
             }
         }
         mParams.mId = id

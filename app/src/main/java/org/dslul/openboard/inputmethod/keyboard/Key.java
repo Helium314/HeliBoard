@@ -1326,6 +1326,47 @@ public class Key implements Comparable<Key> {
             mEnabled = true;
         }
 
+        /** constructor for emoji parser */ // essentially the same as the GridRows constructor, but without coordinates and outputText
+        public KeyParams(@Nullable final String label, final int code, @Nullable final String hintLabel,
+                   @Nullable final String moreKeySpecs, final int labelFlags, final KeyboardParams params) {
+            mKeyboardParams = params;
+            mHintLabel = hintLabel;
+            mLabelFlags = labelFlags;
+            mBackgroundType = BACKGROUND_TYPE_EMPTY;
+
+            if (moreKeySpecs != null) {
+                String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
+                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
+
+                moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
+                int actionFlags = 0;
+                if (moreKeys != null) {
+                    actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
+                    mMoreKeys = new MoreKeySpec[moreKeys.length];
+                    for (int i = 0; i < moreKeys.length; i++) {
+                        mMoreKeys[i] = new MoreKeySpec(moreKeys[i], false, Locale.getDefault());
+                    }
+                } else {
+                    mMoreKeys = null;
+                }
+                mActionFlags = actionFlags;
+            } else {
+                // TODO: Pass keyActionFlags as an argument.
+                mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
+                mMoreKeys = null;
+                mMoreKeysColumnAndFlags = 0;
+            }
+
+            mLabel = label;
+            mOptionalAttributes = code == Constants.CODE_OUTPUT_TEXT
+                    ? OptionalAttributes.newInstance(label, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0)
+                    : null;
+            mCode = code;
+            mEnabled = (code != CODE_UNSPECIFIED);
+            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
+            mKeyVisualAttributes = null;
+        }
+
         /** constructor for <GridRows/> */
         public KeyParams(@Nullable final String label, final int code, @Nullable final String outputText,
                    @Nullable final String hintLabel, @Nullable final String moreKeySpecs,
