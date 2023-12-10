@@ -67,16 +67,19 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
-        //   that's one more reason for using language tags...
-        //   currently it's still read from xml outside the keyboard parser, but should still go to some other place
-        //    maybe use scriptUtils to determine, just make sure it's correct (also for hindi and serbian!)
         //  next release, and possibly don't continue working here for a while (should allow finding more regressions)
         //  remove the old parser
         //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
         //   also the eo check could then be removed
         //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
         //    should be either both in method.xml, or both in assets (actually method might be more suitable)
+        //   go through a lot of todos in parsers, key, keyboardlayoutset, ... as a lot of things should only change after old parser is removed
+        //   also remove the keybpard_layout_set files?
+        //    they are still in use e.g. for enableProximityCharsCorrection and supportedScript
+        //    but ideally this should be replaced
+        //     enableProximityCharsCorrection should be in LayoutInfos
+        //     supportedScript could be determined using ScriptUtils, but first make sure that there is less latin fallback happening
+        //      or use locale to store script, but that's only possible starting at api 21
         //  allow users to define their own layouts (maybe do everything else first?)
         //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
@@ -137,13 +140,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing) {
-            if (this::class != KeyboardBuilder::class) {
-                // for MoreSuggestions and MoreKeys we only need to read the attributes
-                // but not the default ones, do it like the old parser (for now)
-                mParams.mId = id
-                readAttributes(xmlId)
-                return this
-            }
             if (id.mElementId >= KeyboardId.ELEMENT_EMOJI_RECENTS && id.mElementId <= KeyboardId.ELEMENT_EMOJI_CATEGORY16) {
                 mParams.mId = id
                 readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
@@ -176,8 +172,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
     }
 
-    // todo: remnant of old parser, replace it
-    private fun readAttributes(@XmlRes xmlId: Int) {
+    // todo: remnant of old parser, replace it if reasonably simple
+    protected fun readAttributes(@XmlRes xmlId: Int) {
         val parser = mResources.getXml(xmlId)
         while (parser.eventType != XmlPullParser.END_DOCUMENT) {
             val event = parser.next()
