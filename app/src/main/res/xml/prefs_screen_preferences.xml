@@ -20,6 +20,7 @@
         <SwitchPreferenceCompat
             android:key="pref_hint_label_from_first_more_key"
             android:title="@string/show_hints_from_first_popup_key"
+            android:summary="@string/show_hints_from_first_popup_key_summary"
             android:defaultValue="false"
             android:persistent="true" />
 

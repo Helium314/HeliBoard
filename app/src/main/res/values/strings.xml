@@ -240,6 +240,8 @@
     <string name="show_hints_summary">Show long-press hints</string>
     <!-- Title of the settings to show hint based on actual long-press key -->
     <string name="show_hints_from_first_popup_key">Take hint label from first popup key</string>
+    <!-- Summary of the settings to show hint based on actual long-press key -->
+    <string name="show_hints_from_first_popup_key_summary">The default key hints are replaced by those selected first on a long press</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
