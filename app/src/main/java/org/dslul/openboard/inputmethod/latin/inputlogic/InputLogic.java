@@ -876,7 +876,7 @@ public final class InputLogic {
                 || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
                 || !settingsValues.mBigramPredictionEnabled // this is only for next word suggestions, so they need to be enabled
                 || settingsValues.mIncognitoModeEnabled
-                || settingsValues.mInputAttributes.mInputTypeNoAutoCorrect // see comment in performAdditionToUserHistoryDictionary
+                || settingsValues.mInputAttributes.mShouldShowSuggestions // see comment in performAdditionToUserHistoryDictionary
                 || !StringUtilsKt.isEmoji(text)
         ) return;
         if (mConnection.hasSlowInputConnection()) {
@@ -1556,7 +1556,8 @@ public final class InputLogic {
         // If correction is not enabled, we don't add words to the user history dictionary.
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
-        if (settingsValues.mInputAttributes.mInputTypeNoAutoCorrect || settingsValues.mIncognitoModeEnabled)
+        // mInputTypeNoAutoCorrect changed to !mShouldShowSuggestions because this was cancelling learning way too often
+        if (!settingsValues.mInputAttributes.mShouldShowSuggestions || settingsValues.mIncognitoModeEnabled)
             return;
         if (mConnection.hasSlowInputConnection()) {
             // Since we don't unlearn when the user backspaces on a slow InputConnection,

@@ -67,10 +67,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         return this
 
         // todo: further plan
-        //  make split layout work for emoji keyboard
-        //  more settings for localized number row, so it can be different in shift or symbols
-        //  setting which moreKeys to prefer (default: symbol or important language, always symbol, always language)
-        //  setting whether to show duplicate moreKeys (describe properly what it actually does)
+        //  re-check the LayoutInfos, they should really to the right things!
         //  some keyboard_layout_set have supportedScript that is enum synced with script id in ScriptUtils
         //   that's one more reason for using language tags...
         //   currently it's still read from xml outside the keyboard parser, but should still go to some other place
@@ -106,7 +103,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   allow users to import layouts, which essentially just fills the text from a file
         //    add setting to use moreKeys from symbol layout (always, never, only if none defined)
         //     should also have sth related to hint, because hint and start morekey maybe should stay
-        //  option to add extra keys for all layouts?
+        //  option to add language extra keys for all layouts?
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
