@@ -609,7 +609,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // increase / decrease confidence if we have more than one dictionary group
         boolean[] validWordForDictionary; // store results to avoid unnecessary duplicate lookups
-        if (mDictionaryGroups.size() > 1 && words.length == 1) {
+        if (mDictionaryGroups.size() > 1 && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
             validWordForDictionary = new boolean[mDictionaryGroups.size()];
             // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
             final String decapitalizedSuggestion;
@@ -630,9 +630,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // add word to user dictionary if it is in no other dictionary except user history dictionary,
         // reasoning: typing the same word again -> we probably want it in some dictionary permanently
-        if (mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions to be on
-                && Settings.getInstance().getCurrent().mAddToPersonalDictionary // ...and the setting
-                && !wasAutoCapitalized && words.length == 1) {
+        if (Settings.getInstance().getCurrent().mAddToPersonalDictionary // require the setting
+                && mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions
+                && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
+                && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
             addToPersonalDictionaryIfInvalidButInHistory(suggestion, validWordForDictionary);
         }
 
