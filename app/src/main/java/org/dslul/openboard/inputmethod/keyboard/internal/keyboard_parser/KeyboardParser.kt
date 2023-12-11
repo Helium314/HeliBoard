@@ -20,9 +20,11 @@ import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import java.util.Locale
 
@@ -628,6 +630,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     private fun String.replaceIconWithLabelIfNoDrawable(): String {
         if (params.mIconsSet.getIconDrawable(KeyboardIconsSet.getIconId(this)) != null) return this
+        if (params.mId.mWidth == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
+                && params.mId.mHeight == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
+                && !params.mId.mSubtype.rawSubtype.extraValue.contains(Constants.Subtype.ExtraValue.EMOJI_CAPABLE)
+            )
+            // fake keyboard that is used by spell checker (for key coordinates), but not shown to the user
+            // often this doesn't have any icons loaded, and there is no need to bother with this
+            return this
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
         if (id == 0) {
             val message = "no resource for label $this in ${params.mId}"
