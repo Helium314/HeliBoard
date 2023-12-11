@@ -763,6 +763,9 @@ public final class InputLogic {
             case Constants.CODE_SELECT_ALL:
                 mConnection.selectAll();
                 break;
+            case Constants.CODE_COPY:
+                mConnection.copyText();
+                break;
             case Constants.CODE_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
