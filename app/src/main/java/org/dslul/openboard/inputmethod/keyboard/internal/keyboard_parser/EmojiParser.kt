@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context

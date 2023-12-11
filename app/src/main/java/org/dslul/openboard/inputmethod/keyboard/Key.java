@@ -265,6 +265,34 @@ public class Key implements Comparable<Key> {
         mEnabled = key.mEnabled;
     }
 
+    /** constructor for creating emoji recent keys when there is no keyboard to take keys from */
+    public Key(@NonNull final Key key, @Nullable final MoreKeySpec[] moreKeys,
+             @Nullable final String labelHint, final int backgroundType, final int code, @Nullable final String outputText) {
+        // Final attributes.
+        mCode = outputText == null ? code : CODE_OUTPUT_TEXT;
+        mLabel = outputText == null ? StringUtils.newSingleCodePointString(code) : outputText;
+        mHintLabel = labelHint;
+        mLabelFlags = key.mLabelFlags;
+        mIconId = key.mIconId;
+        mWidth = key.mWidth;
+        mHeight = key.mHeight;
+        mHorizontalGap = key.mHorizontalGap;
+        mVerticalGap = key.mVerticalGap;
+        mX = key.mX;
+        mY = key.mY;
+        mHitBox.set(key.mHitBox);
+        mMoreKeys = moreKeys;
+        mMoreKeysColumnAndFlags = key.mMoreKeysColumnAndFlags;
+        mBackgroundType = backgroundType;
+        mActionFlags = key.mActionFlags;
+        mKeyVisualAttributes = key.mKeyVisualAttributes;
+        mOptionalAttributes = outputText == null ? null : Key.OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0);
+        mHashCode = key.mHashCode;
+        // Key state.
+        mPressed = key.mPressed;
+        mEnabled = key.mEnabled;
+    }
+
     /** constructor from KeyParams */
     private Key(KeyParams keyParams) {
         // stuff to copy

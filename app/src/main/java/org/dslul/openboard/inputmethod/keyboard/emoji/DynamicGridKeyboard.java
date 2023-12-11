@@ -158,7 +158,7 @@ final class DynamicGridKeyboard extends Keyboard {
         Settings.writeEmojiRecentKeys(mPrefs, jsonStr);
     }
 
-    private static Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
+    private Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
             final int code) {
         for (final DynamicGridKeyboard keyboard : keyboards) {
             for (final Key key : keyboard.getSortedKeys()) {
@@ -167,10 +167,12 @@ final class DynamicGridKeyboard extends Keyboard {
                 }
             }
         }
-        return null;
+
+        // fall back to creating the key
+        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, code, null);
     }
 
-    private static Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
+    private Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
             final String outputText) {
         for (final DynamicGridKeyboard keyboard : keyboards) {
             for (final Key key : keyboard.getSortedKeys()) {
@@ -179,7 +181,9 @@ final class DynamicGridKeyboard extends Keyboard {
                 }
             }
         }
-        return null;
+
+        // fall back to creating the key
+        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, 0, outputText);
     }
 
     public void loadRecentKeys(final Collection<DynamicGridKeyboard> keyboards) {
