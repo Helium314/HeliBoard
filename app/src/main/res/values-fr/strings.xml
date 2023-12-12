@@ -273,7 +273,7 @@ Nouveau dictionnaire:
     <string name="url_detection_title">Détection d\'URL</string>
     <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
     <string name="openboard_personal_dictionary_title">Dictionnaire personnel d\'Openboard</string>
-    <string name="openboard_personal_dictionary_summary">Utilise le dictionnaire personnel d\'Openboard au lieu du dictionnaire personnel d\'Android.</string>
+    <string name="openboard_personal_dictionary_summary">Utilise le dictionnaire personnel d\'Openboard au lieu du dictionnaire personnel d\'Android</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="auto_correction_confidence">Confiance dans la correction automatique</string>
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
