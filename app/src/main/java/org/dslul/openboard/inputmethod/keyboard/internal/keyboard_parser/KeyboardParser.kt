@@ -78,6 +78,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             //  so the symbols keyboard is higher than the normal one
             //  not a new issue, but should be solved in this migration
             //  how? possibly scale all keyboards to height of main alphabet? (consider suggestion strip)
+            //  -> test whether this is taken care of with the changes (and this should really go into a draft PR, with call for comments)
             keysInRows.forEach { row -> row.forEach { it.mRelativeHeight *= heightRescale } }
         }
 

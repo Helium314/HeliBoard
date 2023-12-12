@@ -25,7 +25,7 @@ class ClipboardLayoutParams(res: Resources) {
     }
 
     init {
-        val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(res)
+        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
         val suggestionStripHeight = res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
         val defaultKeyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res)
 

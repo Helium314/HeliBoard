@@ -135,7 +135,7 @@ public final class EmojiPalettesView extends LinearLayout
         // The main keyboard expands to the entire this {@link KeyboardView}.
         final int width = ResourceUtils.getDefaultKeyboardWidth(res)
                 + getPaddingLeft() + getPaddingRight();
-        final int height = ResourceUtils.getDefaultKeyboardHeight(res)
+        final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
                 + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
                 + getPaddingTop() + getPaddingBottom();
         setMeasuredDimension(width, height);

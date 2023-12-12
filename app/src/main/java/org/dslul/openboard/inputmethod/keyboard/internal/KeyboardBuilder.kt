@@ -372,6 +372,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         // {@link #parseGridRows(XmlPullParser,boolean)} may populate keyboard rows higher than
         // previously expected.
         val actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding
+        // todo: actually no keyboard should be resized, except emoji because they scroll
+        //  but... then this should be taken care of in the parser
+        //  also that int cast / rounding issue could then be taken care of
         mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight)
     }
 
@@ -384,6 +387,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             startRow()
             for (keyParams in row) {
                 endKey(keyParams.createKey())
+                // todo: marking as left/right edge would be better than using visual insets and achieve the same thing with more concise code
             }
             endRow()
         }

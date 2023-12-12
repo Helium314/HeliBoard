@@ -188,14 +188,15 @@ public final class ResourceUtils {
     }
 
     public static int getKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
-        final int defaultKeyboardHeight = getDefaultKeyboardHeight(res);
+        final int defaultKeyboardHeight = getDefaultKeyboardHeight(res, settingsValues.mShowsNumberRow);
         // mKeyboardHeightScale Ranges from [.5,1.5], from xml/prefs_screen_appearance.xml
         return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
     }
 
-    public static int getDefaultKeyboardHeight(final Resources res) {
+    private static int getDefaultKeyboardHeight(final Resources res, final boolean showsNumberRow) {
         final DisplayMetrics dm = res.getDisplayMetrics();
-        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height);
+        // increase height by 20% if number row is enabled
+        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height) * (showsNumberRow ? 1.2f : 1f);
         final float maxKeyboardHeight = res.getFraction(
                 R.fraction.config_max_keyboard_height, dm.heightPixels, dm.heightPixels);
         float minKeyboardHeight = res.getFraction(

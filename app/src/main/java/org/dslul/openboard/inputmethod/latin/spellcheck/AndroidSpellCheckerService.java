@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.service.textservice.SpellCheckerService;
 import android.text.InputType;
+import android.util.LruCache;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 import android.view.textservice.SuggestionsInfo;
@@ -161,6 +162,11 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         } finally {
             mSemaphore.release();
         }
+    }
+
+    void clearCacheForLocale(final Locale locale) {
+        // just set a new cache...
+        mDictionaryFacilitatorCache.get(locale).setValidSpellingWordReadCache(new LruCache<>(200));
     }
 
     public SuggestionResults getSuggestionResults(final Locale locale,
