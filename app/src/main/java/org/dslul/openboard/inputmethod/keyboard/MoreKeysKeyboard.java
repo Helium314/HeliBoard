@@ -266,7 +266,8 @@ public final class MoreKeysKeyboard extends Keyboard {
                 final boolean isSingleMoreKeyWithPreview, final int keyPreviewVisibleWidth,
                 final int keyPreviewVisibleHeight, final Paint paintToMeasure) {
             super(context, new MoreKeysKeyboardParams());
-            loadFromXml(keyboard.mMoreKeysTemplate, keyboard.mId);
+            mParams.mId = keyboard.mId;
+            readAttributes(keyboard.mMoreKeysTemplate);
 
             // TODO: More keys keyboard's vertical gap is currently calculated heuristically.
             // Should revise the algorithm.

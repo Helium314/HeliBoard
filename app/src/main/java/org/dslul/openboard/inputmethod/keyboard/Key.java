@@ -265,6 +265,34 @@ public class Key implements Comparable<Key> {
         mEnabled = key.mEnabled;
     }
 
+    /** constructor for creating emoji recent keys when there is no keyboard to take keys from */
+    public Key(@NonNull final Key key, @Nullable final MoreKeySpec[] moreKeys,
+             @Nullable final String labelHint, final int backgroundType, final int code, @Nullable final String outputText) {
+        // Final attributes.
+        mCode = outputText == null ? code : CODE_OUTPUT_TEXT;
+        mLabel = outputText == null ? StringUtils.newSingleCodePointString(code) : outputText;
+        mHintLabel = labelHint;
+        mLabelFlags = key.mLabelFlags;
+        mIconId = key.mIconId;
+        mWidth = key.mWidth;
+        mHeight = key.mHeight;
+        mHorizontalGap = key.mHorizontalGap;
+        mVerticalGap = key.mVerticalGap;
+        mX = key.mX;
+        mY = key.mY;
+        mHitBox.set(key.mHitBox);
+        mMoreKeys = moreKeys;
+        mMoreKeysColumnAndFlags = key.mMoreKeysColumnAndFlags;
+        mBackgroundType = backgroundType;
+        mActionFlags = key.mActionFlags;
+        mKeyVisualAttributes = key.mKeyVisualAttributes;
+        mOptionalAttributes = outputText == null ? null : Key.OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0);
+        mHashCode = key.mHashCode;
+        // Key state.
+        mPressed = key.mPressed;
+        mEnabled = key.mEnabled;
+    }
+
     /** constructor from KeyParams */
     private Key(KeyParams keyParams) {
         // stuff to copy
@@ -958,13 +986,13 @@ public class Key implements Comparable<Key> {
 
         // params that remains constant
         public final int mCode;
-        @Nullable public final String mLabel;
+        @Nullable public String mLabel;
         @Nullable public final String mHintLabel;
         public final int mLabelFlags;
         public final int mIconId;
-        @Nullable public final MoreKeySpec[] mMoreKeys;
+        @Nullable public MoreKeySpec[] mMoreKeys;
         public final int mMoreKeysColumnAndFlags;
-        public final int mBackgroundType;
+        public int mBackgroundType;
         public final int mActionFlags;
         @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
         @Nullable public OptionalAttributes mOptionalAttributes;
@@ -1206,6 +1234,8 @@ public class Key implements Comparable<Key> {
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
             int actionFlags = 0;
+            if (params.mId.isNumberLayout())
+                actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
             final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
             if (languageMoreKeys != null && layoutMoreKeys != null && languageMoreKeys[0].startsWith("!fixedColumnOrder!"))
@@ -1244,10 +1274,12 @@ public class Key implements Comparable<Key> {
                 mHintLabel = null;
             } else {
                 // maybe also always null for comma and period keys
-                final boolean hintLabelAlwaysFromFirstLongPressKey = false; // todo (later): add the setting, and use it (store in params?)
                 String hintLabel;
-                if (hintLabelAlwaysFromFirstLongPressKey) {
+                if (mKeyboardParams.mHintLabelFromFirstMoreKey) {
                     hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
+                    if (hintLabel != null && backgroundType == BACKGROUND_TYPE_FUNCTIONAL && mKeyboardParams.mId.isAlphabetKeyboard())
+                        // bad workaround for the ugly comma label on period key, todo: do it better when re-working moreKey stuff
+                        hintLabel = null;
                 } else {
                     hintLabel = layoutMoreKeys == null ? null : KeySpecParser.getLabel(layoutMoreKeys[0]); // note that some entries may have been changed to other string or null
                     // todo: this should be adjusted when re-working moreKey stuff... also KeySpecParser.getLabel may throw, which is bad when users do uncommon things
@@ -1322,6 +1354,47 @@ public class Key implements Comparable<Key> {
             // todo (later): make sure these keys look ok when migrating the non-latin layouts (+pc qwerty)
             mKeyVisualAttributes = null;
             mEnabled = true;
+        }
+
+        /** constructor for emoji parser */ // essentially the same as the GridRows constructor, but without coordinates and outputText
+        public KeyParams(@Nullable final String label, final int code, @Nullable final String hintLabel,
+                   @Nullable final String moreKeySpecs, final int labelFlags, final KeyboardParams params) {
+            mKeyboardParams = params;
+            mHintLabel = hintLabel;
+            mLabelFlags = labelFlags;
+            mBackgroundType = BACKGROUND_TYPE_EMPTY;
+
+            if (moreKeySpecs != null) {
+                String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
+                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
+
+                moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
+                int actionFlags = 0;
+                if (moreKeys != null) {
+                    actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
+                    mMoreKeys = new MoreKeySpec[moreKeys.length];
+                    for (int i = 0; i < moreKeys.length; i++) {
+                        mMoreKeys[i] = new MoreKeySpec(moreKeys[i], false, Locale.getDefault());
+                    }
+                } else {
+                    mMoreKeys = null;
+                }
+                mActionFlags = actionFlags;
+            } else {
+                // TODO: Pass keyActionFlags as an argument.
+                mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
+                mMoreKeys = null;
+                mMoreKeysColumnAndFlags = 0;
+            }
+
+            mLabel = label;
+            mOptionalAttributes = code == Constants.CODE_OUTPUT_TEXT
+                    ? OptionalAttributes.newInstance(label, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0)
+                    : null;
+            mCode = code;
+            mEnabled = (code != CODE_UNSPECIFIED);
+            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
+            mKeyVisualAttributes = null;
         }
 
         /** constructor for <GridRows/> */

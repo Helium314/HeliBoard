@@ -67,6 +67,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setupHistoryRetentionTimeSettings();
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         setLocalizedNumberRowVisibility();
+        findPreference(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
     }
 
     @Override
@@ -77,10 +78,13 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
-        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key))
+        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key) || Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY.equals(key))
             mReloadKeyboard = true;
         if (key.equals(Settings.PREF_LOCALIZED_NUMBER_ROW))
             KeyboardLayoutSet.onSystemLocaleChanged();
+        if (Settings.PREF_SHOW_HINTS.equals(key)) {
+            findPreference(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+        }
     }
 
     @Override

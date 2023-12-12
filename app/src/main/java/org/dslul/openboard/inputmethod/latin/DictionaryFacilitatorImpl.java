@@ -609,7 +609,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // increase / decrease confidence if we have more than one dictionary group
         boolean[] validWordForDictionary; // store results to avoid unnecessary duplicate lookups
-        if (mDictionaryGroups.size() > 1 && words.length == 1) {
+        if (mDictionaryGroups.size() > 1 && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
             validWordForDictionary = new boolean[mDictionaryGroups.size()];
             // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
             final String decapitalizedSuggestion;
@@ -630,9 +630,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // add word to user dictionary if it is in no other dictionary except user history dictionary,
         // reasoning: typing the same word again -> we probably want it in some dictionary permanently
-        if (mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions to be on
-                && Settings.getInstance().getCurrent().mAddToPersonalDictionary // ...and the setting
-                && !wasAutoCapitalized && words.length == 1) {
+        if (Settings.getInstance().getCurrent().mAddToPersonalDictionary // require the setting
+                && mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions
+                && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
+                && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
             addToPersonalDictionaryIfInvalidButInHistory(suggestion, validWordForDictionary);
         }
 
@@ -898,10 +899,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             // (if the main dict contains shortcuts to non-words, this will break)
             final boolean checkForGarbage = composedData.mIsBatchMode && (dictType.equals(Dictionary.TYPE_USER_HISTORY) || dictType.equals(Dictionary.TYPE_MAIN));
             for (SuggestedWordInfo info : dictionarySuggestions) {
-                if (!isBlacklisted(info.getWord())) { // don't add blacklisted words
+                final String word = info.getWord();
+                if (!isBlacklisted(word)) { // don't add blacklisted words
                     if (checkForGarbage
-                            && info.mSourceDict.mDictType.equals(dictType) // to only check history and "main main dictionary", and not addons like emoji
-                            && !dictionary.isInDictionary(info.getWord()))
+                            // only check history and "main main dictionary"
+                            // consider the user might use custom main dictionary containing shortcuts
+                            //  assume this is unlikely to happen, and take care about common shortcuts that are not actual words (emoji, symbols)
+                            && word.length() > 2 // should exclude most symbol shortcuts
+                            && info.mSourceDict.mDictType.equals(dictType) // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
+                            && !StringUtils.mightBeEmoji(word) // emojis often have more than 2 chars; simplified check for performance reasons
+                            && !dictionary.isInDictionary(word))
                         continue;
                     suggestions.add(info);
                 }

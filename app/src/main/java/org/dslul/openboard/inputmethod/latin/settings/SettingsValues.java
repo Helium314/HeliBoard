@@ -66,6 +66,7 @@ public class SettingsValues {
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
     public final boolean mShowsHints;
+    public final boolean mHintLabelFromFirstMoreKey;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mSpaceLanguageSlide;
@@ -152,6 +153,7 @@ public class SettingsValues {
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
+        mHintLabelFromFirstMoreKey = mShowsHints && prefs.getBoolean(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY, false);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);

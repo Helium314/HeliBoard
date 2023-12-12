@@ -266,6 +266,7 @@
         <attr name="iconEmojiNormalKey" format="reference" />
         <attr name="iconClipboardActionKey" format="reference" />
         <attr name="iconClipboardNormalKey" format="reference" />
+        <attr name="iconCopyKey" format="reference" />
         <attr name="iconClearClipboardKey" format="reference" />
         <attr name="iconStartOneHandedMode" format="reference" />
         <attr name="iconStopOneHandedMode" format="reference" />
