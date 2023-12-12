@@ -113,7 +113,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             @Override
             public void onChange(boolean self) {
                 mSuggestionsCache.clearCache();
-                mService.clearCacheForLocale(mLocale);
             }
         };
         cres.registerContentObserver(Words.CONTENT_URI, true, mObserver);
