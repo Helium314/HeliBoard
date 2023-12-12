@@ -15,7 +15,6 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
-import androidx.preference.TwoStatePreference
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
@@ -299,17 +298,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_MORE_KEYS, Settings.PREF_USE_NEW_KEYBOARD_PARSING -> KeyboardLayoutSet.onSystemLocaleChanged()
-        }
-        if (Settings.PREF_OPENBOARD_PERSONAL_DICTIONARY == key && prefs.getBoolean(key, true)) {
-            val dialog = AlertDialog.Builder(requireContext())
-            dialog
-                .setTitle(R.string.openboard_personal_dictionary_title)
-                .setMessage(R.string.openboard_personal_dictionary_message)
-                .setNegativeButton(
-                    android.R.string.cancel) { _, _ -> (findPreference<Preference>(key) as TwoStatePreference?)!!.isChecked = false
-                }
-                .setPositiveButton(android.R.string.ok, null)
-                .show()
         }
     }
 }

@@ -65,6 +65,13 @@
         android:summary="%s"
         android:persistent="true" />
 
+    <SwitchPreferenceCompat
+        android:key="openboard_personal_dictionary"
+        android:title="@string/openboard_personal_dictionary_title"
+        android:summary="@string/openboard_personal_dictionary_summary"
+        android:defaultValue="false"
+        android:persistent="true" />
+
     <Preference
         android:key="pref_backup_restore"
         android:title="@string/backup_restore_title" />
@@ -96,13 +103,6 @@
             android:title="@string/url_detection_title"
             android:summary="@string/url_detection_summary"
             android:defaultValue="false" />
-
-        <SwitchPreferenceCompat
-            android:key="openboard_personal_dictionary"
-            android:title="@string/openboard_personal_dictionary_title"
-            android:summary="@string/openboard_personal_dictionary_summary"
-            android:defaultValue="false"
-            android:persistent="true" />
 
         <Preference
             android:key="load_gesture_library"

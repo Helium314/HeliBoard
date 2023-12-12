@@ -211,9 +211,6 @@
     <string name="openboard_personal_dictionary_title">Openboard Personal dictionary</string>
     <!-- Summary about using the Openboard Personal dictionary -->
     <string name="openboard_personal_dictionary_summary">Use Openboard\'s personal dictionary instead of Android\'s personal dictionary.</string>
-    <!-- Message about using the Openboard Personal dictionary -->
-    <string name="openboard_personal_dictionary_message">Warning: Openboard\'s personal dictionary may have fewer functions than Android\'s personal dictionary.
-    \n\nDo you want to use it anyway?</string>
     <!-- Preferences item for disabling word learning -->
     <string name="prefs_force_incognito_mode">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
