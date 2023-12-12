@@ -149,7 +149,7 @@
     </application>
 
     <queries>
-        <!-- other IMEs -->
+        <!-- To detect other IMEs -->
         <intent>
             <action android:name="android.view.InputMethod"/>
         </intent>
