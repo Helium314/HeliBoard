@@ -47,11 +47,11 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
         PermissionsManager.PermissionsResultCallback {
 
-    private static final boolean DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS = true;
-    private boolean USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS() {
+    private static final boolean OPENBOARD_PERSONAL_DICTIONARY_SETTINGS = true;
+    private boolean SYSTEM_PERSONAL_DICTIONARY_SETTINGS() {
         final SettingsValues settingsValues = Settings.getInstance().getCurrent();
         if (settingsValues.mOpenboardPersonalDictionary) {
-            return DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS;
+            return OPENBOARD_PERSONAL_DICTIONARY_SETTINGS;
         }
         return false;
     }
@@ -68,7 +68,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         final Preference editPersonalDictionary =
                 findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
         final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
-        final ResolveInfo ri = USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS() ? null
+        final ResolveInfo ri = SYSTEM_PERSONAL_DICTIONARY_SETTINGS() ? null
                 : pm.resolveActivity(editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);

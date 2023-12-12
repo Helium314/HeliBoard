@@ -7,6 +7,7 @@
     android:id="@+id/user_dict_settings_add_dialog_top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingHorizontal="8dp"
     android:orientation="vertical" >
 
     <EditText
@@ -14,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal|center_vertical"
-        android:layout_marginBottom="8dip"
-        android:layout_marginStart="8dip"
-        android:layout_marginTop="8dip"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/user_dict_settings_add_word_hint"
         android:imeOptions="flagNoFullscreen"
         android:inputType="textNoSuggestions"
@@ -29,13 +30,13 @@
         android:id="@+id/user_dictionary_add_word_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dip"
-        android:layout_marginStart="8dip"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:columnCount="2" >
 
         <TextView
             android:id="@+id/user_dictionary_add_shortcut_label"
-            style="?android:attr/textAppearanceSmall"
+            style="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
@@ -45,31 +46,50 @@
             android:id="@+id/user_dictionary_add_shortcut"
             android:layout_width="wrap_content"
             android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="8dip"
-            android:layout_marginStart="8dip"
-            android:layout_marginTop="8dip"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/user_dict_settings_add_shortcut_hint"
             android:imeOptions="flagNoFullscreen"
             android:inputType="textNoSuggestions"
             android:maxLength="@integer/config_user_dictionary_max_word_length" />
 
         <TextView
-            android:id="@+id/user_dictionary_add_locale_label"
-            style="?android:attr/textAppearanceSmall"
+            android:id="@+id/user_dictionary_add_frequency_label"
+            style="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:text="@string/user_dict_settings_add_locale_option_name"
-            android:visibility="gone" />
+            android:text="@string/user_dict_settings_add_frequency_name"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/user_dictionary_add_frequency"
+            android:layout_width="wrap_content"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/user_dict_settings_add_frequency_hint"
+            android:imeOptions="flagNoFullscreen"
+            android:inputType="phone"
+            android:maxLength="3" />
+
+        <TextView
+            android:id="@+id/user_dictionary_add_locale_label"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:text="@string/user_dict_settings_add_locale_option_name" />
 
         <Spinner
             android:id="@+id/user_dictionary_add_locale"
             android:layout_width="wrap_content"
             android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="8dip"
-            android:layout_marginStart="8dip"
-            android:layout_marginTop="8dip"
-            android:visibility="gone" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" />
     </GridLayout>
 
 </LinearLayout>

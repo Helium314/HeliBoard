@@ -18,7 +18,8 @@
         android:clipToPadding="false"
         android:drawSelectorOnTop="false"
         android:paddingTop="0dip"
-        android:scrollbarAlwaysDrawVerticalTrack="true" />
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:divider="@null" />
 
     <TextView
         android:id="@android:id/empty"

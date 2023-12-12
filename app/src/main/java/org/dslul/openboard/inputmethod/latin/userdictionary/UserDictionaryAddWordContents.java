@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.EditText;
 
@@ -36,10 +37,12 @@ import java.util.TreeSet;
 public class UserDictionaryAddWordContents {
     public static final String EXTRA_MODE = "mode";
     public static final String EXTRA_WORD = "word";
+    public static final String EXTRA_FREQUENCY = "frequency";
     public static final String EXTRA_SHORTCUT = "shortcut";
     public static final String EXTRA_LOCALE = "locale";
     public static final String EXTRA_ORIGINAL_WORD = "originalWord";
     public static final String EXTRA_ORIGINAL_SHORTCUT = "originalShortcut";
+    public static final String EXTRA_ORIGINAL_FREQUENCY = "originalFrequency";
 
     public static final int MODE_EDIT = 0;
     public static final int MODE_INSERT = 1;
@@ -53,15 +56,21 @@ public class UserDictionaryAddWordContents {
     private final int mMode; // Either MODE_EDIT or MODE_INSERT
     private final EditText mWordEditText;
     private final EditText mShortcutEditText;
+    private final EditText mFrequencyEditText;
     private String mLocale;
     private final String mOldWord;
     private final String mOldShortcut;
+    private final String mOldFrequency;
     private String mSavedWord;
     private String mSavedShortcut;
+    private String mSavedFrequency;
 
     /* package */ UserDictionaryAddWordContents(final View view, final Bundle args) {
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
+        mFrequencyEditText = view.findViewById(R.id.user_dictionary_add_frequency);
+        mFrequencyEditText.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             mShortcutEditText.setVisibility(View.GONE);
             view.findViewById(R.id.user_dictionary_add_shortcut_label).setVisibility(View.GONE);
@@ -82,6 +91,13 @@ public class UserDictionaryAddWordContents {
         } else {
             mOldShortcut = null;
         }
+
+        final String frequency = args.getString(EXTRA_FREQUENCY);
+        if (null != frequency) {
+            mFrequencyEditText.setText(frequency);
+        }
+        mOldFrequency = args.getString(EXTRA_FREQUENCY);
+
         mMode = args.getInt(EXTRA_MODE); // default return value for #getInt() is 0 = MODE_EDIT
         mOldWord = args.getString(EXTRA_WORD);
         updateLocale(args.getString(EXTRA_LOCALE));
@@ -91,9 +107,11 @@ public class UserDictionaryAddWordContents {
             final UserDictionaryAddWordContents oldInstanceToBeEdited) {
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
+        mFrequencyEditText = view.findViewById(R.id.user_dictionary_add_frequency);
         mMode = MODE_EDIT;
         mOldWord = oldInstanceToBeEdited.mSavedWord;
         mOldShortcut = oldInstanceToBeEdited.mSavedShortcut;
+        mOldFrequency = oldInstanceToBeEdited.mSavedFrequency;
         updateLocale(mLocale);
     }
 
@@ -106,6 +124,10 @@ public class UserDictionaryAddWordContents {
     /* package */ void saveStateIntoBundle(final Bundle outState) {
         outState.putString(EXTRA_WORD, mWordEditText.getText().toString());
         outState.putString(EXTRA_ORIGINAL_WORD, mOldWord);
+
+        outState.putString(EXTRA_FREQUENCY, mFrequencyEditText.getText().toString());
+        outState.putString(EXTRA_ORIGINAL_FREQUENCY, mOldFrequency);
+
         if (null != mShortcutEditText) {
             outState.putString(EXTRA_SHORTCUT, mShortcutEditText.getText().toString());
         }
@@ -134,6 +156,7 @@ public class UserDictionaryAddWordContents {
         }
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
+        final String newFrequency;
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             newShortcut = null;
         } else if (null == mShortcutEditText) {
@@ -146,17 +169,28 @@ public class UserDictionaryAddWordContents {
                 newShortcut = tmpShortcut;
             }
         }
+        if (mFrequencyEditText == null) {
+            newFrequency = String.valueOf(FREQUENCY_FOR_USER_DICTIONARY_ADDS);
+        } else {
+            final String tmpFrequency = mFrequencyEditText.getText().toString();
+            if (TextUtils.isEmpty(tmpFrequency)) {
+                newFrequency = String.valueOf(FREQUENCY_FOR_USER_DICTIONARY_ADDS);
+            } else {
+                newFrequency = tmpFrequency;
+            }
+        }
         if (TextUtils.isEmpty(newWord)) {
             // If the word is somehow empty, don't insert it.
             return CODE_CANCEL;
         }
         mSavedWord = newWord;
         mSavedShortcut = newShortcut;
+        mSavedFrequency = newFrequency;
         // If there is no shortcut, and the word already exists in the database, then we
         // should not insert, because either A. the word exists with no shortcut, in which
         // case the exact same thing we want to insert is already there, or B. the word
         // exists with at least one shortcut, in which case it has priority on our word.
-        if (TextUtils.isEmpty(newShortcut) && hasWord(newWord, context)) {
+        if (TextUtils.isEmpty(newShortcut) && hasWord(newWord, context) || TextUtils.isEmpty(newFrequency) && hasWord(newWord, context)) {
             return CODE_ALREADY_PRESENT;
         }
 
@@ -172,7 +206,7 @@ public class UserDictionaryAddWordContents {
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
         // be null. However the addWord method takes null to mean 'all locales'.
         UserDictionary.Words.addWord(context, newWord,
-                FREQUENCY_FOR_USER_DICTIONARY_ADDS, newShortcut, TextUtils.isEmpty(mLocale) ?
+                Integer.parseInt(newFrequency), newShortcut, TextUtils.isEmpty(mLocale) ?
                         null : LocaleUtils.constructLocaleFromString(mLocale));
 
         return CODE_WORD_ADDED;
@@ -210,9 +244,16 @@ public class UserDictionaryAddWordContents {
 
         public LocaleRenderer(final Context context, @Nullable final String localeString) {
             mLocaleString = localeString;
-            if (null == localeString) {
+            // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+/*            if (null == localeString) {
                 mDescription = context.getString(R.string.user_dict_settings_more_languages);
             } else if ("".equals(localeString)) {
+                mDescription = context.getString(R.string.user_dict_settings_all_languages);
+            } else {
+                mDescription = LocaleUtils.constructLocaleFromString(localeString).getDisplayName();
+            }*/
+            // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+            if (null == localeString || "".equals(localeString)) {
                 mDescription = context.getString(R.string.user_dict_settings_all_languages);
             } else {
                 mDescription = LocaleUtils.constructLocaleFromString(localeString).getDisplayName();
@@ -226,9 +267,10 @@ public class UserDictionaryAddWordContents {
             return mLocaleString;
         }
         // "More languages..." is null ; "All languages" is the empty string.
-        public boolean isMoreLanguages() {
+        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+/*        public boolean isMoreLanguages() {
             return null == mLocaleString;
-        }
+        }*/
     }
 
     private static void addLocaleDisplayNameToList(final Context context,
@@ -262,7 +304,8 @@ public class UserDictionaryAddWordContents {
             // If mLocale is "", then we already inserted the "all languages" item, so don't do it
             addLocaleDisplayNameToList(activity, localesList, ""); // meaning: all languages
         }
-        localesList.add(new LocaleRenderer(activity, null)); // meaning: select another locale
+        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+        // localesList.add(new LocaleRenderer(activity, null)); // meaning: select another locale
         return localesList;
     }
 

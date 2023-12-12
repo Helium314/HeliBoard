@@ -45,33 +45,33 @@ public class UserDictionarySettings extends ListFragment {
     public static final boolean IS_SHORTCUT_API_SUPPORTED = true;
 
     private static final String[] QUERY_PROJECTION_SHORTCUT_UNSUPPORTED =
-            { UserDictionary.Words._ID, UserDictionary.Words.WORD};
+            { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.FREQUENCY };
     private static final String[] QUERY_PROJECTION_SHORTCUT_SUPPORTED =
-            { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT};
+            { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT, UserDictionary.Words.FREQUENCY };
     private static final String[] QUERY_PROJECTION = IS_SHORTCUT_API_SUPPORTED
             ? QUERY_PROJECTION_SHORTCUT_SUPPORTED
             : QUERY_PROJECTION_SHORTCUT_UNSUPPORTED;
 
     // The index of the shortcut in the above array.
     private static final int INDEX_SHORTCUT = 2;
-
+    private static final int INDEX_FREQUENCY = 3;
     private static final String[] ADAPTER_FROM_SHORTCUT_UNSUPPORTED = {
-        UserDictionary.Words.WORD,
+        UserDictionary.Words.WORD, UserDictionary.Words.FREQUENCY
     };
 
     private static final String[] ADAPTER_FROM_SHORTCUT_SUPPORTED = {
-        UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT
+        UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT, UserDictionary.Words.FREQUENCY
     };
 
     private static final String[] ADAPTER_FROM = IS_SHORTCUT_API_SUPPORTED ?
             ADAPTER_FROM_SHORTCUT_SUPPORTED : ADAPTER_FROM_SHORTCUT_UNSUPPORTED;
 
     private static final int[] ADAPTER_TO_SHORTCUT_UNSUPPORTED = {
-        android.R.id.text1,
+            R.id.user_dictionary_item_word
     };
 
     private static final int[] ADAPTER_TO_SHORTCUT_SUPPORTED = {
-        android.R.id.text1, android.R.id.text2
+            R.id.user_dictionary_item_word, R.id.user_dictionary_item_shortcut
     };
 
     private static final int[] ADAPTER_TO = IS_SHORTCUT_API_SUPPORTED ?
@@ -205,8 +205,9 @@ public class UserDictionarySettings extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         final String word = getWord(position);
         final String shortcut = getShortcut(position);
+        final String frequency = getFrequency(position);
         if (word != null) {
-            showAddOrEditDialog(word, shortcut);
+            showAddOrEditDialog(word, shortcut, frequency);
         }
     }
 
@@ -229,7 +230,7 @@ public class UserDictionarySettings extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
-            showAddOrEditDialog(null, null);
+            showAddOrEditDialog(null, null, null);
             return true;
         }
         return false;
@@ -240,13 +241,14 @@ public class UserDictionarySettings extends ListFragment {
      * @param editingWord the word to edit, or null if it's an add.
      * @param editingShortcut the shortcut for this entry, or null if none.
      */
-    private void showAddOrEditDialog(final String editingWord, final String editingShortcut) {
+    private void showAddOrEditDialog(final String editingWord, final String editingShortcut, final String editingFrequency) {
         final Bundle args = new Bundle();
         args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, null == editingWord
                 ? UserDictionaryAddWordContents.MODE_INSERT
                 : UserDictionaryAddWordContents.MODE_EDIT);
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, editingWord);
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, editingShortcut);
+        args.putString(UserDictionaryAddWordContents.EXTRA_FREQUENCY, editingFrequency);
         args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.getSupportFragmentManager().beginTransaction()
@@ -276,6 +278,16 @@ public class UserDictionarySettings extends ListFragment {
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.SHORTCUT));
     }
 
+    private String getFrequency(final int position) {
+        if (null == mCursor) return null;
+        mCursor.moveToPosition(position);
+        // Handle a possible race-condition
+        if (mCursor.isAfterLast()) return null;
+
+        return mCursor.getString(
+                mCursor.getColumnIndexOrThrow(UserDictionary.Words.FREQUENCY));
+    }
+
     public static void deleteWord(final String word, final String shortcut,
             final ContentResolver resolver) {
         if (!IS_SHORTCUT_API_SUPPORTED) {
@@ -292,21 +304,33 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 
-    private static class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
+    private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
         private AlphabetIndexer mIndexer;
 
         private final ViewBinder mViewBinder = (v, c, columnIndex) -> {
+            final String frequencyTitle = String.format(getString(R.string.user_dict_settings_add_frequency_name));
+            final String frequencyText = c.getString(INDEX_FREQUENCY);
+            final String frequency = frequencyTitle + " " + frequencyText;
+
+            final String shortcutTitle = String.format(getString(R.string.user_dict_settings_add_shortcut_option_name));
+            final String shortcutText = c.getString(INDEX_SHORTCUT);
+            final String shortcut = shortcutTitle + " " + shortcutText;
+
+            final String frequencyAndShortcut = frequency + "  |  " + shortcut;
+
             if (!IS_SHORTCUT_API_SUPPORTED) {
                 // just let SimpleCursorAdapter set the view values
+                if (columnIndex == INDEX_FREQUENCY) {
+                    ((TextView)v).setText(frequency);
+                    return true;
+                }
                 return false;
             }
             if (columnIndex == INDEX_SHORTCUT) {
-                final String shortcut = c.getString(INDEX_SHORTCUT);
-                if (TextUtils.isEmpty(shortcut)) {
-                    v.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(shortcutText)) {
+                    ((TextView)v).setText(frequency);
                 } else {
-                    ((TextView)v).setText(shortcut);
-                    v.setVisibility(View.VISIBLE);
+                    ((TextView)v).setText(frequencyAndShortcut);
                 }
                 v.invalidate();
                 return true;

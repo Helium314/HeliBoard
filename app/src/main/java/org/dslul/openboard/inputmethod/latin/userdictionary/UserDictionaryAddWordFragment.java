@@ -6,8 +6,13 @@
 
 package org.dslul.openboard.inputmethod.latin.userdictionary;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -82,16 +88,30 @@ public class UserDictionaryAddWordFragment extends Fragment
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0,
-                R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_plus);
-        actionItemAdd.setShowAsAction(
-                MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 24);
         final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0,
-                R.string.user_dict_settings_delete).setIcon(R.drawable.ic_delete);
+                R.string.user_dict_settings_delete).setIcon(deleteIcon);
         actionItemDelete.setShowAsAction(
                 MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         if (actionItemDelete.getIcon() != null)
             actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
+
+        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0,
+                R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_plus);
+        actionItemAdd.setShowAsAction(
+                MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+    }
+
+    // The bin icon is too big compared to the plus icon; we need to reduce it.
+    // We therefore need to convert the Vector drawable image to Bitmap.
+    private BitmapDrawable getBitmapFromVectorDrawable(int drawable, float size) {
+        final int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size + 0.5f, getResources().getDisplayMetrics());;
+        Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), drawable);
+        vectorDrawable.setBounds(0, 0, /*right*/ px, /*bottom*/ px);
+        Bitmap bitmap = Bitmap.createBitmap(/*width*/ px, /*height*/ px, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return new BitmapDrawable(getResources(), bitmap);
     }
 
     /**
@@ -164,7 +184,8 @@ public class UserDictionaryAddWordFragment extends Fragment
     public void onItemSelected(final AdapterView<?> parent, final View view, final int pos,
             final long id) {
         final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(pos);
-        if (locale.isMoreLanguages()) {
+        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+/*        if (locale.isMoreLanguages()) {
             AppCompatActivity activity = (AppCompatActivity) requireActivity();
             activity.getSupportFragmentManager().beginTransaction()
                     .replace(android.R.id.content, new UserDictionaryLocalePicker())
@@ -172,7 +193,9 @@ public class UserDictionaryAddWordFragment extends Fragment
                     .commit();
         } else {
             mContents.updateLocale(locale.getLocaleString());
-        }
+        }*/
+        // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+        mContents.updateLocale(locale.getLocaleString());
     }
 
     @Override
