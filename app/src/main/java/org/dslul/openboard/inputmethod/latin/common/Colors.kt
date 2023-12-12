@@ -250,7 +250,7 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
         ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
-        ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
+        ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
         else -> Color.WHITE
     }
 
@@ -442,7 +442,7 @@ class OriginalColors (
         ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
-        ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
+        ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
         else -> Color.WHITE
     }
 
@@ -543,6 +543,7 @@ enum class ColorType {
     KEY_ICON,
     KEY_PREVIEW_VIEW,
     KEY_TEXT,
+    MORE_SUGGESTIONS_HINT,
     NAV_BAR,
     PINNED_ICON,
     SHIFT_KEY_ICON,

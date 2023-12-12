@@ -126,6 +126,7 @@ final class SuggestionStripLayoutHelper {
         mColorTypedWord = colors.get(ColorType.TYPED_WORD); //a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
         mColorAutoCorrect = colors.get(ColorType.COLOR_AUTO_CORRECT); //a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
         mColorSuggested = colors.get(ColorType.SUGGESTED_WORD); //a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
+        final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(
                 R.styleable.SuggestionStripView_suggestionsCountInStrip,
@@ -142,7 +143,7 @@ final class SuggestionStripLayoutHelper {
 
         mMoreSuggestionsHint = getMoreSuggestionsHint(res,
                 res.getDimension(R.dimen.config_more_suggestions_hint_text_size),
-                mColorAutoCorrect);
+                colorMoreSuggestionsHint);
         mCenterPositionInStrip = mSuggestionsCountInStrip / 2;
         // Assuming there are at least three suggestions. Also, note that the suggestions are
         // laid out according to script direction, so this is left of the center for LTR scripts
