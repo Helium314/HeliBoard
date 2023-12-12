@@ -195,8 +195,7 @@ public final class ResourceUtils {
 
     private static int getDefaultKeyboardHeight(final Resources res, final boolean showsNumberRow) {
         final DisplayMetrics dm = res.getDisplayMetrics();
-        // increase height by 20% if number row is enabled
-        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height) * (showsNumberRow ? 1.2f : 1f);
+        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height) * (showsNumberRow ? 1.25f : 1f);
         final float maxKeyboardHeight = res.getFraction(
                 R.fraction.config_max_keyboard_height, dm.heightPixels, dm.heightPixels);
         float minKeyboardHeight = res.getFraction(
