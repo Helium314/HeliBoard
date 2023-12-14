@@ -8,8 +8,9 @@ jar {
     }
 }
 
-task makeText(type: JavaExec, dependsOn: ['jar']) {
-    main = '-jar'
+tasks.register('makeText', JavaExec) {
+    dependsOn['jar']
+    mainClass = '-jar'
     args jar.archiveFile.get()
     args '-java'
     args project.rootProject.project('app').projectDir.path + File.separator + 'src' +
