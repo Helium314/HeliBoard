@@ -47,11 +47,8 @@ interface Colors {
     /**  keep adjusted background (double) as a value instead of calculating it each time */
     val adjustedBackground: Int
     val doubleAdjustedBackground: Int
+    val hasKeyBorders: Boolean
 
-    fun hasKeyBorders(context: Context): Boolean {
-        val prefs: SharedPreferences = DeviceProtectedUtils.getSharedPreferences(context)
-        return prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
-    }
     @ColorInt fun get(color: ColorType): Int
     fun setColorFilter(color: ColorType): ColorFilter?
     fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable
@@ -61,7 +58,7 @@ interface Colors {
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
-class DynamicColors(context: Context, override val themeStyle: String) : Colors {
+class DynamicColors(context: Context, override val themeStyle: String, override val hasKeyBorders: Boolean) : Colors {
 
     private val isNight = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
@@ -173,13 +170,13 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
             if (themeStyle == STYLE_HOLO) {
                 stateList(accent, adjustedBackground)
             } else if (isNight) {
-                if (hasKeyBorders(context)) stateList(doubleAdjustedAccent, keyBackground)
+                if (hasKeyBorders) stateList(doubleAdjustedAccent, keyBackground)
                 else stateList(adjustedAccent, adjustedKeyBackground)
             } else {
                 stateList(accent, Color.WHITE)
             }
 
-        suggestionBackgroundList = if (!hasKeyBorders(context) && themeStyle == STYLE_MATERIAL)
+        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
             stateList(doubleAdjustedBackground, Color.TRANSPARENT)
         else
             stateList(adjustedBackground, Color.TRANSPARENT)
@@ -188,7 +185,7 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
             if (themeStyle == STYLE_HOLO) colorFilter(adjustedBackground)
             else colorFilter(keyBackground)
 
-        if (hasKeyBorders(context)) {
+        if (hasKeyBorders) {
             backgroundStateList =
                 if (!isNight) stateList(adjustedFunctionalKey, background)
                 else stateList(adjustedKeyBackground, background)
@@ -291,11 +288,11 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
             BackgroundType.SPACE -> {
-                if (hasKeyBorders(context)) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
                 else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
             }
             BackgroundType.ACTION -> {
-                if (themeStyle == STYLE_HOLO && hasKeyBorders(context)) // no borders has a very small pressed drawable otherwise
+                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
                     attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
                 else
                     attr.getDrawable(R.styleable.KeyboardView_keyBackground)
@@ -326,8 +323,8 @@ class DynamicColors(context: Context, override val themeStyle: String) : Colors 
 }
 
 class OriginalColors (
-    context: Context,
     override val themeStyle: String,
+    override val hasKeyBorders: Boolean,
     private val accent: Int,
     private val gesture: Int,
     private val background: Int,
@@ -395,13 +392,13 @@ class OriginalColors (
             doubleAdjustedBackground = darken(adjustedBackground)
         }
         adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
-        suggestionBackgroundList = if (!hasKeyBorders(context) && themeStyle == STYLE_MATERIAL)
+        suggestionBackgroundList = if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
             stateList(doubleAdjustedBackground, Color.TRANSPARENT)
         else
             stateList(adjustedBackground, Color.TRANSPARENT)
 
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
-        if (hasKeyBorders(context)) {
+        if (hasKeyBorders) {
 //            keyBackgroundFilter = colorFilter(keyBackground)
 //            functionalKeyBackgroundFilter = colorFilter(functionalKey)
 //            spaceBarFilter = colorFilter(spaceBar)
@@ -468,7 +465,7 @@ class OriginalColors (
             BackgroundType.ACTION -> actionKeyStateList
             BackgroundType.SPACE -> spaceBarStateList
             BackgroundType.ADJUSTED_BACKGROUND -> adjustedBackgroundStateList
-            BackgroundType.SUGGESTION -> if (!hasKeyBorders(context) && themeStyle == STYLE_MATERIAL)
+            BackgroundType.SUGGESTION -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL)
                     adjustedBackgroundStateList
                 else backgroundStateList
             BackgroundType.ACTION_MORE_KEYS -> if (themeStyle == STYLE_HOLO)
@@ -486,11 +483,11 @@ class OriginalColors (
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             BackgroundType.FUNCTIONAL -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
             BackgroundType.SPACE -> {
-                if (hasKeyBorders(context)) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
                 else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
             }
             BackgroundType.ACTION -> {
-                if (themeStyle == STYLE_HOLO && hasKeyBorders(context)) // no borders has a very small pressed drawable otherwise
+                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
                     attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
                 else
                     attr.getDrawable(R.styleable.KeyboardView_keyBackground)

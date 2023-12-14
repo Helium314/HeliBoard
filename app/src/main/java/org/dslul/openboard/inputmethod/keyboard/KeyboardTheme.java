@@ -151,11 +151,12 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     }
 
     public static Colors getThemeColors(final String themeColors, final String themeStyle, final Context context, final SharedPreferences prefs) {
+        final boolean hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false);
         switch (themeColors) {
             case THEME_USER:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
@@ -168,8 +169,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_USER_NIGHT:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
@@ -182,8 +183,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_DARK:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         // colors taken from the drawable
@@ -197,8 +198,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_HOLO_WHITE:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
                         // colors taken from the drawable
@@ -212,8 +213,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_DARKER:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_dark_border),
@@ -226,8 +227,8 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_BLACK:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.background_amoled_black),
@@ -240,13 +241,13 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 );
             case THEME_DYNAMIC:
                 if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
-                    return new DynamicColors(context, themeStyle);
+                    return new DynamicColors(context, themeStyle, hasBorders);
                 }
             case THEME_LIGHT:
             default:
                 return new OriginalColors(
-                        context,
                         themeStyle,
+                        hasBorders,
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
                         ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
