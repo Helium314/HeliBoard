@@ -3,7 +3,6 @@
 package org.dslul.openboard.inputmethod.latin.common
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.TypedArray
@@ -30,10 +29,8 @@ import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView
 import org.dslul.openboard.inputmethod.latin.KeyboardWrapperView
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.adjustLuminosityAndKeepAlpha
 import org.dslul.openboard.inputmethod.latin.utils.brighten
 import org.dslul.openboard.inputmethod.latin.utils.brightenOrDarken
@@ -322,7 +319,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     }
 }
 
-class OriginalColors (
+class DefaultColors (
     override val themeStyle: String,
     override val hasKeyBorders: Boolean,
     private val accent: Int,
