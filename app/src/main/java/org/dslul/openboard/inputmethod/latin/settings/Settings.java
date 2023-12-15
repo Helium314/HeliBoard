@@ -218,6 +218,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mContext = context;
         try {
             final SharedPreferences prefs = mPrefs;
+            Log.i(TAG, "loadSettings");
             final RunInLocale<SettingsValues> job = new RunInLocale<SettingsValues>() {
                 @Override
                 protected SettingsValues job(final Resources res) {
