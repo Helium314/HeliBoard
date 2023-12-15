@@ -7,7 +7,7 @@
 package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;

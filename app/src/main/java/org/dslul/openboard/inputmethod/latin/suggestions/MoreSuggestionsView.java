@@ -8,7 +8,7 @@ package org.dslul.openboard.inputmethod.latin.suggestions;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 

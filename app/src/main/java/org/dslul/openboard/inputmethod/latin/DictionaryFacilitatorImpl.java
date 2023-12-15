@@ -10,7 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.LruCache;
 
 import androidx.annotation.NonNull;

@@ -8,7 +8,7 @@ package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.util.JsonReader;
 import android.util.JsonWriter;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import java.io.Closeable;
 import java.io.IOException;

@@ -14,7 +14,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;

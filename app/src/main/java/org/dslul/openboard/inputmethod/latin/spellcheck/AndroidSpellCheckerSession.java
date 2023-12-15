@@ -9,7 +9,7 @@ package org.dslul.openboard.inputmethod.latin.spellcheck;
 import android.content.res.Resources;
 import android.os.Binder;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;

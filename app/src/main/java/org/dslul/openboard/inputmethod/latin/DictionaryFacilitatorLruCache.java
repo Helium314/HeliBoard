@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.content.Context;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;

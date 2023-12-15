@@ -11,7 +11,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.core.graphics.PaintCompat;
 import org.dslul.openboard.inputmethod.keyboard.Key;

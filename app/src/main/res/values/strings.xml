@@ -661,11 +661,13 @@ New dictionary:
     <!-- version for about screen-->
     <string name="version">Version</string>
     <!-- github repo link for about screen-->
-    <string name="about_github_link" >View on GitHub</string>
+    <string name="about_github_link">View on GitHub</string>
+    <!-- preference title for saving the log to a file -->
+    <string name="save_log">Save log</string>
     <!-- license for about screen-->
-    <string name="license" >Open-source license</string>
+    <string name="license">Open-source license</string>
     <!-- license link for about screen-->
-    <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
     <!-- Preference for selecting system locales -->

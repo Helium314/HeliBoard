@@ -6,7 +6,7 @@
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 

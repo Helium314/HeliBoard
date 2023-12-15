@@ -12,7 +12,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.TypedValue;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;

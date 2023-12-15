@@ -7,7 +7,7 @@ import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.TypedValue;
 import android.util.Xml;
 

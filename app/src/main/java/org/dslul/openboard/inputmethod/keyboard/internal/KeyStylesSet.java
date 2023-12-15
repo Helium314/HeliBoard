@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.content.res.TypedArray;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;

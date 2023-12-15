@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.accessibility
 
 import android.os.SystemClock
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.accessibility.AccessibilityEvent

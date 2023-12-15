@@ -9,7 +9,7 @@ package org.dslul.openboard.inputmethod.latin;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 public class DictionaryDumpBroadcastReceiver extends BroadcastReceiver {
   private static final String TAG = DictionaryDumpBroadcastReceiver.class.getSimpleName();

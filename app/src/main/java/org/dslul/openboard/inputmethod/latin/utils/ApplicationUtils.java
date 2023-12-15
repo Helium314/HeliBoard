@@ -12,7 +12,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 public final class ApplicationUtils {
     private static final String TAG = ApplicationUtils.class.getSimpleName();

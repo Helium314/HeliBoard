@@ -11,7 +11,7 @@ import static java.lang.Math.abs;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodSubtype;
 

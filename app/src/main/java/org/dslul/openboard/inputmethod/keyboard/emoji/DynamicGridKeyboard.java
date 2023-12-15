@@ -10,7 +10,7 @@ import static org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.
 
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

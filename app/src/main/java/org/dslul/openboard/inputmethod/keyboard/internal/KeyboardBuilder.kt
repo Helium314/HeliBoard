@@ -7,7 +7,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal
 
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.Xml
 import android.widget.Toast
 import androidx.annotation.XmlRes
