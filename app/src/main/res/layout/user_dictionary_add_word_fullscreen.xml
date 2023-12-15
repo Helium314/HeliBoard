@@ -47,7 +47,7 @@
             android:id="@+id/user_dictionary_add_shortcut"
             android:layout_width="wrap_content"
             android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="@string/user_dict_settings_add_shortcut_hint"
@@ -56,24 +56,24 @@
             android:maxLength="@integer/config_user_dictionary_max_word_length" />
 
         <TextView
-            android:id="@+id/user_dictionary_add_frequency_label"
+            android:id="@+id/user_dictionary_add_weight_label"
             style="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:text="@string/user_dict_settings_add_frequency_name"
+            android:text="@string/user_dict_settings_add_weight_value"
             android:visibility="visible" />
 
         <EditText
-            android:id="@+id/user_dictionary_add_frequency"
+            android:id="@+id/user_dictionary_add_weight"
             android:layout_width="wrap_content"
             android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:hint="@string/user_dict_settings_add_frequency_hint"
             android:imeOptions="flagNoFullscreen"
-            android:inputType="phone"
+            android:text="250"
+            android:inputType="number"
             android:maxLength="3" />
 
         <TextView
@@ -88,7 +88,7 @@
             android:id="@+id/user_dictionary_add_locale"
             android:layout_width="wrap_content"
             android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             app:backgroundTint="@color/foreground_weak" />

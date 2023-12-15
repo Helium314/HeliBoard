@@ -161,11 +161,10 @@ Nouveau dictionnaire:
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Moins d\'options"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Mot :"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Raccourci :"</string>
-    <string name="user_dict_settings_add_frequency_name">Fréquence :</string>
+    <string name="user_dict_settings_add_weight_value">Poids :</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Langue :"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Saisissez un mot"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Raccourci facultatif"</string>
-    <string name="user_dict_settings_add_frequency_hint">Tapez une fréquence entre 0 et 255</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Modifier le mot"</string>
     <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Modifier"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Supprimer"</string>
@@ -272,8 +271,6 @@ Nouveau dictionnaire:
     <string name="show_more_keys_all">Ajouter toutes les variantes disponibles</string>
     <string name="url_detection_title">Détection d\'URL</string>
     <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
-    <string name="openboard_personal_dictionary_title">Dictionnaire personnel d\'Openboard</string>
-    <string name="openboard_personal_dictionary_summary">Utilise le dictionnaire personnel d\'Openboard au lieu du dictionnaire personnel d\'Android</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="auto_correction_confidence">Confiance dans la correction automatique</string>
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>

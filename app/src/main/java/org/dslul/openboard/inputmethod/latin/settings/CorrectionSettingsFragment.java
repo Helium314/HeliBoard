@@ -9,10 +9,7 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import static org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager.get;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -47,15 +44,6 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
         PermissionsManager.PermissionsResultCallback {
 
-    private static final boolean OPENBOARD_PERSONAL_DICTIONARY_SETTINGS = true;
-    private boolean SYSTEM_PERSONAL_DICTIONARY_SETTINGS() {
-        final SettingsValues settingsValues = Settings.getInstance().getCurrent();
-        if (settingsValues.mOpenboardPersonalDictionary) {
-            return OPENBOARD_PERSONAL_DICTIONARY_SETTINGS;
-        }
-        return false;
-    }
-
     private SwitchPreferenceCompat mLookupContactsPreference;
 
     @Override
@@ -63,16 +51,9 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_correction);
 
-        final PackageManager pm = requireContext().getPackageManager();
+        final Preference editPersonalDictionary = findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
+        overwriteUserDictionaryPreference(editPersonalDictionary);
 
-        final Preference editPersonalDictionary =
-                findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
-        final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
-        final ResolveInfo ri = SYSTEM_PERSONAL_DICTIONARY_SETTINGS() ? null
-                : pm.resolveActivity(editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (ri == null) {
-            overwriteUserDictionaryPreference(editPersonalDictionary);
-        }
         mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
 
         refreshEnabledSettings();

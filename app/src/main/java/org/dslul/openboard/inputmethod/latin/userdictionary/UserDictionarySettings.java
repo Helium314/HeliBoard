@@ -54,7 +54,7 @@ public class UserDictionarySettings extends ListFragment {
 
     // The index of the shortcut in the above array.
     private static final int INDEX_SHORTCUT = 2;
-    private static final int INDEX_FREQUENCY = 3;
+    private static final int INDEX_WEIGHT = 3;
     private static final String[] ADAPTER_FROM_SHORTCUT_UNSUPPORTED = {
         UserDictionary.Words.WORD, UserDictionary.Words.FREQUENCY
     };
@@ -205,9 +205,9 @@ public class UserDictionarySettings extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         final String word = getWord(position);
         final String shortcut = getShortcut(position);
-        final String frequency = getFrequency(position);
+        final String weight = getWeight(position);
         if (word != null) {
-            showAddOrEditDialog(word, shortcut, frequency);
+            showAddOrEditDialog(word, shortcut, weight);
         }
     }
 
@@ -241,14 +241,14 @@ public class UserDictionarySettings extends ListFragment {
      * @param editingWord the word to edit, or null if it's an add.
      * @param editingShortcut the shortcut for this entry, or null if none.
      */
-    private void showAddOrEditDialog(final String editingWord, final String editingShortcut, final String editingFrequency) {
+    private void showAddOrEditDialog(final String editingWord, final String editingShortcut, final String editingWeight) {
         final Bundle args = new Bundle();
         args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, null == editingWord
                 ? UserDictionaryAddWordContents.MODE_INSERT
                 : UserDictionaryAddWordContents.MODE_EDIT);
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, editingWord);
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, editingShortcut);
-        args.putString(UserDictionaryAddWordContents.EXTRA_FREQUENCY, editingFrequency);
+        args.putString(UserDictionaryAddWordContents.EXTRA_WEIGHT, editingWeight);
         args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale);
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.getSupportFragmentManager().beginTransaction()
@@ -278,7 +278,7 @@ public class UserDictionarySettings extends ListFragment {
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.SHORTCUT));
     }
 
-    private String getFrequency(final int position) {
+    private String getWeight(final int position) {
         if (null == mCursor) return null;
         mCursor.moveToPosition(position);
         // Handle a possible race-condition
@@ -308,29 +308,29 @@ public class UserDictionarySettings extends ListFragment {
         private AlphabetIndexer mIndexer;
 
         private final ViewBinder mViewBinder = (v, c, columnIndex) -> {
-            final String frequencyTitle = String.format(getString(R.string.user_dict_settings_add_frequency_name));
-            final String frequencyText = c.getString(INDEX_FREQUENCY);
-            final String frequency = frequencyTitle + " " + frequencyText;
+            final String weightTitle = String.format(getString(R.string.user_dict_settings_add_weight_value));
+            final String weightText = c.getString(INDEX_WEIGHT);
+            final String weight = weightTitle + " " + weightText;
 
             final String shortcutTitle = String.format(getString(R.string.user_dict_settings_add_shortcut_option_name));
             final String shortcutText = c.getString(INDEX_SHORTCUT);
             final String shortcut = shortcutTitle + " " + shortcutText;
 
-            final String frequencyAndShortcut = frequency + "  |  " + shortcut;
+            final String weightAndShortcut = weight + "  |  " + shortcut;
 
             if (!IS_SHORTCUT_API_SUPPORTED) {
                 // just let SimpleCursorAdapter set the view values
-                if (columnIndex == INDEX_FREQUENCY) {
-                    ((TextView)v).setText(frequency);
+                if (columnIndex == INDEX_WEIGHT) {
+                    ((TextView)v).setText(weight);
                     return true;
                 }
                 return false;
             }
             if (columnIndex == INDEX_SHORTCUT) {
                 if (TextUtils.isEmpty(shortcutText)) {
-                    ((TextView)v).setText(frequency);
+                    ((TextView)v).setText(weight);
                 } else {
-                    ((TextView)v).setText(frequencyAndShortcut);
+                    ((TextView)v).setText(weightAndShortcut);
                 }
                 v.invalidate();
                 return true;

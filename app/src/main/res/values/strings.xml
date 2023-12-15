@@ -207,10 +207,6 @@
     <string name="url_detection_title">URL detection</string>
     <!-- Description for "url_detection_title" option. -->
     <string name="url_detection_summary">Try to detect URLs and similar as a single word</string>
-    <!-- Title about using the Openboard Personal dictionary -->
-    <string name="openboard_personal_dictionary_title">Openboard Personal dictionary</string>
-    <!-- Summary about using the Openboard Personal dictionary -->
-    <string name="openboard_personal_dictionary_summary">Use Openboard\'s personal dictionary instead of Android\'s personal dictionary</string>
     <!-- Preferences item for disabling word learning -->
     <string name="prefs_force_incognito_mode">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
@@ -560,7 +556,7 @@ New dictionary:
     <!-- This resource is corresponding to msgid="660089258866063925" -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the frequency field. [CHAR LIMIT=20] -->
-    <string name="user_dict_settings_add_frequency_name">Frequency:</string>
+    <string name="user_dict_settings_add_weight_value">Weight:</string>
     <!-- User dictionary settings. Label to put before the language field. [CHAR LIMIT=20] -->
     <!-- This resource is corresponding to msgid="5696358317061318532" -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
@@ -570,8 +566,6 @@ New dictionary:
     <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. [CHAR LIMIT=35] -->
     <!-- This resource is corresponding to msgid="7333763456561873445" -->
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
-    <!-- User dictionary settings. Hint for the text field to type the frequency to add to the user dictionary. [CHAR LIMIT=35] -->
-    <string name="user_dict_settings_add_frequency_hint">Type a frequency between 0–255</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- This resource is corresponding to msgid="8967476444840548674" -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>

@@ -88,7 +88,7 @@ public class UserDictionaryAddWordFragment extends Fragment
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 24);
+        final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
         final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0,
                 R.string.user_dict_settings_delete).setIcon(deleteIcon);
         actionItemDelete.setShowAsAction(
@@ -104,11 +104,12 @@ public class UserDictionaryAddWordFragment extends Fragment
 
     // The bin icon is too big compared to the plus icon; we need to reduce it.
     // We therefore need to convert the Vector drawable image to Bitmap.
-    private BitmapDrawable getBitmapFromVectorDrawable(int drawable, float size) {
-        final int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size + 0.5f, getResources().getDisplayMetrics());;
+    private BitmapDrawable getBitmapFromVectorDrawable(int drawable, float scale) {
         Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), drawable);
-        vectorDrawable.setBounds(0, 0, /*right*/ px, /*bottom*/ px);
-        Bitmap bitmap = Bitmap.createBitmap(/*width*/ px, /*height*/ px, Bitmap.Config.ARGB_8888);
+        final int h = (int) (scale * vectorDrawable.getIntrinsicHeight());
+        final int w = (int) (scale * vectorDrawable.getIntrinsicWidth());
+        vectorDrawable.setBounds(0, 0, /*right*/ w, /*bottom*/ h);
+        Bitmap bitmap = Bitmap.createBitmap(/*width*/ w, /*height*/ h, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return new BitmapDrawable(getResources(), bitmap);
