@@ -6,9 +6,6 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.preference.Preference;
 
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
@@ -31,16 +27,6 @@ public final class AboutFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_about);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // need to set icon tint because old android versions don't use the vector drawables
-            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
-                final Preference p = getPreferenceScreen().getPreference(0);
-                final Drawable icon = p.getIcon();
-                if (icon != null)
-                    DrawableCompat.setTint(icon, Color.WHITE);
-            }
-        }
 
         setupHiddenFeatures();
         setupVersionPref();

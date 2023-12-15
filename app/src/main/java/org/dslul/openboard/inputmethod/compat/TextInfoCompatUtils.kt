@@ -6,7 +6,6 @@
 
 package org.dslul.openboard.inputmethod.compat
 
-import android.os.Build
 import android.view.textservice.TextInfo
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
 
@@ -22,9 +21,7 @@ object TextInfoCompatUtils {
     @UsedForTesting
     fun newInstance(charSequence: CharSequence, start: Int, end: Int, cookie: Int,
                     sequenceNumber: Int): TextInfo {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            return TextInfo(charSequence, start, end, cookie, sequenceNumber)
-        return TextInfo(charSequence.subSequence(start, end).toString(), cookie, sequenceNumber)
+        return TextInfo(charSequence, start, end, cookie, sequenceNumber)
     }
 
     /**
@@ -39,9 +36,6 @@ object TextInfoCompatUtils {
     @JvmStatic
     @UsedForTesting
     fun getCharSequenceOrString(textInfo: TextInfo): CharSequence {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            return textInfo.charSequence
-        val defaultValue = textInfo.text
-        return CompatUtils.invoke(textInfo, defaultValue, TEXT_INFO_GET_CHAR_SEQUENCE) as CharSequence
+        return textInfo.charSequence
     }
 }

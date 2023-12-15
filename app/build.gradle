@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "org.dslul.openboard.inputmethod.latin"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 34
         versionCode 19
         versionName '1.4.5'
