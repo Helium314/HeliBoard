@@ -246,7 +246,10 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
         ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
-        else -> Color.WHITE
+        // Assign white color to unused ColorType
+        ColorType.ACTION_KEY_ICON, ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB, ColorType.KEY_ICON,
+        ColorType.KEY_PREVIEW_VIEW, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON, ColorType.STOP_ONE_HANDED_MODE, ColorType.SUGGESTION_KEYS,
+        ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY, -> Color.WHITE
     }
 
     override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
@@ -259,7 +262,10 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         ColorType.KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
 
         ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
-        else -> { null }
+        // Colorfilter is null to unused ColorType
+        ColorType.COLOR_AUTO_CORRECT, ColorType.EMOJI_CATEGORY, ColorType.ENABLE_TOOL_KEY, ColorType.GESTURE, ColorType.GESTURE_PREVIEW,
+        ColorType.KEY_HINT_TEXT, ColorType.MORE_SUGGESTIONS_HINT, ColorType.NAV_BAR, ColorType.SPACEBAR_TEXT,
+        ColorType.SUGGESTED_WORD, ColorType.TOOL_BAR_KEY_BACKGROUND, ColorType.TYPED_WORD, ColorType.VALID_WORD -> null
     }
 
     /** set background colors including state list to the drawable  */
@@ -439,7 +445,10 @@ class DefaultColors (
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
         ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
-        else -> Color.WHITE
+        // Assign white color to unused ColorType
+        ColorType.ACTION_KEY_ICON, ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB, ColorType.KEY_ICON,
+        ColorType.KEY_PREVIEW_VIEW, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON, ColorType.STOP_ONE_HANDED_MODE, ColorType.SUGGESTION_KEYS,
+        ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY, -> Color.WHITE
     }
 
     override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
@@ -452,7 +461,10 @@ class DefaultColors (
         ColorType.KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
 
         ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
-        else -> { null }
+        // ColorFilter is null to unused ColorType
+        ColorType.COLOR_AUTO_CORRECT, ColorType.EMOJI_CATEGORY, ColorType.ENABLE_TOOL_KEY, ColorType.GESTURE, ColorType.GESTURE_PREVIEW,
+        ColorType.KEY_HINT_TEXT, ColorType.MORE_SUGGESTIONS_HINT, ColorType.NAV_BAR, ColorType.SPACEBAR_TEXT,
+        ColorType.SUGGESTED_WORD, ColorType.TOOL_BAR_KEY_BACKGROUND, ColorType.TYPED_WORD, ColorType.VALID_WORD -> null
     }
 
     /** set background colors including state list to the drawable  */
