@@ -238,8 +238,10 @@ public final class Constants {
     public static final int CODE_RIGHT = -26;
     public static final int CODE_UP = -27;
     public static final int CODE_DOWN = -28;
+    public static final int CODE_UNDO = -29;
+    public static final int CODE_REDO = -30;
     // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -29;
+    public static final int CODE_UNSPECIFIED = -200;
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;

@@ -84,6 +84,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private static final String RIGHT_KEY_TAG = "right_key";
     private static final String UP_KEY_TAG = "up_key";
     private static final String DOWN_KEY_TAG = "down_key";
+    private static final String UNDO_TAG = "undo";
+    private static final String REDO_TAG = "redo";
 
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mToolbarKey;
@@ -652,6 +654,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     return;
                 case DOWN_KEY_TAG:
                     mListener.onCodeInput(Constants.CODE_DOWN, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case UNDO_TAG:
+                    mListener.onCodeInput(Constants.CODE_UNDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case REDO_TAG:
+                    mListener.onCodeInput(Constants.CODE_REDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
             }
         }
