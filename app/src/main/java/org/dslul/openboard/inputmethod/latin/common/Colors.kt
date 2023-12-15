@@ -242,6 +242,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         ColorType.TOOL_BAR_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
         ColorType.GESTURE -> gesture
         ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
+        ColorType.KEY_HINT_TEXT -> keyHintText
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
         ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
@@ -434,6 +435,7 @@ class DefaultColors (
         ColorType.TOOL_BAR_KEY_BACKGROUND -> doubleAdjustedBackground
         ColorType.GESTURE -> gesture
         ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
+        ColorType.KEY_HINT_TEXT -> keyHintText
         ColorType.SPACEBAR_TEXT -> spaceBarText
         ColorType.NAV_BAR -> navBar
         ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
@@ -534,6 +536,7 @@ enum class ColorType {
     ENABLE_TOOL_KEY,
     GESTURE,
     GESTURE_PREVIEW,
+    KEY_HINT_TEXT,
     KEY_ICON,
     KEY_PREVIEW_VIEW,
     KEY_TEXT,
