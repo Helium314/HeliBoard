@@ -288,13 +288,13 @@ public class UserDictionaryAddWordContents {
     }
 
     // Helper method to get the list of locales and subtypes to display for this word
-    public ArrayList<LocaleRenderer> getLocalesList(final Activity activity, final Context context) {
+    public ArrayList<LocaleRenderer> getLocalesList(final Activity activity) {
 
         final String systemLocale = Locale.getDefault().toString();
 
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
 
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext());
 
         // List all enabled subtypes and secondary languages
         Set<String> usedLocales = new HashSet<>();
