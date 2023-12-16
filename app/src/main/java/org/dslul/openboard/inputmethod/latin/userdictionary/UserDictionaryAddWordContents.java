@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeSet;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordContents.java
@@ -290,6 +291,8 @@ public class UserDictionaryAddWordContents {
     // Helper method to get the list of locales and subtypes to display for this word
     public ArrayList<LocaleRenderer> getLocalesList(final Activity activity) {
 
+        final TreeSet<String> locales = UserDictionaryList.getUserDictionaryLocalesSet(activity);
+
         final String systemLocale = Locale.getDefault().toString();
 
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
@@ -314,6 +317,13 @@ public class UserDictionaryAddWordContents {
                 secondaryLocales.add(secondLocale.toString().toLowerCase());
             }
         }
+
+        // Remove our locale if it's in, because we're always gonna put it at the top
+        locales.remove(mLocale); // mLocale may not be null
+        // The system locale should be inside. We want it at the 2nd spot.
+        locales.remove(systemLocale); // system locale may not be null
+        // Remove the empty string if it's there
+        locales.remove("");
 
         // Add enabled subtype at the top of the list
         for (final String enableSubtypes : mainLocales) {
