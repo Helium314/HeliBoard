@@ -296,21 +296,33 @@ public class UserDictionaryAddWordContents {
 
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext());
 
-        // List all enabled subtypes and secondary languages
-        Set<String> usedLocales = new HashSet<>();
-        List<InputMethodSubtype> enabledSubtypes = RichInputMethodManager
+        final List<InputMethodSubtype> enabledSubtypes = RichInputMethodManager
                 .getInstance().getMyEnabledInputMethodSubtypeList(true);
+
+        // List of all enabled subtypes
+        Set<String> mainLocales = new HashSet<>();
         for (InputMethodSubtype subtype : enabledSubtypes) {
             Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
-            usedLocales.add(locale.toString());
-            for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
-                usedLocales.add(secondaryLocale.toString().toLowerCase());
+            mainLocales.add(locale.toString());
+        }
+
+        // List of enabled secondary languages
+        Set<String> secondaryLocales = new HashSet<>();
+        for (InputMethodSubtype subtype : enabledSubtypes) {
+            Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
+            for (Locale secondLocale : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
+                secondaryLocales.add(secondLocale.toString().toLowerCase());
             }
         }
 
-        // Add enabled subtypes and secondary languages at the top of the list
-        for (final String enableSubtypes : usedLocales) {
+        // Add enabled subtype at the top of the list
+        for (final String enableSubtypes : mainLocales) {
             addLocaleDisplayNameToList(activity, localesList, enableSubtypes);
+        }
+
+        // Then, add the secondary languages
+        for (final String secondLanguage : secondaryLocales) {
+            addLocaleDisplayNameToList(activity, localesList, secondLanguage);
         }
 
         // Then, add the system locale
