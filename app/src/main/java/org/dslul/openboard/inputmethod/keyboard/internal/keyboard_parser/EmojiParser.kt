@@ -63,20 +63,26 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val row = ArrayList<KeyParams>(emojiArray.size)
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat()
-        val rawScale = sqrt(Settings.getInstance().current.mKeyboardHeightScale) // resize emojis a little with height scale
-        val numColumnsNew = round(1f / (params.mDefaultRelativeKeyWidth * rawScale))
+
+        val heightScale = sqrt(Settings.getInstance().current.mKeyboardHeightScale) // resize emojis a little with height scale
+        val numColumnsNew = round(1f / (params.mDefaultRelativeKeyWidth * heightScale))
         val numColumnsOld = round(1f / params.mDefaultRelativeKeyWidth)
         // slightly adjust scale to have emojis nicely fill the full width
         // this looks much better than setting some offset in DynamicGridKeyboard (to center the rows)
-        val scale = numColumnsOld / numColumnsNew
+        val widthScale = numColumnsOld / numColumnsNew - 0.0001f // small offset to have more emojis in a row in edge cases
+        // extra scale for height only, to undo the effect of number row increasing absolute key height
+        // todo: with this things look ok, but number row still slightly affects emoji size
+        val numScale = if (Settings.getInstance().current.mShowsNumberRow) 1.25f else 1f
+
         emojiArray.forEachIndexed { i, codeArraySpec ->
             val keyParams = parseEmojiKey(codeArraySpec, moreEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
             keyParams.setDimensionsFromRelativeSize(currentX, currentY)
             // height is already fully scaled, this undoes part of the rescale
             // we use rawScale here because it influences the emoji size, and looks better that way
-            keyParams.mFullHeight /= rawScale
+            keyParams.mFullHeight /= numScale // hmm... this looks ok
+            keyParams.mFullHeight /= heightScale
             // scale width to have reasonably sized gaps between emojis (also affects number of emojis per row)
-            keyParams.mFullWidth *= scale
+            keyParams.mFullWidth *= widthScale
             currentX += keyParams.mFullWidth
             row.add(keyParams)
 //            if (row.size % numColumns == spacerIndex) { // also removed for now (would be missing setting the size and updating x
