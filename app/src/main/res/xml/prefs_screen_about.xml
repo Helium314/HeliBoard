@@ -44,6 +44,7 @@
 
     <Preference
         android:title="@string/save_log"
-        android:key="log_reader" > <!-- todo (low priority): add icon -->
+        android:icon="@drawable/ic_settings_about_log"
+        android:key="log_reader" >
     </Preference>
 </PreferenceScreen>
