@@ -162,7 +162,7 @@ public class UserDictionaryAddWordFragment extends Fragment
     }
 
     private void updateSpinner() {
-        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(getActivity());
+        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(getActivity(), getContext());
 
         final Spinner localeSpinner = mRootView.findViewById(R.id.user_dictionary_add_locale);
         final ArrayAdapter<LocaleRenderer> adapter = new ArrayAdapter<>(

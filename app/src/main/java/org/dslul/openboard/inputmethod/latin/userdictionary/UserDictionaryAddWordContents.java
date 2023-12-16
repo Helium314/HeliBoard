@@ -9,6 +9,7 @@ package org.dslul.openboard.inputmethod.latin.userdictionary;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.UserDictionary;
@@ -23,6 +24,8 @@ import androidx.annotation.Nullable;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -285,22 +288,27 @@ public class UserDictionaryAddWordContents {
     }
 
     // Helper method to get the list of locales and subtypes to display for this word
-    public ArrayList<LocaleRenderer> getLocalesList(final Activity activity) {
+    public ArrayList<LocaleRenderer> getLocalesList(final Activity activity, final Context context) {
 
         final String systemLocale = Locale.getDefault().toString();
 
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
 
-        // List all enabled subtypes
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+
+        // List all enabled subtypes and secondary languages
         Set<String> usedLocales = new HashSet<>();
         List<InputMethodSubtype> enabledSubtypes = RichInputMethodManager
                 .getInstance().getMyEnabledInputMethodSubtypeList(true);
         for (InputMethodSubtype subtype : enabledSubtypes) {
             Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
             usedLocales.add(locale.toString());
+            for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
+                usedLocales.add(secondaryLocale.toString().toLowerCase());
+            }
         }
 
-        // Add activated subtypes at the top of the list
+        // Add enabled subtypes and secondary languages at the top of the list
         for (final String enableSubtypes : usedLocales) {
             addLocaleDisplayNameToList(activity, localesList, enableSubtypes);
         }
