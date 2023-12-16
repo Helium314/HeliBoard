@@ -10,6 +10,9 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
+import org.dslul.openboard.inputmethod.latin.settings.Settings
+import kotlin.math.round
+import kotlin.math.sqrt
 
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
 
@@ -60,10 +63,21 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val row = ArrayList<KeyParams>(emojiArray.size)
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat()
+        val rawScale = sqrt(Settings.getInstance().current.mKeyboardHeightScale) // resize emojis a little with height scale
+        val numColumnsNew = round(1f / (params.mDefaultRelativeKeyWidth * rawScale))
+        val numColumnsOld = round(1f / params.mDefaultRelativeKeyWidth)
+        // slightly adjust scale to have emojis nicely fill the full width
+        // this looks much better than setting some offset in DynamicGridKeyboard (to center the rows)
+        val scale = numColumnsOld / numColumnsNew
         emojiArray.forEachIndexed { i, codeArraySpec ->
             val keyParams = parseEmojiKey(codeArraySpec, moreEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
             keyParams.setDimensionsFromRelativeSize(currentX, currentY)
-            currentX += keyParams.mFullWidth // exact value seems to be not really relevant, but keeping 0 doesn't work
+            // height is already fully scaled, this undoes part of the rescale
+            // we use rawScale here because it influences the emoji size, and looks better that way
+            keyParams.mFullHeight /= rawScale
+            // scale width to have reasonably sized gaps between emojis (also affects number of emojis per row)
+            keyParams.mFullWidth *= scale
+            currentX += keyParams.mFullWidth
             row.add(keyParams)
 //            if (row.size % numColumns == spacerIndex) { // also removed for now (would be missing setting the size and updating x
 //                repeat(spacerNumKeys) { row.add(KeyParams.newSpacer(params, params.mDefaultRelativeKeyWidth)) }
