@@ -15,16 +15,20 @@ import android.provider.UserDictionary;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
+import android.view.inputmethod.InputMethodSubtype;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
-import java.util.TreeSet;
+import java.util.Set;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordContents.java
@@ -280,26 +284,33 @@ public class UserDictionaryAddWordContents {
         }
     }
 
-    // Helper method to get the list of locales to display for this word
+    // Helper method to get the list of locales and subtypes to display for this word
     public ArrayList<LocaleRenderer> getLocalesList(final Activity activity) {
-        final TreeSet<String> locales = UserDictionaryList.getUserDictionaryLocalesSet(activity);
-        // Remove our locale if it's in, because we're always gonna put it at the top
-        locales.remove(mLocale); // mLocale may not be null
+
         final String systemLocale = Locale.getDefault().toString();
-        // The system locale should be inside. We want it at the 2nd spot.
-        locales.remove(systemLocale); // system locale may not be null
-        locales.remove(""); // Remove the empty string if it's there
+
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
-        // Add the passed locale, then the system locale at the top of the list. Add an
-        // "all languages" entry at the bottom of the list.
-        addLocaleDisplayNameToList(activity, localesList, mLocale);
+
+        // List all enabled subtypes
+        Set<String> usedLocales = new HashSet<>();
+        List<InputMethodSubtype> enabledSubtypes = RichInputMethodManager
+                .getInstance().getMyEnabledInputMethodSubtypeList(true);
+        for (InputMethodSubtype subtype : enabledSubtypes) {
+            Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
+            usedLocales.add(locale.toString());
+        }
+
+        // Add activated subtypes at the top of the list
+        for (final String enableSubtypes : usedLocales) {
+            addLocaleDisplayNameToList(activity, localesList, enableSubtypes);
+        }
+
+        // Then, add the system locale
         if (!systemLocale.equals(mLocale)) {
             addLocaleDisplayNameToList(activity, localesList, systemLocale);
         }
-        for (final String l : locales) {
-            // TODO: sort in unicode order
-            addLocaleDisplayNameToList(activity, localesList, l);
-        }
+
+        // Add "All languages" entry at the end of the list
         if (!"".equals(mLocale)) {
             // If mLocale is "", then we already inserted the "all languages" item, so don't do it
             addLocaleDisplayNameToList(activity, localesList, ""); // meaning: all languages
