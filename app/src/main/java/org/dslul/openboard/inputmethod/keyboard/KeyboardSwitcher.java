@@ -436,7 +436,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardViewWrapper.setOneHandedModeEnabled(enabled);
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
 
-        settings.writeOneHandedModeEnabled(enabled);
+        settings.writeOneHandedModeEnabled(enabled, settings.getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
 
         // Reload the entire keyboard set with the same parameters
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),

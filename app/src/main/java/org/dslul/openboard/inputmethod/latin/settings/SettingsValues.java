@@ -218,7 +218,8 @@ public class SettingsValues {
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
-        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
+
+        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
         if (mOneHandedModeEnabled) {
             final float baseScale = res.getFraction(R.fraction.config_one_handed_mode_width, 1, 1);

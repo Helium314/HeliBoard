@@ -105,7 +105,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
     public static final String PREF_USE_NEW_KEYBOARD_PARSING = "pref_use_new_keyboard_parsing2"; // todo: remove later
 
-    public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
+    public static final String PREF_ONE_HANDED_MODE_PORTRAIT = "pref_one_handed_mode_enabled_portrait";
+    public static final String PREF_ONE_HANDED_MODE_LANDSCAPE = "pref_one_handed_mode_enabled_landscape";
     public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity";
     public static final String PREF_ONE_HANDED_SCALE = "pref_one_handed_mode_scale";
 
@@ -393,12 +394,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, false);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE, false);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean portrait) {
+        return prefs.getBoolean(portrait ? PREF_ONE_HANDED_MODE_PORTRAIT : PREF_ONE_HANDED_MODE_LANDSCAPE, false);
     }
 
-    public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE, enabled).apply();
+    public void writeOneHandedModeEnabled(final boolean enabled, final boolean portrait) {
+        mPrefs.edit().putBoolean(portrait ? PREF_ONE_HANDED_MODE_PORTRAIT : PREF_ONE_HANDED_MODE_LANDSCAPE, enabled).apply();
     }
 
     @SuppressLint("RtlHardcoded")
