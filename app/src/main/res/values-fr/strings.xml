@@ -242,6 +242,7 @@ Nouveau dictionnaire:
     <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
     <string name="about_github_link" >Lien vers GitHub</string>
+    <string name="save_log">Sauvegarder le journal</string>
     <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
     <string name="theme_style">Style</string>
