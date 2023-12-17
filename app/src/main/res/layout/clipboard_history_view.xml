@@ -3,66 +3,67 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 <org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        style="?attr/clipboardHistoryViewStyle">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="vertical"
+    android:visibility="gone"
+    style="?attr/clipboardHistoryViewStyle">
 
     <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/clipboard_empty_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="¯\\_(ツ)_/¯"/>
+            android:id="@+id/clipboard_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="¯\\_(ツ)_/¯"/>
 
         <org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryRecyclerView
-                android:id="@+id/clipboard_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+            android:id="@+id/clipboard_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
 
     </FrameLayout>
 
     <FrameLayout
-            android:id="@+id/clipboard_action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"            >
+        android:id="@+id/clipboard_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"            >
         <!-- TODO: Implement a KeyView and replace this. -->
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <TextView
-                android:id="@+id/clipboard_keyboard_alphabet"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_gravity="start|center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:drawablePadding="12dp"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false" />
+            android:id="@+id/clipboard_keyboard_alphabet"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawablePadding="12dp"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="false"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
-                android:id="@+id/clipboard_clear"
-                android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="2dp"
-                android:padding="8dp"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false"
-                android:scaleType="fitCenter"
-                style="?attr/suggestionWordStyle" />
+            android:id="@+id/clipboard_clear"
+            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="2dp"
+            android:padding="8dp"
+            android:hapticFeedbackEnabled="false"
+            android:soundEffectsEnabled="false"
+            android:scaleType="fitCenter"
+            style="?attr/suggestionWordStyle" />
 
     </FrameLayout>
 
