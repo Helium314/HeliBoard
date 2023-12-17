@@ -107,6 +107,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
     public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity";
+    public static final String PREF_ONE_HANDED_SCALE = "pref_one_handed_mode_scale";
 
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";

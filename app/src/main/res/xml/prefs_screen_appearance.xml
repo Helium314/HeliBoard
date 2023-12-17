@@ -87,6 +87,12 @@
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->
 
+        <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
+            android:key="pref_one_handed_mode_scale"
+            android:title="@string/prefs_one_handed_scale"
+            latin:minValue="50"
+            latin:maxValue="250" /> <!-- percentage -->
+
     </PreferenceCategory>
 
 </PreferenceScreen>
