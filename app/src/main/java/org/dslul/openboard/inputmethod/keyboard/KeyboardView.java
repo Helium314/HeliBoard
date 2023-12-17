@@ -413,7 +413,8 @@ public class KeyboardView extends View {
             if (key.isAlignLabelOffCenter() && mShowsHints) {
                 // The label is placed off center of the key. Currently used only on "phone number" layout
                 // to have letter hints shown nicely. We don't want to align it off center if hints are off.
-                labelX = centerX + params.mLabelOffCenterRatio * labelCharWidth;
+                // use a non-negative number to avoid label starting left of the letter for high keyboard scale on holo phone layout
+                labelX = Math.max(0f, centerX + params.mLabelOffCenterRatio * labelCharWidth);
                 paint.setTextAlign(Align.LEFT);
             } else {
                 labelX = centerX;
@@ -474,6 +475,11 @@ public class KeyboardView extends View {
                     hintBaseline = centerY + labelCharHeight / 2.0f;
                 }
                 paint.setTextAlign(Align.LEFT);
+                // shrink hint label before it's off the key
+                // looks bad, but still better than the alternative
+                final float ratio = Math.min(1.0f, (keyWidth - hintX) * 0.95f / TypefaceUtils.getStringWidth(hintLabel, paint));
+                final float autoSize = paint.getTextSize() * ratio;
+                paint.setTextSize(autoSize);
             } else if (key.hasShiftedLetterHint()) {
                 // The hint label is placed at top-right corner of the key. Used mainly on tablet.
                 hintX = keyWidth - mKeyShiftedLetterHintPadding - labelCharWidth / 2.0f;
