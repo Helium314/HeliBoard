@@ -148,8 +148,8 @@ public final class EmojiPalettesView extends LinearLayout
         tspec.setContent(R.id.emoji_keyboard_dummy);
         final ImageView iconView = (ImageView) LayoutInflater.from(getContext()).inflate(
                 R.layout.emoji_keyboard_tab_icon, null);
-        iconView.setBackgroundColor(mColors.get(ColorType.EMOJI_CATEGORY));
-        iconView.setColorFilter(mColors.setColorFilter(ColorType.EMOJI_TAB));
+        iconView.setBackgroundColor(mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
+        iconView.setColorFilter(mColors.setColorFilter(ColorType.EMOJI_CATEGORY));
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
         iconView.setContentDescription(mEmojiCategory.getAccessibilityDescription(categoryId));
         tspec.setIndicator(iconView);
@@ -219,7 +219,7 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiCategoryPageIndicatorView =
                 findViewById(R.id.emoji_category_page_id_view);
         mEmojiCategoryPageIndicatorView.setColors(
-                mCategoryPageIndicatorColor, mColors.get(ColorType.EMOJI_CATEGORY));
+                mCategoryPageIndicatorColor, mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
 
         setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
@@ -233,7 +233,7 @@ public final class EmojiPalettesView extends LinearLayout
         // deleteKey depends only on OnTouchListener.
         mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
         mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
-        mDeleteKey.setColorFilter(mColors.setColorFilter(ColorType.DELETE_KEY));
+        mDeleteKey.setColorFilter(mColors.setColorFilter(ColorType.KEY_ICON));
         mDeleteKey.setTag(Constants.CODE_DELETE);
         mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
 
@@ -261,7 +261,7 @@ public final class EmojiPalettesView extends LinearLayout
         mColors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
         mColors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
         mColors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
-        mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.EMOJI_CATEGORY));
+        mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
     }
 
     @Override
@@ -283,7 +283,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (mCurrentTab != null)
-            mCurrentTab.setColorFilter(colors.setColorFilter(ColorType.EMOJI_TAB));
+            mCurrentTab.setColorFilter(colors.setColorFilter(ColorType.EMOJI_CATEGORY));
         mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
         mCurrentTab.setColorFilter(colors.setColorFilter(ColorType.EMOJI_CATEGORY_SELECTED));
     }
