@@ -1437,15 +1437,15 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             });
         }
 
-        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(mDisplayContext);
-        horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(
+        HorizontalScrollView view = new HorizontalScrollView(mDisplayContext);
+        view.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        horizontalScrollView.setHorizontalScrollBarEnabled(false);
+        view.setHorizontalScrollBarEnabled(false);
 
-        horizontalScrollView.addView(container);
+        view.addView(container);
 
         // Delay required to show properly
-        new Handler().postDelayed(() -> mSuggestionStripView.addSuggestionView(horizontalScrollView), 200);
+        new Handler().postDelayed(() -> mSuggestionStripView.addSuggestionView(view), 200);
 
         return true;
     }
