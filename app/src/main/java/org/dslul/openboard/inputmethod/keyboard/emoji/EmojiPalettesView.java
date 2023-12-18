@@ -102,7 +102,7 @@ public final class EmojiPalettesView extends LinearLayout
                 R.styleable.KeyboardView_keyBackground, 0);
         mFunctionalKeyBackgroundId = keyboardViewAttr.getResourceId(
                 R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId);
-        mSpacebarBackground = Settings.getInstance().getCurrent().mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr, context);
+        mSpacebarBackground = Settings.getInstance().getCurrent().mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
         keyboardViewAttr.recycle();
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
@@ -258,9 +258,9 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
 
-        mColors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL, getContext());
-        mColors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL, getContext());
-        mColors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE, getContext());
+        mColors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
+        mColors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
+        mColors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.EMOJI_CATEGORY));
     }
 
@@ -388,7 +388,7 @@ public final class EmojiPalettesView extends LinearLayout
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
                     true /* force */);
         }
-        Settings.getInstance().getCurrent().mColors.setKeyboardBackground(this, getContext());
+        Settings.getInstance().getCurrent().mColors.setKeyboardBackground(this);
     }
 
     public void stopEmojiPalettes() {

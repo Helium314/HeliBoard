@@ -48,9 +48,9 @@ interface Colors {
 
     @ColorInt fun get(color: ColorType): Int
     fun setColorFilter(color: ColorType): ColorFilter?
-    fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable
-    fun setKeyboardBackground(view: View, context: Context)
-    fun setBackgroundColor(background: Drawable, type: BackgroundType, context: Context)
+    fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable
+    fun setKeyboardBackground(view: View)
+    fun setBackgroundColor(background: Drawable, type: BackgroundType)
     fun haveColorsChanged(context: Context): Boolean
 }
 
@@ -269,7 +269,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     }
 
     /** set background colors including state list to the drawable  */
-    override fun setBackgroundColor(background: Drawable, type: BackgroundType, context: Context) {
+    override fun setBackgroundColor(background: Drawable, type: BackgroundType) {
         val colorStateList = when (type) {
             BackgroundType.BACKGROUND, BackgroundType.SUGGESTION -> backgroundStateList
             BackgroundType.KEY -> keyStateList
@@ -285,7 +285,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         DrawableCompat.setTintList(background, colorStateList)
     }
 
-    override fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable {
+    override fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable {
         val drawable = when (type) {
             BackgroundType.KEY, BackgroundType.ADJUSTED_BACKGROUND, BackgroundType.BACKGROUND,
             BackgroundType.SUGGESTION, BackgroundType.ACTION_MORE_KEYS ->
@@ -303,18 +303,18 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             }
         }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
 
-        setBackgroundColor(drawable, type, context)
+        setBackgroundColor(drawable, type)
         return drawable
     }
 
-    override fun setKeyboardBackground(view: View, context: Context) {
+    override fun setKeyboardBackground(view: View) {
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView ->
                 if (themeStyle != STYLE_HOLO)
-                    setBackgroundColor(view.background, BackgroundType.ADJUSTED_BACKGROUND, context)
+                    setBackgroundColor(view.background, BackgroundType.ADJUSTED_BACKGROUND)
                 else view.background.colorFilter = adjustedBackgroundFilter
-            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION, context)
+            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
             is EmojiPageKeyboardView, // to make EmojiPalettesView background visible, which does not scroll
             is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // otherwise causes issues with wrapper view when using one-handed mode
             is KeyboardWrapperView, is EmojiPalettesView, is ClipboardHistoryView -> {
@@ -468,7 +468,7 @@ class DefaultColors (
     }
 
     /** set background colors including state list to the drawable  */
-    override fun setBackgroundColor(background: Drawable, type: BackgroundType, context: Context) {
+    override fun setBackgroundColor(background: Drawable, type: BackgroundType) {
         val colorStateList = when (type) {
             BackgroundType.BACKGROUND -> backgroundStateList
             BackgroundType.KEY -> keyStateList
@@ -487,7 +487,7 @@ class DefaultColors (
         DrawableCompat.setTintList(background, colorStateList)
     }
 
-    override fun getDrawable(type: BackgroundType, attr: TypedArray, context: Context): Drawable {
+    override fun getDrawable(type: BackgroundType, attr: TypedArray): Drawable {
         val drawable = when (type) {
             BackgroundType.KEY, BackgroundType.ADJUSTED_BACKGROUND, BackgroundType.BACKGROUND,
             BackgroundType.SUGGESTION, BackgroundType.ACTION_MORE_KEYS ->
@@ -505,15 +505,15 @@ class DefaultColors (
             }
         }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
 
-        setBackgroundColor(drawable, type, context)
+        setBackgroundColor(drawable, type)
         return drawable
     }
 
-    override fun setKeyboardBackground(view: View, context: Context) {
+    override fun setKeyboardBackground(view: View) {
         when (view) {
             is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
             is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
-            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION, context)
+            is SuggestionStripView -> setBackgroundColor(view.background, BackgroundType.SUGGESTION)
             is EmojiPageKeyboardView, // to make EmojiPalettesView background visible, which does not scroll
             is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT) // otherwise causes issues with wrapper view when using one-handed mode
             is KeyboardWrapperView, is EmojiPalettesView, is ClipboardHistoryView -> {

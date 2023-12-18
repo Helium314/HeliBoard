@@ -61,10 +61,10 @@ class KeyboardWrapperView @JvmOverloads constructor(
         val colors = Settings.getInstance().current.mColors
         stopOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.STOP_ONE_HANDED_MODE)
         switchOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.SWITCH_ONE_HANDED_MODE)
-        colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND, context)
-        colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND, context)
+        colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND)
+        colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND)
         setBackgroundColor(Color.WHITE) // otherwise background might be null
-        colors.setKeyboardBackground(this, context)
+        colors.setKeyboardBackground(this)
     }
 
     @SuppressLint("RtlHardcoded")

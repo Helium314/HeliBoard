@@ -138,18 +138,18 @@ public class KeyboardView extends View {
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
         if (this instanceof EmojiPageKeyboardView || this instanceof MoreSuggestionsView)
-            mKeyBackground = mColors.getDrawable(BackgroundType.BACKGROUND, keyboardViewAttr, context);
+            mKeyBackground = mColors.getDrawable(BackgroundType.BACKGROUND, keyboardViewAttr);
         else if (this instanceof MoreKeysKeyboardView)
-            mKeyBackground = mColors.getDrawable(BackgroundType.ADJUSTED_BACKGROUND, keyboardViewAttr, context);
+            mKeyBackground = mColors.getDrawable(BackgroundType.ADJUSTED_BACKGROUND, keyboardViewAttr);
         else
-            mKeyBackground = mColors.getDrawable(BackgroundType.KEY, keyboardViewAttr, context);
+            mKeyBackground = mColors.getDrawable(BackgroundType.KEY, keyboardViewAttr);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
-        mFunctionalKeyBackground = mColors.getDrawable(BackgroundType.FUNCTIONAL, keyboardViewAttr, context);
-        mSpacebarBackground = mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr, context);
+        mFunctionalKeyBackground = mColors.getDrawable(BackgroundType.FUNCTIONAL, keyboardViewAttr);
+        mSpacebarBackground = mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
         if (this instanceof MoreKeysKeyboardView)
-            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION_MORE_KEYS, keyboardViewAttr, context);
+            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION_MORE_KEYS, keyboardViewAttr);
         else
-            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION, keyboardViewAttr, context);
+            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION, keyboardViewAttr);
 
         mSpacebarIconWidthRatio = keyboardViewAttr.getFloat(
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
@@ -175,7 +175,7 @@ public class KeyboardView extends View {
         keyAttr.recycle();
 
         mPaint.setAntiAlias(true);
-        mColors.setKeyboardBackground(this, context);
+        mColors.setKeyboardBackground(this);
     }
 
     @Nullable

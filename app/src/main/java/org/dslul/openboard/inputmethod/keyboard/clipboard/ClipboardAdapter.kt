@@ -58,7 +58,7 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
-                Settings.getInstance().current.mColors.setBackgroundColor(background, BackgroundType.KEY, context)
+                Settings.getInstance().current.mColors.setBackgroundColor(background, BackgroundType.KEY)
             }
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
                 visibility = View.GONE

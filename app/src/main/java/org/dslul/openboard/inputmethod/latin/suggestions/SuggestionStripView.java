@@ -173,7 +173,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION, context);
+            colors.setBackgroundColor(word.getBackground(), BackgroundType.SUGGESTION);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -213,7 +213,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarKey.getLayoutParams().height = toolbarHeight;
         mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
         mDefaultBackground = mToolbarKey.getBackground();
-        colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION, getContext());
+        colors.setBackgroundColor(mDefaultBackground, BackgroundType.SUGGESTION);
         mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.ENABLE_TOOL_KEY) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
@@ -234,7 +234,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             addKeyToPinnedKeys(pinnedKey, inflater);
         }
 
-        colors.setKeyboardBackground(this, context);
+        colors.setKeyboardBackground(this);
     }
 
     /**
@@ -707,7 +707,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
         view.setColorFilter(colors.setColorFilter(ColorType.SUGGESTION_KEYS));
-        colors.setBackgroundColor(view.getBackground(), BackgroundType.SUGGESTION, getContext());
+        colors.setBackgroundColor(view.getBackground(), BackgroundType.SUGGESTION);
     }
 
     private static int getKeyLayoutIdForTag(final String tag) {

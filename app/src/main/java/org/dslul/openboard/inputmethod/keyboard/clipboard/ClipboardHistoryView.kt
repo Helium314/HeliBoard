@@ -97,7 +97,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
             colorFilter = colors.setColorFilter(ColorType.CLEAR_KEY)
-            colors.setBackgroundColor(background, BackgroundType.SUGGESTION, context)
+            colors.setBackgroundColor(background, BackgroundType.SUGGESTION)
         }
     }
 
@@ -105,7 +105,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         key?.apply {
             text = label
             typeface = params.mTypeface
-            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL, context)
+            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
@@ -156,7 +156,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
         }
-        Settings.getInstance().current.mColors.setKeyboardBackground(this, context)
+        Settings.getInstance().current.mColors.setKeyboardBackground(this)
     }
 
     fun stopClipboardHistory() {
