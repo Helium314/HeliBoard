@@ -37,7 +37,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
-import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
 import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -102,7 +101,7 @@ public final class EmojiPalettesView extends LinearLayout
                 R.styleable.KeyboardView_keyBackground, 0);
         mFunctionalKeyBackgroundId = keyboardViewAttr.getResourceId(
                 R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId);
-        mSpacebarBackground = Settings.getInstance().getCurrent().mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
+        mSpacebarBackground = Settings.getInstance().getCurrent().mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND);
         keyboardViewAttr.recycle();
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
@@ -148,8 +147,8 @@ public final class EmojiPalettesView extends LinearLayout
         tspec.setContent(R.id.emoji_keyboard_dummy);
         final ImageView iconView = (ImageView) LayoutInflater.from(getContext()).inflate(
                 R.layout.emoji_keyboard_tab_icon, null);
-        iconView.setBackgroundColor(mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
-        iconView.setColorFilter(mColors.setColorFilter(ColorType.EMOJI_CATEGORY));
+        mColors.setBackground(iconView, ColorType.EMOJI_CATEGORY_BACKGROUND);
+        mColors.setColor(iconView, ColorType.EMOJI_CATEGORY);
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
         iconView.setContentDescription(mEmojiCategory.getAccessibilityDescription(categoryId));
         tspec.setIndicator(iconView);
@@ -233,7 +232,7 @@ public final class EmojiPalettesView extends LinearLayout
         // deleteKey depends only on OnTouchListener.
         mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
         mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
-        mDeleteKey.setColorFilter(mColors.setColorFilter(ColorType.KEY_ICON));
+        mColors.setColor(mDeleteKey, ColorType.KEY_ICON);
         mDeleteKey.setTag(Constants.CODE_DELETE);
         mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
 
@@ -258,9 +257,9 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
         mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
 
-        mColors.setBackgroundColor(mAlphabetKeyLeft.getBackground(), BackgroundType.FUNCTIONAL);
-        mColors.setBackgroundColor(mDeleteKey.getBackground(), BackgroundType.FUNCTIONAL);
-        mColors.setBackgroundColor(mSpacebar.getBackground(), BackgroundType.SPACE);
+        mColors.setBackground(mAlphabetKeyLeft, ColorType.FUNCTIONAL_KEY_BACKGROUND);
+        mColors.setBackground(mDeleteKey, ColorType.FUNCTIONAL_KEY_BACKGROUND);
+        mColors.setBackground(mSpacebar, ColorType.SPACE_BAR_BACKGROUND);
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
     }
 
@@ -283,9 +282,9 @@ public final class EmojiPalettesView extends LinearLayout
         }
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         if (mCurrentTab != null)
-            mCurrentTab.setColorFilter(colors.setColorFilter(ColorType.EMOJI_CATEGORY));
+            colors.setColor(mCurrentTab, ColorType.EMOJI_CATEGORY);
         mCurrentTab = (ImageView) mTabHost.getCurrentTabView();
-        mCurrentTab.setColorFilter(colors.setColorFilter(ColorType.EMOJI_CATEGORY_SELECTED));
+        colors.setColor(mCurrentTab, ColorType.EMOJI_CATEGORY_SELECTED);
     }
 
     /**
@@ -388,7 +387,7 @@ public final class EmojiPalettesView extends LinearLayout
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
                     true /* force */);
         }
-        Settings.getInstance().getCurrent().mColors.setKeyboardBackground(this);
+        Settings.getInstance().getCurrent().mColors.setBackground(this, ColorType.EMOJI_BACKGROUND);
     }
 
     public void stopEmojiPalettes() {

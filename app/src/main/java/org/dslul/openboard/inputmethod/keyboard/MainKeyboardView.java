@@ -203,7 +203,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mLanguageOnSpacebarTextColor = colors.get(ColorType.SPACEBAR_TEXT);
+        mLanguageOnSpacebarTextColor = colors.get(ColorType.SPACE_BAR_TEXT);
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);

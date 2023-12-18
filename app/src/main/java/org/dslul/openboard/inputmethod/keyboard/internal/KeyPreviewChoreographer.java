@@ -109,7 +109,7 @@ public final class KeyPreviewChoreographer {
         final boolean hasMoreKeys = (key.getMoreKeys() != null);
         keyPreviewView.setPreviewBackground(hasMoreKeys, keyPreviewPosition);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        keyPreviewView.getBackground().setColorFilter(colors.setColorFilter(ColorType.KEY_PREVIEW));
+        colors.setBackground(keyPreviewView, ColorType.KEY_PREVIEW);
 
         // The key preview is placed vertically above the top edge of the parent key with an
         // arbitrary offset.

@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
-import org.dslul.openboard.inputmethod.latin.common.BackgroundType
 import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -59,12 +58,12 @@ class KeyboardWrapperView @JvmOverloads constructor(
         switchOneHandedModeBtn.setOnClickListener(this)
 
         val colors = Settings.getInstance().current.mColors
-        stopOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.ONE_HANDED_MODE_BUTTON)
-        switchOneHandedModeBtn.colorFilter = colors.setColorFilter(ColorType.ONE_HANDED_MODE_BUTTON)
-        colors.setBackgroundColor(stopOneHandedModeBtn.background, BackgroundType.BACKGROUND)
-        colors.setBackgroundColor(switchOneHandedModeBtn.background, BackgroundType.BACKGROUND)
+        colors.setColor(stopOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
+        colors.setColor(switchOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
+        colors.setBackground(stopOneHandedModeBtn, ColorType.BACKGROUND)
+        colors.setBackground(switchOneHandedModeBtn, ColorType.BACKGROUND)
         setBackgroundColor(Color.WHITE) // otherwise background might be null
-        colors.setKeyboardBackground(this)
+        colors.setBackground(this, ColorType.KEYBOARD_WRAPPER_BACKGROUND)
     }
 
     @SuppressLint("RtlHardcoded")
