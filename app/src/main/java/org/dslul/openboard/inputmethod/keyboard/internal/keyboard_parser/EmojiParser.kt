@@ -64,23 +64,15 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat()
 
-        val heightScale = sqrt(Settings.getInstance().current.mKeyboardHeightScale) // resize emojis a little with height scale
-        val numColumnsNew = round(1f / (params.mDefaultRelativeKeyWidth * heightScale))
-        val numColumnsOld = round(1f / params.mDefaultRelativeKeyWidth)
-        // slightly adjust scale to have emojis nicely fill the full width
-        // this looks much better than setting some offset in DynamicGridKeyboard (to center the rows)
-        val widthScale = numColumnsOld / numColumnsNew - 0.0001f // small offset to have more emojis in a row in edge cases
+        val widthScale = getWidthScale()
         // extra scale for height only, to undo the effect of number row increasing absolute key height
-        // todo: with this things look ok, but number row still slightly affects emoji size
+        // todo: with this things look ok, but number row still slightly affects emoji size (which it should not)
         val numScale = if (Settings.getInstance().current.mShowsNumberRow) 1.25f else 1f
 
         emojiArray.forEachIndexed { i, codeArraySpec ->
             val keyParams = parseEmojiKey(codeArraySpec, moreEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
             keyParams.setDimensionsFromRelativeSize(currentX, currentY)
-            // height is already fully scaled, this undoes part of the rescale
-            // we use rawScale here because it influences the emoji size, and looks better that way
-            keyParams.mFullHeight /= numScale // hmm... this looks ok
-            // scale width to have reasonably sized gaps between emojis (also affects number of emojis per row)
+            keyParams.mFullHeight /= numScale
             keyParams.mFullWidth *= widthScale
             currentX += keyParams.mFullWidth
             row.add(keyParams)
@@ -89,6 +81,16 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
 //            }
         }
         return arrayListOf(row)
+    }
+
+    private fun getWidthScale(): Float {
+        // height scale affects emoji size, but then emojis may be too wide or too narrow
+        // so we re-scale width too
+        // but not with exactly the same factor, adjust it a little so emojis fill the entire available width
+        // this looks much better than setting some offset in DynamicGridKeyboard (to center the rows)
+        val numColumnsNew = round(1f / (params.mDefaultRelativeKeyWidth * sqrt(Settings.getInstance().current.mKeyboardHeightScale)))
+        val numColumnsOld = round(1f / params.mDefaultRelativeKeyWidth)
+        return numColumnsOld / numColumnsNew - 0.0001f // small offset to have more emojis in a row in edge cases
     }
 
 //    private fun Float.roundTo(even: Boolean) = if (toInt() % 2 == if (even) 0 else 1) toInt() else toInt() + 1

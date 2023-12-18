@@ -386,7 +386,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             startRow()
             for (keyParams in row) {
                 endKey(keyParams.createKey())
-                // todo: marking as left/right edge would be better than using visual insets and achieve the same thing with more concise code
             }
             endRow()
         }
