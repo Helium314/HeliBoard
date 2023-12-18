@@ -80,7 +80,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             // height is already fully scaled, this undoes part of the rescale
             // we use rawScale here because it influences the emoji size, and looks better that way
             keyParams.mFullHeight /= numScale // hmm... this looks ok
-            keyParams.mFullHeight /= heightScale
+//            keyParams.mFullHeight /= heightScale
             // scale width to have reasonably sized gaps between emojis (also affects number of emojis per row)
             keyParams.mFullWidth *= widthScale
             currentX += keyParams.mFullWidth

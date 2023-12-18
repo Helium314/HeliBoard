@@ -36,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
@@ -95,6 +96,7 @@ public class KeyboardView extends View {
     private final Rect mKeyBackgroundPadding = new Rect();
     private static final float KET_TEXT_SHADOW_RADIUS_DISABLED = -1.0f;
     private final Colors mColors;
+    private float mKeyScaleForText;
 
     // The maximum key label width in the proportion to the key width.
     private static final float MAX_LABEL_RATIO = 0.90f;
@@ -203,9 +205,14 @@ public class KeyboardView extends View {
      */
     public void setKeyboard(@NonNull final Keyboard keyboard) {
         mKeyboard = keyboard;
-        final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
-        mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
-        mKeyDrawParams.updateParams(keyHeight, keyboard.mKeyVisualAttributes);
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        if (keyboard.mId.isEmojiKeyboard() || keyboard.mId.mElementId == KeyboardId.ELEMENT_CLIPBOARD)
+            mKeyScaleForText = (float) Math.sqrt(1 / sv.mKeyboardHeightScale);
+        else
+            mKeyScaleForText = (float) Math.sqrt(sv.mOneHandedModeScale / sv.mKeyboardHeightScale);
+        final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
+        mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
+        mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
     }
@@ -346,7 +353,8 @@ public class KeyboardView extends View {
         canvas.translate(keyDrawX, keyDrawY);
 
         final KeyVisualAttributes attr = key.getVisualAttributes();
-        final KeyDrawParams params = mKeyDrawParams.mayCloneAndUpdateParams(key.getHeight(), attr);
+        // todo: don't use raw key height, need to adjust it...
+        final KeyDrawParams params = mKeyDrawParams.mayCloneAndUpdateParams((int) (key.getHeight() * mKeyScaleForText), attr);
         params.mAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 
         if (!key.isSpacer()) {
