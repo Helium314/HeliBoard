@@ -27,6 +27,7 @@ import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView
+import org.dslul.openboard.inputmethod.latin.common.ColorType.*
 import org.dslul.openboard.inputmethod.latin.KeyboardWrapperView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
@@ -234,35 +235,35 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     }
 
     override fun get(color: ColorType): Int = when (color) {
-        ColorType.ENABLE_TOOL_KEY, ColorType.EMOJI_CATEGORY_SELECTED -> accent
-        ColorType.EMOJI_CATEGORY, ColorType.GESTURE_PREVIEW -> adjustedBackground
-        ColorType.TOOL_BAR_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
-        ColorType.GESTURE -> gesture
-        ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
-        ColorType.KEY_HINT_TEXT -> keyHintText
-        ColorType.SPACEBAR_TEXT -> spaceBarText
-        ColorType.NAV_BAR -> navBar
-        ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
+        ENABLE_TOOL_KEY, EMOJI_CATEGORY_SELECTED -> accent
+        EMOJI_CATEGORY, GESTURE_PREVIEW -> adjustedBackground
+        TOOL_BAR_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
+        GESTURE -> gesture
+        KEY_TEXT, COLOR_AUTO_CORRECT -> keyText
+        KEY_HINT_TEXT -> keyHintText
+        SPACEBAR_TEXT -> spaceBarText
+        NAV_BAR -> navBar
+        MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, TYPED_WORD, VALID_WORD -> adjustedKeyText
         // Assign white color to unused ColorType
-        ColorType.ACTION_KEY_ICON, ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB, ColorType.KEY_ICON,
-        ColorType.KEY_PREVIEW_VIEW, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON, ColorType.STOP_ONE_HANDED_MODE, ColorType.SUGGESTION_KEYS,
-        ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY, -> Color.WHITE
+        ACTION_KEY_ICON, BIN_ICON, CLEAR_KEY, DELETE_KEY, EMOJI_TAB, KEY_ICON,
+        KEY_PREVIEW_VIEW, PINNED_ICON, SHIFT_KEY_ICON, STOP_ONE_HANDED_MODE, SUGGESTION_KEYS,
+        SWITCH_ONE_HANDED_MODE, TOOL_BAR_KEY, -> Color.WHITE
     }
 
     override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
-        ColorType.EMOJI_CATEGORY_SELECTED, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON -> accentColorFilter
+        EMOJI_CATEGORY_SELECTED, PINNED_ICON, SHIFT_KEY_ICON -> accentColorFilter
 
-        ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB,
-        ColorType.KEY_TEXT, ColorType.KEY_ICON, ColorType.STOP_ONE_HANDED_MODE,
-        ColorType.SUGGESTION_KEYS, ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY -> keyTextFilter
+        BIN_ICON, CLEAR_KEY, DELETE_KEY, EMOJI_TAB,
+        KEY_TEXT, KEY_ICON, STOP_ONE_HANDED_MODE,
+        SUGGESTION_KEYS, SWITCH_ONE_HANDED_MODE, TOOL_BAR_KEY -> keyTextFilter
 
-        ColorType.KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
+        KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
 
-        ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
+        ACTION_KEY_ICON -> actionKeyIconColorFilter
         // Colorfilter is null to unused ColorType
-        ColorType.COLOR_AUTO_CORRECT, ColorType.EMOJI_CATEGORY, ColorType.ENABLE_TOOL_KEY, ColorType.GESTURE, ColorType.GESTURE_PREVIEW,
-        ColorType.KEY_HINT_TEXT, ColorType.MORE_SUGGESTIONS_HINT, ColorType.NAV_BAR, ColorType.SPACEBAR_TEXT,
-        ColorType.SUGGESTED_WORD, ColorType.TOOL_BAR_KEY_BACKGROUND, ColorType.TYPED_WORD, ColorType.VALID_WORD -> null
+        COLOR_AUTO_CORRECT, EMOJI_CATEGORY, ENABLE_TOOL_KEY, GESTURE, GESTURE_PREVIEW,
+        KEY_HINT_TEXT, MORE_SUGGESTIONS_HINT, NAV_BAR, SPACEBAR_TEXT,
+        SUGGESTED_WORD, TOOL_BAR_KEY_BACKGROUND, TYPED_WORD, VALID_WORD -> null
     }
 
     /** set background colors including state list to the drawable  */
@@ -433,35 +434,35 @@ class DefaultColors (
     }
 
     override fun get(color: ColorType): Int = when (color) {
-        ColorType.ENABLE_TOOL_KEY, ColorType.EMOJI_CATEGORY_SELECTED -> accent
-        ColorType.EMOJI_CATEGORY, ColorType.GESTURE_PREVIEW -> adjustedBackground
-        ColorType.TOOL_BAR_KEY_BACKGROUND -> doubleAdjustedBackground
-        ColorType.GESTURE -> gesture
-        ColorType.KEY_TEXT, ColorType.COLOR_AUTO_CORRECT -> keyText
-        ColorType.KEY_HINT_TEXT -> keyHintText
-        ColorType.SPACEBAR_TEXT -> spaceBarText
-        ColorType.NAV_BAR -> navBar
-        ColorType.MORE_SUGGESTIONS_HINT, ColorType.SUGGESTED_WORD, ColorType.TYPED_WORD, ColorType.VALID_WORD -> adjustedKeyText
+        ENABLE_TOOL_KEY, EMOJI_CATEGORY_SELECTED -> accent
+        EMOJI_CATEGORY, GESTURE_PREVIEW -> adjustedBackground
+        TOOL_BAR_KEY_BACKGROUND -> doubleAdjustedBackground
+        GESTURE -> gesture
+        KEY_TEXT, COLOR_AUTO_CORRECT -> keyText
+        KEY_HINT_TEXT -> keyHintText
+        SPACEBAR_TEXT -> spaceBarText
+        NAV_BAR -> navBar
+        MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, TYPED_WORD, VALID_WORD -> adjustedKeyText
         // Assign white color to unused ColorType
-        ColorType.ACTION_KEY_ICON, ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB, ColorType.KEY_ICON,
-        ColorType.KEY_PREVIEW_VIEW, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON, ColorType.STOP_ONE_HANDED_MODE, ColorType.SUGGESTION_KEYS,
-        ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY, -> Color.WHITE
+        ACTION_KEY_ICON, BIN_ICON, CLEAR_KEY, DELETE_KEY, EMOJI_TAB, KEY_ICON,
+        KEY_PREVIEW_VIEW, PINNED_ICON, SHIFT_KEY_ICON, STOP_ONE_HANDED_MODE, SUGGESTION_KEYS,
+        SWITCH_ONE_HANDED_MODE, TOOL_BAR_KEY, -> Color.WHITE
     }
 
     override fun setColorFilter(color: ColorType): ColorFilter? = when (color) {
-        ColorType.EMOJI_CATEGORY_SELECTED, ColorType.PINNED_ICON, ColorType.SHIFT_KEY_ICON -> accentColorFilter
+        EMOJI_CATEGORY_SELECTED, PINNED_ICON, SHIFT_KEY_ICON -> accentColorFilter
 
-        ColorType.BIN_ICON, ColorType.CLEAR_KEY, ColorType.DELETE_KEY, ColorType.EMOJI_TAB,
-        ColorType.KEY_TEXT, ColorType.KEY_ICON, ColorType.STOP_ONE_HANDED_MODE,
-        ColorType.SUGGESTION_KEYS, ColorType.SWITCH_ONE_HANDED_MODE, ColorType.TOOL_BAR_KEY -> keyTextFilter
+        BIN_ICON, CLEAR_KEY, DELETE_KEY, EMOJI_TAB,
+        KEY_TEXT, KEY_ICON, STOP_ONE_HANDED_MODE,
+        SUGGESTION_KEYS, SWITCH_ONE_HANDED_MODE, TOOL_BAR_KEY -> keyTextFilter
 
-        ColorType.KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
+        KEY_PREVIEW_VIEW -> adjustedBackgroundFilter
 
-        ColorType.ACTION_KEY_ICON -> actionKeyIconColorFilter
+        ACTION_KEY_ICON -> actionKeyIconColorFilter
         // ColorFilter is null to unused ColorType
-        ColorType.COLOR_AUTO_CORRECT, ColorType.EMOJI_CATEGORY, ColorType.ENABLE_TOOL_KEY, ColorType.GESTURE, ColorType.GESTURE_PREVIEW,
-        ColorType.KEY_HINT_TEXT, ColorType.MORE_SUGGESTIONS_HINT, ColorType.NAV_BAR, ColorType.SPACEBAR_TEXT,
-        ColorType.SUGGESTED_WORD, ColorType.TOOL_BAR_KEY_BACKGROUND, ColorType.TYPED_WORD, ColorType.VALID_WORD -> null
+        COLOR_AUTO_CORRECT, EMOJI_CATEGORY, ENABLE_TOOL_KEY, GESTURE, GESTURE_PREVIEW,
+        KEY_HINT_TEXT, MORE_SUGGESTIONS_HINT, NAV_BAR, SPACEBAR_TEXT,
+        SUGGESTED_WORD, TOOL_BAR_KEY_BACKGROUND, TYPED_WORD, VALID_WORD -> null
     }
 
     /** set background colors including state list to the drawable  */
