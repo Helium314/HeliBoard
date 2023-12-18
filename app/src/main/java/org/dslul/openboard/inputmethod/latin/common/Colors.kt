@@ -41,9 +41,6 @@ import org.dslul.openboard.inputmethod.latin.utils.isDarkColor
 interface Colors {
     /** keep here [themeStyle] because it's actually required in KeyboardView for label placement */
     val themeStyle: String
-    /**  keep adjusted background (double) as a value instead of calculating it each time */
-    val adjustedBackground: Int
-    val doubleAdjustedBackground: Int
     val hasKeyBorders: Boolean
 
     @ColorInt fun get(color: ColorType): Int
@@ -99,9 +96,9 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
      *  bad contrast, e.g. more keys popup or no border space bar */
-    override val adjustedBackground: Int
+    private val adjustedBackground: Int
     /** further brightened or darkened variant of [adjustedBackground] */
-    override val doubleAdjustedBackground: Int
+    private val doubleAdjustedBackground: Int
     /** brightened or darkened variant of [keyText] */
     private val adjustedKeyText: Int
 
@@ -342,9 +339,9 @@ class DefaultColors (
     private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
      *  bad contrast, e.g. more keys popup or no border space bar */
-    override val adjustedBackground: Int
+    private val adjustedBackground: Int
     /** further brightened or darkened variant of [adjustedBackground] */
-    override val doubleAdjustedBackground: Int
+    private val doubleAdjustedBackground: Int
     /** brightened or darkened variant of [keyText] */
     private val adjustedKeyText: Int
 
