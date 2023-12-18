@@ -220,10 +220,10 @@ public class SettingsValues {
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
 
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
-        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
+        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         if (mOneHandedModeEnabled) {
             final float baseScale = res.getFraction(R.fraction.config_one_handed_mode_width, 1, 1);
-            final float extraScale = prefs.getFloat(Settings.PREF_ONE_HANDED_SCALE, 1f);
+            final float extraScale = Settings.readOneHandedModeScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
             mOneHandedModeScale = 1 - (1 - baseScale) * extraScale;
         } else
             mOneHandedModeScale = 1f;
