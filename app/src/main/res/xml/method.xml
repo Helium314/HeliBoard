@@ -108,9 +108,12 @@
 <!-- If IME doesn't have an applicable subtype, the first subtype will be used as a default
      subtype.-->
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:settingsActivity="org.dslul.openboard.inputmethod.latin.settings.SettingsActivity"
         android:isDefault="@bool/im_is_default"
-        android:supportsSwitchingToNextInputMethod="true">
+        android:supportsSwitchingToNextInputMethod="true"
+        android:supportsInlineSuggestions="true"
+        tools:targetApi="r">
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0xc9194f97"

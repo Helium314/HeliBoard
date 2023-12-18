@@ -6,6 +6,9 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +16,13 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
@@ -24,17 +30,26 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
+import android.util.Size;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InlineSuggestion;
+import android.view.inputmethod.InlineSuggestionsRequest;
+import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.inline.InlinePresentationSpec;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -72,6 +87,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
@@ -93,8 +109,15 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.autofill.inline.UiVersions;
+import androidx.autofill.inline.common.ImageViewStyle;
+import androidx.autofill.inline.common.TextViewStyle;
+import androidx.autofill.inline.common.ViewStyle;
+import androidx.autofill.inline.v1.InlineSuggestionUi;
 import androidx.core.content.ContextCompat;
+import androidx.autofill.inline.UiVersions.StylesBuilder;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -1334,6 +1357,97 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void updateFullscreenMode() {
         super.updateFullscreenMode();
         updateSoftInputWindowLayoutParameters();
+    }
+
+    // Code from https://android.googlesource.com/platform/development/+/master/samples/AutofillKeyboard/
+    // with some modifications
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(Bundle uiExtras) {
+        Log.d(TAG,"onCreateInlineSuggestionsRequest called");
+
+        // Revert to default behaviour if show_suggestions is disabled
+        // (Maybe there is a better way to do this)
+        boolean isShowSuggestionsEnabled = DeviceProtectedUtils.getSharedPreferences(this).getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+        if(!isShowSuggestionsEnabled){
+            return null;
+        }
+
+        final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
+
+        StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
+        @SuppressLint("RestrictedApi") UiVersions.Style style = InlineSuggestionUi.newStyleBuilder()
+                .setSingleIconChipStyle(
+                        new ViewStyle.Builder()
+                                .setBackground(
+                                        Icon.createWithResource(this, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                .setPadding(0, 0, 0, 0)
+                                .build())
+                .setChipStyle(
+                        new ViewStyle.Builder()
+                                .setBackground(
+                                        Icon.createWithResource(this, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                .build())
+                .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
+                .setTitleStyle(
+                        new TextViewStyle.Builder()
+                                .setLayoutMargin(toPixel(4), 0, toPixel(4), 0)
+                                .setTextColor(Color.parseColor("#FF202124"))
+                                .setTextSize(12)
+                                .build())
+                .setSubtitleStyle(
+                        new TextViewStyle.Builder()
+                                .setLayoutMargin(0, 0, toPixel(4), 0)
+                                .setTextColor(Color.parseColor("#99202124")) // 60% opacity
+                                .setTextSize(10)
+                                .build())
+                .setEndIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
+                .build();
+        stylesBuilder.addStyle(style);
+
+        Bundle stylesBundle = stylesBuilder.build();
+
+        final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
+        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(LayoutParams.WRAP_CONTENT, height),
+                new Size(LayoutParams.MATCH_PARENT, height)).setStyle(stylesBundle).build());
+
+        return new InlineSuggestionsRequest.Builder(presentationSpecs)
+                .setMaxSuggestionCount(6)
+                .build();
+    }
+
+    private int toPixel(int dp) {
+        return (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
+        Log.d(TAG,"onInlineSuggestionsResponse called");
+        final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
+
+        // A container to hold all views
+        LinearLayout container = new LinearLayout(mDisplayContext);
+
+        for (final InlineSuggestion s : response.getInlineSuggestions()) {
+            s.inflate(this, new Size(LayoutParams.WRAP_CONTENT, height), getMainExecutor(), (view) -> {
+                if (view != null)
+                    container.addView(view);
+            });
+        }
+
+        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(mDisplayContext);
+        horizontalScrollView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        horizontalScrollView.setHorizontalScrollBarEnabled(false);
+
+        horizontalScrollView.addView(container);
+
+        // Delay required to show properly
+        new Handler().postDelayed(() -> mSuggestionStripView.addSuggestionView(horizontalScrollView), 200);
+
+        return true;
     }
 
     private void updateSoftInputWindowLayoutParameters() {

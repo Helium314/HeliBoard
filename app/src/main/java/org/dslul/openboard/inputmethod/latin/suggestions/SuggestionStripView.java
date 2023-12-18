@@ -279,6 +279,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
     }
 
+    public void addSuggestionView(final View view) {
+        mSuggestionsStrip.addView(view);
+    }
+
+
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
