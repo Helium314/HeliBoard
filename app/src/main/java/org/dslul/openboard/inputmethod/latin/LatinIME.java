@@ -1368,7 +1368,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         // Revert to default behaviour if show_suggestions is disabled
         // (Maybe there is a better way to do this)
-        boolean isShowSuggestionsEnabled = DeviceProtectedUtils.getSharedPreferences(this).getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+        boolean isShowSuggestionsEnabled = DeviceProtectedUtils.getSharedPreferences(mDisplayContext).getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
         if(!isShowSuggestionsEnabled){
             return null;
         }
