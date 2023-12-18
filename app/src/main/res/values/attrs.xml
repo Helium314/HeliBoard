@@ -271,6 +271,7 @@
         <attr name="iconStartOneHandedMode" format="reference" />
         <attr name="iconStopOneHandedMode" format="reference" />
         <attr name="iconSwitchOneHandedMode" format="reference" />
+        <attr name="iconResizeOneHandedMode" format="reference" />
         <attr name="iconNumpadKey" format="reference" />
         <attr name="iconToolbarKey" format="reference" />
         <attr name="iconSelectAll" format="reference" />

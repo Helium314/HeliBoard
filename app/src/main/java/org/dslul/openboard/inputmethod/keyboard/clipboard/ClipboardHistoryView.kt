@@ -61,7 +61,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
         val width = (ResourceUtils.getDefaultKeyboardWidth(res) + paddingLeft + paddingRight)
-        val height = (ResourceUtils.getDefaultKeyboardHeight(res)
+        val height = (ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
                 + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
                 + paddingTop + paddingBottom)
         setMeasuredDimension(width, height)

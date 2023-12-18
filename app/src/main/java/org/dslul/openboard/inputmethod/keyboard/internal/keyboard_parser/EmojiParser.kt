@@ -10,6 +10,9 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
+import org.dslul.openboard.inputmethod.latin.settings.Settings
+import kotlin.math.round
+import kotlin.math.sqrt
 
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
 
@@ -60,16 +63,34 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val row = ArrayList<KeyParams>(emojiArray.size)
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat()
+
+        val widthScale = getWidthScale()
+        // extra scale for height only, to undo the effect of number row increasing absolute key height
+        // todo: with this things look ok, but number row still slightly affects emoji size (which it should not)
+        val numScale = if (Settings.getInstance().current.mShowsNumberRow) 1.25f else 1f
+
         emojiArray.forEachIndexed { i, codeArraySpec ->
             val keyParams = parseEmojiKey(codeArraySpec, moreEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
             keyParams.setDimensionsFromRelativeSize(currentX, currentY)
-            currentX += keyParams.mFullWidth // exact value seems to be not really relevant, but keeping 0 doesn't work
+            keyParams.mFullHeight /= numScale
+            keyParams.mFullWidth *= widthScale
+            currentX += keyParams.mFullWidth
             row.add(keyParams)
 //            if (row.size % numColumns == spacerIndex) { // also removed for now (would be missing setting the size and updating x
 //                repeat(spacerNumKeys) { row.add(KeyParams.newSpacer(params, params.mDefaultRelativeKeyWidth)) }
 //            }
         }
         return arrayListOf(row)
+    }
+
+    private fun getWidthScale(): Float {
+        // height scale affects emoji size, but then emojis may be too wide or too narrow
+        // so we re-scale width too
+        // but not with exactly the same factor, adjust it a little so emojis fill the entire available width
+        // this looks much better than setting some offset in DynamicGridKeyboard (to center the rows)
+        val numColumnsNew = round(1f / (params.mDefaultRelativeKeyWidth * sqrt(Settings.getInstance().current.mKeyboardHeightScale)))
+        val numColumnsOld = round(1f / params.mDefaultRelativeKeyWidth)
+        return numColumnsOld / numColumnsNew - 0.0001f // small offset to have more emojis in a row in edge cases
     }
 
 //    private fun Float.roundTo(even: Boolean) = if (toInt() % 2 == if (even) 0 else 1) toInt() else toInt() + 1

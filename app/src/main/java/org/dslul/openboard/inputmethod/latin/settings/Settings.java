@@ -105,8 +105,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
     public static final String PREF_USE_NEW_KEYBOARD_PARSING = "pref_use_new_keyboard_parsing2"; // todo: remove later
 
-    public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
-    public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity";
+    public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled_p_";
+    public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity_p_";
+    public static final String PREF_ONE_HANDED_SCALE = "pref_one_handed_mode_scale_p_";
 
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
@@ -393,21 +394,29 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, false);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE, false);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean portrait) {
+        return prefs.getBoolean(PREF_ONE_HANDED_MODE + portrait, false);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE, enabled).apply();
+        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+    }
+
+    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean portrait) {
+        return prefs.getFloat(PREF_ONE_HANDED_SCALE + portrait, 1f);
+    }
+
+    public void writeOneHandedModeScale(final Float scale) {
+        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
     }
 
     @SuppressLint("RtlHardcoded")
-    public static int readOneHandedModeGravity(final SharedPreferences prefs) {
-        return prefs.getInt(PREF_ONE_HANDED_GRAVITY, Gravity.LEFT);
+    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean portrait) {
+        return prefs.getInt(PREF_ONE_HANDED_GRAVITY + portrait, Gravity.LEFT);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY, gravity).apply();
+        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {

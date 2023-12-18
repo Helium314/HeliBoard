@@ -81,6 +81,7 @@ public class SettingsValues {
     public final long mClipboardHistoryRetentionTime;
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
+    public final float mOneHandedModeScale;
     public final boolean mNarrowKeyGaps;
     public final int mShowMoreKeys;
     public final List<Locale> mSecondaryLocales;
@@ -217,8 +218,15 @@ public class SettingsValues {
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
-        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
-        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
+
+        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+        if (mOneHandedModeEnabled) {
+            final float baseScale = res.getFraction(R.fraction.config_one_handed_mode_width, 1, 1);
+            final float extraScale = Settings.readOneHandedModeScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+            mOneHandedModeScale = 1 - (1 - baseScale) * extraScale;
+        } else
+            mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
         mShowMoreKeys = selectedSubtype.isAsciiCapable()

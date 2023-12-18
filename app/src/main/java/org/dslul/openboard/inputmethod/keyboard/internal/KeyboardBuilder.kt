@@ -140,7 +140,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         if (Settings.getInstance().current.mUseNewKeyboardParsing) {
-            if (id.mElementId >= KeyboardId.ELEMENT_EMOJI_RECENTS && id.mElementId <= KeyboardId.ELEMENT_EMOJI_CATEGORY16) {
+            if (id.isEmojiKeyboard) {
                 mParams.mId = id
                 readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
                 keysInRows = EmojiParser(mParams, mContext).parse(Settings.getInstance().current.mIsSplitKeyboardEnabled)
@@ -222,10 +222,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                     Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mFullWidth.toInt()}")
                 currentX += it.mFullWidth
             }
-            // need to truncate to int here, otherwise it may end up one pixel lower than original
-            // though actually not truncating would be more correct... but that's already an y / height issue somewhere in Key
-            // todo (later): round, and do the change together with the some thing in Key(KeyParams keyParams)
-            currentY += row.first().mFullHeight.toInt()
+            currentY += row.first().mFullHeight
         }
     }
 
@@ -371,8 +368,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.removeRedundantMoreKeys()
         // {@link #parseGridRows(XmlPullParser,boolean)} may populate keyboard rows higher than
         // previously expected.
+        // todo (low priority): mCurrentY may end up too high with the new parser and 4 row keyboards in landscape mode
+        //  -> why is this happening?
+        // but anyway, since the height is resized correctly already, we don't need to adjust the
+        // occupied height, except for the scrollable emoji keyoards
+        if (!mParams.mId.isEmojiKeyboard) return
         val actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding
-        mParams.mOccupiedHeight = Math.max(mParams.mOccupiedHeight, actualHeight)
+        mParams.mOccupiedHeight = mParams.mOccupiedHeight.coerceAtLeast(actualHeight)
     }
 
     private fun addKeysToParams() {

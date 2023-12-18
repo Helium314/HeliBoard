@@ -32,6 +32,7 @@
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_holo</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_holo</item>
         <item name="iconSwitchOneHandedMode">@drawable/sym_keyboard_switch_onehanded_holo</item>
+        <item name="iconResizeOneHandedMode">@drawable/ic_arrow_horizontal</item>
         <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_holo</item>
         <item name="iconToolbarKey">@drawable/ic_arrow_right</item>
         <item name="iconSelectAll">@drawable/ic_select_all</item>

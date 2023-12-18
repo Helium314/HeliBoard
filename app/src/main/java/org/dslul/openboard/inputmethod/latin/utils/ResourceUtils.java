@@ -176,8 +176,7 @@ public final class ResourceUtils {
     public static int getKeyboardWidth(final Resources res, final SettingsValues settingsValues) {
         final int defaultKeyboardWidth = getDefaultKeyboardWidth(res);
         if (settingsValues.mOneHandedModeEnabled) {
-            return (int) res.getFraction(R.fraction.config_one_handed_mode_width,
-                    defaultKeyboardWidth, defaultKeyboardWidth);
+            return (int) (settingsValues.mOneHandedModeScale * defaultKeyboardWidth);
         }
         return defaultKeyboardWidth;
     }
@@ -188,14 +187,14 @@ public final class ResourceUtils {
     }
 
     public static int getKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
-        final int defaultKeyboardHeight = getDefaultKeyboardHeight(res);
+        final int defaultKeyboardHeight = getDefaultKeyboardHeight(res, settingsValues.mShowsNumberRow);
         // mKeyboardHeightScale Ranges from [.5,1.5], from xml/prefs_screen_appearance.xml
         return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
     }
 
-    public static int getDefaultKeyboardHeight(final Resources res) {
+    private static int getDefaultKeyboardHeight(final Resources res, final boolean showsNumberRow) {
         final DisplayMetrics dm = res.getDisplayMetrics();
-        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height);
+        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height) * (showsNumberRow ? 1.25f : 1f);
         final float maxKeyboardHeight = res.getFraction(
                 R.fraction.config_max_keyboard_height, dm.heightPixels, dm.heightPixels);
         float minKeyboardHeight = res.getFraction(
