@@ -1320,14 +1320,21 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return false;
         }
         // Reread resource value here, because this method is called by the framework as needed.
-        final boolean isFullscreenModeAllowed = Settings.readUseFullscreenMode(getResources());
+        final boolean isFullscreenModeAllowed = Settings.readFullscreenModeAllowed(getResources());
         if (super.onEvaluateFullscreenMode() && isFullscreenModeAllowed) {
             // TODO: Remove this hack. Actually we should not really assume NO_EXTRACT_UI
             // implies NO_FULLSCREEN. However, the framework mistakenly does.  i.e. NO_EXTRACT_UI
             // without NO_FULLSCREEN doesn't work as expected. Because of this we need this
             // hack for now.  Let's get rid of this once the framework gets fixed.
             final EditorInfo ei = getCurrentInputEditorInfo();
-            return !(ei != null && ((ei.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0));
+            if (ei == null) return false;
+            final boolean noExtractUi = (ei.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0;
+            final boolean noFullscreen = (ei.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0;
+            if (noExtractUi || noFullscreen) return false;
+            if (mKeyboardSwitcher.getVisibleKeyboardView() == null || mSuggestionStripView == null) return false;
+            final int usedHeight = mKeyboardSwitcher.getVisibleKeyboardView().getHeight() + mSuggestionStripView.getHeight();
+            final int availableHeight = getResources().getDisplayMetrics().heightPixels;
+            return usedHeight > availableHeight * 0.6; // if we have less than 40% available, use fullscreen mode
         }
         return false;
     }

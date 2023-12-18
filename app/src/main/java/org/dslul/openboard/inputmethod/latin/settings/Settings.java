@@ -378,8 +378,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_AUTOSPACE_AFTER_PUNCTUATION, false);
     }
 
-    public static boolean readUseFullscreenMode(final Resources res) {
-        return res.getBoolean(R.bool.config_use_fullscreen_mode);
+    public static boolean readFullscreenModeAllowed(final Resources res) {
+        return res.getBoolean(R.bool.config_fullscreen_mode_allowed);
     }
 
     public static boolean readShowSetupWizardIcon(final SharedPreferences prefs,

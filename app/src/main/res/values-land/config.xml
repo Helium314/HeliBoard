@@ -7,7 +7,7 @@
 
 <!-- Configuration values for Small Phone Landscape. -->
 <resources>
-    <bool name="config_use_fullscreen_mode">false</bool>
+    <bool name="config_fullscreen_mode_allowed">true</bool>
 
     <!-- Preferable keyboard height in absolute scale: 1.100in -->
     <!-- This config_default_keyboard_height value should match with keyboard-heights.xml -->
