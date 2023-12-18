@@ -23,12 +23,8 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.DrawableCompat
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_HOLO
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_MATERIAL
-import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView
-import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView
-import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
 import org.dslul.openboard.inputmethod.latin.common.ColorType.*
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView
 import org.dslul.openboard.inputmethod.latin.utils.adjustLuminosityAndKeepAlpha
 import org.dslul.openboard.inputmethod.latin.utils.brighten
 import org.dslul.openboard.inputmethod.latin.utils.brightenOrDarken
@@ -235,7 +231,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     override fun get(color: ColorType): Int = when (color) {
         TOOL_BAR_KEY_ENABLED_BACKGROUND, EMOJI_CATEGORY_SELECTED, ACTION_KEY_BACKGROUND,
         CLIPBOARD_PIN, SHIFT_KEY_ICON -> accent
-        EMOJI_CATEGORY_BACKGROUND, GESTURE_PREVIEW, MORE_KEYS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
+        EMOJI_CATEGORY_BACKGROUND, GESTURE_PREVIEW, MORE_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
         TOOL_BAR_EXPAND_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
         KEY_TEXT, SUGGESTION_AUTO_CORRECT, REMOVE_SUGGESTION_ICON, CLEAR_CLIPBOARD_HISTORY_KEY,
@@ -250,7 +246,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         SUGGESTION_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
         NAVIGATION_BAR -> navBar
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedKeyText
-        ACTION_KEY_ICON, TOOL_BAR_EXPAND_KEY, -> Color.WHITE
+        ACTION_KEY_ICON, TOOL_BAR_EXPAND_KEY -> Color.WHITE
     }
 
     override fun setColor(drawable: Drawable, color: ColorType) {
@@ -316,15 +312,12 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             EMOJI_CATEGORY_BACKGROUND -> view.setBackgroundColor(get(color))
             KEY_PREVIEW -> view.background.colorFilter = adjustedBackgroundFilter
             FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, SUGGESTION_BACKGROUND -> setColor(view.background, color)
-            KEYBOARD_BACKGROUND -> when (view) {
-                is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
-                is MoreKeysKeyboardView ->
-                    if (themeStyle != STYLE_HOLO)
-                        setColor(view.background, MORE_KEYS_BACKGROUND)
-                    else view.background.colorFilter = adjustedBackgroundFilter
-                is EmojiPageKeyboardView, is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT)
-                else -> view.background.colorFilter = backgroundFilter
-            }
+            MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
+            MORE_KEYS_BACKGROUND ->
+                if (themeStyle != STYLE_HOLO)
+                    setColor(view.background, MORE_KEYS_BACKGROUND)
+                else view.background.colorFilter = adjustedBackgroundFilter
+            KEYBOARD_BACKGROUND -> view.setBackgroundColor(Color.TRANSPARENT)
             EMOJI_BACKGROUND, CLIPBOARD_BACKGROUND, KEYBOARD_WRAPPER_BACKGROUND -> {
                 if (keyboardBackground != null) view.background = keyboardBackground
                 else view.background.colorFilter = backgroundFilter
@@ -434,7 +427,7 @@ class DefaultColors (
     override fun get(color: ColorType): Int = when (color) {
         TOOL_BAR_KEY_ENABLED_BACKGROUND, EMOJI_CATEGORY_SELECTED, ACTION_KEY_BACKGROUND,
             CLIPBOARD_PIN, SHIFT_KEY_ICON -> accent
-        EMOJI_CATEGORY_BACKGROUND, GESTURE_PREVIEW, MORE_KEYS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
+        EMOJI_CATEGORY_BACKGROUND, GESTURE_PREVIEW, MORE_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
         TOOL_BAR_EXPAND_KEY_BACKGROUND -> doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
         KEY_TEXT, SUGGESTION_AUTO_CORRECT, REMOVE_SUGGESTION_ICON, CLEAR_CLIPBOARD_HISTORY_KEY,
@@ -482,14 +475,10 @@ class DefaultColors (
         when (color) {
             CLEAR_CLIPBOARD_HISTORY_KEY -> setColor(view.background, SUGGESTION_BACKGROUND)
             EMOJI_CATEGORY_BACKGROUND -> view.setBackgroundColor(get(color))
-            KEY_PREVIEW -> view.background.colorFilter = adjustedBackgroundFilter
+            KEY_PREVIEW, MORE_KEYS_BACKGROUND -> view.background.colorFilter = adjustedBackgroundFilter
             FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, SUGGESTION_BACKGROUND -> setColor(view.background, color)
-            KEYBOARD_BACKGROUND -> when (view) {
-                is MoreSuggestionsView -> view.background.colorFilter = backgroundFilter
-                is MoreKeysKeyboardView -> view.background.colorFilter = adjustedBackgroundFilter
-                is EmojiPageKeyboardView, is MainKeyboardView -> view.setBackgroundColor(Color.TRANSPARENT)
-                else -> view.background.colorFilter = backgroundFilter
-            }
+            KEYBOARD_BACKGROUND -> view.setBackgroundColor(Color.TRANSPARENT)
+            MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
             EMOJI_BACKGROUND, CLIPBOARD_BACKGROUND, KEYBOARD_WRAPPER_BACKGROUND -> {
                 if (keyboardBackground != null) view.background = keyboardBackground
                 else view.background.colorFilter = backgroundFilter
@@ -563,6 +552,7 @@ enum class ColorType {
     KEYBOARD_BACKGROUND,
     KEYBOARD_WRAPPER_BACKGROUND,
     MORE_SUGGESTIONS_HINT,
+    MORE_SUGGESTIONS_BACKGROUND,
     MORE_KEYS_BACKGROUND,
     NAVIGATION_BAR,
     SHIFT_KEY_ICON,

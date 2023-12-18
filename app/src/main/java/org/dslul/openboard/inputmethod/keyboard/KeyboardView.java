@@ -36,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
@@ -174,7 +175,6 @@ public class KeyboardView extends View {
         keyAttr.recycle();
 
         mPaint.setAntiAlias(true);
-        mColors.setBackground(this, ColorType.KEYBOARD_BACKGROUND);
     }
 
     @Nullable
@@ -202,6 +202,14 @@ public class KeyboardView extends View {
      * @param keyboard the keyboard to display in this view
      */
     public void setKeyboard(@NonNull final Keyboard keyboard) {
+        if (keyboard instanceof MoreSuggestions) {
+            mColors.setBackground(this, ColorType.MORE_SUGGESTIONS_BACKGROUND);
+        } else if (keyboard instanceof MoreKeysKeyboard) {
+            mColors.setBackground(this, ColorType.MORE_KEYS_BACKGROUND);
+        } else {
+            mColors.setBackground(this, ColorType.KEYBOARD_BACKGROUND);
+        }
+
         mKeyboard = keyboard;
         final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
         mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
