@@ -256,8 +256,6 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the settings for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
-    <!-- Title of the settings for adjusting width scale of one-handed mode -->
-    <string name="prefs_one_handed_scale">One-handed mode scale</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
