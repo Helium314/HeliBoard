@@ -33,16 +33,29 @@ import org.dslul.openboard.inputmethod.latin.utils.isBrightColor
 import org.dslul.openboard.inputmethod.latin.utils.isDarkColor
 
 interface Colors {
-    /** keep here [themeStyle] because it's actually required in KeyboardView for label placement */
+    // these theme parameters should no be in here, but are still used
+    /** used in KeyboardView for label placement */
     val themeStyle: String
+    /** used in parser to decide background of ZWNJ key */
     val hasKeyBorders: Boolean
 
+    /** use to check whether colors have changed, for colors (in)directly derived from context,
+     *  e.g. night mode or potentially changing system colors */
     fun haveColorsChanged(context: Context): Boolean
 
+    /** get the colorInt */
     @ColorInt fun get(color: ColorType): Int
+
+    /** apply a color to the [drawable], may be through color filter or tint (with or without state list) */
     fun setColor(drawable: Drawable, color: ColorType)
+
+    /** set a foreground color to the [view] */
     fun setColor(view: ImageView, color: ColorType)
+
+    /** set a background to the [view], may replace or adjust existing background */
     fun setBackground(view: View, color: ColorType)
+
+    /** returns a colored drawable selected from [attr], which must contain using R.styleable.KeyboardView_* */
     fun selectAndColorDrawable(attr: TypedArray, color: ColorType): Drawable
 }
 
