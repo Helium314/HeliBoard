@@ -479,7 +479,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
     }
 
-    public void clearCache() {
-        mEmojiCategory.clear();
+    public void clearKeyboardCache() {
+        mEmojiCategory.clearKeyboardCache();
     }
 }

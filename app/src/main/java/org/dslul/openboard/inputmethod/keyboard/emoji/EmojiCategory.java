@@ -167,7 +167,7 @@ final class EmojiCategory {
         }
     }
 
-    public void clear() {
+    public void clearKeyboardCache() {
         mCategoryKeyboardMap.clear();
     }
 

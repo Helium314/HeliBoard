@@ -59,7 +59,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
     // todo: issues
     //  abc button is full width, but should be scaled in one-handed mode (minor)
     //  suggestion strip on top is a bit out of place, replace it? or force show toolbar?
-    // todo: maybe can be removed?
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources

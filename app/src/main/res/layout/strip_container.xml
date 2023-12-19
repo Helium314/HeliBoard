@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2014 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/config_suggestions_strip_height">
+    <!-- To ensure that key preview popup is correctly placed when the current system locale is
+         one of RTL locales, layoutDirection="ltr" is needed in the SDK version 17+. -->
+    <org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
+        android:id="@+id/suggestion_strip_view"
+        android:layoutDirection="ltr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        style="?attr/suggestionStripViewStyle" />
+    <LinearLayout
+        android:id="@+id/emoji_tab_strip"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="?attr/suggestionStripViewStyle"
+        >
+        <org.dslul.openboard.inputmethod.compat.TabHostCompat
+            android:id="@+id/emoji_category_tabhost"
+            android:layout_width="0dip"
+            android:layout_weight="87.5"
+            android:layout_height="match_parent"
+            >
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="0dip"
+                android:layout_height="0dip"
+                >
+                <!-- Empty placeholder that TabHost requires. But we don't use it to actually
+                     display anything. We monitor the tab changes and change the ViewPager.
+                     Similarly the ViewPager swipes are intercepted and passed to the TabHost. -->
+                <View
+                    android:id="@+id/emoji_keyboard_dummy"
+                    android:layout_width="0dip"
+                    android:layout_height="0dip"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </org.dslul.openboard.inputmethod.compat.TabHostCompat>
+    </LinearLayout>
+</FrameLayout>

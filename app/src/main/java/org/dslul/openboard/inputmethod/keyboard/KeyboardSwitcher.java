@@ -443,8 +443,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
             return;
         }
-        KeyboardLayoutSet.onKeyboardThemeChanged(); // clear caches
-        mEmojiPalettesView.clearCache();
+        mEmojiPalettesView.clearKeyboardCache();
         final Settings settings = Settings.getInstance();
         mKeyboardViewWrapper.setOneHandedModeEnabled(enabled);
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
