@@ -31,12 +31,13 @@ import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.common.BackgroundType;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
+import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
@@ -139,18 +140,18 @@ public class KeyboardView extends View {
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
         if (this instanceof EmojiPageKeyboardView || this instanceof MoreSuggestionsView)
-            mKeyBackground = mColors.getDrawable(BackgroundType.BACKGROUND, keyboardViewAttr);
+            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.BACKGROUND);
         else if (this instanceof MoreKeysKeyboardView)
-            mKeyBackground = mColors.getDrawable(BackgroundType.ADJUSTED_BACKGROUND, keyboardViewAttr);
+            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.MORE_KEYS_BACKGROUND);
         else
-            mKeyBackground = mColors.getDrawable(BackgroundType.KEY, keyboardViewAttr);
+            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.KEY_BACKGROUND);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
-        mFunctionalKeyBackground = mColors.getDrawable(BackgroundType.FUNCTIONAL, keyboardViewAttr);
-        mSpacebarBackground = mColors.getDrawable(BackgroundType.SPACE, keyboardViewAttr);
+        mFunctionalKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.FUNCTIONAL_KEY_BACKGROUND);
+        mSpacebarBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND);
         if (this instanceof MoreKeysKeyboardView)
-            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION_MORE_KEYS, keyboardViewAttr);
+            mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_MORE_KEYS_BACKGROUND);
         else
-            mActionKeyBackground = mColors.getDrawable(BackgroundType.ACTION, keyboardViewAttr);
+            mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_BACKGROUND);
 
         mSpacebarIconWidthRatio = keyboardViewAttr.getFloat(
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
@@ -176,7 +177,6 @@ public class KeyboardView extends View {
         keyAttr.recycle();
 
         mPaint.setAntiAlias(true);
-        mColors.setKeyboardBackground(this);
     }
 
     @Nullable
@@ -204,6 +204,14 @@ public class KeyboardView extends View {
      * @param keyboard the keyboard to display in this view
      */
     public void setKeyboard(@NonNull final Keyboard keyboard) {
+        if (keyboard instanceof MoreSuggestions) {
+            mColors.setBackground(this, ColorType.MORE_SUGGESTIONS_BACKGROUND);
+        } else if (keyboard instanceof MoreKeysKeyboard) {
+            mColors.setBackground(this, ColorType.MORE_KEYS_BACKGROUND);
+        } else {
+            mColors.setBackground(this, ColorType.KEYBOARD_BACKGROUND);
+        }
+
         mKeyboard = keyboard;
         final SettingsValues sv = Settings.getInstance().getCurrent();
         // scale should not depend on mOneHandedModeScale for emoji and clipboard, because those views are not affected by one-handed mode (yet)
@@ -625,24 +633,24 @@ public class KeyboardView extends View {
 
     private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
         if (key.isAccentColored()) {
-            icon.setColorFilter(mColors.getActionKeyIconColorFilter());
+            mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
         } else if (key.isShift() && keyboard != null) {
             if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                     || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
-                icon.setColorFilter(mColors.getAccentColorFilter());
+                mColors.setColor(icon, ColorType.SHIFT_KEY_ICON);
             else
-                icon.setColorFilter(mColors.getKeyTextFilter()); // key text if not shifted
+                mColors.setColor(icon, ColorType.KEY_ICON); // normal key if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
-            icon.setColorFilter(mColors.getKeyTextFilter());
+            mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (this instanceof MoreKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
-            icon.setColorFilter(mColors.getKeyTextFilter());
+            mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == 0x200C) {
             // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
-            icon.setColorFilter(mColors.getKeyTextFilter());
+            mColors.setColor(icon, ColorType.KEY_ICON);
         }
     }
 

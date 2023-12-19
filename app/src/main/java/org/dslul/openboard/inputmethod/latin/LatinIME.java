@@ -55,6 +55,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
@@ -2040,7 +2041,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mCustomNavBarColor)
             return;
-        final int color = settingsValues.mColors.getNavBar();
+        final int color = settingsValues.mColors.get(ColorType.NAVIGATION_BAR);
         final Window window = getWindow().getWindow();
         if (window == null)
             return;

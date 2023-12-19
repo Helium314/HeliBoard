@@ -620,6 +620,8 @@ New dictionary:
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Darker</string>
     <!-- Theme name for black theme (based on old amoled black) -->
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
+    <!-- Theme name for dynamic colors light theme -->
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamic colors</string>
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Theme name for user-defined theme night mode theme -->

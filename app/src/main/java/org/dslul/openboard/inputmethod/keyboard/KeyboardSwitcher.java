@@ -102,7 +102,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         final boolean nightModeChanged = (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK)
                 != (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
         if (mThemeContext == null || !keyboardTheme.equals(mKeyboardTheme) || nightModeChanged
-                || !mThemeContext.getResources().equals(context.getResources())) {
+                || !mThemeContext.getResources().equals(context.getResources())
+                || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {
             mKeyboardTheme = keyboardTheme;
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
             mCurrentUiMode = context.getResources().getConfiguration().uiMode;
