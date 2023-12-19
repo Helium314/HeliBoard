@@ -23,7 +23,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet.KeyboardLayout
 import org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView;
 import org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardState;
-import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardTextsSet;
 import org.dslul.openboard.inputmethod.latin.InputView;
 import org.dslul.openboard.inputmethod.latin.KeyboardWrapperView;
 import org.dslul.openboard.inputmethod.latin.LatinIME;
@@ -55,8 +54,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private KeyboardState mState;
 
     private KeyboardLayoutSet mKeyboardLayoutSet;
-    // TODO: The following {@link KeyboardTextsSet} should be in {@link KeyboardLayoutSet}.
-    private final KeyboardTextsSet mKeyboardTextsSet = new KeyboardTextsSet();
 
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
@@ -133,7 +130,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .build();
         try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
-            mKeyboardTextsSet.setLocale(mRichImm.getCurrentSubtypeLocale(), mThemeContext);
         } catch (KeyboardLayoutSetException e) {
             Log.w(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
         }
@@ -302,7 +298,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
         mEmojiPalettesView.startEmojiPalettes(
-                mKeyboardTextsSet.getText(KeyboardTextsSet.SWITCH_TO_ALPHA_KEY_LABEL),
+                mKeyboardLayoutSet.mLocaleKeyTexts.getLabelAlphabet(),
                 mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
         mEmojiPalettesView.setVisibility(View.VISIBLE);
     }
@@ -321,7 +317,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mKeyboardView.setVisibility(View.GONE);
         mClipboardHistoryView.startClipboardHistory(
                 mLatinIME.getClipboardHistoryManager(),
-                mKeyboardTextsSet.getText(KeyboardTextsSet.SWITCH_TO_ALPHA_KEY_LABEL),
+                mKeyboardLayoutSet.mLocaleKeyTexts.getLabelAlphabet(),
                 mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
         mClipboardHistoryView.setVisibility(View.VISIBLE);
     }
