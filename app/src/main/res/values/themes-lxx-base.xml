@@ -49,10 +49,6 @@
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_light</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
-        <item name="gestureFloatingPreviewTextColor">@color/auto_correct_color_lxx_light</item>
-        <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_lxx_light</item>
-        <item name="gestureTrailColor">@color/gesture_trail_color_lxx_light</item>
-        <item name="slidingKeyInputPreviewColor">@color/sliding_key_input_preview_color_lxx_light</item>
         <!-- A negative value to disable text shadow layer. -->
         <item name="languageOnSpacebarTextShadowRadius">-1.0</item>
     </style>
@@ -125,10 +121,6 @@
         <item name="android:background">@drawable/keyboard_background_lxx_base</item>
         <item name="android:src">@drawable/suggestions_strip_divider</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
-        <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
-        <item name="colorTypedWord">@color/typed_word_color_lxx_light</item>
-        <item name="colorAutoCorrect">@color/auto_correct_color_lxx_light</item>
-        <item name="colorSuggested">@color/suggested_word_color_lxx_light</item>
         <item name="alphaObsoleted">70%</item>
     </style>
     <style

@@ -29,9 +29,7 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings;
  * derived from it.
  *
  * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewTextSize
- * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewTextColor
  * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewTextOffset
- * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewColor
  * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewHorizontalPadding
  * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewVerticalPadding
  * @attr ref R.styleable#KeyboardView_gestureFloatingPreviewRoundRadius
@@ -56,10 +54,10 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
             final Colors colors = Settings.getInstance().getCurrent().mColors;
             mGesturePreviewTextSize = mainKeyboardViewAttr.getDimensionPixelSize(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewTextSize, 0);
-            mGesturePreviewTextColor = colors.get(ColorType.KEY_TEXT); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_gestureFloatingPreviewTextColor, 0);
+            mGesturePreviewTextColor = colors.get(ColorType.KEY_TEXT);
             mGesturePreviewTextOffset = mainKeyboardViewAttr.getDimensionPixelOffset(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewTextOffset, 0);
-            mGesturePreviewColor = colors.get(ColorType.GESTURE_PREVIEW); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_gestureFloatingPreviewColor, 0);
+            mGesturePreviewColor = colors.get(ColorType.GESTURE_PREVIEW);
             mGesturePreviewHorizontalPadding = mainKeyboardViewAttr.getDimension(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewHorizontalPadding, 0.0f);
             mGesturePreviewVerticalPadding = mainKeyboardViewAttr.getDimension(

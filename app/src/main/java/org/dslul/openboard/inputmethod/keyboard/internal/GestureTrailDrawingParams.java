@@ -22,7 +22,6 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings;
  * @attr ref R.styleable#MainKeyboardView_gestureTrailFadeoutStartDelay
  * @attr ref R.styleable#MainKeyboardView_gestureTrailFadeoutDuration
  * @attr ref R.styleable#MainKeyboardView_gestureTrailUpdateInterval
- * @attr ref R.styleable#MainKeyboardView_gestureTrailColor
  * @attr ref R.styleable#MainKeyboardView_gestureTrailWidth
  */
 final class GestureTrailDrawingParams {
@@ -42,7 +41,7 @@ final class GestureTrailDrawingParams {
     public final int mTrailLingerDuration;
 
     public GestureTrailDrawingParams(final TypedArray mainKeyboardViewAttr) {
-        mTrailColor = Settings.getInstance().getCurrent().mColors.get(ColorType.GESTURE_TRAIL); //mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_gestureTrailColor, 0);
+        mTrailColor = Settings.getInstance().getCurrent().mColors.get(ColorType.GESTURE_TRAIL);
         mTrailStartWidth = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_gestureTrailStartWidth, 0.0f);
         mTrailEndWidth = mainKeyboardViewAttr.getDimension(

@@ -196,8 +196,8 @@ public final class Constants {
     public static final int CODE_CLOSING_SQUARE_BRACKET = ']';
     public static final int CODE_CLOSING_CURLY_BRACKET = '}';
     public static final int CODE_CLOSING_ANGLE_BRACKET = '>';
-    public static final int CODE_INVERTED_QUESTION_MARK = 0xBF; // ¿
-    public static final int CODE_INVERTED_EXCLAMATION_MARK = 0xA1; // ¡
+    public static final int CODE_INVERTED_QUESTION_MARK = '¿';
+    public static final int CODE_INVERTED_EXCLAMATION_MARK = '¡';
     public static final int CODE_GRAVE_ACCENT = '`';
     public static final int CODE_CIRCUMFLEX_ACCENT = '^';
     public static final int CODE_TILDE = '~';
