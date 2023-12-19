@@ -112,12 +112,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.autofill.inline.UiVersions;
+import androidx.autofill.inline.UiVersions.StylesBuilder;
 import androidx.autofill.inline.common.ImageViewStyle;
 import androidx.autofill.inline.common.TextViewStyle;
 import androidx.autofill.inline.common.ViewStyle;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
+import androidx.autofill.inline.v1.InlineSuggestionUi.Style;
 import androidx.core.content.ContextCompat;
-import androidx.autofill.inline.UiVersions.StylesBuilder;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -1376,17 +1377,17 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
 
         StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
-        @SuppressLint("RestrictedApi") UiVersions.Style style = InlineSuggestionUi.newStyleBuilder()
+        @SuppressLint("RestrictedApi") Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
-                                        Icon.createWithResource(this, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                        Icon.createWithResource(mDisplayContext, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
-                                        Icon.createWithResource(this, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                        Icon.createWithResource(mDisplayContext, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(
