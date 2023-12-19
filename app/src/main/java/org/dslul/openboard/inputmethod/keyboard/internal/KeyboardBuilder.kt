@@ -257,7 +257,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun addSplit() {
-        val spacerRelativeWidth = Settings.getInstance().current.mSpacerRelativeWidth
+        val spacerRelativeWidth = Settings.getInstance().current.mSplitKeyboardSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
