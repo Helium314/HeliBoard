@@ -95,8 +95,7 @@ public final class KeyPreviewChoreographer {
         // parent key. If it doesn't fit in this {@link KeyboardView}, it is moved inward to fit and
         // the left/right background is used if such background is specified.
         final int keyPreviewPosition;
-        int previewX = key.getDrawX() - (previewWidth - keyDrawWidth) / 2
-                + CoordinateUtils.x(originCoords);
+        int previewX = key.getDrawX() - (previewWidth - keyDrawWidth) / 2 + CoordinateUtils.x(originCoords);
         if (previewX < 0) {
             previewX = 0;
             keyPreviewPosition = KeyPreviewView.POSITION_LEFT;
@@ -116,8 +115,7 @@ public final class KeyPreviewChoreographer {
         final int previewY = key.getY() - previewHeight + key.getHeight() - mParams.mPreviewOffset
                 + CoordinateUtils.y(originCoords);
 
-        ViewLayoutUtils.placeViewAt(
-                keyPreviewView, previewX, previewY, previewWidth, previewHeight);
+        ViewLayoutUtils.placeViewAt(keyPreviewView, previewX, previewY, previewWidth, previewHeight);
         keyPreviewView.setPivotX(previewWidth / 2.0f);
         keyPreviewView.setPivotY(previewHeight);
     }
