@@ -134,9 +134,6 @@ public final class EmojiPalettesView extends LinearLayout
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final Resources res = getContext().getResources();
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        // todo: currently looks a bit broken, because
-        //  when typing an emoji (or doing anything that affects suggestion strip), suggestion strip is added on top
-        //   this is annoying... try some frame layout where the suggestion strip is just behind the emoji tab?
         final int width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent())
                 + getPaddingLeft() + getPaddingRight();
         final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())

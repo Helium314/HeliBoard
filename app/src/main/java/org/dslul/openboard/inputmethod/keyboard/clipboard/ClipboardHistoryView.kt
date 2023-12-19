@@ -156,7 +156,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
-            layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current) // todo: maybe on measure, because of rotate?
+            layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
         }
         Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }

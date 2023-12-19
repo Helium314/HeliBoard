@@ -59,12 +59,10 @@ final class DynamicGridKeyboard extends Keyboard {
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
         final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
         final float widthScale = determineWidthScale(key0.getWidth(), horizontalGap);
-        // todo: works well, but now bottom padding affects emoji size... damn
         mHorizontalGap = (int) (horizontalGap * widthScale);
         mHorizontalStep = (int) ((key0.getWidth() + horizontalGap) * widthScale);
         mVerticalStep = (int) ((key0.getHeight() + mVerticalGap) / Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
         mColumnsNum = mBaseWidth / mHorizontalStep;
-        Log.i("test", "creating keyboard, step "+mHorizontalStep+", "+mVerticalStep+", "+mColumnsNum+" columns, bw "+mBaseWidth+", scale "+widthScale);
         mMaxKeyCount = maxKeyCount;
         mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
         mPrefs = prefs;
