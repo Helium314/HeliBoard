@@ -1364,7 +1364,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // with some modifications
     @Override
     @RequiresApi(api = Build.VERSION_CODES.R)
-    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(Bundle uiExtras) {
+    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         Log.d(TAG,"onCreateInlineSuggestionsRequest called");
 
         // Revert to default behaviour if show_suggestions is disabled
@@ -1407,8 +1407,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         Bundle stylesBundle = stylesBuilder.build();
 
         final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(LayoutParams.WRAP_CONTENT, getHeight()),
-                new Size(LayoutParams.MATCH_PARENT, getHeight())).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight()),
+                new Size(740, getHeight())).setStyle(stylesBundle).build());
 
         return new InlineSuggestionsRequest.Builder(presentationSpecs)
                 .setMaxSuggestionCount(6)
@@ -1429,11 +1429,21 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
 
+        final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
+
+        if (inlineSuggestions.isEmpty()) {
+            return false;
+        }
+
+        final int totalSuggestionsCount = inlineSuggestions.size();
+
         // A container to hold all views
         LinearLayout container = new LinearLayout(mDisplayContext);
 
-        for (final InlineSuggestion s : response.getInlineSuggestions()) {
-            s.inflate(this, new Size(ViewGroup.LayoutParams.WRAP_CONTENT,
+        for (int i = 0; i < totalSuggestionsCount; i++) {
+            final InlineSuggestion inlineSuggestion = inlineSuggestions.get(i);
+
+            inlineSuggestion.inflate(this, new Size(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT), getMainExecutor(), (view) -> {
                 if (view != null)
                     container.addView(view);
@@ -1448,7 +1458,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         view.addView(container);
 
         // Delay required to show properly
-        new Handler().postDelayed(() -> mSuggestionStripView.addSuggestionView(view), 200);
+        new Handler().postDelayed(() -> {
+            mSuggestionStripView.clear();
+            mSuggestionStripView.hideKeys();
+            mSuggestionStripView.addSuggestionView(view);
+        }, 200);
 
         return true;
     }
