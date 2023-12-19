@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.app.Application;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.define.JniLibName;

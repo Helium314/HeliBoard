@@ -32,7 +32,7 @@ open class PopupSet<T : AbstractKeyData>(
     fun toMoreKeys(params: KeyboardParams): Array<String>? {
         val moreKeys = mutableListOf<String>()
         // number + main + relevant in this order (label is later taken from first element in resulting array)
-        moreKeys.addAll(params.mLocaleKeyTexts.getNumberMoreKeys(numberIndex))
+        params.mLocaleKeyTexts.getNumberLabel(numberIndex)?.let { moreKeys.add(it) }
         main?.getLabel(params)?.let { moreKeys.add(transformLabel(it, params)) }
         moreKeys.addAll(relevant.map { transformLabel(it.getLabel(params), params) })
         return moreKeys.takeIf { it.isNotEmpty() }?.toTypedArray()

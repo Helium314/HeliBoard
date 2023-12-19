@@ -9,6 +9,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
@@ -18,7 +19,6 @@ import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 
@@ -69,6 +69,7 @@ public final class KeyboardTextsSet {
     }
 
     public String getText(final String name) {
+        Log.w(getClass().getSimpleName(), "still used for resolving "+name);
         return getTextInternal(name, 0); // only used for emoji and clipboard keyboards
     }
 

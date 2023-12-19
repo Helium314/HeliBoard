@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -66,6 +66,7 @@ public class SettingsValues {
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
     public final boolean mShowsHints;
+    public final boolean mHintLabelFromFirstMoreKey;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mSpaceLanguageSlide;
@@ -80,6 +81,7 @@ public class SettingsValues {
     public final long mClipboardHistoryRetentionTime;
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
+    public final float mOneHandedModeScale;
     public final boolean mNarrowKeyGaps;
     public final int mShowMoreKeys;
     public final List<Locale> mSecondaryLocales;
@@ -151,6 +153,7 @@ public class SettingsValues {
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
+        mHintLabelFromFirstMoreKey = mShowsHints && prefs.getBoolean(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY, false);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
@@ -215,8 +218,15 @@ public class SettingsValues {
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
-        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs);
-        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs);
+
+        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+        if (mOneHandedModeEnabled) {
+            final float baseScale = res.getFraction(R.fraction.config_one_handed_mode_width, 1, 1);
+            final float extraScale = Settings.readOneHandedModeScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+            mOneHandedModeScale = 1 - (1 - baseScale) * extraScale;
+        } else
+            mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
         mShowMoreKeys = selectedSubtype.isAsciiCapable()

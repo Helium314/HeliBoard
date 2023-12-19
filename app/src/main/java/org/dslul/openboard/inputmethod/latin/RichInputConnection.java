@@ -6,13 +6,16 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
@@ -633,6 +636,21 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void selectAll() {
         mIC.performContextMenuAction(android.R.id.selectAll);
         // the rest is done via LatinIME.onUpdateSelection
+    }
+
+    public void copyText() {
+        // copy selected text, and if nothing is selected copy the whole text
+        CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+        if (text == null || text.length() == 0) {
+            // we have no selection, get the whole text
+            ExtractedTextRequest etr = new ExtractedTextRequest();
+            etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
+            etr.hintMaxChars = Integer.MAX_VALUE;
+            text = mIC.getExtractedText(etr, 0).text;
+        }
+        if (text == null) return;
+        final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
     }
 
     public void commitCorrection(final CorrectionInfo correctionInfo) {

@@ -162,6 +162,8 @@ class LanguageSettingsDialog(
                             addSecondaryLocaleView(locale)
                             di.dismiss()
                             reloadSetting()
+                            reloadDictionaries()
+                            KeyboardLayoutSet.onSystemLocaleChanged()
                         }
                         .setNegativeButton(android.R.string.cancel, null)
                         .show()
@@ -183,11 +185,11 @@ class LanguageSettingsDialog(
                 Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings - locale.toString())
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
+                reloadDictionaries()
                 KeyboardLayoutSet.onSystemLocaleChanged()
             }
         }
         binding.secondaryLocales.addView(rowBinding.root)
-        KeyboardLayoutSet.onSystemLocaleChanged()
     }
 
     private fun fillDictionariesView() {
@@ -268,8 +270,7 @@ class LanguageSettingsDialog(
                     dictFile.delete()
                     if (parent?.list()?.isEmpty() == true)
                         parent.delete()
-                    val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
-                    fragment?.activity?.sendBroadcast(newDictBroadcast)
+                    reloadDictionaries()
                     binding.dictionaries.removeView(rowBinding.root)
                     if (binding.dictionaries.size < 2) { // first view is "Dictionaries"
                         infos.forEach { it.hasDictionary = false }
@@ -284,6 +285,8 @@ class LanguageSettingsDialog(
         }
         binding.dictionaries.addView(rowBinding.root)
     }
+
+    private fun reloadDictionaries() = fragment?.activity?.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */

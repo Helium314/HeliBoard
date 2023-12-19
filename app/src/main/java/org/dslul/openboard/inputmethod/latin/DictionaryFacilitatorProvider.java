@@ -6,16 +6,11 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.util.LruCache;
-
 /**
  * Factory for instantiating DictionaryFacilitator objects.
  */
 public class DictionaryFacilitatorProvider {
     public static DictionaryFacilitator getDictionaryFacilitator(boolean isNeededForSpellChecking) {
-        final DictionaryFacilitator facilitator = new DictionaryFacilitatorImpl();
-        if (isNeededForSpellChecking)
-            facilitator.setValidSpellingWordReadCache(new LruCache<>(200));
-        return facilitator;
+        return new DictionaryFacilitatorImpl();
     }
 }

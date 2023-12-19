@@ -207,8 +207,10 @@ Nouveau dictionnaire:
     <string name="localized_number_row_summary">Privilégie les chiffres en language local à la place des chiffres latins</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Changer le mode de saisie avec la barre d\'espace</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Un appui long sur la barre d\'espace fera apparaître le menu de sélection des claviers</string>
-    <string name="show_hints">Afficher les caractères alternatifs</string>
+    <string name="show_hints">Afficher les indices de touches</string>
     <string name="show_hints_summary">Affiche les caractères alternatifs lors d\'un appui long</string>
+    <string name="show_hints_from_first_popup_key">Afficher les indices à partir de la première sélection du popup</string>
+    <string name="show_hints_from_first_popup_key_summary">Les caractères alternatifs par défaut sont remplacés par ceux sélectionnés en premier lors d\'un appui long</string>
     <string name="show_popup_hints">Afficher les indices sur les touches fonctionnelles</string>
     <string name="show_popup_hints_summary">Affiche un signe ( <b>…</b> ) sur les touches où un appui long déclenche une fonctionnalité supplémentaire</string>
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>
@@ -241,6 +243,7 @@ Nouveau dictionnaire:
     <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
     <string name="about_github_link" >Lien vers GitHub</string>
+    <string name="save_log">Sauvegarder le journal</string>
     <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
     <string name="theme_style">Style</string>

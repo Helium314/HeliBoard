@@ -56,6 +56,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
 
         mServiceNeedsRestart = false;
         mDebugMode = findPreference(DebugSettings.PREF_DEBUG_MODE);
+        findPreference(DebugSettings.PREF_SHOW_SUGGESTION_INFOS).setVisible(mDebugMode.isChecked());
         updateDebugMode();
     }
 
@@ -95,7 +96,9 @@ public final class DebugSettingsFragment extends SubScreenFragment
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         if (key.equals(DebugSettings.PREF_DEBUG_MODE) && mDebugMode != null) {
-            mDebugMode.setChecked(prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false));
+            final boolean enabled = prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false);
+            mDebugMode.setChecked(enabled);
+            findPreference(DebugSettings.PREF_SHOW_SUGGESTION_INFOS).setVisible(enabled);
             mServiceNeedsRestart = true;
         } else if (key.equals(DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH)) {
             mServiceNeedsRestart = true;

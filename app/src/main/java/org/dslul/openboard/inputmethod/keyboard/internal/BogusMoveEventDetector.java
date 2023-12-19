@@ -8,7 +8,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;

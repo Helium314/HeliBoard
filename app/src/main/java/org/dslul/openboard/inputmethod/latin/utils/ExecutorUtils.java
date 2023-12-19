@@ -6,7 +6,7 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 
@@ -47,7 +47,7 @@ public class ExecutorUtils {
         public Thread newThread(final Runnable runnable) {
             Thread thread = new Thread(runnable, TAG);
             thread.setUncaughtExceptionHandler((thread1, ex) ->
-                    Log.w(mName + "-" + runnable.getClass().getSimpleName(), ex));
+                    Log.w(mName, runnable.getClass().getSimpleName(), ex));
             return thread;
         }
     }

@@ -6,7 +6,7 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;

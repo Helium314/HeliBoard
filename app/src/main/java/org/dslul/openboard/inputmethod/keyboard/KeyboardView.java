@@ -36,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
@@ -96,6 +97,7 @@ public class KeyboardView extends View {
     private final Rect mKeyBackgroundPadding = new Rect();
     private static final float KET_TEXT_SHADOW_RADIUS_DISABLED = -1.0f;
     private final Colors mColors;
+    private float mKeyScaleForText;
 
     // The maximum key label width in the proportion to the key width.
     private static final float MAX_LABEL_RATIO = 0.90f;
@@ -211,9 +213,15 @@ public class KeyboardView extends View {
         }
 
         mKeyboard = keyboard;
-        final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
-        mKeyDrawParams.updateParams(keyHeight, mKeyVisualAttributes);
-        mKeyDrawParams.updateParams(keyHeight, keyboard.mKeyVisualAttributes);
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        // scale should not depend on mOneHandedModeScale for emoji and clipboard, because those views are not affected by one-handed mode (yet)
+        if (keyboard.mId.isEmojiKeyboard() || keyboard.mId.mElementId == KeyboardId.ELEMENT_CLIPBOARD)
+            mKeyScaleForText = (float) Math.sqrt(1 / sv.mKeyboardHeightScale);
+        else
+            mKeyScaleForText = (float) Math.sqrt(sv.mOneHandedModeScale / sv.mKeyboardHeightScale);
+        final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
+        mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
+        mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
     }
@@ -354,7 +362,7 @@ public class KeyboardView extends View {
         canvas.translate(keyDrawX, keyDrawY);
 
         final KeyVisualAttributes attr = key.getVisualAttributes();
-        final KeyDrawParams params = mKeyDrawParams.mayCloneAndUpdateParams(key.getHeight(), attr);
+        final KeyDrawParams params = mKeyDrawParams.mayCloneAndUpdateParams((int) (key.getHeight() * mKeyScaleForText), attr);
         params.mAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 
         if (!key.isSpacer()) {
@@ -421,7 +429,8 @@ public class KeyboardView extends View {
             if (key.isAlignLabelOffCenter() && mShowsHints) {
                 // The label is placed off center of the key. Currently used only on "phone number" layout
                 // to have letter hints shown nicely. We don't want to align it off center if hints are off.
-                labelX = centerX + params.mLabelOffCenterRatio * labelCharWidth;
+                // use a non-negative number to avoid label starting left of the letter for high keyboard scale on holo phone layout
+                labelX = Math.max(0f, centerX + params.mLabelOffCenterRatio * labelCharWidth);
                 paint.setTextAlign(Align.LEFT);
             } else {
                 labelX = centerX;
@@ -482,6 +491,11 @@ public class KeyboardView extends View {
                     hintBaseline = centerY + labelCharHeight / 2.0f;
                 }
                 paint.setTextAlign(Align.LEFT);
+                // shrink hint label before it's off the key
+                // looks bad, but still better than the alternative
+                final float ratio = Math.min(1.0f, (keyWidth - hintX) * 0.95f / TypefaceUtils.getStringWidth(hintLabel, paint));
+                final float autoSize = paint.getTextSize() * ratio;
+                paint.setTextSize(autoSize);
             } else if (key.hasShiftedLetterHint()) {
                 // The hint label is placed at top-right corner of the key. Used mainly on tablet.
                 hintX = keyWidth - mKeyShiftedLetterHintPadding - labelCharWidth / 2.0f;

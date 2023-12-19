@@ -7,7 +7,7 @@
 package com.android.inputmethod.keyboard;
 
 import android.graphics.Rect;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 

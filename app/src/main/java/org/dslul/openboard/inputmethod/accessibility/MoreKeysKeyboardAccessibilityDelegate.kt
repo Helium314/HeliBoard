@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.accessibility
 
 import android.graphics.Rect
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.MotionEvent
 import org.dslul.openboard.inputmethod.keyboard.KeyDetector
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysKeyboardView

@@ -4,9 +4,11 @@ package org.dslul.openboard.inputmethod.latin
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -14,6 +16,8 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
 import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
+import kotlin.math.abs
 
 class KeyboardWrapperView @JvmOverloads constructor(
         context: Context,
@@ -26,8 +30,10 @@ class KeyboardWrapperView @JvmOverloads constructor(
     private lateinit var stopOneHandedModeBtn: ImageButton
     private lateinit var switchOneHandedModeBtn: ImageButton
     private lateinit var keyboardView: View
+    private lateinit var resizeOneHandedModeBtn: ImageButton
     private val iconStopOneHandedModeId: Int
     private val iconSwitchOneHandedModeId: Int
+    private val iconResizeOneHandedModeId: Int
 
     var oneHandedModeEnabled = false
         set(enabled) {
@@ -44,6 +50,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
         }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onFinishInflate() {
         super.onFinishInflate()
         stopOneHandedModeBtn = findViewById(R.id.btn_stop_one_handed_mode)
@@ -52,10 +59,40 @@ class KeyboardWrapperView @JvmOverloads constructor(
         switchOneHandedModeBtn = findViewById(R.id.btn_switch_one_handed_mode)
         switchOneHandedModeBtn.setImageResource(iconSwitchOneHandedModeId)
         switchOneHandedModeBtn.visibility = GONE
+        resizeOneHandedModeBtn = findViewById(R.id.btn_resize_one_handed_mode)
+        resizeOneHandedModeBtn.setImageResource(iconResizeOneHandedModeId)
+        resizeOneHandedModeBtn.visibility = GONE
         keyboardView = findViewById(R.id.keyboard_view)
 
         stopOneHandedModeBtn.setOnClickListener(this)
         switchOneHandedModeBtn.setOnClickListener(this)
+
+        var x = 0f
+        resizeOneHandedModeBtn.setOnTouchListener { _, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> x = motionEvent.rawX
+                MotionEvent.ACTION_MOVE -> {
+                    // performance is not great because settings are reloaded and keyboard is redrawn
+                    // on every move, but it's good enough
+                    val sign = -switchOneHandedModeBtn.scaleX
+                    // factor 2 to make it more sensitive (maybe could be tuned a little)
+                    val changePercent = 2 * sign * (x - motionEvent.rawX) / context.resources.displayMetrics.density
+                    if (abs(changePercent) < 1) return@setOnTouchListener true
+                    x = motionEvent.rawX
+                    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+                    val oldScale = Settings.readOneHandedModeScale(prefs, Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
+                    val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
+                    if (newScale == oldScale) return@setOnTouchListener true
+                    Settings.getInstance().writeOneHandedModeScale(newScale)
+                    prefs.edit().putFloat(Settings.PREF_ONE_HANDED_SCALE, newScale).apply()
+                    oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
+                    keyboardActionListener?.onCodeInput(Constants.CODE_START_ONE_HANDED_MODE,
+                        Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                }
+                else -> x = 0f
+            }
+            true
+        }
 
         val colors = Settings.getInstance().current.mColors
         colors.setColor(stopOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
@@ -74,6 +111,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
     private fun updateViewsVisibility() {
         stopOneHandedModeBtn.visibility = if (oneHandedModeEnabled) VISIBLE else GONE
         switchOneHandedModeBtn.visibility = if (oneHandedModeEnabled) VISIBLE else GONE
+        resizeOneHandedModeBtn.visibility = if (oneHandedModeEnabled) VISIBLE else GONE
     }
 
     @SuppressLint("RtlHardcoded")
@@ -114,21 +152,17 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
         val scale = Settings.getInstance().current.mKeyboardHeightScale
         // scale one-handed mode button height if keyboard height scale is < 80%
-        // more relevant: also change the distance, so the buttons are actually visible
         val heightScale = if (scale < 0.8f) scale + 0.2f else 1f
         val buttonsLeft = if (isLeftGravity) keyboardView.measuredWidth else 0
-        stopOneHandedModeBtn.layout(
-                buttonsLeft + (spareWidth - stopOneHandedModeBtn.measuredWidth) / 2,
-                (heightScale * stopOneHandedModeBtn.measuredHeight / 2).toInt(),
-                buttonsLeft + (spareWidth + stopOneHandedModeBtn.measuredWidth) / 2,
-                (heightScale * 3 * stopOneHandedModeBtn.measuredHeight / 2).toInt()
-        )
-        switchOneHandedModeBtn.layout(
-                buttonsLeft + (spareWidth - switchOneHandedModeBtn.measuredWidth) / 2,
-                (heightScale * 2 * stopOneHandedModeBtn.measuredHeight).toInt(),
-                buttonsLeft + (spareWidth + switchOneHandedModeBtn.measuredWidth) / 2,
-                (heightScale * (2 * stopOneHandedModeBtn.measuredHeight + switchOneHandedModeBtn.measuredHeight)).toInt()
-        )
+        val buttonXLeft = buttonsLeft + (spareWidth - stopOneHandedModeBtn.measuredWidth) / 2
+        val buttonXRight = buttonsLeft + (spareWidth + stopOneHandedModeBtn.measuredWidth) / 2
+        val buttonHeight = (heightScale * stopOneHandedModeBtn.measuredHeight).toInt()
+        fun View.setLayout(yPosition: Int) {
+            layout(buttonXLeft, yPosition - buttonHeight / 2, buttonXRight, yPosition + buttonHeight / 2)
+        }
+        stopOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.2f).toInt())
+        switchOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.5f).toInt())
+        resizeOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.8f).toInt())
     }
 
     init {
@@ -136,6 +170,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.Keyboard)
         iconStopOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconStopOneHandedMode, 0)
         iconSwitchOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconSwitchOneHandedMode, 0)
+        iconResizeOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconResizeOneHandedMode, 0)
         keyboardAttr.recycle()
     }
 }

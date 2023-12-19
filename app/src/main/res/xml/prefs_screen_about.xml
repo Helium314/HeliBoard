@@ -41,4 +41,10 @@
             android:action="android.intent.action.VIEW"
             android:data="https://github.com/Helium314/openboard" />
     </Preference>
+
+    <Preference
+        android:title="@string/save_log"
+        android:icon="@drawable/ic_settings_about_log"
+        android:key="log_reader" >
+    </Preference>
 </PreferenceScreen>

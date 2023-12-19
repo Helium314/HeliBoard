@@ -11,7 +11,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.Nullable;
 

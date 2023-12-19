@@ -52,6 +52,14 @@
             android:scaleType="fitCenter"
             style="?attr/suggestionWordStyle" />
 
+        <ImageButton
+            android:id="@+id/btn_resize_one_handed_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            style="?attr/suggestionWordStyle" />
+
     </org.dslul.openboard.inputmethod.latin.KeyboardWrapperView>
 
 </LinearLayout>

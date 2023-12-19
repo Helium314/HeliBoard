@@ -21,7 +21,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
 import android.text.InputType;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
 import android.util.SparseArray;
@@ -779,6 +779,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
+        Log.i(TAG, "onConfigurationChanged");
         SubtypeSettingsKt.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();
@@ -807,6 +808,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onInitializeInterface() {
         mDisplayContext = getDisplayContext();
+        Log.d(TAG, "onInitializeInterface -> possibly configuration changed");
         mKeyboardSwitcher.updateKeyboardTheme(mDisplayContext);
     }
 
@@ -1319,14 +1321,21 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return false;
         }
         // Reread resource value here, because this method is called by the framework as needed.
-        final boolean isFullscreenModeAllowed = Settings.readUseFullscreenMode(getResources());
+        final boolean isFullscreenModeAllowed = Settings.readFullscreenModeAllowed(getResources());
         if (super.onEvaluateFullscreenMode() && isFullscreenModeAllowed) {
             // TODO: Remove this hack. Actually we should not really assume NO_EXTRACT_UI
             // implies NO_FULLSCREEN. However, the framework mistakenly does.  i.e. NO_EXTRACT_UI
             // without NO_FULLSCREEN doesn't work as expected. Because of this we need this
             // hack for now.  Let's get rid of this once the framework gets fixed.
             final EditorInfo ei = getCurrentInputEditorInfo();
-            return !(ei != null && ((ei.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0));
+            if (ei == null) return false;
+            final boolean noExtractUi = (ei.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0;
+            final boolean noFullscreen = (ei.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0;
+            if (noExtractUi || noFullscreen) return false;
+            if (mKeyboardSwitcher.getVisibleKeyboardView() == null || mSuggestionStripView == null) return false;
+            final int usedHeight = mKeyboardSwitcher.getVisibleKeyboardView().getHeight() + mSuggestionStripView.getHeight();
+            final int availableHeight = getResources().getDisplayMetrics().heightPixels;
+            return usedHeight > availableHeight * 0.6; // if we have less than 40% available, use fullscreen mode
         }
         return false;
     }
@@ -1406,29 +1415,45 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onMovePointer(int steps) {
+        if (steps == 0) return;
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
             steps = -steps;
 
+        final int moveSteps;
         if (steps < 0) {
             int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();
-            steps = availableCharacters < -steps ? -availableCharacters : steps;
-        }
-        else if (steps > 0) {
+            moveSteps = availableCharacters < -steps ? -availableCharacters : steps;
+            if (moveSteps == 0) {
+                // some apps don't return any text via input connection, and the cursor can't be moved
+                // we fall back to virtually pressing the left/right key one or more times instead
+                while (steps != 0) {
+                    onCodeInput(Constants.CODE_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                    ++steps;
+                }
+                return;
+            }
+        } else {
             int availableCharacters = mInputLogic.mConnection.getTextAfterCursor(64, 0).length();
-            steps = Math.min(availableCharacters, steps);
-        } else
-            return;
+            moveSteps = Math.min(availableCharacters, steps);
+            if (moveSteps == 0) {
+                while (steps != 0) {
+                    onCodeInput(Constants.CODE_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                    --steps;
+                }
+                return;
+            }
+        }
 
-        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(steps)) {
+        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement
-            int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
+            int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
             mInputLogic.mConnection.setSelection(newPosition, newPosition);
             return;
         }
         mInputLogic.finishInput();
-        int newPosition = mInputLogic.mConnection.mExpectedSelStart + steps;
+        int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());
     }

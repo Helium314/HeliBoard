@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.os.Build;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;

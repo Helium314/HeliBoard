@@ -7,7 +7,7 @@
 
 <!-- Configuration values for Small Phone Portrait. -->
 <resources>
-    <bool name="config_use_fullscreen_mode">false</bool>
+    <bool name="config_fullscreen_mode_allowed">false</bool>
 
     <dimen name="config_key_hysteresis_distance">8.0dp</dimen>
 

@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.content.res.Resources;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 

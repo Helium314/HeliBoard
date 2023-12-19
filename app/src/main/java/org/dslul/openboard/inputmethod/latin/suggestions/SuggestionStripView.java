@@ -78,11 +78,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private static final String CLIPBOARD_KEY_TAG = "clipboard_key";
     private static final String SETTINGS_KEY_TAG = "settings_key";
     private static final String SELECT_ALL_KEY_TAG = "select_all_key";
+    private static final String COPY_KEY_TAG = "copy_key";
     private static final String ONE_HANDED_KEY_TAG = "one_handed_key";
     private static final String LEFT_KEY_TAG = "left_key";
     private static final String RIGHT_KEY_TAG = "right_key";
     private static final String UP_KEY_TAG = "up_key";
     private static final String DOWN_KEY_TAG = "down_key";
+    private static final String UNDO_TAG = "undo";
+    private static final String REDO_TAG = "redo";
 
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mToolbarKey;
@@ -160,6 +163,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final ImageButton voiceKey = findViewById(R.id.suggestions_strip_voice_key);
         final ImageButton clipboardKey = findViewById(R.id.suggestions_strip_clipboard_key);
         final ImageButton selectAllKey = findViewById(R.id.suggestions_strip_select_all_key);
+        final ImageButton copyKey = findViewById(R.id.suggestions_strip_copy_key);
         final ImageButton settingsKey = findViewById(R.id.suggestions_strip_settings_key);
         final ImageButton oneHandedKey = findViewById(R.id.suggestions_strip_one_handed_key);
         final ImageButton arrowLeft = findViewById(R.id.suggestions_strip_left_key);
@@ -201,6 +205,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         clipboardKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey));
         settingsKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSettingsKey));
         selectAllKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSelectAll));
+        copyKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconCopyKey));
         arrowLeft.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowLeft));
         arrowRight.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowRight));
         arrowUp.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowUp));
@@ -627,6 +632,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 case SELECT_ALL_KEY_TAG:
                     mListener.onCodeInput(Constants.CODE_SELECT_ALL, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
+                case COPY_KEY_TAG:
+                    mListener.onCodeInput(Constants.CODE_COPY, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
                 case ONE_HANDED_KEY_TAG:
                     final boolean oneHandedEnabled = Settings.getInstance().getCurrent().mOneHandedModeEnabled;
                     mListener.onCodeInput(oneHandedEnabled ? Constants.CODE_STOP_ONE_HANDED_MODE : Constants.CODE_START_ONE_HANDED_MODE,
@@ -646,6 +654,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     return;
                 case DOWN_KEY_TAG:
                     mListener.onCodeInput(Constants.CODE_DOWN, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case UNDO_TAG:
+                    mListener.onCodeInput(Constants.CODE_UNDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                    return;
+                case REDO_TAG:
+                    mListener.onCodeInput(Constants.CODE_REDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
             }
         }
@@ -719,6 +733,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 return R.layout.suggestions_strip_clipboard_key;
             case SELECT_ALL_KEY_TAG:
                 return R.layout.suggestions_strip_select_all_key;
+            case COPY_KEY_TAG:
+                return R.layout.suggestions_strip_copy_key;
             case ONE_HANDED_KEY_TAG:
                 return R.layout.suggestions_strip_one_handed_key;
             case LEFT_KEY_TAG:

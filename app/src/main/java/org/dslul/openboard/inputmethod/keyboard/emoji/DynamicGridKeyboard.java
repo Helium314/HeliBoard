@@ -6,9 +6,11 @@
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
 
+import static org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.EmojiParserKt.EMOJI_HINT_LABEL;
+
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -115,7 +117,7 @@ final class DynamicGridKeyboard extends Keyboard {
             // if key comes from another keyboard (ie. a {@link MoreKeysKeyboard}).
             final boolean dropMoreKeys = mIsRecents;
             // Check if hint was a more emoji indicator and prevent its copy if more keys aren't copied
-            final boolean dropHintLabel = dropMoreKeys && "\u25E5".equals(usedKey.getHintLabel());
+            final boolean dropHintLabel = dropMoreKeys && EMOJI_HINT_LABEL.equals(usedKey.getHintLabel());
             final GridKey key = new GridKey(usedKey,
                     dropMoreKeys ? null : usedKey.getMoreKeys(),
                     dropHintLabel ? null : usedKey.getHintLabel(),
@@ -156,7 +158,7 @@ final class DynamicGridKeyboard extends Keyboard {
         Settings.writeEmojiRecentKeys(mPrefs, jsonStr);
     }
 
-    private static Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
+    private Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
             final int code) {
         for (final DynamicGridKeyboard keyboard : keyboards) {
             for (final Key key : keyboard.getSortedKeys()) {
@@ -165,10 +167,12 @@ final class DynamicGridKeyboard extends Keyboard {
                 }
             }
         }
-        return null;
+
+        // fall back to creating the key
+        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, code, null);
     }
 
-    private static Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
+    private Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
             final String outputText) {
         for (final DynamicGridKeyboard keyboard : keyboards) {
             for (final Key key : keyboard.getSortedKeys()) {
@@ -177,7 +181,9 @@ final class DynamicGridKeyboard extends Keyboard {
                 }
             }
         }
-        return null;
+
+        // fall back to creating the key
+        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, 0, outputText);
     }
 
     public void loadRecentKeys(final Collection<DynamicGridKeyboard> keyboards) {

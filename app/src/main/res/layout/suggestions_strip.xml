@@ -47,6 +47,9 @@
                     android:id="@+id/suggestions_strip_select_all_key"
                     layout="@layout/suggestions_strip_select_all_key" />
                 <include
+                    android:id="@+id/suggestions_strip_copy_key"
+                    layout="@layout/suggestions_strip_copy_key" />
+                <include
                     android:id="@+id/suggestions_strip_one_handed_key"
                     layout="@layout/suggestions_strip_one_handed_key" />
                 <include

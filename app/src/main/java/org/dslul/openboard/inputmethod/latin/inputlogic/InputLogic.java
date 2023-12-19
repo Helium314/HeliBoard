@@ -13,7 +13,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.SuggestionSpan;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.CorrectionInfo;
@@ -672,24 +672,8 @@ public final class InputLogic {
                         && inputTransaction.getMSettingsValues().isUsuallyFollowedBySpace(mConnection.getCodePointBeforeCursor()))
                     mSpaceState = SpaceState.NONE;
                 break;
-            case Constants.CODE_CAPSLOCK:
-                // Note: Changing keyboard to shift lock state is handled in
-                // {@link KeyboardSwitcher#onEvent(Event)}.
-                break;
-            case Constants.CODE_SYMBOL_SHIFT:
-                // Note: Calling back to the keyboard on the symbol Shift key is handled in
-                // {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
-                break;
-            case Constants.CODE_SWITCH_ALPHA_SYMBOL:
-                // Note: Calling back to the keyboard on symbol key is handled in
-                // {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
-                break;
             case Constants.CODE_SETTINGS:
                 onSettingsKeyPressed();
-                break;
-            case Constants.CODE_SHORTCUT:
-                // We need to switch to the shortcut IME. This is handled by LatinIME since the
-                // input logic has no business with IME switching.
                 break;
             case Constants.CODE_ACTION_NEXT:
                 performEditorAction(EditorInfo.IME_ACTION_NEXT);
@@ -699,14 +683,6 @@ public final class InputLogic {
                 break;
             case Constants.CODE_LANGUAGE_SWITCH:
                 handleLanguageSwitchKey();
-                break;
-            case Constants.CODE_EMOJI:
-                // Note: Switching emoji keyboard is being handled in
-                // {@link KeyboardState#onEvent(Event,int)}.
-                break;
-            case Constants.CODE_ALPHA_FROM_EMOJI:
-                // Note: Switching back from Emoji keyboard to the main keyboard is being
-                // handled in {@link KeyboardState#onEvent(Event,int)}.
                 break;
             case Constants.CODE_CLIPBOARD:
                 // Note: If clipboard history is enabled, switching to clipboard keyboard
@@ -720,22 +696,6 @@ public final class InputLogic {
                         inputTransaction.setDidAffectContents();
                     }
                 }
-                break;
-            case Constants.CODE_ALPHA_FROM_CLIPBOARD:
-                // Note: Switching back from clipboard keyboard to the main keyboard is being
-                // handled in {@link KeyboardState#onEvent(Event,int)}.
-                break;
-            case Constants.CODE_NUMPAD:
-                // Note: Switching Numpad keyboard is being handled in
-                // {@link KeyboardState#onEvent(Event,int)}.
-                break;
-            case Constants.CODE_ALPHA_FROM_NUMPAD:
-                // Note: Switching back from Numpad keyboard to the main keyboard is being
-                // handled in {@link KeyboardState#onEvent(Event,int)}.
-                break;
-            case Constants.CODE_SYMBOL_FROM_NUMPAD:
-                // Note: Switching back from Numpad keyboard to the symbol keyboard is being
-                // handled in {@link KeyboardState#onEvent(Event,int)}.
                 break;
             case Constants.CODE_SHIFT_ENTER:
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
@@ -751,17 +711,11 @@ public final class InputLogic {
                 // a word, but the keepCursorPosition applyProcessedEvent seems to help here
                 mWordComposer.applyProcessedEvent(event, true);
                 break;
-            case Constants.CODE_START_ONE_HANDED_MODE:
-            case Constants.CODE_STOP_ONE_HANDED_MODE:
-                // Note: One-handed mode activation is being
-                // handled in {@link KeyboardState#onEvent(Event,int)}.
-                break;
-            case Constants.CODE_SWITCH_ONE_HANDED_MODE:
-                // Note: Switching one-handed side is being
-                // handled in {@link KeyboardState#onEvent(Event,int)}.
-                break;
             case Constants.CODE_SELECT_ALL:
                 mConnection.selectAll();
+                break;
+            case Constants.CODE_COPY:
+                mConnection.copyText();
                 break;
             case Constants.CODE_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
@@ -774,6 +728,30 @@ public final class InputLogic {
                 break;
             case Constants.CODE_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_DOWN);
+                break;
+            case Constants.CODE_UNDO:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
+                break;
+            case Constants.CODE_REDO:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
+                break;
+            case Constants.CODE_SHORTCUT:
+                // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
+                // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
+                // We need to switch to the shortcut IME. This is handled by LatinIME since the
+                // input logic has no business with IME switching.
+            case Constants.CODE_CAPSLOCK:
+            case Constants.CODE_SYMBOL_SHIFT:
+            case Constants.CODE_SWITCH_ALPHA_SYMBOL:
+            case Constants.CODE_EMOJI:
+            case Constants.CODE_ALPHA_FROM_EMOJI:
+            case Constants.CODE_ALPHA_FROM_CLIPBOARD:
+            case Constants.CODE_NUMPAD:
+            case Constants.CODE_ALPHA_FROM_NUMPAD:
+            case Constants.CODE_SYMBOL_FROM_NUMPAD:
+            case Constants.CODE_START_ONE_HANDED_MODE:
+            case Constants.CODE_STOP_ONE_HANDED_MODE:
+            case Constants.CODE_SWITCH_ONE_HANDED_MODE:
                 break;
             default:
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
@@ -876,7 +854,7 @@ public final class InputLogic {
                 || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
                 || !settingsValues.mBigramPredictionEnabled // this is only for next word suggestions, so they need to be enabled
                 || settingsValues.mIncognitoModeEnabled
-                || settingsValues.mInputAttributes.mInputTypeNoAutoCorrect // see comment in performAdditionToUserHistoryDictionary
+                || !settingsValues.mInputAttributes.mShouldShowSuggestions // see comment in performAdditionToUserHistoryDictionary
                 || !StringUtilsKt.isEmoji(text)
         ) return;
         if (mConnection.hasSlowInputConnection()) {
@@ -1556,7 +1534,8 @@ public final class InputLogic {
         // If correction is not enabled, we don't add words to the user history dictionary.
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
-        if (settingsValues.mInputAttributes.mInputTypeNoAutoCorrect || settingsValues.mIncognitoModeEnabled)
+        // mInputTypeNoAutoCorrect changed to !mShouldShowSuggestions because this was cancelling learning way too often
+        if (!settingsValues.mInputAttributes.mShouldShowSuggestions || settingsValues.mIncognitoModeEnabled)
             return;
         if (mConnection.hasSlowInputConnection()) {
             // Since we don't unlearn when the user backspaces on a slow InputConnection,
@@ -2095,12 +2074,26 @@ public final class InputLogic {
      * @param keyCode the key code to send inside the key event.
      */
     public void sendDownUpKeyEvent(final int keyCode) {
+        sendDownUpKeyEventWithMetaState(keyCode, 0);
+    }
+
+    /**
+     * Sends a DOWN key event followed by an UP key event to the editor.
+     *
+     * If possible at all, avoid using this method. It causes all sorts of race conditions with
+     * the text view because it goes through a different, asynchronous binder. Also, batch edits
+     * are ignored for key events. Use the normal software input methods instead.
+     *
+     * @param keyCode the key code to send inside the key event.
+     * @param metaState the meta state to send inside the key event, e.g. KeyEvent.META_CTRL_ON
+     */
+    public void sendDownUpKeyEventWithMetaState(final int keyCode, final int metaState) {
         final long eventTime = SystemClock.uptimeMillis();
         mConnection.sendKeyEvent(new KeyEvent(eventTime, eventTime,
-                KeyEvent.ACTION_DOWN, keyCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                KeyEvent.ACTION_DOWN, keyCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
                 KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
         mConnection.sendKeyEvent(new KeyEvent(SystemClock.uptimeMillis(), eventTime,
-                KeyEvent.ACTION_UP, keyCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                KeyEvent.ACTION_UP, keyCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
                 KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
     }
 

@@ -6,7 +6,7 @@
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;

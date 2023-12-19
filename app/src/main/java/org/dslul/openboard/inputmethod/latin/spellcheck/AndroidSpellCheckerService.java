@@ -45,8 +45,8 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     public static final String PREF_USE_CONTACTS_KEY = "pref_spellcheck_use_contacts";
 
-    private static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
-    private static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;
+    public static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
+    public static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;
 
     private static final String DICTIONARY_NAME_PREFIX = "spellcheck_";
 
@@ -156,8 +156,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     public boolean isValidWord(final Locale locale, final String word) {
         mSemaphore.acquireUninterruptibly();
         try {
-            DictionaryFacilitator dictionaryFacilitatorForLocale =
-                    mDictionaryFacilitatorCache.get(locale);
+            DictionaryFacilitator dictionaryFacilitatorForLocale = mDictionaryFacilitatorCache.get(locale);
             return dictionaryFacilitatorForLocale.isValidSpellingWord(word);
         } finally {
             mSemaphore.release();

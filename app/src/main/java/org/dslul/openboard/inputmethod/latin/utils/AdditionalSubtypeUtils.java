@@ -8,7 +8,7 @@ package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;

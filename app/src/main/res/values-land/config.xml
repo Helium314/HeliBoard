@@ -7,7 +7,7 @@
 
 <!-- Configuration values for Small Phone Landscape. -->
 <resources>
-    <bool name="config_use_fullscreen_mode">false</bool>
+    <bool name="config_fullscreen_mode_allowed">true</bool>
 
     <!-- Preferable keyboard height in absolute scale: 1.100in -->
     <!-- This config_default_keyboard_height value should match with keyboard-heights.xml -->
@@ -24,8 +24,8 @@
     <fraction name="config_keyboard_bottom_padding_holo">0.0%p</fraction>
     <fraction name="config_key_vertical_gap_holo">5.368%p</fraction>
     <fraction name="config_key_horizontal_gap_holo">1.020%p</fraction>
-    <fraction name="config_key_vertical_gap_holo_narrow">5.368%p</fraction>
-    <fraction name="config_key_horizontal_gap_holo_narrow">1.020%p</fraction>
+    <fraction name="config_key_vertical_gap_holo_narrow">4.85%p</fraction>
+    <fraction name="config_key_horizontal_gap_holo_narrow">0.920%p</fraction>
     <!-- config_more_keys_keyboard_key_height x -0.5 -->
     <dimen name="config_more_keys_keyboard_vertical_correction_holo">-22.4dp</dimen>
     <dimen name="config_key_preview_offset_holo">1.6dp</dimen>
@@ -67,9 +67,9 @@
 
     <!-- Emoji keyboard -->
     <fraction name="config_emoji_keyboard_key_width">8.33%p</fraction>
-    <fraction name="config_emoji_keyboard_row_height">40%p</fraction>
-    <fraction name="config_emoji_keyboard_key_letter_size">70%p</fraction>
-    <fraction name="config_emoji_keyboard_key_label_size">70%p</fraction>
+    <fraction name="config_emoji_keyboard_row_height">41%p</fraction>
+    <fraction name="config_emoji_keyboard_key_letter_size">78%p</fraction>
+    <fraction name="config_emoji_keyboard_key_label_size">78%p</fraction>
     <integer name="config_emoji_keyboard_max_recents_key_count">32</integer>
 
     <!-- Clipboard keyboard -->

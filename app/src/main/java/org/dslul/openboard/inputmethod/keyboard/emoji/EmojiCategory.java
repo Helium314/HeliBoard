@@ -11,7 +11,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.core.graphics.PaintCompat;
 import org.dslul.openboard.inputmethod.keyboard.Key;
@@ -48,10 +48,14 @@ final class EmojiCategory {
 
     public final class CategoryProperties {
         public final int mCategoryId;
-        public final int mPageCount;
-        public CategoryProperties(final int categoryId, final int pageCount) {
+        private int mPageCount = -1;
+        public CategoryProperties(final int categoryId) {
             mCategoryId = categoryId;
-            mPageCount = pageCount;
+        }
+        public int getPageCount() {
+            if (mPageCount < 0)
+                mPageCount = computeCategoryPageCount(mCategoryId);
+            return mPageCount;
         }
     }
 
@@ -147,8 +151,7 @@ final class EmojiCategory {
         }
         addShownCategoryId(EmojiCategory.ID_EMOTICONS);
 
-        DynamicGridKeyboard recentsKbd =
-                getKeyboard(EmojiCategory.ID_RECENTS, 0 /* categoryPageId */);
+        DynamicGridKeyboard recentsKbd = getKeyboard(EmojiCategory.ID_RECENTS, 0);
         recentsKbd.loadRecentKeys(mCategoryKeyboardMap.values());
 
         mCurrentCategoryId = Settings.readLastShownEmojiCategoryId(mPrefs, defaultCategoryId);
@@ -167,9 +170,7 @@ final class EmojiCategory {
 
     private void addShownCategoryId(final int categoryId) {
         // Load a keyboard of categoryId
-        getKeyboard(categoryId, 0 /* categoryPageId */);
-        final CategoryProperties properties =
-                new CategoryProperties(categoryId, computeCategoryPageCount(categoryId));
+        final CategoryProperties properties = new CategoryProperties(categoryId);
         mShownCategories.add(properties);
     }
 
@@ -214,7 +215,7 @@ final class EmojiCategory {
     public int getCategoryPageCount(final int categoryId) {
         for (final CategoryProperties prop : mShownCategories) {
             if (prop.mCategoryId == categoryId) {
-                return prop.mPageCount;
+                return prop.getPageCount();
             }
         }
         Log.w(TAG, "Invalid category id: " + categoryId);
@@ -258,7 +259,7 @@ final class EmojiCategory {
             if (props.mCategoryId == categoryId) {
                 return sum + categoryPageId;
             }
-            sum += props.mPageCount;
+            sum += props.getPageCount();
         }
         Log.w(TAG, "categoryId not found: " + categoryId);
         return 0;

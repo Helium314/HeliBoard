@@ -13,7 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
