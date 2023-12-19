@@ -1374,8 +1374,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return null;
         }
 
-        final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
-
         StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
         @SuppressLint("RestrictedApi") Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
@@ -1409,8 +1407,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         Bundle stylesBundle = stylesBuilder.build();
 
         final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(LayoutParams.WRAP_CONTENT, height),
-                new Size(LayoutParams.MATCH_PARENT, height)).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(LayoutParams.WRAP_CONTENT, getHeight()),
+                new Size(LayoutParams.MATCH_PARENT, getHeight())).setStyle(stylesBundle).build());
 
         return new InlineSuggestionsRequest.Builder(presentationSpecs)
                 .setMaxSuggestionCount(6)
@@ -1422,17 +1420,21 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 getResources().getDisplayMetrics());
     }
 
+    private int getHeight() {
+        return getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
+    }
+
     @Override
     @RequiresApi(api = Build.VERSION_CODES.R)
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
-        final int height = getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
 
         // A container to hold all views
         LinearLayout container = new LinearLayout(mDisplayContext);
 
         for (final InlineSuggestion s : response.getInlineSuggestions()) {
-            s.inflate(this, new Size(LayoutParams.WRAP_CONTENT, height), getMainExecutor(), (view) -> {
+            s.inflate(this, new Size(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT), getMainExecutor(), (view) -> {
                 if (view != null)
                     container.addView(view);
             });
