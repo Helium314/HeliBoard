@@ -214,11 +214,7 @@ public class KeyboardView extends View {
 
         mKeyboard = keyboard;
         final SettingsValues sv = Settings.getInstance().getCurrent();
-        // scale should not depend on mOneHandedModeScale for emoji and clipboard, because those views are not affected by one-handed mode (yet)
-        if (keyboard.mId.isEmojiKeyboard() || keyboard.mId.mElementId == KeyboardId.ELEMENT_CLIPBOARD)
-            mKeyScaleForText = (float) Math.sqrt(1 / sv.mKeyboardHeightScale);
-        else
-            mKeyScaleForText = (float) Math.sqrt(sv.mOneHandedModeScale / sv.mKeyboardHeightScale);
+        mKeyScaleForText = (float) Math.sqrt(1 / sv.mKeyboardHeightScale);
         final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
         mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
         mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);

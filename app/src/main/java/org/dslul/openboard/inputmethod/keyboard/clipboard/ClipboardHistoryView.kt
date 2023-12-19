@@ -56,14 +56,17 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyboardViewAttr.recycle()
     }
 
+    // todo: issues
+    //  abc button is full width, but should be scaled in one-handed mode (minor)
+    //  suggestion strip on top is a bit out of place, replace it? or force show toolbar?
+    // todo: maybe can be removed?
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        val width = (ResourceUtils.getDefaultKeyboardWidth(res) + paddingLeft + paddingRight)
-        val height = (ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
-                + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
-                + paddingTop + paddingBottom)
+        val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
+        val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
+        findViewById<FrameLayout>(R.id.clipboard_action_bar)?.layoutParams?.width = width
         setMeasuredDimension(width, height)
     }
 
@@ -154,6 +157,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
+            layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current) // todo: maybe on measure, because of rotate?
         }
         Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }

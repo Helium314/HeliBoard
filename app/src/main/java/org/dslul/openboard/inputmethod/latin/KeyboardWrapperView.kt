@@ -5,7 +5,6 @@ package org.dslul.openboard.inputmethod.latin
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
@@ -13,6 +12,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -29,7 +29,6 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
     private lateinit var stopOneHandedModeBtn: ImageButton
     private lateinit var switchOneHandedModeBtn: ImageButton
-    private lateinit var keyboardView: View
     private lateinit var resizeOneHandedModeBtn: ImageButton
     private val iconStopOneHandedModeId: Int
     private val iconSwitchOneHandedModeId: Int
@@ -62,7 +61,6 @@ class KeyboardWrapperView @JvmOverloads constructor(
         resizeOneHandedModeBtn = findViewById(R.id.btn_resize_one_handed_mode)
         resizeOneHandedModeBtn.setImageResource(iconResizeOneHandedModeId)
         resizeOneHandedModeBtn.visibility = GONE
-        keyboardView = findViewById(R.id.keyboard_view)
 
         stopOneHandedModeBtn.setOnClickListener(this)
         switchOneHandedModeBtn.setOnClickListener(this)
@@ -141,6 +139,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
         val isLeftGravity = oneHandedGravity == Gravity.LEFT
         val width = right - left
+        val keyboardView = KeyboardSwitcher.getInstance().visibleKeyboardView
         val spareWidth = width - keyboardView.measuredWidth
 
         val keyboardLeft = if (isLeftGravity) 0 else spareWidth

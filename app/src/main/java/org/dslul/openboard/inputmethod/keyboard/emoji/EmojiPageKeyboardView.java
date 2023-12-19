@@ -105,6 +105,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
     }
 
+    // todo: maybe can be removed?
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final Keyboard keyboard = getKeyboard();

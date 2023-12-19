@@ -30,6 +30,7 @@ import org.dslul.openboard.inputmethod.compat.TabHostCompat;
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -108,7 +109,7 @@ public final class EmojiPalettesView extends LinearLayout
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
-        builder.setKeyboardGeometry(ResourceUtils.getDefaultKeyboardWidth(res),
+        builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
                 mEmojiLayoutParams.mEmojiKeyboardHeight);
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
@@ -133,10 +134,12 @@ public final class EmojiPalettesView extends LinearLayout
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final Resources res = getContext().getResources();
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        final int width = ResourceUtils.getDefaultKeyboardWidth(res)
+        // todo: currently looks a bit broken, because
+        //  when typing an emoji (or doing anything that affects suggestion strip), suggestion strip is added on top
+        //   this is annoying... try some frame layout where the suggestion strip is just behind the emoji tab?
+        final int width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent())
                 + getPaddingLeft() + getPaddingRight();
         final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
-                + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
                 + getPaddingTop() + getPaddingBottom();
         setMeasuredDimension(width, height);
     }
@@ -155,14 +158,11 @@ public final class EmojiPalettesView extends LinearLayout
         host.addTab(tspec);
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
+    public void initialStart() { // needs to be delayed for access to EmojiTabStrip
 
-        mTabHost = findViewById(R.id.emoji_category_tabhost);
+        mTabHost = KeyboardSwitcher.getInstance().getEmojiTabStrip().findViewById(R.id.emoji_category_tabhost);
         mTabHost.setup();
-        for (final EmojiCategory.CategoryProperties properties
-                : mEmojiCategory.getShownCategories()) {
+        for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
             addTab(mTabHost, properties.mCategoryId);
         }
         mTabHost.setOnTabChangedListener(this);
@@ -225,9 +225,6 @@ public final class EmojiPalettesView extends LinearLayout
                 true /* force */);
         // Enable reselection after the first setCurrentCategoryAndPageId() init call
         mTabHost.setFireOnTabChangeListenerOnReselection(true);
-
-        final LinearLayout actionBar = findViewById(R.id.emoji_action_bar);
-        mEmojiLayoutParams.setActionBarProperties(actionBar);
 
         // deleteKey depends only on OnTouchListener.
         mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
@@ -378,6 +375,7 @@ public final class EmojiPalettesView extends LinearLayout
         if (deleteIconResId != 0) {
             mDeleteKey.setImageResource(deleteIconResId);
         }
+        mEmojiLayoutParams.setActionBarProperties(findViewById(R.id.emoji_action_bar));
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getActionBarHeight(), keyVisualAttr);
         setupAlphabetKey(mAlphabetKeyLeft, switchToAlphaLabel, params);
@@ -479,5 +477,9 @@ public final class EmojiPalettesView extends LinearLayout
         private void onTouchCanceled(final View v) {
             v.setPressed(false);
         }
+    }
+
+    public void clearCache() {
+        mEmojiCategory.clear();
     }
 }

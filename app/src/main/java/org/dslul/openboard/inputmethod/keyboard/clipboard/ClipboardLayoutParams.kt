@@ -26,8 +26,7 @@ class ClipboardLayoutParams(res: Resources) {
 
     init {
         val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
-        val suggestionStripHeight = res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
-        val defaultKeyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res)
+        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current)
 
         if (Settings.getInstance().current.mNarrowKeyGaps) {
             keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
@@ -46,7 +45,7 @@ class ClipboardLayoutParams(res: Resources) {
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
         actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / DEFAULT_KEYBOARD_ROWS - keyVerticalGap / 2
-        listHeight = defaultKeyboardHeight + suggestionStripHeight - actionBarHeight - bottomPadding
+        listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding
     }
 
     fun setListProperties(recycler: RecyclerView) {

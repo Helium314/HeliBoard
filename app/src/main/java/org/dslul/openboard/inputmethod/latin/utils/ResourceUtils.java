@@ -192,7 +192,7 @@ public final class ResourceUtils {
         return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
     }
 
-    private static int getDefaultKeyboardHeight(final Resources res, final boolean showsNumberRow) {
+    public static int getDefaultKeyboardHeight(final Resources res, final boolean showsNumberRow) {
         final DisplayMetrics dm = res.getDisplayMetrics();
         final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height) * (showsNumberRow ? 1.25f : 1f);
         final float maxKeyboardHeight = res.getFraction(

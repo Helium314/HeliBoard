@@ -20,6 +20,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -118,8 +119,7 @@ final class EmojiCategory {
     private final HashMap<String, Integer> mCategoryNameToIdMap = new HashMap<>();
     private final int[] mCategoryTabIconId = new int[sCategoryName.length];
     private final ArrayList<CategoryProperties> mShownCategories = new ArrayList<>();
-    private final ConcurrentHashMap<Long, DynamicGridKeyboard> mCategoryKeyboardMap =
-            new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, DynamicGridKeyboard> mCategoryKeyboardMap = new ConcurrentHashMap<>();
 
     private int mCurrentCategoryId = EmojiCategory.ID_UNSPECIFIED;
     private int mCurrentCategoryPageId = 0;
@@ -132,8 +132,7 @@ final class EmojiCategory {
         mLayoutSet = layoutSet;
         for (int i = 0; i < sCategoryName.length; ++i) {
             mCategoryNameToIdMap.put(sCategoryName[i], i);
-            mCategoryTabIconId[i] = emojiPaletteViewAttr.getResourceId(
-                    sCategoryTabIconAttr[i], 0);
+            mCategoryTabIconId[i] = emojiPaletteViewAttr.getResourceId(sCategoryTabIconAttr[i], 0);
         }
 
         int defaultCategoryId = EmojiCategory.ID_SMILEYS_EMOTION;
@@ -166,6 +165,10 @@ final class EmojiCategory {
         if (mCurrentCategoryPageId >= computeCategoryPageCount(mCurrentCategoryId)) {
             mCurrentCategoryPageId = 0;
         }
+    }
+
+    public void clear() {
+        mCategoryKeyboardMap.clear();
     }
 
     private void addShownCategoryId(final int categoryId) {
@@ -294,10 +297,11 @@ final class EmojiCategory {
                 return mCategoryKeyboardMap.get(categoryKeyboardMapKey);
             }
 
+            final int width = ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent());
             if (categoryId == EmojiCategory.ID_RECENTS) {
                 final DynamicGridKeyboard kbd = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        mMaxRecentsKeyCount, categoryId);
+                        mMaxRecentsKeyCount, categoryId, width);
                 mCategoryKeyboardMap.put(categoryKeyboardMapKey, kbd);
                 return kbd;
             }
@@ -309,15 +313,14 @@ final class EmojiCategory {
             for (int pageId = 0; pageId < sortedKeysPages.length; ++pageId) {
                 final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        keyCountPerPage, categoryId);
+                        keyCountPerPage, categoryId, width);
                 for (final Key emojiKey : sortedKeysPages[pageId]) {
                     if (emojiKey == null) {
                         break;
                     }
                     tempKeyboard.addKeyLast(emojiKey);
                 }
-                mCategoryKeyboardMap.put(
-                        getCategoryKeyboardMapKey(categoryId, pageId), tempKeyboard);
+                mCategoryKeyboardMap.put(getCategoryKeyboardMapKey(categoryId, pageId), tempKeyboard);
             }
             return mCategoryKeyboardMap.get(categoryKeyboardMapKey);
         }
@@ -326,7 +329,7 @@ final class EmojiCategory {
     private int computeMaxKeyCountPerPage() {
         final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                 mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                0, 0);
+                0, 0, ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent()));
         return MAX_LINE_COUNT_PER_PAGE * tempKeyboard.getColumnsCount();
     }
 
