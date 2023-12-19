@@ -320,6 +320,8 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     }
 
     override fun setBackground(view: View, color: ColorType) {
+        if (view.background == null)
+            view.setBackgroundColor(Color.WHITE) // set white to make the color filters word
         when (color) {
             CLEAR_CLIPBOARD_HISTORY_KEY -> setColor(view.background, SUGGESTION_BACKGROUND)
             EMOJI_CATEGORY_BACKGROUND -> view.setBackgroundColor(get(color))
@@ -485,6 +487,8 @@ class DefaultColors (
     }
 
     override fun setBackground(view: View, color: ColorType) {
+        if (view.background == null)
+            view.setBackgroundColor(Color.WHITE) // set white to make the color filters word
         when (color) {
             CLEAR_CLIPBOARD_HISTORY_KEY -> setColor(view.background, SUGGESTION_BACKGROUND)
             EMOJI_CATEGORY_BACKGROUND -> view.setBackgroundColor(get(color))
