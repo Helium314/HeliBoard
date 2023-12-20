@@ -44,7 +44,8 @@ class ClipboardLayoutParams(res: Resources) {
         topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
-        actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / DEFAULT_KEYBOARD_ROWS - keyVerticalGap / 2
+        val numRows = if (Settings.getInstance().current.mShowsNumberRow) 1 else 0
+        actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / (DEFAULT_KEYBOARD_ROWS + numRows) - keyVerticalGap / 2
         listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding
     }
 
