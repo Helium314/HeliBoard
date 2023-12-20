@@ -1248,7 +1248,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (mInputView == null) {
             return;
         }
-        final View visibleKeyboardView = mKeyboardSwitcher.getVisibleKeyboardView();
+        final View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
         if (visibleKeyboardView == null || !hasSuggestionStripView()) {
             return;
         }
@@ -1261,11 +1261,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int suggestionsHeight = (!mKeyboardSwitcher.isShowingEmojiPalettes()
-                && !mKeyboardSwitcher.isShowingClipboardHistory()
-                && mSuggestionStripView.getVisibility() == View.VISIBLE)
-                ? mSuggestionStripView.getHeight() : 0;
-        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - suggestionsHeight;
+        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - mSuggestionStripView.getHeight();
         mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {

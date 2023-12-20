@@ -14,40 +14,6 @@
     android:visibility="gone"
     style="?attr/emojiPalettesViewStyle"
 >
-    <LinearLayout
-        android:id="@+id/emoji_tab_strip"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/config_suggestions_strip_height"
-        style="?attr/suggestionStripViewStyle"
-    >
-        <org.dslul.openboard.inputmethod.compat.TabHostCompat
-            android:id="@+id/emoji_category_tabhost"
-            android:layout_width="0dip"
-            android:layout_weight="87.5"
-            android:layout_height="match_parent"
-        >
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null" />
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="0dip"
-                android:layout_height="0dip"
-            >
-                <!-- Empty placeholder that TabHost requires. But we don't use it to actually
-                     display anything. We monitor the tab changes and change the ViewPager.
-                     Similarly the ViewPager swipes are intercepted and passed to the TabHost. -->
-                <View
-                    android:id="@+id/emoji_keyboard_dummy"
-                    android:layout_width="0dip"
-                    android:layout_height="0dip"
-                    android:visibility="gone" />
-            </FrameLayout>
-        </org.dslul.openboard.inputmethod.compat.TabHostCompat>
-    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/emoji_keyboard_list"
         android:layout_width="match_parent"

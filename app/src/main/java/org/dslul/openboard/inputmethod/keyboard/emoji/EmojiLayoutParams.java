@@ -32,7 +32,7 @@ final class EmojiLayoutParams {
     public EmojiLayoutParams(final Resources res) {
         final SettingsValues settingsValues = Settings.getInstance().getCurrent();
         final int defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, settingsValues);
-        final int defaultKeyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res);
+        final int defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, settingsValues);
         if (settingsValues.mNarrowKeyGaps) {
             mKeyVerticalGap = (int) res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
                     defaultKeyboardHeight, defaultKeyboardHeight);
@@ -77,6 +77,7 @@ final class EmojiLayoutParams {
     public void setActionBarProperties(final LinearLayout ll) {
         final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) ll.getLayoutParams();
         lp.height = getActionBarHeight();
+        lp.width = ResourceUtils.getKeyboardWidth(ll.getResources(), Settings.getInstance().getCurrent());
         ll.setLayoutParams(lp);
     }
 

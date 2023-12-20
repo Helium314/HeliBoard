@@ -49,12 +49,12 @@ public class Keyboard {
     /** Total height of the keyboard, including the padding and keys */
     public final int mOccupiedHeight;
     /** Total width of the keyboard, including the padding and keys */
-    public final int mOccupiedWidth;
+    public int mOccupiedWidth;
 
     /** Base height of the keyboard, used to calculate rows' height */
     public final int mBaseHeight;
     /** Base width of the keyboard, used to calculate keys' width */
-    public final int mBaseWidth;
+    public int mBaseWidth;
 
     /** The padding above the keyboard */
     public final int mTopPadding;

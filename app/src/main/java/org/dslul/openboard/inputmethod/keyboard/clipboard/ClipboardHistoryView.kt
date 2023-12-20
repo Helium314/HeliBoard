@@ -56,14 +56,16 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyboardViewAttr.recycle()
     }
 
+    // todo: add another strip to clipboard, with select all, arrow keys, select, copy, clear buttons
+    //  at the bottom, remove the clear button and add the keys like in the emoji view (abc, space, delete)
+    //  also allow swipe to remove a word from clipboard history (except current clip and pinned clips)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        val width = (ResourceUtils.getDefaultKeyboardWidth(res) + paddingLeft + paddingRight)
-        val height = (ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
-                + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
-                + paddingTop + paddingBottom)
+        val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
+        val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
+        findViewById<FrameLayout>(R.id.clipboard_action_bar)?.layoutParams?.width = width
         setMeasuredDimension(width, height)
     }
 
@@ -154,6 +156,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
+            layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
         }
         Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }
