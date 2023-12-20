@@ -149,6 +149,8 @@ public interface DictionaryFacilitator {
             @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final boolean blockPotentiallyOffensive);
 
+    void adjustConfidences(final String word, final boolean wasAutoCapitalized);
+
     void unlearnFromUserHistory(final String word,
             @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final int eventType);
