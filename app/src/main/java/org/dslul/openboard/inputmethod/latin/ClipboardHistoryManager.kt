@@ -92,6 +92,13 @@ class ClipboardHistoryManager(
         }
     }
 
+    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
+
+    fun removeEntry(index: Int) {
+        if (canRemove(index))
+            historyEntries.removeAt(index)
+    }
+
     private fun sortHistoryEntries() {
         historyEntries.sort()
     }
