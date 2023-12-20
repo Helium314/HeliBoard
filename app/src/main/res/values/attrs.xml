@@ -272,6 +272,8 @@
         <attr name="iconArrowUp" format="reference" />
         <attr name="iconArrowDown" format="reference" />
         <attr name="iconBin" format="reference" />
+        <attr name="iconUndo" format="reference" />
+        <attr name="iconRedo" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_GridRows">

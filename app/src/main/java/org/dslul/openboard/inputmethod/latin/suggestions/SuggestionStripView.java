@@ -76,22 +76,22 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public static boolean DEBUG_SUGGESTIONS;
     private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
-    private static final String VOICE_KEY_TAG = "voice_key";
-    private static final String CLIPBOARD_KEY_TAG = "clipboard_key";
-    private static final String SETTINGS_KEY_TAG = "settings_key";
-    private static final String SELECT_ALL_KEY_TAG = "select_all_key";
-    private static final String COPY_KEY_TAG = "copy_key";
-    private static final String ONE_HANDED_KEY_TAG = "one_handed_key";
-    private static final String LEFT_KEY_TAG = "left_key";
-    private static final String RIGHT_KEY_TAG = "right_key";
-    private static final String UP_KEY_TAG = "up_key";
-    private static final String DOWN_KEY_TAG = "down_key";
-    private static final String UNDO_TAG = "undo";
-    private static final String REDO_TAG = "redo";
+    private static final String TAG_VOICE = "voice_key";
+    private static final String TAG_CLIPBOARD = "clipboard_key";
+    private static final String TAG_SETTINGS = "settings_key";
+    private static final String TAG_SELECT_ALL = "select_all_key";
+    private static final String TAG_COPY = "copy_key";
+    private static final String TAG_ONE_HANDED = "one_handed_key";
+    private static final String TAG_LEFT = "left_key";
+    private static final String TAG_RIGHT = "right_key";
+    private static final String TAG_UP = "up_key";
+    private static final String TAG_DOWN = "down_key";
+    private static final String TAG_REDO = "undo";
+    private static final String TAG_UNDO = "redo";
     // tags of keys to be added to toolbar, in order (all tags must be considered in getStyleableIconId)
-    private static final String[] toolbarKeyTags = new String[] {VOICE_KEY_TAG, CLIPBOARD_KEY_TAG,
-            SELECT_ALL_KEY_TAG, COPY_KEY_TAG, ONE_HANDED_KEY_TAG, SETTINGS_KEY_TAG, LEFT_KEY_TAG,
-            RIGHT_KEY_TAG, UP_KEY_TAG, DOWN_KEY_TAG};
+    private static final String[] toolbarKeyTags = new String[] {TAG_VOICE, TAG_CLIPBOARD,
+            TAG_SELECT_ALL, TAG_COPY, TAG_UNDO, TAG_REDO, TAG_ONE_HANDED, TAG_SETTINGS,
+            TAG_LEFT, TAG_RIGHT, TAG_UP, TAG_DOWN};
 
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mToolbarKey;
@@ -208,7 +208,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             button.setLayoutParams(toolbarKeyLayoutParams);
             button.setTag(tag);
             final Drawable icon = keyboardAttr.getDrawable(getStyleableIconId(tag));
-            if (tag.equals(LEFT_KEY_TAG) || tag.equals(RIGHT_KEY_TAG) || tag.equals(UP_KEY_TAG) || tag.equals(DOWN_KEY_TAG)) {
+            if (tag.equals(TAG_LEFT) || tag.equals(TAG_RIGHT) || tag.equals(TAG_UP) || tag.equals(TAG_DOWN)) {
                 // arrows look a little awkward when not scaled
                 button.setScaleX(1.2f);
                 button.setScaleY(1.2f);
@@ -256,8 +256,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final int visibility = shouldBeVisible ? VISIBLE : (isFullscreenMode ? GONE : INVISIBLE);
         setVisibility(visibility);
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
-        mToolbar.findViewWithTag(VOICE_KEY_TAG).setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(VOICE_KEY_TAG);
+        mToolbar.findViewWithTag(TAG_VOICE).setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
+        final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(TAG_VOICE);
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
         mToolbarKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
@@ -362,7 +362,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void onLongClickToolKey(final View view) {
-        if (CLIPBOARD_KEY_TAG.equals(view.getTag()) && view.getParent() == mPinnedKeys) {
+        if (TAG_CLIPBOARD.equals(view.getTag()) && view.getParent() == mPinnedKeys) {
             onLongClickClipboardKey(); // long click pinned clipboard key
         } else if (view.getParent() == mToolbar) {
             final String tag = (String) view.getTag();
@@ -626,42 +626,42 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final Object tag = view.getTag();
         if (tag instanceof String) {
             switch ((String) tag) {
-                case VOICE_KEY_TAG:
+                case TAG_VOICE:
                     mListener.onCodeInput(Constants.CODE_SHORTCUT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case CLIPBOARD_KEY_TAG:
+                case TAG_CLIPBOARD:
                     mListener.onCodeInput(Constants.CODE_CLIPBOARD, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case SELECT_ALL_KEY_TAG:
+                case TAG_SELECT_ALL:
                     mListener.onCodeInput(Constants.CODE_SELECT_ALL, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case COPY_KEY_TAG:
+                case TAG_COPY:
                     mListener.onCodeInput(Constants.CODE_COPY, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case ONE_HANDED_KEY_TAG:
+                case TAG_ONE_HANDED:
                     final boolean oneHandedEnabled = Settings.getInstance().getCurrent().mOneHandedModeEnabled;
                     mListener.onCodeInput(oneHandedEnabled ? Constants.CODE_STOP_ONE_HANDED_MODE : Constants.CODE_START_ONE_HANDED_MODE,
                             Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case SETTINGS_KEY_TAG:
+                case TAG_SETTINGS:
                     mListener.onCodeInput(Constants.CODE_SETTINGS, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case LEFT_KEY_TAG:
+                case TAG_LEFT:
                     mListener.onCodeInput(Constants.CODE_LEFT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case RIGHT_KEY_TAG:
+                case TAG_RIGHT:
                     mListener.onCodeInput(Constants.CODE_RIGHT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case UP_KEY_TAG:
+                case TAG_UP:
                     mListener.onCodeInput(Constants.CODE_UP, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case DOWN_KEY_TAG:
+                case TAG_DOWN:
                     mListener.onCodeInput(Constants.CODE_DOWN, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case UNDO_TAG:
+                case TAG_UNDO:
                     mListener.onCodeInput(Constants.CODE_UNDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
-                case REDO_TAG:
+                case TAG_REDO:
                     mListener.onCodeInput(Constants.CODE_REDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                     return;
             }
@@ -733,16 +733,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private int getStyleableIconId(final String buttonTag) {
         return switch (buttonTag) {
-            case VOICE_KEY_TAG -> R.styleable.Keyboard_iconShortcutKey;
-            case SETTINGS_KEY_TAG -> R.styleable.Keyboard_iconSettingsKey;
-            case CLIPBOARD_KEY_TAG -> R.styleable.Keyboard_iconClipboardNormalKey;
-            case SELECT_ALL_KEY_TAG -> R.styleable.Keyboard_iconSelectAll;
-            case COPY_KEY_TAG -> R.styleable.Keyboard_iconCopyKey;
-            case ONE_HANDED_KEY_TAG -> R.styleable.Keyboard_iconStartOneHandedMode;
-            case LEFT_KEY_TAG -> R.styleable.Keyboard_iconArrowLeft;
-            case RIGHT_KEY_TAG -> R.styleable.Keyboard_iconArrowRight;
-            case UP_KEY_TAG -> R.styleable.Keyboard_iconArrowUp;
-            case DOWN_KEY_TAG -> R.styleable.Keyboard_iconArrowDown;
+            case TAG_VOICE -> R.styleable.Keyboard_iconShortcutKey;
+            case TAG_SETTINGS -> R.styleable.Keyboard_iconSettingsKey;
+            case TAG_CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey;
+            case TAG_SELECT_ALL -> R.styleable.Keyboard_iconSelectAll;
+            case TAG_COPY -> R.styleable.Keyboard_iconCopyKey;
+            case TAG_ONE_HANDED -> R.styleable.Keyboard_iconStartOneHandedMode;
+            case TAG_LEFT -> R.styleable.Keyboard_iconArrowLeft;
+            case TAG_RIGHT -> R.styleable.Keyboard_iconArrowRight;
+            case TAG_UP -> R.styleable.Keyboard_iconArrowUp;
+            case TAG_DOWN -> R.styleable.Keyboard_iconArrowDown;
+            case TAG_UNDO -> R.styleable.Keyboard_iconUndo;
+            case TAG_REDO -> R.styleable.Keyboard_iconRedo;
             default -> throw (new IllegalArgumentException("no styleable id for " + buttonTag));
         };
     }
