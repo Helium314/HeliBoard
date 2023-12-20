@@ -1409,6 +1409,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
         presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight()),
                 new Size(740, getHeight())).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight()),
+                new Size(740, getHeight())).setStyle(stylesBundle).build());
 
         return new InlineSuggestionsRequest.Builder(presentationSpecs)
                 .setMaxSuggestionCount(6)
