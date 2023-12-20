@@ -37,36 +37,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 style="?attr/suggestionWordStyle">
-                <include
-                    android:id="@+id/suggestions_strip_voice_key"
-                    layout="@layout/suggestions_strip_voice_key" />
-                <include
-                    android:id="@+id/suggestions_strip_clipboard_key"
-                    layout="@layout/suggestions_strip_clipboard_key" />
-                <include
-                    android:id="@+id/suggestions_strip_select_all_key"
-                    layout="@layout/suggestions_strip_select_all_key" />
-                <include
-                    android:id="@+id/suggestions_strip_copy_key"
-                    layout="@layout/suggestions_strip_copy_key" />
-                <include
-                    android:id="@+id/suggestions_strip_one_handed_key"
-                    layout="@layout/suggestions_strip_one_handed_key" />
-                <include
-                    android:id="@+id/suggestions_strip_settings_key"
-                    layout="@layout/suggestions_strip_settings_key" />
-                <include
-                    android:id="@+id/suggestions_strip_left_key"
-                    layout="@layout/suggestions_strip_left_key" />
-                <include
-                    android:id="@+id/suggestions_strip_right_key"
-                    layout="@layout/suggestions_strip_right_key" />
-                <include
-                    android:id="@+id/suggestions_strip_up_key"
-                    layout="@layout/suggestions_strip_up_key" />
-                <include
-                    android:id="@+id/suggestions_strip_down_key"
-                    layout="@layout/suggestions_strip_down_key" />
             </LinearLayout>
         </HorizontalScrollView>
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.

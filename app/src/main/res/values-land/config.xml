@@ -54,7 +54,7 @@
 
     <dimen name="config_suggestions_strip_height">36dp</dimen>
     <dimen name="config_suggestions_strip_horizontal_margin">54dp</dimen>
-    <dimen name="config_suggestions_strip_edge_key_width">54dp</dimen>
+    <dimen name="config_suggestions_strip_edge_key_width">48dp</dimen>
     <dimen name="config_more_suggestions_row_height">36dp</dimen>
     <integer name="config_max_more_suggestions_row">2</integer>
     <fraction name="config_min_more_suggestions_width">60%</fraction>
