@@ -21,6 +21,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- For Tasker -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
 
     <!-- A signature-protected permission to ask AOSP Keyboard to close the software keyboard.
          To use this, add the following line into calling application's AndroidManifest.xml
@@ -124,6 +127,19 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
+        <!-- Tasker activity -->
+        <activity
+            android:name=".tasker.SendTextAction"
+                android:theme="@style/platformActivityTheme"
+                android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Send Text Action">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+
 
         <!-- Unexported activity used for tests. -->
         <activity android:name=".settings.TestFragmentActivity"

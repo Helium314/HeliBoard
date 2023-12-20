@@ -32,6 +32,7 @@ import org.dslul.openboard.inputmethod.latin.WordComposer;
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
+import org.dslul.openboard.inputmethod.latin.tasker.GlobalKeyboardListener;
 import org.dslul.openboard.inputmethod.latin.utils.CapsModeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
@@ -540,6 +541,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiPalettesView.setKeyboardActionListener(mLatinIME);
         mClipboardHistoryView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled);
         mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
+        GlobalKeyboardListener.INSTANCE.setListener(mLatinIME);
 
         return mCurrentInputView;
     }
