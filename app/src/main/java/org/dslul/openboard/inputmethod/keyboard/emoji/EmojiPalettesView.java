@@ -155,8 +155,7 @@ public final class EmojiPalettesView extends LinearLayout
         host.addTab(tspec);
     }
 
-    public void initialStart() { // needs to be delayed for access to EmojiTabStrip
-
+    public void initialStart() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
         mTabHost = KeyboardSwitcher.getInstance().getEmojiTabStrip().findViewById(R.id.emoji_category_tabhost);
         mTabHost.setup();
         for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {

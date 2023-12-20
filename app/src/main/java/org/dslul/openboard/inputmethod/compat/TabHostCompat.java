@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.widget.TabHost;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 /*
  * Custom version of {@link TabHost} that triggers its {@link TabHost.OnTabChangeListener} when
@@ -59,11 +60,11 @@ public class TabHostCompat extends TabHost implements TabHost.OnTabChangeListene
         mFireOnTabChangeListenerOnReselection = whether;
     }
 
-    // EmojiPalettesView onMeasure changes things here, we don't want that...
     @Override public void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final Resources res = getContext().getResources();
-        final int width = res.getDisplayMetrics().widthPixels;
+        // fill full width, otherwise the layout is messed up
+        final int width = ResourceUtils.getDefaultKeyboardWidth(res);
         final int height = res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
         setMeasuredDimension(width, height);
     }

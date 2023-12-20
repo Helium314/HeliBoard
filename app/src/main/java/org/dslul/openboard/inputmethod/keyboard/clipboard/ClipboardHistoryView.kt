@@ -56,8 +56,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyboardViewAttr.recycle()
     }
 
-    // todo: issues
-    //  suggestion strip on top is a bit out of place, replace it? or force show toolbar?
+    // todo: add another strip to clipboard, with select all, arrow keys, select, copy, clear buttons
+    //  at the bottom, remove the clear button and add the keys like in the emoji view (abc, space, delete)
+    //  also allow swipe to remove a word from clipboard history (except current clip and pinned clips)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources

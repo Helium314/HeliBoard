@@ -297,11 +297,11 @@ final class EmojiCategory {
                 return mCategoryKeyboardMap.get(categoryKeyboardMapKey);
             }
 
-            final int width = ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent());
+            final int currentWidth = ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent());
             if (categoryId == EmojiCategory.ID_RECENTS) {
                 final DynamicGridKeyboard kbd = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        mMaxRecentsKeyCount, categoryId, width);
+                        mMaxRecentsKeyCount, categoryId, currentWidth);
                 mCategoryKeyboardMap.put(categoryKeyboardMapKey, kbd);
                 return kbd;
             }
@@ -313,7 +313,7 @@ final class EmojiCategory {
             for (int pageId = 0; pageId < sortedKeysPages.length; ++pageId) {
                 final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                        keyCountPerPage, categoryId, width);
+                        keyCountPerPage, categoryId, currentWidth);
                 for (final Key emojiKey : sortedKeysPages[pageId]) {
                     if (emojiKey == null) {
                         break;

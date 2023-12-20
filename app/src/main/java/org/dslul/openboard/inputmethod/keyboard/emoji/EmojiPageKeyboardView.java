@@ -105,14 +105,12 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
     }
 
-    // todo: maybe can be removed?
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final Keyboard keyboard = getKeyboard();
         if (keyboard instanceof DynamicGridKeyboard) {
             final int width = keyboard.mOccupiedWidth + getPaddingLeft() + getPaddingRight();
-            final int occupiedHeight =
-                    ((DynamicGridKeyboard) keyboard).getDynamicOccupiedHeight();
+            final int occupiedHeight = ((DynamicGridKeyboard) keyboard).getDynamicOccupiedHeight();
             final int height = occupiedHeight + getPaddingTop() + getPaddingBottom();
             setMeasuredDimension(width, height);
             return;
@@ -186,8 +184,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         }
 
         final View container = mMoreKeysKeyboardContainer;
-        final MoreKeysKeyboardView moreKeysKeyboardView =
-                container.findViewById(R.id.more_keys_keyboard_view);
+        final MoreKeysKeyboardView moreKeysKeyboardView = container.findViewById(R.id.more_keys_keyboard_view);
         moreKeysKeyboardView.setKeyboard(moreKeysKeyboard);
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -199,8 +196,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
                 ? CoordinateUtils.x(lastCoords)
                 : key.getX() + key.getWidth() / 2;
         final int pointY = key.getY();
-        moreKeysKeyboardView.showMoreKeysPanel(this, this,
-                pointX, pointY, mListener);
+        moreKeysKeyboardView.showMoreKeysPanel(this, this, pointX, pointY, mListener);
         return moreKeysKeyboardView;
     }
 
@@ -254,10 +250,8 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
      */
     @Override
     public boolean onHoverEvent(final MotionEvent event) {
-        final KeyboardAccessibilityDelegate<EmojiPageKeyboardView> accessibilityDelegate =
-                mAccessibilityDelegate;
-        if (accessibilityDelegate != null
-                && AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled()) {
+        final KeyboardAccessibilityDelegate<EmojiPageKeyboardView> accessibilityDelegate = mAccessibilityDelegate;
+        if (accessibilityDelegate != null && AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled()) {
             return accessibilityDelegate.onHoverEvent(event);
         }
         return super.onHoverEvent(event);
@@ -388,12 +382,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         } else if (key == currentKey && pendingKeyDown != null) {
             pendingKeyDown.run();
             // Trigger key-release event a little later so that a user can see visual feedback.
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    callListenerOnReleaseKey(key, true /* withRegistering */);
-                }
-            }, KEY_RELEASE_DELAY_TIME);
+            mHandler.postDelayed(() -> callListenerOnReleaseKey(key, true), KEY_RELEASE_DELAY_TIME);
         } else if (key != null) {
             callListenerOnReleaseKey(key, true /* withRegistering */);
         }
@@ -403,7 +392,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     public boolean onCancel(final MotionEvent e) {
-        releaseCurrentKey(false /* withKeyRegistering */);
+        releaseCurrentKey(false);
         dismissMoreKeysPanel();
         cancelLongPress();
         return true;
@@ -418,7 +407,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         // Touched key has changed, release previous key's callbacks and
         // re-register them for the new key.
         if (key != mCurrentKey && !isShowingMoreKeysPanel) {
-            releaseCurrentKey(false /* withKeyRegistering */);
+            releaseCurrentKey(false);
             mCurrentKey = key;
             if (key == null) {
                 return false;

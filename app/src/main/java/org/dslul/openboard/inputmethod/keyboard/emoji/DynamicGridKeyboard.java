@@ -52,13 +52,14 @@ final class DynamicGridKeyboard extends Keyboard {
             final int maxKeyCount, final int categoryId, final int width) {
         super(templateKeyboard);
         // todo: would be better to keep them final and not require width, but how to properly set width of the template keyboard?
+        //  an alternative would be to always create the templateKeyboard with full width
         final int paddingWidth = mOccupiedWidth - mBaseWidth;
         mBaseWidth = width - paddingWidth;
         mOccupiedWidth = width;
         final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
         final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
-        final float widthScale = determineWidthScale(key0.getWidth(), horizontalGap);
+        final float widthScale = determineWidthScale(key0.getWidth() + horizontalGap);
         mHorizontalGap = (int) (horizontalGap * widthScale);
         mHorizontalStep = (int) ((key0.getWidth() + horizontalGap) * widthScale);
         mVerticalStep = (int) ((key0.getHeight() + mVerticalGap) / Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
@@ -68,9 +69,8 @@ final class DynamicGridKeyboard extends Keyboard {
         mPrefs = prefs;
     }
 
-    // determine a width scale so the keyboard is completely filled
-    private float determineWidthScale(final float keyWidth, final float horizontalGap) {
-        final float horizontalStep = horizontalGap + keyWidth;
+    // determine a width scale so emojis evenly fill the entire width
+    private float determineWidthScale(final float horizontalStep) {
         final float columnsNumRaw = mBaseWidth / horizontalStep;
         final float columnsNum = Math.round(columnsNumRaw);
         return columnsNumRaw / columnsNum;

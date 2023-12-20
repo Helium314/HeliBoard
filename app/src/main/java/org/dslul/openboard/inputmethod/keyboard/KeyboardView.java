@@ -213,8 +213,7 @@ public class KeyboardView extends View {
         }
 
         mKeyboard = keyboard;
-        final SettingsValues sv = Settings.getInstance().getCurrent();
-        mKeyScaleForText = (float) Math.sqrt(1 / sv.mKeyboardHeightScale);
+        mKeyScaleForText = (float) Math.sqrt(1 / Settings.getInstance().getCurrent().mKeyboardHeightScale);
         final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
         mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
         mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
@@ -358,6 +357,7 @@ public class KeyboardView extends View {
         canvas.translate(keyDrawX, keyDrawY);
 
         final KeyVisualAttributes attr = key.getVisualAttributes();
+        // don't use the raw key height, linear font scaling with height is too extreme
         final KeyDrawParams params = mKeyDrawParams.mayCloneAndUpdateParams((int) (key.getHeight() * mKeyScaleForText), attr);
         params.mAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 
