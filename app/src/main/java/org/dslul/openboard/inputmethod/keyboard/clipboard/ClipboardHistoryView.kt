@@ -2,17 +2,19 @@
 
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
@@ -34,12 +36,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private val pinIconId: Int
     private val functionalKeyBackgroundId: Int
     private val keyBackgroundId: Int
+    private val spacebarBackground: Drawable
 
     private lateinit var clipboardRecyclerView: ClipboardHistoryRecyclerView
     private lateinit var placeholderView: TextView
     private lateinit var alphabetKey: TextView
     private lateinit var clearKey: ImageButton
     private lateinit var clipboardAdapter: ClipboardAdapter
+    private lateinit var spacebar: View
+    private lateinit var deleteKey: ImageButton
 
     var keyboardActionListener: KeyboardActionListener? = null
     var clipboardHistoryManager: ClipboardHistoryManager? = null
@@ -51,26 +56,23 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardViewAttr.recycle()
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
-        functionalKeyBackgroundId = keyboardViewAttr.getResourceId(
-                R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId)
+        functionalKeyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId)
+        spacebarBackground = Settings.getInstance().current.mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND);
         keyboardViewAttr.recycle()
     }
 
-    // todo: add another strip to clipboard, with select all, arrow keys, select, copy, clear buttons
-    //  at the bottom, remove the clear button and add the keys like in the emoji view (abc, space, delete)
-    //  also allow swipe to remove a word from clipboard history (except current clip and pinned clips)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
         val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
         val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
-        findViewById<FrameLayout>(R.id.clipboard_action_bar)?.layoutParams?.width = width
+        findViewById<LinearLayout>(R.id.action_bar)?.layoutParams?.width = width
         setMeasuredDimension(width, height)
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
+    @SuppressLint("ClickableViewAccessibility")
+    fun initialStart() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
         val colors = Settings.getInstance().current.mColors
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
@@ -85,30 +87,46 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardLayoutParams.setListProperties(this)
             placeholderView = this@ClipboardHistoryView.placeholderView
         }
-        findViewById<FrameLayout>(R.id.clipboard_action_bar)?.apply {
-            clipboardLayoutParams.setActionBarProperties(this)
-        }
-        alphabetKey = findViewById<TextView>(R.id.clipboard_keyboard_alphabet).apply {
-            tag = Constants.CODE_ALPHA_FROM_CLIPBOARD
-            setBackgroundResource(functionalKeyBackgroundId)
-            setOnTouchListener(this@ClipboardHistoryView)
-            setOnClickListener(this@ClipboardHistoryView)
-        }
-        clearKey = findViewById<ImageButton>(R.id.clipboard_clear).apply {
-            setOnTouchListener(this@ClipboardHistoryView)
-            setOnClickListener(this@ClipboardHistoryView)
-        }
+        alphabetKey = findViewById(R.id.key_alphabet)
+        alphabetKey.setBackgroundResource(functionalKeyBackgroundId)
+        alphabetKey.tag = Constants.CODE_ALPHA_FROM_CLIPBOARD
+        alphabetKey.setOnTouchListener(this)
+        alphabetKey.setOnClickListener(this)
+        deleteKey = findViewById(R.id.key_delete)
+        deleteKey.setBackgroundResource(functionalKeyBackgroundId)
+        deleteKey.tag = Constants.CODE_DELETE
+        deleteKey.setOnTouchListener(this)
+        deleteKey.setOnClickListener(this)
+        spacebar = findViewById(R.id.key_space)
+        spacebar.background = spacebarBackground
+        spacebar.tag = Constants.CODE_SPACE
+        spacebar.setOnTouchListener(this)
+        spacebar.setOnClickListener(this)
+        // todo: more buttons, like select all, arrow keys, copy, clear (and maybe start/end select?)
+        val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
+        colors.setBackground(clipboardStrip, ColorType.EMOJI_CATEGORY_BACKGROUND) // todo: choose a color
+        clearKey = clipboardStrip.findViewById(R.id.clipboard_clear)
+        clearKey.setOnTouchListener(this@ClipboardHistoryView)
+        clearKey.setOnClickListener(this@ClipboardHistoryView)
         colors.setColor(clearKey, ColorType.CLEAR_CLIPBOARD_HISTORY_KEY)
         colors.setBackground(clearKey, ColorType.CLEAR_CLIPBOARD_HISTORY_KEY)
     }
 
-    private fun setupAlphabetKey(key: TextView?, label: String, params: KeyDrawParams) {
-        key?.apply {
+    private fun setupAlphabetKey(key: TextView, label: String, params: KeyDrawParams) {
+        key.apply {
             text = label
             typeface = params.mTypeface
             Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
+        }
+    }
+
+    private fun setupDeleteKey(key: ImageButton, iconId: Int) {
+        key.apply {
+            setImageResource(iconId)
+            Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
+            Settings.getInstance().current.mColors.setColor(this, ColorType.KEY_ICON)
         }
     }
 
@@ -122,6 +140,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     private fun setupClearKey(iconSet: KeyboardIconsSet) {
+        // todo: add key to strip
         val resId = iconSet.getIconResourceId(KeyboardIconsSet.NAME_CLEAR_CLIPBOARD_KEY)
         clearKey.setImageResource(resId)
     }
@@ -142,10 +161,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
         historyManager.setHistoryChangeListener(this)
         clipboardHistoryManager = historyManager
         clipboardAdapter.clipboardHistoryManager = historyManager
+        findViewById<LinearLayout>(R.id.action_bar).apply {
+            clipboardLayoutParams.setActionBarProperties(this)
+        }
 
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.actionBarContentHeight, keyVisualAttr)
         setupAlphabetKey(alphabetKey, switchToAlphaLabel, params)
+        setupDeleteKey(deleteKey, iconSet.getIconResourceId(KeyboardIconsSet.NAME_DELETE_KEY))
         setupClipKey(params)
         setupClearKey(iconSet)
 
@@ -168,17 +191,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardAdapter.clipboardHistoryManager = null
     }
 
+    // todo: is the weird touch / click thing necessary?
     override fun onTouch(view: View, event: MotionEvent): Boolean {
         if (event.actionMasked != MotionEvent.ACTION_DOWN) {
             return false
         }
         when (view) {
-            alphabetKey -> keyboardActionListener?.onPressKey(
-                    Constants.CODE_ALPHA_FROM_CLIPBOARD, 0 /* repeatCount */,
-                    true /* isSinglePointer */)
-            clearKey -> keyboardActionListener?.onPressKey(
-                    Constants.CODE_UNSPECIFIED, 0 /* repeatCount */,
-                    true /* isSinglePointer */)
+            alphabetKey, spacebar, deleteKey -> keyboardActionListener?.onPressKey(view.tag as Int, 0, true)
+            clearKey -> keyboardActionListener?.onPressKey(Constants.CODE_UNSPECIFIED, 0, true)
         }
         // It's important to return false here. Otherwise, {@link #onClick} and touch-down visual
         // feedback stop working.
@@ -187,17 +207,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onClick(view: View) {
         when (view) {
-            alphabetKey -> {
-                keyboardActionListener?.onCodeInput(Constants.CODE_ALPHA_FROM_CLIPBOARD,
-                        Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
-                        false /* isKeyRepeat */)
-                keyboardActionListener?.onReleaseKey(Constants.CODE_ALPHA_FROM_CLIPBOARD,
-                        false /* withSliding */)
+            alphabetKey, spacebar, deleteKey -> {
+                keyboardActionListener?.onCodeInput(view.tag as Int,
+                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                keyboardActionListener?.onReleaseKey(view.tag as Int, false)
             }
             clearKey -> {
                 clipboardHistoryManager?.clearHistory()
-                keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED,
-                        false /* withSliding */)
+                keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED, false)
             }
         }
     }

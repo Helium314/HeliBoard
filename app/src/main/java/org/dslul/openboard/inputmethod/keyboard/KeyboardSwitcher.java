@@ -47,6 +47,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private MainKeyboardView mKeyboardView;
     private EmojiPalettesView mEmojiPalettesView;
     private View mEmojiTabStripView;
+    private View mClipboardStripView;
     private View mSuggestionStripView;
     private ClipboardHistoryView mClipboardHistoryView;
     private LatinIME mLatinIME;
@@ -283,6 +284,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiPalettesView.setVisibility(View.GONE);
         mEmojiPalettesView.stopEmojiPalettes();
         mEmojiTabStripView.setVisibility(View.GONE);
+        mClipboardStripView.setVisibility(View.GONE);
         mSuggestionStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
         mClipboardHistoryView.stopClipboardHistory();
@@ -301,6 +303,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
         mSuggestionStripView.setVisibility(View.GONE);
+        mClipboardStripView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
         mEmojiPalettesView.startEmojiPalettes(
@@ -322,7 +325,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.GONE);
-        mSuggestionStripView.setVisibility(View.VISIBLE);
+        mSuggestionStripView.setVisibility(View.GONE);
+        mClipboardStripView.setVisibility(View.VISIBLE);
         mEmojiPalettesView.setVisibility(View.GONE);
         mClipboardHistoryView.startClipboardHistory(
                 mLatinIME.getClipboardHistoryManager(),
@@ -527,6 +531,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return mEmojiTabStripView;
     }
 
+    public View getClipboardStrip() {
+        return mClipboardStripView;
+    }
+
     public MainKeyboardView getMainKeyboardView() {
         return mKeyboardView;
     }
@@ -566,8 +574,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardHistoryView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled);
         mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
         mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
+        mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
         mEmojiPalettesView.initialStart();
+        mClipboardHistoryView.initialStart();
 
         return mCurrentInputView;
     }

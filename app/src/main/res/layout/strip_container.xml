@@ -52,4 +52,28 @@
             </FrameLayout>
         </org.dslul.openboard.inputmethod.compat.TabHostCompat>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/clipboard_strip"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="?attr/suggestionStripViewStyle"
+        >
+        <!-- empty view to move clear button to the right -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <ImageButton
+            android:id="@+id/clipboard_clear"
+            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="2dp"
+            android:padding="8dp"
+            android:hapticFeedbackEnabled="false"
+            android:soundEffectsEnabled="false"
+            android:scaleType="fitCenter"
+            style="?attr/suggestionWordStyle" />
+    </LinearLayout>
 </FrameLayout>

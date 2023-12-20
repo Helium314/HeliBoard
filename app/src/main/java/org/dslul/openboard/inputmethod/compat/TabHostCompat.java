@@ -59,13 +59,4 @@ public class TabHostCompat extends TabHost implements TabHost.OnTabChangeListene
     public void setFireOnTabChangeListenerOnReselection(boolean whether) {
         mFireOnTabChangeListenerOnReselection = whether;
     }
-
-    @Override public void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        final Resources res = getContext().getResources();
-        // fill full width, otherwise the layout is messed up
-        final int width = ResourceUtils.getDefaultKeyboardWidth(res);
-        final int height = res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
-        setMeasuredDimension(width, height);
-    }
 }

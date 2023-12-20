@@ -56,9 +56,10 @@ class ClipboardLayoutParams(res: Resources) {
         }
     }
 
-    fun setActionBarProperties(layout: FrameLayout) {
+    fun setActionBarProperties(layout: LinearLayout) {
         (layout.layoutParams as LinearLayout.LayoutParams).apply {
             height = actionBarHeight
+            width = ResourceUtils.getKeyboardWidth(layout.resources, Settings.getInstance().current)
             layout.layoutParams = this
         }
     }
