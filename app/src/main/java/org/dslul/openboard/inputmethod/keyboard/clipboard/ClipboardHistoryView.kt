@@ -102,7 +102,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         spacebar.tag = Constants.CODE_SPACE
         spacebar.setOnTouchListener(this)
         spacebar.setOnClickListener(this)
-        // todo: more buttons, like select all, arrow keys, copy, clear (and maybe start/end select?)
+        // todo: add more buttons, like select all, arrow keys, copy, clear (and maybe start/end select?)
         val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
         colors.setBackground(clipboardStrip, ColorType.EMOJI_CATEGORY_BACKGROUND) // todo: choose a color
         clearKey = clipboardStrip.findViewById(R.id.clipboard_clear)
@@ -140,7 +140,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     private fun setupClearKey(iconSet: KeyboardIconsSet) {
-        // todo: add key to strip
         val resId = iconSet.getIconResourceId(KeyboardIconsSet.NAME_CLEAR_CLIPBOARD_KEY)
         clearKey.setImageResource(resId)
     }
@@ -191,7 +190,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardAdapter.clipboardHistoryManager = null
     }
 
-    // todo: is the weird touch / click thing necessary?
+    // the touch & click thing is used to provide haptic and audio feedback if enabled
     override fun onTouch(view: View, event: MotionEvent): Boolean {
         if (event.actionMasked != MotionEvent.ACTION_DOWN) {
             return false
@@ -220,15 +219,13 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onKeyDown(clipId: Long) {
-        keyboardActionListener?.onPressKey(Constants.CODE_UNSPECIFIED, 0 /* repeatCount */,
-                true /* isSinglePointer */)
+        keyboardActionListener?.onPressKey(Constants.CODE_UNSPECIFIED, 0, true)
     }
 
     override fun onKeyUp(clipId: Long) {
         val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
         keyboardActionListener?.onTextInput(clipContent?.content.toString())
-        keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED,
-                false /* withSliding */)
+        keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED, false)
     }
 
     override fun onClipboardHistoryEntryAdded(at: Int) {
