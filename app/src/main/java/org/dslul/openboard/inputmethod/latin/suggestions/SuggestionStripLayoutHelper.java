@@ -42,6 +42,7 @@ import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
@@ -121,10 +122,11 @@ final class SuggestionStripLayoutHelper {
                 R.styleable.SuggestionStripView_alphaObsoleted, 1.0f);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        mColorValidTypedWord = colors.getAdjustedKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
-        mColorTypedWord = colors.getAdjustedKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
-        mColorAutoCorrect = colors.getKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
-        mColorSuggested = colors.getAdjustedKeyText(); //a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
+        mColorValidTypedWord = colors.get(ColorType.SUGGESTION_VALID_WORD);
+        mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
+        mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
+        mColorSuggested = colors.get(ColorType.SUGGESTED_WORD);
+        final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(
                 R.styleable.SuggestionStripView_suggestionsCountInStrip,
@@ -141,7 +143,7 @@ final class SuggestionStripLayoutHelper {
 
         mMoreSuggestionsHint = getMoreSuggestionsHint(res,
                 res.getDimension(R.dimen.config_more_suggestions_hint_text_size),
-                mColorAutoCorrect);
+                colorMoreSuggestionsHint);
         mCenterPositionInStrip = mSuggestionsCountInStrip / 2;
         // Assuming there are at least three suggestions. Also, note that the suggestions are
         // laid out according to script direction, so this is left of the center for LTR scripts

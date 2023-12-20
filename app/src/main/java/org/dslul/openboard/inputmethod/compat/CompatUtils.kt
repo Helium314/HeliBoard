@@ -7,7 +7,7 @@
 package org.dslul.openboard.inputmethod.compat
 
 import android.text.TextUtils
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException

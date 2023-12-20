@@ -316,9 +316,7 @@ public class Key implements Comparable<Key> {
         mHorizontalGap = Math.round(horizontalGapFloat);
         mVerticalGap = Math.round(keyParams.mKeyboardParams.mVerticalGap);
         mWidth = Math.round(keyParams.mFullWidth - horizontalGapFloat);
-        // todo (later): height better should be rounded, but this may end up shifting all keys up by one pixel,
-        //  increasing the keyboard height by one pixel, but not for emoji keyboard -> the 1 pixel shift feels very wrong
-        //  how to do it properly? check again when keyboard height is same for all views!
+        // height is always rounded down, because rounding up may make the keyboard too high to fit, leading to issues
         mHeight = (int) (keyParams.mFullHeight - keyParams.mKeyboardParams.mVerticalGap);
         if (!isSpacer() && (mWidth == 0 || mHeight == 0)) {
             throw new IllegalStateException("key needs positive width and height");
@@ -326,7 +324,7 @@ public class Key implements Comparable<Key> {
         // Horizontal gap is divided equally to both sides of the key.
         mX = Math.round(keyParams.xPos + horizontalGapFloat / 2);
         mY = Math.round(keyParams.yPos);
-        mHitBox.set(Math.round(keyParams.xPos), (int) keyParams.yPos, Math.round(keyParams.xPos + keyParams.mFullWidth) + 1,
+        mHitBox.set(Math.round(keyParams.xPos), Math.round(keyParams.yPos), Math.round(keyParams.xPos + keyParams.mFullWidth) + 1,
                 Math.round(keyParams.yPos + keyParams.mFullHeight));
         mHashCode = computeHashCode(this);
     }

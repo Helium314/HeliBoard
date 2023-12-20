@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.Nullable;
 

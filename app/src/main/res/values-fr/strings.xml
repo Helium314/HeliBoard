@@ -223,6 +223,7 @@ Nouveau dictionnaire:
     <string name="theme_name_dark">Sombre</string>
     <string name="theme_name_darker">Noir</string>
     <string name="theme_name_black">Amoled</string>
+    <string name="theme_name_dynamic">Couleurs dynamiques</string>
     <string name="theme_name_user">Personnalisé</string>
     <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
     <string name="select_user_colors">Personnaliser le thème</string>
@@ -243,6 +244,7 @@ Nouveau dictionnaire:
     <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
     <string name="about_github_link" >Lien vers GitHub</string>
+    <string name="save_log">Sauvegarder le journal</string>
     <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
     <string name="theme_style">Style</string>

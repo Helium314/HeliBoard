@@ -18,7 +18,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.BackgroundType
+import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
@@ -61,7 +61,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
         val width = (ResourceUtils.getDefaultKeyboardWidth(res) + paddingLeft + paddingRight)
-        val height = (ResourceUtils.getDefaultKeyboardHeight(res)
+        val height = (ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
                 + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
                 + paddingTop + paddingBottom)
         setMeasuredDimension(width, height)
@@ -95,16 +95,16 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clearKey = findViewById<ImageButton>(R.id.clipboard_clear).apply {
             setOnTouchListener(this@ClipboardHistoryView)
             setOnClickListener(this@ClipboardHistoryView)
-            colorFilter = colors.keyTextFilter
-            colors.setBackgroundColor(background, BackgroundType.SUGGESTION)
         }
+        colors.setColor(clearKey, ColorType.CLEAR_CLIPBOARD_HISTORY_KEY)
+        colors.setBackground(clearKey, ColorType.CLEAR_CLIPBOARD_HISTORY_KEY)
     }
 
     private fun setupAlphabetKey(key: TextView?, label: String, params: KeyDrawParams) {
         key?.apply {
             text = label
             typeface = params.mTypeface
-            Settings.getInstance().current.mColors.setBackgroundColor(this.background, BackgroundType.FUNCTIONAL)
+            Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
@@ -155,7 +155,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
         }
-        Settings.getInstance().current.mColors.setKeyboardBackground(this)
+        Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }
 
     fun stopClipboardHistory() {

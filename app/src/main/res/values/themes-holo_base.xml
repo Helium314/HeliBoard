@@ -63,10 +63,6 @@
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_holo_white</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_holo</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_holo</item>
-        <item name="gestureFloatingPreviewTextColor">@color/highlight_color_holo_white</item>
-        <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_holo</item>
-        <item name="gestureTrailColor">@color/highlight_color_holo_white</item>
-        <item name="slidingKeyInputPreviewColor">@color/highlight_translucent_color_holo_white</item>
         <item name="languageOnSpacebarTextShadowRadius">1.0</item>
         <item name="languageOnSpacebarTextShadowColor">@color/spacebar_text_shadow_color_holo</item>
     </style>
@@ -133,10 +129,6 @@
         <item name="android:background">@android:color/white</item>
         <item name="android:src">@drawable/suggestions_strip_divider_holo</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
-        <item name="colorValidTypedWord">@color/typed_word_color_holo_white</item>
-        <item name="colorTypedWord">@color/typed_word_color_holo_white</item>
-        <item name="colorAutoCorrect">@color/highlight_color_holo_white</item>
-        <item name="colorSuggested">@color/suggested_word_color_holo_white</item>
         <item name="alphaObsoleted">70%</item>
     </style>
     <style

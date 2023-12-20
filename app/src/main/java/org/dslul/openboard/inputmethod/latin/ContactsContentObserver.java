@@ -12,7 +12,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.os.SystemClock;
 import android.provider.ContactsContract.Contacts;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.ContactsManager.ContactsChangedListener;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;

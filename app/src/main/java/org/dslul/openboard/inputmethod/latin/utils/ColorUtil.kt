@@ -5,8 +5,6 @@ package org.dslul.openboard.inputmethod.latin.utils
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
-import kotlin.math.max
-import kotlin.math.min
 
 fun isBrightColor(@ColorInt color: Int) =
     if (android.R.color.transparent == color) true

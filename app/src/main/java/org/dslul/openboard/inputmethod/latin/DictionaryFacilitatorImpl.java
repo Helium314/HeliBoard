@@ -10,7 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.LruCache;
 
 import androidx.annotation.NonNull;
@@ -89,7 +89,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             new Class[] { Context.class, Locale.class, File.class, String.class, String.class };
 
     // todo: write cache never set, and never read (only written)
-    //  (initially was the same for the read cache, why?)
+    //  tried to use read cache for a while, but small performance improvements are not worth the work (https://github.com/Helium314/openboard/issues/307)
     private LruCache<String, Boolean> mValidSpellingWordReadCache;
     private LruCache<String, Boolean> mValidSpellingWordWriteCache;
 

@@ -172,11 +172,14 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             label.toTextKey(numbersMoreKeys[i])
         }
 
+    fun getNumberLabel(numberIndex: Int?): String? = numberIndex?.let { numberKeys.getOrNull(it) }
+
     // get moreKeys with the number itself (as used on alphabet keyboards)
-    fun getNumberMoreKeys(numberIndex: Int?): List<String> {
+    // todo: use it or remove it
+/*    fun getNumberMoreKeys(numberIndex: Int?): List<String> {
         if (numberIndex == null) return emptyList()
         return listOf(numberKeys[numberIndex]) + numbersMoreKeys[numberIndex]
-    }
+    }*/
 }
 
 private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<String> {
@@ -231,9 +234,14 @@ private fun addFixedColumnOrder(moreKeys: Array<String>): Array<String> {
     }
 }
 
+fun getOrCreate(context: Context, locale: Locale): LocaleKeyTexts =
+    localeKeyTextsCache.getOrPut(locale.toString()) {
+        LocaleKeyTexts(getStreamForLocale(locale, context), locale)
+    }
+
 fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, moreKeysSetting: Int) {
     val locales = params.mSecondaryLocales + params.mId.locale
-    params.mLocaleKeyTexts = moreKeysAndLabels.getOrPut(locales.joinToString { it.toString() }) {
+    params.mLocaleKeyTexts = localeKeyTextsCache.getOrPut(locales.joinToString { it.toString() }) {
         createLocaleKeyTexts(context, params, moreKeysSetting)
     }
 }
@@ -263,10 +271,10 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
-fun clearCache() = moreKeysAndLabels.clear()
+fun clearCache() = localeKeyTextsCache.clear()
 
 // cache the texts, so they don't need to be read over and over
-private val moreKeysAndLabels = hashMapOf<String, LocaleKeyTexts>()
+private val localeKeyTextsCache = hashMapOf<String, LocaleKeyTexts>()
 
 private const val READER_MODE_NONE = 0
 private const val READER_MODE_MORE_KEYS = 1

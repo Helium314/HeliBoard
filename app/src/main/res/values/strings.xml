@@ -622,6 +622,8 @@ New dictionary:
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Darker</string>
     <!-- Theme name for black theme (based on old amoled black) -->
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
+    <!-- Theme name for dynamic colors light theme -->
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamic colors</string>
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Theme name for user-defined theme night mode theme -->
@@ -663,11 +665,13 @@ New dictionary:
     <!-- version for about screen-->
     <string name="version">Version</string>
     <!-- github repo link for about screen-->
-    <string name="about_github_link" >View on GitHub</string>
+    <string name="about_github_link">View on GitHub</string>
+    <!-- preference title for saving the log to a file -->
+    <string name="save_log">Save log</string>
     <!-- license for about screen-->
-    <string name="license" >Open-source license</string>
+    <string name="license">Open-source license</string>
     <!-- license link for about screen-->
-    <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
     <!-- Preference for selecting system locales -->

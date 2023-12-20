@@ -8,7 +8,7 @@ package org.dslul.openboard.inputmethod.accessibility
 
 import android.graphics.Rect
 import android.os.SystemClock
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.SparseIntArray
 import android.view.MotionEvent
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityLongPressTimer.LongPressTimerCallback

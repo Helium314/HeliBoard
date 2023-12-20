@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.widget.Toast;
 
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;

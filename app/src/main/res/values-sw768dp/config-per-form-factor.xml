@@ -15,5 +15,5 @@
     <!-- Showing more keys keyboard, just above the touched point if true, aligned to the key if
          false -->
     <bool name="config_show_more_keys_keyboard_at_touched_point">true</bool>
-    <bool name="config_use_fullscreen_mode">false</bool>
+    <bool name="config_fullscreen_mode_allowed">false</bool>
 </resources>

@@ -9,5 +9,5 @@
 >
     <item
         android:state_pressed="true"
-        android:drawable="@color/suggested_word_background_selected_lxx_base" />
+        android:drawable="@drawable/btn_keyboard_key_popup_lxx_base" />
 </selector>

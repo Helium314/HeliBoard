@@ -147,4 +147,11 @@
         </receiver>
 
     </application>
+
+    <queries>
+        <!-- To detect other IMEs -->
+        <intent>
+            <action android:name="android.view.InputMethod"/>
+        </intent>
+    </queries>
 </manifest>

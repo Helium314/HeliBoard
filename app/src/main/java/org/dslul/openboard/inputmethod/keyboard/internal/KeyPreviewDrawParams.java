@@ -10,6 +10,7 @@ import android.content.res.TypedArray;
 import android.view.View;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 public final class KeyPreviewDrawParams {
     // XML attributes of {@link MainKeyboardView}.
@@ -46,8 +47,13 @@ public final class KeyPreviewDrawParams {
     public KeyPreviewDrawParams(final TypedArray mainKeyboardViewAttr) {
         mPreviewOffset = mainKeyboardViewAttr.getDimensionPixelOffset(
                 R.styleable.MainKeyboardView_keyPreviewOffset, 0);
-        mPreviewHeight = mainKeyboardViewAttr.getDimensionPixelSize(
-                R.styleable.MainKeyboardView_keyPreviewHeight, 0);
+        // crashes when too small (or just < 1?)
+        final float heightScale = (float) Math.max(1f, Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
+        // todo: further scaling issue
+        //  key height and thus text height (in pixels) don't change with display density,
+        //  but keyPreviewHeight does -> how to do it right?
+        mPreviewHeight = (int) (mainKeyboardViewAttr.getDimensionPixelSize(
+                R.styleable.MainKeyboardView_keyPreviewHeight, 0) * heightScale);
         mPreviewBackgroundResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_keyPreviewBackground, 0);
     }
@@ -64,13 +70,11 @@ public final class KeyPreviewDrawParams {
         final int previewWidth = previewTextView.getMeasuredWidth();
         // The width and height of visible part of the key preview background. The content marker
         // of the background 9-patch have to cover the visible part of the background.
-        mVisibleWidth = previewWidth - previewTextView.getPaddingLeft()
-                - previewTextView.getPaddingRight();
-        mVisibleHeight = mPreviewHeight - previewTextView.getPaddingTop()
-                - previewTextView.getPaddingBottom();
+        mVisibleWidth = previewWidth - previewTextView.getPaddingLeft() - previewTextView.getPaddingRight();
+        mVisibleHeight = mPreviewHeight - previewTextView.getPaddingTop() - previewTextView.getPaddingBottom();
         // The distance between the top edge of the parent key and the bottom of the visible part
         // of the key preview background.
-        setVisibleOffset(-previewTextView.getPaddingBottom()/2);
+        setVisibleOffset(-previewTextView.getPaddingBottom() / 2);
     }
 
     public int getVisibleWidth() {

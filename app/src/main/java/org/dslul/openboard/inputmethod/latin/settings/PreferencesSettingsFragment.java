@@ -78,7 +78,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
-        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key) || Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY.equals(key))
+        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key) || Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY.equals(key) || Settings.PREF_SHOW_NUMBER_ROW.equals(key))
             mReloadKeyboard = true;
         if (key.equals(Settings.PREF_LOCALIZED_NUMBER_ROW))
             KeyboardLayoutSet.onSystemLocaleChanged();

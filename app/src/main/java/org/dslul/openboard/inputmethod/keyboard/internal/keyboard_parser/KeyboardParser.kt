@@ -3,7 +3,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -70,20 +70,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         // rescale height if we have more than 4 rows (todo: there is some default row count in params that could be used)
         val heightRescale = if (keysInRows.size > 4) 4f / keysInRows.size else 1f
-        if (params.mId.mNumberRowEnabled && params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            keysInRows.add(0, getNumberRow()) // todo: maybe this should be in createAlphaSymbolRows, but first need to decide height stuff below
         if (heightRescale != 1f) {
-            // rescale all keys, so number row doesn't look weird (this is done like in current parsing)
-            // todo: in symbols view, number row is not rescaled
-            //  so the symbols keyboard is higher than the normal one
-            //  not a new issue, but should be solved in this migration
-            //  how? possibly scale all keyboards to height of main alphabet? (consider suggestion strip)
             keysInRows.forEach { row -> row.forEach { it.mRelativeHeight *= heightRescale } }
         }
 
         return keysInRows
     }
 
+    // todo: get rid if the bottom-to-top thing, feels weird (then number row could also be added first)
     private fun createAlphaSymbolRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         // number row related modifications of baseKeys
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
@@ -97,7 +91,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         ) {
             // add number to the first 10 keys in first row
             // setting the correct moreKeys is handled in PopupSet
-            // not for korean/lao/thai layouts, todo: should be decided in the layout, not in the parser
+            // not for korean/lao/thai layouts, todo: should be decided in the layout / layoutInfos, not in the parser
             baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
             if (DebugFlags.DEBUG_ENABLED && baseKeys.first().size < 10) {
                 val message = "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}"
@@ -192,6 +186,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             functionalKeysRight.forEach { paramsRow.add(it) }
             keysInRows.add(0, paramsRow) // we're doing it backwards, so add on top
         }
+        if (params.mId.mNumberRowEnabled)
+            keysInRows.add(0, getNumberRow())
         resizeLastNormalRowIfNecessaryForAlignment(keysInRows)
         return keysInRows
     }

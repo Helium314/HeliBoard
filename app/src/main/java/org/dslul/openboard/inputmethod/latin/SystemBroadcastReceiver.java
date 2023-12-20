@@ -11,10 +11,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Process;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
@@ -84,11 +83,6 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
     }
 
     public static void toggleAppIcon(final Context context) {
-        final int appInfoFlags = context.getApplicationInfo().flags;
-        final boolean isSystemApp = (appInfoFlags & ApplicationInfo.FLAG_SYSTEM) > 0;
-        if (Log.isLoggable(TAG, Log.INFO)) {
-            Log.i(TAG, "toggleAppIcon() : FLAG_SYSTEM = " + isSystemApp);
-        }
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         context.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(context, SetupActivity.class),

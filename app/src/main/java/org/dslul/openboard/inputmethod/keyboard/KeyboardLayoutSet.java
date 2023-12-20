@@ -13,7 +13,9 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.text.InputType;
-import android.util.Log;
+
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTexts;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.SparseArray;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
@@ -62,6 +64,7 @@ public final class KeyboardLayoutSet {
     private final Context mContext;
     @NonNull
     private final Params mParams;
+    public final LocaleKeyTexts mLocaleKeyTexts;
 
     // How many layouts we forcibly keep in cache. This only includes ALPHABET (default) and
     // ALPHABET_AUTOMATIC_SHIFTED layouts - other layouts may stay in memory in the map of
@@ -122,8 +125,7 @@ public final class KeyboardLayoutSet {
         // whether the user has enabled it, and the keyboard layout supports it.
         boolean mIsSplitLayoutEnabled;
         // Sparse array of KeyboardLayoutSet element parameters indexed by element's id.
-        final SparseArray<ElementParams> mKeyboardLayoutSetElementIdToParamsMap =
-                new SparseArray<>();
+        final SparseArray<ElementParams> mKeyboardLayoutSetElementIdToParamsMap = new SparseArray<>();
     }
 
     public static void onSystemLocaleChanged() {
@@ -154,6 +156,7 @@ public final class KeyboardLayoutSet {
     KeyboardLayoutSet(final Context context, @NonNull final Params params) {
         mContext = context;
         mParams = params;
+        mLocaleKeyTexts = LocaleKeyTextsKt.getOrCreate(context, params.mSubtype.getLocale());
     }
 
     @NonNull

@@ -8,7 +8,7 @@ package org.dslul.openboard.inputmethod.accessibility
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.SparseIntArray
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key

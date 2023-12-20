@@ -87,7 +87,6 @@
         <attr name="touchNoiseThresholdDistance" format="dimension" />
         <!-- Enable key selection by dragging finger -->
         <attr name="keySelectionByDraggingFinger" format="boolean" />
-        <attr name="slidingKeyInputPreviewColor" format="color" />
         <attr name="slidingKeyInputPreviewWidth" format="dimension" />
         <attr name="slidingKeyInputPreviewBodyRatio" format="integer" />
         <attr name="slidingKeyInputPreviewShadowRatio" format="integer" />
@@ -126,7 +125,6 @@
         <attr name="gestureTrailFadeoutDuration" format="integer" />
         <!-- Interval of updating gesture trail in millisecond. -->
         <attr name="gestureTrailUpdateInterval" format="integer" />
-        <attr name="gestureTrailColor" format="color" />
         <attr name="gestureTrailStartWidth" format="dimension" />
         <attr name="gestureTrailEndWidth" format="dimension" />
         <attr name="gestureTrailBodyRatio" format="integer" />
@@ -135,9 +133,7 @@
         <attr name="gestureFloatingPreviewTextLingerTimeout" format="integer" />
         <!-- Attributes for GestureFloatingPreviewText -->
         <attr name="gestureFloatingPreviewTextSize" format="dimension" />
-        <attr name="gestureFloatingPreviewTextColor" format="color" />
         <attr name="gestureFloatingPreviewTextOffset" format="dimension" />
-        <attr name="gestureFloatingPreviewColor" format="color" />
         <attr name="gestureFloatingPreviewHorizontalPadding" format="dimension" />
         <attr name="gestureFloatingPreviewVerticalPadding" format="dimension" />
         <attr name="gestureFloatingPreviewRoundRadius" format="dimension" />
@@ -198,10 +194,6 @@
             <flag name="autoCorrectUnderline" value="0x02" />
             <flag name="validTypedWordBold" value="0x04" />
         </attr>
-        <attr name="colorValidTypedWord" format="color" />
-        <attr name="colorTypedWord" format="color" />
-        <attr name="colorAutoCorrect" format="color" />
-        <attr name="colorSuggested" format="color" />
         <attr name="alphaObsoleted" format="fraction" />
         <attr name="suggestionsCountInStrip" format="integer" />
         <attr name="centerSuggestionPercentile" format="fraction" />
@@ -271,6 +263,7 @@
         <attr name="iconStartOneHandedMode" format="reference" />
         <attr name="iconStopOneHandedMode" format="reference" />
         <attr name="iconSwitchOneHandedMode" format="reference" />
+        <attr name="iconResizeOneHandedMode" format="reference" />
         <attr name="iconNumpadKey" format="reference" />
         <attr name="iconToolbarKey" format="reference" />
         <attr name="iconSelectAll" format="reference" />

@@ -6,7 +6,7 @@
 
 package com.android.inputmethod.latin.utils;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.NgramContext;
