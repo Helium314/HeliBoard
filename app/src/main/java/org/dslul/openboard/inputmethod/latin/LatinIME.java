@@ -13,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -70,6 +71,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
@@ -1367,37 +1369,46 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         Log.d(TAG,"onCreateInlineSuggestionsRequest called");
 
+        final SharedPreferences pref = DeviceProtectedUtils.getSharedPreferences(mDisplayContext);
+
         // Revert to default behaviour if show_suggestions is disabled
         // (Maybe there is a better way to do this)
-        boolean isShowSuggestionsEnabled = DeviceProtectedUtils.getSharedPreferences(mDisplayContext).getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+        boolean isShowSuggestionsEnabled = pref.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
         if(!isShowSuggestionsEnabled){
             return null;
         }
+
+        assert mDisplayContext != null;
+        final Colors themeColors = Settings.getColorsForCurrentTheme(mDisplayContext, pref);
 
         StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
         @SuppressLint("RestrictedApi") Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
-                                        Icon.createWithResource(mDisplayContext, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                        Icon.createWithResource(mDisplayContext,
+                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
+                                                .setTint(themeColors.getBackground()))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
-                                        Icon.createWithResource(mDisplayContext, androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                        Icon.createWithResource(mDisplayContext,
+                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
+                                                .setTint(themeColors.getBackground()))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(
                         new TextViewStyle.Builder()
                                 .setLayoutMargin(toPixel(4), 0, toPixel(4), 0)
-                                .setTextColor(Color.parseColor("#FF202124"))
+                                .setTextColor(themeColors.getKeyText())
                                 .setTextSize(12)
                                 .build())
                 .setSubtitleStyle(
                         new TextViewStyle.Builder()
                                 .setLayoutMargin(0, 0, toPixel(4), 0)
-                                .setTextColor(Color.parseColor("#99202124")) // 60% opacity
+                                .setTextColor(themeColors.getKeyHintText())
                                 .setTextSize(10)
                                 .build())
                 .setEndIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
