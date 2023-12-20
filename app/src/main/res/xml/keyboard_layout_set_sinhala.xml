@@ -10,40 +10,29 @@
         latin:supportedScript="sinhala" />
     <Element
         latin:elementName="alphabet"
-        latin:elementKeyboard="@xml/kbd_sinhala"
         latin:enableProximityCharsCorrection="true" />
     <Element
         latin:elementName="alphabetAutomaticShifted"
-        latin:elementKeyboard="@xml/kbd_sinhala"
         latin:enableProximityCharsCorrection="true" />
     <!-- On these shifted alphabet layouts the proximity characters correction should be disabled
          because the letters on these layouts aren't the ones in different case of the above
          unshifted layouts. -->
     <Element
-        latin:elementName="alphabetManualShifted"
-        latin:elementKeyboard="@xml/kbd_sinhala" />
+        latin:elementName="alphabetManualShifted" />
     <Element
-        latin:elementName="alphabetShiftLocked"
-        latin:elementKeyboard="@xml/kbd_sinhala" />
+        latin:elementName="alphabetShiftLocked" />
     <Element
-        latin:elementName="alphabetShiftLockShifted"
-        latin:elementKeyboard="@xml/kbd_sinhala" />
+        latin:elementName="alphabetShiftLockShifted" />
     <Element
-        latin:elementName="symbols"
-        latin:elementKeyboard="@xml/kbd_symbols" />
+        latin:elementName="symbols" />
     <Element
-        latin:elementName="symbolsShifted"
-        latin:elementKeyboard="@xml/kbd_symbols_shift" />
+        latin:elementName="symbolsShifted" />
     <Element
-        latin:elementName="phone"
-        latin:elementKeyboard="@xml/kbd_phone" />
+        latin:elementName="phone" />
     <Element
-        latin:elementName="phoneSymbols"
-        latin:elementKeyboard="@xml/kbd_phone_symbols" />
+        latin:elementName="phoneSymbols" />
     <Element
-        latin:elementName="number"
-        latin:elementKeyboard="@xml/kbd_number" />
+        latin:elementName="number" />
     <Element
-        latin:elementName="numpad"
-        latin:elementKeyboard="@xml/kbd_numpad" />
+        latin:elementName="numpad" />
 </KeyboardLayoutSet>

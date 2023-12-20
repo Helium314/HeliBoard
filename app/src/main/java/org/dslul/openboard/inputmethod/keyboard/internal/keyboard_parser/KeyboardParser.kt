@@ -743,10 +743,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     companion object {
         private val TAG = KeyboardParser::class.simpleName
 
-        fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>>? {
+        fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val id = params.mId
             val layoutName = params.mId.mSubtype.keyboardLayoutSetName
-            val layoutFileNames = context.assets.list("layouts") ?: return null
+            val layoutFileNames = context.assets.list("layouts")!!
             return when {
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_arabic")
@@ -759,11 +759,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 id.mElementId == KeyboardId.ELEMENT_NUMBER -> JsonKeyboardParser(params, context).parseLayoutFromAssets("number")
                 id.mElementId == KeyboardId.ELEMENT_PHONE -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone")
                 id.mElementId == KeyboardId.ELEMENT_PHONE_SYMBOLS -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone_symbols")
-                !id.isAlphabetKeyboard -> null
                 layoutFileNames.contains("$layoutName.json") -> JsonKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
                 layoutFileNames.contains("${getSimpleLayoutName(layoutName, params)}.txt")
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
-                else -> null
+                else -> throw IllegalStateException("can't parse layout $layoutName with id $id and elementId ${id.mElementId}")
             }
         }
 

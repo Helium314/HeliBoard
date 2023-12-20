@@ -7,25 +7,17 @@
 <KeyboardLayoutSet xmlns:latin="http://schemas.android.com/apk/res-auto" >
     <Element
         latin:elementName="alphabet"
-        latin:elementKeyboard="@xml/kbd_uzbek"
-        latin:enableProximityCharsCorrection="true"
-        latin:allowRedundantMoreKeys="true" />
+        latin:enableProximityCharsCorrection="true" />
     <Element
-        latin:elementKeyboard="@xml/kbd_symbols"
         latin:elementName="symbols" />
     <Element
-        latin:elementKeyboard="@xml/kbd_symbols_shift"
         latin:elementName="symbolsShifted" />
     <Element
-        latin:elementKeyboard="@xml/kbd_phone"
         latin:elementName="phone" />
     <Element
-        latin:elementKeyboard="@xml/kbd_phone_symbols"
         latin:elementName="phoneSymbols" />
     <Element
-        latin:elementKeyboard="@xml/kbd_number"
         latin:elementName="number" />
     <Element
-        latin:elementName="numpad"
-        latin:elementKeyboard="@xml/kbd_numpad" />
+        latin:elementName="numpad" />
 </KeyboardLayoutSet>

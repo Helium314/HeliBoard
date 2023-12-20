@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.res.Resources
 import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.Xml
-import android.widget.Toast
 import androidx.annotation.XmlRes
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
 import org.dslul.openboard.inputmethod.keyboard.Key
@@ -18,9 +17,7 @@ import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.EmojiParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.KeyboardParser
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
-import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
@@ -51,20 +48,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     fun setAllowRedundantMoreKeys(enabled: Boolean) {
         mParams.mAllowRedundantMoreKeys = enabled
     }
-
-    fun loadFromAssets(id: KeyboardId): KeyboardBuilder<KP>? {
-        mParams.mId = id
-        addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
-        try {
-            keysInRows = KeyboardParser.parseFromAssets(mParams, mContext) ?: return null
-        } catch (e: Throwable) {
-            if (DebugFlags.DEBUG_ENABLED || BuildConfig.DEBUG)
-                Toast.makeText(mContext, "error parsing keyboard: ${e.message}", Toast.LENGTH_LONG).show()
-            Log.e(TAG, "loading $id from assets failed", e)
-            return null
-        }
-        determineAbsoluteValues()
-        return this
 
         // todo: further plan
         //  next release, and possibly don't continue working here for a while (should allow finding more regressions)
@@ -136,38 +119,21 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  maybe remove some of the flags? or keep supporting them?
         //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
         //   actually period key also has shifted letter hint
-    }
 
-    fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
-        if (Settings.getInstance().current.mUseNewKeyboardParsing) {
-            if (id.isEmojiKeyboard) {
-                mParams.mId = id
-                readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
-                keysInRows = EmojiParser(mParams, mContext).parse(Settings.getInstance().current.mIsSplitKeyboardEnabled)
-                return this
-            }
-            if (loadFromAssets(id) != null) {
-                return this
-            }
-            if (DebugFlags.DEBUG_ENABLED) {
-                Log.e(TAG, "falling back to old parser for $id")
-                Toast.makeText(mContext, "using old parser for $id", Toast.LENGTH_LONG).show()
-                // todo throw error?
-            }
-        }
+    fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
-        // attrs may be null, then default values are used (looks good for "normal" keyboards)
-        try {
-            XmlKeyboardParser(xmlId, mParams, mContext).use { keyboardParser ->
-                keysInRows = keyboardParser.parseKeyboard()
+        if (id.isEmojiKeyboard) {
+            readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
+            keysInRows = EmojiParser(mParams, mContext).parse(id.mIsSplitLayout)
+        } else {
+            try {
+                addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
+                keysInRows = KeyboardParser.parseFromAssets(mParams, mContext)
+                determineAbsoluteValues()
+            } catch (e: Exception) {
+                Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
+                throw e
             }
-        } catch (e: XmlPullParserException) {
-            Log.w(TAG, "keyboard XML parse error", e)
-            throw IllegalArgumentException(e.message, e)
-        } catch (e: IOException) {
-            Log.w(TAG, "keyboard XML parse error", e)
-            throw RuntimeException(e.message, e)
         }
         return this
     }
@@ -198,7 +164,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        if (Settings.getInstance().current.mIsSplitKeyboardEnabled
+        if (mParams.mId.mIsSplitLayout
                 && mParams.mId.mElementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             addSplit()
         }

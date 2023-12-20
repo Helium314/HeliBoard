@@ -103,7 +103,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "pref_gesture_floating_preview_text";
     public static final String PREF_GESTURE_SPACE_AWARE = "pref_gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
-    public static final String PREF_USE_NEW_KEYBOARD_PARSING = "pref_use_new_keyboard_parsing3"; // todo: remove later
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled_p_";
     public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity_p_";

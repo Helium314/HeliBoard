@@ -6,7 +6,6 @@
 
 package org.dslul.openboard.inputmethod.keyboard;
 
-import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -14,13 +13,10 @@ import android.text.TextUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser;
-import org.dslul.openboard.inputmethod.keyboard.internal.KeyStyle;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardRow;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
-import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
@@ -996,13 +992,6 @@ public class Key implements Comparable<Key> {
         @Nullable public OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
-        public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
-                                   final KeyboardParams params, final XmlKeyboardRow row) {
-            final KeyParams keyParams = new KeyParams(null, keyAttr, keyStyle, params, row);
-            keyParams.isSpacer = true;
-            return keyParams;
-        }
-
         public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
             final KeyParams spacer = new KeyParams(params);
             spacer.mRelativeWidth = relativeWidth;
@@ -1063,138 +1052,6 @@ public class Key implements Comparable<Key> {
                 moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
             }
             return moreKeysColumnAndFlags;
-        }
-
-        /**
-         * Create keyParams with the given top-left coordinate and extract its attributes from a key
-         * specification string, Key attribute array, key style, and etc.
-         *
-         * @param keySpec the key specification.
-         * @param keyAttr the Key XML attributes array.
-         * @param style the {@link KeyStyle} of this key.
-         * @param params the keyboard building parameters.
-         * @param row the row that this key belongs to. row's x-coordinate will be the right edge of
-         *        this key.
-         */
-        public KeyParams(@Nullable final String keySpec, @NonNull final TypedArray keyAttr,
-                         @NonNull final KeyStyle style, @NonNull final KeyboardParams params,
-                         @NonNull final XmlKeyboardRow row) {
-            mKeyboardParams = params;
-            mRelativeHeight = row.mRelativeRowHeight;
-            mRelativeWidth = row.getRelativeKeyWidth(keyAttr);
-
-            mFullHeight = row.getRowHeight();
-            xPos = row.getKeyX(keyAttr);
-            mFullWidth = row.getKeyWidth(keyAttr, xPos);
-            if (mRelativeWidth == -1f) {
-                // determine from actual width if using fillRight
-                mRelativeWidth = mFullWidth / mKeyboardParams.mBaseWidth;
-            }
-            yPos = row.getKeyY();
-
-            // Update row to have current x coordinate.
-            row.setXPos(xPos + mFullWidth);
-
-            mBackgroundType = style.getInt(keyAttr, R.styleable.Keyboard_Key_backgroundType, row.getDefaultBackgroundType());
-
-            final int baseWidth = params.mBaseWidth;
-            final int visualInsetsLeft = Math.round(keyAttr.getFraction(
-                    R.styleable.Keyboard_Key_visualInsetsLeft, baseWidth, baseWidth, 0));
-            final int visualInsetsRight = Math.round(keyAttr.getFraction(
-                    R.styleable.Keyboard_Key_visualInsetsRight, baseWidth, baseWidth, 0));
-
-            mLabelFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyLabelFlags)
-                    | row.getDefaultKeyLabelFlags();
-            final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
-            final Locale localeForUpcasing = params.mId.getLocale();
-            int actionFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyActionFlags);
-            String[] moreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_moreKeys);
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
-
-            final String[] additionalMoreKeys;
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
-                additionalMoreKeys = null;
-            } else {
-                additionalMoreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_additionalMoreKeys);
-            }
-            moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, additionalMoreKeys);
-            if (moreKeys != null) {
-                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-                mMoreKeys = new MoreKeySpec[moreKeys.length];
-                for (int i = 0; i < moreKeys.length; i++) {
-                    mMoreKeys[i] = new MoreKeySpec(moreKeys[i], needsToUpcase, localeForUpcasing);
-                }
-            } else {
-                mMoreKeys = null;
-            }
-            mActionFlags = actionFlags;
-
-            mIconId = KeySpecParser.getIconId(keySpec);
-            final int disabledIconId = KeySpecParser.getIconId(style.getString(keyAttr,
-                    R.styleable.Keyboard_Key_keyIconDisabled));
-
-            final int code = KeySpecParser.getCode(keySpec);
-            if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
-                mLabel = params.mId.mCustomActionLabel;
-            } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-                // This is a workaround to have a key that has a supplementary code point in its label.
-                // Because we can put a string in resource neither as a XML entity of a supplementary
-                // code point nor as a surrogate pair.
-                mLabel = new StringBuilder().appendCodePoint(code).toString();
-            } else {
-                final String label = KeySpecParser.getLabel(keySpec);
-                mLabel = needsToUpcase
-                        ? StringUtils.toTitleCaseOfKeyLabel(label, localeForUpcasing)
-                        : label;
-            }
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
-                mHintLabel = null;
-            } else {
-                final String hintLabel = style.getString(keyAttr, R.styleable.Keyboard_Key_keyHintLabel);
-                mHintLabel = needsToUpcase
-                        ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
-                        : hintLabel;
-            }
-            String outputText = KeySpecParser.getOutputText(keySpec);
-            if (needsToUpcase) {
-                outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
-            }
-            // Choose the first letter of the label as primary code if not specified.
-            if (code == CODE_UNSPECIFIED && TextUtils.isEmpty(outputText) && !TextUtils.isEmpty(mLabel)) {
-                if (StringUtils.codePointCount(mLabel) == 1) {
-                    // Use the first letter of the hint label if shiftedLetterActivated flag is
-                    // specified.
-                    if ((mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0 && (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0
-                            && !TextUtils.isEmpty(mHintLabel)) {
-                        mCode = mHintLabel.codePointAt(0);
-                    } else {
-                        mCode = mLabel.codePointAt(0);
-                    }
-                } else {
-                    // In some locale and case, the character might be represented by multiple code
-                    // points, such as upper case Eszett of German alphabet.
-                    outputText = mLabel;
-                    mCode = CODE_OUTPUT_TEXT;
-                }
-            } else if (code == CODE_UNSPECIFIED && outputText != null) {
-                if (StringUtils.codePointCount(outputText) == 1) {
-                    mCode = outputText.codePointAt(0);
-                    outputText = null;
-                } else {
-                    mCode = CODE_OUTPUT_TEXT;
-                }
-            } else {
-                mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing) : code;
-            }
-            final int altCodeInAttr = KeySpecParser.parseCode(
-                    style.getString(keyAttr, R.styleable.Keyboard_Key_altCode), CODE_UNSPECIFIED);
-            final int altCode = needsToUpcase
-                    ? StringUtils.toTitleCaseOfKeyCode(altCodeInAttr, localeForUpcasing)
-                    : altCodeInAttr;
-            mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
-                    disabledIconId, visualInsetsLeft, visualInsetsRight);
-            mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
-            mEnabled = true;
         }
 
         public KeyParams(

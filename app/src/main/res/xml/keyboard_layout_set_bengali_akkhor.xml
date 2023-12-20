@@ -7,41 +7,30 @@
 <KeyboardLayoutSet xmlns:latin="http://schemas.android.com/apk/res-auto" >
     <Feature latin:supportedScript="bengali" />
     <Element
-        latin:elementKeyboard="@xml/kbd_bengali_akkhor"
         latin:elementName="alphabet"
         latin:enableProximityCharsCorrection="true" />
     <Element
-        latin:elementKeyboard="@xml/kbd_bengali_akkhor"
         latin:elementName="alphabetAutomaticShifted"
         latin:enableProximityCharsCorrection="true" />
     <!-- On these shifted alphabet layouts the proximity characters correction should be disabled
          because the letters on these layouts aren't the ones in different case of the above
          unshifted layouts.-->
     <Element
-        latin:elementKeyboard="@xml/kbd_bengali_akkhor"
         latin:elementName="alphabetManualShifted" />
     <Element
-        latin:elementKeyboard="@xml/kbd_bengali_akkhor"
         latin:elementName="alphabetShiftLocked" />
     <Element
-        latin:elementKeyboard="@xml/kbd_bengali_akkhor"
         latin:elementName="alphabetShiftLockShifted" />
     <Element
-        latin:elementKeyboard="@xml/kbd_symbols"
         latin:elementName="symbols" />
     <Element
-        latin:elementKeyboard="@xml/kbd_symbols_shift"
         latin:elementName="symbolsShifted" />
     <Element
-        latin:elementKeyboard="@xml/kbd_phone"
         latin:elementName="phone" />
     <Element
-        latin:elementKeyboard="@xml/kbd_phone_symbols"
         latin:elementName="phoneSymbols" />
     <Element
-        latin:elementKeyboard="@xml/kbd_number"
         latin:elementName="number" />
     <Element
-        latin:elementName="numpad"
-        latin:elementKeyboard="@xml/kbd_numpad" />
+        latin:elementName="numpad" />
 </KeyboardLayoutSet>

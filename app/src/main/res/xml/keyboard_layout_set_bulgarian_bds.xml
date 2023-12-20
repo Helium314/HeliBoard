@@ -10,24 +10,17 @@
         latin:supportedScript="cyrillic" />
     <Element
         latin:elementName="alphabet"
-        latin:elementKeyboard="@xml/kbd_bulgarian_bds"
         latin:enableProximityCharsCorrection="true" />
     <Element
-        latin:elementName="symbols"
-        latin:elementKeyboard="@xml/kbd_symbols" />
+        latin:elementName="symbols" />
     <Element
-        latin:elementName="symbolsShifted"
-        latin:elementKeyboard="@xml/kbd_symbols_shift" />
+        latin:elementName="symbolsShifted" />
     <Element
-        latin:elementName="phone"
-        latin:elementKeyboard="@xml/kbd_phone" />
+        latin:elementName="phone" />
     <Element
-        latin:elementName="phoneSymbols"
-        latin:elementKeyboard="@xml/kbd_phone_symbols" />
+        latin:elementName="phoneSymbols" />
     <Element
-        latin:elementName="number"
-        latin:elementKeyboard="@xml/kbd_number" />
+        latin:elementName="number" />
     <Element
-        latin:elementName="numpad"
-        latin:elementKeyboard="@xml/kbd_numpad" />
+        latin:elementName="numpad" />
 </KeyboardLayoutSet>
