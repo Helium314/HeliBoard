@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -47,7 +48,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private MainKeyboardView mKeyboardView;
     private EmojiPalettesView mEmojiPalettesView;
     private View mEmojiTabStripView;
-    private View mClipboardStripView;
+    private LinearLayout mClipboardStripView;
     private View mSuggestionStripView;
     private ClipboardHistoryView mClipboardHistoryView;
     private LatinIME mLatinIME;
@@ -530,7 +531,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return mEmojiTabStripView;
     }
 
-    public View getClipboardStrip() {
+    public LinearLayout getClipboardStrip() {
         return mClipboardStripView;
     }
 
