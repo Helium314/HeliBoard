@@ -302,14 +302,10 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     @Override
     public void startWhileTypingAnimation(final int fadeInOrOut) {
         switch (fadeInOrOut) {
-        case DrawingProxy.FADE_IN:
-            cancelAndStartAnimators(
+            case DrawingProxy.FADE_IN -> cancelAndStartAnimators(
                     mAltCodeKeyWhileTypingFadeoutAnimator, mAltCodeKeyWhileTypingFadeinAnimator);
-            break;
-        case DrawingProxy.FADE_OUT:
-            cancelAndStartAnimators(
+            case DrawingProxy.FADE_OUT -> cancelAndStartAnimators(
                     mAltCodeKeyWhileTypingFadeinAnimator, mAltCodeKeyWhileTypingFadeoutAnimator);
-            break;
         }
     }
 

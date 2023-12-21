@@ -16,7 +16,7 @@ import kotlin.math.sqrt
 
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
 
-    fun parse(splitKeyboard: Boolean): ArrayList<ArrayList<KeyParams>> { // todo: split should be read from params, but currently this is disabled, right?
+    fun parse(): ArrayList<ArrayList<KeyParams>> {
         val emojiArrayId = when (params.mId.mElementId) {
             KeyboardId.ELEMENT_EMOJI_RECENTS -> R.array.emoji_recents
             KeyboardId.ELEMENT_EMOJI_CATEGORY1 -> R.array.emoji_smileys_emotion
@@ -32,34 +32,11 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             else -> throw(IllegalStateException("can only parse emoji categories where an array exists"))
         }
         val emojiArray = context.resources.getStringArray(emojiArrayId)
-        val moreEmojisArray = if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2)
-                context.resources.getStringArray(R.array.emoji_people_body_more)
-            else null
+        val moreEmojisArray = if (params.mId.mElementId != KeyboardId.ELEMENT_EMOJI_CATEGORY2) null
+            else context.resources.getStringArray(R.array.emoji_people_body_more)
         if (moreEmojisArray != null && emojiArray.size != moreEmojisArray.size)
             throw(IllegalStateException("Inconsistent array size between codesArray and moreKeysArray"))
 
-        // now we have the params in one long list -> split into lines and maybe add spacer
-        // todo: disabled, because it doesn't work properly... spacer keys get added to the end every 3 rows
-        //  the sorting and sizing seems to be done in DynamicGridKeyboard
-        //  only the template keys there are relevant for dimensions, resizing keys here doesn't have any effect
-        //  -> this is really weird and unexpected, and should be changed (might also help with the text emojis...)
-/*        val numColumns = (1 / params.mDefaultRelativeKeyWidth).toInt()
-        val spacerNumKeys: Int
-        val spacerWidth: Float
-        if (splitKeyboard) {
-            val spacerRelativeWidth = Settings.getInstance().current.mSpacerRelativeWidth
-            // adjust gaps for the whole keyboard, so it's the same for all rows
-            params.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
-            params.mHorizontalGap = (params.mRelativeHorizontalGap * params.mId.mWidth).toInt()
-            // round the spacer width, so it's a number of keys, and number should be even if emoji count is even, odd otherwise
-            spacerNumKeys = (spacerRelativeWidth / params.mDefaultRelativeKeyWidth).roundTo(numColumns % 2 == 0)
-            spacerWidth = spacerNumKeys * params.mDefaultRelativeKeyWidth
-        } else {
-            spacerNumKeys = 0
-            spacerWidth = 0f
-        }
-        val spacerIndex = if (spacerNumKeys > 0) (numColumns - spacerNumKeys) / 2 else -1
-*/
         val row = ArrayList<KeyParams>(emojiArray.size)
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat() // no need to ever change, assignment to rows into rows is done in DynamicGridKeyboard
@@ -69,7 +46,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val defaultKeyWidth = (ResourceUtils.getDefaultKeyboardWidth(context.resources) - params.mLeftPadding - params.mRightPadding) * params.mDefaultRelativeKeyWidth
         val keyWidth = defaultKeyWidth * sqrt(Settings.getInstance().current.mKeyboardHeightScale)
         val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
-        val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight);
+        val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)
         val emojiKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false) * 0.75f + params.mVerticalGap - defaultBottomPadding - context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
         val keyHeight = emojiKeyboardHeight * params.mDefaultRelativeRowHeight * Settings.getInstance().current.mKeyboardHeightScale // still apply height scale to key
 
@@ -81,9 +58,6 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             keyParams.mFullHeight = keyHeight
             currentX += keyParams.mFullWidth
             row.add(keyParams)
-//            if (row.size % numColumns == spacerIndex) { // also removed for now (would be missing setting the size and updating x
-//                repeat(spacerNumKeys) { row.add(KeyParams.newSpacer(params, params.mDefaultRelativeKeyWidth)) }
-//            }
         }
         return arrayListOf(row)
     }
@@ -104,7 +78,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         return labelBuilder.toString() to Constants.CODE_OUTPUT_TEXT
     }
 
-    private fun parseEmojiKey(spec: String, moreKeysString: String? = null): Key.KeyParams? {
+    private fun parseEmojiKey(spec: String, moreKeysString: String? = null): KeyParams? {
         val (label, code) = getLabelAndCode(spec) ?: return null
         val sb = StringBuilder()
         moreKeysString?.split(";")?.let { moreKeys ->

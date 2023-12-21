@@ -24,8 +24,6 @@ import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
-import org.xmlpull.v1.XmlPullParserException
-import java.io.IOException
 
 // TODO: Write unit tests for this class.
 open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context, @JvmField val mParams: KP) {
@@ -124,7 +122,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mId = id
         if (id.isEmojiKeyboard) {
             readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
-            keysInRows = EmojiParser(mParams, mContext).parse(id.mIsSplitLayout)
+            keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
                 addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
@@ -144,7 +142,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         while (parser.eventType != XmlPullParser.END_DOCUMENT) {
             val event = parser.next()
             if (event == XmlPullParser.START_TAG) {
-                val tag = parser.name;
+                val tag = parser.name
                 if ("Keyboard" == tag) {
                     mParams.readAttributes(mContext, Xml.asAttributeSet(parser))
                     return

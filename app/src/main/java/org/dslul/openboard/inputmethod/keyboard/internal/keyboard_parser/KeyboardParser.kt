@@ -25,7 +25,6 @@ import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerServi
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import java.util.Locale
 
@@ -779,7 +778,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         @JvmStatic // unsupported without JvmStatic
         // todo: should be removed in the end (after removing old parser), and the internal layout names changed for easier finding
         //  currently it's spread out everywhere... method.xml, locale_and_extra_value_to_keyboard_layout_set_map, getKeyboardLayoutNameForLocale, ...
-        protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams) = when (layoutName) {
+        protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams): String = when (layoutName) {
                 "swiss", "german", "serbian_qwertz" -> "qwertz"
                 "nordic", "spanish" -> if (params.mId.locale.language == "eo") "eo" else "qwerty"
                 "south_slavic", "east_slavic" -> params.mId.locale.language // layouts are split per language now, much less convoluted

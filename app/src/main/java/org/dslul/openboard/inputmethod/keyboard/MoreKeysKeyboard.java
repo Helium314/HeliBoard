@@ -76,8 +76,7 @@ public final class MoreKeysKeyboard extends Keyboard {
             mDefaultKeyWidth = keyWidth;
             mDefaultRowHeight = rowHeight;
 
-            final int numRows = (numKeys + numColumn - 1) / numColumn;
-            mNumRows = numRows;
+            mNumRows = (numKeys + numColumn - 1) / numColumn;
             final int numColumns = isMoreKeysFixedColumn ? Math.min(numKeys, numColumn)
                     : getOptimizedColumns(numKeys, numColumn);
             mNumColumns = numColumns;

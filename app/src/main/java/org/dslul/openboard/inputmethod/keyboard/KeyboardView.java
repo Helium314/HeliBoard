@@ -36,7 +36,6 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
@@ -258,7 +257,7 @@ public class KeyboardView extends View {
     }
 
     @Override
-    protected void onDraw(final Canvas canvas) {
+    protected void onDraw(@NonNull final Canvas canvas) {
         super.onDraw(canvas);
         if (canvas.isHardwareAccelerated()) {
             onDrawKeyboard(canvas);

@@ -75,8 +75,7 @@ public final class MoreKeySpec {
 
     @Override
     public int hashCode() {
-        int hashCode = 1;
-        hashCode = 31 + mCode;
+        int hashCode = 31 + mCode;
         hashCode = hashCode * 31 + mIconId;
         final String label = mLabel;
         hashCode = hashCode * 31 + (label == null ? 0 : label.hashCode());
