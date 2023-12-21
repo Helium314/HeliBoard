@@ -35,7 +35,7 @@ import java.util.Locale
  * Functional keys are pre-defined and can't be changed, with exception of comma, period and similar
  * keys in symbol layouts.
  * By default, all normal keys have the same width and flags, which may cause issues with the
- * requirements of certain non-latin languages. todo: add labelFlags to Json parser, or determine automatically?
+ * requirements of certain non-latin languages.
  */
 abstract class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
     private val infos = layoutInfos(params)
@@ -754,7 +754,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val id = params.mId
-            val layoutName = params.mId.mSubtype.keyboardLayoutSetName
+            val layoutName = params.mId.mSubtype.keyboardLayoutSetName.substringBefore("+")
             val layoutFileNames = context.assets.list("layouts")!!
             return when {
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC
@@ -769,21 +769,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 id.mElementId == KeyboardId.ELEMENT_PHONE -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone")
                 id.mElementId == KeyboardId.ELEMENT_PHONE_SYMBOLS -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone_symbols")
                 layoutFileNames.contains("$layoutName.json") -> JsonKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
-                layoutFileNames.contains("${getSimpleLayoutName(layoutName, params)}.txt")
+                layoutFileNames.contains("$layoutName.txt")
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
                 else -> throw IllegalStateException("can't parse layout $layoutName with id $id and elementId ${id.mElementId}")
             }
         }
-
-        @JvmStatic // unsupported without JvmStatic
-        // todo: should be removed in the end (after removing old parser), and the internal layout names changed for easier finding
-        //  currently it's spread out everywhere... method.xml, locale_and_extra_value_to_keyboard_layout_set_map, getKeyboardLayoutNameForLocale, ...
-        protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams): String = when (layoutName) {
-                "swiss", "german", "serbian_qwertz" -> "qwertz"
-                "nordic", "spanish" -> if (params.mId.locale.language == "eo") "eo" else "qwerty"
-                "south_slavic", "east_slavic" -> params.mId.locale.language // layouts are split per language now, much less convoluted
-                else -> layoutName
-            }
 
         // todo: layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
         //  or somewhere else... some replacement for keyboard_layout_set xml maybe

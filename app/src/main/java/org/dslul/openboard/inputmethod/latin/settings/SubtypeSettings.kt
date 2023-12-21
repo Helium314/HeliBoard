@@ -56,20 +56,7 @@ fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
 /** returns whether subtype was actually removed, does not remove last subtype */
 fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     require(initialized)
-    val subtypeString = subtype.prefString()
-    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!
-    val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(SUBTYPE_SEPARATOR)
-    if (newString == oldSubtypeString)
-        return // already removed
-    prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
-    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")) {
-        // switch subtype if the currently used one has been disabled
-        val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
-        if (subtypeString == nextSubtype?.prefString())
-            KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
-        else
-            KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
-    }
+    removeEnabledSubtype(prefs, subtype.prefString())
     enabledSubtypes.remove(subtype)
     RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
@@ -246,10 +233,28 @@ private fun loadEnabledSubtypes(context: Context) {
         if (subtype == null) {
             if (DebugFlags.DEBUG_ENABLED)
                 Toast.makeText(context, "subtype $localeAndLayout could not be loaded", Toast.LENGTH_LONG).show()
+            else // don't remove in debug mode
+                removeEnabledSubtype(prefs, localeAndLayout.joinToString(LOCALE_LAYOUT_SEPARATOR))
             continue
         }
 
         enabledSubtypes.add(subtype)
+    }
+}
+
+private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String) {
+    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!
+    val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(SUBTYPE_SEPARATOR)
+    if (newString == oldSubtypeString)
+        return // already removed
+    prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
+    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")) {
+        // switch subtype if the currently used one has been disabled
+        val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
+        if (subtypeString == nextSubtype?.prefString())
+            KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
+        else
+            KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
     }
 }
 

@@ -65,6 +65,12 @@ public final class Constants {
          */
         public static final String KEYBOARD_MODE = "keyboard";
 
+        // some extra values:
+        //  TrySuppressingImeSwitcher: not documented, but used in Android source
+        //  AsciiCapable: not used, but recommended for Android 9- because of known issues
+        //  SupportTouchPositionCorrection: never read, never used outside AOSP keyboard -> can be removed?
+        //  EmojiCapable: there is some description in Constants, but actually it's never read
+        //  KeyboardLayoutSet: obvious
         public static final class ExtraValue {
             /**
              * The subtype extra value used to indicate that this subtype is capable of
