@@ -67,14 +67,10 @@ import java.util.HashSet;
  * @attr ref R.styleable#Keyboard_Key_keyLabelOffCenterRatio
  * @attr ref R.styleable#Keyboard_Key_keyHintLabelOffCenterRatio
  * @attr ref R.styleable#Keyboard_Key_keyPreviewTextRatio
- * @attr ref R.styleable#Keyboard_Key_keyTextColor
  * @attr ref R.styleable#Keyboard_Key_keyTextColorDisabled
  * @attr ref R.styleable#Keyboard_Key_keyTextShadowColor
- * @attr ref R.styleable#Keyboard_Key_keyHintLetterColor
- * @attr ref R.styleable#Keyboard_Key_keyHintLabelColor
  * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintInactivatedColor
  * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintActivatedColor
- * @attr ref R.styleable#Keyboard_Key_keyPreviewTextColor
  */
 public class KeyboardView extends View {
     // XML attributes
