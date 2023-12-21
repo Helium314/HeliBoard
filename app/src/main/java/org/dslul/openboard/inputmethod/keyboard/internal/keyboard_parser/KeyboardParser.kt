@@ -3,6 +3,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -650,7 +651,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?
             override fun job(res: Resources) = res.getString(id)
         }
-        val locale = if (params.mId.locale.toString().lowercase() == "hi_zz") Locale("en", "IN") else params.mId.locale // crappy workaround...
+        // crappy workaround...
+        val locale = when (params.mId.locale.toString().lowercase()) {
+            "hi_zz" -> Locale("en", "IN")
+            "sr_zz" -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    Locale.forLanguageTag("sr-Latn")
+                else params.mId.locale // todo: copy strings to sr-rZZ when definitely not increasing min SDK to 21
+            else -> params.mId.locale
+        }
         return ril.runInLocale(context.resources, locale)
     }
 
