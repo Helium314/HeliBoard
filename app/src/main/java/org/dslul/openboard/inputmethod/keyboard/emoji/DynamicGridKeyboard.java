@@ -47,6 +47,7 @@ final class DynamicGridKeyboard extends Keyboard {
     private final ArrayDeque<Key> mPendingKeys = new ArrayDeque<>();
 
     private List<Key> mCachedGridKeys;
+    private final ArrayList<Integer> mEmptyColumnIndices = new ArrayList<>(4);
 
     public DynamicGridKeyboard(final SharedPreferences prefs, final Keyboard templateKeyboard,
             final int maxKeyCount, final int categoryId, final int width) {
@@ -56,6 +57,7 @@ final class DynamicGridKeyboard extends Keyboard {
         final int paddingWidth = mOccupiedWidth - mBaseWidth;
         mBaseWidth = width - paddingWidth;
         mOccupiedWidth = width;
+        final float spacerWidth = Settings.getInstance().getCurrent().mSplitKeyboardSpacerRelativeWidth * mBaseWidth;
         final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
         final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
@@ -64,9 +66,34 @@ final class DynamicGridKeyboard extends Keyboard {
         mHorizontalStep = (int) ((key0.getWidth() + horizontalGap) * widthScale);
         mVerticalStep = (int) ((key0.getHeight() + mVerticalGap) / Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
         mColumnsNum = mBaseWidth / mHorizontalStep;
+        if (spacerWidth > 0)
+            setSpacerColumns(spacerWidth);
+        Log.i("test", "spacer width "+spacerWidth+", base width "+mBaseWidth+", spacer relative "+Settings.getInstance().getCurrent().mSplitKeyboardSpacerRelativeWidth);
         mMaxKeyCount = maxKeyCount;
         mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
         mPrefs = prefs;
+    }
+
+    private void setSpacerColumns(final float spacerWidth) {
+        int spacerColumnsWidth = (int) (spacerWidth / mHorizontalStep);
+        if (spacerColumnsWidth == 0) return;
+        if (mColumnsNum % 2 != spacerColumnsWidth % 2)
+            spacerColumnsWidth++;
+        final int leftmost;
+        final int rightmost;
+        if (spacerColumnsWidth % 2 == 0) {
+            int center = mColumnsNum / 2;
+            leftmost = center - (spacerColumnsWidth / 2 - 1);
+            rightmost = center + spacerColumnsWidth / 2;
+        } else {
+            int center = mColumnsNum / 2 + 1;
+            leftmost = center - spacerColumnsWidth / 2;
+            rightmost = center + spacerColumnsWidth / 2;
+        }
+        Log.i("test", "scw "+spacerColumnsWidth+", initial "+((int) (spacerWidth / mHorizontalStep))+", columns "+mColumnsNum);
+        for (int i = leftmost; i <= rightmost; i++) {
+            mEmptyColumnIndices.add(i - 1);
+        }
     }
 
     // determine a width scale so emojis evenly fill the entire width
@@ -149,6 +176,9 @@ final class DynamicGridKeyboard extends Keyboard {
             }
             int index = 0;
             for (final GridKey gridKey : mGridKeys) {
+                while (mEmptyColumnIndices.contains(index % mColumnsNum)) {
+                    index++;
+                }
                 final int keyX0 = getKeyX0(index);
                 final int keyY0 = getKeyY0(index);
                 final int keyX1 = getKeyX1(index);
