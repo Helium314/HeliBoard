@@ -68,7 +68,6 @@ final class DynamicGridKeyboard extends Keyboard {
         mColumnsNum = mBaseWidth / mHorizontalStep;
         if (spacerWidth > 0)
             setSpacerColumns(spacerWidth);
-        Log.i("test", "spacer width "+spacerWidth+", base width "+mBaseWidth+", spacer relative "+Settings.getInstance().getCurrent().mSplitKeyboardSpacerRelativeWidth);
         mMaxKeyCount = maxKeyCount;
         mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
         mPrefs = prefs;
@@ -90,7 +89,6 @@ final class DynamicGridKeyboard extends Keyboard {
             leftmost = center - spacerColumnsWidth / 2;
             rightmost = center + spacerColumnsWidth / 2;
         }
-        Log.i("test", "scw "+spacerColumnsWidth+", initial "+((int) (spacerWidth / mHorizontalStep))+", columns "+mColumnsNum);
         for (int i = leftmost; i <= rightmost; i++) {
             mEmptyColumnIndices.add(i - 1);
         }

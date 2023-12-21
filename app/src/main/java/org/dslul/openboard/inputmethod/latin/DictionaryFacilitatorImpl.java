@@ -1024,7 +1024,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             return;
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
             try {
-                Log.i("test1", "adding to blacklist file" + group.blacklistFileName);
                 FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
                 fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
                 fos.close();
