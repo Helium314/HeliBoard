@@ -18,6 +18,8 @@ import java.util.List;
 /**
  * KeyboardLayout maintains the keyboard layout information.
  */
+// todo: this seems completely unused, see whether it can be removed, or re-purposed to contain
+//  some useful information about the layout (currently that's in KeyboardParser.LayoutInfos)
 public class KeyboardLayout {
 
     private final int[] mKeyCodes;
@@ -110,7 +112,6 @@ public class KeyboardLayout {
                 layoutKeys.add(key);
             }
         }
-        return new KeyboardLayout(layoutKeys, mostCommonKeyWidth,
-                mostCommonKeyHeight, occupiedWidth, occupiedHeight);
+        return new KeyboardLayout(layoutKeys, mostCommonKeyWidth, mostCommonKeyHeight, occupiedWidth, occupiedHeight);
     }
 }

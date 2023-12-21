@@ -342,8 +342,8 @@ private val dollar = "$" to arrayOf("£", "¢", "€", "¥", "₱")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
 
-const val MORE_KEYS_ALL = 2;
-const val MORE_KEYS_MORE = 1;
-const val MORE_KEYS_NORMAL = 0;
+const val MORE_KEYS_ALL = 2
+const val MORE_KEYS_MORE = 1
+const val MORE_KEYS_NORMAL = 0
 
 const val LANGUAGE_TEXTS_FOLDER = "language_key_texts"

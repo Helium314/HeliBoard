@@ -298,7 +298,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
-            Settings.PREF_MORE_MORE_KEYS, Settings.PREF_USE_NEW_KEYBOARD_PARSING -> KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_MORE_MORE_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
         }
     }
 }

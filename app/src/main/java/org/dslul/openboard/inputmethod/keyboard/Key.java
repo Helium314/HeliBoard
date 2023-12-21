@@ -6,7 +6,6 @@
 
 package org.dslul.openboard.inputmethod.keyboard;
 
-import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -14,13 +13,10 @@ import android.text.TextUtils;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser;
-import org.dslul.openboard.inputmethod.keyboard.internal.KeyStyle;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardRow;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
-import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
@@ -314,7 +310,7 @@ public class Key implements Comparable<Key> {
         // get the "correct" float gap: may shift keys by one pixel, but results in more uniform gaps between keys
         final float horizontalGapFloat = isSpacer() ? 0 : (keyParams.mKeyboardParams.mRelativeHorizontalGap * keyParams.mKeyboardParams.mOccupiedWidth);
         mHorizontalGap = Math.round(horizontalGapFloat);
-        mVerticalGap = Math.round(keyParams.mKeyboardParams.mVerticalGap);
+        mVerticalGap = Math.round(keyParams.mKeyboardParams.mRelativeVerticalGap * keyParams.mKeyboardParams.mOccupiedHeight);
         mWidth = Math.round(keyParams.mFullWidth - horizontalGapFloat);
         // height is always rounded down, because rounding up may make the keyboard too high to fit, leading to issues
         mHeight = (int) (keyParams.mFullHeight - keyParams.mKeyboardParams.mVerticalGap);
@@ -366,15 +362,11 @@ public class Key implements Comparable<Key> {
 
     private static boolean needsToUpcase(final int labelFlags, final int keyboardElementId) {
         if ((labelFlags & LABEL_FLAGS_PRESERVE_CASE) != 0) return false;
-        switch (keyboardElementId) {
-        case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED:
-        case KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED:
-        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED:
-        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED:
-            return true;
-        default:
-            return false;
-        }
+        return switch (keyboardElementId) {
+            case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED,
+                    KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> true;
+            default -> false;
+        };
     }
 
     private static int computeHashCode(final Key key) {
@@ -548,31 +540,22 @@ public class Key implements Comparable<Key> {
 
     @NonNull
     public final Typeface selectTypeface(final KeyDrawParams params) {
-        switch (mLabelFlags & LABEL_FLAGS_FONT_MASK) {
-        case LABEL_FLAGS_FONT_NORMAL:
-            return Typeface.DEFAULT;
-        case LABEL_FLAGS_FONT_MONO_SPACE:
-            return Typeface.MONOSPACE;
-        case LABEL_FLAGS_FONT_DEFAULT:
-        default:
-            // The type-face is specified by keyTypeface attribute.
-            return params.mTypeface;
-        }
+        return switch (mLabelFlags & LABEL_FLAGS_FONT_MASK) {
+            case LABEL_FLAGS_FONT_NORMAL -> Typeface.DEFAULT;
+            case LABEL_FLAGS_FONT_MONO_SPACE -> Typeface.MONOSPACE;
+            default -> params.mTypeface; // The type-face is specified by keyTypeface attribute.
+        };
     }
 
     public final int selectTextSize(final KeyDrawParams params) {
-        switch (mLabelFlags & LABEL_FLAGS_FOLLOW_KEY_TEXT_RATIO_MASK) {
-        case LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO:
-            return params.mLetterSize;
-        case LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO:
-            return params.mLargeLetterSize;
-        case LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO:
-            return params.mLabelSize;
-        case LABEL_FLAGS_FOLLOW_KEY_HINT_LABEL_RATIO:
-            return params.mHintLabelSize;
-        default: // No follow key ratio flag specified.
-            return StringUtils.codePointCount(mLabel) == 1 ? params.mLetterSize : params.mLabelSize;
-        }
+        return switch (mLabelFlags & LABEL_FLAGS_FOLLOW_KEY_TEXT_RATIO_MASK) {
+            case LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO -> params.mLetterSize;
+            case LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO -> params.mLargeLetterSize;
+            case LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO -> params.mLabelSize;
+            case LABEL_FLAGS_FOLLOW_KEY_HINT_LABEL_RATIO -> params.mHintLabelSize;
+            // No follow key ratio flag specified.
+            default -> StringUtils.codePointCount(mLabel) == 1 ? params.mLetterSize : params.mLabelSize;
+        };
     }
 
     public final int selectTextColor(final KeyDrawParams params) {
@@ -871,8 +854,8 @@ public class Key implements Comparable<Key> {
         final int right = left + mWidth;
         final int top = getY();
         final int bottom = top + mHeight;
-        final int edgeX = x < left ? left : (x > right ? right : x);
-        final int edgeY = y < top ? top : (y > bottom ? bottom : y);
+        final int edgeX = x < left ? left : Math.min(x, right);
+        final int edgeY = y < top ? top : Math.min(y, bottom);
         final int dx = x - edgeX;
         final int dy = y - edgeY;
         return dx * dx + dy * dy;
@@ -996,13 +979,6 @@ public class Key implements Comparable<Key> {
         @Nullable public OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
-        public static KeyParams newSpacer(final TypedArray keyAttr, final KeyStyle keyStyle,
-                                   final KeyboardParams params, final XmlKeyboardRow row) {
-            final KeyParams keyParams = new KeyParams(null, keyAttr, keyStyle, params, row);
-            keyParams.isSpacer = true;
-            return keyParams;
-        }
-
         public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
             final KeyParams spacer = new KeyParams(params);
             spacer.mRelativeWidth = relativeWidth;
@@ -1063,138 +1039,6 @@ public class Key implements Comparable<Key> {
                 moreKeysColumnAndFlags |= MORE_KEYS_FLAGS_NO_PANEL_AUTO_MORE_KEY;
             }
             return moreKeysColumnAndFlags;
-        }
-
-        /**
-         * Create keyParams with the given top-left coordinate and extract its attributes from a key
-         * specification string, Key attribute array, key style, and etc.
-         *
-         * @param keySpec the key specification.
-         * @param keyAttr the Key XML attributes array.
-         * @param style the {@link KeyStyle} of this key.
-         * @param params the keyboard building parameters.
-         * @param row the row that this key belongs to. row's x-coordinate will be the right edge of
-         *        this key.
-         */
-        public KeyParams(@Nullable final String keySpec, @NonNull final TypedArray keyAttr,
-                         @NonNull final KeyStyle style, @NonNull final KeyboardParams params,
-                         @NonNull final XmlKeyboardRow row) {
-            mKeyboardParams = params;
-            mRelativeHeight = row.mRelativeRowHeight;
-            mRelativeWidth = row.getRelativeKeyWidth(keyAttr);
-
-            mFullHeight = row.getRowHeight();
-            xPos = row.getKeyX(keyAttr);
-            mFullWidth = row.getKeyWidth(keyAttr, xPos);
-            if (mRelativeWidth == -1f) {
-                // determine from actual width if using fillRight
-                mRelativeWidth = mFullWidth / mKeyboardParams.mBaseWidth;
-            }
-            yPos = row.getKeyY();
-
-            // Update row to have current x coordinate.
-            row.setXPos(xPos + mFullWidth);
-
-            mBackgroundType = style.getInt(keyAttr, R.styleable.Keyboard_Key_backgroundType, row.getDefaultBackgroundType());
-
-            final int baseWidth = params.mBaseWidth;
-            final int visualInsetsLeft = Math.round(keyAttr.getFraction(
-                    R.styleable.Keyboard_Key_visualInsetsLeft, baseWidth, baseWidth, 0));
-            final int visualInsetsRight = Math.round(keyAttr.getFraction(
-                    R.styleable.Keyboard_Key_visualInsetsRight, baseWidth, baseWidth, 0));
-
-            mLabelFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyLabelFlags)
-                    | row.getDefaultKeyLabelFlags();
-            final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
-            final Locale localeForUpcasing = params.mId.getLocale();
-            int actionFlags = style.getFlags(keyAttr, R.styleable.Keyboard_Key_keyActionFlags);
-            String[] moreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_moreKeys);
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
-
-            final String[] additionalMoreKeys;
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_ADDITIONAL_MORE_KEYS) != 0) {
-                additionalMoreKeys = null;
-            } else {
-                additionalMoreKeys = style.getStringArray(keyAttr, R.styleable.Keyboard_Key_additionalMoreKeys);
-            }
-            moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, additionalMoreKeys);
-            if (moreKeys != null) {
-                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-                mMoreKeys = new MoreKeySpec[moreKeys.length];
-                for (int i = 0; i < moreKeys.length; i++) {
-                    mMoreKeys[i] = new MoreKeySpec(moreKeys[i], needsToUpcase, localeForUpcasing);
-                }
-            } else {
-                mMoreKeys = null;
-            }
-            mActionFlags = actionFlags;
-
-            mIconId = KeySpecParser.getIconId(keySpec);
-            final int disabledIconId = KeySpecParser.getIconId(style.getString(keyAttr,
-                    R.styleable.Keyboard_Key_keyIconDisabled));
-
-            final int code = KeySpecParser.getCode(keySpec);
-            if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
-                mLabel = params.mId.mCustomActionLabel;
-            } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-                // This is a workaround to have a key that has a supplementary code point in its label.
-                // Because we can put a string in resource neither as a XML entity of a supplementary
-                // code point nor as a surrogate pair.
-                mLabel = new StringBuilder().appendCodePoint(code).toString();
-            } else {
-                final String label = KeySpecParser.getLabel(keySpec);
-                mLabel = needsToUpcase
-                        ? StringUtils.toTitleCaseOfKeyLabel(label, localeForUpcasing)
-                        : label;
-            }
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
-                mHintLabel = null;
-            } else {
-                final String hintLabel = style.getString(keyAttr, R.styleable.Keyboard_Key_keyHintLabel);
-                mHintLabel = needsToUpcase
-                        ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
-                        : hintLabel;
-            }
-            String outputText = KeySpecParser.getOutputText(keySpec);
-            if (needsToUpcase) {
-                outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
-            }
-            // Choose the first letter of the label as primary code if not specified.
-            if (code == CODE_UNSPECIFIED && TextUtils.isEmpty(outputText) && !TextUtils.isEmpty(mLabel)) {
-                if (StringUtils.codePointCount(mLabel) == 1) {
-                    // Use the first letter of the hint label if shiftedLetterActivated flag is
-                    // specified.
-                    if ((mLabelFlags & LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT) != 0 && (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0
-                            && !TextUtils.isEmpty(mHintLabel)) {
-                        mCode = mHintLabel.codePointAt(0);
-                    } else {
-                        mCode = mLabel.codePointAt(0);
-                    }
-                } else {
-                    // In some locale and case, the character might be represented by multiple code
-                    // points, such as upper case Eszett of German alphabet.
-                    outputText = mLabel;
-                    mCode = CODE_OUTPUT_TEXT;
-                }
-            } else if (code == CODE_UNSPECIFIED && outputText != null) {
-                if (StringUtils.codePointCount(outputText) == 1) {
-                    mCode = outputText.codePointAt(0);
-                    outputText = null;
-                } else {
-                    mCode = CODE_OUTPUT_TEXT;
-                }
-            } else {
-                mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing) : code;
-            }
-            final int altCodeInAttr = KeySpecParser.parseCode(
-                    style.getString(keyAttr, R.styleable.Keyboard_Key_altCode), CODE_UNSPECIFIED);
-            final int altCode = needsToUpcase
-                    ? StringUtils.toTitleCaseOfKeyCode(altCodeInAttr, localeForUpcasing)
-                    : altCodeInAttr;
-            mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
-                    disabledIconId, visualInsetsLeft, visualInsetsRight);
-            mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
-            mEnabled = true;
         }
 
         public KeyParams(
@@ -1354,7 +1198,7 @@ public class Key implements Comparable<Key> {
             mEnabled = true;
         }
 
-        /** constructor for emoji parser */ // essentially the same as the GridRows constructor, but without coordinates and outputText
+        /** constructor for emoji parser */
         public KeyParams(@Nullable final String label, final int code, @Nullable final String hintLabel,
                    @Nullable final String moreKeySpecs, final int labelFlags, final KeyboardParams params) {
             mKeyboardParams = params;
@@ -1389,52 +1233,6 @@ public class Key implements Comparable<Key> {
             mOptionalAttributes = code == Constants.CODE_OUTPUT_TEXT
                     ? OptionalAttributes.newInstance(label, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0)
                     : null;
-            mCode = code;
-            mEnabled = (code != CODE_UNSPECIFIED);
-            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
-            mKeyVisualAttributes = null;
-        }
-
-        /** constructor for <GridRows/> */
-        public KeyParams(@Nullable final String label, final int code, @Nullable final String outputText,
-                   @Nullable final String hintLabel, @Nullable final String moreKeySpecs,
-                   final int labelFlags, final int backgroundType, final int x, final int y,
-                   final int width, final int height, final KeyboardParams params) {
-            mKeyboardParams = params;
-            mFullWidth = width;
-            mFullHeight = height;
-            mHintLabel = hintLabel;
-            mLabelFlags = labelFlags;
-            mBackgroundType = backgroundType;
-            xPos = x;
-            yPos = y;
-
-            if (moreKeySpecs != null) {
-                String[] moreKeys = MoreKeySpec.splitKeySpecs(moreKeySpecs);
-                mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
-
-                moreKeys = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
-                int actionFlags = 0;
-                if (moreKeys != null) {
-                    actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-                    mMoreKeys = new MoreKeySpec[moreKeys.length];
-                    for (int i = 0; i < moreKeys.length; i++) {
-                        mMoreKeys[i] = new MoreKeySpec(moreKeys[i], false, Locale.getDefault());
-                    }
-                } else {
-                    mMoreKeys = null;
-                }
-                mActionFlags = actionFlags;
-            } else {
-                // TODO: Pass keyActionFlags as an argument.
-                mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
-                mMoreKeys = null;
-                mMoreKeysColumnAndFlags = 0;
-            }
-
-            mLabel = label;
-            mOptionalAttributes = OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED,
-                    ICON_UNDEFINED, 0 /* visualInsetsLeft */, 0 /* visualInsetsRight */);
             mCode = code;
             mEnabled = (code != CODE_UNSPECIFIED);
             mIconId = KeyboardIconsSet.ICON_UNDEFINED;
@@ -1482,6 +1280,8 @@ public class Key implements Comparable<Key> {
             mActionFlags = keyParams.mActionFlags;
             mKeyVisualAttributes = keyParams.mKeyVisualAttributes;
             mOptionalAttributes = keyParams.mOptionalAttributes;
+            mRelativeVisualInsetLeft = keyParams.mRelativeVisualInsetLeft;
+            mRelativeVisualInsetRight = keyParams.mRelativeVisualInsetRight;
         }
     }
 }

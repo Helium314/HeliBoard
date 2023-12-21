@@ -3,6 +3,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -24,7 +25,6 @@ import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerServi
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import java.util.Locale
 
@@ -53,6 +53,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // this thing does too much... make it more understandable after everything is implemented
     fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
+        params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
+        params.mAllowRedundantMoreKeys = infos.allowRedundantMoreKeys
         if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
             params.mTouchPositionCorrection.load(emptyArray())
         else
@@ -648,7 +650,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?
             override fun job(res: Resources) = res.getString(id)
         }
-        val locale = if (params.mId.locale.toString().lowercase() == "hi_zz") Locale("en", "IN") else params.mId.locale // crappy workaround...
+        // crappy workaround...
+        val locale = when (params.mId.locale.toString().lowercase()) {
+            "hi_zz" -> Locale("en", "IN")
+            "sr_zz" -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    Locale.forLanguageTag("sr-Latn")
+                else params.mId.locale // todo: copy strings to sr-rZZ when definitely not increasing min SDK to 21
+            else -> params.mId.locale
+        }
         return ril.runInLocale(context.resources, locale)
     }
 
@@ -743,10 +752,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     companion object {
         private val TAG = KeyboardParser::class.simpleName
 
-        fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>>? {
+        fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val id = params.mId
             val layoutName = params.mId.mSubtype.keyboardLayoutSetName
-            val layoutFileNames = context.assets.list("layouts") ?: return null
+            val layoutFileNames = context.assets.list("layouts")!!
             return when {
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_arabic")
@@ -759,18 +768,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 id.mElementId == KeyboardId.ELEMENT_NUMBER -> JsonKeyboardParser(params, context).parseLayoutFromAssets("number")
                 id.mElementId == KeyboardId.ELEMENT_PHONE -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone")
                 id.mElementId == KeyboardId.ELEMENT_PHONE_SYMBOLS -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone_symbols")
-                !id.isAlphabetKeyboard -> null
                 layoutFileNames.contains("$layoutName.json") -> JsonKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
                 layoutFileNames.contains("${getSimpleLayoutName(layoutName, params)}.txt")
                     -> SimpleKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
-                else -> null
+                else -> throw IllegalStateException("can't parse layout $layoutName with id $id and elementId ${id.mElementId}")
             }
         }
 
         @JvmStatic // unsupported without JvmStatic
         // todo: should be removed in the end (after removing old parser), and the internal layout names changed for easier finding
         //  currently it's spread out everywhere... method.xml, locale_and_extra_value_to_keyboard_layout_set_map, getKeyboardLayoutNameForLocale, ...
-        protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams) = when (layoutName) {
+        protected fun getSimpleLayoutName(layoutName: String, params: KeyboardParams): String = when (layoutName) {
                 "swiss", "german", "serbian_qwertz" -> "qwertz"
                 "nordic", "spanish" -> if (params.mId.locale.language == "eo") "eo" else "qwerty"
                 "south_slavic", "east_slavic" -> params.mId.locale.language // layouts are split per language now, much less convoluted

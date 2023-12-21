@@ -47,6 +47,8 @@ public final class KeyVisualAttributes {
     public final float mLabelOffCenterRatio;
     public final float mHintLabelOffCenterRatio;
 
+    // todo: replace the remaining colors with something from new colors instead of theme
+    //  but first check which colors are actually used
     private static final int[] VISUAL_ATTRIBUTE_IDS = {
         R.styleable.Keyboard_Key_keyTypeface,
         R.styleable.Keyboard_Key_keyLetterSize,
@@ -56,15 +58,10 @@ public final class KeyVisualAttributes {
         R.styleable.Keyboard_Key_keyShiftedLetterHintRatio,
         R.styleable.Keyboard_Key_keyHintLabelRatio,
         R.styleable.Keyboard_Key_keyPreviewTextRatio,
-        R.styleable.Keyboard_Key_keyTextColor, // todo: is this used anywhere
         R.styleable.Keyboard_Key_keyTextInactivatedColor,
         R.styleable.Keyboard_Key_keyTextShadowColor,
-        R.styleable.Keyboard_Key_functionalTextColor, // todo: is this used anywhere
-        R.styleable.Keyboard_Key_keyHintLetterColor, // todo: is this used anywhere
-        R.styleable.Keyboard_Key_keyHintLabelColor, // todo: is this used anywhere
         R.styleable.Keyboard_Key_keyShiftedLetterHintInactivatedColor,
         R.styleable.Keyboard_Key_keyShiftedLetterHintActivatedColor,
-        R.styleable.Keyboard_Key_keyPreviewTextColor, // todo: is this used anywhere
         R.styleable.Keyboard_Key_keyHintLabelVerticalAdjustment,
         R.styleable.Keyboard_Key_keyLabelOffCenterRatio,
         R.styleable.Keyboard_Key_keyHintLabelOffCenterRatio

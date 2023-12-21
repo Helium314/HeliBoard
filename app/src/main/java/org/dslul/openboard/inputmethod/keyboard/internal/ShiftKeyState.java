@@ -53,10 +53,10 @@ import androidx.annotation.NonNull;
 
     @Override
     protected String toString(int state) {
-        switch (state) {
-        case PRESSING_ON_SHIFTED: return "PRESSING_ON_SHIFTED";
-        case IGNORING: return "IGNORING";
-        default: return super.toString(state);
-        }
+        return switch (state) {
+            case PRESSING_ON_SHIFTED -> "PRESSING_ON_SHIFTED";
+            case IGNORING -> "IGNORING";
+            default -> super.toString(state);
+        };
     }
 }

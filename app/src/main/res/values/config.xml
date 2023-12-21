@@ -55,11 +55,6 @@
     <dimen name="config_key_hint_letter_padding">1dp</dimen>
     <dimen name="config_key_shifted_letter_hint_padding">2dp</dimen>
 
-    <!-- For 5-row keyboard -->
-    <fraction name="config_key_vertical_gap_5row">3.20%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">55%</fraction>
-    <fraction name="config_key_shifted_letter_hint_ratio_5row">41%</fraction>
-
     <dimen name="config_suggestions_strip_height">40dp</dimen>
     <dimen name="config_suggestions_strip_horizontal_margin">36dp</dimen>
     <dimen name="config_suggestions_strip_edge_key_width">36dp</dimen>

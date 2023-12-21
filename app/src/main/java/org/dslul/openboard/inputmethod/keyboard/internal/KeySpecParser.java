@@ -23,10 +23,7 @@ import androidx.annotation.Nullable;
  * - Label optionally followed by code point (keyLabel|!code/code_name).
  * - Icon followed by keyOutputText (!icon/icon_name|keyOutputText).
  * - Icon followed by code point (!icon/icon_name|!code/code_name).
- * Label and keyOutputText are one of the following:
- * - Literal string.
- * - Label reference represented by (!text/label_name), see {@link KeyboardTextsSet}.
- * - String resource reference represented by (!text/resource_name), see {@link KeyboardTextsSet}.
+ * Label and keyOutputText are literal strings.
  * Icon is represented by (!icon/icon_name), see {@link KeyboardIconsSet}.
  * Code is one of the following:
  * - Code point presented by hexadecimal string prefixed with "0x"
@@ -236,7 +233,6 @@ public final class KeySpecParser {
         return KeyboardIconsSet.getIconId(iconName);
     }
 
-    @SuppressWarnings("serial")
     public static final class KeySpecParserError extends RuntimeException {
         public KeySpecParserError(final String message) {
             super(message);
