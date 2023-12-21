@@ -47,11 +47,6 @@
     <fraction name="config_key_shifted_letter_hint_ratio_lxx">40%</fraction>
     <fraction name="config_language_on_spacebar_text_ratio">40.000%</fraction>
 
-    <!-- For 5-row keyboard -->
-    <fraction name="config_key_vertical_gap_5row">3.20%p</fraction>
-    <fraction name="config_key_letter_ratio_5row">65%</fraction>
-    <fraction name="config_key_shifted_letter_hint_ratio_5row">48%</fraction>
-
     <dimen name="config_suggestions_strip_height">36dp</dimen>
     <dimen name="config_suggestions_strip_horizontal_margin">54dp</dimen>
     <dimen name="config_suggestions_strip_edge_key_width">48dp</dimen>
