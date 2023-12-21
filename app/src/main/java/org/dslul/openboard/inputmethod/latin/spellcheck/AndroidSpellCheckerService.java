@@ -92,9 +92,10 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         return mRecommendedThreshold;
     }
 
+    // todo: this needs to be adjusted!
     private static String getKeyboardLayoutNameForLocale(final Locale locale) {
         // See b/19963288.
-        if (locale.getLanguage().equals("sr")) {
+        if (locale.getLanguage().equals("sr") || locale.getLanguage().equals("mk")) {
             return "south_slavic";
         }
         final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);

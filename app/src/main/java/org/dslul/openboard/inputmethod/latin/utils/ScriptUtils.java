@@ -39,7 +39,7 @@ public class ScriptUtils {
     public static final int SCRIPT_TAMIL = 15;
     public static final int SCRIPT_TELUGU = 16;
     public static final int SCRIPT_THAI = 17;
-    public static final int SCRIPT_BULGARIAN = 18;
+    public static final int SCRIPT_BULGARIAN = 18; // todo: why is bulgarian a separate script?
     public static final int SCRIPT_HANGUL = 19;
 
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
@@ -56,6 +56,7 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("bg", SCRIPT_BULGARIAN);
         mLanguageCodeToScriptCode.put("bn", SCRIPT_BENGALI);
         mLanguageCodeToScriptCode.put("sr", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("mk", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ru", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ka", SCRIPT_GEORGIAN);
         mLanguageCodeToScriptCode.put("el", SCRIPT_GREEK);
@@ -70,6 +71,15 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("th", SCRIPT_THAI);
         mLanguageCodeToScriptCode.put("uk", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ko", SCRIPT_HANGUL);
+        mLanguageCodeToScriptCode.put("hi", SCRIPT_DEVANAGARI);
+        mLanguageCodeToScriptCode.put("kn", SCRIPT_KANNADA);
+        mLanguageCodeToScriptCode.put("kh", SCRIPT_KHMER);
+        mLanguageCodeToScriptCode.put("mr", SCRIPT_DEVANAGARI);
+        mLanguageCodeToScriptCode.put("mn", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("be", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("kk", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("ky", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("ne", SCRIPT_DEVANAGARI);
 
         // only Latin, Cyrillic, Greek and Armenian have upper/lower case
         // https://unicode.org/faq/casemap_charprop.html#3

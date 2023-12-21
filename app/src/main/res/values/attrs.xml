@@ -571,33 +571,6 @@
         <attr name="allowRedundantMoreKeys" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="KeyboardLayoutSet_Feature">
-        <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.latin.utils.ScriptUtils#SCRIPT_ARABIC} etc. -->
-        <attr name="supportedScript" format="enum">
-            <enum name="arabic" value="0" />
-            <enum name="armenian" value="1" />
-            <enum name="bengali" value="2" />
-            <enum name="cyrillic" value="3" />
-            <enum name="devanagari" value="4" />
-            <enum name="georgian" value="5" />
-            <enum name="greek" value="6" />
-            <enum name="hebrew" value="7" />
-            <enum name="kannada" value="8" />
-            <enum name="khmer" value="9" />
-            <enum name="lao" value="10" />
-            <enum name="latin" value="11" />
-            <enum name="malayalam" value="12" />
-            <!-- Myanmar is disabled. <enum name="myanmar" value="13" /> -->
-            <enum name="sinhala" value="14" />
-            <enum name="tamil" value="15" />
-            <enum name="telugu" value="16" />
-            <enum name="thai" value="17" />
-            <enum name="bulgarian" value="18" />
-            <enum name="hangul" value="19" />
-        </attr>
-    </declare-styleable>
-
     <declare-styleable name="SeekBarDialogPreference">
         <attr name="maxValue" format="integer" />
         <attr name="minValue" format="integer" />

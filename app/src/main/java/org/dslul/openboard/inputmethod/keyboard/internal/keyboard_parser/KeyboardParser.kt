@@ -53,6 +53,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // this thing does too much... make it more understandable after everything is implemented
     fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
+        params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
+        params.mAllowRedundantMoreKeys = infos.allowRedundantMoreKeys
         if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
             params.mTouchPositionCorrection.load(emptyArray())
         else

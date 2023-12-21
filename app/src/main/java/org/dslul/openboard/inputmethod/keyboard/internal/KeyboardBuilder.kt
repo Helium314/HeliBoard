@@ -50,10 +50,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
         // todo: further plan
-        //  next release, and possibly don't continue working here for a while (should allow finding more regressions)
-        //  remove the old parser
-        //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
-        //   also the eo check could then be removed
+        //  after the old parser is removed
+        //   finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
+        //    still they should keep their name though... or switch to sth like "default"?
+        //   also the "eo" check could then be removed
         //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
         //    should be either both in method.xml, or both in assets (actually method might be more suitable)
         //   go through a lot of todos in parsers, key, keyboardlayoutset, ... as a lot of things should only change after old parser is removed
