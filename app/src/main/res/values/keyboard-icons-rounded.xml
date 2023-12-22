@@ -36,7 +36,7 @@
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_rounded</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_rounded</item>
         <item name="iconSwitchOneHandedMode">@drawable/ic_arrow_left_rounded</item>
-        <item name="iconResizeOneHandedMode">@drawable/ic_arrow_horizontal</item>
+        <item name="iconResizeOneHandedMode">@drawable/ic_arrow_horizontal_rounded</item>
         <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_lxx</item>
         <item name="iconToolbarKey">@drawable/ic_arrow_right_rounded</item>
         <item name="iconSelectAll">@drawable/ic_select_all_rounded</item>
@@ -45,7 +45,7 @@
         <item name="iconArrowUp">@drawable/ic_arrow_up_rounded</item>
         <item name="iconArrowDown">@drawable/ic_arrow_down_rounded</item>
         <item name="iconBin">@drawable/ic_delete_rounded</item>
-        <item name="iconUndo">@drawable/ic_undo</item>
-        <item name="iconRedo">@drawable/ic_redo</item>
+        <item name="iconUndo">@drawable/ic_undo_rounded</item>
+        <item name="iconRedo">@drawable/ic_redo_rounded</item>
     </style>
 </resources>
