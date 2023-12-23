@@ -93,8 +93,10 @@ public class UserDictionaryAddWordFragment extends Fragment
         if (actionItemDelete.getIcon() != null)
             actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
 
-        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, null).setIcon(R.drawable.ic_plus);
+        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, null).setIcon(R.drawable.ic_save);
         actionItemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (actionItemAdd.getIcon() != null)
+            actionItemAdd.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
     }
 
     // The bin icon is too big compared to the plus icon; we need to reduce it.
