@@ -71,7 +71,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
-import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
@@ -1378,37 +1377,32 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return null;
         }
 
-        assert mDisplayContext != null;
-        final Colors themeColors = Settings.getColorsForCurrentTheme(mDisplayContext, pref);
-
         StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
         @SuppressLint("RestrictedApi") Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
                                         Icon.createWithResource(mDisplayContext,
-                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(themeColors.getBackground()))
+                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
                                         Icon.createWithResource(mDisplayContext,
-                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(themeColors.getBackground()))
+                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(
                         new TextViewStyle.Builder()
                                 .setLayoutMargin(toPixel(4), 0, toPixel(4), 0)
-                                .setTextColor(themeColors.getKeyText())
+                                .setTextColor(Color.parseColor("#FF202124"))
                                 .setTextSize(12)
                                 .build())
                 .setSubtitleStyle(
                         new TextViewStyle.Builder()
                                 .setLayoutMargin(0, 0, toPixel(4), 0)
-                                .setTextColor(themeColors.getKeyHintText())
+                                .setTextColor(Color.parseColor("#99202124"))
                                 .setTextSize(10)
                                 .build())
                 .setEndIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
