@@ -12,7 +12,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,17 +88,13 @@ public class UserDictionaryAddWordFragment extends Fragment
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
-        final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0,
-                R.string.user_dict_settings_delete).setIcon(deleteIcon);
-        actionItemDelete.setShowAsAction(
-                MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, null).setIcon(deleteIcon);
+        actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (actionItemDelete.getIcon() != null)
             actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
 
-        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0,
-                R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_plus);
-        actionItemAdd.setShowAsAction(
-                MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, null).setIcon(R.drawable.ic_plus);
+        actionItemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     // The bin icon is too big compared to the plus icon; we need to reduce it.
