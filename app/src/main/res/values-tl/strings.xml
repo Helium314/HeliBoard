@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Wala kang anumang salita sa diksyunaryo ng user. Para magdagdag ng salita, i-tap ang button na Magdagdag (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Para sa lahat ng wika"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Higit pang mga wika..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"I-delete"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gamitin ang mga wika ng system"</string>
     <string name="select_input_method">"Pumili ng pamamaraan ng pag-input"</string>

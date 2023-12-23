@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Votre dictionnaire personnel ne contient aucun mot. Pour ajouter un mot, touchez le bouton d\'ajout (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Pour toutes les langues"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Plus de langues…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Supprimer"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>

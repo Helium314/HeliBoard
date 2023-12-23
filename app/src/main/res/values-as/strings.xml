@@ -103,6 +103,5 @@
     <string name="user_dict_settings_context_menu_delete_title">"মচক"</string>
     <string name="user_dict_settings_all_languages">"সকলো ভাষাৰ বাবে"</string>
     <string name="user_dict_settings_more_languages">"অধিক ভাষা…"</string>
-    <string name="user_dict_settings_delete">"মচক"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
 </resources>

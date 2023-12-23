@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Er staan geen woorden in het gebruikerswoordenboek. Tik op de knop Toevoegen (+) om een woord toe te voegen."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Voor alle talen"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Meer talen…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Verwijderen"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="autospace_after_punctuation">Automatische spatie na punt</string>
     <string name="theme_variant">Thema variant</string>

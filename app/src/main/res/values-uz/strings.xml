@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Shaxsiy lug‘atingizda hech narsa yo‘q. Unga so‘zlarni qo‘shish uchun “Qo‘shish” (+) tugmasidan foydalaning."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Barcha tillar uchun"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Ko‘proq tillar…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"O‘chirish"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABDEFGHIJKLMNOPQRSTUVXYZO‘G‘SHCH"</string>
     <string name="settings_category_clipboard_history">Bufer tarixi</string>
     <string name="show_emoji_key">Emoji kaliti</string>

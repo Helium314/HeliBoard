@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‏‎‎‏‎‎‎‎‎‎‎‏‏‏‎‎‏‎You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_all_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‎‎‎‏‎‎‎‎‏‎‎‏‎‏‏‏‎‎‎‏‎‎For all languages‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_more_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‏‎‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‏‎‏‎‎‎‏‏‎‎‏‏‎‎‎‎‎‎‎‎‎‏‎‎‎‏‏‎‎More languages…‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_delete">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‎‎‎‏‎‏‏‎‎‎‎‏‏‎‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‎‎‎‏‏‎‏‏‎‏‎‏‏‎‏‏‏‎‎‏‎‎‏‎Delete‎‏‎‎‏‎"</string>
     <string name="user_dict_fast_scroll_alphabet">" ‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‏‎‎‎‎‎‏‎‏‏‎‏‎‎‏‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‏‎‏‎‏‎‏‏‏‏‏‎‏‎‎‏‎‏‎‏‎‎ ABCDEFGHIJKLMNOPQRSTUVWXYZ‎‏‎‎‏‎"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‎‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‎‏‏‏‏‎‎‏‎‎‎‎‏‎‎‏‏‏‎‏‏‏‎‏‏‏‎‎‏‎‎‎‎‎‎Use system languages‎‏‎‎‏‎"</string>
     <string name="select_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‎‎‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‎‏‎‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎Choose input method‎‏‎‎‏‎"</string>

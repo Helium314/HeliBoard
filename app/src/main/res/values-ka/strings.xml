@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"მომხმარებლის ლექსიკონში სიტყვები არ არის. სიტყვის დასამატებლად, შეეხეთ დამატების (+) ღილაკს."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ყველა ენისთვის"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"სხვა ენები…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"წაშლა"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="auto_correction_confidence">ავტოკორექციის სანდოობა</string>
     <string name="enable_clipboard_history">ბუფერის ისტორიის ჩართვა</string>

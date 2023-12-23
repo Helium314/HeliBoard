@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"பயனர் அகராதியில் எந்தச் சொற்களும் இல்லை. சொல்லைச் சேர்க்க, சேர் (+) எனும் பொத்தானைத் தட்டவும்."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"எல்லா மொழிகளுக்கும்"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"மேலும் மொழிகள்..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"நீக்கு"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"சாதன மொழிகளைப் பயன்படுத்து"</string>
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>

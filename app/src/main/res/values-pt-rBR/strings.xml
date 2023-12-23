@@ -104,7 +104,6 @@
     <string name="user_dict_settings_empty_text">Não existem palavras no dicionário da(o) usuária(o). Para adicionar uma palavra, toque na tecla (+).</string>
     <string name="user_dict_settings_all_languages">Para todos os idiomas</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
-    <string name="user_dict_settings_delete">Apagar</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="theme_variant">Variante do tema</string>
     <string name="theme_family">Família do tema</string>

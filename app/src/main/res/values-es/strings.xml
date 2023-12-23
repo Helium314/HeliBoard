@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tienes ninguna palabra en el diccionario del usuario. Toca el botón (+) para añadir una."</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Más idiomas…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Eliminar"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">La apariencia seguirá los ajustes del sistema</string>

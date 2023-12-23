@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Awunawo amagama kwisichazamazwi somsebenzisi. Ukuze ungeze igama, thepha inkinobho (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Okwazo zonke izilimi"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Izilimi eziningi…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Susa"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sebenzisa izilimi zesistimu"</string>
     <string name="select_input_method">"Khetha indlela yokufaka"</string>

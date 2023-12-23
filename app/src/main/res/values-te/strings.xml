@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"మీరు వినియోగదారు నిఘంటువులో పదాలు ఏవీ కలిగి లేరు. పదాన్ని జోడించడానికి, జోడించు (+) బటన్‌ను నొక్కండి."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"అన్ని భాషల కోసం"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"మరిన్ని భాషలు…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"తొలగించు"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="number_row_summary">సంఖ్యల వరుసను ఎల్లప్పుడూ చూపండి</string>
     <string name="prefs_force_incognito_mode">అజ్ఞాత పద్దతి ప్రయోగించండి</string>

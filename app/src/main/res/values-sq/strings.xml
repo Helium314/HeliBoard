@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nuk ke asnjë fjalë në fjalorin e përdoruesit. Për të shtuar një fjalë, trokit te butoni \"Shto (+)\"."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Për të gjitha gjuhët"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Gjuhë të tjera…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Fshi"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Përdor gjuhët e sistemit"</string>
     <string name="select_input_method">"Zgjidh metodën e hyrjes"</string>

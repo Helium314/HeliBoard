@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text">"ليس هناك أي كلمات في قاموس المستخدم. لإضافة كلمة، انقر على زر الإضافة (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"لجميع اللغات"</string>
     <string name="user_dict_settings_more_languages">"مزيد من اللغات..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"حذف"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
     <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>
     <string name="settings_no_limit">بلا حدود</string>

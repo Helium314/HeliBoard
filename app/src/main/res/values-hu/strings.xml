@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nincsenek szavak a felhasználói szótárban. Új szavakat a Hozzáadás (+) gombra koppintva vehet fel."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Minden nyelven"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"További nyelvek…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Törlés"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="number_row_summary">Mindig mutassa a szám sort</string>
     <string name="settings_category_additional_keys">További gombok</string>

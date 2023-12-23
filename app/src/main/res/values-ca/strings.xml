@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tens cap paraula al diccionari de l\'usuari. Toca el botó Afegeix (+) per afegir-n\'hi una."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Per a tots els idiomes"</string>
     <string name="user_dict_settings_more_languages">"Més idiomes..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Suprimeix"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
     <string name="settings_no_limit">Sense límit</string>

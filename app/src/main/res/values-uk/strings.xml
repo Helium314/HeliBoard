@@ -140,7 +140,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"У словнику користувача нічого немає. Щоб додати слово, торкніться кнопки \"Додати\" (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всіх мов</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Інші мови…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">Видалити</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
     <string name="ime_settings">Налаштування OpenBoard</string>
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>

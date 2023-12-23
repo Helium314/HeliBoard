@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text">"Nemate nijednu riječ u korisničkom rječniku. Da biste dodali riječ, dodirnite gumb Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Izbriši"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCČĆDDŽĐEFGHIJKLLJMNNJOPRSŠTUVZŽ"</string>
     <string name="spell_checker_service_name">OpenBoard provjera pravopisa</string>
     <string name="android_spell_checker_settings">Postavke OpenBoard provjere pravopisa</string>

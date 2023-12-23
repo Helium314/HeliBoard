@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"V používateľskom slovníku nie sú žiadne slová. Slovo pridáte klepnutím na tlačidlo Pridať (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"pre všetky jazyky"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Ďalšie jazyky…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Odstrániť"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="enable_clipboard_history_summary">Ak vypnuté, klávesa schránky vloží jej obsah ak sa tam nejaký nachádza</string>
     <string name="clipboard_history_retention_time">Doba zachovania histórie</string>

@@ -243,7 +243,6 @@
     <string name="user_dict_settings_empty_text">ব্যবহারকারী অভিধানে আপনার কোনো শব্দ নেই। শব্দ যোগ করতে (+) বোতামটি ট্যাপ করুন।</string>
     <string name="user_dict_settings_all_languages">সব ভাষার জন্য</string>
     <string name="user_dict_settings_more_languages">আরও ভাষা…</string>
-    <string name="user_dict_settings_delete">অপসারণ করুন</string>
     <string name="user_dict_fast_scroll_alphabet">\u0020অআইঈউঊঋএঐওঔংঃকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ</string>
     <string name="theme_style">শৈলী</string>
     <string name="theme_colors">রং</string>

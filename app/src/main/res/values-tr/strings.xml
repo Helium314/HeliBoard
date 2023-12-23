@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Kullanıcı sözlüğünde kelime yok. Kelime eklemek için Ekle (+) düğmesine dokunun."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Tüm diller için"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Diğer diller…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Sil"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCÇDEFGĞHIİJKLMNOÖPQRSŞTUÜVWXYZ"</string>
     <string name="settings_category_clipboard_history">Pano geçmişi</string>
     <string name="settings_category_correction">Düzeltmeler</string>

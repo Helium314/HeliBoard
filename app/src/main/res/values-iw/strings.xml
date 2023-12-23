@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"לא מוגדרות מילים במילון המשתמש. הוסף מילה על ידי הקשה על לחצן \'הוסף\' (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"לכל השפות"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"עוד שפות…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"מחק"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_no_limit">ללא גבול</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="דקות">%s</xliff:g>min.</string>

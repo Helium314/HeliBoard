@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text">"Du har ingen ord i brukerordlisten. Du kan legge til ord ved å trykke på Legg til-knappen (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"For alle språk"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Flere språk"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Slett"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"</string>
     <string name="day_night_mode_summary">Basert på systeminnstillinger</string>
     <string name="number_row_summary">Alltid vis tallraden</string>

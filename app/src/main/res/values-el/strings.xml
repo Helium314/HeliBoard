@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Δεν υπάρχουν καταχωρισμένες λέξεις στο λεξικό χρήστη. Για να προσθέσετε μια λέξη, πατήστε το κουμπί Προσθήκης (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Για όλες τις γλώσσες"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Περισσότερες γλώσσες…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Διαγραφή"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_experimental">Πειραματικό</string>
     <string name="settings_no_limit">Κανένα όριο</string>

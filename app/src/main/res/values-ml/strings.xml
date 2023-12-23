@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ഉപയോക്തൃ നിഘണ്ടുവിൽ നിങ്ങൾക്ക് പദങ്ങളൊന്നുമില്ല. ഒരു പദം ചേർക്കുന്നതിന്, ചേർക്കുക (+) ബട്ടൺ ടാപ്പ് ചെയ്യുക."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"എല്ലാ ഭാഷകൾക്കുമായി"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"കൂടുതൽ ഭാഷകൾ…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"ഇല്ലാതാക്കുക"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_miscellaneous">വിവിധ</string>
     <string name="settings_no_limit">പരിധിയില്ല</string>

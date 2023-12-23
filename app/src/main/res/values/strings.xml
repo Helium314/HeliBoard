@@ -584,10 +584,6 @@ New dictionary:
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one [CHAR LIMIT=30] -->
     <!-- This resource is corresponding to msgid="7316375944684977910" -->
     <string name="user_dict_settings_more_languages">More languages…</string>
-    <!-- User dictionary settings. Label to delete an entry in the user dictionary [CHAR LIMIT=30]
-         This resource is copied from packages/apps/Settings/res/values/strings.xml -->
-    <!-- This resource is corresponding to msgid="4219243412325163003" -->
-    <string name="user_dict_settings_delete">Delete</string>
     <!-- User dictionary settings. Index of the user dictionary [CHAR LIMIT=30]
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
     <!-- This resource is corresponding to msgid="5433275485499039199" -->

@@ -139,7 +139,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"사용자 사전에 단어가 없습니다. 추가(+) 버튼을 탭하여 단어를 추가할 수 있습니다."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"모든 언어"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"더보기…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"삭제"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="autospace_after_punctuation">마침표 후 자동 띄어쓰기</string>
     <string name="autospace_after_punctuation_summary">새로운 단어를 입력할 때 마침표가 앞에 있다면 자동으로 띄어쓰기 하기</string>

@@ -140,7 +140,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"У карыстальніцкім слоўніку няма ніводнага слова. Каб дадаць слова, дакраніце да кнопкі \"Дадаць\" (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Выдаліць"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>

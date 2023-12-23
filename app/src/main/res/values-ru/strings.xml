@@ -140,7 +140,6 @@
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки \"Добавить (+)\"."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другой язык</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">Удалить</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
     <string name="number_row">Ряд с цифрами</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
