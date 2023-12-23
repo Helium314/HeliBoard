@@ -121,7 +121,8 @@ public class UserDictionaryAddWordFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
-            // added the entry in "onPause"
+            mContents.apply(getActivity(), null);
+            mIsDeleting = false;
             requireActivity().onBackPressed();
             return true;
         }
@@ -167,15 +168,6 @@ public class UserDictionaryAddWordFragment extends Fragment
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         localeSpinner.setAdapter(adapter);
         localeSpinner.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // We are being hidden: commit changes to the user dictionary, unless we were deleting it
-        if (!mIsDeleting) {
-            mContents.apply(getActivity(), null);
-        }
     }
 
     @Override
