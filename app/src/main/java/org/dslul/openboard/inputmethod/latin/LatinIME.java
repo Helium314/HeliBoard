@@ -80,6 +80,7 @@ import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
+import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
@@ -87,7 +88,6 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtilsManager;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ViewLayoutUtils;
-import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
