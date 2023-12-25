@@ -15,7 +15,8 @@ import java.util.Locale
 import kotlin.math.round
 
 class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
-    private val moreKeys = hashMapOf<String, Array<String>>()
+    private val moreKeys = hashMapOf<String, Array<String>>() // todo: no need for arrays any more, better use a list?
+    private val priorityMoreKeys = hashMapOf<String, Array<String>>()
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbol = "\\?123"
         private set
@@ -95,8 +96,8 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 
     fun getShiftSymbolLabel(isTablet: Boolean) = if (isTablet) labelShiftSymbolTablet else labelShiftSymbol
 
-    // need tp provide a copy because some functions like MoreKeySpec.insertAdditionalMoreKeys may modify the array
-    fun getMoreKeys(label: String): Array<String>? = moreKeys[label]?.copyOf()
+    fun getMoreKeys(label: String): Array<String>? = moreKeys[label]
+    fun getPriorityMoreKeys(label: String): Array<String>? = priorityMoreKeys[label]
 
     // used by simple parser only, but could be possible for json as well (if necessary)
     fun getExtraKeys(row: Int): List<KeyData>? =
@@ -115,13 +116,26 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             else line.splitOnWhitespace()
         if (split.size == 1) return
         val key = split.first()
-        val existingMoreKeys = moreKeys[key]
-        val newMoreKeys = if (existingMoreKeys == null)
-                Array(split.size - 1) { split[it + 1] }
-            else mergeMoreKeys(existingMoreKeys, split.drop(1))
-        moreKeys[key] = when (key) {
-            "'", "\"", "«", "»", ")", "(" -> addFixedColumnOrder(newMoreKeys)
-            else -> newMoreKeys
+        val priorityMarkerIndex = split.indexOf("%")
+        if (priorityMarkerIndex > 0) {
+            val existingPriorityMoreKeys = priorityMoreKeys[key]
+            priorityMoreKeys[key] = if (existingPriorityMoreKeys == null)
+                    Array(priorityMarkerIndex - 1) { split[it + 1] }
+                else existingPriorityMoreKeys + split.subList(1, priorityMarkerIndex)
+            val existingMoreKeys = moreKeys[key]
+            moreKeys[key] = if (existingMoreKeys == null)
+                    Array(split.size - priorityMarkerIndex - 1) { split[it + priorityMarkerIndex + 1] }
+                else existingMoreKeys + split.subList(priorityMarkerIndex, split.size)
+        } else {
+            // a but more special treatment, this should not occur together with priority marker (but technically could)
+            val existingMoreKeys = moreKeys[key]
+            val newMoreKeys = if (existingMoreKeys == null)
+                    Array(split.size - 1) { split[it + 1] }
+                else mergeMoreKeys(existingMoreKeys, split.drop(1))
+            moreKeys[key] = when (key) {
+                "'", "\"", "«", "»", ")", "(" -> addFixedColumnOrder(newMoreKeys)
+                else -> newMoreKeys
+            }
         }
     }
 
@@ -183,33 +197,8 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 }
 
 private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<String> {
-    val markerIndexInOriginal = original.indexOf("%")
-    val markerIndexInAddedIndex = added.indexOf("%")
-    val moreKeys = mutableSetOf<String>()
-    if (markerIndexInOriginal != -1 && markerIndexInAddedIndex != -1) {
-        // add original and then added until %
-        original.forEachIndexed { index, s -> if (index < markerIndexInOriginal) moreKeys.add(s) }
-        added.forEachIndexed { index, s -> if (index < markerIndexInAddedIndex) moreKeys.add(s) }
-        // add % and remaining moreKeys
-        original.forEachIndexed { index, s -> if (index >= markerIndexInOriginal) moreKeys.add(s) }
-        added.forEachIndexed { index, s -> if (index > markerIndexInAddedIndex) moreKeys.add(s) }
-    } else if (markerIndexInOriginal != -1) {
-        // add original until %, then added, then remaining original
-        original.forEachIndexed { index, s -> if (index <= markerIndexInOriginal) moreKeys.add(s) }
-        moreKeys.addAll(added)
-        original.forEachIndexed { index, s -> if (index > markerIndexInOriginal) moreKeys.add(s) }
-    } else if (markerIndexInAddedIndex != -1) {
-        // add added until %, then original, then remaining added
-        added.forEachIndexed { index, s -> if (index <= markerIndexInAddedIndex) moreKeys.add(s) }
-        moreKeys.addAll(original)
-        added.forEachIndexed { index, s -> if (index > markerIndexInAddedIndex) moreKeys.add(s) }
-    } else {
-        // use original, then added
-        moreKeys.addAll(original)
-        moreKeys.addAll(added)
-    }
-    // in fact this is only special treatment for the punctuation moreKeys
-    if (moreKeys.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }) {
+    if (original.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }) {
+        val moreKeys = (original + added).toSet()
         val originalColumnCount = original.firstOrNull { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
             ?.substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
         val l = moreKeys.filterNot { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
@@ -221,15 +210,15 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
         // just drop autoColumnOrder otherwise
         return l.toTypedArray()
     }
-    return moreKeys.toTypedArray()
+    return original + added
 }
 
 private fun addFixedColumnOrder(moreKeys: Array<String>): Array<String> {
-    if (moreKeys.none { it.startsWith("!fixedColumnOrder") })
-        return arrayOf("!fixedColumnOrder!${moreKeys.size}", *moreKeys)
-    val newMoreKeys = moreKeys.filterNot { it.startsWith("!fixedColumnOrder") }
+    if (moreKeys.none { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) })
+        return arrayOf("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${moreKeys.size}", *moreKeys)
+    val newMoreKeys = moreKeys.filterNot { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
     return Array(newMoreKeys.size + 1) {
-        if (it == 0) "!fixedColumnOrder!${newMoreKeys.size}"
+        if (it == 0) "${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${newMoreKeys.size}"
         else newMoreKeys[it - 1]
     }
 }

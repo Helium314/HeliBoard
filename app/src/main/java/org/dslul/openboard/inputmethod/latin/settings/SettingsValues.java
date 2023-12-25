@@ -26,6 +26,7 @@ import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
+import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
@@ -66,7 +67,6 @@ public class SettingsValues {
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
     public final boolean mShowsHints;
-    public final boolean mHintLabelFromFirstMoreKey;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mSpaceLanguageSlide;
@@ -83,7 +83,9 @@ public class SettingsValues {
     public final int mOneHandedModeGravity;
     public final float mOneHandedModeScale;
     public final boolean mNarrowKeyGaps;
-    public final int mShowMoreKeys;
+    public final int mShowMoreMoreKeys;
+    public final List<String> mMoreKeyTypes;
+    public final List<String> mMoreKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -152,7 +154,6 @@ public class SettingsValues {
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
-        mHintLabelFromFirstMoreKey = mShowsHints && prefs.getBoolean(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY, false);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
@@ -228,9 +229,12 @@ public class SettingsValues {
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
-        mShowMoreKeys = selectedSubtype.isAsciiCapable()
+        mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMoreMoreKeysPref(prefs)
                 : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
+        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_MORE_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT);
+        // todo: if the type is disabled, the label should not occur too?
+        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT);
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);

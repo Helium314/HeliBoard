@@ -234,10 +234,15 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
-    <!-- Title of the settings to show hint based on actual long-press key -->
-    <string name="show_hints_from_first_popup_key">Take hint label from first popup key</string>
-    <!-- Summary of the settings to show hint based on actual long-press key -->
-    <string name="show_hints_from_first_popup_key_summary">The default key hints are replaced by those selected first on a long press</string>
+    <!-- Title of the settings to select key hints source -->
+    <string name="hint_source">Select hint source</string>
+    <!-- Title of the settings to set popup key order -->
+    <string name="popup_order">Select popup key order</string>
+    <string name="more_keys_number">Number</string>
+    <string name="more_keys_language">Language</string>
+    <string name="more_keys_language_priority">Language (priority)</string>
+    <string name="more_keys_layout">Layout</string>
+    <string name="more_keys_symbols">Symbols</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->

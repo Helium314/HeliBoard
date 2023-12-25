@@ -49,18 +49,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
         // todo: further plan
         //  after the old parser is removed
-        //   finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
-        //    still they should keep their name though... or switch to sth like "default"?
-        //   also the "eo" check could then be removed
-        //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
+        //   maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
         //    should be either both in method.xml, or both in assets (actually method might be more suitable)
         //   go through a lot of todos in parsers, key, keyboardlayoutset, ... as a lot of things should only change after old parser is removed
-        //   also remove the keybpard_layout_set files?
-        //    they are still in use e.g. for enableProximityCharsCorrection and supportedScript
-        //    but ideally this should be replaced
-        //     enableProximityCharsCorrection should be in LayoutInfos
-        //     supportedScript could be determined using ScriptUtils, but first make sure that there is less latin fallback happening
-        //      or use locale to store script, but that's only possible starting at api 21
+        //   also remove the keyboard_layout_set files?
         //  allow users to define their own layouts (maybe do everything else first?)
         //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
@@ -125,7 +117,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
-                addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
+                val sv = Settings.getInstance().current
+                addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMoreMoreKeys)
+                mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
+                mParams.mMoreKeyLabelSources.addAll(sv.mMoreKeyLabelSources)
                 keysInRows = KeyboardParser.parseFromAssets(mParams, mContext)
                 determineAbsoluteValues()
             } catch (e: Exception) {

@@ -17,8 +17,10 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
+import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.PopupSet;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -1047,9 +1049,9 @@ public class Key implements Comparable<Key> {
                 final float relativeWidth,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final String[] layoutMoreKeys
+                @Nullable final PopupSet<?> popupSet
         ) {
-            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, layoutMoreKeys);
+            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, popupSet);
         }
 
         /**
@@ -1064,7 +1066,7 @@ public class Key implements Comparable<Key> {
                 final float relativeWidth,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final String[] layoutMoreKeys // same style as current moreKeys (relevant for the special keys)
+                @Nullable final PopupSet<?> popupSet
         ) {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
@@ -1079,15 +1081,9 @@ public class Key implements Comparable<Key> {
             if (params.mId.isNumberLayout())
                 actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
-            final String[] languageMoreKeys = params.mLocaleKeyTexts.getMoreKeys(keySpec);
-            if (languageMoreKeys != null && layoutMoreKeys != null && languageMoreKeys[0].startsWith("!fixedColumnOrder!"))
-                languageMoreKeys[0] = null; // we change the number of keys, so better not use fixedColumnOrder to avoid awkward layout
-            // todo: after removing old parser this could be done in a less awkward way without almostFinalMoreKeys
-            final String[] almostFinalMoreKeys = MoreKeySpec.insertAdditionalMoreKeys(languageMoreKeys, layoutMoreKeys);
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, almostFinalMoreKeys);
-            final String[] finalMoreKeys = almostFinalMoreKeys == null
-                    ? null 
-                    : MoreKeySpec.filterOutEmptyString(almostFinalMoreKeys);
+            final String[] moreKeys = MoreKeysUtilsKt.createMoreKeysArray(popupSet, mKeyboardParams, keySpec);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
+            final String[] finalMoreKeys = moreKeys == null ? null : MoreKeySpec.filterOutEmptyString(moreKeys);
 
             if (finalMoreKeys != null) {
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
@@ -1116,18 +1112,8 @@ public class Key implements Comparable<Key> {
                 mHintLabel = null;
             } else {
                 // maybe also always null for comma and period keys
-                String hintLabel;
-                if (mKeyboardParams.mHintLabelFromFirstMoreKey) {
-                    hintLabel = mMoreKeys == null ? null : mMoreKeys[0].mLabel;
-                    if (hintLabel != null && backgroundType == BACKGROUND_TYPE_FUNCTIONAL && mKeyboardParams.mId.isAlphabetKeyboard())
-                        // bad workaround for the ugly comma label on period key, todo: do it better when re-working moreKey stuff
-                        hintLabel = null;
-                } else {
-                    hintLabel = layoutMoreKeys == null ? null : KeySpecParser.getLabel(layoutMoreKeys[0]); // note that some entries may have been changed to other string or null
-                    // todo: this should be adjusted when re-working moreKey stuff... also KeySpecParser.getLabel may throw, which is bad when users do uncommon things
-                    if (hintLabel != null && hintLabel.length() > 1 && hintLabel.startsWith("!")) // this is not great, but other than removing com key label this is definitely ok
-                        hintLabel = null;
-                }
+                // todo: maybe remove mKeyboardParams.mHintLabelFromFirstMoreKey?
+                final String hintLabel = MoreKeysUtilsKt.getHintLabel(popupSet, params, keySpec);
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
                         : hintLabel;

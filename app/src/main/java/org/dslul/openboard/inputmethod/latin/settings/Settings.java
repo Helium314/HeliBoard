@@ -112,8 +112,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
 
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
-    public static final String PREF_HINT_LABEL_FROM_FIRST_MORE_KEY = "pref_hint_label_from_first_more_key";
+    public static final String PREF_MORE_KEYS_ORDER = "pref_more_keys_order";
+    public static final String PREF_MORE_KEYS_LABELS_ORDER = "pref_more_keys_labels_order";
     public static final String PREF_SHOW_POPUP_HINTS = "pref_show_popup_hints";
+    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_SPACE_LANGUAGE_SLIDE = "pref_space_language_slide";
@@ -128,7 +130,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
     public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
-    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
     public static final String PREF_URL_DETECTION = "pref_url_detection";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";

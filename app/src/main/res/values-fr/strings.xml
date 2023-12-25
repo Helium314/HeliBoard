@@ -209,8 +209,6 @@ Nouveau dictionnaire:
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Un appui long sur la barre d\'espace fera apparaître le menu de sélection des claviers</string>
     <string name="show_hints">Afficher les indices de touches</string>
     <string name="show_hints_summary">Affiche les caractères alternatifs lors d\'un appui long</string>
-    <string name="show_hints_from_first_popup_key">Afficher les indices à partir de la première sélection du popup</string>
-    <string name="show_hints_from_first_popup_key_summary">Les caractères alternatifs par défaut sont remplacés par ceux sélectionnés en premier lors d\'un appui long</string>
     <string name="show_popup_hints">Afficher les indices sur les touches fonctionnelles</string>
     <string name="show_popup_hints_summary">Affiche un signe ( <b>…</b> ) sur les touches où un appui long déclenche une fonctionnalité supplémentaire</string>
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>

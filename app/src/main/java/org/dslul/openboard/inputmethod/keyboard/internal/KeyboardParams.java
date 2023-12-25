@@ -81,11 +81,12 @@ public class KeyboardParams {
     public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
     @NonNull // todo: not good, this only works because params are currently always created for the active subtype
     public final List<Locale> mSecondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
+    public final ArrayList<String> mMoreKeyTypes = new ArrayList<>();
+    public final ArrayList<String> mMoreKeyLabelSources = new ArrayList<>();
 
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantMoreKeys;
-    public final boolean mHintLabelFromFirstMoreKey = Settings.getInstance().getCurrent().mHintLabelFromFirstMoreKey;
     @NonNull
     public LocaleKeyTexts mLocaleKeyTexts;
 
