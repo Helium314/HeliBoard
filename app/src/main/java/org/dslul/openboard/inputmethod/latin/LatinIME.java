@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -79,7 +78,6 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
@@ -1353,12 +1351,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         Log.d(TAG,"onCreateInlineSuggestionsRequest called");
 
-        final SharedPreferences pref = DeviceProtectedUtils.getSharedPreferences(mDisplayContext);
-
         // Revert to default behaviour if show_suggestions is disabled
         // (Maybe there is a better way to do this)
-        boolean isShowSuggestionsEnabled = pref.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
-        if(!isShowSuggestionsEnabled){
+        if(!mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
             return null;
         }
 
