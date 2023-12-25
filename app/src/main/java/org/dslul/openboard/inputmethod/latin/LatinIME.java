@@ -6,9 +6,6 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +14,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Icon;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
@@ -31,13 +27,10 @@ import android.text.InputType;
 import android.util.Log;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
-import android.util.Size;
 import android.util.SparseArray;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,8 +42,6 @@ import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-import android.widget.inline.InlinePresentationSpec;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -96,6 +87,7 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtilsManager;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ViewLayoutUtils;
+import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -112,13 +104,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.autofill.inline.UiVersions;
-import androidx.autofill.inline.UiVersions.StylesBuilder;
-import androidx.autofill.inline.common.ImageViewStyle;
-import androidx.autofill.inline.common.TextViewStyle;
-import androidx.autofill.inline.common.ViewStyle;
-import androidx.autofill.inline.v1.InlineSuggestionUi;
-import androidx.autofill.inline.v1.InlineSuggestionUi.Style;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -1377,58 +1362,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return null;
         }
 
-        StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
-        @SuppressLint("RestrictedApi") Style style = InlineSuggestionUi.newStyleBuilder()
-                .setSingleIconChipStyle(
-                        new ViewStyle.Builder()
-                                .setBackground(
-                                        Icon.createWithResource(mDisplayContext,
-                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
-                                .setPadding(0, 0, 0, 0)
-                                .build())
-                .setChipStyle(
-                        new ViewStyle.Builder()
-                                .setBackground(
-                                        Icon.createWithResource(mDisplayContext,
-                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
-                                .build())
-                .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
-                .setTitleStyle(
-                        new TextViewStyle.Builder()
-                                .setLayoutMargin(toPixel(4), 0, toPixel(4), 0)
-                                .setTextColor(Color.parseColor("#FF202124"))
-                                .setTextSize(12)
-                                .build())
-                .setSubtitleStyle(
-                        new TextViewStyle.Builder()
-                                .setLayoutMargin(0, 0, toPixel(4), 0)
-                                .setTextColor(Color.parseColor("#99202124"))
-                                .setTextSize(10)
-                                .build())
-                .setEndIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
-                .build();
-        stylesBuilder.addStyle(style);
-
-        Bundle stylesBundle = stylesBuilder.build();
-
-        final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight()),
-                new Size(740, getHeight())).setStyle(stylesBundle).build());
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight()),
-                new Size(740, getHeight())).setStyle(stylesBundle).build());
-
-        return new InlineSuggestionsRequest.Builder(presentationSpecs)
-                .setMaxSuggestionCount(6)
-                .build();
-    }
-
-    private int toPixel(int dp) {
-        return (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics());
-    }
-
-    private int getHeight() {
-        return getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_height);
+        return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
     }
 
     @Override
@@ -1442,27 +1376,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return false;
         }
 
-        final int totalSuggestionsCount = inlineSuggestions.size();
-
-        // A container to hold all views
-        LinearLayout container = new LinearLayout(mDisplayContext);
-
-        for (int i = 0; i < totalSuggestionsCount; i++) {
-            final InlineSuggestion inlineSuggestion = inlineSuggestions.get(i);
-
-            inlineSuggestion.inflate(this, new Size(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT), getMainExecutor(), (view) -> {
-                if (view != null)
-                    container.addView(view);
-            });
-        }
-
-        HorizontalScrollView view = new HorizontalScrollView(mDisplayContext);
-        view.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        view.setHorizontalScrollBarEnabled(false);
-
-        view.addView(container);
+        HorizontalScrollView view = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
 
         // Delay required to show properly
         new Handler().postDelayed(() -> {
