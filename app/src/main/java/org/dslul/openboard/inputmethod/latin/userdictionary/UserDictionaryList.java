@@ -19,6 +19,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroup;
@@ -134,6 +136,11 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
     protected Preference createUserDictionaryPreference(@Nullable final String localeString) {
         final Preference newPref = new Preference(requireContext());
         final Intent intent = new Intent(USER_DICTIONARY_SETTINGS_INTENT_ACTION);
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.edit_personal_dictionary);
+        }
+
         if (null == localeString) {
             newPref.setTitle(Locale.getDefault().getDisplayName());
         } else {
