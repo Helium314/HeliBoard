@@ -14,6 +14,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
@@ -140,6 +143,7 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
         if (actionBar != null) {
             actionBar.setTitle(R.string.edit_personal_dictionary);
         }
+        setHasOptionsMenu(true);
 
         if (null == localeString) {
             newPref.setTitle(Locale.getDefault().getDisplayName());
@@ -163,5 +167,40 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
         super.onResume();
         createUserDictSettings(getPreferenceScreen());
     }
+
+    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
+                .setIcon(R.drawable.ic_plus);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == OPTIONS_MENU_ADD) {
+            showAddWordDialog();
+            return true;
+        }
+        return false;
+    }
+
+    private void showAddWordDialog() {
+        final Bundle args = new Bundle();
+        args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, UserDictionaryAddWordContents.MODE_EDIT);
+        args.putString(UserDictionaryAddWordContents.EXTRA_WORD, "");
+        args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, "");
+        args.putString(UserDictionaryAddWordContents.EXTRA_WEIGHT,
+                String.valueOf(UserDictionaryAddWordContents.WEIGHT_FOR_USER_DICTIONARY_ADDS));
+        args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, ""); // Empty means "For all languages"
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, UserDictionaryAddWordFragment.class, args)
+                .addToBackStack(null)
+                .commit();
+    }
+
+
 }
 

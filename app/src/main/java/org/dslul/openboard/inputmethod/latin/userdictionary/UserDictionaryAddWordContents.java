@@ -59,7 +59,7 @@ public class UserDictionaryAddWordContents {
     /* package */ static final int CODE_CANCEL = 1;
     /* package */ static final int CODE_ALREADY_PRESENT = 2;
 
-    private static final int WEIGHT_FOR_USER_DICTIONARY_ADDS = 250;
+    public static final int WEIGHT_FOR_USER_DICTIONARY_ADDS = 250;
 
     private final int mMode; // Either MODE_EDIT or MODE_INSERT
     private final EditText mWordEditText;
@@ -296,7 +296,7 @@ public class UserDictionaryAddWordContents {
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
 
         // List of main language
-        final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext()), true);
+        final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
         // List of user dictionary
@@ -327,7 +327,8 @@ public class UserDictionaryAddWordContents {
                     mainLocale.remove(systemLocale.toString());
                 }
             }
-            // Secondary language is added only if main language is selected and if system language is not enabled
+            // Secondary language is added only if main language is selected and if system language is not enabled,
+            // so we write it here
             for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
                 Locale secondLocale = LocaleUtils.constructLocaleFromString(String.valueOf(secondSubtype));
                 if (!localeSystemOnly) {
