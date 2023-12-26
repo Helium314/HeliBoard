@@ -22,9 +22,9 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
+import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.TreeSet;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordContents.java
@@ -291,56 +290,72 @@ public class UserDictionaryAddWordContents {
     // Helper method to get the list of locales and subtypes to display for this word
     public ArrayList<LocaleRenderer> getLocalesList(final Activity activity) {
 
-        final TreeSet<String> locales = UserDictionaryList.getUserDictionaryLocalesSet(activity);
-
-        final String systemLocale = Locale.getDefault().toString();
-
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext());
+        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
 
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext());
+        // List of main language
+        final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext()), true);
+        // List of system language
+        final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
 
-        final List<InputMethodSubtype> enabledSubtypes = RichInputMethodManager
-                .getInstance().getMyEnabledInputMethodSubtypeList(true);
-
-        // List of all enabled subtypes
-        Set<String> mainLocales = new HashSet<>();
-        for (InputMethodSubtype subtype : enabledSubtypes) {
+        // List of all enabled main language
+        Set<String> mainLocale = new HashSet<>();
+        for (InputMethodSubtype subtype : enabledMainSubtype) {
             Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
-            mainLocales.add(locale.toString());
-        }
-
-        // List of enabled secondary languages
-        Set<String> secondaryLocales = new HashSet<>();
-        for (InputMethodSubtype subtype : enabledSubtypes) {
-            Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
-            for (Locale secondLocale : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
-                secondaryLocales.add(secondLocale.toString().toLowerCase());
+            mainLocale.add(locale.toString());
+            // To avoid duplicates between the main language and the user dictionary language
+            if (subtype.getLocale().equals(mLocale)) {
+                mainLocale.remove(mLocale);
+            }
+            // We add secondary language only if main language is selected and if system language is not enabled
+            for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
+                Locale secondLocale = LocaleUtils.constructLocaleFromString(String.valueOf(secondSubtype));
+                if (!localeSystemOnly) {
+                    mainLocale.add(secondLocale.toString());
+                }
+                // To avoid duplicates between the secondary language and the user dictionary language
+                if (String.valueOf(secondSubtype).equals(mLocale)) {
+                    mainLocale.remove(mLocale);
+                }
+                // To avoid duplicates between the main language and the secondary language
+                if (locale == secondLocale) {
+                    mainLocale.remove(secondLocale.toString());
+                }
+            }
+            // To avoid duplicates between the main language and the system language
+            for (Locale systemSubtype : enabledSystemLocale) {
+                Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
+                if (locale == systemLocale) {
+                    mainLocale.remove(systemLocale.toString());
+                }
             }
         }
 
-        // Remove our locale if it's in, because we're always gonna put it at the top
-        locales.remove(mLocale); // mLocale may not be null
-        // The system locale should be inside. We want it at the 2nd spot.
-        locales.remove(systemLocale); // system locale may not be null
-        // Remove the empty string if it's there
-        locales.remove("");
-
-        // Add enabled subtype at the top of the list
-        for (final String enableSubtypes : mainLocales) {
-            addLocaleDisplayNameToList(activity, localesList, enableSubtypes);
+        // List of all enabled system languages
+        Set<String> systemLocales = new HashSet<>();
+        for (Locale subtype : enabledSystemLocale) {
+            Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
+            systemLocales.add(locale.toString());
+            if (String.valueOf(subtype).equals(mLocale)) {
+                systemLocales.remove(mLocale);
+            }
         }
 
-        // Then, add the secondary languages
-        for (final String secondLanguage : secondaryLocales) {
-            addLocaleDisplayNameToList(activity, localesList, secondLanguage);
+        // First, add the language of the personal dictionary at the top of the list
+        addLocaleDisplayNameToList(activity, localesList, mLocale);
+
+        // Next, add the main language (and secondary language if defined)
+        for (final String mainLanguage : mainLocale) {
+            addLocaleDisplayNameToList(activity, localesList, mainLanguage);
         }
 
-        // Then, add the system locale
-        if (!systemLocale.equals(mLocale)) {
-            addLocaleDisplayNameToList(activity, localesList, systemLocale);
+        // Next, add the system language
+        for (final String systemLanguage : systemLocales) {
+            addLocaleDisplayNameToList(activity, localesList, systemLanguage);
         }
 
-        // Add "All languages" entry at the end of the list
+        // Finally, add "All languages" at the end of the list
         if (!"".equals(mLocale)) {
             // If mLocale is "", then we already inserted the "all languages" item, so don't do it
             addLocaleDisplayNameToList(activity, localesList, ""); // meaning: all languages
@@ -350,8 +365,5 @@ public class UserDictionaryAddWordContents {
         return localesList;
     }
 
-    public String getCurrentUserDictionaryLocale() {
-        return mLocale;
-    }
 }
 
