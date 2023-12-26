@@ -54,7 +54,6 @@ public class UserDictionaryAddWordFragment extends Fragment
 
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
-    private boolean mIsDeleting = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -69,7 +68,6 @@ public class UserDictionaryAddWordFragment extends Fragment
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedState) {
         mRootView = inflater.inflate(R.layout.user_dictionary_add_word_fullscreen, null);
-        mIsDeleting = false;
         // If we have a non-null mContents object, it's the old value before a configuration
         // change (eg rotation) so we need to use its values. Otherwise, read from the arguments.
         if (null == mContents) {
@@ -122,13 +120,11 @@ public class UserDictionaryAddWordFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
             mContents.apply(getActivity(), null);
-            mIsDeleting = false;
             requireActivity().onBackPressed();
             return true;
         }
         if (item.getItemId() == OPTIONS_MENU_DELETE) {
             mContents.delete(getActivity());
-            mIsDeleting = true;
             requireActivity().onBackPressed();
             return true;
         }
@@ -148,7 +144,6 @@ public class UserDictionaryAddWordFragment extends Fragment
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
         actionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
-        actionBar.setSubtitle(UserDictionarySettingsUtils.getLocaleDisplayName(getActivity(), mContents.getCurrentUserDictionaryLocale()));
     }
 
     @Override
@@ -156,6 +151,7 @@ public class UserDictionaryAddWordFragment extends Fragment
         super.onStop();
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
+        actionBar.setTitle(R.string.edit_personal_dictionary);
         actionBar.setSubtitle(null);
     }
 
@@ -186,6 +182,11 @@ public class UserDictionaryAddWordFragment extends Fragment
         }*/
         // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
         mContents.updateLocale(locale.getLocaleString());
+
+        // The action bar subtitle is updated when a language is selected in the drop-down menu
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setSubtitle(locale.toString());
     }
 
     @Override
