@@ -82,6 +82,8 @@ public class InlineAutofillUtils {
                 new Size(740, getHeight(context))).setStyle(stylesBundle).build());
         presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight(context)),
                 new Size(740, getHeight(context))).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight(context)),
+                new Size(740, getHeight(context))).setStyle(stylesBundle).build());
 
         return new InlineSuggestionsRequest.Builder(presentationSpecs)
                 .setMaxSuggestionCount(6)
