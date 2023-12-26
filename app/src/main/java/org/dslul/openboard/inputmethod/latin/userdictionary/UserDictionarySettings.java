@@ -33,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.ListFragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 
 import java.util.Locale;
 
@@ -148,7 +149,7 @@ public class UserDictionarySettings extends ListFragment {
         // Show the language as a subtitle of the action bar
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
-        actionBar.setSubtitle(UserDictionarySettingsUtils.getLocaleDisplayName(getActivity(), mLocale));
+        actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
     }
 
     @Override
@@ -224,7 +225,7 @@ public class UserDictionarySettings extends ListFragment {
         }
         MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
                 .setIcon(R.drawable.ic_plus);
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
@@ -234,6 +235,17 @@ public class UserDictionarySettings extends ListFragment {
             return true;
         }
         return false;
+    }
+
+    private static String getLocaleDisplayName(Context context, String localeStr) {
+        if (TextUtils.isEmpty(localeStr)) {
+            // CAVEAT: localeStr should not be null because a null locale stands for the system
+            // locale in UserDictionary.Words.addWord.
+            return context.getResources().getString(R.string.user_dict_settings_all_languages);
+        }
+        final Locale locale = LocaleUtils.constructLocaleFromString(localeStr);
+        final Locale systemLocale = context.getResources().getConfiguration().locale;
+        return locale.getDisplayName(systemLocale);
     }
 
     /**
