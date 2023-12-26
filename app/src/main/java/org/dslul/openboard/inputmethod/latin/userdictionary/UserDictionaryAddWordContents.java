@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeSet;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordContents.java
@@ -298,8 +299,10 @@ public class UserDictionaryAddWordContents {
         final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext()), true);
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
+        // List of user dictionary
+        final TreeSet<String> userDictionaryList = UserDictionaryList.getUserDictionaryLocalesSet(activity);
 
-        // List of all enabled main language
+        // List of all enabled main languages
         Set<String> mainLocale = new HashSet<>();
         for (InputMethodSubtype subtype : enabledMainSubtype) {
             Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
@@ -308,7 +311,23 @@ public class UserDictionaryAddWordContents {
             if (subtype.getLocale().equals(mLocale)) {
                 mainLocale.remove(mLocale);
             }
-            // We add secondary language only if main language is selected and if system language is not enabled
+            // To avoid duplicates between the main language and the language of the user dictionary list
+            if (userDictionaryList != null) {
+                for (String userDictionarySubtype : userDictionaryList) {
+                    Locale userDictionaryLocale = LocaleUtils.constructLocaleFromString(String.valueOf(userDictionarySubtype));
+                    if (locale == userDictionaryLocale) {
+                        mainLocale.remove(userDictionaryLocale.toString());
+                    }
+                }
+            }
+            // To avoid duplicates between the main language and the system language
+            for (Locale systemSubtype : enabledSystemLocale) {
+                Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
+                if (locale == systemLocale) {
+                    mainLocale.remove(systemLocale.toString());
+                }
+            }
+            // Secondary language is added only if main language is selected and if system language is not enabled
             for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
                 Locale secondLocale = LocaleUtils.constructLocaleFromString(String.valueOf(secondSubtype));
                 if (!localeSystemOnly) {
@@ -322,12 +341,41 @@ public class UserDictionaryAddWordContents {
                 if (locale == secondLocale) {
                     mainLocale.remove(secondLocale.toString());
                 }
+                // To avoid duplicates between the secondary language and the language of the user dictionary list
+                if (userDictionaryList != null) {
+                    for (String userDictionarySubtype : userDictionaryList) {
+                        Locale userDictionaryLocale = LocaleUtils.constructLocaleFromString(String.valueOf(userDictionarySubtype));
+                        if (secondLocale == userDictionaryLocale) {
+                            mainLocale.remove(userDictionaryLocale.toString());
+                        }
+                    }
+                }
+                // To avoid duplicates between the secondary language and the system language
+                for (Locale systemSubtype : enabledSystemLocale) {
+                    Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
+                    if (secondLocale == systemLocale) {
+                        mainLocale.remove(systemLocale.toString());
+                    }
+                }
             }
-            // To avoid duplicates between the main language and the system language
-            for (Locale systemSubtype : enabledSystemLocale) {
-                Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                if (locale == systemLocale) {
-                    mainLocale.remove(systemLocale.toString());
+        }
+
+        // List of all enabled user dictionary languages
+        Set<String> userDictionaryLocale = new HashSet<>();
+        if (userDictionaryList != null) {
+            for (String userDictionarySubtype : userDictionaryList) {
+                Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(userDictionarySubtype));
+                userDictionaryLocale.add(locale.toString());
+                // To avoid duplicates between the language of the user dictionary list and the language of the user dictionary
+                if (String.valueOf(userDictionarySubtype).equals(mLocale)) {
+                    userDictionaryLocale.remove(mLocale);
+                }
+                // To avoid duplicates between the language of the user dictionary list and the system language
+                for (Locale systemSubtype : enabledSystemLocale) {
+                    Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
+                    if (locale == systemLocale) {
+                        userDictionaryLocale.remove(systemLocale.toString());
+                    }
                 }
             }
         }
@@ -348,6 +396,11 @@ public class UserDictionaryAddWordContents {
         // Next, add the main language (and secondary language if defined)
         for (final String mainLanguage : mainLocale) {
             addLocaleDisplayNameToList(activity, localesList, mainLanguage);
+        }
+
+        // Next, add the language of the user dictionary list
+        for (final String userDictionaryLanguage : userDictionaryLocale) {
+            addLocaleDisplayNameToList(activity, localesList, userDictionaryLanguage);
         }
 
         // Next, add the system language
