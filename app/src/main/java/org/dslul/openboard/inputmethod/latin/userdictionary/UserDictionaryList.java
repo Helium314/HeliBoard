@@ -201,6 +201,5 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
                 .commit();
     }
 
-
 }
 

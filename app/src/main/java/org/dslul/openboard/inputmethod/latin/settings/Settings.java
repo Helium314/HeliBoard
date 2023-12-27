@@ -73,7 +73,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";

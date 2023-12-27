@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
@@ -21,10 +20,6 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryList;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionarySettings;
-
-import java.util.TreeSet;
 
 /**
  * "Text correction" settings sub screen.
@@ -50,9 +45,6 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_correction);
-
-        final Preference editPersonalDictionary = findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
-        overwriteUserDictionaryPreference(editPersonalDictionary);
 
         mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
 
@@ -96,29 +88,6 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                 Settings.readAutoCorrectEnabled(getSharedPreferences()));
         setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         turnOffLookupContactsIfNoPermission();
-    }
-
-    private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {
-        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
-        if (null == localeList) {
-            // The locale list is null if and only if the user dictionary service is
-            // not present or disabled. In this case we need to remove the preference.
-            getPreferenceScreen().removePreference(userDictionaryPreference);
-        } else if (localeList.size() <= 1) {
-            userDictionaryPreference.setFragment(UserDictionarySettings.class.getName());
-            // If the size of localeList is 0, we don't set the locale parameter in the
-            // extras. This will be interpreted by the UserDictionarySettings class as
-            // meaning "the current locale".
-            // Note that with the current code for UserDictionaryList#getUserDictionaryLocalesSet()
-            // the locale list always has at least one element, since it always includes the current
-            // locale explicitly. @see UserDictionaryList.getUserDictionaryLocalesSet().
-            if (localeList.size() == 1) {
-                final String locale = (String)localeList.toArray()[0];
-                userDictionaryPreference.getExtras().putString("locale", locale);
-            }
-        } else {
-            userDictionaryPreference.setFragment(UserDictionaryList.class.getName());
-        }
     }
 
 }
