@@ -30,9 +30,12 @@ import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
+import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TreeSet;
 
 // Caveat: This class is basically taken from
@@ -111,12 +114,29 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
         userDictGroup.removeAll();
         final TreeSet<String> localeSet = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
+        // List of system language
+        final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
+        // List of all enabled system languages
+        Set<String> systemLocales = new HashSet<>();
+        for (Locale subtype : enabledSystemLocale) {
+            Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
+            systemLocales.add(locale.toString());
+            // Remove duplicates
+            if (localeSet != null) {
+                for (final String localeTest : localeSet) {
+                    if (locale.toString().equals(localeTest)) {
+                        systemLocales.remove(locale.toString());
+                    }
+                }
+            }
+        }
+
         if (localeSet == null) {
             userDictGroup.addPreference(createUserDictionaryPreference(null));
             return;
         }
 
-        if (localeSet.size() > 1) {
+        if (localeSet.size() >= 1) {
             // Have an "All languages" entry in the languages list if there are two or more active
             // languages
             localeSet.add("");
@@ -127,6 +147,9 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
         } else {
             for (String locale : localeSet) {
                 userDictGroup.addPreference(createUserDictionaryPreference(locale));
+            }
+            for (final String systemLanguage : systemLocales) {
+                userDictGroup.addPreference(createUserDictionaryPreference(systemLanguage));
             }
         }
     }
