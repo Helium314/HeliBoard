@@ -89,16 +89,12 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
         }
-        setupKeyLongpressTimeoutSettings()
-        findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
-        findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
-    }
-
-    override fun onStart() {
-        super.onStart()
         if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
             removePreference(Settings.SCREEN_DEBUG)
         }
+        setupKeyLongpressTimeoutSettings()
+        findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
+        findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
     }
 
     private fun onClickLoadLibrary(): Boolean {
