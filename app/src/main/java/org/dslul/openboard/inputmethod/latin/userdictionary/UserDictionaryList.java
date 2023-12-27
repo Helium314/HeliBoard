@@ -113,7 +113,7 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
         userDictGroup.removeAll();
-        final TreeSet<String> localeSet = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
+        final TreeSet<String> enabledUserDictionary = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
         // List of all enabled system languages
@@ -122,31 +122,31 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
             Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
             systemLocales.add(locale.toString());
             // Remove duplicates
-            if (localeSet != null) {
-                for (final String localeTest : localeSet) {
-                    if (locale.toString().equals(localeTest)) {
+            if (enabledUserDictionary != null) {
+                for (final String localeUserDictionary : enabledUserDictionary) {
+                    if (locale.toString().equals(localeUserDictionary)) {
                         systemLocales.remove(locale.toString());
                     }
                 }
             }
         }
 
-        if (localeSet == null) {
+        if (enabledUserDictionary == null) {
             userDictGroup.addPreference(createUserDictionaryPreference(null));
             return;
         }
 
-        if (localeSet.size() >= 1) {
+        if (enabledUserDictionary.size() >= 1) {
             // Have an "All languages" entry in the languages list if there are two or more active
             // languages
-            localeSet.add("");
+            enabledUserDictionary.add("");
         }
 
-        if (localeSet.isEmpty()) {
+        if (enabledUserDictionary.isEmpty()) {
             userDictGroup.addPreference(createUserDictionaryPreference(null));
         } else {
-            for (String locale : localeSet) {
-                userDictGroup.addPreference(createUserDictionaryPreference(locale));
+            for (String localeUserDictionary : enabledUserDictionary) {
+                userDictGroup.addPreference(createUserDictionaryPreference(localeUserDictionary));
             }
             for (final String systemLanguage : systemLocales) {
                 userDictGroup.addPreference(createUserDictionaryPreference(systemLanguage));
