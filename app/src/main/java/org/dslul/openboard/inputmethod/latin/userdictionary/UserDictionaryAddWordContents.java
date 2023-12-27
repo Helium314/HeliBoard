@@ -419,5 +419,9 @@ public class UserDictionaryAddWordContents {
         return localesList;
     }
 
+    public String getDropDownMenuLanguage() {
+        return mLocale;
+    }
+
 }
 

@@ -144,6 +144,7 @@ public class UserDictionaryAddWordFragment extends Fragment
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
         actionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
+        actionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
     }
 
     @Override

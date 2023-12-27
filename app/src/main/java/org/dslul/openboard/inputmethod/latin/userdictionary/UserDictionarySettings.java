@@ -237,7 +237,7 @@ public class UserDictionarySettings extends ListFragment {
         return false;
     }
 
-    private static String getLocaleDisplayName(Context context, String localeStr) {
+    public static String getLocaleDisplayName(Context context, String localeStr) {
         if (TextUtils.isEmpty(localeStr)) {
             // CAVEAT: localeStr should not be null because a null locale stands for the system
             // locale in UserDictionary.Words.addWord.
