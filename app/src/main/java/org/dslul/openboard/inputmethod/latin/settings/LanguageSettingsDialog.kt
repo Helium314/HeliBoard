@@ -55,6 +55,7 @@ class LanguageSettingsDialog(
             fillSubtypesView()
         fillSecondaryLocaleView()
         fillDictionariesView()
+        setupPopupSettings()
     }
 
     override fun onStart() {
@@ -284,6 +285,19 @@ class LanguageSettingsDialog(
             }
         }
         binding.dictionaries.addView(rowBinding.root)
+    }
+
+    private fun setupPopupSettings() {
+        binding.popupOrder.setOnClickListener {
+            val moreKeyTypesDefault = prefs.getString(Settings.PREF_MORE_KEYS_ORDER, MORE_KEYS_ORDER_DEFAULT)!!
+            reorderMoreKeysDialog(context, Settings.PREF_MORE_KEYS_ORDER + "_" + mainLocaleString, moreKeyTypesDefault, R.string.popup_order)
+            KeyboardLayoutSet.onKeyboardThemeChanged()
+        }
+        binding.popupLabelPriority.setOnClickListener {
+            val moreKeyTypesDefault = prefs.getString(Settings.PREF_MORE_KEYS_LABELS_ORDER, MORE_KEYS_LABEL_DEFAULT)!!
+            reorderMoreKeysDialog(context, Settings.PREF_MORE_KEYS_LABELS_ORDER + "_" + mainLocaleString, moreKeyTypesDefault, R.string.hint_source)
+            KeyboardLayoutSet.onKeyboardThemeChanged()
+        }
     }
 
     private fun reloadDictionaries() = fragment?.activity?.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))

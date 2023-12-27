@@ -90,5 +90,25 @@
                 android:src="@drawable/ic_plus" />
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/popup_order"
+            style="@style/PreferenceCategoryTitleText"
+            android:text="@string/popup_order"
+            android:paddingVertical="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/popup_label_priority"
+            android:text="@string/hint_source"
+            android:paddingVertical="10dp"
+            style="@style/PreferenceCategoryTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

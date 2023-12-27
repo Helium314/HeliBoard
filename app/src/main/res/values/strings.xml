@@ -238,7 +238,7 @@
     <string name="hint_source">Select hint source</string>
     <!-- Title of the settings to set popup key order -->
     <string name="popup_order">Select popup key order</string>
-    <string name="more_keys_number">Number</string>
+    <string name="more_keys_number">Number row</string>
     <string name="more_keys_language">Language</string>
     <string name="more_keys_language_priority">Language (priority)</string>
     <string name="more_keys_layout">Layout</string>
