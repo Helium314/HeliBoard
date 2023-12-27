@@ -6,6 +6,7 @@
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris
 
 import kotlinx.serialization.Serializable
+import org.dslul.openboard.inputmethod.keyboard.internal.KeySpecParser
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 
 // taken from FlorisBoard, considerably modified
@@ -19,13 +20,14 @@ open class PopupSet<T : AbstractKeyData>(
     open fun getPopupKeyLabels(params: KeyboardParams): Collection<String>? {
         if (main == null && relevant == null) return null
         val moreKeys = mutableListOf<String>()
-        main?.getLabel(params)?.let { moreKeys.add(it) }
-        relevant?.let { moreKeys.addAll(it.map { it.getLabel(params) }) }
+        main?.getLabel(params)?.let { moreKeys.add(KeySpecParser.getLabel(it)!!) }
+        relevant?.let { moreKeys.addAll(it.map { KeySpecParser.getLabel(it.getLabel(params))!! }) }
         if (moreKeys.isEmpty()) return null
         return moreKeys
     }
 
     var numberIndex: Int? = null
+    var symbol: String? = null // maybe list of keys?
 }
 
 class SimplePopups(val moreKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {

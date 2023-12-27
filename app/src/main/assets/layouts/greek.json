@@ -15,23 +15,23 @@
     { "label": "π" }
   ],
   [
-    { "label": "α", "popup": { "main": { "label": "@" } } },
-    { "label": "σ", "popup": { "main": { "label": "#" } } },
-    { "label": "δ", "popup": { "main": { "label": "$$$" } } },
-    { "label": "φ", "popup": { "main": { "label": "%" } } },
-    { "label": "γ", "popup": { "main": { "label": "&" } } },
-    { "label": "η", "popup": { "main": { "label": "-" } } },
-    { "label": "ξ", "popup": { "main": { "label": "+" } } },
-    { "label": "κ", "popup": { "main": { "label": "(" } } },
-    { "label": "λ", "popup": { "main": { "label": ")" } } }
+    { "label": "α" },
+    { "label": "σ" },
+    { "label": "δ" },
+    { "label": "φ" },
+    { "label": "γ" },
+    { "label": "η" },
+    { "label": "ξ" },
+    { "label": "κ" },
+    { "label": "λ" }
   ],
   [
-    { "label": "ζ", "popup": { "main": { "label": "*" } } },
-    { "label": "χ", "popup": { "main": { "label": "\"" } } },
-    { "label": "ψ", "popup": { "main": { "label": "'" } } },
-    { "label": "ω", "popup": { "main": { "label": ":" } } },
-    { "label": "β", "popup": { "main": { "label": ";" } } },
-    { "label": "ν", "popup": { "main": { "label": "!" } } },
-    { "label": "μ", "popup": { "main": { "label": "?" } } }
+    { "label": "ζ" },
+    { "label": "χ" },
+    { "label": "ψ" },
+    { "label": "ω" },
+    { "label": "β" },
+    { "label": "ν" },
+    { "label": "μ" }
   ]
 ]

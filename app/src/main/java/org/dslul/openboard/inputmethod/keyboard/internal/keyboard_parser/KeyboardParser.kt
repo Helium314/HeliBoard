@@ -24,6 +24,8 @@ import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
+import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_LAYOUT
+import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_NUMBER
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
@@ -44,9 +46,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             Key.LABEL_FLAGS_DISABLE_HINT_LABEL // reproduce the no-hints in symbol layouts, todo: add setting
         else 0
 
-    protected abstract fun getLayoutFromAssets(layoutName: String): String
+    abstract fun getLayoutFromAssets(layoutName: String): String
 
-    protected abstract fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>>
+    abstract fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>>
 
     fun parseLayoutFromAssets(layoutName: String): ArrayList<ArrayList<KeyParams>> =
         parseLayoutString(getLayoutFromAssets(layoutName))
@@ -87,11 +89,22 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             // replace first symbols row with number row
             baseKeys[0] = params.mLocaleKeyTexts.getNumberRow()
         } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard
-            && params.mId.locale.language != "ko"
+            // todo: move this decision to some other place!
+            && !(params.mId.locale.language == "ko" && baseKeys.size == 4)
             && params.mId.locale.language != "th"
             && params.mId.locale.language != "lo"
             && params.mId.mSubtype.keyboardLayoutSetName != "pcqwerty"
         ) {
+            if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout more key
+                && params.mMoreKeyLabelSources.let {
+                    val layout = it.indexOf(MORE_KEYS_LAYOUT)
+                    val number = it.indexOf(MORE_KEYS_NUMBER)
+                    layout != -1 && layout < number // layout before number label
+                }
+            ) {
+                // remove number from labels, to avoid awkward mix of numbers and others caused by layout more keys
+                params.mMoreKeyLabelSources.remove(MORE_KEYS_NUMBER)
+            }
             // add number to the first 10 keys in first row
             // setting the correct moreKeys is handled in PopupSet
             // not for korean/lao/thai layouts, todo: should be decided in the layout / layoutInfos, not in the parser
@@ -100,6 +113,20 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 val message = "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}"
                 Log.w(TAG, message)
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        if (params.mId.isAlphabetKeyboard) {
+            // fill popup symbols
+            val symbolsLayoutName = if (ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC)
+                    "symbols_arabic"
+                else "symbols"
+            val p = SimpleKeyboardParser(params, context)
+            p.parseCoreLayout(p.getLayoutFromAssets(symbolsLayoutName)).forEachIndexed { i, row ->
+                val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
+                row.forEachIndexed { j, key ->
+                    baseRow.getOrNull(j)?.popup?.symbol = key.label
+                }
             }
         }
 
@@ -815,6 +842,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
 }
 
+// todo: actually this should be in some separate file, or maybe part of an (extended) key texts
 data class LayoutInfos(
     val defaultLabelFlags: Int = 0,
     // disabled by default, but enabled for all alphabet layouts

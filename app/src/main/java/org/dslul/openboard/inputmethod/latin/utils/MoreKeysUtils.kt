@@ -18,35 +18,41 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.PopupSet
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.rtlLabel
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.util.Collections
 
-private const val MORE_KEYS_NUMBER = "more_keys_number"
+const val MORE_KEYS_NUMBER = "more_keys_number"
 private const val MORE_KEYS_LANGUAGE_PRIORITY = "more_keys_language_priority"
-private const val MORE_KEYS_LAYOUT = "more_keys_layout"
+const val MORE_KEYS_LAYOUT = "more_keys_layout"
 private const val MORE_KEYS_SYMBOLS = "more_keys_symbols"
 private const val MORE_KEYS_LANGUAGE = "more_keys_language"
 const val MORE_KEYS_LABEL_DEFAULT = "$MORE_KEYS_NUMBER,true;$MORE_KEYS_LANGUAGE_PRIORITY,false;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LANGUAGE,false"
 const val MORE_KEYS_ORDER_DEFAULT = "$MORE_KEYS_LANGUAGE_PRIORITY,true;$MORE_KEYS_NUMBER,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_LANGUAGE,true"
 
 // todo:
-//  take moreKeys from symbols layout (in a separate commit)
-//   maybe also add a (simple) parser cache... or cache the layout somewhere else?
-//   that might be annoying with base and full layout (functional keys and spacers)
-//   because base layout not available later... put it to keyParams?
-//   or create symbol moreKeys in the parser? that should work best, there we have proper access to layouts
+//  could be done later:
+//   some way to allow hint labels in symbols layout
+//   remove duplicate symbol moreKeys
+//    in remove_symbol_duplicates.patch
+//    issues, see comments
+//   maybe put "language" moreKeys into a different category when not using alphabet layout
+//    because disabling language moreKeys will remove e.g. quote moreKeys
 
 fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): Array<String>? {
-    val moreKeys = mutableSetOf<String>()
+    // often moreKeys are empty, so we want to avoid unnecessarily creating sets
+    val moreKeysDelegate = lazy { mutableSetOf<String>() }
+    val moreKeys by moreKeysDelegate
     params.mMoreKeyTypes.forEach { type ->
         when (type) {
             MORE_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { moreKeys.add(it) }
             MORE_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { moreKeys.addAll(it) }
-            MORE_KEYS_SYMBOLS -> {} // todo
+            MORE_KEYS_SYMBOLS -> popupSet?.symbol?.let { moreKeys.add(it) }
             MORE_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getMoreKeys(label)?.let { moreKeys.addAll(it) }
             MORE_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityMoreKeys(label)?.let { moreKeys.addAll(it) }
         }
     }
-    if (moreKeys.isEmpty()) return null
+    if (!moreKeysDelegate.isInitialized() || moreKeys.isEmpty())
+        return null
     val fco = moreKeys.firstOrNull { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
     if (fco != null && fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != moreKeys.size - 1) {
         moreKeys.remove(fco) // maybe rather adjust the number instead of remove?
@@ -66,16 +72,17 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
         when (type) {
             MORE_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { hintLabel = it }
             MORE_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { hintLabel = it.firstOrNull() }
-            MORE_KEYS_SYMBOLS -> {} // todo
+            MORE_KEYS_SYMBOLS -> popupSet?.symbol?.let { hintLabel = it }
             MORE_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getMoreKeys(label)?.let { hintLabel = it.firstOrNull() }
             MORE_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityMoreKeys(label)?.let { hintLabel = it.firstOrNull() }
         }
         if (hintLabel != null) break
     }
 
-    // avoid e.g. !autoColumnOrder! as label
-    //  this will avoid having labels on comma and period keys
-    return hintLabel?.let { transformLabel(it, params) }
+    // don't do the rtl transform, hint label is only the label
+    return hintLabel?.let { if (it == "$$$") transformLabel(it, params) else it }
+        // avoid e.g. !autoColumnOrder! as label
+        //  this will avoid having labels on comma and period keys
         ?.takeIf { !it.startsWith("!") || it == "!" }
 }
 
@@ -115,12 +122,6 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
     val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
             val b = LayoutInflater.from(context).inflate(R.layout.morekeys_list_item, rv, false)
-            // wtf? this results in transparent background, but when the background is set in xml it's fine?
-            // but of course when setting in xml i need to duplicate the entire thing except for background because of api things
-            // why tf is it so complicated to just use the dialog's background?
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                b.setBackgroundColor(android.R.attr.colorBackgroundFloating)
-//            }
             return object : RecyclerView.ViewHolder(b) { }
         }
         override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
@@ -130,6 +131,7 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
             p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
             val switch = p0.itemView.findViewById<SwitchCompat>(R.id.morekeys_switch)
             switch?.isChecked = wasChecked
+            switch?.isEnabled = !(key.contains(Settings.PREF_MORE_KEYS_ORDER) && text == MORE_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->
                 val position = orderedItems.indexOfFirst { it.first == text }
                 orderedItems[position] = text to isChecked

@@ -77,9 +77,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   does glide typing work with multiple letters on one key? if not, users should be notified
         //   maybe allow users to define their own symbol and shift-symbol layouts
         //   allow users to import layouts, which essentially just fills the text from a file
-        //    add setting to use moreKeys from symbol layout (always, never, only if none defined)
-        //     should also have sth related to hint, because hint and start morekey maybe should stay
-        //  option to add language extra keys for all layouts?
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
@@ -120,7 +117,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 val sv = Settings.getInstance().current
                 addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMoreMoreKeys)
                 mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
-                mParams.mMoreKeyLabelSources.addAll(sv.mMoreKeyLabelSources)
+                // add label source only if moreKey type enabled
+                sv.mMoreKeyLabelSources.forEach { if (it in sv.mMoreKeyTypes) mParams.mMoreKeyLabelSources.add(it) }
                 keysInRows = KeyboardParser.parseFromAssets(mParams, mContext)
                 determineAbsoluteValues()
             } catch (e: Exception) {
