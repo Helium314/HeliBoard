@@ -94,6 +94,10 @@
             android:defaultValue="false"
             android:persistent="true" />
 
+        <Preference
+            android:key="pref_toolbar_keys"
+            android:title="@string/toolbar_keys" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">

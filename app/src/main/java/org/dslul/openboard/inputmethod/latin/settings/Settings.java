@@ -134,6 +134,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
     public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
+    public static final String PREF_TOOLBAR_KEYS = "pref_toolbar_keys";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -184,6 +185,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
+        ToolbarUtilsKt.upgradeToolbarPref(mPrefs);
     }
 
     public void onDestroy() {

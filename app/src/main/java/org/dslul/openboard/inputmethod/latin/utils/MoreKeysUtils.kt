@@ -117,7 +117,7 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
         }
         override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
             val (text, wasChecked) = orderedItems[p1]
-            val displayTextId = context.resources.getIdentifier(text, "string", context.packageName)
+            val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
             val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
             p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
             val switch = p0.itemView.findViewById<SwitchCompat>(R.id.morekeys_switch)

@@ -25,6 +25,7 @@ import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import kotlin.collections.ArraysKt;
 
@@ -77,6 +78,10 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
             MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT, R.string.hint_source);
             return true;
         });
+        findPreference(Settings.PREF_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(), R.string.toolbar_keys);
+            return true;
+        });
     }
 
     @Override
@@ -89,7 +94,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         if (key == null) return;
         switch (key) {
-            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW, Settings.PREF_MORE_KEYS_LABELS_ORDER
+            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW, Settings.PREF_MORE_KEYS_LABELS_ORDER, "toolbar"
                     -> mReloadKeyboard = true;
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
             case Settings.PREF_SHOW_HINTS

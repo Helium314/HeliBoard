@@ -1,9 +1,12 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.TypedArray
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants.*
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -14,6 +17,9 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
     button.scaleType = ImageView.ScaleType.CENTER
     button.tag = key
+    val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
+    if (contentDescriptionId != 0)
+        button.contentDescription = context.getString(contentDescriptionId)
     val icon = keyboardAttr.getDrawable(getStyleableIconId(key))
     if (key == LEFT || key == RIGHT || key == UP || key == DOWN) {
         // arrows look a little awkward when not scaled
@@ -56,8 +62,45 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
 }
 
+// names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, CLEAR_CLIPBOARD, SETTINGS, SELECT_ALL, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN, UNDO, REDO
 }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
+
+val defaultToolbarPref = entries.joinToString(";") { if (it != CLEAR_CLIPBOARD) "${it.name},true" else "${it.name},false" }
+
+/** add missing keys, typically because a new key has been added */
+fun upgradeToolbarPref(prefs: SharedPreferences) {
+    val list = prefs.getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!.split(";").toMutableList()
+    if (list.size == ToolbarKey.entries.size) return
+    ToolbarKey.entries.forEach { key ->
+        if (list.none { it.startsWith("${key.name},") })
+            list.add("${key.name},true")
+    }
+    // likely not needed, but better prepare for possibility of key removal
+    list.removeAll {
+        try {
+            ToolbarKey.valueOf(it.substringBefore(","))
+            false
+        } catch (_: IllegalArgumentException) {
+            true
+        }
+    }
+    prefs.edit { putString(Settings.PREF_TOOLBAR_KEYS, list.joinToString(";")) }
+}
+
+fun getEnabledToolbarKeys(prefs: SharedPreferences): List<ToolbarKey> {
+    val string = prefs.getString("toolbar", defaultToolbarPref)!!
+    return string.split(";").mapNotNull {
+        val split = it.split(",")
+        if (split.last() == "true") {
+            try {
+                ToolbarKey.valueOf(split.first())
+            } catch (_: IllegalArgumentException) {
+                null
+            }
+        } else null
+    }
+}

@@ -238,11 +238,28 @@
     <string name="hint_source">Select hint source</string>
     <!-- Title of the settings to set popup key order -->
     <string name="popup_order">Select popup key order</string>
-    <string name="more_keys_number">Number row</string>
-    <string name="more_keys_language">Language</string>
-    <string name="more_keys_language_priority">Language (priority)</string>
-    <string name="more_keys_layout">Layout</string>
-    <string name="more_keys_symbols">Symbols</string>
+    <!-- Names of the more key classes -->
+    <string name="more_keys_number" tools:keep="@string/more_keys_number">Number row</string>
+    <string name="more_keys_language" tools:keep="@string/more_keys_language">Language</string>
+    <string name="more_keys_language_priority" tools:keep="@string/more_keys_language_priority">Language (priority)</string>
+    <string name="more_keys_layout" tools:keep="@string/more_keys_layout">Layout</string>
+    <string name="more_keys_symbols" tools:keep="@string/more_keys_symbols">Symbols</string>
+    <!-- Title of the settings to set toolbar keys -->
+    <string name="toolbar_keys">Select toolbar keys</string>
+    <!-- Names of the toolbar keys-->
+    <string name="copy" tools:keep="@string/copy">Copy</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
+    <string name="voice" tools:keep="@string/voice">Voice input</string>
+    <string name="settings" tools:keep="@string/settings">Settings</string>
+    <string name="select_all" tools:keep="@string/select_all">Select all</string>
+    <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
+    <string name="left" tools:keep="@string/left">Left</string>
+    <string name="right" tools:keep="@string/right">Right</string>
+    <string name="up" tools:keep="@string/up">Up</string>
+    <string name="down" tools:keep="@string/down">Down</string>
+    <string name="undo" tools:keep="@string/undo">Undo</string>
+    <string name="redo" tools:keep="@string/redo">Redo</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->

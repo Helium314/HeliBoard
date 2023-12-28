@@ -59,6 +59,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.Mor
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -78,10 +79,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public static boolean DEBUG_SUGGESTIONS;
     private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
-    // tags of keys to be added to toolbar, in order (all tags must be considered in getStyleableIconId)
-    private static final ToolbarKey[] toolbarKeys = new ToolbarKey[] {ToolbarKey.VOICE, ToolbarKey.CLIPBOARD,
-            ToolbarKey.SELECT_ALL, ToolbarKey.COPY, ToolbarKey.UNDO, ToolbarKey.REDO, ToolbarKey.ONE_HANDED,
-            ToolbarKey.SETTINGS, ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.UP, ToolbarKey.DOWN};
 
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mToolbarExpandKey;
@@ -191,7 +188,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
-        for (final ToolbarKey key : toolbarKeys) {
+        for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))) {
             final ImageButton button = createToolbarKey(context, keyboardAttr, key);
             button.setLayoutParams(toolbarKeyLayoutParams);
             setupKey(button, colors);
@@ -217,7 +214,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
         for (final ToolbarKey pinnedKey : Settings.getInstance().getCurrent().mPinnedKeys) {
-            mToolbar.findViewWithTag(pinnedKey).setBackground(mEnabledToolKeyBackground);
+            final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
+            if (pinnedKeyInToolbar == null) continue;
+            pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
             addKeyToPinnedKeys(pinnedKey);
         }
 
@@ -236,7 +235,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final int visibility = shouldBeVisible ? VISIBLE : (isFullscreenMode ? GONE : INVISIBLE);
         setVisibility(visibility);
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
-        mToolbar.findViewWithTag(ToolbarKey.VOICE).setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
+        final View toolbarVoiceKey = mToolbar.findViewWithTag(ToolbarKey.VOICE);
+        if (toolbarVoiceKey != null)
+            toolbarVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
         final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(ToolbarKey.VOICE);
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
@@ -662,7 +663,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         copy.setScaleType(original.getScaleType());
         copy.setScaleX(original.getScaleX());
         copy.setScaleY(original.getScaleY());
-        copy.setContentDescription(original.getContentDescription()); // todo (later): add some content description
+        copy.setContentDescription(original.getContentDescription());
         copy.setImageDrawable(original.getDrawable());
         copy.setLayoutParams(original.getLayoutParams());
         setupKey(copy, Settings.getInstance().getCurrent().mColors);
