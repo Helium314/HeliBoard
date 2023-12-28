@@ -86,8 +86,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     private fun createAlphaSymbolRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         // number row related modifications of baseKeys
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
-            // replace first symbols row with number row
-            baseKeys[0] = params.mLocaleKeyTexts.getNumberRow()
+            // replace first symbols row with number row, but use the labels as moreKeys
+            val numberRow = params.mLocaleKeyTexts.getNumberRow()
+            numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
+            baseKeys[0] = numberRow
         } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard
             // todo: move this decision to some other place!
             && !(params.mId.locale.language == "ko" && baseKeys.size == 4)

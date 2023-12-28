@@ -29,12 +29,6 @@ private const val MORE_KEYS_LANGUAGE = "more_keys_language"
 const val MORE_KEYS_LABEL_DEFAULT = "$MORE_KEYS_NUMBER,true;$MORE_KEYS_LANGUAGE_PRIORITY,false;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LANGUAGE,false"
 const val MORE_KEYS_ORDER_DEFAULT = "$MORE_KEYS_LANGUAGE_PRIORITY,true;$MORE_KEYS_NUMBER,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_LANGUAGE,true"
 
-// todo:
-//  could be done later:
-//   some way to allow hint labels in symbols layout
-//   maybe put "language" moreKeys into a different category when not using alphabet layout
-//    because disabling language moreKeys will remove e.g. quote moreKeys
-
 fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): Array<String>? {
     // often moreKeys are empty, so we want to avoid unnecessarily creating sets
     val moreKeysDelegate = lazy { mutableSetOf<String>() }
