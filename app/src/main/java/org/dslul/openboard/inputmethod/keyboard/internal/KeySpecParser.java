@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
@@ -19,11 +9,11 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_OUTPUT_TEXT;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_UNSPECIFIED;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * The string parser of the key specification.
@@ -33,10 +23,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_UNSPEC
  * - Label optionally followed by code point (keyLabel|!code/code_name).
  * - Icon followed by keyOutputText (!icon/icon_name|keyOutputText).
  * - Icon followed by code point (!icon/icon_name|!code/code_name).
- * Label and keyOutputText are one of the following:
- * - Literal string.
- * - Label reference represented by (!text/label_name), see {@link KeyboardTextsSet}.
- * - String resource reference represented by (!text/resource_name), see {@link KeyboardTextsSet}.
+ * Label and keyOutputText are literal strings.
  * Icon is represented by (!icon/icon_name), see {@link KeyboardIconsSet}.
  * Code is one of the following:
  * - Code point presented by hexadecimal string prefixed with "0x"
@@ -56,11 +43,11 @@ public final class KeySpecParser {
         // Intentional empty constructor for utility class.
     }
 
-    private static boolean hasIcon(@Nonnull final String keySpec) {
+    private static boolean hasIcon(@NonNull final String keySpec) {
         return keySpec.startsWith(KeyboardIconsSet.PREFIX_ICON);
     }
 
-    private static boolean hasCode(@Nonnull final String keySpec, final int labelEnd) {
+    private static boolean hasCode(@NonNull final String keySpec, final int labelEnd) {
         if (labelEnd <= 0 || labelEnd + 1 >= keySpec.length()) {
             return false;
         }
@@ -72,8 +59,8 @@ public final class KeySpecParser {
         return keySpec.startsWith(PREFIX_HEX, labelEnd + 1);
     }
 
-    @Nonnull
-    private static String parseEscape(@Nonnull final String text) {
+    @NonNull
+    private static String parseEscape(@NonNull final String text) {
         if (text.indexOf(BACKSLASH) < 0) {
             return text;
         }
@@ -92,7 +79,7 @@ public final class KeySpecParser {
         return sb.toString();
     }
 
-    private static int indexOfLabelEnd(@Nonnull final String keySpec) {
+    private static int indexOfLabelEnd(@NonNull final String keySpec) {
         final int length = keySpec.length();
         if (keySpec.indexOf(BACKSLASH) < 0) {
             final int labelEnd = keySpec.indexOf(VERTICAL_BAR);
@@ -117,17 +104,17 @@ public final class KeySpecParser {
         return -1;
     }
 
-    @Nonnull
-    private static String getBeforeLabelEnd(@Nonnull final String keySpec, final int labelEnd) {
+    @NonNull
+    private static String getBeforeLabelEnd(@NonNull final String keySpec, final int labelEnd) {
         return (labelEnd < 0) ? keySpec : keySpec.substring(0, labelEnd);
     }
 
-    @Nonnull
-    private static String getAfterLabelEnd(@Nonnull final String keySpec, final int labelEnd) {
+    @NonNull
+    private static String getAfterLabelEnd(@NonNull final String keySpec, final int labelEnd) {
         return keySpec.substring(labelEnd + /* VERTICAL_BAR */1);
     }
 
-    private static void checkDoubleLabelEnd(@Nonnull final String keySpec, final int labelEnd) {
+    private static void checkDoubleLabelEnd(@NonNull final String keySpec, final int labelEnd) {
         if (indexOfLabelEnd(getAfterLabelEnd(keySpec, labelEnd)) < 0) {
             return;
         }
@@ -152,7 +139,7 @@ public final class KeySpecParser {
     }
 
     @Nullable
-    private static String getOutputTextInternal(@Nonnull final String keySpec, final int labelEnd) {
+    private static String getOutputTextInternal(@NonNull final String keySpec, final int labelEnd) {
         if (labelEnd <= 0) {
             return null;
         }
@@ -246,7 +233,6 @@ public final class KeySpecParser {
         return KeyboardIconsSet.getIconId(iconName);
     }
 
-    @SuppressWarnings("serial")
     public static final class KeySpecParserError extends RuntimeException {
         public KeySpecParserError(final String message) {
             super(message);

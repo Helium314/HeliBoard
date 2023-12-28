@@ -1,29 +1,19 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
-import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
 import java.util.ArrayList;
@@ -66,13 +56,19 @@ public final class AdditionalSubtypeUtils {
                 localeString, keyboardLayoutSetName, isAsciiCapable, isEmojiCapable);
         final int platformVersionIndependentSubtypeId =
                 getPlatformVersionIndependentSubtypeId(localeString, keyboardLayoutSetName);
-        // NOTE: In KitKat and later, InputMethodSubtypeBuilder#setIsAsciiCapable is also available.
-        // TODO: Use InputMethodSubtypeBuilder#setIsAsciiCapable when appropriate.
-        return new InputMethodSubtype(nameId,
-                R.drawable.ic_ime_switcher_dark, localeString, KEYBOARD_MODE,
-                platformVersionDependentExtraValues,
-                false /* isAuxiliary */, false /* overrideImplicitlyEnabledSubtype */,
-                platformVersionIndependentSubtypeId);
+        final InputMethodSubtype.InputMethodSubtypeBuilder builder = new InputMethodSubtype.InputMethodSubtypeBuilder()
+                .setSubtypeNameResId(nameId)
+                .setSubtypeIconResId(R.drawable.ic_ime_switcher)
+                .setSubtypeLocale(localeString)
+                .setSubtypeMode(KEYBOARD_MODE)
+                .setSubtypeExtraValue(platformVersionDependentExtraValues)
+                .setIsAuxiliary(false)
+                .setOverridesImplicitlyEnabledSubtype(false)
+                .setSubtypeId(platformVersionIndependentSubtypeId)
+                .setIsAsciiCapable(isAsciiCapable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            builder.setLanguageTag(LocaleUtils.constructLocaleFromString(localeString).toLanguageTag());
+        return builder.build();
     }
 
     public static InputMethodSubtype createDummyAdditionalSubtype(
@@ -111,7 +107,7 @@ public final class AdditionalSubtypeUtils {
             if (subtype != null)
                 subtypesList.add(subtype);
         }
-        return subtypesList.toArray(new InputMethodSubtype[subtypesList.size()]);
+        return subtypesList.toArray(new InputMethodSubtype[0]);
     }
 
     // use string created with getPrefSubtype
@@ -191,7 +187,7 @@ public final class AdditionalSubtypeUtils {
             extraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +
                     SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
         }
-        if (isEmojiCapable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (isEmojiCapable) {
             extraValueItems.add(EMOJI_CAPABLE);
         }
         extraValueItems.add(IS_ADDITIONAL_SUBTYPE);

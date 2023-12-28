@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"אפשרויות קלט"</string>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"חיפוש שמות של אנשי קשר"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"בודק האיות משתמש בערכים מרשימת אנשי הקשר שלך"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"רטט בלחיצה על מקשים"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"צלילים בעת לחיצה על מקשים"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"חלון קופץ בלחיצה על מקש"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"העדפות"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"חשבונות ופרטיות"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"מראה ופריסות"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"הקלדה רציפה"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"תיקון טקסט"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"אפשרויות מתקדמות"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"עיצוב"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"הפעל מקלדת מפוצלת"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"עבור לשיטות קלט אחרות"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"מתג החלפת השפה מכסה גם שיטות קלט אחרות"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"עבור לשיטות קלט אחרות"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"מתג החלפת שפה"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"הצג כאשר ניתן להשתמש בשפות קלט מרובות"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"עיכוב בסגירת חלון קופץ של מקש"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"ללא עיכוב"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"ברירת מחדל"</string>
@@ -43,7 +27,6 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"הצע שמות של אנשי קשר"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">השתמש בשמות מרשימת אנשי הקשר עבור הצעות ותיקונים</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"הצעות מותאמות אישית"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">לְשַׁפֵּר <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="use_double_space_period" msgid="8781529969425082860">"רווח כפול לנקודה"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"הקשה פעמיים על מקש הרווח מזינה נקודה ואחריה רווח"</string>
     <string name="auto_cap" msgid="1719746674854628252">"אותיות רישיות באופן אוטומטי"</string>
@@ -70,23 +53,12 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ראה את המילה המוצעת תוך כדי הזזת האצבע"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"הקלדה רציפה של משפט"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"הזן רווחים במהלך התנועה על ידי החלקה אל מקש הרווח"</string>
-    <string name="voice_input" msgid="3583258583521397548">"מקש קלט קולי"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"לא הופעלו שיטות של קלט קולי. בדוק את הגדרות השפה והקלט."</string>
     <string name="configure_input_method" msgid="373356270290742459">"הגדרת שיטות קלט"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"שפות"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"עזרה ומשוב"</string>
     <string name="select_language" msgid="5709487854987078367">"שפות"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"הקש שוב כדי לשמור"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"הקש כאן כדי לשמור"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"מילון זמין"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"עיצוב מקלדת"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"החלף חשבונות"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"לא נבחרו חשבונות"</string>
-    <string name="account_selected" msgid="2846876462199625974">משתמש כרגע ב- <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g></string>
-    <string name="account_select_ok" msgid="9141195141763227797">"אישור"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"ביטול"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"צא"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"בחר באיזה חשבון להשתמש"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"אנגלית (בריטניה)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"אנגלית (ארה\"ב)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ספרדית (ארצות הברית)"</string>
@@ -113,10 +85,6 @@
     <string name="save" msgid="7646738597196767214">"שמור"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"שפה"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"פריסה"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"יש להפעיל את סגנון הקלט המותאם אישית לפני שתוכל להשתמש בו. האם ברצונך להפעיל אותו עכשיו?"</string>
-    <string name="enable" msgid="5031294444630523247">"הפעל"</string>
-    <string name="not_now" msgid="6172462888202790482">"לא עכשיו"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"סגנון קלט זהה כבר קיים: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"משך רטט של לחיצת מקש"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"עוצמת קול של לחיצת מקש"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"השהיית לחיצה ארוכה על מקש"</string>
@@ -137,33 +105,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"החלף שיטות קלט"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"ברכותינו, הכל מוכן!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">"כעת תוכל להקליד בכל האפליקציות המועדפות עליך באמצעות <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"הגדר שפות נוספות"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"סיום"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"הצג את סמל האפליקציה"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"הצג את סמל האפליקציה במפעיל"</string>
     <string name="app_name" msgid="6320102637491234792">"ספק המילון"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"ספק המילון"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"שירות מילון"</string>
-    <string name="download_description" msgid="6014835283119198591">"פרטי עדכון מילון"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"תוספי מילונים"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"הגדרות עבור מילונים"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"מילוני משתמש"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"מילון משתמש"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"מילון זמין"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"מוריד כעת"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"מותקן"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"מותקן, מושבת"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"בעיה בהתחברות לשירות המילון"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"אין מילונים זמינים"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"רענן"</string>
     <string name="last_update" msgid="730467549913588780">"עודכן לאחרונה"</string>
-    <string name="message_updating" msgid="4457761393932375219">"מחפש עדכונים"</string>
-    <string name="message_loading" msgid="5638680861387748936">"טוען…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"מילון ראשי"</string>
-    <string name="cancel" msgid="6830980399865683324">"ביטול"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"הגדרות"</string>
-    <string name="install_dict" msgid="180852772562189365">"התקן"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"ביטול"</string>
     <string name="delete_dict" msgid="756853268088330054">"מחק"</string>
     <string name="version_text" msgid="2715354215568469385">"גרסה <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"הוסף"</string>
@@ -171,7 +128,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"ביטוי"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"עוד אפשרויות"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"פחות אפשרויות"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"אישור"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"מילה:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"קיצור דרך:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"שפה:"</string>
@@ -193,14 +149,12 @@
     <string name="number_row">שורת מספרים</string>
     <string name="number_row_summary">הצג תמיד שורת מספרים</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">לחיצה ארוכה על מקש הרווח תציג תפריט בחירת שיטת קלט</string>
-    <string name="prefs_resize_keyboard">אפשר שינוי גודל מקלדת</string>
     <string name="show_hints">הצג רמזים עיקריים</string>
     <string name="show_hints_summary">הצג רמזים בלחיצה ארוכה</string>
     <string name="prefs_keyboard_height_scale">סולם גובה מקלדת</string>
     <string name="theme_variant">וריאנט נושא</string>
     <string name="key_borders">גבולות מקלדת</string>
     <string name="day_night_mode">מצב יום/לילה אוטומטי</string>
-    <string name="amoled_mode_summary">יכול להפחית את צריכת החשמל בהתאם לטכנולוגיית המסך של המכשיר</string>
     <string name="android_spell_checker_settings">פתח את הגדרות בודק האיות של לוח</string>
     <string name="prefs_long_press_keyboard_to_change_lang">שנה שפת מקלדת על ידי מקש רווח</string>
     <string name="show_emoji_key">מפתח אמוג\'י</string>
@@ -220,7 +174,6 @@
     <string name="settings_category_additional_keys">מפתחות נוספים</string>
     <string name="settings_category_correction">תיקונים</string>
     <string name="settings_category_suggestions">הצעות</string>
-    <string name="show_clipboard_key">לוח מקשים</string>
     <string name="delete_swipe">מחיקת החלקה</string>
     <string name="delete_swipe_summary">בצע החלקה על מקש המחיקה כדי לבחור ולהסיר חלקים גדולים יותר של טקסט בבת אחת</string>
     <string name="space_trackpad">משטח עקיבה של מקש רווח</string>
@@ -228,9 +181,8 @@
     <string name="prefs_force_incognito_mode">כפה מקלדת אנונימית</string>
     <string name="prefs_force_incognito_mode_summary">השבת למידה של מילים חדשות</string>
     <string name="more_keys_strip_description">עוד מפתחות</string>
-    <string name="amoled_mode">רקע שחור עמוק</string>
     <string name="auto_correction_confidence">ודאות התיקון האוטומטי</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"שימוש בשפות מערכת"</string>
-    <string name="select_input_method">"שינוי מקלדת"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"שימוש בשפות המערכת"</string>
+    <string name="select_input_method">"בחירה של שיטת הזנה"</string>
     <string name="settings_screen_appearance">"מראה"</string>
 </resources>

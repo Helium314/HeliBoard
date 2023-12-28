@@ -1,22 +1,14 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
@@ -25,17 +17,15 @@ import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
-
 /**
  * Class to represent information of previous words. This class is used to add n-gram entries
  * into binary dictionaries, to get predictions, and to get suggestions.
  */
 public class NgramContext {
-    @Nonnull
+    @NonNull
     public static final NgramContext EMPTY_PREV_WORDS_INFO =
             new NgramContext(WordInfo.EMPTY_WORD_INFO);
-    @Nonnull
+    @NonNull
     public static final NgramContext BEGINNING_OF_SENTENCE =
             new NgramContext(WordInfo.BEGINNING_OF_SENTENCE_WORD_INFO);
 
@@ -51,9 +41,9 @@ public class NgramContext {
      * Word information used to represent previous words information.
      */
     public static class WordInfo {
-        @Nonnull
+        @NonNull
         public static final WordInfo EMPTY_WORD_INFO = new WordInfo(null);
-        @Nonnull
+        @NonNull
         public static final WordInfo BEGINNING_OF_SENTENCE_WORD_INFO = new WordInfo();
 
         // This is an empty char sequence when mIsBeginningOfSentence is true.
@@ -119,10 +109,23 @@ public class NgramContext {
         mMaxPrevWordCount = maxPrevWordCount;
     }
 
+    public boolean changeWordIfAfterBeginningOfSentence(final String from, final String to) {
+        boolean beginning = false;
+        for (int i = mPrevWordsCount - 1; i >= 0; i--) {
+            WordInfo info = mPrevWordsInfo[i];
+            if (beginning && TextUtils.equals(info.mWord, from)) {
+                mPrevWordsInfo[i] = new WordInfo(to);
+                return true;
+            }
+            beginning = info.mIsBeginningOfSentence;
+        }
+        return false;
+    }
+
     /**
      * Create next prevWordsInfo using current prevWordsInfo.
      */
-    @Nonnull
+    @NonNull
     public NgramContext getNextNgramContext(final WordInfo wordInfo) {
         final int nextPrevWordCount = Math.min(mMaxPrevWordCount, mPrevWordsCount + 1);
         final WordInfo[] prevWordsInfo = new WordInfo[nextPrevWordCount];
@@ -175,8 +178,7 @@ public class NgramContext {
                 }
             }
         }
-        final String[] contextStringArray = prevTermList.toArray(new String[prevTermList.size()]);
-        return contextStringArray;
+        return prevTermList.toArray(new String[prevTermList.size()]);
     }
 
     public boolean isValid() {
@@ -227,7 +229,7 @@ public class NgramContext {
     public int hashCode() {
         int hashValue = 0;
         for (final WordInfo wordInfo : mPrevWordsInfo) {
-            if (wordInfo == null || !WordInfo.EMPTY_WORD_INFO.equals(wordInfo)) {
+            if (!WordInfo.EMPTY_WORD_INFO.equals(wordInfo)) {
                 break;
             }
             hashValue ^= wordInfo.hashCode();
@@ -267,7 +269,7 @@ public class NgramContext {
 
     @Override
     public String toString() {
-        final StringBuffer builder = new StringBuffer();
+        final StringBuilder builder = new StringBuilder();
         for (int i = 0; i < mPrevWordsCount; i++) {
             final WordInfo wordInfo = mPrevWordsInfo[i];
             builder.append("PrevWord[");

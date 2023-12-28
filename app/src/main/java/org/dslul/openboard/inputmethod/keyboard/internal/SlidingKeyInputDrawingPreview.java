@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
@@ -21,16 +11,17 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.keyboard.PointerTracker;
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.common.Colors;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 /**
  * Draw rubber band preview graphics during sliding key input.
  *
- * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewColor
  * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewWidth
  * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewBodyRatio
  * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewShadowRatio
@@ -47,10 +38,7 @@ public final class SlidingKeyInputDrawingPreview extends AbstractDrawingPreview 
     private final Paint mPaint = new Paint();
 
     public SlidingKeyInputDrawingPreview(final TypedArray mainKeyboardViewAttr) {
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        final int previewColor = colors.isCustom
-                ? colors.accent
-                : mainKeyboardViewAttr.getColor(R.styleable.MainKeyboardView_slidingKeyInputPreviewColor, 0);
+        final int previewColor = Settings.getInstance().getCurrent().mColors.get(ColorType.GESTURE_TRAIL);
         final float previewRadius = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_slidingKeyInputPreviewWidth, 0) / 2.0f;
         final int PERCENTAGE_INT = 100;
@@ -83,7 +71,7 @@ public final class SlidingKeyInputDrawingPreview extends AbstractDrawingPreview 
      * @param canvas The canvas where the preview is drawn.
      */
     @Override
-    public void drawPreview(final Canvas canvas) {
+    public void drawPreview(@NonNull final Canvas canvas) {
         if (!isPreviewEnabled() || !mShowsSlidingKeyInputPreview) {
             return;
         }

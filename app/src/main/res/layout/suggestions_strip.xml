@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2011, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2011 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
+        android:animateLayoutChanges="true"
         android:id="@+id/suggestions_strip_wrapper"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="4dp"
         android:hapticFeedbackEnabled="false"
         android:soundEffectsEnabled="false">
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <ImageButton
-            android:id="@+id/suggestions_strip_other_key"
+            android:id="@+id/suggestions_strip_toolbar_key"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-            android:layout_height="fill_parent"
+            android:layout_height="@dimen/config_suggestions_strip_edge_key_width"
+            android:layout_gravity="center_vertical"
             android:layout_weight="0"
             style="?attr/suggestionWordStyle"
             android:contentDescription="@string/more_keys_strip_description" />
+        <HorizontalScrollView
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <LinearLayout
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                style="?attr/suggestionWordStyle">
+            </LinearLayout>
+        </HorizontalScrollView>
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
+        <!-- todo: sth is fishy with that maxwidth
+               check what is going on in the layout helper? -->
         <LinearLayout
             android:id="@+id/suggestions_strip"
             android:orientation="horizontal"
@@ -47,16 +52,12 @@
             android:layout_weight="1"
             android:hapticFeedbackEnabled="false"
             android:soundEffectsEnabled="false" />
-        <ImageButton
-            android:id="@+id/suggestions_strip_voice_key"
-            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-            android:layout_height="fill_parent"
-            android:contentDescription="@string/spoken_description_mic"
-            style="?attr/suggestionWordStyle" />
-        <ImageButton
-            android:id="@+id/suggestions_strip_clipboard_key"
-            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-            android:layout_height="fill_parent"
-            style="?attr/suggestionWordStyle" />
+        <LinearLayout
+            android:id="@+id/pinned_keys"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="?attr/suggestionWordStyle">
+        </LinearLayout>
     </LinearLayout>
 </merge>

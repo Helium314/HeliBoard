@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -21,30 +11,30 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Enrichment class for InputMethodManager to simplify interaction and add functionality.
@@ -118,7 +108,7 @@ public class RichInputMethodManager {
     public @Nullable InputMethodSubtype getNextSubtypeInThisIme(final boolean onlyCurrentIme) {
         final InputMethodSubtype currentSubtype = getCurrentSubtype().getRawSubtype();
         final List<InputMethodSubtype> enabledSubtypes = getMyEnabledInputMethodSubtypeList(true);
-        final int currentIndex = getSubtypeIndexInList(currentSubtype, enabledSubtypes);
+        final int currentIndex = enabledSubtypes.indexOf(currentSubtype);
         if (currentIndex == INDEX_NOT_FOUND) {
             Log.w(TAG, "Can't find current subtype in enabled subtypes: subtype="
                     + SubtypeLocaleUtils.getSubtypeNameForLogging(currentSubtype));
@@ -197,39 +187,18 @@ public class RichInputMethodManager {
     }
 
     public boolean checkIfSubtypeBelongsToThisImeAndEnabled(final InputMethodSubtype subtype) {
-        return checkIfSubtypeBelongsToList(subtype,
-                getEnabledInputMethodSubtypeList(
-                        getInputMethodInfoOfThisIme(),
-                        true /* allowsImplicitlySelectedSubtypes */));
+        return getEnabledInputMethodSubtypeList(getInputMethodInfoOfThisIme(), true)
+                .contains(subtype);
     }
 
-    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
-            final InputMethodSubtype subtype) {
+    public boolean checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(final InputMethodSubtype subtype) {
         final boolean subtypeEnabled = checkIfSubtypeBelongsToThisImeAndEnabled(subtype);
-        final boolean subtypeExplicitlyEnabled = checkIfSubtypeBelongsToList(subtype,
-                getMyEnabledInputMethodSubtypeList(false /* allowsImplicitlySelectedSubtypes */));
+        final boolean subtypeExplicitlyEnabled = getMyEnabledInputMethodSubtypeList(false)
+                .contains(subtype);
         return subtypeEnabled && !subtypeExplicitlyEnabled;
     }
 
-    private static boolean checkIfSubtypeBelongsToList(final InputMethodSubtype subtype,
-            final List<InputMethodSubtype> subtypes) {
-        return getSubtypeIndexInList(subtype, subtypes) != INDEX_NOT_FOUND;
-    }
-
-    private static int getSubtypeIndexInList(final InputMethodSubtype subtype,
-            final List<InputMethodSubtype> subtypes) {
-        // todo: why not simply subtypes.indexOf(subtype)? should do exactly the same, even return the same value -1 if not found
-        final int count = subtypes.size();
-        for (int index = 0; index < count; index++) {
-            final InputMethodSubtype ims = subtypes.get(index);
-            if (ims.equals(subtype)) {
-                return index;
-            }
-        }
-        return INDEX_NOT_FOUND;
-    }
-
-    public void onSubtypeChanged(@Nonnull final InputMethodSubtype newSubtype) {
+    public void onSubtypeChanged(@NonNull final InputMethodSubtype newSubtype) {
         updateCurrentSubtype(newSubtype);
         updateShortcutIme();
         if (DEBUG) {
@@ -240,11 +209,11 @@ public class RichInputMethodManager {
     private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
     @UsedForTesting
-    static void forceSubtype(@Nonnull final InputMethodSubtype subtype) {
+    static void forceSubtype(@NonNull final InputMethodSubtype subtype) {
         sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
-    @Nonnull
+    @NonNull
     public Locale getCurrentSubtypeLocale() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting.getLocale();
@@ -252,7 +221,7 @@ public class RichInputMethodManager {
         return getCurrentSubtype().getLocale();
     }
 
-    @Nonnull
+    @NonNull
     public RichInputMethodSubtype getCurrentSubtype() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting;
@@ -341,10 +310,10 @@ public class RichInputMethodManager {
 
     public InputMethodSubtype findSubtypeByLocale(final Locale locale) {
         // Find the best subtype based on a straightforward matching algorithm.
-        // TODO: Use LocaleList#getFirstMatch() instead.
         final List<InputMethodSubtype> subtypes =
                 getMyEnabledInputMethodSubtypeList(true /* allowsImplicitlySelectedSubtypes */);
         final int count = subtypes.size();
+        // search for exact match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
@@ -352,6 +321,7 @@ public class RichInputMethodManager {
                 return subtype;
             }
         }
+        // search for language + country + variant match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
@@ -361,6 +331,7 @@ public class RichInputMethodManager {
                 return subtype;
             }
         }
+        // search for language + country match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
@@ -369,11 +340,48 @@ public class RichInputMethodManager {
                 return subtype;
             }
         }
+        // search for secondary locale match
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        for (int i = 0; i < count; ++i) {
+            final InputMethodSubtype subtype = subtypes.get(i);
+            final String subtypeLocale = subtype.getLocale();
+            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
+            for (final Locale secondaryLocale : secondaryLocales) {
+                if (secondaryLocale.equals(locale)) {
+                    return subtype;
+                }
+            }
+        }
+        // search for language match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
             final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage())) {
                 return subtype;
+            }
+        }
+        // search for secondary language match
+        for (int i = 0; i < count; ++i) {
+            final InputMethodSubtype subtype = subtypes.get(i);
+            final String subtypeLocale = subtype.getLocale();
+            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
+            for (final Locale secondaryLocale : secondaryLocales) {
+                if (secondaryLocale.getLanguage().equals(locale.getLanguage())) {
+                    return subtype;
+                }
+            }
+        }
+
+        // extra: if current script is not compatible to current subtype, search for compatible script
+        // this is acceptable only because this function is only used for switching to a certain locale using EditorInfo.hintLocales
+        final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);
+        if (script != ScriptUtils.getScriptFromSpellCheckerLocale(getCurrentSubtypeLocale())) {
+            for (int i = 0; i < count; ++i) {
+                final InputMethodSubtype subtype = subtypes.get(i);
+                final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+                if (ScriptUtils.getScriptFromSpellCheckerLocale(subtypeLocale) == script) {
+                    return subtype;
+                }
             }
         }
         return null;
@@ -392,38 +400,13 @@ public class RichInputMethodManager {
         updateShortcutIme();
     }
 
-    // todo: remove?
-    public boolean isSystemLocaleSameAsLocaleOfAllEnabledSubtypesOfEnabledImes() {
-        final Locale systemLocale = mContext.getResources().getConfiguration().locale;
-        final Set<InputMethodSubtype> enabledSubtypesOfEnabledImes = new HashSet<>();
-        final InputMethodManager inputMethodManager = getInputMethodManager();
-        final List<InputMethodInfo> enabledInputMethodInfoList =
-                inputMethodManager.getEnabledInputMethodList();
-        for (final InputMethodInfo info : enabledInputMethodInfoList) {
-            final List<InputMethodSubtype> enabledSubtypes =
-                    inputMethodManager.getEnabledInputMethodSubtypeList(
-                            info, true /* allowsImplicitlySelectedSubtypes */);
-            if (enabledSubtypes.isEmpty()) {
-                // An IME with no subtypes is found.
-                return false;
-            }
-            enabledSubtypesOfEnabledImes.addAll(enabledSubtypes);
-        }
-        for (final InputMethodSubtype subtype : enabledSubtypesOfEnabledImes) {
-            if (!subtype.isAuxiliary() && !subtype.getLocale().isEmpty()
-                    && !systemLocale.equals(SubtypeLocaleUtils.getSubtypeLocale(subtype))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
         SubtypeSettingsKt.setSelectedSubtype(DeviceProtectedUtils.getSharedPreferences(mContext), subtype);
         mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
-    // todo: what is shortcutIme? the voice input? if yes, rename it and other things like mHasShortcutKey
+    // todo: is shortcutIme only voice input, or can it be something else?
+    //  if always voice input, rename it and other things like mHasShortcutKey
     private void updateShortcutIme() {
         if (DEBUG) {
             Log.d(TAG, "Update shortcut IME from : "
@@ -495,12 +478,6 @@ public class RichInputMethodManager {
     }
 
     public boolean isShortcutImeReady() {
-        if (mShortcutInputMethodInfo == null) {
-            return false;
-        }
-        if (mShortcutSubtype == null) {
-            return true;
-        }
-        return true;
+        return mShortcutInputMethodInfo != null;
     }
 }

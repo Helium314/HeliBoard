@@ -1,31 +1,16 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.res.TypedArray;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 public final class KeyPreviewDrawParams {
     // XML attributes of {@link MainKeyboardView}.
@@ -62,8 +47,13 @@ public final class KeyPreviewDrawParams {
     public KeyPreviewDrawParams(final TypedArray mainKeyboardViewAttr) {
         mPreviewOffset = mainKeyboardViewAttr.getDimensionPixelOffset(
                 R.styleable.MainKeyboardView_keyPreviewOffset, 0);
-        mPreviewHeight = mainKeyboardViewAttr.getDimensionPixelSize(
-                R.styleable.MainKeyboardView_keyPreviewHeight, 0);
+        // crashes when too small (or just < 1?)
+        final float heightScale = (float) Math.max(1f, Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
+        // todo: further scaling issue
+        //  key height and thus text height (in pixels) don't change with display density,
+        //  but keyPreviewHeight does -> how to do it right?
+        mPreviewHeight = (int) (mainKeyboardViewAttr.getDimensionPixelSize(
+                R.styleable.MainKeyboardView_keyPreviewHeight, 0) * heightScale);
         mPreviewBackgroundResId = mainKeyboardViewAttr.getResourceId(
                 R.styleable.MainKeyboardView_keyPreviewBackground, 0);
     }
@@ -80,13 +70,11 @@ public final class KeyPreviewDrawParams {
         final int previewWidth = previewTextView.getMeasuredWidth();
         // The width and height of visible part of the key preview background. The content marker
         // of the background 9-patch have to cover the visible part of the background.
-        mVisibleWidth = previewWidth - previewTextView.getPaddingLeft()
-                - previewTextView.getPaddingRight();
-        mVisibleHeight = mPreviewHeight - previewTextView.getPaddingTop()
-                - previewTextView.getPaddingBottom();
+        mVisibleWidth = previewWidth - previewTextView.getPaddingLeft() - previewTextView.getPaddingRight();
+        mVisibleHeight = mPreviewHeight - previewTextView.getPaddingTop() - previewTextView.getPaddingBottom();
         // The distance between the top edge of the parent key and the bottom of the visible part
         // of the key preview background.
-        setVisibleOffset(-previewTextView.getPaddingBottom()/2);
+        setVisibleOffset(-previewTextView.getPaddingBottom() / 2);
     }
 
     public int getVisibleWidth() {
@@ -103,12 +91,6 @@ public final class KeyPreviewDrawParams {
 
     public boolean isPopupEnabled() {
         return mShowPopup;
-    }
-
-    public void setAnimationParams(final boolean hasCustomAnimationParams,
-            final float showUpStartXScale, final float showUpStartYScale, final int showUpDuration,
-            final float dismissEndXScale, final float dismissEndYScale, final int dismissDuration) {
-        //TODO: remove
     }
 
 }

@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
@@ -80,7 +70,7 @@ public final class KeyboardId {
     public final int mMode;
     public final int mElementId;
     public final EditorInfo mEditorInfo;
-    public final boolean mClobberSettingsKey;
+    public final boolean mDeviceLocked;
     public final boolean mNumberRowEnabled;
     public final boolean mLanguageSwitchKeyEnabled;
     public final boolean mEmojiKeyEnabled;
@@ -98,7 +88,7 @@ public final class KeyboardId {
         mMode = params.mMode;
         mElementId = elementId;
         mEditorInfo = params.mEditorInfo;
-        mClobberSettingsKey = params.mNoSettingsKey;
+        mDeviceLocked = params.mDeviceLocked;
         mNumberRowEnabled = params.mNumberRowEnabled;
         mLanguageSwitchKeyEnabled = params.mLanguageSwitchKeyEnabled;
         mEmojiKeyEnabled = params.mEmojiKeyEnabled;
@@ -118,7 +108,7 @@ public final class KeyboardId {
                 id.mWidth,
                 id.mHeight,
                 id.passwordInput(),
-                id.mClobberSettingsKey,
+                id.mDeviceLocked,
                 id.mHasShortcutKey,
                 id.mNumberRowEnabled,
                 id.mLanguageSwitchKeyEnabled,
@@ -141,7 +131,7 @@ public final class KeyboardId {
                 && other.mWidth == mWidth
                 && other.mHeight == mHeight
                 && other.passwordInput() == passwordInput()
-                && other.mClobberSettingsKey == mClobberSettingsKey
+                && other.mDeviceLocked == mDeviceLocked
                 && other.mHasShortcutKey == mHasShortcutKey
                 && other.mNumberRowEnabled == mNumberRowEnabled
                 && other.mLanguageSwitchKeyEnabled == mLanguageSwitchKeyEnabled
@@ -183,6 +173,20 @@ public final class KeyboardId {
         return (mEditorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
     }
 
+    public boolean isAlphabetShifted() {
+        return mElementId == ELEMENT_ALPHABET_SHIFT_LOCKED || mElementId == ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+                || mElementId == ELEMENT_ALPHABET_AUTOMATIC_SHIFTED || mElementId == ELEMENT_ALPHABET_MANUAL_SHIFTED;
+    }
+
+    public boolean isNumberLayout() {
+        return mElementId == ELEMENT_NUMBER || mElementId == ELEMENT_NUMPAD
+                || mElementId == ELEMENT_PHONE || mElementId == ELEMENT_PHONE_SYMBOLS;
+    }
+
+    public boolean isEmojiKeyboard() {
+        return mElementId >= ELEMENT_EMOJI_RECENTS && mElementId <= ELEMENT_EMOJI_CATEGORY16;
+    }
+
     public int imeAction() {
         return InputTypeUtils.getImeOptionsActionIdFromEditorInfo(mEditorInfo);
     }
@@ -203,7 +207,7 @@ public final class KeyboardId {
 
     @Override
     public String toString() {
-        return String.format(Locale.ROOT, "[%s %s:%s %dx%d %s %s%s%s%s%s%s%s%s%s]",
+        return String.format(Locale.ROOT, "[%s %s:%s %dx%d %s %s%s%s%s%s%s%s%s%s%s%s]",
                 elementIdToName(mElementId),
                 mSubtype.getLocale(),
                 mSubtype.getExtraValueOf(KEYBOARD_LAYOUT_SET),
@@ -212,7 +216,7 @@ public final class KeyboardId {
                 actionName(imeAction()),
                 (navigateNext() ? " navigateNext" : ""),
                 (navigatePrevious() ? " navigatePrevious" : ""),
-                (mClobberSettingsKey ? " clobberSettingsKey" : ""),
+                (mDeviceLocked ? " deviceLocked" : ""),
                 (passwordInput() ? " passwordInput" : ""),
                 (mHasShortcutKey ? " hasShortcutKey" : ""),
                 (mNumberRowEnabled ? " numberRowEnabled" : ""),
@@ -232,54 +236,54 @@ public final class KeyboardId {
     }
 
     public static String elementIdToName(final int elementId) {
-        switch (elementId) {
-        case ELEMENT_ALPHABET: return "alphabet";
-        case ELEMENT_ALPHABET_MANUAL_SHIFTED: return "alphabetManualShifted";
-        case ELEMENT_ALPHABET_AUTOMATIC_SHIFTED: return "alphabetAutomaticShifted";
-        case ELEMENT_ALPHABET_SHIFT_LOCKED: return "alphabetShiftLocked";
-        case ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED: return "alphabetShiftLockShifted";
-        case ELEMENT_SYMBOLS: return "symbols";
-        case ELEMENT_SYMBOLS_SHIFTED: return "symbolsShifted";
-        case ELEMENT_PHONE: return "phone";
-        case ELEMENT_PHONE_SYMBOLS: return "phoneSymbols";
-        case ELEMENT_NUMBER: return "number";
-        case ELEMENT_EMOJI_RECENTS: return "emojiRecents";
-        case ELEMENT_EMOJI_CATEGORY1: return "emojiCategory1";
-        case ELEMENT_EMOJI_CATEGORY2: return "emojiCategory2";
-        case ELEMENT_EMOJI_CATEGORY3: return "emojiCategory3";
-        case ELEMENT_EMOJI_CATEGORY4: return "emojiCategory4";
-        case ELEMENT_EMOJI_CATEGORY5: return "emojiCategory5";
-        case ELEMENT_EMOJI_CATEGORY6: return "emojiCategory6";
-        case ELEMENT_EMOJI_CATEGORY7: return "emojiCategory7";
-        case ELEMENT_EMOJI_CATEGORY8: return "emojiCategory8";
-        case ELEMENT_EMOJI_CATEGORY9: return "emojiCategory9";
-        case ELEMENT_EMOJI_CATEGORY10: return "emojiCategory10";
-        case ELEMENT_EMOJI_CATEGORY11: return "emojiCategory11";
-        case ELEMENT_EMOJI_CATEGORY12: return "emojiCategory12";
-        case ELEMENT_EMOJI_CATEGORY13: return "emojiCategory13";
-        case ELEMENT_EMOJI_CATEGORY14: return "emojiCategory14";
-        case ELEMENT_EMOJI_CATEGORY15: return "emojiCategory15";
-        case ELEMENT_EMOJI_CATEGORY16: return "emojiCategory16";
-        case ELEMENT_CLIPBOARD: return "clipboard";
-        case ELEMENT_NUMPAD: return "numpad";
-        default: return null;
-        }
+        return switch (elementId) {
+            case ELEMENT_ALPHABET -> "alphabet";
+            case ELEMENT_ALPHABET_MANUAL_SHIFTED -> "alphabetManualShifted";
+            case ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> "alphabetAutomaticShifted";
+            case ELEMENT_ALPHABET_SHIFT_LOCKED -> "alphabetShiftLocked";
+            case ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> "alphabetShiftLockShifted";
+            case ELEMENT_SYMBOLS -> "symbols";
+            case ELEMENT_SYMBOLS_SHIFTED -> "symbolsShifted";
+            case ELEMENT_PHONE -> "phone";
+            case ELEMENT_PHONE_SYMBOLS -> "phoneSymbols";
+            case ELEMENT_NUMBER -> "number";
+            case ELEMENT_EMOJI_RECENTS -> "emojiRecents";
+            case ELEMENT_EMOJI_CATEGORY1 -> "emojiCategory1";
+            case ELEMENT_EMOJI_CATEGORY2 -> "emojiCategory2";
+            case ELEMENT_EMOJI_CATEGORY3 -> "emojiCategory3";
+            case ELEMENT_EMOJI_CATEGORY4 -> "emojiCategory4";
+            case ELEMENT_EMOJI_CATEGORY5 -> "emojiCategory5";
+            case ELEMENT_EMOJI_CATEGORY6 -> "emojiCategory6";
+            case ELEMENT_EMOJI_CATEGORY7 -> "emojiCategory7";
+            case ELEMENT_EMOJI_CATEGORY8 -> "emojiCategory8";
+            case ELEMENT_EMOJI_CATEGORY9 -> "emojiCategory9";
+            case ELEMENT_EMOJI_CATEGORY10 -> "emojiCategory10";
+            case ELEMENT_EMOJI_CATEGORY11 -> "emojiCategory11";
+            case ELEMENT_EMOJI_CATEGORY12 -> "emojiCategory12";
+            case ELEMENT_EMOJI_CATEGORY13 -> "emojiCategory13";
+            case ELEMENT_EMOJI_CATEGORY14 -> "emojiCategory14";
+            case ELEMENT_EMOJI_CATEGORY15 -> "emojiCategory15";
+            case ELEMENT_EMOJI_CATEGORY16 -> "emojiCategory16";
+            case ELEMENT_CLIPBOARD -> "clipboard";
+            case ELEMENT_NUMPAD -> "numpad";
+            default -> null;
+        };
     }
 
     public static String modeName(final int mode) {
-        switch (mode) {
-        case MODE_TEXT: return "text";
-        case MODE_URL: return "url";
-        case MODE_EMAIL: return "email";
-        case MODE_IM: return "im";
-        case MODE_PHONE: return "phone";
-        case MODE_NUMBER: return "number";
-        case MODE_DATE: return "date";
-        case MODE_TIME: return "time";
-        case MODE_DATETIME: return "datetime";
-        case MODE_NUMPAD: return "numpad";
-        default: return null;
-        }
+        return switch (mode) {
+            case MODE_TEXT -> "text";
+            case MODE_URL -> "url";
+            case MODE_EMAIL -> "email";
+            case MODE_IM -> "im";
+            case MODE_PHONE -> "phone";
+            case MODE_NUMBER -> "number";
+            case MODE_DATE -> "date";
+            case MODE_TIME -> "time";
+            case MODE_DATETIME -> "datetime";
+            case MODE_NUMPAD -> "numpad";
+            default -> null;
+        };
     }
 
     public static String actionName(final int actionId) {

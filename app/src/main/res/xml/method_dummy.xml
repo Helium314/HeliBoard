@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
 
 <!--
 Dummy method.xml that is exposed to the system
@@ -15,7 +18,8 @@ the system picker crashes on some devices for unknown reasons.
         android:settingsActivity="org.dslul.openboard.inputmethod.latin.settings.SettingsActivity"
         android:isDefault="@bool/im_is_default"
         android:supportsSwitchingToNextInputMethod="true">
-    <subtype android:icon="@drawable/ic_ime_switcher_dark"
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:imeSubtypeExtraValue="dummy"
             android:imeSubtypeMode="keyboard"
             android:isAsciiCapable="true"
     />

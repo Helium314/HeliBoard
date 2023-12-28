@@ -1,0 +1,6 @@
+[morekeys]
+punctuation !autoColumnOrder!9 ၊ . ? ! # ) ( / ; ... ' @ : - " + \% &
+
+[labels]
+alphabet: ကခဂ
+period: ။

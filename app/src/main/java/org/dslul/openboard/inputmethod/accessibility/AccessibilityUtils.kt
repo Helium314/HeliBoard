@@ -1,26 +1,32 @@
+/*
+ * Copyright (C) 2011 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.accessibility
 
 import android.content.Context
 import android.media.AudioManager
+import android.os.Build
 import android.os.SystemClock
 import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
-import androidx.core.view.accessibility.AccessibilityEventCompat
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SuggestedWords
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 
 class AccessibilityUtils private constructor() {
-    private var mContext: Context? = null
-    private var mAccessibilityManager: AccessibilityManager? = null
-    private var mAudioManager: AudioManager? = null
+    private lateinit var mContext: Context
+    private lateinit var mAccessibilityManager: AccessibilityManager
+    private lateinit var mAudioManager: AudioManager
     /** The most recent auto-correction.  */
     private var mAutoCorrectionWord: String? = null
     /** The most recent typed word for auto-correction.  */
@@ -39,7 +45,7 @@ class AccessibilityUtils private constructor() {
      * @return `true` if accessibility is enabled.
      */
     val isAccessibilityEnabled: Boolean
-        get() = ENABLE_ACCESSIBILITY && mAccessibilityManager!!.isEnabled
+        get() = ENABLE_ACCESSIBILITY && mAccessibilityManager.isEnabled
 
     /**
      * Returns `true` if touch exploration is enabled. Currently, this
@@ -49,7 +55,7 @@ class AccessibilityUtils private constructor() {
      * @return `true` if touch exploration is enabled.
      */
     val isTouchExplorationEnabled: Boolean
-        get() = isAccessibilityEnabled && mAccessibilityManager!!.isTouchExplorationEnabled
+        get() = isAccessibilityEnabled && mAccessibilityManager.isTouchExplorationEnabled
 
     /**
      * Returns whether the device should obscure typed password characters.
@@ -61,12 +67,12 @@ class AccessibilityUtils private constructor() {
         if (editorInfo == null) return false
         // The user can optionally force speaking passwords.
         if (Settings.Secure.ACCESSIBILITY_SPEAK_PASSWORD != null) {
-            val speakPassword = Settings.Secure.getInt(mContext!!.contentResolver,
+            val speakPassword = Settings.Secure.getInt(mContext.contentResolver,
                     Settings.Secure.ACCESSIBILITY_SPEAK_PASSWORD, 0) != 0
             if (speakPassword) return false
         }
         // Always speak if the user is listening through headphones.
-        return if (mAudioManager!!.isWiredHeadsetOn || mAudioManager!!.isBluetoothA2dpOn) {
+        return if (mAudioManager.isWiredHeadsetOn || mAudioManager.isBluetoothA2dpOn) {
             false
         } else InputTypeUtils.isPasswordInputType(editorInfo.inputType)
         // Don't speak if the IME is connected to a password field.
@@ -105,9 +111,9 @@ class AccessibilityUtils private constructor() {
         if (!TextUtils.isEmpty(mAutoCorrectionWord)) {
             if (!TextUtils.equals(mAutoCorrectionWord, mTypedWord)) {
                 return if (shouldObscure) { // This should never happen, but just in case...
-                    mContext!!.getString(R.string.spoken_auto_correct_obscured,
+                    mContext.getString(R.string.spoken_auto_correct_obscured,
                             keyCodeDescription)
-                } else mContext!!.getString(R.string.spoken_auto_correct, keyCodeDescription,
+                } else mContext.getString(R.string.spoken_auto_correct, keyCodeDescription,
                         mTypedWord, mAutoCorrectionWord)
             }
         }
@@ -122,22 +128,22 @@ class AccessibilityUtils private constructor() {
      * @param text The text to speak.
      */
     fun announceForAccessibility(view: View, text: CharSequence?) {
-        if (!mAccessibilityManager!!.isEnabled) {
+        if (!mAccessibilityManager.isEnabled) {
             Log.e(TAG, "Attempted to speak when accessibility was disabled!")
             return
         }
         // The following is a hack to avoid using the heavy-weight TextToSpeech
-// class. Instead, we're just forcing a fake AccessibilityEvent into
-// the screen reader to make it speak.
-        val event = AccessibilityEvent.obtain()
+        // class. Instead, we're just forcing a fake AccessibilityEvent into
+        // the screen reader to make it speak.
+        val event = obtainEvent()
         event.packageName = PACKAGE
         event.className = CLASS
         event.eventTime = SystemClock.uptimeMillis()
         event.isEnabled = true
         event.text.add(text)
         // Platforms starting at SDK version 16 (Build.VERSION_CODES.JELLY_BEAN) should use
-// announce events.
-        event.eventType = AccessibilityEventCompat.TYPE_ANNOUNCEMENT
+        // announce events.
+        event.eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
         val viewParent = view.parent
         if (viewParent == null || viewParent !is ViewGroup) {
             Log.e(TAG, "Failed to obtain ViewParent in announceForAccessibility")
@@ -154,10 +160,9 @@ class AccessibilityUtils private constructor() {
      * @param editorInfo The input connection's editor info attribute.
      * @param restarting Whether the connection is being restarted.
      */
-    fun onStartInputViewInternal(view: View, editorInfo: EditorInfo?,
-                                 restarting: Boolean) {
+    fun onStartInputViewInternal(view: View, editorInfo: EditorInfo?, restarting: Boolean) {
         if (shouldObscureInput(editorInfo)) {
-            val text = mContext!!.getText(R.string.spoken_use_headphones)
+            val text = mContext.getText(R.string.spoken_use_headphones)
             announceForAccessibility(view, text)
         }
     }
@@ -169,8 +174,8 @@ class AccessibilityUtils private constructor() {
      * @param event The event to send.
      */
     fun requestSendAccessibilityEvent(event: AccessibilityEvent?) {
-        if (mAccessibilityManager!!.isEnabled) {
-            mAccessibilityManager!!.sendAccessibilityEvent(event)
+        if (mAccessibilityManager.isEnabled) {
+            mAccessibilityManager.sendAccessibilityEvent(event)
         }
     }
 
@@ -180,10 +185,10 @@ class AccessibilityUtils private constructor() {
         private val PACKAGE = AccessibilityUtils::class.java.getPackage()!!.name
         val instance = AccessibilityUtils()
         /*
-     * Setting this constant to {@code false} will disable all keyboard
-     * accessibility code, regardless of whether Accessibility is turned on in
-     * the system settings. It should ONLY be used in the event of an emergency.
-     */
+         * Setting this constant to {@code false} will disable all keyboard
+         * accessibility code, regardless of whether Accessibility is turned on in
+         * the system settings. It should ONLY be used in the event of an emergency.
+         */
         private const val ENABLE_ACCESSIBILITY = true
 
         @JvmStatic
@@ -205,5 +210,21 @@ class AccessibilityUtils private constructor() {
             val action = event.action
             return action == MotionEvent.ACTION_HOVER_ENTER || action == MotionEvent.ACTION_HOVER_EXIT || action == MotionEvent.ACTION_HOVER_MOVE
         }
+
+        fun obtainEvent(eventType: Int): AccessibilityEvent =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                AccessibilityEvent(eventType)
+            } else {
+                @Suppress("deprecation")
+                AccessibilityEvent.obtain(eventType)
+            }
+
+        fun obtainEvent(): AccessibilityEvent =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                AccessibilityEvent()
+            } else {
+                @Suppress("deprecation")
+                AccessibilityEvent.obtain()
+            }
     }
 }

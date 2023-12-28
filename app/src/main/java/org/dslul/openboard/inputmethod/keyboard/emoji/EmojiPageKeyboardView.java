@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
@@ -23,7 +13,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +22,10 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.KeyboardAccessibilityDelegate;
 import org.dslul.openboard.inputmethod.keyboard.Key;
@@ -46,8 +40,6 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.WeakHashMap;
 
 /**
@@ -55,7 +47,7 @@ import java.util.WeakHashMap;
  * Multi-touch unsupported. No gesture support.
  */
 // TODO: Implement key popup preview.
-final class EmojiPageKeyboardView extends KeyboardView implements
+public final class EmojiPageKeyboardView extends KeyboardView implements
         MoreKeysPanel.Controller {
     private static final String TAG = "EmojiPageKeyboardView";
     private static final boolean LOG = false;
@@ -118,8 +110,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
         final Keyboard keyboard = getKeyboard();
         if (keyboard instanceof DynamicGridKeyboard) {
             final int width = keyboard.mOccupiedWidth + getPaddingLeft() + getPaddingRight();
-            final int occupiedHeight =
-                    ((DynamicGridKeyboard) keyboard).getDynamicOccupiedHeight();
+            final int occupiedHeight = ((DynamicGridKeyboard) keyboard).getDynamicOccupiedHeight();
             final int height = occupiedHeight + getPaddingTop() + getPaddingBottom();
             setMeasuredDimension(width, height);
             return;
@@ -164,7 +155,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
      * {@inheritDoc}
      */
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(keyboard, 0 /* correctionX */, 0 /* correctionY */);
         mMoreKeysKeyboardCache.clear();
@@ -179,7 +170,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     @Nullable
-    public MoreKeysPanel showMoreKeysKeyboard(@Nonnull final Key key, final int lastX, final int lastY) {
+    public MoreKeysPanel showMoreKeysKeyboard(@NonNull final Key key, final int lastX, final int lastY) {
         final MoreKeySpec[] moreKeys = key.getMoreKeys();
         if (moreKeys == null) {
             return null;
@@ -193,8 +184,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
         }
 
         final View container = mMoreKeysKeyboardContainer;
-        final MoreKeysKeyboardView moreKeysKeyboardView =
-                container.findViewById(R.id.more_keys_keyboard_view);
+        final MoreKeysKeyboardView moreKeysKeyboardView = container.findViewById(R.id.more_keys_keyboard_view);
         moreKeysKeyboardView.setKeyboard(moreKeysKeyboard);
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -206,8 +196,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
                 ? CoordinateUtils.x(lastCoords)
                 : key.getX() + key.getWidth() / 2;
         final int pointY = key.getY();
-        moreKeysKeyboardView.showMoreKeysPanel(this, this,
-                pointX, pointY, mListener);
+        moreKeysKeyboardView.showMoreKeysPanel(this, this, pointX, pointY, mListener);
         return moreKeysKeyboardView;
     }
 
@@ -261,10 +250,8 @@ final class EmojiPageKeyboardView extends KeyboardView implements
      */
     @Override
     public boolean onHoverEvent(final MotionEvent event) {
-        final KeyboardAccessibilityDelegate<EmojiPageKeyboardView> accessibilityDelegate =
-                mAccessibilityDelegate;
-        if (accessibilityDelegate != null
-                && AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled()) {
+        final KeyboardAccessibilityDelegate<EmojiPageKeyboardView> accessibilityDelegate = mAccessibilityDelegate;
+        if (accessibilityDelegate != null && AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled()) {
             return accessibilityDelegate.onHoverEvent(event);
         }
         return super.onHoverEvent(event);
@@ -319,22 +306,12 @@ final class EmojiPageKeyboardView extends KeyboardView implements
 
     private void registerPress(final Key key) {
         // Do not trigger key-down effect right now in case this is actually a fling action.
-        mPendingKeyDown = new Runnable() {
-            @Override
-            public void run() {
-                callListenerOnPressKey(key);
-            }
-        };
+        mPendingKeyDown = () -> callListenerOnPressKey(key);
         mHandler.postDelayed(mPendingKeyDown, KEY_PRESS_DELAY_TIME);
     }
 
     private void registerLongPress(final Key key) {
-        mPendingLongPress = new Runnable() {
-            @Override
-            public void run() {
-                onLongPressed(key);
-            }
-        };
+        mPendingLongPress = () -> onLongPressed(key);
         mHandler.postDelayed(mPendingLongPress, getLongPressTimeout());
     }
 
@@ -405,12 +382,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
         } else if (key == currentKey && pendingKeyDown != null) {
             pendingKeyDown.run();
             // Trigger key-release event a little later so that a user can see visual feedback.
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    callListenerOnReleaseKey(key, true /* withRegistering */);
-                }
-            }, KEY_RELEASE_DELAY_TIME);
+            mHandler.postDelayed(() -> callListenerOnReleaseKey(key, true), KEY_RELEASE_DELAY_TIME);
         } else if (key != null) {
             callListenerOnReleaseKey(key, true /* withRegistering */);
         }
@@ -420,7 +392,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     public boolean onCancel(final MotionEvent e) {
-        releaseCurrentKey(false /* withKeyRegistering */);
+        releaseCurrentKey(false);
         dismissMoreKeysPanel();
         cancelLongPress();
         return true;
@@ -435,7 +407,7 @@ final class EmojiPageKeyboardView extends KeyboardView implements
         // Touched key has changed, release previous key's callbacks and
         // re-register them for the new key.
         if (key != mCurrentKey && !isShowingMoreKeysPanel) {
-            releaseCurrentKey(false /* withKeyRegistering */);
+            releaseCurrentKey(false);
             mCurrentKey = key;
             if (key == null) {
                 return false;

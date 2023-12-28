@@ -1,30 +1,20 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
-
 // TODO: This class is not thread-safe.
 public final class ResizableIntArray {
-    @Nonnull
+    @NonNull
     private int[] mArray;
     private int mLength;
 
@@ -94,18 +84,18 @@ public final class ResizableIntArray {
         mLength = 0;
     }
 
-    @Nonnull
+    @NonNull
     public int[] getPrimitiveArray() {
         return mArray;
     }
 
-    public void set(@Nonnull final ResizableIntArray ip) {
+    public void set(@NonNull final ResizableIntArray ip) {
         // TODO: Implement primitive array pool.
         mArray = ip.mArray;
         mLength = ip.mLength;
     }
 
-    public void copy(@Nonnull final ResizableIntArray ip) {
+    public void copy(@NonNull final ResizableIntArray ip) {
         final int newCapacity = calculateCapacity(ip.mLength);
         if (newCapacity > 0) {
             // TODO: Implement primitive array pool.
@@ -115,7 +105,7 @@ public final class ResizableIntArray {
         mLength = ip.mLength;
     }
 
-    public void append(@Nonnull final ResizableIntArray src, final int startPos, final int length) {
+    public void append(@NonNull final ResizableIntArray src, final int startPos, final int length) {
         if (length == 0) {
             return;
         }

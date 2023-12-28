@@ -1,24 +1,18 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.event.CombinerChain;
 import org.dslul.openboard.inputmethod.event.Event;
+import org.dslul.openboard.inputmethod.keyboard.Keyboard;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -31,14 +25,11 @@ import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.annotation.Nonnull;
-
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public final class WordComposer {
     private static final int MAX_WORD_LENGTH = DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH;
-    private static final boolean DBG = DebugFlags.DEBUG_ENABLED;
 
     public static final int CAPS_MODE_OFF = 0;
     // 1 is shift bit, 2 is caps bit, 4 is auto bit but this is just a convention as these bits
@@ -91,6 +82,11 @@ public final class WordComposer {
         mCursorPositionWithinWord = 0;
         mRejectedBatchModeSuggestion = null;
         refreshTypedWordCache();
+        final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
+        if (keyboard != null)
+            // initializing with the right state is important for the spell checker,
+            // which creates a new WordComposer when receiving suggestions
+            mCombinerChain.setHangul(keyboard.mId.mSubtype.getLocale().getLanguage().equals("ko"));
     }
 
     public ComposedData getComposedDataSnapshot() {
@@ -104,11 +100,13 @@ public final class WordComposer {
     public void restartCombining(final String combiningSpec) {
         final String nonNullCombiningSpec = null == combiningSpec ? "" : combiningSpec;
         if (!nonNullCombiningSpec.equals(mCombiningSpec)) {
-            mCombinerChain = new CombinerChain(
-                    mCombinerChain.getComposingWordWithCombiningFeedback().toString());
+            mCombinerChain = new CombinerChain(mCombinerChain.getComposingWordWithCombiningFeedback().toString());
             mCombiningSpec = nonNullCombiningSpec;
         }
     }
+
+    /** Forwards the state to CombinerChain, which disables or enables the Hangul combiner */
+    public void setHangul(final boolean enabled) { mCombinerChain.setHangul(enabled); }
 
     /**
      * Clear out the keys registered so far.
@@ -127,7 +125,7 @@ public final class WordComposer {
         refreshTypedWordCache();
     }
 
-    private final void refreshTypedWordCache() {
+    private void refreshTypedWordCache() {
         mTypedWordCache = mCombinerChain.getComposingWordWithCombiningFeedback();
         mCodePointSize = Character.codePointCount(mTypedWordCache, 0, mTypedWordCache.length());
     }
@@ -144,7 +142,7 @@ public final class WordComposer {
         return size() == 1;
     }
 
-    public final boolean isComposingWord() {
+    public boolean isComposingWord() {
         return size() > 0;
     }
 
@@ -157,8 +155,8 @@ public final class WordComposer {
      * @param event the unprocessed event.
      * @return the processed event. Never null, but may be marked as consumed.
      */
-    @Nonnull
-    public Event processEvent(@Nonnull final Event event) {
+    @NonNull
+    public Event processEvent(@NonNull final Event event) {
         final Event processedEvent = mCombinerChain.processEvent(mEvents, event);
         // The retained state of the combiner chain may have changed while processing the event,
         // so we need to update our cache.
@@ -176,13 +174,20 @@ public final class WordComposer {
      * @param event the event to apply. Must not be null.
      */
     public void applyProcessedEvent(final Event event) {
+        applyProcessedEvent(event, false);
+    }
+
+    // specifically for that Constants.CODE_OUTPUT_TEXT Hangul event: try keeping cursor position
+    // because typically nothing changes, todo: if really nothing changes maybe there is a better way to do it
+    public void applyProcessedEvent(final Event event, final boolean keepCursorPosition) {
         mCombinerChain.applyProcessedEvent(event);
         final int primaryCode = event.getMCodePoint();
         final int keyX = event.getMX();
         final int keyY = event.getMY();
         final int newIndex = size();
         refreshTypedWordCache();
-        mCursorPositionWithinWord = mCodePointSize;
+        if (!keepCursorPosition || newIndex == mCodePointSize)
+            mCursorPositionWithinWord = mCodePointSize;
         // We may have deleted the last one.
         if (0 == mCodePointSize) {
             mIsOnlyFirstCharCapitalized = false;
@@ -215,11 +220,15 @@ public final class WordComposer {
     }
 
     public boolean isCursorFrontOrMiddleOfComposingWord() {
-        if (DBG && mCursorPositionWithinWord > mCodePointSize) {
+        if (DebugFlags.DEBUG_ENABLED && mCursorPositionWithinWord > mCodePointSize) {
             throw new RuntimeException("Wrong cursor position : " + mCursorPositionWithinWord
                     + "in a word of size " + mCodePointSize);
         }
         return mCursorPositionWithinWord != mCodePointSize;
+    }
+
+    public boolean isCursorInFrontOfComposingWord() {
+        return mCursorPositionWithinWord == 0;
     }
 
     /**
@@ -275,8 +284,7 @@ public final class WordComposer {
             final int codePoint = Character.codePointAt(word, i);
             // We don't want to override the batch input points that are held in mInputPointers
             // (See {@link #add(int,int,int)}).
-            final Event processedEvent =
-                    processEvent(Event.createEventForCodePointFromUnknownSource(codePoint));
+            final Event processedEvent = processEvent(Event.createEventForCodePointFromUnknownSource(codePoint));
             applyProcessedEvent(processedEvent);
         }
     }
@@ -293,8 +301,9 @@ public final class WordComposer {
         for (int i = 0; i < length; ++i) {
             final Event processedEvent =
                     processEvent(Event.createEventForCodePointFromAlreadyTypedText(codePoints[i],
-                    CoordinateUtils.xFromArray(coordinates, i),
-                    CoordinateUtils.yFromArray(coordinates, i)));
+                        CoordinateUtils.xFromArray(coordinates, i),
+                        CoordinateUtils.yFromArray(coordinates, i))
+                    );
             applyProcessedEvent(processedEvent);
         }
         mIsResumed = true;
@@ -338,6 +347,11 @@ public final class WordComposer {
     public boolean wasShiftedNoLock() {
         return mCapitalizedMode == CAPS_MODE_AUTO_SHIFTED
                 || mCapitalizedMode == CAPS_MODE_MANUAL_SHIFTED;
+    }
+
+    public char lastChar() {
+        if (!isComposingWord()) return 0;
+        return mTypedWordCache.charAt(mTypedWordCache.length() - 1);
     }
 
     /**
@@ -478,4 +492,15 @@ public final class WordComposer {
     void setTypedWordCacheForTests(String typedWordCacheForTests) {
         mTypedWordCache = typedWordCacheForTests;
     }
+
+    @UsedForTesting
+    static WordComposer getComposerForTest(boolean isEmpty) {
+        return new WordComposer(isEmpty);
+    }
+
+    private WordComposer(boolean isEmpty) {
+        mCodePointSize = isEmpty ? 0 : 1;
+        mEvents = null;
+    }
+
 }

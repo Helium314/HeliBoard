@@ -1,32 +1,25 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.app.ActionBar;
+import static android.preference.PreferenceActivity.EXTRA_NO_HEADERS;
+import static android.preference.PreferenceActivity.EXTRA_SHOW_FRAGMENT;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
-import org.dslul.openboard.inputmethod.latin.utils.FragmentUtils;
+import org.dslul.openboard.inputmethod.latin.utils.NewDictionaryAdder;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-public final class SettingsActivity extends PreferenceActivity
+public final class SettingsActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
 
@@ -41,11 +34,26 @@ public final class SettingsActivity extends PreferenceActivity
     @Override
     protected void onCreate(final Bundle savedState) {
         super.onCreate(savedState);
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
+        final Intent i = getIntent();
+        if (Intent.ACTION_VIEW.equals(i.getAction()) && i.getData() != null) {
+            new NewDictionaryAdder(this, null).addDictionary(i.getData(), null);
+            setIntent(new Intent()); // avoid opening again
+        }
+        if (getSupportFragmentManager().getFragments().isEmpty())
+            getSupportFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, new SettingsFragment())
+                    .commit();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
@@ -60,12 +68,8 @@ public final class SettingsActivity extends PreferenceActivity
     }
 
     @Override
-    public boolean isValidFragment(final String fragmentName) {
-        return FragmentUtils.isValidFragment(fragmentName);
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionsManager.get(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

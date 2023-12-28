@@ -1,8 +1,14 @@
+/*
+ * Copyright (C) 2011 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.accessibility
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.SparseIntArray
 import android.view.inputmethod.EditorInfo
 import org.dslul.openboard.inputmethod.keyboard.Key
@@ -15,7 +21,30 @@ import java.util.*
 
 internal class KeyCodeDescriptionMapper private constructor() {
     // Sparse array of spoken description resource IDs indexed by key codes
-    private val mKeyCodeMap = SparseIntArray()
+    private val mKeyCodeMap = SparseIntArray().apply {
+        // Special non-character codes defined in Keyboard
+        put(Constants.CODE_SPACE, R.string.spoken_description_space)
+        put(Constants.CODE_DELETE, R.string.spoken_description_delete)
+        put(Constants.CODE_ENTER, R.string.spoken_description_return)
+        put(Constants.CODE_SETTINGS, R.string.spoken_description_settings)
+        put(Constants.CODE_SHIFT, R.string.spoken_description_shift)
+        put(Constants.CODE_SHORTCUT, R.string.spoken_description_mic)
+        put(Constants.CODE_SWITCH_ALPHA_SYMBOL, R.string.spoken_description_to_symbol)
+        put(Constants.CODE_TAB, R.string.spoken_description_tab)
+        put(Constants.CODE_LANGUAGE_SWITCH, R.string.spoken_description_language_switch)
+        put(Constants.CODE_ACTION_NEXT, R.string.spoken_description_action_next)
+        put(Constants.CODE_ACTION_PREVIOUS, R.string.spoken_description_action_previous)
+        put(Constants.CODE_EMOJI, R.string.spoken_description_emoji)
+        // Because the upper-case and lower-case mappings of the following letters is depending on
+        // the locale, the upper case descriptions should be defined here. The lower case
+        // descriptions are handled in {@link #getSpokenLetterDescriptionId(Context,int)}.
+        // U+0049: "I" LATIN CAPITAL LETTER I
+        // U+0069: "i" LATIN SMALL LETTER I
+        // U+0130: "İ" LATIN CAPITAL LETTER I WITH DOT ABOVE
+        // U+0131: "ı" LATIN SMALL LETTER DOTLESS I
+        put(0x0049, R.string.spoken_letter_0049)
+        put(0x0130, R.string.spoken_letter_0130)
+    }
 
     /**
      * Returns the localized description of the action performed by a specified
@@ -27,8 +56,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
      * @param shouldObscure {@true} if text (e.g. non-control) characters should be obscured.
      * @return a character sequence describing the action performed by pressing the key
      */
-    fun getDescriptionForKey(context: Context, keyboard: Keyboard?,
-                             key: Key, shouldObscure: Boolean): String? {
+    fun getDescriptionForKey(context: Context, keyboard: Keyboard?, key: Key, shouldObscure: Boolean): String? {
         val code = key.code
         if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
             val description = getDescriptionForSwitchAlphaSymbol(context, keyboard)
@@ -39,17 +67,19 @@ internal class KeyCodeDescriptionMapper private constructor() {
         if (code == Constants.CODE_SHIFT) {
             return getDescriptionForShiftKey(context, keyboard)
         }
-        if (code == Constants.CODE_ENTER) { // The following function returns the correct description in all action and
-// regular enter cases, taking care of all modes.
+        if (code == Constants.CODE_ENTER) {
+            // The following function returns the correct description in all action and
+            // regular enter cases, taking care of all modes.
             return getDescriptionForActionKey(context, keyboard, key)
         }
         if (code == Constants.CODE_OUTPUT_TEXT) {
-            val outputText = key.outputText
+            val outputText = key.outputText ?: return context.getString(R.string.spoken_description_unknown)
             val description = getSpokenEmoticonDescription(context, outputText)
             return if (TextUtils.isEmpty(description)) outputText else description
         }
         // Just attempt to speak the description.
-        if (code != Constants.CODE_UNSPECIFIED) { // If the key description should be obscured, now is the time to do it.
+        if (code != Constants.CODE_UNSPECIFIED) {
+            // If the key description should be obscured, now is the time to do it.
             val isDefinedNonCtrl = (Character.isDefined(code)
                     && !Character.isISOControl(code))
             if (shouldObscure && isDefinedNonCtrl) {
@@ -74,7 +104,8 @@ internal class KeyCodeDescriptionMapper private constructor() {
      * @param codePoint The code point from which to obtain a description.
      * @return a character sequence describing the code point.
      */
-    fun getDescriptionForCodePoint(context: Context, codePoint: Int): String? { // If the key description should be obscured, now is the time to do it.
+    fun getDescriptionForCodePoint(context: Context, codePoint: Int): String? {
+        // If the key description should be obscured, now is the time to do it.
         val index = mKeyCodeMap.indexOfKey(codePoint)
         if (index >= 0) {
             return context.getString(mKeyCodeMap.valueAt(index))
@@ -141,8 +172,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         val resourceName = String.format(Locale.ROOT, resourceNameFormat, code)
         val resources = context.resources
         // Note that the resource package name may differ from the context package name.
-        val resourcePackageName = resources.getResourcePackageName(
-                R.string.spoken_description_unknown)
+        val resourcePackageName = resources.getResourcePackageName(R.string.spoken_description_unknown)
         val resId = resources.getIdentifier(resourceName, "string", resourcePackageName)
         if (resId != 0) {
             mKeyCodeMap.append(code, resId)
@@ -158,7 +188,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         private const val SPOKEN_EMOTICON_RESOURCE_NAME_PREFIX = "spoken_emoticon"
         private const val SPOKEN_EMOTICON_CODE_POINT_FORMAT = "_%02X"
         // The resource ID of the string spoken for obscured keys
-        private const val OBSCURED_KEY_RES_ID = R.string.spoken_description_dot
+        private val OBSCURED_KEY_RES_ID = R.string.spoken_description_dot
         val instance = KeyCodeDescriptionMapper()
 
         /**
@@ -170,12 +200,8 @@ internal class KeyCodeDescriptionMapper private constructor() {
          * @param keyboard The keyboard on which the key resides.
          * @return a character sequence describing the action performed by pressing the key
          */
-        private fun getDescriptionForSwitchAlphaSymbol(context: Context,
-                                                       keyboard: Keyboard?): String? {
-            val keyboardId = keyboard!!.mId
-            val elementId = keyboardId.mElementId
-            val resId: Int
-            resId = when (elementId) {
+        private fun getDescriptionForSwitchAlphaSymbol(context: Context, keyboard: Keyboard?): String? {
+            val resId = when (val elementId = keyboard?.mId?.mElementId) {
                 KeyboardId.ELEMENT_ALPHABET, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_to_symbol
                 KeyboardId.ELEMENT_SYMBOLS, KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_to_alpha
                 KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_to_symbol
@@ -195,12 +221,8 @@ internal class KeyCodeDescriptionMapper private constructor() {
          * @param keyboard The keyboard on which the key resides.
          * @return A context-sensitive description of the "Shift" key.
          */
-        private fun getDescriptionForShiftKey(context: Context,
-                                              keyboard: Keyboard?): String {
-            val keyboardId = keyboard!!.mId
-            val elementId = keyboardId.mElementId
-            val resId: Int
-            resId = when (elementId) {
+        private fun getDescriptionForShiftKey(context: Context, keyboard: Keyboard?): String {
+            val resId: Int = when (keyboard?.mId?.mElementId) {
                 KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_caps_lock
                 KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> R.string.spoken_description_shift_shifted
                 KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_symbols_shift
@@ -218,17 +240,13 @@ internal class KeyCodeDescriptionMapper private constructor() {
          * @param key The key to describe.
          * @return Returns a context-sensitive description of the "Enter" action key.
          */
-        private fun getDescriptionForActionKey(context: Context, keyboard: Keyboard?,
-                                               key: Key): String {
-            val keyboardId = keyboard!!.mId
-            val actionId = keyboardId.imeAction()
-            val resId: Int
+        private fun getDescriptionForActionKey(context: Context, keyboard: Keyboard?, key: Key): String {
             // Always use the label, if available.
             if (!TextUtils.isEmpty(key.label)) {
                 return key.label!!.trim { it <= ' ' }
             }
-            resId = when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> R.string.spoken_description_search
+            val resId = when (keyboard?.mId?.imeAction()) {
+                EditorInfo.IME_ACTION_SEARCH -> R.string.label_search_key
                 EditorInfo.IME_ACTION_GO -> R.string.label_go_key
                 EditorInfo.IME_ACTION_SEND -> R.string.label_send_key
                 EditorInfo.IME_ACTION_NEXT -> R.string.label_next_key
@@ -240,10 +258,9 @@ internal class KeyCodeDescriptionMapper private constructor() {
         }
 
         // TODO: Remove this method once TTS supports emoticon verbalization.
-        private fun getSpokenEmoticonDescription(context: Context,
-                                                 outputText: String?): String? {
+        private fun getSpokenEmoticonDescription(context: Context, outputText: String): String? {
             val sb = StringBuilder(SPOKEN_EMOTICON_RESOURCE_NAME_PREFIX)
-            val textLength = outputText!!.length
+            val textLength = outputText.length
             var index = 0
             while (index < textLength) {
                 val codePoint = outputText.codePointAt(index)
@@ -253,36 +270,10 @@ internal class KeyCodeDescriptionMapper private constructor() {
             val resourceName = sb.toString()
             val resources = context.resources
             // Note that the resource package name may differ from the context package name.
-            val resourcePackageName = resources.getResourcePackageName(
-                    R.string.spoken_description_unknown)
+            val resourcePackageName = resources.getResourcePackageName(R.string.spoken_description_unknown)
             val resId = resources.getIdentifier(resourceName, "string", resourcePackageName)
             return if (resId == 0) null else resources.getString(resId)
         }
     }
 
-    init { // Special non-character codes defined in Keyboard
-        mKeyCodeMap.put(Constants.CODE_SPACE, R.string.spoken_description_space)
-        mKeyCodeMap.put(Constants.CODE_DELETE, R.string.spoken_description_delete)
-        mKeyCodeMap.put(Constants.CODE_ENTER, R.string.spoken_description_return)
-        mKeyCodeMap.put(Constants.CODE_SETTINGS, R.string.spoken_description_settings)
-        mKeyCodeMap.put(Constants.CODE_SHIFT, R.string.spoken_description_shift)
-        mKeyCodeMap.put(Constants.CODE_SHORTCUT, R.string.spoken_description_mic)
-        mKeyCodeMap.put(Constants.CODE_SWITCH_ALPHA_SYMBOL, R.string.spoken_description_to_symbol)
-        mKeyCodeMap.put(Constants.CODE_TAB, R.string.spoken_description_tab)
-        mKeyCodeMap.put(Constants.CODE_LANGUAGE_SWITCH,
-                R.string.spoken_description_language_switch)
-        mKeyCodeMap.put(Constants.CODE_ACTION_NEXT, R.string.spoken_description_action_next)
-        mKeyCodeMap.put(Constants.CODE_ACTION_PREVIOUS,
-                R.string.spoken_description_action_previous)
-        mKeyCodeMap.put(Constants.CODE_EMOJI, R.string.spoken_description_emoji)
-        // Because the upper-case and lower-case mappings of the following letters is depending on
-// the locale, the upper case descriptions should be defined here. The lower case
-// descriptions are handled in {@link #getSpokenLetterDescriptionId(Context,int)}.
-// U+0049: "I" LATIN CAPITAL LETTER I
-// U+0069: "i" LATIN SMALL LETTER I
-// U+0130: "İ" LATIN CAPITAL LETTER I WITH DOT ABOVE
-// U+0131: "ı" LATIN SMALL LETTER DOTLESS I
-        mKeyCodeMap.put(0x0049, R.string.spoken_letter_0049)
-        mKeyCodeMap.put(0x0130, R.string.spoken_letter_0130)
-    }
 }

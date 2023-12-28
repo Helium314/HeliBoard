@@ -1,31 +1,30 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin
 
 import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
-import android.util.Base64
-import android.util.Log
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.compat.ClipboardManagerCompat
-import org.dslul.openboard.inputmethod.latin.utils.JsonUtils
-import java.io.File
-import java.lang.Exception
-import java.util.*
+import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
+import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(
         private val latinIME: LatinIME
 ) : ClipboardManager.OnPrimaryClipChangedListener {
 
-    private lateinit var pinnedHistoryClipsFile: File
     private lateinit var clipboardManager: ClipboardManager
-    private val historyEntries: MutableList<ClipboardHistoryEntry>
+    private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
 
     fun onCreate() {
-        pinnedHistoryClipsFile = File(latinIME.filesDir, PINNED_CLIPS_DATA_FILE_NAME)
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         fetchPrimaryClip()
         clipboardManager.addPrimaryClipChangedListener(this)
-        startLoadPinnedClipsFromDisk()
+        loadPinnedClips()
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
@@ -80,7 +79,7 @@ class ClipboardHistoryManager(
         sortHistoryEntries()
         val to = historyEntries.indexOf(historyEntry)
         onHistoryChangeListener?.onClipboardHistoryEntryMoved(from, to)
-        startSavePinnedClipsToDisk()
+        savePinnedClips()
     }
 
     fun clearHistory() {
@@ -91,6 +90,13 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+    }
+
+    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
+
+    fun removeEntry(index: Int) {
+        if (canRemove(index))
+            historyEntries.removeAt(index)
     }
 
     private fun sortHistoryEntries() {
@@ -125,71 +131,21 @@ class ClipboardHistoryManager(
         return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
     }
 
-    private fun startLoadPinnedClipsFromDisk() {
-        object : Thread("$TAG-load") {
-            override fun run() {
-                loadFromDisk()
-            }
-        }.start()
+    private fun loadPinnedClips() {
+        val pinnedClipString = Settings.readPinnedClipString(DeviceProtectedUtils.getSharedPreferences(latinIME))
+        if (pinnedClipString.isEmpty()) return
+        val pinnedClips: List<ClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
+        latinIME.mHandler.postUpdateClipboardPinnedClips(pinnedClips)
     }
 
-    private fun loadFromDisk() {
-        // Debugging
-        if (pinnedHistoryClipsFile.exists() && !pinnedHistoryClipsFile.canRead()) {
-            Log.w(TAG, "Attempt to read pinned clips file $pinnedHistoryClipsFile without permission")
-        }
-        var list = emptyList<ClipboardHistoryEntry>()
-        try {
-            if (pinnedHistoryClipsFile.exists()) {
-                val bytes = Base64.decode(pinnedHistoryClipsFile.readText(), Base64.DEFAULT)
-                list = JsonUtils.jsonBytesToHistoryEntryList(bytes)
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Couldn't retrieve $pinnedHistoryClipsFile content", e)
-        }
-        latinIME.mHandler.postUpdateClipboardPinnedClips(list)
-    }
-
-    private fun startSavePinnedClipsToDisk() {
-        val localCopy = historyEntries.filter { it.isPinned }.map { it.copy() }
-        object : Thread("$TAG-save") {
-            override fun run() {
-                saveToDisk(localCopy)
-            }
-        }.start()
-    }
-
-    private fun saveToDisk(list: List<ClipboardHistoryEntry>) {
-        // Debugging
-        if (pinnedHistoryClipsFile.exists() && !pinnedHistoryClipsFile.canWrite()) {
-            Log.w(TAG, "Attempt to write pinned clips file $pinnedHistoryClipsFile without permission")
-        }
-        try {
-            pinnedHistoryClipsFile.createNewFile()
-            val jsonStr = JsonUtils.historyEntryListToJsonStr(list)
-            if (!TextUtils.isEmpty(jsonStr)) {
-                val rawText = Base64.encodeToString(jsonStr.encodeToByteArray(), Base64.DEFAULT)
-                pinnedHistoryClipsFile.writeText(rawText)
-            } else {
-                pinnedHistoryClipsFile.writeText("")
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Couldn't write to $pinnedHistoryClipsFile", e)
-        }
+    private fun savePinnedClips() {
+        val pinnedClips = Json.encodeToString(historyEntries.filter { it.isPinned })
+        Settings.writePinnedClipString(DeviceProtectedUtils.getSharedPreferences(latinIME), pinnedClips)
     }
 
     interface OnHistoryChangeListener {
         fun onClipboardHistoryEntryAdded(at: Int)
         fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int)
         fun onClipboardHistoryEntryMoved(from: Int, to: Int)
-    }
-
-    companion object {
-        const val PINNED_CLIPS_DATA_FILE_NAME = "pinned_clips.data"
-        const val TAG = "ClipboardHistoryManager"
-    }
-
-    init {
-        historyEntries = LinkedList()
     }
 }

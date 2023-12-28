@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.content.res.Resources
@@ -23,9 +25,8 @@ class ClipboardLayoutParams(res: Resources) {
     }
 
     init {
-        val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(res)
-        val suggestionStripHeight = res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
-        val defaultKeyboardWidth = ResourceUtils.getDefaultKeyboardWidth(res)
+        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
+        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current)
 
         if (Settings.getInstance().current.mNarrowKeyGaps) {
             keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
@@ -38,13 +39,14 @@ class ClipboardLayoutParams(res: Resources) {
             keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo,
                 defaultKeyboardWidth, defaultKeyboardWidth).toInt()
         }
-        bottomPadding = res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+        bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight) * Settings.getInstance().current.mBottomPaddingScale).toInt()
         topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
-        actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / DEFAULT_KEYBOARD_ROWS - keyVerticalGap / 2
-        listHeight = defaultKeyboardHeight + suggestionStripHeight - actionBarHeight - bottomPadding
+        val rowCount = DEFAULT_KEYBOARD_ROWS + if (Settings.getInstance().current.mShowsNumberRow) 1 else 0
+        actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
+        listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding
     }
 
     fun setListProperties(recycler: RecyclerView) {
@@ -54,9 +56,10 @@ class ClipboardLayoutParams(res: Resources) {
         }
     }
 
-    fun setActionBarProperties(layout: FrameLayout) {
+    fun setActionBarProperties(layout: LinearLayout) {
         (layout.layoutParams as LinearLayout.LayoutParams).apply {
             height = actionBarHeight
+            width = ResourceUtils.getKeyboardWidth(layout.resources, Settings.getInstance().current)
             layout.layoutParams = this
         }
     }

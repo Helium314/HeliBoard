@@ -1,21 +1,15 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.suggestions;
 
+import static org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt.*;
+
+import android.annotation.SuppressLint;
+import android.app.KeyguardManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -24,11 +18,16 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +36,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,17 +48,21 @@ import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
+import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
@@ -72,13 +75,23 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         CharSequence getSelection();
     }
 
-    static final boolean DBG = DebugFlags.DEBUG_ENABLED;
-    private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.0f;
+    public static boolean DEBUG_SUGGESTIONS;
+    private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
+    // tags of keys to be added to toolbar, in order (all tags must be considered in getStyleableIconId)
+    private static final String[] toolbarKeyTags = new String[] {TAG_VOICE, TAG_CLIPBOARD,
+            TAG_SELECT_ALL, TAG_COPY, TAG_UNDO, TAG_REDO, TAG_ONE_HANDED, TAG_SETTINGS,
+            TAG_LEFT, TAG_RIGHT, TAG_UP, TAG_DOWN};
 
     private final ViewGroup mSuggestionsStrip;
-    private final ImageButton mVoiceKey;
-    private final ImageButton mClipboardKey;
-    private final ImageButton mOtherKey;
+    private final ImageButton mToolbarKey;
+    private final Drawable mIncognitoIcon;
+    private final Drawable mToolbarArrowIcon;
+    private final Drawable mBinIcon;
+    private final ViewGroup mToolbar;
+    private final View mToolbarContainer;
+    private final ViewGroup mPinnedKeys;
+    private final GradientDrawable mEnabledToolKeyBackground = new GradientDrawable();
+    private final Drawable mDefaultBackground;
     MainKeyboardView mMainKeyboardView;
 
     private final View mMoreSuggestionsContainer;
@@ -122,93 +135,95 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     /**
      * Construct a {@link SuggestionStripView} for showing suggestions to be picked by the user.
-     * @param context
-     * @param attrs
      */
     public SuggestionStripView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.suggestionStripViewStyle);
     }
 
-    public SuggestionStripView(final Context context, final AttributeSet attrs,
-            final int defStyle) {
+    public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        DEBUG_SUGGESTIONS = DeviceProtectedUtils.getSharedPreferences(context).getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.suggestions_strip, this);
 
         mSuggestionsStrip = findViewById(R.id.suggestions_strip);
-        mVoiceKey = findViewById(R.id.suggestions_strip_voice_key);
-        mClipboardKey = findViewById(R.id.suggestions_strip_clipboard_key);
-        mOtherKey = findViewById(R.id.suggestions_strip_other_key);
+        mToolbarKey = findViewById(R.id.suggestions_strip_toolbar_key);
         mStripVisibilityGroup = new StripVisibilityGroup(this, mSuggestionsStrip);
+        mPinnedKeys = findViewById(R.id.pinned_keys);
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbarContainer = findViewById(R.id.toolbar_container);
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
+            colors.setBackground(word, ColorType.SUGGESTION_BACKGROUND);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
             final TextView info = new TextView(context, null, R.attr.suggestionWordStyle);
-            info.setTextColor(Color.WHITE);
+            info.setTextColor(colors.get(ColorType.KEY_TEXT));
             info.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEBUG_INFO_TEXT_SIZE_IN_DIP);
             mDebugInfoViews.add(info);
         }
 
-        mLayoutHelper = new SuggestionStripLayoutHelper(
-                context, attrs, defStyle, mWordViews, mDividerViews, mDebugInfoViews);
+        mLayoutHelper = new SuggestionStripLayoutHelper(context, attrs, defStyle, mWordViews, mDividerViews, mDebugInfoViews);
 
         mMoreSuggestionsContainer = inflater.inflate(R.layout.more_suggestions, null);
-        mMoreSuggestionsView = mMoreSuggestionsContainer
-                .findViewById(R.id.more_suggestions_view);
+        mMoreSuggestionsView = mMoreSuggestionsContainer.findViewById(R.id.more_suggestions_view);
         mMoreSuggestionsBuilder = new MoreSuggestions.Builder(context, mMoreSuggestionsView);
 
         final Resources res = context.getResources();
         mMoreSuggestionsModalTolerance = res.getDimensionPixelOffset(
                 R.dimen.config_more_suggestions_modal_tolerance);
-        mMoreSuggestionsSlidingDetector = new GestureDetector(
-                context, mMoreSuggestionsSlidingListener);
+        mMoreSuggestionsSlidingDetector = new GestureDetector(context, mMoreSuggestionsSlidingListener);
 
-        final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
-        final Drawable iconVoice = keyboardAttr.getDrawable(R.styleable.Keyboard_iconShortcutKey);
-        final Drawable iconIncognito = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
-        final Drawable iconClipboard = keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey);
-        keyboardAttr.recycle();
-        mVoiceKey.setImageDrawable(iconVoice);
-        mVoiceKey.setOnClickListener(this);
-        mClipboardKey.setImageDrawable(iconClipboard);
-        mClipboardKey.setOnClickListener(this);
-        mClipboardKey.setOnLongClickListener(this);
+        final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
+        mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
+        mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
+        mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
 
-        mOtherKey.setImageDrawable(iconIncognito);
-
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            // this only works with backgrounds of SuggestionStripView.LXX_Base and SuggestionWord.LXX_Base
-            // set to keyboard_background_lxx_base (just white drawable), but NOT when set to
-            // btn_suggestion_lxx_base (state drawable with selector) or keyboard_suggest_strip_lxx_base_border (layer-list)
-            // why is this? then it's necessary to set tint list for voice/clipboard/other keys and all word views separately
-            //  it seems to work in other places, e.g. for btn_keyboard_spacebar_lxx_base... though maybe that's the weirdly nested layer list?
-            // todo (later): when fixing this, revert changes in themes-lxx-base[-border] (in todo)
-            //  this would allow having a different background shape in pressed state
-            DrawableCompat.setTintList(getBackground(), colors.backgroundStateList);
-            DrawableCompat.setTintMode(getBackground(), PorterDuff.Mode.MULTIPLY);
-
-            mClipboardKey.setColorFilter(colors.keyText);
-            mVoiceKey.setColorFilter(colors.keyText);
-            mOtherKey.setColorFilter(colors.keyText);
-        } else {
-            mClipboardKey.clearColorFilter();
-            mVoiceKey.clearColorFilter();
-            mOtherKey.clearColorFilter();
+        final LinearLayout.LayoutParams toolbarKeyLayoutParams = new LinearLayout.LayoutParams(
+                getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        for (final String tag : toolbarKeyTags) {
+            final ImageButton button = createToolbarKey(context, keyboardAttr, tag);
+            button.setLayoutParams(toolbarKeyLayoutParams);
+            mToolbar.addView(button);
         }
+        keyboardAttr.recycle();
+
+        final int toolbarHeight = Math.min(mToolbarKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
+        mToolbarKey.getLayoutParams().height = toolbarHeight;
+        mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
+        colors.setBackground(mToolbarKey, ColorType.SUGGESTION_BACKGROUND);
+        mDefaultBackground = mToolbarKey.getBackground();
+        mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
+        mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
+        mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
+
+        mToolbarKey.setOnClickListener(this);
+        mToolbarKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        colors.setColor(mToolbarKey, ColorType.TOOL_BAR_EXPAND_KEY);
+        mToolbarKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
+        mToolbarKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
+        mToolbarKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
+        mToolbarKey.getLayoutParams().width *= 0.82;
+
+        for (final String pinnedKey : Settings.getInstance().getCurrent().mPinnedKeys) {
+            mToolbar.findViewWithTag(pinnedKey).setBackground(mEnabledToolKeyBackground);
+            addKeyToPinnedKeys(pinnedKey);
+        }
+
+        colors.setBackground(this, ColorType.SUGGESTION_BACKGROUND);
     }
 
     /**
      * A connection back to the input method.
-     * @param listener
      */
     public void setListener(final Listener listener, final View inputView) {
         mListener = listener;
@@ -219,29 +234,48 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final int visibility = shouldBeVisible ? VISIBLE : (isFullscreenMode ? GONE : INVISIBLE);
         setVisibility(visibility);
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
-        mVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        mClipboardKey.setVisibility(currentSettingsValues.mShowsClipboardKey ? VISIBLE : (mVoiceKey.getVisibility() == GONE ? INVISIBLE : GONE));
-        mOtherKey.setVisibility(currentSettingsValues.mIncognitoModeEnabled ? VISIBLE : INVISIBLE);
+        mToolbar.findViewWithTag(TAG_VOICE).setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
+        final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(TAG_VOICE);
+        if (pinnedVoiceKey != null)
+            pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
+        mToolbarKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+
+        // hide toolbar and pinned keys if device is locked
+        final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        final boolean hideClipboard = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+                ? km.isDeviceLocked()
+                : km.isKeyguardLocked();
+        mToolbarKey.setVisibility(hideClipboard ? GONE : VISIBLE);
+        mPinnedKeys.setVisibility(hideClipboard ? GONE : VISIBLE);
+    }
+
+    public void setRtl(final boolean isRtlLanguage) {
+        mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
     }
 
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
         clear();
-        mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
+        setRtl(isRtlLanguage);
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
-        mStripVisibilityGroup.showSuggestionsStrip();
     }
 
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
 
+    @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     public void clear() {
         mSuggestionsStrip.removeAllViews();
         removeAllDebugInfoViews();
-        mStripVisibilityGroup.showSuggestionsStrip();
+        if (mToolbarContainer.getVisibility() != VISIBLE)
+            mStripVisibilityGroup.showSuggestionsStrip();
         dismissMoreSuggestionsPanel();
+        for (final TextView word : mWordViews) {
+            word.setOnTouchListener(null);
+        }
     }
 
     private void removeAllDebugInfoViews() {
@@ -295,76 +329,131 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public boolean onLongClick(final View view) {
-        if (view == mClipboardKey) {
-            ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = clipboardManager.getPrimaryClip();
-            if (clipData != null && clipData.getItemCount() > 0 && clipData.getItemAt(0) != null) {
-                String clipString = clipData.getItemAt(0).coerceToText(getContext()).toString();
-                if (clipString.length() == 1) {
-                    mListener.onTextInput(clipString);
-                } else if (clipString.length() > 1) {
-                    //awkward workaround
-                    mListener.onTextInput(clipString.substring(0, clipString.length() - 1));
-                    mListener.onTextInput(clipString.substring(clipString.length() - 1));
-                }
-            }
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
-                    Constants.NOT_A_CODE, this);
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.NOT_A_CODE, this);
+        if (mToolbar.findViewWithTag(view.getTag()) != null) {
+            onLongClickToolKey(view);
             return true;
         }
-        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
-                Constants.NOT_A_CODE, this);
-        if (isShowingMoreSuggestionPanel() || !showMoreSuggestions()) {
-            for (int i = 0; i <= mStartIndexOfMoreSuggestions; i++) {
-                if (view == mWordViews.get(i)) {
-                    showDeleteSuggestionDialog(mWordViews.get(i));
+        if (view instanceof TextView && mWordViews.contains(view)) {
+            return onLongClickSuggestion((TextView) view);
+        } else return showMoreSuggestions();
+    }
+
+    private void onLongClickToolKey(final View view) {
+        if (TAG_CLIPBOARD.equals(view.getTag()) && view.getParent() == mPinnedKeys) {
+            onLongClickClipboardKey(); // long click pinned clipboard key
+        } else if (view.getParent() == mToolbar) {
+            final String tag = (String) view.getTag();
+            final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
+            if (pinnedKeyView == null) {
+                addKeyToPinnedKeys(tag);
+                mToolbar.findViewWithTag(tag).setBackground(mEnabledToolKeyBackground);
+                Settings.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+            } else {
+                Settings.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
+                mPinnedKeys.removeView(pinnedKeyView);
+            }
+        }
+    }
+
+    private void onLongClickClipboardKey() {
+        ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = clipboardManager.getPrimaryClip();
+        if (clipData != null && clipData.getItemCount() > 0 && clipData.getItemAt(0) != null) {
+            String clipString = clipData.getItemAt(0).coerceToText(getContext()).toString();
+            if (clipString.length() == 1) {
+                mListener.onTextInput(clipString);
+            } else if (clipString.length() > 1) {
+                //awkward workaround
+                mListener.onTextInput(clipString.substring(0, clipString.length() - 1));
+                mListener.onTextInput(clipString.substring(clipString.length() - 1));
+            }
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
+    private boolean onLongClickSuggestion(final TextView wordView) {
+        final Drawable icon = mBinIcon;
+        Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.REMOVE_SUGGESTION_ICON);
+        int w = icon.getIntrinsicWidth();
+        int h = icon.getIntrinsicWidth();
+        wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        wordView.setEllipsize(TextUtils.TruncateAt.END);
+        AtomicBoolean downOk = new AtomicBoolean(false);
+        wordView.setOnTouchListener((view1, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                final float x = motionEvent.getX();
+                final float y = motionEvent.getY();
+                if (0 < x && x < w && 0 < y && y < h) {
+                    removeSuggestion(wordView);
+                    wordView.cancelLongPress();
+                    wordView.setPressed(false);
                     return true;
+                }
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                final float x = motionEvent.getX();
+                final float y = motionEvent.getY();
+                if (0 < x && x < w && 0 < y && y < h) {
+                    downOk.set(true);
+                }
+            }
+            return false;
+        });
+        if (DebugFlags.DEBUG_ENABLED && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
+            showSourceDict(wordView);
+            return true;
+        } else return showMoreSuggestions();
+    }
+
+    private void showSourceDict(final TextView wordView) {
+        final String word = wordView.getText().toString();
+        final int index;
+        if (wordView.getTag() instanceof Integer) {
+            index = (int) wordView.getTag();
+        } else return;
+        if (index >= mSuggestedWords.size()) return;
+        final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
+        if (!info.getWord().equals(word)) return;
+        final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
+        // apparently toast is not working on some Android versions, probably
+        // Android 13 with the notification permission
+        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
+        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
+        uglyWorkaround.show();
+    }
+
+    private void removeSuggestion(TextView wordView) {
+        final String word = wordView.getText().toString();
+        mListener.removeSuggestion(word);
+        mMoreSuggestionsView.dismissMoreKeysPanel();
+        // show suggestions, but without the removed word
+        final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
+        for (int i = 0; i < mSuggestedWords.size(); i ++) {
+            final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
+            if (!info.getWord().equals(word))
+                sw.add(info);
+        }
+        ArrayList<SuggestedWordInfo> rs = null;
+        if (mSuggestedWords.mRawSuggestions != null) {
+            rs = mSuggestedWords.mRawSuggestions;
+            for (int i = 0; i < rs.size(); i ++) {
+                if (rs.get(i).getWord().equals(word)) {
+                    rs.remove(i);
+                    break;
                 }
             }
         }
-        return true;
-    }
-
-    private void showDeleteSuggestionDialog(final TextView wordView) {
-        final String word = wordView.getText().toString();
-
-        final PopupMenu menu = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
-        menu.getMenu().add(R.string.remove_suggestions);
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                mListener.removeSuggestion(word);
-                mMoreSuggestionsView.dismissMoreKeysPanel();
-                // show suggestions, but without the removed word
-                final ArrayList<SuggestedWordInfo> sw = new ArrayList<SuggestedWordInfo>();
-                for (int i = 0; i < mSuggestedWords.size(); i ++) {
-                    final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
-                    if (!info.getWord().equals(word))
-                        sw.add(info);
-                }
-                ArrayList<SuggestedWordInfo> rs = null;
-                if (mSuggestedWords.mRawSuggestions != null) {
-                    rs = mSuggestedWords.mRawSuggestions;
-                    for (int i = 0; i < rs.size(); i ++) {
-                        if (rs.get(i).getWord().equals(word)) {
-                            rs.remove(i);
-                            break;
-                        }
-                    }
-                }
-                // copied code from setSuggestions, but without the Rtl part
-                clear();
-                mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
-                        mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
-                        mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
-                        mSuggestedWords.mSequenceNumber);
-                mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                        getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
-                mStripVisibilityGroup.showSuggestionsStrip();
-                return true;
-            }
-        });
-        menu.show();
+        // copied code from setSuggestions, but without the Rtl part
+        clear();
+        mSuggestedWords = new SuggestedWords(sw, rs, mSuggestedWords.getTypedWordInfo(),
+                mSuggestedWords.mTypedWordValid, mSuggestedWords.mWillAutoCorrect,
+                mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
+                mSuggestedWords.mSequenceNumber);
+        mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
+                getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+        mStripVisibilityGroup.showSuggestionsStrip();
     }
 
     boolean showMoreSuggestions() {
@@ -386,10 +475,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsView.setKeyboard(builder.build());
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        final MoreKeysPanel moreKeysPanel = mMoreSuggestionsView;
         final int pointX = stripWidth / 2;
         final int pointY = -layoutHelper.mMoreSuggestionsBottomGap;
-        moreKeysPanel.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
+        mMoreSuggestionsView.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
                 mMoreSuggestionsListener);
         mOriginX = mLastX;
         mOriginY = mLastY;
@@ -414,7 +502,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         @Override
         public boolean onScroll(MotionEvent down, MotionEvent me, float deltaX, float deltaY) {
             final float dy = me.getY() - down.getY();
-            if (deltaY > 0 && dy < 0) {
+            if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
                 return showMoreSuggestions();
             }
             return false;
@@ -462,6 +550,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility") // ok, perform click again, but why?
     public boolean onTouchEvent(final MotionEvent me) {
         if (!mMoreSuggestionsView.isShowingInParent()) {
             // Ignore any touch event while more suggestions panel hasn't been shown.
@@ -511,22 +600,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onClick(final View view) {
-        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(
-                Constants.CODE_UNSPECIFIED, this);
-        if (view == mVoiceKey) {
-            mListener.onCodeInput(Constants.CODE_SHORTCUT,
-                    Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE,
-                    false /* isKeyRepeat */);
-            return;
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.CODE_UNSPECIFIED, this);
+        final Object tag = view.getTag();
+        if (tag instanceof String) {
+            final Integer code = getCodeForTag((String) tag);
+            if (code != null) {
+                mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                return;
+            }
         }
-        if (view == mClipboardKey) {
-            mListener.onCodeInput(Constants.CODE_CLIPBOARD,
-                    Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE,
-                    false /* isKeyRepeat */);
-            return;
+        if (view == mToolbarKey) {
+            setToolbarVisibility(mToolbarContainer.getVisibility() != VISIBLE);
         }
 
-        final Object tag = view.getTag();
+
         // {@link Integer} tag is set at
         // {@link SuggestionStripLayoutHelper#setupWordViewsTextAndColor(SuggestedWords,int)} and
         // {@link SuggestionStripLayoutHelper#layoutPunctuationSuggestions(SuggestedWords,ViewGroup}
@@ -550,5 +637,40 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         // Called by the framework when the size is known. Show the important notice if applicable.
         // This may be overriden by showing suggestions later, if applicable.
+    }
+
+    public void setToolbarVisibility(final boolean visible) {
+        if (visible) {
+            mPinnedKeys.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(GONE);
+            mToolbarContainer.setVisibility(VISIBLE);
+        } else {
+            mToolbarContainer.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(VISIBLE);
+            mPinnedKeys.setVisibility(VISIBLE);
+        }
+        mToolbarKey.setScaleX(visible ? -1f : 1f);
+    }
+
+    private void addKeyToPinnedKeys(final String pinnedKey) {
+        final ImageButton original = (ImageButton) mToolbar.findViewWithTag(pinnedKey);
+        if (original == null) return;
+        final ImageButton copy = new ImageButton(getContext(), null, R.attr.suggestionWordStyle);
+        copy.setTag(pinnedKey);
+        copy.setScaleType(original.getScaleType());
+        copy.setScaleX(original.getScaleX());
+        copy.setScaleY(original.getScaleY());
+        copy.setContentDescription(original.getContentDescription()); // todo (later): add some content description
+        copy.setImageDrawable(original.getDrawable());
+        copy.setLayoutParams(original.getLayoutParams());
+        setupKey(copy, Settings.getInstance().getCurrent().mColors);
+        mPinnedKeys.addView(copy);
+    }
+
+    private void setupKey(final ImageButton view, final Colors colors) {
+        view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
+        colors.setColor(view, ColorType.TOOL_BAR_KEY);
+        colors.setBackground(view, ColorType.SUGGESTION_BACKGROUND);
     }
 }

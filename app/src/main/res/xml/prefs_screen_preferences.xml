@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
+<!--
+    Copyright (C) 2014 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:latin="http://schemas.android.com/apk/res-auto"
       android:title="@string/settings_screen_preferences">
 
     <PreferenceCategory android:title="@string/settings_category_input">
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_show_hints"
             android:title="@string/show_hints"
             android:summary="@string/show_hints_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <CheckBoxPreference
+        <Preference
+            android:key="pref_more_keys_labels_order"
+            android:title="@string/hint_source" />
+
+        <Preference
+            android:key="pref_more_keys_order"
+            android:title="@string/popup_order" />
+
+        <SwitchPreferenceCompat
+            android:key="pref_show_popup_hints"
+            android:title="@string/show_popup_hints"
+            android:summary="@string/show_popup_hints_summary"
+            android:defaultValue="false"
+            android:persistent="true" />
+
+        <SwitchPreferenceCompat
             android:key="vibrate_on"
             android:title="@string/vibrate_on_keypress"
             android:defaultValue="@bool/config_default_vibration_enabled"
@@ -38,7 +43,7 @@
             android:title="@string/prefs_keypress_vibration_duration_settings"
             latin:maxValue="@integer/config_max_vibration_duration" />
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="sound_on"
             android:title="@string/sound_on_keypress"
             android:defaultValue="@bool/config_default_sound_enabled"
@@ -51,7 +56,7 @@
 
     </PreferenceCategory>
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         android:key="popup_on"
         android:title="@string/popup_on_keypress"
         android:defaultValue="@bool/config_default_key_preview_popup"
@@ -60,34 +65,32 @@
     <PreferenceCategory
         android:title="@string/settings_category_additional_keys">
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_show_number_row"
             android:title="@string/number_row"
             android:summary="@string/number_row_summary"
             android:defaultValue="false"
             android:persistent="true" />
 
-        <CheckBoxPreference
-            android:key="pref_show_language_switch_key"
-            android:title="@string/show_language_switch_key"
-            android:defaultValue="false"
-            android:persistent="true" />
-
-        <CheckBoxPreference
-            android:key="pref_show_emoji_key"
-            android:title="@string/show_emoji_key"
-            android:defaultValue="false"
-            android:persistent="true" />
-
-        <CheckBoxPreference
-            android:key="pref_voice_input_key"
-            android:title="@string/voice_input"
+        <SwitchPreferenceCompat
+            android:key="pref_localized_number_row"
+            android:title="@string/localized_number_row"
+            android:summary="@string/localized_number_row_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <CheckBoxPreference
-            android:key="pref_show_clipboard_key"
-            android:title="@string/show_clipboard_key"
+        <ListPreference
+            android:key="pref_language_switch_key"
+            android:title="@string/show_language_switch_key"
+            android:entries="@array/language_switch_key_entries"
+            android:entryValues="@array/language_switch_key_values"
+            android:defaultValue="off"
+            android:summary="%s"
+            android:persistent="true" />
+
+        <SwitchPreferenceCompat
+            android:key="pref_show_emoji_key"
+            android:title="@string/show_emoji_key"
             android:defaultValue="false"
             android:persistent="true" />
 
@@ -95,7 +98,7 @@
 
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:key="pref_enable_clipboard_history"
             android:title="@string/enable_clipboard_history"
             android:summary="@string/enable_clipboard_history_summary"

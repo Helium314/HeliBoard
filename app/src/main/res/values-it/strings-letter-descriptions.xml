@@ -1,31 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2014, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<!-- 
+<!--
+    Copyright (C) 2014 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+<!--
     These accented letters (spoken_accented_letter_*) are unsupported by TTS.
     These symbols (spoken_symbol_*) are also unsupported by TTS.
     TODO: Remove these string resources when TTS/TalkBack support these letters.
  -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="spoken_accented_letter_00AA" msgid="4374325261868451570">"Indicatore ordinale femminile"</string>
     <string name="spoken_accented_letter_00B5" msgid="9031387673828823891">"Simbolo micro"</string>
     <string name="spoken_accented_letter_00BA" msgid="5045198452071207437">"Indicatore ordinale maschile"</string>

@@ -1,24 +1,14 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -27,7 +17,6 @@ import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 // This hack is applied to certain classes of tablets.
 public final class BogusMoveEventDetector {
     private static final String TAG = BogusMoveEventDetector.class.getSimpleName();
-    private static final boolean DEBUG_MODE = DebugFlags.DEBUG_ENABLED;
 
     // Move these thresholds to resource.
     // These thresholds' unit is a diagonal length of a key.
@@ -48,7 +37,7 @@ public final class BogusMoveEventDetector {
         final int densityDpi = res.getDisplayMetrics().densityDpi;
         final boolean hasLowDensityScreen = (densityDpi < DisplayMetrics.DENSITY_HIGH);
         final boolean needsTheHack = isLargeTablet || (isSmallTablet && hasLowDensityScreen);
-        if (DEBUG_MODE) {
+        if (DebugFlags.DEBUG_ENABLED) {
             final int sw = res.getConfiguration().smallestScreenWidthDp;
             Log.d(TAG, "needsProximateBogusDownMoveUpEventHack=" + needsTheHack
                     + " smallestScreenWidthDp=" + sw + " densityDpi=" + densityDpi

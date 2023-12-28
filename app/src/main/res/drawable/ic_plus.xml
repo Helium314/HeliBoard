@@ -1,6 +1,7 @@
 <!--
- taken from https://github.com/streetcomplete/StreetComplete/blob/v53.3/app/src/main/res/drawable/ic_add_48dp.xml
- -->
+    icon available in Android Studio
+    SPDX-License-Identifier: Apache-2.0
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="40dp"
     android:height="40dp"

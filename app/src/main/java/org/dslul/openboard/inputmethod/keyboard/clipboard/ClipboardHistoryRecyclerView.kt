@@ -1,12 +1,13 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 
 class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         context: Context,
@@ -15,6 +16,19 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
     var placeholderView: View? = null
+    val historyManager: ClipboardHistoryManager? get() = (adapter as? ClipboardAdapter?)?.clipboardHistoryManager
+    private val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder) = false
+        override fun getSwipeDirs(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
+            if (historyManager?.canRemove(viewHolder.absoluteAdapterPosition) == false)
+                return 0 // block swipe for pinned items
+            return super.getSwipeDirs(recyclerView, viewHolder)
+        }
+        override fun onSwiped(viewHolder: ViewHolder, dir: Int) {
+            historyManager?.removeEntry(viewHolder.absoluteAdapterPosition)
+            adapter?.notifyItemRemoved(viewHolder.absoluteAdapterPosition)
+        }
+    }).attachToRecyclerView(this)
 
     private val adapterDataObserver: AdapterDataObserver = object : AdapterDataObserver() {
 
@@ -56,27 +70,4 @@ class ClipboardHistoryRecyclerView @JvmOverloads constructor(
         adapter?.registerAdapterDataObserver(adapterDataObserver)
     }
 
-    class BottomDividerItemDecoration(dividerHeight: Int, dividerColor: Int) : RecyclerView.ItemDecoration() {
-
-        private val paint = Paint()
-
-        init {
-            paint.color = dividerColor
-            paint.strokeWidth = dividerHeight.toFloat()
-            val colors = Settings.getInstance().current.mColors
-            if (colors.isCustom)
-                paint.colorFilter = colors.backgroundFilter
-        }
-
-        override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: State) {
-            super.onDrawOver(canvas, parent, state)
-            canvas.drawLine(parent.paddingLeft.toFloat(),
-                    parent.height - paint.strokeWidth / 2,
-                    parent.width.toFloat() - parent.paddingRight.toFloat(),
-                    parent.height - paint.strokeWidth / 2 ,
-                    paint
-            )
-        }
-
-    }
 }

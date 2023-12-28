@@ -14,8 +14,7 @@
      limitations under the License.
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="org.dslul.openboard.inputmethod.latin">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -41,14 +40,12 @@
                 android:protectionLevel="signature" />
 
     <application android:label="@string/english_ime_name"
-            android:name="org.dslul.openboard.inputmethod.latin.App"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
-            android:directBootAware="true"
-            android:extractNativeLibs="false">
+            android:directBootAware="true">
 
         <!-- Services -->
         <service android:name="LatinIME"
@@ -76,7 +73,6 @@
         <!-- Activities -->
         <activity android:name=".setup.SetupActivity"
                 android:theme="@style/platformActivityTheme"
-                android:label="@string/english_ime_name"
                 android:icon="@mipmap/ic_launcher"
                 android:launchMode="singleTask"
                 android:noHistory="true"
@@ -96,7 +92,6 @@
 
         <activity android:name=".setup.SetupWizardActivity"
                 android:theme="@style/platformActivityTheme"
-                android:label="@string/english_ime_name"
                 android:clearTaskOnLaunch="true"
                 android:exported="true">
             <intent-filter>
@@ -111,6 +106,13 @@
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            <!-- intent filter for opening .dict files -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="application/octet-stream" android:scheme="content" android:host="*" android:pathPattern=".*\\.dict" />
             </intent-filter>
         </activity>
 
@@ -144,13 +146,12 @@
             </intent-filter>
         </receiver>
 
-        <!-- Content providers -->
-        <provider android:name="org.dslul.openboard.inputmethod.dictionarypack.DictionaryProvider"
-                android:grantUriPermissions="true"
-                android:exported="false"
-                android:authorities="@string/authority"
-                android:multiprocess="false"
-                android:label="@string/dictionary_provider_name">
-        </provider>
     </application>
+
+    <queries>
+        <!-- To detect other IMEs -->
+        <intent>
+            <action android:name="android.view.InputMethod"/>
+        </intent>
+    </queries>
 </manifest>

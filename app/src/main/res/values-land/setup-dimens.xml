@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2013 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources>
+    <!-- Setup wizard dimensions for small-phone/landscape. -->
+    <dimen name="setup_title_text_size">32sp</dimen>
+    <dimen name="setup_welcome_description_text_size">18sp</dimen>
+    <dimen name="setup_vertical_padding">16dp</dimen>
+    <dimen name="setup_step_action_height">42dp</dimen>
+    <dimen name="setup_title_end_margin">12dp</dimen>
+    <dimen name="setup_welcome_description_top_margin">12dp</dimen>
+    <dimen name="setup_welcome_video_top_padding">0dp</dimen>
+    <integer name="setup_welcome_video_weight_in_screen">20</integer>
+</resources>

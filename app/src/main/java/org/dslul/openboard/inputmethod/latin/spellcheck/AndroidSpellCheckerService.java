@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.spellcheck;
@@ -23,6 +13,8 @@ import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 import android.view.textservice.SuggestionsInfo;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
@@ -45,20 +37,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
-import javax.annotation.Nonnull;
-
 /**
  * Service for spell checking, using LatinIME's dictionaries and mechanisms.
  */
 public final class AndroidSpellCheckerService extends SpellCheckerService
         implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private static final String TAG = AndroidSpellCheckerService.class.getSimpleName();
-    private static final boolean DEBUG = false;
 
     public static final String PREF_USE_CONTACTS_KEY = "pref_spellcheck_use_contacts";
 
-    private static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
-    private static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;
+    public static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
+    public static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;
 
     private static final String DICTIONARY_NAME_PREFIX = "spellcheck_";
 
@@ -78,7 +66,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     private float mRecommendedThreshold;
     // TODO: make a spell checker option to block offensive words or not
     private final SettingsValuesForSuggestion mSettingsValuesForSuggestion =
-            new SettingsValuesForSuggestion(true /* blockPotentiallyOffensive */);
+            new SettingsValuesForSuggestion(true, false);
 
     public static final String SINGLE_QUOTE = "\u0027";
     public static final String APOSTROPHE = "\u2019";
@@ -106,30 +94,21 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     private static String getKeyboardLayoutNameForLocale(final Locale locale) {
         // See b/19963288.
-        if (locale.getLanguage().equals("sr")) {
-            return "south_slavic";
+        if (locale.getLanguage().equals("sr") || locale.getLanguage().equals("mk")) {
+            return locale.getLanguage();
         }
         final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);
-        switch (script) {
-        case ScriptUtils.SCRIPT_LATIN:
-            return "qwerty";
-        case ScriptUtils.SCRIPT_ARMENIAN:
-            return "armenian_phonetic";
-        case ScriptUtils.SCRIPT_CYRILLIC:
-            return "east_slavic";
-        case ScriptUtils.SCRIPT_GREEK:
-            return "greek";
-        case ScriptUtils.SCRIPT_HEBREW:
-            return "hebrew";
-        case ScriptUtils.SCRIPT_BULGARIAN:
-            return "bulgarian";
-        case ScriptUtils.SCRIPT_GEORGIAN:
-            return "georgian";
-        case ScriptUtils.SCRIPT_BENGALI:
-            return "bengali_unijoy";
-        default:
-            throw new RuntimeException("Wrong script supplied: " + script);
-        }
+        return switch (script) {
+            case ScriptUtils.SCRIPT_LATIN -> "qwerty";
+            case ScriptUtils.SCRIPT_ARMENIAN -> "armenian_phonetic";
+            case ScriptUtils.SCRIPT_CYRILLIC -> "ru";
+            case ScriptUtils.SCRIPT_GREEK -> "greek";
+            case ScriptUtils.SCRIPT_HEBREW -> "hebrew";
+            case ScriptUtils.SCRIPT_BULGARIAN -> "bulgarian";
+            case ScriptUtils.SCRIPT_GEORGIAN -> "georgian";
+            case ScriptUtils.SCRIPT_BENGALI -> "bengali_unijoy";
+            default -> throw new RuntimeException("Wrong script supplied: " + script);
+        };
     }
 
     @Override
@@ -168,8 +147,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     public boolean isValidWord(final Locale locale, final String word) {
         mSemaphore.acquireUninterruptibly();
         try {
-            DictionaryFacilitator dictionaryFacilitatorForLocale =
-                    mDictionaryFacilitatorCache.get(locale);
+            DictionaryFacilitator dictionaryFacilitatorForLocale = mDictionaryFacilitatorCache.get(locale);
             return dictionaryFacilitatorForLocale.isValidSpellingWord(word);
         } finally {
             mSemaphore.release();
@@ -178,7 +156,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     public SuggestionResults getSuggestionResults(final Locale locale,
             final ComposedData composedData, final NgramContext ngramContext,
-            @Nonnull final Keyboard keyboard) {
+            @NonNull final Keyboard keyboard) {
         Integer sessionId = null;
         mSemaphore.acquireUninterruptibly();
         try {
@@ -242,11 +220,11 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         final EditorInfo editorInfo = new EditorInfo();
         editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(this, editorInfo);
-        builder.setKeyboardGeometry(
-                SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT);
-        builder.setSubtype(RichInputMethodSubtype.getRichInputMethodSubtype(subtype));
-        builder.setIsSpellChecker(true /* isSpellChecker */);
-        builder.disableTouchPositionCorrectionData();
-        return builder.build();
+        return builder
+                .setKeyboardGeometry(SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT)
+                .setSubtype(RichInputMethodSubtype.getRichInputMethodSubtype(subtype))
+                .setIsSpellChecker(true /* isSpellChecker */)
+                .disableTouchPositionCorrectionData()
+                .build();
     }
 }

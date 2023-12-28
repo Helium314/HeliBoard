@@ -1,22 +1,13 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
 
-import android.renderscript.Script;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
@@ -25,16 +16,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public final class StringUtils {
 
     public static final int CAPITALIZE_NONE = 0;  // No caps, or mixed case
     public static final int CAPITALIZE_FIRST = 1; // First only
     public static final int CAPITALIZE_ALL = 2;   // All caps
 
-    @Nonnull
+    @NonNull
     private static final String EMPTY_STRING = "";
 
     private static final char CHAR_LINE_FEED = 0X000A;
@@ -71,9 +59,9 @@ public final class StringUtils {
      * @param tokens    an array objects to be joined. Strings will be formed from
      *                  the objects by calling object.toString().
      */
-    @Nonnull
-    public static String join(@Nonnull final CharSequence delimiter,
-                              @Nonnull final Iterable<?> tokens) {
+    @NonNull
+    public static String join(@NonNull final CharSequence delimiter,
+                              @NonNull final Iterable<?> tokens) {
         final StringBuilder sb = new StringBuilder();
         boolean firstTime = true;
         for (final Object token : tokens) {
@@ -124,7 +112,7 @@ public final class StringUtils {
         return Character.codePointCount(text, 0, text.length());
     }
 
-    @Nonnull
+    @NonNull
     public static String newSingleCodePointString(final int codePoint) {
         if (Character.charCount(codePoint) == 1) {
             // Optimization: avoid creating a temporary array for characters that are
@@ -135,8 +123,8 @@ public final class StringUtils {
         return new String(Character.toChars(codePoint));
     }
 
-    public static boolean containsInArray(@Nonnull final String text,
-                                          @Nonnull final String[] array) {
+    public static boolean containsInArray(@NonNull final String text,
+                                          @NonNull final String[] array) {
         for (final String element : array) {
             if (text.equals(element)) {
                 return true;
@@ -150,10 +138,10 @@ public final class StringUtils {
      * Unlike CSV, Comma-Splittable Text has no escaping mechanism, so that the text can't contain
      * a comma character in it.
      */
-    @Nonnull
+    @NonNull
     private static final String SEPARATOR_FOR_COMMA_SPLITTABLE_TEXT = ",";
 
-    public static boolean containsInCommaSplittableText(@Nonnull final String text,
+    public static boolean containsInCommaSplittableText(@NonNull final String text,
                                                         @Nullable final String extraValues) {
         if (isEmpty(extraValues)) {
             return false;
@@ -161,8 +149,8 @@ public final class StringUtils {
         return containsInArray(text, extraValues.split(SEPARATOR_FOR_COMMA_SPLITTABLE_TEXT));
     }
 
-    @Nonnull
-    public static String removeFromCommaSplittableTextIfExists(@Nonnull final String text,
+    @NonNull
+    public static String removeFromCommaSplittableTextIfExists(@NonNull final String text,
                                                                @Nullable final String extraValues) {
         if (isEmpty(extraValues)) {
             return EMPTY_STRING;
@@ -186,7 +174,7 @@ public final class StringUtils {
      * This method will always keep the first occurrence of all strings at their position
      * in the array, removing the subsequent ones.
      */
-    public static void removeDupes(@Nonnull final ArrayList<String> suggestions) {
+    public static void removeDupes(@NonNull final ArrayList<String> suggestions) {
         if (suggestions.size() < 2) {
             return;
         }
@@ -207,9 +195,9 @@ public final class StringUtils {
         }
     }
 
-    @Nonnull
-    public static String capitalizeFirstCodePoint(@Nonnull final String s,
-                                                  @Nonnull final Locale locale) {
+    @NonNull
+    public static String capitalizeFirstCodePoint(@NonNull final String s,
+                                                  @NonNull final Locale locale) {
         if (s.length() <= 1) {
             return s.toUpperCase(getLocaleUsedForToTitleCase(locale));
         }
@@ -220,9 +208,9 @@ public final class StringUtils {
                 + s.substring(cutoff);
     }
 
-    @Nonnull
-    public static String capitalizeFirstAndDowncaseRest(@Nonnull final String s,
-                                                        @Nonnull final Locale locale) {
+    @NonNull
+    public static String capitalizeFirstAndDowncaseRest(@NonNull final String s,
+                                                        @NonNull final Locale locale) {
         if (s.length() <= 1) {
             return s.toUpperCase(getLocaleUsedForToTitleCase(locale));
         }
@@ -238,12 +226,12 @@ public final class StringUtils {
                 + s.substring(cutoff).toLowerCase(locale);
     }
 
-    @Nonnull
-    public static int[] toCodePointArray(@Nonnull final CharSequence charSequence) {
+    @NonNull
+    public static int[] toCodePointArray(@NonNull final CharSequence charSequence) {
         return toCodePointArray(charSequence, 0, charSequence.length());
     }
 
-    @Nonnull
+    @NonNull
     private static final int[] EMPTY_CODEPOINTS = {};
 
     /**
@@ -254,8 +242,8 @@ public final class StringUtils {
      * @param endIndex     the end index inside the string in java chars, exclusive.
      * @return a new array of code points. At most endIndex - startIndex, but possibly less.
      */
-    @Nonnull
-    public static int[] toCodePointArray(@Nonnull final CharSequence charSequence,
+    @NonNull
+    public static int[] toCodePointArray(@NonNull final CharSequence charSequence,
                                          final int startIndex, final int endIndex) {
         final int length = charSequence.length();
         if (length <= 0) {
@@ -286,8 +274,8 @@ public final class StringUtils {
      * @param downCase     if this is true, code points will be downcased before being copied.
      * @return the number of copied code points.
      */
-    public static int copyCodePointsAndReturnCodePointCount(@Nonnull final int[] destination,
-                                                            @Nonnull final CharSequence charSequence, final int startIndex, final int endIndex,
+    public static int copyCodePointsAndReturnCodePointCount(@NonNull final int[] destination,
+                                                            @NonNull final CharSequence charSequence, final int startIndex, final int endIndex,
                                                             final boolean downCase) {
         int destIndex = 0;
         for (int index = startIndex; index < endIndex;
@@ -301,8 +289,8 @@ public final class StringUtils {
         return destIndex;
     }
 
-    @Nonnull
-    public static int[] toSortedCodePointArray(@Nonnull final String string) {
+    @NonNull
+    public static int[] toSortedCodePointArray(@NonNull final String string) {
         final int[] codePoints = toCodePointArray(string);
         Arrays.sort(codePoints);
         return codePoints;
@@ -315,9 +303,9 @@ public final class StringUtils {
      *                   shorter than the array length.
      * @return a string constructed from the code point array.
      */
-    @Nonnull
+    @NonNull
     public static String getStringFromNullTerminatedCodePointArray(
-            @Nonnull final int[] codePoints) {
+            @NonNull final int[] codePoints) {
         int stringLength = codePoints.length;
         for (int i = 0; i < codePoints.length; i++) {
             if (codePoints[i] == 0) {
@@ -329,7 +317,7 @@ public final class StringUtils {
     }
 
     // This method assumes the text is not null. For the empty string, it returns CAPITALIZE_NONE.
-    public static int getCapitalizationType(@Nonnull final String text) {
+    public static int getCapitalizationType(@NonNull final String text) {
         // If the first char is not uppercase, then the word is either all lower case or
         // camel case, and in either case we return CAPITALIZE_NONE.
         final int len = text.length();
@@ -365,7 +353,7 @@ public final class StringUtils {
         return (letterCount == capsCount ? CAPITALIZE_ALL : CAPITALIZE_NONE);
     }
 
-    public static boolean isIdenticalAfterUpcase(@Nonnull final String text) {
+    public static boolean isIdenticalAfterUpcase(@NonNull final String text) {
         final int length = text.length();
         int i = 0;
         while (i < length) {
@@ -378,7 +366,7 @@ public final class StringUtils {
         return true;
     }
 
-    public static boolean isIdenticalAfterDowncase(@Nonnull final String text) {
+    public static boolean isIdenticalAfterDowncase(@NonNull final String text) {
         final int length = text.length();
         int i = 0;
         while (i < length) {
@@ -391,8 +379,8 @@ public final class StringUtils {
         return true;
     }
 
-    public static boolean isIdenticalAfterCapitalizeEachWord(@Nonnull final String text,
-                                                             @Nonnull final int[] sortedSeparators) {
+    public static boolean isIdenticalAfterCapitalizeEachWord(@NonNull final String text,
+                                                             @NonNull final int[] sortedSeparators) {
         boolean needsCapsNext = true;
         final int len = text.length();
         for (int i = 0; i < len; i = text.offsetByCodePoints(i, 1)) {
@@ -411,9 +399,9 @@ public final class StringUtils {
 
     // TODO: like capitalizeFirst*, this does not work perfectly for Dutch because of the IJ digraph
     // which should be capitalized together in *some* cases.
-    @Nonnull
-    public static String capitalizeEachWord(@Nonnull final String text,
-                                            @Nonnull final int[] sortedSeparators, @Nonnull final Locale locale) {
+    @NonNull
+    public static String capitalizeEachWord(@NonNull final String text,
+                                            @NonNull final int[] sortedSeparators, @NonNull final Locale locale) {
         final StringBuilder builder = new StringBuilder();
         boolean needsCapsNext = true;
         final int len = text.length();
@@ -447,7 +435,7 @@ public final class StringUtils {
      * TODO: This will return that "abc./def" and ".abc/def" look like URLs to keep down the
      * code complexity, but ideally it should not. It's acceptable for now.
      */
-    public static boolean lastPartLooksLikeURL(@Nonnull final CharSequence text) {
+    public static boolean lastPartLooksLikeURL(@NonNull final CharSequence text) {
         int i = text.length();
         if (0 == i) {
             return false;
@@ -512,11 +500,14 @@ public final class StringUtils {
      * double quote character, and looking at whether it's followed by whitespace. If so, that
      * was a closing quotation mark, so we're not inside a double quote. If it's not followed
      * by whitespace, then it was an opening quotation mark, and we're inside a quotation.
+     * However, on the way to the double quote we can determine, some double quotes might be
+     * ignored, e.g. because they are followed by punctuation. These double quotes are counted and
+     * taken into account.
      *
      * @param text the text to examine.
      * @return whether we're inside a double quote.
      */
-    public static boolean isInsideDoubleQuoteOrAfterDigit(@Nonnull final CharSequence text) {
+    public static boolean isInsideDoubleQuoteOrAfterDigit(@NonNull final CharSequence text) {
         int i = text.length();
         if (0 == i) {
             return false;
@@ -526,29 +517,36 @@ public final class StringUtils {
             return true;
         }
         int prevCodePoint = 0;
+        int ignoredDoubleQuoteCount = 0;
         while (i > 0) {
             codePoint = Character.codePointBefore(text, i);
             if (Constants.CODE_DOUBLE_QUOTE == codePoint) {
                 // If we see a double quote followed by whitespace, then that
                 // was a closing quote.
                 if (Character.isWhitespace(prevCodePoint)) {
-                    return false;
+                    return ignoredDoubleQuoteCount % 2 == 1;
                 }
             }
             if (Character.isWhitespace(codePoint) && Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
                 // If we see a double quote preceded by whitespace, then that
                 // was an opening quote. No need to continue seeking.
-                return true;
+                return ignoredDoubleQuoteCount % 2 == 0;
+            }
+            if (Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
+                ignoredDoubleQuoteCount++;
             }
             i -= Character.charCount(codePoint);
             prevCodePoint = codePoint;
         }
         // We reached the start of text. If the first char is a double quote, then we're inside
         // a double quote. Otherwise we're not.
-        return Constants.CODE_DOUBLE_QUOTE == codePoint;
+        if (ignoredDoubleQuoteCount % 2 == 0)
+            return Constants.CODE_DOUBLE_QUOTE == codePoint;
+        else
+            return Constants.CODE_DOUBLE_QUOTE != codePoint;
     }
 
-    public static boolean isEmptyStringOrWhiteSpaces(@Nonnull final String s) {
+    public static boolean isEmptyStringOrWhiteSpaces(@NonNull final String s) {
         final int N = codePointCount(s);
         for (int i = 0; i < N; ++i) {
             if (!Character.isWhitespace(s.codePointAt(i))) {
@@ -559,7 +557,7 @@ public final class StringUtils {
     }
 
     @UsedForTesting
-    @Nonnull
+    @NonNull
     public static String byteArrayToHexString(@Nullable final byte[] bytes) {
         if (bytes == null || bytes.length == 0) {
             return EMPTY_STRING;
@@ -595,8 +593,8 @@ public final class StringUtils {
 
     private static final String LANGUAGE_GREEK = "el";
 
-    @Nonnull
-    private static Locale getLocaleUsedForToTitleCase(@Nonnull final Locale locale) {
+    @NonNull
+    private static Locale getLocaleUsedForToTitleCase(@NonNull final Locale locale) {
         // In Greek locale {@link String#toUpperCase(Locale)} eliminates accents from its result.
         // In order to get accented upper case letter, {@link Locale#ROOT} should be used.
         if (LANGUAGE_GREEK.equals(locale.getLanguage())) {
@@ -607,15 +605,17 @@ public final class StringUtils {
 
     @Nullable
     public static String toTitleCaseOfKeyLabel(@Nullable final String label,
-                                               @Nonnull final Locale locale) {
-        if (label == null || !ScriptUtils.scriptSupportsUppercase(locale.getLanguage())) {
+                                               @NonNull final Locale locale) {
+        if (label == null || !ScriptUtils.scriptSupportsUppercase(locale)) {
             return label;
         }
+        if (label.equals("ß"))
+            return "ẞ"; // upcasing of standalone ß, SS is not useful as s is on the keyboard anyway
 
         return label.toUpperCase(getLocaleUsedForToTitleCase(locale));
     }
 
-    public static int toTitleCaseOfKeyCode(final int code, @Nonnull final Locale locale) {
+    public static int toTitleCaseOfKeyCode(final int code, @NonNull final Locale locale) {
         if (!Constants.isLetterCode(code)) {
             return code;
         }
@@ -625,7 +625,7 @@ public final class StringUtils {
                 ? titleCaseLabel.codePointAt(0) : Constants.CODE_UNSPECIFIED;
     }
 
-    public static int getTrailingSingleQuotesCount(@Nonnull final CharSequence charSequence) {
+    public static int getTrailingSingleQuotesCount(@NonNull final CharSequence charSequence) {
         final int lastIndex = charSequence.length() - 1;
         int i = lastIndex;
         while (i >= 0 && charSequence.charAt(i) == Constants.CODE_SINGLE_QUOTE) {
@@ -636,11 +636,11 @@ public final class StringUtils {
 
     @UsedForTesting
     public static class Stringizer<E> {
-        @Nonnull
+        @NonNull
         private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
         @UsedForTesting
-        @Nonnull
+        @NonNull
         public String stringize(@Nullable final E element) {
             if (element == null) {
                 return "null";
@@ -649,7 +649,7 @@ public final class StringUtils {
         }
 
         @UsedForTesting
-        @Nonnull
+        @NonNull
         public final String join(@Nullable final E[] array) {
             return joinStringArray(toStringArray(array), null /* delimiter */);
         }
@@ -659,7 +659,7 @@ public final class StringUtils {
             return joinStringArray(toStringArray(array), delimiter);
         }
 
-        @Nonnull
+        @NonNull
         protected String[] toStringArray(@Nullable final E[] array) {
             if (array == null) {
                 return EMPTY_STRING_ARRAY;
@@ -671,8 +671,8 @@ public final class StringUtils {
             return stringArray;
         }
 
-        @Nonnull
-        protected String joinStringArray(@Nonnull final String[] stringArray,
+        @NonNull
+        protected String joinStringArray(@NonNull final String[] stringArray,
                                          @Nullable final String delimiter) {
             if (delimiter == null) {
                 return Arrays.toString(stringArray);
@@ -712,23 +712,53 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean probablyContainsEmoji(String s) {
+    public static boolean mightBeEmoji(final String s) {
         int offset = 0;
-        int length = s.length();
+        final int length = s.length();
         while (offset < length) {
             int c = Character.codePointAt(s, offset);
-            if (probablyIsEmojiCodePoint(c))
+            if (mightBeEmoji(c))
                 return true;
             offset += Character.charCount(c);
         }
         return false;
     }
 
-    // seemingly arbitrary ranges taken from "somewhere on the internet"
-    public static boolean probablyIsEmojiCodePoint(int c) {
-        return (0x200D <= c && c <= 0x3299) // ??
-                || (0x1F004 <= c && c <= 0x1F251) // ??
-                || (0x1F300 <= c && c <= 0x1FFFF) // ??
+    // unicode blocks that contain emojis
+    // very fast check, but there are very few blocks that exclusively contain emojis,
+    public static boolean mightBeEmoji(final int c) {
+        return (0x200D <= c && c <= 0x2BFF) // unicode blocks from General Punctuation to Miscellaneous Symbols and Arrows
+                || (0x1F104 <= c && c <= 0x1FAFF) // unicode blocks from Mahjong Tiles to Symbols and Pictographs Extended-A
+                || (0xE0000 <= c && c <= 0xE007F) // unicode block Tags
                 || c == 0xFE0F; // variation selector emoji with color
+    }
+
+    public static boolean isLowerCaseAscii(final String s) {
+        final int length = s.length();
+        for (int i = 0; i < length; i++) {
+            final int c = s.charAt(i);
+            if (c < 97 || c > 122) return false;
+        }
+        return true;
+    }
+
+    public static int charIndexOfFirstWhitespace(final CharSequence s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            final char c = s.charAt(i);
+            if (Character.isWhitespace(c)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int charIndexOfLastWhitespace(final CharSequence s) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            final char c = s.charAt(i);
+            if (Character.isWhitespace(c)) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 }

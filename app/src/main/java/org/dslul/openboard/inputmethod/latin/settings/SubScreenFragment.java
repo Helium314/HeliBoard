@@ -1,22 +1,12 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.app.ActionBar;
+import android.app.Activity;
 import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,26 +14,29 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceScreen;
 
 /**
- * A base abstract class for a {@link PreferenceFragment} that implements a nested
+ * A base abstract class for a {@link PreferenceFragmentCompat} that implements a nested
  * {@link PreferenceScreen} of the main preference screen.
  */
-public abstract class SubScreenFragment extends PreferenceFragment
+public abstract class SubScreenFragment extends PreferenceFragmentCompat
         implements OnSharedPreferenceChangeListener {
     private OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
 
-    static void setPreferenceEnabled(final String prefKey, final boolean enabled,
-            final PreferenceScreen screen) {
+    static void setPreferenceVisible(final String prefKey, final boolean visible,
+                                     final PreferenceScreen screen) {
         final Preference preference = screen.findPreference(prefKey);
         if (preference != null) {
-            preference.setEnabled(enabled);
+            preference.setVisible(visible);
         }
     }
 
@@ -73,8 +66,8 @@ public abstract class SubScreenFragment extends PreferenceFragment
         listPreference.setSummary(entryIndex < 0 ? null : entries[entryIndex]);
     }
 
-    final void setPreferenceEnabled(final String prefKey, final boolean enabled) {
-        setPreferenceEnabled(prefKey, enabled, getPreferenceScreen());
+    final void setPreferenceVisible(final String prefKey, final boolean visible) {
+        setPreferenceVisible(prefKey, visible, getPreferenceScreen());
     }
 
     final void removePreference(final String prefKey) {
@@ -100,10 +93,9 @@ public abstract class SubScreenFragment extends PreferenceFragment
     }
 
     @Override
-    public void addPreferencesFromResource(final int preferencesResId) {
-        super.addPreferencesFromResource(preferencesResId);
-        TwoStatePreferenceHelper.replaceCheckBoxPreferencesBySwitchPreferences(
-                getPreferenceScreen());
+    public void onCreatePreferences(final Bundle savedInstanceState, final String s) {
+        // this must be overridden, but is useless, because it's called during onCreate
+        // so there is no possibility of calling setStorageDeviceProtected before this is called...
     }
 
     @Override
@@ -135,10 +127,15 @@ public abstract class SubScreenFragment extends PreferenceFragment
     @Override
     public void onResume() {
         super.onResume();
-        final ActionBar actionBar = getActivity().getActionBar();
-        final CharSequence screenTitle = getPreferenceScreen().getTitle();
-        if (actionBar != null && screenTitle != null) {
-            actionBar.setTitle(screenTitle);
+        final Activity activity = getActivity();
+        if (activity instanceof AppCompatActivity) {
+            final ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+            final PreferenceScreen ps = getPreferenceScreen();
+            if (ps == null) return;
+            final CharSequence screenTitle = ps.getTitle();
+            if (actionBar != null && screenTitle != null) {
+                actionBar.setTitle(screenTitle);
+            }
         }
     }
 
@@ -152,5 +149,25 @@ public abstract class SubScreenFragment extends PreferenceFragment
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         // This method may be overridden by an extended class.
+    }
+
+    // for fixing the indent appearing with androidx preferences
+    // we don't have icons in subscreens, so we don't want indent
+    // should also be possible in xml, but didn't find a way to have it in a theme/style
+    @Override
+    public void setPreferenceScreen(PreferenceScreen preferenceScreen) {
+        super.setPreferenceScreen(preferenceScreen);
+        if (preferenceScreen == null) return;
+        int count = preferenceScreen.getPreferenceCount();
+        for (int i = 0; i < count; i++) {
+            final Preference pref = preferenceScreen.getPreference(i);
+            pref.setIconSpaceReserved(false);
+            if (pref instanceof PreferenceCategory) {
+                final int subPrefCount = ((PreferenceCategory) pref).getPreferenceCount();
+                for (int j = 0; j < subPrefCount; j++) {
+                    ((PreferenceCategory) pref).getPreference(j).setIconSpaceReserved(false);
+                }
+            }
+        }
     }
 }

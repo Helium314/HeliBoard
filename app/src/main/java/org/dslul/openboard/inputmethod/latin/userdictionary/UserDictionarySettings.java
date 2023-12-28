@@ -1,22 +1,11 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.userdictionary;
 
-import android.app.ListFragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +26,12 @@ import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.ListFragment;
+
 import org.dslul.openboard.inputmethod.latin.R;
 
 import java.util.Locale;
@@ -47,16 +42,15 @@ import java.util.Locale;
 
 public class UserDictionarySettings extends ListFragment {
 
-    public static final boolean IS_SHORTCUT_API_SUPPORTED =
-            true;
+    public static final boolean IS_SHORTCUT_API_SUPPORTED = true;
 
     private static final String[] QUERY_PROJECTION_SHORTCUT_UNSUPPORTED =
             { UserDictionary.Words._ID, UserDictionary.Words.WORD};
     private static final String[] QUERY_PROJECTION_SHORTCUT_SUPPORTED =
             { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT};
-    private static final String[] QUERY_PROJECTION =
-            IS_SHORTCUT_API_SUPPORTED ?
-                    QUERY_PROJECTION_SHORTCUT_SUPPORTED : QUERY_PROJECTION_SHORTCUT_UNSUPPORTED;
+    private static final String[] QUERY_PROJECTION = IS_SHORTCUT_API_SUPPORTED
+            ? QUERY_PROJECTION_SHORTCUT_SUPPORTED
+            : QUERY_PROJECTION_SHORTCUT_UNSUPPORTED;
 
     // The index of the shortcut in the above array.
     private static final int INDEX_SHORTCUT = 2;
@@ -85,10 +79,8 @@ public class UserDictionarySettings extends ListFragment {
 
     // Either the locale is empty (means the word is applicable to all locales)
     // or the word equals our current locale
-    private static final String QUERY_SELECTION =
-            UserDictionary.Words.LOCALE + "=?";
-    private static final String QUERY_SELECTION_ALL_LOCALES =
-            UserDictionary.Words.LOCALE + " is null";
+    private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=?";
+    private static final String QUERY_SELECTION_ALL_LOCALES = UserDictionary.Words.LOCALE + " is null";
 
     private static final String DELETE_SELECTION_WITH_SHORTCUT = UserDictionary.Words.WORD
             + "=? AND " + UserDictionary.Words.SHORTCUT + "=?";
@@ -107,27 +99,25 @@ public class UserDictionarySettings extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getActionBar().setTitle(R.string.edit_personal_dictionary);
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setTitle(R.string.edit_personal_dictionary);
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(
-                R.layout.user_dictionary_preference_list_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.user_dictionary_preference_list_fragment, container, false);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        final Intent intent = getActivity().getIntent();
-        final String localeFromIntent =
-                null == intent ? null : intent.getStringExtra("locale");
+        final Intent intent = requireActivity().getIntent();
+        final String localeFromIntent = null == intent ? null : intent.getStringExtra("locale");
 
         final Bundle arguments = getArguments();
-        final String localeFromArguments =
-                null == arguments ? null : arguments.getString("locale");
+        final String localeFromArguments = null == arguments ? null : arguments.getString("locale");
 
         final String locale;
         if (null != localeFromArguments) {
@@ -141,7 +131,7 @@ public class UserDictionarySettings extends ListFragment {
         // closing the cursor, so take care when resolving this TODO). We should either use a
         // regular query and close the cursor, or switch to a LoaderManager and a CursorLoader.
         mCursor = createCursor(locale);
-        TextView emptyView = getView().findViewById(android.R.id.empty);
+        TextView emptyView = view.findViewById(android.R.id.empty);
         emptyView.setText(R.string.user_dict_settings_empty_text);
 
         final ListView listView = getListView();
@@ -150,20 +140,34 @@ public class UserDictionarySettings extends ListFragment {
         listView.setEmptyView(emptyView);
 
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         // Show the language as a subtitle of the action bar
-        getActivity().getActionBar().setSubtitle(
-                UserDictionarySettingsUtils.getLocaleDisplayName(getActivity(), mLocale));
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setSubtitle(UserDictionarySettingsUtils.getLocaleDisplayName(getActivity(), mLocale));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // clear the subtitle
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setSubtitle(null);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ListAdapter adapter = getListView().getAdapter();
-        if (adapter != null && adapter instanceof MyAdapter) {
+        if (adapter instanceof MyAdapter listAdapter) {
             // The list view is forced refreshed here. This allows the changes done 
             // in UserDictionaryAddWordFragment (update/delete/insert) to be seen when 
             // user goes back to this view. 
-            MyAdapter listAdapter = (MyAdapter) adapter;
             listAdapter.notifyDataSetChanged();
         }
     }
@@ -182,12 +186,12 @@ public class UserDictionarySettings extends ListFragment {
         // can be guaranteed not to match locales that may exist.
         if ("".equals(locale)) {
             // Case-insensitive sort
-            return getActivity().managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+            return requireActivity().managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION_ALL_LOCALES, null,
                     "UPPER(" + UserDictionary.Words.WORD + ")");
         }
         final String queryLocale = null != locale ? locale : Locale.getDefault().toString();
-        return getActivity().managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+        return requireActivity().managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                 QUERY_SELECTION, new String[] { queryLocale },
                 "UPPER(" + UserDictionary.Words.WORD + ")");
     }
@@ -217,11 +221,9 @@ public class UserDictionarySettings extends ListFragment {
                 return;
             }
         }
-        MenuItem actionItem =
-                menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
-                .setIcon(R.drawable.ic_menu_add);
-        actionItem.setShowAsAction(
-                MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
+                .setIcon(R.drawable.ic_plus);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
     @Override
@@ -246,10 +248,11 @@ public class UserDictionarySettings extends ListFragment {
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, editingWord);
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, editingShortcut);
         args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale);
-        android.preference.PreferenceActivity pa =
-                (android.preference.PreferenceActivity)getActivity();
-        pa.startPreferencePanel(UserDictionaryAddWordFragment.class.getName(),
-                args, R.string.user_dict_settings_add_dialog_title, null, null, 0);
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, UserDictionaryAddWordFragment.class, args)
+                .addToBackStack(null)
+                .commit();
     }
 
     private String getWord(final int position) {
@@ -292,28 +295,24 @@ public class UserDictionarySettings extends ListFragment {
     private static class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
         private AlphabetIndexer mIndexer;
 
-        private ViewBinder mViewBinder = new ViewBinder() {
-
-            @Override
-            public boolean setViewValue(final View v, final Cursor c, final int columnIndex) {
-                if (!IS_SHORTCUT_API_SUPPORTED) {
-                    // just let SimpleCursorAdapter set the view values
-                    return false;
-                }
-                if (columnIndex == INDEX_SHORTCUT) {
-                    final String shortcut = c.getString(INDEX_SHORTCUT);
-                    if (TextUtils.isEmpty(shortcut)) {
-                        v.setVisibility(View.GONE);
-                    } else {
-                        ((TextView)v).setText(shortcut);
-                        v.setVisibility(View.VISIBLE);
-                    }
-                    v.invalidate();
-                    return true;
-                }
-
+        private final ViewBinder mViewBinder = (v, c, columnIndex) -> {
+            if (!IS_SHORTCUT_API_SUPPORTED) {
+                // just let SimpleCursorAdapter set the view values
                 return false;
             }
+            if (columnIndex == INDEX_SHORTCUT) {
+                final String shortcut = c.getString(INDEX_SHORTCUT);
+                if (TextUtils.isEmpty(shortcut)) {
+                    v.setVisibility(View.GONE);
+                } else {
+                    ((TextView)v).setText(shortcut);
+                    v.setVisibility(View.VISIBLE);
+                }
+                v.invalidate();
+                return true;
+            }
+
+            return false;
         };
 
         public MyAdapter(final Context context, final int layout, final Cursor c,

@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.compat
 
 import android.inputmethodservice.InputMethodService
@@ -10,8 +16,8 @@ object ViewOutlineProviderCompatUtils {
         override fun setInsets(insets: InputMethodService.Insets) {}
     }
 
-    @kotlin.jvm.JvmStatic
-    fun setInsetsOutlineProvider(view: View): InsetsUpdater? {
+    @JvmStatic
+    fun setInsetsOutlineProvider(view: View): InsetsUpdater {
         return if (Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
             EMPTY_INSETS_UPDATER
         } else ViewOutlineProviderCompatUtilsLXX.setInsetsOutlineProvider(view)

@@ -1,92 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Options de saisie"</string>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Rechercher les noms de contacts"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">Le correcteur orthographique utilise les noms des contacts</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Le correcteur orthographique utilise les noms des contacts."</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrer à chaque touche"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Émettre un son à chaque touche"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">Agrandir les caractères pressés</string>
+    <string name="popup_on_keypress">"Agrandir les caractères"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Préférences"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Comptes et confidentialité"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Apparence et dispositions"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Saisie gestuelle"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correction du texte"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Paramètres avancés"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Thème"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Activer le clavier en deux parties"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Autres modes de saisie"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">La touche de sélection de langue couvre d\'autres modes de saisie</string>
+    <string name="split_spacer_scale">Distance de la séparation du clavier</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Autres modes de saisie"</string>
+    <string name="language_switch_key_switch_subtype">Changer de langue</string>
+    <string name="language_switch_key_switch_both">Changer les deux</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Touche de sélection de langue"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Afficher lorsque plusieurs langues de saisie sont activées"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Masquer touche agrandie"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sans délai"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Par défaut"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Paramètres par défaut"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Utilisation des contacts"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Utiliser les noms de contacts pour les suggestions et corrections</string>
+    <string name="use_contacts_dict" msgid="4435317977804180815">"Suggestion des contacts"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Utilise les noms de contacts pour les suggestions et les corrections</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Suggestions personnalisées"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">Améliorer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="disable_personalized_dicts_message">Attention : la désactivation de ce paramètre effacera les données apprises.</string>
+    <string name="add_to_personal_dictionary">Ajouter les mots au dictionnaire personnel</string>
+    <string name="add_to_personal_dictionary_summary">Enregistre les mots appris dans le dictionnaire personnel de l\'appareil</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Point et espace"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">Appuyez deux fois sur la barre d\'espace pour insérer un point et un espace</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Majuscules auto"</string>
+    <string name="use_double_space_period_summary">"Appuyez deux fois sur la barre d\'espace pour insérer un point et un espace"</string>
+    <string name="auto_cap" msgid="1719746674854628252">"Majuscules automatique"</string>
     <string name="auto_cap_summary" msgid="7934452761022946874">"Majuscule au premier mot de chaque phrase"</string>
     <string name="edit_personal_dictionary" msgid="3996910038952940420">"Dictionnaire personnel"</string>
     <string name="configure_dictionaries_title" msgid="4238652338556902049">"Dictionnaires complémentaires"</string>
     <string name="main_dictionary" msgid="4798763781818361168">"Dictionnaire principal"</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"Suggestions de correction"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Afficher les suggestions de terme lors de la saisie"</string>
+    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Affiche les mots suggérés lors de la saisie"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blocage des termes choquants"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Pas de termes potentiellement choquants"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correction auto"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Corriger l\'orthographe (pression sur barre espace/signes ponctuation)"</string>
+    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne suggère pas de mots potentiellement offensants"</string>
+    <string name="auto_correction" msgid="7630720885194996950">"Correction automatique"</string>
+    <string name="auto_correction_summary" msgid="5625751551134658006">"Corrige automatiquement l\'orthographe lors d'un appui sur la barre d\'espace ou un signe de ponctuation"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Désactiver"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Simple"</string>
     <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Forcée"</string>
     <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Très proactive"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Suggestions pour mot suivant"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Utiliser le mot précédent pour les suggestions"</string>
+    <string name="bigram_prediction" msgid="1084449187723948550">"Suggestions pour le mot suivant"</string>
+    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Utilise le mot précédent pour les suggestions"</string>
     <string name="gesture_input" msgid="826951152254563827">"Activer la saisie gestuelle"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Saisir un mot en faisant glisser le doigt sur les lettres"</string>
+    <string name="gesture_input_summary" msgid="9180350639305731231">"Saisit un mot en faisant glisser le doigt sur les lettres"</string>
     <string name="gesture_preview_trail" msgid="3802333369335722221">"Afficher le tracé du geste"</string>
     <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Aperçu flottant dynamique"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Afficher le mot suggéré lors des gestes"</string>
+    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Affiche le mot suggéré lors des gestes"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Geste multiterme"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Saisir des espaces lors des gestes en glissant vers la barre d\'espace"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Touche de saisie vocale"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Aucun mode de saisie vocale activé. Activez les paramètres de langues et de saisie."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Configurer les modes de saisie"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Langues"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">Aide &amp; commentaires</string>
+    <string name="help_and_feedback">"Aide et commentaires"</string>
     <string name="select_language" msgid="5709487854987078367">"Langues"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Appuyer de nouveau pour enregistrer"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Appuyer ici pour enregistrer"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Dictionnaire disponible"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Thème du clavier"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Changer de compte"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Aucun compte sélectionné"</string>
-    <string name="account_selected" msgid="2846876462199625974">Vous utilisez actuellement <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
-    <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Annuler"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Déconnexion"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Sélectionner le compte à utiliser"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Anglais (Royaume-Uni)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Anglais (États-Unis)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Espagnol (États-Unis)"</string>
@@ -113,15 +91,11 @@
     <string name="save" msgid="7646738597196767214">"Enregistrer"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Langue"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Clavier"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Vous devez activer votre style de saisie personnalisé avant de l\'utiliser. Voulez-vous le faire maintenant ?"</string>
-    <string name="enable" msgid="5031294444630523247">"Activer"</string>
-    <string name="not_now" msgid="6172462888202790482">"Pas maintenant"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">Le style de saisie suivant existe déjà : <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g></string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durée de vibration des touches"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume son pression de touche"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Délai d\'appui prolongé"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">Émoji pour clavier physique</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">La touche Alt physique permet d\'afficher la palette d\'émoji</string>
+    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume du son des touches"</string>
+    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Délai d\'un appui long sur les touches"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Emojis pour clavier physique"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"La touche Alt physique permet d\'afficher la palette d\'emoji"</string>
     <string name="button_default" msgid="3988017840431881491">"Par défaut"</string>
     <string name="setup_welcome_title" msgid="6112821709832031715">Bienvenue dans <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"avec la saisie gestuelle"</string>
@@ -137,33 +111,47 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Changer de mode de saisie"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">Félicitations, l\'opération est terminée !</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">Avec <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>, vous pouvez saisir du texte dans toutes vos applications préférées.</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Configurer des langues supplémentaires"</string>
+    <string name="setup_step3_action">Configurer le clavier</string>
     <string name="setup_finish_action" msgid="276559243409465389">"OK"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Afficher icône application"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Afficher l\'icône de l\'application dans le lanceur"</string>
+    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Afficher l\'icône de l\'application"</string>
+    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Affiche l\'icône de l\'application dans le lanceur"</string>
     <string name="app_name" msgid="6320102637491234792">"Fournisseur de dictionnaires"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Fournisseur de dictionnaires"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Service de dictionnaires"</string>
-    <string name="download_description" msgid="6014835283119198591">"Informations relatives à la mise à jour des dictionnaires"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Dictionnaires complémentaires"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Paramètres des dictionnaires"</string>
+    <string name="dictionary_settings_category">Dictionnaires</string>
+    <string name="internal_dictionary_summary">Dictionnaires intégrés</string>
+    <string name="add_new_dictionary_title">"Ajouter dictionnaire"</string>
+    <string name="add_new_dictionary_ask_locale">"À quelle langue faut-il ajouter le dictionnaire \"%1$s\" pour %2$s ?"</string>
+    <string name="button_select_language">"Sélectionner la langue"</string>
+    <string name="button_add_to_language">"Ajouter à %s"</string>
+    <string name="replace_dictionary_message">"Remplacer le dictionnaire utilisateur \"%s\" ?"</string>
+    <string name="replace_dictionary_message2">"Remplacer le dictionnaire utilisateur \"%1$s\"?\n
+Dictionnaire actuel:
+%2$s\n
+Nouveau dictionnaire:
+%3$s"</string>
+    <string name="replace_dictionary">"Remplacer dictionnaire"</string>
+    <string name="remove_dictionary_message">"Supprimer le dictionnaire utilisateur \"%1$s\" ?"</string>
+    <string name="no_dictionary_message">"Sans dictionnaire, vous n\'obtiendrez que des suggestions pour le texte que vous avez déjà saisi.&lt;br&gt;&lt;br&gt;
+        Vous pouvez télécharger les dictionnaires %1$s, ou vérifier si un dictionnaire pour \"%2$s\" peut être téléchargé directement %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">"Ne plus afficher"</string>
+    <string name="add_dictionary">"Selectionnez un dictionnaire à ajouter. Les dictionnaires au format .dict peuvent être téléchargés %s."</string>
+    <string name="dictionary_link_text">"ici"</string>
+    <string name="dictionary_file_error">"Erreur: Le fichier sélectionné n\'est pas un fichier dictionnaire valide"</string>
+    <string name="dictionary_file_wrong_locale">"Le fichier sélectionné est pour \"%1$s\", mais \"%2$s\" était attendu. L\'utiliser quand même pour \"%2$s\" ?"</string>
+    <string name="dictionary_file_wrong_script">"Erreur: script non compatible avec ce clavier"</string>
+    <string name="dictionary_file_wrong_locale_ok">"Utiliser quand même"</string>
+    <string name="dictionary_load_error">"Erreur de chargement du fichier dictionnaire"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Dictionnaires personnels"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Dictionnaire personnel"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Dictionnaire disponible"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">Téléchargement en cours</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Installé"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Installé, désactivé"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">Problème de connexion au service de dictionnaire</string>
+    <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Aucun dictionnaire"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Actualiser"</string>
     <string name="last_update" msgid="730467549913588780">"Dernière mise à jour"</string>
-    <string name="message_updating" msgid="4457761393932375219">Recherche de mises à jour en cours</string>
-    <string name="message_loading" msgid="5638680861387748936">"Chargement en cours…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Dictionnaire principal"</string>
-    <string name="cancel" msgid="6830980399865683324">"Annuler"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Paramètres"</string>
-    <string name="install_dict" msgid="180852772562189365">"Installer"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Annuler"</string>
     <string name="delete_dict" msgid="756853268088330054">"Supprimer"</string>
     <string name="version_text" msgid="2715354215568469385">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Ajouter"</string>
@@ -171,7 +159,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Expression"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Plus d\'options"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Moins d\'options"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"OK"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Mot :"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Raccourci :"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Langue :"</string>
@@ -188,37 +175,85 @@
     <string name="spell_checker_service_name">Correcteur orthographique OpenBoard</string>
     <string name="android_spell_checker_settings">Paramètres du correcteur orthographique OpenBoard</string>
     <string name="number_row">Ligne de chiffres</string>
-    <string name="delete_swipe">Balayage de la touche Effacer</string>
-    <string name="delete_swipe_summary">Effectuez un glissement sur la touche de suppression pour sélectionner et supprimer de plus grandes portions de texte en une seule fois</string>
-    <string name="space_trackpad_summary">Glisser sur la barre d\'espace pour déplacer le curseur</string>
-    <string name="space_trackpad">Trackpad sur la barre d\'espace</string>
+    <string name="delete_swipe">Balayage sur la touche Effacer</string>
+    <string name="delete_swipe_summary">Glissez sur la touche de suppression pour supprimer des parties de texte en une seule fois</string>
+    <string name="space_trackpad">Balayage sur la barre d\'espace</string>
+    <string name="space_trackpad_summary">Glissez sur la barre d\'espace pour déplacer le curseur</string>
+    <string name="space_language_slide">Changer de langue avec la barre d\'espace</string>
+    <string name="space_language_slide_summary">Glissez sur la barre d\'espace vers le haut pour changer de langue</string>
+    <string name="backup_restore_title">Sauvegarde et restauration</string>
+    <string name="backup_restore_message">Sauvegarde ou chargement à partir d\'un fichier. Attention : la restauration écrasera les données existantes.</string>
+    <string name="backup_error">Erreur lors de la sauvegarde : %s</string>
+    <string name="restore_error">Erreur lors de la restauration de la sauvegarde : %s</string>
+    <string name="button_backup">Sauvegarder</string>
+    <string name="button_restore">Restaurer</string>
+    <string name="secondary_locale">Saisie multilingue</string>
+    <string name="load_gesture_library">Charger la bibliothèque de saisie gestuelle</string>
+    <string name="load_gesture_library_summary">Fournir une bibliothèque native pour activer la saisie gestuelle</string>
+    <string name="load_gesture_library_message">Vous aurez besoin de la bibliothèque pour CPU \'%s\'. Les bibliothèques incompatibles peuvent crasher lors de l\'utilisation de la saisie gestuelle.
+        \n\nAttention : le chargement de fichier externe peut constituer un risque pour la sécurité. N\'utilisez qu\'une bibliothèque provenant d\'une source en laquelle vous avez confiance.</string>
+    <string name="load_gesture_library_button_load">Charger bibliothèque</string>
+    <string name="load_gesture_library_button_delete">Supprimer bibliothèque</string>
     <string name="ime_settings">Paramètres d\'OpenBoard</string>
     <string name="settings_category_input">Saisie</string>
     <string name="settings_category_correction">Corrections</string>
     <string name="settings_category_suggestions">Suggestions</string>
     <string name="settings_category_experimental">Expérimental</string>
     <string name="settings_category_miscellaneous">Divers</string>
-    <string name="prefs_force_incognito_mode_summary">Désactiver l\'apprentissage de nouveaux mots</string>
+    <string name="prefs_force_incognito_mode_summary">Désactive l\'apprentissage de nouveaux mots</string>
     <string name="more_keys_strip_description">Touches supplémentaires</string>
     <string name="number_row_summary">Toujours afficher la ligne de chiffres</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Changer le mode de saisie avec la barre d\'esspace</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">Un appui long sur la barre d\'espace fera apparaître le menu de sélection de la méthode de saisie</string>
-    <string name="show_hints_summary">Afficher les caractères alternatifs lors d\'un appui long</string>
-    <string name="show_hints">Afficher les caractères alternatifs</string>
+    <string name="localized_number_row">Ligne de chiffres en language local</string>
+    <string name="localized_number_row_summary">Privilégie les chiffres en language local à la place des chiffres latins</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Changer le mode de saisie avec la barre d\'espace</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Un appui long sur la barre d\'espace fera apparaître le menu de sélection des claviers</string>
+    <string name="show_hints">Afficher les indices de touches</string>
+    <string name="show_hints_summary">Affiche les caractères alternatifs lors d\'un appui long</string>
+    <string name="show_popup_hints">Afficher les indices sur les touches fonctionnelles</string>
+    <string name="show_popup_hints_summary">Affiche un signe ( <b>…</b> ) sur les touches où un appui long déclenche une fonctionnalité supplémentaire</string>
     <string name="prefs_keyboard_height_scale">Échelle de hauteur du clavier</string>
-    <string name="theme_variant">Variante de thème</string>
+    <string name="prefs_bottom_padding_scale">Échelle d\'espacement en bas du clavier</string>
     <string name="day_night_mode_summary">L\'apparence suivra les paramètres système</string>
-    <string name="amoled_mode">Arrière-plans noir profond</string>
+    <string name="theme_navbar">Colorer la barre de navigation</string>
+    <string name="theme_name_light">Clair</string>
+    <string name="theme_name_holo_white">Holo Blanc</string>
+    <string name="theme_name_dark">Sombre</string>
+    <string name="theme_name_darker">Noir</string>
+    <string name="theme_name_black">Amoled</string>
+    <string name="theme_name_dynamic">Couleurs dynamiques</string>
+    <string name="theme_name_user">Personnalisé</string>
+    <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
+    <string name="select_user_colors">Personnaliser le thème</string>
+    <string name="select_user_colors_night">Personnaliser le thème (mode nuit)</string>
+    <string name="auto_user_color">Choix automatique de la couleur</string>
+    <string name="main_colors">Afficher les couleurs principales</string>
+    <string name="all_colors">Afficher toutes les couleurs</string>
+    <string name="hint_show_keyboard">Cliquez pour voir l\'aperçu</string>
+    <string name="select_user_colors_summary">Sélection des couleurs du texte et de l\'arrière-plan</string>
+    <string name="select_color_background">Arrière-plan du clavier</string>
+    <string name="select_color_key">Texte des touches</string>
+    <string name="select_color_key_hint">Indice des touches</string>
+    <string name="select_color_key_background">Arrière-plan des touches</string>
+    <string name="select_color_functional_key_background">Arrière-plan des touches fonctionnelles</string>
+    <string name="select_color_spacebar_background">Arrière-plan de la barre d\'espace</string>
+    <string name="select_color_spacebar_text">Texte de la barre d\'espace</string>
+    <string name="select_color_accent">Couleur d\'accentuation</string>
+    <string name="select_color_gesture">Saisie gestuelle</string>
+    <string name="settings_screen_about">À propos</string>
+    <string name="about_github_link" >Lien vers GitHub</string>
+    <string name="save_log">Sauvegarder le journal</string>
+    <string name="license" >Licence Open-source</string>
     <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
-    <string name="theme_family">Famille de thème</string>
-    <string name="key_borders">Bordures de touche</string>
+    <string name="theme_style">Style</string>
+    <string name="style_name_Rounded">Arrondi</string>
+    <string name="theme_colors">Couleurs</string>
+    <string name="theme_colors_night">Couleurs (mode nuit)</string>
+    <string name="key_borders">Bordures des touches</string>
     <string name="day_night_mode">Mode jour/nuit automatique</string>
-    <string name="amoled_mode_summary">Peut réduire la consommation d\'énergie en fonction de la technologie d\'écran de l\'appareil</string>
-    <string name="prefs_resize_keyboard">Autoriser le redimensionnement du clavier</string>
+    <string name="prefs_narrow_key_gaps">Réduire l\'espace entre les touches</string>
     <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
-    <string name="show_clipboard_key">Touche du presse-papier</string>
-    <string name="show_emoji_key">Touche d\'accès aux émoji</string>
+    <string name="show_emoji_key">Touche d\'accès aux émojis</string>
     <string name="settings_category_additional_keys">Touches supplémentaires</string>
     <string name="settings_category_clipboard_history">Historique du presse-papier</string>
     <string name="settings_no_limit">Sans limite</string>
@@ -227,9 +262,41 @@
     <string name="enable_clipboard_history">Activer l\'historique</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="autospace_after_punctuation">Espace auto après la ponctuation</string>
+    <string name="autospace_after_punctuation">Espace automatique après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
+    <string name="show_more_keys_title">Afficher plus de signes diacritiques dans les popups</string>
+    <string name="show_more_keys_normal">Afficher les variantes définies dans les langues du clavier (par défaut)</string>
+    <string name="show_more_keys_more">Ajouter des variantes générales</string>
+    <string name="show_more_keys_all">Ajouter toutes les variantes disponibles</string>
+    <string name="url_detection_title">Détection d\'URL</string>
+    <string name="url_detection_summary">Essaye de détecter les URL et autres éléments similaires comme un seul mot</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utiliser les langues du système"</string>
     <string name="auto_correction_confidence">Confiance dans la correction automatique</string>
-    <string name="select_input_method">"Changer de clavier"</string>
+    <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
+    <string name="settings_screen_appearance">"Apparence"</string>
+    <string name="dialog_close">Fermer</string>
+    <string name="text_tap_languages">Appuyez sur la langue pour ouvrir les paramètres</string>
+    <string name="hidden_features_title">Description des fonctionnalités cachées</string>
+    <string name="hidden_features_summary">Montre les caractéristiques qui peuvent passer inaperçues</string>
+    <string name="hidden_features_text">stockage protégé de l\'appareil</string>
+    <string name="hidden_features_message">
+        &#9658; Un appui long sur la touche presse-papiers (celle qui est optionnelle dans la bande de suggestions) permet de coller le contenu du presse-papiers. &lt;br&gt; &lt;br&gt;
+        &#9658; Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
+        &#9658; Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
+        \t&#8226; l\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
+        \t&#8226; pour certaines dispositions, ce n\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
+        &#9658; Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
+        &#9658; Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
+        \t&#8226; fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
+        &#9658; Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
+        &#9658; Balayez vers le haut à partir d\'une suggestion pour ouvrir d\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt;
+        &#9658; Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt;
+        \t&#8226; ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
+        &lt;i&gt; Version Debug uniquement &lt;/i&gt; &lt;br&gt;
+        &#9658; Un appui-long sur une suggestion montre la source du dictionnaire.&lt;br&gt; &lt;br&gt;
+        &#9658; Affichage des paramètres de débogage dans les paramètres avancés, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
+        &#9658; Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
+        &#9658; Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut car l\'application utilise le %s. &lt;br&gt;
+        Cela est nécessaire pour que les paramètres puissent être lus avant que l\'appareil ne soit déverrouillé, par exemple au démarrage. &lt;br&gt;
+        Le fichier se trouve dans &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt;, mais cela peut dépendre de l\'appareil et de la version d\'Android.</string>
 </resources>

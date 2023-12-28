@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
@@ -30,6 +20,7 @@ public class ScriptUtils {
     // Used for hardware keyboards
     public static final int SCRIPT_UNKNOWN = -1;
 
+    // These should be aligned with KeyboardLayoutSet_Feature values in attrs.xml.
     public static final int SCRIPT_ARABIC = 0;
     public static final int SCRIPT_ARMENIAN = 1;
     public static final int SCRIPT_BENGALI = 2;
@@ -48,31 +39,24 @@ public class ScriptUtils {
     public static final int SCRIPT_TAMIL = 15;
     public static final int SCRIPT_TELUGU = 16;
     public static final int SCRIPT_THAI = 17;
-    public static final int SCRIPT_BULGARIAN = 18;
-
-    public static final String LANGUAGE_GEORGIAN = "ka";
-    public static final String LANGUAGE_BENGALI = "bn";
-    public static final String LANGUAGE_HINDI = "hi";
-    public static final String LANGUAGE_THAI = "th";
-    public static final String LANGUAGE_KHMER = "km";
-    public static final String LANGUAGE_LAO = "lo";
-    public static final String LANGUAGE_SINHALA = "si";
-    public static final String LANGUAGE_NEPALI = "ne";
-
-
+    public static final int SCRIPT_BULGARIAN = 18; // todo: why is bulgarian a separate script?
+    public static final int SCRIPT_HANGUL = 19;
 
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
-    private final static ArraySet<String> NON_UPPERCASE_SCRIPTS = new ArraySet<>();
+    private final static ArraySet<Integer> UPPERCASE_SCRIPTS = new ArraySet<>();
 
 
     static {
         mLanguageCodeToScriptCode = new TreeMap<>();
         mLanguageCodeToScriptCode.put("", SCRIPT_LATIN); // default
         mLanguageCodeToScriptCode.put("ar", SCRIPT_ARABIC);
+        mLanguageCodeToScriptCode.put("ur", SCRIPT_ARABIC);
+        mLanguageCodeToScriptCode.put("fa", SCRIPT_ARABIC);
         mLanguageCodeToScriptCode.put("hy", SCRIPT_ARMENIAN);
         mLanguageCodeToScriptCode.put("bg", SCRIPT_BULGARIAN);
         mLanguageCodeToScriptCode.put("bn", SCRIPT_BENGALI);
         mLanguageCodeToScriptCode.put("sr", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("mk", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ru", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ka", SCRIPT_GEORGIAN);
         mLanguageCodeToScriptCode.put("el", SCRIPT_GREEK);
@@ -86,20 +70,30 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("te", SCRIPT_TELUGU);
         mLanguageCodeToScriptCode.put("th", SCRIPT_THAI);
         mLanguageCodeToScriptCode.put("uk", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("ko", SCRIPT_HANGUL);
+        mLanguageCodeToScriptCode.put("hi", SCRIPT_DEVANAGARI);
+        mLanguageCodeToScriptCode.put("kn", SCRIPT_KANNADA);
+        mLanguageCodeToScriptCode.put("kh", SCRIPT_KHMER);
+        mLanguageCodeToScriptCode.put("mr", SCRIPT_DEVANAGARI);
+        mLanguageCodeToScriptCode.put("mn", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("be", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("kk", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("ky", SCRIPT_CYRILLIC);
+        mLanguageCodeToScriptCode.put("ne", SCRIPT_DEVANAGARI);
 
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_GEORGIAN);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_BENGALI);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_HINDI);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_THAI);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_KHMER);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_LAO);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_SINHALA);
-        NON_UPPERCASE_SCRIPTS.add(LANGUAGE_NEPALI);
+        // only Latin, Cyrillic, Greek and Armenian have upper/lower case
+        // https://unicode.org/faq/casemap_charprop.html#3
+        // adding Bulgarian because internally it uses a separate script value
+        UPPERCASE_SCRIPTS.add(SCRIPT_LATIN);
+        UPPERCASE_SCRIPTS.add(SCRIPT_CYRILLIC);
+        UPPERCASE_SCRIPTS.add(SCRIPT_BULGARIAN);
+        UPPERCASE_SCRIPTS.add(SCRIPT_GREEK);
+        UPPERCASE_SCRIPTS.add(SCRIPT_ARMENIAN);
     }
 
 
-    public static boolean scriptSupportsUppercase(String language) {
-        return !NON_UPPERCASE_SCRIPTS.contains(language);
+    public static boolean scriptSupportsUppercase(Locale locale) {
+        return UPPERCASE_SCRIPTS.contains(getScriptFromSpellCheckerLocale(locale));
     }
 
     /*
@@ -203,6 +197,13 @@ public class ScriptUtils {
             case SCRIPT_THAI:
                 // Thai unicode block is U+0E00..U+0E7F
                 return (codePoint >= 0xE00 && codePoint <= 0xE7F);
+            case SCRIPT_HANGUL:
+                return (codePoint >= 0xAC00 && codePoint <= 0xD7A3
+                        || codePoint >= 0x3131 && codePoint <= 0x318E
+                        || codePoint >= 0x1100 && codePoint <= 0x11FF
+                        || codePoint >= 0xA960 && codePoint <= 0xA97C
+                        || codePoint >= 0xD7B0 && codePoint <= 0xD7C6
+                        || codePoint >= 0xD7CB && codePoint <= 0xD7FB);
             case SCRIPT_UNKNOWN:
                 return true;
             default:
@@ -217,8 +218,8 @@ public class ScriptUtils {
      * {@see http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes}
      */
     public static int getScriptFromSpellCheckerLocale(final Locale locale) {
-        // need special treatment of serbian latin, which would get detected as cyrillic
-        if (locale.toString().toLowerCase(Locale.ENGLISH).equals("sr_zz"))
+        // need special treatment of serbian latin and hinglish, which would get detected as cyrillic /
+        if (locale.toString().toLowerCase(Locale.ENGLISH).endsWith("_zz"))
             return ScriptUtils.SCRIPT_LATIN;
         String language = locale.getLanguage();
         Integer script = mLanguageCodeToScriptCode.get(language);

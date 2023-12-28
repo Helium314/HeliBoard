@@ -1,22 +1,12 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
@@ -146,7 +136,7 @@ public final class GestureStrokeRecognitionPoints {
     }
 
     // TODO: Make this package private
-    public final boolean isStartOfAGesture() {
+    public boolean isStartOfAGesture() {
         if (!hasDetectedFastMove()) {
             return false;
         }
@@ -225,7 +215,7 @@ public final class GestureStrokeRecognitionPoints {
         mLastMajorEventY = y;
     }
 
-    private final boolean hasDetectedFastMove() {
+    private boolean hasDetectedFastMove() {
         return mDetectFastMoveTime > 0;
     }
 
@@ -303,18 +293,18 @@ public final class GestureStrokeRecognitionPoints {
     }
 
     // TODO: Make this package private
-    public final boolean hasRecognitionTimePast(
+    public boolean hasRecognitionTimePast(
             final long currentTime, final long lastRecognitionTime) {
         return currentTime > lastRecognitionTime + mRecognitionParams.mRecognitionMinimumTime;
     }
 
     // TODO: Make this package private
-    public final void appendAllBatchPoints(final InputPointers out) {
+    public void appendAllBatchPoints(final InputPointers out) {
         appendBatchPoints(out, getLength());
     }
 
     // TODO: Make this package private
-    public final void appendIncrementalBatchPoints(final InputPointers out) {
+    public void appendIncrementalBatchPoints(final InputPointers out) {
         appendBatchPoints(out, mIncrementalRecognitionSize);
     }
 

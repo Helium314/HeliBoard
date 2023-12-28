@@ -1,0 +1,38 @@
+[
+  [
+    { "label": "q" },
+    { "label": "w" },
+    { "label": "f" },
+    { "label": "p" },
+    { "label": "g" },
+    { "label": "j" },
+    { "label": "l" },
+    { "label": "u" },
+    { "label": "y" },
+    { "$": "shift_state_selector",
+      "shiftedManual": { "label": ":" },
+      "default": { "label": ";", "popup": { "main": { "label": ":" } } }
+    }
+  ],
+  [
+    { "label": "a" },
+    { "label": "r" },
+    { "label": "s" },
+    { "label": "t" },
+    { "label": "d" },
+    { "label": "h" },
+    { "label": "n" },
+    { "label": "e" },
+    { "label": "i" },
+    { "label": "o" }
+  ],
+  [
+    { "label": "z" },
+    { "label": "x" },
+    { "label": "c" },
+    { "label": "v" },
+    { "label": "b" },
+    { "label": "k" },
+    { "label": "m" }
+  ]
+]

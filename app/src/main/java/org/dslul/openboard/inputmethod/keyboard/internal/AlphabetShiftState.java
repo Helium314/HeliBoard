@@ -1,22 +1,14 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+
+import androidx.annotation.NonNull;
 
 public final class AlphabetShiftState {
     private static final String TAG = AlphabetShiftState.class.getSimpleName();
@@ -35,26 +27,14 @@ public final class AlphabetShiftState {
         final int oldState = mState;
         if (newShiftState) {
             switch (oldState) {
-            case UNSHIFTED:
-                mState = MANUAL_SHIFTED;
-                break;
-            case AUTOMATIC_SHIFTED:
-                mState = MANUAL_SHIFTED_FROM_AUTO;
-                break;
-            case SHIFT_LOCKED:
-                mState = SHIFT_LOCK_SHIFTED;
-                break;
+                case UNSHIFTED -> mState = MANUAL_SHIFTED;
+                case AUTOMATIC_SHIFTED -> mState = MANUAL_SHIFTED_FROM_AUTO;
+                case SHIFT_LOCKED -> mState = SHIFT_LOCK_SHIFTED;
             }
         } else {
             switch (oldState) {
-            case MANUAL_SHIFTED:
-            case MANUAL_SHIFTED_FROM_AUTO:
-            case AUTOMATIC_SHIFTED:
-                mState = UNSHIFTED;
-                break;
-            case SHIFT_LOCK_SHIFTED:
-                mState = SHIFT_LOCKED;
-                break;
+                case MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> mState = UNSHIFTED;
+                case SHIFT_LOCK_SHIFTED -> mState = SHIFT_LOCKED;
             }
         }
         if (DEBUG)
@@ -65,19 +45,13 @@ public final class AlphabetShiftState {
         final int oldState = mState;
         if (newShiftLockState) {
             switch (oldState) {
-            case UNSHIFTED:
-            case MANUAL_SHIFTED:
-            case MANUAL_SHIFTED_FROM_AUTO:
-            case AUTOMATIC_SHIFTED:
-                mState = SHIFT_LOCKED;
-                break;
+                case UNSHIFTED, MANUAL_SHIFTED, MANUAL_SHIFTED_FROM_AUTO, AUTOMATIC_SHIFTED -> mState = SHIFT_LOCKED;
             }
         } else {
             mState = UNSHIFTED;
         }
         if (DEBUG)
-            Log.d(TAG, "setShiftLocked(" + newShiftLockState + "): " + toString(oldState)
-                    + " > " + this);
+            Log.d(TAG, "setShiftLocked(" + newShiftLockState + "): " + toString(oldState) + " > " + this);
     }
 
     public void setAutomaticShifted() {
@@ -112,20 +86,21 @@ public final class AlphabetShiftState {
         return mState == MANUAL_SHIFTED_FROM_AUTO;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return toString(mState);
     }
 
     private static String toString(int state) {
-        switch (state) {
-        case UNSHIFTED: return "UNSHIFTED";
-        case MANUAL_SHIFTED: return "MANUAL_SHIFTED";
-        case MANUAL_SHIFTED_FROM_AUTO: return "MANUAL_SHIFTED_FROM_AUTO";
-        case AUTOMATIC_SHIFTED: return "AUTOMATIC_SHIFTED";
-        case SHIFT_LOCKED: return "SHIFT_LOCKED";
-        case SHIFT_LOCK_SHIFTED: return "SHIFT_LOCK_SHIFTED";
-        default: return "UNKNOWN";
-        }
+        return switch (state) {
+            case UNSHIFTED -> "UNSHIFTED";
+            case MANUAL_SHIFTED -> "MANUAL_SHIFTED";
+            case MANUAL_SHIFTED_FROM_AUTO -> "MANUAL_SHIFTED_FROM_AUTO";
+            case AUTOMATIC_SHIFTED -> "AUTOMATIC_SHIFTED";
+            case SHIFT_LOCKED -> "SHIFT_LOCKED";
+            case SHIFT_LOCK_SHIFTED -> "SHIFT_LOCK_SHIFTED";
+            default -> "UNKNOWN";
+        };
     }
 }

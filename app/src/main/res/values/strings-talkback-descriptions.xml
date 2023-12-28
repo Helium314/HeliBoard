@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2015, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2015 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Spoken description to let the user know that when typing in a password, they can plug in a headset in to hear spoken descriptions of the keys they type. [CHAR LIMIT=NONE] -->
     <string name="spoken_use_headphones">Plug in a headset to hear password keys spoken aloud.</string>
 
@@ -121,10 +108,6 @@
     <string name="spoken_descrption_emoji_category_people">People</string>
     <!-- Description of the emoji category icon of Objects. -->
     <string name="spoken_descrption_emoji_category_objects">Objects</string>
-    <!-- Description of the emoji category icon of Nature. -->
-    <string name="spoken_descrption_emoji_category_nature">Nature</string>
-    <!-- Description of the emoji category icon of Places. -->
-    <string name="spoken_descrption_emoji_category_places">Places</string>
     <!-- Description of the emoji category icon of Symbols. -->
     <string name="spoken_descrption_emoji_category_symbols">Symbols</string>
     <!-- Description of the emoji category icon of Flags. -->
@@ -155,17 +138,17 @@
     <!-- Spoken description for unknown emoji code point. -->
     <string name="spoken_emoji_unknown">Unknown emoji</string>
     <!-- Spoken description for emoticons ":-!". -->
-    <string name="spoken_emoticon_3A_2D_21_20">Bored face</string>
+    <string name="spoken_emoticon_3A_2D_21_20" tools:keep="@string/spoken_emoticon_3A_2D_21_20">Bored face</string>
     <!-- Spoken description for emoticons ":-$". -->
-    <string name="spoken_emoticon_3A_2D_24_20">Embarrassed face</string>
+    <string name="spoken_emoticon_3A_2D_24_20" tools:keep="@string/spoken_emoticon_3A_2D_24_20">Embarrassed face</string>
     <!-- Spoken description for emoticons "B-)". -->
-    <string name="spoken_emoticon_42_2D_29_20">Face wearing sunglasses</string>
+    <string name="spoken_emoticon_42_2D_29_20" tools:keep="@string/spoken_emoticon_42_2D_29_20">Face wearing sunglasses</string>
     <!-- Spoken description for emoticons ":O". -->
-    <string name="spoken_emoticon_3A_4F_20">Surprised face</string>
+    <string name="spoken_emoticon_3A_4F_20" tools:keep="@string/spoken_emoticon_3A_4F_20">Surprised face</string>
     <!-- Spoken description for emoticons ":-*". -->
-    <string name="spoken_emoticon_3A_2D_2A_20">Kissing face</string>
+    <string name="spoken_emoticon_3A_2D_2A_20" tools:keep="@string/spoken_emoticon_3A_2D_2A_20">Kissing face</string>
     <!-- Spoken description for emoticons ":-[". -->
-    <string name="spoken_emoticon_3A_2D_5B_20">Frowning face</string>
+    <string name="spoken_emoticon_3A_2D_5B_20" tools:keep="@string/spoken_emoticon_3A_2D_5B_20">Frowning face</string>
 
     <!-- Spoken descriptions when opening a more keys keyboard that has alternative characters. -->
     <string name="spoken_open_more_keys_keyboard">Alternative characters are available</string>

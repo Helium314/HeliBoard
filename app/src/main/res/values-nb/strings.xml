@@ -1,49 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Inndataalternativer"</string>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Slå opp kontaktnavn"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Stavekontrollen bruker oppføringer fra kontaktlisten din"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrer ved tastetrykk"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Lyd ved tastetrykk"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Forgrunnsvindu ved tastetrykk"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Innstillinger"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Kontoer og personvern"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Utseende og utforming"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">Håndvendingsskriving</string>
+    <string name="settings_screen_gesture">"Ordføring"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Tekstkorrigering"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avansert"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">Drakt</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">Skru på delt tastatur</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Bytt inndatametode"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Tasten for språkbytte dekker også andre inndatametoder"</string>
+    <string name="settings_screen_theme">"Tema"</string>
+    <string name="enable_split_keyboard">"Aktivér delt tastatur"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Bytt inndatametode"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Nøkkel for språkskifte"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Vis når flere inndataspråk er aktivert"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Forsinkelse ved avvisning av tastevindu"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Uten forsinkelse"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">Forvalg</string>
+    <string name="key_preview_popup_dismiss_default_delay">"Standard"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">Systemforvalg</string>
+    <string name="settings_system_default">"Systemstandard"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Foreslå kontaktnavn"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Bruk navn fra kontakter til forslag og korrigeringer</string>
+    <string name="use_contacts_dict_summary">"Bruk navn fra Kontakter til forslag og korrigeringer"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Spesialtilpassede forslag"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Forbedre <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Punktum ved doble mellomrom"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Dobbeltrykk på mellomromstasten for punktum etterfulgt av mellomrom"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Stor forbokstav"</string>
@@ -53,7 +36,7 @@
     <string name="main_dictionary" msgid="4798763781818361168">"Hovedordliste"</string>
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"Vis rettingsforslag"</string>
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Vis ordforslag under skriving"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">Blokker støtende ord</string>
+    <string name="prefs_block_potentially_offensive_title">"Blokkér støtende ord"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ikke foreslå potensielt støtende ord"</string>
     <string name="auto_correction" msgid="7630720885194996950">"Autokorrektur"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Mellomromstast og skilletegn retter automatisk feilstavede ord"</string>
@@ -63,30 +46,19 @@
     <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Veldig omfattende"</string>
     <string name="bigram_prediction" msgid="1084449187723948550">"Forslag til neste ord"</string>
     <string name="bigram_prediction_summary" msgid="3896362682751109677">"Bruk forrige ord til å lage forslag"</string>
-    <string name="gesture_input" msgid="826951152254563827">Aktiver håndvendingsskriving</string>
+    <string name="gesture_input">"Aktiver ordføring"</string>
     <string name="gesture_input_summary" msgid="9180350639305731231">"Skriv inn et ord ved å sveipe langsmed bokstavene"</string>
     <string name="gesture_preview_trail" msgid="3802333369335722221">"Vis bevegelsesspor"</string>
     <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Dynamiske ordforslag"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">Vis det foreslåtte ordet mens du utfører bevegelser</string>
+    <string name="gesture_floating_preview_text_summary">"Se det foreslåtte ordet mens du utfører bevegelser"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frasebevegelse"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Sett inn mellomrom ved å dra fingeren til mellomromstasten"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Tast for taleinndata"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Ingen taleinndatametoder er slått på. Sjekk Språk og inndata-innstillingene."</string>
-    <string name="configure_input_method" msgid="373356270290742459">Sett opp inndatametoder</string>
+    <string name="configure_input_method">"Konfigurer inndatametoder"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Språk"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Hjelp og tilbakemelding"</string>
     <string name="select_language" msgid="5709487854987078367">"Språk"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Trykk på nytt for å lagre"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Trykk her for å lagre"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Ordbok tilgjengelig"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">Tastaturdrakt</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Bytt konto"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Ingen kontoer er valgt"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Du bruker for øyeblikket <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"OK"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Avbryt"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Logg av"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Velg kontoen du vil bruke"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engelsk (Storbritannia)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engelsk (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"spansk (USA)"</string>
@@ -107,24 +79,20 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Alfabet (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabet (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">Tastaturdrakt</string>
+    <string name="keyboard_theme">"Tastaturtema"</string>
     <string name="add" msgid="8299699805688017798">"Legg til"</string>
     <string name="remove" msgid="4486081658752944606">"Fjern"</string>
     <string name="save" msgid="7646738597196767214">"Lagre"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Språk"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Oppsett"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">Tilpasset inndatastil må skrus på før bruk. Vil du gjøre det nå\?</string>
-    <string name="enable" msgid="5031294444630523247">"Slå på"</string>
-    <string name="not_now" msgid="6172462888202790482">"Ikke nå"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Inndatastilen finnes allerede: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Vibrasjonstid ved tastetrykk"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Lydstyrke ved tastetrykk"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Forsinkelse ved lange tastetrykk"</string>
     <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji for fysisk tastatur"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Fysisk Alt-tast som viser emojiutvalget"</string>
-    <string name="button_default" msgid="3988017840431881491">Forvalg</string>
+    <string name="button_default">"Standard"</string>
     <string name="setup_welcome_title" msgid="6112821709832031715">"Velkommen til <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">med håndvendingsskriving</string>
+    <string name="setup_welcome_additional_description">"med Ordføring"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Startveiledning"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Neste trinn"</string>
     <string name="setup_steps_title" msgid="6400373034871816182">Sett opp <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
@@ -137,33 +105,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Bytt inndatametode"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Gratulerer, du er klar!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">"Nå kan du skrive inn alle favorittappene dine med <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">Sett opp flere språk</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Ferdig"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">Vis programikonet</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Vis programikonet i programvelgeren</string>
+    <string name="show_setup_wizard_icon">"Vis app-ikonet"</string>
+    <string name="show_setup_wizard_icon_summary">"Vis app-ikonet i appoversikten"</string>
     <string name="app_name" msgid="6320102637491234792">"Ordlisteleverandør"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Ordlisteleverandør"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Ordlistetjeneste"</string>
-    <string name="download_description" msgid="6014835283119198591">"Oppdateringsinformasjon for ordliste"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Tilleggsordlister"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Innstillinger for ordlister"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Brukerordlister"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Brukerordbok"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Ordliste tilgjengelig"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Laster ned nå"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Installert"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">Installert, avskrudd</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Kan ikke koble til ordlistetjenesten"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Fant ingen ordlister"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Last inn på nytt"</string>
     <string name="last_update" msgid="730467549913588780">"Sist oppdatert"</string>
-    <string name="message_updating" msgid="4457761393932375219">Ser etter oppdateringer …</string>
-    <string name="message_loading" msgid="5638680861387748936">"Laster inn …"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Hovedordliste"</string>
-    <string name="cancel" msgid="6830980399865683324">"Avbryt"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Innstillinger"</string>
-    <string name="install_dict" msgid="180852772562189365">"Installer"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Avbryt"</string>
     <string name="delete_dict" msgid="756853268088330054">"Slett"</string>
     <string name="version_text" msgid="2715354215568469385">"Versjon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Legg til"</string>
@@ -171,7 +128,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Setning"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Flere alt."</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Færre alt."</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"OK"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Ord:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Snarvei:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Språk:"</string>
@@ -180,7 +136,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Rediger ord"</string>
     <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Rediger"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Slett"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">Du har ingen ord i brukerordlisten. Legg til ord ved å trykke på «Legg til»-knappen (+).</string>
+    <string name="user_dict_settings_empty_text">"Du har ingen ord i brukerordlisten. Du kan legge til ord ved å trykke på Legg til-knappen (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"For alle språk"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Flere språk"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Slett"</string>
@@ -207,19 +163,15 @@
     <string name="settings_category_miscellaneous">Ymse</string>
     <string name="settings_category_suggestions">Forslag</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Endre inndatametode med mellomromstast</string>
-    <string name="show_clipboard_key">Utklippstavletast</string>
     <string name="prefs_force_incognito_mode_summary">Skru av innlæring av nye ord</string>
-    <string name="prefs_resize_keyboard">Skru på endring av tastaturstørrelse</string>
     <string name="prefs_keyboard_height_scale">Skalering av tastaturhøyde</string>
     <string name="more_keys_strip_description">Flere taster</string>
     <string name="number_row">Tallrad</string>
     <string name="show_hints">Vis tastaturhint</string>
     <string name="show_hints_summary">Vis langtrykkshint</string>
     <string name="prefs_force_incognito_mode">Påtving inkognito-modus</string>
-    <string name="amoled_mode_summary">Kan redusere effektforbruk avhengig av skjermteknologi</string>
     <string name="key_borders">Tastekanter</string>
     <string name="theme_family">Draktfamilie</string>
-    <string name="amoled_mode">Svarte bakgrunner</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Bruk systemspråk"</string>
-    <string name="select_input_method">"Endre tastatur"</string>
+    <string name="select_input_method">"Velg inndatametode"</string>
 </resources>

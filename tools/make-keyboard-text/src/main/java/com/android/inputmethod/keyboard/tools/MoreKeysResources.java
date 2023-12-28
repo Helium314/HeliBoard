@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package com.android.inputmethod.keyboard.tools;
@@ -188,12 +178,20 @@ public class MoreKeysResources {
         for (final StringResourceMap resMap : mResourcesMap.values()) {
             final Locale locale = resMap.mLocale;
             final String localeStr = LocaleUtils.getLocaleCode(locale);
-            final String localeStr2 = localeStr.equals("he")
-                    ? "iw" // android still uses iw, but apparently with a newer java version iw ends up being converted to he
-                    : localeStr;
+            if (localeStr.equals("he")) {
+                // android still uses iw, but with newer java versions iw ends up being converted to he
+                // to be safe, just use both locales
+                final String localeToDump = (locale == LocaleUtils.DEFAULT_LOCALE)
+                        ? String.format("\"%s\"", localeStr)
+                        : String.format("\"%s\"%s", "iw", "       ".substring(localeStr.length()));
+                out.format("        %s, %-12s /* %3d/%3d %s */\n",
+                        localeToDump, getArrayNameForLocale(locale) + ",",
+                        resMap.getResources().size(), resMap.getOutputArraySize(),
+                        LocaleUtils.getLocaleDisplayName(locale));
+            }
             final String localeToDump = (locale == LocaleUtils.DEFAULT_LOCALE)
                     ? String.format("\"%s\"", localeStr)
-                    : String.format("\"%s\"%s", localeStr2, "       ".substring(localeStr.length()));
+                    : String.format("\"%s\"%s", localeStr, "       ".substring(localeStr.length()));
             out.format("        %s, %-12s /* %3d/%3d %s */\n",
                     localeToDump, getArrayNameForLocale(locale) + ",",
                     resMap.getResources().size(), resMap.getOutputArraySize(),

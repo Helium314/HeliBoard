@@ -1,49 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Επιλογές εισόδου"</string>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Αναζήτηση ονομάτων επαφών"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Ο ορθογρ. έλεγχος χρησιμοπ. καταχωρίσεις από τη λίστα επαφών σας"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Δόνηση κατά το πάτημα πλήκτρων"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Ήχος πλήκτρων"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Εμφάνιση με το πάτημα πλήκτρου"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Προτιμήσεις"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Λογαριασμοί και απόρρητο"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Εμφάνιση και διάταξη"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Πληκτρολόγηση με κίνηση"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Διόρθωση κειμένου"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Σύνθετες"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Θέμα"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Ενεργοποίηση διαχωρισμού πληκτρολογίου"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Άλλη μέθοδος εισόδου"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Το κλειδί αλλαγής γλώσσας καλύπτει και άλλες μεθόδους εισόδου"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Άλλη μέθοδος εισόδου"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Πλήκτρο εναλλαγής γλώσσας"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Εμφάνιση κατά την ενεργοποίηση πολλών γλωσσών εισόδου"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Χρόνος εξαφ. popup"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Χωρίς καθυστέρ."</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Προεπιλογή"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>χλστ. δ."</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Προεπιλογή"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Πρόταση ονομάτων επαφών"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">Χρησιμοποιήστε ονόματα επαφών για προτάσεις και διορθώσεις</string>
+    <string name="use_contacts_dict_summary">"Χρησιμοποιήστε ονόματα από τις Επαφές για προτάσεις και διορθ."</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Εξατομικευμένες προτάσεις"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Βελτίωση <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Τελεία με διπλό διάστημα"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Το διπλό πάτημα του πλήκτρ.διαστ. εισάγει μια τελεία και ένα κενό"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Αυτόματη χρήση κεφαλαίων"</string>
@@ -70,23 +53,12 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Εμφάνιση της προτεινόμενης λέξης κατά την κίνηση"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Εισαγωγή φράσεων με κίνηση"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Εισαγάγετε κενά στις κινήσεις με ολίσθηση στο πλήκτρο διαστήματος"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Κλειδί φωνητικής εξόδου"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Δεν έχουν ενεργοποιηθεί μέθοδοι φωνητικής εντολής. Ελέγξτε τις Ρυθμίσεις Γλώσσας και εισαγωγής."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Διαμόρφωση μεθόδων εισαγωγής"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Γλώσσες"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Βοήθεια και σχόλια"</string>
     <string name="select_language" msgid="5709487854987078367">"Γλώσσες"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Πατήστε ξανά για αποθήκευση"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Πατήστε εδώ για αποθήκευση"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Λεξικό διαθέσιμο"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Θέμα πληκτρολογίου"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Εναλλαγή λογαριασμών"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Δεν έχει επιλεγεί κανένας λογαριασμός"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Προς το παρόν, χρησιμοποιείτε τη διεύθυνση <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"ΟΚ"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Ακύρωση"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Έξοδος"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Επιλέξτε λογαριασμό για χρήση"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Αγγλικά (ΗΒ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Αγγλικά (ΗΠΑ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Ισπανικά (ΗΠΑ)"</string>
@@ -113,10 +85,6 @@
     <string name="save" msgid="7646738597196767214">"Αποθήκευση"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Γλώσσα"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Διάταξη"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Απαιτείται ενεργοποίηση προσαρμ. στυλ εισόδου. Να γίνει τώρα;"</string>
-    <string name="enable" msgid="5031294444630523247">"Ενεργοποίηση"</string>
-    <string name="not_now" msgid="6172462888202790482">"Όχι τώρα"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Το ίδιο στυλ εισόδου υπάρχει ήδη: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Διάρκεια δόνησης πατήμ. πλήκτ."</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Ένταση ήχου πατήματος πλήκτρου"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Καθυστέρηση παρατεταμένου πατήματος"</string>
@@ -137,33 +105,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Εναλλαγή μεθόδων εισαγωγής"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Συγχαρητήρια, είστε έτοιμοι!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">"Πλέον μπορείτε να πληκτρολογήσετε όλες τις αγαπημένες σας εφαρμογές με το <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Διαμόρφωση πρόσθετων γλωσσών"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Ολοκληρώθηκε"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Εμφάνιση εικονιδίου εφαρμογής"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Εμφάνιση εικονιδίου εφαρμογής στο πρόγραμμα εκκίνησης"</string>
     <string name="app_name" msgid="6320102637491234792">"Πάροχος λεξικού"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Πάροχος λεξικού"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Υπηρεσία λεξικού"</string>
-    <string name="download_description" msgid="6014835283119198591">"Ενημέρωση πληροφοριών λεξικού"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Πρόσθετα λεξικά"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Ρυθμίσεις για λεξικά"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Λεξικά χρήστη"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Λεξικό χρήστη"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Διαθέσιμο λεξικό"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Λήψη αυτήν τη στιγμή"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Εγκαταστάθηκε"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Εγκαταστάθηκε, απενεργοποιήθηκε"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Πρόβλ. σύνδ. στο λεξικό."</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Δεν υπάρχουν λεξικά"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Ανανέωση"</string>
     <string name="last_update" msgid="730467549913588780">"Τελευταία ενημέρωση"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Έλεγχος για ενημερώσεις"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Φόρτωση…"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Κύριο λεξικό"</string>
-    <string name="cancel" msgid="6830980399865683324">"Ακύρωση"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Ρυθμίσεις"</string>
-    <string name="install_dict" msgid="180852772562189365">"Εγκατάσταση"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Ακύρωση"</string>
     <string name="delete_dict" msgid="756853268088330054">"Διαγραφή"</string>
     <string name="version_text" msgid="2715354215568469385">"Έκδοση <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Προσθήκη"</string>
@@ -171,7 +128,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Φράση"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Περισσ. επιλογές"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Λιγότ. επιλογές"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"OK"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Λέξη:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Συντόμευση:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Γλώσσα:"</string>
@@ -211,25 +167,21 @@
     <string name="autospace_after_punctuation_summary">Εισαγάγετε αυτόματα κενό διάστημα μετά τα σημεία στίξης όταν πληκτρολογείτε μια νέα λέξη</string>
     <string name="number_row">Αριθμητική σειρά</string>
     <string name="number_row_summary">Να εμφανίζεται πάντα η αριθμητική σειρά</string>
-    <string name="prefs_resize_keyboard">Ενεργοποίηση αλλαγής μεγέθους πληκτρολογίου</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Αλλάξτε τη μέθοδο εισαγωγής με το πλήκτρο διαστήματος</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Αλφάβητο (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Αλφάβητο (Workman)</string>
     <string name="day_night_mode_summary">Η εμφάνιση θα ακολουθεί τις ρυθμίσεις του συστήματος</string>
-    <string name="amoled_mode_summary">Μπορεί να μειώσει τη χρήση ενέργειας ανάλογα με την τεχνολογία οθόνης της συσκευής</string>
     <string name="autospace_after_punctuation">Αυτόματο κενό μετά τη στίξη</string>
     <string name="theme_variant">Παραλλαγή θέματος</string>
-    <string name="amoled_mode">Βαθύ μαύρο φόντο</string>
     <string name="ime_settings">Ρυθμίσεις OpenBoard</string>
     <string name="settings_category_input">Εισαγωγή</string>
     <string name="more_keys_strip_description">Περισσότερα πλήκτρα</string>
     <string name="prefs_force_incognito_mode_summary">Απενεργοποιήστε την εκμάθηση νέων λέξεων</string>
     <string name="show_hints">Εμφάνιση βασικών υποδείξεων</string>
     <string name="show_hints_summary">Εμφάνιση υποδείξεων με παρατεταμένο πάτημα</string>
-    <string name="show_clipboard_key">Πλήκτρο προχείρου</string>
     <string name="theme_family">Θέμα οικογένεια</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
     <string name="auto_correction_confidence">Εμπιστοσύνη αυτόματης διόρθωσης</string>
-    <string name="select_input_method">"Αλλαγή πληκτρολογίου"</string>
+    <string name="select_input_method">"Επιλογή μεθόδου εισόδου"</string>
 </resources>

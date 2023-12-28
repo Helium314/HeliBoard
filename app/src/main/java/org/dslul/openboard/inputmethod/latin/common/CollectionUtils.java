@@ -1,29 +1,19 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Utility methods for working with collections.
@@ -40,8 +30,8 @@ public final class CollectionUtils {
      * @param end Last index exclusive to be converted.
      * @throws IllegalArgumentException if start or end are out of range or start &gt; end.
      */
-    @Nonnull
-    public static <E> ArrayList<E> arrayAsList(@Nonnull final E[] array, final int start,
+    @NonNull
+    public static <E> ArrayList<E> arrayAsList(@NonNull final E[] array, final int start,
             final int end) {
         if (start < 0 || start > end || end > array.length) {
             throw new IllegalArgumentException("Invalid start: " + start + " end: " + end

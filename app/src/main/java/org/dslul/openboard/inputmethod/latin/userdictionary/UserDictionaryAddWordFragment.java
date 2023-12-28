@@ -1,24 +1,12 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.userdictionary;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +16,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordContents.LocaleRenderer;
@@ -57,12 +51,12 @@ public class UserDictionaryAddWordFragment extends Fragment
     private boolean mIsDeleting = false;
 
     @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().getActionBar().setTitle(R.string.edit_personal_dictionary);
-        // Keep the instance so that we remember mContents when configuration changes (eg rotation)
-        setRetainInstance(true);
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setTitle(R.string.edit_personal_dictionary);
     }
 
     @Override
@@ -80,18 +74,15 @@ public class UserDictionaryAddWordFragment extends Fragment
             // it. That means in particular if the word undergoes any change, the old version should
             // be updated, so the mContents object needs to switch to EDIT mode if it was in
             // INSERT mode.
-            mContents = new UserDictionaryAddWordContents(mRootView,
-                    mContents /* oldInstanceToBeEdited */);
+            mContents = new UserDictionaryAddWordContents(mRootView, mContents);
         }
-        getActivity().getActionBar().setSubtitle(UserDictionarySettingsUtils.getLocaleDisplayName(
-                getActivity(), mContents.getCurrentUserDictionaryLocale()));
         return mRootView;
     }
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0,
-                R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_menu_add);
+                R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_plus);
         actionItemAdd.setShowAsAction(
                 MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0,
@@ -110,13 +101,13 @@ public class UserDictionaryAddWordFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
             // added the entry in "onPause"
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
             return true;
         }
         if (item.getItemId() == OPTIONS_MENU_DELETE) {
             mContents.delete(getActivity());
             mIsDeleting = true;
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
             return true;
         }
         return false;
@@ -129,13 +120,29 @@ public class UserDictionaryAddWordFragment extends Fragment
         updateSpinner();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
+        actionBar.setSubtitle(UserDictionarySettingsUtils.getLocaleDisplayName(getActivity(), mContents.getCurrentUserDictionaryLocale()));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setSubtitle(null);
+    }
+
     private void updateSpinner() {
         final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(getActivity());
 
-        final Spinner localeSpinner =
-                mRootView.findViewById(R.id.user_dictionary_add_locale);
+        final Spinner localeSpinner = mRootView.findViewById(R.id.user_dictionary_add_locale);
         final ArrayAdapter<LocaleRenderer> adapter = new ArrayAdapter<>(
-                getActivity(), android.R.layout.simple_spinner_item, localesList);
+                requireActivity(), android.R.layout.simple_spinner_item, localesList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         localeSpinner.setAdapter(adapter);
         localeSpinner.setOnItemSelectedListener(this);
@@ -155,8 +162,11 @@ public class UserDictionaryAddWordFragment extends Fragment
             final long id) {
         final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(pos);
         if (locale.isMoreLanguages()) {
-            PreferenceActivity preferenceActivity = (PreferenceActivity)getActivity();
-            preferenceActivity.startPreferenceFragment(new UserDictionaryLocalePicker(), true);
+            AppCompatActivity activity = (AppCompatActivity) requireActivity();
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, new UserDictionaryLocalePicker())
+                    .addToBackStack(null)
+                    .commit();
         } else {
             mContents.updateLocale(locale.getLocaleString());
         }
@@ -166,6 +176,7 @@ public class UserDictionaryAddWordFragment extends Fragment
     public void onNothingSelected(final AdapterView<?> parent) {
         // I'm not sure we can come here, but if we do, that's the right thing to do.
         final Bundle args = getArguments();
+        if (args == null) return;
         mContents.updateLocale(args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE));
     }
 
@@ -173,7 +184,7 @@ public class UserDictionaryAddWordFragment extends Fragment
     @Override
     public void onLocaleSelected(final Locale locale) {
         mContents.updateLocale(locale.toString());
-        getActivity().onBackPressed();
+        requireActivity().onBackPressed();
     }
 }
 

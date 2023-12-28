@@ -1,17 +1,7 @@
 /*
-7 * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (C) 2013 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -20,8 +10,11 @@ import android.Manifest;
 import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.LruCache;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
@@ -56,9 +49,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
  * to instantiate and select the correct dictionaries (based on language or account),
@@ -79,6 +69,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private volatile CountDownLatch mLatchForWaitingLoadingMainDictionaries = new CountDownLatch(0);
     // To synchronize assigning mDictionaryGroup to ensure closing dictionaries.
     private final Object mLock = new Object();
+    // library does not deal well with ngram history for auto-capitalized words, so we adjust the ngram
+    // context to store next word suggestions for such cases
+    private boolean mTryChangingWords = false;
+    private String mChangeFrom = "";
+    private String mChangeTo = "";
 
     public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
             DICT_TYPE_TO_CLASS = new HashMap<>();
@@ -93,9 +88,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static final Class<?>[] DICT_FACTORY_METHOD_ARG_TYPES =
             new Class[] { Context.class, Locale.class, File.class, String.class, String.class };
 
-    // todo: these caches are never even set, as the corresponding functions are not called...
-    //  and even if they were set, one is only written, but never read, and the other one
-    //  is only read and thus empty and useless -> why? seems they are not needed anyway
+    // todo: write cache never set, and never read (only written)
+    //  tried to use read cache for a while, but small performance improvements are not worth the work (https://github.com/Helium314/openboard/issues/307)
     private LruCache<String, Boolean> mValidSpellingWordReadCache;
     private LruCache<String, Boolean> mValidSpellingWordWriteCache;
 
@@ -136,20 +130,12 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
      * A group of dictionaries that work together for a single language.
      */
     private static class DictionaryGroup {
-        // TODO: Add null analysis annotations.
-        // TODO: Run evaluation to determine a reasonable value for these constants. The current
-        // values are ad-hoc and chosen without any particular care or methodology.
-        public static final float WEIGHT_FOR_MOST_PROBABLE_LANGUAGE = 1.0f;
-        public static final float WEIGHT_FOR_GESTURING_IN_NOT_MOST_PROBABLE_LANGUAGE = 0.95f;
-        public static final float WEIGHT_FOR_TYPING_IN_NOT_MOST_PROBABLE_LANGUAGE = 0.6f;
-
         private static final int MAX_CONFIDENCE = 2;
-        private static final int MIN_CONFIDENCE = 0;
 
         /**
          * The locale associated with the dictionary group.
          */
-        @Nullable public final Locale mLocale;
+        @NonNull public final Locale mLocale;
 
         /**
          * The user account associated with the dictionary group.
@@ -171,8 +157,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // when decreasing confidence or getting weight factor, limit to maximum
         public void increaseConfidence() {
             mConfidence += 1;
-            if (mConfidence <= MAX_CONFIDENCE)
-                updateWeights();
         }
 
         // If confidence is above max, drop to max confidence. This does not change weights and
@@ -180,32 +164,39 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         public void decreaseConfidence() {
             if (mConfidence > MAX_CONFIDENCE)
                 mConfidence = MAX_CONFIDENCE;
-            else if (mConfidence > MIN_CONFIDENCE) {
+            else if (mConfidence > 0) {
                 mConfidence -= 1;
-                updateWeights();
             }
         }
 
-        // TODO: might need some more tuning, maybe more confidence steps
-        private void updateWeights() {
-            mWeightForTypingInLocale = 1f - 0.15f * (MAX_CONFIDENCE - mConfidence);
-            mWeightForGesturingInLocale = 1f - 0.05f * (MAX_CONFIDENCE - mConfidence);
+        public float getWeightForTypingInLocale(List<DictionaryGroup> groups) {
+            return getWeightForLocale(groups, 0.15f);
         }
 
-        public float mWeightForTypingInLocale = WEIGHT_FOR_MOST_PROBABLE_LANGUAGE;
-        public float mWeightForGesturingInLocale = WEIGHT_FOR_MOST_PROBABLE_LANGUAGE;
+        public float getWeightForGesturingInLocale(List<DictionaryGroup> groups) {
+            return getWeightForLocale(groups, 0.05f);
+        }
+
+        // might need some more tuning
+        private float getWeightForLocale(final List<DictionaryGroup> groups, final float step) {
+            if (groups.size() == 1) return 1f;
+            if (mConfidence < 2) return 1f - step * (MAX_CONFIDENCE - mConfidence);
+            for (DictionaryGroup group : groups) {
+                if (group != this && group.mConfidence >= mConfidence) return 1f - step / 2f;
+            }
+            return 1f;
+        }
         public final ConcurrentHashMap<String, ExpandableBinaryDictionary> mSubDictMap =
                 new ConcurrentHashMap<>();
 
         public DictionaryGroup() {
-            this(null /* locale */, null /* mainDict */, null /* account */,
-                    Collections.<String, ExpandableBinaryDictionary>emptyMap() /* subDicts */);
+            this(new Locale(""), null, null, Collections.emptyMap());
         }
 
-        public DictionaryGroup(@Nullable final Locale locale,
+        public DictionaryGroup(@NonNull final Locale locale,
                 @Nullable final Dictionary mainDict,
                 @Nullable final String account,
-                final Map<String, ExpandableBinaryDictionary> subDicts) {
+                @NonNull final Map<String, ExpandableBinaryDictionary> subDicts) {
             mLocale = locale;
             mAccount = account;
             // The main dictionary can be asynchronously loaded.
@@ -215,13 +206,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
         }
 
-        private void setSubDict(final String dictType, final ExpandableBinaryDictionary dict) {
-            if (dict != null) {
-                mSubDictMap.put(dictType, dict);
-            }
+        private void setSubDict(@NonNull final String dictType, @NonNull final ExpandableBinaryDictionary dict) {
+            mSubDictMap.put(dictType, dict);
         }
 
-        public void setMainDict(final Dictionary mainDict) {
+        public void setMainDict(@Nullable final Dictionary mainDict) {
             // Close old dictionary if exists. Main dictionary can be assigned multiple times.
             final Dictionary oldDict = mMainDict;
             mMainDict = mainDict;
@@ -230,18 +219,18 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
         }
 
-        public Dictionary getDict(final String dictType) {
+        public @Nullable Dictionary getDict(@NonNull final String dictType) {
             if (Dictionary.TYPE_MAIN.equals(dictType)) {
                 return mMainDict;
             }
             return getSubDict(dictType);
         }
 
-        public ExpandableBinaryDictionary getSubDict(final String dictType) {
+        public @Nullable ExpandableBinaryDictionary getSubDict(@NonNull final String dictType) {
             return mSubDictMap.get(dictType);
         }
 
-        public boolean hasDict(final String dictType, @Nullable final String account) {
+        public boolean hasDict(@NonNull final String dictType, @Nullable final String account) {
             if (Dictionary.TYPE_MAIN.equals(dictType)) {
                 return mMainDict != null;
             }
@@ -255,7 +244,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             return mSubDictMap.containsKey(dictType);
         }
 
-        public void closeDict(final String dictType) {
+        public void closeDict(@NonNull final String dictType) {
             final Dictionary dict;
             if (Dictionary.TYPE_MAIN.equals(dictType)) {
                 dict = mMainDict;
@@ -287,7 +276,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public boolean isActive() {
-        return mDictionaryGroups.get(0).mLocale != null;
+        return !mDictionaryGroups.get(0).mLocale.getLanguage().isEmpty();
     }
 
     // used in
@@ -311,6 +300,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    public boolean usesPersonalization() {
+        return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_USER_HISTORY) != null;
+    }
+
+    @Override
     public String getAccount() {
         return null;
     }
@@ -319,16 +313,15 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static ExpandableBinaryDictionary getSubDict(final String dictType,
             final Context context, final Locale locale, final File dictFile,
             final String dictNamePrefix, @Nullable final String account) {
-        final Class<? extends ExpandableBinaryDictionary> dictClass =
-                DICT_TYPE_TO_CLASS.get(dictType);
+        final Class<? extends ExpandableBinaryDictionary> dictClass = DICT_TYPE_TO_CLASS.get(dictType);
         if (dictClass == null) {
+            Log.e(TAG, "Cannot create dictionary: no class for " + dictType);
             return null;
         }
         try {
             final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
                     DICT_FACTORY_METHOD_ARG_TYPES);
-            final Object dict = factoryMethod.invoke(null /* obj */,
-                    context, locale, dictFile, dictNamePrefix, account);
+            final Object dict = factoryMethod.invoke(null, context, locale, dictFile, dictNamePrefix, account);
             return (ExpandableBinaryDictionary) dict;
         } catch (final NoSuchMethodException | SecurityException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException e) {
@@ -339,12 +332,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Nullable
     static DictionaryGroup findDictionaryGroupWithLocale(final List<DictionaryGroup> dictionaryGroups,
-            final Locale locale) {
+            @NonNull final Locale locale) {
         if (dictionaryGroups == null) return null;
         for (DictionaryGroup dictionaryGroup : dictionaryGroups) {
-            if (locale == null && dictionaryGroup.mLocale == null)
-                return dictionaryGroup;
-            if (locale != null && locale.equals(dictionaryGroup.mLocale))
+            if (locale.equals(dictionaryGroup.mLocale))
                 return dictionaryGroup;
         }
         return null;
@@ -353,7 +344,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     // original
     public void resetDictionaries(
             final Context context,
-            final Locale newLocale,
+            @NonNull final Locale newLocale,
             final boolean useContactsDict,
             final boolean usePersonalizedDicts,
             final boolean forceReloadMainDictionary,
@@ -364,15 +355,14 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // TODO: Make subDictTypesToUse configurable by resource or a static final list.
         final HashSet<String> subDictTypesToUse = new HashSet<>();
         subDictTypesToUse.add(Dictionary.TYPE_USER);
-        final List<Locale> allLocales = new ArrayList<Locale>() {{
+        final List<Locale> allLocales = new ArrayList<>() {{
             add(newLocale);
             addAll(Settings.getInstance().getCurrent().mSecondaryLocales);
         }};
 
         // Do not use contacts dictionary if we do not have permissions to read contacts.
-        final boolean contactsPermissionGranted = PermissionsUtil.checkAllPermissionsGranted(
-                context, Manifest.permission.READ_CONTACTS);
-        if (useContactsDict && contactsPermissionGranted) {
+        if (useContactsDict
+                && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS)) {
             subDictTypesToUse.add(Dictionary.TYPE_CONTACTS);
         }
         if (usePersonalizedDicts) {
@@ -398,10 +388,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         final ArrayList<DictionaryGroup> newDictionaryGroups = new ArrayList<>(allLocales.size());
         for (Locale locale : allLocales) {
             // get existing dictionary group for new locale
-            final DictionaryGroup oldDictionaryGroupForLocale =
-                    findDictionaryGroupWithLocale(mDictionaryGroups, locale);
-            final ArrayList<String> dictTypesToCleanupForLocale =
-                    existingDictionariesToCleanup.get(locale);
+            final DictionaryGroup oldDictionaryGroupForLocale = findDictionaryGroupWithLocale(mDictionaryGroups, locale);
+            final ArrayList<String> dictTypesToCleanupForLocale = existingDictionariesToCleanup.get(locale);
             final boolean noExistingDictsForThisLocale = (null == oldDictionaryGroupForLocale);
 
             // create new or re-use already loaded main dict
@@ -418,10 +406,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             final Map<String, ExpandableBinaryDictionary> subDicts = new HashMap<>();
             for (final String subDictType : subDictTypesToUse) {
                 final ExpandableBinaryDictionary subDict;
-                if (noExistingDictsForThisLocale
+                if (noExistingDictsForThisLocale || forceReloadMainDictionary
                         || !oldDictionaryGroupForLocale.hasDict(subDictType, account)) {
                     // Create a new dictionary.
-                    subDict = getSubDict(subDictType, context, locale, null /* dictFile */, dictNamePrefix, account);
+                    subDict = getSubDict(subDictType, context, locale, null, dictNamePrefix, account);
+                    if (subDict == null) continue; // https://github.com/Helium314/openboard/issues/293
                 } else {
                     // Reuse the existing dictionary, and don't close it at the end
                     subDict = oldDictionaryGroupForLocale.getSubDict(subDictType);
@@ -474,19 +463,17 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (mValidSpellingWordWriteCache != null) {
             mValidSpellingWordWriteCache.evictAll();
         }
+        if (mValidSpellingWordReadCache != null) {
+            mValidSpellingWordReadCache.evictAll();
+        }
     }
 
     private void asyncReloadUninitializedMainDictionaries(final Context context,
             final List<Locale> locales, final DictionaryInitializationListener listener) {
         final CountDownLatch latchForWaitingLoadingMainDictionary = new CountDownLatch(1);
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary;
-        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
-            @Override
-            public void run() {
-                doReloadUninitializedMainDictionaries(
-                        context, locales, listener, latchForWaitingLoadingMainDictionary);
-            }
-        });
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() ->
+                doReloadUninitializedMainDictionaries(context, locales, listener, latchForWaitingLoadingMainDictionary));
     }
 
     void doReloadUninitializedMainDictionaries(final Context context, final List<Locale> locales,
@@ -540,18 +527,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         for (final String dictType : dictionaryTypes) {
             if (dictType.equals(Dictionary.TYPE_MAIN)) {
-                mainDictionary = DictionaryFactory.createMainDictionaryFromManager(context,
-                        locale);
+                mainDictionary = DictionaryFactory.createMainDictionaryFromManager(context, locale);
             } else {
                 final File dictFile = dictionaryFiles.get(dictType);
                 final ExpandableBinaryDictionary dict = getSubDict(
-                        dictType, context, locale, dictFile, "" /* dictNamePrefix */, account);
-                if (additionalDictAttributes.containsKey(dictType)) {
-                    dict.clearAndFlushDictionaryWithAdditionalAttributes(
-                            additionalDictAttributes.get(dictType));
-                }
+                        dictType, context, locale, dictFile, "", account);
                 if (dict == null) {
                     throw new RuntimeException("Unknown dictionary type: " + dictType);
+                }
+                if (additionalDictAttributes.containsKey(dictType)) {
+                    dict.clearAndFlushDictionaryWithAdditionalAttributes(additionalDictAttributes.get(dictType));
                 }
                 dict.reloadDictionaryIfRequired();
                 dict.waitAllTasksForTests();
@@ -614,7 +599,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     public void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+            @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final boolean blockPotentiallyOffensive) {
         // Update the spelling cache before learning. Words that are not yet added to user history
         // and appear in no other language model are not considered valid.
@@ -624,30 +609,17 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // increase / decrease confidence if we have more than one dictionary group
         boolean[] validWordForDictionary; // store results to avoid unnecessary duplicate lookups
-        if (mDictionaryGroups.size() > 1 && words.length == 1) {
-            validWordForDictionary = new boolean[mDictionaryGroups.size()];
-            // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
-            final String decapitalizedSuggestion;
-            if (wasAutoCapitalized)
-                decapitalizedSuggestion = suggestion.substring(0, 1).toLowerCase() + suggestion.substring(1);
-            else
-                decapitalizedSuggestion = suggestion;
-            for (int i = 0; i < mDictionaryGroups.size(); i ++) {
-                final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
-                final boolean isValidWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup);
-                if (isValidWord || (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)))
-                    dictionaryGroup.increaseConfidence();
-                else dictionaryGroup.decreaseConfidence();
-                validWordForDictionary[i] = isValidWord;
-            }
+        if (mDictionaryGroups.size() > 1 && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
+            validWordForDictionary = adjustConfidencesInternal(suggestion, wasAutoCapitalized);
         } else
             validWordForDictionary = null;
 
         // add word to user dictionary if it is in no other dictionary except user history dictionary,
         // reasoning: typing the same word again -> we probably want it in some dictionary permanently
-        if (mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions to be on
-                && Settings.getInstance().getCurrent().mAddToPersonalDictionary // ...and the setting
-                && !wasAutoCapitalized && words.length == 1) {
+        if (Settings.getInstance().getCurrent().mAddToPersonalDictionary // require the setting
+                && mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions
+                && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
+                && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
             addToPersonalDictionaryIfInvalidButInHistory(suggestion, validWordForDictionary);
         }
 
@@ -670,26 +642,37 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
     }
 
-    // main and secondary isValid provided to avoid duplicate lookups
-    private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, boolean[] validWordForDictionary) {
-        // we need one clearly preferred group to assign it to the correct language
-        int highestGroup = -1;
-        int highestGroupConfidence = -1;
+    @Override public void adjustConfidences(final String word, final boolean wasAutoCapitalized) {
+        if (mDictionaryGroups.size() > 1 && !word.contains(Constants.WORD_SEPARATOR))
+            adjustConfidencesInternal(word, wasAutoCapitalized);
+    }
+
+    private boolean[] adjustConfidencesInternal(final String word, final boolean wasAutoCapitalized) {
+        final boolean[] validWordForDictionary = new boolean[mDictionaryGroups.size()];
+        // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
+        final String decapitalizedSuggestion;
+        if (wasAutoCapitalized)
+            decapitalizedSuggestion = word.substring(0, 1).toLowerCase() + word.substring(1);
+        else
+            decapitalizedSuggestion = word;
         for (int i = 0; i < mDictionaryGroups.size(); i ++) {
             final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
-            if (dictionaryGroup.mConfidence > highestGroupConfidence) {
-                highestGroup = i;
-                highestGroupConfidence = dictionaryGroup.mConfidence;
-            } else if (dictionaryGroup.mConfidence == highestGroupConfidence) {
-                highestGroup = -1;
-            }
+            final boolean isValidWord = isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup);
+            if (isValidWord || (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)))
+                dictionaryGroup.increaseConfidence();
+            else dictionaryGroup.decreaseConfidence();
+            validWordForDictionary[i] = isValidWord;
         }
-        // no preferred group or word is valid -> do nothing
-        if (highestGroup == -1) return;
-        final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(highestGroup);
+        return validWordForDictionary;
+    }
+
+    // main and secondary isValid provided to avoid duplicate lookups
+    private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, boolean[] validWordForDictionary) {
+        final DictionaryGroup dictionaryGroup = getClearlyPreferredDictionaryGroupOrNull();
+        if (dictionaryGroup == null) return;
         if (validWordForDictionary == null
                 ? isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)
-                : validWordForDictionary[highestGroup]
+                : validWordForDictionary[mDictionaryGroups.indexOf(dictionaryGroup)]
         )
             return;
 
@@ -701,20 +684,15 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (userDict != null && userHistoryDict.isInDictionary(suggestion)) {
             if (userDict.isInDictionary(suggestion)) // is this check necessary?
                 return;
-            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(new Runnable() {
-                @Override
-                public void run() {
+            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() ->
                     UserDictionary.Words.addWord(userDict.mContext, suggestion,
-                            250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale);
-                }
-            });
+                    250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale));
         }
-
     }
 
     private void putWordIntoValidSpellingWordCache(
-            @Nonnull final String caller,
-            @Nonnull final String originalWord) {
+            @NonNull final String caller,
+            @NonNull final String originalWord) {
         if (mValidSpellingWordWriteCache == null) {
             return;
         }
@@ -747,6 +725,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (maxFreq == 0 && blockPotentiallyOffensive) {
             return;
         }
+        if (mTryChangingWords)
+            mTryChangingWords = ngramContext.changeWordIfAfterBeginningOfSentence(mChangeFrom, mChangeTo);
         final String secondWord;
         if (wasAutoCapitalized) {
             // used word with lower-case first letter instead of all lower-case, as auto-capitalize
@@ -763,6 +743,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 // If however the word is not in the dictionary, or exists as a de-capitalized word
                 // only, then we consider that was a lower-case word that had been auto-capitalized.
                 secondWord = decapitalizedWord;
+                mTryChangingWords = true;
+                mChangeFrom = word;
+                mChangeTo = secondWord;
             }
         } else {
             // HACK: We'd like to avoid adding the capitalized form of common words to the User
@@ -802,6 +785,26 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         return dictGroup;
     }
 
+    private DictionaryGroup getClearlyPreferredDictionaryGroupOrNull() {
+        // we want one clearly preferred group and return null otherwise
+        if (mDictionaryGroups.size() == 1)
+            return mDictionaryGroups.get(0);
+        // that preferred group should have at least MAX_CONFIDENCE
+        int highestGroup = -1;
+        int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
+        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
+            final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
+            if (dictionaryGroup.mConfidence > highestGroupConfidence) {
+                highestGroup = i;
+                highestGroupConfidence = dictionaryGroup.mConfidence;
+            } else if (dictionaryGroup.mConfidence == highestGroupConfidence) {
+                highestGroup = -1; // unset group on a tie
+            }
+        }
+        if (highestGroup == -1) return null;
+        return mDictionaryGroups.get(highestGroup);
+    }
+
     private void removeWord(final String dictName, final String word) {
         final ExpandableBinaryDictionary dictionary = getCurrentlyPreferredDictionaryGroup().getSubDict(dictName);
         if (dictionary != null) {
@@ -811,7 +814,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public void unlearnFromUserHistory(final String word,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+            @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final int eventType) {
         // TODO: Decide whether or not to remove the word on EVENT_BACKSPACE.
         if (eventType != Constants.EVENT_BACKSPACE) {
@@ -825,8 +828,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // TODO: Revise the way to fusion suggestion results.
     @Override
-    @Nonnull public SuggestionResults getSuggestionResults(ComposedData composedData,
-            NgramContext ngramContext, @Nonnull final Keyboard keyboard,
+    @SuppressWarnings("unchecked")
+    @NonNull public SuggestionResults getSuggestionResults(ComposedData composedData,
+            NgramContext ngramContext, @NonNull final Keyboard keyboard,
             SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId,
             int inputStyle) {
         long proximityInfoHandle = keyboard.getProximityInfo().getNativeProximityInfo();
@@ -885,25 +889,36 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 int sessionId, long proximityInfoHandle, float[] weightOfLangModelVsSpatialModel,
                 DictionaryGroup dictGroup) {
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
+        float weightForLocale = composedData.mIsBatchMode
+                ? dictGroup.getWeightForGesturingInLocale(mDictionaryGroups)
+                : dictGroup.getWeightForTypingInLocale(mDictionaryGroups);
         for (final String dictType : ALL_DICTIONARY_TYPES) {
             final Dictionary dictionary = dictGroup.getDict(dictType);
             if (null == dictionary) continue;
-            final float weightForLocale = composedData.mIsBatchMode
-                    ? dictGroup.mWeightForGesturingInLocale
-                    : dictGroup.mWeightForTypingInLocale;
             final ArrayList<SuggestedWordInfo> dictionarySuggestions =
                     dictionary.getSuggestions(composedData, ngramContext,
                             proximityInfoHandle, settingsValuesForSuggestion, sessionId,
                             weightForLocale, weightOfLangModelVsSpatialModel);
             if (null == dictionarySuggestions) continue;
 
-            // don't add blacklisted words
-            // this may not be the most efficient way, but getting suggestions is much slower anyway
+            // for some reason, garbage words are produced when glide typing
+            // for user history and main dictionary we can filter them out by checking whether the
+            // dictionary actually contains the word
+            // but personal dictionary and addon dictionaries may contain shortcuts, which do not
+            // pass an isInDictionary check (e.g. emojis)
+            // (if the main dict contains shortcuts to non-words, this will break)
+            final boolean checkForGarbage = composedData.mIsBatchMode && (dictType.equals(Dictionary.TYPE_USER_HISTORY) || dictType.equals(Dictionary.TYPE_MAIN));
             for (SuggestedWordInfo info : dictionarySuggestions) {
-                if (!isBlacklisted(info.getWord())) {
-                    // for some reason, user history produces garbage words in batch mode
-                    // this also happens for other dictionaries, but for those the score usually is much lower, so they are less visible
-                    if (composedData.mIsBatchMode && dictType.equals(Dictionary.TYPE_USER_HISTORY) && !dictionary.isInDictionary(info.getWord()))
+                final String word = info.getWord();
+                if (!isBlacklisted(word)) { // don't add blacklisted words
+                    if (checkForGarbage
+                            // only check history and "main main dictionary"
+                            // consider the user might use custom main dictionary containing shortcuts
+                            //  assume this is unlikely to happen, and take care about common shortcuts that are not actual words (emoji, symbols)
+                            && word.length() > 2 // should exclude most symbol shortcuts
+                            && info.mSourceDict.mDictType.equals(dictType) // dictType is always main, but info.mSourceDict.mDictType contains the actual dict (main dict is a dictionary group)
+                            && !StringUtils.mightBeEmoji(word) // emojis often have more than 2 chars; simplified check for performance reasons
+                            && !dictionary.isInDictionary(word))
                         continue;
                     suggestions.add(info);
                 }
@@ -922,11 +937,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 return cachedValue;
             }
         }
+        boolean result = false;
         for (DictionaryGroup dictionaryGroup : mDictionaryGroups) {
-            if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup))
-                return true;
+            if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup)) {
+                result = true;
+                break;
+            }
         }
-        return false;
+        if (mValidSpellingWordReadCache != null)
+            mValidSpellingWordReadCache.put(word, result);
+        return result;
     }
 
     // this is unused, so leave it for now (redirecting to isValidWord seems to defeat the purpose...)
@@ -936,9 +956,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     private boolean isValidWord(final String word, final String[] dictionariesToCheck, final DictionaryGroup dictionaryGroup) {
         if (TextUtils.isEmpty(word)) {
-            return false;
-        }
-        if (dictionaryGroup.mLocale == null) {
             return false;
         }
         if (isBlacklisted(word)) return false;
@@ -982,19 +999,38 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             userDict.removeUnigramEntryDynamically(word);
         }
 
-        // add to blacklist if in main dictionary
-        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word) && group.blacklist.add(word)) {
-            // write to file if word wasn't already in blacklist
-            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
-                try {
-                    FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
-                    fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
-                    fos.close();
-                } catch (IOException e) {
-                    Log.e(TAG, "Exception while trying to write blacklist", e);
-                }
-            });
+        final ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
+        if (contactsDict != null) {
+            if (contactsDict.isInDictionary(word)) {
+                contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
+                addToBlacklist(word, group);
+                return;
+            }
         }
+        if (!group.hasDict(Dictionary.TYPE_MAIN, null))
+            return;
+        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)) {
+            addToBlacklist(word, group);
+            return;
+        }
+        final String lowercase = word.toLowerCase(group.mLocale);
+        if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(lowercase)) {
+            addToBlacklist(lowercase, group);
+        }
+    }
+
+    private void addToBlacklist(final String word, final DictionaryGroup group) {
+        if (!group.blacklist.add(word))
+            return;
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
+            try {
+                FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
+                fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
+                fos.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Exception while trying to write blacklist", e);
+            }
+        });
     }
 
     private ArrayList<String> readBlacklistFile(final String filename) {
@@ -1068,6 +1104,18 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    public String localesAndConfidences() {
+        if (mDictionaryGroups.size() < 2) return null;
+        final StringBuilder sb = new StringBuilder();
+        for (final DictionaryGroup dictGroup : mDictionaryGroups) {
+            if (sb.length() > 0)
+                sb.append(", ");
+            sb.append(dictGroup.mLocale).append(" ").append(dictGroup.mConfidence);
+        }
+        return sb.toString();
+    }
+
+    @Override
     public void dumpDictionaryForDebug(final String dictName) {
         final ExpandableBinaryDictionary dictToDump = mDictionaryGroups.get(0).getSubDict(dictName);
         if (dictToDump == null) {
@@ -1080,7 +1128,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     // this is unused, so leave it for now
-    @Nonnull public List<DictionaryStats> getDictionaryStats(final Context context) {
+    @NonNull public List<DictionaryStats> getDictionaryStats(final Context context) {
         final ArrayList<DictionaryStats> statsOfEnabledSubDicts = new ArrayList<>();
         for (final String dictType : DYNAMIC_DICTIONARY_TYPES) {
             final ExpandableBinaryDictionary dictionary = mDictionaryGroups.get(0).getSubDict(dictType);

@@ -1,27 +1,15 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.spellcheck;
 
-import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Binder;
-import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
@@ -44,7 +32,6 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
         mResources = service.getResources();
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private SentenceSuggestionsInfo fixWronglyInvalidatedWordWithSingleQuote(TextInfo ti,
             SentenceSuggestionsInfo ssi) {
         final CharSequence typedText = TextInfoCompatUtils.getCharSequenceOrString(ti);
@@ -55,7 +42,6 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
         final ArrayList<Integer> additionalOffsets = new ArrayList<>();
         final ArrayList<Integer> additionalLengths = new ArrayList<>();
         final ArrayList<SuggestionsInfo> additionalSuggestionsInfos = new ArrayList<>();
-        CharSequence currentWord = null;
         for (int i = 0; i < N; ++i) {
             final SuggestionsInfo si = ssi.getSuggestionsInfoAt(i);
             final int flags = si.getSuggestionsAttributes();
@@ -65,9 +51,6 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             final int offset = ssi.getOffsetAt(i);
             final int length = ssi.getLengthAt(i);
             final CharSequence subText = typedText.subSequence(offset, offset + length);
-            final NgramContext ngramContext =
-                    new NgramContext(new NgramContext.WordInfo(currentWord));
-            currentWord = subText;
             if (!subText.toString().contains(AndroidSpellCheckerService.SINGLE_QUOTE)) {
                 continue;
             }
@@ -78,9 +61,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             if (splitTexts == null || splitTexts.length <= 1) {
                 continue;
             }
-            final int splitNum = splitTexts.length;
-            for (int j = 0; j < splitNum; ++j) {
-                final CharSequence splitText = splitTexts[j];
+            for (final CharSequence splitText : splitTexts) {
                 if (TextUtils.isEmpty(splitText)) {
                     continue;
                 }
@@ -102,7 +83,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             }
         }
         final int additionalSize = additionalOffsets.size();
-        if (additionalSize <= 0) {
+        if (additionalSize == 0) {
             return null;
         }
         final int suggestionsSize = N + additionalSize;

@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.setup;
@@ -19,19 +9,24 @@ package org.dslul.openboard.inputmethod.latin.setup;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.media.MediaPlayer;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
@@ -39,8 +34,6 @@ import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 import org.dslul.openboard.inputmethod.latin.utils.UncachedInputMethodManagerUtils;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
 
 // TODO: Use Fragment to implement welcome screen and setup steps.
 public final class SetupWizardActivity extends Activity implements View.OnClickListener {
@@ -82,7 +75,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         private final InputMethodManager mImmInHandler;
 
-        public SettingsPoolingHandler(@Nonnull final SetupWizardActivity ownerInstance,
+        public SettingsPoolingHandler(@NonNull final SetupWizardActivity ownerInstance,
                 final InputMethodManager imm) {
             super(ownerInstance);
             mImmInHandler = imm;
@@ -94,15 +87,13 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             if (setupWizardActivity == null) {
                 return;
             }
-            switch (msg.what) {
-            case MSG_POLLING_IME_SETTINGS:
+            if (msg.what == MSG_POLLING_IME_SETTINGS) {
                 if (UncachedInputMethodManagerUtils.isThisImeEnabled(setupWizardActivity,
                         mImmInHandler)) {
                     setupWizardActivity.invokeSetupWizardOfThisIme();
                     return;
                 }
                 startPollingImeSettings();
-                break;
             }
         }
 
@@ -138,6 +129,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
         welcomeTitle.setText(getString(R.string.setup_welcome_title, applicationName));
 
+        // disable the "with gesture typing" for now, as it's not really correct, even though it can be enabled...
+        final TextView welcomeDescription = findViewById(R.id.setup_welcome_description);
+        welcomeDescription.setText("");
+
         mSetupScreen = findViewById(R.id.setup_steps_screen);
         final TextView stepsTitle = findViewById(R.id.setup_title);
         stepsTitle.setText(getString(R.string.setup_steps_title, applicationName));
@@ -151,44 +146,33 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final SetupStep step1 = new SetupStep(STEP_1, applicationName,
                 mStep1Bullet, findViewById(R.id.setup_step1),
                 R.string.setup_step1_title, R.string.setup_step1_instruction,
-                R.string.setup_step1_finished_instruction, R.drawable.ic_setup_step1,
+                R.string.setup_step1_finished_instruction, R.drawable.ic_setup_key,
                 R.string.setup_step1_action);
         final SettingsPoolingHandler handler = mHandler;
-        step1.setAction(new Runnable() {
-            @Override
-            public void run() {
-                invokeLanguageAndInputSettings();
-                handler.startPollingImeSettings();
-            }
+        step1.setAction(() -> {
+            invokeLanguageAndInputSettings();
+            handler.startPollingImeSettings();
         });
         mSetupStepGroup.addStep(step1);
 
         final SetupStep step2 = new SetupStep(STEP_2, applicationName,
                 (TextView)findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
-                0 /* finishedInstruction */, R.drawable.ic_setup_step2,
+                0 /* finishedInstruction */, R.drawable.ic_setup_select,
                 R.string.setup_step2_action);
-        step2.setAction(new Runnable() {
-            @Override
-            public void run() {
-                invokeInputMethodPicker();
-            }
-        });
+        step2.setAction(this::invokeInputMethodPicker);
         mSetupStepGroup.addStep(step2);
 
         final SetupStep step3 = new SetupStep(STEP_3, applicationName,
                 (TextView)findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
-                0 /* finishedInstruction */, R.drawable.ic_setup_step3,
-                R.string.setup_step3_action_new);
-        step3.setAction(new Runnable() {
-            @Override
-            public void run() {
-                final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                intent.setAction(Intent.ACTION_VIEW);
-                startActivity(intent);
-                finish();
-            }
+                0 /* finishedInstruction */, R.drawable.ic_setup_earth,
+                R.string.setup_step3_action);
+        step3.setAction(() -> {
+            final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            startActivity(intent);
+            finish();
         });
         mSetupStepGroup.addStep(step3);
 
@@ -198,22 +182,16 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 .path(Integer.toString(R.raw.setup_welcome_video))
                 .build();
         final VideoView welcomeVideoView = findViewById(R.id.setup_welcome_video);
-        welcomeVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(final MediaPlayer mp) {
-                // Now VideoView has been laid-out and ready to play, remove background of it to
-                // reveal the video.
-                welcomeVideoView.setBackgroundResource(0);
-                mp.setLooping(true);
-            }
+        welcomeVideoView.setOnPreparedListener(mp -> {
+            // Now VideoView has been laid-out and ready to play, remove background of it to
+            // reveal the video.
+            welcomeVideoView.setBackgroundResource(0);
+            mp.setLooping(true);
         });
-        welcomeVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(final MediaPlayer mp, final int what, final int extra) {
-                Log.e(TAG, "Playing welcome video causes error: what=" + what + " extra=" + extra);
-                hideWelcomeVideoAndShowWelcomeImage();
-                return true;
-            }
+        welcomeVideoView.setOnErrorListener((mp, what, extra) -> {
+            Log.e(TAG, "Playing welcome video causes error: what=" + what + " extra=" + extra);
+            hideWelcomeVideoAndShowWelcomeImage();
+            return true;
         });
         mWelcomeVideoView = welcomeVideoView;
         mWelcomeImageView = findViewById(R.id.setup_welcome_image);
@@ -223,8 +201,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
         mActionFinish = findViewById(R.id.setup_finish);
-        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_setup_finish),
-                                                        null, null, null);
+        final Drawable finishDrawable = ContextCompat.getDrawable(this, R.drawable.ic_setup_check);
+        DrawableCompat.setTintList(finishDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
+                new int[]{Color.WHITE, Color.WHITE, step1.mActivatedColor}));
+        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
     }
 
@@ -366,7 +346,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
     void hideWelcomeVideoAndShowWelcomeImage() {
         mWelcomeVideoView.setVisibility(View.GONE);
-        mWelcomeImageView.setImageResource(R.raw.setup_welcome_image);
+        mWelcomeImageView.setImageResource(R.drawable.setup_welcome_image);
         mWelcomeImageView.setVisibility(View.VISIBLE);
     }
 
@@ -447,12 +427,15 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
             mActionLabel = mStepView.findViewById(R.id.setup_step_action_label);
             mActionLabel.setText(res.getString(actionLabel));
+            final Drawable actionIconDrawable = res.getDrawable(actionIcon);
+            DrawableCompat.setTintList(actionIconDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
+                    new int[]{Color.WHITE, Color.WHITE, this.mActivatedColor}));
             if (actionIcon == 0) {
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
                 mActionLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        res.getDrawable(actionIcon), null, null, null);
+                        actionIconDrawable, null, null, null);
             }
         }
 
@@ -472,10 +455,8 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         @Override
         public void onClick(final View v) {
-            if (v == mActionLabel && mAction != null) {
+            if (v == mActionLabel && mAction != null)
                 mAction.run();
-                return;
-            }
         }
     }
 

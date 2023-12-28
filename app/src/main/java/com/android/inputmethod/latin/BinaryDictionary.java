@@ -1,24 +1,16 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.SparseArray;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.Dictionary;
@@ -45,8 +37,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
@@ -294,8 +284,9 @@ public final class BinaryDictionary extends Dictionary {
         }
         session.mNativeSuggestOptions.setUseFullEditDistance(mUseFullEditDistance);
         session.mNativeSuggestOptions.setIsGesture(isGesture);
-        session.mNativeSuggestOptions.setBlockOffensiveWords(
-                settingsValuesForSuggestion.mBlockPotentiallyOffensive);
+        if (isGesture)
+            session.mNativeSuggestOptions.setIsSpaceAwareGesture(settingsValuesForSuggestion.mSpaceAwareGesture);
+        session.mNativeSuggestOptions.setBlockOffensiveWords(settingsValuesForSuggestion.mBlockPotentiallyOffensive);
         session.mNativeSuggestOptions.setWeightForLocale(weightForLocale);
         if (inOutWeightOfLangModelVsSpatialModel != null) {
             session.mInputOutputWeightOfLangModelVsSpatialModel[0] =
@@ -497,7 +488,7 @@ public final class BinaryDictionary extends Dictionary {
     }
 
     // Update entries for the word occurrence with the ngramContext.
-    public boolean updateEntriesForWordWithNgramContext(@Nonnull final NgramContext ngramContext,
+    public boolean updateEntriesForWordWithNgramContext(@NonNull final NgramContext ngramContext,
             final String word, final boolean isValidWord, final int count, final int timestamp) {
         if (TextUtils.isEmpty(word)) {
             return false;

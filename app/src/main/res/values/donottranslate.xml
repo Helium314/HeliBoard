@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2009, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2009 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- For backward compatibility.
@@ -95,53 +82,32 @@
     <!-- Description for Arabic (PC) subtype. -->
     <string name="subtype_arabic_pc" translatable="false">%s (PC)</string>
 
-    <!-- Compatibility map from subtypeLocale:subtypeExtraValue to keyboardLayoutSet -->
-    <string-array name="locale_and_extra_value_to_keyboard_layout_set_map">
-        <item>en_US:TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>en_GB:TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>ar:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>arabic</item>
-        <item>cs:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>da:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>de:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>es:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>spanish</item>
-        <item>fi:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>fr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>azerty</item>
-        <item>fr_CA:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>hr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>hu:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwertz</item>
-        <item>it:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>iw:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>hebrew</item>
-        <item>nb:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>nl:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>pl:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-        <item>ru:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>east_slavic</item>
-        <item>sr:SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>south_slavic</item>
-        <item>sv:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>nordic</item>
-        <item>tr:AsciiCapable,SupportTouchPositionCorrection,EmojiCapable</item>
-        <item>qwerty</item>
-    </string-array>
     <!-- permission name as string to avoid issues with debug build -->
     <string name="hide_soft_input_permission">org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT</string>
     <!-- App slogan-->
     <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
+    <!-- default value for auto-day/night setting -->
+    <bool name="day_night_default">false</bool>
+    <string-array name="language_switch_key_values">
+        <item>off</item>
+        <item>internal</item>
+        <item>input_method</item>
+        <item>both</item>
+    </string-array>
+    <string-array name="language_switch_key_entries">
+        <item>@string/auto_correction_threshold_mode_off</item> <!-- maybe use a separate string -->
+        <item>@string/language_switch_key_switch_subtype</item>
+        <item>@string/language_switch_key_switch_input_method</item>
+        <item>@string/language_switch_key_switch_both</item>
+    </string-array>
+    <string-array name="show_more_keys_values">
+        <item>normal</item>
+        <item>more</item>
+        <item>all</item>
+    </string-array>
+    <string-array name="show_more_keys_entries">
+        <item>@string/show_more_keys_normal</item>
+        <item>@string/show_more_keys_more</item>
+        <item>@string/show_more_keys_all</item>
+    </string-array>
 </resources>

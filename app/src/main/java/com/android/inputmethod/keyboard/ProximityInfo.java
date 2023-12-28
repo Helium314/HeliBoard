@@ -1,23 +1,15 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package com.android.inputmethod.keyboard;
 
 import android.graphics.Rect;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.internal.TouchPositionCorrection;
@@ -29,8 +21,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 public class ProximityInfo {
     private static final String TAG = ProximityInfo.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -39,7 +29,7 @@ public class ProximityInfo {
     public static final int MAX_PROXIMITY_CHARS_SIZE = 16;
     /** Number of key widths from current touch point to search for nearest keys. */
     private static final float SEARCH_DISTANCE = 1.2f;
-    @Nonnull
+    @NonNull
     private static final List<Key> EMPTY_KEY_LIST = Collections.emptyList();
     private static final float DEFAULT_TOUCH_POSITION_CORRECTION_RADIUS = 0.15f;
 
@@ -53,16 +43,16 @@ public class ProximityInfo {
     private final int mKeyboardHeight;
     private final int mMostCommonKeyWidth;
     private final int mMostCommonKeyHeight;
-    @Nonnull
+    @NonNull
     private final List<Key> mSortedKeys;
-    @Nonnull
+    @NonNull
     private final List<Key>[] mGridNeighbors;
 
     @SuppressWarnings("unchecked")
     public ProximityInfo(final int gridWidth, final int gridHeight, final int minWidth, final int height,
             final int mostCommonKeyWidth, final int mostCommonKeyHeight,
-            @Nonnull final List<Key> sortedKeys,
-            @Nonnull final TouchPositionCorrection touchPositionCorrection) {
+            @NonNull final List<Key> sortedKeys,
+            @NonNull final TouchPositionCorrection touchPositionCorrection) {
         mGridWidth = gridWidth;
         mGridHeight = gridHeight;
         mGridSize = mGridWidth * mGridHeight;
@@ -111,13 +101,11 @@ public class ProximityInfo {
         return count;
     }
 
-    private long createNativeProximityInfo(
-            @Nonnull final TouchPositionCorrection touchPositionCorrection) {
-        final List<Key>[] gridNeighborKeys = mGridNeighbors;
+    private long createNativeProximityInfo(@NonNull final TouchPositionCorrection touchPositionCorrection) {
         final int[] proximityCharsArray = new int[mGridSize * MAX_PROXIMITY_CHARS_SIZE];
         Arrays.fill(proximityCharsArray, Constants.NOT_A_CODE);
         for (int i = 0; i < mGridSize; ++i) {
-            final List<Key> neighborKeys = gridNeighborKeys[i];
+            final List<Key> neighborKeys = mGridNeighbors[i];
             final int proximityCharsLength = neighborKeys.size();
             int infoIndex = i * MAX_PROXIMITY_CHARS_SIZE;
             for (int j = 0; j < proximityCharsLength; ++j) {
@@ -243,10 +231,9 @@ public class ProximityInfo {
     }
 
     private void computeNearestNeighbors() {
-        final int defaultWidth = mMostCommonKeyWidth;
         final int keyCount = mSortedKeys.size();
         final int gridSize = mGridNeighbors.length;
-        final int threshold = (int) (defaultWidth * SEARCH_DISTANCE);
+        final int threshold = (int) (mMostCommonKeyWidth * SEARCH_DISTANCE);
         final int thresholdSquared = threshold * threshold;
         // Round-up so we don't have any pixels outside the grid
         final int lastPixelXCoordinate = mGridWidth * mCellWidth - 1;
@@ -393,7 +380,7 @@ y |---+---+---+---+-v-+-|-+---+---+---+---+---|          | thresholdBase and get
         }
     }
 
-    @Nonnull
+    @NonNull
     public List<Key> getNearestKeys(final int x, final int y) {
         if (x >= 0 && x < mKeyboardMinWidth && y >= 0 && y < mKeyboardHeight) {
             int index = (y / mCellHeight) * mGridWidth + (x / mCellWidth);

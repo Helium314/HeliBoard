@@ -1,0 +1,14 @@
+<!--
+    icon available in Android Studio
+    SPDX-License-Identifier: Apache-2.0
+    Modified
+-->
+<!-- todo: remove / merge with ic_settings_languages -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"  >
+    <path android:fillColor="#FFF"
+        android:pathData="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7 6h-3c-0.3-1.3-0.8-2.5-1.4-3.6A8 8 0 0 1 18.9 8zm-7-4a14 14 0 0 1 2 4h-4a14 14 0 0 1 2-4zM4.3 14a8.2 8.2 0 0 1 0-4h3.3a16.5 16.5 0 0 0 0 4H4.3zm0.8 2h3c0.3 1.3 0.7 2.5 1.3 3.6A8 8 0 0 1 5.1 16zm3-8H5a8 8 0 0 1 4.3-3.6C8.8 5.5 8.4 6.7 8 8zM12 20a14 14 0 0 1-2-4h4a14 14 0 0 1-2 4zm2.3-6H9.7a14.7 14.7 0 0 1 0-4h4.6a14.6 14.6 0 0 1 0 4zm0.3 5.6c0.6-1.2 1-2.4 1.4-3.6h3a8 8 0 0 1-4.4 3.6zm1.8-5.6a16.5 16.5 0 0 0 0-4h3.3a8.2 8.2 0 0 1 0 4h-3.3z"/>
+</vector>

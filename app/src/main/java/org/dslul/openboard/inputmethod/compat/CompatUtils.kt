@@ -1,7 +1,13 @@
+/*
+ * Copyright (C) 2011 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.compat
 
 import android.text.TextUtils
-import android.util.Log
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
@@ -24,8 +30,8 @@ object CompatUtils {
         }
         try {
             return targetClass.getMethod(name!!, *parameterTypes)
-        } catch (e: SecurityException) { // ignore
-        } catch (e: NoSuchMethodException) {
+        } catch (_: SecurityException) { // ignore
+        } catch (_: NoSuchMethodException) {
         }
         return null
     }
@@ -36,8 +42,8 @@ object CompatUtils {
         }
         try {
             return targetClass.getField(name!!)
-        } catch (e: SecurityException) { // ignore
-        } catch (e: NoSuchFieldException) {
+        } catch (_: SecurityException) { // ignore
+        } catch (_: NoSuchFieldException) {
         }
         return null
     }
@@ -49,8 +55,8 @@ object CompatUtils {
         }
         try {
             return targetClass.getConstructor(*types)
-        } catch (e: SecurityException) { // ignore
-        } catch (e: NoSuchMethodException) {
+        } catch (_: SecurityException) { // ignore
+        } catch (_: NoSuchMethodException) {
         }
         return null
     }
@@ -153,9 +159,10 @@ object CompatUtils {
 
     }
 
+    @Suppress("unchecked_cast")
     class ToObjectMethodWrapper<T>(private val mMethod: Method?, private val mDefaultValue: T) {
         operator fun invoke(receiver: Any?, vararg args: Any?): T {
-            return CompatUtils.invoke(receiver, mDefaultValue!!, mMethod, *args) as T
+            return CompatUtils.invoke(receiver, mDefaultValue, mMethod, *args) as T
         }
 
     }

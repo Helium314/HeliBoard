@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Keyboard
-    xmlns:latin="http://schemas.android.com/apk/res-auto"
-    latin:keyWidth="23.33333%p"
-    latin:touchPositionCorrectionData="@array/touch_position_correction_data_default"
->
-    <include
-        latin:keyboardLayout="@xml/rows_numpad" />
-</Keyboard>

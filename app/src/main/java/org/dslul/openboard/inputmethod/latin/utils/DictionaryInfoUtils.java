@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
@@ -21,8 +11,11 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
@@ -45,9 +38,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
  * This class encapsulates the logic for the Latin-IME side of dictionary information management.
  */
@@ -62,23 +52,15 @@ public class DictionaryInfoUtils {
     private static final int MAX_HEX_DIGITS_FOR_CODEPOINT = 6;
 
     public static class DictionaryInfo {
-        private static final String LOCALE_COLUMN = "locale";
-        private static final String WORDLISTID_COLUMN = "id";
-        private static final String LOCAL_FILENAME_COLUMN = "filename";
-        private static final String DESCRIPTION_COLUMN = "description";
-        private static final String DATE_COLUMN = "date";
-        private static final String FILESIZE_COLUMN = "filesize";
-        private static final String VERSION_COLUMN = "version";
-
-        @Nonnull public final String mId;
-        @Nonnull public final Locale mLocale;
+        @NonNull public final String mId;
+        @NonNull public final Locale mLocale;
         @Nullable public final String mDescription;
         @Nullable public final String mFilename;
         public final long mFilesize;
         public final long mModifiedTimeMillis;
         public final int mVersion;
 
-        public DictionaryInfo(@Nonnull String id, @Nonnull Locale locale,
+        public DictionaryInfo(@NonNull String id, @NonNull Locale locale,
                 @Nullable String description, @Nullable String filename,
                 long filesize, long modifiedTimeMillis, int version) {
             mId = id;
@@ -88,18 +70,6 @@ public class DictionaryInfoUtils {
             mFilesize = filesize;
             mModifiedTimeMillis = modifiedTimeMillis;
             mVersion = version;
-        }
-
-        public ContentValues toContentValues() {
-            final ContentValues values = new ContentValues();
-            values.put(WORDLISTID_COLUMN, mId);
-            values.put(LOCALE_COLUMN, mLocale.toString());
-            values.put(DESCRIPTION_COLUMN, mDescription);
-            values.put(LOCAL_FILENAME_COLUMN, mFilename != null ? mFilename : "");
-            values.put(DATE_COLUMN, TimeUnit.MILLISECONDS.toSeconds(mModifiedTimeMillis));
-            values.put(FILESIZE_COLUMN, mFilesize);
-            values.put(VERSION_COLUMN, mVersion);
-            return values;
         }
 
         @Override
@@ -175,8 +145,8 @@ public class DictionaryInfoUtils {
     /**
      * Reverse escaping done by {@link #replaceFileNameDangerousCharacters(String)}.
      */
-    @Nonnull
-    public static String getWordListIdFromFileName(@Nonnull final String fname) {
+    @NonNull
+    public static String getWordListIdFromFileName(@NonNull final String fname) {
         final StringBuilder sb = new StringBuilder();
         final int fnameLength = fname.length();
         for (int i = 0; i < fnameLength; i = fname.offsetByCodePoints(i, 1)) {
@@ -213,7 +183,7 @@ public class DictionaryInfoUtils {
      * @return The category as a string or null if it can't be found in the file name.
      */
     @Nullable
-    public static String getCategoryFromFileName(@Nonnull final String fileName) {
+    public static String getCategoryFromFileName(@NonNull final String fileName) {
         final String id = getWordListIdFromFileName(fileName);
         final String[] idArray = id.split(DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION);
         // An id is supposed to be in format category:locale, so splitting on the separator
@@ -317,7 +287,7 @@ public class DictionaryInfoUtils {
      * unique ID to them. This ID is just the name of the language (locale-wise) they
      * are for, and this method returns this ID.
      */
-    public static String getMainDictId(@Nonnull final Locale locale) {
+    public static String getMainDictId(@NonNull final Locale locale) {
         // This works because we don't include by default different dictionaries for
         // different countries. This actually needs to return the id that we would
         // like to use for word lists included in resources, and the following is okay.
@@ -325,8 +295,13 @@ public class DictionaryInfoUtils {
                 BinaryDictionaryGetter.ID_CATEGORY_SEPARATOR + locale.toString().toLowerCase();
     }
 
-    public static String getMainDictFilename(@Nonnull final String locale) {
+    public static String getMainDictFilename(@NonNull final String locale) {
         return MAIN_DICT_PREFIX + locale.toLowerCase(Locale.ENGLISH) + ".dict";
+    }
+
+    public static File getMainDictFile(@NonNull final String locale, @NonNull final Context context) {
+        return new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
+                File.separator + DictionaryInfoUtils.getMainDictFilename(locale));
     }
 
     @Nullable
@@ -351,7 +326,7 @@ public class DictionaryInfoUtils {
      * @return information of the specified dictionary.
      */
     private static DictionaryInfo createDictionaryInfoFromFileAddress(
-            @Nonnull final AssetFileAddress fileAddress, final Locale locale) {
+            @NonNull final AssetFileAddress fileAddress, final Locale locale) {
         final String id = getMainDictId(locale);
         final int version = DictionaryHeaderUtils.getContentVersion(fileAddress);
         final String description = SubtypeLocaleUtils
@@ -371,7 +346,7 @@ public class DictionaryInfoUtils {
      */
     @Nullable
     private static DictionaryInfo createDictionaryInfoForUnCachedFile(
-            @Nonnull final AssetFileAddress fileAddress, final Locale locale) {
+            @NonNull final AssetFileAddress fileAddress, final Locale locale) {
         final String id = getMainDictId(locale);
         final int version = DictionaryHeaderUtils.getContentVersion(fileAddress);
 

@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -23,7 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.net.Uri;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
@@ -95,7 +85,6 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
             }
             // If we come here none of the authorities matched the one we searched for.
             // We can exit safely.
-            return;
         } else if (action.equals(Intent.ACTION_PACKAGE_REMOVED)
                 && !intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) {
             if (null == mService) {
@@ -120,22 +109,6 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
                 return;
             }
             mService.resetSuggestMainDict();
-        } else if (action.equals(DictionaryPackConstants.UNKNOWN_DICTIONARY_PROVIDER_CLIENT)) {
-            if (null != mService) {
-                // Careful! This is returning if the service is NOT null. This is because we
-                // should come here instantiated by the framework in reaction to a broadcast of
-                // the above action, so we should gave gone through the no-args constructor.
-                Log.e(TAG, "Called with intent " + action + " but we have a reference to the "
-                        + "service: this should never happen");
-                return;
-            }
-            // The dictionary provider does not know about some client. We check that it's really
-            // us that it needs to know about, and if it's the case, we register with the provider.
-            final String wantedClientId =
-                    intent.getStringExtra(DictionaryPackConstants.DICTIONARY_PROVIDER_CLIENT_EXTRA);
-            final String myClientId = context.getString(R.string.dictionary_pack_client_id);
-            if (!wantedClientId.equals(myClientId)) return; // Not for us
-            BinaryDictionaryFileDumper.initializeClientRecordHelper(context, myClientId);
         }
     }
 }

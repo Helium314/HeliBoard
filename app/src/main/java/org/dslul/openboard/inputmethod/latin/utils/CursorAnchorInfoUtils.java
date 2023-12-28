@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
@@ -30,10 +20,10 @@ import android.view.ViewParent;
 import android.view.inputmethod.CursorAnchorInfo;
 import android.widget.TextView;
 
-import org.dslul.openboard.inputmethod.compat.CursorAnchorInfoCompatWrapper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.dslul.openboard.inputmethod.compat.CursorAnchorInfoCompatWrapper;
 
 /**
  * This class allows input methods to extract {@link CursorAnchorInfo} directly from the given
@@ -94,7 +84,7 @@ public final class CursorAnchorInfoUtils {
      */
     @Nullable
     public static CursorAnchorInfoCompatWrapper extractFromTextView(
-            @Nonnull final TextView textView) {
+            @NonNull final TextView textView) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return null;
         }
@@ -109,7 +99,7 @@ public final class CursorAnchorInfoUtils {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
-    private static CursorAnchorInfo extractFromTextViewInternal(@Nonnull final TextView textView) {
+    private static CursorAnchorInfo extractFromTextViewInternal(@NonNull final TextView textView) {
         final Layout layout = textView.getLayout();
         if (layout == null) {
             return null;

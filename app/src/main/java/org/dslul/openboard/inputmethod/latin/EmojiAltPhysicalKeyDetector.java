@@ -1,25 +1,17 @@
 /*
- * Copyright (C) 2014, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (C) 2014 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
 import android.content.res.Resources;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -28,16 +20,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * A class for detecting Emoji-Alt physical key.
  */
 final class EmojiAltPhysicalKeyDetector {
-    private static final String TAG = "EmojiAltPhysicalKeyDetector";
+    private static final String TAG = "EmojiAltPhysKeyDetector";
     private static final boolean DEBUG = false;
 
-    private List<EmojiHotKeys> mHotKeysList;
+    private final List<EmojiHotKeys> mHotKeysList;
 
     private static class HotKeySet extends HashSet<Pair<Integer, Integer>> { }
 
@@ -54,7 +44,7 @@ final class EmojiAltPhysicalKeyDetector {
             mCanFire = false;
         }
 
-        public void onKeyDown(@Nonnull final KeyEvent keyEvent) {
+        public void onKeyDown(@NonNull final KeyEvent keyEvent) {
             if (DEBUG) {
                 Log.d(TAG, "EmojiHotKeys.onKeyDown() - " + mName + " - considering " + keyEvent);
             }
@@ -75,7 +65,7 @@ final class EmojiAltPhysicalKeyDetector {
             }
         }
 
-        public void onKeyUp(@Nonnull final KeyEvent keyEvent) {
+        public void onKeyUp(@NonNull final KeyEvent keyEvent) {
             if (DEBUG) {
                 Log.d(TAG, "EmojiHotKeys.onKeyUp() - " + mName + " - considering " + keyEvent);
             }
@@ -119,8 +109,8 @@ final class EmojiAltPhysicalKeyDetector {
         protected abstract void action();
     }
 
-    public EmojiAltPhysicalKeyDetector(@Nonnull final Resources resources) {
-        mHotKeysList = new ArrayList<EmojiHotKeys>();
+    public EmojiAltPhysicalKeyDetector(@NonNull final Resources resources) {
+        mHotKeysList = new ArrayList<>();
 
         final HotKeySet emojiSwitchSet = parseHotKeys(
                 resources, R.array.keyboard_switcher_emoji);
@@ -145,7 +135,7 @@ final class EmojiAltPhysicalKeyDetector {
         mHotKeysList.add(symbolsHotKeys);
     }
 
-    public void onKeyDown(@Nonnull final KeyEvent keyEvent) {
+    public void onKeyDown(@NonNull final KeyEvent keyEvent) {
         if (DEBUG) {
             Log.d(TAG, "onKeyDown(): " + keyEvent);
         }
@@ -157,7 +147,7 @@ final class EmojiAltPhysicalKeyDetector {
         }
     }
 
-    public void onKeyUp(@Nonnull final KeyEvent keyEvent) {
+    public void onKeyUp(@NonNull final KeyEvent keyEvent) {
         if (DEBUG) {
             Log.d(TAG, "onKeyUp(): " + keyEvent);
         }
@@ -169,7 +159,7 @@ final class EmojiAltPhysicalKeyDetector {
         }
     }
 
-    private static boolean shouldProcessEvent(@Nonnull final KeyEvent keyEvent) {
+    private static boolean shouldProcessEvent(@NonNull final KeyEvent keyEvent) {
         if (!Settings.getInstance().getCurrent().mEnableEmojiAltPhysicalKey) {
             // The feature is disabled.
             if (DEBUG) {
@@ -182,7 +172,7 @@ final class EmojiAltPhysicalKeyDetector {
     }
 
     private static HotKeySet parseHotKeys(
-            @Nonnull final Resources resources, final int resourceId) {
+            @NonNull final Resources resources, final int resourceId) {
         final HotKeySet keySet = new HotKeySet();
         final String name = resources.getResourceEntryName(resourceId);
         final String[] values = resources.getStringArray(resourceId);
@@ -192,8 +182,8 @@ final class EmojiAltPhysicalKeyDetector {
                 Log.w(TAG, "Expected 2 integers in " + name + "[" + i + "] : " + values[i]);
             }
             try {
-                final Integer keyCode = Integer.parseInt(valuePair[0]);
-                final Integer metaState = Integer.parseInt(valuePair[1]);
+                final int keyCode = Integer.parseInt(valuePair[0]);
+                final int metaState = Integer.parseInt(valuePair[1]);
                 final Pair<Integer, Integer> key = Pair.create(
                         keyCode, KeyEvent.normalizeMetaState(metaState));
                 keySet.add(key);

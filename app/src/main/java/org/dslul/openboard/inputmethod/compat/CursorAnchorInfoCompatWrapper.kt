@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.compat
 
 import android.annotation.TargetApi
@@ -147,7 +153,7 @@ open class CursorAnchorInfoCompatWrapper internal constructor() {
          */
         const val FLAG_IS_RTL = 0x04
 
-        @kotlin.jvm.JvmStatic
+        @JvmStatic
         @TargetApi(VERSION_CODES.LOLLIPOP)
         fun wrap(instance: CursorAnchorInfo?): CursorAnchorInfoCompatWrapper? {
             return if (Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {

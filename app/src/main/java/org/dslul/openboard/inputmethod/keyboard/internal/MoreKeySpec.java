@@ -1,23 +1,16 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import android.text.TextUtils;
 import android.util.SparseIntArray;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.latin.common.CollectionUtils;
@@ -27,9 +20,6 @@ import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * The more key specification object. The more keys are an array of {@link MoreKeySpec}.
@@ -51,8 +41,8 @@ public final class MoreKeySpec {
     public final String mOutputText;
     public final int mIconId;
 
-    public MoreKeySpec(@Nonnull final String moreKeySpec, boolean needsToUpperCase,
-            @Nonnull final Locale locale) {
+    public MoreKeySpec(@NonNull final String moreKeySpec, boolean needsToUpperCase,
+            @NonNull final Locale locale) {
         if (moreKeySpec.isEmpty()) {
             throw new KeySpecParser.KeySpecParserError("Empty more key spec");
         }
@@ -75,9 +65,9 @@ public final class MoreKeySpec {
         mIconId = KeySpecParser.getIconId(moreKeySpec);
     }
 
-    @Nonnull
+    @NonNull
     public Key buildKey(final int x, final int y, final int labelFlags,
-            @Nonnull final KeyboardParams params) {
+            @NonNull final KeyboardParams params) {
         return new Key(mLabel, mIconId, mCode, mOutputText, null /* hintLabel */, labelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultKeyWidth, params.mDefaultRowHeight,
                 params.mHorizontalGap, params.mVerticalGap);
@@ -85,8 +75,7 @@ public final class MoreKeySpec {
 
     @Override
     public int hashCode() {
-        int hashCode = 1;
-        hashCode = 31 + mCode;
+        int hashCode = 31 + mCode;
         hashCode = hashCode * 31 + mIconId;
         final String label = mLabel;
         hashCode = hashCode * 31 + (label == null ? 0 : label.hashCode());
@@ -126,7 +115,7 @@ public final class MoreKeySpec {
         private final SparseIntArray mCodes = new SparseIntArray();
         private final HashSet<String> mTexts = new HashSet<>();
 
-        public void addLetter(@Nonnull final Key key) {
+        public void addLetter(@NonNull final Key key) {
             final int code = key.getCode();
             if (Character.isAlphabetic(code)) {
                 mCodes.put(code, 0);
@@ -135,7 +124,7 @@ public final class MoreKeySpec {
             }
         }
 
-        public boolean contains(@Nonnull final MoreKeySpec moreKey) {
+        public boolean contains(@NonNull final MoreKeySpec moreKey) {
             final int code = moreKey.mCode;
             if (Character.isAlphabetic(code) && mCodes.indexOfKey(code) >= 0) {
                 return true;
@@ -145,7 +134,7 @@ public final class MoreKeySpec {
 
     @Nullable
     public static MoreKeySpec[] removeRedundantMoreKeys(@Nullable final MoreKeySpec[] moreKeys,
-            @Nonnull final LettersOnBaseLayout lettersOnBaseLayout) {
+            @NonNull final LettersOnBaseLayout lettersOnBaseLayout) {
         if (moreKeys == null) {
             return null;
         }
@@ -222,14 +211,14 @@ public final class MoreKeySpec {
         if (remain != null) {
             list.add(remain);
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
-    @Nonnull
+    @NonNull
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    @Nonnull
-    private static String[] filterOutEmptyString(@Nullable final String[] array) {
+    @NonNull
+    public static String[] filterOutEmptyString(@Nullable final String[] array) {
         if (array == null) {
             return EMPTY_STRING_ARRAY;
         }
@@ -247,7 +236,7 @@ public final class MoreKeySpec {
         if (out == null) {
             return array;
         }
-        return out.toArray(new String[out.size()]);
+        return out.toArray(new String[0]);
     }
 
     public static String[] insertAdditionalMoreKeys(@Nullable final String[] moreKeySpecs,
@@ -300,7 +289,7 @@ public final class MoreKeySpec {
         if (out == null && moreKeysCount > 0) {
             return moreKeys;
         } else if (out != null && out.size() > 0) {
-            return out.toArray(new String[out.size()]);
+            return out.toArray(new String[0]);
         } else {
             return null;
         }

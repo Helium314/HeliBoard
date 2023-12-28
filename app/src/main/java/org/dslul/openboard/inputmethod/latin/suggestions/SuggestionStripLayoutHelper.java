@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.suggestions;
@@ -43,12 +33,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
@@ -56,9 +50,6 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ViewLayoutUtils;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 final class SuggestionStripLayoutHelper {
     private static final int DEFAULT_SUGGESTIONS_COUNT_IN_STRIP = 3;
@@ -131,17 +122,11 @@ final class SuggestionStripLayoutHelper {
                 R.styleable.SuggestionStripView_alphaObsoleted, 1.0f);
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            mColorValidTypedWord = colors.adjustedKeyText;
-            mColorTypedWord = colors.adjustedKeyText;
-            mColorAutoCorrect = colors.keyText;
-            mColorSuggested = colors.adjustedKeyText;
-        } else {
-            mColorValidTypedWord = a.getColor(R.styleable.SuggestionStripView_colorValidTypedWord, 0);
-            mColorTypedWord = a.getColor(R.styleable.SuggestionStripView_colorTypedWord, 0);
-            mColorAutoCorrect = a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect, 0);
-            mColorSuggested = a.getColor(R.styleable.SuggestionStripView_colorSuggested, 0);
-        }
+        mColorValidTypedWord = colors.get(ColorType.SUGGESTION_VALID_WORD);
+        mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
+        mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
+        mColorSuggested = colors.get(ColorType.SUGGESTED_WORD);
+        final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(
                 R.styleable.SuggestionStripView_suggestionsCountInStrip,
@@ -158,7 +143,7 @@ final class SuggestionStripLayoutHelper {
 
         mMoreSuggestionsHint = getMoreSuggestionsHint(res,
                 res.getDimension(R.dimen.config_more_suggestions_hint_text_size),
-                mColorAutoCorrect);
+                colorMoreSuggestionsHint);
         mCenterPositionInStrip = mSuggestionsCountInStrip / 2;
         // Assuming there are at least three suggestions. Also, note that the suggestions are
         // laid out according to script direction, so this is left of the center for LTR scripts
@@ -188,8 +173,7 @@ final class SuggestionStripLayoutHelper {
                 / mMoreSuggestionsRowHeight;
     }
 
-    private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize,
-            final int color) {
+    private static Drawable getMoreSuggestionsHint(final Resources res, final float textSize, final int color) {
         final Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setTextAlign(Align.CENTER);
@@ -381,7 +365,7 @@ final class SuggestionStripLayoutHelper {
             layoutWord(context, mCenterPositionInStrip, stripWidth - mPadding);
             stripView.addView(centerWordView);
             setLayoutWeight(centerWordView, 1.0f, ViewGroup.LayoutParams.MATCH_PARENT);
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 layoutDebugInfo(mCenterPositionInStrip, placerView, stripWidth);
             }
             final Integer lastIndex = (Integer)centerWordView.getTag();
@@ -407,7 +391,7 @@ final class SuggestionStripLayoutHelper {
                     ViewGroup.LayoutParams.MATCH_PARENT);
             x += wordView.getMeasuredWidth();
 
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 layoutDebugInfo(positionInStrip, placerView, x);
             }
         }
@@ -470,8 +454,7 @@ final class SuggestionStripLayoutHelper {
             return;
         }
         placerView.addView(debugInfoView);
-        debugInfoView.measure(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        debugInfoView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int infoWidth = debugInfoView.getMeasuredWidth();
         final int y = debugInfoView.getMeasuredHeight();
         ViewLayoutUtils.placeViewAt(
@@ -501,7 +484,7 @@ final class SuggestionStripLayoutHelper {
             wordView.setText(null);
             wordView.setTag(null);
             // Make this inactive for touches in {@link #layoutWord(int,int)}.
-            if (SuggestionStripView.DBG) {
+            if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 mDebugInfoViews.get(positionInStrip).setText(null);
             }
         }
@@ -520,9 +503,8 @@ final class SuggestionStripLayoutHelper {
             wordView.setTag(indexInSuggestedWords);
             wordView.setText(getStyledSuggestedWord(suggestedWords, indexInSuggestedWords));
             wordView.setTextColor(getSuggestionTextColor(suggestedWords, indexInSuggestedWords));
-            if (SuggestionStripView.DBG) {
-                mDebugInfoViews.get(positionInStrip).setText(
-                        suggestedWords.getDebugString(indexInSuggestedWords));
+            if (SuggestionStripView.DEBUG_SUGGESTIONS) {
+                mDebugInfoViews.get(positionInStrip).setText(suggestedWords.getDebugString(indexInSuggestedWords));
             }
             count++;
         }
@@ -577,7 +559,7 @@ final class SuggestionStripLayoutHelper {
 
     @Nullable
     private static CharSequence getEllipsizedTextWithSettingScaleX(
-            @Nullable final CharSequence text, final int maxWidth, @Nonnull final TextPaint paint) {
+            @Nullable final CharSequence text, final int maxWidth, @NonNull final TextPaint paint) {
         if (text == null) {
             return null;
         }
@@ -617,7 +599,7 @@ final class SuggestionStripLayoutHelper {
         return false;
     }
 
-    private static void addStyleSpan(@Nonnull final Spannable text, final CharacterStyle style) {
+    private static void addStyleSpan(@NonNull final Spannable text, final CharacterStyle style) {
         text.removeSpan(style);
         text.setSpan(style, 0, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
     }

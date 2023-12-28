@@ -1,24 +1,16 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.suggestions;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
@@ -53,7 +45,7 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
 
     // TODO: Remove redundant override method.
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         super.setKeyboard(keyboard);
         mIsInModalMode = false;
         // With accessibility mode off, {@link #mAccessibilityDelegate} is set to null at the
@@ -69,7 +61,7 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
 
     @Override
     protected int getDefaultCoordX() {
-        final MoreSuggestions pane = (MoreSuggestions)getKeyboard();
+        final MoreSuggestions pane = (MoreSuggestions) getKeyboard();
         return pane.mOccupiedWidth / 2;
     }
 

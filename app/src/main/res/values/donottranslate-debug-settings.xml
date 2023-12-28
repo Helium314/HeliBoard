@@ -1,46 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-**
-** Copyright 2014, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+    Copyright (C) 2014 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Title for Android keyboard debug settings activity / dialog -->
-    <string name="english_ime_debug_settings" translatable="false">Android Keyboard Debug settings</string>
+    <string name="debug_settings_title" translatable="false">Debug settings</string>
+    <string name="prefs_show_debug_settings" translatable="false">Enable debug settings</string>
+    <string name="prefs_debug_settings_enabled" translatable="false">Debug settings enabled. Find them in advanced settings.</string>
     <string name="prefs_debug_mode" translatable="false">Debug Mode</string>
+    <string name="prefs_show_suggestion_infos" translatable="false">Show suggestion infos</string>
     <string name="prefs_force_non_distinct_multitouch" translatable="false">Force non-distinct multitouch</string>
     <string name="prefs_should_show_lxx_suggestion_ui" translatable="false">Show LXX suggestion UI</string>
     <!-- Option to enable sliding key input indicator. The user can see a rubber band-like effect during sliding key input. [CHAR LIMIT=30]-->
     <string name="sliding_key_input_preview" translatable="false">Show slide indicator</string>
     <!-- Option summary to enable sliding key input indicator. The user can see a rubber band-like effect during sliding key input. [CHAR LIMIT=66]-->
     <string name="sliding_key_input_preview_summary" translatable="false">Display visual cue while sliding from Shift or Symbol keys</string>
-    <!-- Title of the settings for customize key popup animation parameters [CHAR LIMIT=35] -->
-    <string name="prefs_customize_key_preview_animation" translatable="false">Customize key preview animation</string>
-    <!-- Title of the settings for key popup show up animation duration (in milliseconds) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_show_up_duration_settings" translatable="false">Key popup show up duration</string>
-    <!-- Title of the settings for key popup dismiss animation duration (in milliseconds) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_dismiss_duration_settings" translatable="false">Key popup dismiss duration</string>
-    <!-- Title of the settings for key popup show up animation start X-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_show_up_start_x_scale_settings" translatable="false">Key popup show up start X scale</string>
-    <!-- Title of the settings for key popup show up animation start Y-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_show_up_start_y_scale_settings" translatable="false">Key popup show up start Y scale</string>
-    <!-- Title of the settings for key popup dismiss animation end X-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_dismiss_end_x_scale_settings" translatable="false">Key popup dismiss end X scale</string>
-    <!-- Title of the settings for key popup dismiss animation end Y-scale (in percentile) [CHAR LIMIT=35] -->
-    <string name="prefs_key_popup_dismiss_end_y_scale_settings" translatable="false">Key popup dismiss end Y scale</string>
-    <!-- Title of the settings group for dumpping dictionary files that have been created on the device [CHAR LIMIT=35] -->
+    <!-- Title of the settings group for dumping dictionary files that have been created on the device [CHAR LIMIT=35] -->
     <string name="prefs_dump_dynamic_dicts" translatable="false">Dump dictionary</string>
 </resources>

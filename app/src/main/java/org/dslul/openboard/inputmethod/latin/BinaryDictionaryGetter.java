@@ -1,37 +1,25 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
+import static org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragmentKt.USER_DICTIONARY_SUFFIX;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
-import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
-import org.dslul.openboard.inputmethod.latin.makedict.UnsupportedFormatException;
-import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -67,7 +55,7 @@ final public class BinaryDictionaryGetter {
     public static final String ASSETS_DICTIONARY_FOLDER = "dicts";
 
     // The key considered to read the version attribute in a dictionary file.
-    private static String VERSION_KEY = "version";
+    private static final String VERSION_KEY = "version";
 
     // Prevents this from being instantiated
     private BinaryDictionaryGetter() {}
@@ -184,8 +172,12 @@ final public class BinaryDictionaryGetter {
                         final String category =
                                 DictionaryInfoUtils.getCategoryFromFileName(wordList.getName());
                         final FileAndMatchLevel currentBestMatch = cacheFiles.get(category);
-                        if (null == currentBestMatch || currentBestMatch.mMatchLevel < matchLevel) {
-                            cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
+                        if (null == currentBestMatch || currentBestMatch.mMatchLevel <= matchLevel) {
+                            // todo: not nice, related to todo in getDictionaryFiles
+                            //  this is so user-added main dict has priority over internal main dict
+                            //  actually any user-added dict has priority, but there aren't any other built-in types
+                            if (wordList.getName().endsWith(USER_DICTIONARY_SUFFIX) || currentBestMatch == null)
+                                cacheFiles.put(category, new FileAndMatchLevel(wordList, matchLevel));
                         }
                     }
                 }
@@ -200,38 +192,6 @@ final public class BinaryDictionaryGetter {
         return result;
     }
 
-    // ## HACK ## we prevent usage of a dictionary before version 18. The reason for this is, since
-    // those do not include whitelist entries, the new code with an old version of the dictionary
-    // would lose whitelist functionality.
-    private static boolean hackCanUseDictionaryFile(final File file) {
-        if (!SHOULD_USE_DICT_VERSION) {
-            return true;
-        }
-
-        try {
-            // Read the version of the file
-            final DictionaryHeader header = BinaryDictionaryUtils.getHeader(file);
-            final String version = header.mDictionaryOptions.mAttributes.get(VERSION_KEY);
-            if (null == version) {
-                // No version in the options : the format is unexpected
-                return false;
-            }
-            // Version 18 is the first one to include the whitelist
-            // Obviously this is a big ## HACK ##
-            return Integer.parseInt(version) >= 18;
-        } catch (java.io.FileNotFoundException e) {
-            return false;
-        } catch (java.io.IOException e) {
-            return false;
-        } catch (NumberFormatException e) {
-            return false;
-        } catch (BufferUnderflowException e) {
-            return false;
-        } catch (UnsupportedFormatException e) {
-            return false;
-        }
-    }
-
     /**
      * Returns a list of file addresses for a given locale, trying relevant methods in order.
      *
@@ -244,8 +204,11 @@ final public class BinaryDictionaryGetter {
      * - Returns null.
      * @return The list of addresses of valid dictionary files, or null.
      */
+    // todo: the way of using assets and cached lists should be improved, so that the assets file
+    //  doesn't need to be in cached dir just for checking whether it's a good match
     public static ArrayList<AssetFileAddress> getDictionaryFiles(final Locale locale,
-            final Context context, boolean notifyDictionaryPackForUpdates, final boolean weakMatchAcceptable) {
+            final Context context, final boolean weakMatchAcceptable) {
+        loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable); // will copy dict to cached word lists if not existing
         final File[] cachedWordLists = getCachedWordLists(locale.toString(), context, weakMatchAcceptable);
         final String mainDictId = DictionaryInfoUtils.getMainDictId(locale);
         final DictPackSettings dictPackSettings = new DictPackSettings(context);
@@ -255,10 +218,7 @@ final public class BinaryDictionaryGetter {
         // cachedWordLists may not be null, see doc for getCachedDictionaryList
         for (final File f : cachedWordLists) {
             final String wordListId = DictionaryInfoUtils.getWordListIdFromFileName(f.getName());
-            // remove the hack that requires version 18
-            // danger of getting an old version is rather low, and user-added dictionaries
-            // will usually not work as they will likely start at version 1
-            final boolean canUse = f.canRead(); // && hackCanUseDictionaryFile(f);
+            final boolean canUse = f.canRead();
             if (canUse && DictionaryInfoUtils.isMainWordListId(wordListId)) {
                 foundMainDict = true;
             }
@@ -267,24 +227,16 @@ final public class BinaryDictionaryGetter {
                 final AssetFileAddress afa = AssetFileAddress.makeFromFileName(f.getPath());
                 if (null != afa) fileList.add(afa);
             } else {
-                Log.e(TAG, "Found a cached dictionary file for " + locale.toString()
-                        + " but cannot read or use it");
+                Log.e(TAG, "Found a cached dictionary file for " + locale + " but cannot read or use it");
             }
         }
 
         if (!foundMainDict && dictPackSettings.isWordListActive(mainDictId)) {
             final File dict = loadDictionaryFromAssets(locale.toString(), context, weakMatchAcceptable);
-            final AssetFileAddress fallbackAsset;
-            if (dict == null) {
-                // fall back to the old way (maybe remove? will not work if files are compressed)
-                final int fallbackResId =
-                        DictionaryInfoUtils.getMainDictionaryResourceId(context.getResources(), locale);
-                fallbackAsset = loadFallbackResource(context, fallbackResId);
-            } else {
-                fallbackAsset = AssetFileAddress.makeFromFileName(dict.getPath());
-            }
-            if (null != fallbackAsset) {
-                fileList.add(fallbackAsset);
+            if (dict != null) {
+                final AssetFileAddress fallbackAsset = AssetFileAddress.makeFromFileName(dict.getPath());
+                if (fallbackAsset != null)
+                    fileList.add(fallbackAsset);
             }
         }
 
@@ -322,8 +274,9 @@ final public class BinaryDictionaryGetter {
         // we have a match, now copy contents of the dictionary to cached word lists folder
         final String bestMatchLocale = extractLocaleFromAssetsDictionaryFile(bestMatchName);
         if (bestMatchLocale == null) return null;
-        File dictFile = new File(DictionaryInfoUtils.getCacheDirectoryForLocale(bestMatchLocale, context) +
-                File.separator + DictionaryInfoUtils.getMainDictFilename(bestMatchLocale));
+        File dictFile = DictionaryInfoUtils.getMainDictFile(locale, context);
+        if (dictFile.exists())
+            return dictFile;
         try {
             FileUtils.copyStreamToNewFile(
                     context.getAssets().open(ASSETS_DICTIONARY_FOLDER + File.separator + bestMatchName),

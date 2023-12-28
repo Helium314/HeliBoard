@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+    Copyright (C) 2015 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="KeyboardTheme.LXX_Base" parent="KeyboardIcons.LXX_Light">
         <item name="inputViewStyle">@style/InputView.LXX</item>
@@ -25,18 +29,12 @@
         name="KeyboardView.LXX_Base"
         parent="KeyboardView.LXX"
         >
-        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
+        <item name="android:background">@color/keyboard_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_lxx_base</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_base</item>
-        <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_lxx_base</item>
-        <item name="keyTextColor">@color/key_text_color_lxx_light</item>
+        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_lxx_base</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
-        <item name="functionalTextColor">@color/key_functional_text_color_lxx_light</item>
-        <item name="keyHintLetterColor">@color/key_hint_letter_color_lxx_light</item>
-        <item name="keyHintLabelColor">@color/key_text_inactive_color_lxx_light</item>
         <item name="keyShiftedLetterHintInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
         <item name="keyShiftedLetterHintActivatedColor">@color/key_text_color_lxx_light</item>
-        <item name="keyPreviewTextColor">@color/key_text_color_lxx_light</item>
     </style>
     <style
         name="MainKeyboardView.LXX_Base"
@@ -46,13 +44,6 @@
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_light</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
-        <item name="keyPreviewShowUpAnimator">@anim/key_preview_show_up_lxx</item>
-        <item name="keyPreviewDismissAnimator">@anim/key_preview_dismiss_lxx</item>
-        <item name="gestureFloatingPreviewTextColor">@color/auto_correct_color_lxx_light</item>
-        <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_lxx_light</item>
-        <item name="gestureTrailColor">@color/gesture_trail_color_lxx_light</item>
-        <item name="slidingKeyInputPreviewColor">@color/sliding_key_input_preview_color_lxx_light</item>
-        <item name="languageOnSpacebarTextColor">@color/language_on_spacebar_text_color_lxx_light</item>
         <!-- A negative value to disable text shadow layer. -->
         <item name="languageOnSpacebarTextShadowRadius">-1.0</item>
     </style>
@@ -67,24 +58,23 @@
         <item name="categoryIndicatorEnabled">false</item>
         <item name="categoryPageIndicatorColor">@color/highlight_color_lxx_light</item>
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
-        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx_light</item>
-        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx_light</item>
-        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx_light</item>
-        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx_light</item>
-        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_lxx_light</item>
-        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_lxx_light</item>
-        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_lxx_light</item>
-        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_lxx_light</item>
-        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_lxx_light</item>
-        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_lxx_light</item>
-        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_lxx_light</item>
+        <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx</item>
+        <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx</item>
+        <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx</item>
+        <item name="iconEmojiCategory3Tab">@drawable/ic_emoji_animals_nature_lxx</item>
+        <item name="iconEmojiCategory4Tab">@drawable/ic_emoji_food_drink_lxx</item>
+        <item name="iconEmojiCategory5Tab">@drawable/ic_emoji_travel_places_lxx</item>
+        <item name="iconEmojiCategory6Tab">@drawable/ic_emoji_activities_lxx</item>
+        <item name="iconEmojiCategory7Tab">@drawable/ic_emoji_objects_lxx</item>
+        <item name="iconEmojiCategory8Tab">@drawable/ic_emoji_symbols_lxx</item>
+        <item name="iconEmojiCategory9Tab">@drawable/ic_emoji_flags_lxx</item>
+        <item name="iconEmojiCategory10Tab">@drawable/ic_emoji_emoticons_lxx</item>
     </style>
     <style
         name="ClipboardHistoryView.LXX_Base"
         parent="MainKeyboardView.LXX_Base"
         >
-        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx_light</item>
-        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
+        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx</item>
     </style>
     <style
         name="MoreKeysKeyboard.LXX_Base"
@@ -123,22 +113,16 @@
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
-        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/btn_suggestion_lxx_base</item> -->
         <item name="android:background">@drawable/keyboard_background_lxx_base</item>
-        <item name="android:src">@drawable/suggestions_strip_divider_lxx_light</item>
+        <item name="android:src">@drawable/suggestions_strip_divider</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
-        <item name="colorValidTypedWord">@color/typed_word_color_lxx_light</item>
-        <item name="colorTypedWord">@color/typed_word_color_lxx_light</item>
-        <item name="colorAutoCorrect">@color/auto_correct_color_lxx_light</item>
-        <item name="colorSuggested">@color/suggested_word_color_lxx_light</item>
         <item name="alphaObsoleted">70%</item>
     </style>
     <style
         name="SuggestionWord.LXX_Base"
         parent="SuggestionWord"
         >
-        <!-- todo (later): after fixing issue with SuggestionStripView revert to <item name="android:background">@drawable/keyboard_suggest_strip_lxx_base</item> -->
-        <item name="android:background">@drawable/keyboard_background_lxx_base</item>
+        <item name="android:background">@drawable/btn_suggestion_lxx_base</item>
         <item name="android:textColor">@color/highlight_color_lxx_light</item>
     </style>
 </resources>

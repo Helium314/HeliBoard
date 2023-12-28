@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/color_preview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/btn_keyboard_key_action_normal_lxx_base" />
+    <LinearLayout
+        android:id="@+id/color_text_container"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/color_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            style="@style/PreferenceTitleText" />
+        <TextView
+            android:id="@+id/color_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            style="@style/PreferenceSubtitleText" />
+    </LinearLayout>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/color_switch"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2" />
+</LinearLayout>

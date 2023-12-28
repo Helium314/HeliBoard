@@ -1,22 +1,12 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.MotionEvent;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
@@ -30,7 +20,7 @@ public final class NonDistinctMultitouchHelper {
     private static final int MAIN_POINTER_TRACKER_ID = 0;
     private int mOldPointerCount = 1;
     private Key mOldKey;
-    private int[] mLastCoords = CoordinateUtils.newInstance();
+    private final int[] mLastCoords = CoordinateUtils.newInstance();
 
     public void processMotionEvent(final MotionEvent me, final KeyDetector keyDetector) {
         final int pointerCount = me.getPointerCount();

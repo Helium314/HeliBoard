@@ -1,26 +1,15 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
+import android.os.Build;
 import android.text.InputType;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.EditorInfo;
-
-import androidx.core.view.inputmethod.EditorInfoCompat;
 
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
@@ -94,14 +83,10 @@ public final class InputAttributes {
         }
         // inputClass == InputType.TYPE_CLASS_TEXT
         final int variation = inputType & InputType.TYPE_MASK_VARIATION;
-        final boolean flagNoSuggestions =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        final boolean flagMultiLine =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        final boolean flagAutoCorrect =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
-        final boolean flagAutoComplete =
-                0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+        final boolean flagNoSuggestions = 0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        final boolean flagMultiLine = 0 != (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        final boolean flagAutoCorrect = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        final boolean flagAutoComplete = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
 
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
@@ -140,7 +125,10 @@ public final class InputAttributes {
                 && InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD != variation;
 
 
-        mNoLearning = flagNoSuggestions || (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            mNoLearning = (editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
+        else
+            mNoLearning = false;
     }
 
     public boolean isTypeNull() {
@@ -148,7 +136,8 @@ public final class InputAttributes {
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
-        return editorInfo.inputType == mInputType;
+        return editorInfo.inputType == mInputType && mEditorInfo != null
+                && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII);
     }
 
     private boolean hasNoMicrophoneKeyOption() {

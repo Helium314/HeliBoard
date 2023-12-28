@@ -1,27 +1,17 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class DictionaryStats {
     public static final int NOT_AN_ENTRY_COUNT = -1;
@@ -34,8 +24,8 @@ public class DictionaryStats {
     public final int mWordCount;
 
     public DictionaryStats(
-            @Nonnull final Locale locale,
-            @Nonnull final String dictType,
+            @NonNull final Locale locale,
+            @NonNull final String dictType,
             @Nullable final String dictFileName,
             @Nullable final File dictFile,
             final int contentVersion) {
@@ -48,8 +38,8 @@ public class DictionaryStats {
     }
 
     public DictionaryStats(
-            @Nonnull final Locale locale,
-            @Nonnull final String dictType,
+            @NonNull final Locale locale,
+            @NonNull final String dictType,
             final int wordCount) {
         mLocale = locale;
         mDictType = dictType;

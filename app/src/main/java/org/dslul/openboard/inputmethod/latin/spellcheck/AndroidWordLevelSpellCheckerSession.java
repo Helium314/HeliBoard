@@ -1,28 +1,19 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.spellcheck;
 
 import android.content.ContentResolver;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.os.Binder;
 import android.provider.UserDictionary.Words;
 import android.service.textservice.SpellCheckerService.Session;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.LruCache;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
@@ -38,6 +29,9 @@ import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
+
+import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
@@ -148,16 +142,20 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
         final InputMethodManager imm;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            imm = mService.getApplicationContext()
-                    .getSystemService(InputMethodManager.class);
+            imm = mService.getApplicationContext().getSystemService(InputMethodManager.class);
             if (imm != null) {
-                final InputMethodSubtype currentInputMethodSubtype =
-                        imm.getCurrentInputMethodSubtype();
+                final InputMethodSubtype currentInputMethodSubtype = imm.getCurrentInputMethodSubtype();
                 if (currentInputMethodSubtype != null) {
                     final String localeString = currentInputMethodSubtype.getLocale();
                     if (!TextUtils.isEmpty(localeString)) {
                         // Use keyboard locale if available in the spell checker
                         return localeString;
+                    }
+                    // localeString for this app is always empty, get it from settings if possible
+                    // and we're sure this app is used
+                    if (SubtypeSettingsKt.getInitialized() && "dummy".equals(currentInputMethodSubtype.getExtraValue())) {
+                        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mService);
+                        return SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale();
                     }
                 }
             }
@@ -253,8 +251,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         // If the lower case version is not in the dictionary, it's still possible
         // that we have an all-caps version of a word that needs to be capitalized
         // according to the dictionary. E.g. "GERMANS" only exists in the dictionary as "Germans".
-        return mService.isValidWord(mLocale,
-                StringUtils.capitalizeFirstAndDowncaseRest(lowerCaseText, mLocale));
+        return mService.isValidWord(mLocale, StringUtils.capitalizeFirstAndDowncaseRest(lowerCaseText, mLocale));
     }
 
     // Note : this must be reentrant
@@ -274,11 +271,10 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             updateLocale();
             // It's good to keep this not local specific since the standard
             // ones may show up in other languages also.
-            String text = textInfo.getText().
-                    replaceAll(AndroidSpellCheckerService.APOSTROPHE,
-                            AndroidSpellCheckerService.SINGLE_QUOTE).
-                    replaceAll("^" + quotesRegexp, "").
-                    replaceAll(quotesRegexp + "$", "");
+            String text = textInfo.getText()
+                    .replaceAll(AndroidSpellCheckerService.APOSTROPHE, AndroidSpellCheckerService.SINGLE_QUOTE)
+                    .replaceAll("^" + quotesRegexp, "")
+                    .replaceAll(quotesRegexp + "$", "");
 
             final String localeRegex = scriptToPunctuationRegexMap.get(
                     ScriptUtils.getScriptFromSpellCheckerLocale(mLocale)
@@ -289,8 +285,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             if (!mService.hasMainDictionaryForLocale(mLocale)) {
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(
-                        false /* reportAsTypo */);
+                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false /* reportAsTypo */);
             }
 
             // Handle special patterns like email, URI, telephone number.

@@ -1,24 +1,19 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
 
+import static org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.EmojiParserKt.EMOJI_HINT_LABEL;
+
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
@@ -26,8 +21,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.JsonUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,19 +47,58 @@ final class DynamicGridKeyboard extends Keyboard {
     private final ArrayDeque<Key> mPendingKeys = new ArrayDeque<>();
 
     private List<Key> mCachedGridKeys;
+    private final ArrayList<Integer> mEmptyColumnIndices = new ArrayList<>(4);
 
     public DynamicGridKeyboard(final SharedPreferences prefs, final Keyboard templateKeyboard,
-            final int maxKeyCount, final int categoryId) {
+            final int maxKeyCount, final int categoryId, final int width) {
         super(templateKeyboard);
+        // todo: would be better to keep them final and not require width, but how to properly set width of the template keyboard?
+        //  an alternative would be to always create the templateKeyboard with full width
+        final int paddingWidth = mOccupiedWidth - mBaseWidth;
+        mBaseWidth = width - paddingWidth;
+        mOccupiedWidth = width;
+        final float spacerWidth = Settings.getInstance().getCurrent().mSplitKeyboardSpacerRelativeWidth * mBaseWidth;
         final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
-        mHorizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
-        mHorizontalStep = key0.getWidth() + mHorizontalGap;
-        mVerticalStep = key0.getHeight() + mVerticalGap;
+        final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
+        final float widthScale = determineWidthScale(key0.getWidth() + horizontalGap);
+        mHorizontalGap = (int) (horizontalGap * widthScale);
+        mHorizontalStep = (int) ((key0.getWidth() + horizontalGap) * widthScale);
+        mVerticalStep = (int) ((key0.getHeight() + mVerticalGap) / Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
         mColumnsNum = mBaseWidth / mHorizontalStep;
+        if (spacerWidth > 0)
+            setSpacerColumns(spacerWidth);
         mMaxKeyCount = maxKeyCount;
         mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
         mPrefs = prefs;
+    }
+
+    private void setSpacerColumns(final float spacerWidth) {
+        int spacerColumnsWidth = (int) (spacerWidth / mHorizontalStep);
+        if (spacerColumnsWidth == 0) return;
+        if (mColumnsNum % 2 != spacerColumnsWidth % 2)
+            spacerColumnsWidth++;
+        final int leftmost;
+        final int rightmost;
+        if (spacerColumnsWidth % 2 == 0) {
+            int center = mColumnsNum / 2;
+            leftmost = center - (spacerColumnsWidth / 2 - 1);
+            rightmost = center + spacerColumnsWidth / 2;
+        } else {
+            int center = mColumnsNum / 2 + 1;
+            leftmost = center - spacerColumnsWidth / 2;
+            rightmost = center + spacerColumnsWidth / 2;
+        }
+        for (int i = leftmost; i <= rightmost; i++) {
+            mEmptyColumnIndices.add(i - 1);
+        }
+    }
+
+    // determine a width scale so emojis evenly fill the entire width
+    private float determineWidthScale(final float horizontalStep) {
+        final float columnsNumRaw = mBaseWidth / horizontalStep;
+        final float columnsNum = Math.round(columnsNumRaw);
+        return columnsNumRaw / columnsNum;
     }
 
     private Key getTemplateKey(final int code) {
@@ -124,7 +156,7 @@ final class DynamicGridKeyboard extends Keyboard {
             // if key comes from another keyboard (ie. a {@link MoreKeysKeyboard}).
             final boolean dropMoreKeys = mIsRecents;
             // Check if hint was a more emoji indicator and prevent its copy if more keys aren't copied
-            final boolean dropHintLabel = dropMoreKeys && "\u25E5".equals(usedKey.getHintLabel());
+            final boolean dropHintLabel = dropMoreKeys && EMOJI_HINT_LABEL.equals(usedKey.getHintLabel());
             final GridKey key = new GridKey(usedKey,
                     dropMoreKeys ? null : usedKey.getMoreKeys(),
                     dropHintLabel ? null : usedKey.getHintLabel(),
@@ -142,6 +174,9 @@ final class DynamicGridKeyboard extends Keyboard {
             }
             int index = 0;
             for (final GridKey gridKey : mGridKeys) {
+                while (mEmptyColumnIndices.contains(index % mColumnsNum)) {
+                    index++;
+                }
                 final int keyX0 = getKeyX0(index);
                 final int keyY0 = getKeyY0(index);
                 final int keyX1 = getKeyX1(index);
@@ -165,7 +200,7 @@ final class DynamicGridKeyboard extends Keyboard {
         Settings.writeEmojiRecentKeys(mPrefs, jsonStr);
     }
 
-    private static Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
+    private Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
             final int code) {
         for (final DynamicGridKeyboard keyboard : keyboards) {
             for (final Key key : keyboard.getSortedKeys()) {
@@ -174,10 +209,12 @@ final class DynamicGridKeyboard extends Keyboard {
                 }
             }
         }
-        return null;
+
+        // fall back to creating the key
+        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, code, null);
     }
 
-    private static Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
+    private Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
             final String outputText) {
         for (final DynamicGridKeyboard keyboard : keyboards) {
             for (final Key key : keyboard.getSortedKeys()) {
@@ -186,7 +223,9 @@ final class DynamicGridKeyboard extends Keyboard {
                 }
             }
         }
-        return null;
+
+        // fall back to creating the key
+        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, 0, outputText);
     }
 
     public void loadRecentKeys(final Collection<DynamicGridKeyboard> keyboards) {
@@ -250,7 +289,7 @@ final class DynamicGridKeyboard extends Keyboard {
         private int mCurrentX;
         private int mCurrentY;
 
-        public GridKey(@Nonnull final Key originalKey, @Nullable final MoreKeySpec[] moreKeys,
+        public GridKey(@NonNull final Key originalKey, @Nullable final MoreKeySpec[] moreKeys,
              @Nullable final String labelHint, final int backgroundType) {
             super(originalKey, moreKeys, labelHint, backgroundType);
         }

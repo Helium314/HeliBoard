@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- U+00E4: "ä" LATIN SMALL LETTER A WITH DIAERESIS
          U+00E2: "â" LATIN SMALL LETTER A WITH CIRCUMFLEX

@@ -1,43 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-/*
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_input_options" msgid="3909945612939668554">"Опции за внесување"</string>
+<!--
+    Copyright (C) 2008 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Побарај имиња на контакти"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Проверувачот на правопис користи записи од листата со контакти"</string>
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Вибрирање при притисок на копче"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук на притискање копче"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Појавен прозорец на притискање копче"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Претпочитани поставки"</string>
-    <string name="settings_screen_accounts" msgid="2786418968536696670">"Сметки и приватност"</string>
     <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Изглед и распоред"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Пишување со движење"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Корекција на текст"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Напредни"</string>
     <string name="settings_screen_theme" msgid="2137262503543943871">"Тема"</string>
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Овозможи поделена тастатура"</string>
-    <string name="include_other_imes_in_language_switch_list" msgid="4533689960308565519">"Префрли на други влезни методи"</string>
-    <string name="include_other_imes_in_language_switch_list_summary" msgid="840637129103317635">"Копчето за менување јазици покрива и други методи на внес"</string>
+    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Префрли на други влезни методи"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Копче за промена на јазик"</string>
-    <string name="show_language_switch_key_summary" msgid="7343403647474265713">"Покажи кога се овозможени повеќе влезни јазици"</string>
     <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Откажи доцнење за копче"</string>
     <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Без задоцнување"</string>
     <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Стандардно"</string>
@@ -46,7 +27,6 @@
     <string name="use_contacts_dict" msgid="4435317977804180815">"Предложи имиња на контакт"</string>
     <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Употреби имиња од Контакти за предлози и корекции"</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Персонализирани предлози"</string>
-    <string name="enable_metrics_logging" msgid="5506372337118822837">"Подобри <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Точка со два простора"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"Со двоен допир на празно место се вметнува точка и празно место"</string>
     <string name="auto_cap" msgid="1719746674854628252">"Автоматска голема буква"</string>
@@ -73,23 +53,12 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Видете го предложениот збор додека гестикулирате"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Движење за фрази"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Внеси празни места при движења со лизгање до тоа копче"</string>
-    <string name="voice_input" msgid="3583258583521397548">"Копче за влез на глас"</string>
-    <string name="voice_input_disabled_summary" msgid="6323489602945135165">"Не се овозможени методи за гласовен запис. Проверете ги поставките за Јазици и внесување."</string>
     <string name="configure_input_method" msgid="373356270290742459">"Конфигурирај методи на влез"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Јазици"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Помош и повратни информации"</string>
     <string name="select_language" msgid="5709487854987078367">"Јазици"</string>
     <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Допрете повторно за да се зачува"</string>
     <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Допрете тука за да се зачува"</string>
-    <string name="has_dictionary" msgid="6071847973466625007">"Речникот е достапен"</string>
-    <string name="keyboard_layout" msgid="8451164783510487501">"Тема на тастатурата"</string>
-    <string name="switch_accounts" msgid="3321216593719006162">"Префрли сметки"</string>
-    <string name="no_accounts_selected" msgid="2073821619103904330">"Не се избрани сметки"</string>
-    <string name="account_selected" msgid="2846876462199625974">"Во моментов ја користите <xliff:g id="EMAIL_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="account_select_ok" msgid="9141195141763227797">"Во ред"</string>
-    <string name="account_select_cancel" msgid="5181012062618504340">"Откажи"</string>
-    <string name="account_select_sign_out" msgid="3299651159390187933">"Одјави се"</string>
-    <string name="account_select_title" msgid="6279711684772922649">"Изберете ја сметката што ќе ја користите"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"англиски (ОК)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"англиски (САД)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"шпански (САД)"</string>
@@ -116,10 +85,6 @@
     <string name="save" msgid="7646738597196767214">"Зачувај"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Јазик"</string>
     <string name="keyboard_layout_set" msgid="4309233698194565609">"Распоред"</string>
-    <string name="custom_input_style_note_message" msgid="8826731320846363423">"Треба да се овозоможи приспособениот стил на влез пред да почнете да го користите. Дали сакате сега да го овозможите?"</string>
-    <string name="enable" msgid="5031294444630523247">"Овозможи"</string>
-    <string name="not_now" msgid="6172462888202790482">"Не сега"</string>
-    <string name="custom_input_style_already_exists" msgid="8008728952215449707">"Истиот стил на влез веќе постои: <xliff:g id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Траење на вибрација од копче"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Копче за јачина на звук"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Доцнење на долго притискање копче"</string>
@@ -140,33 +105,22 @@
     <string name="setup_step2_action" msgid="1660330307159824337">"Префрли се помеѓу методи на влез"</string>
     <string name="setup_step3_title" msgid="3154757183631490281">"Честитки, завршивте!"</string>
     <string name="setup_step3_instruction" msgid="8025981829605426000">"Сега може да ги впишете сите омилени апликации со <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step3_action" msgid="600879797256942259">"Конфигурирај дополнителни јазици"</string>
     <string name="setup_finish_action" msgid="276559243409465389">"Завршено"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Покажи икона на апликација"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Прикажи икона на апликација во стартувачот"</string>
     <string name="app_name" msgid="6320102637491234792">"Давател на услуга речник"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Давател на услуга речник"</string>
-    <string name="dictionary_service_name" msgid="6237472350693511448">"Услуга Речник"</string>
-    <string name="download_description" msgid="6014835283119198591">"Информации за ажурирање речник"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Додатоци за речници"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Поставки за речници"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Кориснички речници"</string>
     <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Речник на корисникот"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Речникот е достапен"</string>
-    <string name="dictionary_downloading" msgid="2982650524622620983">"Моментално се презема"</string>
-    <string name="dictionary_installed" msgid="8081558343559342962">"Инсталиран"</string>
-    <string name="dictionary_disabled" msgid="8950383219564621762">"Инсталиран, оневозможен"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Проблем при поврзувањето со услугата речник"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Нема достапен речник"</string>
     <string name="check_for_updates_now" msgid="8087688440916388581">"Освежи"</string>
     <string name="last_update" msgid="730467549913588780">"Последен пат ажурирано"</string>
-    <string name="message_updating" msgid="4457761393932375219">"Се проверува за ажурирања"</string>
-    <string name="message_loading" msgid="5638680861387748936">"Се вчитува..."</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Главен речник"</string>
-    <string name="cancel" msgid="6830980399865683324">"Откажи"</string>
     <string name="go_to_settings" msgid="3876892339342569259">"Поставки"</string>
-    <string name="install_dict" msgid="180852772562189365">"Инсталирај"</string>
-    <string name="cancel_download_dict" msgid="7843340278507019303">"Откажи"</string>
     <string name="delete_dict" msgid="756853268088330054">"Избриши"</string>
     <string name="version_text" msgid="2715354215568469385">"Верзија <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Додај"</string>
@@ -174,7 +128,6 @@
     <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Израз"</string>
     <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Повеќе опции"</string>
     <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Помалку опции"</string>
-    <string name="user_dict_settings_add_dialog_confirm" msgid="4703129507388332950">"Во ред"</string>
     <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Збор:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Кратенка:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Јазик:"</string>
@@ -189,5 +142,5 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"Избриши"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Користи ги системските јазици"</string>
-    <string name="select_input_method">"Измени тастатура"</string>
+    <string name="select_input_method">"Одбери метод на внес"</string>
 </resources>

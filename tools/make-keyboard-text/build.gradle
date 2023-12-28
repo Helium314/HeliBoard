@@ -8,8 +8,9 @@ jar {
     }
 }
 
-task makeText(type: JavaExec, dependsOn: ['jar']) {
-    main = '-jar'
+tasks.register('makeText', JavaExec) {
+    dependsOn['jar']
+    mainClass = '-jar'
     args jar.archiveFile.get()
     args '-java'
     args project.rootProject.project('app').projectDir.path + File.separator + 'src' +
@@ -17,6 +18,6 @@ task makeText(type: JavaExec, dependsOn: ['jar']) {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }

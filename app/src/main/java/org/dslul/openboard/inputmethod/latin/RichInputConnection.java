@@ -1,28 +1,21 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
@@ -31,9 +24,12 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
-import org.dslul.openboard.inputmethod.compat.InputConnectionCompatUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 import org.dslul.openboard.inputmethod.latin.common.UnicodeSurrogate;
 import org.dslul.openboard.inputmethod.latin.inputlogic.PrivateCommandPerformer;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
@@ -46,9 +42,6 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Enrichment class for InputConnection to simplify interaction and add functionality.
@@ -251,6 +244,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     private boolean reloadTextCache() {
         mCommittedTextBeforeComposingText.setLength(0);
+        // Clearing composing text was not in original AOSP and OpenBoard, but why? should actually
+        // be necessary when reloading text. Only when called by setSelection, mComposingText isn't
+        // always empty, but looks like things still work normally
+        mComposingText.setLength(0);
         mIC = mParent.getCurrentInputConnection();
         // Call upon the inputconnection directly since our own method is using the cache, and
         // we want to refresh it.
@@ -303,8 +300,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         mCommittedTextBeforeComposingText.append(text);
         // TODO: the following is exceedingly error-prone. Right now when the cursor is in the
-        // middle of the composing word mComposingText only holds the part of the composing text
-        // that is before the cursor, so this actually works, but it's terribly confusing. Fix this.
+        //  middle of the composing word mComposingText only holds the part of the composing text
+        //  that is before the cursor, so this actually works, but it's terribly confusing. Fix this.
         mExpectedSelStart += text.length() - mComposingText.length();
         mExpectedSelEnd = mExpectedSelStart;
         mComposingText.setLength(0);
@@ -374,10 +371,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return TextUtils.CAP_MODE_CHARACTERS & inputType;
         }
         // TODO: this will generally work, but there may be cases where the buffer contains SOME
-        // information but not enough to determine the caps mode accurately. This may happen after
-        // heavy pressing of delete, for example DEFAULT_TEXT_CACHE_SIZE - 5 times or so.
-        // getCapsMode should be updated to be able to return a "not enough info" result so that
-        // we can get more context only when needed.
+        //  information but not enough to determine the caps mode accurately. This may happen after
+        //  heavy pressing of delete, for example DEFAULT_TEXT_CACHE_SIZE - 5 times or so.
+        //  getCapsMode should be updated to be able to return a "not enough info" result so that
+        //  we can get more context only when needed.
         if (TextUtils.isEmpty(mCommittedTextBeforeComposingText) && 0 != mExpectedSelStart) {
             if (!reloadTextCache()) {
                 Log.w(TAG, "Unable to connect to the editor. "
@@ -387,20 +384,28 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // This never calls InputConnection#getCapsMode - in fact, it's a static method that
         // never blocks or initiates IPC.
         // TODO: don't call #toString() here. Instead, all accesses to
-        // mCommittedTextBeforeComposingText should be done on the main thread.
+        //  mCommittedTextBeforeComposingText should be done on the main thread.
         return CapsModeUtils.getCapsMode(mCommittedTextBeforeComposingText.toString(), inputType,
                 spacingAndPunctuations, hasSpaceBefore);
     }
 
     public int getCodePointBeforeCursor() {
-        final int length = mCommittedTextBeforeComposingText.length();
+        final CharSequence text = mComposingText.length() == 0 ? mCommittedTextBeforeComposingText : mComposingText;
+        final int length = text.length();
         if (length < 1) return Constants.NOT_A_CODE;
-        return Character.codePointBefore(mCommittedTextBeforeComposingText, length);
+        return Character.codePointBefore(text, length);
+    }
+
+    public int getCharBeforeBeforeCursor() {
+        if (mComposingText.length() >= 2) return mComposingText.charAt(mComposingText.length() - 2);
+        final int length = mCommittedTextBeforeComposingText.length();
+        if (mComposingText.length() == 1) return mCommittedTextBeforeComposingText.charAt(length - 1);
+        if (length < 2) return Constants.NOT_A_CODE;
+        return mCommittedTextBeforeComposingText.charAt(length - 2);
     }
 
     public CharSequence getTextBeforeCursor(final int n, final int flags) {
-        final int cachedLength =
-                mCommittedTextBeforeComposingText.length() + mComposingText.length();
+        final int cachedLength = mCommittedTextBeforeComposingText.length() + mComposingText.length();
         // If we have enough characters to satisfy the request, or if we have all characters in
         // the text field, then we can return the cached version right away.
         // However, if we don't have an expected cursor position, then we should always
@@ -466,14 +471,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             Log.w(TAG, "Slow InputConnection: " + operationName + " took " + duration + " ms.");
             StatsUtils.onInputConnectionLaggy(operation, duration);
             mLastSlowInputConnectionTime = SystemClock.uptimeMillis();
+        } else if (duration < timeout / 5 && hasSlowInputConnection()) {
+            // we have a fast connection now, maybe the slowness was just a hickup
+            mLastSlowInputConnectionTime -= SLOW_INPUTCONNECTION_PERSIST_MS / 2;
+            Log.d(TAG, "InputConnection: much faster now, reducing persist time");
         }
     }
 
     public void deleteTextBeforeCursor(final int beforeLength) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         // TODO: the following is incorrect if the cursor is not immediately after the composition.
-        // Right now we never come here in this case because we reset the composing state before we
-        // come here in this case, but we need to fix this.
+        //  Right now we never come here in this case because we reset the composing state before we
+        //  come here in this case, but we need to fix this.
         final int remainingChars = mComposingText.length() - beforeLength;
         if (remainingChars >= 0) {
             mComposingText.setLength(remainingChars);
@@ -589,7 +598,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mComposingText.setLength(0);
         mComposingText.append(text);
         // TODO: support values of newCursorPosition != 1. At this time, this is never called with
-        // newCursorPosition != 1.
+        //  newCursorPosition != 1.
         if (isConnected()) {
             mIC.setComposingText(text, newCursorPosition);
         }
@@ -624,6 +633,26 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return reloadTextCache();
     }
 
+    public void selectAll() {
+        mIC.performContextMenuAction(android.R.id.selectAll);
+        // the rest is done via LatinIME.onUpdateSelection
+    }
+
+    public void copyText() {
+        // copy selected text, and if nothing is selected copy the whole text
+        CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+        if (text == null || text.length() == 0) {
+            // we have no selection, get the whole text
+            ExtractedTextRequest etr = new ExtractedTextRequest();
+            etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
+            etr.hintMaxChars = Integer.MAX_VALUE;
+            text = mIC.getExtractedText(etr, 0).text;
+        }
+        if (text == null) return;
+        final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
+    }
+
     public void commitCorrection(final CorrectionInfo correctionInfo) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
@@ -651,8 +680,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
     }
 
-    @SuppressWarnings("unused")
-    @Nonnull
+    @NonNull
     public NgramContext getNgramContextFromNthPreviousWord(
             final SpacingAndPunctuations spacingAndPunctuations, final int n) {
         mIC = mParent.getCurrentInputConnection();
@@ -665,21 +693,19 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             final String reference = prev.length() <= checkLength ? prev.toString()
                     : prev.subSequence(prev.length() - checkLength, prev.length()).toString();
             // TODO: right now the following works because mComposingText holds the part of the
-            // composing text that is before the cursor, but this is very confusing. We should
-            // fix it.
+            //  composing text that is before the cursor, but this is very confusing. We should
+            //  fix it.
             final StringBuilder internal = new StringBuilder()
                     .append(mCommittedTextBeforeComposingText).append(mComposingText);
             if (internal.length() > checkLength) {
                 internal.delete(0, internal.length() - checkLength);
                 if (!(reference.equals(internal.toString()))) {
-                    final String context =
-                            "Expected text = " + internal + "\nActual text = " + reference;
+                    final String context = "Expected text = " + internal + "\nActual text = " + reference;
                     ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
                 }
             }
         }
-        return NgramContextUtils.getNgramContextFromNthPreviousWord(
-                prev, spacingAndPunctuations, n);
+        return NgramContextUtils.getNgramContextFromNthPreviousWord(prev, spacingAndPunctuations, n);
     }
 
     private static boolean isPartOfCompositionForScript(final int codePoint,
@@ -699,7 +725,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * @return a range containing the text surrounding the cursor
      */
     public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final int scriptId) {
+            final int scriptId, final boolean justDeleted) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -718,46 +744,48 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             return null;
         }
 
-        // what is sometimes happening (depending on app, or maybe input field attributes):
-        //  we just pressed delete, and getTextBeforeCursor gets the correct text,
-        //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
-        //  -> detect this difference, and try to fix it
-        // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
-        //  mCommittedTextBeforeComposingText where the text is cached
-        // (this check is really annoyingly long for the simple thing to be done)
-        if (before.length() > 0 && after.length() == 0) {
-            final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
-            if (!isPartOfCompositionForScript(lastBeforeCodePoint, spacingAndPunctuations, scriptId)) {
-                // before ends with separator or similar -> check whether text before cursor ends with the same codepoint
-                int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
-                CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
-                if (codePointBeforeCursor.length() != 0 && Character.codePointAt(codePointBeforeCursor, 0) != lastBeforeCodePoint) {
-                    // they are different, as is expected from the issue
-                    // now check whether they are the same if the last codepoint of before is removed
-                    final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
-                    final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
-                    if (beforeCursor.length() == beforeWithoutLast.length()) {
-                        boolean same = true;
-                        // CharSequence has undefined equals
-                        for (int i = 0; i < beforeCursor.length(); i++) {
-                            if (beforeCursor.charAt(i) != beforeWithoutLast.charAt(i)) {
-                                same = false;
-                                break;
-                            }
-                        }
-                        if (same) {
-                            before = beforeWithoutLast;
-                        }
-                    }
-                }
-            }
+        // we need text before, and text after is either empty or a separator or similar
+        if (justDeleted && before.length() > 0 &&
+                (after.length() == 0
+                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, scriptId)
+                )
+        ) {
+            // issue:
+            //  type 2 words and space, press delete twice -> remaining word and space before are selected
+            //   now on next key press, the space before the word is removed
+            //  or complete a word by choosing a suggestion, then press backspace -> same thing
+            // what is sometimes happening (depending on app, or maybe input field attributes):
+            //  we just pressed delete, and getTextBeforeCursor gets the correct text,
+            //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
+            //  -> we try to detect this difference, and then try to fix it
+            // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
+            //  mCommittedTextBeforeComposingText, where the text is cached
+            // what could be actually going on? we probably need to fetch the text, because we want updated styles (if any)
+            before = fixIncorrectLength(before);
         }
 
         // Going backward, find the first breaking point (separator)
         int startIndexInBefore = before.length();
+        int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
             final int codePoint = Character.codePointBefore(before, startIndexInBefore);
             if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                    break;
+                // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                for (int i = startIndexInBefore - 1; i >= 0; i--) {
+                    final char c = before.charAt(i);
+                    if (spacingAndPunctuations.isSometimesWordConnector(c)) {
+                        // if yes -> whitespace is the index
+                        startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
+                        final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
+                        endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter -1;
+                        break;
+                    } else if (Character.isWhitespace(c)) {
+                        // if no, just break normally
+                        break;
+                    }
+                }
                 break;
             }
             --startIndexInBefore;
@@ -767,15 +795,46 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
 
         // Find last word separator after the cursor
-        int endIndexInAfter = -1;
-        while (++endIndexInAfter < after.length()) {
-            final int codePoint = Character.codePointAt(after, endIndexInAfter);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
-                break;
+        if (endIndexInAfter == -1) {
+            while (++endIndexInAfter < after.length()) {
+                final int codePoint = Character.codePointAt(after, endIndexInAfter);
+                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                    if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
+                        break;
+                    // continue to the next whitespace and see whether this contains a sometimesWordConnector
+                    for (int i = endIndexInAfter; i < after.length(); i++) {
+                        final char c = after.charAt(i);
+                        if (spacingAndPunctuations.isSometimesWordConnector(c)) {
+                            // if yes -> whitespace is next to the index
+                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
+                            final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
+                            endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter - 1;
+                            break;
+                        } else if (Character.isWhitespace(c)) {
+                            // if no, just break normally
+                            break;
+                        }
+                    }
+                    break;
+                }
+                if (Character.isSupplementaryCodePoint(codePoint)) {
+                    ++endIndexInAfter;
+                }
             }
-            if (Character.isSupplementaryCodePoint(codePoint)) {
-                ++endIndexInAfter;
-            }
+        }
+
+        // strip stuff before "//" (i.e. ignore http and other protocols)
+        final String beforeConsideringStart = before.subSequence(startIndexInBefore, before.length()).toString();
+        final int protocolEnd = beforeConsideringStart.lastIndexOf("//");
+        if (protocolEnd != -1)
+            startIndexInBefore += protocolEnd + 1;
+
+        // we don't want the end characters to be word separators
+        while (endIndexInAfter > 0 && spacingAndPunctuations.isWordSeparator(after.charAt(endIndexInAfter - 1))) {
+            --endIndexInAfter;
+        }
+        while (startIndexInBefore < before.length() && spacingAndPunctuations.isWordSeparator(before.charAt(startIndexInBefore))) {
+            ++startIndexInBefore;
         }
 
         final boolean hasUrlSpans =
@@ -788,6 +847,37 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
                         startIndexInBefore, before.length() + endIndexInAfter, before.length(),
                         hasUrlSpans);
+    }
+
+    // mostly fixes an issue where the space before the word is selected after deleting a codepoint,
+    // because the text length is not yet updated in the field (i.e. trying to select "word length"
+    // before cursor, but the last letter has just been deleted and thus the space before is also selected)
+    private CharSequence fixIncorrectLength(final CharSequence before) {
+        // don't use codepoints, just do the simple thing...
+        int initialCheckLength = Math.min(3, before.length());
+        // this should have been checked before calling this method, but better be safe
+        if (initialCheckLength == 0) return before;
+        final CharSequence lastCharsInBefore = before.subSequence(before.length() - initialCheckLength, before.length());
+        final CharSequence lastCharsBeforeCursor = getTextBeforeCursor(initialCheckLength, 0);
+        // if the last 3 chars are equal, we can be relatively sure to not have this bug (can still be e.g. rrrr, which is not detected)
+        // (we could also check everything though, it's just a little slower)
+        if (TextUtils.equals(lastCharsInBefore, lastCharsBeforeCursor)) return before;
+
+        // delete will hopefully have deleted a codepoint, not only a char
+        // we want to compare whether the text before the cursor is the same as "before" without
+        // the last codepoint. if yes, return "before" without the last codepoint
+        final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
+        int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
+        final CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
+        if (codePointBeforeCursor.length() == 0) return before;
+
+        // now check whether they are the same if the last codepoint of before is removed
+        final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
+        final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
+        if (beforeCursor.length() != beforeWithoutLast.length()) return before;
+        if (TextUtils.equals(beforeCursor, beforeWithoutLast))
+            return beforeWithoutLast;
+        return before;
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,
@@ -931,12 +1021,42 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return StringUtils.lastPartLooksLikeURL(mCommittedTextBeforeComposingText);
     }
 
+    public boolean nonWordCodePointAndNoSpaceBeforeCursor(final SpacingAndPunctuations spacingAndPunctuations) {
+        return StringUtilsKt.nonWordCodePointAndNoSpaceBeforeCursor(mCommittedTextBeforeComposingText, spacingAndPunctuations);
+    }
+
     public boolean spaceBeforeCursor() {
         return mCommittedTextBeforeComposingText.indexOf(" ") != -1;
     }
 
+    public boolean hasLetterBeforeLastSpaceBeforeCursor() {
+        return StringUtilsKt.hasLetterBeforeLastSpaceBeforeCursor(mCommittedTextBeforeComposingText);
+    }
+
     public boolean wordBeforeCursorMayBeEmail() {
         return mCommittedTextBeforeComposingText.lastIndexOf(" ") < mCommittedTextBeforeComposingText.lastIndexOf("@");
+    }
+
+    public CharSequence textBeforeCursorUntilLastWhitespaceOrDoubleSlash() {
+        int startIndex = 0;
+        boolean previousWasSlash = false;
+        for (int i = mCommittedTextBeforeComposingText.length() - 1; i >= 0; i--) {
+            final char c = mCommittedTextBeforeComposingText.charAt(i);
+            if (Character.isWhitespace(c)) {
+                startIndex = i + 1;
+                break;
+            }
+            if (c == '/') {
+                if (previousWasSlash) {
+                    startIndex = i + 2;
+                    break;
+                }
+                previousWasSlash = true;
+            } else {
+                previousWasSlash = false;
+            }
+        }
+        return mCommittedTextBeforeComposingText.subSequence(startIndex, mCommittedTextBeforeComposingText.length());
     }
 
     /**
@@ -1029,19 +1149,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     /**
-     * Work around a bug that was present before Jelly Bean upon rotation.
-     *
-     * Before Jelly Bean, there is a bug where setComposingRegion and other committing
-     * functions on the input connection get ignored until the cursor moves. This method works
-     * around the bug by wiggling the cursor first, which reactivates the connection and has
-     * the subsequent methods work, then restoring it to its original position.
-     *
-     * On platforms on which this method is not present, this is a no-op.
-     */
-    public void maybeMoveTheCursorAroundAndRestoreToWorkaroundABug() {
-    }
-
-    /**
      * Requests the editor to call back {@link InputMethodManager#updateCursorAnchorInfo}.
      * @param enableMonitor {@code true} to request the editor to call back the method whenever the
      * cursor/anchor position is changed.
@@ -1058,7 +1165,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (!isConnected()) {
             return false;
         }
-        return InputConnectionCompatUtils.requestCursorUpdates(
-                mIC, enableMonitor, requestImmediateCallback);
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP)
+            return false;
+        final int cursorUpdateMode = (enableMonitor ? InputConnection.CURSOR_UPDATE_MONITOR : 0)
+            | (requestImmediateCallback ? InputConnection.CURSOR_UPDATE_IMMEDIATE : 0);
+        return mIC.requestCursorUpdates(cursorUpdateMode);
     }
 }

@@ -1,8 +1,18 @@
+/*
+ * Copyright (C) 2006 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+
 package org.dslul.openboard.inputmethod.compat;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.widget.TabHost;
+
+import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 /*
  * Custom version of {@link TabHost} that triggers its {@link TabHost.OnTabChangeListener} when

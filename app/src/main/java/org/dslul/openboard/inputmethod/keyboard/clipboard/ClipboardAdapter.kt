@@ -1,6 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -9,11 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryEntry
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 
 class ClipboardAdapter(
@@ -56,12 +57,8 @@ class ClipboardAdapter(
                 setOnTouchListener(this@ViewHolder)
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
-                val colors = Settings.getInstance().current.mColors
-                if (colors.isCustom) {
-                    DrawableCompat.setTintList(background, colors.keyStateList)
-                    DrawableCompat.setTintMode(background, PorterDuff.Mode.MULTIPLY)
-                }
             }
+            Settings.getInstance().current.mColors.setBackground(view, ColorType.KEY_BACKGROUND)
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
                 visibility = View.GONE
                 setImageResource(pinnedIconResId)
@@ -72,6 +69,8 @@ class ClipboardAdapter(
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize)
             }
             clipboardLayoutParams.setItemProperties(view)
+            val colors = Settings.getInstance().current.mColors
+            colors.setColor(pinnedIconView, ColorType.CLIPBOARD_PIN)
         }
 
         fun setContent(historyEntry: ClipboardHistoryEntry?) {

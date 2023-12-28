@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard;
@@ -25,6 +15,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.MoreKeysKeyboardAccessibilityDelegate;
@@ -64,10 +56,6 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
         final TypedArray moreKeysKeyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.MoreKeysKeyboardView, defStyle, R.style.MoreKeysKeyboardView);
         mDivider = moreKeysKeyboardViewAttr.getDrawable(R.styleable.MoreKeysKeyboardView_divider);
-        if (mDivider != null) {
-            // TODO: Drawable itself should have an alpha value.
-            mDivider.setAlpha(128);
-        }
         moreKeysKeyboardViewAttr.recycle();
         mKeyDetector = new MoreKeysDetector(getResources().getDimension(
                 R.dimen.config_more_keys_keyboard_slide_allowance));
@@ -86,8 +74,8 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
     }
 
     @Override
-    protected void onDrawKeyTopVisuals(final Key key, final Canvas canvas, final Paint paint,
-            final KeyDrawParams params) {
+    protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
+            @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (!key.isSpacer() || !(key instanceof MoreKeysKeyboard.MoreKeyDivider)
                 || mDivider == null) {
             super.onDrawKeyTopVisuals(key, canvas, paint, params);
@@ -103,7 +91,7 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
     }
 
     @Override
-    public void setKeyboard(final Keyboard keyboard) {
+    public void setKeyboard(@NonNull final Keyboard keyboard) {
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(
                 keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());

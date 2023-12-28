@@ -1,6 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package org.dslul.openboard.inputmethod.latin.utils
 
-import android.app.AlertDialog
 import android.os.IBinder
 import android.text.Spannable
 import android.text.SpannableString
@@ -9,12 +10,13 @@ import android.text.style.RelativeSizeSpan
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
+import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 
 // similar to what showSubtypePicker does in https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/RichInputMethodManager.java
-fun showInputMethodPicker(latinIme: LatinIME, richImm: RichInputMethodManager, windowToken: IBinder) {
+fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodManager, windowToken: IBinder): AlertDialog {
     val pm = latinIme.packageManager
     val thisImi = richImm.inputMethodInfoOfThisIme
     val currentSubtype = richImm.currentSubtype.rawSubtype
@@ -76,5 +78,5 @@ fun showInputMethodPicker(latinIme: LatinIME, richImm: RichInputMethodManager, w
     layoutParams?.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG
     window?.attributes = layoutParams
     window?.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-    dialog.show()
+    return dialog
 }

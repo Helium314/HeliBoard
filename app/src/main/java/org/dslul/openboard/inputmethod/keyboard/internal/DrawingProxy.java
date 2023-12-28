@@ -1,27 +1,17 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysPanel;
 import org.dslul.openboard.inputmethod.keyboard.PointerTracker;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public interface DrawingProxy {
     /**
@@ -29,14 +19,14 @@ public interface DrawingProxy {
      * @param key the {@link Key} that is being pressed.
      * @param withPreview true if key popup preview should be displayed.
      */
-    void onKeyPressed(@Nonnull Key key, boolean withPreview);
+    void onKeyPressed(@NonNull Key key, boolean withPreview);
 
     /**
      * Called when a key is being released.
      * @param key the {@link Key} that is being released.
      * @param withAnimation when true, key popup preview should be dismissed with animation.
      */
-    void onKeyReleased(@Nonnull Key key, boolean withAnimation);
+    void onKeyReleased(@NonNull Key key, boolean withAnimation);
 
     /**
      * Start showing more keys keyboard of a key that is being long pressed.
@@ -46,7 +36,7 @@ public interface DrawingProxy {
      *     keyboard.
      */
     @Nullable
-    MoreKeysPanel showMoreKeysKeyboard(@Nonnull Key key, @Nonnull PointerTracker tracker);
+    MoreKeysPanel showMoreKeysKeyboard(@NonNull Key key, @NonNull PointerTracker tracker);
 
     /**
      * Start a while-typing-animation.
@@ -70,7 +60,7 @@ public interface DrawingProxy {
      * @param showsFloatingPreviewText when true, a gesture floating preview text will be shown
      * with this <code>tracker</code>'s trail.
      */
-    void showGestureTrail(@Nonnull PointerTracker tracker, boolean showsFloatingPreviewText);
+    void showGestureTrail(@NonNull PointerTracker tracker, boolean showsFloatingPreviewText);
 
     /**
      * Dismiss a gesture floating preview text without delay.

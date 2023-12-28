@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2013 The Android Open Source Project
+    SPDX-License-Identifier: Apache-2.0
+-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Action keys. -->
+    <item android:state_active="true" android:state_pressed="true"
+          android:drawable="@drawable/btn_keyboard_key_pressed_klp_dark" />
+    <item android:state_active="true"
+          android:drawable="@drawable/btn_keyboard_key_active_klp_dark" />
+
+    <!-- Toggle keys. Use checkable/checked state. -->
+    <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
+          android:drawable="@drawable/btn_keyboard_key_pressed_on_klp_dark" />
+    <item android:state_checkable="true" android:state_pressed="true"
+          android:drawable="@drawable/btn_keyboard_key_pressed_off_klp_dark" />
+    <item android:state_checkable="true" android:state_checked="true"
+          android:drawable="@drawable/btn_keyboard_key_normal_on_klp_dark" />
+    <item android:state_checkable="true"
+          android:drawable="@drawable/btn_keyboard_key_normal_off_holo_dark" />
+
+    <!-- Empty background keys. -->
+    <item android:state_empty="true" android:state_pressed="true"
+          android:drawable="@drawable/btn_keyboard_key_pressed_klp_light" />
+    <item android:state_empty="true"
+          android:drawable="@android:color/transparent" />
+
+    <!-- Normal keys. -->
+    <item android:state_pressed="true"
+          android:drawable="@drawable/btn_keyboard_key_pressed_klp_light" />
+    <item android:drawable="@drawable/btn_keyboard_key_normal_holo_light" />
+</selector>

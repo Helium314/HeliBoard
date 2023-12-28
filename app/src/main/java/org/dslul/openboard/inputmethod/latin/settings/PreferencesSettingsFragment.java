@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -19,23 +9,43 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
+import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.preference.Preference;
+
+import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
+import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
+
+import kotlin.collections.ArraysKt;
 
 public final class PreferencesSettingsFragment extends SubScreenFragment {
 
-    private static final boolean VOICE_IME_ENABLED =
-            true;
+    private boolean mReloadKeyboard = false;
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_preferences);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // need to set icon tint because old android versions don't use the vector drawables
+            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
+                final Preference p = getPreferenceScreen().getPreference(0);
+                final Drawable icon = p.getIcon();
+                if (icon != null)
+                    DrawableCompat.setTint(icon, Color.WHITE);
+            }
+        }
 
         final Resources res = getResources();
         final Context context = getActivity();
@@ -45,11 +55,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
         RichInputMethodManager.init(context);
 
-        final boolean showVoiceKeyOption = res.getBoolean(
-                R.bool.config_enable_show_voice_key_option);
-        if (!showVoiceKeyOption) {
-            removePreference(Settings.PREF_VOICE_INPUT_KEY);
-        }
         if (!AudioAndHapticFeedbackManager.getInstance().hasVibrator()) {
             removePreference(Settings.PREF_VIBRATE_ON);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
@@ -62,39 +67,71 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setupKeypressSoundVolumeSettings();
         setupHistoryRetentionTimeSettings();
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
+        setLocalizedNumberRowVisibility();
+        findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
+        findPreference(Settings.PREF_MORE_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT, R.string.popup_order);
+            return true;
+        });
+        findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT, R.string.hint_source);
+            return true;
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        final Preference voiceInputKeyOption = findPreference(Settings.PREF_VOICE_INPUT_KEY);
-        if (voiceInputKeyOption != null) {
-            RichInputMethodManager.getInstance().refreshSubtypeCaches();
-            boolean voiceKeyEnabled = VOICE_IME_ENABLED && RichInputMethodManager.getInstance().hasShortcutIme();
-            voiceInputKeyOption.setEnabled(voiceKeyEnabled);
-            voiceInputKeyOption.setSummary(voiceKeyEnabled
-                    ? null : getText(R.string.voice_input_disabled_summary));
-        }
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
+        if (key == null) return;
+        switch (key) {
+            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW, Settings.PREF_MORE_KEYS_LABELS_ORDER
+                    -> mReloadKeyboard = true;
+            case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
+            case Settings.PREF_SHOW_HINTS
+                    -> findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mReloadKeyboard)
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
+        mReloadKeyboard = false;
+    }
+
+    private void setLocalizedNumberRowVisibility() {
+        final Preference pref = findPreference(Settings.PREF_LOCALIZED_NUMBER_ROW);
+        if (pref == null) return;
+        // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
+        final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "hi", "mr", "ne", "ur" };
+        for (final InputMethodSubtype subtype : SubtypeSettingsKt.getEnabledSubtypes(getSharedPreferences(), true)) {
+            if (ArraysKt.any(numberRowLocales, (l) -> l.equals(subtype.getLocale().substring(0, 2)))) {
+                pref.setVisible(true);
+                return;
+            }
+        }
+        pref.setVisible(false);
     }
 
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        setPreferenceEnabled(Settings.PREF_VIBRATION_DURATION_SETTINGS,
+        setPreferenceVisible(Settings.PREF_VIBRATION_DURATION_SETTINGS,
                 Settings.readVibrationEnabled(prefs, res));
-        setPreferenceEnabled(Settings.PREF_KEYPRESS_SOUND_VOLUME,
+        setPreferenceVisible(Settings.PREF_KEYPRESS_SOUND_VOLUME,
                 Settings.readKeypressSoundEnabled(prefs, res));
-        setPreferenceEnabled(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+        setPreferenceVisible(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
                 Settings.readClipboardHistoryEnabled(prefs));
     }
 
     private void setupKeypressVibrationDurationSettings() {
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_VIBRATION_DURATION_SETTINGS);
         if (pref == null) {
             return;
@@ -132,20 +169,20 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 if (value < 0) {
                     return res.getString(R.string.settings_system_default);
                 }
-                return res.getString(R.string.abbreviation_unit_milliseconds, value);
+                return res.getString(R.string.abbreviation_unit_milliseconds, Integer.toString(value));
             }
         });
     }
 
     private void setupKeypressSoundVolumeSettings() {
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_KEYPRESS_SOUND_VOLUME);
         if (pref == null) {
             return;
         }
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final AudioManager am = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager am = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
         pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
             private static final float PERCENTAGE_FLOAT = 100.0f;
 
@@ -196,7 +233,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     private void setupHistoryRetentionTimeSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        final SeekBarDialogPreference pref = (SeekBarDialogPreference)findPreference(
+        final SeekBarDialogPreference pref = findPreference(
                 Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
         if (pref == null) {
             return;
@@ -227,7 +264,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 if (value <= 0) {
                     return res.getString(R.string.settings_no_limit);
                 }
-                return res.getString(R.string.abbreviation_unit_minutes, value);
+                return res.getString(R.string.abbreviation_unit_minutes, Integer.toString(value));
             }
 
             @Override

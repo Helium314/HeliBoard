@@ -1,27 +1,18 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.TypedValue;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -185,8 +176,7 @@ public final class ResourceUtils {
     public static int getKeyboardWidth(final Resources res, final SettingsValues settingsValues) {
         final int defaultKeyboardWidth = getDefaultKeyboardWidth(res);
         if (settingsValues.mOneHandedModeEnabled) {
-            return (int) res.getFraction(R.fraction.config_one_handed_mode_width,
-                    defaultKeyboardWidth, defaultKeyboardWidth);
+            return (int) (settingsValues.mOneHandedModeScale * defaultKeyboardWidth);
         }
         return defaultKeyboardWidth;
     }
@@ -197,17 +187,14 @@ public final class ResourceUtils {
     }
 
     public static int getKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
-        final int defaultKeyboardHeight = getDefaultKeyboardHeight(res);
-        if (settingsValues.mHasKeyboardResize) {
-            // mKeyboardHeightScale Ranges from [.5,1.2], from xml/prefs_screen_debug.xml
-            return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
-        }
-        return defaultKeyboardHeight;
+        final int defaultKeyboardHeight = getDefaultKeyboardHeight(res, settingsValues.mShowsNumberRow);
+        // mKeyboardHeightScale Ranges from [.5,1.5], from xml/prefs_screen_appearance.xml
+        return (int)(defaultKeyboardHeight * settingsValues.mKeyboardHeightScale);
     }
 
-    public static int getDefaultKeyboardHeight(final Resources res) {
+    public static int getDefaultKeyboardHeight(final Resources res, final boolean showsNumberRow) {
         final DisplayMetrics dm = res.getDisplayMetrics();
-        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height);
+        final float keyboardHeight = res.getDimension(R.dimen.config_default_keyboard_height) * (showsNumberRow ? 1.25f : 1f);
         final float maxKeyboardHeight = res.getFraction(
                 R.fraction.config_max_keyboard_height, dm.heightPixels, dm.heightPixels);
         float minKeyboardHeight = res.getFraction(
@@ -300,5 +287,10 @@ public final class ResourceUtils {
 
     public static boolean isStringValue(final TypedValue v) {
         return v.type == TypedValue.TYPE_STRING;
+    }
+
+    public static boolean isNight(final Resources res) {
+        // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
+        return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 }

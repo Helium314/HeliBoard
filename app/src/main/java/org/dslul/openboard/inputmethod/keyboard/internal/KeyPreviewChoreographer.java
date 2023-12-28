@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.keyboard.internal;
@@ -21,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
@@ -87,8 +78,7 @@ public final class KeyPreviewChoreographer {
             final KeyDrawParams drawParams, final int keyboardViewWidth, final int[] keyboardOrigin,
             final ViewGroup placerView) {
         final KeyPreviewView keyPreviewView = getKeyPreviewView(key, placerView);
-        placeKeyPreview(
-                key, keyPreviewView, iconsSet, drawParams, keyboardViewWidth, keyboardOrigin);
+        placeKeyPreview(key, keyPreviewView, iconsSet, drawParams, keyboardViewWidth, keyboardOrigin);
         showKeyPreview(key, keyPreviewView);
     }
 
@@ -96,8 +86,7 @@ public final class KeyPreviewChoreographer {
             final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams,
             final int keyboardViewWidth, final int[] originCoords) {
         keyPreviewView.setPreviewVisual(key, iconsSet, drawParams);
-        keyPreviewView.measure(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        keyPreviewView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mParams.setGeometry(keyPreviewView);
         final int previewWidth = keyPreviewView.getMeasuredWidth();
         final int previewHeight = mParams.mPreviewHeight;
@@ -106,8 +95,7 @@ public final class KeyPreviewChoreographer {
         // parent key. If it doesn't fit in this {@link KeyboardView}, it is moved inward to fit and
         // the left/right background is used if such background is specified.
         final int keyPreviewPosition;
-        int previewX = key.getDrawX() - (previewWidth - keyDrawWidth) / 2
-                + CoordinateUtils.x(originCoords);
+        int previewX = key.getDrawX() - (previewWidth - keyDrawWidth) / 2 + CoordinateUtils.x(originCoords);
         if (previewX < 0) {
             previewX = 0;
             keyPreviewPosition = KeyPreviewView.POSITION_LEFT;
@@ -120,17 +108,14 @@ public final class KeyPreviewChoreographer {
         final boolean hasMoreKeys = (key.getMoreKeys() != null);
         keyPreviewView.setPreviewBackground(hasMoreKeys, keyPreviewPosition);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        if (colors.isCustom) {
-            keyPreviewView.getBackground().setColorFilter(colors.backgroundFilter);
-            keyPreviewView.setTextColor(colors.keyText);
-        }
+        colors.setBackground(keyPreviewView, ColorType.KEY_PREVIEW);
+
         // The key preview is placed vertically above the top edge of the parent key with an
         // arbitrary offset.
         final int previewY = key.getY() - previewHeight + key.getHeight() - mParams.mPreviewOffset
                 + CoordinateUtils.y(originCoords);
 
-        ViewLayoutUtils.placeViewAt(
-                keyPreviewView, previewX, previewY, previewWidth, previewHeight);
+        ViewLayoutUtils.placeViewAt(keyPreviewView, previewX, previewY, previewWidth, previewHeight);
         keyPreviewView.setPivotX(previewWidth / 2.0f);
         keyPreviewView.setPivotY(previewHeight);
     }

@@ -1,24 +1,15 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import androidx.annotation.NonNull;
 
-import javax.annotation.Nonnull;
+import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 
 public final class Constants {
 
@@ -48,12 +39,6 @@ public final class Constants {
         public static final String NO_MICROPHONE = "noMicrophoneKey";
 
         /**
-         * The private IME option used to indicate that no settings key should be shown for a given
-         * text field.
-         */
-        public static final String NO_SETTINGS_KEY = "noSettingsKey";
-
-        /**
          * The private IME option used to indicate that the given text field needs ASCII code points
          * input.
          *
@@ -80,6 +65,12 @@ public final class Constants {
          */
         public static final String KEYBOARD_MODE = "keyboard";
 
+        // some extra values:
+        //  TrySuppressingImeSwitcher: not documented, but used in Android source
+        //  AsciiCapable: not used, but recommended for Android 9- because of known issues
+        //  SupportTouchPositionCorrection: never read, never used outside AOSP keyboard -> can be removed?
+        //  EmojiCapable: there is some description in Constants, but actually it's never read
+        //  KeyboardLayoutSet: obvious
         public static final class ExtraValue {
             /**
              * The subtype extra value used to indicate that this subtype is capable of
@@ -99,12 +90,6 @@ public final class Constants {
              * entering emoji characters.
              */
             public static final String EMOJI_CAPABLE = "EmojiCapable";
-
-            /**
-             * The subtype extra value used to indicate that this subtype requires a network
-             * connection to work.
-             */
-            public static final String REQ_NETWORK_CONNECTIVITY = "requireNetworkConnectivity";
 
             /**
              * The subtype extra value used to indicate that the display name of this subtype
@@ -177,7 +162,7 @@ public final class Constants {
     // Key events coming any faster than this are long-presses.
     public static final int LONG_PRESS_MILLISECONDS = 200;
     // TODO: Set this value appropriately.
-    public static final int GET_SUGGESTED_WORDS_TIMEOUT = 200;
+    public static final int GET_SUGGESTED_WORDS_TIMEOUT = BuildConfig.DEBUG ? 500 : 200; // debug build is slow, and timeout is annoying for testing
     // How many continuous deletes at which to start deleting at a higher speed.
     public static final int DELETE_ACCELERATE_AT = 20;
 
@@ -217,8 +202,8 @@ public final class Constants {
     public static final int CODE_CLOSING_SQUARE_BRACKET = ']';
     public static final int CODE_CLOSING_CURLY_BRACKET = '}';
     public static final int CODE_CLOSING_ANGLE_BRACKET = '>';
-    public static final int CODE_INVERTED_QUESTION_MARK = 0xBF; // ¿
-    public static final int CODE_INVERTED_EXCLAMATION_MARK = 0xA1; // ¡
+    public static final int CODE_INVERTED_QUESTION_MARK = '¿';
+    public static final int CODE_INVERTED_EXCLAMATION_MARK = '¡';
     public static final int CODE_GRAVE_ACCENT = '`';
     public static final int CODE_CIRCUMFLEX_ACCENT = '^';
     public static final int CODE_TILDE = '~';
@@ -253,14 +238,22 @@ public final class Constants {
     public static final int CODE_NUMPAD = -20;
     public static final int CODE_ALPHA_FROM_NUMPAD = -21;
     public static final int CODE_SYMBOL_FROM_NUMPAD = -22;
+    public static final int CODE_SELECT_ALL = -23;
+    public static final int CODE_COPY = -24;
+    public static final int CODE_LEFT = -25;
+    public static final int CODE_RIGHT = -26;
+    public static final int CODE_UP = -27;
+    public static final int CODE_DOWN = -28;
+    public static final int CODE_UNDO = -29;
+    public static final int CODE_REDO = -30;
     // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -23;
+    public static final int CODE_UNSPECIFIED = -200;
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;
     }
 
-    @Nonnull
+    @NonNull
     public static String printableCode(final int code) {
         switch (code) {
         case CODE_SHIFT: return "shift";
@@ -296,8 +289,8 @@ public final class Constants {
         }
     }
 
-    @Nonnull
-    public static String printableCodes(@Nonnull final int[] codes) {
+    @NonNull
+    public static String printableCodes(@NonNull final int[] codes) {
         final StringBuilder sb = new StringBuilder();
         boolean addDelimiter = false;
         for (final int code : codes) {

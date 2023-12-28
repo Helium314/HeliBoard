@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.settings;
@@ -19,16 +9,16 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import static org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager.get;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.SwitchPreference;
-import android.text.TextUtils;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
+import androidx.preference.TwoStatePreference;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
@@ -60,40 +50,41 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     private static final boolean DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS = false;
     private static final boolean USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS =
             DBG_USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS;
-    private SwitchPreference mLookupContactsPreference;
+    private SwitchPreferenceCompat mLookupContactsPreference;
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_correction);
 
-        final Context context = getActivity();
-        final PackageManager pm = context.getPackageManager();
+        final PackageManager pm = requireContext().getPackageManager();
 
         final Preference editPersonalDictionary =
                 findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
         final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
         final ResolveInfo ri = USE_INTERNAL_PERSONAL_DICTIONARY_SETTINGS ? null
-                : pm.resolveActivity(
-                        editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                : pm.resolveActivity(editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
         if (ri == null) {
             overwriteUserDictionaryPreference(editPersonalDictionary);
         }
-        mLookupContactsPreference = (SwitchPreference) findPreference(
-                AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+        mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
 
         refreshEnabledSettings();
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (TextUtils.equals(key, AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY)
+        if (AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY.equals(key)
                 && prefs.getBoolean(key, false)
-                && !PermissionsUtil.checkAllPermissionsGranted(
-                getActivity() /* context */, Manifest.permission.READ_CONTACTS)
+                && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)
         ) {
-            get(getActivity() /* context */).requestPermissions(this /* PermissionsResultCallback */,
-                    getActivity() /* activity */, Manifest.permission.READ_CONTACTS);
+            get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
+        } else if (Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && !prefs.getBoolean(key, true)) {
+            new AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.disable_personalized_dicts_message)
+                    .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((TwoStatePreference) findPreference(key)).setChecked(true))
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
         }
         refreshEnabledSettings();
     }
@@ -114,15 +105,14 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     }
 
     private void refreshEnabledSettings() {
-        setPreferenceEnabled(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
-                Settings.readAutoCorrectEnabled(getSharedPreferences(), getResources()));
-        setPreferenceEnabled(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
+        setPreferenceVisible(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
+                Settings.readAutoCorrectEnabled(getSharedPreferences()));
+        setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         turnOffLookupContactsIfNoPermission();
     }
 
     private void overwriteUserDictionaryPreference(final Preference userDictionaryPreference) {
-        final Activity activity = getActivity();
-        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(activity);
+        final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
         if (null == localeList) {
             // The locale list is null if and only if the user dictionary service is
             // not present or disabled. In this case we need to remove the preference.

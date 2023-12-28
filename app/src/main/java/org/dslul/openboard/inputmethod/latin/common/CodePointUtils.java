@@ -1,26 +1,16 @@
 /*
  * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.common;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 
 import java.util.Random;
-
-import javax.annotation.Nonnull;
 
 // Utility methods related with code points used for tests.
 // TODO: Figure out where this class should be.
@@ -67,9 +57,9 @@ public class CodePointUtils {
     };
 
     @UsedForTesting
-    @Nonnull
+    @NonNull
     public static int[] generateCodePointSet(final int codePointSetSize,
-            @Nonnull final Random random) {
+            @NonNull final Random random) {
         final int[] codePointSet = new int[codePointSetSize];
         for (int i = codePointSet.length - 1; i >= 0; ) {
             final int r = Math.abs(random.nextInt());
@@ -94,9 +84,9 @@ public class CodePointUtils {
      * Generates a random word.
      */
     @UsedForTesting
-    @Nonnull
-    public static String generateWord(@Nonnull final Random random,
-            @Nonnull final int[] codePointSet) {
+    @NonNull
+    public static String generateWord(@NonNull final Random random,
+            @NonNull final int[] codePointSet) {
         final StringBuilder builder = new StringBuilder();
         // 8 * 4 = 32 chars max, but we do it the following way so as to bias the random toward
         // longer words. This should be closer to natural language, and more importantly, it will

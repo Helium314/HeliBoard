@@ -1,26 +1,19 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+import android.widget.Toast;
 
+import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
 
 import java.io.File;
@@ -53,7 +46,7 @@ public final class DictionaryFactory {
 
         final LinkedList<Dictionary> dictList = new LinkedList<>();
         ArrayList<AssetFileAddress> assetFileList =
-                BinaryDictionaryGetter.getDictionaryFiles(locale, context, true, false);
+                BinaryDictionaryGetter.getDictionaryFiles(locale, context, false);
 
         boolean mainFound = false;
         for (AssetFileAddress fileAddress : assetFileList) {
@@ -63,14 +56,25 @@ public final class DictionaryFactory {
             }
         }
         if (!mainFound) // try again and allow weaker match
-            assetFileList = BinaryDictionaryGetter.getDictionaryFiles(locale, context, true, true);
+            assetFileList = BinaryDictionaryGetter.getDictionaryFiles(locale, context, true);
 
         for (final AssetFileAddress f : assetFileList) {
+            final DictionaryHeader header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(new File(f.mFilename), f.mOffset, f.mLength);
+            String dictType = Dictionary.TYPE_MAIN;
+            if (header != null) {
+                // make sure the suggested words dictionary has the correct type
+                dictType = header.mIdString.split(":")[0];
+            }
             final ReadOnlyBinaryDictionary readOnlyBinaryDictionary =
                     new ReadOnlyBinaryDictionary(f.mFilename, f.mOffset, f.mLength,
-                            false /* useFullEditDistance */, locale, Dictionary.TYPE_MAIN);
+                            false /* useFullEditDistance */, locale, dictType);
             if (readOnlyBinaryDictionary.isValidDictionary()) {
-                dictList.add(readOnlyBinaryDictionary);
+                if(locale.getLanguage().equals("ko")) {
+                    // Use KoreanDictionary for Korean locale
+                    dictList.add(new KoreanDictionary(readOnlyBinaryDictionary));
+                } else {
+                    dictList.add(readOnlyBinaryDictionary);
+                }
             } else {
                 readOnlyBinaryDictionary.close();
                 // Prevent this dictionary to do any further harm.
@@ -92,38 +96,12 @@ public final class DictionaryFactory {
     public static void killDictionary(final Context context, final AssetFileAddress f) {
         if (f.pointsToPhysicalFile()) {
             f.deleteUnderlyingFile();
-            // Warn the dictionary provider if the dictionary came from there.
-            final ContentProviderClient providerClient;
-            try {
-                providerClient = context.getContentResolver().acquireContentProviderClient(
-                        BinaryDictionaryFileDumper.getProviderUriBuilder("").build());
-            } catch (final SecurityException e) {
-                Log.e(TAG, "No permission to communicate with the dictionary provider", e);
-                return;
-            }
-            if (null == providerClient) {
-                Log.e(TAG, "Can't establish communication with the dictionary provider");
-                return;
-            }
-            final String wordlistId =
-                    DictionaryInfoUtils.getWordListIdFromFileName(new File(f.mFilename).getName());
-            // TODO: this is a reasonable last resort, but it is suboptimal.
-            // The following will remove the entry for this dictionary with the dictionary
-            // provider. When the metadata is downloaded again, we will try downloading it
-            // again.
-            // However, in the practice that will mean the user will find themselves without
-            // the new dictionary. That's fine for languages where it's included in the APK,
-            // but for other languages it will leave the user without a dictionary at all until
-            // the next update, which may be a few days away.
-            // Ideally, we would trigger a new download right away, and use increasing retry
-            // delays for this particular id/version combination.
-            // Then again, this is expected to only ever happen in case of human mistake. If
-            // the wrong file is on the server, the following is still doing the right thing.
-            // If it's a file left over from the last version however, it's not great.
-            BinaryDictionaryFileDumper.reportBrokenFileToDictionaryProvider(
-                    providerClient,
-                    context.getString(R.string.dictionary_pack_client_id),
-                    wordlistId);
+            // notify the user if possible (toast not showing up on Android 13+ when not in settings)
+            //  but not that important, as the not working dictionary should be obvious
+            final String wordlistId = DictionaryInfoUtils.getWordListIdFromFileName(new File(f.mFilename).getName());
+            new Handler(Looper.getMainLooper()).post(() ->
+                    Toast.makeText(context, "dictionary "+wordlistId+" is invalid, deleting", Toast.LENGTH_LONG).show()
+            );
         }
     }
 

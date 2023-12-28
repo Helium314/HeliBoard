@@ -1,17 +1,7 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin;
@@ -21,10 +11,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Process;
-import android.util.Log;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
@@ -94,11 +83,6 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
     }
 
     public static void toggleAppIcon(final Context context) {
-        final int appInfoFlags = context.getApplicationInfo().flags;
-        final boolean isSystemApp = (appInfoFlags & ApplicationInfo.FLAG_SYSTEM) > 0;
-        if (Log.isLoggable(TAG, Log.INFO)) {
-            Log.i(TAG, "toggleAppIcon() : FLAG_SYSTEM = " + isSystemApp);
-        }
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         context.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(context, SetupActivity.class),

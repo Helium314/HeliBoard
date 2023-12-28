@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.majeur.inputmethod.tools.emoji
 
 import com.majeur.inputmethod.tools.emoji.model.EmojiData

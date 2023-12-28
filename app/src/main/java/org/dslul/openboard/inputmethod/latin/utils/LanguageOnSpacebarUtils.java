@@ -1,30 +1,21 @@
 /*
  * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.NonNull;
+
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import javax.annotation.Nonnull;
 
 /**
  * This class determines that the language name on the spacebar should be displayed in what format.
@@ -42,12 +33,12 @@ public final class LanguageOnSpacebarUtils {
     }
 
     public static int getLanguageOnSpacebarFormatType(
-            @Nonnull final RichInputMethodSubtype subtype) {
+            @NonNull final RichInputMethodSubtype subtype) {
         if (subtype.isNoLanguage()) {
             return FORMAT_TYPE_FULL_LOCALE;
         }
         // Only this subtype is enabled and equals to the system locale.
-        if (sEnabledSubtypes.size() < 2 && sIsSystemLanguageSameAsInputLanguage) {
+        if (sEnabledSubtypes.size() < 2 && sIsSystemLanguageSameAsInputLanguage && Settings.getInstance().getCurrent().mSecondaryLocales.isEmpty()) {
             return FORMAT_TYPE_NONE;
         }
         final Locale locale = subtype.getLocale();
@@ -70,12 +61,12 @@ public final class LanguageOnSpacebarUtils {
                 : FORMAT_TYPE_LANGUAGE_ONLY;
     }
 
-    public static void setEnabledSubtypes(@Nonnull final List<InputMethodSubtype> enabledSubtypes) {
+    public static void setEnabledSubtypes(@NonNull final List<InputMethodSubtype> enabledSubtypes) {
         sEnabledSubtypes = enabledSubtypes;
     }
 
-    public static void onSubtypeChanged(@Nonnull final RichInputMethodSubtype subtype,
-           final boolean implicitlyEnabledSubtype, @Nonnull final Locale systemLocale) {
+    public static void onSubtypeChanged(@NonNull final RichInputMethodSubtype subtype,
+           final boolean implicitlyEnabledSubtype, @NonNull final Locale systemLocale) {
         final Locale newLocale = subtype.getLocale();
         if (systemLocale.equals(newLocale)) {
             sIsSystemLanguageSameAsInputLanguage = true;
