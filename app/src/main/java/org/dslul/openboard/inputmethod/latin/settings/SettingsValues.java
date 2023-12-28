@@ -29,6 +29,7 @@ import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 
 import java.util.Arrays;
 import java.util.List;
@@ -108,7 +109,7 @@ public class SettingsValues {
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
-    public final List<String> mPinnedKeys;
+    public final List<ToolbarKey> mPinnedKeys;
     public final float mBottomPaddingScale;
 
     // From the input box

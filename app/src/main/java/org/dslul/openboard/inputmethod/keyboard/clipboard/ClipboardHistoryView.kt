@@ -24,13 +24,9 @@ import org.dslul.openboard.inputmethod.latin.common.ColorType
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
-import org.dslul.openboard.inputmethod.latin.utils.TAG_CLEAR_CLIPBOARD
-import org.dslul.openboard.inputmethod.latin.utils.TAG_COPY
-import org.dslul.openboard.inputmethod.latin.utils.TAG_LEFT
-import org.dslul.openboard.inputmethod.latin.utils.TAG_RIGHT
-import org.dslul.openboard.inputmethod.latin.utils.TAG_SELECT_ALL
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey
 import org.dslul.openboard.inputmethod.latin.utils.createToolbarKey
-import org.dslul.openboard.inputmethod.latin.utils.getCodeForTag
+import org.dslul.openboard.inputmethod.latin.utils.getCodeForToolbarKey
 
 class ClipboardHistoryView @JvmOverloads constructor(
         context: Context,
@@ -67,8 +63,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         spacebarBackground = Settings.getInstance().current.mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
-        val toolbarKeyTags = listOf(TAG_LEFT, TAG_RIGHT, TAG_COPY, TAG_SELECT_ALL, TAG_CLEAR_CLIPBOARD)
-        toolbarKeyTags.forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
+        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.SELECT_ALL, ToolbarKey.CLEAR_CLIPBOARD)
+            .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
 
@@ -226,13 +222,13 @@ class ClipboardHistoryView @JvmOverloads constructor(
             }
         }
         val tag = view.tag
-        if (tag is String) {
-            val code = getCodeForTag(tag)
+        if (tag is ToolbarKey) {
+            val code = getCodeForToolbarKey(tag)
             if (code != null) {
                 keyboardActionListener?.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 return
             }
-            if (tag == TAG_CLEAR_CLIPBOARD)
+            if (tag == ToolbarKey.CLEAR_CLIPBOARD)
                 clipboardHistoryManager?.clearHistory()
         }
     }

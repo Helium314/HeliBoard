@@ -37,11 +37,11 @@ import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
@@ -464,23 +464,27 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
     }
 
-    public static List<String> readPinnedKeys(final SharedPreferences prefs) {
-        final String pinnedKeysString = prefs.getString(Settings.PREF_PINNED_KEYS, "");
-        if (pinnedKeysString.isEmpty())
-            return new ArrayList<>();
-        return Arrays.asList(pinnedKeysString.split(";"));
+    public static ArrayList<ToolbarKey> readPinnedKeys(final SharedPreferences prefs) {
+        final ArrayList<ToolbarKey> list = new ArrayList<>();
+        for (final String key : prefs.getString(Settings.PREF_PINNED_KEYS, "").split(";")) {
+            try {
+                list.add(ToolbarKey.valueOf(key));
+            } catch (IllegalArgumentException e) { } // may happen if toolbar key is removed from app
+        }
+        return list;
     }
 
-    public static void addPinnedKey(final SharedPreferences prefs, final String key) {
-        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+    public static void addPinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
+        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
+        if (keys.contains(key)) return;
         keys.add(key);
-        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
-    public static void removePinnedKey(final SharedPreferences prefs, final String key) {
-        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+    public static void removePinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
+        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
         keys.remove(key);
-        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
     public static int readMoreMoreKeysPref(final SharedPreferences prefs) {
