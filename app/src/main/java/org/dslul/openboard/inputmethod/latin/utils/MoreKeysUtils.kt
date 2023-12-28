@@ -32,9 +32,6 @@ const val MORE_KEYS_ORDER_DEFAULT = "$MORE_KEYS_LANGUAGE_PRIORITY,true;$MORE_KEY
 // todo:
 //  could be done later:
 //   some way to allow hint labels in symbols layout
-//   remove duplicate symbol moreKeys
-//    in remove_symbol_duplicates.patch
-//    issues, see comments
 //   maybe put "language" moreKeys into a different category when not using alphabet layout
 //    because disabling language moreKeys will remove e.g. quote moreKeys
 

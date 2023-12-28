@@ -823,7 +823,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 else -> true
             }
-            val allowRedundantMoreKeys = name != "nordic" && name != "serbian_qwertz"
+            val allowRedundantMoreKeys = name != "nordic" && name != "serbian_qwertz" && params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
             // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
             // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
             // todo: null for MoreKeysKeyboard only
