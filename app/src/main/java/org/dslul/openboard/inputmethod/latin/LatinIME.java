@@ -1690,29 +1690,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return;
         }
 
-        final boolean shouldShowSuggestionCandidates =
-                currentSettingsValues.mInputAttributes.mShouldShowSuggestions
-                        && currentSettingsValues.isSuggestionsEnabledPerUserSettings();
-        final boolean shouldShowSuggestionsStripUnlessPassword = !currentSettingsValues.mPinnedKeys.isEmpty()
-                || shouldShowSuggestionCandidates
-                || currentSettingsValues.isApplicationSpecifiedCompletionsOn();
-        final boolean shouldShowSuggestionsStrip = shouldShowSuggestionsStripUnlessPassword
-                && (!currentSettingsValues.mInputAttributes.mIsPasswordField || !currentSettingsValues.mPinnedKeys.isEmpty());
-        mSuggestionStripView.updateVisibility(shouldShowSuggestionsStrip, isFullscreenMode());
-        if (!shouldShowSuggestionsStrip) {
-            return;
-        }
-
         final boolean isEmptyApplicationSpecifiedCompletions =
                 currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                         && suggestedWords.isEmpty();
         final boolean noSuggestionsFromDictionaries = suggestedWords.isEmpty()
                 || suggestedWords.isPunctuationSuggestions()
                 || isEmptyApplicationSpecifiedCompletions;
-        final boolean isBeginningOfSentencePrediction = (suggestedWords.mInputStyle
-                == SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION);
-        final boolean noSuggestionsToOverrideImportantNotice = noSuggestionsFromDictionaries
-                || isBeginningOfSentencePrediction;
 
         if (currentSettingsValues.isSuggestionsEnabledPerUserSettings()
                 || currentSettingsValues.isApplicationSpecifiedCompletionsOn()

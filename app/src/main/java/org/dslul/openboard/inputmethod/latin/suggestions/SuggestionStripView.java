@@ -231,9 +231,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMainKeyboardView = inputView.findViewById(R.id.keyboard_view);
     }
 
-    public void updateVisibility(final boolean shouldBeVisible, final boolean isFullscreenMode) {
-        final int visibility = shouldBeVisible ? VISIBLE : (isFullscreenMode ? GONE : INVISIBLE);
-        setVisibility(visibility);
+    private void updateKeys() {
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
         final View toolbarVoiceKey = mToolbar.findViewWithTag(ToolbarKey.VOICE);
         if (toolbarVoiceKey != null)
@@ -244,13 +242,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
         mToolbarExpandKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
 
-        // hide toolbar and pinned keys if device is locked
+        // hide pinned keys if device is locked, and avoid expanding toolbar
         final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
-        final boolean hideClipboard = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+        final boolean hideToolbarKeys = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
                 ? km.isDeviceLocked()
                 : km.isKeyguardLocked();
-        mToolbarExpandKey.setVisibility(hideClipboard ? GONE : VISIBLE);
-        mPinnedKeys.setVisibility(hideClipboard ? GONE : VISIBLE);
+        mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
+        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -260,6 +258,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
         clear();
         setRtl(isRtlLanguage);
+        updateKeys();
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
