@@ -48,35 +48,26 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
         // todo: further plan
-        //  after the old parser is removed
-        //   maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
-        //    should be either both in method.xml, or both in assets (actually method might be more suitable)
-        //   go through a lot of todos in parsers, key, keyboardlayoutset, ... as a lot of things should only change after old parser is removed
-        //   also remove the keyboard_layout_set files?
-        //  allow users to define their own layouts (maybe do everything else first?)
-        //   need to solve the scaling issue with number row and 5 row keyboards
-        //   write up how things work for users, also regarding language more keys
-        //    readme, maybe also some "help" button in a dialog
-        //   some sort of proper UI, or simply text input?
-        //    better text import for the start because of much work
-        //    ui follows later (consider that users need to be able to start from existing layouts!)
-        //   some warning if more than 2 or 3 characters on a single label
-        //    currently can't resize keys, but could set autoXScale (does only decrease size, never increase)
+        //  allow users to define their own layouts
+        //   at start only importing text files
+        //   set autoXScale if more than 2 codepoints on a key
         //   careful about moreKeys: if moreKeys don't fit on screen, parser throws an exception!
-        //    need to somehow test for this
-        //    is that autoColumnOrder thing a workaround for that?
-        //     still would crash for a single huge label
+        //    need to somehow test for this, try adding many moreKeys and few very long ones
+        //    depending on where we get crashes, inform user what is invalid and don't accept layout
         //   potential keyspec parsing issues:
-        //    MoreKeySpec constructor does things like KeySpecParser.getLabel and others
+        //    KeySpecParser.getLabel and similar
         //     these work with special characters like | and \ doing things depending on their position
         //     if used wrongly, things can crash
         //     -> maybe disable this style of parsing when creating MoreKeySpec of a user-provided layout
-        //      or also for the simple layouts, because there is no need to have it in layouts
-        //    does the same issue apply to normal key labels?
-        //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
-        //   does glide typing work with multiple letters on one key? if not, users should be notified
-        //   maybe allow users to define their own symbol and shift-symbol layouts
-        //   allow users to import layouts, which essentially just fills the text from a file
+        //      or when reading the layouts make sure stuff is escaped properly
+        //      maybe just try spec-parsing all the stuff and give error message if not ok
+        //   write up how things work for users, also regarding language more keys
+        //    readme, maybe also some "help" button in a dialog
+        //    some warning if more than 2 or 3 characters on a key / moreKey (but only refuse if moreKey is too long)
+        //   popup and (single key) long press preview rescale the label on x only, which may deform emojis (test)
+        //   does glide typing work with multiple letters on one key? if not, users should be warned if they try it
+        //   allow users to define their own symbol and shift-symbol layouts
+        //    will need a different way of loading then...
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
