@@ -10,11 +10,9 @@ import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.ViewGroup;
@@ -32,6 +30,9 @@ import androidx.autofill.inline.common.ViewStyle;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
+import org.dslul.openboard.inputmethod.latin.common.Colors;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,32 +52,36 @@ public class InlineAutofillUtils {
 
     public static InlineSuggestionsRequest createInlineSuggestionRequest(Context context) {
 
+        final Colors colors = Settings.getInstance().getCurrent().mColors;
+
         UiVersions.StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
         @SuppressLint("RestrictedApi") InlineSuggestionUi.Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
                                         Icon.createWithResource(context,
-                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
+                                                .setTint(colors.get(ColorType.CHIP)))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
                         new ViewStyle.Builder()
                                 .setBackground(
                                         Icon.createWithResource(context,
-                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background))
+                                                androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
+                                                .setTint(colors.get(ColorType.CHIP)))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(
                         new TextViewStyle.Builder()
                                 .setLayoutMargin(toPixel(4, context), 0, toPixel(4, context), 0)
-                                .setTextColor(Color.parseColor("#FF202124"))
+                                .setTextColor(colors.get(ColorType.KEY_TEXT))
                                 .setTextSize(12)
                                 .build())
                 .setSubtitleStyle(
                         new TextViewStyle.Builder()
                                 .setLayoutMargin(0, 0, toPixel(4, context), 0)
-                                .setTextColor(Color.parseColor("#99202124"))
+                                .setTextColor(colors.get(ColorType.KEY_HINT_TEXT))
                                 .setTextSize(10)
                                 .build())
                 .setEndIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
