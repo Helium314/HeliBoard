@@ -40,7 +40,6 @@ import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.HorizontalScrollView;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -1360,7 +1359,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if(!mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
             return null;
         }
-
         return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
     }
 
@@ -1368,20 +1366,18 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @RequiresApi(api = Build.VERSION_CODES.R)
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
-
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
-
         if (inlineSuggestions.isEmpty()) {
             return false;
         }
 
-        HorizontalScrollView view = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
-
-        // Delay required to show properly
+        final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
+        // "normal" suggestions might be determined in parallel when processing MSG_UPDATE_SUGGESTION_STRIP
+        // so we add a delay to make sure inline suggestions are set only after normal suggestions
         new Handler().postDelayed(() -> {
             mSuggestionStripView.clear();
-            mSuggestionStripView.hideKeys();
-            mSuggestionStripView.addSuggestionView(view);
+            mSuggestionStripView.hideToolbarKeys();
+            mSuggestionStripView.addSuggestionView(inlineSuggestionView);
         }, 200);
 
         return true;

@@ -268,8 +268,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mSuggestionsStrip.addView(view);
     }
 
-    public void hideKeys() {
-        mToolbarKey.setVisibility(GONE);
+    public void hideToolbarKeys() {
+        mToolbarExpandKey.setVisibility(GONE);
         mPinnedKeys.setVisibility(GONE);
     }
 
@@ -280,7 +280,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     public void clear() {
         mSuggestionsStrip.removeAllViews();
-        removeAllDebugInfoViews();
+        if (DEBUG_SUGGESTIONS)
+            removeAllDebugInfoViews();
         if (mToolbarContainer.getVisibility() != VISIBLE)
             mStripVisibilityGroup.showSuggestionsStrip();
         dismissMoreSuggestionsPanel();
@@ -288,10 +289,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setOnTouchListener(null);
         }
 
-        if (mToolbarKey.getVisibility() != VISIBLE || mPinnedKeys.getVisibility() != VISIBLE){
-            mToolbarKey.setVisibility(VISIBLE);
-            mPinnedKeys.setVisibility(VISIBLE);
-        }
+        mToolbarExpandKey.setVisibility(VISIBLE);
+        mPinnedKeys.setVisibility(VISIBLE);
     }
 
     private void removeAllDebugInfoViews() {
