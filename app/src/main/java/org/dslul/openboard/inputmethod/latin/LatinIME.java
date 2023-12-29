@@ -1353,12 +1353,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @RequiresApi(api = Build.VERSION_CODES.R)
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         Log.d(TAG,"onCreateInlineSuggestionsRequest called");
-
-        // Revert to default behaviour if show_suggestions is disabled
-        // (Maybe there is a better way to do this)
-        if(!mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
-            return null;
-        }
         return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
     }
 
@@ -1374,7 +1368,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
         // "normal" suggestions might be determined in parallel when processing MSG_UPDATE_SUGGESTION_STRIP
         // so we add a delay to make sure inline suggestions are set only after normal suggestions
-        new Handler().postDelayed(() -> {
+        mHandler.postDelayed(() -> {
             mSuggestionStripView.clear();
             mSuggestionStripView.hideToolbarKeys();
             mSuggestionStripView.addSuggestionView(inlineSuggestionView);
