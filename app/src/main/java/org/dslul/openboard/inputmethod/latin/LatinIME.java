@@ -1344,8 +1344,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         updateSoftInputWindowLayoutParameters();
     }
 
-    // Code from https://android.googlesource.com/platform/development/+/master/samples/AutofillKeyboard/
-    // with some modifications
     @Override
     @RequiresApi(api = Build.VERSION_CODES.R)
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {

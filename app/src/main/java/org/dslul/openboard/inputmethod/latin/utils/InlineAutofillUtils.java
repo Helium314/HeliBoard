@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package org.dslul.openboard.inputmethod.latin.utils;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
@@ -30,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import java.util.ArrayList;
 import java.util.List;
 
+// Modified code from https://android.googlesource.com/platform/development/+/master/samples/AutofillKeyboard/
 @RequiresApi(api = Build.VERSION_CODES.R)
 public class InlineAutofillUtils {
 
@@ -85,8 +92,6 @@ public class InlineAutofillUtils {
         presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
         presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
         presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
-
-        Log.d("LatinIME","onCreateInlineSuggestionsRequest exited");
 
         return new InlineSuggestionsRequest.Builder(presentationSpecs)
                 .setMaxSuggestionCount(6)
