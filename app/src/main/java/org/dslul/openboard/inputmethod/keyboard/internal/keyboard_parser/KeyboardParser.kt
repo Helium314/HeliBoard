@@ -73,7 +73,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         } else {
             throw(UnsupportedOperationException("creating KeyboardId ${params.mId.mElementId} not supported"))
         }
-        // rescale height if we have more than 4 rows (todo: there is some default row count in params that could be used)
+        // rescale height if we have more than 4 rows
         val heightRescale = if (keysInRows.size > 4) 4f / keysInRows.size else 1f
         if (heightRescale != 1f) {
             keysInRows.forEach { row -> row.forEach { it.mRelativeHeight *= heightRescale } }
@@ -138,7 +138,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         // keyboard parsed bottom-up because the number of rows is not fixed, but the functional keys
         // are always added to the rows near the bottom
-        keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys))
+        keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys)) // not really fast, but irrelevant compared to below
+        // todo: this loop could use some performance improvements
         baseKeys.reversed().forEachIndexed { i, it ->
             val row: List<KeyData> = if (i == 0 && isTablet()) {
                 // add bottom row extra keys

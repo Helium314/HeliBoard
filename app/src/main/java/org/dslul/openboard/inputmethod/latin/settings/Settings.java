@@ -166,6 +166,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
         add(PREF_SHOW_ALL_COLORS);
+        add(PREF_SELECTED_INPUT_STYLE);
     }};
 
     public static Settings getInstance() {
@@ -251,9 +252,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static boolean readVibrationEnabled(final SharedPreferences prefs,
                                                final Resources res) {
-        final boolean hasVibrator = AudioAndHapticFeedbackManager.getInstance().hasVibrator();
-        return hasVibrator && prefs.getBoolean(PREF_VIBRATE_ON,
-                res.getBoolean(R.bool.config_default_vibration_enabled));
+        return prefs.getBoolean(PREF_VIBRATE_ON, res.getBoolean(R.bool.config_default_vibration_enabled))
+                && AudioAndHapticFeedbackManager.getInstance().hasVibrator();
     }
 
     public static boolean readAutoCorrectEnabled(final SharedPreferences prefs) {

@@ -7,7 +7,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal
 
 import android.content.Context
 import android.content.res.Resources
-import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.Xml
 import androidx.annotation.XmlRes
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
@@ -22,6 +21,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
 
@@ -165,9 +165,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // determine key size and positions using relative width and height
-    // ideally this should not change anything
-    //  but it does a little, depending on how float -> int is done (cast or round, and when to sum up gaps and width)
-    //  still should not be more than a pixel difference
     private fun determineAbsoluteValues() {
         var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
@@ -187,6 +184,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // necessary for adjusting widths and positions properly
     // without adding spacers whose width can then be adjusted, we would have to deal with keyXPos,
     // which is more complicated than expected
+    // todo: remove? maybe was only necessary with old parser
     private fun fillGapsWithSpacers(row: MutableList<KeyParams>) {
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         if (row.isEmpty()) return

@@ -13,6 +13,7 @@ import android.app.KeyguardManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -141,7 +142,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        DEBUG_SUGGESTIONS = DeviceProtectedUtils.getSharedPreferences(context).getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        DEBUG_SUGGESTIONS = prefs.getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.suggestions_strip, this);
@@ -188,7 +190,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
-        for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))) {
+        for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(prefs)) {
             final ImageButton button = createToolbarKey(context, keyboardAttr, key);
             button.setLayoutParams(toolbarKeyLayoutParams);
             setupKey(button, colors);
@@ -213,7 +215,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
         mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
-        for (final ToolbarKey pinnedKey : Settings.getInstance().getCurrent().mPinnedKeys) {
+        for (final ToolbarKey pinnedKey : Settings.readPinnedKeys(prefs)) {
             final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
             if (pinnedKeyInToolbar == null) continue;
             pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
