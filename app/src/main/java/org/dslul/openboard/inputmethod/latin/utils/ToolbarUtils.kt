@@ -92,7 +92,7 @@ fun upgradeToolbarPref(prefs: SharedPreferences) {
 }
 
 fun getEnabledToolbarKeys(prefs: SharedPreferences): List<ToolbarKey> {
-    val string = prefs.getString("toolbar", defaultToolbarPref)!!
+    val string = prefs.getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!
     return string.split(";").mapNotNull {
         val split = it.split(",")
         if (split.last() == "true") {

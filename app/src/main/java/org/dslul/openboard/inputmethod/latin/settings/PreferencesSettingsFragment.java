@@ -94,7 +94,8 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         if (key == null) return;
         switch (key) {
-            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW, Settings.PREF_MORE_KEYS_LABELS_ORDER, "toolbar"
+            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
+                    Settings.PREF_MORE_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS
                     -> mReloadKeyboard = true;
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
             case Settings.PREF_SHOW_HINTS
