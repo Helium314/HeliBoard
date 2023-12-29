@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.ViewGroup;
@@ -77,13 +78,15 @@ public class InlineAutofillUtils {
 
         Bundle stylesBundle = stylesBuilder.build();
 
+        Size min = new Size(100, getHeight(context));
+        Size max = new Size(740, getHeight(context));
+
         final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight(context)),
-                new Size(740, getHeight(context))).setStyle(stylesBundle).build());
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight(context)),
-                new Size(740, getHeight(context))).setStyle(stylesBundle).build());
-        presentationSpecs.add(new InlinePresentationSpec.Builder(new Size(100, getHeight(context)),
-                new Size(740, getHeight(context))).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
+        presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
+
+        Log.d("LatinIME","onCreateInlineSuggestionsRequest exited");
 
         return new InlineSuggestionsRequest.Builder(presentationSpecs)
                 .setMaxSuggestionCount(6)
