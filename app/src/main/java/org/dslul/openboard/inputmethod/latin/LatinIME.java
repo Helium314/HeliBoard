@@ -16,7 +16,9 @@ import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
@@ -33,8 +35,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InlineSuggestion;
+import android.view.inputmethod.InlineSuggestionsRequest;
+import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.HorizontalScrollView;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -73,6 +79,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
+import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
@@ -94,6 +101,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
@@ -1340,6 +1348,43 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void updateFullscreenMode() {
         super.updateFullscreenMode();
         updateSoftInputWindowLayoutParameters();
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
+        Log.d(TAG,"onCreateInlineSuggestionsRequest called");
+
+        // Revert to default behaviour if show_suggestions is disabled
+        // (Maybe there is a better way to do this)
+        if(!mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
+            return null;
+        }
+
+        return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
+        Log.d(TAG,"onInlineSuggestionsResponse called");
+
+        final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
+
+        if (inlineSuggestions.isEmpty()) {
+            return false;
+        }
+
+        HorizontalScrollView view = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
+
+        // Delay required to show properly
+        new Handler().postDelayed(() -> {
+            mSuggestionStripView.clear();
+            mSuggestionStripView.hideKeys();
+            mSuggestionStripView.addSuggestionView(view);
+        }, 200);
+
+        return true;
     }
 
     private void updateSoftInputWindowLayoutParameters() {

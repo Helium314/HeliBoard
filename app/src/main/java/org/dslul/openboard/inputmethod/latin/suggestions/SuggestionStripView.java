@@ -264,6 +264,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
     }
 
+    public void addSuggestionView(final View view) {
+        mSuggestionsStrip.addView(view);
+    }
+
+    public void hideKeys() {
+        mToolbarKey.setVisibility(GONE);
+        mPinnedKeys.setVisibility(GONE);
+    }
+
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
@@ -277,6 +286,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         dismissMoreSuggestionsPanel();
         for (final TextView word : mWordViews) {
             word.setOnTouchListener(null);
+        }
+
+        if (mToolbarKey.getVisibility() != VISIBLE || mPinnedKeys.getVisibility() != VISIBLE){
+            mToolbarKey.setVisibility(VISIBLE);
+            mPinnedKeys.setVisibility(VISIBLE);
         }
     }
 
