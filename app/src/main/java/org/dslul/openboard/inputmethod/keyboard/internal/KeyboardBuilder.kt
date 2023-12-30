@@ -48,7 +48,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  make sure additional newlines, spaces, or windows newlines in the simple files don't mess up anything
     //  avoid crashes with moreKeys not fitting on screen
     //   too long moreKeys
     //   too many moreKeys
@@ -58,6 +57,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     //   still it would be best to silently change e.g. % to \% when reading custom layout in parser
     //   also consider |
     //   KeySpecParser.getLabel and similar
+    //   maybe just take the literal label instead of crashing (except for the % moreKey placeholder...)
+    //  try weird layouts with few or many rows or keys
     //  inform users about what is wrong in the dialog, not just in text
     //  set autoXScale if more than 2 codepoints on a key
     //   looks like is it already set? check!
