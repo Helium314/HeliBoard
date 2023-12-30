@@ -7,6 +7,7 @@ There are two distinct formats:
 ## General notes
 Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions.
 There are some sanity checks when adding a layout to avoid such issues, but they do not cover all possible cases.
+Further there is no check whether the layout actually contains characters of the selected language.
 
 If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single letter.
 

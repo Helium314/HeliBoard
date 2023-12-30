@@ -4,10 +4,12 @@ package org.dslul.openboard.inputmethod.latin.settings
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.InputType
 import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
@@ -17,6 +19,7 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import androidx.core.widget.doAfterTextChanged
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
@@ -96,7 +99,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSubtype(name: String) {
-        val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, name)
+        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocaleString, name, infos.first().subtype.isAsciiCapable)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
         val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype) == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
         if (old != null) {
@@ -119,10 +122,36 @@ class LanguageSettingsDialog(
             .setTitle(R.string.button_title_add_custom_layout)
             .setMessage(message)
             .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.button_copy_existing_layout) { _, _ -> copyLayout() }
             .setPositiveButton(R.string.button_load_custom_layout) { _, _ -> fragment?.requestLayoutFile() }
             .create()
         dialog.show()
         (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun copyLayout() {
+        val layouts = mutableListOf<String>()
+        val displayNames = mutableListOf<String>()
+        if (infos.first().subtype.isAsciiCapable) {
+            layouts.addAll(context.resources.getStringArray(R.array.predefined_layouts))
+            layouts.forEach { displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it) }
+        }
+        infos.forEach {
+            val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
+            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false) {
+                layouts.add(layoutSetName)
+                displayNames.add(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+            }
+        }
+        Builder(context)
+            .setTitle(R.string.keyboard_layout_set)
+            .setItems(displayNames.toTypedArray()) { di, i ->
+                di.dismiss()
+                val fileName = context.assets.list("layouts")!!.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
+                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(), layouts[i], mainLocaleString, context) { addSubtype(it) }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     override fun onNewLayoutFile(uri: Uri?) {
@@ -131,10 +160,16 @@ class LanguageSettingsDialog(
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
+        val layoutSetName: String? = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
-        row.findViewById<View>(R.id.language_details).isGone = true
+        if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true) {
+            row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
+            row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
+        } else {
+            row.findViewById<View>(R.id.language_details).isGone = true
+        }
         row.findViewById<SwitchCompat>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
             isEnabled = !onlySystemLocales
@@ -158,7 +193,6 @@ class LanguageSettingsDialog(
                     // can be re-added easily, no need for confirmation dialog
                     binding.subtypes.removeView(row)
                     infos.remove(subtype)
-                    val layoutSetName: String? = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
                     if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true)
                         removeCustomLayoutFile(layoutSetName, context)
 

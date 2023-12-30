@@ -305,7 +305,7 @@ public final class MoreKeysKeyboard extends Keyboard {
             final int spaceForKeys = keyboard.mId.mWidth / keyWidth;
             final int finalNumColumns = spaceForKeys >= keysPerRpw
                     ? defaultColumns
-                    : (spaceForKeys > 0 ? spaceForKeys : defaultColumns); // in last case setParameters will throw
+                    : (spaceForKeys > 0 ? spaceForKeys : defaultColumns); // in last case setParameters will throw an exception
             mParams.setParameters(moreKeys.length, finalNumColumns, keyWidth,
                     rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.mWidth,
                     key.isMoreKeysFixedColumn(), key.isMoreKeysFixedOrder(), dividerWidth);

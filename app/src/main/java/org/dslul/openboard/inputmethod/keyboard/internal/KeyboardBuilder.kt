@@ -50,7 +50,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // todo for adding layouts
     //  allow users to define their own symbol and shift-symbol layouts
     //   will need a different way of loading then...
-    //  allow editing layouts in a simple UI (and allow starting from existing layout
 
     fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
@@ -65,7 +64,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
                 // add label source only if moreKey type enabled
                 sv.mMoreKeyLabelSources.forEach { if (it in sv.mMoreKeyTypes) mParams.mMoreKeyLabelSources.add(it) }
-                keysInRows = if (mParams.mId.mSubtype.isCustom)
+                keysInRows = if (mParams.mId.isAlphabetKeyboard && mParams.mId.mSubtype.isCustom)
                         KeyboardParser.parseCustom(mParams, mContext)
                     else
                         KeyboardParser.parseFromAssets(mParams, mContext)

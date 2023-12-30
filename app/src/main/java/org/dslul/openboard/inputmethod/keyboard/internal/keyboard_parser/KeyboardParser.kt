@@ -784,7 +784,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         private val TAG = KeyboardParser::class.simpleName
 
         fun parseCustom(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
-            val layoutName = params.mId.mSubtype.keyboardLayoutSetName.substringBefore("+")
+            val layoutName = params.mId.mSubtype.keyboardLayoutSetName
             val f = File(context.filesDir, "layouts${File.separator}$layoutName")
             return if (layoutName.endsWith(".json"))
                 JsonKeyboardParser(params, context).parseLayoutString(f.readText())
@@ -794,7 +794,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val id = params.mId
-            val layoutName = params.mId.mSubtype.keyboardLayoutSetName
+            val layoutName = params.mId.mSubtype.keyboardLayoutSetName.substringBefore("+")
             val layoutFileNames = context.assets.list("layouts")!!
             return when {
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC
@@ -835,7 +835,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 else -> true
             }
-            val allowRedundantMoreKeys = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
+            val allowRedundantMoreKeys = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS // todo: always set to false?
             // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
             // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
             // todo: null for MoreKeysKeyboard only

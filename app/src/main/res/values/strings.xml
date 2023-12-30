@@ -428,11 +428,15 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Message text for adding a custom layout, interpreted as HTML -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information on the formats is available %s.</string>
     <!-- Button text for loading a custom layout file -->
-    <string name="button_load_custom_layout">Load</string>
+    <string name="button_load_custom_layout">Load file</string>
+    <!-- Button text for copying an existing layout -->
+    <string name="button_copy_existing_layout">Copy existing layout</string>
     <!-- Title text for choosing a layout name -->
     <string name="title_layout_name_select">Set layout name</string>
-    <!-- Message on load layout error -->
-    <string name="load_layout_error">Error loading layout: %s</string>
+    <!-- Message on layout error -->
+    <string name="layout_error">Layout error: %s</string>
+    <!-- Text hint for editing layout -->
+    <string name="edit_layout">Tap to edit</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->

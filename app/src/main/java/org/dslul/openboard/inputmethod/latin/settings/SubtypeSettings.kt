@@ -232,7 +232,7 @@ private fun removeInvalidCustomSubtypes(context: Context) {
             subtypesToRemove.add(it)
     }
     if (subtypesToRemove.isEmpty()) return
-    Log.w("SubtypeSettings", "removing custom subtypes without files: $subtypesToRemove")
+    Log.w(TAG, "removing custom subtypes without files: $subtypesToRemove")
     Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
 }
 
@@ -253,8 +253,10 @@ private fun loadEnabledSubtypes(context: Context) {
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
         if (subtype == null) {
+            val message = "subtype $localeAndLayout could not be loaded"
+            Log.w(TAG, message)
             if (DebugFlags.DEBUG_ENABLED)
-                Toast.makeText(context, "subtype $localeAndLayout could not be loaded", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             else // don't remove in debug mode
                 removeEnabledSubtype(prefs, localeAndLayout.joinToString(LOCALE_LAYOUT_SEPARATOR))
             continue
@@ -290,6 +292,7 @@ private val systemSubtypes = mutableListOf<InputMethodSubtype>()
 
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
+private const val TAG = "SubtypeSettings"
 
 @Suppress("deprecation") // it's deprecated, but no replacement for API < 24
 // todo: subtypes should now have language tags -> use them for api >= 24

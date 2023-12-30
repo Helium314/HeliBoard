@@ -11,6 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.JsonKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KEYS_NORMAL
@@ -27,7 +28,7 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
     val cacheFile = File(context.cacheDir, "temp_layout")
     fun error(reason: String) {
         cacheFile.delete()
-        infoDialog(context, context.getString(R.string.load_layout_error, reason))
+        infoDialog(context, context.getString(R.string.layout_error, reason))
     }
     if (uri == null)
         return error("layout file not found")
@@ -46,7 +47,12 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
-    val isJson = checkLayout(cacheFile.readText(), context) ?: return error("invalid layout file, ${Log.getLog().lastOrNull { it.tag == TAG }?.message}")
+    loadCustomLayout(cacheFile.readText(), name, localeString, context, onAdded)
+}
+
+fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: String, context: Context, onAdded: (String) -> Unit) {
+    var name = layoutName
+    val isJson = checkLayout(layoutContent, context) ?: return error("invalid layout file, ${Log.getLog().lastOrNull { it.tag == TAG }?.message}")
 
     AlertDialog.Builder(context)
         .setTitle(R.string.title_layout_name_select)
@@ -59,13 +65,11 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
             name = "$CUSTOM_LAYOUT_PREFIX${localeString}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
-            if (!cacheFile.exists())
-                return@setPositiveButton error("cached file is gone")
             val file = getFile(name, context)
             if (file.exists())
                 file.delete()
             file.parentFile?.mkdir()
-            cacheFile.renameTo(file)
+            file.writeText(layoutContent)
             onAdded(name)
         }
         .show()
@@ -132,6 +136,32 @@ fun getLayoutDisplayName(layoutName: String) =
 
 fun removeCustomLayoutFile(layoutName: String, context: Context) {
     getFile(layoutName, context).delete()
+}
+
+fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null) {
+    val file = getFile(layoutName, context)
+    var content = startContent ?: file.readText()
+    AlertDialog.Builder(context)
+        .setTitle(layoutName)
+        .setView(EditText(context).apply {
+            setText(content)
+            doAfterTextChanged { content = it.toString() }
+        })
+        .setPositiveButton(R.string.save) { _, _ ->
+            val isJson = checkLayout(content, context)
+            if (isJson == null) {
+                editCustomLayout(layoutName, context, content)
+                infoDialog(context, context.getString(R.string.layout_error, Log.getLog().lastOrNull { it.tag == TAG }?.message))
+            } else {
+                val wasJson = file.name.substringAfterLast(".") == "json"
+                file.writeText(content)
+                if (isJson != wasJson) // unlikely to be needed, but better be safe
+                    file.renameTo(File(file.absolutePath.substringBeforeLast(".") + if (isJson) "json" else "txt"))
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+            }
+        }
+        .setNegativeButton(android.R.string.cancel, null)
+        .show()
 }
 
 private fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
