@@ -44,10 +44,9 @@ fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
 
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
-    val newSubtypeString = newSubtype.prefString()
-    val subtypeStringSet = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR).toMutableSet()
-    subtypeStringSet.add(newSubtypeString)
-    val newString = subtypeStringSet.filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
+    val subtypeString = newSubtype.prefString()
+    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR)
+    val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
 
     if (newSubtype !in enabledSubtypes) {
@@ -220,6 +219,7 @@ private fun loadAdditionalSubtypes(context: Context) {
     additionalSubtypes.addAll(subtypes)
 }
 
+// remove custom subtypes without a layout file
 private fun removeInvalidCustomSubtypes(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")

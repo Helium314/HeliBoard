@@ -74,7 +74,7 @@ class LanguageSettingsDialog(
     }
 
     private fun fillSubtypesView() {
-        if (infos.any { it.subtype.isAsciiCapable }) {
+        if (infos.first().subtype.isAsciiCapable) {
             binding.addSubtype.setOnClickListener {
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
                     .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
@@ -100,13 +100,15 @@ class LanguageSettingsDialog(
 
     private fun addSubtype(name: String) {
         val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocaleString, name, infos.first().subtype.isAsciiCapable)
-        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
-        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype) == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
+        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
+        val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
+        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
         if (old != null) {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             reloadSetting()
             return
         }
+
         addAdditionalSubtype(prefs, context.resources, newSubtype)
         addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)
@@ -138,7 +140,7 @@ class LanguageSettingsDialog(
         }
         infos.forEach {
             val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
-            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false) {
+            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false) { // don't allow copying custom layout (at least for now)
                 layouts.add(layoutSetName)
                 displayNames.add(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
             }

@@ -426,7 +426,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Button text and title for adding a custom layout -->
     <string name="button_title_add_custom_layout">Add custom layout</string>
     <!-- Message text for adding a custom layout, interpreted as HTML -->
-    <string name="message_add_custom_layout">Select a file in a compatible format. Information on the formats is available %s.</string>
+    <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
     <!-- Button text for loading a custom layout file -->
     <string name="button_load_custom_layout">Load file</string>
     <!-- Button text for copying an existing layout -->

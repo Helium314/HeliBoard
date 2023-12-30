@@ -18,25 +18,20 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.settings.infoDialog
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
 
 fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded: (String) -> Unit) {
-    val cacheFile = File(context.cacheDir, "temp_layout")
-    fun error(reason: String) {
-        cacheFile.delete()
-        infoDialog(context, context.getString(R.string.layout_error, reason))
-    }
     if (uri == null)
-        return error("layout file not found")
+        return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
+    val layoutContent: String
     try {
         val i = context.contentResolver.openInputStream(uri)
-        FileUtils.copyStreamToNewFile(i, cacheFile)
+        layoutContent = i?.use { it.reader().readText() } ?: throw IOException()
     } catch (e: IOException) {
-        return error("cannot read layout file")
+        return infoDialog(context, context.getString(R.string.layout_error, "cannot read layout file"))
     }
 
     var name = ""
@@ -47,12 +42,13 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
-    loadCustomLayout(cacheFile.readText(), name, localeString, context, onAdded)
+    loadCustomLayout(layoutContent, name, localeString, context, onAdded)
 }
 
 fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: String, context: Context, onAdded: (String) -> Unit) {
     var name = layoutName
-    val isJson = checkLayout(layoutContent, context) ?: return error("invalid layout file, ${Log.getLog().lastOrNull { it.tag == TAG }?.message}")
+    val isJson = checkLayout(layoutContent, context)
+        ?: return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog().lastOrNull { it.tag == TAG }?.message}"))
 
     AlertDialog.Builder(context)
         .setTitle(R.string.title_layout_name_select)
@@ -140,14 +136,14 @@ fun removeCustomLayoutFile(layoutName: String, context: Context) {
 
 fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null) {
     val file = getFile(layoutName, context)
-    var content = startContent ?: file.readText()
+    val editText = EditText(context).apply {
+        setText(startContent ?: file.readText())
+    }
     AlertDialog.Builder(context)
         .setTitle(getLayoutDisplayName(layoutName))
-        .setView(EditText(context).apply {
-            setText(content)
-            doAfterTextChanged { content = it.toString() }
-        })
+        .setView(editText)
         .setPositiveButton(R.string.save) { _, _ ->
+            val content = editText.text.toString()
             val isJson = checkLayout(content, context)
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
