@@ -46,13 +46,6 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
-    val layoutContent = cacheFile.readLines().toMutableList()
-    for (i in layoutContent.indices) {
-        // todo: actually all keyspec parsing things should be disabled for these keys... how?
-        layoutContent[i] = layoutContent[i].trim().replace(" %", " \\%")
-    }
-    cacheFile.writeText(layoutContent.joinToString("\n"))
-
     val isJson = checkLayout(cacheFile.readText(), context) ?: return error("invalid layout file")
 
     AlertDialog.Builder(context)
@@ -111,12 +104,16 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too many keys in one row")
         return false
     }
+    if (keys.any { it.any { ((it.mLabel?.length ?: 0) > 6) } }) {
+        Log.w(TAG, "too long text on key")
+        return false
+    }
     if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 } }) {
-        Log.w(TAG, "too many popup keys")
+        Log.w(TAG, "too many popup keys on a key")
         return false
     }
     if (keys.any { it.any { it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
-        Log.w(TAG, "too long text on popup keys")
+        Log.w(TAG, "too long text on popup key")
         return false
     }
     return true

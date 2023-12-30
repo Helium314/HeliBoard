@@ -19,6 +19,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.size
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
@@ -99,13 +100,14 @@ class LanguageSettingsDialog(
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
         val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype) == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
         if (old != null) {
-            KeyboardLayoutSet.onKeyboardThemeChanged()
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             reloadSetting()
             return
         }
         addAdditionalSubtype(prefs, context.resources, newSubtype)
         addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)
+        KeyboardLayoutSet.onKeyboardThemeChanged()
         infos.add(newSubtypeInfo)
         reloadSetting()
     }

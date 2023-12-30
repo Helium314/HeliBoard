@@ -19,6 +19,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.SimplePopups
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
+import org.dslul.openboard.inputmethod.latin.common.isEmoji
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
@@ -188,9 +189,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             }
 
             for (key in row) {
-                // todo: maybe autoScale / autoXScale if label has more than 2 characters (exception for emojis?)
-                //  but that could also be determined in toKeyParams
-                val keyParams = key.compute(params).toKeyParams(params, keyWidth, defaultLabelFlags)
+                val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
+                        Key.LABEL_FLAGS_AUTO_X_SCALE
+                    else 0
+                val keyParams = key.compute(params).toKeyParams(params, keyWidth, defaultLabelFlags or extraFlags)
                 paramsRow.add(keyParams)
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.d(TAG, "adding key ${keyParams.mLabel}, ${keyParams.mCode}")

@@ -48,17 +48,16 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  inform users about what is wrong in the dialog, not just in text
-    //  set autoXScale if more than 2 codepoints on a key
-    //   looks like is it already set? check!
+    //  inform users about what is wrong in the dialog, not just in log
+    //  does glide typing work with multiple letters on one key? if not, users should be warned if they try it
+    //   looks like it only works if letters are unique
+    //   also multi-letter keys do not work
     //  write up how things work for users, also regarding language more keys
     //   stuff should go to layouts.md, link is already in the dialog
-    //  show some warning if more than 2 or 3 characters on a key / moreKey (but only refuse if moreKey is too long)
-    //  popup and (single key) long press preview rescale the label on x only, which may deform emojis (test)
-    //  does glide typing work with multiple letters on one key? if not, users should be warned if they try it
-    //  allow users to define their own symbol and shift-symbol layouts
-    //   will need a different way of loading then...
-    //  allow editing layouts in a simple UI (and allow starting from existing layoust
+    //  later
+    //   allow users to define their own symbol and shift-symbol layouts
+    //    will need a different way of loading then...
+    //   allow editing layouts in a simple UI (and allow starting from existing layout
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
