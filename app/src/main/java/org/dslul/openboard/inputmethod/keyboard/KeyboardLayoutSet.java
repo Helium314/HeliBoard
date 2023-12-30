@@ -439,6 +439,7 @@ public final class KeyboardLayoutSet {
         }
     }
 
+    // used for testing keyboard layout files without actually creating a keyboard
     public static KeyboardId getFakeKeyboardId(final int elementId) {
         final Params params = new Params();
         params.mEditorInfo = new EditorInfo();
