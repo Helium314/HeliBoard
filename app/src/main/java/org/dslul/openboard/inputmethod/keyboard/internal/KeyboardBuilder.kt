@@ -47,7 +47,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mAllowRedundantMoreKeys = enabled
     }
 
-    fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
+    fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {
             setAllowRedundantMoreKeys(true)
