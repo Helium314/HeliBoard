@@ -433,6 +433,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_copy_existing_layout">Copy existing layout</string>
     <!-- Title text for choosing a layout name -->
     <string name="title_layout_name_select">Set layout name</string>
+    <!-- Message when deleting a layouts -->
+    <string name="delete_layout">Really delete custom layout %s?</string>
     <!-- Message on layout error -->
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->

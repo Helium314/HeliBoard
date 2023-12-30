@@ -150,7 +150,7 @@ class LanguageSettingsDialog(
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
                 val fileName = context.assets.list("layouts")!!.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
-                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(), layouts[i], mainLocaleString, context) { addSubtype(it) }
+                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(), displayNames[i], mainLocaleString, context) { addSubtype(it) }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -192,15 +192,21 @@ class LanguageSettingsDialog(
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
-                    // can be re-added easily, no need for confirmation dialog
-                    binding.subtypes.removeView(row)
-                    infos.remove(subtype)
-                    if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true)
-                        removeCustomLayoutFile(layoutSetName, context)
-
-                    removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
-                    removeEnabledSubtype(prefs, subtype.subtype)
-                    reloadSetting()
+                    val isCustom = layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true
+                    fun delete() {
+                        binding.subtypes.removeView(row)
+                        infos.remove(subtype)
+                        if (isCustom)
+                            removeCustomLayoutFile(layoutSetName!!, context)
+                        removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
+                        removeEnabledSubtype(prefs, subtype.subtype)
+                        reloadSetting()
+                    }
+                    if (isCustom) {
+                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName!!)), context.getString(R.string.delete_dict)) { delete() }
+                    } else {
+                        delete()
+                    }
                 }
             }
         }
