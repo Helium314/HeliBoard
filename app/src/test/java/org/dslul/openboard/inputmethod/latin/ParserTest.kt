@@ -82,6 +82,14 @@ d
 e
 f
 """, // spaces in the end
+"""
+a
+b
+c
+
+d
+e
+f""", // no newline at the end
         )
         val wantedKeyLabels = listOf(listOf("a", "b", "c"), listOf("d", "e", "f"))
         layoutStrings.forEachIndexed { i, layout ->

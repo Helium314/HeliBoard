@@ -44,6 +44,12 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
+    val layoutContent = cacheFile.readLines().toMutableList()
+    for (i in layoutContent.indices) {
+        // todo: actually all keyspec parsing things should be disabled for these keys... how?
+        layoutContent[i] = layoutContent[i].trim().replace(" %", " \\%")
+    }
+    cacheFile.writeText(layoutContent.joinToString("\n"))
 
     val isJson = checkLayout(cacheFile.readText(), context) ?: return error("invalid layout file")
 
@@ -72,6 +78,7 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
 private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     val params = KeyboardParams()
     params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
+    params.mMoreKeyTypes.add(MORE_KEYS_LAYOUT)
     addLocaleKeyTextsToParams(context, params, MORE_KEYS_NORMAL)
     try {
         val keys = JsonKeyboardParser(params, context).parseLayoutString(layoutContent)

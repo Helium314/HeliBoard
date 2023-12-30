@@ -97,6 +97,12 @@ class LanguageSettingsDialog(
     private fun addSubtype(name: String) {
         val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, name)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
+        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && it.displayName == newSubtypeInfo.displayName }
+        if (old != null) {
+            KeyboardLayoutSet.onKeyboardThemeChanged()
+            reloadSetting()
+            return
+        }
         addAdditionalSubtype(prefs, context.resources, newSubtype)
         addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)

@@ -42,15 +42,16 @@ fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
     return resourceSubtypesByLocale.values.flatten() + additionalSubtypes
 }
 
-fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
+fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
-    val subtypeString = subtype.prefString()
-    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR)
-    val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
+    val newSubtypeString = newSubtype.prefString()
+    val subtypeStringSet = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR).toMutableSet()
+    subtypeStringSet.add(newSubtypeString)
+    val newString = subtypeStringSet.filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
 
-    if (subtype !in enabledSubtypes) {
-        enabledSubtypes.add(subtype)
+    if (newSubtype !in enabledSubtypes) {
+        enabledSubtypes.add(newSubtype)
         enabledSubtypes.sortBy { it.locale() } // for consistent order
         RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
@@ -66,8 +67,9 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
 
 fun addAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
     val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
-    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toSet()
-    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes((oldAdditionalSubtypes + subtype).toTypedArray())
+    val additionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toMutableSet()
+    additionalSubtypes.add(subtype)
+    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(additionalSubtypes.toTypedArray())
     Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
 }
 
@@ -224,7 +226,7 @@ private fun removeInvalidCustomSubtypes(context: Context) {
     val customSubtypeFiles by lazy { File(context.filesDir, "layouts").list() }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
-        val name = it.substringAfter(":")
+        val name = it.substringAfter(":").substringBefore(":")
         if (!name.startsWith(CUSTOM_LAYOUT_PREFIX)) return@forEach
         if (name !in customSubtypeFiles)
             subtypesToRemove.add(it)

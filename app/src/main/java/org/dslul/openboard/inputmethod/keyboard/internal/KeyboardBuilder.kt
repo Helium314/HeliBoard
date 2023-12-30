@@ -48,12 +48,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  avoid issues with specific labels
-    //   should not crash, because the file will not be accepted (crashes when creating key params)
-    //   still it would be best to silently change e.g. % to \% when reading custom layout in parser
-    //   also consider |
-    //   KeySpecParser.getLabel and similar
-    //   maybe just take the literal label instead of crashing (except for the % moreKey placeholder...)
     //  try weird layouts with few or many rows or keys
     //   -> reduce-size-if-row-above-has-narrow-keys should do nothing if size diff is too large (more than 20% or so)
     //  inform users about what is wrong in the dialog, not just in text
