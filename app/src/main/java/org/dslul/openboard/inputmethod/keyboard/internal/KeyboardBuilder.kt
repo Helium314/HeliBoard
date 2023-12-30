@@ -48,22 +48,22 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  make sure additional newlines, spaces, or windows newlines don't mess up anything
+    //  make sure additional newlines, spaces, or windows newlines in the simple files don't mess up anything
+    //  avoid crashes with moreKeys not fitting on screen
+    //   too long moreKeys
+    //   too many moreKeys
+    //   how to test? just have a max number of moreKeys, and a max length on each?
+    //  avoid issues with specific labels
+    //   should not crash, because the file will not be accepted (crashes when creating key params)
+    //   still it would be best to silently change e.g. % to \% when reading custom layout in parser
+    //   also consider |
+    //   KeySpecParser.getLabel and similar
+    //  inform users about what is wrong in the dialog, not just in text
     //  set autoXScale if more than 2 codepoints on a key
     //   looks like is it already set? check!
-    //  careful about moreKeys: if moreKeys don't fit on screen, parser throws an exception!
-    //   need to somehow test for this, try adding many moreKeys and few very long ones
-    //   depending on where we get crashes, inform user what is invalid and don't accept layout
-    //  potential keyspec parsing issues:
-    //   KeySpecParser.getLabel and similar
-    //    these work with special characters like | and \ doing things depending on their position
-    //    if used wrongly, things can crash
-    //    -> maybe disable this style of parsing when creating MoreKeySpec of a user-provided layout
-    //     or when reading the layouts make sure stuff is escaped properly
-    //     maybe just try spec-parsing all the stuff and give error message if not ok
     //  write up how things work for users, also regarding language more keys
-    //   readme, maybe also some "help" button in a dialog
-    //   some warning if more than 2 or 3 characters on a key / moreKey (but only refuse if moreKey is too long)
+    //   stuff should go to layouts.md, link is already in the dialog
+    //  show some warning if more than 2 or 3 characters on a key / moreKey (but only refuse if moreKey is too long)
     //  popup and (single key) long press preview rescale the label on x only, which may deform emojis (test)
     //  does glide typing work with multiple letters on one key? if not, users should be warned if they try it
     //  allow users to define their own symbol and shift-symbol layouts
