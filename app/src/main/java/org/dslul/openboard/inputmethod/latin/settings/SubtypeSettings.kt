@@ -16,9 +16,12 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
+import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.xmlpull.v1.XmlPullParser
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
@@ -39,15 +42,15 @@ fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
     return resourceSubtypesByLocale.values.flatten() + additionalSubtypes
 }
 
-fun addEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
+fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
-    val subtypeString = subtype.prefString()
+    val subtypeString = newSubtype.prefString()
     val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR)
     val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
 
-    if (subtype !in enabledSubtypes) {
-        enabledSubtypes.add(subtype)
+    if (newSubtype !in enabledSubtypes) {
+        enabledSubtypes.add(newSubtype)
         enabledSubtypes.sortBy { it.locale() } // for consistent order
         RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
@@ -63,8 +66,9 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
 
 fun addAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
     val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
-    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toSet()
-    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes((oldAdditionalSubtypes + subtype).toTypedArray())
+    val additionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toMutableSet()
+    additionalSubtypes.add(subtype)
+    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(additionalSubtypes.toTypedArray())
     Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
 }
 
@@ -143,6 +147,7 @@ fun init(context: Context) {
     reloadSystemLocales(context)
 
     loadResourceSubtypes(context.resources)
+    removeInvalidCustomSubtypes(context)
     loadAdditionalSubtypes(context)
     loadEnabledSubtypes(context)
     initialized = true
@@ -214,6 +219,23 @@ private fun loadAdditionalSubtypes(context: Context) {
     additionalSubtypes.addAll(subtypes)
 }
 
+// remove custom subtypes without a layout file
+private fun removeInvalidCustomSubtypes(context: Context) {
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
+    val customSubtypeFiles by lazy { File(context.filesDir, "layouts").list() }
+    val subtypesToRemove = mutableListOf<String>()
+    additionalSubtypes.forEach {
+        val name = it.substringAfter(":").substringBefore(":")
+        if (!name.startsWith(CUSTOM_LAYOUT_PREFIX)) return@forEach
+        if (name !in customSubtypeFiles)
+            subtypesToRemove.add(it)
+    }
+    if (subtypesToRemove.isEmpty()) return
+    Log.w(TAG, "removing custom subtypes without files: $subtypesToRemove")
+    Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
+}
+
 // requires loadResourceSubtypes to be called before
 private fun loadEnabledSubtypes(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
@@ -231,8 +253,10 @@ private fun loadEnabledSubtypes(context: Context) {
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
         if (subtype == null) {
+            val message = "subtype $localeAndLayout could not be loaded"
+            Log.w(TAG, message)
             if (DebugFlags.DEBUG_ENABLED)
-                Toast.makeText(context, "subtype $localeAndLayout could not be loaded", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             else // don't remove in debug mode
                 removeEnabledSubtype(prefs, localeAndLayout.joinToString(LOCALE_LAYOUT_SEPARATOR))
             continue
@@ -268,6 +292,7 @@ private val systemSubtypes = mutableListOf<InputMethodSubtype>()
 
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
+private const val TAG = "SubtypeSettings"
 
 @Suppress("deprecation") // it's deprecated, but no replacement for API < 24
 // todo: subtypes should now have language tags -> use them for api >= 24

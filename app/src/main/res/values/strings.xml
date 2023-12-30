@@ -421,8 +421,22 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="save">Save</string>
     <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="subtype_locale">Language</string>
-    <!-- Title of the spinner for choosing a keyboard layout of custom style in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the section for choosing a keyboard layout language settings dialog -->
     <string name="keyboard_layout_set">Layout</string>
+    <!-- Button text and title for adding a custom layout -->
+    <string name="button_title_add_custom_layout">Add custom layout</string>
+    <!-- Message text for adding a custom layout, interpreted as HTML -->
+    <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
+    <!-- Button text for loading a custom layout file -->
+    <string name="button_load_custom_layout">Load file</string>
+    <!-- Button text for copying an existing layout -->
+    <string name="button_copy_existing_layout">Copy existing layout</string>
+    <!-- Title text for choosing a layout name -->
+    <string name="title_layout_name_select">Set layout name</string>
+    <!-- Message on layout error -->
+    <string name="layout_error">Layout error: %s</string>
+    <!-- Text hint for editing layout -->
+    <string name="edit_layout">Tap to edit raw layout</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->

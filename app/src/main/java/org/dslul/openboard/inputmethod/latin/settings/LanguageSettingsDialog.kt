@@ -4,10 +4,12 @@ package org.dslul.openboard.inputmethod.latin.settings
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.InputType
 import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
@@ -17,10 +19,13 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import androidx.core.widget.doAfterTextChanged
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.databinding.LanguageListItemBinding
 import org.dslul.openboard.inputmethod.latin.databinding.LocaleSettingsDialogBinding
@@ -69,7 +74,7 @@ class LanguageSettingsDialog(
     }
 
     private fun fillSubtypesView() {
-        if (infos.any { it.subtype.isAsciiCapable }) { // currently can only add subtypes for latin keyboards
+        if (infos.first().subtype.isAsciiCapable) {
             binding.addSubtype.setOnClickListener {
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
                     .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
@@ -78,19 +83,14 @@ class LanguageSettingsDialog(
                     .setTitle(R.string.keyboard_layout_set)
                     .setItems(displayNames.toTypedArray()) { di, i ->
                         di.dismiss()
-                        val newSubtype = AdditionalSubtypeUtils.createAsciiEmojiCapableAdditionalSubtype(mainLocaleString, layouts[i])
-                        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default, because why else add them
-                        addAdditionalSubtype(prefs, context.resources, newSubtype)
-                        addEnabledSubtype(prefs, newSubtype)
-                        addSubtypeToView(newSubtypeInfo)
-                        infos.add(newSubtypeInfo)
-                        reloadSetting()
+                        addSubtype(layouts[i])
                     }
+                    .setNeutralButton(R.string.button_title_add_custom_layout) { _, _ -> onClickAddCustomSubtype() }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
             }
         } else
-            binding.addSubtype.isGone = true
+            binding.addSubtype.setOnClickListener { onClickAddCustomSubtype() }
 
         // add subtypes
         infos.sortedBy { it.displayName }.forEach {
@@ -98,12 +98,80 @@ class LanguageSettingsDialog(
         }
     }
 
+    private fun addSubtype(name: String) {
+        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocaleString, name, infos.first().subtype.isAsciiCapable)
+        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
+        val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
+        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
+        if (old != null) {
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+            reloadSetting()
+            return
+        }
+
+        addAdditionalSubtype(prefs, context.resources, newSubtype)
+        addEnabledSubtype(prefs, newSubtype)
+        addSubtypeToView(newSubtypeInfo)
+        KeyboardLayoutSet.onKeyboardThemeChanged()
+        infos.add(newSubtypeInfo)
+        reloadSetting()
+    }
+
+    private fun onClickAddCustomSubtype() {
+        val link = "<a href='$LAYOUT_FORMAT_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+        val message = SpannableStringUtils.fromHtml(context.getString(R.string.message_add_custom_layout, link))
+        val dialog = Builder(context)
+            .setTitle(R.string.button_title_add_custom_layout)
+            .setMessage(message)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.button_copy_existing_layout) { _, _ -> copyLayout() }
+            .setPositiveButton(R.string.button_load_custom_layout) { _, _ -> fragment?.requestLayoutFile() }
+            .create()
+        dialog.show()
+        (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun copyLayout() {
+        val layouts = mutableListOf<String>()
+        val displayNames = mutableListOf<String>()
+        if (infos.first().subtype.isAsciiCapable) {
+            layouts.addAll(context.resources.getStringArray(R.array.predefined_layouts))
+            layouts.forEach { displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it) }
+        }
+        infos.forEach {
+            val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
+            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false) { // don't allow copying custom layout (at least for now)
+                layouts.add(layoutSetName)
+                displayNames.add(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+            }
+        }
+        Builder(context)
+            .setTitle(R.string.keyboard_layout_set)
+            .setItems(displayNames.toTypedArray()) { di, i ->
+                di.dismiss()
+                val fileName = context.assets.list("layouts")!!.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
+                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(), layouts[i], mainLocaleString, context) { addSubtype(it) }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    override fun onNewLayoutFile(uri: Uri?) {
+        loadCustomLayout(uri, mainLocaleString, context) { addSubtype(it) }
+    }
+
     private fun addSubtypeToView(subtype: SubtypeInfo) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
+        val layoutSetName: String? = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
-        row.findViewById<View>(R.id.language_details).isGone = true
+        if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true) {
+            row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
+            row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
+        } else {
+            row.findViewById<View>(R.id.language_details).isGone = true
+        }
         row.findViewById<SwitchCompat>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
             isEnabled = !onlySystemLocales
@@ -127,6 +195,8 @@ class LanguageSettingsDialog(
                     // can be re-added easily, no need for confirmation dialog
                     binding.subtypes.removeView(row)
                     infos.remove(subtype)
+                    if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true)
+                        removeCustomLayoutFile(layoutSetName, context)
 
                     removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
                     removeEnabledSubtype(prefs, subtype.subtype)
@@ -353,3 +423,5 @@ private fun getAvailableSecondaryLocales(context: Context, mainLocaleString: Str
     }
     return locales
 }
+
+private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/openboard/blob/new/layouts.md"

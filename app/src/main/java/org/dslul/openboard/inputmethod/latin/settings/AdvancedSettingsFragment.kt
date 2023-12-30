@@ -53,6 +53,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     private var libfile: File? = null
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
+        "layouts/.*.(txt|json)".toRegex(),
         "dicts/.*/.*user\\.dict".toRegex(),
         "userunigram.*/userunigram.*\\.(body|header)".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
