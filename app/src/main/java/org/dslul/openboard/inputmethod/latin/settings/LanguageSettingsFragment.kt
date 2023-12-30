@@ -42,6 +42,12 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         listener?.onNewDictionary(uri)
     }
 
+    private val layoutFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        listener?.onNewLayoutFile(uri)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = DeviceProtectedUtils.getSharedPreferences(requireContext())
@@ -180,6 +186,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
     interface Listener {
         fun onNewDictionary(uri: Uri?)
+        fun onNewLayoutFile(uri: Uri?)
     }
 
     private var listener: Listener? = null
@@ -195,6 +202,14 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         dictionaryFilePicker.launch(intent)
     }
 
+    fun requestLayoutFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            // todo: any working way to allow only json and text files?
+            .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream")) // doesn't allow opening json files with "application/json"
+            .setType("*/*")
+        layoutFilePicker.launch(intent)
+    }
 }
 
 class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var isEnabled: Boolean, var hasDictionary: Boolean) {

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
@@ -23,12 +24,14 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService
+import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_LAYOUT
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_NUMBER
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
+import java.io.File
 import java.util.Locale
 
 /**
@@ -667,10 +670,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             return this
         val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
         if (id == 0) {
-            val message = "no resource for label $this in ${params.mId}"
-            Log.w(TAG, message)
-            if (DebugFlags.DEBUG_ENABLED)
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            Log.w(TAG, "no resource for label $this in ${params.mId}")
             return this
         }
         return getInLocale(id)
@@ -782,9 +782,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     companion object {
         private val TAG = KeyboardParser::class.simpleName
 
+        // todo: rename, or add a separate parseCustom function
         fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val id = params.mId
             val layoutName = params.mId.mSubtype.keyboardLayoutSetName.substringBefore("+")
+            if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+                val f = File(context.filesDir, "layouts${File.separator}$layoutName")
+                return if (layoutName.endsWith(".json"))
+                    JsonKeyboardParser(params, context).parseLayoutString(f.readText())
+                else
+                    SimpleKeyboardParser(params, context).parseLayoutString(f.readText())
+            }
             val layoutFileNames = context.assets.list("layouts")!!
             return when {
                 id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC

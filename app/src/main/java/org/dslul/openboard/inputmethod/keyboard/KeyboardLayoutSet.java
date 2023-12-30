@@ -438,4 +438,12 @@ public final class KeyboardLayoutSet {
             }
         }
     }
+
+    public static KeyboardId getFakeKeyboardId(final int elementId) {
+        final Params params = new Params();
+        params.mEditorInfo = new EditorInfo();
+        params.mSubtype = RichInputMethodSubtype.getEmojiSubtype();
+        params.mSubtype.getKeyboardLayoutSetName();
+        return new KeyboardId(elementId, params);
+    }
 }
