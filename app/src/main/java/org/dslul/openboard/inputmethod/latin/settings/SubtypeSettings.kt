@@ -16,9 +16,12 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
+import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.xmlpull.v1.XmlPullParser
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
@@ -143,6 +146,7 @@ fun init(context: Context) {
     reloadSystemLocales(context)
 
     loadResourceSubtypes(context.resources)
+    removeInvalidCustomSubtypes(context)
     loadAdditionalSubtypes(context)
     loadEnabledSubtypes(context)
     initialized = true
@@ -212,6 +216,22 @@ private fun loadAdditionalSubtypes(context: Context) {
     val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
     val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
     additionalSubtypes.addAll(subtypes)
+}
+
+private fun removeInvalidCustomSubtypes(context: Context) {
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
+    val customSubtypeFiles by lazy { File(context.filesDir, "layouts").list() }
+    val subtypesToRemove = mutableListOf<String>()
+    additionalSubtypes.forEach {
+        val name = it.substringAfter(":")
+        if (!name.startsWith(CUSTOM_LAYOUT_PREFIX)) return@forEach
+        if (name !in customSubtypeFiles)
+            subtypesToRemove.add(it)
+    }
+    if (subtypesToRemove.isEmpty()) return
+    Log.w("SubtypeSettings", "removing custom subtypes without files: $subtypesToRemove")
+    Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
 }
 
 // requires loadResourceSubtypes to be called before
