@@ -37,11 +37,11 @@ import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
@@ -102,7 +102,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "pref_gesture_floating_preview_text";
     public static final String PREF_GESTURE_SPACE_AWARE = "pref_gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
-    public static final String PREF_USE_NEW_KEYBOARD_PARSING = "pref_use_new_keyboard_parsing3"; // todo: remove later
 
     public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled_p_";
     public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity_p_";
@@ -112,8 +111,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
 
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
-    public static final String PREF_HINT_LABEL_FROM_FIRST_MORE_KEY = "pref_hint_label_from_first_more_key";
+    public static final String PREF_MORE_KEYS_ORDER = "pref_more_keys_order";
+    public static final String PREF_MORE_KEYS_LABELS_ORDER = "pref_more_keys_labels_order";
     public static final String PREF_SHOW_POPUP_HINTS = "pref_show_popup_hints";
+    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_SPACE_LANGUAGE_SLIDE = "pref_space_language_slide";
@@ -128,10 +129,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
     public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
-    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
     public static final String PREF_URL_DETECTION = "pref_url_detection";
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
     public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
+    public static final String PREF_TOOLBAR_KEYS = "pref_toolbar_keys";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -163,6 +164,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
         add(PREF_SHOW_ALL_COLORS);
+        add(PREF_SELECTED_INPUT_STYLE);
     }};
 
     public static Settings getInstance() {
@@ -182,6 +184,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
+        ToolbarUtilsKt.upgradeToolbarPref(mPrefs);
     }
 
     public void onDestroy() {
@@ -247,9 +250,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static boolean readVibrationEnabled(final SharedPreferences prefs,
                                                final Resources res) {
-        final boolean hasVibrator = AudioAndHapticFeedbackManager.getInstance().hasVibrator();
-        return hasVibrator && prefs.getBoolean(PREF_VIBRATE_ON,
-                res.getBoolean(R.bool.config_default_vibration_enabled));
+        return prefs.getBoolean(PREF_VIBRATE_ON, res.getBoolean(R.bool.config_default_vibration_enabled))
+                && AudioAndHapticFeedbackManager.getInstance().hasVibrator();
     }
 
     public static boolean readAutoCorrectEnabled(final SharedPreferences prefs) {
@@ -462,23 +464,27 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
     }
 
-    public static List<String> readPinnedKeys(final SharedPreferences prefs) {
-        final String pinnedKeysString = prefs.getString(Settings.PREF_PINNED_KEYS, "");
-        if (pinnedKeysString.isEmpty())
-            return new ArrayList<>();
-        return Arrays.asList(pinnedKeysString.split(";"));
+    public static ArrayList<ToolbarKey> readPinnedKeys(final SharedPreferences prefs) {
+        final ArrayList<ToolbarKey> list = new ArrayList<>();
+        for (final String key : prefs.getString(Settings.PREF_PINNED_KEYS, "").split(";")) {
+            try {
+                list.add(ToolbarKey.valueOf(key));
+            } catch (IllegalArgumentException e) { } // may happen if toolbar key is removed from app
+        }
+        return list;
     }
 
-    public static void addPinnedKey(final SharedPreferences prefs, final String key) {
-        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+    public static void addPinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
+        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
+        if (keys.contains(key)) return;
         keys.add(key);
-        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
-    public static void removePinnedKey(final SharedPreferences prefs, final String key) {
-        final LinkedHashSet<String> keys = new LinkedHashSet<>(readPinnedKeys(prefs));
+    public static void removePinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
+        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
         keys.remove(key);
-        prefs.edit().putString(Settings.PREF_PINNED_KEYS, String.join(";", keys)).apply();
+        prefs.edit().putString(Settings.PREF_PINNED_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
     public static int readMoreMoreKeysPref(final SharedPreferences prefs) {

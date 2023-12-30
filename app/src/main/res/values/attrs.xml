@@ -272,6 +272,8 @@
         <attr name="iconArrowUp" format="reference" />
         <attr name="iconArrowDown" format="reference" />
         <attr name="iconBin" format="reference" />
+        <attr name="iconUndo" format="reference" />
+        <attr name="iconRedo" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_GridRows">
@@ -410,24 +412,14 @@
              positive is to right. The value is in proportion of the width of
              {@link org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
         <attr name="keyHintLabelOffCenterRatio" format="fraction" />
-        <!-- Color to use for the label in a key. -->
-        <attr name="keyTextColor" format="color" />
         <attr name="keyTextShadowColor" format="color" />
         <!-- Color to use for the label in a key when in inactivated state. -->
         <attr name="keyTextInactivatedColor" format="color" />
-        <!-- Color to use for the label in a key that has followFunctionalTextColor keyLabelFlags. -->
-        <attr name="functionalTextColor" format="color" />
-        <!-- Key hint letter (= one character hint label) color -->
-        <attr name="keyHintLetterColor" format="color" />
-        <!-- Key hint label color -->
-        <attr name="keyHintLabelColor" format="color" />
         <!-- Shifted letter hint colors -->
         <attr name="keyShiftedLetterHintInactivatedColor" format="color" />
         <attr name="keyShiftedLetterHintActivatedColor" format="color" />
 
         <!-- Key preview visual parameters -->
-        <!-- The text color for key press feedback. -->
-        <attr name="keyPreviewTextColor" format="color" />
         <!-- Size of the text for key press feedback popup, in the proportion of key height. -->
         <attr name="keyPreviewTextRatio" format="fraction" />
     </declare-styleable>
@@ -567,33 +559,6 @@
         <attr name="supportsSplitLayout" format="boolean" />
         <!-- Allow redundant more keys when they are in the base layout. true by default. -->
         <attr name="allowRedundantMoreKeys" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="KeyboardLayoutSet_Feature">
-        <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.latin.utils.ScriptUtils#SCRIPT_ARABIC} etc. -->
-        <attr name="supportedScript" format="enum">
-            <enum name="arabic" value="0" />
-            <enum name="armenian" value="1" />
-            <enum name="bengali" value="2" />
-            <enum name="cyrillic" value="3" />
-            <enum name="devanagari" value="4" />
-            <enum name="georgian" value="5" />
-            <enum name="greek" value="6" />
-            <enum name="hebrew" value="7" />
-            <enum name="kannada" value="8" />
-            <enum name="khmer" value="9" />
-            <enum name="lao" value="10" />
-            <enum name="latin" value="11" />
-            <enum name="malayalam" value="12" />
-            <!-- Myanmar is disabled. <enum name="myanmar" value="13" /> -->
-            <enum name="sinhala" value="14" />
-            <enum name="tamil" value="15" />
-            <enum name="telugu" value="16" />
-            <enum name="thai" value="17" />
-            <enum name="bulgarian" value="18" />
-            <enum name="hangul" value="19" />
-        </attr>
     </declare-styleable>
 
     <declare-styleable name="SeekBarDialogPreference">

@@ -41,6 +41,7 @@ import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public final class PointerTracker implements PointerTrackerQueue.Element,
         BatchInputArbiterListener {
@@ -256,7 +257,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onPress    : %s%s%s%s", mPointerId,
+            Log.d(TAG, String.format(Locale.US, "[%d] onPress    : %s%s%s%s", mPointerId,
                     (key == null ? "none" : Constants.printableCode(key.getCode())),
                     ignoreModifierKey ? " ignoreModifier" : "",
                     key.isEnabled() ? "" : " disabled",
@@ -285,7 +286,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (DEBUG_LISTENER) {
             final String output = code == Constants.CODE_OUTPUT_TEXT
                     ? key.getOutputText() : Constants.printableCode(code);
-            Log.d(TAG, String.format("[%d] onCodeInput: %4d %4d %s%s%s", mPointerId, x, y,
+            Log.d(TAG, String.format(Locale.US, "[%d] onCodeInput: %4d %4d %s%s%s%s", mPointerId, x, y,
                     output, ignoreModifierKey ? " ignoreModifier" : "",
                     altersCode ? " altersCode" : "", key.isEnabled() ? "" : " disabled"));
         }
@@ -318,7 +319,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onRelease  : %s%s%s%s", mPointerId,
+            Log.d(TAG, String.format(Locale.US, "[%d] onRelease  : %s%s%s%s", mPointerId,
                     Constants.printableCode(primaryCode),
                     withSliding ? " sliding" : "", ignoreModifierKey ? " ignoreModifier" : "",
                     key.isEnabled() ?  "": " disabled"));
@@ -333,14 +334,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void callListenerOnFinishSlidingInput() {
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onFinishSlidingInput", mPointerId));
+            Log.d(TAG, String.format(Locale.US, "[%d] onFinishSlidingInput", mPointerId));
         }
         sListener.onFinishSlidingInput();
     }
 
     private void callListenerOnCancelInput() {
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onCancelInput", mPointerId));
+            Log.d(TAG, String.format(Locale.US, "[%d] onCancelInput", mPointerId));
         }
         sListener.onCancelInput();
     }
@@ -519,7 +520,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     @Override
     public void onStartBatchInput() {
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onStartBatchInput", mPointerId));
+            Log.d(TAG, String.format(Locale.US, "[%d] onStartBatchInput", mPointerId));
         }
         sListener.onStartBatchInput();
         dismissAllMoreKeysPanels();
@@ -543,7 +544,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     @Override
     public void onUpdateBatchInput(final InputPointers aggregatedPointers, final long eventTime) {
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onUpdateBatchInput: batchPoints=%d", mPointerId,
+            Log.d(TAG, String.format(Locale.US, "[%d] onUpdateBatchInput: batchPoints=%d", mPointerId,
                     aggregatedPointers.getPointerSize()));
         }
         sListener.onUpdateBatchInput(aggregatedPointers);
@@ -564,7 +565,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onEndBatchInput   : batchPoints=%d",
+            Log.d(TAG, String.format(Locale.US, "[%d] onEndBatchInput   : batchPoints=%d",
                     mPointerId, aggregatedPointers.getPointerSize()));
         }
         sListener.onEndBatchInput(aggregatedPointers);
@@ -578,7 +579,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         sInGesture = false;
         if (DEBUG_LISTENER) {
-            Log.d(TAG, String.format("[%d] onCancelBatchInput", mPointerId));
+            Log.d(TAG, String.format(Locale.US, "[%d] onCancelBatchInput", mPointerId));
         }
         sListener.onCancelBatchInput();
     }
@@ -608,17 +609,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int x = (int)me.getX(index);
         final int y = (int)me.getY(index);
         switch (action) {
-        case MotionEvent.ACTION_DOWN:
-        case MotionEvent.ACTION_POINTER_DOWN:
-            onDownEvent(x, y, eventTime, keyDetector);
-            break;
-        case MotionEvent.ACTION_UP:
-        case MotionEvent.ACTION_POINTER_UP:
-            onUpEvent(x, y, eventTime);
-            break;
-        case MotionEvent.ACTION_CANCEL:
-            onCancelEvent(x, y, eventTime);
-            break;
+            case MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> onDownEvent(x, y, eventTime, keyDetector);
+            case MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> onUpEvent(x, y, eventTime);
+            case MotionEvent.ACTION_CANCEL -> onCancelEvent(x, y, eventTime);
         }
     }
 
@@ -634,7 +627,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             final int distance = getDistance(x, y, mLastX, mLastY);
             if (distance < sParams.mTouchNoiseThresholdDistance) {
                 if (DEBUG_MODE)
-                    Log.w(TAG, String.format("[%d] onDownEvent:"
+                    Log.w(TAG, String.format(Locale.US, "[%d] onDownEvent:"
                             + " ignore potential noise: time=%d distance=%d",
                             mPointerId, deltaT, distance));
                 cancelTrackingForAction();
@@ -814,7 +807,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private void processPhantomSuddenMoveHack(final Key key, final int x, final int y,
             final long eventTime, final Key oldKey, final int lastX, final int lastY) {
         if (DEBUG_MODE) {
-            Log.w(TAG, String.format("[%d] onMoveEvent:"
+            Log.w(TAG, String.format(Locale.US, "[%d] onMoveEvent:"
                     + " phantom sudden move event (distance=%d) is translated to "
                     + "up[%d,%d,%s]/down[%d,%d,%s] events", mPointerId,
                     getDistance(x, y, lastX, lastY),
@@ -833,7 +826,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             final float radiusRatio =
                     mBogusMoveEventDetector.getDistanceFromDownEvent(x, y)
                     / keyDiagonal;
-            Log.w(TAG, String.format("[%d] onMoveEvent:"
+            Log.w(TAG, String.format(Locale.US, "[%d] onMoveEvent:"
                     + " bogus down-move-up event (raidus=%.2f key diagonal) is "
                     + " translated to up[%d,%d,%s]/down[%d,%d,%s] events",
                     mPointerId, radiusRatio,
@@ -883,7 +876,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         else if (getActivePointerTrackerCount() > 1
                 && !sPointerTrackerQueue.hasModifierKeyOlderThan(this)) {
             if (DEBUG_MODE) {
-                Log.w(TAG, String.format("[%d] onMoveEvent:"
+                Log.w(TAG, String.format(Locale.US, "[%d] onMoveEvent:"
                         + " detected sliding finger while multi touching", mPointerId));
             }
             onUpEvent(x, y, eventTime);
@@ -1173,9 +1166,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int distanceFromKeyEdgeSquared = curKey.squaredDistanceToEdge(x, y);
         if (distanceFromKeyEdgeSquared >= keyHysteresisDistanceSquared) {
             if (DEBUG_MODE) {
-                final float distanceToEdgeRatio = (float)Math.sqrt(distanceFromKeyEdgeSquared)
-                        / mKeyboard.mMostCommonKeyWidth;
-                Log.d(TAG, String.format("[%d] isMajorEnoughMoveToBeOnNewKey:"
+                final float distanceToEdgeRatio = (float)Math.sqrt(distanceFromKeyEdgeSquared) / mKeyboard.mMostCommonKeyWidth;
+                Log.d(TAG, String.format(Locale.US, "[%d] isMajorEnoughMoveToBeOnNewKey:"
                         +" %.2f key width from key edge", mPointerId, distanceToEdgeRatio));
             }
             return true;
@@ -1185,9 +1177,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             if (DEBUG_MODE) {
                 final float keyDiagonal = (float)Math.hypot(
                         mKeyboard.mMostCommonKeyWidth, mKeyboard.mMostCommonKeyHeight);
-                final float lengthFromDownRatio =
-                        mBogusMoveEventDetector.getAccumulatedDistanceFromDownKey() / keyDiagonal;
-                Log.d(TAG, String.format("[%d] isMajorEnoughMoveToBeOnNewKey:"
+                final float lengthFromDownRatio = mBogusMoveEventDetector.getAccumulatedDistanceFromDownKey() / keyDiagonal;
+                Log.d(TAG, String.format(Locale.US, "[%d] isMajorEnoughMoveToBeOnNewKey:"
                         + " %.2f key diagonal from virtual down point",
                         mPointerId, lengthFromDownRatio));
             }
@@ -1273,7 +1264,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             final long eventTime) {
         final Key key = mKeyDetector.detectHitKey(x, y);
         final String code = (key == null ? "none" : Constants.printableCode(key.getCode()));
-        Log.d(TAG, String.format("[%d]%s%s %4d %4d %5d %s", mPointerId,
+        Log.d(TAG, String.format(Locale.US, "[%d]%s%s %4d %4d %5d %s", mPointerId,
                 (mIsTrackingForActionDisabled ? "-" : " "), title, x, y, eventTime, code));
     }
 }

@@ -36,7 +36,6 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestions;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
@@ -68,14 +67,10 @@ import java.util.HashSet;
  * @attr ref R.styleable#Keyboard_Key_keyLabelOffCenterRatio
  * @attr ref R.styleable#Keyboard_Key_keyHintLabelOffCenterRatio
  * @attr ref R.styleable#Keyboard_Key_keyPreviewTextRatio
- * @attr ref R.styleable#Keyboard_Key_keyTextColor
  * @attr ref R.styleable#Keyboard_Key_keyTextColorDisabled
  * @attr ref R.styleable#Keyboard_Key_keyTextShadowColor
- * @attr ref R.styleable#Keyboard_Key_keyHintLetterColor
- * @attr ref R.styleable#Keyboard_Key_keyHintLabelColor
  * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintInactivatedColor
  * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintActivatedColor
- * @attr ref R.styleable#Keyboard_Key_keyPreviewTextColor
  */
 public class KeyboardView extends View {
     // XML attributes
@@ -213,12 +208,7 @@ public class KeyboardView extends View {
         }
 
         mKeyboard = keyboard;
-        final SettingsValues sv = Settings.getInstance().getCurrent();
-        // scale should not depend on mOneHandedModeScale for emoji and clipboard, because those views are not affected by one-handed mode (yet)
-        if (keyboard.mId.isEmojiKeyboard() || keyboard.mId.mElementId == KeyboardId.ELEMENT_CLIPBOARD)
-            mKeyScaleForText = (float) Math.sqrt(1 / sv.mKeyboardHeightScale);
-        else
-            mKeyScaleForText = (float) Math.sqrt(sv.mOneHandedModeScale / sv.mKeyboardHeightScale);
+        mKeyScaleForText = (float) Math.sqrt(1 / Settings.getInstance().getCurrent().mKeyboardHeightScale);
         final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
         mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
         mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
@@ -263,7 +253,7 @@ public class KeyboardView extends View {
     }
 
     @Override
-    protected void onDraw(final Canvas canvas) {
+    protected void onDraw(@NonNull final Canvas canvas) {
         super.onDraw(canvas);
         if (canvas.isHardwareAccelerated()) {
             onDrawKeyboard(canvas);
@@ -362,6 +352,7 @@ public class KeyboardView extends View {
         canvas.translate(keyDrawX, keyDrawY);
 
         final KeyVisualAttributes attr = key.getVisualAttributes();
+        // don't use the raw key height, linear font scaling with height is too extreme
         final KeyDrawParams params = mKeyDrawParams.mayCloneAndUpdateParams((int) (key.getHeight() * mKeyScaleForText), attr);
         params.mAnimAlpha = Constants.Color.ALPHA_OPAQUE;
 

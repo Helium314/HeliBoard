@@ -34,14 +34,9 @@
         <item name="android:background">@color/keyboard_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_rounded_base</item>
         <item name="functionalKeyBackground">@drawable/btn_keyboard_key_rounded_base</item>
-        <item name="keyTextColor">@color/key_text_color_lxx_light</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
-        <item name="functionalTextColor">@color/key_functional_text_color_lxx_light</item>
-        <item name="keyHintLetterColor">@color/key_hint_letter_color_lxx_light</item>
-        <item name="keyHintLabelColor">@color/key_text_inactive_color_lxx_light</item>
         <item name="keyShiftedLetterHintInactivatedColor">@color/key_text_inactive_color_lxx_light</item>
         <item name="keyShiftedLetterHintActivatedColor">@color/key_text_color_lxx_light</item>
-        <item name="keyPreviewTextColor">@color/key_text_color_lxx_light</item>
         <!-- Specific attributes for this theme -->
         <item name="keyHintLetterPadding">3dp</item>
         <item name="keyHintLabelVerticalAdjustment">15%p</item> <!-- For normal keys -->

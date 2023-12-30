@@ -162,10 +162,6 @@
     <string name="space_language_slide">Space bar language slide</string>
     <!-- Description for "space_language_slide" option. -->
     <string name="space_language_slide_summary">Swipe upwards on the spacebar to change the language</string>
-    <!-- Preferences item for enabling the simplified keyboard parser and future other parsers (will be removed after some testing) -->
-    <string name="use_new_keyboard_parsing">Use new keyboard parser</string>
-    <!-- Description for "use_new_keyboard_parsing" option (will be removed after some testing) -->
-    <string name="use_new_keyboard_parsing_summary">Use this setting if you encounter issues with changed keyboard layouts (please report the problem). This setting will be removed at some point.</string>
     <!-- Preferences item and dialog title for backup and restore -->
     <string name="backup_restore_title">Backup and restore</string>
     <!-- Message for backup and restore dialog -->
@@ -238,10 +234,32 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
-    <!-- Title of the settings to show hint based on actual long-press key -->
-    <string name="show_hints_from_first_popup_key">Take hint label from first popup key</string>
-    <!-- Summary of the settings to show hint based on actual long-press key -->
-    <string name="show_hints_from_first_popup_key_summary">The default key hints are replaced by those selected first on a long press</string>
+    <!-- Title of the settings to select key hints source -->
+    <string name="hint_source">Select hint source</string>
+    <!-- Title of the settings to set popup key order -->
+    <string name="popup_order">Select popup key order</string>
+    <!-- Names of the more key classes -->
+    <string name="more_keys_number" tools:keep="@string/more_keys_number">Number row</string>
+    <string name="more_keys_language" tools:keep="@string/more_keys_language">Language</string>
+    <string name="more_keys_language_priority" tools:keep="@string/more_keys_language_priority">Language (priority)</string>
+    <string name="more_keys_layout" tools:keep="@string/more_keys_layout">Layout</string>
+    <string name="more_keys_symbols" tools:keep="@string/more_keys_symbols">Symbols</string>
+    <!-- Title of the settings to set toolbar keys -->
+    <string name="toolbar_keys">Select toolbar keys</string>
+    <!-- Names of the toolbar keys-->
+    <string name="copy" tools:keep="@string/copy">Copy</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
+    <string name="voice" tools:keep="@string/voice">Voice input</string>
+    <string name="settings" tools:keep="@string/settings">Settings</string>
+    <string name="select_all" tools:keep="@string/select_all">Select all</string>
+    <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
+    <string name="left" tools:keep="@string/left">Left</string>
+    <string name="right" tools:keep="@string/right">Right</string>
+    <string name="up" tools:keep="@string/up">Up</string>
+    <string name="down" tools:keep="@string/down">Down</string>
+    <string name="undo" tools:keep="@string/undo">Undo</string>
+    <string name="redo" tools:keep="@string/redo">Redo</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->

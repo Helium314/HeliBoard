@@ -30,6 +30,7 @@ import org.dslul.openboard.inputmethod.compat.TabHostCompat;
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -108,7 +109,7 @@ public final class EmojiPalettesView extends LinearLayout
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
-        builder.setKeyboardGeometry(ResourceUtils.getDefaultKeyboardWidth(res),
+        builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
                 mEmojiLayoutParams.mEmojiKeyboardHeight);
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
@@ -133,10 +134,9 @@ public final class EmojiPalettesView extends LinearLayout
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final Resources res = getContext().getResources();
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        final int width = ResourceUtils.getDefaultKeyboardWidth(res)
+        final int width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent())
                 + getPaddingLeft() + getPaddingRight();
         final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
-                + res.getDimensionPixelSize(R.dimen.config_suggestions_strip_height)
                 + getPaddingTop() + getPaddingBottom();
         setMeasuredDimension(width, height);
     }
@@ -155,14 +155,10 @@ public final class EmojiPalettesView extends LinearLayout
         host.addTab(tspec);
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-
-        mTabHost = findViewById(R.id.emoji_category_tabhost);
+    public void initialStart() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
+        mTabHost = KeyboardSwitcher.getInstance().getEmojiTabStrip().findViewById(R.id.emoji_category_tabhost);
         mTabHost.setup();
-        for (final EmojiCategory.CategoryProperties properties
-                : mEmojiCategory.getShownCategories()) {
+        for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
             addTab(mTabHost, properties.mCategoryId);
         }
         mTabHost.setOnTabChangedListener(this);
@@ -202,8 +198,7 @@ public final class EmojiPalettesView extends LinearLayout
                 final int currentCategorySize = mEmojiCategory.getCurrentCategoryPageCount();
                 final int a = (int) (percentage * currentCategorySize);
                 final float b = percentage * currentCategorySize - a;
-                mEmojiCategoryPageIndicatorView.setCategoryPageId(
-                        currentCategorySize, a, b);
+                mEmojiCategoryPageIndicatorView.setCategoryPageId(currentCategorySize, a, b);
 
                 final int firstCompleteVisibleBoard = mEmojiLayoutManager.findFirstCompletelyVisibleItemPosition();
                 final int firstVisibleBoard = mEmojiLayoutManager.findFirstVisibleItemPosition();
@@ -215,22 +210,16 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiRecyclerView.setPersistentDrawingCache(PERSISTENT_NO_CACHE);
         mEmojiLayoutParams.setEmojiListProperties(mEmojiRecyclerView);
 
-        mEmojiCategoryPageIndicatorView =
-                findViewById(R.id.emoji_category_page_id_view);
-        mEmojiCategoryPageIndicatorView.setColors(
-                mCategoryPageIndicatorColor, mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
+        mEmojiCategoryPageIndicatorView = findViewById(R.id.emoji_category_page_id_view);
+        mEmojiCategoryPageIndicatorView.setColors(mCategoryPageIndicatorColor, mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
 
-        setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(),
-                true /* force */);
+        setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
         // Enable reselection after the first setCurrentCategoryAndPageId() init call
         mTabHost.setFireOnTabChangeListenerOnReselection(true);
 
-        final LinearLayout actionBar = findViewById(R.id.emoji_action_bar);
-        mEmojiLayoutParams.setActionBarProperties(actionBar);
-
         // deleteKey depends only on OnTouchListener.
-        mDeleteKey = findViewById(R.id.emoji_keyboard_delete);
+        mDeleteKey = findViewById(R.id.key_delete);
         mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
         mColors.setColor(mDeleteKey, ColorType.KEY_ICON);
         mDeleteKey.setTag(Constants.CODE_DELETE);
@@ -243,19 +232,19 @@ public final class EmojiPalettesView extends LinearLayout
         // if the event is canceled by moving off the finger from the view.
         // The text on alphabet keys are set at
         // {@link #startEmojiPalettes(String,int,float,Typeface)}.
-        mAlphabetKeyLeft = findViewById(R.id.emoji_keyboard_alphabet_left);
+        mAlphabetKeyLeft = findViewById(R.id.key_alphabet);
         mAlphabetKeyLeft.setBackgroundResource(mFunctionalKeyBackgroundId);
         mAlphabetKeyLeft.setTag(Constants.CODE_ALPHA_FROM_EMOJI);
         mAlphabetKeyLeft.setOnTouchListener(this);
         mAlphabetKeyLeft.setOnClickListener(this);
-        mSpacebar = findViewById(R.id.emoji_keyboard_space);
+        mSpacebar = findViewById(R.id.key_space);
         mSpacebar.setBackground(mSpacebarBackground);
         mSpacebar.setTag(Constants.CODE_SPACE);
         mSpacebar.setOnTouchListener(this);
         mSpacebar.setOnClickListener(this);
 
         mEmojiLayoutParams.setKeyProperties(mSpacebar);
-        mSpacebarIcon = findViewById(R.id.emoji_keyboard_space_icon);
+        mSpacebarIcon = findViewById(R.id.key_space_icon);
 
         mColors.setBackground(mAlphabetKeyLeft, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mColors.setBackground(mDeleteKey, ColorType.FUNCTIONAL_KEY_BACKGROUND);
@@ -322,9 +311,8 @@ public final class EmojiPalettesView extends LinearLayout
             return;
         }
         final int code = (Integer) tag;
-        mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE,
-                false /* isKeyRepeat */);
-        mKeyboardActionListener.onReleaseKey(code, false /* withSliding */);
+        mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
+        mKeyboardActionListener.onReleaseKey(code, false);
     }
 
     /**
@@ -335,7 +323,7 @@ public final class EmojiPalettesView extends LinearLayout
     @Override
     public void onPressKey(final Key key) {
         final int code = key.getCode();
-        mKeyboardActionListener.onPressKey(code, 0 /* repeatCount */, true /* isSinglePointer */);
+        mKeyboardActionListener.onPressKey(code, 0, true);
     }
 
     /**
@@ -351,10 +339,9 @@ public final class EmojiPalettesView extends LinearLayout
         if (code == Constants.CODE_OUTPUT_TEXT) {
             mKeyboardActionListener.onTextInput(key.getOutputText());
         } else {
-            mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE,
-                    false /* isKeyRepeat */);
+            mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
         }
-        mKeyboardActionListener.onReleaseKey(code, false /* withSliding */);
+        mKeyboardActionListener.onReleaseKey(code, false);
     }
 
     public void setHardwareAcceleratedDrawingEnabled(final boolean enabled) {
@@ -378,6 +365,7 @@ public final class EmojiPalettesView extends LinearLayout
         if (deleteIconResId != 0) {
             mDeleteKey.setImageResource(deleteIconResId);
         }
+        mEmojiLayoutParams.setActionBarProperties(findViewById(R.id.action_bar));
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getActionBarHeight(), keyVisualAttr);
         setupAlphabetKey(mAlphabetKeyLeft, switchToAlphaLabel, params);
@@ -389,7 +377,7 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     public void stopEmojiPalettes() {
-        mEmojiPalettesAdapter.releaseCurrentKey(true /* withKeyRegistering */);
+        mEmojiPalettesAdapter.releaseCurrentKey(true);
         mEmojiPalettesAdapter.flushPendingRecentKeys();
         mEmojiRecyclerView.setAdapter(null);
     }
@@ -405,7 +393,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
         mEmojiCategoryPageIndicatorView.setCategoryPageId(
                 mEmojiCategory.getCurrentCategoryPageCount(),
-                mEmojiCategory.getCurrentCategoryPageId(), 0.0f /* offset */);
+                mEmojiCategory.getCurrentCategoryPageId(), 0.0f);
     }
 
     private void setCurrentCategoryAndPageId(final int categoryId, final int categoryPageId,
@@ -464,20 +452,22 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         private void onTouchDown(final View v) {
-            mKeyboardActionListener.onPressKey(Constants.CODE_DELETE,
-                    0 /* repeatCount */, true /* isSinglePointer */);
+            mKeyboardActionListener.onPressKey(Constants.CODE_DELETE, 0, true);
             v.setPressed(true /* pressed */);
         }
 
         private void onTouchUp(final View v) {
-            mKeyboardActionListener.onCodeInput(Constants.CODE_DELETE,
-                    NOT_A_COORDINATE, NOT_A_COORDINATE, false /* isKeyRepeat */);
-            mKeyboardActionListener.onReleaseKey(Constants.CODE_DELETE, false /* withSliding */);
+            mKeyboardActionListener.onCodeInput(Constants.CODE_DELETE, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
+            mKeyboardActionListener.onReleaseKey(Constants.CODE_DELETE, false);
             v.setPressed(false /* pressed */);
         }
 
         private void onTouchCanceled(final View v) {
             v.setPressed(false);
         }
+    }
+
+    public void clearKeyboardCache() {
+        mEmojiCategory.clearKeyboardCache();
     }
 }

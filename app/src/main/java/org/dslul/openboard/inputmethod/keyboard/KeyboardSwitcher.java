@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -46,6 +47,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private View mMainKeyboardFrame;
     private MainKeyboardView mKeyboardView;
     private EmojiPalettesView mEmojiPalettesView;
+    private View mEmojiTabStripView;
+    private LinearLayout mClipboardStripView;
+    private View mSuggestionStripView;
     private ClipboardHistoryView mClipboardHistoryView;
     private LatinIME mLatinIME;
     private RichInputMethodManager mRichImm;
@@ -124,8 +128,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                 .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                 .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
-                .setSplitLayoutEnabledByUser(ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED
-                        && settingsValues.mIsSplitKeyboardEnabled)
+                .setSplitLayoutEnabled(ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED && settingsValues.mIsSplitKeyboardEnabled)
                 .setOneHandedModeEnabled(oneHandedModeEnabled)
                 .build();
         try {
@@ -272,8 +275,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private void setMainKeyboardFrame(
             @NonNull final SettingsValues settingsValues,
             @NonNull final KeyboardSwitchState toggleState) {
-        final int visibility =  isImeSuppressedByHardwareKeyboard(settingsValues, toggleState)
-                ? View.GONE : View.VISIBLE;
+        final int visibility = isImeSuppressedByHardwareKeyboard(settingsValues, toggleState) ? View.GONE : View.VISIBLE;
         mKeyboardView.setVisibility(visibility);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
@@ -281,6 +283,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mMainKeyboardFrame.setVisibility(visibility);
         mEmojiPalettesView.setVisibility(View.GONE);
         mEmojiPalettesView.stopEmojiPalettes();
+        mEmojiTabStripView.setVisibility(View.GONE);
+        mClipboardStripView.setVisibility(View.GONE);
+        mSuggestionStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
         mClipboardHistoryView.stopClipboardHistory();
     }
@@ -292,11 +297,15 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             Log.d(TAG, "setEmojiKeyboard");
         }
         final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
-        mMainKeyboardFrame.setVisibility(View.GONE);
+        mMainKeyboardFrame.setVisibility(View.VISIBLE);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
+        mSuggestionStripView.setVisibility(View.GONE);
+        mClipboardStripView.setVisibility(View.GONE);
+        mEmojiTabStripView.setVisibility(View.VISIBLE);
+        mClipboardHistoryView.setVisibility(View.GONE);
         mEmojiPalettesView.startEmojiPalettes(
                 mKeyboardLayoutSet.mLocaleKeyTexts.getLabelAlphabet(),
                 mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
@@ -310,11 +319,15 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             Log.d(TAG, "setClipboardKeyboard");
         }
         final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
-        mMainKeyboardFrame.setVisibility(View.GONE);
+        mMainKeyboardFrame.setVisibility(View.VISIBLE);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
+        mEmojiTabStripView.setVisibility(View.GONE);
+        mSuggestionStripView.setVisibility(View.GONE);
+        mClipboardStripView.setVisibility(View.VISIBLE);
+        mEmojiPalettesView.setVisibility(View.GONE);
         mClipboardHistoryView.startClipboardHistory(
                 mLatinIME.getClipboardHistoryManager(),
                 mKeyboardLayoutSet.mLocaleKeyTexts.getLabelAlphabet(),
@@ -429,15 +442,23 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
             return;
         }
+        mEmojiPalettesView.clearKeyboardCache();
         final Settings settings = Settings.getInstance();
         mKeyboardViewWrapper.setOneHandedModeEnabled(enabled);
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
 
         settings.writeOneHandedModeEnabled(enabled);
 
-        // Reload the entire keyboard set with the same parameters
+        // Reload the entire keyboard set with the same parameters, and switch to the previous layout
+        boolean wasEmoji = isShowingEmojiPalettes();
+        boolean wasClipboard = isShowingClipboardHistory();
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+        if (wasEmoji)
+            setEmojiKeyboard();
+        else if (wasClipboard) {
+            setClipboardKeyboard();
+        }
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -499,7 +520,19 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         } else if (isShowingClipboardHistory()) {
             return mClipboardHistoryView;
         }
+        return mKeyboardView;
+    }
+
+    public View getWrapperView() {
         return mKeyboardViewWrapper;
+    }
+
+    public View getEmojiTabStrip() {
+        return mEmojiTabStripView;
+    }
+
+    public LinearLayout getClipboardStrip() {
+        return mClipboardStripView;
     }
 
     public MainKeyboardView getMainKeyboardView() {
@@ -540,6 +573,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiPalettesView.setKeyboardActionListener(mLatinIME);
         mClipboardHistoryView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled);
         mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
+        mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
+        mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
+        mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
+        mEmojiPalettesView.initialStart();
+        mClipboardHistoryView.initialStart();
 
         return mCurrentInputView;
     }

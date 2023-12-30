@@ -610,21 +610,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // increase / decrease confidence if we have more than one dictionary group
         boolean[] validWordForDictionary; // store results to avoid unnecessary duplicate lookups
         if (mDictionaryGroups.size() > 1 && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture
-            validWordForDictionary = new boolean[mDictionaryGroups.size()];
-            // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
-            final String decapitalizedSuggestion;
-            if (wasAutoCapitalized)
-                decapitalizedSuggestion = suggestion.substring(0, 1).toLowerCase() + suggestion.substring(1);
-            else
-                decapitalizedSuggestion = suggestion;
-            for (int i = 0; i < mDictionaryGroups.size(); i ++) {
-                final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
-                final boolean isValidWord = isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup);
-                if (isValidWord || (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)))
-                    dictionaryGroup.increaseConfidence();
-                else dictionaryGroup.decreaseConfidence();
-                validWordForDictionary[i] = isValidWord;
-            }
+            validWordForDictionary = adjustConfidencesInternal(suggestion, wasAutoCapitalized);
         } else
             validWordForDictionary = null;
 
@@ -654,6 +640,30 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                     removeWordFromBlacklistFile(currentWord, dictionaryGroup.blacklistFileName);
             }
         }
+    }
+
+    @Override public void adjustConfidences(final String word, final boolean wasAutoCapitalized) {
+        if (mDictionaryGroups.size() > 1 && !word.contains(Constants.WORD_SEPARATOR))
+            adjustConfidencesInternal(word, wasAutoCapitalized);
+    }
+
+    private boolean[] adjustConfidencesInternal(final String word, final boolean wasAutoCapitalized) {
+        final boolean[] validWordForDictionary = new boolean[mDictionaryGroups.size()];
+        // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
+        final String decapitalizedSuggestion;
+        if (wasAutoCapitalized)
+            decapitalizedSuggestion = word.substring(0, 1).toLowerCase() + word.substring(1);
+        else
+            decapitalizedSuggestion = word;
+        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
+            final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
+            final boolean isValidWord = isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup);
+            if (isValidWord || (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)))
+                dictionaryGroup.increaseConfidence();
+            else dictionaryGroup.decreaseConfidence();
+            validWordForDictionary[i] = isValidWord;
+        }
+        return validWordForDictionary;
     }
 
     // main and secondary isValid provided to avoid duplicate lookups
@@ -1014,7 +1024,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             return;
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
             try {
-                Log.i("test1", "adding to blacklist file" + group.blacklistFileName);
                 FileOutputStream fos = new FileOutputStream(group.blacklistFileName, true);
                 fos.write((word + "\n").getBytes(StandardCharsets.UTF_8));
                 fos.close();

@@ -6,11 +6,14 @@
 
 package org.dslul.openboard.inputmethod.latin.suggestions;
 
+import static org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt.*;
+
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -34,6 +37,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,6 +59,8 @@ import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -74,21 +80,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public static boolean DEBUG_SUGGESTIONS;
     private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
-    private static final String VOICE_KEY_TAG = "voice_key";
-    private static final String CLIPBOARD_KEY_TAG = "clipboard_key";
-    private static final String SETTINGS_KEY_TAG = "settings_key";
-    private static final String SELECT_ALL_KEY_TAG = "select_all_key";
-    private static final String COPY_KEY_TAG = "copy_key";
-    private static final String ONE_HANDED_KEY_TAG = "one_handed_key";
-    private static final String LEFT_KEY_TAG = "left_key";
-    private static final String RIGHT_KEY_TAG = "right_key";
-    private static final String UP_KEY_TAG = "up_key";
-    private static final String DOWN_KEY_TAG = "down_key";
-    private static final String UNDO_TAG = "undo";
-    private static final String REDO_TAG = "redo";
 
     private final ViewGroup mSuggestionsStrip;
-    private final ImageButton mToolbarKey;
+    private final ImageButton mToolbarExpandKey;
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
     private final Drawable mBinIcon;
@@ -145,31 +139,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         this(context, attrs, R.attr.suggestionStripViewStyle);
     }
 
-    public SuggestionStripView(final Context context, final AttributeSet attrs,
-            final int defStyle) {
+    public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        DEBUG_SUGGESTIONS = DeviceProtectedUtils.getSharedPreferences(context).getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        DEBUG_SUGGESTIONS = prefs.getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.suggestions_strip, this);
 
         mSuggestionsStrip = findViewById(R.id.suggestions_strip);
-        mToolbarKey = findViewById(R.id.suggestions_strip_toolbar_key);
+        mToolbarExpandKey = findViewById(R.id.suggestions_strip_toolbar_key);
         mStripVisibilityGroup = new StripVisibilityGroup(this, mSuggestionsStrip);
         mPinnedKeys = findViewById(R.id.pinned_keys);
         mToolbar = findViewById(R.id.toolbar);
         mToolbarContainer = findViewById(R.id.toolbar_container);
-        final ImageButton voiceKey = findViewById(R.id.suggestions_strip_voice_key);
-        final ImageButton clipboardKey = findViewById(R.id.suggestions_strip_clipboard_key);
-        final ImageButton selectAllKey = findViewById(R.id.suggestions_strip_select_all_key);
-        final ImageButton copyKey = findViewById(R.id.suggestions_strip_copy_key);
-        final ImageButton settingsKey = findViewById(R.id.suggestions_strip_settings_key);
-        final ImageButton oneHandedKey = findViewById(R.id.suggestions_strip_one_handed_key);
-        final ImageButton arrowLeft = findViewById(R.id.suggestions_strip_left_key);
-        final ImageButton arrowRight = findViewById(R.id.suggestions_strip_right_key);
-        final ImageButton arrowUp = findViewById(R.id.suggestions_strip_up_key);
-        final ImageButton arrowDown = findViewById(R.id.suggestions_strip_down_key);
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -201,41 +185,41 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
         mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
         mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
-        voiceKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconShortcutKey));
-        clipboardKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey));
-        settingsKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSettingsKey));
-        selectAllKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconSelectAll));
-        copyKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconCopyKey));
-        arrowLeft.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowLeft));
-        arrowRight.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowRight));
-        arrowUp.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowUp));
-        arrowDown.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconArrowDown));
-        oneHandedKey.setImageDrawable(keyboardAttr.getDrawable(R.styleable.Keyboard_iconStartOneHandedMode));
+
+        final LinearLayout.LayoutParams toolbarKeyLayoutParams = new LinearLayout.LayoutParams(
+                getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(prefs)) {
+            final ImageButton button = createToolbarKey(context, keyboardAttr, key);
+            button.setLayoutParams(toolbarKeyLayoutParams);
+            setupKey(button, colors);
+            mToolbar.addView(button);
+        }
         keyboardAttr.recycle();
 
-        final int toolbarHeight = Math.min(mToolbarKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
-        mToolbarKey.getLayoutParams().height = toolbarHeight;
-        mToolbarKey.getLayoutParams().width = toolbarHeight; // we want it square
-        colors.setBackground(mToolbarKey, ColorType.SUGGESTION_BACKGROUND);
-        mDefaultBackground = mToolbarKey.getBackground();
+        final int toolbarHeight = Math.min(mToolbarExpandKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
+        mToolbarExpandKey.getLayoutParams().height = toolbarHeight;
+        mToolbarExpandKey.getLayoutParams().width = toolbarHeight; // we want it square
+        colors.setBackground(mToolbarExpandKey, ColorType.SUGGESTION_BACKGROUND);
+        mDefaultBackground = mToolbarExpandKey.getBackground();
         mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
-        mEnabledToolKeyBackground.setGradientRadius(mToolbarKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
+        mEnabledToolKeyBackground.setGradientRadius(mToolbarExpandKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
-        mToolbarKey.setOnClickListener(this);
-        mToolbarKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        colors.setColor(mToolbarKey, ColorType.TOOL_BAR_EXPAND_KEY);
-        mToolbarKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
-        mToolbarKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
-        mToolbarKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
-        mToolbarKey.getLayoutParams().width *= 0.82;
+        mToolbarExpandKey.setOnClickListener(this);
+        mToolbarExpandKey.setImageDrawable(Settings.getInstance().getCurrent().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        colors.setColor(mToolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY);
+        mToolbarExpandKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
+        mToolbarExpandKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
+        mToolbarExpandKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
+        mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
-        for (int i = 0; i < mToolbar.getChildCount(); i++) {
-            setupKey((ImageButton) mToolbar.getChildAt(i), colors);
-        }
-        for (final String pinnedKey : Settings.getInstance().getCurrent().mPinnedKeys) {
-            mToolbar.findViewWithTag(pinnedKey).setBackground(mEnabledToolKeyBackground);
-            addKeyToPinnedKeys(pinnedKey, inflater);
+        for (final ToolbarKey pinnedKey : Settings.readPinnedKeys(prefs)) {
+            final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
+            if (pinnedKeyInToolbar == null) continue;
+            pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
+            addKeyToPinnedKeys(pinnedKey);
         }
 
         colors.setBackground(this, ColorType.SUGGESTION_BACKGROUND);
@@ -249,24 +233,24 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMainKeyboardView = inputView.findViewById(R.id.keyboard_view);
     }
 
-    public void updateVisibility(final boolean shouldBeVisible, final boolean isFullscreenMode) {
-        final int visibility = shouldBeVisible ? VISIBLE : (isFullscreenMode ? GONE : INVISIBLE);
-        setVisibility(visibility);
+    private void updateKeys() {
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
-        mToolbar.findViewWithTag(VOICE_KEY_TAG).setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(VOICE_KEY_TAG);
+        final View toolbarVoiceKey = mToolbar.findViewWithTag(ToolbarKey.VOICE);
+        if (toolbarVoiceKey != null)
+            toolbarVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
+        final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(ToolbarKey.VOICE);
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        mToolbarKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mToolbarKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+        mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        mToolbarExpandKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
 
-        // hide toolbar and pinned keys if device is locked
+        // hide pinned keys if device is locked, and avoid expanding toolbar
         final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
-        final boolean hideClipboard = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+        final boolean hideToolbarKeys = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
                 ? km.isDeviceLocked()
                 : km.isKeyguardLocked();
-        mToolbarKey.setVisibility(hideClipboard ? GONE : VISIBLE);
-        mPinnedKeys.setVisibility(hideClipboard ? GONE : VISIBLE);
+        mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
+        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -276,9 +260,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
         clear();
         setRtl(isRtlLanguage);
+        updateKeys();
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
+    }
+
+    public void addSuggestionView(final View view) {
+        mSuggestionsStrip.addView(view);
+    }
+
+    public void hideToolbarKeys() {
+        mToolbarExpandKey.setVisibility(GONE);
+        mPinnedKeys.setVisibility(GONE);
     }
 
     public void setMoreSuggestionsHeight(final int remainingHeight) {
@@ -288,13 +282,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     public void clear() {
         mSuggestionsStrip.removeAllViews();
-        removeAllDebugInfoViews();
+        if (DEBUG_SUGGESTIONS)
+            removeAllDebugInfoViews();
         if (mToolbarContainer.getVisibility() != VISIBLE)
             mStripVisibilityGroup.showSuggestionsStrip();
         dismissMoreSuggestionsPanel();
         for (final TextView word : mWordViews) {
             word.setOnTouchListener(null);
         }
+
+        mToolbarExpandKey.setVisibility(VISIBLE);
+        mPinnedKeys.setVisibility(VISIBLE);
     }
 
     private void removeAllDebugInfoViews() {
@@ -359,13 +357,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void onLongClickToolKey(final View view) {
-        if (CLIPBOARD_KEY_TAG.equals(view.getTag()) && view.getParent() == mPinnedKeys) {
+        if (ToolbarKey.CLIPBOARD == view.getTag() && view.getParent() == mPinnedKeys) {
             onLongClickClipboardKey(); // long click pinned clipboard key
         } else if (view.getParent() == mToolbar) {
-            final String tag = (String) view.getTag();
+            final ToolbarKey tag = (ToolbarKey) view.getTag();
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
             if (pinnedKeyView == null) {
-                addKeyToPinnedKeys(tag, LayoutInflater.from(getContext()));
+                addKeyToPinnedKeys(tag);
                 mToolbar.findViewWithTag(tag).setBackground(mEnabledToolKeyBackground);
                 Settings.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
             } else {
@@ -621,49 +619,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void onClick(final View view) {
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.CODE_UNSPECIFIED, this);
         final Object tag = view.getTag();
-        if (tag instanceof String) {
-            switch ((String) tag) {
-                case VOICE_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_SHORTCUT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case CLIPBOARD_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_CLIPBOARD, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case SELECT_ALL_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_SELECT_ALL, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case COPY_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_COPY, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case ONE_HANDED_KEY_TAG:
-                    final boolean oneHandedEnabled = Settings.getInstance().getCurrent().mOneHandedModeEnabled;
-                    mListener.onCodeInput(oneHandedEnabled ? Constants.CODE_STOP_ONE_HANDED_MODE : Constants.CODE_START_ONE_HANDED_MODE,
-                            Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case SETTINGS_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_SETTINGS, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case LEFT_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_LEFT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case RIGHT_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_RIGHT, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case UP_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_UP, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case DOWN_KEY_TAG:
-                    mListener.onCodeInput(Constants.CODE_DOWN, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case UNDO_TAG:
-                    mListener.onCodeInput(Constants.CODE_UNDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
-                case REDO_TAG:
-                    mListener.onCodeInput(Constants.CODE_REDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                    return;
+        if (tag instanceof ToolbarKey) {
+            final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
+            if (code != null) {
+                mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                return;
             }
         }
-        if (view == mToolbarKey) {
+        if (view == mToolbarExpandKey) {
             setToolbarVisibility(mToolbarContainer.getVisibility() != VISIBLE);
         }
 
@@ -703,17 +666,22 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(VISIBLE);
             mPinnedKeys.setVisibility(VISIBLE);
         }
-        mToolbarKey.setScaleX(visible ? -1f : 1f);
+        mToolbarExpandKey.setScaleX(visible ? -1f : 1f);
     }
 
-    private void addKeyToPinnedKeys(final String pinnedKey, final LayoutInflater inflater) {
-        final int resId = getKeyLayoutIdForTag(pinnedKey);
-        if (resId == 0) return;
-        final ImageButton view = (ImageButton) inflater.inflate(resId, null);
-        view.setImageDrawable(((ImageButton) mToolbar.findViewWithTag(pinnedKey)).getDrawable());
-        view.setLayoutParams(mToolbar.findViewWithTag(pinnedKey).getLayoutParams());
-        setupKey(view, Settings.getInstance().getCurrent().mColors);
-        mPinnedKeys.addView(view);
+    private void addKeyToPinnedKeys(final ToolbarKey pinnedKey) {
+        final ImageButton original = mToolbar.findViewWithTag(pinnedKey);
+        if (original == null) return;
+        final ImageButton copy = new ImageButton(getContext(), null, R.attr.suggestionWordStyle);
+        copy.setTag(pinnedKey);
+        copy.setScaleType(original.getScaleType());
+        copy.setScaleX(original.getScaleX());
+        copy.setScaleY(original.getScaleY());
+        copy.setContentDescription(original.getContentDescription());
+        copy.setImageDrawable(original.getDrawable());
+        copy.setLayoutParams(original.getLayoutParams());
+        setupKey(copy, Settings.getInstance().getCurrent().mColors);
+        mPinnedKeys.addView(copy);
     }
 
     private void setupKey(final ImageButton view, final Colors colors) {
@@ -721,31 +689,5 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         view.setOnLongClickListener(this);
         colors.setColor(view, ColorType.TOOL_BAR_KEY);
         colors.setBackground(view, ColorType.SUGGESTION_BACKGROUND);
-    }
-
-    private static int getKeyLayoutIdForTag(final String tag) {
-        switch (tag) {
-            case VOICE_KEY_TAG:
-                return R.layout.suggestions_strip_voice_key;
-            case SETTINGS_KEY_TAG:
-                return R.layout.suggestions_strip_settings_key;
-            case CLIPBOARD_KEY_TAG:
-                return R.layout.suggestions_strip_clipboard_key;
-            case SELECT_ALL_KEY_TAG:
-                return R.layout.suggestions_strip_select_all_key;
-            case COPY_KEY_TAG:
-                return R.layout.suggestions_strip_copy_key;
-            case ONE_HANDED_KEY_TAG:
-                return R.layout.suggestions_strip_one_handed_key;
-            case LEFT_KEY_TAG:
-                return R.layout.suggestions_strip_left_key;
-            case RIGHT_KEY_TAG:
-                return R.layout.suggestions_strip_right_key;
-            case UP_KEY_TAG:
-                return R.layout.suggestions_strip_up_key;
-            case DOWN_KEY_TAG:
-                return R.layout.suggestions_strip_down_key;
-        }
-        return 0;
     }
 }

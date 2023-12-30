@@ -2,11 +2,11 @@
 package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
-import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 
 /**
  *  Parser for simple layouts, defined only as rows of (normal) keys with moreKeys.
@@ -15,12 +15,10 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
  *  merged with defaults.
  */
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
-    private val addExtraKeys = // todo (after removing old parser): add turkish layout that maps to qwerty, but enables extra keys
-        params.mId.isAlphabetKeyboard && params.mId.locale.language != "eo"
-            && params.mId.mSubtype.keyboardLayoutSetName in listOf("nordic", "spanish", "german", "swiss", "serbian_qwertz")
+    private val addExtraKeys = params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
 
     override fun getLayoutFromAssets(layoutName: String) =
-        context.assets.open("layouts/${getSimpleLayoutName(layoutName, params)}.txt").reader().readText()
+        context.assets.open("layouts/$layoutName.txt").reader().readText()
 
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val rowStrings = layoutContent.replace("\r\n", "\n").split("\n\n")

@@ -24,6 +24,8 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
+import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import kotlin.collections.ArraysKt;
 
@@ -67,7 +69,19 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setupHistoryRetentionTimeSettings();
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         setLocalizedNumberRowVisibility();
-        findPreference(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
+        findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
+        findPreference(Settings.PREF_MORE_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT, R.string.popup_order);
+            return true;
+        });
+        findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT, R.string.hint_source);
+            return true;
+        });
+        findPreference(Settings.PREF_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(), R.string.toolbar_keys);
+            return true;
+        });
     }
 
     @Override
@@ -78,12 +92,14 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
-        if (Settings.PREF_SHOW_POPUP_HINTS.equals(key) || Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY.equals(key) || Settings.PREF_SHOW_NUMBER_ROW.equals(key))
-            mReloadKeyboard = true;
-        if (key.equals(Settings.PREF_LOCALIZED_NUMBER_ROW))
-            KeyboardLayoutSet.onSystemLocaleChanged();
-        if (Settings.PREF_SHOW_HINTS.equals(key)) {
-            findPreference(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+        if (key == null) return;
+        switch (key) {
+            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
+                    Settings.PREF_MORE_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS
+                    -> mReloadKeyboard = true;
+            case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
+            case Settings.PREF_SHOW_HINTS
+                    -> findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
         }
     }
 

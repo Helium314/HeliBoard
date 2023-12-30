@@ -1535,20 +1535,21 @@ public final class InputLogic {
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
         // mInputTypeNoAutoCorrect changed to !mShouldShowSuggestions because this was cancelling learning way too often
-        if (!settingsValues.mInputAttributes.mShouldShowSuggestions || settingsValues.mIncognitoModeEnabled)
+        if (!settingsValues.mInputAttributes.mShouldShowSuggestions || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
             return;
+        final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
+        final String word = stripWordSeparatorsFromEnd(suggestion, settingsValues);
         if (mConnection.hasSlowInputConnection()) {
             // Since we don't unlearn when the user backspaces on a slow InputConnection,
             // turn off learning to guard against adding typos that the user later deletes.
             Log.w(TAG, "Skipping learning due to slow InputConnection.");
+            // but we still want to adjust confidences for multilingual typing
+            mDictionaryFacilitator.adjustConfidences(word, wasAutoCapitalized);
             return;
         }
-
-        if (TextUtils.isEmpty(suggestion)) return;
-        final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final int timeStampInSeconds = (int)TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        mDictionaryFacilitator.addToUserHistory(stripWordSeparatorsFromEnd(suggestion, settingsValues), wasAutoCapitalized,
-                ngramContext, timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
+        mDictionaryFacilitator.addToUserHistory(word, wasAutoCapitalized, ngramContext,
+                timeStampInSeconds, settingsValues.mBlockPotentiallyOffensive);
     }
 
     // strip word separators from end (may be necessary for urls, e.g. when the user has typed

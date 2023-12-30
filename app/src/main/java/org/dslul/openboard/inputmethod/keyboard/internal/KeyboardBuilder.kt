@@ -7,9 +7,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal
 
 import android.content.Context
 import android.content.res.Resources
-import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.Xml
-import android.widget.Toast
 import androidx.annotation.XmlRes
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
 import org.dslul.openboard.inputmethod.keyboard.Key
@@ -18,17 +16,14 @@ import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.EmojiParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.KeyboardParser
-import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
-import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
-import org.xmlpull.v1.XmlPullParserException
-import java.io.IOException
 
 // TODO: Write unit tests for this class.
 open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context, @JvmField val mParams: KP) {
@@ -52,34 +47,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mAllowRedundantMoreKeys = enabled
     }
 
-    fun loadFromAssets(id: KeyboardId): KeyboardBuilder<KP>? {
-        mParams.mId = id
-        addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMoreKeys)
-        try {
-            keysInRows = KeyboardParser.parseFromAssets(mParams, mContext) ?: return null
-        } catch (e: Throwable) {
-            if (DebugFlags.DEBUG_ENABLED || BuildConfig.DEBUG)
-                Toast.makeText(mContext, "error parsing keyboard: ${e.message}", Toast.LENGTH_LONG).show()
-            Log.e(TAG, "loading $id from assets failed", e)
-            return null
-        }
-        determineAbsoluteValues()
-        return this
-
         // todo: further plan
-        //  next release, and possibly don't continue working here for a while (should allow finding more regressions)
-        //  remove the old parser
-        //   then finally the spanish/german/swiss/nordic layouts can be removed and replaced by some hasExtraKeys parameter
-        //   also the eo check could then be removed
-        //   and maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
+        //  after the old parser is removed
+        //   maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
         //    should be either both in method.xml, or both in assets (actually method might be more suitable)
         //   go through a lot of todos in parsers, key, keyboardlayoutset, ... as a lot of things should only change after old parser is removed
-        //   also remove the keybpard_layout_set files?
-        //    they are still in use e.g. for enableProximityCharsCorrection and supportedScript
-        //    but ideally this should be replaced
-        //     enableProximityCharsCorrection should be in LayoutInfos
-        //     supportedScript could be determined using ScriptUtils, but first make sure that there is less latin fallback happening
-        //      or use locale to store script, but that's only possible starting at api 21
+        //   also remove the keyboard_layout_set files?
         //  allow users to define their own layouts (maybe do everything else first?)
         //   need to solve the scaling issue with number row and 5 row keyboards
         //   write up how things work for users, also regarding language more keys
@@ -104,9 +77,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //   does glide typing work with multiple letters on one key? if not, users should be notified
         //   maybe allow users to define their own symbol and shift-symbol layouts
         //   allow users to import layouts, which essentially just fills the text from a file
-        //    add setting to use moreKeys from symbol layout (always, never, only if none defined)
-        //     should also have sth related to hint, because hint and start morekey maybe should stay
-        //  option to add language extra keys for all layouts?
 
         // labelFlags should be set correctly
         //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
@@ -136,38 +106,26 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         //  maybe remove some of the flags? or keep supporting them?
         //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
         //   actually period key also has shifted letter hint
-    }
 
-    fun loadFromXml(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
-        if (Settings.getInstance().current.mUseNewKeyboardParsing) {
-            if (id.isEmojiKeyboard) {
-                mParams.mId = id
-                readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
-                keysInRows = EmojiParser(mParams, mContext).parse(Settings.getInstance().current.mIsSplitKeyboardEnabled)
-                return this
-            }
-            if (loadFromAssets(id) != null) {
-                return this
-            }
-            if (DebugFlags.DEBUG_ENABLED) {
-                Log.e(TAG, "falling back to old parser for $id")
-                Toast.makeText(mContext, "using old parser for $id", Toast.LENGTH_LONG).show()
-                // todo throw error?
-            }
-        }
+    fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        // loading a keyboard should set default params like mParams.readAttributes(mContext, attrs);
-        // attrs may be null, then default values are used (looks good for "normal" keyboards)
-        try {
-            XmlKeyboardParser(xmlId, mParams, mContext).use { keyboardParser ->
-                keysInRows = keyboardParser.parseKeyboard()
+        if (id.isEmojiKeyboard) {
+            setAllowRedundantMoreKeys(true)
+            readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
+            keysInRows = EmojiParser(mParams, mContext).parse()
+        } else {
+            try {
+                val sv = Settings.getInstance().current
+                addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMoreMoreKeys)
+                mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
+                // add label source only if moreKey type enabled
+                sv.mMoreKeyLabelSources.forEach { if (it in sv.mMoreKeyTypes) mParams.mMoreKeyLabelSources.add(it) }
+                keysInRows = KeyboardParser.parseFromAssets(mParams, mContext)
+                determineAbsoluteValues()
+            } catch (e: Exception) {
+                Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
+                throw e
             }
-        } catch (e: XmlPullParserException) {
-            Log.w(TAG, "keyboard XML parse error", e)
-            throw IllegalArgumentException(e.message, e)
-        } catch (e: IOException) {
-            Log.w(TAG, "keyboard XML parse error", e)
-            throw RuntimeException(e.message, e)
         }
         return this
     }
@@ -178,7 +136,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         while (parser.eventType != XmlPullParser.END_DOCUMENT) {
             val event = parser.next()
             if (event == XmlPullParser.START_TAG) {
-                val tag = parser.name;
+                val tag = parser.name
                 if ("Keyboard" == tag) {
                     mParams.readAttributes(mContext, Xml.asAttributeSet(parser))
                     return
@@ -198,7 +156,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     open fun build(): Keyboard {
-        if (Settings.getInstance().current.mIsSplitKeyboardEnabled
+        if (mParams.mId.mIsSplitLayout
                 && mParams.mId.mElementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             addSplit()
         }
@@ -207,9 +165,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // determine key size and positions using relative width and height
-    // ideally this should not change anything
-    //  but it does a little, depending on how float -> int is done (cast or round, and when to sum up gaps and width)
-    //  still should not be more than a pixel difference
     private fun determineAbsoluteValues() {
         var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
@@ -229,6 +184,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // necessary for adjusting widths and positions properly
     // without adding spacers whose width can then be adjusted, we would have to deal with keyXPos,
     // which is more complicated than expected
+    // todo: remove? maybe was only necessary with old parser
     private fun fillGapsWithSpacers(row: MutableList<KeyParams>) {
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         if (row.isEmpty()) return

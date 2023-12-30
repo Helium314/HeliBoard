@@ -7,20 +7,14 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:orientation="vertical" >
 
-    <!-- To ensure that key preview popup is correctly placed when the current system locale is
-         one of RTL locales, layoutDirection="ltr" is needed in the SDK version 17+. -->
-    <org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView
-        android:id="@+id/suggestion_strip_view"
-        android:layoutDirection="ltr"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/config_suggestions_strip_height"
-        android:gravity="center_vertical"
-        style="?attr/suggestionStripViewStyle" />
+    <include
+        android:id="@+id/strip_container"
+        layout="@layout/strip_container" />
 
     <!-- To ensure that key preview popup is correctly placed when the current system locale is
          one of RTL locales, layoutDirection="ltr" is needed in the SDK version 17+. -->
@@ -35,6 +29,12 @@
             android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/emoji_palettes_view"
+            layout="@layout/emoji_palettes_view" />
+        <include
+            android:id="@+id/clipboard_history_view"
+            layout="@layout/clipboard_history_view" />
 
         <ImageButton
             android:id="@+id/btn_stop_one_handed_mode"

@@ -47,14 +47,9 @@
         <item name="keyBackground">@drawable/btn_keyboard_key_holo_white</item>
         <item name="functionalKeyBackground">@drawable/btn_keyboard_key_pressed_klp_light</item>
         <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_holo_white</item>
-        <item name="keyTextColor">@color/key_text_color_blue</item>
         <item name="keyTextInactivatedColor">@color/key_text_inactivated_color_holo</item>
-        <item name="functionalTextColor">@color/key_text_color_blue</item>
-        <item name="keyHintLetterColor">@color/key_hint_letter_color_holo</item>
-        <item name="keyHintLabelColor">@color/key_hint_label_color_holo</item>
         <item name="keyShiftedLetterHintInactivatedColor">@color/key_shifted_letter_hint_inactivated_color_holo</item>
         <item name="keyShiftedLetterHintActivatedColor">@color/key_shifted_letter_hint_activated_color_holo</item>
-        <item name="keyPreviewTextColor">@color/key_text_color_blue</item>
     </style>
     <style
         name="MainKeyboardView.HoloBase"

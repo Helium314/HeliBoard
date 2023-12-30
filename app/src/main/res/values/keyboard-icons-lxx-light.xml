@@ -46,5 +46,7 @@
         <item name="iconArrowUp">@drawable/ic_arrow_up</item>
         <item name="iconArrowDown">@drawable/ic_arrow_down</item>
         <item name="iconBin">@drawable/ic_delete</item>
+        <item name="iconUndo">@drawable/ic_undo</item>
+        <item name="iconRedo">@drawable/ic_redo</item>
     </style>
 </resources>

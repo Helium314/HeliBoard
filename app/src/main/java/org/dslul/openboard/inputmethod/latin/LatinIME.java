@@ -16,7 +16,9 @@ import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
@@ -33,6 +35,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InlineSuggestion;
+import android.view.inputmethod.InlineSuggestionsRequest;
+import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -73,6 +78,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAcce
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
+import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
@@ -94,6 +100,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
@@ -1248,7 +1255,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (mInputView == null) {
             return;
         }
-        final View visibleKeyboardView = mKeyboardSwitcher.getVisibleKeyboardView();
+        final View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
         if (visibleKeyboardView == null || !hasSuggestionStripView()) {
             return;
         }
@@ -1261,11 +1268,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int suggestionsHeight = (!mKeyboardSwitcher.isShowingEmojiPalettes()
-                && !mKeyboardSwitcher.isShowingClipboardHistory()
-                && mSuggestionStripView.getVisibility() == View.VISIBLE)
-                ? mSuggestionStripView.getHeight() : 0;
-        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - suggestionsHeight;
+        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - mSuggestionStripView.getHeight();
         mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
@@ -1344,6 +1347,40 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void updateFullscreenMode() {
         super.updateFullscreenMode();
         updateSoftInputWindowLayoutParameters();
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
+        Log.d(TAG,"onCreateInlineSuggestionsRequest called");
+
+        // Revert to default behaviour if show_suggestions is disabled
+        // (Maybe there is a better way to do this)
+        if(!mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
+            return null;
+        }
+        return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
+    }
+
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
+        Log.d(TAG,"onInlineSuggestionsResponse called");
+        final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
+        if (inlineSuggestions.isEmpty()) {
+            return false;
+        }
+
+        final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
+        // "normal" suggestions might be determined in parallel when processing MSG_UPDATE_SUGGESTION_STRIP
+        // so we add a delay to make sure inline suggestions are set only after normal suggestions
+        new Handler().postDelayed(() -> {
+            mSuggestionStripView.clear();
+            mSuggestionStripView.hideToolbarKeys();
+            mSuggestionStripView.addSuggestionView(inlineSuggestionView);
+        }, 200);
+
+        return true;
     }
 
     private void updateSoftInputWindowLayoutParameters() {
@@ -1694,29 +1731,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return;
         }
 
-        final boolean shouldShowSuggestionCandidates =
-                currentSettingsValues.mInputAttributes.mShouldShowSuggestions
-                        && currentSettingsValues.isSuggestionsEnabledPerUserSettings();
-        final boolean shouldShowSuggestionsStripUnlessPassword = !currentSettingsValues.mPinnedKeys.isEmpty()
-                || shouldShowSuggestionCandidates
-                || currentSettingsValues.isApplicationSpecifiedCompletionsOn();
-        final boolean shouldShowSuggestionsStrip = shouldShowSuggestionsStripUnlessPassword
-                && (!currentSettingsValues.mInputAttributes.mIsPasswordField || !currentSettingsValues.mPinnedKeys.isEmpty());
-        mSuggestionStripView.updateVisibility(shouldShowSuggestionsStrip, isFullscreenMode());
-        if (!shouldShowSuggestionsStrip) {
-            return;
-        }
-
         final boolean isEmptyApplicationSpecifiedCompletions =
                 currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                         && suggestedWords.isEmpty();
         final boolean noSuggestionsFromDictionaries = suggestedWords.isEmpty()
                 || suggestedWords.isPunctuationSuggestions()
                 || isEmptyApplicationSpecifiedCompletions;
-        final boolean isBeginningOfSentencePrediction = (suggestedWords.mInputStyle
-                == SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION);
-        final boolean noSuggestionsToOverrideImportantNotice = noSuggestionsFromDictionaries
-                || isBeginningOfSentencePrediction;
 
         if (currentSettingsValues.isSuggestionsEnabledPerUserSettings()
                 || currentSettingsValues.isApplicationSpecifiedCompletionsOn()

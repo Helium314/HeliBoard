@@ -66,11 +66,11 @@ import androidx.annotation.NonNull;
     }
 
     protected String toString(int state) {
-        switch (state) {
-        case RELEASING: return "RELEASING";
-        case PRESSING: return "PRESSING";
-        case CHORDING: return "CHORDING";
-        default: return "UNKNOWN";
-        }
+        return switch (state) {
+            case RELEASING -> "RELEASING";
+            case PRESSING -> "PRESSING";
+            case CHORDING -> "CHORDING";
+            default -> "UNKNOWN";
+        };
     }
 }

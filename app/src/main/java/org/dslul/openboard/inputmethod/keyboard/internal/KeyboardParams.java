@@ -79,17 +79,14 @@ public class KeyboardParams {
     public final ArrayList<Key> mAltCodeKeysWhileTyping = new ArrayList<>();
     @NonNull
     public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
-    @NonNull
-    public final KeyboardTextsSet mTextsSet = new KeyboardTextsSet();
-    @NonNull
-    public final KeyStylesSet mKeyStyles = new KeyStylesSet(mTextsSet);
     @NonNull // todo: not good, this only works because params are currently always created for the active subtype
     public final List<Locale> mSecondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
+    public final ArrayList<String> mMoreKeyTypes = new ArrayList<>();
+    public final ArrayList<String> mMoreKeyLabelSources = new ArrayList<>();
 
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantMoreKeys;
-    public final boolean mHintLabelFromFirstMoreKey = Settings.getInstance().getCurrent().mHintLabelFromFirstMoreKey;
     @NonNull
     public LocaleKeyTexts mLocaleKeyTexts;
 
@@ -268,7 +265,6 @@ public class KeyboardParams {
 
             mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
             mIconsSet.loadIcons(keyboardAttr);
-            mTextsSet.setLocale(mId.getLocale(), context);
 
             final int resourceId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
             if (resourceId != 0) {

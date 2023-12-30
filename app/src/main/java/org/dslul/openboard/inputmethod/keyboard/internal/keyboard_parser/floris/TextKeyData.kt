@@ -148,7 +148,5 @@ fun String.toTextKey(moreKeys: Collection<String>? = null, labelFlags: Int = 0):
     TextKeyData(
         label = this,
         labelFlags = labelFlags,
-        popup = moreKeys
-            ?.let { keys -> PopupSet(null, keys.map { it.toTextKey() }) }
-            ?: PopupSet()
+        popup = SimplePopups(moreKeys)
     )

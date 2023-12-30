@@ -129,7 +129,7 @@ interface KeyData : AbstractKeyData {
                 width,
                 labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
-                popup.toMoreKeys(params),
+                popup,
             )
         } else {
             KeyParams(
@@ -139,7 +139,7 @@ interface KeyData : AbstractKeyData {
                 width,
                 labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL,
-                popup.toMoreKeys(params),
+                popup,
             )
         }
     }

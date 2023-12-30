@@ -1,29 +1,29 @@
-q %
-d \
-r |
-w =
-b [
-j ]
-f <
-u >
-p {
-; }
+q
+d
+r
+w
+b
+j
+f
+u
+p
+;
 
-a @
-s #
-h $$$
-t _
-g &
-y -
-n +
-e (
-o )
-i /
+a
+s
+h
+t
+g
+y
+n
+e
+o
+i
 
-z *
-x "
-m '
-c :
-v ;
-k !
-l ?
+z
+x
+m
+c
+v
+k
+l

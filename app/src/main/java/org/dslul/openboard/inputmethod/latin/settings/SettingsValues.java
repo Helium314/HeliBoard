@@ -26,8 +26,10 @@ import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
+import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
+import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +46,6 @@ public class SettingsValues {
     // Float.NEGATIVE_INFINITE and Float.MAX_VALUE. Currently used for auto-correction settings.
     private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
     private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
-    private static final int TIMEOUT_TO_GET_TARGET_PACKAGE = 5; // seconds
     public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
     public static final float AUTO_CORRECTION_DISABLED_THRESHOLD = Float.MAX_VALUE;
 
@@ -66,7 +67,6 @@ public class SettingsValues {
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
     public final boolean mShowsHints;
-    public final boolean mHintLabelFromFirstMoreKey;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mSpaceLanguageSlide;
@@ -83,7 +83,9 @@ public class SettingsValues {
     public final int mOneHandedModeGravity;
     public final float mOneHandedModeScale;
     public final boolean mNarrowKeyGaps;
-    public final int mShowMoreKeys;
+    public final int mShowMoreMoreKeys;
+    public final List<String> mMoreKeyTypes;
+    public final List<String> mMoreKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -93,9 +95,7 @@ public class SettingsValues {
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
-    public final boolean mShowAppIcon;
     public final boolean mIsShowAppIconSettingInPreferences;
-    public final boolean mCloudSyncEnabled;
     public final boolean mShouldShowLxxSuggestionUi;
     // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
@@ -106,9 +106,7 @@ public class SettingsValues {
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
-    public final List<String> mPinnedKeys;
     public final float mBottomPaddingScale;
-    public final boolean mUseNewKeyboardParsing;
 
     // From the input box
     @NonNull
@@ -132,6 +130,7 @@ public class SettingsValues {
     @Nullable
     public final String mAccount;
 
+    // creation of Colors and SpacingAndPunctuations are the slowest parts in here, but still ok
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
@@ -153,7 +152,6 @@ public class SettingsValues {
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
-        mHintLabelFromFirstMoreKey = mShowsHints && prefs.getBoolean(Settings.PREF_HINT_LABEL_FROM_FIRST_MORE_KEY, false);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
@@ -185,15 +183,11 @@ public class SettingsValues {
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
         mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
         mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs, res);
-        mEnableEmojiAltPhysicalKey = prefs.getBoolean(
-                Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
-        mShowAppIcon = Settings.readShowSetupWizardIcon(prefs, context);
+        mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
-        mCloudSyncEnabled = prefs.getBoolean(LocalSettingsConstants.PREF_ENABLE_CLOUD_SYNC, false);
-        mAccount = prefs.getString(LocalSettingsConstants.PREF_ACCOUNT_NAME,
-                null /* default */);
+        mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
@@ -229,10 +223,16 @@ public class SettingsValues {
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
-        mShowMoreKeys = selectedSubtype.isAsciiCapable()
+        mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMoreMoreKeysPref(prefs)
                 : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
+
+        // read locale-specific popup key settings, fall back to global settings
+        final String moreKeyTypesDefault = prefs.getString(Settings.PREF_MORE_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT);
+        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_MORE_KEYS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyTypesDefault);
+        final String moreKeyLabelDefault = prefs.getString(Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT);
+        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_MORE_KEYS_LABELS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyLabelDefault);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
@@ -243,10 +243,8 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
-        mPinnedKeys = Settings.readPinnedKeys(prefs);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
-        mUseNewKeyboardParsing = prefs.getBoolean(Settings.PREF_USE_NEW_KEYBOARD_PARSING, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

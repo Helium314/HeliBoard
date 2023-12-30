@@ -104,6 +104,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
             mServiceNeedsRestart = true;
         } else if (key.equals(DebugSettings.PREF_SHOW_SUGGESTION_INFOS)) {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
+        } else if (key.equals(DebugSettings.PREF_SHOW_DEBUG_SETTINGS) && mDebugMode.isChecked()) {
+            mDebugMode.setChecked(false);
         }
     }
 
