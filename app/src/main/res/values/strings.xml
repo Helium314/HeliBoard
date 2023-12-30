@@ -432,7 +432,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title text for choosing a layout name -->
     <string name="title_layout_name_select">Set layout name</string>
     <!-- Message on load layout error -->
-    <string name="load_layout_error">Error loading layout</string>
+    <string name="load_layout_error">Error loading layout: %s</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->

@@ -24,18 +24,16 @@ import java.math.BigInteger
 fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded: (String) -> Unit) {
     val cacheFile = File(context.cacheDir, "temp_layout")
     fun error(reason: String) {
-        // maybe add more detailed message?
-        Log.w(TAG, reason)
         cacheFile.delete()
-        infoDialog(context, R.string.load_layout_error)
+        infoDialog(context, context.getString(R.string.load_layout_error, reason))
     }
     if (uri == null)
-        return error("file not found")
+        return error("layout file not found")
     try {
         val i = context.contentResolver.openInputStream(uri)
         FileUtils.copyStreamToNewFile(i, cacheFile)
     } catch (e: IOException) {
-        return error("can't read file")
+        return error("cannot read layout file")
     }
 
     var name = ""
@@ -60,7 +58,7 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
             // name must be encoded to avoid issues with validity of subtype extra string or file name
             name = "$CUSTOM_LAYOUT_PREFIX${localeString}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
             if (!cacheFile.exists())
-                return@setPositiveButton error("file gone")
+                return@setPositiveButton error("cached file is gone")
             val file = getFile(name, context)
             if (file.exists())
                 file.delete()
@@ -76,11 +74,19 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
     addLocaleKeyTextsToParams(context, params, MORE_KEYS_NORMAL)
     try {
-        JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
+        val keys = JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
+        if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 || it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
+            Log.w(TAG, "too many or too long popup keys")
+            return null
+        }
         return true
     } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
     try {
-        SimpleKeyboardParser(params, context).parseLayoutString(layoutContent)
+        val keys = SimpleKeyboardParser(params, context).parseLayoutString(layoutContent)
+        if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 || it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
+            Log.w(TAG, "too many or too long popup keys")
+            return null
+        }
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
     return null

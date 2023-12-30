@@ -48,10 +48,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  avoid crashes with moreKeys not fitting on screen
-    //   too long moreKeys
-    //   too many moreKeys
-    //   how to test? just have a max number of moreKeys, and a max length on each?
     //  avoid issues with specific labels
     //   should not crash, because the file will not be accepted (crashes when creating key params)
     //   still it would be best to silently change e.g. % to \% when reading custom layout in parser
@@ -59,6 +55,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     //   KeySpecParser.getLabel and similar
     //   maybe just take the literal label instead of crashing (except for the % moreKey placeholder...)
     //  try weird layouts with few or many rows or keys
+    //   -> reduce-size-if-row-above-has-narrow-keys should do nothing if size diff is too large (more than 20% or so)
     //  inform users about what is wrong in the dialog, not just in text
     //  set autoXScale if more than 2 codepoints on a key
     //   looks like is it already set? check!
