@@ -46,7 +46,7 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
-    val isJson = checkLayout(cacheFile.readText(), context) ?: return error("invalid layout file")
+    val isJson = checkLayout(cacheFile.readText(), context) ?: return error("invalid layout file, ${Log.getLog().lastOrNull { it.tag == TAG }?.message}")
 
     AlertDialog.Builder(context)
         .setTitle(R.string.title_layout_name_select)

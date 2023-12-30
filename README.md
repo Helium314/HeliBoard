@@ -22,6 +22,7 @@ Might end up on F-Droid...
 * Number pad
 * Show all available extra characters on long pressing a key
 * Backup your learned word / history data
+* Add custom keyboard layouts
 * Adjustable bottom padding
 
 ## Hidden functionality

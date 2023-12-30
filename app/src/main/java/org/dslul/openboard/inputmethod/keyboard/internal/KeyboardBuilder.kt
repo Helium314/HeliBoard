@@ -48,45 +48,9 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  inform users about what is wrong in the dialog, not just in log
-    //  does glide typing work with multiple letters on one key? if not, users should be warned if they try it
-    //   looks like it only works if letters are unique
-    //   also multi-letter keys do not work
-    //  write up how things work for users, also regarding language more keys
-    //   stuff should go to layouts.md, link is already in the dialog
-    //  later
-    //   allow users to define their own symbol and shift-symbol layouts
-    //    will need a different way of loading then...
-    //   allow editing layouts in a simple UI (and allow starting from existing layout
-
-        // labelFlags should be set correctly
-        //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
-        //  alignIconToBottom: space_key_for_number_layout
-        //  alignLabelOffCenter: number keys in phone layout
-        //  fontNormal: turkish (rows 1 and 2 only), .com, emojis, numModeKeyStyle, a bunch of non-latin languages
-        //    -> switches to normal typeface, only relevant for holo which has bold
-        //  fontMonoSpace: unused
-        //  fontDefault: keyExclamationQuestion, a bunch of "normal" keys in fontNormal layouts like thai
-        //    -> switches to default defined typeface, useful e.g. if row has fontNormal
-        //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
-        //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
-        //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
-        //  followKeyHintLabelRatio: unused directly (but includes some others)
-        //  hasPopupHint: basically the long-pressable functional keys
-        //  hasShiftedLetterHint: period key and some keys on pcqwerty
-        //  hasHintLabel: number keys in number layouts
-        //  autoXScale: com key, action keys, some on phone layout, some non-latin languages
-        //  autoScale: only one single letter in khmer layout (includes autoXScale)
-        //  preserveCase: action key + more keys, com key, shift keys
-        //  shiftedLetterActivated: period and some keys on pcqwerty, tablet only (wtf, when enabled can't open moreKeys -> remove? or what would be the use?)
-        //  fromCustomActionLabel: action key with customLabelActionKeyStyle -> check parser where to get this info
-        //  followFunctionalTextColor: number mode keys, action key
-        //  keepBackgroundAspectRatio: lxx and rounded action more keys, lxx no-border action and emoji, moreKeys keyboard view
-        //  disableKeyHintLabel: keys in pcqwerty row 1 and number row
-        //  disableAdditionalMoreKeys: only keys in pcqwerty row 1 so there is no number row -> not necessary with the new layouts, just remove it completely
-        //  maybe remove some of the flags? or keep supporting them?
-        //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
-        //   actually period key also has shifted letter hint
+    //  allow users to define their own symbol and shift-symbol layouts
+    //   will need a different way of loading then...
+    //  allow editing layouts in a simple UI (and allow starting from existing layout
 
     fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
