@@ -7,6 +7,8 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.os.Build;
+
+import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -70,6 +72,10 @@ public class RichInputMethodSubtype {
 
     public boolean isNoLanguage() {
         return SubtypeLocaleUtils.NO_LANGUAGE.equals(mSubtype.getLocale());
+    }
+
+    public boolean isCustom() {
+        return getKeyboardLayoutSetName().startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX);
     }
 
     public String getNameForLogging() {
