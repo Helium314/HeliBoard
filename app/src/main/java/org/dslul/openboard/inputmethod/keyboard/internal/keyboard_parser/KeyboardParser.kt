@@ -7,7 +7,6 @@ import android.content.res.Resources
 import android.os.Build
 import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.annotation.StringRes
 import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.Key.KeyParams
@@ -114,10 +113,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             // setting the correct moreKeys is handled in PopupSet
             // not for korean/lao/thai layouts, todo: should be decided in the layout / layoutInfos, not in the parser
             baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
-            if (DebugFlags.DEBUG_ENABLED && baseKeys.first().size < 10) {
-                val message = "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}"
-                Log.w(TAG, message)
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            if (baseKeys.first().size < 10) {
+                Log.w(TAG, "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}")
             }
         }
 
@@ -242,6 +239,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val rowAboveLastNormalRowKeyWidth = rowAboveLastNormalRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
         if (lastNormalRowKeyWidth <= rowAboveLastNormalRowKeyWidth + 0.0001f)
             return // no need
+        if (lastNormalRowKeyWidth / rowAboveLastNormalRowKeyWidth > 1.1f)
+            return // don't resize on large size difference
         if (lastNormalRow.any { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL && it.mRelativeWidth != lastNormalRowKeyWidth })
             return // normal keys have different width, don't deal with this
         val numberOfNormalKeys = lastNormalRow.count { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }

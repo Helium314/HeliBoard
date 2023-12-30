@@ -4,9 +4,11 @@ package org.dslul.openboard.inputmethod.latin.utils
 import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
+import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
+import org.dslul.openboard.inputmethod.keyboard.Key
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
@@ -59,6 +61,7 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
             setText(name)
             doAfterTextChanged { name = it.toString() }
             setPadding(30, 10, 30, 10)
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         })
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
@@ -82,21 +85,41 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     addLocaleKeyTextsToParams(context, params, MORE_KEYS_NORMAL)
     try {
         val keys = JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
-        if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 || it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
-            Log.w(TAG, "too many or too long popup keys")
+        if (!checkKeys(keys))
             return null
-        }
         return true
     } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
     try {
         val keys = SimpleKeyboardParser(params, context).parseLayoutString(layoutContent)
-        if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 || it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
-            Log.w(TAG, "too many or too long popup keys")
+        if (!checkKeys(keys))
             return null
-        }
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
     return null
+}
+
+private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
+    if (keys.isEmpty() || keys.any { it.isEmpty() }) {
+        Log.w(TAG, "empty rows")
+        return false
+    }
+    if (keys.size > 8) {
+        Log.w(TAG, "too many rows")
+        return false
+    }
+    if (keys.any { it.size > 20 }) {
+        Log.w(TAG, "too many keys in one row")
+        return false
+    }
+    if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 } }) {
+        Log.w(TAG, "too many popup keys")
+        return false
+    }
+    if (keys.any { it.any { it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
+        Log.w(TAG, "too long text on popup keys")
+        return false
+    }
+    return true
 }
 
 private fun getFile(layoutName: String, context: Context) =

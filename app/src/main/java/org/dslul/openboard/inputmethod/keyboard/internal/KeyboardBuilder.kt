@@ -48,8 +48,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // todo for adding layouts
-    //  try weird layouts with few or many rows or keys
-    //   -> reduce-size-if-row-above-has-narrow-keys should do nothing if size diff is too large (more than 20% or so)
     //  inform users about what is wrong in the dialog, not just in text
     //  set autoXScale if more than 2 codepoints on a key
     //   looks like is it already set? check!
