@@ -47,10 +47,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mAllowRedundantMoreKeys = enabled
     }
 
-    // todo for adding layouts
-    //  allow users to define their own symbol and shift-symbol layouts
-    //   will need a different way of loading then...
-
     fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {

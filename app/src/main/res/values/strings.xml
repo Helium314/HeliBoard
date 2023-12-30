@@ -436,7 +436,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Message on layout error -->
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->
-    <string name="edit_layout">Tap to edit</string>
+    <string name="edit_layout">Tap to edit raw layout</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->

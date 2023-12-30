@@ -142,7 +142,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
     val file = getFile(layoutName, context)
     var content = startContent ?: file.readText()
     AlertDialog.Builder(context)
-        .setTitle(layoutName)
+        .setTitle(getLayoutDisplayName(layoutName))
         .setView(EditText(context).apply {
             setText(content)
             doAfterTextChanged { content = it.toString() }
