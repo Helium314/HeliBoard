@@ -47,7 +47,7 @@ import java.util.Locale;
  * from the UserDictionarySettings.
  */
 public class UserDictionaryAddWordFragment extends Fragment
-        implements AdapterView.OnItemSelectedListener, LocationChangedListener {
+        implements LocationChangedListener {
 
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
     private static final int OPTIONS_MENU_DELETE = Menu.FIRST + 1;
@@ -164,38 +164,42 @@ public class UserDictionaryAddWordFragment extends Fragment
                 requireActivity(), android.R.layout.simple_spinner_item, localesList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         localeSpinner.setAdapter(adapter);
-        localeSpinner.setOnItemSelectedListener(this);
-    }
+        localeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(position);
+                // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+                /*if (locale.isMoreLanguages()) {
+                    AppCompatActivity activity = (AppCompatActivity) requireActivity();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(android.R.id.content, new UserDictionaryLocalePicker())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    // The selected language is always at the top of the list
+                    localesList.remove(position);
+                    localesList.add(0, locale);
+                }*/
 
-    @Override
-    public void onItemSelected(final AdapterView<?> parent, final View view, final int pos,
-            final long id) {
-        final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(pos);
-        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-/*        if (locale.isMoreLanguages()) {
-            AppCompatActivity activity = (AppCompatActivity) requireActivity();
-            activity.getSupportFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new UserDictionaryLocalePicker())
-                    .addToBackStack(null)
-                    .commit();
-        } else {
-            mContents.updateLocale(locale.getLocaleString());
-        }*/
-        // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-        mContents.updateLocale(locale.getLocaleString());
+                // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+                // The selected language is always at the top of the list
+                localesList.remove(position);
+                localesList.add(0, locale);
 
-        // The action bar subtitle is updated when a language is selected in the drop-down menu
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setSubtitle(locale.toString());
-    }
+                // The action bar subtitle is updated when a language is selected in the drop-down menu
+                final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+                if (actionBar != null)
+                    actionBar.setSubtitle(locale.toString());
+            }
 
-    @Override
-    public void onNothingSelected(final AdapterView<?> parent) {
-        // I'm not sure we can come here, but if we do, that's the right thing to do.
-        final Bundle args = getArguments();
-        if (args == null) return;
-        mContents.updateLocale(args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE));
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // I'm not sure we can come here, but if we do, that's the right thing to do.
+                final Bundle args = getArguments();
+                if (args == null) return;
+                mContents.updateLocale(args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE));
+            }
+        });
     }
 
     // Called by the locale picker
