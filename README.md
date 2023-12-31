@@ -27,23 +27,24 @@ Might end up on F-Droid...
 
 ## Hidden functionality
 Features that may go unnoticed, and further potentially useful information
-* Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents. 
-* Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. 
-* Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: 
-  * Emoji View and Language Switch will disappear if you have the corresponding key enabled; 
-  * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout). 
+* Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents.
+* Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip.
+* Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
+  * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
+  * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
 * When incognito mode is enabled, no words will be learned, and no emojis will be added to recents.
-* Sliding key input: Swipe from shift to another key to type a single uppercase key: 
-  * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys. 
-* Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. 
-* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. 
-* You can add dictionaries by opening them in a file explorer: 
-  * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers. 
+* Sliding key input: Swipe from shift to another key to type a single uppercase key:
+  * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys.
+* Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion.
+* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
+* Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).
+* You can add dictionaries by opening them in a file explorer:
+  * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.
 * _When using debug mode / debug APK_
   * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
-  * When using debug APK, you can find Debug Settings within the Advanced Preferences, though the usefulness is limited except for dumping dictionaries into the log. 
+  * When using debug APK, you can find Debug Settings within the Advanced Preferences, though the usefulness is limited except for dumping dictionaries into the log.
   * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings.
-  * When using multilingual typing, space bar will show an confidence value used for determining the currenly used language
+  * When using multilingual typing, space bar will show an confidence value used for determining the currenly used language.
   * Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled)
 * For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot. The file is located in `/data/user_de/0/package_id/shared_prefs/`, though this may depend on the device and Android version.
 
