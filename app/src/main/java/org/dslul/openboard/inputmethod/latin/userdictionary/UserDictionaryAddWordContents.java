@@ -28,6 +28,7 @@ import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -414,6 +415,14 @@ public class UserDictionaryAddWordContents {
             // If mLocale is "", then we already inserted the "all languages" item, so don't do it
             addLocaleDisplayNameToList(activity, localesList, ""); // meaning: all languages
         }
+
+        // In edit mode from the user dictionary list, "For all languages" is at the top of the list
+        // and the other languages are sorted alphabetically
+        if ("".equals(mLocale)) {
+            Collections.sort(localesList, (locale1, locale2)
+                    -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
+        }
+
         // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
         // localesList.add(new LocaleRenderer(activity, null)); // meaning: select another locale
         return localesList;

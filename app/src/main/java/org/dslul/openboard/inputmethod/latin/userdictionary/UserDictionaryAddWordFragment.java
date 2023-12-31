@@ -34,6 +34,7 @@ import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWor
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryLocalePicker.LocationChangedListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 // Caveat: This class is basically taken from
@@ -176,14 +177,48 @@ public class UserDictionaryAddWordFragment extends Fragment
                             .addToBackStack(null)
                             .commit();
                 } else {
-                    // The selected language is always at the top of the list
+                    mContents.updateLocale(locale.getLocaleString());
+                    // To have the selected language at the top of the list, this one is removed from the list
                     localesList.remove(position);
+                    // Then the other languages are sorted alphabetically
+                    Collections.sort(localesList, (locale1, locale2)
+                            -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
+
+                    // Set "For all languages" to the end of the list
+                    if (!locale.getLocaleString().equals("")) {
+                        // After alphabetical sorting, "For all languages" is always in 1st position.
+                        // (The position is 0 because the spinner menu item count starts at 0)
+                        final LocaleRenderer forAllLanguages = adapter.getItem(0);
+                        // So we delete its entry ...
+                        localesList.remove(forAllLanguages);
+                        // ... and we set it at the end of the list.
+                        localesList.add(localesList.size(), forAllLanguages);
+                    }
+
+                    // Finally, we add the selected language to the top of the list.
                     localesList.add(0, locale);
                 }*/
 
                 // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-                // The selected language is always at the top of the list
+                mContents.updateLocale(locale.getLocaleString());
+                // To have the selected language at the top of the list, this one is removed from the list
                 localesList.remove(position);
+                // Then the other languages are sorted alphabetically
+                Collections.sort(localesList, (locale1, locale2)
+                        -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
+
+                // Set "For all languages" to the end of the list
+                if (!locale.getLocaleString().equals("")) {
+                    // After alphabetical sorting, "For all languages" is always in 1st position.
+                    // (The position is 0 because the spinner menu item count starts at 0)
+                    final LocaleRenderer forAllLanguages = adapter.getItem(0);
+                    // So we delete its entry ...
+                    localesList.remove(forAllLanguages);
+                    // ... and we set it at the end of the list.
+                    localesList.add(localesList.size(), forAllLanguages);
+                }
+
+                // Finally, we add the selected language to the top of the list.
                 localesList.add(0, locale);
 
                 // The action bar subtitle is updated when a language is selected in the drop-down menu
