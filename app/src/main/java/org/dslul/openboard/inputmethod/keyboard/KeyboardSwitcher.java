@@ -86,11 +86,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public void updateKeyboardTheme(@NonNull Context displayContext) {
         final boolean themeUpdated = updateKeyboardThemeAndContextThemeWrapper(
-                displayContext, KeyboardTheme.getKeyboardTheme(displayContext /* context */));
-        if (themeUpdated && mKeyboardView != null) {
+                displayContext, KeyboardTheme.getKeyboardTheme(displayContext));
+        if (themeUpdated) {
             Settings settings = Settings.getInstance();
             settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
-            mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
+            if (mKeyboardView != null)
+                mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
         }
     }
 
@@ -102,6 +103,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             final KeyboardTheme keyboardTheme) {
         final boolean nightModeChanged = (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK)
                 != (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
+        Log.d(TAG, "old ui mode "+ mCurrentUiMode+", new ui mode "+context.getResources().getConfiguration().uiMode);
         if (mThemeContext == null || !keyboardTheme.equals(mKeyboardTheme) || nightModeChanged
                 || !mThemeContext.getResources().equals(context.getResources())
                 || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {

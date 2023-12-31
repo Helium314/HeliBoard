@@ -815,7 +815,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onInitializeInterface() {
         mDisplayContext = getDisplayContext();
-        Log.d(TAG, "onInitializeInterface -> possibly configuration changed");
+        Log.d(TAG, "onInitializeInterface");
         mKeyboardSwitcher.updateKeyboardTheme(mDisplayContext);
     }
 
