@@ -307,56 +307,86 @@ public class UserDictionaryAddWordContents {
         Set<String> mainLocale = new HashSet<>();
         for (InputMethodSubtype subtype : enabledMainSubtype) {
             Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
-            mainLocale.add(locale.toString());
+            String localeString = locale.toString();
+            // Special treatment for the known languages with _ZZ types
+            if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz")) {
+                localeString = localeString.substring(0, localeString.indexOf("_"));
+            }
+            mainLocale.add(localeString);
             // To avoid duplicates between the main language and the user dictionary language
-            if (subtype.getLocale().equals(mLocale)) {
+            if (localeString.equals(mLocale)) {
                 mainLocale.remove(mLocale);
             }
             // To avoid duplicates between the main language and the language of the user dictionary list
             if (userDictionaryList != null) {
                 for (String userDictionarySubtype : userDictionaryList) {
                     Locale userDictionaryLocale = LocaleUtils.constructLocaleFromString(String.valueOf(userDictionarySubtype));
-                    if (locale == userDictionaryLocale) {
-                        mainLocale.remove(userDictionaryLocale.toString());
+                    String userDictionaryLocaleString = userDictionaryLocale.toString();
+                    // Special treatment for the known languages with _ZZ types
+                    if (userDictionaryLocaleString.endsWith("_ZZ") || userDictionaryLocaleString.endsWith("_zz")) {
+                        userDictionaryLocaleString = userDictionaryLocaleString.substring(0, userDictionaryLocaleString.indexOf("_"));
+                    }
+                    if (localeString.equals(userDictionaryLocaleString)) {
+                        mainLocale.remove(userDictionaryLocaleString);
                     }
                 }
             }
             // To avoid duplicates between the main language and the system language
             for (Locale systemSubtype : enabledSystemLocale) {
                 Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                if (locale == systemLocale) {
-                    mainLocale.remove(systemLocale.toString());
+                String systemLocaleString = systemLocale.toString();
+                // Special treatment for the known languages with _ZZ types
+                if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz")) {
+                    systemLocaleString = systemLocaleString.substring(0, systemLocaleString.indexOf("_"));
+                }
+                if (localeString.equals(systemLocaleString)) {
+                    mainLocale.remove(systemLocaleString);
                 }
             }
             // Secondary language is added only if main language is selected and if system language is not enabled,
             // so we write it here
             for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
                 Locale secondLocale = LocaleUtils.constructLocaleFromString(String.valueOf(secondSubtype));
+                String secondLocaleString = secondLocale.toString();
+                // Special treatment for the known languages with _ZZ types
+                if (secondLocaleString.endsWith("_ZZ") || secondLocaleString.endsWith("_zz")) {
+                    secondLocaleString = secondLocaleString.substring(0, secondLocaleString.indexOf("_"));
+                }
                 if (!localeSystemOnly) {
-                    mainLocale.add(secondLocale.toString());
+                    mainLocale.add(secondLocaleString);
                 }
                 // To avoid duplicates between the secondary language and the user dictionary language
-                if (String.valueOf(secondSubtype).equals(mLocale)) {
+                if (secondLocaleString.equals(mLocale)) {
                     mainLocale.remove(mLocale);
                 }
                 // To avoid duplicates between the main language and the secondary language
-                if (locale == secondLocale) {
-                    mainLocale.remove(secondLocale.toString());
+                if (localeString.equals(secondLocaleString)) {
+                    mainLocale.remove(secondLocaleString);
                 }
                 // To avoid duplicates between the secondary language and the language of the user dictionary list
                 if (userDictionaryList != null) {
                     for (String userDictionarySubtype : userDictionaryList) {
                         Locale userDictionaryLocale = LocaleUtils.constructLocaleFromString(String.valueOf(userDictionarySubtype));
-                        if (secondLocale == userDictionaryLocale) {
-                            mainLocale.remove(userDictionaryLocale.toString());
+                        String userDictionaryLocaleString = userDictionaryLocale.toString();
+                        // Special treatment for the known languages with _ZZ types
+                        if (userDictionaryLocaleString.endsWith("_ZZ") || userDictionaryLocaleString.endsWith("_zz")) {
+                            userDictionaryLocaleString = userDictionaryLocaleString.substring(0, userDictionaryLocaleString.indexOf("_"));
+                        }
+                        if (secondLocaleString.equals(userDictionaryLocaleString)) {
+                            mainLocale.remove(userDictionaryLocaleString);
                         }
                     }
                 }
                 // To avoid duplicates between the secondary language and the system language
                 for (Locale systemSubtype : enabledSystemLocale) {
                     Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                    if (secondLocale == systemLocale) {
-                        mainLocale.remove(systemLocale.toString());
+                    String systemLocaleString = systemLocale.toString();
+                    // Special treatment for the known languages with _ZZ types
+                    if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz")) {
+                        systemLocaleString = systemLocaleString.substring(0, systemLocaleString.indexOf("_"));
+                    }
+                    if (secondLocaleString.equals(systemLocaleString)) {
+                        mainLocale.remove(systemLocaleString);
                     }
                 }
             }
@@ -367,16 +397,29 @@ public class UserDictionaryAddWordContents {
         if (userDictionaryList != null) {
             for (String userDictionarySubtype : userDictionaryList) {
                 Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(userDictionarySubtype));
-                userDictionaryLocale.add(locale.toString());
+                String localeString = locale.toString();
+                // Special treatment for the known languages with _ZZ types
+                if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz")) {
+                    localeString = localeString.substring(0, localeString.indexOf("_"));
+                }
+                // All user dictionary languages are added except "For all languages"
+                if (!locale.toString().equals("")) {
+                    userDictionaryLocale.add(localeString);
+                }
                 // To avoid duplicates between the language of the user dictionary list and the language of the user dictionary
-                if (String.valueOf(userDictionarySubtype).equals(mLocale)) {
+                if (localeString.equals(mLocale)) {
                     userDictionaryLocale.remove(mLocale);
                 }
                 // To avoid duplicates between the language of the user dictionary list and the system language
                 for (Locale systemSubtype : enabledSystemLocale) {
                     Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                    if (locale == systemLocale) {
-                        userDictionaryLocale.remove(systemLocale.toString());
+                    String systemLocaleString = systemLocale.toString();
+                    // Special treatment for the known languages with _ZZ types
+                    if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz")) {
+                        systemLocaleString = systemLocaleString.substring(0, systemLocaleString.indexOf("_"));
+                    }
+                    if (localeString.equals(systemLocaleString)) {
+                        userDictionaryLocale.remove(systemLocaleString);
                     }
                 }
             }
@@ -386,8 +429,13 @@ public class UserDictionaryAddWordContents {
         Set<String> systemLocales = new HashSet<>();
         for (Locale subtype : enabledSystemLocale) {
             Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
-            systemLocales.add(locale.toString());
-            if (String.valueOf(subtype).equals(mLocale)) {
+            String localeString = locale.toString();
+            // Special treatment for the known languages with _ZZ types
+            if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz")) {
+                localeString = localeString.substring(0, localeString.indexOf("_"));
+            }
+            systemLocales.add(localeString);
+            if (localeString.equals(mLocale)) {
                 systemLocales.remove(mLocale);
             }
         }
