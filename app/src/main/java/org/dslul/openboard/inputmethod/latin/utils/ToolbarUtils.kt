@@ -36,7 +36,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     CLIPBOARD -> CODE_CLIPBOARD
     SELECT_ALL -> CODE_SELECT_ALL
     COPY -> CODE_COPY
-    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) CODE_START_ONE_HANDED_MODE else CODE_STOP_ONE_HANDED_MODE
+    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) CODE_STOP_ONE_HANDED_MODE else CODE_START_ONE_HANDED_MODE
     LEFT -> CODE_LEFT
     RIGHT -> CODE_RIGHT
     UP -> CODE_UP
