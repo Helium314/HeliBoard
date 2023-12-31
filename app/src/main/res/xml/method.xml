@@ -57,10 +57,10 @@
     it_CH: Italian (Switzerland)/qwertz+
     iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
     ka_GE: Georgian (Georgia)/georgian
-    kk: Kazakh/kk
+    kk: Kazakh/ru
     km_KH: Khmer (Cambodia)/khmer
     kn_IN: Kannada (India)/kannada
-    ky: Kyrgyz/ky
+    ky: Kyrgyz/ru
     lo_LA: Lao (Laos)/lao
     lt: Lithuanian/qwerty
     lv: Latvian/qwerty
@@ -539,7 +539,7 @@
             android:imeSubtypeLocale="kk"
             android:languageTag="kk"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=kk,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -593,7 +593,7 @@
             android:imeSubtypeLocale="ky"
             android:languageTag="ky"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=ky,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"

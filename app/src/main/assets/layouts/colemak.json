@@ -24,7 +24,7 @@
     { "label": "n" },
     { "label": "e" },
     { "label": "i" },
-    { "label": "o" }
+    { "label": "o", "popup": { "main": { "label": "…" } } }
   ],
   [
     { "label": "z" },
