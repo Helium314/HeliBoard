@@ -40,6 +40,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private val functionalKeyBackgroundId: Int
     private val keyBackgroundId: Int
     private val spacebarBackground: Drawable
+    private var initialized = false
 
     private lateinit var clipboardRecyclerView: ClipboardHistoryRecyclerView
     private lateinit var placeholderView: TextView
@@ -79,7 +80,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun initialStart() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
+    private fun initialize() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
+        if (initialized) return
         val colors = Settings.getInstance().current.mColors
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
@@ -119,6 +121,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             colors.setBackground(it, ColorType.TOOL_BAR_KEY)
         }
         colors.setBackground(clipboardStrip, ColorType.BACKGROUND)
+        initialized = true
     }
 
     private fun setupAlphabetKey(key: TextView, label: String, params: KeyDrawParams) {
@@ -166,6 +169,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             keyVisualAttr: KeyVisualAttributes?,
             iconSet: KeyboardIconsSet
     ) {
+        initialize()
         setupToolbarKeys()
         historyManager.prepareClipboardHistory()
         historyManager.setHistoryChangeListener(this)
@@ -194,6 +198,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     fun stopClipboardHistory() {
+        if (!initialized) return
         clipboardRecyclerView.adapter = null
         clipboardHistoryManager?.setHistoryChangeListener(null)
         clipboardHistoryManager = null

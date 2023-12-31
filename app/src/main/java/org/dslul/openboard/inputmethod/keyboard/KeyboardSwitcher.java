@@ -573,8 +573,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
         mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
-        mEmojiPalettesView.initialStart();
-        mClipboardHistoryView.initialStart();
+        // todo: try delaying, it's not needed at this point
+        //  but when initializing right before showing, selected emoji category is not colored correctly
+        mEmojiPalettesView.initialize();
 
         return mCurrentInputView;
     }
