@@ -44,14 +44,14 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         Settings.PREF_COLOR_SPACEBAR_SUFFIX,
         Settings.PREF_COLOR_TEXT_SUFFIX,
         Settings.PREF_COLOR_HINT_TEXT_SUFFIX,
+        Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX,
         Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
         Settings.PREF_COLOR_ACCENT_SUFFIX,
         Settings.PREF_COLOR_GESTURE_SUFFIX,
     )
     private val colorPrefsToHideInitially by lazy {
-        listOf(Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, Settings.PREF_COLOR_GESTURE_SUFFIX) +
-            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false))
-                listOf(Settings.PREF_COLOR_SPACEBAR_SUFFIX)
+        listOf(Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX,Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, Settings.PREF_COLOR_GESTURE_SUFFIX) +
+            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) listOf(Settings.PREF_COLOR_SPACEBAR_SUFFIX)
             else listOf(Settings.PREF_COLOR_KEYS_SUFFIX, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX)
     }
 
@@ -112,6 +112,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             R.string.select_color_spacebar_background,
             R.string.select_color_key,
             R.string.select_color_key_hint,
+            R.string.select_color_suggestion,
             R.string.select_color_spacebar_text,
             R.string.select_color_accent,
             R.string.select_color_gesture,

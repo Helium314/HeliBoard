@@ -680,6 +680,8 @@ New dictionary:
     <string name="select_color_key">Key text</string>
     <!-- Selection: key hint text color. -->
     <string name="select_color_key_hint">Key hint text</string>
+    <!-- Selection: suggestion text color. -->
+    <string name="select_color_suggestion">Suggestion strip text</string>
     <!-- Selection: key color. -->
     <string name="select_color_key_background">Key background</string>
     <!-- Selection: functional key color. -->

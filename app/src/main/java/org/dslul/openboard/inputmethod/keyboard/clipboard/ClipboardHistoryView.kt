@@ -115,8 +115,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardStrip.addView(it)
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
-            colors.setColor(it, ColorType.CLEAR_CLIPBOARD_HISTORY_KEY)
-            colors.setBackground(it, ColorType.CLEAR_CLIPBOARD_HISTORY_KEY)
+            colors.setColor(it, ColorType.TOOL_BAR_KEY)
+            colors.setBackground(it, ColorType.TOOL_BAR_KEY)
         }
         colors.setBackground(clipboardStrip, ColorType.BACKGROUND)
     }

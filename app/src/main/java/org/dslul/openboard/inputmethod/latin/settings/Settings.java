@@ -70,6 +70,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
     public static final String PREF_COLOR_GESTURE_SUFFIX = "gesture";
     public static final String PREF_COLOR_TEXT_SUFFIX = "text";
+    public static final String PREF_COLOR_SUGGESTION_TEXT_SUFFIX = "suggestion_text";
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
@@ -558,6 +559,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
             case PREF_COLOR_GESTURE_SUFFIX:
                 return readUserColor(prefs, context, PREF_COLOR_ACCENT_SUFFIX, isNight);
+            case PREF_COLOR_SUGGESTION_TEXT_SUFFIX:
+                return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
             case PREF_COLOR_TEXT_SUFFIX:
                 // base it on background color, and not key, because it's also used for suggestions
                 final int background = readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight);
