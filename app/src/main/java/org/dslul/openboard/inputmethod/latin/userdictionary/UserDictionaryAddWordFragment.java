@@ -89,7 +89,9 @@ public class UserDictionaryAddWordFragment extends Fragment
         final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
         final Bundle args = getArguments();
         // The delete icon only appears if a word is already present.
-        if (args != null && !args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE).equals("")) {
+        if (args == null) return;
+        if (!args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE).equals("")
+                && args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
             final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, null).setIcon(deleteIcon);
             actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             if (actionItemDelete.getIcon() != null)
