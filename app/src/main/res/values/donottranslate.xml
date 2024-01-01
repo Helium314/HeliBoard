@@ -4,11 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- For backward compatibility.
-         @see org.dslul.openboard.inputmethod.latin.settings.SettingsValues#needsToShowVoiceInputKey(android.content.SharedPreferences,android.content.res.Resources) -->
-    <string name="voice_mode_main">0</string>
-
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Subtype locale display name exceptions.
          For each exception, there should be related string resources for display name that may have
          explicit keyboard layout. The string resource name must be "subtype_<locale>" or
@@ -27,8 +23,8 @@
         <item>hi_ZZ</item>
         <item>sr_ZZ</item>
     </string-array>
-    <string name="subtype_in_root_locale_hi_ZZ" translatable="false">Hinglish</string>
-    <string name="subtype_in_root_locale_sr_ZZ" translatable="false">Srpski</string>
+    <string name="subtype_in_root_locale_hi_ZZ" translatable="false" tools:keep="@string/subtype_in_root_locale_hi_ZZ">Hinglish</string>
+    <string name="subtype_in_root_locale_sr_ZZ" translatable="false" tools:keep="@string/subtype_in_root_locale_sr_ZZ">Srpski</string>
 
     <!-- Generic subtype label -->
     <string name="subtype_generic" translatable="false">%s</string>
@@ -63,15 +59,15 @@
          The string resource name must be "subtype_generic_<layout name>".
          The string resource with "No language" also must be added to strings.xml and the resource
          name must be "subtype_no_language_<layout name>" -->
-    <string name="subtype_generic_qwerty" translatable="false">%s (QWERTY)</string>
-    <string name="subtype_generic_qwertz" translatable="false">%s (QWERTZ)</string>
-    <string name="subtype_generic_azerty" translatable="false">%s (AZERTY)</string>
-    <string name="subtype_generic_dvorak" translatable="false">%s (Dvorak)</string>
-    <string name="subtype_generic_colemak" translatable="false">%s (Colemak)</string>
-    <string name="subtype_generic_colemak_dh" translatable="false">%s (Colemak Mod-DH)</string>
-    <string name="subtype_generic_workman" translatable="false">%s (Workman)</string>
-    <string name="subtype_generic_bepo" translatable="false">%s (Bépo)</string>
-    <string name="subtype_generic_pcqwerty" translatable="false">%s (PC)</string>
+    <string name="subtype_generic_qwerty" translatable="false" tools:keep="@string/subtype_generic_qwerty">%s (QWERTY)</string>
+    <string name="subtype_generic_qwertz" translatable="false" tools:keep="@string/subtype_generic_qwertz">%s (QWERTZ)</string>
+    <string name="subtype_generic_azerty" translatable="false" tools:keep="@string/subtype_generic_azerty">%s (AZERTY)</string>
+    <string name="subtype_generic_dvorak" translatable="false" tools:keep="@string/subtype_generic_dvorak">%s (Dvorak)</string>
+    <string name="subtype_generic_colemak" translatable="false" tools:keep="@string/subtype_generic_colemak">%s (Colemak)</string>
+    <string name="subtype_generic_colemak_dh" translatable="false" tools:keep="@string/subtype_generic_colemak_dh">%s (Colemak Mod-DH)</string>
+    <string name="subtype_generic_workman" translatable="false" tools:keep="@string/subtype_generic_workman">%s (Workman)</string>
+    <string name="subtype_generic_bepo" translatable="false" tools:keep="@string/subtype_generic_bepo">%s (Bépo)</string>
+    <string name="subtype_generic_pcqwerty" translatable="false" tools:keep="@string/subtype_generic_pcqwerty">%s (PC)</string>
 
     <!-- Description for Bulgarian (BDS) subtype. -->
     <string name="subtype_bulgarian_bds" translatable="false">%s (BDS)</string>

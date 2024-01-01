@@ -58,7 +58,7 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
-import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DialogUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
@@ -196,7 +196,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             setupKey(button, colors);
             mToolbar.addView(button);
         }
-        keyboardAttr.recycle();
 
         final int toolbarHeight = Math.min(mToolbarExpandKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
         mToolbarExpandKey.getLayoutParams().height = toolbarHeight;
@@ -216,13 +215,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
         for (final ToolbarKey pinnedKey : Settings.readPinnedKeys(prefs)) {
+            final ImageButton button = createToolbarKey(context, keyboardAttr, pinnedKey);
+            button.setLayoutParams(toolbarKeyLayoutParams);
+            setupKey(button, colors);
+            mPinnedKeys.addView(button);
             final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
-            if (pinnedKeyInToolbar == null) continue;
-            pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
-            addKeyToPinnedKeys(pinnedKey);
+            if (pinnedKeyInToolbar != null)
+                pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
         }
 
         colors.setBackground(this, ColorType.SUGGESTION_BACKGROUND);
+        keyboardAttr.recycle();
     }
 
     /**
@@ -436,7 +439,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         // apparently toast is not working on some Android versions, probably
         // Android 13 with the notification permission
         // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
+        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtilsKt.getPlatformDialogThemeContext(getContext()), wordView);
         uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
         uglyWorkaround.show();
     }
@@ -623,6 +626,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
             if (code != null) {
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {
+                    if (tag == ToolbarKey.INCOGNITO)
+                        updateKeys(); // update icon
+                    view.setActivated(!view.isActivated());
+                }
                 return;
             }
         }
@@ -680,6 +688,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         copy.setContentDescription(original.getContentDescription());
         copy.setImageDrawable(original.getDrawable());
         copy.setLayoutParams(original.getLayoutParams());
+        copy.setActivated(original.isActivated());
         setupKey(copy, Settings.getInstance().getCurrent().mColors);
         mPinnedKeys.addView(copy);
     }

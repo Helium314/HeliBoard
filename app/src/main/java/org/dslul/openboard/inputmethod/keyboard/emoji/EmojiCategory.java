@@ -134,7 +134,9 @@ final class EmojiCategory {
             mCategoryNameToIdMap.put(sCategoryName[i], i);
             mCategoryTabIconId[i] = emojiPaletteViewAttr.getResourceId(sCategoryTabIconAttr[i], 0);
         }
+    }
 
+    public void initialize() {
         int defaultCategoryId = EmojiCategory.ID_SMILEYS_EMOTION;
         addShownCategoryId(EmojiCategory.ID_RECENTS);
         addShownCategoryId(EmojiCategory.ID_SMILEYS_EMOTION);

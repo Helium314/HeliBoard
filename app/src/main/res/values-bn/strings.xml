@@ -33,9 +33,6 @@
     <string name="language_switch_key_switch_both">উভয় পরিবর্তন</string>
     <string name="show_language_switch_key">ভাষা পরিবর্তন বোতাম</string>
     <string name="show_emoji_key">ইমোজি বোতাম</string>
-    <string name="key_preview_popup_dismiss_delay">বোতামের পপআপ অপসারণের বিলম্ব</string>
-    <string name="key_preview_popup_dismiss_no_delay">তাৎক্ষণিক</string>
-    <string name="key_preview_popup_dismiss_default_delay">"ডিফল্ট"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> মিলিসেকেন্ড</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> মিনিট</string>
     <string name="settings_system_default">সিস্টেম ডিফল্ট</string>
@@ -56,7 +53,7 @@
     <string name="prefs_show_suggestions_summary">লেখার সময় প্রস্তাবিত শব্দ প্রদর্শন</string>
     <string name="prefs_block_potentially_offensive_title">আপত্তিজনক শব্দ অবরোধ</string>
     <string name="prefs_block_potentially_offensive_summary">সম্ভাব্য আপত্তিকর শব্দের পরামর্শ দেবে না</string>
-    <string name="auto_correction">স্বতঃসংশোধন</string>
+    <string name="autocorrect">স্বতঃসংশোধন</string>
     <string name="auto_correction_summary">স্পেসবার ও যতিচিহ্নের মাধ্যমে ভুল টাইপ করা শব্দের স্বয়ংক্রিয় সংশোধন</string>
     <string name="auto_correction_confidence">স্বয়ংক্রিয় সংশোধনের দৃঢ়তা</string>
     <string name="auto_correction_threshold_mode_off">বন্ধ</string>
@@ -91,15 +88,11 @@
     <string name="autospace_after_punctuation_summary">নতুন শব্দ লেখার সময় যতিচিহ্নের পরে স্বয়ংক্রিয়ভাবে স্পেস বসবে</string>
     <string name="url_detection_title">ইউআরএল শনাক্তকরণ</string>
     <string name="url_detection_summary">ইউআরএল এবং অনুরূপ একটি একক শব্দ হিসেবে শনাক্ত করার চেষ্টা করবে</string>
-    <string name="prefs_force_incognito_mode">ছদ্মবেশী মোড আরোপ</string>
+    <string name="incognito">ছদ্মবেশী মোড আরোপ</string>
     <string name="prefs_force_incognito_mode_summary">নতুন শব্দ শিখন নিষ্ক্রিয়করণ</string>
     <string name="more_keys_strip_description">অতিরিক্ত বোতাম</string>
-    <string name="configure_input_method">ইনপুট পদ্ধতি সংস্থাপন</string>
     <string name="language_selection_title">ভাষা</string>
     <string name="help_and_feedback">সহায়তা ও মতামত</string>
-    <string name="select_language">ভাষা</string>
-    <string name="hint_add_to_dictionary">সংরক্ষণ করতে আবার ট্যাপ করুন</string>
-    <string name="hint_add_to_dictionary_without_word">সংরক্ষণ করতে এখানে ট্যাপ করুন</string>
     <string name="number_row">নম্বর সারি</string>
     <string name="number_row_summary">সর্বদা নম্বর সারি প্রদর্শন</string>
     <string name="show_hints">বোতামের পরামর্শ প্রদর্শন</string>
@@ -158,7 +151,6 @@
     <string name="subtype_no_language_workman">আলফাবেট (ওয়ার্কম্যান)</string>
     <string name="subtype_no_language_pcqwerty">বর্ণমালা (PC)</string>
     <string name="subtype_emoji">ইমোজি</string>
-    <string name="keyboard_theme">কিবোর্ড থিম</string>
     <string name="add">যোগ করুন</string>
     <string name="remove">অপসারণ করুন</string>
     <string name="save">সংরক্ষণ করুন</string>
@@ -188,8 +180,6 @@
     <string name="setup_finish_action">সম্পন্ন</string>
     <string name="show_setup_wizard_icon">অ্যাপ আইকন প্রদর্শন</string>
     <string name="show_setup_wizard_icon_summary">লঞ্চারে অ্যাপ আইকন প্রদর্শন</string>
-    <string name="app_name">অভিধান প্রদানকারী</string>
-    <string name="dictionary_provider_name">অভিধান প্রদানকারী</string>
     <string name="dictionary_settings_title">অ্যাড-অন অভিধান</string>
     <string name="dictionary_settings_summary">অভিধানের জন্য সেটিংস</string>
     <string name="dictionary_settings_category">অভিধান</string>
@@ -198,8 +188,7 @@
     <string name="add_new_dictionary_ask_locale">%2$s এর \"%1$s\" অভিধান কোন ভাষার জন্য সংযুক্ত হবে?</string>
     <string name="button_select_language">ভাষা নির্বাচন</string>
     <string name="button_add_to_language">%s এ সংযুক্তি</string>
-    <string name="replace_dictionary_message">"ব্যবহারকারী-যোগকৃত অভিধান \"%s\" প্রতিস্থাপন করতে নিশ্চিত?"</string>
-    <string name="replace_dictionary_message2">"ব্যবহারকারী-যোগকৃত অভিধান \"%s\" প্রতিস্থাপন করতে নিশ্চিত?\n
+    <string name="replace_dictionary_message">"ব্যবহারকারী-যোগকৃত অভিধান \"%s\" প্রতিস্থাপন করতে নিশ্চিত?\n
 বর্তমান অভিধান:
 %2$s\n
 নতুন অভিধান:
@@ -224,7 +213,7 @@
     <string name="check_for_updates_now">"রিফ্রেশ"</string>
     <string name="last_update">সর্বশেষ আপডেট</string>
     <string name="main_dict_description">মূল অভিধান</string>
-    <string name="go_to_settings">সেটিংস</string>
+    <string name="settings">সেটিংস</string>
     <string name="delete_dict">অপসারণ করুন</string>
     <string name="version_text">সংস্করণ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">যোগ করুন</string>
@@ -247,9 +236,6 @@
     <string name="theme_style">শৈলী</string>
     <string name="theme_colors">রং</string>
     <string name="theme_colors_night">রং (রাত্রি)</string>
-    <string name="theme_family">থিম ফ্যামিলি</string>
-    <string name="theme_variant">থিমের ধরন</string>
-    <string name="theme_variant_night">থিম বিকল্প (রাত্রি)</string>
     <string name="key_borders">বোতামের প্রান্ত</string>
     <string name="day_night_mode">স্বয়ংক্রিয় দিবা/রাত্রি মোড</string>
     <string name="day_night_mode_summary">অবয়ব সিস্টেম সেটিংসকে অনুসরণ করবে</string>

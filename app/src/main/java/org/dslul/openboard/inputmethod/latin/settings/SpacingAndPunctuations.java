@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.res.Resources;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
 import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -61,25 +60,6 @@ public final class SpacingAndPunctuations {
         mSuggestPuncList = PunctuationSuggestions.newPunctuationSuggestions(suggestPuncsSpec);
     }
 
-    @UsedForTesting
-    public SpacingAndPunctuations(final SpacingAndPunctuations model,
-            final int[] overrideSortedWordSeparators) {
-        mSortedSymbolsPrecededBySpace = model.mSortedSymbolsPrecededBySpace;
-        mSortedSymbolsFollowedBySpace = model.mSortedSymbolsFollowedBySpace;
-        mSortedSymbolsClusteringTogether = model.mSortedSymbolsClusteringTogether;
-        mSortedWordConnectors = model.mSortedWordConnectors;
-        mSortedSometimesWordConnectors = model.mSortedSometimesWordConnectors;
-        mSortedWordSeparators = overrideSortedWordSeparators;
-        mSortedSentenceTerminators = model.mSortedSentenceTerminators;
-        mSuggestPuncList = model.mSuggestPuncList;
-        mSentenceSeparator = model.mSentenceSeparator;
-        mAbbreviationMarker = model.mAbbreviationMarker;
-        mSentenceSeparatorAndSpace = model.mSentenceSeparatorAndSpace;
-        mCurrentLanguageHasSpaces = model.mCurrentLanguageHasSpaces;
-        mUsesAmericanTypography = model.mUsesAmericanTypography;
-        mUsesGermanRules = model.mUsesGermanRules;
-    }
-
     public boolean isWordSeparator(final int code) {
         return Arrays.binarySearch(mSortedWordSeparators, code) >= 0;
     }
@@ -130,27 +110,25 @@ public final class SpacingAndPunctuations {
     }
 
     public String dump() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("mSortedSymbolsPrecededBySpace = ");
-        sb.append("" + Arrays.toString(mSortedSymbolsPrecededBySpace));
-        sb.append("\n   mSortedSymbolsFollowedBySpace = ");
-        sb.append("" + Arrays.toString(mSortedSymbolsFollowedBySpace));
-        sb.append("\n   mSortedWordConnectors = ");
-        sb.append("" + Arrays.toString(mSortedWordConnectors));
-        sb.append("\n   mSortedWordSeparators = ");
-        sb.append("" + Arrays.toString(mSortedWordSeparators));
-        sb.append("\n   mSuggestPuncList = ");
-        sb.append("" + mSuggestPuncList);
-        sb.append("\n   mSentenceSeparator = ");
-        sb.append("" + mSentenceSeparator);
-        sb.append("\n   mSentenceSeparatorAndSpace = ");
-        sb.append("" + mSentenceSeparatorAndSpace);
-        sb.append("\n   mCurrentLanguageHasSpaces = ");
-        sb.append("" + mCurrentLanguageHasSpaces);
-        sb.append("\n   mUsesAmericanTypography = ");
-        sb.append("" + mUsesAmericanTypography);
-        sb.append("\n   mUsesGermanRules = ");
-        sb.append("" + mUsesGermanRules);
-        return sb.toString();
+        return "mSortedSymbolsPrecededBySpace = " +
+                "" + Arrays.toString(mSortedSymbolsPrecededBySpace) +
+                "\n   mSortedSymbolsFollowedBySpace = " +
+                "" + Arrays.toString(mSortedSymbolsFollowedBySpace) +
+                "\n   mSortedWordConnectors = " +
+                "" + Arrays.toString(mSortedWordConnectors) +
+                "\n   mSortedWordSeparators = " +
+                "" + Arrays.toString(mSortedWordSeparators) +
+                "\n   mSuggestPuncList = " +
+                "" + mSuggestPuncList +
+                "\n   mSentenceSeparator = " +
+                "" + mSentenceSeparator +
+                "\n   mSentenceSeparatorAndSpace = " +
+                "" + mSentenceSeparatorAndSpace +
+                "\n   mCurrentLanguageHasSpaces = " +
+                "" + mCurrentLanguageHasSpaces +
+                "\n   mUsesAmericanTypography = " +
+                "" + mUsesAmericanTypography +
+                "\n   mUsesGermanRules = " +
+                "" + mUsesGermanRules;
     }
 }

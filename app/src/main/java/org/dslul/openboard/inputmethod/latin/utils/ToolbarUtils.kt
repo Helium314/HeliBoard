@@ -20,13 +20,18 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    val icon = keyboardAttr.getDrawable(getStyleableIconId(key))
     if (key == LEFT || key == RIGHT || key == UP || key == DOWN) {
         // arrows look a little awkward when not scaled
         button.scaleX = 1.2f
         button.scaleY = 1.2f
     }
-    button.setImageDrawable(icon)
+    button.isActivated = when (key) {
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
+        ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
+        AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
+        else -> true
+    }
+    button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key)))
     return button
 }
 
@@ -36,13 +41,15 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     CLIPBOARD -> CODE_CLIPBOARD
     SELECT_ALL -> CODE_SELECT_ALL
     COPY -> CODE_COPY
-    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) CODE_START_ONE_HANDED_MODE else CODE_STOP_ONE_HANDED_MODE
+    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) CODE_STOP_ONE_HANDED_MODE else CODE_START_ONE_HANDED_MODE
     LEFT -> CODE_LEFT
     RIGHT -> CODE_RIGHT
     UP -> CODE_UP
     DOWN -> CODE_DOWN
     UNDO -> CODE_UNDO
     REDO -> CODE_REDO
+    INCOGNITO -> CODE_TOGGLE_INCOGNITO
+    AUTOCORRECT -> CODE_TOGGLE_AUTOCORRECT
     CLEAR_CLIPBOARD -> null // not managed via code input
 }
 
@@ -59,25 +66,34 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     DOWN -> R.styleable.Keyboard_iconArrowDown
     UNDO -> R.styleable.Keyboard_iconUndo
     REDO -> R.styleable.Keyboard_iconRedo
+    INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
+    AUTOCORRECT -> R.styleable.Keyboard_iconLanguageSwitchKey
     CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
 }
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, CLEAR_CLIPBOARD, SETTINGS, SELECT_ALL, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN, UNDO, REDO
+    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD
 }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
 
-val defaultToolbarPref = entries.joinToString(";") { if (it != CLEAR_CLIPBOARD) "${it.name},true" else "${it.name},false" }
+val defaultToolbarPref = entries.filterNot { it == CLEAR_CLIPBOARD }.joinToString(";") {
+    when (it) {
+        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED -> "${it.name},false"
+        else -> "${it.name},true"
+    }
+}
 
 /** add missing keys, typically because a new key has been added */
 fun upgradeToolbarPref(prefs: SharedPreferences) {
     val list = prefs.getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!.split(";").toMutableList()
-    if (list.size == ToolbarKey.entries.size) return
-    ToolbarKey.entries.forEach { key ->
-        if (list.none { it.startsWith("${key.name},") })
-            list.add("${key.name},true")
+    val splitDefault = defaultToolbarPref.split(";")
+    if (list.size == splitDefault.size) return
+    splitDefault.forEach { entry ->
+        val keyWithComma = entry.substringBefore(",") + ","
+        if (list.none { it.startsWith(keyWithComma) })
+            list.add("${keyWithComma}true")
     }
     // likely not needed, but better prepare for possibility of key removal
     list.removeAll {

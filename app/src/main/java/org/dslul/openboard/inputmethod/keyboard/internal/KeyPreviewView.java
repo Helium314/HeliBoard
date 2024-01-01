@@ -19,6 +19,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.StringUtilsKt;
 
 import java.util.HashSet;
 
@@ -64,6 +65,10 @@ public class KeyPreviewView extends AppCompatTextView {
         setTextScaleX(1.0f);
         setText(text);
         if (sNoScaleXTextSet.contains(text)) {
+            return;
+        }
+        if (StringUtilsKt.isEmoji(text)) {
+            sNoScaleXTextSet.add(text);
             return;
         }
         // TODO: Override {@link #setBackground(Drawable)} that is supported from API 16 and

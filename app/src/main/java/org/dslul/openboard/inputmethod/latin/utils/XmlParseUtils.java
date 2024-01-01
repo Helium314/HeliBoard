@@ -18,36 +18,24 @@ public final class XmlParseUtils {
         // This utility class is not publicly instantiable.
     }
 
-    @SuppressWarnings("serial")
     public static class ParseException extends XmlPullParserException {
         public ParseException(final String msg, final XmlPullParser parser) {
             super(msg + " at " + parser.getPositionDescription());
         }
     }
 
-    @SuppressWarnings("serial")
     public static final class IllegalStartTag extends ParseException {
         public IllegalStartTag(final XmlPullParser parser, final String tag, final String parent) {
             super("Illegal start tag " + tag + " in " + parent, parser);
         }
     }
 
-    @SuppressWarnings("serial")
     public static final class IllegalEndTag extends ParseException {
         public IllegalEndTag(final XmlPullParser parser, final String tag, final String parent) {
             super("Illegal end tag " + tag + " in " + parent, parser);
         }
     }
 
-    @SuppressWarnings("serial")
-    public static final class IllegalAttribute extends ParseException {
-        public IllegalAttribute(final XmlPullParser parser, final String tag,
-                final String attribute) {
-            super("Tag " + tag + " has illegal attribute " + attribute, parser);
-        }
-    }
-
-    @SuppressWarnings("serial")
     public static final class NonEmptyTag extends ParseException{
         public NonEmptyTag(final XmlPullParser parser, final String tag) {
             super(tag + " must be empty tag", parser);

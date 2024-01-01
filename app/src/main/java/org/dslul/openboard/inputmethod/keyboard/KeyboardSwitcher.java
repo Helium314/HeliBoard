@@ -6,6 +6,7 @@
 
 package org.dslul.openboard.inputmethod.keyboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -63,6 +64,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private Context mThemeContext;
     private int mCurrentUiMode;
 
+    @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
 
     public static KeyboardSwitcher getInstance() {
@@ -86,11 +88,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public void updateKeyboardTheme(@NonNull Context displayContext) {
         final boolean themeUpdated = updateKeyboardThemeAndContextThemeWrapper(
-                displayContext, KeyboardTheme.getKeyboardTheme(displayContext /* context */));
-        if (themeUpdated && mKeyboardView != null) {
+                displayContext, KeyboardTheme.getKeyboardTheme(displayContext));
+        if (themeUpdated) {
             Settings settings = Settings.getInstance();
             settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
-            mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
+            if (mKeyboardView != null)
+                mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
         }
     }
 
@@ -128,7 +131,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                 .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                 .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
-                .setSplitLayoutEnabled(ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED && settingsValues.mIsSplitKeyboardEnabled)
+                .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
                 .setOneHandedModeEnabled(oneHandedModeEnabled)
                 .build();
         try {
@@ -150,9 +153,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    private void setKeyboard(
-            @NonNull final int keyboardId,
-            @NonNull final KeyboardSwitchState toggleState) {
+    private void setKeyboard(final int keyboardId, @NonNull final KeyboardSwitchState toggleState) {
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
         setMainKeyboardFrame(currentSettingsValues, toggleState);
@@ -164,14 +165,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mCurrentInputView.setKeyboardTopPadding(newKeyboard.mTopPadding);
         keyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
         keyboardView.updateShortcutKey(mRichImm.isShortcutImeReady());
-        final boolean subtypeChanged = (oldKeyboard == null)
-                || !newKeyboard.mId.mSubtype.equals(oldKeyboard.mId.mSubtype);
-        final int languageOnSpacebarFormatType = LanguageOnSpacebarUtils
-                .getLanguageOnSpacebarFormatType(newKeyboard.mId.mSubtype);
-        final boolean hasMultipleEnabledIMEsOrSubtypes = mRichImm
-                .hasMultipleEnabledIMEsOrSubtypes(true /* shouldIncludeAuxiliarySubtypes */);
-        keyboardView.startDisplayLanguageOnSpacebar(subtypeChanged, languageOnSpacebarFormatType,
-                hasMultipleEnabledIMEsOrSubtypes);
+        final boolean subtypeChanged = (oldKeyboard == null) || !newKeyboard.mId.mSubtype.equals(oldKeyboard.mId.mSubtype);
+        final int languageOnSpacebarFormatType = LanguageOnSpacebarUtils.getLanguageOnSpacebarFormatType(newKeyboard.mId.mSubtype);
+        final boolean hasMultipleEnabledIMEsOrSubtypes = mRichImm.hasMultipleEnabledIMEsOrSubtypes(true);
+        keyboardView.startDisplayLanguageOnSpacebar(subtypeChanged, languageOnSpacebarFormatType, hasMultipleEnabledIMEsOrSubtypes);
     }
 
     public Keyboard getKeyboard() {
@@ -576,8 +573,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
         mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
-        mEmojiPalettesView.initialStart();
-        mClipboardHistoryView.initialStart();
+        // todo: try delaying, it's not needed at this point
+        //  but when initializing right before showing, selected emoji category is not colored correctly
+        mEmojiPalettesView.initialize();
 
         return mCurrentInputView;
     }

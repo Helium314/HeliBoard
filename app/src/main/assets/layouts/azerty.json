@@ -21,7 +21,7 @@
     { "label": "j" },
     { "label": "k" },
     { "label": "l" },
-    { "label": "m" }
+    { "label": "m", "popup": { "main": { "label": "/" } } }
   ],
   [
     { "label": "w" },

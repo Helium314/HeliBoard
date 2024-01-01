@@ -3,11 +3,13 @@ package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -110,9 +112,13 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
         override fun areItemsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
         override fun areContentsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
     }
+    val bgColor = if (ResourceUtils.isNight(context.resources))
+            ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_dark)
+        else ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_light)
     val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
             val b = LayoutInflater.from(context).inflate(R.layout.morekeys_list_item, rv, false)
+            b.setBackgroundColor(bgColor)
             return object : RecyclerView.ViewHolder(b) { }
         }
         override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {

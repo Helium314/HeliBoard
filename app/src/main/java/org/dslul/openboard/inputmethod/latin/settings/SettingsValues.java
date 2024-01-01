@@ -28,8 +28,8 @@ import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerServi
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
-import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 
 import java.util.Arrays;
 import java.util.List;
@@ -191,7 +191,7 @@ public class SettingsValues {
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
-                //&& !mInputAttributes.mInputTypeNoAutoCorrect;
+                //&& !mInputAttributes.mInputTypeNoAutoCorrect; // follow that request or not?
         mSuggestionsEnabledPerUserSettings = !mInputAttributes.mIsPasswordField &&
                 readSuggestionsEnabled(prefs);
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
@@ -258,10 +258,6 @@ public class SettingsValues {
 
     public boolean isSuggestionsEnabledPerUserSettings() {
         return mSuggestionsEnabledPerUserSettings;
-    }
-
-    public boolean isPersonalizationEnabled() {
-        return mUsePersonalizedDicts;
     }
 
     public boolean isWordSeparator(final int code) {

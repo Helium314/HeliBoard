@@ -6,7 +6,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 
 /**
  *  Parser for simple layouts, defined only as rows of (normal) keys with moreKeys.
@@ -21,7 +20,7 @@ class SimpleKeyboardParser(private val params: KeyboardParams, private val conte
         context.assets.open("layouts/$layoutName.txt").reader().readText()
 
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
-        val rowStrings = layoutContent.replace("\r\n", "\n").split("\n\n")
+        val rowStrings = layoutContent.replace("\r\n", "\n").split("\\n\\s*\\n".toRegex())
         return rowStrings.mapIndexedNotNullTo(mutableListOf()) { i, row ->
             if (row.isBlank()) return@mapIndexedNotNullTo null
             if (addExtraKeys)

@@ -12,6 +12,8 @@ import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.common.ResizableIntArray;
 
+import java.util.Locale;
+
 /**
  * This class holds event points to recognize a gesture stroke.
  * TODO: Should be package private class.
@@ -83,7 +85,7 @@ public final class GestureStrokeRecognitionPoints {
         mGestureRecognitionSpeedThreshold = (int)(
                 keyWidth * mRecognitionParams.mRecognitionSpeedThreshold);
         if (DEBUG) {
-            Log.d(TAG, String.format(
+            Log.d(TAG, String.format(Locale.US,
                     "[%d] setKeyboardGeometry: keyWidth=%3d tT=%3d >> %3d tD=%3d >> %3d",
                     mPointerId, keyWidth,
                     mRecognitionParams.mDynamicTimeThresholdFrom,
@@ -106,7 +108,7 @@ public final class GestureStrokeRecognitionPoints {
             mAfterFastTyping = true;
         }
         if (DEBUG) {
-            Log.d(TAG, String.format("[%d] onDownEvent: dT=%3d%s", mPointerId,
+            Log.d(TAG, String.format(Locale.US, "[%d] onDownEvent: dT=%3d%s", mPointerId,
                     elapsedTimeSinceLastTyping, mAfterFastTyping ? " afterFastTyping" : ""));
         }
         // Call {@link #addEventPoint(int,int,int,boolean)} to record this down event point as a
@@ -157,7 +159,7 @@ public final class GestureStrokeRecognitionPoints {
         final boolean isStartOfAGesture = deltaTime >= timeThreshold
                 && deltaDistance >= distanceThreshold;
         if (DEBUG) {
-            Log.d(TAG, String.format("[%d] isStartOfAGesture: dT=%3d tT=%3d dD=%3d tD=%3d%s%s",
+            Log.d(TAG, String.format(Locale.US, "[%d] isStartOfAGesture: dT=%3d tT=%3d dD=%3d tD=%3d%s%s",
                     mPointerId, deltaTime, timeThreshold,
                     deltaDistance, distanceThreshold,
                     mAfterFastTyping ? " afterFastTyping" : "",
@@ -173,7 +175,7 @@ public final class GestureStrokeRecognitionPoints {
             final int x = mXCoordinates.get(lastIndex);
             final int y = mYCoordinates.get(lastIndex);
             if (DEBUG) {
-                Log.d(TAG, String.format("[%d] duplicateLastPointWith: %d,%d|%d", mPointerId,
+                Log.d(TAG, String.format(Locale.US, "[%d] duplicateLastPointWith: %d,%d|%d", mPointerId,
                         x, y, time));
             }
             // TODO: Have appendMajorPoint()
@@ -199,7 +201,7 @@ public final class GestureStrokeRecognitionPoints {
         // time than the next {@link MotionEvent}. To maintain the monotonicity of the event time,
         // drop the successive point here.
         if (lastIndex >= 0 && mEventTimes.get(lastIndex) > time) {
-            Log.w(TAG, String.format("[%d] drop stale event: %d,%d|%d last: %d,%d|%d", mPointerId,
+            Log.w(TAG, String.format(Locale.US, "[%d] drop stale event: %d,%d|%d last: %d,%d|%d", mPointerId,
                     x, y, time, mXCoordinates.get(lastIndex), mYCoordinates.get(lastIndex),
                     mEventTimes.get(lastIndex)));
             return;
@@ -231,13 +233,13 @@ public final class GestureStrokeRecognitionPoints {
             final int pixelsPerSec = pixels * MSEC_PER_SEC;
             if (DEBUG_SPEED) {
                 final float speed = (float)pixelsPerSec / msecs / mKeyWidth;
-                Log.d(TAG, String.format("[%d] detectFastMove: speed=%5.2f", mPointerId, speed));
+                Log.d(TAG, String.format(Locale.US, "[%d] detectFastMove: speed=%5.2f", mPointerId, speed));
             }
             // Equivalent to (pixels / msecs < mStartSpeedThreshold / MSEC_PER_SEC)
             if (!hasDetectedFastMove() && pixelsPerSec > mDetectFastMoveSpeedThreshold * msecs) {
                 if (DEBUG) {
                     final float speed = (float)pixelsPerSec / msecs / mKeyWidth;
-                    Log.d(TAG, String.format(
+                    Log.d(TAG, String.format(Locale.US,
                             "[%d] detectFastMove: speed=%5.2f T=%3d points=%3d fastMove",
                             mPointerId, speed, time, size));
                 }

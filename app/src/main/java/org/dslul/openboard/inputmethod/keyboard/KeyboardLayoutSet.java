@@ -16,7 +16,6 @@ import android.text.InputType;
 
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTexts;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
-import android.util.SparseArray;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
@@ -55,7 +54,6 @@ public final class KeyboardLayoutSet {
 
     private static final String TAG_KEYBOARD_SET = "KeyboardLayoutSet";
     private static final String TAG_ELEMENT = "Element";
-    private static final String TAG_FEATURE = "Feature";
 
     private static final String KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX = "keyboard_layout_set_";
 
@@ -86,13 +84,6 @@ public final class KeyboardLayoutSet {
         }
     }
 
-    private static final class ElementParams {
-        int mKeyboardXmlId;
-
-        public ElementParams() {
-        }
-    }
-
     public static final class Params {
         String mKeyboardLayoutSetName;
         int mMode;
@@ -114,8 +105,6 @@ public final class KeyboardLayoutSet {
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
         boolean mIsSplitLayoutEnabled;
-        // Sparse array of KeyboardLayoutSet element parameters indexed by element's id.
-        final SparseArray<ElementParams> mKeyboardLayoutSetElementIdToParamsMap = new SparseArray<>();
     }
 
     public static void onSystemLocaleChanged() {
@@ -163,12 +152,6 @@ public final class KeyboardLayoutSet {
                 break;
         }
 
-        ElementParams elementParams = mParams.mKeyboardLayoutSetElementIdToParamsMap.get(
-                keyboardLayoutSetElementId);
-        if (elementParams == null) {
-            elementParams = mParams.mKeyboardLayoutSetElementIdToParamsMap.get(
-                    KeyboardId.ELEMENT_ALPHABET);
-        }
         // Note: The keyboard for each shift state, and mode are represented as an elementName
         // attribute in a keyboard_layout_set XML file.  Also each keyboard layout XML resource is
         // specified as an elementKeyboard attribute in the file.
@@ -176,7 +159,7 @@ public final class KeyboardLayoutSet {
 
         final KeyboardId id = new KeyboardId(keyboardLayoutSetElementId, mParams);
         try {
-            return getKeyboard(elementParams, id);
+            return getKeyboard(id);
         } catch (final RuntimeException e) {
             Log.e(TAG, "Can't create keyboard: " + id, e);
             throw new KeyboardLayoutSetException(e, id);
@@ -184,7 +167,7 @@ public final class KeyboardLayoutSet {
     }
 
     @NonNull
-    private Keyboard getKeyboard(final ElementParams elementParams, final KeyboardId id) {
+    private Keyboard getKeyboard(final KeyboardId id) {
         final SoftReference<Keyboard> ref = sKeyboardCache.get(id);
         final Keyboard cachedKeyboard = (ref == null) ? null : ref.get();
         if (cachedKeyboard != null) {
@@ -197,8 +180,7 @@ public final class KeyboardLayoutSet {
         final KeyboardBuilder<KeyboardParams> builder =
                 new KeyboardBuilder<>(mContext, new KeyboardParams(sUniqueKeysCache));
         sUniqueKeysCache.setEnabled(id.isAlphabetKeyboard());
-        final int keyboardXmlId = elementParams.mKeyboardXmlId;
-        builder.load(keyboardXmlId, id);
+        builder.load(id);
         if (mParams.mDisableTouchPositionCorrectionDataForTest) {
             builder.disableTouchPositionCorrectionDataForTest();
         }
@@ -267,10 +249,8 @@ public final class KeyboardLayoutSet {
         public Builder setSubtype(@NonNull final RichInputMethodSubtype subtype) {
             final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
             // TODO: Consolidate with {@link InputAttributes}.
-            @SuppressWarnings("deprecation") final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
-                    mPackageName, FORCE_ASCII, mParams.mEditorInfo);
             final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0
-                    || deprecatedForceAscii;
+                    || InputAttributes.inPrivateImeOptions(mPackageName, FORCE_ASCII, mParams.mEditorInfo);
             final RichInputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
                     ? RichInputMethodSubtype.getNoLanguageSubtype()
                     : subtype;
@@ -390,13 +370,6 @@ public final class KeyboardLayoutSet {
                         R.styleable.KeyboardLayoutSet_Element_elementName, "elementName",
                         TAG_ELEMENT, parser);
                 XmlParseUtils.checkEndTag(TAG_ELEMENT, parser);
-
-                final ElementParams elementParams = new ElementParams();
-                final int elementName = a.getInt(
-                        R.styleable.KeyboardLayoutSet_Element_elementName, 0);
-                elementParams.mKeyboardXmlId = a.getResourceId(
-                        R.styleable.KeyboardLayoutSet_Element_elementKeyboard, 0);
-                mParams.mKeyboardLayoutSetElementIdToParamsMap.put(elementName, elementParams);
             } finally {
                 a.recycle();
             }
@@ -437,5 +410,14 @@ public final class KeyboardLayoutSet {
                     return KeyboardId.MODE_TEXT;
             }
         }
+    }
+
+    // used for testing keyboard layout files without actually creating a keyboard
+    public static KeyboardId getFakeKeyboardId(final int elementId) {
+        final Params params = new Params();
+        params.mEditorInfo = new EditorInfo();
+        params.mSubtype = RichInputMethodSubtype.getEmojiSubtype();
+        params.mSubtype.getKeyboardLayoutSetName();
+        return new KeyboardId(elementId, params);
     }
 }

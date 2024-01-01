@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Įgalinti suskaidytą klaviatūrą"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Perj. į kt. įvesties būd."</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Kalbos keitimo klavišas"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Pagr. išš. l. atsis. d."</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Be delsos"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Numatytasis"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Sist. numat. nustat."</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Siūlyti kontaktų vardus"</string>
@@ -38,7 +35,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Įvedant tekstą pateikti siūlomų žodžių"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokuoti įžeidžiančius žodžius"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Nesiūlyti galimai įžeidžiančių žodžių"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Automatinis taisymas"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Automatinis taisymas"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Tarpo kl. ir skyr. ženkl. aut. išt. neteis. įv. žodž."</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Išjungta"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Vidutinis"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Gestikuliuojant peržiūrėti siūlomą žodį"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frazės gestas"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Atlikdami gestus įveskite tarpus perbraukę tarpo klavišą"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Konfigūruoti įvesties metodus"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Kalbos"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pagalba ir atsiliepimai"</string>
-    <string name="select_language" msgid="5709487854987078367">"Kalbos"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Palieskite dar kartą, kad išsaugotumėte"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Palieskite čia, kad išsaugotumėte"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Anglų k. (JK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Anglų k. (JAV)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Ispanų k. (JAV)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Abėcėlė („Colemak“)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Abėcėlė (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Jaustukai"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Klaviatūros tema"</string>
     <string name="add" msgid="8299699805688017798">"Pridėti"</string>
     <string name="remove" msgid="4486081658752944606">"Pašalinti"</string>
     <string name="save" msgid="7646738597196767214">"Išsaugoti"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"Baigta"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Rodyti programos piktogramą"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Pateikti programos piktogramą paleidimo priemonėje"</string>
-    <string name="app_name" msgid="6320102637491234792">"Žodyno teikėjas"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Žodyno teikėjas"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Papildomi žodynai"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Žodynų nustatymai"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Naudotojo žodynai"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"Atnaujinti"</string>
     <string name="last_update" msgid="730467549913588780">"Paskutinį kartą atnaujinta"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Pagrindinis žodynas"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Nustatymai"</string>
+    <string name="settings" msgid="3876892339342569259">"Nustatymai"</string>
     <string name="delete_dict" msgid="756853268088330054">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt" msgid="6737084685073734292">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; <xliff:g id="LANGUAGE_NAME">%1$s</xliff:g> žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
 )  -->

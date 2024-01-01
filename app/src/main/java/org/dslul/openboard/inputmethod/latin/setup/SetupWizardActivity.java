@@ -82,7 +82,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         }
 
         @Override
-        public void handleMessage(final Message msg) {
+        public void handleMessage(@NonNull final Message msg) {
             final SetupWizardActivity setupWizardActivity = getOwnerInstance();
             if (setupWizardActivity == null) {
                 return;
@@ -156,7 +156,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mSetupStepGroup.addStep(step1);
 
         final SetupStep step2 = new SetupStep(STEP_2, applicationName,
-                (TextView)findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
+                findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_select,
                 R.string.setup_step2_action);
@@ -164,9 +164,9 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mSetupStepGroup.addStep(step2);
 
         final SetupStep step3 = new SetupStep(STEP_3, applicationName,
-                (TextView)findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
+                findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
-                0 /* finishedInstruction */, R.drawable.ic_setup_earth,
+                0 /* finishedInstruction */, R.drawable.sym_keyboard_language_switch,
                 R.string.setup_step3_action);
         step3.setAction(() -> {
             final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -202,6 +202,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mActionNext.setOnClickListener(this);
         mActionFinish = findViewById(R.id.setup_finish);
         final Drawable finishDrawable = ContextCompat.getDrawable(this, R.drawable.ic_setup_check);
+        assert finishDrawable != null;
         DrawableCompat.setTintList(finishDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
                 new int[]{Color.WHITE, Color.WHITE, step1.mActivatedColor}));
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
@@ -291,13 +292,13 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
     }
 
     @Override
-    protected void onSaveInstanceState(final Bundle outState) {
+    protected void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_STEP, mStepNumber);
     }
 
     @Override
-    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull final Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mStepNumber = savedInstanceState.getInt(STATE_STEP);
     }
@@ -434,8 +435,9 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
-                mActionLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        actionIconDrawable, null, null, null);
+                int size = (int) (24 * res.getDisplayMetrics().density);  // width and height of drawables is 24dp
+                actionIconDrawable.setBounds(0,0, size, size);
+                mActionLabel.setCompoundDrawablesRelative(actionIconDrawable, null, null, null);
             }
         }
 

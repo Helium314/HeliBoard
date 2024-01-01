@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard">"Omogući razdvojenu tipkovnicu"</string>
     <string name="language_switch_key_switch_input_method">"Prebaci na druge unose"</string>
     <string name="show_language_switch_key">"Tipka za izmjenjivanje jezika"</string>
-    <string name="key_preview_popup_dismiss_delay">"Odgoda odbac. poveć. fonta"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Bez odgode"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Zadano"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Zadano sustavom"</string>
     <string name="use_contacts_dict">"Predlaži imena kontakata"</string>
@@ -38,7 +35,7 @@
     <string name="prefs_show_suggestions_summary">"Prikazivanje predloženih riječi prilikom upisivanja"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokiraj uvredljive riječi"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne predlaži potencijalno uvredljive riječi"</string>
-    <string name="auto_correction">"Automatski ispravak"</string>
+    <string name="autocorrect">"Automatski ispravak"</string>
     <string name="auto_correction_summary">"Razmak i interpunkcija automatski ispravljaju krive riječi"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Isključeno"</string>
     <string name="auto_correction_threshold_mode_modest">"Skromno"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary">"Vidi predloženu riječ tijekom pokreta"</string>
     <string name="gesture_space_aware">"Unos izraza kretnjom"</string>
     <string name="gesture_space_aware_summary">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
-    <string name="configure_input_method">"Konfiguriraj načine ulaza"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>
-    <string name="select_language" msgid="5709487854987078367">"Jezici"</string>
-    <string name="hint_add_to_dictionary">"Dodirnite ponovo za spremanje"</string>
-    <string name="hint_add_to_dictionary_without_word">"Dodirnite ovdje za spremanje"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">Abeceda (Colemak)</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">Abeceda (PC)</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Tema tipkovnice"</string>
     <string name="add" msgid="8299699805688017798">"Dodaj"</string>
     <string name="remove" msgid="4486081658752944606">"Ukloni"</string>
     <string name="save" msgid="7646738597196767214">"Spremi"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action">"Završeno"</string>
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
-    <string name="app_name">"Davatelj rječnika"</string>
-    <string name="dictionary_provider_name">"Davatelj rječnika"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Rječnici kao dodaci"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Postavke za rječnike"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Korisnički rječnici"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now">"Osvježavanje"</string>
     <string name="last_update" msgid="730467549913588780">"Zadnje ažuriranje"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Glavni rječnik"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Postavke"</string>
+    <string name="settings" msgid="3876892339342569259">"Postavke"</string>
     <string name="delete_dict" msgid="756853268088330054">"Izbriši"</string>
     <string name="version_text" msgid="2715354215568469385">Verzija <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Dodavanje"</string>
@@ -162,13 +152,11 @@
     <string name="delete_swipe">Izbriši povlačenjem</string>
     <string name="delete_swipe_summary">Povuci prstom od tipke za brisanje, za biranje i uklanjanje većih dijelova teksta</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiviraj učenje novih riječi</string>
-    <string name="theme_family">Obitelj teme</string>
-    <string name="theme_variant">Varijanta teme</string>
     <string name="space_trackpad">Razmaknica kao dodirna ploča</string>
     <string name="space_trackpad_summary">Prelazi prstom po razmaknici za pomicanje kursora</string>
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
     <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>
-    <string name="prefs_force_incognito_mode">Prisili inkognito način rada</string>
+    <string name="incognito">Prisili inkognito način rada</string>
     <string name="more_keys_strip_description">Više tipki</string>
     <string name="number_row_summary">Uvijek pokaži broj retka</string>
     <string name="show_hints">Pokaži savjete tipki</string>

@@ -37,7 +37,6 @@
     <dimen name="config_key_shifted_letter_hint_padding">4dp</dimen>
 
     <dimen name="config_suggestions_strip_height">44dp</dimen>
-    <dimen name="config_suggestions_strip_horizontal_margin">180.0dp</dimen>
     <dimen name="config_suggestions_strip_edge_key_width">54dp</dimen>
     <integer name="config_max_more_suggestions_row">5</integer>
     <fraction name="config_min_more_suggestions_width">50%</fraction>

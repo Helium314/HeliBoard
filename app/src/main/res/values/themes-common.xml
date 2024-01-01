@@ -98,7 +98,7 @@
          attributes. -->
     <style name="EmojiPalettesView" />
     <style name="ClipboardHistoryView" />
-    <style name="MoreKeysKeyboard" />
+<!-- todo: remove?    <style name="MoreKeysKeyboard" /> -->
     <style name="MoreKeysKeyboardView" />
     <style name="SuggestionStripView" />
     <style name="SuggestionWord">

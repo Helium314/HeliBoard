@@ -16,7 +16,6 @@ import android.util.LruCache;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.latin.NgramContext.WordInfo;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -53,7 +52,7 @@ import java.util.concurrent.TimeUnit;
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
  * to instantiate and select the correct dictionaries (based on language or account),
  * update entries and fetch suggestions.
- *
+ * <p>
  * Currently AndroidSpellCheckerService and LatinIME both use DictionaryFacilitator as
  * a client for interacting with dictionaries.
  */
@@ -451,10 +450,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // Clean up old dictionaries.
         for (final Locale localeToCleanUp : existingDictionariesToCleanup.keySet()) {
-            final ArrayList<String> dictTypesToCleanUp =
-                    existingDictionariesToCleanup.get(localeToCleanUp);
-            final DictionaryGroup dictionarySetToCleanup =
-                    findDictionaryGroupWithLocale(oldDictionaryGroups, localeToCleanUp);
+            final ArrayList<String> dictTypesToCleanUp = existingDictionariesToCleanup.get(localeToCleanUp);
+            final DictionaryGroup dictionarySetToCleanup = findDictionaryGroupWithLocale(oldDictionaryGroups, localeToCleanUp);
             for (final String dictType : dictTypesToCleanUp) {
                 dictionarySetToCleanup.closeDict(dictType);
             }
@@ -517,36 +514,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         latchForWaitingLoadingMainDictionary.countDown();
     }
 
-    @UsedForTesting
-    public void resetDictionariesForTesting(final Context context, final Locale locale,
-            final ArrayList<String> dictionaryTypes, final HashMap<String, File> dictionaryFiles,
-            final Map<String, Map<String, String>> additionalDictAttributes,
-            @Nullable final String account) {
-        Dictionary mainDictionary = null;
-        final Map<String, ExpandableBinaryDictionary> subDicts = new HashMap<>();
-
-        for (final String dictType : dictionaryTypes) {
-            if (dictType.equals(Dictionary.TYPE_MAIN)) {
-                mainDictionary = DictionaryFactory.createMainDictionaryFromManager(context, locale);
-            } else {
-                final File dictFile = dictionaryFiles.get(dictType);
-                final ExpandableBinaryDictionary dict = getSubDict(
-                        dictType, context, locale, dictFile, "", account);
-                if (dict == null) {
-                    throw new RuntimeException("Unknown dictionary type: " + dictType);
-                }
-                if (additionalDictAttributes.containsKey(dictType)) {
-                    dict.clearAndFlushDictionaryWithAdditionalAttributes(additionalDictAttributes.get(dictType));
-                }
-                dict.reloadDictionaryIfRequired();
-                dict.waitAllTasksForTests();
-                subDicts.put(dictType, dict);
-            }
-        }
-        mDictionaryGroups.clear();
-        mDictionaryGroups.add(new DictionaryGroup(locale, mainDictionary, account, subDicts));
-    }
-
     public void closeDictionaries() {
         final ArrayList<DictionaryGroup> dictionaryGroupsToClose;
         synchronized (mLock) {
@@ -559,11 +526,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 dictionaryGroup.closeDict(dictType);
             }
         }
-    }
-
-    @UsedForTesting
-    public ExpandableBinaryDictionary getSubDictForTesting(final String dictName) {
-        return mDictionaryGroups.get(0).getSubDict(dictName);
     }
 
     // The main dictionaries are loaded asynchronously.  Don't cache the return value
@@ -587,15 +549,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     public void waitForLoadingMainDictionaries(final long timeout, final TimeUnit unit)
             throws InterruptedException {
         mLatchForWaitingLoadingMainDictionaries.await(timeout, unit);
-    }
-
-    @UsedForTesting
-    public void waitForLoadingDictionariesForTesting(final long timeout, final TimeUnit unit)
-            throws InterruptedException {
-        waitForLoadingMainDictionaries(timeout, unit);
-        for (final ExpandableBinaryDictionary dict : mDictionaryGroups.get(0).mSubDictMap.values()) {
-            dict.waitAllTasksForTests();
-        }
     }
 
     public void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,

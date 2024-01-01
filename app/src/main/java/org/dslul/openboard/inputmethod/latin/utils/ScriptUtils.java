@@ -73,7 +73,6 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("ko", SCRIPT_HANGUL);
         mLanguageCodeToScriptCode.put("hi", SCRIPT_DEVANAGARI);
         mLanguageCodeToScriptCode.put("kn", SCRIPT_KANNADA);
-        mLanguageCodeToScriptCode.put("kh", SCRIPT_KHMER);
         mLanguageCodeToScriptCode.put("mr", SCRIPT_DEVANAGARI);
         mLanguageCodeToScriptCode.put("mn", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("be", SCRIPT_CYRILLIC);

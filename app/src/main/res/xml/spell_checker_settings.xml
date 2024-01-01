@@ -6,6 +6,7 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/android_spell_checker_settings"
 >
     <SwitchPreferenceCompat
         android:key="pref_spellcheck_use_contacts"

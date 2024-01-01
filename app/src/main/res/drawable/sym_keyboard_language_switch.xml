@@ -4,7 +4,6 @@
     SPDX-License-Identifier: Apache-2.0
     Modified
 -->
-<!-- TODO: use "ic_setup_earth" and change the size in code to be able to delete this file -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:height="32dp"
     android:width="32dp"

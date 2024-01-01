@@ -15,10 +15,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.dslul.openboard.inputmethod.latin.R;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.view.ViewCompat;
 
 public final class SetupStartIndicatorView extends LinearLayout {
@@ -31,7 +33,7 @@ public final class SetupStartIndicatorView extends LinearLayout {
         labelView.setIndicatorView(findViewById(R.id.setup_start_indicator));
     }
 
-    public static final class LabelView extends TextView {
+    public static final class LabelView extends AppCompatTextView {
         private View mIndicatorView;
 
         public LabelView(final Context context, final AttributeSet attrs) {
@@ -42,27 +44,11 @@ public final class SetupStartIndicatorView extends LinearLayout {
             mIndicatorView = indicatorView;
         }
 
-        // TODO: Once we stop supporting ICS, uncomment {@link #setPressed(boolean)} method and
-        // remove this method.
         @Override
-        protected void drawableStateChanged() {
-            super.drawableStateChanged();
-            for (final int state : getDrawableState()) {
-                if (state == android.R.attr.state_pressed) {
-                    updateIndicatorView(true /* pressed */);
-                    return;
-                }
-            }
-            updateIndicatorView(false /* pressed */);
+        public void setPressed(final boolean pressed) {
+            super.setPressed(pressed);
+            updateIndicatorView(pressed);
         }
-
-        // TODO: Once we stop supporting ICS, uncomment this method and remove
-        // {@link #drawableStateChanged()} method.
-//        @Override
-//        public void setPressed(final boolean pressed) {
-//            super.setPressed(pressed);
-//            updateIndicatorView(pressed);
-//        }
 
         private void updateIndicatorView(final boolean pressed) {
             if (mIndicatorView != null) {
@@ -79,13 +65,12 @@ public final class SetupStartIndicatorView extends LinearLayout {
 
         public IndicatorView(final Context context, final AttributeSet attrs) {
             super(context, attrs);
-            mIndicatorColor = getResources().getColorStateList(
-                    R.color.setup_step_action_background);
+            mIndicatorColor = AppCompatResources.getColorStateList(context, R.color.setup_step_action_background);
             mIndicatorPaint.setStyle(Paint.Style.FILL);
         }
 
         @Override
-        protected void onDraw(final Canvas canvas) {
+        protected void onDraw(@NonNull final Canvas canvas) {
             super.onDraw(canvas);
             final int layoutDirection = ViewCompat.getLayoutDirection(this);
             final int width = getWidth();
