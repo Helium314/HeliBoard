@@ -6,8 +6,6 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
-import org.dslul.openboard.inputmethod.latin.utils.Log;
-
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;

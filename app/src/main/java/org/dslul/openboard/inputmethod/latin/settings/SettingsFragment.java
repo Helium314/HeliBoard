@@ -9,9 +9,7 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -22,13 +20,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceScreen;
 
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
-import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
@@ -57,11 +53,9 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(@Nullable Bundle bundle, @Nullable String s) {
         addPreferencesFromResource(R.xml.prefs);
-        final PreferenceScreen preferenceScreen = getPreferenceScreen();
-        preferenceScreen.setTitle(ApplicationUtils.getActivityTitleResId(getActivity(), SettingsActivity.class));
         if (!JniUtils.sHaveGestureLib) {
             final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
-            preferenceScreen.removePreference(gesturePreference);
+            getPreferenceScreen().removePreference(gesturePreference);
         }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD)
                 .execute(() -> DictionaryUtilsKt.cleanUnusedMainDicts(requireContext()));
@@ -87,13 +81,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             askAboutCrashReports();
-    }
-
-    private static boolean isUserSetupComplete(final Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return true;
-        }
-        return Secure.getInt(activity.getContentResolver(), "user_setup_complete", 0) != 0;
     }
 
     private String getEnabledSubtypesLabel() {

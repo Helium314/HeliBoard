@@ -21,7 +21,6 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
 import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 
 /**
  * "Debug mode" settings sub screen.
@@ -109,7 +108,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
     }
 
     private void updateDebugMode() {
-        final String version = getString(R.string.version_text, ApplicationUtils.getVersionName(getActivity()));
+        final String version = getString(R.string.version_text, BuildConfig.VERSION_NAME);
         mDebugMode.setSummary(version);
     }
 

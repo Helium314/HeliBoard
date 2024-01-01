@@ -73,7 +73,6 @@ import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAccessor;
 import org.dslul.openboard.inputmethod.latin.touchinputconsumer.GestureConsumer;
-import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
@@ -2008,8 +2007,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         final Printer p = new PrintWriterPrinter(fout);
         p.println("LatinIME state :");
-        p.println("  VersionCode = " + ApplicationUtils.getVersionCode(this));
-        p.println("  VersionName = " + ApplicationUtils.getVersionName(this));
+        p.println("  VersionCode = " + BuildConfig.VERSION_CODE);
+        p.println("  VersionName = " + BuildConfig.VERSION_NAME);
         final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
         final int keyboardMode = keyboard != null ? keyboard.mId.mMode : -1;
         p.println("  Keyboard mode = " + keyboardMode);
