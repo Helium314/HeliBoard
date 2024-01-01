@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package org.dslul.openboard.inputmethod.latin.settings
+package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,15 +11,10 @@ import android.widget.Toast
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
-import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
-import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils
-import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
-import org.dslul.openboard.inputmethod.latin.utils.Log
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.xmlpull.v1.XmlPullParser
 import java.io.File
 import java.util.*

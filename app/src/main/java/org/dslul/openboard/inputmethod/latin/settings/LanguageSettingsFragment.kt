@@ -22,7 +22,11 @@ import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
+import org.dslul.openboard.inputmethod.latin.utils.getAllAvailableSubtypes
 import org.dslul.openboard.inputmethod.latin.utils.getDictionaryLocales
+import org.dslul.openboard.inputmethod.latin.utils.getEnabledSubtypes
+import org.dslul.openboard.inputmethod.latin.utils.getSystemLocales
+import org.dslul.openboard.inputmethod.latin.utils.locale
 import java.util.*
 
 // not a SettingsFragment, because with androidx.preferences it's very complicated or

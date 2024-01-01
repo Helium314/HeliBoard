@@ -12,14 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -36,8 +32,8 @@ import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
-import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
 import java.util.List;
 import java.io.BufferedOutputStream;
@@ -50,13 +46,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public final class SettingsFragment extends PreferenceFragmentCompat {
-    // We don't care about menu grouping.
-    private static final int NO_MENU_GROUP = Menu.NONE;
-    // The first menu item id and order.
-    private static final int MENU_ABOUT = Menu.FIRST;
-    // The second menu item id and order.
-    private static final int MENU_HELP_AND_FEEDBACK = Menu.FIRST + 1;
-    // for storing crash report files, so onActivityResult can actually use them
     private final ArrayList<File> crashReportFiles = new ArrayList<>();
 
     @Override
@@ -98,41 +87,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             askAboutCrashReports();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull final Menu menu, @NonNull final MenuInflater inflater) {
-        if (FeedbackUtils.isHelpAndFeedbackFormSupported()) {
-            menu.add(NO_MENU_GROUP, MENU_HELP_AND_FEEDBACK /* itemId */,
-                    MENU_HELP_AND_FEEDBACK /* order */, R.string.help_and_feedback);
-        }
-        final int aboutResId = FeedbackUtils.getAboutKeyboardTitleResId();
-        if (aboutResId != 0) {
-            menu.add(NO_MENU_GROUP, MENU_ABOUT /* itemId */, MENU_ABOUT /* order */, aboutResId);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
-        final Activity activity = getActivity();
-        if (!isUserSetupComplete(activity)) {
-            // If setup is not complete, it's not safe to launch Help or other activities
-            // because they might go to the Play Store.  See b/19866981.
-            return true;
-        }
-        final int itemId = item.getItemId();
-        if (itemId == MENU_HELP_AND_FEEDBACK) {
-            FeedbackUtils.showHelpAndFeedbackForm(activity);
-            return true;
-        }
-        if (itemId == MENU_ABOUT) {
-            final Intent aboutIntent = FeedbackUtils.getAboutKeyboardIntent(activity);
-            if (aboutIntent != null) {
-                startActivity(aboutIntent);
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private static boolean isUserSetupComplete(final Activity activity) {

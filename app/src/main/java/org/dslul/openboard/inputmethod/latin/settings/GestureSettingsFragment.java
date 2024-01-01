@@ -7,14 +7,13 @@
 package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import org.dslul.openboard.inputmethod.latin.R;
 
 /**
  * "Gesture typing preferences" settings sub screen.
- *
+ * <p>
  * This settings sub screen handles the following gesture typing preferences.
  * - Enable gesture typing
  * - Dynamic floating preview
@@ -36,12 +35,8 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
-        final Resources res = getResources();
-        setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL,
-                Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
-                Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE,
-                Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
     }
 }

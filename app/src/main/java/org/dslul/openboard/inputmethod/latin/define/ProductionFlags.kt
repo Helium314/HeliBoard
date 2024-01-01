@@ -16,9 +16,4 @@ object ProductionFlags {
      * [org.dslul.openboard.inputmethod.latin.SuggestedWords.mRawSuggestions].
      */
     const val INCLUDE_RAW_SUGGESTIONS = false
-
-    /**
-     * When `false`, the split keyboard is not yet ready to be enabled.
-     */
-    const val IS_SPLIT_KEYBOARD_SUPPORTED = true
 }

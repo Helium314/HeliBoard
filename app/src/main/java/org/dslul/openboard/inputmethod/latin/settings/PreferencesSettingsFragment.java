@@ -25,6 +25,7 @@ import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
 import kotlin.collections.ArraysKt;

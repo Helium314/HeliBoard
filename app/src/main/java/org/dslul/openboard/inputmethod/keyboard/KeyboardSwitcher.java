@@ -131,7 +131,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                 .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                 .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
-                .setSplitLayoutEnabled(ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED && settingsValues.mIsSplitKeyboardEnabled)
+                .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
                 .setOneHandedModeEnabled(oneHandedModeEnabled)
                 .build();
         try {

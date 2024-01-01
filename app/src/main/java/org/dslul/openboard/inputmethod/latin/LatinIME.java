@@ -69,7 +69,6 @@ import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.personalization.PersonalizationHelper;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
-import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripViewAccessor;
@@ -84,6 +83,7 @@ import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtilsManager;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ViewLayoutUtils;
 
 import java.io.FileDescriptor;

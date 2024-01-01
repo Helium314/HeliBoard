@@ -58,7 +58,7 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
-import org.dslul.openboard.inputmethod.latin.utils.DialogUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DialogUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
@@ -439,7 +439,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         // apparently toast is not working on some Android versions, probably
         // Android 13 with the notification permission
         // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtils.getPlatformDialogThemeContext(getContext()), wordView);
+        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtilsKt.getPlatformDialogThemeContext(getContext()), wordView);
         uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
         uglyWorkaround.show();
     }

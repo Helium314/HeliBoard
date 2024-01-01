@@ -75,16 +75,6 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
 
         mObserver = new ContentObserver(null) {
             @Override
-            public void onChange(final boolean self) {
-                // This hook is deprecated as of API level 16 (Build.VERSION_CODES.JELLY_BEAN),
-                // but should still be supported for cases where the IME is running on an older
-                // version of the platform.
-                onChange(self, null);
-            }
-            // The following hook is only available as of API level 16
-            // (Build.VERSION_CODES.JELLY_BEAN), and as such it will only work on JellyBean+
-            // devices. On older versions of the platform, the hook above will be called instead.
-            @Override
             public void onChange(final boolean self, final Uri uri) {
                 setNeedsToRecreate();
             }
@@ -98,9 +88,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
     public static UserBinaryDictionary getDictionary(
             final Context context, final Locale locale, final File dictFile,
             final String dictNamePrefix, @Nullable final String account) {
-        return new UserBinaryDictionary(
-                context, locale, false /* alsoUseMoreRestrictiveLocales */,
-                dictFile, dictNamePrefix + NAME);
+        return new UserBinaryDictionary(context, locale, false, dictFile, dictNamePrefix + NAME);
     }
 
     @Override

@@ -4,12 +4,11 @@ package org.dslul.openboard.inputmethod.latin.settings
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.text.InputType
+import android.os.Build
 import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
@@ -19,7 +18,6 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
-import androidx.core.widget.doAfterTextChanged
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
@@ -45,7 +43,7 @@ class LanguageSettingsDialog(
     private val mainLocaleString = infos.first().subtype.locale()
     private val mainLocale = mainLocaleString.toLocale()
     private var hasInternalDictForLanguage = false
-    private lateinit var userDicts: MutableSet<File>
+    private val userDicts = mutableSetOf<File>()
 
     init {
         setTitle(infos.first().displayName)
@@ -282,9 +280,9 @@ class LanguageSettingsDialog(
             dialog.show()
             (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
         }
-        val (_userDicts, _hasInternalDictForLanguage) = getUserAndInternalDictionaries(context, mainLocaleString)
-        userDicts = _userDicts.toMutableSet()
-        hasInternalDictForLanguage = _hasInternalDictForLanguage
+        val userDictsAndHasInternal = getUserAndInternalDictionaries(context, mainLocaleString)
+        hasInternalDictForLanguage = userDictsAndHasInternal.second
+        userDicts.addAll(userDictsAndHasInternal.first)
         if (hasInternalDictForLanguage) {
             binding.dictionaries.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                 setText(R.string.internal_dictionary_summary)
@@ -332,8 +330,13 @@ class LanguageSettingsDialog(
         }
         rowBinding.languageText.setOnClickListener {
             if (header == null) return@setOnClickListener
+            val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                context.resources.configuration.locales[0]
+            } else {
+                @Suppress("Deprecation") context.resources.configuration.locale
+            }
             Builder(context)
-                .setMessage(header.info(context.resources.configuration.locale))
+                .setMessage(header.info(locale))
                 .setPositiveButton(android.R.string.ok, null)
                 .show()
         }

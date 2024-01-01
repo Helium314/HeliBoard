@@ -28,6 +28,7 @@ import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerServi
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 import java.util.Arrays;

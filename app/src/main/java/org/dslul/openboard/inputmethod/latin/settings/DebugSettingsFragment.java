@@ -25,7 +25,7 @@ import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 
 /**
  * "Debug mode" settings sub screen.
- *
+ * <p>
  * This settings sub screen handles a several preference options for debugging.
  */
 public final class DebugSettingsFragment extends SubScreenFragment
@@ -73,8 +73,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
 
     @Override
     public boolean onPreferenceClick(@NonNull final Preference pref) {
-        if (pref instanceof DictDumpPreference) {
-            final DictDumpPreference dictDumpPref = (DictDumpPreference)pref;
+        if (pref instanceof final DictDumpPreference dictDumpPref) {
             final String dictName = dictDumpPref.mDictName;
             final Intent intent = new Intent(
                     DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
@@ -95,7 +94,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (key.equals(DebugSettings.PREF_DEBUG_MODE) && mDebugMode != null) {
+        if (DebugSettings.PREF_DEBUG_MODE.equals(key) && mDebugMode != null) {
             final boolean enabled = prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false);
             mDebugMode.setChecked(enabled);
             findPreference(DebugSettings.PREF_SHOW_SUGGESTION_INFOS).setVisible(enabled);

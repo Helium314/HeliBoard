@@ -11,8 +11,6 @@ import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.settings.Settings
-import org.dslul.openboard.inputmethod.latin.settings.getEnabledSubtypes
-import org.dslul.openboard.inputmethod.latin.settings.locale
 import java.io.File
 import java.util.*
 import kotlin.collections.HashSet

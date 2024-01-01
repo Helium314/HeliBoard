@@ -37,6 +37,7 @@ import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 

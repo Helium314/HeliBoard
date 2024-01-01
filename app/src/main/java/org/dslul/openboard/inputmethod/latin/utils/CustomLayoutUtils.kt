@@ -18,7 +18,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.settings.infoDialog
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger

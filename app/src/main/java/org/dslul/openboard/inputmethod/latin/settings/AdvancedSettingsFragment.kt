@@ -25,8 +25,9 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
-import org.dslul.openboard.inputmethod.latin.define.JniLibName
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
+import org.dslul.openboard.inputmethod.latin.utils.JniUtils
+import org.dslul.openboard.inputmethod.latin.utils.infoDialog
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -118,7 +119,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     libraryFilePicker.launch(intent)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
-        libfile = File(requireContext().filesDir.absolutePath + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME)
+        libfile = File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
         if (libfile?.exists() == true) {
             builder.setNeutralButton(R.string.load_gesture_library_button_delete) { _, _ ->
                 libfile?.delete()

@@ -101,7 +101,7 @@
     zz: QWERTY/qwerty
     -->
 <!-- TODO: use <lang>_keyboard icon instead of a common keyboard icon. -->
-<!-- TODO: Remove "AsciiCapable" from the extra values when we can stop supporting JB-MR1 -->
+<!-- "AsciiCapable" is kept in extra values, as per recommendation in Android documentation -->
 <!-- Note: SupportTouchPositionCorrection extra value is obsolete and maintained for backward
      compatibility. -->
 <!-- If IME doesn't have an applicable subtype, the first subtype will be used as a default
@@ -437,7 +437,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_compact,EmojiCapable"
             android:isAsciiCapable="false"
     />
-    <!-- TODO: This Hinglish keyboard is a preliminary layout.
+    <!-- This Hinglish keyboard is a preliminary layout.
                This isn't based on the final specification.
                Was disabled because there is no LM yet, and this layout does not offer anything different. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -804,7 +804,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=sr,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
-    <!-- TODO: This Serbian Latin keyboard is a preliminary layout.
+    <!-- This Serbian Latin keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_sr_ZZ"
@@ -917,7 +917,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=urdu,EmojiCapable"
             android:isAsciiCapable="false"
         />
-    <!-- TODO: This Uzbek keyboard is a preliminary layout.
+    <!-- This Uzbek keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
