@@ -81,11 +81,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "pref_key_use_personalized_dicts";
     public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "pref_key_use_double_space_period";
     public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "pref_key_block_potentially_offensive";
-    public static final boolean SHOULD_SHOW_LXX_SUGGESTION_UI =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    public static final boolean SHOULD_SHOW_LXX_SUGGESTION_UI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     public static final String PREF_LANGUAGE_SWITCH_KEY = "pref_language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
-    public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
+    public static final String PREF_ADDITIONAL_SUBTYPES = "pref_additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
     public static final String PREF_SPLIT_SPACER_SCALE = "pref_split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
@@ -105,9 +104,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_SPACE_AWARE = "pref_gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
 
-    public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled_p_";
-    public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity_p_";
-    public static final String PREF_ONE_HANDED_SCALE = "pref_one_handed_mode_scale_p_";
+    public static final String PREF_ONE_HANDED_MODE_PREFIX = "pref_one_handed_mode_enabled_p_";
+    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "pref_one_handed_mode_gravity_p_";
+    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "pref_one_handed_mode_scale_p_";
+
 
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
@@ -134,7 +134,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_URL_DETECTION = "pref_url_detection";
 
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
-    public static final String PREF_PINNED_KEYS = "pref_pinned_keys";
+    public static final String PREF_PINNED_TOOLBAR_KEYS = "pref_pinned_toolbar_keys";
     public static final String PREF_TOOLBAR_KEYS = "pref_toolbar_keys";
 
     // Emoji
@@ -211,7 +211,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } finally {
             mSettingsValuesLock.unlock();
         }
-        if (PREF_CUSTOM_INPUT_STYLES.equals(key)) {
+        if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
             final String additionalSubtypes = readPrefAdditionalSubtypes(prefs, mContext.getResources());
             SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
         }
@@ -224,7 +224,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         try {
             final SharedPreferences prefs = mPrefs;
             Log.i(TAG, "loadSettings");
-            final RunInLocale<SettingsValues> job = new RunInLocale<SettingsValues>() {
+            final RunInLocale<SettingsValues> job = new RunInLocale<>() {
                 @Override
                 protected SettingsValues job(final Resources res) {
                     return new SettingsValues(context, prefs, res, inputAttributes);
@@ -308,12 +308,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                                                     final Resources res) {
         final String predefinedPrefSubtypes = AdditionalSubtypeUtils.createPrefSubtypes(
                 res.getStringArray(R.array.predefined_subtypes));
-        return prefs.getString(PREF_CUSTOM_INPUT_STYLES, predefinedPrefSubtypes);
+        return prefs.getString(PREF_ADDITIONAL_SUBTYPES, predefinedPrefSubtypes);
     }
 
     public static void writePrefAdditionalSubtypes(final SharedPreferences prefs,
                                                    final String prefSubtypes) {
-        prefs.edit().putString(PREF_CUSTOM_INPUT_STYLES, prefSubtypes).apply();
+        prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
     public static float readKeypressSoundVolume(final SharedPreferences prefs,
@@ -407,28 +407,28 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE + portrait, false);
+        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + portrait, false);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getFloat(PREF_ONE_HANDED_SCALE + portrait, 1f);
+        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + portrait, 1f);
     }
 
     public void writeOneHandedModeScale(final Float scale) {
-        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
     }
 
     @SuppressLint("RtlHardcoded")
     public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getInt(PREF_ONE_HANDED_GRAVITY + portrait, Gravity.LEFT);
+        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + portrait, Gravity.LEFT);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
@@ -478,10 +478,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static ArrayList<ToolbarKey> readPinnedKeys(final SharedPreferences prefs) {
         final ArrayList<ToolbarKey> list = new ArrayList<>();
-        for (final String key : prefs.getString(Settings.PREF_PINNED_KEYS, "").split(";")) {
+        for (final String key : prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, "").split(";")) {
             try {
                 list.add(ToolbarKey.valueOf(key));
-            } catch (IllegalArgumentException e) { } // may happen if toolbar key is removed from app
+            } catch (IllegalArgumentException ignored) { } // may happen if toolbar key is removed from app
         }
         return list;
     }
@@ -490,13 +490,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
         if (keys.contains(key)) return;
         keys.add(key);
-        prefs.edit().putString(Settings.PREF_PINNED_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
+        prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
     public static void removePinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
         final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
         keys.remove(key);
-        prefs.edit().putString(Settings.PREF_PINNED_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
+        prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
     public static int readMoreMoreKeysPref(final SharedPreferences prefs) {

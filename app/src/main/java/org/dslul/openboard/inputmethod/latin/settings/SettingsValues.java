@@ -259,10 +259,6 @@ public class SettingsValues {
         return mSuggestionsEnabledPerUserSettings;
     }
 
-    public boolean isPersonalizationEnabled() {
-        return mUsePersonalizedDicts;
-    }
-
     public boolean isWordSeparator(final int code) {
         return mSpacingAndPunctuations.isWordSeparator(code);
     }
