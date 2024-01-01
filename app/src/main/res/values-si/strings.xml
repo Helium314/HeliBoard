@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard" msgid="4177264923999493614">"බෙදු යතුරු පුවරුව සබල කරන්න"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"වෙනත් ආදාන ක්‍රම වෙත මාරුවන්න"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"භාෂා මාරු යතුර"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"යතුරු උත්පතන ඉවත් කිරීමේ ප්‍රමාදය"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"ප්‍රමාද නැත"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"සුපුරුදු"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"පද්ධති සුපුරුදු"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"සබඳතා නම් යෝජනා කරන්න"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ඉංගිතය කරන අතරතුර යෝජිත වචන බලන්න"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ජේද ඉංගිතය"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ඉංගිතයන් අතරතුර space යතුර වෙත ලිස්සීම මඟින් ඉඩ ඇතුල් කරන්න"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"ආදාන ක්‍රම වින්‍යාස කරන්න"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"භාෂා"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"උදවු සහ ප්‍රතිපෝෂණ"</string>
-    <string name="select_language" msgid="5709487854987078367">"භාෂා"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"සුරැකීමට නැවත තට්ටු කරන්න"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"සුරැකීමට මෙහි තට්ටු කරන්න"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ඉංග්‍රීසි (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ඉංග්‍රීසි (US)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ස්පාඤ්ඤ (US)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"අකාරාදිය (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"අකාරාදිය (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"ඉමොජි"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"යතුරු පුවරු තේමාව"</string>
     <string name="add" msgid="8299699805688017798">"එක් කරන්න"</string>
     <string name="remove" msgid="4486081658752944606">"ඉවත් කරන්න"</string>
     <string name="save" msgid="7646738597196767214">"සුරකින්න"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"අවසන්"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"යෙදුම් නිරූපකය පෙන්වන්න"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"දියත්කරනය තුළ යෙදුම් නිරූපකය දර්ශනය කරන්න"</string>
-    <string name="app_name" msgid="6320102637491234792">"ශබ්දකෝෂ සැපයුම්කරු"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"ශබ්දකෝෂ සැපයුම්කරු"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"ඈඳුම් ශබ්ද කෝෂ"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"ශබ්ද කෝෂ සඳහා සැකසීම්"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"පරිශීලක ශබ්ද කෝෂ"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"නැවුම් කරන්න"</string>
     <string name="last_update" msgid="730467549913588780">"අවසන් වරට යාවත්කාලීන කළේ"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"ප්‍රධාන ශබ්ද කෝෂය"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"සැකසීම්"</string>
+    <string name="settings" msgid="3876892339342569259">"සැකසීම්"</string>
     <string name="delete_dict" msgid="756853268088330054">"මකන්න"</string>
     <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> අනුවාදය"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"එක් කරන්න"</string>

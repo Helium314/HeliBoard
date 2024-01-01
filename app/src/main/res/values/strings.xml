@@ -63,12 +63,6 @@
     <string name="show_language_switch_key">Language switch key</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
-    <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->
-    <string name="key_preview_popup_dismiss_delay">Key popup dismiss delay</string>
-    <!-- Description for delay for dismissing a popup on keypress: no delay [CHAR LIMIT=15] -->
-    <string name="key_preview_popup_dismiss_no_delay">No delay</string>
-    <!-- Description for delay for dismissing a popup on screen: default value of the delay [CHAR LIMIT=15] -->
-    <string name="key_preview_popup_dismiss_default_delay">Default</string>
     <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <!-- Units abbreviation for the duration (minutes) [CHAR LIMIT=10] -->
@@ -209,19 +203,11 @@
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "more keys" suggestions view -->
     <string name="more_keys_strip_description">More keys</string>
-    <!-- Title for configuring input method settings [CHAR LIMIT=35] -->
-    <string name="configure_input_method">Configure input methods</string>
     <!-- Title for input language selection screen -->
     <string name="language_selection_title">Languages</string>
     <!-- Title for the 'Help & feedback' settings fragment which shows a help page and has a button
          for submitting feedback. [CHAR LIMIT=35] -->
     <string name="help_and_feedback">Help &amp; feedback</string>
-    <!-- Preference for input language selection -->
-    <string name="select_language">Languages</string>
-    <!-- Add to dictionary hint -->
-    <string name="hint_add_to_dictionary">Tap again to save</string>
-    <!-- Add to dictionary hint -->
-    <string name="hint_add_to_dictionary_without_word">Tap here to save</string>
     <!-- Title of the settings to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
@@ -411,8 +397,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
     <!-- Description for Emoji keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_emoji">Emoji</string>
-    <!-- Title of the preference settings for switching keyboard theme [CHAR LIMIT=35] -->
-    <string name="keyboard_theme">Keyboard theme</string>
     <!-- Title of the button to add custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="add">Add</string>
     <!-- Title of the button to remove a custom style entry in the settings dialog [CHAR LIMIT=15] -->
@@ -493,10 +477,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="show_setup_wizard_icon">Show app icon</string>
     <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
-    <!-- The dictionary provider application name. Visible in Settings/Applications/Manage applications. -->
-    <string name="app_name">Dictionary Provider</string>
-    <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
-    <string name="dictionary_provider_name">Dictionary Provider</string>
     <!-- Title and summary of the dictionary settings screen -->
     <string name="dictionary_settings_title">Add-on dictionaries</string>
     <!-- Title for the prompt dialog which informs the user that a dictionary is available for the current language and asks to decide whether to download it over 3g -->
@@ -514,9 +494,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Button in dialog for adding dictionary to specific locale -->
     <string name="button_add_to_language">"Add to %s"</string>
     <!-- Message for user dictionary replacement dialog -->
-    <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
-    <!-- Message for user dictionary replacement dialog -->
-    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%1$s\"?\n
+    <string name="replace_dictionary_message">"Really replace user-added dictionary \"%1$s\"?\n
 Current dictionary:
 %2$s\n
 New dictionary:
@@ -562,8 +540,6 @@ New dictionary:
     <string name="last_update">Last updated</string>
     <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
     <string name="main_dict_description">Main dictionary</string>
-    <!-- Title of the button in a dialog box. The button takes the user to the keyboard settings. [CHAR LIMIT=15] -->
-    <string name="go_to_settings">Settings</string>
     <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
     <string name="delete_dict">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
@@ -627,15 +603,11 @@ New dictionary:
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
     <!-- Style name for Rounded style -->
-    <string name="style_name_Rounded">Rounded</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rounded</string>
     <!-- Option for choosing colors [CHAR LIMIT=33] -->
     <string name="theme_colors">Colors</string>
     <!-- Option for choosing colors for night mode [CHAR LIMIT=33] -->
     <string name="theme_colors_night">Colors (night)</string>
-    <!-- TODO: remove the 3 strings below from all files, translation editor could do it but seems completely broken -->
-    <string name="theme_family">Theme family</string>
-    <string name="theme_variant">Theme variant</string>
-    <string name="theme_variant_night">Theme variant (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->

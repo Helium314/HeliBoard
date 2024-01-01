@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard" msgid="4177264923999493614">"பிரிக்கப்பட்ட விசைப்பலகையை இயக்கு"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"பிற உள்ளீட்டு முறைகளுக்கு மாறு"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"மொழி மாற்ற விசை"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"விசை பாப்அப் விலக்கின் தாமதம்"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"தாமதம் வேண்டாம்"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"இயல்புநிலை"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>மி.வி."</string>
     <string name="settings_system_default" msgid="6268225104743331821">"அமைப்பின் இயல்புநிலை"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"தொடர்பு பெயர்களைப் பரிந்துரை"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"சைகையிடும் போது பரிந்துரைக்கும் வார்த்தையைப் பார்க்கலாம்"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"சொற்றொடர் ஸ்வைப்"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ஸ்பேஸ் விசைக்கு இழுப்பதன் மூலம் சைகைகளுக்கு இடையே இடைவெளிகளை உள்ளிடலாம்"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"உள்ளீட்டு முறைகளை உள்ளமைத்தல்"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"மொழிகள்"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"உதவி &amp; கருத்து"</string>
-    <string name="select_language" msgid="5709487854987078367">"மொழிகள்"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"சேமிக்க, மீண்டும் தட்டவும்"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"சேமிக்க, இங்கே தட்டவும்"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ஆங்கிலம் (யூகே)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ஆங்கிலம் (யூஎஸ்)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ஸ்பானிஷ் (யூஎஸ்)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"அகரவரிசை (கொல்மக்)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"அகரவரிசை (பிசி)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"எமோஜி"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"விசைப்பலகை தீம்"</string>
     <string name="add" msgid="8299699805688017798">"சேர்"</string>
     <string name="remove" msgid="4486081658752944606">"அகற்று"</string>
     <string name="save" msgid="7646738597196767214">"சேமி"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"முடிந்தது"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"ஆப்ஸ் ஐகானைக் காட்டு"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"துவக்கியில் ஆப்ஸ் ஐகானைக் காட்டும்"</string>
-    <string name="app_name" msgid="6320102637491234792">"அகராதி வழங்கி"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"அகராதி வழங்கி"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"துணை அகராதிகள்"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"அகராதிகளுக்கான அமைப்பு"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"பயனர் அகராதிகள்"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"புதுப்பி"</string>
     <string name="last_update" msgid="730467549913588780">"இறுதியாகப் புதுப்பித்தது"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"முதன்மை அகராதி"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"அமைப்பு"</string>
+    <string name="settings" msgid="3876892339342569259">"அமைப்பு"</string>
     <string name="delete_dict" msgid="756853268088330054">"நீக்கு"</string>
     <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> பதிப்பு"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"சேர்"</string>

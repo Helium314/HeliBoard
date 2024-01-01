@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard" msgid="4177264923999493614">"विभाजित कीबोर्ड सुरू करा"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"अन्य इनपुट पद्धतींवर स्विच करा"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"भाषा स्विच की"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"की पॉपअप डिसमिस विलंब"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"विलंब नाही"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"डीफॉल्ट"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>मिसे"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"सिस्टम डीफॉल्ट"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"संपर्क नावे सुचवा"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"जेश्चरींग करत असताना सुचविलेले शब्द पहा"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"वाक्यांश जेश्चर"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"स्पेस की वर ग्लायडिंग करून जेश्चर दरम्यान स्थाने इनपुट करा"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"इनपुट पद्धती कॉन्फिगर करा"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"भाषा"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"मदत आणि अभिप्राय"</string>
-    <string name="select_language" msgid="5709487854987078367">"भाषा"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"सेव्ह करण्यासाठी पुन्हा टॅप करा"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"सेव्ह करण्यासाठी येथे टॅप करा"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"इंग्रजी (यूके)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"इंग्रजी (यूएस)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"स्पॅनिश (यूएस)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"वर्णमाला (कोलमॅक)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"वर्णमाला (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"इमोजी"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"कीबोर्ड थीम"</string>
     <string name="add" msgid="8299699805688017798">"जोडा"</string>
     <string name="remove" msgid="4486081658752944606">"काढा"</string>
     <string name="save" msgid="7646738597196767214">"सेव्ह करा"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"समाप्त"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"अ‍ॅप आयकन दर्शवा"</string>
     <string name="show_setup_wizard_icon_summary">"लाँचर मध्ये ॲप्लिकेशन आयकन दाखवा"</string>
-    <string name="app_name" msgid="6320102637491234792">"शब्दकोश प्रदाता"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"शब्दकोश प्रदाता"</string>
     <string name="dictionary_settings_title">"ॲड-ऑन शब्दकोश"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"शब्दकोशांसाठी सेटिंग्ज"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"वापरकर्ता शब्दकोश"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"रिफ्रेश करा"</string>
     <string name="last_update" msgid="730467549913588780">"अंतिम अपडेट"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"मु्ख्य शब्दकोश"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"सेटिंग्ज"</string>
+    <string name="settings" msgid="3876892339342569259">"सेटिंग्ज"</string>
     <string name="delete_dict" msgid="756853268088330054">"हटवा"</string>
     <string name="version_text" msgid="2715354215568469385">"आवृत्ती <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"जोडा"</string>

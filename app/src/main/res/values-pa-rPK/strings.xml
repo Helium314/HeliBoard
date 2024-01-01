@@ -10,7 +10,6 @@
     <string name="settings_category_correction">درستی</string>
     <string name="settings_category_suggestions">سُجھے</string>
     <string name="settings_category_experimental">آزمائش</string>
-    <string name="key_preview_popup_dismiss_default_delay">مول</string>
     <string name="settings_screen_preferences">ترجیحاں</string>
     <string name="settings_screen_advanced">اُنت</string>
     <string name="settings_category_miscellaneous">ہور چوݨاں</string>
@@ -19,7 +18,6 @@
     <string name="settings_category_additional_keys">ہور کنجیاں</string>
     <string name="settings_category_clipboard_history">کاپی پیسٹ تریخ</string>
     <string name="show_emoji_key">ایموجی دی کنجی</string>
-    <string name="key_preview_popup_dismiss_no_delay">کوئی دیری نہیں</string>
     <string name="settings_system_default">سِسٹم دا مول</string>
     <string name="settings_no_limit">کوئی حد نہیں</string>
     <string name="use_personalized_dicts">نجی بݨاۓ سجھا</string>
@@ -41,13 +39,12 @@
     <string name="add">شامل کرو</string>
     <string name="autocorrect">خود بخود درستی</string>
     <string name="auto_correction_threshold_mode_modest">مدھ</string>
-    <string name="select_language">بولیاں</string>
     <string name="remove">ہٹاؤ</string>
     <string name="save">سامبھو</string>
     <string name="button_default">مول</string>
     <string name="setup_finish_action">پورا ہویا</string>
     <string name="subtype_locale">بولی</string>
-    <string name="go_to_settings">سیٹنگاں</string>
+    <string name="settings">سیٹنگاں</string>
     <string name="check_for_updates_now">تازہ کرو</string>
     <string name="user_dict_settings_add_shortcut_option_name">شورٹکٹ:</string>
     <string name="use_double_space_period">دو خالی تھاں ڈنڈی</string>

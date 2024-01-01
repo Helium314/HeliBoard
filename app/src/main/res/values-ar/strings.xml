@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard">"هل تريد تفعيل لوحة المفاتيح المقسمة"</string>
     <string name="language_switch_key_switch_input_method">"التبديل إلى أسلوب إدخال آخر"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"مفتاح تبديل اللغة"</string>
-    <string name="key_preview_popup_dismiss_delay">"تأخير إزالة النافذة المنبثقة الأساسية"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"بلا تأخير"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"تلقائي"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363"><xliff:g id="MILLISECONDS">%s</xliff:g> ملي ثانية</string>
     <string name="settings_system_default" msgid="6268225104743331821">"الضبط التلقائي للنظام"</string>
     <string name="use_contacts_dict">"اقتراح أسماء جهات الاتصال"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
     <string name="gesture_space_aware">"عبارة الإيماء"</string>
     <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"تهيئة طرق الإدخال"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"اللغات"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"المساعدة والتعليقات"</string>
-    <string name="select_language" msgid="5709487854987078367">"اللغات"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"انقر مرة أخرى للحفظ"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"انقر هنا للحفظ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"الإسبانية (الأميركية)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"‏الأبجدية (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"‏الأبجدية (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"الرموز التعبيرية"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"مظهر لوحة المفاتيح"</string>
     <string name="add" msgid="8299699805688017798">"إضافة"</string>
     <string name="remove" msgid="4486081658752944606">"إزالة"</string>
     <string name="save" msgid="7646738597196767214">"حفظ"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"إنهاء العملية"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"عرض رمز التطبيق"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"عرض رمز التطبيق في المشغل"</string>
-    <string name="app_name" msgid="6320102637491234792">"مقدم القاموس"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"مقدم القاموس"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"القواميس الإضافية"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"إعدادات القواميس"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"قواميس المستخدم"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"تحديث"</string>
     <string name="last_update" msgid="730467549913588780">"تاريخ آخر تحديث"</string>
     <string name="main_dict_description">"القاموس الرئيسي"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"إعدادات"</string>
+    <string name="settings" msgid="3876892339342569259">"إعدادات"</string>
     <string name="delete_dict" msgid="756853268088330054">"حذف"</string>
     <string name="version_text" msgid="2715354215568469385">الإصدار <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"إضافة"</string>
@@ -165,8 +155,6 @@
     <string name="enable_clipboard_history_summary">سيقوم مفتاح الحافظة بلصق محتوى الحافظة -إن وُجد- إن عُطِّل</string>
     <string name="clipboard_history_retention_time">وقت الاحتفاظ بالتاريخ</string>
     <string name="delete_swipe">احذف بالسحب</string>
-    <string name="theme_family">سمة العائلة</string>
-    <string name="theme_variant">متغير السمة</string>
     <string name="key_borders">الحدود الرئيسة</string>
     <string name="delete_swipe_summary">أجرِ سحبًا سريعًا على مفتاح الحذف لتُحدِّد وتُزيل أجزاءً كبيرة من النص دفعةً واحدة</string>
     <string name="show_hints">إظهار تلميحات المفاتيح</string>

@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Megosztott billentyűzet bekapcsolása"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Váltás más beviteli módra"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"A nyelvkapcsoló"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Gombeltüntetés késése"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Nincs késés"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Alapbeállítás"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Alapértelmezett"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Javasolt névjegyek"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"A javasolt szó megtekintése kézmozdulat közben"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Kifejezés-kézmozdulat"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Szóköz írása kézmozdulatok során: húzza el ujját a szóköz felett"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Beviteli módok beállítása"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Nyelvek"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Súgó és visszajelzés"</string>
-    <string name="select_language" msgid="5709487854987078367">"Nyelvek"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"A mentéshez koppintson újra"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Koppintson ide a mentéshez"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angol (brit)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angol (amerikai)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"spanyol (USA)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Ábécé (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Ábécé (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Hangulatjel"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Billentyűzettéma"</string>
     <string name="add" msgid="8299699805688017798">"Hozzáadás"</string>
     <string name="remove" msgid="4486081658752944606">"Eltávolítás"</string>
     <string name="save" msgid="7646738597196767214">"Mentés"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"Befejeződött"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Alkalmazásikon megjelenítése"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Alkalmazásikon megjelenítése az indítóban"</string>
-    <string name="app_name" msgid="6320102637491234792">"Szótárszolgáltató"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Szótárszolgáltató"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Bővítmények: szótárak"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Szótárak beállításai"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Felhasználói szótárak"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"Frissítés"</string>
     <string name="last_update" msgid="730467549913588780">"Legutóbb frissítve"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Fő szótár"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Beállítások"</string>
+    <string name="settings" msgid="3876892339342569259">"Beállítások"</string>
     <string name="delete_dict" msgid="756853268088330054">"Törlés"</string>
     <string name="version_text" msgid="2715354215568469385">"Verzió: <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Hozzáadás"</string>
@@ -148,8 +138,6 @@
     <string name="settings_category_miscellaneous">Vegyes</string>
     <string name="settings_no_limit">Nincs korlát</string>
     <string name="enable_clipboard_history">A vágólap előzményeinek engedélyezése</string>
-    <string name="theme_family">Téma család</string>
-    <string name="theme_variant">Témaváltozat</string>
     <string name="key_borders">Kulcshatárok</string>
     <string name="ime_settings">OpenBoard Beállítások</string>
     <string name="android_spell_checker_settings">OpenBoard helyesírás-ellenőrző beállításai</string>
