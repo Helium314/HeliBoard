@@ -435,7 +435,8 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
-                actionIconDrawable.setBounds(0,0,60,60); // 60 appears to be equivalent to 24dp width and height
+                int size = (int) (24 * res.getDisplayMetrics().density);  // width and height of drawables is 24dp
+                actionIconDrawable.setBounds(0,0, size, size);
                 mActionLabel.setCompoundDrawablesRelative(actionIconDrawable, null, null, null);
             }
         }
