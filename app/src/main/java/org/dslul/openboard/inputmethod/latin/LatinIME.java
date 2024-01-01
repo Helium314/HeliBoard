@@ -1366,6 +1366,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mSuggestionStripView.clear();
             mSuggestionStripView.hideToolbarKeys();
             mSuggestionStripView.addSuggestionView(inlineSuggestionView);
+            mSuggestionStripView.setInlineSuggestionsShown(true);
         }, 200);
 
         return true;
