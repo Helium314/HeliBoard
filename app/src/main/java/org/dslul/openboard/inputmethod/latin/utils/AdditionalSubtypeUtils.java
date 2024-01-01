@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.os.Build;
 import android.text.TextUtils;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -73,14 +72,12 @@ public final class AdditionalSubtypeUtils {
 
     public static InputMethodSubtype createDummyAdditionalSubtype(
             final String localeString, final String keyboardLayoutSetName) {
-        return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName,
-                false /* isAsciiCapable */, false /* isEmojiCapable */);
+        return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName, false, false);
     }
 
-    public static InputMethodSubtype createAsciiEmojiCapableAdditionalSubtype(
-            final String localeString, final String keyboardLayoutSetName) {
-        return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName,
-                true /* isAsciiCapable */, true /* isEmojiCapable */);
+    public static InputMethodSubtype createEmojiCapableAdditionalSubtype(
+            final String localeString, final String keyboardLayoutSetName, final boolean asciiCapable) {
+        return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName, asciiCapable, true);
     }
 
     public static String getPrefSubtype(final InputMethodSubtype subtype) {
@@ -120,11 +117,10 @@ public final class AdditionalSubtypeUtils {
         }
         final String localeString = elems[INDEX_OF_LOCALE];
         final String keyboardLayoutSetName = elems[INDEX_OF_KEYBOARD_LAYOUT];
-        // Here we assume that all the additional subtypes have AsciiCapable and EmojiCapable.
-        // This is actually what the setting dialog for additional subtype is doing.
-        final InputMethodSubtype subtype = createAsciiEmojiCapableAdditionalSubtype(
-                localeString, keyboardLayoutSetName);
-        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT) {
+        final boolean asciiCapable = ScriptUtils.getScriptFromSpellCheckerLocale(LocaleUtils.constructLocaleFromString(localeString)) == ScriptUtils.SCRIPT_LATIN;
+        // Here we assume that all the additional subtypes are EmojiCapable
+        final InputMethodSubtype subtype = createEmojiCapableAdditionalSubtype(localeString, keyboardLayoutSetName, asciiCapable);
+        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !keyboardLayoutSetName.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX)) {
             // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
             // layout has been removed.
             return null;

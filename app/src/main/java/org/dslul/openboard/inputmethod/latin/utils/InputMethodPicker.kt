@@ -58,7 +58,7 @@ fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodMa
         items.add(SpannableStringBuilder().append(title).append(subtitle))
     }
 
-    val dialog = AlertDialog.Builder(DialogUtils.getPlatformDialogThemeContext(latinIme))
+    val dialog = AlertDialog.Builder(getPlatformDialogThemeContext(latinIme))
         .setTitle(R.string.select_input_method)
         .setSingleChoiceItems(items.toTypedArray(), currentSubtypeIndex) { di, i ->
             di.dismiss()

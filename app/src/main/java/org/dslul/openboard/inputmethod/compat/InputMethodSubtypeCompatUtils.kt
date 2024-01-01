@@ -10,7 +10,7 @@ import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.view.inputmethod.InputMethodSubtype
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
-import org.dslul.openboard.inputmethod.latin.settings.locale
+import org.dslul.openboard.inputmethod.latin.utils.locale
 import java.util.*
 
 object InputMethodSubtypeCompatUtils {

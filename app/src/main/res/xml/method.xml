@@ -57,10 +57,10 @@
     it_CH: Italian (Switzerland)/qwertz+
     iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
     ka_GE: Georgian (Georgia)/georgian
-    kk: Kazakh/kk
+    kk: Kazakh/ru
     km_KH: Khmer (Cambodia)/khmer
     kn_IN: Kannada (India)/kannada
-    ky: Kyrgyz/ky
+    ky: Kyrgyz/ru
     lo_LA: Lao (Laos)/lao
     lt: Lithuanian/qwerty
     lv: Latvian/qwerty
@@ -99,10 +99,9 @@
     vi: Vietnamese/qwerty
     zu: Zulu/qwerty
     zz: QWERTY/qwerty
-    (zz: Emoji/emoji)
     -->
 <!-- TODO: use <lang>_keyboard icon instead of a common keyboard icon. -->
-<!-- TODO: Remove "AsciiCapable" from the extra values when we can stop supporting JB-MR1 -->
+<!-- "AsciiCapable" is kept in extra values, as per recommendation in Android documentation -->
 <!-- Note: SupportTouchPositionCorrection extra value is obsolete and maintained for backward
      compatibility. -->
 <!-- If IME doesn't have an applicable subtype, the first subtype will be used as a default
@@ -438,7 +437,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_compact,EmojiCapable"
             android:isAsciiCapable="false"
     />
-    <!-- TODO: This Hinglish keyboard is a preliminary layout.
+    <!-- This Hinglish keyboard is a preliminary layout.
                This isn't based on the final specification.
                Was disabled because there is no LM yet, and this layout does not offer anything different. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -539,7 +538,7 @@
             android:imeSubtypeLocale="kk"
             android:languageTag="kk"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=kk,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -593,7 +592,7 @@
             android:imeSubtypeLocale="ky"
             android:languageTag="ky"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=ky,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -763,7 +762,7 @@
             android:imeSubtypeLocale="ru"
             android:languageTag="ru"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="SKeyboardLayoutSet=ru,upportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <!-- TODO: This Sinhala keyboard is a preliminary layout.
@@ -805,7 +804,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=sr,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
-    <!-- TODO: This Serbian Latin keyboard is a preliminary layout.
+    <!-- This Serbian Latin keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_sr_ZZ"
@@ -918,7 +917,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=urdu,EmojiCapable"
             android:isAsciiCapable="false"
         />
-    <!-- TODO: This Uzbek keyboard is a preliminary layout.
+    <!-- This Uzbek keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
@@ -956,17 +955,4 @@
             android:imeSubtypeExtraValue="AsciiCapable,EnabledWhenDefaultIsNotAsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
     />
-    <!-- Emoji subtype has to be an addtional subtype added at boot time because ICS doesn't
-         support Emoji. -->
-    <!--
-    <subtype android:icon="@drawable/ic_ime_switcher_dark"
-            android:label="@string/subtype_emoji"
-            android:subtypeId="0xc14d88b2"
-            android:imeSubtypeLocale="zz"
-            android:languageTag="zz"
-            android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=emoji,EmojiCapable"
-            android:isAsciiCapable="false"
-    />
-    -->
 </input-method>

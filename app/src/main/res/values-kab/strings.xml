@@ -18,11 +18,10 @@
     <string name="user_dict_settings_add_word_option_name">Awal :</string>
     <string name="user_dict_settings_more_languages">Tutlayin-nniḍen …</string>
     <string name="remove">Kkes</string>
-    <string name="select_language">Tutlayin</string>
     <string name="subtype_locale">Tutlayt</string>
     <string name="keyboard_layout_set">Anasiw</string>
     <string name="setup_start_action">Bdu</string>
-    <string name="go_to_settings">Iɣewwaren</string>
+    <string name="settings">Iɣewwaren</string>
     <string name="setup_finish_action">IH</string>
     <string name="delete_dict">Kkes</string>
     <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>

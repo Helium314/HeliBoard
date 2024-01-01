@@ -187,13 +187,6 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         }
 
     fun getNumberLabel(numberIndex: Int?): String? = numberIndex?.let { numberKeys.getOrNull(it) }
-
-    // get moreKeys with the number itself (as used on alphabet keyboards)
-    // todo: use it or remove it
-/*    fun getNumberMoreKeys(numberIndex: Int?): List<String> {
-        if (numberIndex == null) return emptyList()
-        return listOf(numberKeys[numberIndex]) + numbersMoreKeys[numberIndex]
-    }*/
 }
 
 private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<String> {

@@ -31,8 +31,8 @@ import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
 import java.util.HashSet;
 import java.util.List;

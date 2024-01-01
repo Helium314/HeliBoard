@@ -63,6 +63,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.NOT_A_COORD
 public final class EmojiPalettesView extends LinearLayout
         implements OnTabChangeListener, View.OnClickListener, View.OnTouchListener,
         OnKeyEventListener {
+    private boolean initialized = false;
     private final int mFunctionalKeyBackgroundId;
     private final Drawable mSpacebarBackground;
     private final boolean mCategoryIndicatorEnabled;
@@ -155,7 +156,9 @@ public final class EmojiPalettesView extends LinearLayout
         host.addTab(tspec);
     }
 
-    public void initialStart() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
+    public void initialize() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
+        if (initialized) return;
+        mEmojiCategory.initialize();
         mTabHost = KeyboardSwitcher.getInstance().getEmojiTabStrip().findViewById(R.id.emoji_category_tabhost);
         mTabHost.setup();
         for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
@@ -250,6 +253,7 @@ public final class EmojiPalettesView extends LinearLayout
         mColors.setBackground(mDeleteKey, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mColors.setBackground(mSpacebar, ColorType.SPACE_BAR_BACKGROUND);
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
+        initialized = true;
     }
 
     @Override
@@ -361,6 +365,7 @@ public final class EmojiPalettesView extends LinearLayout
     public void startEmojiPalettes(final String switchToAlphaLabel,
                                    final KeyVisualAttributes keyVisualAttr,
                                    final KeyboardIconsSet iconSet) {
+        initialize();
         final int deleteIconResId = iconSet.getIconResourceId(KeyboardIconsSet.NAME_DELETE_KEY);
         if (deleteIconResId != 0) {
             mDeleteKey.setImageResource(deleteIconResId);
@@ -377,6 +382,7 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     public void stopEmojiPalettes() {
+        if (!initialized) return;
         mEmojiPalettesAdapter.releaseCurrentKey(true);
         mEmojiPalettesAdapter.flushPendingRecentKeys();
         mEmojiRecyclerView.setAdapter(null);
