@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package org.dslul.openboard.inputmethod.latin.userdictionary;
+package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -34,6 +34,8 @@ import androidx.fragment.app.ListFragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
+import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordContents;
+import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordFragment;
 
 import java.util.Locale;
 
@@ -203,7 +205,7 @@ public class UserDictionarySettings extends ListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
         final String word = getWord(position);
         final String shortcut = getShortcut(position);
         final String weight = getWeight(position);
@@ -213,7 +215,7 @@ public class UserDictionarySettings extends ListFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             final Locale systemLocale = getResources().getConfiguration().locale;
             if (!TextUtils.isEmpty(mLocale) && !mLocale.equals(systemLocale.toString())) {

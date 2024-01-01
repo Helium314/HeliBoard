@@ -25,6 +25,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.ArrayList;
@@ -156,8 +157,7 @@ public class UserDictionaryAddWordContents {
     }
 
     /* package */
-    int apply(final Context context, final Bundle outParameters) {
-        if (null != outParameters) saveStateIntoBundle(outParameters);
+    int apply(final Context context) {
         final ContentResolver resolver = context.getContentResolver();
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
             // Mode edit: remove the old entry.

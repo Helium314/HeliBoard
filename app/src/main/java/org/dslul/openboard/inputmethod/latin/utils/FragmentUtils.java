@@ -19,7 +19,7 @@ import org.dslul.openboard.inputmethod.latin.spellcheck.SpellCheckerSettingsFrag
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordFragment;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryList;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryLocalePicker;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionarySettings;
+import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
 
 import java.util.HashSet;
 

@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import androidx.preference.PreferenceGroup;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.settings.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
 
 import java.util.HashSet;
 import java.util.List;
@@ -194,7 +196,7 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
                 .setIcon(R.drawable.ic_plus);
         actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);

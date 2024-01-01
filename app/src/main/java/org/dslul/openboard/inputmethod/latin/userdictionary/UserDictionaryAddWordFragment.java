@@ -27,9 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.settings.SubScreenFragment;
+import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordContents.LocaleRenderer;
 import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryLocalePicker.LocationChangedListener;
 
@@ -43,11 +44,10 @@ import java.util.Locale;
 
 /**
  * Fragment to add a word/shortcut to the user dictionary.
- *
  * As opposed to the UserDictionaryActivity, this is only invoked within Settings
  * from the UserDictionarySettings.
  */
-public class UserDictionaryAddWordFragment extends Fragment
+public class UserDictionaryAddWordFragment extends SubScreenFragment
         implements LocationChangedListener {
 
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
@@ -65,6 +65,7 @@ public class UserDictionaryAddWordFragment extends Fragment
         actionBar.setTitle(R.string.edit_personal_dictionary);
     }
 
+    @NonNull
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedState) {
@@ -107,7 +108,8 @@ public class UserDictionaryAddWordFragment extends Fragment
     // The bin icon is too big compared to the plus icon; we need to reduce it.
     // We therefore need to convert the Vector drawable image to Bitmap.
     private BitmapDrawable getBitmapFromVectorDrawable(int drawable, float scale) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), drawable);
+        Drawable vectorDrawable = ContextCompat.getDrawable(requireContext(), drawable);
+        if (vectorDrawable == null) return null;
         final int h = (int) (scale * vectorDrawable.getIntrinsicHeight());
         final int w = (int) (scale * vectorDrawable.getIntrinsicWidth());
         vectorDrawable.setBounds(0, 0, /*right*/ w, /*bottom*/ h);
@@ -126,7 +128,7 @@ public class UserDictionaryAddWordFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
-            mContents.apply(getActivity(), null);
+            mContents.apply(requireActivity());
             requireActivity().onBackPressed();
             return true;
         }
@@ -164,7 +166,7 @@ public class UserDictionaryAddWordFragment extends Fragment
     }
 
     private void updateSpinner() {
-        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(getActivity());
+        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(requireActivity());
 
         final Spinner localeSpinner = mRootView.findViewById(R.id.user_dictionary_add_locale);
         final ArrayAdapter<LocaleRenderer> adapter = new ArrayAdapter<>(
