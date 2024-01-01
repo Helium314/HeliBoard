@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Yazarken, önerilen kelimeleri görüntüle"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Rahatsız edici kelimeleri engelle"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Rahatsız edici olabilecek kelimeleri önermez"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Otomatik düzelt"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Otomatik düzelt"</string>
     <string name="auto_correction_summary">"Boşluk tuşu ve noktalama işaretleri yanlış yazılan kelimeleri otomatikman düzeltir"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Kapalı"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Ölçülü"</string>
@@ -147,7 +147,7 @@
     <string name="settings_category_miscellaneous">Çeşitli</string>
     <string name="settings_no_limit">Sınır yok</string>
     <string name="space_trackpad_summary">İmleci hareket ettirmek için boşluk tuşu üzerinde kaydırın</string>
-    <string name="prefs_force_incognito_mode">Gizli modu zorla</string>
+    <string name="incognito">Gizli modu zorla</string>
     <string name="prefs_force_incognito_mode_summary">Yeni sözcüklerin öğrenilmesini devre dışı bırak</string>
     <string name="number_row">Sayı satırı</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Boşluk tuşuna uzun süre basmak, giriş yöntemi seçim menüsünü gösterecektir</string>

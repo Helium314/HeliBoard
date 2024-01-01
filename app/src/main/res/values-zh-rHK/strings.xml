@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"輸入時顯示建議字詞"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"封鎖令人反感的字詞"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"不建議可能令人反感的字詞"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"自動更正"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"自動更正"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"自動插入空白鍵和標點符號鍵盤，以修正拼字錯誤"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"關閉"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"普通模式"</string>
@@ -146,7 +146,7 @@
     <string name="spell_checker_service_name">拼字檢查</string>
     <string name="android_spell_checker_settings">拼字檢查設定</string>
     <string name="show_emoji_key">Emoji</string>
-    <string name="prefs_force_incognito_mode">強制無痕模式</string>
+    <string name="incognito">強制無痕模式</string>
     <string name="settings_category_clipboard_history">剪貼板記錄</string>
     <string name="settings_category_suggestions">建議</string>
     <string name="settings_no_limit">無限</string>

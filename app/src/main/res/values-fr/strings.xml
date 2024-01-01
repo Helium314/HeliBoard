@@ -44,7 +44,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Affiche les mots suggérés lors de la saisie"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blocage des termes choquants"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne suggère pas de mots potentiellement offensants"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correction automatique"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Correction automatique"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Corrige automatiquement l\'orthographe lors d'un appui sur la barre d\'espace ou un signe de ponctuation"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Désactiver"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Simple"</string>
@@ -264,7 +264,7 @@ Nouveau dictionnaire:
     <string name="about_github_link" >Lien vers GitHub</string>
     <string name="save_log">Sauvegarder le journal</string>
     <string name="license" >Licence Open-source</string>
-    <string name="prefs_force_incognito_mode">Forcer le mode incognito</string>
+    <string name="incognito">Forcer le mode incognito</string>
     <string name="theme_style">Style</string>
     <string name="style_name_Rounded">Arrondi</string>
     <string name="theme_colors">Couleurs</string>

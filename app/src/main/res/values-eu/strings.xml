@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Bistaratu iradokitako hitzak idatzi bitartean"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokeatu hitz iraingarriak"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ez iradoki iraingarria izan daitekeen hitzik"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Zuzenketa automatikoa"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Zuzenketa automatikoa"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Zuzendu auto. zuriuneak eta puntuazioa gaizki idatzitako hitzetan"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desaktibatu"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Zuhurra"</string>
@@ -163,7 +163,7 @@
     <string name="spell_checker_service_name">OpenBoard Ortografia Zuzentzailea</string>
     <string name="theme_variant">Gai aldaera</string>
     <string name="autospace_after_punctuation">Autoespazioa puntuazioen ondoren</string>
-    <string name="prefs_force_incognito_mode">Ezezagun modua behartu</string>
+    <string name="incognito">Ezezagun modua behartu</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor hizkuntza)</string>
     <string name="settings_category_input">Sarrera</string>
     <string name="key_borders">Gako-ertzak</string>

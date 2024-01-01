@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"உள்ளிடும்போது பரிந்துரைக்கப்பட்ட வார்த்தைகளைக் காட்டும்"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"புண்படுத்தும் சொற்களைத் தடு"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"மனதைப் புண்படுத்தக் கூடிய சொற்களைப் பரிந்துரைக்க வேண்டாம்"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"தன்னியக்க திருத்தம்"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"தன்னியக்க திருத்தம்"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"ஸ்பேஸ்பாரும், நிறுத்தற்குறிகளும் தவறாக உள்ளிடப்பட்ட வார்த்தைகளை தானாக திருத்தும்"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"ஆஃப்"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"மிதமாக"</string>

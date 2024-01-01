@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"글자를 입력하는 동안 추천 단어 표시"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"불쾌감을 주는 단어 차단"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"불쾌감을 줄 수 있는 단어는 추천하지 않음"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"자동 수정"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"자동 수정"</string>
     <string name="auto_correction_summary">"스페이스바와 문장부호 키를 사용하면 오타가 자동으로 교정됩니다."</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"사용 안함"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"약"</string>
@@ -164,7 +164,7 @@
     <string name="settings_category_miscellaneous">기타</string>
     <string name="enable_clipboard_history_summary">비활성화시 클립보드 콘텐츠가 있는 경우 클립보드 키로 붙여넣습니다</string>
     <string name="clipboard_history_retention_time">기록 보존 시간</string>
-    <string name="prefs_force_incognito_mode">강제 시크릿 모드</string>
+    <string name="incognito">강제 시크릿 모드</string>
     <string name="more_keys_strip_description">더 많은 키</string>
     <string name="space_trackpad">스페이스 바 트랙 패드</string>
     <string name="number_row_summary">항상 숫자 행 표시</string>

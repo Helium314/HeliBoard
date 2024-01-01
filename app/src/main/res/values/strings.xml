@@ -113,7 +113,7 @@
     <string name="prefs_block_potentially_offensive_summary">Do not suggest potentially offensive words</string>
     <!-- Option to decide the auto correction threshold score -->
     <!-- Option to enable auto correction [CHAR LIMIT=20]-->
-    <string name="auto_correction">Auto-correction</string>
+    <string name="autocorrect">Auto-correction</string>
     <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
     <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
@@ -204,7 +204,7 @@
     <!-- Description for "url_detection_title" option. -->
     <string name="url_detection_summary">Try to detect URLs and similar as a single word</string>
     <!-- Preferences item for disabling word learning -->
-    <string name="prefs_force_incognito_mode">Force incognito mode</string>
+    <string name="incognito">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "more keys" suggestions view -->

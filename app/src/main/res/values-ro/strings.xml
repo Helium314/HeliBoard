@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Afișează sugestii de cuvinte în timpul introducerii textului"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blocați cuvintele jignitoare"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Nu se sugerează cuvinte potențial jignitoare"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Autocorectare"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Autocorectare"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Corectare automată cuvinte prin bară spațiu/semne punctuație"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Dezactivată"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Moderată"</string>

@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"הצג הצעות למילים בעת הקלדה"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"חסימת מילים פוגעניות"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"אל תציע מילים שעלולות להיות פוגעניות"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"תיקון אוטומטי"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"תיקון אוטומטי"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"מקש הרווח ופיסוק מתקנים אוטומטית שגיאות הקלדה"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"כבוי"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"מצומצם"</string>
@@ -178,7 +178,7 @@
     <string name="delete_swipe_summary">בצע החלקה על מקש המחיקה כדי לבחור ולהסיר חלקים גדולים יותר של טקסט בבת אחת</string>
     <string name="space_trackpad">משטח עקיבה של מקש רווח</string>
     <string name="space_trackpad_summary">החלק על מקש הרווח כדי להזיז את הסמן</string>
-    <string name="prefs_force_incognito_mode">כפה מקלדת אנונימית</string>
+    <string name="incognito">כפה מקלדת אנונימית</string>
     <string name="prefs_force_incognito_mode_summary">השבת למידה של מילים חדשות</string>
     <string name="more_keys_strip_description">עוד מפתחות</string>
     <string name="auto_correction_confidence">ודאות התיקון האוטומטי</string>

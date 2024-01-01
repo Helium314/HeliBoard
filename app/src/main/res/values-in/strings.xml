@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Tampilkan kata yang disarankan ketika mengetik"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokir kata tak pantas"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Jangan sarankan kata yang berpotensi menyinggung"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Koreksi otomatis"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Koreksi otomatis"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Bilah spasi dan tanda baca secara otomatis dikoreksi pada kata yang salah ketik"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Mati"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Sederhana"</string>
@@ -158,7 +158,7 @@
     <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan OpenBoard</string>
     <string name="number_row">Baris angka</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ubah metode masukan dengan tombol spasi</string>
-    <string name="prefs_force_incognito_mode">Paksa mode privat</string>
+    <string name="incognito">Paksa mode privat</string>
     <string name="show_emoji_key">Tombol emoji</string>
     <string name="ime_settings">Pengaturan OpenBoard</string>
     <string name="settings_category_input">Masukan</string>

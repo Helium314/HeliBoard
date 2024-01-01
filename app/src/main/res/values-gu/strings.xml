@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"લખતી વખતે સૂચિત શબ્દો પ્રદર્શિત કરો"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"વાંધાજનક શબ્દો બ્લૉક કરો"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"સંભવિત વાંધાજનક શબ્દો સૂચવશો નહીં"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"સ્વતઃ-સુધારો"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"સ્વતઃ-સુધારો"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"સ્પેસબાર અને વિરામચિહ્ન ખોટી રીતે લખાયેલ શબ્દોને આપમેળે સુધારે છે"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"બંધ"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"વિનમ્ર"</string>

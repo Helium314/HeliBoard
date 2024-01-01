@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"عرض الكلمات المقترحة أثناء الكتابة"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"حظر الكلمات المسيئة"</string>
     <string name="prefs_block_potentially_offensive_summary">"عدم اقتراح كلمات محتمل أن تكون مسيئة"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"التصحيح التلقائي"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"التصحيح التلقائي"</string>
     <string name="auto_correction_summary">"تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل غير صحيح"</string>
     <string name="auto_correction_threshold_mode_off">"إيقاف"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"معتدل"</string>
@@ -179,7 +179,7 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (أخور)</string>
     <string name="autospace_after_punctuation">ضع مسافةً بعد علامات الترقيم تلقائيًا</string>
     <string name="autospace_after_punctuation_summary">أدرج مسافةً تلقائيًا بعد علامة الترقيم عند كتابة كلمة جديدة</string>
-    <string name="prefs_force_incognito_mode">افرض وضع التخفي</string>
+    <string name="incognito">افرض وضع التخفي</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>]دقيقة.</string>
     <string name="subtype_no_language_colemak_dh">الأبجدية (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">الأبجدية (Workman)</string>

@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"Visar ordförslag när du skriver"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blockera stötande ord"</string>
     <string name="prefs_block_potentially_offensive_summary">"Visa inte förslag på ord som kan verka stötande"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Autokorrigering"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Autokorrigering"</string>
     <string name="auto_correction_summary">"Blanksteg/skiljetecken rättar felstavning"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Av"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Måttlig"</string>
@@ -159,7 +159,7 @@
     <string name="settings_category_additional_keys">Ytterligare tangenter</string>
     <string name="settings_category_clipboard_history">Urklippshistorik</string>
     <string name="show_hints">Visa tangenttips</string>
-    <string name="prefs_force_incognito_mode">Tvinga inkognitoläge</string>
+    <string name="incognito">Tvinga inkognitoläge</string>
     <string name="prefs_force_incognito_mode_summary">Inaktivera inlärningen av nya ord</string>
     <string name="settings_category_input">Inmatning</string>
     <string name="enable_clipboard_history">Aktivera urklippshistorik</string>

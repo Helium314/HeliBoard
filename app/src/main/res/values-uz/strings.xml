@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Matn kiritishda so‘z variantlarini taklif qilish"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Senzuraga moyil iboralarni taqiqlash"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Haqoratomuz so‘zlar taklif qilinmasin"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Avtomatik tuzatish"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Avtomatik tuzatish"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Tinish belgisi kiritilganda yoki bo‘sh joy qoldirilganda, xato so‘zni avtomatik tuzatish"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"O‘ch."</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"O‘rtacha"</string>
@@ -169,7 +169,7 @@
     <string name="settings_category_suggestions">Takliflar</string>
     <string name="settings_category_experimental">Eksperimental</string>
     <string name="autospace_after_punctuation_summary">Yangi so\'zni kiritishda tinish belgilaridan keyin avtomatik ravishda bo\'sh joy qo\'yish</string>
-    <string name="prefs_force_incognito_mode">Majburiy inkognito rejimi</string>
+    <string name="incognito">Majburiy inkognito rejimi</string>
     <string name="space_trackpad">Bo\'sh joy trek paneli</string>
     <string name="autospace_after_punctuation">Tinish belgilaridan keyin avtomatik bo\'shliq qo‘yish</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>

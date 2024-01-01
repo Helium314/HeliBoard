@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Προβολή προτεινόμενων λέξεων κατά την πληκτρολόγηση"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Αποκλεισμός υβρ/κών λέξ."</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Να μην προτείνονται πιθανώς προσβλητικές λέξεις"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Αυτόματη διόρθωση"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Αυτόματη διόρθωση"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Τα πλήκτρα διαστήματος και στίξης διορθ. αυτόμ. λάθος λέξεις"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Απενεργοποίηση"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Μέτρια"</string>
@@ -149,7 +149,7 @@
     <string name="spell_checker_service_name">Ορθογραφικός Έλεγχος OpenBoard</string>
     <string name="delete_swipe">Διαγραφή ολίσθησης</string>
     <string name="delete_swipe_summary">Πραγματοποιήστε μια σάρωση από το πλήκτρο διαγραφής για να επιλέξετε και να αφαιρέσετε μεγαλύτερα τμήματα κειμένου ταυτόχρονα</string>
-    <string name="prefs_force_incognito_mode">Αναγκαστική λειτουργία ανώνυμης περιήγησης</string>
+    <string name="incognito">Αναγκαστική λειτουργία ανώνυμης περιήγησης</string>
     <string name="show_emoji_key">Πλήκτρο emoji</string>
     <string name="settings_category_additional_keys">Πρόσθετα κλειδιά</string>
     <string name="settings_category_correction">Διορθώσεις</string>

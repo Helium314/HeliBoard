@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"Prikazivanje predloženih riječi prilikom upisivanja"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokiraj uvredljive riječi"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne predlaži potencijalno uvredljive riječi"</string>
-    <string name="auto_correction">"Automatski ispravak"</string>
+    <string name="autocorrect">"Automatski ispravak"</string>
     <string name="auto_correction_summary">"Razmak i interpunkcija automatski ispravljaju krive riječi"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Isključeno"</string>
     <string name="auto_correction_threshold_mode_modest">"Skromno"</string>
@@ -169,7 +169,7 @@
     <string name="space_trackpad_summary">Prelazi prstom po razmaknici za pomicanje kursora</string>
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
     <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>
-    <string name="prefs_force_incognito_mode">Prisili inkognito način rada</string>
+    <string name="incognito">Prisili inkognito način rada</string>
     <string name="more_keys_strip_description">Više tipki</string>
     <string name="number_row_summary">Uvijek pokaži broj retka</string>
     <string name="show_hints">Pokaži savjete tipki</string>

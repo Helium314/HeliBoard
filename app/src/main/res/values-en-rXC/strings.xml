@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‏‎‎‎‏‎‎‎‎‎‎‎‏‏‏‎‏‏‏‏‏‎‏‏‎‏‏‏‏‎‎‎‏‎‏‎‏‏‏‏‎‎Display suggested words while typing‎‏‎‎‏‎"</string>
     <string name="prefs_block_potentially_offensive_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‏‎‎‎‏‏‏‏‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‎‏‎‏‎‏‎‏‎‏‎‏‎‎‏‏‎‏‏‏‎‏‎‎‎‏‏‏‎‎‎‎‎‎‎Block offensive words‎‏‎‎‏‎"</string>
     <string name="prefs_block_potentially_offensive_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‏‏‏‎‏‎‎‏‎‎‏‎‏‏‎‎‏‏‎‎‏‏‎‏‏‎‎‎‏‏‏‏‏‏‏‏‏‎‎‎‎‎‎‎‎‏‎‎‎‏‎‏‏‎‏‏‎‎Do not suggest potentially offensive words‎‏‎‎‏‎"</string>
-    <string name="auto_correction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‏‏‎‏‎‎‎‏‎‏‏‏‎‎‏‏‏‏‏‏‎‎‎‎‏‎‎‏‎‎‎‏‎‏‏‏‏‎‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‏‏‎‎‎Auto-correction‎‏‎‎‏‎"</string>
+    <string name="autocorrect">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‏‏‎‏‎‎‎‏‎‏‏‏‎‎‏‏‏‏‏‏‎‎‎‎‏‎‎‏‎‎‎‏‎‏‏‏‏‎‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‏‏‎‎‎Auto-correction‎‏‎‎‏‎"</string>
     <string name="auto_correction_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‎‎‏‎‎‏‎‏‎‏‎‎‏‎‏‎‏‏‎‏‎‏‏‎‎‏‏‏‏‎‏‎‏‎‏‏‏‏‏‎‏‏‏‎‏‏‎‏‏‎‏‏‎‎‏‏‎Spacebar and punctuation automatically correct mistyped words‎‏‎‎‏‎"</string>
     <string name="auto_correction_threshold_mode_off">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‏‏‎‏‏‏‎‏‏‎‎‎‏‎‏‎‎‏‎‏‏‎‏‏‎‎‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‏‎‎‏‏‏‏‏‎‏‏‎‏‎‎‏‎Off‎‏‎‎‏‎"</string>
     <string name="auto_correction_threshold_mode_modest">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‏‎‎‏‏‏‎‏‏‎‏‎‏‎‎‎‏‏‎‏‎‏‏‏‏‏‏‎‏‏‎‏‎‎‏‎‎‎‏‏‎‎‏‏‏‏‏‏‎‏‎‏‏‎‎‎Modest‎‏‎‎‏‎"</string>

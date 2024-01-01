@@ -22,7 +22,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
 import android.text.InputType;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
 import android.util.SparseArray;
@@ -81,6 +80,7 @@ import org.dslul.openboard.inputmethod.latin.utils.InlineAutofillUtils;
 import org.dslul.openboard.inputmethod.latin.utils.InputMethodPickerKt;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtilsManager;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
@@ -1592,6 +1592,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // Implementation of {@link KeyboardActionListener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
+        if (codePoint < 0) {
+            switch (codePoint) {
+                case Constants.CODE_TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
+                case Constants.CODE_TOGGLE_INCOGNITO -> {mSettings.toggleAlwaysIncognitoMode(); return; }
+            }
+        }
         // TODO: this processing does not belong inside LatinIME, the caller should be doing this.
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         // x and y include some padding, but everything down the line (especially native

@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Vis ordforslag under indtastning"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloker stødende ord"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Foreslå ikke potentielt stødende ord"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Automatisk rettelse"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Automatisk rettelse"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Mellemrumstast og tegnsætning retter automatisk forkerte ord"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Fra"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Moderat"</string>
@@ -177,7 +177,7 @@
     <string name="delete_swipe">Swipe-sletning</string>
     <string name="delete_swipe_summary">Udfør et swipe fra slet-tasten for at vælge og fjerne større dele af teksten på én gang</string>
     <string name="space_trackpad_summary">Stryg på mellemrumstasten for at flytte markøren</string>
-    <string name="prefs_force_incognito_mode">Gennemtving inkognitotilstand</string>
+    <string name="incognito">Gennemtving inkognitotilstand</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiver indlæring af nye ord</string>
     <string name="more_keys_strip_description">Flere taster</string>
     <string name="show_hints_summary">Vis tips med lange tryk</string>

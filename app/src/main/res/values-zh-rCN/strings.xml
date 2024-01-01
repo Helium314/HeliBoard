@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"键入时显示建议的字词"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"屏蔽不文明的字词"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"屏蔽可能不文明的字词"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"自动更正"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"自动更正"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"按空格键和标点可自动更正错别字"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"关闭"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"小改"</string>
@@ -150,7 +150,7 @@
     <string name="enable_clipboard_history">剪切板</string>
     <string name="clipboard_history_retention_time">保存历史</string>
     <string name="delete_swipe_summary">从删除键上进行滑动，可以一次选择并删除较大的文字部分</string>
-    <string name="prefs_force_incognito_mode">强力隐私模式</string>
+    <string name="incognito">强力隐私模式</string>
     <string name="show_hints_summary">长按候选词弹框</string>
     <string name="number_row_summary">数字行</string>
     <string name="show_hints">显示主要提示</string>

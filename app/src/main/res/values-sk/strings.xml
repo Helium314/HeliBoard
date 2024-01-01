@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Zobrazovať navrhované slová počas písania"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokovať urážlivé slová"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Nenavrhovať potenciálne urážlivé slová"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Automatické opravy"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Automatické opravy"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Medzerník s klávesom interpunkcie automaticky opraví chybné slovo"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Vypnuté"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Mierne"</string>
@@ -151,7 +151,7 @@
     <string name="spell_checker_service_name">OpenBoard Kontrola Pravopisu</string>
     <string name="android_spell_checker_settings">Nastavenia kontroly pravopisu OpenBoard</string>
     <string name="show_emoji_key">Emoji klávesa</string>
-    <string name="prefs_force_incognito_mode">Vynútiť režim inkognito</string>
+    <string name="incognito">Vynútiť režim inkognito</string>
     <string name="settings_category_input">Vstup</string>
     <string name="ime_settings">OpenBoard Nastavenia</string>
     <string name="settings_category_additional_keys">Dodatočné klávesy</string>

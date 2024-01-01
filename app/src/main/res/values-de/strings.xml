@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Vorgeschlagene Wörter während des Tippens anzeigen"</string>
     <string name="prefs_block_potentially_offensive_title">"Anstößige Wörter sperren"</string>
     <string name="prefs_block_potentially_offensive_summary">"Keine Vorschläge für potenziell anstößige Wörter unterbreiten"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Autokorrektur"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Autokorrektur"</string>
     <string name="auto_correction_summary">"Korrektur fehlerhafter Wörter durch Leertaste und Satzzeichen"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Aus"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Mäßig"</string>
@@ -167,7 +167,7 @@
     <string name="number_row_summary">Zeigt die Ziffernreihe immer an</string>
     <string name="number_row">Ziffernreihe</string>
     <string name="show_hints">Tasten-Hinweise anzeigen</string>
-    <string name="prefs_force_incognito_mode">Inkognito-Modus erzwingen</string>
+    <string name="incognito">Inkognito-Modus erzwingen</string>
     <string name="enable_clipboard_history_summary">Wenn deaktiviert, fügt die Zwischenablage-Taste den Inhalt der Zwischenablage ein (falls vorhanden)</string>
     <string name="autospace_after_punctuation_summary">Fügt automatisch ein Leerzeichen nach einem Punkt ein, sobald ein neues Wort eingegeben wird</string>
     <string name="autospace_after_punctuation">Automatisches Leerzeichen nach Punkt</string>

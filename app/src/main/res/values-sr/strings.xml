@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Приказивање предложених речи током уноса текста"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Блокирај увредљиве речи"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Нема предлагања потенцијално увредљивих речи"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Аутом. исправљање"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Аутом. исправљање"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Размак и интерпункција аутоматски исправљају грешке у куцању"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Искључи"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Умерено"</string>
@@ -159,7 +159,7 @@
     <string name="enable_clipboard_history_summary">Ако је онемогућено, тастер међумеморије ће налепити садржај међуспремника ако га има</string>
     <string name="delete_swipe_summary">Превуците прстом од тастера за брисање да бисте одједном изабрали и уклонили веће делове текста</string>
     <string name="space_trackpad_summary">Проведите по пробелу, чтобы переместить курсор</string>
-    <string name="prefs_force_incognito_mode">Омогући режим без архивирања</string>
+    <string name="incognito">Омогући режим без архивирања</string>
     <string name="number_row">Ред бројева</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Промените начин уноса помоћу тастера за размак</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Дуг притисак на тастер за размак ће приказати мени за избор метода уноса</string>

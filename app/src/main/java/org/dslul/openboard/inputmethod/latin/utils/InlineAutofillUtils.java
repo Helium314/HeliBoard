@@ -61,7 +61,7 @@ public class InlineAutofillUtils {
                                 .setBackground(
                                         Icon.createWithResource(context,
                                                 androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(colors.get(ColorType.CHIP)))
+                                                .setTint(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP)))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
@@ -69,7 +69,7 @@ public class InlineAutofillUtils {
                                 .setBackground(
                                         Icon.createWithResource(context,
                                                 androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(colors.get(ColorType.CHIP)))
+                                                .setTint(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP)))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(

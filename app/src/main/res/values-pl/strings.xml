@@ -39,7 +39,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Wyświetlaj proponowane słowa podczas wpisywania"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokuj obraźliwe słowa"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Nie proponuj słów potencjalnie obraźliwych"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Autokorekta"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Autokorekta"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Spacja i znaki przestankowe poprawiają błędnie wpisane słowa"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Wyłącz"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Umiarkowana"</string>
@@ -156,7 +156,7 @@
     <string name="android_spell_checker_settings">Ustawienia sprawdzania pisowni OpenBoard</string>
     <string name="settings_category_clipboard_history">Historia schowka</string>
     <string name="enable_clipboard_history">Włącz historię schowka</string>
-    <string name="prefs_force_incognito_mode">Wymuś tryb incognito</string>
+    <string name="incognito">Wymuś tryb incognito</string>
     <string name="clipboard_history_retention_time">Czas przechowywania historii</string>
     <string name="number_row_summary">Zawsze pokazuj rząd numeryczny</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Zmień metodę wprowadzania za pomocą spacji</string>

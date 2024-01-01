@@ -623,6 +623,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
             if (code != null) {
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {
+                    if (tag == ToolbarKey.INCOGNITO)
+                        updateKeys(); // update icon
+                    view.setActivated(!view.isActivated());
+                }
                 return;
             }
         }
@@ -680,6 +685,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         copy.setContentDescription(original.getContentDescription());
         copy.setImageDrawable(original.getDrawable());
         copy.setLayoutParams(original.getLayoutParams());
+        copy.setActivated(original.isActivated());
         setupKey(copy, Settings.getInstance().getCurrent().mColors);
         mPinnedKeys.addView(copy);
     }

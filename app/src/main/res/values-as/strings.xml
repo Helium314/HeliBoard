@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"টাইপ কৰি থাকোঁতে পৰামৰ্শৰ শব্দবোৰ দেখুৱাওক"</string>
     <string name="prefs_block_potentially_offensive_title">"আপত্তিজনক শব্দবোৰ অৱৰোধ কৰক"</string>
     <string name="prefs_block_potentially_offensive_summary">"সাম্ভাব্য আপত্তিজনক শব্দবোৰৰ পৰামৰ্শ নিদিব"</string>
-    <string name="auto_correction">"স্বয়ং-সংশোধন"</string>
+    <string name="autocorrect">"স্বয়ং-সংশোধন"</string>
     <string name="auto_correction_summary">"স্পেচবাৰ আৰু যতিচিহ্নই ভুলকৈ টাইপ কৰা শব্দবোৰ স্বয়ংক্ৰিয়ভাৱে শুদ্ধ কৰে"</string>
     <string name="auto_correction_threshold_mode_off">"অফ কৰক"</string>
     <string name="auto_correction_threshold_mode_modest">"পৰিমিত"</string>

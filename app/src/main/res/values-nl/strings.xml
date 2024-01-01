@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Voorgestelde woorden weergeven tijdens typen"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Grof taalgebruik blokkeren"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Geen potentieel aanstootgevende woorden voorstellen"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Autocorrectie"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Autocorrectie"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Met spatiebalk en interpunctie worden verkeerd gespelde woorden automatisch gecorrigeerd"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Uitgeschakeld"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Normaal"</string>
@@ -160,7 +160,7 @@
     <string name="spell_checker_service_name">OpenBoard spellingcontrole</string>
     <string name="android_spell_checker_settings">OpenBoard spellingscontrole instellingen</string>
     <string name="number_row">Nummer rij</string>
-    <string name="prefs_force_incognito_mode">Incognitomodus forceren</string>
+    <string name="incognito">Incognitomodus forceren</string>
     <string name="space_trackpad_summary">Veeg over de spatiebalk om de cursor te verplaatsen</string>
     <string name="show_emoji_key">Emoji-toets</string>
     <string name="settings_category_correction">Correcties</string>

@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Терүү учурунда сунушталган сөздөрдү көрсөтүү"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Адепсиз сөздөрдү бөгөттө"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Адепсиз сөздөр сунушталбайт"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Авто оңдоо"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Авто оңдоо"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Боштук жана тыныш белгиси автоматтык түрдө туура эмес терилген сөздөрдү оңдойт"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Өчүк"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Жөнөкөй"</string>

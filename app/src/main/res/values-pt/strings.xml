@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"Exibir sugestões de palavras durante a digitação"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloquear palavras ofensivas"</string>
     <string name="prefs_block_potentially_offensive_summary">"Não sugerir palavras potencialmente ofensivas"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correção automática"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Correção automática"</string>
     <string name="auto_correction_summary">"A barra de espaço e a pontuação corrigem automaticamente palavras com erro de digitação"</string>
     <string name="auto_correction_threshold_mode_off">"Desativado"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Moderado"</string>
@@ -147,7 +147,7 @@
     <string name="number_row_summary">Mostrar sempre n.º de linha</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
-    <string name="prefs_force_incognito_mode">Impor modo incógnito</string>
+    <string name="incognito">Impor modo incógnito</string>
     <string name="space_trackpad_summary">Deslize na barra de espaço para mover o cursor</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="settings_category_correction">Correções</string>

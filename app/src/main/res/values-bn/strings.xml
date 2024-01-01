@@ -56,7 +56,7 @@
     <string name="prefs_show_suggestions_summary">লেখার সময় প্রস্তাবিত শব্দ প্রদর্শন</string>
     <string name="prefs_block_potentially_offensive_title">আপত্তিজনক শব্দ অবরোধ</string>
     <string name="prefs_block_potentially_offensive_summary">সম্ভাব্য আপত্তিকর শব্দের পরামর্শ দেবে না</string>
-    <string name="auto_correction">স্বতঃসংশোধন</string>
+    <string name="autocorrect">স্বতঃসংশোধন</string>
     <string name="auto_correction_summary">স্পেসবার ও যতিচিহ্নের মাধ্যমে ভুল টাইপ করা শব্দের স্বয়ংক্রিয় সংশোধন</string>
     <string name="auto_correction_confidence">স্বয়ংক্রিয় সংশোধনের দৃঢ়তা</string>
     <string name="auto_correction_threshold_mode_off">বন্ধ</string>
@@ -91,7 +91,7 @@
     <string name="autospace_after_punctuation_summary">নতুন শব্দ লেখার সময় যতিচিহ্নের পরে স্বয়ংক্রিয়ভাবে স্পেস বসবে</string>
     <string name="url_detection_title">ইউআরএল শনাক্তকরণ</string>
     <string name="url_detection_summary">ইউআরএল এবং অনুরূপ একটি একক শব্দ হিসেবে শনাক্ত করার চেষ্টা করবে</string>
-    <string name="prefs_force_incognito_mode">ছদ্মবেশী মোড আরোপ</string>
+    <string name="incognito">ছদ্মবেশী মোড আরোপ</string>
     <string name="prefs_force_incognito_mode_summary">নতুন শব্দ শিখন নিষ্ক্রিয়করণ</string>
     <string name="more_keys_strip_description">অতিরিক্ত বোতাম</string>
     <string name="configure_input_method">ইনপুট পদ্ধতি সংস্থাপন</string>

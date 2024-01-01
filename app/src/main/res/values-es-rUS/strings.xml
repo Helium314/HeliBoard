@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Mostrar palabras sugeridas al escribir"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloquear palabras ofensivas"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"No sugerir posibles palabras ofensivas"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Corrección automática"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Corrección automática"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"La barra espaciadora y las teclas de puntuación insertan automáticamente la palabra corregida"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desactivado"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Moderado"</string>
@@ -155,7 +155,7 @@
     <string name="settings_category_suggestions">Sugerencias</string>
     <string name="delete_swipe">Borrar deslizando</string>
     <string name="autospace_after_punctuation">Espacio después del punto</string>
-    <string name="prefs_force_incognito_mode">Forzar modo incógnito</string>
+    <string name="incognito">Forzar modo incógnito</string>
     <string name="number_row_summary">Mostrar siempre la fila de números</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Mantener presionada la barra espaciadora nos mostrará los distintos métodos de entrada disponibles</string>
     <string name="delete_swipe_summary">Deslice el dedo desde la tecla eliminar para seleccionar y eliminar porciones más grandes de texto a la vez</string>

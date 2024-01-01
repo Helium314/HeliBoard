@@ -26,7 +26,7 @@
 
         <SwitchPreferenceCompat
             android:key="pref_key_auto_correction"
-            android:title="@string/auto_correction"
+            android:title="@string/autocorrect"
             android:summary="@string/auto_correction_summary"
             android:defaultValue="true"
             android:persistent="true" />

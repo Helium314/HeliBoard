@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Visualizza le parole suggerite durante la digitazione"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blocca parole offensive"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Non suggerire parole potenzialmente offensive"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correzione automatica"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Correzione automatica"</string>
     <string name="auto_correction_summary">"Barra spaziatrice/punteggiatura correggono parole con errori"</string>
     <string name="auto_correction_threshold_mode_off">"OFF"</string>
     <string name="auto_correction_threshold_mode_modest">"Media"</string>
@@ -159,7 +159,7 @@
     <string name="delete_swipe">Scorri per cancellare</string>
     <string name="delete_swipe_summary">Scorri sul tasto cancella per selezionare e rimuovere grandi porzioni di testo in una sola volta</string>
     <string name="space_trackpad">Barra spaziatrice trackpad</string>
-    <string name="prefs_force_incognito_mode">Forza modalità incognito</string>
+    <string name="incognito">Forza modalità incognito</string>
     <string name="show_emoji_key">Tasto emoji</string>
     <string name="space_trackpad_summary">Scorri sulla barra spaziatrice per spostare il cursore</string>
     <string name="number_row_summary">Mostra sempre la riga dei numeri</string>

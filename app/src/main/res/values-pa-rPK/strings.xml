@@ -39,7 +39,7 @@
     <string name="auto_correction_threshold_mode_aggressive">بہت</string>
     <string name="language_selection_title">بولیاں</string>
     <string name="add">شامل کرو</string>
-    <string name="auto_correction">خود بخود درستی</string>
+    <string name="autocorrect">خود بخود درستی</string>
     <string name="auto_correction_threshold_mode_modest">مدھ</string>
     <string name="select_language">بولیاں</string>
     <string name="remove">ہٹاؤ</string>

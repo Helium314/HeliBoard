@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"បង្ហាញ​ពាក្យ​​បាន​​ផ្ដល់​​ស្នើ​​ខណៈ​ពេល​​​វាយ​បញ្ចូល"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"ទប់ស្កាត់​​ពាក្យ​​បំពាន"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"កុំ​ស្នើ​ឲ្យ​ពាក្យ​បំពាន​មាន​សក្ដានុពល​"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"ការ​កែ​​​ស្វ័យប្រវត្តិ"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"ការ​កែ​​​ស្វ័យប្រវត្តិ"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"ចន្លោះ​មិន​ឃើញ ​និង​សញ្ញា​​វណ្ណយុត្ត​កែ​ពាក្យ​ដែល​បាន​វាយ​ខុស​ស្វ័យប្រវត្តិ"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"បិទ"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"ល្មម"</string>

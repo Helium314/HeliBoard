@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"نمایش واژه‌های پیشنهادی در حین تایپ"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"عدم نمایش کلمات توهین‌آمیز"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"کلمات توهین‌آمیز احتمالی پیشنهاد نشود"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"تصحیح خودکار"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"تصحیح خودکار"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"کلید فاصله و علائم سجاوندی به‌صورت خودکار کلماتی را که غلط تایپ شده‌اند تصحیح می‌کند"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"خاموش"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"متوسط"</string>
@@ -172,7 +172,7 @@
     <string name="delete_swipe">حذف با کشیدن</string>
     <string name="space_trackpad_summary">برای جابجایی مکان نما، انگشت خود را روی فاصله بکشید</string>
     <string name="delete_swipe_summary">برای انتخاب و حذف یکباره بخش‌های بزرگ‌تر از متن، روی کلید حذف بکشید</string>
-    <string name="prefs_force_incognito_mode">حالت نا‌شناس اجباری</string>
+    <string name="incognito">حالت نا‌شناس اجباری</string>
     <string name="prefs_force_incognito_mode_summary">غیرفعال کردن یادگیری کلمات جدید</string>
     <string name="autospace_after_punctuation">فاصله خودکار بعد از نشانه گذاری</string>
     <string name="autospace_after_punctuation_summary">هنگام تایپ یک کلمه جدید، به طور خودکار فاصله را بعد از علامت گذاری وارد کن</string>

@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"టైప్ చేసేటప్పుడు సూచిత పదాలను ప్రదర్శించు"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"కించపరిచే పదాలను బ్లాక్ చేయి"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"కించ‌ప‌ర‌చ‌డానికి అవకాశం ఇచ్చే పదాలను సూచించవద్దు"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"స్వీయ-సవరణ"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"స్వీయ-సవరణ"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"స్పేస్ బార్ మరియు విరామ చిహ్నాలు తప్పుగా టైప్ చేసిన పదాలను ఆటోమేటిక్‌గా సరి చేస్తాయి"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"ఆఫ్‌ చేయి"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"మధ్యస్థం"</string>
@@ -142,7 +142,7 @@
     <string name="user_dict_settings_delete" msgid="110413335187193859">"తొలగించు"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="number_row_summary">సంఖ్యల వరుసను ఎల్లప్పుడూ చూపండి</string>
-    <string name="prefs_force_incognito_mode">అజ్ఞాత పద్దతి ప్రయోగించండి</string>
+    <string name="incognito">అజ్ఞాత పద్దతి ప్రయోగించండి</string>
     <string name="use_system_language_to_select_input_method_subtypes">"సిస్టమ్ భాషలను ఉపయోగించండి"</string>
     <string name="select_input_method">"ఇన్‌పుట్ పద్ధతిని ఎంచుకోండి"</string>
     <string name="prefs_force_incognito_mode_summary">కొత్త పదముల అభ్యాసమును ఆపండి</string>

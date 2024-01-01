@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Mostra palabras suxeridas mentres escribes"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloquear palabras ofensivas"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Evita suxerir palabras potencialmente ofensivas"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Autocorrección"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Autocorrección"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Premer a barra espazo e teclas de puntuación para corrixir erros"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desactivada"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Modesta"</string>

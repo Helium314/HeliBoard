@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"ടൈപ്പുചെയ്യുമ്പോൾ നിർദ്ദേശിച്ച വാക്കുകൾ പ്രദർശിപ്പിക്കുക"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"നിന്ദ്യമായ വാക്കുകൾ തടയുക"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"നിന്ദ്യമാകാനിടയുള്ള വാക്കുകൾ നിർദ്ദേശിക്കരുത്"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"സ്വയം തിരുത്തൽ"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"സ്വയം തിരുത്തൽ"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"തെറ്റായി ടൈപ്പുചെയ്‌ത വാക്കുകളിൽ സ്‌പെയ്‌സ് ബാറും ചിഹ്‌നവും സ്വയമേവ തിരുത്തുന്നു"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"ഓഫാക്കുക"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"മിതമായി"</string>
@@ -145,7 +145,7 @@
     <string name="settings_no_limit">പരിധിയില്ല</string>
     <string name="clipboard_history_retention_time">ചരിത്രം സൂക്ഷിക്കുന്ന സമയം</string>
     <string name="space_trackpad">സ്പേസ് ബാർ ട്രാക്ക്പാഡ്</string>
-    <string name="prefs_force_incognito_mode">ഇൻകോഗ്നിറ്റോ മോഡ് നിർബന്ധിക്കുക</string>
+    <string name="incognito">ഇൻകോഗ്നിറ്റോ മോഡ് നിർബന്ധിക്കുക</string>
     <string name="more_keys_strip_description">കൂടുതൽ കീകൾ</string>
     <string name="number_row_summary">എല്ലായ്പ്പോഴും നമ്പർ വരി കാണിക്കുക</string>
     <string name="number_row">നമ്പർ വരി</string>

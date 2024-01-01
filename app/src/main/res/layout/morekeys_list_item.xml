@@ -13,8 +13,9 @@
     <TextView
         android:id="@+id/morekeys_type"
         style="@style/PreferenceTitleText"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content" />
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/morekeys_switch"

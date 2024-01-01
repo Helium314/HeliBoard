@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Pokaži predlagane besede med tipkanjem"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokiraj žaljive besede"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne predlagaj potencialno žaljivih besed"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Samodejni popravek"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Samodejni popravek"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Preslednica in ločila samodejno popravijo napačno vtipkane besede"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Izklopljeno"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Zmerno"</string>
@@ -145,7 +145,7 @@
     <string name="select_input_method">"Izberite način vnosa"</string>
     <string name="auto_correction_confidence">Interval zaupanja samodejnih popravkov</string>
     <string name="delete_swipe_summary">Podrsaj z vračalke, da izbereš in izbrišeš večje dele besedila naenkrat</string>
-    <string name="prefs_force_incognito_mode">Vsiljen prikriti način</string>
+    <string name="incognito">Vsiljen prikriti način</string>
     <string name="number_row_summary">Vedno pokaži vrstico s številkami</string>
     <string name="show_hints">Prikaži namige tipk</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Spremeni način vnosa s preslednico</string>

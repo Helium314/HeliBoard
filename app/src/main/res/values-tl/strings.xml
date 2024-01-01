@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Ipakita ang mga iminumungkahing salita habang nagta-type"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"I-block ang masakit na salita"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Huwag magmungkahi ng mga maaaring nakakapanakit na salita"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Auto na pagwawasto"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Auto na pagwawasto"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Awtomatikong tinatama ng spacebar at bantas ang maling na-type"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Naka-off"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Modest"</string>

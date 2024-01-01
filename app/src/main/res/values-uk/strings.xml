@@ -39,7 +39,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Відображати пропоновані слова під час вводу"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Блокувати нецензурні слова"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Не пропонувати потенційно образливі слова"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Автовиправлення"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Автовиправлення"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Пробіл і пунктуація автоматично виправляють слова з помилками"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Вимк."</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Помірне"</string>
@@ -200,7 +200,7 @@
     <string name="hidden_features_summary">Показати функції, які можуть залишитися непоміченими</string>
     <string name="select_input_method">Вибрати метод введення</string>
     <string name="space_trackpad">Клавіша пробіл як трекпад</string>
-    <string name="prefs_force_incognito_mode">Примусовий режим інкогніто</string>
+    <string name="incognito">Примусовий режим інкогніто</string>
     <string name="prefs_force_incognito_mode_summary">Вимкнути вивчення нових слів</string>
     <string name="show_hints_summary">Показувати підказки довгим натисканням</string>
     <string name="show_hints">Показувати підказки клавіш</string>

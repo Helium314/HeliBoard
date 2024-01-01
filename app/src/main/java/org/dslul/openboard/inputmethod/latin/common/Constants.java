@@ -246,6 +246,8 @@ public final class Constants {
     public static final int CODE_DOWN = -28;
     public static final int CODE_UNDO = -29;
     public static final int CODE_REDO = -30;
+    public static final int CODE_TOGGLE_AUTOCORRECT = -31;
+    public static final int CODE_TOGGLE_INCOGNITO = -32;
     // Code value representing the code is not specified.
     public static final int CODE_UNSPECIFIED = -200;
 

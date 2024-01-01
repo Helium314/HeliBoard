@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"ಟೈಪ್ ಮಾಡುವಾಗ ಸಲಹೆ ನೀಡಿದ ಪದಗಳನ್ನು ಪ್ರದರ್ಶಿಸು"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"ಅಕ್ಷೇಪಾರ್ಹ ಪದಗಳನ್ನು ನಿರ್ಬಂಧಿಸು"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"ಸಂಭಾವ್ಯ ಆಕ್ಷೇಪಾರ್ಹ ಪದಗಳ ಸಲಹೆ ನೀಡದಿರು"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"ಸ್ವಯಂ-ತಿದ್ದುಪಡಿ"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"ಸ್ವಯಂ-ತಿದ್ದುಪಡಿ"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"ತಪ್ಪಾಗಿ ಟೈಪ್ ಮಾಡಿದ ಪದಗಳನ್ನು ಸ್ಪೇಸ್‌ಬಾರ್ ಮತ್ತು ವಿರಾಮಚಿಹ್ನೆಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸರಿಪಡಿಸುತ್ತವೆ"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"ಆಫ್ ಆಗಿದೆ"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"ಸಾಧಾರಣ"</string>

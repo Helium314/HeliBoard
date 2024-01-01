@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Mostra les paraules suggerides mentre escrius"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloqueja paraules ofensives"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"No suggereixis paraules potencialment ofensives"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correcció automàtica"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Correcció automàtica"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Tecla d\'espai i signes de puntuació corregeixen paraules amb errors"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desactiva"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Moderada"</string>
@@ -146,7 +146,7 @@
     <string name="enable_clipboard_history_summary">Si es desactiva, la tecla del porta-retalls enganxarà els continguts del porta-retalls en cas que contingui alguna cosa.</string>
     <string name="clipboard_history_retention_time">Temps de manteniment a l\'historial</string>
     <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop.</string>
-    <string name="prefs_force_incognito_mode">Força el mode d\'incògnit</string>
+    <string name="incognito">Força el mode d\'incògnit</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min</string>
     <string name="spell_checker_service_name">Corrector ortogràfic de l\'OpenBoard</string>
     <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'OpenBoard</string>

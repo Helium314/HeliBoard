@@ -39,7 +39,7 @@
     <string name="prefs_show_suggestions_summary">"Apresentar sugestões de palavras ao escrever"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloquear palavras ofensivas"</string>
     <string name="prefs_block_potentially_offensive_summary">"Não sugerir palavras potencialmente ofensivas"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correção automática"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Correção automática"</string>
     <string name="auto_correction_summary">"Correcção automática de palavras mal escritas c/ barra de espaços e pontuação"</string>
     <string name="auto_correction_threshold_mode_off">"Desligar"</string>
     <string name="auto_correction_threshold_mode_modest">"Moderada"</string>
@@ -147,7 +147,7 @@
     <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla Eliminar para selecionar e remover grandes porções de texto de uma vez</string>
     <string name="show_emoji_key">Tecla de emoji</string>
-    <string name="prefs_force_incognito_mode">Impor modo incógnito</string>
+    <string name="incognito">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
     <string name="spell_checker_service_name">Verificação ortográfica OpenBoard</string>

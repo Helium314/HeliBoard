@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Теру кезінде ұсынылған сөздерді көрсету"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Балағат сөздерге тыйым салу"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Қорлаушы сөздерді ұсынбау"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Авто түзету"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Авто түзету"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Бос орын және тыныс белгі автоматты түрде қателерді түзетеді"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Өшірулі"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Баяу"</string>

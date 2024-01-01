@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary">"Mostrar las palabras sugeridas mientras escribes"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloquear palabras ofensivas"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"No sugerir palabras que pueden ser ofensivas"</string>
-    <string name="auto_correction">"Autocorrección"</string>
+    <string name="autocorrect">"Autocorrección"</string>
     <string name="auto_correction_summary">"Pulsar la tecla de espacio o punto para corregir errores"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Desactivado"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Parcial"</string>
@@ -155,7 +155,7 @@
     <string name="delete_swipe_summary">Deslice el dedo desde la tecla Borrar para seleccionar y eliminar porciones más grandes de texto de una vez</string>
     <string name="space_trackpad">Panel táctil con barra espaciadora</string>
     <string name="prefs_force_incognito_mode_summary">No se aprenderán nuevas palabras</string>
-    <string name="prefs_force_incognito_mode">Forzar el modo incógnito</string>
+    <string name="incognito">Forzar el modo incógnito</string>
     <string name="more_keys_strip_description">Más teclas</string>
     <string name="space_trackpad_summary">Deslizar en la barra espaciadora para mover el cursor</string>
     <string name="show_emoji_key">Tecla de emojis</string>

@@ -261,6 +261,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_AUTO_CORRECTION, true);
     }
 
+    public void toggleAutoCorrect() {
+        mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !readAutoCorrectEnabled(mPrefs)).apply();
+    }
+
     public static String readAutoCorrectConfidence(final SharedPreferences prefs,
                                                    final Resources res) {
         return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
@@ -294,6 +298,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static boolean readAlwaysIncognitoMode(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_ALWAYS_INCOGNITO_MODE, false);
     }
+
+    public void toggleAlwaysIncognitoMode() {
+        mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !readAlwaysIncognitoMode(mPrefs)).apply();
+    }
+
 
     public static String readPrefAdditionalSubtypes(final SharedPreferences prefs,
                                                     final Resources res) {

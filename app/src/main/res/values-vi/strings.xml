@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Hiển thị từ được đề xuất khi nhập"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Chặn các từ phản cảm"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Không đề xuất các từ có thể gây xúc phạm"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Tự động sửa"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Tự động sửa"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Phím cách và dấu câu tự động sửa từ nhập sai"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Tắt"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Đơn giản"</string>

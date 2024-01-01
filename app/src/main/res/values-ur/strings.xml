@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"ٹائپ کرتے وقت تجویز کردہ الفاظ ڈسپلے کریں"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"ناگوار الفاظ مسدود کریں"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"ممکنہ طور پر ناگوار الفاظ تجویز نہ کریں"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"خود کار اصلاح"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"خود کار اصلاح"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"اسپیس بار اور رموز اوقاف غلط ٹائپ کردہ الفاظ کی اصلاح کرتے ہیں"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"آف"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"معتدل"</string>
