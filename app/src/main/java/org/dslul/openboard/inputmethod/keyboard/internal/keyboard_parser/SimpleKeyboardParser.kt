@@ -6,7 +6,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.KeyData
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.toTextKey
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 
 /**
  *  Parser for simple layouts, defined only as rows of (normal) keys with moreKeys.

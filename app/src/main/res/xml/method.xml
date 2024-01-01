@@ -99,7 +99,6 @@
     vi: Vietnamese/qwerty
     zu: Zulu/qwerty
     zz: QWERTY/qwerty
-    (zz: Emoji/emoji)
     -->
 <!-- TODO: use <lang>_keyboard icon instead of a common keyboard icon. -->
 <!-- TODO: Remove "AsciiCapable" from the extra values when we can stop supporting JB-MR1 -->
@@ -956,17 +955,4 @@
             android:imeSubtypeExtraValue="AsciiCapable,EnabledWhenDefaultIsNotAsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
     />
-    <!-- Emoji subtype has to be an addtional subtype added at boot time because ICS doesn't
-         support Emoji. -->
-    <!--
-    <subtype android:icon="@drawable/ic_ime_switcher_dark"
-            android:label="@string/subtype_emoji"
-            android:subtypeId="0xc14d88b2"
-            android:imeSubtypeLocale="zz"
-            android:languageTag="zz"
-            android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=emoji,EmojiCapable"
-            android:isAsciiCapable="false"
-    />
-    -->
 </input-method>

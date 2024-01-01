@@ -25,7 +25,6 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
-import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.define.JniLibName
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
 import java.io.File
@@ -49,7 +48,6 @@ import java.util.zip.ZipOutputStream
  * - Debug settings
  */
 class AdvancedSettingsFragment : SubScreenFragment() {
-    private val TAG = this::class.simpleName
     private var libfile: File? = null
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
@@ -107,7 +105,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Build.SUPPORTED_ABIS[0]
         } else {
-            Build.CPU_ABI
+            @Suppress("Deprecation") Build.CPU_ABI
         }
         // show delete / add dialog
         val builder = AlertDialog.Builder(requireContext())
@@ -305,3 +303,4 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 }
 
 private const val PREFS_FILE_NAME = "preferences.json"
+private const val TAG = "AdvancedSettingsFragment"

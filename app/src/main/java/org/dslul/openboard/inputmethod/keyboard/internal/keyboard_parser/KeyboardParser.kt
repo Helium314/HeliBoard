@@ -470,10 +470,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 label ?: getPeriodLabel(),
                 params,
                 width,
-                Key.LABEL_FLAGS_HAS_POPUP_HINT
-                        // todo (later): check what LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT does, maybe remove the flag here
-                        or if (params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_HAS_SHIFTED_LETTER_HINT else 0
-                        or defaultLabelFlags,
+                Key.LABEL_FLAGS_HAS_POPUP_HINT or defaultLabelFlags,
                 if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL
                     else Key.BACKGROUND_TYPE_FUNCTIONAL,
                 SimplePopups(moreKeys?.let { getPunctuationMoreKeys() + it } ?: getPunctuationMoreKeys())
@@ -512,7 +509,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0,
-                // todo (later): possibly the whole stickOn/Off stuff can be removed, currently it should only have a very slight effect in holo
+                // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
                 if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
                     Key.BACKGROUND_TYPE_STICKY_ON
                 else Key.BACKGROUND_TYPE_STICKY_OFF,
@@ -781,7 +778,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     private fun isTablet() = context.resources.getInteger(R.integer.config_screen_metrics) >= 3
 
     companion object {
-        private val TAG = KeyboardParser::class.simpleName
+        private const val TAG = "KeyboardParser"
 
         fun parseCustom(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val layoutName = params.mId.mSubtype.keyboardLayoutSetName

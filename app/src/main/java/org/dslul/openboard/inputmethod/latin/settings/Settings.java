@@ -606,7 +606,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static Context getDayNightContext(final Context context, final boolean wantNight) {
-        final boolean isNight = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        final boolean isNight = ResourceUtils.isNight(context.getResources());
         if (isNight == wantNight)
             return context;
         final Configuration config = new Configuration(context.getResources().getConfiguration());

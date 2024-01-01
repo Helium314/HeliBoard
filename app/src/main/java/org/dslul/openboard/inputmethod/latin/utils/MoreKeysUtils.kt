@@ -112,9 +112,9 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
         override fun areItemsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
         override fun areContentsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
     }
-    val bgColor = if (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO)
-            ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_light)
-        else ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_dark)
+    val bgColor = if (ResourceUtils.isNight(context.resources))
+            ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_dark)
+        else ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_light)
     val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
             val b = LayoutInflater.from(context).inflate(R.layout.morekeys_list_item, rv, false)

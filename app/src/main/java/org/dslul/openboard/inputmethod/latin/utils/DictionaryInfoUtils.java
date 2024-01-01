@@ -6,12 +6,10 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.text.TextUtils;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
@@ -36,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class encapsulates the logic for the Latin-IME side of dictionary information management.
@@ -86,7 +83,7 @@ public class DictionaryInfoUtils {
 
     /**
      * Returns whether we may want to use this character as part of a file name.
-     *
+     * <p>
      * This basically only accepts ascii letters and numbers, and rejects everything else.
      */
     private static boolean isFileNameCharacter(int codePoint) {
@@ -98,7 +95,7 @@ public class DictionaryInfoUtils {
 
     /**
      * Escapes a string for any characters that may be suspicious for a file or directory name.
-     *
+     * <p>
      * Concretely this does a sort of URL-encoding except it will encode everything that's not
      * alphanumeric or underscore. (true URL-encoding leaves alone characters like '*', which
      * we cannot allow here)
@@ -114,8 +111,7 @@ public class DictionaryInfoUtils {
             if (DictionaryInfoUtils.isFileNameCharacter(codePoint)) {
                 sb.appendCodePoint(codePoint);
             } else {
-                sb.append(String.format((Locale)null, "%%%1$0" + MAX_HEX_DIGITS_FOR_CODEPOINT + "x",
-                        codePoint));
+                sb.append(String.format(Locale.US, "%%%1$0" + MAX_HEX_DIGITS_FOR_CODEPOINT + "x", codePoint));
             }
         }
         return sb.toString();
@@ -155,8 +151,8 @@ public class DictionaryInfoUtils {
                 sb.appendCodePoint(codePoint);
             } else {
                 // + 1 to pass the % sign
-                final int encodedCodePoint = Integer.parseInt(
-                        fname.substring(i + 1, i + 1 + MAX_HEX_DIGITS_FOR_CODEPOINT), 16);
+                final int encodedCodePoint =
+                        Integer.parseInt(fname.substring(i + 1, i + 1 + MAX_HEX_DIGITS_FOR_CODEPOINT), 16);
                 i += MAX_HEX_DIGITS_FOR_CODEPOINT;
                 sb.appendCodePoint(encodedCodePoint);
             }
@@ -177,7 +173,7 @@ public class DictionaryInfoUtils {
 
     /**
      * Returns the category for a given file name.
-     *
+     * <p>
      * This parses the file name, extracts the category, and returns it. See
      * {@link #getMainDictId(Locale)} and {@link #isMainWordListId(String)}.
      * @return The category as a string or null if it can't be found in the file name.
@@ -201,8 +197,7 @@ public class DictionaryInfoUtils {
      */
     public static String getCacheDirectoryForLocale(final String locale, final Context context) {
         final String relativeDirectoryName = replaceFileNameDangerousCharacters(locale).toLowerCase(Locale.ENGLISH);
-        final String absoluteDirectoryName = getWordListCacheDirectory(context) + File.separator
-                + relativeDirectoryName;
+        final String absoluteDirectoryName = getWordListCacheDirectory(context) + File.separator + relativeDirectoryName;
         final File directory = new File(absoluteDirectoryName);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
@@ -248,8 +243,7 @@ public class DictionaryInfoUtils {
         if (!locale.getCountry().isEmpty()) {
             final String dictLanguageCountry = MAIN_DICT_PREFIX
                     + locale.toString().toLowerCase(Locale.ROOT) + DECODER_DICT_SUFFIX;
-            if ((resId = res.getIdentifier(
-                    dictLanguageCountry, "raw", RESOURCE_PACKAGE_NAME)) != 0) {
+            if ((resId = res.getIdentifier(dictLanguageCountry, "raw", RESOURCE_PACKAGE_NAME)) != 0) {
                 return resId;
             }
         }
@@ -281,7 +275,7 @@ public class DictionaryInfoUtils {
 
     /**
      * Returns the id associated with the main word list for a specified locale.
-     *
+     * <p>
      * Word lists stored in Android Keyboard's resources are referred to as the "main"
      * word lists. Since they can be updated like any other list, we need to assign a
      * unique ID to them. This ID is just the name of the language (locale-wise) they
@@ -308,12 +302,8 @@ public class DictionaryInfoUtils {
     public static DictionaryHeader getDictionaryFileHeaderOrNull(final File file,
             final long offset, final long length) {
         try {
-            final DictionaryHeader header =
-                    BinaryDictionaryUtils.getHeaderWithOffsetAndLength(file, offset, length);
-            return header;
-        } catch (UnsupportedFormatException e) {
-            return null;
-        } catch (IOException e) {
+            return BinaryDictionaryUtils.getHeaderWithOffsetAndLength(file, offset, length);
+        } catch (UnsupportedFormatException | IOException e) {
             return null;
         }
     }
@@ -392,8 +382,7 @@ public class DictionaryInfoUtils {
         dictList.add(newElement);
     }
 
-    public static ArrayList<DictionaryInfo> getCurrentDictionaryFileNameAndVersionInfo(
-            final Context context) {
+    public static ArrayList<DictionaryInfo> getCurrentDictionaryFileNameAndVersionInfo(final Context context) {
         final ArrayList<DictionaryInfo> dictList = new ArrayList<>();
 
         // Retrieve downloaded dictionaries from cached directories
@@ -410,8 +399,7 @@ public class DictionaryInfoUtils {
                     }
                     final Locale locale = LocaleUtils.constructLocaleFromString(localeString);
                     final AssetFileAddress fileAddress = AssetFileAddress.makeFromFile(dict);
-                    final DictionaryInfo dictionaryInfo =
-                            createDictionaryInfoFromFileAddress(fileAddress, locale);
+                    final DictionaryInfo dictionaryInfo = createDictionaryInfoFromFileAddress(fileAddress, locale);
                     // Protect against cases of a less-specific dictionary being found, like an
                     // en dictionary being used for an en_US locale. In this case, the en dictionary
                     // should be used for en_US but discounted for listing purposes.
@@ -429,15 +417,12 @@ public class DictionaryInfoUtils {
         for (final String localeString : assets.getLocales()) {
             final Locale locale = LocaleUtils.constructLocaleFromString(localeString);
             final int resourceId =
-                    DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
-                            context.getResources(), locale);
+                    DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(context.getResources(), locale);
             if (0 == resourceId) {
                 continue;
             }
-            final AssetFileAddress fileAddress =
-                    BinaryDictionaryGetter.loadFallbackResource(context, resourceId);
-            final DictionaryInfo dictionaryInfo = createDictionaryInfoFromFileAddress(fileAddress,
-                    locale);
+            final AssetFileAddress fileAddress = BinaryDictionaryGetter.loadFallbackResource(context, resourceId);
+            final DictionaryInfo dictionaryInfo = createDictionaryInfoFromFileAddress(fileAddress, locale);
             // Protect against cases of a less-specific dictionary being found, like an
             // en dictionary being used for an en_US locale. In this case, the en dictionary
             // should be used for en_US but discounted for listing purposes.

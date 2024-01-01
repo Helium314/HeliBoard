@@ -274,11 +274,13 @@ private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String
     prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
     if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")) {
         // switch subtype if the currently used one has been disabled
-        val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
-        if (subtypeString == nextSubtype?.prefString())
-            KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
-        else
-            KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
+        try {
+            val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
+            if (subtypeString == nextSubtype?.prefString())
+                KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
+            else
+                KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
+        } catch (_: Exception) { } // do nothing if RichInputMethodManager isn't initialized
     }
 }
 

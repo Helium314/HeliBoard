@@ -12,7 +12,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.TypedValue;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
@@ -82,7 +81,6 @@ public final class ResourceUtils {
         return defaultValue;
     }
 
-    @SuppressWarnings("serial")
     static class DeviceOverridePatternSyntaxError extends Exception {
         public DeviceOverridePatternSyntaxError(final String message, final String expression) {
             this(message, expression, null);
@@ -100,7 +98,7 @@ public final class ResourceUtils {
      * "pattern1[:pattern2...] (or an empty string for the default). A pattern is
      * "key=regexp_value" string. The condition matches only if all patterns of the condition
      * are true for the specified key value pairs.
-     *
+     * <p>
      * For example, "condition,constant" has the following format.
      *  - HARDWARE=mako,constantForNexus4
      *  - MODEL=Nexus 4:MANUFACTURER=LGE,constantForNexus4
@@ -110,7 +108,6 @@ public final class ResourceUtils {
      * @param conditionConstantArray an array of "condition,constant" elements to be searched.
      * @return the constant part of the matched "condition,constant" element. Returns null if no
      * condition matches.
-     * @see org.dslul.openboard.inputmethod.latin.utils.ResourceUtilsTests#testFindConstantForKeyValuePairsRegexp()
      */
     @UsedForTesting
     static String findConstantForKeyValuePairs(final HashMap<String, String> keyValuePairs,
@@ -219,15 +216,6 @@ public final class ResourceUtils {
         return dimension > 0;
     }
 
-    // {@link Resources#getDimensionPixelOffset(int)} may return zero pixel offset.
-    public static boolean isValidDimensionPixelOffset(final int dimension) {
-        return dimension >= 0;
-    }
-
-    public static float getFloatFromFraction(final Resources res, final int fractionResId) {
-        return res.getFraction(fractionResId, 1, 1);
-    }
-
     public static float getFraction(final TypedArray a, final int index, final float defValue) {
         final TypedValue value = a.peekValue(index);
         if (value == null || !isFractionValue(value)) {
@@ -262,17 +250,6 @@ public final class ResourceUtils {
         return defValue;
     }
 
-    public static int getEnumValue(final TypedArray a, final int index, final int defValue) {
-        final TypedValue value = a.peekValue(index);
-        if (value == null) {
-            return defValue;
-        }
-        if (isIntegerValue(value)) {
-            return a.getInt(index, defValue);
-        }
-        return defValue;
-    }
-
     public static boolean isFractionValue(final TypedValue v) {
         return v.type == TypedValue.TYPE_FRACTION;
     }
@@ -281,16 +258,7 @@ public final class ResourceUtils {
         return v.type == TypedValue.TYPE_DIMENSION;
     }
 
-    public static boolean isIntegerValue(final TypedValue v) {
-        return v.type >= TypedValue.TYPE_FIRST_INT && v.type <= TypedValue.TYPE_LAST_INT;
-    }
-
-    public static boolean isStringValue(final TypedValue v) {
-        return v.type == TypedValue.TYPE_STRING;
-    }
-
     public static boolean isNight(final Resources res) {
-        // todo: night mode can be unspecified -> maybe need to adjust for correct behavior on some devices?
         return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 }
