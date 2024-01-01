@@ -20,7 +20,6 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    val icon = keyboardAttr.getDrawable(getStyleableIconId(key))
     if (key == LEFT || key == RIGHT || key == UP || key == DOWN) {
         // arrows look a little awkward when not scaled
         button.scaleX = 1.2f
@@ -32,7 +31,7 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
-    button.setImageDrawable(icon)
+    button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key)))
     return button
 }
 

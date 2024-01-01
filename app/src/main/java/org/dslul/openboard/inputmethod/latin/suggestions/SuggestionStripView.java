@@ -196,7 +196,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             setupKey(button, colors);
             mToolbar.addView(button);
         }
-        keyboardAttr.recycle();
 
         final int toolbarHeight = Math.min(mToolbarExpandKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
         mToolbarExpandKey.getLayoutParams().height = toolbarHeight;
@@ -216,13 +215,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
         for (final ToolbarKey pinnedKey : Settings.readPinnedKeys(prefs)) {
+            final ImageButton button = createToolbarKey(context, keyboardAttr, pinnedKey);
+            button.setLayoutParams(toolbarKeyLayoutParams);
+            setupKey(button, colors);
+            mPinnedKeys.addView(button);
             final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
-            if (pinnedKeyInToolbar == null) continue;
-            pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
-            addKeyToPinnedKeys(pinnedKey);
+            if (pinnedKeyInToolbar != null)
+                pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
         }
 
         colors.setBackground(this, ColorType.SUGGESTION_BACKGROUND);
+        keyboardAttr.recycle();
     }
 
     /**
