@@ -54,15 +54,6 @@ public class InlineAutofillUtils {
 
         final Colors colors = Settings.getInstance().getCurrent().mColors;
 
-        ColorType colorType;
-
-        // if key borders are disabled then the background of the chip is not visible with AUTOFILL_BACKGROUND_CHIP
-        if (DeviceProtectedUtils.getSharedPreferences(context).getBoolean(Settings.PREF_THEME_KEY_BORDERS, true)){
-            colorType = ColorType.AUTOFILL_BACKGROUND_CHIP;
-        } else {
-            colorType = ColorType.BACKGROUND;
-        }
-
         UiVersions.StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
         @SuppressLint("RestrictedApi") InlineSuggestionUi.Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
@@ -70,7 +61,7 @@ public class InlineAutofillUtils {
                                 .setBackground(
                                         Icon.createWithResource(context,
                                                 androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(colors.get(colorType)))
+                                                .setTint(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP)))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
@@ -78,7 +69,7 @@ public class InlineAutofillUtils {
                                 .setBackground(
                                         Icon.createWithResource(context,
                                                 androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(colors.get(colorType)))
+                                                .setTint(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP)))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(

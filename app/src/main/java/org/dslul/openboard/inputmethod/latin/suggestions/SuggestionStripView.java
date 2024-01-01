@@ -278,10 +278,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mPinnedKeys.setVisibility(GONE);
     }
 
-    public void setInlineSuggestionsShown(boolean value){
-        inlineSuggestionsShown = value;
-    }
-
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
@@ -300,7 +296,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mToolbarExpandKey.setVisibility(VISIBLE);
         mPinnedKeys.setVisibility(VISIBLE);
-        setInlineSuggestionsShown(false);
     }
 
     private void removeAllDebugInfoViews() {
@@ -521,7 +516,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final int mMoreSuggestionsModalTolerance;
     private boolean mNeedsToTransformTouchEventToHoverEvent;
     private boolean mIsDispatchingHoverEventToMoreSuggestions;
-    private boolean inlineSuggestionsShown = false;
     private final GestureDetector mMoreSuggestionsSlidingDetector;
     private final GestureDetector.OnGestureListener mMoreSuggestionsSlidingListener =
             new GestureDetector.SimpleOnGestureListener() {
@@ -538,7 +532,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent me) {
 
-        if(inlineSuggestionsShown) {
+        // Disable More Suggestions if inline autofill suggestions is visible
+        if(mToolbarExpandKey.getVisibility() != VISIBLE && mPinnedKeys.getVisibility() != VISIBLE) {
             return false;
         }
 
