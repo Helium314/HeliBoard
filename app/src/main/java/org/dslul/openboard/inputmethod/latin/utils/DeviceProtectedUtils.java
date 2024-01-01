@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import androidx.annotation.RequiresApi;
 
