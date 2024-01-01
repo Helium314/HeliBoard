@@ -85,12 +85,16 @@ public class UserDictionaryAddWordFragment extends Fragment
     }
 
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull final Menu menu, @NonNull final MenuInflater inflater) {
         final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
-        final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, null).setIcon(deleteIcon);
-        actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        if (actionItemDelete.getIcon() != null)
-            actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
+        final Bundle args = getArguments();
+        // The delete icon only appears if a word is already present.
+        if (args != null && !args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE).equals("")) {
+            final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, null).setIcon(deleteIcon);
+            actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            if (actionItemDelete.getIcon() != null)
+                actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
+        }
 
         final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, null).setIcon(R.drawable.ic_save);
         actionItemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
