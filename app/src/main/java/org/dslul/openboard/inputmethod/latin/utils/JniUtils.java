@@ -60,9 +60,10 @@ public final class JniUtils {
                 } else {
                     // delete if checksum doesn't match
                     // this actually is bad if we can't get the application and the user has a different library than expected
-                    // todo: this is disabled until app is renamed, otherwise it will delete everyone's library!
-                    //  though there could be a default check?
+                    // todo: until the app is renamed, we continue loading the library anyway
 //                    userSuppliedLibrary.delete();
+                    System.load(userSuppliedLibrary.getAbsolutePath());
+                    sHaveGestureLib = true;
                 }
             } catch (Throwable t) { // catch everything, maybe provided library simply doesn't work
                 Log.w(TAG, "Could not load user-supplied library", t);

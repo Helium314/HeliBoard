@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
 
 /**
  * Class to hold attributes of the input field.
@@ -141,12 +140,7 @@ public final class InputAttributes {
     }
 
     private boolean hasNoMicrophoneKeyOption() {
-        @SuppressWarnings("deprecation")
-        final boolean deprecatedNoMicrophone = InputAttributes.inPrivateImeOptions(
-                null, NO_MICROPHONE_COMPAT, mEditorInfo);
-        final boolean noMicrophone = InputAttributes.inPrivateImeOptions(
-                mPackageNameForPrivateImeOptions, NO_MICROPHONE, mEditorInfo);
-        return noMicrophone || deprecatedNoMicrophone;
+        return InputAttributes.inPrivateImeOptions(mPackageNameForPrivateImeOptions, NO_MICROPHONE, mEditorInfo);
     }
 
     @SuppressWarnings("unused")

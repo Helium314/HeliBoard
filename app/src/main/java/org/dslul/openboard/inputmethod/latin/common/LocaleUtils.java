@@ -19,7 +19,7 @@ import java.util.Locale;
 
 /**
  * A class to help with handling Locales in string form.
- *
+ * <p>
  * This file has the same meaning and features (and shares all of its code) with the one with the
  * same name in Latin IME. They need to be kept synchronized; for any update/bugfix to
  * this file, consider also updating/fixing the version in Latin IME.
@@ -60,13 +60,9 @@ public final class LocaleUtils {
     // Don't use this directly, use #isMatch to test.
     private static final int LOCALE_MATCH = LOCALE_ANY_MATCH;
 
-    // Make this match the maximum match level. If this evolves to have more than 2 digits
-    // when written in base 10, also adjust the getMatchLevelSortedString method.
-    private static final int MATCH_LEVEL_MAX = 30;
-
     /**
      * Return how well a tested locale matches a reference locale.
-     *
+     * <p>
      * This will check the tested locale against the reference locale and return a measure of how
      * a well it matches the reference. The general idea is that the tested locale has to match
      * every specified part of the required locale. A full match occur when they are equal, a
@@ -131,20 +127,8 @@ public final class LocaleUtils {
     }
 
     /**
-     * Return a string that represents this match level, with better matches first.
-     *
-     * The strings are sorted in lexicographic order: a better match will always be less than
-     * a worse match when compared together.
-     */
-    public static String getMatchLevelSortedString(final int matchLevel) {
-        // This works because the match levels are 0~99 (actually 0~30)
-        // Ideally this should use a number of digits equals to the 1og10 of the greater matchLevel
-        return String.format(Locale.ROOT, "%02d", MATCH_LEVEL_MAX - matchLevel);
-    }
-
-    /**
      * Find out whether a match level should be considered a match.
-     *
+     * <p>
      * This method takes a match level as returned by the #getMatchLevel method, and returns whether
      * it should be considered a match in the usual sense with standard Locale functions.
      *
@@ -176,12 +160,11 @@ public final class LocaleUtils {
             final String[] elements = localeString.split("_", 3);
             final Locale locale;
             if (elements.length == 1) {
-                locale = new Locale(elements[0] /* language */);
+                locale = new Locale(elements[0]);
             } else if (elements.length == 2) {
-                locale = new Locale(elements[0] /* language */, elements[1] /* country */);
+                locale = new Locale(elements[0], elements[1]);
             } else { // localeParams.length == 3
-                locale = new Locale(elements[0] /* language */, elements[1] /* country */,
-                        elements[2] /* variant */);
+                locale = new Locale(elements[0], elements[1], elements[2]);
             }
             sLocaleCache.put(localeString, locale);
             return locale;
@@ -212,8 +195,7 @@ public final class LocaleUtils {
         if (localeString.equals("zz"))
             return context.getString(R.string.subtype_no_language);
         if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz")) {
-            final int resId = context.getResources()
-                    .getIdentifier("subtype_"+localeString, "string", context.getPackageName());
+            final int resId = context.getResources().getIdentifier("subtype_"+localeString, "string", context.getPackageName());
             if (resId != 0)
                 return context.getString(resId);
         }
