@@ -213,7 +213,7 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
 
     private void showAddWordDialog() {
         final Bundle args = new Bundle();
-        args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, UserDictionaryAddWordContents.MODE_EDIT);
+        args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, UserDictionaryAddWordContents.MODE_INSERT);
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, "");
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, "");
         args.putString(UserDictionaryAddWordContents.EXTRA_WEIGHT,
