@@ -24,7 +24,6 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService
-import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_LAYOUT
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_NUMBER
@@ -67,7 +66,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             params.mTouchPositionCorrection.load(context.resources.getStringArray(infos.touchPositionCorrectionData))
 
         val baseKeys: MutableList<List<KeyData>> = parseCoreLayout(layoutContent)
-
         val keysInRows: ArrayList<ArrayList<KeyParams>>
         if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             keysInRows = createAlphaSymbolRows(baseKeys)
@@ -85,64 +83,18 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
-    // todo: get rid if the bottom-to-top thing, feels weird (then number row could also be added first)
     private fun createAlphaSymbolRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
-        // number row related modifications of baseKeys
-        if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
-            // replace first symbols row with number row, but use the labels as moreKeys
-            val numberRow = params.mLocaleKeyTexts.getNumberRow()
-            numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
-            baseKeys[0] = numberRow
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard
-            // todo: move this decision to some other place!
-            && !(params.mId.locale.language == "ko" && baseKeys.size == 4)
-            && params.mId.locale.language != "th"
-            && params.mId.locale.language != "lo"
-            && params.mId.mSubtype.keyboardLayoutSetName != "pcqwerty"
-        ) {
-            if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout more key
-                && params.mMoreKeyLabelSources.let {
-                    val layout = it.indexOf(MORE_KEYS_LAYOUT)
-                    val number = it.indexOf(MORE_KEYS_NUMBER)
-                    layout != -1 && layout < number // layout before number label
-                }
-            ) {
-                // remove number from labels, to avoid awkward mix of numbers and others caused by layout more keys
-                params.mMoreKeyLabelSources.remove(MORE_KEYS_NUMBER)
-            }
-            // add number to the first 10 keys in first row
-            // setting the correct moreKeys is handled in PopupSet
-            // not for korean/lao/thai layouts, todo: should be decided in the layout / layoutInfos, not in the parser
-            baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
-            if (baseKeys.first().size < 10) {
-                Log.w(TAG, "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}")
-            }
-        }
-
-        if (params.mId.isAlphabetKeyboard) {
-            // fill popup symbols
-            val symbolsLayoutName = if (ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC)
-                    "symbols_arabic"
-                else "symbols"
-            val p = SimpleKeyboardParser(params, context)
-            p.parseCoreLayout(p.getLayoutFromAssets(symbolsLayoutName)).forEachIndexed { i, row ->
-                val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
-                row.forEachIndexed { j, key ->
-                    baseRow.getOrNull(j)?.popup?.symbol = key.label
-                }
-            }
-        }
+        addNumberRowOrMoreKeys(baseKeys)
+        if (params.mId.isAlphabetKeyboard)
+            addSymbolMoreKeys(baseKeys)
 
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
-        val functionalKeysReversed = parseFunctionalKeys(R.string.key_def_functional).reversed()
+        val functionalKeys = parseFunctionalKeys(R.string.key_def_functional)
         val functionalKeysTop = parseFunctionalKeys(R.string.key_def_functional_top_row)
 
-        // keyboard parsed bottom-up because the number of rows is not fixed, but the functional keys
-        // are always added to the rows near the bottom
-        keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys)) // not really fast, but irrelevant compared to below
         // todo: this loop could use some performance improvements
-        baseKeys.reversed().forEachIndexed { i, it ->
-            val row: List<KeyData> = if (i == 0 && isTablet()) {
+        baseKeys.forEachIndexed { i, it ->
+            val row: List<KeyData> = if (i == baseKeys.lastIndex && isTablet()) {
                 // add bottom row extra keys
                 val tabletExtraKeys = params.mLocaleKeyTexts.getTabletExtraKeys(params.mId.mElementId)
                 tabletExtraKeys.first + it + tabletExtraKeys.second
@@ -150,9 +102,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 it
             }
             // parse functional keys for this row (if any)
-            val outerFunctionalKeyDefs = if (i == baseKeys.lastIndex && functionalKeysTop.isNotEmpty()) functionalKeysTop.first()
-                else emptyList<String>() to emptyList()
-            val functionalKeysDefs = if (i < functionalKeysReversed.size) functionalKeysReversed[i]
+            val offset = baseKeys.size - functionalKeys.size
+            val functionalKeysDefs = if (i >= offset) functionalKeys[i - offset] // functional keys are aligned to bottom
+            else emptyList<String>() to emptyList()
+            val outerFunctionalKeyDefs = if (i == 0 && functionalKeysTop.isNotEmpty()) functionalKeysTop.first() // top row
                 else emptyList<String>() to emptyList()
             // if we have a top row and top row entries from normal functional key defs, use top row as outer keys
             val functionalKeysLeft = outerFunctionalKeyDefs.first.map { getFunctionalKeyParams(it) } + functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
@@ -181,7 +134,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             if (keyWidth < params.mDefaultRelativeKeyWidth * 0.82 && spacerWidth == 0f) {
                 // keys are very narrow, also rescale the functional keys to make keys a little wider
                 // 0.82 is just some guess for "too narrow"
-                // todo (idea): works reasonably well, but actually functional keys could give some more of their width
                 val allKeyScale = 1f / (functionalKeyWidth + row.size * params.mDefaultRelativeKeyWidth)
                 keyWidth = params.mDefaultRelativeKeyWidth * allKeyScale
                 functionalKeysLeft.forEach { it.mRelativeWidth *= allKeyScale }
@@ -192,13 +144,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
-                val keyParams = key.compute(params).toKeyParams(params, keyWidth, defaultLabelFlags or extraFlags)
-                paramsRow.add(keyParams)
+                val keyData = key.compute(params)
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "adding key ${keyParams.mLabel}, ${keyParams.mCode}")
+                    Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
+                val keyParams = keyData.toKeyParams(params, keyWidth, defaultLabelFlags or extraFlags)
+                paramsRow.add(keyParams)
             }
             if (spacerWidth != 0f) {
-                // todo: the spacer-or-key-extension logic should go into a separate function
                 if (functionalKeysLeft.isEmpty()) {
                     // we did not add a spacer above, but extend the key to the edge and set visual insets
                     paramsRow.first().mRelativeWidth += spacerWidth
@@ -219,40 +171,79 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 }
             }
             functionalKeysRight.forEach { paramsRow.add(it) }
-            keysInRows.add(0, paramsRow) // we're doing it backwards, so add on top
+            keysInRows.add(paramsRow)
         }
+        resizeLastRowIfNecessaryForAlignment(keysInRows)
+        keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys)) // not really fast, but irrelevant compared to the loop
         if (params.mId.mNumberRowEnabled)
             keysInRows.add(0, getNumberRow())
-        resizeLastNormalRowIfNecessaryForAlignment(keysInRows)
         return keysInRows
+    }
+
+    private fun addNumberRowOrMoreKeys(baseKeys: MutableList<List<KeyData>>) {
+        if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
+            // replace first symbols row with number row, but use the labels as moreKeys
+            val numberRow = params.mLocaleKeyTexts.getNumberRow()
+            numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
+            baseKeys[0] = numberRow
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && infos.numbersOnTopRow) {
+            if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout more key
+                && params.mMoreKeyLabelSources.let {
+                    val layout = it.indexOf(MORE_KEYS_LAYOUT)
+                    val number = it.indexOf(MORE_KEYS_NUMBER)
+                    layout != -1 && layout < number // layout before number label
+                }
+            ) {
+                // remove number from labels, to avoid awkward mix of numbers and others caused by layout more keys
+                params.mMoreKeyLabelSources.remove(MORE_KEYS_NUMBER)
+            }
+            // add number to the first 10 keys in first row
+            baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
+            if (baseKeys.first().size < 10) {
+                Log.w(TAG, "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}")
+            }
+        }
+    }
+
+    private fun addSymbolMoreKeys(baseKeys: MutableList<List<KeyData>>) {
+        val symbolsLayoutName = if (ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC)
+                "symbols_arabic"
+            else "symbols"
+        val parser = SimpleKeyboardParser(params, context)
+        parser.parseCoreLayout(parser.getLayoutFromAssets(symbolsLayoutName)).forEachIndexed { i, row ->
+            val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
+            row.forEachIndexed { j, key ->
+                baseRow.getOrNull(j)?.popup?.symbol = key.label
+            }
+        }
     }
 
     // resize keys in last row if they are wider than keys in the row above
     // this is done so the keys align with the keys above, like in original layouts
-    // done e.g. for nordic and swiss layouts
-    private fun resizeLastNormalRowIfNecessaryForAlignment(keysInRows: ArrayList<ArrayList<KeyParams>>) {
+    // e.g. for nordic and swiss layouts
+    private fun resizeLastRowIfNecessaryForAlignment(keysInRows: ArrayList<ArrayList<KeyParams>>) {
         if (keysInRows.size < 3)
             return
-        val lastNormalRow = keysInRows[keysInRows.lastIndex - 1]
-        val rowAboveLastNormalRow = keysInRows[keysInRows.lastIndex - 2]
-        if (lastNormalRow.any { it.isSpacer } || rowAboveLastNormalRow.any { it.isSpacer })
+        val lastRow = keysInRows.last()
+        val rowAboveLast = keysInRows[keysInRows.lastIndex - 1]
+        if (lastRow.any { it.isSpacer } || rowAboveLast.any { it.isSpacer })
             return // annoying to deal with, and probably no resize needed anyway
-        val lastNormalRowKeyWidth = lastNormalRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
-        val rowAboveLastNormalRowKeyWidth = rowAboveLastNormalRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
+        val lastNormalRowKeyWidth = lastRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
+        val rowAboveLastNormalRowKeyWidth = rowAboveLast.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
         if (lastNormalRowKeyWidth <= rowAboveLastNormalRowKeyWidth + 0.0001f)
             return // no need
         if (lastNormalRowKeyWidth / rowAboveLastNormalRowKeyWidth > 1.1f)
             return // don't resize on large size difference
-        if (lastNormalRow.any { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL && it.mRelativeWidth != lastNormalRowKeyWidth })
+        if (lastRow.any { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL && it.mRelativeWidth != lastNormalRowKeyWidth })
             return // normal keys have different width, don't deal with this
-        val numberOfNormalKeys = lastNormalRow.count { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }
+        val numberOfNormalKeys = lastRow.count { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }
         val widthBefore = numberOfNormalKeys * lastNormalRowKeyWidth
         val widthAfter = numberOfNormalKeys * rowAboveLastNormalRowKeyWidth
         val spacerWidth = (widthBefore - widthAfter) / 2
         // resize keys and add spacers
-        lastNormalRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mRelativeWidth = rowAboveLastNormalRowKeyWidth }
-        lastNormalRow.add(lastNormalRow.indexOfFirst { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }, KeyParams.newSpacer(params, spacerWidth))
-        lastNormalRow.add(lastNormalRow.indexOfLast { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL } + 1, KeyParams.newSpacer(params, spacerWidth))
+        lastRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mRelativeWidth = rowAboveLastNormalRowKeyWidth }
+        lastRow.add(lastRow.indexOfFirst { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }, KeyParams.newSpacer(params, spacerWidth))
+        lastRow.add(lastRow.indexOfLast { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL } + 1, KeyParams.newSpacer(params, spacerWidth))
     }
 
     private fun createNumericRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
@@ -528,8 +519,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         getFunctionalKeyParams(FunctionalKey.COM, width)
                     else getFunctionalKeyParams(FunctionalKey.EMOJI, width)
             FunctionalKey.COM -> KeyParams(
-                // todo (later): label and moreKeys could be in localeKeyTexts, handled like currency key
-                //  better not in the text files, because it should be handled in a more fine grained way
+                // todo (later): label and moreKeys could be in localeKeyTexts, handled similar to currency key
+                //  better not in the text files, because it should be handled per country
                 ".com",
                 params,
                 width,
@@ -675,7 +666,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun getInLocale(@StringRes id: Int): String {
-        val ril = object : RunInLocale<String>() { // todo (later): simpler way of doing this in a single line?
+        val ril = object : RunInLocale<String>() {
             override fun job(res: Resources) = res.getString(id)
         }
         // crappy workaround...
@@ -818,7 +809,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         // currently only labelFlags are used
         // touchPositionCorrectionData needs to be loaded, currently always holo is applied in readAttributes
         private fun layoutInfos(params: KeyboardParams): LayoutInfos {
-            val name = params.mId.mSubtype.keyboardLayoutSetName
+            val layout = params.mId.mSubtype.keyboardLayoutSetName
             val language = params.mId.locale.language
             val labelFlags = if (!params.mId.isAlphabetKeyboard) 0 else when (language) {
                 "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> Key.LABEL_FLAGS_FONT_NORMAL
@@ -826,8 +817,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 else -> 0
             }
             // only for alphabet, but some exceptions for shift layouts
-            val enableProximityCharsCorrection = params.mId.isAlphabetKeyboard && when (name) {
-                // todo: test effect on correction (just add qwerty to the list for testing)
+            val enableProximityCharsCorrection = params.mId.isAlphabetKeyboard && when (layout) {
                 "bengali_akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
                     params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 else -> true
@@ -835,14 +825,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val allowRedundantMoreKeys = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS // todo: always set to false?
             // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
             // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
-            // todo: null for MoreKeysKeyboard only
-            val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && name in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
+            val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && layout in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
                     R.array.touch_position_correction_data_default
                 else R.array.touch_position_correction_data_holo
             val hasZwnjKey = params.mId.locale.language in listOf("fa", "ne", "kn", "te") // determine from language, user might have custom layout
             // custom non-json layout for non-uppercase language should not have shift key
-            val hasShiftKey = !params.mId.isAlphabetKeyboard || name !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
-            return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantMoreKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey)
+            val hasShiftKey = !params.mId.isAlphabetKeyboard || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
+            val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+            return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantMoreKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey, numbersOnTopRow)
         }
     }
 
@@ -858,13 +848,14 @@ data class LayoutInfos(
     // disabled by default, but enabled for all alphabet layouts
     // currently set in keyboardLayoutSet
     val enableProximityCharsCorrection: Boolean = false,
-    val allowRedundantMoreKeys: Boolean = true, // only false for nordic and serbian_qwertz
+    // previously was false for nordic and serbian_qwertz, true for all others
+    val allowRedundantMoreKeys: Boolean = true,
     // there is holo, default and null
     // null only for moreKeys keyboard
-    // currently read as part of readAttributes, and thus wrong with the new parser (but we set it correctly in parser)
     val touchPositionCorrectionData: Int? = null,
     val hasZwnjKey: Boolean = false,
     val hasShiftKey: Boolean = true,
+    val numbersOnTopRow: Boolean = true,
 )
 
 fun String.rtlLabel(params: KeyboardParams): String {
