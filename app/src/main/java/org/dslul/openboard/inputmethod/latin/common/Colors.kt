@@ -271,8 +271,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             ACTION_KEY_BACKGROUND -> actionKeyStateList
             SPACE_BAR_BACKGROUND -> spaceBarStateList
             MORE_KEYS_BACKGROUND -> adjustedBackgroundStateList
-            SUGGESTION_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackgroundStateList
-                else backgroundStateList
+            SUGGESTION_BACKGROUND -> backgroundStateList
             ACTION_KEY_MORE_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackgroundStateList
                 else actionKeyStateList
             TOOL_BAR_KEY -> toolbarKeyStateList
