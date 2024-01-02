@@ -531,6 +531,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent me) {
+
+        // Disable More Suggestions if inline autofill suggestions is visible
+        if(mToolbarExpandKey.getVisibility() != VISIBLE && mPinnedKeys.getVisibility() != VISIBLE) {
+            return false;
+        }
+
         // Detecting sliding up finger to show {@link MoreSuggestionsView}.
         if (!mMoreSuggestionsView.isShowingInParent()) {
             mLastX = (int)me.getX();
