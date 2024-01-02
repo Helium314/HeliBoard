@@ -15,6 +15,7 @@ import android.os.Bundle;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.utils.NewDictionaryAdder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,12 +25,7 @@ public final class SettingsActivity extends AppCompatActivity
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
 
     public static final String EXTRA_ENTRY_KEY = "entry";
-    public static final String EXTRA_ENTRY_VALUE_LONG_PRESS_COMMA = "long_press_comma";
     public static final String EXTRA_ENTRY_VALUE_APP_ICON = "app_icon";
-    public static final String EXTRA_ENTRY_VALUE_NOTICE_DIALOG = "important_notice";
-    public static final String EXTRA_ENTRY_VALUE_SYSTEM_SETTINGS = "system_settings";
-
-    private boolean mShowHomeAsUp;
 
     @Override
     protected void onCreate(final Bundle savedState) {
@@ -68,7 +64,7 @@ public final class SettingsActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionsManager.get(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
     }

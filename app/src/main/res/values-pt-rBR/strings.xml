@@ -20,8 +20,6 @@
     <string name="settings_category_miscellaneous">Outros</string>
     <string name="enable_split_keyboard">Ativar teclado dividido</string>
     <string name="settings_category_experimental">Experimental</string>
-    <string name="key_preview_popup_dismiss_no_delay">Sem atraso</string>
-    <string name="key_preview_popup_dismiss_default_delay">Padrão</string>
     <string name="use_contacts_dict_summary">Usar nomes de contatos para correções e sugestões</string>
     <string name="use_personalized_dicts">Sugestões personalizadas</string>
     <string name="use_double_space_period">Duplo espaço para ponto</string>
@@ -31,7 +29,7 @@
     <string name="configure_dictionaries_title">Adicionar dicionários</string>
     <string name="prefs_block_potentially_offensive_title">Bloquear palavras ofensivas</string>
     <string name="prefs_block_potentially_offensive_summary">Não sugerir palavras ofensivas</string>
-    <string name="auto_correction">Correção automática</string>
+    <string name="autocorrect">Correção automática</string>
     <string name="auto_correction_threshold_mode_off">Desligado</string>
     <string name="auto_correction_threshold_mode_modest">Moderado</string>
     <string name="auto_correction_threshold_mode_aggressive">Agressivo</string>
@@ -46,13 +44,11 @@
     <string name="enable_clipboard_history">Ativar área de transferência</string>
     <string name="delete_swipe_summary">Deslize a tecla delete para selecionar e remover partes maiores de texto de uma só vez</string>
     <string name="delete_swipe">Deslizar para apagar</string>
-    <string name="prefs_force_incognito_mode">Forçar modo anônimo</string>
+    <string name="incognito">Forçar modo anônimo</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>
-    <string name="configure_input_method">Configurar métodos de entrada</string>
     <string name="language_selection_title">Idiomas</string>
     <string name="help_and_feedback">Ajuda e comentários</string>
-    <string name="select_language">Idiomas</string>
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de entrada</string>
@@ -69,7 +65,6 @@
     <string name="subtype_with_layout_bn_BD">Bengali (Bangladesh) <xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_pcqwerty">Alfabeto (PC)</string>
     <string name="subtype_emoji">Emojis</string>
-    <string name="keyboard_theme">Tema do teclado</string>
     <string name="add">Adicionar</string>
     <string name="remove">Remover</string>
     <string name="save">Salvar</string>
@@ -94,7 +89,7 @@
     <string name="no_dictionaries_available">Nenhum dicionário disponível</string>
     <string name="check_for_updates_now">Atualizar</string>
     <string name="last_update">Última atualização</string>
-    <string name="go_to_settings">Configurações</string>
+    <string name="settings">Configurações</string>
     <string name="delete_dict">Apagar</string>
     <string name="user_dict_settings_add_menu_title">Adicionar</string>
     <string name="user_dict_settings_add_dialog_more_options">Mais opções</string>
@@ -106,8 +101,6 @@
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
     <string name="user_dict_settings_delete">Apagar</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="theme_variant">Variante do tema</string>
-    <string name="theme_family">Família do tema</string>
     <string name="key_borders">Borda em teclas</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do OpenBoard</string>
     <string name="android_spell_checker_settings">Configurar corretor ortográfico do OpenBoard</string>
@@ -133,7 +126,6 @@
     <string name="clipboard_history_retention_time">Tempo de retenção do histórico</string>
     <string name="space_trackpad_summary">Deslize na barra de espaço para mover o cursor</string>
     <string name="number_row">Linha de números</string>
-    <string name="hint_add_to_dictionary">Toque novamente para salvar</string>
     <string name="subtype_with_layout_en_GB">Inglês (Reino Unido) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_with_layout_en_US">Inglês (EUA) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_with_layout_hi_ZZ">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
@@ -152,14 +144,12 @@
     <string name="setup_step1_instruction">Por favor, verifique <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> em \'Idiomas e Entrada\' nas configurações. Assim, poderá executá-lo no dispositivo.</string>
     <string name="setup_finish_action">Concluído</string>
     <string name="show_setup_wizard_icon_summary">Mostrar ícone do aplicativo no \'Lançador\' de Apps</string>
-    <string name="app_name">Fornecedor de dicionário</string>
     <string name="dictionary_settings_summary">Configurações para dicionários</string>
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Em seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de entrada.</string>
     <string name="user_dictionaries">Dicionários da(o) usuária(o)</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar e escrever nos seus aplicativos favoritos.</string>
-    <string name="dictionary_provider_name">Fornecedor de dicionário</string>
     <string name="main_dict_description">Dicionário principal</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -176,9 +166,7 @@
     <string name="show_language_switch_key">Tecla para mudar de idioma</string>
     <string name="show_emoji_key">Tecla de Emojis</string>
     <string name="subtype_generic_compact">Hindi <xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
-    <string name="key_preview_popup_dismiss_delay">Duração do pop-up da tecla</string>
     <string name="enable_clipboard_history_summary">Se desativada, a tecla da área de transferência colará o conteúdo na área de transferência, caso exista</string>
-    <string name="hint_add_to_dictionary_without_word">Toque novamente para salvar</string>
     <string name="autospace_after_punctuation">Espaço automático após pontuação</string>
     <string name="autospace_after_punctuation_summary">Inserir automaticamente espaço após pontuação ao digitar uma nova palavra</string>
     <string name="auto_correction_confidence">Confiança de correção automática</string>

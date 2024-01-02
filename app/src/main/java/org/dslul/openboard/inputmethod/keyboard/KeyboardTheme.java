@@ -165,6 +165,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, false),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false)
                 );
             case THEME_USER_NIGHT:
@@ -179,6 +180,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true)
                 );
             case THEME_DARK:
@@ -194,6 +196,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Color.parseColor("#364248"),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_HOLO_WHITE:
@@ -209,6 +212,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#FFFFFF"),
                         Color.parseColor("#282828"),
+                        Color.parseColor("#FFFFFF"),
                         Color.parseColor("#80FFFFFF")
                 );
             case THEME_DARKER:
@@ -223,6 +227,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_BLACK:
@@ -237,6 +242,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.background_amoled_dark),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_dark)
                 );
             case THEME_DYNAMIC:
@@ -256,6 +262,7 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                         ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
                         ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
                         ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
+                        ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
                         ContextCompat.getColor(context, R.color.spacebar_letter_color_lxx_light)
                 );
         }

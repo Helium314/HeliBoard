@@ -7,12 +7,13 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.os.Build;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
+import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import androidx.annotation.Nullable;
 
 /**
  * Enrichment class for InputMethodSubtype to enable concurrent multi-lingual input.
- *
+ * <p>
  * Right now, this returns the extra value of its primary subtype.
  */
 // non final for easy mocking.
@@ -70,6 +71,10 @@ public class RichInputMethodSubtype {
 
     public boolean isNoLanguage() {
         return SubtypeLocaleUtils.NO_LANGUAGE.equals(mSubtype.getLocale());
+    }
+
+    public boolean isCustom() {
+        return getKeyboardLayoutSetName().startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX);
     }
 
     public String getNameForLogging() {
@@ -203,7 +208,6 @@ public class RichInputMethodSubtype {
                     .setSubtypeId(SUBTYPE_ID_OF_DUMMY_EMOJI_SUBTYPE)
                     .build());
     private static RichInputMethodSubtype sNoLanguageSubtype;
-    private static RichInputMethodSubtype sEmojiSubtype;
 
     @NonNull
     public static RichInputMethodSubtype getNoLanguageSubtype() {
@@ -226,20 +230,6 @@ public class RichInputMethodSubtype {
 
     @NonNull
     public static RichInputMethodSubtype getEmojiSubtype() {
-        RichInputMethodSubtype emojiSubtype = sEmojiSubtype;
-        if (emojiSubtype == null) {
-            final InputMethodSubtype rawEmojiSubtype = RichInputMethodManager.getInstance()
-                    .findSubtypeByLocaleAndKeyboardLayoutSet(SubtypeLocaleUtils.NO_LANGUAGE, SubtypeLocaleUtils.EMOJI);
-            if (rawEmojiSubtype != null) {
-                emojiSubtype = new RichInputMethodSubtype(rawEmojiSubtype);
-            }
-        }
-        if (emojiSubtype != null) {
-            sEmojiSubtype = emojiSubtype;
-            return emojiSubtype;
-        }
-        Log.w(TAG, "Can't find emoji subtype");
-        Log.w(TAG, "No input method subtype found; returning dummy subtype: " + DUMMY_EMOJI_SUBTYPE);
         return DUMMY_EMOJI_SUBTYPE;
     }
 }

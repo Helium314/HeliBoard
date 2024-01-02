@@ -7,11 +7,11 @@
 package org.dslul.openboard.inputmethod.latin;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.os.Handler;
 import android.os.Looper;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
@@ -25,25 +25,17 @@ import java.util.Locale;
  * Factory for dictionary instances.
  */
 public final class DictionaryFactory {
-    private static final String TAG = DictionaryFactory.class.getSimpleName();
 
     /**
      * Initializes a main dictionary collection from a dictionary pack, with explicit flags.
-     *
+     * <p>
      * This searches for a content provider providing a dictionary pack for the specified
      * locale. If none is found, it falls back to the built-in dictionary - if any.
      * @param context application context for reading resources
      * @param locale the locale for which to create the dictionary
      * @return an initialized instance of DictionaryCollection
      */
-    public static DictionaryCollection createMainDictionaryFromManager(final Context context,
-            final Locale locale) {
-        if (null == locale) {
-            Log.e(TAG, "No locale defined for dictionary");
-            return new DictionaryCollection(Dictionary.TYPE_MAIN, locale,
-                    createReadOnlyBinaryDictionary(context, locale));
-        }
-
+    public static DictionaryCollection createMainDictionaryFromManager(final Context context, @NonNull final Locale locale) {
         final LinkedList<Dictionary> dictList = new LinkedList<>();
         ArrayList<AssetFileAddress> assetFileList =
                 BinaryDictionaryGetter.getDictionaryFiles(locale, context, false);
@@ -102,47 +94,6 @@ public final class DictionaryFactory {
             new Handler(Looper.getMainLooper()).post(() ->
                     Toast.makeText(context, "dictionary "+wordlistId+" is invalid, deleting", Toast.LENGTH_LONG).show()
             );
-        }
-    }
-
-    /**
-     * Initializes a read-only binary dictionary from a raw resource file
-     * @param context application context for reading resources
-     * @param locale the locale to use for the resource
-     * @return an initialized instance of ReadOnlyBinaryDictionary
-     */
-    private static ReadOnlyBinaryDictionary createReadOnlyBinaryDictionary(final Context context,
-            final Locale locale) {
-        AssetFileDescriptor afd = null;
-        try {
-            final int resId = DictionaryInfoUtils.getMainDictionaryResourceIdIfAvailableForLocale(
-                    context.getResources(), locale);
-            if (0 == resId) return null;
-            afd = context.getResources().openRawResourceFd(resId);
-            if (afd == null) {
-                Log.e(TAG, "Found the resource but it is compressed. resId=" + resId);
-                return null;
-            }
-            final String sourceDir = context.getApplicationInfo().sourceDir;
-            final File packagePath = new File(sourceDir);
-            // TODO: Come up with a way to handle a directory.
-            if (!packagePath.isFile()) {
-                Log.e(TAG, "sourceDir is not a file: " + sourceDir);
-                return null;
-            }
-            return new ReadOnlyBinaryDictionary(sourceDir, afd.getStartOffset(), afd.getLength(),
-                    false /* useFullEditDistance */, locale, Dictionary.TYPE_MAIN);
-        } catch (android.content.res.Resources.NotFoundException e) {
-            Log.e(TAG, "Could not find the resource");
-            return null;
-        } finally {
-            if (null != afd) {
-                try {
-                    afd.close();
-                } catch (java.io.IOException e) {
-                    /* IOException on close ? What am I supposed to do ? */
-                }
-            }
         }
     }
 }

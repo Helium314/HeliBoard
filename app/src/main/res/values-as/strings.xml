@@ -20,9 +20,6 @@
     <string name="enable_split_keyboard">"বিভক্ত কীবর্ড সক্ষম কৰক"</string>
     <string name="language_switch_key_switch_input_method">"আন ইনপুট পদ্ধতিলৈ সলনি কৰক"</string>
     <string name="show_language_switch_key">"ভাষা সলনি কৰা কী"</string>
-    <string name="key_preview_popup_dismiss_delay">"কী প\'পআপৰ প্ৰত্যাখ্যান বিলম্ব"</string>
-    <string name="key_preview_popup_dismiss_no_delay">"কোনো বিলম্ব নাই"</string>
-    <string name="key_preview_popup_dismiss_default_delay">"ডিফ\'ল্ট"</string>
     <string name="settings_system_default">"ছিষ্টেম ডিফ\'ল্ট"</string>
     <string name="use_contacts_dict">"সম্পৰ্ক নামৰ পৰামৰ্শ দিয়ক"</string>
     <string name="use_contacts_dict_summary">"পৰামৰ্শ আৰু শুধৰণিৰ বাবে সম্পৰ্কসূচীৰ পৰা নামবোৰ ব্যৱহাৰ কৰক"</string>
@@ -38,7 +35,7 @@
     <string name="prefs_show_suggestions_summary">"টাইপ কৰি থাকোঁতে পৰামৰ্শৰ শব্দবোৰ দেখুৱাওক"</string>
     <string name="prefs_block_potentially_offensive_title">"আপত্তিজনক শব্দবোৰ অৱৰোধ কৰক"</string>
     <string name="prefs_block_potentially_offensive_summary">"সাম্ভাব্য আপত্তিজনক শব্দবোৰৰ পৰামৰ্শ নিদিব"</string>
-    <string name="auto_correction">"স্বয়ং-সংশোধন"</string>
+    <string name="autocorrect">"স্বয়ং-সংশোধন"</string>
     <string name="auto_correction_summary">"স্পেচবাৰ আৰু যতিচিহ্নই ভুলকৈ টাইপ কৰা শব্দবোৰ স্বয়ংক্ৰিয়ভাৱে শুদ্ধ কৰে"</string>
     <string name="auto_correction_threshold_mode_off">"অফ কৰক"</string>
     <string name="auto_correction_threshold_mode_modest">"পৰিমিত"</string>
@@ -53,11 +50,8 @@
     <string name="gesture_floating_preview_text_summary">"আঙুলিৰে নিৰ্দেশ দিয়াৰ সময়ত পৰামৰ্শ দিয়া শব্দটো চাওক"</string>
     <string name="gesture_space_aware">"আঙুলি পিছলাই দিয়া নিৰ্দেশেৰে বাক্যাংশ লিখক"</string>
     <string name="gesture_space_aware_summary">"আঙুলি পিছলাই দিয়া নিৰ্দেশ দিওঁতে স্পেচ কীটোৰ ওপৰেৰে আঙুলি পিছলাই স্পেচ দিয়ক"</string>
-    <string name="configure_input_method">"ইনপুট পদ্ধতিসমূহ কনফিগাৰ কৰক"</string>
     <string name="language_selection_title">"ভাষা"</string>
     <string name="help_and_feedback">"সহায় আৰু মতামত"</string>
-    <string name="select_language">"ভাষা"</string>
-    <string name="keyboard_theme">"কীব\'ৰ্ড থীম"</string>
     <string name="add">"যোগ কৰক"</string>
     <string name="remove">"আঁতৰাওক"</string>
     <string name="save">"ছেভ কৰক"</string>
@@ -74,8 +68,6 @@
     <string name="setup_finish_action">"সম্পূৰ্ণ হ’ল"</string>
     <string name="show_setup_wizard_icon">"এপৰ আইকন দেখুৱাওক"</string>
     <string name="show_setup_wizard_icon_summary">"লঞ্চাৰত এপ্লিকেশ্বন আইকন দেখুৱাওক"</string>
-    <string name="app_name">"অভিধান প্ৰদানকাৰী"</string>
-    <string name="dictionary_provider_name">"অভিধান প্ৰদানকাৰী"</string>
     <string name="dictionary_settings_title">"অতিৰিক্ত অভিধান"</string>
     <string name="dictionary_settings_summary">"অভিধানসমূহৰ বাবে ছেটিংসমূহ"</string>
     <string name="user_dictionaries">"ব্যৱহাৰকাৰীৰ অভিধানসমূহ"</string>
@@ -86,7 +78,7 @@
     <string name="check_for_updates_now">"ৰিফ্ৰেশ্ব কৰক"</string>
     <string name="last_update">"অন্তিমবাৰ আপডে’ট কৰা হৈছিল"</string>
     <string name="main_dict_description">"মুখ্য অভিধান"</string>
-    <string name="go_to_settings">"ছেটিংসমূহ"</string>
+    <string name="settings">"ছেটিংসমূহ"</string>
     <string name="delete_dict">"মচক"</string>
     <string name="user_dict_settings_add_menu_title">"যোগ কৰক"</string>
     <string name="user_dict_settings_add_dialog_title">"অভিধানত যোগ কৰক"</string>

@@ -19,9 +19,6 @@
     <string name="enable_split_keyboard">"Omogoči razdeljeno tipkovnico"</string>
     <string name="language_switch_key_switch_input_method">"Prekl. na drug nač. vnosa"</string>
     <string name="show_language_switch_key">"Tipka za preklop med jeziki"</string>
-    <string name="key_preview_popup_dismiss_delay" msgid="6213164897443068248">"Trajanje povečanja tipke"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Brez zakasnitve"</string>
-    <string name="key_preview_popup_dismiss_default_delay" msgid="2166964333903906734">"Privzeto"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Sistemsko privzeto"</string>
     <string name="use_contacts_dict">"Predlagaj imena stikov"</string>
@@ -38,7 +35,7 @@
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Pokaži predlagane besede med tipkanjem"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blokiraj žaljive besede"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne predlagaj potencialno žaljivih besed"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Samodejni popravek"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Samodejni popravek"</string>
     <string name="auto_correction_summary" msgid="5625751551134658006">"Preslednica in ločila samodejno popravijo napačno vtipkane besede"</string>
     <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Izklopljeno"</string>
     <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Zmerno"</string>
@@ -53,12 +50,8 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Prikaz predlagane besede med vnosom s prstom"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Vnos besed s potezami"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Vnos presledkov pri vnašanju s potezami z drsenjem po preslednici"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Nastavitev načinov vnosa"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Jeziki"</string>
     <string name="help_and_feedback" msgid="5328219371839879161">"Pomoč in povratne informacije"</string>
-    <string name="select_language" msgid="5709487854987078367">"Jeziki"</string>
-    <string name="hint_add_to_dictionary" msgid="2645988432867033007">"Znova se dotaknite, če želite shraniti"</string>
-    <string name="hint_add_to_dictionary_without_word" msgid="6710206006427574423">"Dotaknite se tukaj, če želite shraniti"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angleščina (Združeno kraljestvo)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angleščina (ZDA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"španščina (ZDA)"</string>
@@ -79,7 +72,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Latinica (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Latinica (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">"Emodžiji"</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Tema za tipkovnico"</string>
     <string name="add" msgid="8299699805688017798">"Dodaj"</string>
     <string name="remove" msgid="4486081658752944606">"Odstrani"</string>
     <string name="save" msgid="7646738597196767214">"Shrani"</string>
@@ -108,8 +100,6 @@
     <string name="setup_finish_action" msgid="276559243409465389">"Končano"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Pokaži ikono aplikacije"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Prikaz ikone aplikacije v zaganjalniku"</string>
-    <string name="app_name" msgid="6320102637491234792">"Ponudnik slovarja"</string>
-    <string name="dictionary_provider_name" msgid="3027315045397363079">"Ponudnik slovarja"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Dodatni slovarji"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Nastavitve za slovarje"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Uporabniški slovarji"</string>
@@ -120,7 +110,7 @@
     <string name="check_for_updates_now" msgid="8087688440916388581">"Osveži"</string>
     <string name="last_update" msgid="730467549913588780">"Nazadnje posodobljeno"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Glavni slovar"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Nastavitve"</string>
+    <string name="settings" msgid="3876892339342569259">"Nastavitve"</string>
     <string name="delete_dict" msgid="756853268088330054">"Izbriši"</string>
     <string name="version_text" msgid="2715354215568469385">"Različica <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Dodaj"</string>
@@ -145,12 +135,11 @@
     <string name="select_input_method">"Izberite način vnosa"</string>
     <string name="auto_correction_confidence">Interval zaupanja samodejnih popravkov</string>
     <string name="delete_swipe_summary">Podrsaj z vračalke, da izbereš in izbrišeš večje dele besedila naenkrat</string>
-    <string name="prefs_force_incognito_mode">Vsiljen prikriti način</string>
+    <string name="incognito">Vsiljen prikriti način</string>
     <string name="number_row_summary">Vedno pokaži vrstico s številkami</string>
     <string name="show_hints">Prikaži namige tipk</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Spremeni način vnosa s preslednico</string>
     <string name="key_borders">Robovi tipk</string>
-    <string name="theme_variant">Različica tem</string>
     <string name="settings_category_clipboard_history">Zgodovina odložišča</string>
     <string name="settings_category_correction">Popravki</string>
     <string name="settings_category_suggestions">Predlogi</string>
@@ -164,7 +153,6 @@
     <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja OpenBoard</string>
     <string name="day_night_mode">Samodejni dnevni/nočni način</string>
     <string name="prefs_keyboard_height_scale">Spremeni višino tipkovnice</string>
-    <string name="theme_family">Skupina tem</string>
     <string name="settings_category_experimental">Poskusne možnosti</string>
     <string name="spell_checker_service_name">Pregledovalnik črkovanja OpenBoard</string>
     <string name="ime_settings">Nastavitve OpenBoard</string>

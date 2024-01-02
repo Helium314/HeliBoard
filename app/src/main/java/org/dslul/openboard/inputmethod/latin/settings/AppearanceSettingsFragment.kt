@@ -86,7 +86,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         val metrics = requireContext().resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
         val heightDp = metrics.heightPixels / metrics.density
-        if (!ProductionFlags.IS_SPLIT_KEYBOARD_SUPPORTED || (min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
+        if ((min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
             removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
             removePreference(Settings.PREF_SPLIT_SPACER_SCALE)
         }

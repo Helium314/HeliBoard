@@ -18,6 +18,7 @@ import androidx.preference.Preference
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
+import org.dslul.openboard.inputmethod.latin.utils.ChecksumCalculator
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager
@@ -25,11 +26,12 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
-import org.dslul.openboard.inputmethod.latin.define.DebugFlags
-import org.dslul.openboard.inputmethod.latin.define.JniLibName
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
+import org.dslul.openboard.inputmethod.latin.utils.JniUtils
+import org.dslul.openboard.inputmethod.latin.utils.infoDialog
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.Writer
 import java.util.zip.ZipEntry
@@ -49,10 +51,10 @@ import java.util.zip.ZipOutputStream
  * - Debug settings
  */
 class AdvancedSettingsFragment : SubScreenFragment() {
-    private val TAG = this::class.simpleName
-    private var libfile: File? = null
+    private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
+        "layouts/.*.(txt|json)".toRegex(),
         "dicts/.*/.*user\\.dict".toRegex(),
         "userunigram.*/userunigram.*\\.(body|header)".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
@@ -111,7 +113,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Build.SUPPORTED_ABIS[0]
         } else {
-            Build.CPU_ABI
+            @Suppress("Deprecation") Build.CPU_ABI
         }
         // show delete / add dialog
         val builder = AlertDialog.Builder(requireContext())
@@ -124,10 +126,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     libraryFilePicker.launch(intent)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
-        libfile = File(requireContext().filesDir.absolutePath + File.separator + JniLibName.JNI_LIB_IMPORT_FILE_NAME)
-        if (libfile?.exists() == true) {
+        if (libfile.exists()) {
             builder.setNeutralButton(R.string.load_gesture_library_button_delete) { _, _ ->
-                libfile?.delete()
+                libfile.delete()
                 Runtime.getRuntime().exit(0)
             }
         }
@@ -136,14 +137,42 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     }
 
     private fun copyLibrary(uri: Uri) {
-        if (libfile == null) return
+        val tmpfile = File(requireContext().filesDir.absolutePath + File.separator + "tmplib")
         try {
             val inputStream = requireContext().contentResolver.openInputStream(uri)
-            FileUtils.copyStreamToNewFile(inputStream, libfile)
-            Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
+            val outputStream = FileOutputStream(tmpfile)
+            outputStream.use {
+                tmpfile.setReadOnly() // as per recommendations in https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading
+                FileUtils.copyStreamToOtherStream(inputStream, it)
+            }
+
+            val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
+            Log.i("test", "cs $checksum")
+            if (checksum == JniUtils.expectedDefaultChecksum()) {
+                renameToLibfileAndRestart(tmpfile, checksum)
+            } else {
+                val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Build.SUPPORTED_ABIS[0]
+                } else {
+                    @Suppress("Deprecation") Build.CPU_ABI
+                }
+                AlertDialog.Builder(requireContext())
+                    .setMessage(getString(R.string.checksum_mismatch_message, abi))
+                    .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibfileAndRestart(tmpfile, checksum) }
+                    .setNegativeButton(android.R.string.cancel) { _, _ -> tmpfile.delete() }
+                    .show()
+            }
         } catch (e: IOException) {
+            tmpfile.delete()
             // should inform user, but probably the issues will only come when reading the library
         }
+    }
+
+    private fun renameToLibfileAndRestart(file: File, checksum: String) {
+        libfile.delete()
+        sharedPreferences.edit().putString("lib_checksum", checksum).commit()
+        file.renameTo(libfile)
+        Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
     }
 
     private fun showBackupRestoreDialog(): Boolean {
@@ -310,3 +339,4 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 }
 
 private const val PREFS_FILE_NAME = "preferences.json"
+private const val TAG = "AdvancedSettingsFragment"

@@ -21,13 +21,13 @@
     { "$": "variation_selector",
       "default": { "label": "," },
       "date": { "label": "." },
-      "time": { "time": ".", "popup": { "relevant": [ 
+      "time": { "label": ".", "popup": { "relevant": [
         { "label": "!fixedColumnOrder!2" },
         { "label": "!hasLabels!" },
         { "label": "AM" },
         { "label": "PM" }
       ] } },
-      "datetime": { "time": ".", "popup": { "relevant": [ 
+      "datetime": { "label": ".", "popup": { "relevant": [
         { "label": "!fixedColumnOrder!2" },
         { "label": "!hasLabels!" },
         { "label": "AM" },
@@ -38,8 +38,8 @@
     { "$": "variation_selector",
       "default": { "label": "." },
       "date": { "label": "/" },
-      "time": { "time": ":" },
-      "datetime": { "time": "/ :|/", "popup": { "relevant": [ 
+      "time": { "label": ":" },
+      "datetime": { "label": "/ :|/", "popup": { "relevant": [
         { "label": "!noPanelAutoMoreKey!" },
         { "label": "," }
       ] } }

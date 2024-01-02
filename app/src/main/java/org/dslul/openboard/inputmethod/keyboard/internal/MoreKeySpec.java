@@ -117,7 +117,7 @@ public final class MoreKeySpec {
 
         public void addLetter(@NonNull final Key key) {
             final int code = key.getCode();
-            if (Character.isAlphabetic(code)) {
+            if (code > 32) {
                 mCodes.put(code, 0);
             } else if (code == Constants.CODE_OUTPUT_TEXT) {
                 mTexts.add(key.getOutputText());
@@ -126,7 +126,7 @@ public final class MoreKeySpec {
 
         public boolean contains(@NonNull final MoreKeySpec moreKey) {
             final int code = moreKey.mCode;
-            if (Character.isAlphabetic(code) && mCodes.indexOfKey(code) >= 0) {
+            if (mCodes.indexOfKey(code) >= 0) {
                 return true;
             } else return code == Constants.CODE_OUTPUT_TEXT && mTexts.contains(moreKey.mOutputText);
         }

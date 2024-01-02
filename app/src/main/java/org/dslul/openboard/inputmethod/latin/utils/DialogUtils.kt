@@ -1,9 +1,15 @@
-package org.dslul.openboard.inputmethod.latin.settings
+package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.ContextThemeWrapper
+import org.dslul.openboard.inputmethod.latin.R
 
-// maybe rather put to DialogUtils (and convert that to kotlin)
+fun getPlatformDialogThemeContext(context: Context): Context {
+    // Because {@link AlertDialog.Builder.create()} doesn't honor the specified theme with
+    // createThemeContextWrapper=false, the result dialog box has unneeded paddings around it.
+    return ContextThemeWrapper(context, R.style.platformActivityTheme)
+}
 
 fun confirmDialog(context: Context, message: String, confirmButton: String, onConfirmed: (() -> Unit)) {
     AlertDialog.Builder(context)
@@ -19,6 +25,7 @@ fun infoDialog(context: Context, messageId: Int) {
         .setNegativeButton(android.R.string.ok, null)
         .show()
 }
+
 fun infoDialog(context: Context, message: String) {
     AlertDialog.Builder(context)
         .setMessage(message)

@@ -8,6 +8,7 @@ package org.dslul.openboard.inputmethod.keyboard.internal;
 
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
+import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_OUTPUT_TEXT;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_UNSPECIFIED;
@@ -88,7 +89,9 @@ public final class KeySpecParser {
                     // Treat a sole vertical bar as a special case of key label.
                     return -1;
                 }
-                throw new KeySpecParserError("Empty label");
+                if (DebugFlags.DEBUG_ENABLED)
+                    throw new KeySpecParserError("Empty label");
+                else return -1;
             }
             return labelEnd;
         }
@@ -118,7 +121,8 @@ public final class KeySpecParser {
         if (indexOfLabelEnd(getAfterLabelEnd(keySpec, labelEnd)) < 0) {
             return;
         }
-        throw new KeySpecParserError("Multiple " + VERTICAL_BAR + ": " + keySpec);
+        if (DebugFlags.DEBUG_ENABLED)
+            throw new KeySpecParserError("Multiple " + VERTICAL_BAR + ": " + keySpec);
     }
 
     @Nullable
@@ -132,7 +136,7 @@ public final class KeySpecParser {
         }
         final int labelEnd = indexOfLabelEnd(keySpec);
         final String label = parseEscape(getBeforeLabelEnd(keySpec, labelEnd));
-        if (label.isEmpty()) {
+        if (label.isEmpty() && DebugFlags.DEBUG_ENABLED) {
             throw new KeySpecParserError("Empty label: " + keySpec);
         }
         return label;
@@ -164,13 +168,13 @@ public final class KeySpecParser {
                 // See {@link #getCode(Resources, String)}.
                 return null;
             }
-            if (outputText.isEmpty()) {
+            if (outputText.isEmpty() && DebugFlags.DEBUG_ENABLED) {
                 throw new KeySpecParserError("Empty outputText: " + keySpec);
             }
             return outputText;
         }
         final String label = getLabel(keySpec);
-        if (label == null) {
+        if (label == null && DebugFlags.DEBUG_ENABLED) {
             throw new KeySpecParserError("Empty label: " + keySpec);
         }
         // Code is automatically generated for one letter label. See {@link getCode()}.
@@ -198,7 +202,9 @@ public final class KeySpecParser {
         }
         final String label = getLabel(keySpec);
         if (label == null) {
-            throw new KeySpecParserError("Empty label: " + keySpec);
+            if (DebugFlags.DEBUG_ENABLED)
+                throw new KeySpecParserError("Empty label: " + keySpec);
+            else return CODE_OUTPUT_TEXT;
         }
         // Code is automatically generated for one letter label.
         return (StringUtils.codePointCount(label) == 1) ? label.codePointAt(0) : CODE_OUTPUT_TEXT;

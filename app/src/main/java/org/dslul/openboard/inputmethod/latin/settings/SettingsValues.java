@@ -28,6 +28,7 @@ import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerServi
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 import java.util.Arrays;
@@ -45,7 +46,6 @@ public class SettingsValues {
     // Float.NEGATIVE_INFINITE and Float.MAX_VALUE. Currently used for auto-correction settings.
     private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
     private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
-    private static final int TIMEOUT_TO_GET_TARGET_PACKAGE = 5; // seconds
     public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
     public static final float AUTO_CORRECTION_DISABLED_THRESHOLD = Float.MAX_VALUE;
 
@@ -95,9 +95,7 @@ public class SettingsValues {
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
-    public final boolean mShowAppIcon;
     public final boolean mIsShowAppIconSettingInPreferences;
-    public final boolean mCloudSyncEnabled;
     public final boolean mShouldShowLxxSuggestionUi;
     // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
@@ -108,7 +106,6 @@ public class SettingsValues {
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
-    public final List<String> mPinnedKeys;
     public final float mBottomPaddingScale;
 
     // From the input box
@@ -133,6 +130,7 @@ public class SettingsValues {
     @Nullable
     public final String mAccount;
 
+    // creation of Colors and SpacingAndPunctuations are the slowest parts in here, but still ok
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
@@ -185,19 +183,15 @@ public class SettingsValues {
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
         mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
         mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs, res);
-        mEnableEmojiAltPhysicalKey = prefs.getBoolean(
-                Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
-        mShowAppIcon = Settings.readShowSetupWizardIcon(prefs, context);
+        mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
-        mCloudSyncEnabled = prefs.getBoolean(LocalSettingsConstants.PREF_ENABLE_CLOUD_SYNC, false);
-        mAccount = prefs.getString(LocalSettingsConstants.PREF_ACCOUNT_NAME,
-                null /* default */);
+        mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
-                //&& !mInputAttributes.mInputTypeNoAutoCorrect;
+                //&& !mInputAttributes.mInputTypeNoAutoCorrect; // follow that request or not?
         mSuggestionsEnabledPerUserSettings = !mInputAttributes.mIsPasswordField &&
                 readSuggestionsEnabled(prefs);
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
@@ -249,7 +243,6 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
-        mPinnedKeys = Settings.readPinnedKeys(prefs);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
     }
@@ -265,10 +258,6 @@ public class SettingsValues {
 
     public boolean isSuggestionsEnabledPerUserSettings() {
         return mSuggestionsEnabledPerUserSettings;
-    }
-
-    public boolean isPersonalizationEnabled() {
-        return mUsePersonalizedDicts;
     }
 
     public boolean isWordSeparator(final int code) {

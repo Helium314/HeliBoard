@@ -37,8 +37,7 @@ public final class ViewLayoutUtils {
     public static void placeViewAt(final View view, final int x, final int y, final int w,
             final int h) {
         final ViewGroup.LayoutParams lp = view.getLayoutParams();
-        if (lp instanceof MarginLayoutParams) {
-            final MarginLayoutParams marginLayoutParams = (MarginLayoutParams)lp;
+        if (lp instanceof final MarginLayoutParams marginLayoutParams) {
             marginLayoutParams.width = w;
             marginLayoutParams.height = h;
             marginLayoutParams.setMargins(x, y, 0, 0);
@@ -63,14 +62,12 @@ public final class ViewLayoutUtils {
 
     public static void updateLayoutGravityOf(final View view, final int layoutGravity) {
         final ViewGroup.LayoutParams lp = view.getLayoutParams();
-        if (lp instanceof LinearLayout.LayoutParams) {
-            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)lp;
+        if (lp instanceof final LinearLayout.LayoutParams params) {
             if (params.gravity != layoutGravity) {
                 params.gravity = layoutGravity;
                 view.setLayoutParams(params);
             }
-        } else if (lp instanceof FrameLayout.LayoutParams) {
-            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)lp;
+        } else if (lp instanceof final FrameLayout.LayoutParams params) {
             if (params.gravity != layoutGravity) {
                 params.gravity = layoutGravity;
                 view.setLayoutParams(params);

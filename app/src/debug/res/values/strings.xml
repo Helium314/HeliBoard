@@ -4,7 +4,7 @@
 -->
 <resources>
     <string name="english_ime_name" translatable="false">OpenBoard debug</string>
-    <string name="spell_checker_service_name">OpenBoard debug Spell Checker</string>
-    <string name="ime_settings">OpenBoard debug Settings</string>
+    <string name="spell_checker_service_name" translatable="false">OpenBoard debug Spell Checker</string>
+    <string name="ime_settings" translatable="false">OpenBoard debug Settings</string>
 
 </resources>

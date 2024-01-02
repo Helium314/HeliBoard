@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import static org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet.ICON_UNDEFINED;
+import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_ALPHA_FROM_NUMPAD;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_OUTPUT_TEXT;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_SHIFT;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.CODE_SWITCH_ALPHA_SYMBOL;
@@ -344,7 +345,10 @@ public class Key implements Comparable<Key> {
         mMoreKeys = moreKeys;
         mMoreKeysColumnAndFlags = key.mMoreKeysColumnAndFlags;
         mBackgroundType = key.mBackgroundType;
-        mActionFlags = key.mActionFlags;
+        if (moreKeys == null && mCode > Constants.CODE_SPACE && (key.mActionFlags & ACTION_FLAGS_ENABLE_LONG_PRESS) != 0)
+            mActionFlags = key.mActionFlags - ACTION_FLAGS_ENABLE_LONG_PRESS;
+        else
+            mActionFlags = key.mActionFlags;
         mKeyVisualAttributes = key.mKeyVisualAttributes;
         mOptionalAttributes = key.mOptionalAttributes;
         mHashCode = key.mHashCode;
@@ -515,7 +519,7 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isModifier() {
-        return mCode == CODE_SHIFT || mCode == CODE_SWITCH_ALPHA_SYMBOL;
+        return mCode == CODE_SHIFT || mCode == CODE_SWITCH_ALPHA_SYMBOL || mCode == CODE_ALPHA_FROM_NUMPAD;
     }
 
     public final boolean isRepeatable() {

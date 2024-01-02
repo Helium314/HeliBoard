@@ -23,6 +23,10 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
+import org.dslul.openboard.inputmethod.latin.utils.addEnabledSubtype
+import org.dslul.openboard.inputmethod.latin.utils.isAdditionalSubtype
+import org.dslul.openboard.inputmethod.latin.utils.locale
+import org.dslul.openboard.inputmethod.latin.utils.removeEnabledSubtype
 import org.dslul.openboard.inputmethod.latin.utils.showMissingDictionaryDialog
 import org.dslul.openboard.inputmethod.latin.utils.toLocale
 

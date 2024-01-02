@@ -3,11 +3,13 @@ package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,15 +30,6 @@ private const val MORE_KEYS_SYMBOLS = "more_keys_symbols"
 private const val MORE_KEYS_LANGUAGE = "more_keys_language"
 const val MORE_KEYS_LABEL_DEFAULT = "$MORE_KEYS_NUMBER,true;$MORE_KEYS_LANGUAGE_PRIORITY,false;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LANGUAGE,false"
 const val MORE_KEYS_ORDER_DEFAULT = "$MORE_KEYS_LANGUAGE_PRIORITY,true;$MORE_KEYS_NUMBER,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_LANGUAGE,true"
-
-// todo:
-//  could be done later:
-//   some way to allow hint labels in symbols layout
-//   remove duplicate symbol moreKeys
-//    in remove_symbol_duplicates.patch
-//    issues, see comments
-//   maybe put "language" moreKeys into a different category when not using alphabet layout
-//    because disabling language moreKeys will remove e.g. quote moreKeys
 
 fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): Array<String>? {
     // often moreKeys are empty, so we want to avoid unnecessarily creating sets
@@ -119,14 +112,18 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
         override fun areItemsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
         override fun areContentsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
     }
+    val bgColor = if (ResourceUtils.isNight(context.resources))
+            ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_dark)
+        else ContextCompat.getColor(context, androidx.appcompat.R.color.background_floating_material_light)
     val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
             val b = LayoutInflater.from(context).inflate(R.layout.morekeys_list_item, rv, false)
+            b.setBackgroundColor(bgColor)
             return object : RecyclerView.ViewHolder(b) { }
         }
         override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
             val (text, wasChecked) = orderedItems[p1]
-            val displayTextId = context.resources.getIdentifier(text, "string", context.packageName)
+            val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
             val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
             p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
             val switch = p0.itemView.findViewById<SwitchCompat>(R.id.morekeys_switch)

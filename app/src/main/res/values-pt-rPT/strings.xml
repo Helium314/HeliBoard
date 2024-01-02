@@ -20,9 +20,6 @@
     <string name="enable_split_keyboard">"Ativar teclado dividido"</string>
     <string name="language_switch_key_switch_input_method">"Mudar p/ outros mét. ent."</string>
     <string name="show_language_switch_key">"Tecla alterar idioma"</string>
-    <string name="key_preview_popup_dismiss_delay">"Atraso p/ ignorar pop-up"</string>
-    <string name="key_preview_popup_dismiss_no_delay" msgid="2096123151571458064">"Sem atraso"</string>
-    <string name="key_preview_popup_dismiss_default_delay">"Predefinido"</string>
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predef. do sistema"</string>
     <string name="use_contacts_dict">"Sugerir nomes de Contactos"</string>
@@ -39,7 +36,7 @@
     <string name="prefs_show_suggestions_summary">"Apresentar sugestões de palavras ao escrever"</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloquear palavras ofensivas"</string>
     <string name="prefs_block_potentially_offensive_summary">"Não sugerir palavras potencialmente ofensivas"</string>
-    <string name="auto_correction" msgid="7630720885194996950">"Correção automática"</string>
+    <string name="autocorrect" msgid="7630720885194996950">"Correção automática"</string>
     <string name="auto_correction_summary">"Correcção automática de palavras mal escritas c/ barra de espaços e pontuação"</string>
     <string name="auto_correction_threshold_mode_off">"Desligar"</string>
     <string name="auto_correction_threshold_mode_modest">"Moderada"</string>
@@ -54,12 +51,8 @@
     <string name="gesture_floating_preview_text_summary">"Ver palavra sugerida enquanto toca"</string>
     <string name="gesture_space_aware">"Toque de expressão"</string>
     <string name="gesture_space_aware_summary">"Deslize p/ a tecla de espaço p/ introduzir espaços durante toques"</string>
-    <string name="configure_input_method" msgid="373356270290742459">"Configurar métodos de introdução"</string>
     <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
     <string name="help_and_feedback">"Ajuda e comentários"</string>
-    <string name="select_language" msgid="5709487854987078367">"Idiomas"</string>
-    <string name="hint_add_to_dictionary">"Tocar novamente para guardar"</string>
-    <string name="hint_add_to_dictionary_without_word">"Tocar aqui para guardar"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Inglês (Reino Unido)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Inglês (EUA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Espanhol (EUA)"</string>
@@ -80,7 +73,6 @@
     <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Alfabeto (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabeto (PC)"</string>
     <string name="subtype_emoji" msgid="7483586578074549196">Emojis</string>
-    <string name="keyboard_theme" msgid="4909551808526178852">"Tema do teclado"</string>
     <string name="add" msgid="8299699805688017798">"Adicionar"</string>
     <string name="remove" msgid="4486081658752944606">"Remover"</string>
     <string name="save" msgid="7646738597196767214">"Guardar"</string>
@@ -109,8 +101,6 @@
     <string name="setup_finish_action">"Concluído"</string>
     <string name="show_setup_wizard_icon">"Mostrar ícone da aplicação"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone da aplicação no iniciador"</string>
-    <string name="app_name">"Fornecedor de Dicionário"</string>
-    <string name="dictionary_provider_name">"Fornecedor de Dicionário"</string>
     <string name="dictionary_settings_title">"Dicionários suplementares"</string>
     <string name="dictionary_settings_summary">"Definições dos dicionários"</string>
     <string name="user_dictionaries" msgid="3582332055892252845">"Dicionários do utilizador"</string>
@@ -121,7 +111,7 @@
     <string name="check_for_updates_now">"Atualizar"</string>
     <string name="last_update" msgid="730467549913588780">"Última atualização"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Dicionário principal"</string>
-    <string name="go_to_settings" msgid="3876892339342569259">"Definições"</string>
+    <string name="settings" msgid="3876892339342569259">"Definições"</string>
     <string name="delete_dict" msgid="756853268088330054">"Eliminar"</string>
     <string name="version_text" msgid="2715354215568469385">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Adicionar"</string>
@@ -147,7 +137,7 @@
     <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla Eliminar para selecionar e remover grandes porções de texto de uma vez</string>
     <string name="show_emoji_key">Tecla de emoji</string>
-    <string name="prefs_force_incognito_mode">Impor modo incógnito</string>
+    <string name="incognito">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
     <string name="spell_checker_service_name">Verificação ortográfica OpenBoard</string>
@@ -169,8 +159,6 @@
     <string name="prefs_keyboard_height_scale">Altura do teclado</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
-    <string name="theme_family">Família do tema</string>
-    <string name="theme_variant">Variante do tema</string>
     <string name="key_borders">Limite das teclas</string>
     <string name="android_spell_checker_settings">Definições de verificação ortográfica OpenBoard</string>
     <string name="auto_correction_confidence">Confiança da correção automática</string>

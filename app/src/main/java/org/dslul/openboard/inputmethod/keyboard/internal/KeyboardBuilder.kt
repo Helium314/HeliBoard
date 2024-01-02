@@ -7,7 +7,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal
 
 import android.content.Context
 import android.content.res.Resources
-import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.util.Xml
 import androidx.annotation.XmlRes
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
@@ -22,6 +21,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
 
@@ -47,69 +47,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mAllowRedundantMoreKeys = enabled
     }
 
-        // todo: further plan
-        //  after the old parser is removed
-        //   maybe the language -> layout thing could be moved to assets? and maybe even here the extra keys could be defined...
-        //    should be either both in method.xml, or both in assets (actually method might be more suitable)
-        //   go through a lot of todos in parsers, key, keyboardlayoutset, ... as a lot of things should only change after old parser is removed
-        //   also remove the keyboard_layout_set files?
-        //  allow users to define their own layouts (maybe do everything else first?)
-        //   need to solve the scaling issue with number row and 5 row keyboards
-        //   write up how things work for users, also regarding language more keys
-        //    readme, maybe also some "help" button in a dialog
-        //   some sort of proper UI, or simply text input?
-        //    better text import for the start because of much work
-        //    ui follows later (consider that users need to be able to start from existing layouts!)
-        //   some warning if more than 2 or 3 characters on a single label
-        //    currently can't resize keys, but could set autoXScale (does only decrease size, never increase)
-        //   careful about moreKeys: if moreKeys don't fit on screen, parser throws an exception!
-        //    need to somehow test for this
-        //    is that autoColumnOrder thing a workaround for that?
-        //     still would crash for a single huge label
-        //   potential keyspec parsing issues:
-        //    MoreKeySpec constructor does things like KeySpecParser.getLabel and others
-        //     these work with special characters like | and \ doing things depending on their position
-        //     if used wrongly, things can crash
-        //     -> maybe disable this style of parsing when creating MoreKeySpec of a user-provided layout
-        //      or also for the simple layouts, because there is no need to have it in layouts
-        //    does the same issue apply to normal key labels?
-        //   popup and (single key) long press preview rescale the label on x only, which may deform emojis
-        //   does glide typing work with multiple letters on one key? if not, users should be notified
-        //   maybe allow users to define their own symbol and shift-symbol layouts
-        //   allow users to import layouts, which essentially just fills the text from a file
-
-        // labelFlags should be set correctly
-        //  alignHintLabelToBottom: on lxx and rounded themes, but did not find what it actually does...
-        //  alignIconToBottom: space_key_for_number_layout
-        //  alignLabelOffCenter: number keys in phone layout
-        //  fontNormal: turkish (rows 1 and 2 only), .com, emojis, numModeKeyStyle, a bunch of non-latin languages
-        //    -> switches to normal typeface, only relevant for holo which has bold
-        //  fontMonoSpace: unused
-        //  fontDefault: keyExclamationQuestion, a bunch of "normal" keys in fontNormal layouts like thai
-        //    -> switches to default defined typeface, useful e.g. if row has fontNormal
-        //  followKeyLargeLetterRatio: number keys in number/phone/numpad layouts
-        //  followKeyLetterRatio: mode keys in number layouts, some keys in some non-latin layouts
-        //  followKeyLabelRatio: enter key, some keys in phone layout (same as followKeyLetterRatio + followKeyLargeLetterRatio)
-        //  followKeyHintLabelRatio: unused directly (but includes some others)
-        //  hasPopupHint: basically the long-pressable functional keys
-        //  hasShiftedLetterHint: period key and some keys on pcqwerty
-        //  hasHintLabel: number keys in number layouts
-        //  autoXScale: com key, action keys, some on phone layout, some non-latin languages
-        //  autoScale: only one single letter in khmer layout (includes autoXScale)
-        //  preserveCase: action key + more keys, com key, shift keys
-        //  shiftedLetterActivated: period and some keys on pcqwerty, tablet only (wtf, when enabled can't open moreKeys -> remove? or what would be the use?)
-        //  fromCustomActionLabel: action key with customLabelActionKeyStyle -> check parser where to get this info
-        //  followFunctionalTextColor: number mode keys, action key
-        //  keepBackgroundAspectRatio: lxx and rounded action more keys, lxx no-border action and emoji, moreKeys keyboard view
-        //  disableKeyHintLabel: keys in pcqwerty row 1 and number row
-        //  disableAdditionalMoreKeys: only keys in pcqwerty row 1 so there is no number row -> not necessary with the new layouts, just remove it completely
-        //  maybe remove some of the flags? or keep supporting them?
-        //  for pcqwerty: hasShiftedLetterHint -> hasShiftedLetterHint|shiftedLetterActivated when shift is enabled, need to consider if the flag is used
-        //   actually period key also has shifted letter hint
-
-    fun load(xmlId: Int, id: KeyboardId): KeyboardBuilder<KP> {
+    fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {
+            setAllowRedundantMoreKeys(true)
             readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
@@ -119,7 +60,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
                 // add label source only if moreKey type enabled
                 sv.mMoreKeyLabelSources.forEach { if (it in sv.mMoreKeyTypes) mParams.mMoreKeyLabelSources.add(it) }
-                keysInRows = KeyboardParser.parseFromAssets(mParams, mContext)
+                keysInRows = if (mParams.mId.isAlphabetKeyboard && mParams.mId.mSubtype.isCustom)
+                        KeyboardParser.parseCustom(mParams, mContext)
+                    else
+                        KeyboardParser.parseFromAssets(mParams, mContext)
                 determineAbsoluteValues()
             } catch (e: Exception) {
                 Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
@@ -164,9 +108,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // determine key size and positions using relative width and height
-    // ideally this should not change anything
-    //  but it does a little, depending on how float -> int is done (cast or round, and when to sum up gaps and width)
-    //  still should not be more than a pixel difference
     private fun determineAbsoluteValues() {
         var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
@@ -186,6 +127,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // necessary for adjusting widths and positions properly
     // without adding spacers whose width can then be adjusted, we would have to deal with keyXPos,
     // which is more complicated than expected
+    // todo: remove? maybe was only necessary with old parser
     private fun fillGapsWithSpacers(row: MutableList<KeyParams>) {
         if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
         if (row.isEmpty()) return

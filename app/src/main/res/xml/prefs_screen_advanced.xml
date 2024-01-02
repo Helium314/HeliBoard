@@ -12,7 +12,7 @@
 
     <SwitchPreferenceCompat
         android:key="pref_always_incognito_mode"
-        android:title="@string/prefs_force_incognito_mode"
+        android:title="@string/incognito"
         android:summary="@string/prefs_force_incognito_mode_summary"
         android:defaultValue="false" />
 

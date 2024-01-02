@@ -8,11 +8,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 /**
  * Debug settings for the application.
- *
- * Note: Even though these settings are stored in the default shared preferences file,
- * they shouldn't be restored across devices.
- * If a new key is added here, it should also be blacklisted for restore in
- * {@link LocalSettingsConstants}.
  */
 public final class DebugSettings {
     public static final String PREF_DEBUG_MODE = "debug_mode";

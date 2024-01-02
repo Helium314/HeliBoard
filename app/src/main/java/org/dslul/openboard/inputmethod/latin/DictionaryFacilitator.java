@@ -12,18 +12,13 @@ import android.util.LruCache;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -47,13 +42,11 @@ public interface DictionaryFacilitator {
 
     /**
      * The facilitator will put words into the cache whenever it decodes them.
-     * @param cache
      */
     void setValidSpellingWordReadCache(final LruCache<String, Boolean> cache);
 
     /**
      * The facilitator will get words from the cache whenever it needs to check their spelling.
-     * @param cache
      */
     void setValidSpellingWordWriteCache(final LruCache<String, Boolean> cache);
 
@@ -77,8 +70,7 @@ public interface DictionaryFacilitator {
 
     /**
      * Called every time {@link LatinIME} starts on a new text field.
-     * Dot not affect {@link AndroidSpellCheckerService}.
-     *
+     * <p>
      * WARNING: The service methods that call start/finish are very spammy.
      */
     void onStartInput();
@@ -87,8 +79,7 @@ public interface DictionaryFacilitator {
      * Called every time the {@link LatinIME} finishes with the current text field.
      * May be followed by {@link #onStartInput} again in another text field,
      * or it may be done for a while.
-     * Dot not affect {@link AndroidSpellCheckerService}.
-     *
+     * <p>
      * WARNING: The service methods that call start/finish are very spammy.
      */
     void onFinishInput(Context context);
@@ -118,19 +109,7 @@ public interface DictionaryFacilitator {
 
     void removeWord(String word);
 
-    @UsedForTesting
-    void resetDictionariesForTesting(
-            final Context context,
-            final Locale locale,
-            final ArrayList<String> dictionaryTypes,
-            final HashMap<String, File> dictionaryFiles,
-            final Map<String, Map<String, String>> additionalDictAttributes,
-            @Nullable final String account);
-
     void closeDictionaries();
-
-    @UsedForTesting
-    ExpandableBinaryDictionary getSubDictForTesting(final String dictName);
 
     // The main dictionaries are loaded asynchronously. Don't cache the return value
     // of these methods.
@@ -139,10 +118,6 @@ public interface DictionaryFacilitator {
     boolean hasAtLeastOneUninitializedMainDictionary();
 
     void waitForLoadingMainDictionaries(final long timeout, final TimeUnit unit)
-            throws InterruptedException;
-
-    @UsedForTesting
-    void waitForLoadingDictionariesForTesting(final long timeout, final TimeUnit unit)
             throws InterruptedException;
 
     void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,

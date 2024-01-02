@@ -63,12 +63,6 @@
     <string name="show_language_switch_key">Language switch key</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
-    <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->
-    <string name="key_preview_popup_dismiss_delay">Key popup dismiss delay</string>
-    <!-- Description for delay for dismissing a popup on keypress: no delay [CHAR LIMIT=15] -->
-    <string name="key_preview_popup_dismiss_no_delay">No delay</string>
-    <!-- Description for delay for dismissing a popup on screen: default value of the delay [CHAR LIMIT=15] -->
-    <string name="key_preview_popup_dismiss_default_delay">Default</string>
     <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <!-- Units abbreviation for the duration (minutes) [CHAR LIMIT=10] -->
@@ -113,7 +107,7 @@
     <string name="prefs_block_potentially_offensive_summary">Do not suggest potentially offensive words</string>
     <!-- Option to decide the auto correction threshold score -->
     <!-- Option to enable auto correction [CHAR LIMIT=20]-->
-    <string name="auto_correction">Auto-correction</string>
+    <string name="autocorrect">Auto-correction</string>
     <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
     <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
@@ -183,6 +177,8 @@
     <!-- Message in load gesture library dialog -->
     <string name="load_gesture_library_message">You will need the library for \'%s\'. Incompatible libraries may crash when using gesture typing.
         \n\nWarning: loading external code can be a security risk. Only use a library from a source you trust.</string>
+    <!-- Message when the library checksum doesn't match -->
+    <string name="checksum_mismatch_message">Unknown library file. Are you sure you got it from a trusted source and it is for \'%s\'?</string>
     <!-- Button text for loading gesture library -->
     <string name="load_gesture_library_button_load">Load library</string>
     <!-- Button text for deleting gesture library -->
@@ -204,24 +200,16 @@
     <!-- Description for "url_detection_title" option. -->
     <string name="url_detection_summary">Try to detect URLs and similar as a single word</string>
     <!-- Preferences item for disabling word learning -->
-    <string name="prefs_force_incognito_mode">Force incognito mode</string>
+    <string name="incognito">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "more keys" suggestions view -->
     <string name="more_keys_strip_description">More keys</string>
-    <!-- Title for configuring input method settings [CHAR LIMIT=35] -->
-    <string name="configure_input_method">Configure input methods</string>
     <!-- Title for input language selection screen -->
     <string name="language_selection_title">Languages</string>
     <!-- Title for the 'Help & feedback' settings fragment which shows a help page and has a button
          for submitting feedback. [CHAR LIMIT=35] -->
     <string name="help_and_feedback">Help &amp; feedback</string>
-    <!-- Preference for input language selection -->
-    <string name="select_language">Languages</string>
-    <!-- Add to dictionary hint -->
-    <string name="hint_add_to_dictionary">Tap again to save</string>
-    <!-- Add to dictionary hint -->
-    <string name="hint_add_to_dictionary_without_word">Tap here to save</string>
     <!-- Title of the settings to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
@@ -238,11 +226,28 @@
     <string name="hint_source">Select hint source</string>
     <!-- Title of the settings to set popup key order -->
     <string name="popup_order">Select popup key order</string>
-    <string name="more_keys_number">Number row</string>
-    <string name="more_keys_language">Language</string>
-    <string name="more_keys_language_priority">Language (priority)</string>
-    <string name="more_keys_layout">Layout</string>
-    <string name="more_keys_symbols">Symbols</string>
+    <!-- Names of the more key classes -->
+    <string name="more_keys_number" tools:keep="@string/more_keys_number">Number row</string>
+    <string name="more_keys_language" tools:keep="@string/more_keys_language">Language</string>
+    <string name="more_keys_language_priority" tools:keep="@string/more_keys_language_priority">Language (priority)</string>
+    <string name="more_keys_layout" tools:keep="@string/more_keys_layout">Layout</string>
+    <string name="more_keys_symbols" tools:keep="@string/more_keys_symbols">Symbols</string>
+    <!-- Title of the settings to set toolbar keys -->
+    <string name="toolbar_keys">Select toolbar keys</string>
+    <!-- Names of the toolbar keys-->
+    <string name="copy" tools:keep="@string/copy">Copy</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
+    <string name="voice" tools:keep="@string/voice">Voice input</string>
+    <string name="settings" tools:keep="@string/settings">Settings</string>
+    <string name="select_all" tools:keep="@string/select_all">Select all</string>
+    <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
+    <string name="left" tools:keep="@string/left">Left</string>
+    <string name="right" tools:keep="@string/right">Right</string>
+    <string name="up" tools:keep="@string/up">Up</string>
+    <string name="down" tools:keep="@string/down">Down</string>
+    <string name="undo" tools:keep="@string/undo">Undo</string>
+    <string name="redo" tools:keep="@string/redo">Redo</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
@@ -394,8 +399,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
     <!-- Description for Emoji keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_emoji">Emoji</string>
-    <!-- Title of the preference settings for switching keyboard theme [CHAR LIMIT=35] -->
-    <string name="keyboard_theme">Keyboard theme</string>
     <!-- Title of the button to add custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="add">Add</string>
     <!-- Title of the button to remove a custom style entry in the settings dialog [CHAR LIMIT=15] -->
@@ -404,8 +407,24 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="save">Save</string>
     <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="subtype_locale">Language</string>
-    <!-- Title of the spinner for choosing a keyboard layout of custom style in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the section for choosing a keyboard layout language settings dialog -->
     <string name="keyboard_layout_set">Layout</string>
+    <!-- Button text and title for adding a custom layout -->
+    <string name="button_title_add_custom_layout">Add custom layout</string>
+    <!-- Message text for adding a custom layout, interpreted as HTML -->
+    <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
+    <!-- Button text for loading a custom layout file -->
+    <string name="button_load_custom_layout">Load file</string>
+    <!-- Button text for copying an existing layout -->
+    <string name="button_copy_existing_layout">Copy existing layout</string>
+    <!-- Title text for choosing a layout name -->
+    <string name="title_layout_name_select">Set layout name</string>
+    <!-- Message when deleting a layouts -->
+    <string name="delete_layout">Really delete custom layout %s?</string>
+    <!-- Message on layout error -->
+    <string name="layout_error">Layout error: %s</string>
+    <!-- Text hint for editing layout -->
+    <string name="edit_layout">Tap to edit raw layout</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
@@ -460,10 +479,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="show_setup_wizard_icon">Show app icon</string>
     <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
-    <!-- The dictionary provider application name. Visible in Settings/Applications/Manage applications. -->
-    <string name="app_name">Dictionary Provider</string>
-    <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
-    <string name="dictionary_provider_name">Dictionary Provider</string>
     <!-- Title and summary of the dictionary settings screen -->
     <string name="dictionary_settings_title">Add-on dictionaries</string>
     <!-- Title for the prompt dialog which informs the user that a dictionary is available for the current language and asks to decide whether to download it over 3g -->
@@ -481,9 +496,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Button in dialog for adding dictionary to specific locale -->
     <string name="button_add_to_language">"Add to %s"</string>
     <!-- Message for user dictionary replacement dialog -->
-    <string name="replace_dictionary_message">"Really replace user-added dictionary \"%s\"?"</string>
-    <!-- Message for user dictionary replacement dialog -->
-    <string name="replace_dictionary_message2">"Really replace user-added dictionary \"%1$s\"?\n
+    <string name="replace_dictionary_message">"Really replace user-added dictionary \"%1$s\"?\n
 Current dictionary:
 %2$s\n
 New dictionary:
@@ -529,8 +542,6 @@ New dictionary:
     <string name="last_update">Last updated</string>
     <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
     <string name="main_dict_description">Main dictionary</string>
-    <!-- Title of the button in a dialog box. The button takes the user to the keyboard settings. [CHAR LIMIT=15] -->
-    <string name="go_to_settings">Settings</string>
     <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
     <string name="delete_dict">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
@@ -594,15 +605,11 @@ New dictionary:
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
     <!-- Style name for Rounded style -->
-    <string name="style_name_Rounded">Rounded</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rounded</string>
     <!-- Option for choosing colors [CHAR LIMIT=33] -->
     <string name="theme_colors">Colors</string>
     <!-- Option for choosing colors for night mode [CHAR LIMIT=33] -->
     <string name="theme_colors_night">Colors (night)</string>
-    <!-- TODO: remove the 3 strings below from all files, translation editor could do it but seems completely broken -->
-    <string name="theme_family">Theme family</string>
-    <string name="theme_variant">Theme variant</string>
-    <string name="theme_variant_night">Theme variant (night)</string>
     <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
     <string name="key_borders">Key borders</string>
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
@@ -647,6 +654,8 @@ New dictionary:
     <string name="select_color_key">Key text</string>
     <!-- Selection: key hint text color. -->
     <string name="select_color_key_hint">Key hint text</string>
+    <!-- Selection: suggestion text color. -->
+    <string name="select_color_suggestion">Suggestion strip text</string>
     <!-- Selection: key color. -->
     <string name="select_color_key_background">Key background</string>
     <!-- Selection: functional key color. -->

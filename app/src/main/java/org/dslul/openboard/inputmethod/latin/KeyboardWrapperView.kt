@@ -82,7 +82,6 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)
-                    prefs.edit().putFloat(Settings.PREF_ONE_HANDED_SCALE, newScale).apply()
                     oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
                     keyboardActionListener?.onCodeInput(Constants.CODE_START_ONE_HANDED_MODE,
                         Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)

@@ -137,7 +137,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
         val systemLocale = context.resources.configuration.locale
         val newInfo = header.info(systemLocale)
         val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(systemLocale)
-        confirmDialog(context, context.getString(R.string.replace_dictionary_message2, dictionaryType, newInfo, oldInfo), context.getString(
+        confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType, newInfo, oldInfo), context.getString(
             R.string.replace_dictionary)) {
             moveDict(true)
         }
