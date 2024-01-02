@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package org.dslul.openboard.inputmethod.latin.userdictionary;
+package org.dslul.openboard.inputmethod.latin.settings;
 
 import androidx.fragment.app.Fragment;
 
@@ -14,7 +14,7 @@ import java.util.Locale;
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryLocalePicker.java
 // in order to deal with some devices that have issues with the user dictionary handling
 
-public class UserDictionaryLocalePicker extends Fragment {
+public class UserDictionaryLocalePicker extends SubScreenFragment {
     public UserDictionaryLocalePicker() {
         super();
         // TODO: implement

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package org.dslul.openboard.inputmethod.latin.userdictionary;
+package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -23,8 +23,6 @@ import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.settings.Settings;
-import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
@@ -50,9 +48,6 @@ public class UserDictionaryAddWordContents {
     public static final String EXTRA_WEIGHT = "weight";
     public static final String EXTRA_SHORTCUT = "shortcut";
     public static final String EXTRA_LOCALE = "locale";
-    public static final String EXTRA_ORIGINAL_WORD = "originalWord";
-    public static final String EXTRA_ORIGINAL_SHORTCUT = "originalShortcut";
-    public static final String EXTRA_ORIGINAL_WEIGHT = "originalWeight";
 
     public static final int MODE_EDIT = 0;
     public static final int MODE_INSERT = 1;
@@ -129,22 +124,6 @@ public class UserDictionaryAddWordContents {
     // It may also be the empty string, which means "all locales"
     /* package */ void updateLocale(final String locale) {
         mLocale = null == locale ? Locale.getDefault().toString() : locale;
-    }
-
-    /* package */ void saveStateIntoBundle(final Bundle outState) {
-        outState.putString(EXTRA_WORD, mWordEditText.getText().toString());
-        outState.putString(EXTRA_ORIGINAL_WORD, mOldWord);
-
-        outState.putString(EXTRA_WEIGHT, mWeightEditText.getText().toString());
-        outState.putString(EXTRA_ORIGINAL_WEIGHT, mOldWeight);
-
-        if (null != mShortcutEditText) {
-            outState.putString(EXTRA_SHORTCUT, mShortcutEditText.getText().toString());
-        }
-        if (null != mOldShortcut) {
-            outState.putString(EXTRA_ORIGINAL_SHORTCUT, mOldShortcut);
-        }
-        outState.putString(EXTRA_LOCALE, mLocale);
     }
 
     /* package */ void delete(final Context context) {
@@ -301,7 +280,7 @@ public class UserDictionaryAddWordContents {
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
         // List of user dictionary
-        final TreeSet<String> userDictionaryList = UserDictionaryList.getUserDictionaryLocalesSet(activity);
+        final TreeSet<String> userDictionaryList = UserDictionaryListFragment.getUserDictionaryLocalesSet(activity);
 
         // For each language in each list, entries are handled only by language subtype and not by name,
         // except for subtypes ending in "zz" or "ZZ".

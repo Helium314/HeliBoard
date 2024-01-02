@@ -4,13 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package org.dslul.openboard.inputmethod.latin.userdictionary;
+package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
@@ -26,12 +25,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
 import java.util.HashSet;
@@ -44,17 +41,43 @@ import java.util.TreeSet;
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryList.java
 // in order to deal with some devices that have issues with the user dictionary handling
 
-public class UserDictionaryList extends PreferenceFragmentCompat {
+public class UserDictionaryListFragment extends SubScreenFragment {
 
     public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =
             "android.settings.USER_DICTIONARY_SETTINGS";
+    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
     @Override
-    public void onCreatePreferences(@Nullable Bundle bundle, @Nullable String s) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            getPreferenceManager().setStorageDeviceProtected();
-        }
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(requireContext()));
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.edit_personal_dictionary);
+        }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        createUserDictSettings(getPreferenceScreen());
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
+                .setIcon(R.drawable.ic_plus);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == OPTIONS_MENU_ADD) {
+            showAddWordDialog();
+            return true;
+        }
+        return false;
     }
 
     public static TreeSet<String> getUserDictionaryLocalesSet(final Activity activity) {
@@ -115,7 +138,7 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
         userDictGroup.removeAll();
-        final TreeSet<String> enabledUserDictionary = UserDictionaryList.getUserDictionaryLocalesSet(requireActivity());
+        final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
         // List of all enabled system languages
@@ -164,11 +187,6 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
     protected Preference createUserDictionaryPreference(@Nullable final String localeString) {
         final Preference newPref = new Preference(requireContext());
         final Intent intent = new Intent(USER_DICTIONARY_SETTINGS_INTENT_ACTION);
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.edit_personal_dictionary);
-        }
-        setHasOptionsMenu(true);
 
         if (null == localeString) {
             newPref.setTitle(Locale.getDefault().getDisplayName());
@@ -184,31 +202,8 @@ public class UserDictionaryList extends PreferenceFragmentCompat {
         }
         newPref.setIntent(intent);
         newPref.setFragment(UserDictionarySettings.class.getName());
+
         return newPref;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        createUserDictSettings(getPreferenceScreen());
-    }
-
-    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
-                .setIcon(R.drawable.ic_plus);
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == OPTIONS_MENU_ADD) {
-            showAddWordDialog();
-            return true;
-        }
-        return false;
     }
 
     private void showAddWordDialog() {

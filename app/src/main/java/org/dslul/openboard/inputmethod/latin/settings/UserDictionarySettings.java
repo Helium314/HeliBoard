@@ -34,8 +34,6 @@ import androidx.fragment.app.ListFragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordContents;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordFragment;
 
 import java.util.Locale;
 

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package org.dslul.openboard.inputmethod.latin.userdictionary;
+package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -23,20 +23,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.settings.SubScreenFragment;
-import org.dslul.openboard.inputmethod.latin.settings.UserDictionarySettings;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryAddWordContents.LocaleRenderer;
-import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionaryLocalePicker.LocationChangedListener;
+import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordContents.LocaleRenderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 
 // Caveat: This class is basically taken from
 // packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordFragment.java
@@ -48,22 +43,14 @@ import java.util.Locale;
  * from the UserDictionarySettings.
  */
 public class UserDictionaryAddWordFragment extends SubScreenFragment
-        implements LocationChangedListener {
+        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+        /*implements LocationChangedListener*/ {
 
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
     private static final int OPTIONS_MENU_DELETE = Menu.FIRST + 1;
 
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar == null) return;
-        actionBar.setTitle(R.string.edit_personal_dictionary);
-    }
 
     @NonNull
     @Override
@@ -82,6 +69,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
             // INSERT mode.
             mContents = new UserDictionaryAddWordContents(mRootView, mContents);
         }
+        setHasOptionsMenu(true);
         return mRootView;
     }
 
@@ -244,11 +232,12 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         });
     }
 
+    // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
     // Called by the locale picker
-    @Override
+/*    @Override
     public void onLocaleSelected(final Locale locale) {
         mContents.updateLocale(locale.toString());
         requireActivity().onBackPressed();
-    }
+    }*/
 }
 
