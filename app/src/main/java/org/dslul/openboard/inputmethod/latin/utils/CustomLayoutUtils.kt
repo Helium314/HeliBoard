@@ -47,7 +47,7 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
 fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: String, context: Context, onAdded: (String) -> Unit) {
     var name = layoutName
     val isJson = checkLayout(layoutContent, context)
-        ?: return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog().lastOrNull { it.tag == TAG }?.message}"))
+        ?: return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog(10).lastOrNull { it.tag == TAG }?.message}"))
 
     AlertDialog.Builder(context)
         .setTitle(R.string.title_layout_name_select)
@@ -146,7 +146,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             val isJson = checkLayout(content, context)
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
-                infoDialog(context, context.getString(R.string.layout_error, Log.getLog().lastOrNull { it.tag == TAG }?.message))
+                infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
                 file.writeText(content)

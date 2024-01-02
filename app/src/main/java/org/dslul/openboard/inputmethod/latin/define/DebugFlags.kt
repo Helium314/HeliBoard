@@ -11,6 +11,7 @@ import android.os.Build
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettings
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
+import org.dslul.openboard.inputmethod.latin.utils.Log
 import java.io.File
 import java.io.IOException
 import java.io.PrintWriter
@@ -54,6 +55,8 @@ Device: ${Build.BRAND} ${Build.DEVICE}, Android ${Build.VERSION.RELEASE}
 Locale: ${Locale.getDefault()}
 Stack trace:
 $stackTrace
+Last log:
+${Log.getLog(100).joinToString("\n")}
 """)
         defaultUncaughtExceptionHandler!!.uncaughtException(t, e)
     }

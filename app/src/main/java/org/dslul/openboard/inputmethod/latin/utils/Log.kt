@@ -81,7 +81,7 @@ object Log {
     private val logLines: MutableList<LogLine> = ArrayList(2000)
 
     /** returns a copy of [logLines] */
-    fun getLog() = synchronized(logLines) { logLines.toList() }
+    fun getLog(maxLines: Int = logLines.size) = synchronized(logLines) { logLines.takeLast(maxLines) }
 }
 
 data class LogLine(val level: Char, val tag: String?, val message: String) {
