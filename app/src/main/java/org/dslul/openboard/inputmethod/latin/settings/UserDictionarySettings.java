@@ -83,13 +83,16 @@ public class UserDictionarySettings extends ListFragment {
     private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=?";
     private static final String QUERY_SELECTION_ALL_LOCALES = UserDictionary.Words.LOCALE + " is null";
 
-    private static final String DELETE_SELECTION_WITH_SHORTCUT = UserDictionary.Words.WORD
-            + "=? AND " + UserDictionary.Words.SHORTCUT + "=?";
-    private static final String DELETE_SELECTION_WITHOUT_SHORTCUT = UserDictionary.Words.WORD
-            + "=? AND " + UserDictionary.Words.SHORTCUT + " is null OR "
-            + UserDictionary.Words.SHORTCUT + "=''";
+    private static final String DELETE_SELECTION_WITH_SHORTCUT =
+            UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.SHORTCUT + "=? AND " + UserDictionary.Words.FREQUENCY + "=?";
+    private static final String DELETE_SELECTION_WITHOUT_SHORTCUT =
+            UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.SHORTCUT + " is null AND " + UserDictionary.Words.FREQUENCY + "=? OR "
+            + UserDictionary.Words.SHORTCUT + "='' AND " + UserDictionary.Words.FREQUENCY + "=?";
     private static final String DELETE_SELECTION_SHORTCUT_UNSUPPORTED =
-            UserDictionary.Words.WORD + "=?";
+            UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.FREQUENCY + "=?";
 
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
@@ -300,19 +303,19 @@ public class UserDictionarySettings extends ListFragment {
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.FREQUENCY));
     }
 
-    public static void deleteWord(final String word, final String shortcut,
+    public static void deleteWord(final String word, final String shortcut, final String weight,
             final ContentResolver resolver) {
         if (!IS_SHORTCUT_API_SUPPORTED) {
             resolver.delete(UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_SHORTCUT_UNSUPPORTED,
-                    new String[] { word });
+                    new String[] { word, weight });
         } else if (TextUtils.isEmpty(shortcut)) {
             resolver.delete(
                     UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT,
-                    new String[] { word });
+                    new String[] { word, weight });
         } else {
             resolver.delete(
                     UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT,
-                    new String[] { word, shortcut });
+                    new String[] { word, shortcut, weight });
         }
     }
 

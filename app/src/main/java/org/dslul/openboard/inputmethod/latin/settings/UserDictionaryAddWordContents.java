@@ -101,10 +101,10 @@ public class UserDictionaryAddWordContents {
         if (null != weight) {
             mWeightEditText.setText(weight);
         }
-        mOldWeight = args.getString(EXTRA_WEIGHT);
 
         mMode = args.getInt(EXTRA_MODE); // default return value for #getInt() is 0 = MODE_EDIT
         mOldWord = args.getString(EXTRA_WORD);
+        mOldWeight = args.getString(EXTRA_WEIGHT);
         updateLocale(args.getString(EXTRA_LOCALE));
     }
 
@@ -130,7 +130,7 @@ public class UserDictionaryAddWordContents {
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
             // Mode edit: remove the old entry.
             final ContentResolver resolver = context.getContentResolver();
-            UserDictionarySettings.deleteWord(mOldWord, mOldShortcut, resolver);
+            UserDictionarySettings.deleteWord(mOldWord, mOldShortcut, mOldWeight, resolver);
         }
         // If we are in add mode, nothing was added, so we don't need to do anything.
     }
@@ -140,7 +140,7 @@ public class UserDictionaryAddWordContents {
         final ContentResolver resolver = context.getContentResolver();
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
             // Mode edit: remove the old entry.
-            UserDictionarySettings.deleteWord(mOldWord, mOldShortcut, resolver);
+            UserDictionarySettings.deleteWord(mOldWord, mOldShortcut, mOldWeight, resolver);
         }
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
@@ -185,10 +185,10 @@ public class UserDictionaryAddWordContents {
         // Disallow duplicates. If the same word with no shortcut is defined, remove it; if
         // the same word with the same shortcut is defined, remove it; but we don't mind if
         // there is the same word with a different, non-empty shortcut.
-        UserDictionarySettings.deleteWord(newWord, null, resolver);
+        UserDictionarySettings.deleteWord(newWord, null, newWeight, resolver);
         if (!TextUtils.isEmpty(newShortcut)) {
             // If newShortcut is empty we just deleted this, no need to do it again
-            UserDictionarySettings.deleteWord(newWord, newShortcut, resolver);
+            UserDictionarySettings.deleteWord(newWord, newShortcut, newWeight, resolver);
         }
 
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
