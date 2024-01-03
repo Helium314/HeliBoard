@@ -91,10 +91,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
         }
-        // Write this here once to avoid a ghost effect about the Debug settings menu
-        if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
-            removePreference(Settings.SCREEN_DEBUG)
-        }
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
@@ -102,7 +98,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     override fun onStart() {
         super.onStart()
-        // Rewrite this here a second time otherwise, after a restore, we can no longer enter the Debug settings menu
         if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
             removePreference(Settings.SCREEN_DEBUG)
         }
