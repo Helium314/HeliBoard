@@ -133,7 +133,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
                     Array(split.size - 1) { split[it + 1] }
                 else mergeMoreKeys(existingMoreKeys, split.drop(1))
             moreKeys[key] = when (key) {
-                "'", "\"", "«", "»", ")", "(" -> addFixedColumnOrder(newMoreKeys)
+                "'", "\"", "«", "»" -> addFixedColumnOrder(newMoreKeys)
                 else -> newMoreKeys
             }
         }

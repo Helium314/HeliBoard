@@ -97,7 +97,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
-        // todo: this shows !fixedColumnOrder!, which is not a good idea
         findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
             val file = "${CUSTOM_LAYOUT_PREFIX}symbols.txt"
             val oldLayout = if (File(file).exists()) null else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()

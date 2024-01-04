@@ -3,7 +3,6 @@ package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -46,9 +45,19 @@ fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: S
     }
     if (!moreKeysDelegate.isInitialized() || moreKeys.isEmpty())
         return null
+    Log.i("test", "moreKeys for $label: $moreKeys")
     val fco = moreKeys.firstOrNull { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
     if (fco != null && fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != moreKeys.size - 1) {
-        moreKeys.remove(fco) // maybe rather adjust the number instead of remove?
+        val fcoExpected = moreKeys.size - moreKeys.count { it.startsWith("!") && it.endsWith("!") } - 1
+        if (fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != fcoExpected)
+            moreKeys.remove(fco) // maybe rather adjust the number instead of remove?
+    }
+    if (moreKeys.size > 1 && (label == "(" || label == ")")) { // add fixed column order for that case (typically other variants of brackets / parentheses
+        // not really fast, but no other way to add first in a LinkedHashSet
+        val tmp = moreKeys.toList()
+        moreKeys.clear()
+        moreKeys.add("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${tmp.size}")
+        moreKeys.addAll(tmp)
     }
     // autoColumnOrder should be fine
 
