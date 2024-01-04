@@ -50,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Zobrazení navrhovaného slova při psaní gesty"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frázové gesto"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Mezery mezi gesty zadáte přejetím po klávese mezerníku."</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jazyky"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Nápověda a zpětná vazba"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Angličtina (Velká Británie)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Angličtina (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Španělština (USA)"</string>

@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"जेश्चरींग करत असताना सुचविलेले शब्द पहा"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"वाक्यांश जेश्चर"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"स्पेस की वर ग्लायडिंग करून जेश्चर दरम्यान स्थाने इनपुट करा"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"भाषा"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"मदत आणि अभिप्राय"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"इंग्रजी (यूके)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"इंग्रजी (यूएस)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"स्पॅनिश (यूएस)"</string>

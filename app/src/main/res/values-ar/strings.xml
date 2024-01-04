@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
     <string name="gesture_space_aware">"عبارة الإيماء"</string>
     <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"اللغات"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"المساعدة والتعليقات"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"الإسبانية (الأميركية)"</string>

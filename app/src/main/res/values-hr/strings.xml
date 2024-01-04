@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"Vidi predloženu riječ tijekom pokreta"</string>
     <string name="gesture_space_aware">"Unos izraza kretnjom"</string>
     <string name="gesture_space_aware_summary">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>

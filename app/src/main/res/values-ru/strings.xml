@@ -50,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary">Показывать подсказки при вводе текста</string>
     <string name="gesture_space_aware">Непрерывный ввод фраз</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">Проводите по клавише пробела после каждого слова</string>
-    <string name="language_selection_title">Языки</string>
-    <string name="help_and_feedback">Справка/отзыв</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Английский (Великобритания)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Английский (США)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Испанский (США)</string>

@@ -46,8 +46,6 @@
     <string name="incognito">Forçar modo anônimo</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>
-    <string name="language_selection_title">Idiomas</string>
-    <string name="help_and_feedback">Ajuda e comentários</string>
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de entrada</string>

@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"제스처에 따라 추천 단어 보기"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"구문 제스처"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"동작 중에 스페이스바 쪽으로 움직여 공백 입력"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"언어"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"고객센터"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"영어(영국)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"영어(미국)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"스페인어(미국)"</string>

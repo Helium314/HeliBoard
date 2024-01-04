@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mostra la paraula suggerida en fer els gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gest de frase"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Per afegir espais als gestos, apropa el dit a la tecla d\'espai"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Idiomes"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Ajuda i suggeriments"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"anglès (Regne Unit)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"anglès (EUA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Espanyol (EUA)"</string>

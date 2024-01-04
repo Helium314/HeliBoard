@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ಗೆಸ್ಟರ್ ಮಾಡುವಾಗ ಸೂಚಿಸಿದ ಪದವನ್ನು ನೋಡಿ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ಪದಗುಚ್ಛದ ಗೆಶ್ಚರ್"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ಸ್ಪೇಸ್ ಕೀಗೆ ಗ್ಲೈಡ್ ಮಾಡುವ ಮೂಲಕ ಗೆಶ್ಚರ್‌ಗಳ ಅವಧಿಯಲ್ಲಿ ಅಂತರ ನಮೂದಿಸಿ"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ಭಾಷೆಗಳು"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ಸಹಾಯ ಮತ್ತು ಪ್ರತಿಕ್ರಿಯೆ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ಇಂಗ್ಲಿಷ್ (US)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>

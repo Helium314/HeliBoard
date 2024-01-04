@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Қимылдау кезінде ұсынылған сөзді көру"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Фраза қимылы"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Бос орын пернесіне сырғыту арқылы қимылдар барысында бос орындарды енгізу"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Тілдер"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Анықтама және пікір"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ағылшын (ҰБ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ағылшын (АҚШ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Испан (АҚШ)"</string>

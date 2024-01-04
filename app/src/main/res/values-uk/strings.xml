@@ -50,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Мови"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Довідка й відгуки"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Англійська (Велика Британія)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Англійська (США)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Іспанська (США)"</string>

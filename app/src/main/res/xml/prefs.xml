@@ -8,7 +8,7 @@
     android:title="@string/ime_settings">
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment"
-        android:title="@string/language_selection_title"
+        android:title="@string/language_and_layouts_title"
         android:key="screen_languages"
         android:icon="@drawable/ic_settings_languages"/>
     <PreferenceScreen

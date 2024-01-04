@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‏‎‎‏‏‎‎‏‏‏‏‎‏‏‎‏‎‎‎‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‎‎‏‎‎See the suggested word while gesturing‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎‎‎‎‎‎‎‏‎‏‎‎‎‏‏‎‏‏‎‏‏‎‏‏‎‏‎‏‎‎‏‏‎‎‏‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‎‏‏‎‎‎Phrase gesture‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‎‏‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‏‎‎‎‎‎‎Input spaces during gestures by gliding to the space key‎‏‎‎‏‎"</string>
-    <string name="language_selection_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‎‎‏‎‏‎‏‎‏‎‏‎‎‎‎‎‎‏‏‎‎‎‎‏‏‎‏‏‎‏‏‎‏‎Languages‎‏‎‎‏‎"</string>
-    <string name="help_and_feedback">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‏‏‎‏‏‎‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‎‏‏‎‎‏‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‎‏‎‏‏‏‏‎Help &amp; feedback‎‏‎‎‏‎"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‏‏‎‏‎‏‏‎‎‏‎‎‎‎‎‎‎‎‎‎‏‏‎‎‏‏‏‎‏‏‎‎‎‎‏‏‎‏‏‏‎‏‏‎English (UK)‎‏‎‎‏‎"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‏‏‎English (US)‎‏‎‎‏‎"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Spanish (US)‎‏‎‎‏‎"</string>

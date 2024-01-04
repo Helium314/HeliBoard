@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"संकेतोें द्वारा टाइपिंग करते समय सुझाया गया शब्द देखें"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"वाक्यांश जेस्चर"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"स्पेस कुंजी तक ग्लाइड करके जेस्चर के दौरान रिक्तियां इनपुट करें"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"भाषाएं"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"सहायता और फ़ीडबैक"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"अंग्रेज़ी (यूके)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"अंग्रेज़ी (यूएस)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"स्पेनिश (यूएस)"</string>

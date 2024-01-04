@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Преглед на предложената дума при използване на жестове"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Жест за фрази"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"При жестове въвеждaйте интервали чрез плъзгане през съотв. клавиш"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Езици"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Помощ и отзиви"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"английски (Великобритания)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"английски (САЩ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"испански (САЩ)"</string>

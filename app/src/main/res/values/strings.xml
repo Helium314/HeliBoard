@@ -205,11 +205,8 @@
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "more keys" suggestions view -->
     <string name="more_keys_strip_description">More keys</string>
-    <!-- Title for input language selection screen -->
-    <string name="language_selection_title">Languages</string>
-    <!-- Title for the 'Help & feedback' settings fragment which shows a help page and has a button
-         for submitting feedback. [CHAR LIMIT=35] -->
-    <string name="help_and_feedback">Help &amp; feedback</string>
+    <!-- Title for input language & layout selection screen -->
+    <string name="language_and_layouts_title">Languages &amp; Layouts</string>
     <!-- Title of the settings to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->

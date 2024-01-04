@@ -229,7 +229,7 @@ class LanguageSettingsDialog(
                     val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString)).sortedBy { it.displayName }
                     val localeNames = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
                     Builder(context)
-                        .setTitle(R.string.language_selection_title)
+                        .setTitle(R.string.button_select_language)
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
                             val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }

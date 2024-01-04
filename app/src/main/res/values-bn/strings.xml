@@ -90,8 +90,6 @@
     <string name="incognito">ছদ্মবেশী মোড আরোপ</string>
     <string name="prefs_force_incognito_mode_summary">নতুন শব্দ শিখন নিষ্ক্রিয়করণ</string>
     <string name="more_keys_strip_description">অতিরিক্ত বোতাম</string>
-    <string name="language_selection_title">ভাষা</string>
-    <string name="help_and_feedback">সহায়তা ও মতামত</string>
     <string name="number_row">নম্বর সারি</string>
     <string name="number_row_summary">সর্বদা নম্বর সারি প্রদর্শন</string>
     <string name="show_hints">বোতামের পরামর্শ প্রদর্শন</string>

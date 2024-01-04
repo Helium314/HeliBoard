@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"Ordförslaget visas i rörelsen medan du skriver"</string>
     <string name="gesture_space_aware">"Frasrörelse"</string>
     <string name="gesture_space_aware_summary">"Infoga blanksteg genom att dra fingret över blankstegstangenten"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Språk"</string>
-    <string name="help_and_feedback">"Hjälp och feedback"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Engelska (UK)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Engelska (USA)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Spanska (USA)</string>

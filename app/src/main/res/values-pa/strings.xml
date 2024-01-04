@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ਸੰਕੇਤ ਦਿੰਦੇ ਸਮੇਂ ਸੁਝਾਇਆ ਗਿਆ ਸ਼ਬਦ ਦੇਖੋ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ਵਾਕਾਂਸ਼ ਸੰਕੇਤ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ਸਪੇਸ ਕੁੰਜੀ ਸਰਕਾ ਕੇ ਸੰਕੇਤਾਂ ਦੇ ਦੌਰਾਨ ਸਪੇਸ ਇਨਪੁਟ ਕਰੋ"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ਭਾਸ਼ਾਵਾਂ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ਮਦਦ &amp; ਫੀਡਬੈਕ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ਅੰਗ੍ਰੇਜ਼ੀ (ਯੂਕੇ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ਅੰਗ੍ਰੇਜੀ (ਅਮਰੀਕਾ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ਸਪੇਨੀ (ਅਮਰੀਕਾ)"</string>

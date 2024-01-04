@@ -49,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Matn kiritishda so‘zlar taklif qilinsin"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Qo‘l uzmasdan yozish"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Barmoqni har bir so‘zdan so‘ng bo‘sh joy qoldirish tugmasiga olib borish"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Tillar"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Yordam va fikr-mulohaza"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Ingliz (Buyuk Britaniya)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Ingliz (AQSH)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Ispan (AQSH)"</string>
