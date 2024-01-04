@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk při stisku klávesy"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Detail znaku při stisku klávesy"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Předvolby"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Vzhled a rozvržení"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Vzhled"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Psaní gesty"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Oprava textu"</string>

@@ -15,7 +15,6 @@
     <string name="sound_on_keypress">কিপ্রেসের শব্দ</string>
     <string name="popup_on_keypress">কিপ্রেস পপআপ</string>
     <string name="settings_screen_preferences">অভিরুচি</string>
-    <string name="settings_screen_appearance_and_layouts">অবয়ব ও লেআউট</string>
     <string name="settings_screen_gesture">অঙ্গুলিহেলন টাইপিং</string>
     <string name="settings_screen_correction">পাঠ্য সংশোধন</string>
     <string name="settings_screen_advanced">উচ্চতর</string>

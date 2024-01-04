@@ -5,6 +5,7 @@
  */
 package org.dslul.openboard.inputmethod.latin.settings
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
@@ -27,7 +28,9 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
+import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils
+import org.dslul.openboard.inputmethod.latin.utils.editCustomLayout
 import org.dslul.openboard.inputmethod.latin.utils.infoDialog
 import java.io.File
 import java.io.FileInputStream
@@ -37,7 +40,6 @@ import java.io.Writer
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
-
 
 /**
  * "Advanced" settings sub screen.
@@ -94,6 +96,20 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
+
+        // todo: this shows !fixedColumnOrder!, which is not a good idea
+        findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
+            val file = "${CUSTOM_LAYOUT_PREFIX}symbols.txt"
+            val oldLayout = if (File(file).exists()) null else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
+            editCustomLayout(file, context, oldLayout, true)
+            true
+        }
+        findPreference<Preference>("custom_shift_symbols_layout")?.setOnPreferenceClickListener {
+            val file = "${CUSTOM_LAYOUT_PREFIX}shift_symbols.txt"
+            val oldLayout = if (File(file).exists()) null else context.assets.open("layouts${File.separator}symbols_shifted.txt").reader().readText()
+            editCustomLayout(file, context, oldLayout, true)
+            true
+        }
     }
 
     override fun onStart() {
@@ -163,6 +179,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
     }
 
+    @SuppressLint("ApplySharedPref")
     private fun renameToLibfileAndRestart(file: File, checksum: String) {
         libfile.delete()
         sharedPreferences.edit().putString("lib_checksum", checksum).commit()

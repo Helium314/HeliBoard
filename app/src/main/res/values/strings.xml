@@ -425,6 +425,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->
     <string name="edit_layout">Tap to edit raw layout</string>
+    <!-- Title for customizing symbols layout -->
+    <string name="customize_symbols">Customize symbols layout</string>
+    <!-- Title for customizing shift symbols layout -->
+    <string name="customize_shift_symbols">Customize more symbols layout</string>
+    <!-- Name for more symbols layout -->
+    <string name="shift_symbols">More symbols</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
@@ -688,10 +694,6 @@ New dictionary:
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
-    <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]
-    This string is not used, but the new string below (settings_screen_appearance) is not translated
-    into nearly as many languages, and the old string may act as a guide for translators. -->
-    <string name="settings_screen_appearance_and_layouts">Appearance &amp; Layouts</string>
     <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
     <string name="settings_screen_appearance">"Appearance"</string>
     <!-- Hidden features title -->

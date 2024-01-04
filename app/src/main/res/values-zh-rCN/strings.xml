@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"按键音效"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"按键时弹出显示字符"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"偏好设置"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"外观和布局"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"滑行输入"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"文字更正"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"高级"</string>

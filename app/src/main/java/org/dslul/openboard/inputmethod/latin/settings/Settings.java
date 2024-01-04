@@ -14,6 +14,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
+
+import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import android.util.TypedValue;
@@ -36,11 +38,13 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -506,6 +510,28 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case "more" -> LocaleKeyTextsKt.MORE_KEYS_MORE;
             default -> LocaleKeyTextsKt.MORE_KEYS_NORMAL;
         };
+    }
+
+    public static String readSymbolsLayoutName(final Context context, final Locale locale) {
+        String[] layouts = new File(context.getFilesDir(), "layouts").list();
+        if (layouts != null) {
+            for (String name : layouts) {
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "symbols"))
+                    return name;
+            }
+        }
+        return ScriptUtils.getScriptFromSpellCheckerLocale(locale) == ScriptUtils.SCRIPT_ARABIC ? "symbols_arabic" : "symbols";
+    }
+
+    public static String readShiftedSymbolsLayoutName(final Context context) {
+        String[] layouts = new File(context.getFilesDir(), "layouts").list();
+        if (layouts != null) {
+            for (String name : layouts) {
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shifted_symbols"))
+                    return name;
+            }
+        }
+        return "symbols_shifted";
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Ton bei Tastendruck"</string>
     <string name="popup_on_keypress">"Bei Tastendruck Pop-up"</string>
     <string name="settings_screen_preferences">"Einstellungen"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Darstellung &amp; Layouts"</string>
     <string name="settings_screen_gesture">"Gesteneingabe"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Textkorrektur"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Erweitert"</string>

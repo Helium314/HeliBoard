@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Berbunyi jika tombol ditekan"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Muncul saat tombol ditekan"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferensi"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Tampilan &amp; Tata Letak"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Ketikan Gestur"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Koreksi teks"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Lanjutan"</string>

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Lyd ved tastetrykk"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Forgrunnsvindu ved tastetrykk"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Innstillinger"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Utseende og utforming"</string>
     <string name="settings_screen_gesture">"Ordføring"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Tekstkorrigering"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avansert"</string>

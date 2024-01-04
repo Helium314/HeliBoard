@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"ສຽງໃນການກົດປຸ່ມ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"ໂຕອັກສອນເວລາພິມ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"​​ການ​ຕັ້ງ​ຄ່າ"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"​ລັກ​ສະ​ນະ &amp; ໂຄງ​ຮ່າງ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"​ກາ​ນ​ພິມ​ແບບ​ລາກ​ນິ້ວ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"​ການ​ແປງ​ຄຳ​ໃຫ້​ຖືກ​ຕ້ອງ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"​ຂັ້ນ​ສູງ"</string>

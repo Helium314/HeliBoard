@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"So en prémer tecles"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Amplia en prémer tecles"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferències"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aparença i disposició"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escriptura gestual"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correcció de textos"</string>
     <string name="settings_screen_advanced">"Configuració avançada"</string>

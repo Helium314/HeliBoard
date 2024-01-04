@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"Звук при натиску клав."</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Збільшення натиснутих"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметри"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вигляд і розкладка"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Зовнішній вигляд"</string>
     <string name="settings_screen_gesture">"Введення тексту жестами"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Виправлення тексту"</string>

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"Som ao premir as teclas"</string>
     <string name="popup_on_keypress">"Mostrar popup ao premir tecla"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferências"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">Aparência e esquemas</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">Aparência &amp; Esquemas</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escrita com gestos"</string>
     <string name="settings_screen_correction">"Correção de texto"</string>

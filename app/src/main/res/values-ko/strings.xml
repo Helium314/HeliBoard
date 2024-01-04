@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"키를 누를 때 소리 발생"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"키를 누를 때 팝업"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"환경설정"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"모양 및 레이아웃"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"제스처 타이핑"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"텍스트 수정"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"고급"</string>

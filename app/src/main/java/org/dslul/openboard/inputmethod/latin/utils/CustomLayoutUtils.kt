@@ -133,12 +133,12 @@ fun removeCustomLayoutFile(layoutName: String, context: Context) {
     getFile(layoutName, context).delete()
 }
 
-fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null) {
+fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, isSymbols: Boolean = false) {
     val file = getFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
     }
-    AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context)
         .setTitle(getLayoutDisplayName(layoutName))
         .setView(editText)
         .setPositiveButton(R.string.save) { _, _ ->
@@ -149,6 +149,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
                 infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
+                file.parentFile?.mkdir()
                 file.writeText(content)
                 if (isJson != wasJson) // unlikely to be needed, but better be safe
                     file.renameTo(File(file.absolutePath.substringBeforeLast(".") + if (isJson) "json" else "txt"))
@@ -156,7 +157,19 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             }
         }
         .setNegativeButton(android.R.string.cancel, null)
-        .show()
+    if (isSymbols) {
+        val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.more_keys_symbols)
+        if (file.exists()) {
+            builder.setNeutralButton(R.string.delete_dict) { _, _ ->
+                confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete_dict)) {
+                    file.delete()
+                    KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+                }
+            }
+        }
+        builder.setTitle(name)
+    }
+    builder.show()
 }
 
 private fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)

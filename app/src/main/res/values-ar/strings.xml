@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
     <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
     <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
     <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"الإعدادات المتقدمة"</string>

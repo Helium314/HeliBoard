@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress">"Povećani font na pritisak tipke"</string>
     <string name="settings_screen_preferences">"Postavke"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi"</string>
     <string name="settings_screen_gesture">"Pisanje kretnjama"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravljanje teksta"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>

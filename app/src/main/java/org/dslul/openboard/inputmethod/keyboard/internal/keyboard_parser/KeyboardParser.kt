@@ -24,11 +24,11 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService
+import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_LAYOUT
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_NUMBER
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
-import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import java.io.File
 import java.util.Locale
@@ -48,12 +48,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             Key.LABEL_FLAGS_DISABLE_HINT_LABEL // reproduce the no-hints in symbol layouts, todo: add setting
         else 0
 
-    abstract fun getLayoutFromAssets(layoutName: String): String
-
     abstract fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>>
-
-    fun parseLayoutFromAssets(layoutName: String): ArrayList<ArrayList<KeyParams>> =
-        parseLayoutString(getLayoutFromAssets(layoutName))
 
     // this thing does too much... make it more understandable after everything is implemented
     fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
@@ -206,11 +201,16 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun addSymbolMoreKeys(baseKeys: MutableList<List<KeyData>>) {
-        val symbolsLayoutName = if (ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC)
-                "symbols_arabic"
-            else "symbols"
-        val parser = SimpleKeyboardParser(params, context)
-        parser.parseCoreLayout(parser.getLayoutFromAssets(symbolsLayoutName)).forEachIndexed { i, row ->
+        val layoutName = Settings.readSymbolsLayoutName(context, params.mId.locale)
+        val layout = if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+            val file = File(context.filesDir, "layouts${File.separator}$layoutName")
+            val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
+                else SimpleKeyboardParser(params, context)
+            parser.parseCoreLayout(file.readText())
+        } else {
+            SimpleKeyboardParser(params, context).parseCoreLayout(context.readAssetsFile("layouts/$layoutName.txt"))
+        }
+        layout.forEachIndexed { i, row ->
             val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
             row.forEachIndexed { j, key ->
                 baseRow.getOrNull(j)?.popup?.symbol = key.label
@@ -771,43 +771,49 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     companion object {
         private const val TAG = "KeyboardParser"
 
-        fun parseCustom(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
-            val layoutName = params.mId.mSubtype.keyboardLayoutSetName
-            val f = File(context.filesDir, "layouts${File.separator}$layoutName")
-            return if (layoutName.endsWith(".json"))
-                JsonKeyboardParser(params, context).parseLayoutString(f.readText())
-            else
-                SimpleKeyboardParser(params, context).parseLayoutString(f.readText())
-        }
-
-        fun parseFromAssets(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
-            val id = params.mId
-            val layoutName = params.mId.mSubtype.keyboardLayoutSetName.substringBefore("+")
-            val layoutFileNames = context.assets.list("layouts")!!
-            return when {
-                id.mElementId == KeyboardId.ELEMENT_SYMBOLS && ScriptUtils.getScriptFromSpellCheckerLocale(params.mId.locale) == ScriptUtils.SCRIPT_ARABIC
-                    -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_arabic")
-                id.mElementId == KeyboardId.ELEMENT_SYMBOLS -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols")
-                id.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED
-                    -> SimpleKeyboardParser(params, context).parseLayoutFromAssets("symbols_shifted")
-                id.mElementId == KeyboardId.ELEMENT_NUMPAD && context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-                    -> JsonKeyboardParser(params, context).parseLayoutFromAssets("numpad_landscape")
-                id.mElementId == KeyboardId.ELEMENT_NUMPAD -> JsonKeyboardParser(params, context).parseLayoutFromAssets("numpad")
-                id.mElementId == KeyboardId.ELEMENT_NUMBER -> JsonKeyboardParser(params, context).parseLayoutFromAssets("number")
-                id.mElementId == KeyboardId.ELEMENT_PHONE -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone")
-                id.mElementId == KeyboardId.ELEMENT_PHONE_SYMBOLS -> JsonKeyboardParser(params, context).parseLayoutFromAssets("phone_symbols")
-                layoutFileNames.contains("$layoutName.json") -> JsonKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
-                layoutFileNames.contains("$layoutName.txt")
-                    -> SimpleKeyboardParser(params, context).parseLayoutFromAssets(layoutName)
-                else -> throw IllegalStateException("can't parse layout $layoutName with id $id and elementId ${id.mElementId}")
+        // todo: this is somewhat awkward and could be re-organized
+        //  simple and json parser should just parse the core layout
+        //  adding extra keys should be done in KeyboardParser
+        fun parseLayout(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
+            val layoutName = getLayoutFileName(params, context)
+            if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+                val file = File(context.filesDir, "layouts${File.separator}$layoutName")
+                val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
+                    else SimpleKeyboardParser(params, context)
+                return parser.parseLayoutString(file.readText())
             }
+            val layoutFileNames = context.assets.list("layouts")!!
+            if (layoutFileNames.contains("$layoutName.json")) {
+                return JsonKeyboardParser(params, context).parseLayoutString(context.readAssetsFile("layouts${File.separator}$layoutName.json"))
+            }
+            if (layoutFileNames.contains("$layoutName.txt")) {
+                return SimpleKeyboardParser(params, context).parseLayoutString(context.readAssetsFile("layouts${File.separator}$layoutName.txt"))
+            }
+            throw IllegalStateException("can't parse layout $layoutName with id ${params.mId} and elementId ${params.mId.mElementId}")
         }
 
-        // todo: layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
+        private fun Context.readAssetsFile(name: String) = assets.open(name).reader().readText()
+
+        private fun getLayoutFileName(params: KeyboardParams, context: Context) = when (params.mId.mElementId) {
+            KeyboardId.ELEMENT_SYMBOLS -> Settings.readSymbolsLayoutName(context, params.mId.locale)
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> Settings.readShiftedSymbolsLayoutName(context)
+            KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    "numpad_landscape"
+                else
+                    "numpad"
+            KeyboardId.ELEMENT_NUMBER -> "number"
+            KeyboardId.ELEMENT_PHONE -> "phone"
+            KeyboardId.ELEMENT_PHONE_SYMBOLS -> "phone_symbols"
+            else -> params.mId.mSubtype.keyboardLayoutSetName
+        }
+
+        // todo:
+        //  layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
         //  or somewhere else... some replacement for keyboard_layout_set xml maybe
-        //  move it after old parser is removed
-        // currently only labelFlags are used
-        // touchPositionCorrectionData needs to be loaded, currently always holo is applied in readAttributes
+        //  some assets file?
+        //  some extended version of locale_key_texts? that would be good, just need to rename the class and file
+        // touchPositionCorrectionData is just the resId, needs to be loaded in parser
+        //  currently always holo is applied in readAttributes
         private fun layoutInfos(params: KeyboardParams): LayoutInfos {
             val layout = params.mId.mSubtype.keyboardLayoutSetName
             val language = params.mId.locale.language

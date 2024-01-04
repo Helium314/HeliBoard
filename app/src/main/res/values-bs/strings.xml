@@ -12,7 +12,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Iskačuči prozor pri pritisku na tipku"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Postavke"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi tipki"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanje pokretima"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravka teksta"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Napredno"</string>

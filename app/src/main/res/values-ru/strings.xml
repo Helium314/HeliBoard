@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук клавиш"</string>
     <string name="popup_on_keypress">"Увеличивать при нажатии"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Настройки"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вид и раскладки"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">Оформление</string>
     <string name="settings_screen_gesture">"Непрерывный ввод"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Исправление текста"</string>
