@@ -973,7 +973,7 @@ public final class InputLogic {
             if (swapWeakSpace && trySwapSwapperAndSpace(event, inputTransaction)) {
                 mSpaceState = SpaceState.WEAK;
             } else {
-                sendKeyCodePoint(settingsValues, codePoint);
+                mConnection.commitCodePoint(codePoint);
             }
         }
         inputTransaction.setRequiresUpdateSuggestions();
@@ -1055,7 +1055,7 @@ public final class InputLogic {
             }
 
             if (!shouldAvoidSendingCode) {
-                sendKeyCodePoint(settingsValues, codePoint);
+                mConnection.commitCodePoint(codePoint);
             }
         } else {
             if ((SpaceState.PHANTOM == inputTransaction.getMSpaceState()
@@ -1086,7 +1086,7 @@ public final class InputLogic {
                     mSpaceState = SpaceState.PHANTOM;
             }
 
-            sendKeyCodePoint(settingsValues, codePoint);
+            mConnection.commitCodePoint(codePoint);
 
             // Set punctuation right away. onUpdateSelection will fire but tests whether it is
             // already displayed or not, so it's okay.
@@ -2099,27 +2099,6 @@ public final class InputLogic {
     }
 
     /**
-     * Sends a code point to the editor, using the most appropriate method.
-     *
-     * Normally we send code points with commitText, but there are some cases (where backward
-     * compatibility is a concern for example) where we want to use deprecated methods.
-     *
-     * @param settingsValues the current values of the settings.
-     * @param codePoint the code point to send.
-     */
-    // TODO: replace these two parameters with an InputTransaction
-    private void sendKeyCodePoint(final SettingsValues settingsValues, final int codePoint) {
-        // TODO: Remove this special handling of digit letters.
-        // For backward compatibility. See {@link InputMethodService#sendKeyChar(char)}.
-        if (codePoint >= '0' && codePoint <= '9') {
-            sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
-            return;
-        }
-
-        mConnection.commitText(StringUtils.newSingleCodePointString(codePoint), 1);
-    }
-
-    /**
      * Insert an automatic space, if the options allow it.
      *
      * This checks the options and the text before the cursor are appropriate before inserting
@@ -2134,7 +2113,7 @@ public final class InputLogic {
                 && !mConnection.textBeforeCursorLooksLikeURL() // adding this check to textBeforeCursorMayBeUrlOrSimilar might not be wanted for word continuation (see effect on unit tests)
                 && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail())
         ) {
-            sendKeyCodePoint(settingsValues, Constants.CODE_SPACE);
+            mConnection.commitCodePoint(Constants.CODE_SPACE);
         }
     }
 

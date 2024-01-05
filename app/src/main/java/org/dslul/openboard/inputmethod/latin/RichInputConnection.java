@@ -289,6 +289,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
     }
 
+    public void commitCodePoint(final int codePoint) {
+        commitText(StringUtils.newSingleCodePointString(codePoint), 1);
+    }
+
     /**
      * Calls {@link InputConnection#commitText(CharSequence, int)}.
      *
