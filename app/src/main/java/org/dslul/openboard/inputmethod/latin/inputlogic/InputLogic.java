@@ -68,8 +68,7 @@ public final class InputLogic {
     final LatinIME mLatinIME;
     private final SuggestionStripViewAccessor mSuggestionStripViewAccessor;
 
-    // Never null.
-    private InputLogicHandler mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
+    @NonNull private InputLogicHandler mInputLogicHandler;
 
     // TODO : make all these fields private as soon as possible.
     // Current space state of the input method. This can be any of the above constants.
@@ -124,7 +123,7 @@ public final class InputLogic {
 
     /**
      * Initializes the input logic for input in an editor.
-     *
+     * <p>
      * Call this when input starts or restarts in some editor (typically, in onStartInputView).
      *
      * @param combiningSpec the combining spec string for this subtype
@@ -197,7 +196,7 @@ public final class InputLogic {
             mConnection.finishComposingText();
             StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
         }
-        resetComposingState(true /* alsoResetLastComposedWord */);
+        resetComposingState(true);
         mInputLogicHandler.reset();
     }
 
@@ -214,7 +213,7 @@ public final class InputLogic {
 
     /**
      * React to a string input.
-     *
+     * <p>
      * This is triggered by keys that input many characters at once, like the ".com" key or
      * some additional keys for example.
      *
@@ -418,7 +417,7 @@ public final class InputLogic {
     /**
      * React to a code input. It may be a code point to insert, or a symbolic value that influences
      * the keyboard behavior.
-     *
+     * <p>
      * Typically, this is called whenever a key is pressed on the software keyboard. This is not
      * the entry point for gesture input; see the onBatchInput* family of functions for this.
      *
@@ -515,10 +514,8 @@ public final class InputLogic {
                 // If we are in the middle of a recorrection, we need to commit the recorrection
                 // first so that we can insert the batch input at the current cursor position.
                 // We also need to unlearn the original word that is now being corrected.
-                unlearnWord(mWordComposer.getTypedWord(), settingsValues,
-                        Constants.EVENT_BACKSPACE);
-                resetEntireInputState(mConnection.getExpectedSelectionStart(),
-                        mConnection.getExpectedSelectionEnd(), true /* clearSuggestionStrip */);
+                unlearnWord(mWordComposer.getTypedWord(), settingsValues, Constants.EVENT_BACKSPACE);
+                resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), true);
             } else if (mWordComposer.isSingleLetter()) {
                 // We auto-correct the previous (typed, not gestured) string iff it's one character
                 // long. The reason for this is, even in the middle of gesture typing, you'll still
@@ -602,11 +599,9 @@ public final class InputLogic {
         final boolean newAutoCorrectionIndicator = suggestedWords.mWillAutoCorrect;
 
         // Put a blue underline to a word in TextView which will be auto-corrected.
-        if (mIsAutoCorrectionIndicatorOn != newAutoCorrectionIndicator
-                && mWordComposer.isComposingWord()) {
+        if (mIsAutoCorrectionIndicatorOn != newAutoCorrectionIndicator && mWordComposer.isComposingWord()) {
             mIsAutoCorrectionIndicatorOn = newAutoCorrectionIndicator;
-            final CharSequence textWithUnderline =
-                    getTextWithUnderline(mWordComposer.getTypedWord());
+            final CharSequence textWithUnderline = getTextWithUnderline(mWordComposer.getTypedWord());
             // TODO: when called from an updateSuggestionStrip() call that results from a posted
             // message, this is called outside any batch edit. Potentially, this may result in some
             // janky flickering of the screen, although the display speed makes it unlikely in
@@ -617,7 +612,7 @@ public final class InputLogic {
 
     /**
      * Handle a consumed event.
-     *
+     * <p>
      * Consumed events represent events that have already been consumed, typically by the
      * combining chain.
      *
@@ -642,7 +637,7 @@ public final class InputLogic {
 
     /**
      * Handle a functional key event.
-     *
+     * <p>
      * A functional event is a special key, like delete, shift, emoji, or the settings key.
      * Non-special keys are those that generate a single code point.
      * This includes all letters, digits, punctuation, separators, emoji. It excludes keys that
@@ -760,49 +755,44 @@ public final class InputLogic {
 
     /**
      * Handle an event that is not a functional event.
-     *
+     * <p>
      * These events are generally events that cause input, but in some cases they may do other
      * things like trigger an editor action.
      *
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
      */
-    private void handleNonFunctionalEvent(final Event event,
-            final InputTransaction inputTransaction,
-            final LatinIME.UIHandler handler) {
+    private void handleNonFunctionalEvent(final Event event, final InputTransaction inputTransaction, final LatinIME.UIHandler handler) {
         inputTransaction.setDidAffectContents();
-        switch (event.getMCodePoint()) {
-            case Constants.CODE_ENTER:
-                final EditorInfo editorInfo = getCurrentInputEditorInfo();
-                final int imeOptionsActionId = InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
-                if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
-                    // Either we have an actionLabel and we should performEditorAction with
-                    // actionId regardless of its value.
-                    performEditorAction(editorInfo.actionId);
-                } else if (EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
-                    // We didn't have an actionLabel, but we had another action to execute.
-                    // EditorInfo.IME_ACTION_NONE explicitly means no action. In contrast,
-                    // EditorInfo.IME_ACTION_UNSPECIFIED is the default value for an action, so it
-                    // means there should be an action and the app didn't bother to set a specific
-                    // code for it - presumably it only handles one. It does not have to be treated
-                    // in any specific way: anything that is not IME_ACTION_NONE should be sent to
-                    // performEditorAction.
-                    performEditorAction(imeOptionsActionId);
-                } else {
-                    // No action label, and the action from imeOptions is NONE: this is a regular
-                    // enter key that should input a carriage return.
-                    handleNonSpecialCharacterEvent(event, inputTransaction, handler);
-                }
-                break;
-            default:
+        if (event.getMCodePoint() == Constants.CODE_ENTER) {
+            final EditorInfo editorInfo = getCurrentInputEditorInfo();
+            final int imeOptionsActionId = InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
+            if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
+                // Either we have an actionLabel and we should performEditorAction with
+                // actionId regardless of its value.
+                performEditorAction(editorInfo.actionId);
+            } else if (EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
+                // We didn't have an actionLabel, but we had another action to execute.
+                // EditorInfo.IME_ACTION_NONE explicitly means no action. In contrast,
+                // EditorInfo.IME_ACTION_UNSPECIFIED is the default value for an action, so it
+                // means there should be an action and the app didn't bother to set a specific
+                // code for it - presumably it only handles one. It does not have to be treated
+                // in any specific way: anything that is not IME_ACTION_NONE should be sent to
+                // performEditorAction.
+                performEditorAction(imeOptionsActionId);
+            } else {
+                // No action label, and the action from imeOptions is NONE: this is a regular
+                // enter key that should input a carriage return.
                 handleNonSpecialCharacterEvent(event, inputTransaction, handler);
-                break;
+            }
+        } else {
+            handleNonSpecialCharacterEvent(event, inputTransaction, handler);
         }
     }
 
     /**
      * Handle inputting a code point to the editor.
-     *
+     * <p>
      * Non-special keys are those that generate a single code point.
      * This includes all letters, digits, punctuation, separators, emoji. It excludes keys that
      * manage keyboard-related stuff like shift, language switch, settings, layout switch, or
@@ -1352,7 +1342,7 @@ public final class InputLogic {
 
     /**
      * Swap a space with a space-swapping punctuation sign.
-     *
+     * <p>
      * This method will check that there are two characters before the cursor and that the first
      * one is a space before it does the actual swapping.
      * @param event The event to handle.
@@ -1416,7 +1406,7 @@ public final class InputLogic {
 
     /**
      * Apply the double-space-to-period transformation if applicable.
-     *
+     * <p>
      * The double-space-to-period transformation means that we replace two spaces with a
      * period-space sequence of characters. This typically happens when the user presses space
      * twice in a row quickly.
@@ -1468,7 +1458,7 @@ public final class InputLogic {
 
     /**
      * Returns whether this code point can be followed by the double-space-to-period transformation.
-     *
+     * <p>
      * See #maybeDoubleSpaceToPeriod for details.
      * Generally, most word characters can be followed by the double-space-to-period transformation,
      * while most punctuation can't. Some punctuation however does allow for this to take place
@@ -1737,7 +1727,7 @@ public final class InputLogic {
 
     /**
      * Reverts a previous commit with auto-correction.
-     *
+     * <p>
      * This is triggered upon pressing backspace just after a commit with auto-correction.
      *
      * @param inputTransaction The transaction in progress.
@@ -1789,8 +1779,7 @@ public final class InputLogic {
                 // If this is a suggestion span, we check that the word is not the committed word.
                 // That should mostly be the case.
                 // Given this, we add it to the list of suggestions, otherwise we discard it.
-                if (span instanceof SuggestionSpan) {
-                    final SuggestionSpan suggestionSpan = (SuggestionSpan)span;
+                if (span instanceof final SuggestionSpan suggestionSpan) {
                     for (final String suggestion : suggestionSpan.getSuggestions()) {
                         if (!suggestion.equals(committedWordString)) {
                             suggestions.add(suggestion);
@@ -1798,16 +1787,13 @@ public final class InputLogic {
                     }
                 } else {
                     // If this is not a suggestion span, we just add it as is.
-                    textToCommit.setSpan(span, 0 /* start */, lastCharIndex /* end */,
-                            committedWordWithSuggestionSpans.getSpanFlags(span));
+                    textToCommit.setSpan(span, 0, lastCharIndex, committedWordWithSuggestionSpans.getSpanFlags(span));
                 }
             }
             // Add the suggestion list to the list of suggestions.
-            textToCommit.setSpan(new SuggestionSpan(mLatinIME /* context */,
-                    inputTransaction.getMSettingsValues().mLocale,
-                    suggestions.toArray(new String[0]), 0 /* flags */,
-                    null /* notificationTargetClass */),
-                    0 /* start */, lastCharIndex /* end */, 0 /* flags */);
+            textToCommit.setSpan(new SuggestionSpan(mLatinIME, inputTransaction.getMSettingsValues().mLocale,
+                    suggestions.toArray(new String[0]), 0, null),
+                    0, lastCharIndex, 0);
         }
 
         if (inputTransaction.getMSettingsValues().mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
@@ -1854,7 +1840,7 @@ public final class InputLogic {
 
     /**
      * Gets the current auto-caps state, factoring in the space state.
-     *
+     * <p>
      * This method tries its best to do this in the most efficient possible manner. It avoids
      * getting text from the editor if possible at all.
      * This is called from the KeyboardSwitcher (through a trampoline in LatinIME) because it
@@ -1914,7 +1900,7 @@ public final class InputLogic {
 
     /**
      * Tests the passed word for resumability.
-     *
+     * <p>
      * We can resume suggestions on words whose first code point is a word code point (with some
      * nuances: check the code for details).
      *
@@ -1938,7 +1924,7 @@ public final class InputLogic {
 
     /**
      * Perform the processing specific to inputting TLDs.
-     *
+     * <p>
      * Some keys input a TLD (specifically, the ".com" key) and this warrants some specific
      * processing. First, if this is a TLD, we ignore PHANTOM spaces -- this is done by type
      * of character in onCodeInput, but since this gets inputted as a whole string we need to
@@ -1975,7 +1961,7 @@ public final class InputLogic {
 
     /**
      * Resets the whole input state to the starting state.
-     *
+     * <p>
      * This will clear the composing word, reset the last composed word, clear the suggestion
      * strip and tell the input connection about it so that it can refresh its caches.
      *
@@ -1996,7 +1982,7 @@ public final class InputLogic {
 
     /**
      * Resets only the composing state.
-     *
+     * <p>
      * Compare #resetEntireInputState, which also clears the suggestion strip and resets the
      * input connection caches. This only deals with the composing state.
      *
@@ -2041,7 +2027,7 @@ public final class InputLogic {
 
     /**
      * Gets a chunk of text with or the auto-correction indicator underline span as appropriate.
-     *
+     * <p>
      * This method looks at the old state of the auto-correction indicator to put or not put
      * the underline span as appropriate. It is important to note that this does not correspond
      * exactly to whether this word will be auto-corrected to or not: what's important here is
@@ -2067,7 +2053,7 @@ public final class InputLogic {
 
     /**
      * Sends a DOWN key event followed by an UP key event to the editor.
-     *
+     * <p>
      * If possible at all, avoid using this method. It causes all sorts of race conditions with
      * the text view because it goes through a different, asynchronous binder. Also, batch edits
      * are ignored for key events. Use the normal software input methods instead.
@@ -2080,7 +2066,7 @@ public final class InputLogic {
 
     /**
      * Sends a DOWN key event followed by an UP key event to the editor.
-     *
+     * <p>
      * If possible at all, avoid using this method. It causes all sorts of race conditions with
      * the text view because it goes through a different, asynchronous binder. Also, batch edits
      * are ignored for key events. Use the normal software input methods instead.
@@ -2100,7 +2086,7 @@ public final class InputLogic {
 
     /**
      * Insert an automatic space, if the options allow it.
-     *
+     * <p>
      * This checks the options and the text before the cursor are appropriate before inserting
      * an automatic space.
      *
@@ -2161,7 +2147,7 @@ public final class InputLogic {
 
     /**
      * Commit the typed string to the editor.
-     *
+     * <p>
      * This is typically called when we should commit the currently composing word without applying
      * auto-correction to it. Typically, we come here upon pressing a separator when the keyboard
      * is configured to not do auto-correction at all (because of the settings or the properties of
@@ -2186,7 +2172,7 @@ public final class InputLogic {
 
     /**
      * Commit the current auto-correction.
-     *
+     * <p>
      * This will commit the best guess of the keyboard regarding what the user meant by typing
      * the currently composing word. The IME computes suggestions and assigns a confidence score
      * to each of them; when it's confident enough in one suggestion, it replaces the typed string
@@ -2263,10 +2249,6 @@ public final class InputLogic {
             startTimeMillis = System.currentTimeMillis();
             Log.d(TAG, "commitChosenWord() : [" + chosenWord + "]");
         }
-        final SuggestedWords suggestedWords = mSuggestedWords;
-        // TODO: Locale should be determined based on context and the text given.
-        final Locale locale = getDictionaryFacilitatorLocale();
-        final CharSequence chosenWordWithSuggestions = chosenWord;
         // b/21926256
         //      SuggestionSpanUtils.getTextWithSuggestionSpan(mLatinIME, chosenWord,
         //                suggestedWords, locale);
@@ -2288,7 +2270,7 @@ public final class InputLogic {
             Log.d(TAG, "commitChosenWord() : NgramContext = " + ngramContext);
             startTimeMillis = System.currentTimeMillis();
         }
-        mConnection.commitText(chosenWordWithSuggestions, 1);
+        mConnection.commitText(chosenWord, 1);
         if (DebugFlags.DEBUG_ENABLED) {
             long runTimeMillis = System.currentTimeMillis() - startTimeMillis;
             Log.d(TAG, "commitChosenWord() : " + runTimeMillis + " ms to run "
@@ -2307,19 +2289,17 @@ public final class InputLogic {
         // what user typed. Note: currently this is done much later in
         // LastComposedWord#didCommitTypedWord by string equality of the remembered
         // strings.
-        mLastComposedWord = mWordComposer.commitWord(commitType,
-                chosenWordWithSuggestions, separatorString, ngramContext);
+        mLastComposedWord = mWordComposer.commitWord(commitType, chosenWord, separatorString, ngramContext);
         if (DebugFlags.DEBUG_ENABLED) {
             long runTimeMillis = System.currentTimeMillis() - startTimeMillis;
             Log.d(TAG, "commitChosenWord() : " + runTimeMillis + " ms to run "
                     + "WordComposer.commitWord()");
-            startTimeMillis = System.currentTimeMillis();
         }
     }
 
     /**
      * Retry resetting caches in the rich input connection.
-     *
+     * <p>
      * When the editor can't be accessed we can't reset the caches, so we schedule a retry.
      * This method handles the retry, and re-schedules a new retry if we still can't access.
      * We only retry up to 5 times before giving up.

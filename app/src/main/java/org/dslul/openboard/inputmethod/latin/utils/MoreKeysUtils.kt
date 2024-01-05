@@ -45,7 +45,6 @@ fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: S
     }
     if (!moreKeysDelegate.isInitialized() || moreKeys.isEmpty())
         return null
-    Log.i("test", "moreKeys for $label: $moreKeys")
     val fco = moreKeys.firstOrNull { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
     if (fco != null && fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != moreKeys.size - 1) {
         val fcoExpected = moreKeys.size - moreKeys.count { it.startsWith("!") && it.endsWith("!") } - 1
