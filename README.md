@@ -1,9 +1,17 @@
 # OpenBoard upgrade, WIP
 
-This is an attempt to integrate changes / improvements into OpenBoard that have been sitting around for a long time due to low dev activity.
-Might end up on F-Droid...
-
 **This is mostly a development version. On updates there may be changes that reset some settings. Consider all releases as beta quality at best and always have another keyboard installed in case of really bad bugs.**
+
+## Plan for actual release
+The plans for major changes are completed, and most features appear to be stable enough for a proper release.
+So what comes next:
+* Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
+* Rename app, package and this repository
+* New icon
+* Drop support for Android 4.4?
+* Use a translation tool (probably weblate)
+* Release on F-Droid
+* Maybe add a version that does not allow providing a glide typing library, for people concerned about security
 
 ## Features
 * Allow loading Glide typing library
@@ -49,6 +57,16 @@ Features that may go unnoticed, and further potentially useful information
   * Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled)
 * For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot. The file is located in `/data/user_de/0/package_id/shared_prefs/`, though this may depend on the device and Android version.
 
+## Ideas for further improvements
+* More customizable theming
+* Improved / less bad suggestions in some specific situations
+* Sliding key input for toolbar and emojis (like `?123` and _shift_ sliding input)
+* More tunable behavior, e.g for delete and spacebar swipe, for toolbar, for spell checker,...
+* Adjust arrangement of settings, maybe hide settings irrelevant for most users behind some "more settings mode"
+* Migrate to internally use language tags (problematic due to lack of support on older Android versions)
+* Support providing background images (for keyboard, and possibly also for keys)
+* and general [bug](https://github.com/Helium314/openboard/issues?q=is%3Aopen+is%3Aissue+label%3Abug) fixing
+
 ## Important differences and changes to OpenBoard
 * Debug version can be installed along OpenBoard
 * Allow users to add and replace built-in dictionaries
@@ -89,37 +107,6 @@ Features that may go unnoticed, and further potentially useful information
 * Add more options to the language switch key
 * New keyboard parser (no need to use `tools:make-keyboard-text:makeText` any more)
   * Can use simple text files or JSON files as used by [FlorisBoard](https://github.com/florisboard/florisboard/tree/master/app/src/main/assets/ime/keyboard/org.florisboard.layouts/layouts)
-
-## The rough plan/todo before "full" release
-* Finish keyboard parsing upgrades
-  * Users should be allowed to add their own layouts
-  * Determine symbol popup keys from symbols layout instead of hardcoding them to the layout (still allow layout to override or add popup keys)
-  * Allow users more control over popup keys (which hint label to show, which popup keys (language, layout, symbols) to show first or at all)
-* Overhaul the view system
-  * Have a fixed height common to all views (keyboard, emoji, clipboard)
-  * Should allow for more flexible one-handed mode (though the actual one-handed mode changes may be implemented later)
-  * Should allow for background images that don't resize or get cut off when switching between views
-* Internal clean up (xml files, unused resources, some todos in code)
-* Solve some [issues](https://github.com/Helium314/openboard/milestone/1) requiring a lot of work
-
-Once above is done, we can think about properly releasing the app:
-* Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
-* Rename app, package and this repository
-* New icon
-* Use a translation tool (probably weblate)
-* Release on F-Droid
-* Maybe add a version that does not allow providing a glide typing library, for people concerned about security
-
-## Further ideas
-* More customizable theming
-* Improved / less bad suggestions in some specific situations
-* Sliding key input for toolbar, numpad and emojis (like `?123` and _shift_ sliding input)
-* More tunable behavior, e.g for delete and spacebar swipe, for toolbar, for spell checker,...
-* Adjust arrangement of settings, maybe hide settings irrelevant for most users behind some "more settings mode"
-* Migrate to internally use language tags (problematic due to lack of support on older Android versions)
-* More customizable toolbar
-* Support providing background images (for keyboard, and possibly also for keys)
-* and general [bug](https://github.com/Helium314/openboard/issues?q=is%3Aopen+is%3Aissue+label%3Abug) fixing
 
 -----
 # readme for original version of OpenBoard below
