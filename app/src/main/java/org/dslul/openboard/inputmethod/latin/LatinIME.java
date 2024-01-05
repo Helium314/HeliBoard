@@ -1347,11 +1347,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
         // "normal" suggestions might be determined in parallel when processing MSG_UPDATE_SUGGESTION_STRIP
         // so we add a delay to make sure inline suggestions are set only after normal suggestions
-        mHandler.postDelayed(() -> {
-            mSuggestionStripView.clear();
-            mSuggestionStripView.hideToolbarKeys();
-            mSuggestionStripView.addSuggestionView(inlineSuggestionView);
-        }, 200);
+        mHandler.postDelayed(() -> mSuggestionStripView.setInlineSuggestionsView(inlineSuggestionView), 200);
 
         return true;
     }
