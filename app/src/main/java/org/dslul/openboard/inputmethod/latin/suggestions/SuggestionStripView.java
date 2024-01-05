@@ -293,8 +293,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         // Make the tool bar and pinned keys visible if setInlineSuggestionsView() was called
-        mToolbarExpandKey.setVisibility(VISIBLE);
-        mPinnedKeys.setVisibility(VISIBLE);
+        if (mToolbarExpandKey.getVisibility() != VISIBLE) {
+            mToolbarExpandKey.setVisibility(VISIBLE);
+            mPinnedKeys.setVisibility(VISIBLE);
+        }
     }
 
     private void removeAllDebugInfoViews() {
