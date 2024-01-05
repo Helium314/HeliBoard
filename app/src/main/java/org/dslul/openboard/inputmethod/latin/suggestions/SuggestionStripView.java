@@ -291,6 +291,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         for (final TextView word : mWordViews) {
             word.setOnTouchListener(null);
         }
+
+        // Make the tool bar and pinned keys visible if setInlineSuggestionsView() was called
+        mToolbarExpandKey.setVisibility(VISIBLE);
+        mPinnedKeys.setVisibility(VISIBLE);
     }
 
     private void removeAllDebugInfoViews() {
