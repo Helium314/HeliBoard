@@ -114,7 +114,8 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
         both.first() to both.last().toBoolean()
     }
     val rv = RecyclerView(context)
-    rv.setPadding(30, 10, 10, 10)
+    val padding = (8 * context.resources.displayMetrics.density).toInt()
+    rv.setPadding(3 * padding, padding, padding, padding)
     rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     val callback = object : DiffUtil.ItemCallback<Pair<String, Boolean>>() {
         override fun areItemsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1

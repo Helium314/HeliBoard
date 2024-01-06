@@ -54,7 +54,8 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: St
         .setView(EditText(context).apply {
             setText(name)
             doAfterTextChanged { name = it.toString() }
-            setPadding(30, 10, 30, 10)
+            val padding = (8 * context.resources.displayMetrics.density).toInt()
+            setPadding(3 * padding, padding, 3 * padding, padding)
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         })
         .setPositiveButton(android.R.string.ok) { _, _ ->
