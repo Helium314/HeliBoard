@@ -70,6 +70,12 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
             // INSERT mode.
             mContents = new UserDictionaryAddWordContents(mRootView, mContents);
         }
+
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
+            actionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
+        }
         setHasOptionsMenu(true);
         return mRootView;
     }
@@ -141,24 +147,6 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         super.onResume();
         // We are being shown: display the word
         updateSpinner();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar == null) return;
-        actionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
-        actionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar == null) return;
-        actionBar.setTitle(R.string.edit_personal_dictionary);
-        actionBar.setSubtitle(null);
     }
 
     private void updateSpinner() {

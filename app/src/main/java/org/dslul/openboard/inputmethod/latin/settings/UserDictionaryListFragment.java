@@ -52,15 +52,20 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         super.onCreate(savedInstanceState);
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(requireContext()));
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.edit_personal_dictionary);
-        }
+        if (actionBar == null) return;
+        actionBar.setTitle(R.string.edit_personal_dictionary);
+
         setHasOptionsMenu(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setSubtitle(null);
+        }
+
         createUserDictSettings(getPreferenceScreen());
     }
 

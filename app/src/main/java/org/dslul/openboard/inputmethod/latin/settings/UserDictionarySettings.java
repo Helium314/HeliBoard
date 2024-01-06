@@ -145,30 +145,20 @@ public class UserDictionarySettings extends ListFragment {
         listView.setFastScrollEnabled(true);
         listView.setEmptyView(emptyView);
 
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Show the language as a subtitle of the action bar
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
         actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        // clear the subtitle
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar == null) return;
-        actionBar.setSubtitle(null);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar == null) return;
+        actionBar.setTitle(R.string.edit_personal_dictionary);
+
         ListAdapter adapter = getListView().getAdapter();
         if (adapter instanceof MyAdapter listAdapter) {
             // The list view is forced refreshed here. This allows the changes done 
