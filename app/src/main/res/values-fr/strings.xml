@@ -165,7 +165,9 @@ Nouveau dictionnaire:
     <string name="user_dict_word_modified">Mise à jour réussie du mot</string>
     <string name="user_dict_mode_edit">Mode édition</string>
     <string name="user_dict_mode_insert">Mode insertion</string>
-    <string name="user_dict_word_already_present">Ce mot est déjà présent dans le dictionnaire utilisateur. Souhaitez-vous le mettre à jour ?</string>
+    <string name="user_dict_word_already_present">Ce mot est déjà présent dans le dictionnaire utilisateur. Souhaitez-vous le corriger ou mettre à jour ?</string>
+    <string name="user_dict_correct_button">Corriger</string>
+    <string name="user_dict_update_button">Mettre à jour</string>
     <string name="spell_checker_service_name">Correcteur orthographique OpenBoard</string>
     <string name="android_spell_checker_settings">Paramètres du correcteur orthographique OpenBoard</string>
     <string name="number_row">Ligne de chiffres</string>
