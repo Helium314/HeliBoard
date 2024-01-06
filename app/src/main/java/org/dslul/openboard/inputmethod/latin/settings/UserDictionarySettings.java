@@ -131,12 +131,7 @@ public class UserDictionarySettings extends ListFragment {
         } else locale = localeFromIntent;
 
         mLocale = locale;
-        // WARNING: The following cursor is never closed! TODO: don't put that in a member, and
-        // make sure all cursors are correctly closed. Also, this comes from a call to
-        // Activity#managedQuery, which has been deprecated for a long time (and which FORBIDS
-        // closing the cursor, so take care when resolving this TODO). We should either use a
-        // regular query and close the cursor, or switch to a LoaderManager and a CursorLoader.
-        mCursor = createCursor(locale);
+        createCursor(locale);
         TextView emptyView = view.findViewById(android.R.id.empty);
         emptyView.setText(R.string.user_dict_settings_empty_text);
 
@@ -168,28 +163,31 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    private Cursor createCursor(final String locale) {
+    private void createCursor(final String locale) {
         // Locale can be any of:
         // - The string representation of a locale, as returned by Locale#toString()
         // - The empty string. This means we want a cursor returning words valid for all locales.
         // - null. This means we want a cursor for the current locale, whatever this is.
+
         // Note that this contrasts with the data inside the database, where NULL means "all
-        // locales" and there should never be an empty string. The confusion is called by the
-        // historical use of null for "all locales".
+        // locales" and there should never be an empty string.
+        // The confusion is called by the historical use of null for "all locales".
+
         // TODO: it should be easy to make this more readable by making the special values
-        // human-readable, like "all_locales" and "current_locales" strings, provided they
-        // can be guaranteed not to match locales that may exist.
+        //  human-readable, like "all_locales" and "current_locales" strings, provided they
+        //  can be guaranteed not to match locales that may exist.
+
         if ("".equals(locale)) {
             // Case-insensitive sort
-            return requireActivity().managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+            mCursor = requireActivity().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION_ALL_LOCALES, null,
                     "UPPER(" + UserDictionary.Words.WORD + ")");
+        } else {
+            final String queryLocale = null != locale ? locale : Locale.getDefault().toString();
+            mCursor = requireActivity().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+                    QUERY_SELECTION, new String[] { queryLocale },
+                    "UPPER(" + UserDictionary.Words.WORD + ")");
         }
-        final String queryLocale = null != locale ? locale : Locale.getDefault().toString();
-        return requireActivity().managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
-                QUERY_SELECTION, new String[] { queryLocale },
-                "UPPER(" + UserDictionary.Words.WORD + ")");
     }
 
     private ListAdapter createAdapter() {
