@@ -11,6 +11,17 @@
     android:paddingHorizontal="8dp"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/user_dictionary_mode_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="30dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textAllCaps="true">
+    </TextView>
+
     <EditText
         android:id="@+id/user_dictionary_add_word_text"
         android:layout_width="match_parent"

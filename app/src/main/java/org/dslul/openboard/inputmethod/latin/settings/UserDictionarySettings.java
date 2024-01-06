@@ -94,6 +94,8 @@ public class UserDictionarySettings extends ListFragment {
             UserDictionary.Words.WORD + "=? AND "
             + UserDictionary.Words.FREQUENCY + "=?";
 
+    private static final String DELETE_WORD = UserDictionary.Words.WORD + "=?";
+
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
     private Cursor mCursor;
@@ -226,8 +228,7 @@ public class UserDictionarySettings extends ListFragment {
                 return;
             }
         }
-        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
-                .setIcon(R.drawable.ic_plus);
+        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_plus);
         actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
@@ -303,7 +304,7 @@ public class UserDictionarySettings extends ListFragment {
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.FREQUENCY));
     }
 
-    public static void deleteWord(final String word, final String shortcut, final String weight,
+    public static void deleteWordInEditMode(final String word, final String shortcut, final String weight,
             final ContentResolver resolver) {
         if (!IS_SHORTCUT_API_SUPPORTED) {
             resolver.delete(UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_SHORTCUT_UNSUPPORTED,
@@ -317,6 +318,12 @@ public class UserDictionarySettings extends ListFragment {
                     UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT,
                     new String[] { word, shortcut, weight });
         }
+    }
+
+    public static void deleteWordInInsertMode(final String word, final ContentResolver resolver) {
+        resolver.delete(
+                    UserDictionary.Words.CONTENT_URI, DELETE_WORD,
+                    new String[] { word });
     }
 
     private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {

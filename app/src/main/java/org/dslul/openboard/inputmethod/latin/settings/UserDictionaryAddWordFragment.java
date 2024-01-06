@@ -24,6 +24,7 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -115,12 +116,20 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
-            mContents.apply(requireActivity());
-            requireActivity().onBackPressed();
+            if (mContents.isExistingWord(requireContext())) {
+                new AlertDialog.Builder(requireContext())
+                        .setMessage(R.string.user_dict_word_already_present)
+                        .setPositiveButton(android.R.string.ok, (dialog, i) -> mContents.editWord(requireContext()))
+                        .setNegativeButton(android.R.string.cancel, (dialog, i) -> requireActivity().onBackPressed())
+                        .show();
+            } else {
+                mContents.apply(requireContext());
+                requireActivity().onBackPressed();
+            }
             return true;
         }
         if (item.getItemId() == OPTIONS_MENU_DELETE) {
-            mContents.delete(getActivity());
+            mContents.delete(requireActivity());
             requireActivity().onBackPressed();
             return true;
         }

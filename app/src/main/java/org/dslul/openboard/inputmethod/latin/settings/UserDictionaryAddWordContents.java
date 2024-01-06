@@ -18,6 +18,8 @@ import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -52,13 +54,13 @@ public class UserDictionaryAddWordContents {
     public static final int MODE_EDIT = 0;
     public static final int MODE_INSERT = 1;
 
-    /* package */ static final int CODE_WORD_ADDED = 0;
-    /* package */ static final int CODE_CANCEL = 1;
-    /* package */ static final int CODE_ALREADY_PRESENT = 2;
+    static final int CODE_WORD_ADDED = 0;
+    static final int CODE_CANCEL = 1;
 
     public static final int WEIGHT_FOR_USER_DICTIONARY_ADDS = 250;
 
-    private final int mMode; // Either MODE_EDIT or MODE_INSERT
+    private int mMode; // Either MODE_EDIT or MODE_INSERT
+    private final TextView mModeTitle;
     private final EditText mWordEditText;
     private final EditText mShortcutEditText;
     private final EditText mWeightEditText;
@@ -70,7 +72,8 @@ public class UserDictionaryAddWordContents {
     private String mSavedShortcut;
     private String mSavedWeight;
 
-    /* package */ UserDictionaryAddWordContents(final View view, final Bundle args) {
+    UserDictionaryAddWordContents(final View view, final Bundle args) {
+        mModeTitle = view.findViewById(R.id.user_dictionary_mode_title);
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
         mWeightEditText = view.findViewById(R.id.user_dictionary_add_weight);
@@ -80,6 +83,7 @@ public class UserDictionaryAddWordContents {
             mShortcutEditText.setVisibility(View.GONE);
             view.findViewById(R.id.user_dictionary_add_shortcut_label).setVisibility(View.GONE);
         }
+
         final String word = args.getString(EXTRA_WORD);
         if (null != word) {
             mWordEditText.setText(word);
@@ -87,6 +91,7 @@ public class UserDictionaryAddWordContents {
             // it's too long to be edited.
             mWordEditText.setSelection(mWordEditText.getText().length());
         }
+
         if (UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             final String shortcut = args.getString(EXTRA_SHORTCUT);
             if (null != shortcut && null != mShortcutEditText) {
@@ -102,18 +107,24 @@ public class UserDictionaryAddWordContents {
             mWeightEditText.setText(weight);
         }
 
-        mMode = args.getInt(EXTRA_MODE); // default return value for #getInt() is 0 = MODE_EDIT
+        mMode = args.getInt(EXTRA_MODE);
+        if (mMode == MODE_EDIT) {
+            mModeTitle.setText(R.string.user_dict_mode_edit);
+        } else if (mMode == MODE_INSERT) {
+            mModeTitle.setText(R.string.user_dict_mode_insert);
+        }
+
         mOldWord = args.getString(EXTRA_WORD);
         mOldWeight = args.getString(EXTRA_WEIGHT);
         updateLocale(args.getString(EXTRA_LOCALE));
     }
 
-    /* package */ UserDictionaryAddWordContents(final View view,
-            final UserDictionaryAddWordContents oldInstanceToBeEdited) {
+    UserDictionaryAddWordContents(final View view, final UserDictionaryAddWordContents oldInstanceToBeEdited) {
+        mModeTitle = view.findViewById(R.id.user_dictionary_mode_title);
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
         mWeightEditText = view.findViewById(R.id.user_dictionary_add_weight);
-        mMode = MODE_EDIT;
+
         mOldWord = oldInstanceToBeEdited.mSavedWord;
         mOldShortcut = oldInstanceToBeEdited.mSavedShortcut;
         mOldWeight = oldInstanceToBeEdited.mSavedWeight;
@@ -122,29 +133,32 @@ public class UserDictionaryAddWordContents {
 
     // locale may be null, this means default locale
     // It may also be the empty string, which means "all locales"
-    /* package */ void updateLocale(final String locale) {
+    void updateLocale(final String locale) {
         mLocale = null == locale ? Locale.getDefault().toString() : locale;
     }
 
-    /* package */ void delete(final Context context) {
+    void delete(final Context context) {
+        final ContentResolver resolver = context.getContentResolver();
+        final String localeInToast = new LocaleRenderer(context, mLocale).toString();
+        final String messageDeleted = context.getString(R.string.user_dict_word_deleted) + " " + localeInToast;
+        // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            // Mode edit: remove the old entry.
-            final ContentResolver resolver = context.getContentResolver();
-            UserDictionarySettings.deleteWord(mOldWord, mOldShortcut, mOldWeight, resolver);
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
         }
-        // If we are in add mode, nothing was added, so we don't need to do anything.
     }
 
-    /* package */
     int apply(final Context context) {
         final ContentResolver resolver = context.getContentResolver();
-        if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            // Mode edit: remove the old entry.
-            UserDictionarySettings.deleteWord(mOldWord, mOldShortcut, mOldWeight, resolver);
-        }
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
         final String newWeight;
+
+        // Edit mode: remove the old entry
+        if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+        }
+
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             newShortcut = null;
         } else if (null == mShortcutEditText) {
@@ -157,6 +171,7 @@ public class UserDictionaryAddWordContents {
                 newShortcut = tmpShortcut;
             }
         }
+
         if (mWeightEditText == null) {
             newWeight = String.valueOf(WEIGHT_FOR_USER_DICTIONARY_ADDS);
         } else {
@@ -167,29 +182,18 @@ public class UserDictionaryAddWordContents {
                 newWeight = tmpWeight;
             }
         }
+
         if (TextUtils.isEmpty(newWord)) {
-            // If the word is somehow empty, don't insert it.
+            // If the word is empty, don't insert it.
             return CODE_CANCEL;
         }
+
         mSavedWord = newWord;
         mSavedShortcut = newShortcut;
         mSavedWeight = newWeight;
-        // If there is no shortcut, and the word already exists in the database, then we
-        // should not insert, because either A. the word exists with no shortcut, in which
-        // case the exact same thing we want to insert is already there, or B. the word
-        // exists with at least one shortcut, in which case it has priority on our word.
-        if (TextUtils.isEmpty(newShortcut) && hasWord(newWord, context) || TextUtils.isEmpty(newWeight) && hasWord(newWord, context)) {
-            return CODE_ALREADY_PRESENT;
-        }
 
-        // Disallow duplicates. If the same word with no shortcut is defined, remove it; if
-        // the same word with the same shortcut is defined, remove it; but we don't mind if
-        // there is the same word with a different, non-empty shortcut.
-        UserDictionarySettings.deleteWord(newWord, null, newWeight, resolver);
-        if (!TextUtils.isEmpty(newShortcut)) {
-            // If newShortcut is empty we just deleted this, no need to do it again
-            UserDictionarySettings.deleteWord(newWord, newShortcut, newWeight, resolver);
-        }
+        // Delete duplicates
+        UserDictionarySettings.deleteWordInInsertMode(newWord, resolver);
 
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
         // be null. However the addWord method takes null to mean 'all locales'.
@@ -197,27 +201,44 @@ public class UserDictionaryAddWordContents {
                 Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocale) ?
                         null : LocaleUtils.constructLocaleFromString(mLocale));
 
+        if (mMode == MODE_INSERT) {
+            final String localeInToast = new LocaleRenderer(context, mLocale).toString();
+            final String messageWordAdded = context.getString(R.string.user_dict_word_added) + " " + localeInToast;
+            Toast.makeText(context, messageWordAdded, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
+        }
+
         return CODE_WORD_ADDED;
     }
 
+    public void editWord(final Context context) {
+        final String newWord = mWordEditText.getText().toString();
+        if (hasWord(newWord, context)) {
+            mModeTitle.setText(R.string.user_dict_mode_edit);
+            mMode = MODE_EDIT;
+        }
+    }
+
+    public boolean isExistingWord(final Context context) {
+        final String newWord = mWordEditText.getText().toString();
+        if (mMode == MODE_INSERT) {
+            return hasWord(newWord, context);
+        } else {
+            return false;
+        }
+    }
+
     private static final String[] HAS_WORD_PROJECTION = { UserDictionary.Words.WORD };
-    private static final String HAS_WORD_SELECTION_ONE_LOCALE = UserDictionary.Words.WORD
-            + "=? AND " + UserDictionary.Words.LOCALE + "=?";
-    private static final String HAS_WORD_SELECTION_ALL_LOCALES = UserDictionary.Words.WORD
-            + "=? AND " + UserDictionary.Words.LOCALE + " is null";
+    private static final String HAS_WORD_SELECTION = UserDictionary.Words.WORD + "=?";
+
     private boolean hasWord(final String word, final Context context) {
         final Cursor cursor;
-        // mLocale == "" indicates this is an entry for all languages. Here, mLocale can't
-        // be null at all (it's ensured by the updateLocale method).
-        if ("".equals(mLocale)) {
-            cursor = context.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
-                      HAS_WORD_PROJECTION, HAS_WORD_SELECTION_ALL_LOCALES,
-                      new String[] { word }, null /* sort order */);
-        } else {
-            cursor = context.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
-                      HAS_WORD_PROJECTION, HAS_WORD_SELECTION_ONE_LOCALE,
-                      new String[] { word, mLocale }, null /* sort order */);
-        }
+
+        cursor = context.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
+                HAS_WORD_PROJECTION, HAS_WORD_SELECTION,
+                    new String[] { word }, null);
+
         try {
             if (null == cursor) return false;
             return cursor.getCount() > 0;

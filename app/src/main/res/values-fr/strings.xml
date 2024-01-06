@@ -160,6 +160,12 @@ Nouveau dictionnaire:
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Pour toutes les langues"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Plus de langues…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_word_added">Mot ajouté au dictionnaire :</string>
+    <string name="user_dict_word_deleted">Mot supprimé du dictionnaire :</string>
+    <string name="user_dict_word_modified">Mise à jour réussie du mot</string>
+    <string name="user_dict_mode_edit">Mode édition</string>
+    <string name="user_dict_mode_insert">Mode insertion</string>
+    <string name="user_dict_word_already_present">Ce mot est déjà présent dans le dictionnaire utilisateur. Souhaitez-vous le mettre à jour ?</string>
     <string name="spell_checker_service_name">Correcteur orthographique OpenBoard</string>
     <string name="android_spell_checker_settings">Paramètres du correcteur orthographique OpenBoard</string>
     <string name="number_row">Ligne de chiffres</string>
