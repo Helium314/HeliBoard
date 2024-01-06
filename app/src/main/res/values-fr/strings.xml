@@ -79,7 +79,7 @@
     <string name="remove" msgid="4486081658752944606">"Supprimer"</string>
     <string name="save" msgid="7646738597196767214">"Enregistrer"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Langue"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Clavier"</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">"Disposition"</string>
     <string name="button_title_add_custom_layout">Ajouter une disposition personnalisée</string>
     <string name="message_add_custom_layout">Sélectionner un fichier dans un format compatible. Des informations sur les formats sont disponibles %s.</string>
     <string name="button_load_custom_layout">Charger fichier</string>
