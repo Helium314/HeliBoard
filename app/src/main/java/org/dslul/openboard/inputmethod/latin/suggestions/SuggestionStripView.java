@@ -255,6 +255,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
         mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
+        mToolbarExpandKey.setVisibility(VISIBLE);
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -298,12 +299,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         dismissMoreSuggestionsPanel();
         for (final TextView word : mWordViews) {
             word.setOnTouchListener(null);
-        }
-
-        // Make the tool bar and pinned keys visible if setInlineSuggestionsView() was called
-        if (mToolbarExpandKey.getVisibility() != VISIBLE) {
-            mToolbarExpandKey.setVisibility(VISIBLE);
-            mPinnedKeys.setVisibility(VISIBLE);
         }
     }
 
