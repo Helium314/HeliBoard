@@ -55,6 +55,8 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         if (actionBar == null) return;
         actionBar.setTitle(R.string.edit_personal_dictionary);
 
+        createUserDictSettings(getPreferenceScreen());
+
         setHasOptionsMenu(true);
     }
 
@@ -66,7 +68,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             actionBar.setSubtitle(null);
         }
 
-        createUserDictSettings(getPreferenceScreen());
+        addMissingPrefs();
     }
 
     @Override
@@ -142,7 +144,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param userDictGroup The group to put the settings in.
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
-        userDictGroup.removeAll();
         final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
@@ -205,11 +206,27 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             intent.putExtra("locale", localeString);
             newPref.getExtras().putString("locale", localeString);
         }
+        newPref.setKey(localeString);
         newPref.setIntent(intent);
         newPref.setFragment(UserDictionarySettings.class.getName());
 
         return newPref;
     }
+
+    private void addMissingPrefs() {
+        final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
+        final int count = getPreferenceScreen().getPreferenceCount();
+        if (enabledUserDictionary != null) {
+            for (int i = 0; i < count; i++) {
+                final Preference pref = getPreferenceScreen().getPreference(i);
+                enabledUserDictionary.remove(pref.getKey());
+            }
+            for (String localeUserDictionary : enabledUserDictionary) {
+                getPreferenceScreen().addPreference(createUserDictionaryPreference(localeUserDictionary));
+            }
+        }
+    }
+
 
     private void showAddWordDialog() {
         final Bundle args = new Bundle();
