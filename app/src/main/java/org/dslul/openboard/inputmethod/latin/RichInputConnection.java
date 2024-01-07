@@ -650,12 +650,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
         if (text == null || text.length() == 0) {
             // we have no selection, get the whole text
-            ExtractedTextRequest etr = new ExtractedTextRequest();
+            final ExtractedTextRequest etr = new ExtractedTextRequest();
             etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
             etr.hintMaxChars = Integer.MAX_VALUE;
-            text = mIC.getExtractedText(etr, 0).text;
+            final ExtractedText et = mIC.getExtractedText(etr, 0);
+            if (et == null) return;
+            text = et.text;
         }
-        if (text == null) return;
+        if (text == null || text.length() == 0) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
     }
