@@ -559,7 +559,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 }
                 break;
             default:
-                final String text = StringUtils.newSingleCodePointString(keyEvent.getUnicodeChar());
+                final int codePoint = keyEvent.getUnicodeChar();
+                if (Character.isISOControl(codePoint))
+                    break; // don't append text if there is no actual text
+                final String text = StringUtils.newSingleCodePointString(codePoint);
                 mCommittedTextBeforeComposingText.append(text);
                 mExpectedSelStart += text.length();
                 mExpectedSelEnd = mExpectedSelStart;
