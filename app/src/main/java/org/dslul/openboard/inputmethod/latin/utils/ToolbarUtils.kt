@@ -25,13 +25,13 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
         button.scaleX = 1.2f
         button.scaleY = 1.2f
     }
-    button.isActivated = when (key) {
+    button.isActivated = !when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
-    button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key)))
+    button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key))?.mutate())
     return button
 }
 
