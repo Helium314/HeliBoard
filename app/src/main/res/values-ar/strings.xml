@@ -169,4 +169,6 @@
     <string name="subtype_no_language_colemak_dh">الأبجدية (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">الأبجدية (Workman)</string>
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
+    <string name="undo">"تراجع"</string>
+    <string name="redo">"إعادة"</string>
 </resources>

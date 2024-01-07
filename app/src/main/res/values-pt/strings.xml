@@ -170,4 +170,6 @@
     <string name="enable_clipboard_history">Ativar histórico da área de transferência</string>
     <string name="clipboard_history_retention_time">Tempo de retenção do histórico</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="undo">"Desfazer"</string>
+    <string name="redo">"Refazer"</string>
 </resources>

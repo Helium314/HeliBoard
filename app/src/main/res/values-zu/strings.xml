@@ -130,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sebenzisa izilimi zesistimu"</string>
     <string name="select_input_method">"Khetha indlela yokufaka"</string>
+    <string name="undo">"Hlehlisa"</string>
+    <string name="redo">"Yenza futhi"</string>
 </resources>

@@ -169,4 +169,6 @@
     <string name="auto_correction_confidence">യാന്ത്രിക-തിരുത്തൽ ആത്മവിശ്വാസം</string>
     <string name="use_system_language_to_select_input_method_subtypes">"സിസ്റ്റം ഭാഷകൾ ഉപയോഗിക്കുക"</string>
     <string name="select_input_method">"ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കുക"</string>
+    <string name="undo">"പഴയപടിയാക്കുക"</string>
+    <string name="redo">"വീണ്ടും ചെയ്യുക"</string>
 </resources>

@@ -169,4 +169,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
     <string name="auto_correction_confidence">Εμπιστοσύνη αυτόματης διόρθωσης</string>
     <string name="select_input_method">"Επιλογή μεθόδου εισόδου"</string>
+    <string name="undo">"Αναίρεση"</string>
+    <string name="redo">"Επανάληψη"</string>
 </resources>

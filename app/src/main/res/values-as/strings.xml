@@ -95,4 +95,6 @@
     <string name="user_dict_settings_more_languages">"অধিক ভাষা…"</string>
     <string name="user_dict_settings_delete">"মচক"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="undo">"আনডু কৰক"</string>
+    <string name="redo">"ৰিডু"</string>
 </resources>

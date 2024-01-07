@@ -169,4 +169,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
     <string name="auto_correction_confidence">Precisión de la corrección automática</string>
     <string name="select_input_method">"Selecciona un método de entrada"</string>
+    <string name="undo">"Deshacer"</string>
+    <string name="redo">"Rehacer"</string>
 </resources>

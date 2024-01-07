@@ -217,4 +217,6 @@
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="day_night_mode_summary">Знешні выгляд будзе адпавядаць наладам сістэмы</string>
     <string name="auto_correction_confidence">Упэўненасць у аўтавыпраўленні</string>
+    <string name="undo">"Адрабіць"</string>
+    <string name="redo">"Узнавіць"</string>
 </resources>

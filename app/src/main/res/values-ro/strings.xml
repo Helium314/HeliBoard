@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Folosește limbile sistemului"</string>
     <string name="select_input_method">"Alege metoda de introducere de text"</string>
     <string name="settings_screen_appearance">"Aspect"</string>
+    <string name="undo">"Anulați"</string>
+    <string name="redo">"Repetați"</string>
 </resources>

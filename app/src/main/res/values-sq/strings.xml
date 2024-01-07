@@ -130,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Përdor gjuhët e sistemit"</string>
     <string name="select_input_method">"Zgjidh metodën e hyrjes"</string>
+    <string name="undo">"Zhbëj"</string>
+    <string name="redo">"Ribëj"</string>
 </resources>

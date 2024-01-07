@@ -170,4 +170,6 @@
     <string name="key_borders">ღილაკის კონტურები</string>
     <string name="subtype_no_language_colemak_dh">ანბანი (Colemak Mod-DH)</string>
     <string name="day_night_mode">დღის/ღამის ავტ. არჩევანი</string>
+    <string name="undo">"დაბრუნება"</string>
+    <string name="redo">"გამეორება"</string>
 </resources>

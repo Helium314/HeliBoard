@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Käytä järjestelmän kieliä"</string>
     <string name="select_input_method">"Valitse syöttötapa"</string>
     <string name="settings_screen_appearance">"Ulkonäkö"</string>
+    <string name="undo">"Kumoa"</string>
+    <string name="redo">"Toista"</string>
 </resources>

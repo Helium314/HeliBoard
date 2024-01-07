@@ -149,4 +149,6 @@
     <string name="show_hints">కీ సూచనలు చూపండి</string>
     <string name="ime_settings">పరికరము యొక్క సాంకేతికతను బట్టి విద్యుత్ వినియోగము తగ్గించవచ్చు</string>
     <string name="settings_category_additional_keys">అదనపు కీస్</string>
+    <string name="undo">"చర్య రద్దు చేయి"</string>
+    <string name="redo">"చర్యను పునరావృతం చేయి"</string>
 </resources>

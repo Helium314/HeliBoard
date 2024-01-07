@@ -132,4 +132,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistemos kalbų naudojimas"</string>
     <string name="select_input_method">"Pasirinkite įvesties metodą"</string>
+    <string name="undo">"Anuliuoti"</string>
+    <string name="redo">"Grąžinti"</string>
 </resources>

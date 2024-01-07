@@ -169,4 +169,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Brug systemsprogene"</string>
     <string name="auto_correction_confidence">Tillid til automatisk korrektion</string>
     <string name="select_input_method">"Vælg inputmetode"</string>
+    <string name="undo">"Fortryd"</string>
+    <string name="redo">"Annuller fortryd"</string>
 </resources>

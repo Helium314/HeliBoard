@@ -169,4 +169,6 @@
     <string name="subtype_no_language_workman">Lat. Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Lat. Alphabet (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Vertrauenslevel der Autokorrektur</string>
+    <string name="undo">"Rückgängig machen"</string>
+    <string name="redo">"Wiederholen"</string>
 </resources>

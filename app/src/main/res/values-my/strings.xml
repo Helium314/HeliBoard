@@ -130,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"သတ်မှတ် ဘာသာစကားများကို သုံးပါ"</string>
     <string name="select_input_method">"ထည့်သွင်းရေး နည်းကို ရွေးရန်"</string>
+    <string name="undo">"ပြန်ဖျက်ရန်"</string>
+    <string name="redo">"ထပ်လုပ်ပါ"</string>
 </resources>

@@ -169,4 +169,6 @@
     <string name="show_hints_summary">Uzoq bosish ko‘rsatish</string>
     <string name="auto_correction_confidence">Avto-to‘g‘irlash maxfiyligi</string>
     <string name="more_keys_strip_description">Ko‘proq so‘zlar</string>
+    <string name="undo">"Bekor qilish"</string>
+    <string name="redo">"Qaytarish"</string>
 </resources>

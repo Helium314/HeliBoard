@@ -217,4 +217,6 @@
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
+    <string name="undo">"Відмінити"</string>
+    <string name="redo">"Повторити"</string>
 </resources>

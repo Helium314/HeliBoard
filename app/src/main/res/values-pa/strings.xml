@@ -130,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ਸਿਸਟਮ ਭਾਸ਼ਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ"</string>
     <string name="select_input_method">"ਇਨਪੁਟ ਵਿਧੀ ਚੁਣੋ"</string>
+    <string name="undo">"ਅਣਕੀਤਾ ਕਰੋ"</string>
+    <string name="redo">"ਮੁੜ-ਓਹੀ ਕਰੋ"</string>
 </resources>

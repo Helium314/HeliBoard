@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"ប្រើភាសាប្រព័ន្ធ"</string>
     <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="settings_screen_appearance">"រូបរាង"</string>
+    <string name="undo">"មិនធ្វើវិញ"</string>
+    <string name="redo">"ធ្វើវិញ"</string>
 </resources>

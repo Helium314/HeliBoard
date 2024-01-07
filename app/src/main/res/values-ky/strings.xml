@@ -130,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Системанын тилдерин колдонуу"</string>
     <string name="select_input_method">"Дайын киргизүү ыкмасын тандаңыз"</string>
+    <string name="undo">"Артка кайтаруу"</string>
+    <string name="redo">"Кайталоо"</string>
 </resources>

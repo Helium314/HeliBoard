@@ -168,4 +168,6 @@
     <string name="delete_swipe_summary">Posuňte prstem z tlačítka Delete a mažte větší části textu společně</string>
     <string name="key_borders">Okraje kláves</string>
     <string name="day_night_mode">Automatický denní/noční režim</string>
+    <string name="undo">"Vrátit zpět"</string>
+    <string name="redo">"Opakovat"</string>
 </resources>

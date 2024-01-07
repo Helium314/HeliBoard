@@ -169,4 +169,6 @@
     <string name="subtype_no_language_workman">알파벳 (Workman)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (벵골어)</string>
     <string name="subtype_no_language_colemak_dh">알파벳 (Colemak Mod-DH)</string>
+    <string name="undo">"실행취소"</string>
+    <string name="redo">"다시 실행"</string>
 </resources>

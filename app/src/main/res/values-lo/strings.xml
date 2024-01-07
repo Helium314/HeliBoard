@@ -131,4 +131,5 @@
     <string name="use_system_language_to_select_input_method_subtypes">"ໃຊ້ພາສາຂອງລະບົບ"</string>
     <string name="select_input_method">"ເລືອກຮູບແບບການປ້ອນ"</string>
     <string name="settings_screen_appearance">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
+    <string name="redo">"ເຮັດໃໝ່"</string>
 </resources>

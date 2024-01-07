@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Nota kerfistungumál"</string>
     <string name="select_input_method">"Veldu innsláttaraðferð"</string>
     <string name="settings_screen_appearance">"Útlit"</string>
+    <string name="undo">"Afturkalla"</string>
+    <string name="redo">"Endurgera"</string>
 </resources>

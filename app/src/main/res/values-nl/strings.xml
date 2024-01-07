@@ -169,4 +169,6 @@
     <string name="ime_settings">OpenBoard Instellingen</string>
     <string name="settings_category_input">Invoer</string>
     <string name="settings_category_additional_keys">Extra toetsen</string>
+    <string name="undo">"Ongedaan maken"</string>
+    <string name="redo">"Opnieuw"</string>
 </resources>

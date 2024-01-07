@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"सिष्टममा भएका भाषा प्रयोग गरियोस्"</string>
     <string name="select_input_method">"निवेश विधि छान्नुहोस्"</string>
     <string name="settings_screen_appearance">"उपस्थिति"</string>
+    <string name="undo">"अनडू गर्नुहोस्"</string>
+    <string name="redo">"रिडू गर्नुहोस्"</string>
 </resources>

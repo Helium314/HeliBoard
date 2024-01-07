@@ -170,4 +170,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <string name="autospace_after_punctuation_summary">Inserir espaço automaticamente após pontuação ao digitar uma nova palavra</string>
     <string name="settings_category_clipboard_history">Histórico da área de transferência</string>
+    <string name="undo">"Anular"</string>
+    <string name="redo">"Refazer"</string>
 </resources>

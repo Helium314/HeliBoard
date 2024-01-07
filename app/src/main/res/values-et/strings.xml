@@ -130,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Kasuta süsteemi keeli"</string>
     <string name="select_input_method">"Valige sisestusmeetod"</string>
+    <string name="undo">"Võta tagasi"</string>
+    <string name="redo">"Tee uuesti"</string>
 </resources>

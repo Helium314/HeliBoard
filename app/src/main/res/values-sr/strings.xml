@@ -169,4 +169,6 @@
     <string name="more_keys_strip_description">Додатни кључеви</string>
     <string name="settings_category_suggestions">Предлози</string>
     <string name="settings_category_miscellaneous">Остало</string>
+    <string name="undo">"Опозови"</string>
+    <string name="redo">"Понови"</string>
 </resources>

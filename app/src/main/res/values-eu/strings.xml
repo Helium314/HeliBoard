@@ -168,4 +168,6 @@
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Erabili sistemaren hizkuntzak"</string>
     <string name="select_input_method">"Aukeratu idazketa-metodoa"</string>
+    <string name="undo">"Desegin"</string>
+    <string name="redo">"Berregin"</string>
 </resources>

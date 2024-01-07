@@ -159,4 +159,6 @@
     <string name="key_borders">Tastekanter</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Bruk systemspråk"</string>
     <string name="select_input_method">"Velg inndatametode"</string>
+    <string name="undo">"Angre"</string>
+    <string name="redo">"Utfør likevel"</string>
 </resources>

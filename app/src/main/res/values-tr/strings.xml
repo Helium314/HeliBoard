@@ -169,4 +169,6 @@
     <string name="auto_correction_confidence">Otomatik düzeltme güveni</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillerini kullan"</string>
     <string name="select_input_method">"Giriş yöntemini seçin"</string>
+    <string name="undo">"Geri al"</string>
+    <string name="redo">"Yeniden yap"</string>
 </resources>

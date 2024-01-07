@@ -170,4 +170,6 @@
     <string name="auto_correction_confidence">Dokładność autokorekty</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Użyj języków systemu"</string>
     <string name="select_input_method">"Wybierz metodę wprowadzania"</string>
+    <string name="undo">"Cofnij"</string>
+    <string name="redo">"Ponów"</string>
 </resources>

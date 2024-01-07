@@ -217,4 +217,6 @@
     <string name="select_input_method">"Выберите метод ввода"</string>
     <string name="hidden_features_title">Описание скрытых функций</string>
     <string name="hidden_features_summary">Показать функции, которые могут остаться незамеченными</string>
+    <string name="undo">"Отменить"</string>
+    <string name="redo">"Повторить"</string>
 </resources>

@@ -169,4 +169,6 @@
     <string name="auto_correction_confidence">Förtroende för automatisk korrigering</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Använd systemspråk"</string>
     <string name="select_input_method">"Välj inmatningsmetod"</string>
+    <string name="undo">"Ångra"</string>
+    <string name="redo">"Gör om"</string>
 </resources>

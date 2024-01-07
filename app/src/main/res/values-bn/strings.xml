@@ -266,4 +266,6 @@
     <string name="text_tap_languages">সেটিংস খুলতে ভাষাতে ট্যাপ করুন</string>
     <string name="select_input_method">"কিবোর্ড পরিবর্তন"</string>
     <string name="settings_screen_appearance">"অবয়ব"</string>
+    <string name="undo">"পূর্বাবস্থায় ফিরুন"</string>
+    <string name="redo">"আবার করুন"</string>
 </resources>

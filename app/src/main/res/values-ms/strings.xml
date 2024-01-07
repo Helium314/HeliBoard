@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
     <string name="select_input_method">"Pilih kaedah input"</string>
     <string name="settings_screen_appearance">"Tampilan"</string>
+    <string name="undo">"Buat asal"</string>
+    <string name="redo">"Buat semula"</string>
 </resources>

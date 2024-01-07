@@ -168,4 +168,6 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (حروف)</string>
     <string name="key_borders">حاشیه کلید</string>
     <string name="day_night_mode">حالت روز/شب خودکار</string>
+    <string name="undo">"لغو"</string>
+    <string name="redo">"بازانجام"</string>
 </resources>

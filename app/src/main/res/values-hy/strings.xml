@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Օգտագործել համակարգի լեզուները"</string>
     <string name="select_input_method">"Ընտրեք ներածման եղանակը"</string>
     <string name="settings_screen_appearance">"Արտաքին տեսք"</string>
+    <string name="undo">"Հետարկել"</string>
+    <string name="redo">"Կրկնել"</string>
 </resources>

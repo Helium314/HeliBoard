@@ -131,4 +131,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Системийн хэлүүдийг ашиглах"</string>
     <string name="select_input_method">"Оруулах аргыг сонгоно уу"</string>
     <string name="settings_screen_appearance">"Харагдац"</string>
+    <string name="undo">"Буцаах"</string>
+    <string name="redo">"Дахин хийх"</string>
 </resources>
