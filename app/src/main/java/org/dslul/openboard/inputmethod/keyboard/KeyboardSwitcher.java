@@ -51,7 +51,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private View mEmojiTabStripView;
     private LinearLayout mClipboardStripView;
     private View mSuggestionStripView;
-    private View mSuggestionsView;
     private ClipboardHistoryView mClipboardHistoryView;
     private LatinIME mLatinIME;
     private RichInputMethodManager mRichImm;
@@ -283,7 +282,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiPalettesView.stopEmojiPalettes();
         mEmojiTabStripView.setVisibility(View.GONE);
         mClipboardStripView.setVisibility(View.GONE);
-        mSuggestionsView.setVisibility(View.VISIBLE);
         mSuggestionStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
         mClipboardHistoryView.stopClipboardHistory();
@@ -301,7 +299,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see #getVisibleKeyboardView() and
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
-        mSuggestionsView.setVisibility(View.GONE);
         mSuggestionStripView.setVisibility(View.GONE);
         mClipboardStripView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.VISIBLE);
@@ -325,7 +322,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // @see LatinIME#onComputeInset(android.inputmethodservice.InputMethodService.Insets)
         mKeyboardView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.GONE);
-        mSuggestionsView.setVisibility(View.GONE);
         mSuggestionStripView.setVisibility(View.GONE);
         mClipboardStripView.setVisibility(View.VISIBLE);
         mEmojiPalettesView.setVisibility(View.GONE);
@@ -576,7 +572,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
         mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
         mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
-        mSuggestionsView = mCurrentInputView.findViewById(R.id.suggestions_strip);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
         // todo: try delaying, it's not needed at this point
         //  but when initializing right before showing, selected emoji category is not colored correctly

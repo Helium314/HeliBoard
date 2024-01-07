@@ -65,6 +65,7 @@ import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.ViewCompat;
 
@@ -274,6 +275,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.setVisibility(GONE);
         mPinnedKeys.setVisibility(GONE);
         mSuggestionsStrip.addView(view);
+    }
+
+    @Override
+    public void onVisibilityChanged(@NonNull final View view, final int visibility) {
+        super.onVisibilityChanged(view, visibility);
+        if (view == this)
+            mSuggestionsStrip.setVisibility(visibility);
     }
 
     public void setMoreSuggestionsHeight(final int remainingHeight) {
