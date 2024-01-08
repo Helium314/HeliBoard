@@ -31,10 +31,9 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TreeSet;
 
 // Caveat: This class is basically taken from
@@ -92,10 +91,12 @@ public class UserDictionaryListFragment extends SubScreenFragment {
                 new String[] { UserDictionary.Words.LOCALE },
                 null, null, null);
         final TreeSet<String> localeSet = new TreeSet<>();
+
         if (null == cursor) {
             // The user dictionary service is not present or disabled. Return null.
             return null;
         }
+
         try {
             if (cursor.moveToFirst()) {
                 final int columnIndex = cursor.getColumnIndex(UserDictionary.Words.LOCALE);
@@ -107,19 +108,18 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         } finally {
             cursor.close();
         }
+
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             // For ICS, we need to show "For all languages" in case that the keyboard locale
             // is different from the system locale
             localeSet.add("");
         }
 
-        final InputMethodManager imm =
-                (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        final InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         final List<InputMethodInfo> imis = imm.getEnabledInputMethodList();
+
         for (final InputMethodInfo imi : imis) {
-            final List<InputMethodSubtype> subtypes =
-                    imm.getEnabledInputMethodSubtypeList(
-                            imi, true /* allowsImplicitlySelectedSubtypes */);
+            final List<InputMethodSubtype> subtypes = imm.getEnabledInputMethodSubtypeList(imi, true);
             for (InputMethodSubtype subtype : subtypes) {
                 final String locale = subtype.getLocale();
                 if (!TextUtils.isEmpty(locale)) {
@@ -144,43 +144,32 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param userDictGroup The group to put the settings in.
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
+        // List of enabled user dictionary language
         final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
-        // List of system language
+        // List of enabled system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
-        // List of all enabled system languages
-        Set<String> systemLocales = new HashSet<>();
-        for (Locale subtype : enabledSystemLocale) {
-            Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
-            systemLocales.add(locale.toString());
-            // Remove duplicates
-            if (enabledUserDictionary != null) {
-                for (final String localeUserDictionary : enabledUserDictionary) {
-                    if (locale.toString().equals(localeUserDictionary)) {
-                        systemLocales.remove(locale.toString());
-                    }
-                }
-            }
-        }
+        // To combine the 2 lists above
+        LinkedHashSet<String> userDictionaryLanguage = new LinkedHashSet<>();
 
         if (enabledUserDictionary == null) {
-            userDictGroup.addPreference(createUserDictionaryPreference(null));
             return;
         }
-
-        if (enabledUserDictionary.size() >= 1) {
-            // Have an "All languages" entry in the languages list if there are two or more active
-            // languages
-            enabledUserDictionary.add("");
+        // First, add "For all languages" to the top of the list
+        userDictionaryLanguage.add("");
+        // Next, the main language is added only if a word is present.
+        userDictionaryLanguage.addAll(enabledUserDictionary);
+        // Finally, add the enabled system languages
+        for (Locale subtype : enabledSystemLocale) {
+            Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
+            userDictionaryLanguage.add(locale.toString());
         }
 
-        if (enabledUserDictionary.isEmpty()) {
+        // Add preferences according to the sequence defined above
+        if (userDictionaryLanguage.isEmpty()) {
             userDictGroup.addPreference(createUserDictionaryPreference(null));
         } else {
-            for (String localeUserDictionary : enabledUserDictionary) {
+            for (String localeUserDictionary : userDictionaryLanguage) {
                 userDictGroup.addPreference(createUserDictionaryPreference(localeUserDictionary));
-            }
-            for (final String systemLanguage : systemLocales) {
-                userDictGroup.addPreference(createUserDictionaryPreference(systemLanguage));
             }
         }
     }
@@ -226,7 +215,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             }
         }
     }
-
 
     private void showAddWordDialog() {
         final Bundle args = new Bundle();
