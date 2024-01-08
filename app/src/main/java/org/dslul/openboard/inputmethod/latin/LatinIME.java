@@ -375,6 +375,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             removeMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
 
+        public void cancelResumeSuggestions() {
+            removeMessages(MSG_RESUME_SUGGESTIONS);
+        }
+
         public boolean hasPendingUpdateSuggestions() {
             return hasMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
@@ -1345,9 +1349,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
 
         final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
-        // "normal" suggestions might be determined in parallel when processing MSG_UPDATE_SUGGESTION_STRIP
-        // so we add a delay to make sure inline suggestions are set only after normal suggestions
-        mHandler.postDelayed(() -> mSuggestionStripView.setInlineSuggestionsView(inlineSuggestionView), 200);
+
+        mHandler.cancelResumeSuggestions();
+        mHandler.cancelUpdateSuggestionStrip();
+        mSuggestionStripView.setInlineSuggestionsView(inlineSuggestionView);
 
         return true;
     }
