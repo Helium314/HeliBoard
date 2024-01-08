@@ -60,10 +60,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
                 // add label source only if moreKey type enabled
                 sv.mMoreKeyLabelSources.forEach { if (it in sv.mMoreKeyTypes) mParams.mMoreKeyLabelSources.add(it) }
-                keysInRows = if (mParams.mId.isAlphabetKeyboard && mParams.mId.mSubtype.isCustom)
-                        KeyboardParser.parseCustom(mParams, mContext)
-                    else
-                        KeyboardParser.parseFromAssets(mParams, mContext)
+                keysInRows = KeyboardParser.parseLayout(mParams, mContext)
                 determineAbsoluteValues()
             } catch (e: Exception) {
                 Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"صدا با فشار کلید"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"بازشدن با فشار کلید"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"تنظیمات برگزیده"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"شکل ظاهری و چیدمان"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ورودی اشاره‌ای"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"اصلاح نوشتار"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"پیشرفته"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"مشاهده کلمه پیشنهادی در حین انجام حرکات"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"‫ورود عبارت با حرکت اشاره‌ای"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"با سراندن انگشت روی کلید فاصله در زمان استفاده از حرکات، فاصله وارد کنید"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"زبان‌ها"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"راهنما و بازخورد"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"انگلیسی (بریتانیا)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"انگلیسی (امریکا)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"اسپانیایی (امریکا)"</string>
@@ -170,4 +167,6 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (حروف)</string>
     <string name="key_borders">حاشیه کلید</string>
     <string name="day_night_mode">حالت روز/شب خودکار</string>
+    <string name="undo">"لغو"</string>
+    <string name="redo">"بازانجام"</string>
 </resources>

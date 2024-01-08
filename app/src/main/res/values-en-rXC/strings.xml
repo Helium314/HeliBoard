@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‎‏‏‎‎‎‎‎‏‏‏‏‎‏‎‏‎‎‎‏‎‎‏‎‏‎‎‎‏‎‏‏‏‎‏‎‎‎‏‏‎‎‏‎‎‎‏‎‎‎‏‏‎‎‎Sound on keypress‎‏‎‎‏‎"</string>
     <string name="popup_on_keypress">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‎‏‏‏‎‎‏‎‎‎‏‎‏‏‏‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‎‏‎‏‎‏‏‎‎‎‏‏‎‏‏‎‎‎‎‎‏‎Popup on keypress‎‏‎‎‏‎"</string>
     <string name="settings_screen_preferences">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‏‏‎‎‏‎‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‏‎‏‏‎‎‏‎‎‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎Preferences‎‏‎‎‏‎"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‎‏‏‏‎‏‎‎‎‎‏‎‎‎‎‎‏‏‎‏‏‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‏‏‏‏‎‎‎‏‎‎‏‏‎‏‏‏‏‏‎Appearance &amp; Layouts‎‏‎‎‏‎"</string>
     <string name="settings_screen_gesture">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‏‎‎‎‏‏‎‏‏‎‏‏‎‏‏‏‎‏‏‎‏‎‏‎‏‎‏‏‏‎‎‏‏‏‎‏‎‎‏‏‎‏‎‎‎‏‎‎‎‏‏‏‎‎‎Gesture Typing‎‏‎‎‏‎"</string>
     <string name="settings_screen_correction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‏‏‎‏‏‏‏‎‏‏‏‎‎‏‎‏‎‎‏‎‎‏‎‏‏‏‎‎‏‏‏‎‏‏‎‎‏‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‎‎‎‏‎‎Text correction‎‏‎‎‏‎"</string>
     <string name="settings_screen_advanced">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‎‎‏‎‏‎‎‎‏‏‏‎‏‏‏‏‎‎‏‎‏‏‎‏‏‏‎‏‏‎‎‏‏‎‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‎‏‎‏‎‏‏‎‎Advanced‎‏‎‎‏‎"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‏‎‎‏‏‎‎‏‏‏‏‎‏‏‎‏‎‎‎‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‎‎‏‎‎See the suggested word while gesturing‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎‎‎‎‎‎‎‏‎‏‎‎‎‏‏‎‏‏‎‏‏‎‏‏‎‏‎‏‎‎‏‏‎‎‏‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‎‏‏‎‎‎Phrase gesture‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‎‏‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‏‎‎‎‎‎‎Input spaces during gestures by gliding to the space key‎‏‎‎‏‎"</string>
-    <string name="language_selection_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‎‎‏‎‏‎‏‎‏‎‏‎‎‎‎‎‎‏‏‎‎‎‎‏‏‎‏‏‎‏‏‎‏‎Languages‎‏‎‎‏‎"</string>
-    <string name="help_and_feedback">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‏‏‎‏‏‎‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‎‏‏‎‎‏‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‎‏‎‏‏‏‏‎Help &amp; feedback‎‏‎‎‏‎"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‏‏‎‏‎‏‏‎‎‏‎‎‎‎‎‎‎‎‎‎‏‏‎‎‏‏‏‎‏‏‎‎‎‎‏‏‎‏‏‏‎‏‏‎English (UK)‎‏‎‎‏‎"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‏‏‎English (US)‎‏‎‎‏‎"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Spanish (US)‎‏‎‎‏‎"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet">" ‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‏‎‎‎‎‎‏‎‏‏‎‏‎‎‏‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‏‎‏‎‏‎‏‏‏‏‏‎‏‎‎‏‎‏‎‏‎‎ ABCDEFGHIJKLMNOPQRSTUVWXYZ‎‏‎‎‏‎"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‎‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‎‏‏‏‏‎‎‏‎‎‎‎‏‎‎‏‏‏‎‏‏‏‎‏‏‏‎‎‏‎‎‎‎‎‎Use system languages‎‏‎‎‏‎"</string>
     <string name="select_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‎‎‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‎‏‎‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎Choose input method‎‏‎‎‏‎"</string>
+    <string name="undo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‎‏‏‎‏‏‏‎‎‎‎‎‎‎‎‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‎‏‏‏‏‎‎‎‎Undo‎‏‎‎‏‎"</string>
+    <string name="redo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‏‏‏‏‎‎‏‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‎‏‏‏‏‎‏‏‏‎‎‎‏‎‎‏‏‏‎‏‎‏‏‎‏‏‎‎‎‎‎Redo‎‏‎‎‏‎"</string>
 </resources>

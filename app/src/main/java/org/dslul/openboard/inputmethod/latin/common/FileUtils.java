@@ -17,7 +17,6 @@ import java.io.OutputStream;
  * A simple class to help with removing directories recursively.
  */
 public class FileUtils {
-    private static final String TAG = "FileUtils";
 
     public static boolean deleteRecursively(final File path) {
         if (path.isDirectory()) {
@@ -46,11 +45,6 @@ public class FileUtils {
             }
         }
         return hasDeletedAllFiles;
-    }
-
-    public static boolean renameTo(final File fromFile, final File toFile) {
-        toFile.delete();
-        return fromFile.renameTo(toFile);
     }
 
     public static void copyStreamToNewFile(InputStream in, File outfile) throws IOException {

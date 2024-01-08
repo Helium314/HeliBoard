@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Berbunyi jika tombol ditekan"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Muncul saat tombol ditekan"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferensi"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Tampilan &amp; Tata Letak"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Ketikan Gestur"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Koreksi teks"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Lanjutan"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Lihat kata yang disarankan saat melakukan isyarat"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gesture frasa"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Masukkan spasi dalam isyarat dengan meluncur ke tombol spasi"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Bahasa"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Bantuan &amp; masukan"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Inggris (Inggris)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Inggris (AS)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spanyol (AS)"</string>
@@ -171,4 +168,6 @@
     <string name="auto_correction_confidence">Konfidensi koreksi otomatis</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
     <string name="select_input_method">"Pilih metode masukan"</string>
+    <string name="undo">"Urungkan"</string>
+    <string name="redo">"Ulangi"</string>
 </resources>

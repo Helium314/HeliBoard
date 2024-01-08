@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
     <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
     <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"المظهر والتنسيقات"</string>
     <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"الإعدادات المتقدمة"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
     <string name="gesture_space_aware">"عبارة الإيماء"</string>
     <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"اللغات"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"المساعدة والتعليقات"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"الإسبانية (الأميركية)"</string>
@@ -171,4 +168,6 @@
     <string name="subtype_no_language_colemak_dh">الأبجدية (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">الأبجدية (Workman)</string>
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
+    <string name="undo">"تراجع"</string>
+    <string name="redo">"إعادة"</string>
 </resources>

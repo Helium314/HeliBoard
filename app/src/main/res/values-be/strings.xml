@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Гук пры націску"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Па націску на клавішы ўсплывае акно"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметры"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Знешні выгляд і раскладкі"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Знешні выгляд"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Жэставы набор"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Выпраўленне тэксту"</string>
@@ -51,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Праглядаць прапанаванае слова падчас жэсту"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Жэст фразы"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Уводзьце прабелы паміж жэстамі, праводзячы па клавішы прабелу"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Мовы"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Даведка і водгукі"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Англійская (Вялікабрытанія)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Англійская (ЗША)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Іспанская (ЗША)"</string>
@@ -219,4 +216,6 @@
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="day_night_mode_summary">Знешні выгляд будзе адпавядаць наладам сістэмы</string>
     <string name="auto_correction_confidence">Упэўненасць у аўтавыпраўленні</string>
+    <string name="undo">"Адрабіць"</string>
+    <string name="redo">"Узнавіць"</string>
 </resources>

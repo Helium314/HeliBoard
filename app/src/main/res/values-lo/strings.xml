@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"ສຽງໃນການກົດປຸ່ມ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"ໂຕອັກສອນເວລາພິມ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"​​ການ​ຕັ້ງ​ຄ່າ"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"​ລັກ​ສະ​ນະ &amp; ໂຄງ​ຮ່າງ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"​ກາ​ນ​ພິມ​ແບບ​ລາກ​ນິ້ວ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"​ການ​ແປງ​ຄຳ​ໃຫ້​ຖືກ​ຕ້ອງ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"​ຂັ້ນ​ສູງ"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ເບິ່ງຄຳທີ່ຖືກແນະນຳໃນເວລາທີ່ກຳລັງຊີ້"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ການສະແດງທ່າທາງດ້ວຍປະໂຫຍກ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ໃສ່ຍະຫວ່າງເຂົ້າໄປໃນຂະນະທີ່ສະແດງທ່າທາງ ໂດຍການເລື່ອນໄປທີ່ປຸ່ມຍະຫວ່າງ"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ພາ​ສາ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ຊ່ວຍ​ເຫຼືອ &amp; ຄຳ​ຕິ​ຊົມ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ອັງກິດ (ສະຫະລາດຊະອານາຈັກ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ອັງກິດ (ສະຫະລັດຯ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ສະເປນ (ອາເມລິກາ)"</string>
@@ -133,4 +130,5 @@
     <string name="use_system_language_to_select_input_method_subtypes">"ໃຊ້ພາສາຂອງລະບົບ"</string>
     <string name="select_input_method">"ເລືອກຮູບແບບການປ້ອນ"</string>
     <string name="settings_screen_appearance">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
+    <string name="redo">"ເຮັດໃໝ່"</string>
 </resources>

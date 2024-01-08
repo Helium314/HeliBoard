@@ -23,7 +23,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.UniqueKeysCache;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
-import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
@@ -35,8 +34,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
-
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -248,9 +245,7 @@ public final class KeyboardLayoutSet {
 
         public Builder setSubtype(@NonNull final RichInputMethodSubtype subtype) {
             final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
-            // TODO: Consolidate with {@link InputAttributes}.
-            final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0
-                    || InputAttributes.inPrivateImeOptions(mPackageName, FORCE_ASCII, mParams.mEditorInfo);
+            final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0;
             final RichInputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
                     ? RichInputMethodSubtype.getNoLanguageSubtype()
                     : subtype;

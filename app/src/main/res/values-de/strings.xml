@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Ton bei Tastendruck"</string>
     <string name="popup_on_keypress">"Bei Tastendruck Pop-up"</string>
     <string name="settings_screen_preferences">"Einstellungen"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Darstellung &amp; Layouts"</string>
     <string name="settings_screen_gesture">"Gesteneingabe"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Textkorrektur"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Erweitert"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Vorgeschlagenes Wort bei Bewegung anzeigen"</string>
     <string name="gesture_space_aware">"Phrasengeste"</string>
     <string name="gesture_space_aware_summary">"Leerzeichen durch Bewegung über die Leertaste einfügen"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Sprachen"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Hilfe &amp; Feedback"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Englisch (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Englisch (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spanisch (USA)"</string>
@@ -171,4 +168,6 @@
     <string name="subtype_no_language_workman">Lat. Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Lat. Alphabet (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Vertrauenslevel der Autokorrektur</string>
+    <string name="undo">"Rückgängig machen"</string>
+    <string name="redo">"Wiederholen"</string>
 </resources>

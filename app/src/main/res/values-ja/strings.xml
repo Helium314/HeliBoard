@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"キー操作音"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"キー押下時ポップアップ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"設定"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"外観とレイアウト"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ジェスチャー入力"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"テキストの修正"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"詳細設定"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ジェスチャーで入力候補を表示できます"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"フレーズジェスチャー"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Spaceキーに指を滑らせると、ジェスチャー中にスペースを入力できます"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"言語"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ヘルプとフィードバック"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"英語 (英国)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"英語 (米国)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"スペイン語 (米国)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"システム言語を使用"</string>
     <string name="select_input_method">"入力方法の選択"</string>
+    <string name="undo">"元に戻す"</string>
+    <string name="redo">"やり直し"</string>
 </resources>

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"కీని నొక్కినప్పుడు ధ్వని"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"కీని నొక్కినప్పుడు పాప్‌అప్ చూపు"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ప్రాధాన్యతలు"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"కనిపించే తీరు &amp; లేఅవుట్‌లు"</string>
     <string name="settings_screen_gesture">"సంజ్ఞ టైపింగ్"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"వచన సవరణ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"అధునాతనం"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"సంజ్ఞలు చేసేటప్పుడు సూచిత పదాన్ని చూడండి"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"పదబంధం సంజ్ఞ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"స్పేస్ కీకి గ్లైడ్ చేయడం ద్వారా సంజ్ఞల సమయంలో అంతరాలను ఇన్‌పుట్ చేయండి"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"భాషలు"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"సహాయం &amp; అభిప్రాయం"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ఆంగ్లం (యుకె)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ఆంగ్లం (యుఎస్)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"స్పానిష్ (యుఎస్)"</string>
@@ -151,4 +148,6 @@
     <string name="show_hints">కీ సూచనలు చూపండి</string>
     <string name="ime_settings">పరికరము యొక్క సాంకేతికతను బట్టి విద్యుత్ వినియోగము తగ్గించవచ్చు</string>
     <string name="settings_category_additional_keys">అదనపు కీస్</string>
+    <string name="undo">"చర్య రద్దు చేయి"</string>
+    <string name="redo">"చర్యను పునరావృతం చేయి"</string>
 </resources>

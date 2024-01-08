@@ -29,9 +29,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.
  */
 class JsonKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
 
-    override fun getLayoutFromAssets(layoutName: String) =
-        context.assets.open("layouts/$layoutName.json").reader().readText()
-
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val florisKeyData: List<List<AbstractKeyData>> = florisJsonConfig.decodeFromString(layoutContent)
         // initially 200 ms parse (debug build on S4 mini)

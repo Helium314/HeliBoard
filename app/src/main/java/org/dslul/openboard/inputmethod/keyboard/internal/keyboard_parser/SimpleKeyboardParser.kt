@@ -16,9 +16,6 @@ import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
     private val addExtraKeys = params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
 
-    override fun getLayoutFromAssets(layoutName: String) =
-        context.assets.open("layouts/$layoutName.txt").reader().readText()
-
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val rowStrings = layoutContent.replace("\r\n", "\n").split("\\n\\s*\\n".toRegex())
         return rowStrings.mapIndexedNotNullTo(mutableListOf()) { i, row ->

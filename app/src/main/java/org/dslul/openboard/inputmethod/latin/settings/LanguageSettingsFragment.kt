@@ -87,7 +87,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         val activity: Activity? = activity
         if (activity is AppCompatActivity) {
             val actionBar = activity.supportActionBar ?: return
-            actionBar.setTitle(R.string.language_selection_title)
+            actionBar.setTitle(R.string.language_and_layouts_title)
         }
     }
 

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"በቁልፍ መጫን ላይ የሚወጣ ድምፅ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"ቁልፍ ጫን ላይ ብቅ ባይ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ምርጫዎች"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"መልክ እና አቀማመጦች"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"በጣት ምልክት መተየብ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ፅሁፍ ማስተካከያ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"የላቀ"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ምልክት እየሰጡ ሳሉ በአስተያየት የተጠቆመው ቃል ይመልከቱ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"የሐረግ ምልክት"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ምልክት በሚሰጡበት ጊዜ ወደ ክፍተት ቁልፉ በማንሸራተት ክፍተቶችን ያስገቡ"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ቋንቋዎች"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"እገዛ እና ግብረመልስ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"እንግሊዘኛ (የታላቋ ብሪታንያ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"እንግሊዘኛ (ዩ.ኤስ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ስፓኒሽኛ (ዩኤስ)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ሀለሐመሠረሰሸቀበቨተቸኀነኘአከኸወዐዘዠየደጀገጠጨጰጸፀፈፐ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"የሥርዓት ቋንቋዎችን ይጠቀሙ"</string>
     <string name="select_input_method">"የግቤት ስልት ምረጥ"</string>
+    <string name="undo">"ቀልብስ"</string>
+    <string name="redo">"ድገም"</string>
 </resources>

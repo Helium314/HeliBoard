@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"की दाबताना आवाज"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"की दाबताना पॉपअप"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"प्राधान्ये"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"स्वरूप आणि लेआउट"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"जेश्चर टायपिंग"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"मजकूर दुरुस्ती"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"प्रगत"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"जेश्चरींग करत असताना सुचविलेले शब्द पहा"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"वाक्यांश जेश्चर"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"स्पेस की वर ग्लायडिंग करून जेश्चर दरम्यान स्थाने इनपुट करा"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"भाषा"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"मदत आणि अभिप्राय"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"इंग्रजी (यूके)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"इंग्रजी (यूएस)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"स्पॅनिश (यूएस)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"सिस्टम भाषा वापरा"</string>
     <string name="select_input_method">"इनपुट पद्धत निवडा"</string>
+    <string name="undo">"पूर्ववत करा"</string>
+    <string name="redo">"पुन्हा करा"</string>
 </resources>

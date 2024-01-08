@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Émettre un son à chaque touche"</string>
     <string name="popup_on_keypress">"Agrandir les caractères"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Préférences"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Apparence et dispositions"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Saisie gestuelle"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correction du texte"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Paramètres avancés"</string>
@@ -56,8 +55,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Affiche le mot suggéré lors des gestes"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Geste multiterme"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Saisir des espaces lors des gestes en glissant vers la barre d\'espace"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Langues"</string>
-    <string name="help_and_feedback">"Aide et commentaires"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Anglais (Royaume-Uni)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Anglais (États-Unis)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Espagnol (États-Unis)"</string>
@@ -82,7 +79,18 @@
     <string name="remove" msgid="4486081658752944606">"Supprimer"</string>
     <string name="save" msgid="7646738597196767214">"Enregistrer"</string>
     <string name="subtype_locale" msgid="8576443440738143764">"Langue"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Clavier"</string>
+    <string name="keyboard_layout_set" msgid="4309233698194565609">"Disposition"</string>
+    <string name="button_title_add_custom_layout">Ajouter une disposition personnalisée</string>
+    <string name="message_add_custom_layout">Sélectionner un fichier dans un format compatible. Des informations sur les formats sont disponibles %s.</string>
+    <string name="button_load_custom_layout">Charger fichier</string>
+    <string name="button_copy_existing_layout">Copier une disposition existante</string>
+    <string name="title_layout_name_select">Définir le nom de la disposition</string>
+    <string name="delete_layout">Souhaitez-vous réellement supprimer la disposition personnalisée %s?</string>
+    <string name="layout_error">Erreur de disposition : %s</string>
+    <string name="edit_layout">Appuyez pour modifier la disposition d\'origine</string>
+    <string name="customize_symbols">Personnaliser la dispostion des symboles</string>
+    <string name="customize_shift_symbols">Personnaliser davantage la disposition des symboles</string>
+    <string name="shift_symbols">Plus de symboles</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durée de vibration des touches"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume du son des touches"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Délai d\'un appui long sur les touches"</string>
@@ -188,6 +196,7 @@ Nouveau dictionnaire:
     <string name="load_gesture_library_summary">Fournir une bibliothèque native pour activer la saisie gestuelle</string>
     <string name="load_gesture_library_message">Vous aurez besoin de la bibliothèque pour CPU \'%s\'. Les bibliothèques incompatibles peuvent crasher lors de l\'utilisation de la saisie gestuelle.
         \n\nAttention : le chargement de fichier externe peut constituer un risque pour la sécurité. N\'utilisez qu\'une bibliothèque provenant d\'une source en laquelle vous avez confiance.</string>
+    <string name="checksum_mismatch_message">Fichier de bibliothèque inconnu. Êtes-vous sûr qu\'il provient d\'une source fiable et que c\'est pour CPU \'%s\'?</string>
     <string name="load_gesture_library_button_load">Charger bibliothèque</string>
     <string name="load_gesture_library_button_delete">Supprimer bibliothèque</string>
     <string name="ime_settings">Paramètres d\'OpenBoard</string>
@@ -197,6 +206,7 @@ Nouveau dictionnaire:
     <string name="settings_category_experimental">Expérimental</string>
     <string name="settings_category_miscellaneous">Divers</string>
     <string name="prefs_force_incognito_mode_summary">Désactive l\'apprentissage de nouveaux mots</string>
+    <string name="language_and_layouts_title">Langues &amp; Dispositions</string>
     <string name="more_keys_strip_description">Touches supplémentaires</string>
     <string name="number_row_summary">Toujours afficher la ligne de chiffres</string>
     <string name="localized_number_row">Ligne de chiffres en language local</string>
@@ -210,7 +220,7 @@ Nouveau dictionnaire:
     <string name="more_keys_number">Nombre</string>
     <string name="more_keys_language">Langue</string>
     <string name="more_keys_language_priority">Langue (prioritaire)</string>
-    <string name="more_keys_layout">Clavier</string>
+    <string name="more_keys_layout">Disposition</string>
     <string name="more_keys_symbols">Symboles</string>
     <string name="toolbar_keys">Sélectionner les touches de la barre d\'outils</string>
     <string name="copy">Copier</string>
@@ -250,6 +260,7 @@ Nouveau dictionnaire:
     <string name="select_color_background">Arrière-plan du clavier</string>
     <string name="select_color_key">Texte des touches</string>
     <string name="select_color_key_hint">Indice des touches</string>
+    <string name="select_color_suggestion">Texte de la bande de suggestion</string>
     <string name="select_color_key_background">Arrière-plan des touches</string>
     <string name="select_color_functional_key_background">Arrière-plan des touches fonctionnelles</string>
     <string name="select_color_spacebar_background">Arrière-plan de la barre d\'espace</string>

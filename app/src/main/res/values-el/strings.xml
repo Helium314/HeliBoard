@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Ήχος πλήκτρων"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Εμφάνιση με το πάτημα πλήκτρου"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Προτιμήσεις"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Εμφάνιση και διάταξη"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Πληκτρολόγηση με κίνηση"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Διόρθωση κειμένου"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Σύνθετες"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Εμφάνιση της προτεινόμενης λέξης κατά την κίνηση"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Εισαγωγή φράσεων με κίνηση"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Εισαγάγετε κενά στις κινήσεις με ολίσθηση στο πλήκτρο διαστήματος"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Γλώσσες"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Βοήθεια και σχόλια"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Αγγλικά (ΗΒ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Αγγλικά (ΗΠΑ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Ισπανικά (ΗΠΑ)"</string>
@@ -171,4 +168,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Χρήση γλωσσών συστήματος"</string>
     <string name="auto_correction_confidence">Εμπιστοσύνη αυτόματης διόρθωσης</string>
     <string name="select_input_method">"Επιλογή μεθόδου εισόδου"</string>
+    <string name="undo">"Αναίρεση"</string>
+    <string name="redo">"Επανάληψη"</string>
 </resources>

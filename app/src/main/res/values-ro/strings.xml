@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Sunet la apăsarea tastei"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Pop-up la apăsarea tastei"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferințe"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aspect"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Tastare gestuală"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Corectarea textului"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avansate"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Afișați cuvântul sugerat când utilizați gesturi"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gest expresie"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Introduceți spații în timpul gesturilor, glisând pe tasta spațiu"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Limbi"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Ajutor și feedback"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"engleză (Regatul Unit)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"engleză (S.U.A.)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"spaniolă (S.U.A.)"</string>
@@ -133,4 +130,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Folosește limbile sistemului"</string>
     <string name="select_input_method">"Alege metoda de introducere de text"</string>
     <string name="settings_screen_appearance">"Aspect"</string>
+    <string name="undo">"Anulați"</string>
+    <string name="redo">"Repetați"</string>
 </resources>

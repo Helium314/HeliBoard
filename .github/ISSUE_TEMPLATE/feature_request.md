@@ -24,4 +24,4 @@ Please use this for requesting a single feasture, and open more issues for furth
 
 **Additional context**
 <!-- Add any other context or screenshots about the feature request here.
-If you add screenshots, please reduce the size or use thumbnails to keep the issue nicely readable. -->
+If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable. -->

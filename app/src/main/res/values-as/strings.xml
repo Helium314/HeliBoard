@@ -50,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary">"আঙুলিৰে নিৰ্দেশ দিয়াৰ সময়ত পৰামৰ্শ দিয়া শব্দটো চাওক"</string>
     <string name="gesture_space_aware">"আঙুলি পিছলাই দিয়া নিৰ্দেশেৰে বাক্যাংশ লিখক"</string>
     <string name="gesture_space_aware_summary">"আঙুলি পিছলাই দিয়া নিৰ্দেশ দিওঁতে স্পেচ কীটোৰ ওপৰেৰে আঙুলি পিছলাই স্পেচ দিয়ক"</string>
-    <string name="language_selection_title">"ভাষা"</string>
-    <string name="help_and_feedback">"সহায় আৰু মতামত"</string>
     <string name="add">"যোগ কৰক"</string>
     <string name="remove">"আঁতৰাওক"</string>
     <string name="save">"ছেভ কৰক"</string>
@@ -96,4 +94,6 @@
     <string name="user_dict_settings_all_languages">"সকলো ভাষাৰ বাবে"</string>
     <string name="user_dict_settings_more_languages">"অধিক ভাষা…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="undo">"আনডু কৰক"</string>
+    <string name="redo">"ৰিডু"</string>
 </resources>

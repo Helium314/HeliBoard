@@ -289,6 +289,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
     }
 
+    public void commitCodePoint(final int codePoint) {
+        commitText(StringUtils.newSingleCodePointString(codePoint), 1);
+    }
+
     /**
      * Calls {@link InputConnection#commitText(CharSequence, int)}.
      *
@@ -555,7 +559,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 }
                 break;
             default:
-                final String text = StringUtils.newSingleCodePointString(keyEvent.getUnicodeChar());
+                final int codePoint = keyEvent.getUnicodeChar();
+                if (Character.isISOControl(codePoint))
+                    break; // don't append text if there is no actual text
+                final String text = StringUtils.newSingleCodePointString(codePoint);
                 mCommittedTextBeforeComposingText.append(text);
                 mExpectedSelStart += text.length();
                 mExpectedSelEnd = mExpectedSelStart;
@@ -643,12 +650,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
         if (text == null || text.length() == 0) {
             // we have no selection, get the whole text
-            ExtractedTextRequest etr = new ExtractedTextRequest();
+            final ExtractedTextRequest etr = new ExtractedTextRequest();
             etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
             etr.hintMaxChars = Integer.MAX_VALUE;
-            text = mIC.getExtractedText(etr, 0).text;
+            final ExtractedText et = mIC.getExtractedText(etr, 0);
+            if (et == null) return;
+            text = et.text;
         }
-        if (text == null) return;
+        if (text == null || text.length() == 0) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
     }

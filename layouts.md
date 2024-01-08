@@ -12,7 +12,7 @@ Further there is no check whether the layout actually contains characters of the
 If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single letter.
 
 There are special key labels that are intended for internal use only, but can (currently) be set on custom layouts too. An example is `!icon/previous_key|!code/key_action_previous`, so it's unlikely you will stumble upon issues here when not intentionally provoking it.
-One special label that might be wanted though is `$$$`, which will be replaced by the local currency.
+One special label that might be wanted though is `$$$`, which will be replaced by the local currency. `$$$1` - `$$$4` will be replaced by currencies available on long-pressing the currency key.
 
 ## Simple format
 * One key per line

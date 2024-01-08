@@ -12,12 +12,12 @@
 @
 #
 $$$
-_ \% ‰
+_ % ‰
 &
 - – — ·
 + ±
-( !fixedColumnOrder!3 < { [
-) !fixedColumnOrder!3 > } ]
+( < { [
+) > } ]
 
 * † ‡ ★
 "

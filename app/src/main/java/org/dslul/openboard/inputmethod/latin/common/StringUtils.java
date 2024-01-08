@@ -9,7 +9,6 @@ package org.dslul.openboard.inputmethod.latin.common;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 
 import java.util.ArrayList;
@@ -556,41 +555,6 @@ public final class StringUtils {
         return true;
     }
 
-    @UsedForTesting
-    @NonNull
-    public static String byteArrayToHexString(@Nullable final byte[] bytes) {
-        if (bytes == null || bytes.length == 0) {
-            return EMPTY_STRING;
-        }
-        final StringBuilder sb = new StringBuilder();
-        for (final byte b : bytes) {
-            sb.append(String.format("%02x", b & 0xff));
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Convert hex string to byte array. The string length must be an even number.
-     */
-    @UsedForTesting
-    @Nullable
-    public static byte[] hexStringToByteArray(@Nullable final String hexString) {
-        if (isEmpty(hexString)) {
-            return null;
-        }
-        final int N = hexString.length();
-        if (N % 2 != 0) {
-            throw new NumberFormatException("Input hex string length must be an even number."
-                    + " Length = " + N);
-        }
-        final byte[] bytes = new byte[N / 2];
-        for (int i = 0; i < N; i += 2) {
-            bytes[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
-                    + Character.digit(hexString.charAt(i + 1), 16));
-        }
-        return bytes;
-    }
-
     private static final String LANGUAGE_GREEK = "el";
 
     @NonNull
@@ -632,58 +596,6 @@ public final class StringUtils {
             --i;
         }
         return lastIndex - i;
-    }
-
-    @UsedForTesting
-    public static class Stringizer<E> {
-        @NonNull
-        private static final String[] EMPTY_STRING_ARRAY = new String[0];
-
-        @UsedForTesting
-        @NonNull
-        public String stringize(@Nullable final E element) {
-            if (element == null) {
-                return "null";
-            }
-            return element.toString();
-        }
-
-        @UsedForTesting
-        @NonNull
-        public final String join(@Nullable final E[] array) {
-            return joinStringArray(toStringArray(array), null /* delimiter */);
-        }
-
-        @UsedForTesting
-        public final String join(@Nullable final E[] array, @Nullable final String delimiter) {
-            return joinStringArray(toStringArray(array), delimiter);
-        }
-
-        @NonNull
-        protected String[] toStringArray(@Nullable final E[] array) {
-            if (array == null) {
-                return EMPTY_STRING_ARRAY;
-            }
-            final String[] stringArray = new String[array.length];
-            for (int index = 0; index < array.length; index++) {
-                stringArray[index] = stringize(array[index]);
-            }
-            return stringArray;
-        }
-
-        @NonNull
-        protected String joinStringArray(@NonNull final String[] stringArray,
-                                         @Nullable final String delimiter) {
-            if (delimiter == null) {
-                return Arrays.toString(stringArray);
-            }
-            final StringBuilder sb = new StringBuilder();
-            for (int index = 0; index < stringArray.length; index++) {
-                sb.append(index == 0 ? "[" : delimiter);
-                sb.append(stringArray[index]);
-            }
-            return sb + "]";
-        }
     }
 
     /**

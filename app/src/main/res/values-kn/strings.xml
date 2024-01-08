@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"ಕೀಪ್ರೆಸ್ ಶಬ್ದ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"ಕೀಪ್ರೆಸ್‌ನಲ್ಲಿ ಪಾಪ್ಅಪ್"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ಪ್ರಾಶಸ್ತ್ಯಗಳು"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"ಗೋಚರತೆ ಮತ್ತು ಲೇಔಟ್‌ಗಳು"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ಗೆಸ್ಚರ್ ಟೈಪಿಂಗ್"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ಪಠ್ಯ ತಿದ್ದುಪಡಿ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"ಸುಧಾರಿತ"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ಗೆಸ್ಟರ್ ಮಾಡುವಾಗ ಸೂಚಿಸಿದ ಪದವನ್ನು ನೋಡಿ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ಪದಗುಚ್ಛದ ಗೆಶ್ಚರ್"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ಸ್ಪೇಸ್ ಕೀಗೆ ಗ್ಲೈಡ್ ಮಾಡುವ ಮೂಲಕ ಗೆಶ್ಚರ್‌ಗಳ ಅವಧಿಯಲ್ಲಿ ಅಂತರ ನಮೂದಿಸಿ"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ಭಾಷೆಗಳು"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ಸಹಾಯ ಮತ್ತು ಪ್ರತಿಕ್ರಿಯೆ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ಇಂಗ್ಲಿಷ್ (US)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ಸಿಸ್ಟಂ ಭಾಷೆಗಳನ್ನು ಬಳಸಿ"</string>
     <string name="select_input_method">"ಇನ್‌ಪುಟ್‌‌ ವಿಧಾನವನ್ನು ಆರಿಸಿ"</string>
+    <string name="undo">"ರದ್ದುಗೊಳಿಸಿ"</string>
+    <string name="redo">"ಪುನಃ ಮಾಡು"</string>
 </resources>

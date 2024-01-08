@@ -205,11 +205,8 @@
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "more keys" suggestions view -->
     <string name="more_keys_strip_description">More keys</string>
-    <!-- Title for input language selection screen -->
-    <string name="language_selection_title">Languages</string>
-    <!-- Title for the 'Help & feedback' settings fragment which shows a help page and has a button
-         for submitting feedback. [CHAR LIMIT=35] -->
-    <string name="help_and_feedback">Help &amp; feedback</string>
+    <!-- Title for input language & layout selection screen -->
+    <string name="language_and_layouts_title">Languages &amp; Layouts</string>
     <!-- Title of the settings to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
@@ -235,12 +232,12 @@
     <!-- Title of the settings to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
-    <string name="copy" tools:keep="@string/copy">Copy</string>
+    <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
     <string name="settings" tools:keep="@string/settings">Settings</string>
-    <string name="select_all" tools:keep="@string/select_all">Select all</string>
+    <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
     <string name="left" tools:keep="@string/left">Left</string>
     <string name="right" tools:keep="@string/right">Right</string>
@@ -425,6 +422,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->
     <string name="edit_layout">Tap to edit raw layout</string>
+    <!-- Title for customizing symbols layout -->
+    <string name="customize_symbols">Customize symbols layout</string>
+    <!-- Title for customizing shift symbols layout -->
+    <string name="customize_shift_symbols">Customize more symbols layout</string>
+    <!-- Name for more symbols layout -->
+    <string name="shift_symbols">More symbols</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
@@ -702,10 +705,6 @@ New dictionary:
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
-    <!-- Old settings screen title for appearance & layouts preferences [CHAR LIMIT=33]
-    This string is not used, but the new string below (settings_screen_appearance) is not translated
-    into nearly as many languages, and the old string may act as a guide for translators. -->
-    <string name="settings_screen_appearance_and_layouts">Appearance &amp; Layouts</string>
     <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
     <string name="settings_screen_appearance">"Appearance"</string>
     <!-- Hidden features title -->

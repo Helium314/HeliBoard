@@ -92,10 +92,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -377,6 +373,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         public void cancelUpdateSuggestionStrip() {
             removeMessages(MSG_UPDATE_SUGGESTION_STRIP);
+        }
+
+        public void cancelResumeSuggestions() {
+            removeMessages(MSG_RESUME_SUGGESTIONS);
         }
 
         public boolean hasPendingUpdateSuggestions() {
@@ -955,17 +955,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     + ", word caps = "
                     + ((editorInfo.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0));
         }
-        Log.i(TAG, "Starting input. Cursor position = "
-                + editorInfo.initialSelStart + "," + editorInfo.initialSelEnd);
-        // TODO: Consolidate these checks with {@link InputAttributes}.
-        if (InputAttributes.inPrivateImeOptions(null, NO_MICROPHONE_COMPAT, editorInfo)) {
-            Log.w(TAG, "Deprecated private IME option specified: " + editorInfo.privateImeOptions);
-            Log.w(TAG, "Use " + getPackageName() + "." + NO_MICROPHONE + " instead");
-        }
-        if (InputAttributes.inPrivateImeOptions(getPackageName(), FORCE_ASCII, editorInfo)) {
-            Log.w(TAG, "Deprecated private IME option specified: " + editorInfo.privateImeOptions);
-            Log.w(TAG, "Use EditorInfo.IME_FLAG_FORCE_ASCII flag instead");
-        }
+        Log.i(TAG, "Starting input. Cursor position = " + editorInfo.initialSelStart + "," + editorInfo.initialSelEnd);
 
         // In landscape mode, this method gets called without the input view being created.
         if (mainKeyboardView == null) {
@@ -1359,13 +1349,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
 
         final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
-        // "normal" suggestions might be determined in parallel when processing MSG_UPDATE_SUGGESTION_STRIP
-        // so we add a delay to make sure inline suggestions are set only after normal suggestions
-        mHandler.postDelayed(() -> {
-            mSuggestionStripView.clear();
-            mSuggestionStripView.hideToolbarKeys();
-            mSuggestionStripView.addSuggestionView(inlineSuggestionView);
-        }, 200);
+
+        mHandler.cancelResumeSuggestions();
+        mHandler.cancelUpdateSuggestionStrip();
+        mSuggestionStripView.setInlineSuggestionsView(inlineSuggestionView);
 
         return true;
     }

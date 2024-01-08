@@ -1085,20 +1085,7 @@ public class Key implements Comparable<Key> {
             if (params.mId.isNumberLayout())
                 actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
-            final String[] moreKeys = MoreKeysUtilsKt.createMoreKeysArray(popupSet, mKeyboardParams, keySpec);
-            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
-            final String[] finalMoreKeys = moreKeys == null ? null : MoreKeySpec.filterOutEmptyString(moreKeys);
-
-            if (finalMoreKeys != null) {
-                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-                mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
-                for (int i = 0; i < finalMoreKeys.length; i++) {
-                    mMoreKeys[i] = new MoreKeySpec(finalMoreKeys[i], needsToUpcase, localeForUpcasing);
-                }
-            } else {
-                mMoreKeys = null;
-            }
-
+            // label
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
                 mLabel = params.mId.mCustomActionLabel;
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
@@ -1112,6 +1099,22 @@ public class Key implements Comparable<Key> {
                         ? StringUtils.toTitleCaseOfKeyLabel(label, localeForUpcasing)
                         : label;
             }
+
+            // moreKeys
+            final String[] moreKeys = MoreKeysUtilsKt.createMoreKeysArray(popupSet, mKeyboardParams, mLabel != null ? mLabel : keySpec);
+            mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
+            final String[] finalMoreKeys = moreKeys == null ? null : MoreKeySpec.filterOutEmptyString(moreKeys);
+            if (finalMoreKeys != null) {
+                actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
+                mMoreKeys = new MoreKeySpec[finalMoreKeys.length];
+                for (int i = 0; i < finalMoreKeys.length; i++) {
+                    mMoreKeys[i] = new MoreKeySpec(finalMoreKeys[i], needsToUpcase, localeForUpcasing);
+                }
+            } else {
+                mMoreKeys = null;
+            }
+
+            // hint label
             if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
             } else {
@@ -1122,6 +1125,7 @@ public class Key implements Comparable<Key> {
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)
                         : hintLabel;
             }
+
             String outputText = KeySpecParser.getOutputText(keySpec);
             if (needsToUpcase) {
                 outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
@@ -1179,11 +1183,6 @@ public class Key implements Comparable<Key> {
                     KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color
-            // where is it used / which attribute?
-            //  keyLetterSize in some keyboards
-            //  keyShiftedLetterHintRatio same
-            //  keyHintLabelVerticalAdjustment same
-            // todo (later): make sure these keys look ok when migrating the non-latin layouts (+pc qwerty)
             mKeyVisualAttributes = null;
             mEnabled = true;
         }

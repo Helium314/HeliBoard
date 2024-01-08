@@ -12,7 +12,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Iskačuči prozor pri pritisku na tipku"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Postavke"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi tipki"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanje pokretima"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravka teksta"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Napredno"</string>
@@ -51,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Pogledajte predloženu riječ prilikom pravljenja pokreta."</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Pokret za fraze"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Klizanjem na tipku za razmak umetni razmake tokom pokreta"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"španski (SAD)"</string>
@@ -133,4 +130,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Koristi jezik sistema"</string>
     <string name="select_input_method">"Odaberite način unosa"</string>
+    <string name="undo">"Vrati"</string>
+    <string name="redo">"Ponovo uradi"</string>
 </resources>

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Пернені басу кезіндегі дыбыс"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Басылған пернені үлкейтіп көрсету"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Қалауларыңыз"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Сыртқы түр және орналасулар"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Қимыл арқылы теру"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Мәтінді түзету"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Қосымша"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Қимылдау кезінде ұсынылған сөзді көру"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Фраза қимылы"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Бос орын пернесіне сырғыту арқылы қимылдар барысында бос орындарды енгізу"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Тілдер"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Анықтама және пікір"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ағылшын (ҰБ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ағылшын (АҚШ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Испан (АҚШ)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АӘБВГҒДЕЁЖЗИЙКҚЛМНҢОӨПРСТУҰҮФХҺЦЧШЩЪЫІЬЭЮЯ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Жүйелік тілдерді пайдалану"</string>
     <string name="select_input_method">"Енгізу әдісін таңдау"</string>
+    <string name="undo">"Қайтару"</string>
+    <string name="redo">"Қайтару"</string>
 </resources>

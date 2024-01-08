@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"കീ അമർത്തുമ്പോൾ ശബ്‌ദം"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"കീ അമർത്തുമ്പോൾ പോപ്പപ്പ്"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"മുൻഗണനകൾ"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"രൂപഭാവവും ലേഔട്ടുകളും"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ഗെസ്ചർ ടൈപ്പിംഗ്"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ടെക്സ്റ്റ് തിരുത്തൽ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"വിപുലം"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"വിരൽചലിത ടൈപ്പിംഗ് ചെയ്യുമ്പോൾ നിർദ്ദേശിക്കപ്പെടുന്ന പദം നോക്കുക"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ഫ്രെയ്‌സ് വിരൽചലനം"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"വിരൽചലിത ടൈപ്പിംഗിൽ, സ്പെയ്‌സ് കീയിലേക്ക് വിരലുകൾ ചലിപ്പിച്ച് സ്‌പെയ്‌സുകൾ നൽകുക"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ഭാഷകൾ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"സഹായവും ഫീഡ്‌ബാക്കും"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ഇംഗ്ലീഷ് (യുകെ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ഇംഗ്ലീഷ് (യുഎസ്)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"സ്‌പാനിഷ് (യുഎസ്)"</string>
@@ -171,4 +168,6 @@
     <string name="auto_correction_confidence">യാന്ത്രിക-തിരുത്തൽ ആത്മവിശ്വാസം</string>
     <string name="use_system_language_to_select_input_method_subtypes">"സിസ്റ്റം ഭാഷകൾ ഉപയോഗിക്കുക"</string>
     <string name="select_input_method">"ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കുക"</string>
+    <string name="undo">"പഴയപടിയാക്കുക"</string>
+    <string name="redo">"വീണ്ടും ചെയ്യുക"</string>
 </resources>

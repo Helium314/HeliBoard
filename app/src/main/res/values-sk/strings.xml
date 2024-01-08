@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri stlačení klávesu"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Detail znaku pri stlačení"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Predvoľby"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Vzhľad a rozloženie"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Písanie gestami"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Oprava textu"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Rozšírené"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Zobrazenie navrhovaného slova pri písaní gestami"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frázové gestá"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Zadávanie medzier prechádzaním cez kláves medzerníka"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jazyky"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Pomocník a spätná väzba"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angličtina (Veľká Británia)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angličtina (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"španielčina (USA)"</string>
@@ -150,4 +147,6 @@
     <string name="settings_category_miscellaneous">Ostatné</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Jazyky systému"</string>
     <string name="select_input_method">"Zvoliť metódu vstupu"</string>
+    <string name="undo">"Späť"</string>
+    <string name="redo">"Znova"</string>
 </resources>

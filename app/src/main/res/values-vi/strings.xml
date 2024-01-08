@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Phát âm thanh khi nhấn phím"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Phông chữ lớn hơn bật lên khi nhấn phím"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Tùy chọn"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Giao diện và bố cục"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Nhập bằng cử chỉ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Sửa văn bản"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Nâng cao"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Xem từ được đề xuất trong khi dùng cử chỉ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Cử chỉ nhập cụm từ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Nhập dấu cách khi thực hiện cử chỉ bằng cách trượt tới phím cách"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Ngôn ngữ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Trợ giúp và phản hồi"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Tiếng Anh (Anh)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Tiếng Anh (Mỹ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Tiếng Tây Ban Nha (Mỹ)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sử dụng ngôn ngữ hệ thống"</string>
     <string name="select_input_method">"Chọn phương thức nhập"</string>
+    <string name="undo">"Hoàn tác"</string>
+    <string name="redo">"Làm lại"</string>
 </resources>

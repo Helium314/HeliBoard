@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress">"Povećani font na pritisak tipke"</string>
     <string name="settings_screen_preferences">"Postavke"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi"</string>
     <string name="settings_screen_gesture">"Pisanje kretnjama"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravljanje teksta"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"Vidi predloženu riječ tijekom pokreta"</string>
     <string name="gesture_space_aware">"Unos izraza kretnjom"</string>
     <string name="gesture_space_aware_summary">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>
@@ -171,4 +168,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>
     <string name="auto_correction_confidence">Pouzdanje u automatsko ispravljanje</string>
     <string name="select_input_method">"Odabir načina unosa"</string>
+    <string name="undo">"Poništi"</string>
+    <string name="redo">"Ponovi"</string>
 </resources>

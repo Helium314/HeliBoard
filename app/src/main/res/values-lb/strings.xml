@@ -6,4 +6,6 @@
 -->
 <resources>
     <string name="select_input_method">Tastatur wiesselen</string>
+    <string name="undo">Réckgängeg maachen</string>
+    <string name="redo">Widderhuelen</string>
 </resources>

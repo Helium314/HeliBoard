@@ -15,7 +15,6 @@
     <string name="sound_on_keypress">কিপ্রেসের শব্দ</string>
     <string name="popup_on_keypress">কিপ্রেস পপআপ</string>
     <string name="settings_screen_preferences">অভিরুচি</string>
-    <string name="settings_screen_appearance_and_layouts">অবয়ব ও লেআউট</string>
     <string name="settings_screen_gesture">অঙ্গুলিহেলন টাইপিং</string>
     <string name="settings_screen_correction">পাঠ্য সংশোধন</string>
     <string name="settings_screen_advanced">উচ্চতর</string>
@@ -91,8 +90,6 @@
     <string name="incognito">ছদ্মবেশী মোড আরোপ</string>
     <string name="prefs_force_incognito_mode_summary">নতুন শব্দ শিখন নিষ্ক্রিয়করণ</string>
     <string name="more_keys_strip_description">অতিরিক্ত বোতাম</string>
-    <string name="language_selection_title">ভাষা</string>
-    <string name="help_and_feedback">সহায়তা ও মতামত</string>
     <string name="number_row">নম্বর সারি</string>
     <string name="number_row_summary">সর্বদা নম্বর সারি প্রদর্শন</string>
     <string name="show_hints">বোতামের পরামর্শ প্রদর্শন</string>
@@ -268,4 +265,6 @@
     <string name="text_tap_languages">সেটিংস খুলতে ভাষাতে ট্যাপ করুন</string>
     <string name="select_input_method">"কিবোর্ড পরিবর্তন"</string>
     <string name="settings_screen_appearance">"অবয়ব"</string>
+    <string name="undo">"পূর্বাবস্থায় ফিরুন"</string>
+    <string name="redo">"আবার করুন"</string>
 </resources>

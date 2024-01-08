@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Klikləmə səsi"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Klikləmədə popup"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Seçimlər"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Görünüş &amp; Düzümlər"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Jest ilə yazma"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Mətn korreksiyası"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Qabaqcıl"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Jest zamanı təklif edilmiş sözə baxın"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Jest bildirin"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Jest zamanı boşluq düyməsinə toxunmaqla boşluq daxil edin"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Dillər"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Yardım və geri əlaqə"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"İngilis (BK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"İngilis (ABŞ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"İspan (ABŞ)"</string>
@@ -139,4 +136,6 @@
     <string name="ime_settings">OpenBoard Tənzimləmələri</string>
     <string name="settings_category_input">Giriş</string>
     <string name="settings_category_additional_keys">Əlavə Düymələr</string>
+    <string name="undo">"Ləğv edin"</string>
+    <string name="redo">"Yenidən edin"</string>
 </resources>

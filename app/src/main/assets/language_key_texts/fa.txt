@@ -6,6 +6,8 @@
 ک ك
 و ؤ
 punctuation !fixedColumnOrder!7  ٕ|ٕ  ْ|ْ  ّ|ّ  ٌ|ٌ  ٍ|ٍ  ً|ً  ٔ|ٔ  ٖ|ٖ  ٰ|ٰ  ٓ|ٓ  ُ|ُ  ِ|ِ  َ|َ ـــ|ـ
+« „ “ ”
+» ‚ ‘ ’ ‹ ›
 
 [labels]
 alphabet: ا‌ب‌پ

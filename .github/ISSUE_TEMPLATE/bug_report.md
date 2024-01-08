@@ -22,14 +22,14 @@ A clear and concise description of what you expected to happen.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
-If you add screenshots, please reduce the size or use thumbnails to keep the issue nicely readable.
+If you add screenshots, **reduce the size or use thumbnails** to keep the issue nicely readable.
 
 **App version**
-Which exact version of this fork is affected?
+Which _exact_ version of this fork is affected?
 
 **Smartphone (please complete the following information):**
  - Device: [e.g. Samsung Galaxy S9]
- - OS: [e.g. Android 10]
+ - OS: [e.g. Android 10] (add details if you are not using a version provided by the device manufacturer)
 
 **Additional context**
 Add any other context about the problem here.

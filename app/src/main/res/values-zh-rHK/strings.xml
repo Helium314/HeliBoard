@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"按鍵時播放音效"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"按鍵時顯示彈出式視窗"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"偏好設定"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"外觀和版面配置"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"手勢輸入"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"文字更正"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"進階"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"在啟用手勢輸入時顯示建議的字詞"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"詞組手勢"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"在手勢輸入過程中，滑過空白鍵即可輸入空格"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"語言"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"說明和意見反映"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"英文 (英國)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"英文 (美國)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"西班牙文 (美國)"</string>
@@ -147,4 +144,6 @@
     <string name="settings_category_correction">文字改正</string>
     <string name="use_system_language_to_select_input_method_subtypes">"使用系統語言"</string>
     <string name="select_input_method">"選擇輸入法"</string>
+    <string name="undo">"復原"</string>
+    <string name="redo">"取消復原"</string>
 </resources>

@@ -19,6 +19,8 @@
 ط ظ
 ن ں
 punctuation ؟ ، ! . -
+« „ “ ”
+» ‚ ‘ ’ ‹ ›
 
 [labels]
 alphabet: اب‌پ

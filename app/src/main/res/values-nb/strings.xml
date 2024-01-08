@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Lyd ved tastetrykk"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Forgrunnsvindu ved tastetrykk"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Innstillinger"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Utseende og utforming"</string>
     <string name="settings_screen_gesture">"Ordføring"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Tekstkorrigering"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Avansert"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary">"Se det foreslåtte ordet mens du utfører bevegelser"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frasebevegelse"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Sett inn mellomrom ved å dra fingeren til mellomromstasten"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Språk"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Hjelp og tilbakemelding"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engelsk (Storbritannia)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engelsk (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"spansk (USA)"</string>
@@ -161,4 +158,6 @@
     <string name="key_borders">Tastekanter</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Bruk systemspråk"</string>
     <string name="select_input_method">"Velg inndatametode"</string>
+    <string name="undo">"Angre"</string>
+    <string name="redo">"Utfør likevel"</string>
 </resources>

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук клавиш"</string>
     <string name="popup_on_keypress">"Увеличивать при нажатии"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Настройки"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вид и раскладки"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">Оформление</string>
     <string name="settings_screen_gesture">"Непрерывный ввод"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Исправление текста"</string>
@@ -51,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary">Показывать подсказки при вводе текста</string>
     <string name="gesture_space_aware">Непрерывный ввод фраз</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">Проводите по клавише пробела после каждого слова</string>
-    <string name="language_selection_title">Языки</string>
-    <string name="help_and_feedback">Справка/отзыв</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Английский (Великобритания)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Английский (США)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Испанский (США)</string>
@@ -219,4 +216,6 @@
     <string name="select_input_method">"Выберите метод ввода"</string>
     <string name="hidden_features_title">Описание скрытых функций</string>
     <string name="hidden_features_summary">Показать функции, которые могут остаться незамеченными</string>
+    <string name="undo">"Отменить"</string>
+    <string name="redo">"Повторить"</string>
 </resources>

@@ -13,6 +13,8 @@
 ز ژ
 و ؤ
 punctuation !fixedColumnOrder!7  ٕ|ٕ  ٔ|ٔ  ْ|ْ  ٍ|ٍ  ٌ|ٌ  ً|ً  ّ|ّ  ٖ|ٖ  ٰ|ٰ  ٓ|ٓ  ِ|ِ  ُ|ُ  َ|َ ـــ|ـ
+« „ “ ”
+» ‚ ‘ ’ ‹ ›
 
 [labels]
 alphabet: أ‌ب‌ج

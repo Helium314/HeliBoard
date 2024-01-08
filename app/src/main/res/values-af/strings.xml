@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Klank met sleuteldruk"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Opspring met sleuteldruk"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Voorkeure"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Voorkoms en uitlegte"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Gebaarinvoer"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Tekskorrigering"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Gevorderd"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Sien die voorgestelde woord tydens gebare"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frasegebaar"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Voer spasies tydens gebare in deur na die spasiesleutel te gly"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Tale"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Hulp en terugvoering"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engels (VK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engels (VS)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spaans (VS)"</string>
@@ -170,4 +167,6 @@
     <string name="day_night_mode_summary">Voorkoms sal sisteem verstellings naboots</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gebruik stelseltale"</string>
     <string name="select_input_method">"Kies invoermetode"</string>
+    <string name="undo">"Ontdoen"</string>
+    <string name="redo">"Herdoen"</string>
 </resources>

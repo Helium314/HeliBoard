@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvok ob pritisku tipke"</string>
     <string name="popup_on_keypress">"Povečaj črko ob pritisku"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Nastavitve"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Videz in postavitve"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Pisanje s kretnjami"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Popravki besedila"</string>
     <string name="settings_screen_advanced">"Dodatno"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Prikaz predlagane besede med vnosom s prstom"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Vnos besed s potezami"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Vnos presledkov pri vnašanju s potezami z drsenjem po preslednici"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jeziki"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Pomoč in povratne informacije"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angleščina (Združeno kraljestvo)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angleščina (ZDA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"španščina (ZDA)"</string>
@@ -168,4 +165,6 @@
     <string name="show_hints_summary">Prikaži namige z dolgim pritiskom</string>
     <string name="day_night_mode_summary">Izgled bo sledil sistemskim nastavitvam</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dolg pritisk na preslednico bo priklical meni za izbiro načina vnosa</string>
+    <string name="undo">"Razveljavi"</string>
+    <string name="redo">"Uveljavi"</string>
 </resources>

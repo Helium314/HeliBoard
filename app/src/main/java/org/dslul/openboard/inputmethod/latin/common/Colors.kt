@@ -271,8 +271,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             ACTION_KEY_BACKGROUND -> actionKeyStateList
             SPACE_BAR_BACKGROUND -> spaceBarStateList
             MORE_KEYS_BACKGROUND -> adjustedBackgroundStateList
-            SUGGESTION_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackgroundStateList
-                else backgroundStateList
+            SUGGESTION_BACKGROUND -> backgroundStateList
             ACTION_KEY_MORE_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackgroundStateList
                 else actionKeyStateList
             TOOL_BAR_KEY -> toolbarKeyStateList
@@ -446,7 +445,8 @@ class DefaultColors (
     override fun get(color: ColorType): Int = when (color) {
         TOOL_BAR_KEY_ENABLED_BACKGROUND, EMOJI_CATEGORY_SELECTED, ACTION_KEY_BACKGROUND,
             CLIPBOARD_PIN, SHIFT_KEY_ICON -> accent
-        AUTOFILL_BACKGROUND_CHIP, EMOJI_CATEGORY_BACKGROUND, GESTURE_PREVIEW, MORE_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
+        AUTOFILL_BACKGROUND_CHIP -> if (themeStyle == STYLE_MATERIAL && !hasKeyBorders) background else adjustedBackground
+        EMOJI_CATEGORY_BACKGROUND, GESTURE_PREVIEW, MORE_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
         TOOL_BAR_EXPAND_KEY_BACKGROUND -> doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
         KEY_TEXT, REMOVE_SUGGESTION_ICON, FUNCTIONAL_KEY_TEXT, KEY_ICON -> keyText
@@ -554,9 +554,9 @@ private fun stateList(pressed: Int, normal: Int): ColorStateList {
     return ColorStateList(states, intArrayOf(pressed, normal))
 }
 
-private fun activatedStateList(activated: Int, normal: Int): ColorStateList {
-    val states = arrayOf(intArrayOf(android.R.attr.state_activated), intArrayOf(-android.R.attr.state_activated))
-    return ColorStateList(states, intArrayOf(activated, normal))
+private fun activatedStateList(normal: Int, activated: Int): ColorStateList {
+    val states = arrayOf(intArrayOf(-android.R.attr.state_activated), intArrayOf(android.R.attr.state_activated))
+    return ColorStateList(states, intArrayOf(normal, activated))
 }
 
 enum class ColorType {

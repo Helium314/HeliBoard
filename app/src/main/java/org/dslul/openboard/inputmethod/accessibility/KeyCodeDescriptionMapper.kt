@@ -129,6 +129,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
     }
 
     // TODO: Remove this method once TTS supports those accented letters' verbalization.
+    //  see also the comment for emoji
     private fun getSpokenAccentedLetterDescription(context: Context, code: Int): String? {
         val isUpperCase = Character.isUpperCase(code)
         val baseCode = if (isUpperCase) Character.toLowerCase(code) else code
@@ -142,6 +143,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
     }
 
     // TODO: Remove this method once TTS supports those symbols' verbalization.
+    //  see also the comment for emoji
     private fun getSpokenSymbolDescription(context: Context, code: Int): String? {
         val resId = getSpokenDescriptionId(context, code, SPOKEN_SYMBOL_RESOURCE_NAME_FORMAT)
         if (resId == 0) {
@@ -155,6 +157,8 @@ internal class KeyCodeDescriptionMapper private constructor() {
     }
 
     // TODO: Remove this method once TTS supports emoji verbalization.
+    // todo 2: this comment above is about 10 years old, can we remove this?
+    //  emoji descriptions will be missing for many more recent emojis anyway
     private fun getSpokenEmojiDescription(context: Context, code: Int): String? {
         val resId = getSpokenDescriptionId(context, code, SPOKEN_EMOJI_RESOURCE_NAME_FORMAT)
         if (resId == 0) {
@@ -258,6 +262,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         }
 
         // TODO: Remove this method once TTS supports emoticon verbalization.
+        //  see also the comment for emoji
         private fun getSpokenEmoticonDescription(context: Context, outputText: String): String? {
             val sb = StringBuilder(SPOKEN_EMOTICON_RESOURCE_NAME_PREFIX)
             val textLength = outputText.length

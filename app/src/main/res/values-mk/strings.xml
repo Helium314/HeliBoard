@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук на притискање копче"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Појавен прозорец на притискање копче"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Претпочитани поставки"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Изглед и распоред"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Пишување со движење"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Корекција на текст"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Напредни"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Видете го предложениот збор додека гестикулирате"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Движење за фрази"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Внеси празни места при движења со лизгање до тоа копче"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Јазици"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Помош и повратни информации"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"англиски (ОК)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"англиски (САД)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"шпански (САД)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Користи ги системските јазици"</string>
     <string name="select_input_method">"Одбери метод на внес"</string>
+    <string name="undo">"Врати"</string>
+    <string name="redo">"Повтори"</string>
 </resources>

@@ -7,4 +7,6 @@
 <resources>
     <string name="use_system_language_to_select_input_method_subtypes">Defnyddio ieithoedd y system</string>
     <string name="select_input_method">Newid bysellfwrdd</string>
+    <string name="undo">Dad-wneud</string>
+    <string name="redo">Ail-wneud</string>
 </resources>

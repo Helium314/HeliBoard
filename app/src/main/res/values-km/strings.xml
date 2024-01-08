@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"សំឡេង​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"លេច​ឡើង​នៅ​​ពេល​ចុច​គ្រាប់​ចុច"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ចំណូលចិត្ត"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"រូបរាង &amp;amp ប្លង់"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"កាយវិការ​បញ្ចូល"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ការ​កែ​​អត្ថបទ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"កម្រិត​ខ្ពស់"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"​មើល​ពាក្យ​​​ដែល​បាន​ស្នើ​​​ខណៈ​ពេល​កំពុង​ធ្វើ​កាយ​វិការ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"កាយវិការ​​ឃ្លា"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"បញ្ចូល​​ដកឃ្លា​​​អំឡុង​​​កាយវិការ​ ដោយ​រំកិល​ទៅ​គ្រាប់​ចុច​ដកឃ្លា"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ភាសា"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ជំនួយ &amp; មតិ​ត្រឡប់"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"អង់គ្លេស (​អង់គ្លេស)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"អង់គ្លេស (សហរដ្ឋ​អាមេរិក)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"អេស្ប៉ាញ (សហរដ្ឋ​អាមេរិក​)"</string>
@@ -133,4 +130,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"ប្រើភាសាប្រព័ន្ធ"</string>
     <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="settings_screen_appearance">"រូបរាង"</string>
+    <string name="undo">"មិនធ្វើវិញ"</string>
+    <string name="redo">"ធ្វើវិញ"</string>
 </resources>

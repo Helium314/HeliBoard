@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"Звук при натиску клав."</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Збільшення натиснутих"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметри"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вигляд і розкладка"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Зовнішній вигляд"</string>
     <string name="settings_screen_gesture">"Введення тексту жестами"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Виправлення тексту"</string>
@@ -51,8 +50,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Мови"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Довідка й відгуки"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Англійська (Велика Британія)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Англійська (США)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Іспанська (США)"</string>
@@ -219,4 +216,6 @@
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
+    <string name="undo">"Відмінити"</string>
+    <string name="redo">"Повторити"</string>
 </resources>

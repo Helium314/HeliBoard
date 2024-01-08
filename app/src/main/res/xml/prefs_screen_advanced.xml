@@ -92,6 +92,14 @@
             android:defaultValue="false" />
 
         <Preference
+            android:key="custom_symbols_layout"
+            android:title="@string/customize_symbols" />
+
+        <Preference
+            android:key="custom_shift_symbols_layout"
+            android:title="@string/customize_shift_symbols" />
+
+        <Preference
             android:key="load_gesture_library"
             android:title="@string/load_gesture_library"
             android:summary="@string/load_gesture_library_summary" />

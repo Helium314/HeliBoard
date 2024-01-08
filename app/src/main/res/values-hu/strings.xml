@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Hangjelzés gombnyomásra"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Nagyobb billentyű gombnyomásra"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Beállítások"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Megjelenés és elrendezés"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Kézmozdulatokkal történő gépelés"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Szövegjavítás"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Speciális"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"A javasolt szó megtekintése kézmozdulat közben"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Kifejezés-kézmozdulat"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Szóköz írása kézmozdulatok során: húzza el ujját a szóköz felett"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Nyelvek"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Súgó és visszajelzés"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"angol (brit)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"angol (amerikai)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"spanyol (USA)"</string>
@@ -138,4 +135,6 @@
     <string name="day_night_mode_summary">A kinézet követi a rendszerbeállítást</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Rendszernyelvek használata"</string>
     <string name="select_input_method">"Beviteli mód kiválasztása"</string>
+    <string name="undo">"Visszavonás"</string>
+    <string name="redo">"Újra"</string>
 </resources>

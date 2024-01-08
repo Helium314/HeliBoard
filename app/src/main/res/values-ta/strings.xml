@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"விசையழுத்தத்தின்போது ஒலியெழுப்பு"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"விழை அழுத்தத்தின்போது பாப்அப் செய்"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"விருப்பங்கள்"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"தோற்றம் &amp; தளவமைப்புகள்"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ஸ்வைப் தட்டச்சு"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"உரை திருத்தம்"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"மேம்பட்டவை"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"சைகையிடும் போது பரிந்துரைக்கும் வார்த்தையைப் பார்க்கலாம்"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"சொற்றொடர் ஸ்வைப்"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ஸ்பேஸ் விசைக்கு இழுப்பதன் மூலம் சைகைகளுக்கு இடையே இடைவெளிகளை உள்ளிடலாம்"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"மொழிகள்"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"உதவி &amp; கருத்து"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ஆங்கிலம் (யூகே)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ஆங்கிலம் (யூஎஸ்)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ஸ்பானிஷ் (யூஎஸ்)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"சாதன மொழிகளைப் பயன்படுத்து"</string>
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
+    <string name="undo">"செயல்தவிர்"</string>
+    <string name="redo">"மீண்டும்செய்"</string>
 </resources>

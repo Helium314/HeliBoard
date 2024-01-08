@@ -9,7 +9,6 @@
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
     <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa entradas da sua lista de contatos</string>
-    <string name="settings_screen_appearance_and_layouts">Aparência e Layouts</string>
     <string name="settings_screen_gesture">Escrita por Gestos</string>
     <string name="settings_screen_correction">Correção de Texto</string>
     <string name="settings_screen_advanced">Avançado</string>
@@ -47,8 +46,6 @@
     <string name="incognito">Forçar modo anônimo</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>
-    <string name="language_selection_title">Idiomas</string>
-    <string name="help_and_feedback">Ajuda e comentários</string>
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de entrada</string>
@@ -171,4 +168,6 @@
     <string name="auto_correction_confidence">Confiança de correção automática</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Usa idiomas do sistema"</string>
     <string name="select_input_method">"Selecione o método de entrada"</string>
+    <string name="undo">"Desfazer"</string>
+    <string name="redo">"Refazer"</string>
 </resources>

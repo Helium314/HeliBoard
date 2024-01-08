@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"키를 누를 때 소리 발생"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"키를 누를 때 팝업"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"환경설정"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"모양 및 레이아웃"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"제스처 타이핑"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"텍스트 수정"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"고급"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"제스처에 따라 추천 단어 보기"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"구문 제스처"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"동작 중에 스페이스바 쪽으로 움직여 공백 입력"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"언어"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"고객센터"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"영어(영국)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"영어(미국)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"스페인어(미국)"</string>
@@ -171,4 +168,6 @@
     <string name="subtype_no_language_workman">알파벳 (Workman)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (벵골어)</string>
     <string name="subtype_no_language_colemak_dh">알파벳 (Colemak Mod-DH)</string>
+    <string name="undo">"실행취소"</string>
+    <string name="redo">"다시 실행"</string>
 </resources>

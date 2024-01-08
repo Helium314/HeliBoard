@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"કીપ્રેસ પર ધ્વનિ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"કીપ્રેસ પર પોપઅપ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"પસંદગી"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"દેખાવ અને લેઆઉટ્સ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"સાંકેતિક ટાઇપિંગ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ટેક્સ્ટ સુધારણા"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"વિગતવાર"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"હાવભાવ કરતી વખતે સૂચિત શબ્દ જુઓ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"શબ્દસમૂહ હાવભાવ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"સ્પેસ કી પર જઈને હાવભાવ દરમિયાન સ્પેસ ઇનપુટ કરો"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ભાષાઓ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"સહાય અને પ્રતિસાદ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"અંગ્રેજી (યુકે)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"અંગ્રેજી (યુ એસ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"સ્પેનિશ (US)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" [અ આ ઇ ઈ ઉ ઊ ઋ એ ઐ ઓ ઔ ક ખ ગ ઘ ઙ ચ છ જ ઝ ઞ ટ ઠ ડ ઢ ણ ત થ દ ધ ન પ ફ બ ભ મ ય ર લ વ શ ષ સ હ ળ]"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"સિસ્ટમ ભાષાઓનો ઉપયોગ કરો"</string>
     <string name="select_input_method">"ઇનપુટ પદ્ધતિ પસંદ કરો"</string>
+    <string name="undo">"પૂર્વવત્ કરો"</string>
+    <string name="redo">"ફરી કરો"</string>
 </resources>

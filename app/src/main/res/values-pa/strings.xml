@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"ਕੁੰਜੀ ਦਬਾਉਣ \'ਤੇ ਧੁਨ ਵਜਾਓ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"ਕੁੰਜੀ ਦਬਾਉਣ ’ਤੇ ਪੌਪਅੱਪ ਕਰੋ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ਤਰਜੀਹਾਂ"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"ਪ੍ਰਗਟਾਅ &amp; ਲੇਆਉਟਸ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ਸੰਕੇਤ ਟਾਈਪਿੰਗ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ਟੈਕਸਟ ਸੁਧਾਈ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"ਵਿਕਸਿਤ"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ਸੰਕੇਤ ਦਿੰਦੇ ਸਮੇਂ ਸੁਝਾਇਆ ਗਿਆ ਸ਼ਬਦ ਦੇਖੋ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ਵਾਕਾਂਸ਼ ਸੰਕੇਤ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ਸਪੇਸ ਕੁੰਜੀ ਸਰਕਾ ਕੇ ਸੰਕੇਤਾਂ ਦੇ ਦੌਰਾਨ ਸਪੇਸ ਇਨਪੁਟ ਕਰੋ"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ਭਾਸ਼ਾਵਾਂ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ਮਦਦ &amp; ਫੀਡਬੈਕ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ਅੰਗ੍ਰੇਜ਼ੀ (ਯੂਕੇ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ਅੰਗ੍ਰੇਜੀ (ਅਮਰੀਕਾ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ਸਪੇਨੀ (ਅਮਰੀਕਾ)"</string>
@@ -132,4 +129,6 @@
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ਸਿਸਟਮ ਭਾਸ਼ਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ"</string>
     <string name="select_input_method">"ਇਨਪੁਟ ਵਿਧੀ ਚੁਣੋ"</string>
+    <string name="undo">"ਅਣਕੀਤਾ ਕਰੋ"</string>
+    <string name="redo">"ਮੁੜ-ਓਹੀ ਕਰੋ"</string>
 </resources>

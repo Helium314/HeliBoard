@@ -14,7 +14,6 @@
     <string name="user_dict_settings_edit_dialog_title">ଶବ୍ଦ ସମ୍ପାଦନା</string>
     <string name="user_dict_settings_more_languages">ଅଧିକ ଭାଷା…</string>
     <string name="settings_screen_theme">ଥିମ୍</string>
-    <string name="language_selection_title">ଭାଷା</string>
     <string name="auto_correction_threshold_mode_off">ବନ୍ଦ</string>
     <string name="settings_screen_advanced">ଵିକଶିତ</string>
     <string name="subtype_en_US">ଇଂରାଜୀ (ଯୁକ୍ତରାଷ୍ଟ୍ର)</string>
@@ -28,4 +27,6 @@
     <string name="prefs_block_potentially_offensive_title">"ଅପମାନଜନକ ଶବ୍ଦଗୁଡ଼ିକୁ ବ୍ଲକ୍ କରନ୍ତୁ"</string>
     <string name="prefs_block_potentially_offensive_summary">"ସମ୍ଭାବ୍ୟ ଅପମାନଜନକ ଶବ୍ଦଗୁଡ଼ିକର ପ୍ରସ୍ତାବ ଦିଅନ୍ତୁ ନାହିଁ"</string>
     <string name="bigram_prediction_summary">"ପ୍ରସ୍ତାବ ପ୍ରସ୍ତୁତ କରିବାରେ ପୂର୍ବବର୍ତ୍ତୀ ଶବ୍ଦ ବ୍ୟବହାର କରନ୍ତୁ"</string>
+    <string name="undo">"ପୂର୍ବ ପରି କରନ୍ତୁ"</string>
+    <string name="redo">"ପୁଣି କରନ୍ତୁ"</string>
 </resources>

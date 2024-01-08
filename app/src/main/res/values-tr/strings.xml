@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Tuşa basıldığında ses çıkar"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Tuşa basıldığında pop-up aç"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Tercihler"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Görünüm ve Düzenler"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Hareketle Yazma"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Metin düzeltme"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Gelişmiş"</string>
@@ -50,8 +49,6 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Hareket sırasında önerilen kelimeyi göster"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Kelime öbeği hareketi"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Hareketle girişte boşlukları, boşluk tuşuna kaydırarak girin"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Diller"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Yardım ve geri bildirim"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"İngilizce (BK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"İngilizce (ABD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"İspanyolca (ABD)"</string>
@@ -171,4 +168,6 @@
     <string name="auto_correction_confidence">Otomatik düzeltme güveni</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistem dillerini kullan"</string>
     <string name="select_input_method">"Giriş yöntemini seçin"</string>
+    <string name="undo">"Geri al"</string>
+    <string name="redo">"Yeniden yap"</string>
 </resources>
