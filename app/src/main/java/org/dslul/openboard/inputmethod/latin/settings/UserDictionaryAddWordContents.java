@@ -11,7 +11,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
@@ -135,6 +137,11 @@ public class UserDictionaryAddWordContents {
     // It may also be the empty string, which means "all locales"
     void updateLocale(final String locale) {
         mLocale = null == locale ? Locale.getDefault().toString() : locale;
+        // The keyboard uses the language layout of the user dictionary
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mWordEditText.setImeHintLocales(new LocaleList(LocaleUtils.constructLocaleFromString(mLocale)));
+        }
+
     }
 
     void delete(final Context context) {

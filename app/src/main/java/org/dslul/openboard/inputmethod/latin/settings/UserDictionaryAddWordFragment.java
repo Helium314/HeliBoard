@@ -6,6 +6,7 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
@@ -18,8 +19,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -52,6 +55,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
 
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
+    private EditText mWordEditText;
 
     @NonNull
     @Override
@@ -70,6 +74,8 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
             // INSERT mode.
             mContents = new UserDictionaryAddWordContents(mRootView, mContents);
         }
+
+        mWordEditText = mRootView.findViewById(R.id.user_dictionary_add_word_text);
 
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
@@ -212,6 +218,10 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
 
                 // Finally, we add the selected language to the top of the list.
                 localesList.add(0, locale);
+
+                // When a language is selected, the keyboard layout changes automatically
+                InputMethodManager input = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                input.restartInput(mWordEditText);
 
                 // The action bar subtitle is updated when a language is selected in the drop-down menu
                 final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
