@@ -82,6 +82,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         addNumberRowOrMoreKeys(baseKeys)
         if (params.mId.isAlphabetKeyboard)
             addSymbolMoreKeys(baseKeys)
+        val bottomRow = getBottomRowAndAdjustBaseKeys(baseKeys) // not really fast, but irrelevant compared to the loop
 
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
         val functionalKeys = parseFunctionalKeys(R.string.key_def_functional)
@@ -169,7 +170,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             keysInRows.add(paramsRow)
         }
         resizeLastRowIfNecessaryForAlignment(keysInRows)
-        keysInRows.add(getBottomRowAndAdjustBaseKeys(baseKeys)) // not really fast, but irrelevant compared to the loop
+        keysInRows.add(bottomRow)
         if (params.mId.mNumberRowEnabled)
             keysInRows.add(0, getNumberRow())
         return keysInRows
