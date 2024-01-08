@@ -805,7 +805,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             KeyboardId.ELEMENT_NUMBER -> "number"
             KeyboardId.ELEMENT_PHONE -> "phone"
             KeyboardId.ELEMENT_PHONE_SYMBOLS -> "phone_symbols"
-            else -> params.mId.mSubtype.keyboardLayoutSetName
+            else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
         }
 
         // todo:
