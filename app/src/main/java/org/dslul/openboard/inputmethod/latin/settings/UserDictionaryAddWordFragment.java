@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
     private EditText mWordEditText;
+    private InputMethodManager mInput;
 
     @NonNull
     @Override
@@ -84,6 +86,14 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         }
         setHasOptionsMenu(true);
         return mRootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Automatically display the keyboard when we want to add or modify a word
+        mInput = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput.showSoftInput(mWordEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     @Override
@@ -195,6 +205,9 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
 
                     // Finally, we add the selected language to the top of the list.
                     localesList.add(0, locale);
+
+                    // When a language is selected, the keyboard layout changes automatically
+                    mInput.restartInput(mWordEditText);
                 }*/
 
                 // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
@@ -220,8 +233,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
                 localesList.add(0, locale);
 
                 // When a language is selected, the keyboard layout changes automatically
-                InputMethodManager input = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                input.restartInput(mWordEditText);
+                mInput.restartInput(mWordEditText);
 
                 // The action bar subtitle is updated when a language is selected in the drop-down menu
                 final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
