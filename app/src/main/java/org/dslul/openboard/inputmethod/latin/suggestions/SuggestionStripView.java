@@ -105,6 +105,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     Listener mListener;
     private SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
     private int mStartIndexOfMoreSuggestions;
+    private int mRtl = 1; // 1 if LTR, -1 if RTL
 
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
@@ -246,7 +247,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
         mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
-        mToolbarExpandKey.setScaleX(mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f);
+        mToolbarExpandKey.setScaleX((mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f) * mRtl);
 
         // hide pinned keys if device is locked, and avoid expanding toolbar
         final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
@@ -260,6 +261,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public void setRtl(final boolean isRtlLanguage) {
         mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
+        mRtl = isRtlLanguage ? -1 : 1;
     }
 
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
@@ -685,7 +687,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(VISIBLE);
             mPinnedKeys.setVisibility(VISIBLE);
         }
-        mToolbarExpandKey.setScaleX(visible ? -1f : 1f);
+        mToolbarExpandKey.setScaleX((visible ? -1f : 1f) * mRtl);
     }
 
     private void addKeyToPinnedKeys(final ToolbarKey pinnedKey) {
