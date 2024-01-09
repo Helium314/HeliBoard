@@ -31,11 +31,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:hint="@string/user_dict_settings_add_word_hint"
-        android:imeOptions="flagNoFullscreen"
+        android:imeOptions="actionNext"
         android:inputType="textNoSuggestions"
         android:maxLength="@integer/config_user_dictionary_max_word_length" >
-
-        <requestFocus />
     </EditText>
 
     <GridLayout
@@ -62,7 +60,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="@string/user_dict_settings_add_shortcut_hint"
-            android:imeOptions="flagNoFullscreen"
+            android:imeOptions="actionNext"
             android:inputType="textNoSuggestions"
             android:maxLength="@integer/config_user_dictionary_max_word_length" />
 
@@ -82,8 +80,8 @@
             android:layout_marginBottom="6dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:imeOptions="flagNoFullscreen"
-            android:text="250"
+            android:imeOptions="actionDone"
+            android:hint="@string/user_dict_settings_add_weight_hint"
             android:inputType="number"
             android:maxLength="3" />
 

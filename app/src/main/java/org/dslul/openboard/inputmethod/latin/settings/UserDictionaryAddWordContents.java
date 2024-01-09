@@ -77,6 +77,7 @@ public class UserDictionaryAddWordContents {
     UserDictionaryAddWordContents(final View view, final Bundle args) {
         mModeTitle = view.findViewById(R.id.user_dictionary_mode_title);
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
+        mWordEditText.requestFocus();
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
         mWeightEditText = view.findViewById(R.id.user_dictionary_add_weight);
         mWeightEditText.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
@@ -489,4 +490,3 @@ public class UserDictionaryAddWordContents {
     }
 
 }
-

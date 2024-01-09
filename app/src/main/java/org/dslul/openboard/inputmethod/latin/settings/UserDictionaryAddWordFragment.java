@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,6 +58,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
     private EditText mWordEditText;
+    private EditText mWeightEditText;
     private InputMethodManager mInput;
     private ActionBar mActionBar;
 
@@ -79,6 +81,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         }
 
         mWordEditText = mRootView.findViewById(R.id.user_dictionary_add_word_text);
+        mWeightEditText = mRootView.findViewById(R.id.user_dictionary_add_weight);
 
         final Bundle args = getArguments();
         mActionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
@@ -100,6 +103,32 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         // Automatically display the keyboard when we want to add or modify a word
         mInput = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mInput.showSoftInput(mWordEditText, InputMethodManager.SHOW_IMPLICIT);
+
+        // Add a word using the Enter key
+        mWeightEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (mContents.isExistingWord(requireContext())) {
+                    new AlertDialog.Builder(requireContext())
+                            .setMessage(R.string.user_dict_word_already_present)
+                            .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
+                                mContents.editWord(requireContext());
+                                mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
+                                mWordEditText.requestFocus();
+                            })
+                            .setNegativeButton(R.string.user_dict_correct_button, (dialog, which) -> {
+                                dialog.dismiss();
+                                mWordEditText.requestFocus();
+                            })
+                            .show();
+                } else if (!mWordEditText.getText().toString().isEmpty()) {
+                    mContents.apply(requireContext());
+                    requireActivity().onBackPressed();
+                }
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -151,10 +180,14 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
                         .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
                             mContents.editWord(requireContext());
                             mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
+                            mWordEditText.requestFocus();
                         })
-                        .setNegativeButton(R.string.user_dict_correct_button, (dialog, i) -> dialog.dismiss())
+                        .setNegativeButton(R.string.user_dict_correct_button, (dialog, which) -> {
+                            dialog.dismiss();
+                            mWordEditText.requestFocus();
+                        })
                         .show();
-            } else {
+            } else if (!mWordEditText.getText().toString().isEmpty()) {
                 mContents.apply(requireContext());
                 requireActivity().onBackPressed();
             }
