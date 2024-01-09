@@ -9,6 +9,7 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.UserDictionary;
@@ -29,8 +30,11 @@ import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -45,6 +49,9 @@ public class UserDictionaryListFragment extends SubScreenFragment {
     public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =
             "android.settings.USER_DICTIONARY_SETTINGS";
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
+    // Todo : Implement the import/export function in these menus
+    /*private static final int OPTIONS_MENU_EXPORT = Menu.NONE;
+    private static final int OPTIONS_MENU_IMPORT = Menu.NONE;*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +79,10 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        // Todo : Implement the import/export function in these menus
+        /*menu.add(0, OPTIONS_MENU_EXPORT, 0, R.string.button_backup);
+        menu.add(0, OPTIONS_MENU_IMPORT, 0, R.string.button_restore);*/
+
         MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
                 .setIcon(R.drawable.ic_plus);
         actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -79,6 +90,12 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Todo : Implement the import/export function in these menus
+        /*if (item.getItemId() == OPTIONS_MENU_EXPORT) {
+        }
+        if (item.getItemId() == OPTIONS_MENU_IMPORT) {
+        }*/
+
         if (item.getItemId() == OPTIONS_MENU_ADD) {
             showAddWordDialog();
             return true;
@@ -144,31 +161,69 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param userDictGroup The group to put the settings in.
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
-        // List of enabled user dictionary language
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(requireActivity().getApplicationContext());
+        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
+        // List of enabled user dictionary languages
         final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
+        // List of main language
+        final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
         // List of enabled system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
-        // To combine the 2 lists above
+        // To combine lists and handle duplicates automatically
         LinkedHashSet<String> userDictionaryLanguage = new LinkedHashSet<>();
 
-        if (enabledUserDictionary == null) {
-            return;
-        }
-        // First, add "For all languages" to the top of the list
+        // Add "For all languages"
         userDictionaryLanguage.add("");
-        // Next, the main language is added only if a word is present.
-        userDictionaryLanguage.addAll(enabledUserDictionary);
-        // Finally, add the enabled system languages
-        for (Locale subtype : enabledSystemLocale) {
-            Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
-            userDictionaryLanguage.add(locale.toString());
+
+        // Add the language from the user dictionary if a word is present
+        if (enabledUserDictionary != null) {
+            userDictionaryLanguage.addAll(enabledUserDictionary);
         }
 
-        // Add preferences according to the sequence defined above
+        // Add the main language selected in the "Language and Layouts" setting
+        for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
+            Locale mainLocale = LocaleUtils.constructLocaleFromString(mainSubtype.getLocale());
+            String mainLocaleString = mainLocale.toString();
+            // Special treatment for the known languages with _ZZ and _zz types
+            if (mainLocaleString.endsWith("_ZZ") || mainLocaleString.endsWith("_zz") || mainLocaleString.equals("zz")) {
+                mainLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(mainLocale, requireActivity()).toLowerCase();
+            }
+            userDictionaryLanguage.add(mainLocaleString);
+
+            // Add secondary language only if main language is selected and "Use system languages" setting is not enabled
+            for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, String.valueOf(mainLocale))) {
+                Locale secondLocale = LocaleUtils.constructLocaleFromString(String.valueOf(secondSubtype));
+                String secondLocaleString = secondLocale.toString();
+                // Special treatment for the known languages with _ZZ and _zz types
+                if (secondLocaleString.endsWith("_ZZ") || secondLocaleString.endsWith("_zz") || secondLocaleString.equals("zz")) {
+                    secondLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(secondLocale, requireActivity()).toLowerCase();
+                }
+                if (!localeSystemOnly) {
+                    userDictionaryLanguage.add(secondLocaleString);
+                }
+            }
+        }
+
+        // Finally, add the enabled system languages
+        for (Locale subtype : enabledSystemLocale) {
+            Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
+            String systemLocaleString = systemLocale.toString();
+            // Special treatment for the known languages with _ZZ and _zz types
+            if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz") || systemLocaleString.equals("zz")) {
+                systemLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(systemLocale, requireActivity()).toLowerCase();
+            }
+            userDictionaryLanguage.add(systemLocaleString);
+        }
+
+        // Sort languages alphabetically
+        ArrayList<String> sortedLanguages = new ArrayList<>(userDictionaryLanguage);
+        Collections.sort(sortedLanguages, String::compareToIgnoreCase);
+
+        // Add preferences
         if (userDictionaryLanguage.isEmpty()) {
             userDictGroup.addPreference(createUserDictionaryPreference(null));
         } else {
-            for (String localeUserDictionary : userDictionaryLanguage) {
+            for (String localeUserDictionary : sortedLanguages) {
                 userDictGroup.addPreference(createUserDictionaryPreference(localeUserDictionary));
             }
         }
