@@ -73,8 +73,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         if (actionBar != null) {
             actionBar.setSubtitle(null);
         }
-
-        addMissingPrefs();
     }
 
     @Override
@@ -255,20 +253,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         newPref.setFragment(UserDictionarySettings.class.getName());
 
         return newPref;
-    }
-
-    private void addMissingPrefs() {
-        final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
-        final int count = getPreferenceScreen().getPreferenceCount();
-        if (enabledUserDictionary != null) {
-            for (int i = 0; i < count; i++) {
-                final Preference pref = getPreferenceScreen().getPreference(i);
-                enabledUserDictionary.remove(pref.getKey());
-            }
-            for (String localeUserDictionary : enabledUserDictionary) {
-                getPreferenceScreen().addPreference(createUserDictionaryPreference(localeUserDictionary));
-            }
-        }
     }
 
     private void showAddWordDialog() {
