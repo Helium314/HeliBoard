@@ -83,7 +83,6 @@
     <string name="user_dict_settings_add_word_hint">"কোনো শব্দ লিখক"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ঐচ্ছিক শ্বৰ্টকাট"</string>
     <string name="user_dict_settings_edit_dialog_title">"শব্দ সম্পাদনা কৰক"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"মচক"</string>
     <string name="user_dict_settings_all_languages">"সকলো ভাষাৰ বাবে"</string>
     <string name="user_dict_settings_more_languages">"অধিক ভাষা…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

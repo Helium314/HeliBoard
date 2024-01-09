@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"စကားလုံးတစ်လုံး ရိုက်ပါ"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ရွေးစရာအတိုကောက်"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"စာလုံးကို ပြင်ဆင်မည်"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"ဖျက်ရန်"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"အသုံးပြုသူ အဘိဓာန်တွင် မည်သည့်စကားလုံးမျှ မရှိပါ။ စကားလုံးကိုပေါင်းထည့်ရန် (+) ခလုတ် ကိုတို့ပါ။"</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ဘာသာစကားအားလုံးအတွက်"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ဘာသာစကားပိုများများ…"</string>

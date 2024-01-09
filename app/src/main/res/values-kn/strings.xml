@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ಪದವನ್ನು ಟೈಪ್ ಮಾಡಿ"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ಐಚ್ಛಿಕ ಶಾರ್ಟ್‌ಕಟ್"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"ಪದವನ್ನು ಎಡಿಟ್ ಮಾಡಿ"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"ಅಳಿಸಿ"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ಬಳಕೆದಾರರ ನಿಘಂಟಿನಲ್ಲಿ ನೀವು ಯಾವುದೇ ಪದಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ಪದವನ್ನು ಸೇರಿಸಲು, ಸೇರಿಸು (+) ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ಎಲ್ಲ ಭಾಷೆಗಳಿಗೆ"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ಇನ್ನಷ್ಟು ಭಾಷೆಗಳು…"</string>

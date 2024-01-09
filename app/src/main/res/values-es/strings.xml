@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Escribe una palabra"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Introducir"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Editar palabra"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Eliminar"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tienes ninguna palabra en el diccionario del usuario. Toca el botón (+) para añadir una."</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Más idiomas…"</string>

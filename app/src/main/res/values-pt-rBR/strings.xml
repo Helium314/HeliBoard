@@ -146,7 +146,6 @@
     <string name="main_dict_description">Dicionário principal</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_context_menu_delete_title">Apagar</string>
     <string name="user_dict_settings_add_word_hint">Escreva uma palavra</string>
     <string name="user_dict_settings_add_shortcut_hint">Atalho opcional</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>

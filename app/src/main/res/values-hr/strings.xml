@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint">"Upišite riječ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Neobavezni prečac"</string>
     <string name="user_dict_settings_edit_dialog_title">"Uređivanje riječi"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"Brisanje"</string>
     <string name="user_dict_settings_empty_text">"Nemate nijednu riječ u korisničkom rječniku. Da biste dodali riječ, dodirnite gumb Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>

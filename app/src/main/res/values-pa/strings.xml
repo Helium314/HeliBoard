@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ਇੱਕ ਸ਼ਬਦ ਟਾਈਪ ਕਰੋ"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ਵਿਕਲਪਕ ਸ਼ਾਰਟਕੱਟ"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"ਸ਼ਬਦ ਦਾ ਸੰਪਾਦਨ ਕਰੋ"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"ਮਿਟਾਓ"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ਤੁਹਾਡੇ ਕੋਲ ਵਰਤੋਂਕਾਰ ਸ਼ਬਦਕੋਸ਼ ਵਿੱਚ ਕੋਈ ਸ਼ਬਦ ਨਹੀਂ ਹਨ। ਇੱਕ ਸ਼ਬਦ ਸ਼ਾਮਲ ਕਰਨ ਲਈ \'ਸ਼ਾਮਲ ਕਰੋ\' (+) ਬਟਨ \'ਤੇ ਟੈਪ ਕਰੋ।"</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ਸਾਰੀਆਂ ਭਾਸ਼ਾਵਾਂ ਲਈ"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ਹੋਰ ਭਾਸ਼ਾਵਾਂ…"</string>

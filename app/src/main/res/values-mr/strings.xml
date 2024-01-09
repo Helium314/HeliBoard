@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"एक शब्द टाईप करा"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"पर्यायी शॉर्टकट"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"शब्द संपादित करा"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"हटवा"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"वापरकर्ता डिक्शनरीमध्ये तुमच्याकडे कोणतेही शब्द नाहीत. एखादा शब्द जोडण्यासाठी, जोडा (+) बटणावर टॅप करा."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"सर्व भाषांसाठी"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"अधिक भाषा..."</string>

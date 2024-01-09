@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"វាយ​បញ្ចូល​ពាក្យ​"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ផ្លូវកាត់​ជា​ជម្រើស"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"កែ​ពាក្យ"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"លុប"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"អ្នកមិនមានពាក្យនៅក្នុងវចនានុក្រមអ្នកប្រើទេ។ ដើម្បីបន្ថែមពាក្យ សូមប៉ះប៊ូតុងបន្ថែម (+)។"</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"សម្រាប់​ភាសា​ទាំងអស់"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ភាសា​ច្រើន​ទៀត…"</string>

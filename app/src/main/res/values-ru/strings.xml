@@ -116,7 +116,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">Введите слово</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">Ярлык для фразы (необязательно)</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">Изменение слова</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">Удалить</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки \"Добавить (+)\"."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другой язык</string>

@@ -109,7 +109,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         // The delete icon only appears if a word is already present.
         if (args == null) return;
         if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
-            final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, R.string.user_dict_settings_context_menu_delete_title)
+            final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, R.string.delete_dict)
                     .setIcon(deleteIcon);
             actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             if (actionItemDelete.getIcon() != null)

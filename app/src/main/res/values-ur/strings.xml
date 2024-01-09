@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ایک لفظ ٹائپ کریں"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"اختیاری شارٹ کٹ"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"لفظ میں ترمیم کریں"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"حذف کریں"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"صارف لغت میں آپ کے پاس کوئی الفاظ نہيں ہیں۔ کوئی لفظ شامل کرنے کیلئے شامل کریں (+) بٹن تھپتھپائیں۔"</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"سبھی زبانوں کیلئے"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"مزید زبانیں…"</string>

@@ -218,7 +218,6 @@
     <string name="user_dict_settings_add_word_hint">শব্দ টাইপ করুন</string>
     <string name="user_dict_settings_add_shortcut_hint">ঐচ্ছিক শর্টকাট</string>
     <string name="user_dict_settings_edit_dialog_title">শব্দ সম্পাদনা</string>
-    <string name="user_dict_settings_context_menu_delete_title">অপসারণ করুন</string>
     <string name="user_dict_settings_empty_text">ব্যবহারকারী অভিধানে আপনার কোনো শব্দ নেই। শব্দ যোগ করতে (+) বোতামটি ট্যাপ করুন।</string>
     <string name="user_dict_settings_all_languages">সব ভাষার জন্য</string>
     <string name="user_dict_settings_more_languages">আরও ভাষা…</string>

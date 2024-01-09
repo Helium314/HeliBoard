@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"So‘zni kiriting"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Ibora uchun qisqartma (ixtiyoriy)"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"So‘zni tahrirlash"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"O‘chirish"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Shaxsiy lug‘atingizda hech narsa yo‘q. Unga so‘zlarni qo‘shish uchun “Qo‘shish” (+) tugmasidan foydalaning."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Barcha tillar uchun"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Ko‘proq tillar…"</string>

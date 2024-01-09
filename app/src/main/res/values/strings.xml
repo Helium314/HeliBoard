@@ -568,9 +568,6 @@ New dictionary:
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- This resource is corresponding to msgid="8967476444840548674" -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
-    <!-- User dictionary settings. The title of the context menu item to delete the current word -->
-    <!-- This resource is corresponding to msgid="9140703913776549054" -->
-    <string name="user_dict_settings_context_menu_delete_title">Delete</string>
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary  [CHAR LIMIT=200] -->
     <!-- This resource is corresponding to msgid="8165273379942105271" -->
     <string name="user_dict_settings_empty_text">You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.</string>

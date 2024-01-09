@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Mag-type ng salita"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Opsyonal na shortcut"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"I-edit ang salita"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"I-delete"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Wala kang anumang salita sa diksyunaryo ng user. Para magdagdag ng salita, i-tap ang button na Magdagdag (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Para sa lahat ng wika"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Higit pang mga wika..."</string>

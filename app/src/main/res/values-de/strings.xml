@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Wort eingeben"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Optionales Tastaturkürzel"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Wort bearbeiten"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Löschen"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Es sind noch keine Wörter in deinem Wörterbuch vorhanden. Du kannst Wörter hinzufügen, indem du auf das \"+\"-Symbol tippst."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Für alle Sprachen"</string>
     <string name="user_dict_settings_more_languages">"Weitere Sprachen..."</string>

@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"એક શબ્દ લખો"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"વૈકલ્પિક શોર્ટકટ"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"શબ્દ સંપાદિત કરો"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"કાઢી નાખો"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"તમારી પાસે વપરાશકર્તા શબ્દકોશમાં કોઈપણ શબ્દ નથી. શબ્દને ઉમેરવા માટે, ઉમેરો (+) બટન ટૅપ કરો."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"તમામ"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"વધુ ભાષાઓ…"</string>

@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"輸入字詞"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"可選用的快速鍵"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"編輯字詞"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"刪除"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"使用者字典中沒有任何字詞。如要新增字詞，請輕觸「新增」(+) 按鈕。"</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"所有語言"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"更多語言…"</string>

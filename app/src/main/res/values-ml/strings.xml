@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ഒരു പദം ടൈപ്പുചെയ്യുക"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ഓപ്‌ഷണൽ കുറുക്കുവഴി"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"പദം എഡിറ്റുചെയ്യുക"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"ഇല്ലാതാക്കുക"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ഉപയോക്തൃ നിഘണ്ടുവിൽ നിങ്ങൾക്ക് പദങ്ങളൊന്നുമില്ല. ഒരു പദം ചേർക്കുന്നതിന്, ചേർക്കുക (+) ബട്ടൺ ടാപ്പ് ചെയ്യുക."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"എല്ലാ ഭാഷകൾക്കുമായി"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"കൂടുതൽ ഭാഷകൾ…"</string>

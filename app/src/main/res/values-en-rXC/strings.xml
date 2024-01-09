@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‏‎‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‏‎‏‎‎‎‏‎‏‎‎‏‎‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‎‏‎‏‎‏‏‎Type a word‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_shortcut_hint">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‏‎‎‎‏‏‎‏‏‎‏‏‏‎‎‎‎‏‎‎‏‏‏‎‎‏‏‎‎‎‎‎‎‏‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‎‎Optional shortcut‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_edit_dialog_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‏‎‏‎‎‏‏‎‏‎‎‏‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‏‎‏‎‏‎‏‎‏‎‎‏‎‎‏‏‎‎‏‏‏‎‏‎‎‎‎‏‏‎Edit word‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‏‎‎‏‏‎‎‎‏‏‏‎‏‏‎‎‎‎‏‎‎‏‎‎‎‏‏‏‏‎‏‏‎‎‏‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Delete‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_empty_text">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‏‎‎‏‎‎‎‎‎‎‎‏‏‏‎‎‏‎You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_all_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‎‎‎‏‎‎‎‎‏‎‎‏‎‏‏‏‎‎‎‏‎‎For all languages‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_more_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‏‎‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‏‎‏‎‎‎‏‏‎‎‏‏‎‎‎‎‎‎‎‎‎‏‎‎‎‏‏‎‎More languages…‎‏‎‎‏‎"</string>

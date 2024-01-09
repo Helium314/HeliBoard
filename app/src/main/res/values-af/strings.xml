@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Tik \'n woord in"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Opsionele kortpad"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Redigeer woord"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Vee uit"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Jy het geen woorde in die gebruikerwoordeboek nie. Tik op die Voeg By-knoppie (+) om \'n woord by te voeg."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Vir alle tale"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Nog tale…"</string>

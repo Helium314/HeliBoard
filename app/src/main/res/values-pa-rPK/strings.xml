@@ -29,7 +29,6 @@
     <string name="delete_dict">مٹاؤ</string>
     <string name="user_dict_settings_add_menu_title">شامل کرو</string>
     <string name="user_dict_settings_add_locale_option_name">بولی</string>
-    <string name="user_dict_settings_context_menu_delete_title">مٹاؤ</string>
     <string name="auto_cap">خود بخود اکھر کیپیٹل ورتݨ</string>
     <string name="auto_correction_threshold_mode_off">بند</string>
     <string name="auto_correction_threshold_mode_aggressive">بہت</string>

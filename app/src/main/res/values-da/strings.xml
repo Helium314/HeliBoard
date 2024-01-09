@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Skriv et ord"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Valgfri genvej"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Rediger ord"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Slet"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Du har ikke nogen ord i brugerordbogen. Du kan tilføje et ord ved at trykke på knappen Tilføj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"For alle sprog"</string>
     <string name="user_dict_settings_more_languages">"Flere sprog..."</string>

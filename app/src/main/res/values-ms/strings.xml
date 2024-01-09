@@ -115,7 +115,6 @@
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Taip perkataan"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Pintasan pilihan"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edit perkataan"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Padam"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Anda tiada sebarang perkataan dalam kamus pengguna. Untuk menambahkan perkataan, ketik butang Tambah (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Lebih banyak bahasa..."</string>
