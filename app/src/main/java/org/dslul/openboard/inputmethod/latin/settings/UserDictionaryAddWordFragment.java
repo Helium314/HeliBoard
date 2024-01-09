@@ -58,6 +58,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
     private View mRootView;
     private EditText mWordEditText;
     private InputMethodManager mInput;
+    private ActionBar mActionBar;
 
     @NonNull
     @Override
@@ -79,10 +80,15 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
 
         mWordEditText = mRootView.findViewById(R.id.user_dictionary_add_word_text);
 
-        final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
-            actionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
+        final Bundle args = getArguments();
+        mActionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (args != null) {
+            if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
+                mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
+            } else {
+                mActionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
+            }
+            mActionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
         }
         setHasOptionsMenu(true);
         return mRootView;
@@ -141,7 +147,10 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
             if (mContents.isExistingWord(requireContext())) {
                 new AlertDialog.Builder(requireContext())
                         .setMessage(R.string.user_dict_word_already_present)
-                        .setPositiveButton(R.string.user_dict_update_button, (dialog, i) -> mContents.editWord(requireContext()))
+                        .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
+                            mContents.editWord(requireContext());
+                            mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
+                        })
                         .setNegativeButton(R.string.user_dict_correct_button, (dialog, i) -> dialog.dismiss())
                         .show();
             } else {
@@ -236,9 +245,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
                 mInput.restartInput(mWordEditText);
 
                 // The action bar subtitle is updated when a language is selected in the drop-down menu
-                final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-                if (actionBar != null)
-                    actionBar.setSubtitle(locale.toString());
+                mActionBar.setSubtitle(locale.toString());
             }
 
             @Override
