@@ -45,6 +45,9 @@ public class UserDictionaryListFragment extends SubScreenFragment {
     public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =
             "android.settings.USER_DICTIONARY_SETTINGS";
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
+    // Todo : Implement the import/export function in these menus
+    /*private static final int OPTIONS_MENU_EXPORT = Menu.NONE;
+    private static final int OPTIONS_MENU_IMPORT = Menu.NONE;*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +75,10 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        // Todo : Implement the import/export function in these menus
+        /*menu.add(0, OPTIONS_MENU_EXPORT, 0, R.string.button_backup);
+        menu.add(0, OPTIONS_MENU_IMPORT, 0, R.string.button_restore);*/
+
         MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
                 .setIcon(R.drawable.ic_plus);
         actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -79,6 +86,12 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Todo : Implement the import/export function in these menus
+        /*if (item.getItemId() == OPTIONS_MENU_EXPORT) {
+        }
+        if (item.getItemId() == OPTIONS_MENU_IMPORT) {
+        }*/
+
         if (item.getItemId() == OPTIONS_MENU_ADD) {
             showAddWordDialog();
             return true;
