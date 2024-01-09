@@ -109,14 +109,15 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         // The delete icon only appears if a word is already present.
         if (args == null) return;
         if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
-            final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, null).setIcon(deleteIcon);
-            actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, R.string.user_dict_settings_context_menu_delete_title)
+                    .setIcon(deleteIcon);
+            actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             if (actionItemDelete.getIcon() != null)
                 actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
         }
 
-        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, null).setIcon(R.drawable.ic_save);
-        actionItemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.save).setIcon(R.drawable.ic_save);
+        actionItemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         if (actionItemAdd.getIcon() != null)
             actionItemAdd.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
     }

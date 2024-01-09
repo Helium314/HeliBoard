@@ -81,7 +81,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
         MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
                 .setIcon(R.drawable.ic_plus);
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
     @Override
