@@ -247,6 +247,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             newPref.getExtras().putString("locale", localeString);
         }
         newPref.setKey(localeString);
+        newPref.setIconSpaceReserved(false);
         newPref.setIntent(intent);
         newPref.setFragment(UserDictionarySettings.class.getName());
 
