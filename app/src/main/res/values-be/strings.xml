@@ -100,8 +100,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Паказаць значок прыкладання ў панэлi запуску"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Дадатковыя слоўнікі"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Налады для слоўнікаў"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Карыстальніцкія слоўнікі"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Карыстацкі слоўнік"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Даступны слоўнік"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Праблема падключэння да слоўніка"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Слоўнікаў няма"</string>
@@ -113,16 +111,11 @@
     <string name="version_text" msgid="2715354215568469385">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Дадаць"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Дадаць у слоўнік"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Выраз"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Дадатковыя параметры"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Асн. параметры"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Слова:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Гарачая клавіша:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Мова:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Увядзіце слова"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Неабавязковая гарачая клавіша"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Рэдагаваць слова"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Рэдагаваць"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Выдаліць"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"У карыстальніцкім слоўніку няма ніводнага слова. Каб дадаць слова, дакраніце да кнопкі \"Дадаць\" (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для ўсіх моў"</string>

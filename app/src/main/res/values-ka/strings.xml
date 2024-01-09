@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"აპის ხატულის ჩვენება გამშვებში"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"დამატებითი ლექსიკონები"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"ლექსიკონების პარამეტრები"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"მომხმარებლის ლექსიკონები"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"მომხმარებლის ლექსიკონი"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"ხელმისაწვდომია ლექსიკონი"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"ლექსიკონის სერვისთან დაკავშირებით პრობლემა წარმოიშვა"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"ლექსიკონები მიუწვდომელია"</string>
@@ -112,16 +110,11 @@
     <string name="version_text" msgid="2715354215568469385">ვერსია <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"დამატება"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"ლექსიკონში დამატება"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"ფრაზა"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"მეტი ვარიანტები"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"ნაკლები ვარიანტები"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"სიტყვა:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"მალსახმობი:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ენა:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"შიყვანეთ სიტყვა"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"არასავალდებულო მალსა"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"სიტყვის შესწორება"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"რედაქტირება"</string>
     <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"წაშლა"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"მომხმარებლის ლექსიკონში სიტყვები არ არის. სიტყვის დასამატებლად, შეეხეთ დამატების (+) ღილაკს."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ყველა ენისთვის"</string>
