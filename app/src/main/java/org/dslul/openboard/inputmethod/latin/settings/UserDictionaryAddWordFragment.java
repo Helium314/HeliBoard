@@ -107,27 +107,9 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         // Add a word using the Enter key
         mWeightEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (mContents.isExistingWord(requireContext())) {
-                    new AlertDialog.Builder(requireContext())
-                            .setMessage(R.string.user_dict_word_already_present)
-                            .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
-                                mContents.editWord(requireContext());
-                                mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
-                                mWordEditText.requestFocus();
-                            })
-                            .setNegativeButton(R.string.user_dict_correct_button, (dialog, which) -> {
-                                dialog.dismiss();
-                                mWordEditText.requestFocus();
-                            })
-                            .show();
-                } else if (!mWordEditText.getText().toString().isEmpty()) {
-                    mContents.apply(requireContext());
-                    requireActivity().onBackPressed();
-                }
-                return true;
-            } else {
-                return false;
+                addWord();
             }
+            return false;
         });
     }
 
@@ -174,23 +156,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == OPTIONS_MENU_ADD) {
-            if (mContents.isExistingWord(requireContext())) {
-                new AlertDialog.Builder(requireContext())
-                        .setMessage(R.string.user_dict_word_already_present)
-                        .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
-                            mContents.editWord(requireContext());
-                            mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
-                            mWordEditText.requestFocus();
-                        })
-                        .setNegativeButton(R.string.user_dict_correct_button, (dialog, which) -> {
-                            dialog.dismiss();
-                            mWordEditText.requestFocus();
-                        })
-                        .show();
-            } else if (!mWordEditText.getText().toString().isEmpty()) {
-                mContents.apply(requireContext());
-                requireActivity().onBackPressed();
-            }
+            addWord();
             return true;
         }
         if (item.getItemId() == OPTIONS_MENU_DELETE) {
@@ -206,6 +172,29 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         super.onResume();
         // We are being shown: display the word
         updateSpinner();
+    }
+
+    private void addWord() {
+        if (mContents.isExistingWord(requireContext())) {
+            new AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.user_dict_word_already_present)
+                    .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
+                        mContents.editWord(requireContext());
+                        mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
+                        mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                    })
+                    .setNegativeButton(R.string.user_dict_correct_button, (dialog, which) -> {
+                        dialog.dismiss();
+                        mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                    })
+                    .show();
+
+            mWordEditText.requestFocus();
+
+        } else if (!mWordEditText.getText().toString().isEmpty()) {
+            mContents.apply(requireContext());
+            requireActivity().onBackPressed();
+        }
     }
 
     private void updateSpinner() {
