@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -55,6 +56,7 @@ public class UserDictionaryAddWordContents {
 
     public static final int MODE_EDIT = 0;
     public static final int MODE_INSERT = 1;
+    public static final int MODE_UPDATE = 2;
 
     static final int CODE_WORD_ADDED = 0;
     static final int CODE_CANCEL = 1;
@@ -111,7 +113,7 @@ public class UserDictionaryAddWordContents {
         }
 
         mMode = args.getInt(EXTRA_MODE);
-        if (mMode == MODE_EDIT) {
+        if (mMode == MODE_EDIT || mMode == MODE_UPDATE) {
             mModeTitle.setText(R.string.user_dict_mode_edit);
         } else if (mMode == MODE_INSERT) {
             mModeTitle.setText(R.string.user_dict_mode_insert);
@@ -156,7 +158,7 @@ public class UserDictionaryAddWordContents {
         }
     }
 
-    int apply(final Context context) {
+    public final int apply(@NonNull final Context context) {
         final ContentResolver resolver = context.getContentResolver();
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
@@ -222,15 +224,19 @@ public class UserDictionaryAddWordContents {
 
     public void editWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
+
+        mModeTitle.setText(R.string.user_dict_mode_edit);
+
         if (hasWord(newWord, context)) {
-            mModeTitle.setText(R.string.user_dict_mode_edit);
+            mMode = MODE_UPDATE;
+        } else {
             mMode = MODE_EDIT;
         }
     }
 
     public boolean isExistingWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
-        if (mMode == MODE_INSERT) {
+        if (mMode == MODE_INSERT || mMode == MODE_UPDATE) {
             return hasWord(newWord, context);
         } else {
             return false;
