@@ -54,12 +54,13 @@ public class UserDictionaryAddWordContents {
     public static final String EXTRA_SHORTCUT = "shortcut";
     public static final String EXTRA_LOCALE = "locale";
 
-    public static final int MODE_EDIT = 0;
-    public static final int MODE_INSERT = 1;
-    public static final int MODE_UPDATE = 2;
+    public static final int MODE_EDIT = 0; // To modify a word
+    public static final int MODE_INSERT = 1; // To add a new or modified word
 
     static final int CODE_WORD_ADDED = 0;
     static final int CODE_CANCEL = 1;
+    static final int CODE_UPDATED = 2;
+    static final int CODE_ALREADY_PRESENT = 3;
 
     public static final int WEIGHT_FOR_USER_DICTIONARY_ADDS = 250;
 
@@ -113,7 +114,7 @@ public class UserDictionaryAddWordContents {
         }
 
         mMode = args.getInt(EXTRA_MODE);
-        if (mMode == MODE_EDIT || mMode == MODE_UPDATE) {
+        if (mMode == MODE_EDIT) {
             mModeTitle.setText(R.string.user_dict_mode_edit);
         } else if (mMode == MODE_INSERT) {
             mModeTitle.setText(R.string.user_dict_mode_insert);
@@ -154,6 +155,7 @@ public class UserDictionaryAddWordContents {
         // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            // Toast appears to indicate that the word has been deleted
             Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
         }
     }
@@ -163,11 +165,6 @@ public class UserDictionaryAddWordContents {
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
         final String newWeight;
-
-        // Edit mode: remove the old entry
-        if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
-        }
 
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             newShortcut = null;
@@ -202,6 +199,40 @@ public class UserDictionaryAddWordContents {
         mSavedShortcut = newShortcut;
         mSavedWeight = newWeight;
 
+        // In edit mode, everything is modified without overwriting other existing words
+        if (MODE_EDIT == mMode && hasWord(newWord, context) && newWord.equals(mOldWord)) {
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            // Toast appears to indicate that the word has been modified
+            Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
+        } else {
+            mMode = MODE_INSERT;
+        }
+
+        // If the word already exists, a dialog box appears asking you to change the word
+        // See UserDictionaryAddWordFragment.addWord()
+        if (mMode == MODE_INSERT && hasWord(newWord, context)) {
+            return CODE_ALREADY_PRESENT;
+        }
+
+        if (mMode == MODE_INSERT) {
+            // Delete duplicate when adding or updating new word
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            // Update the existing word by adding a new one
+            UserDictionary.Words.addWord(context, newWord,
+                    Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocale) ?
+                            null : LocaleUtils.constructLocaleFromString(mLocale));
+
+            // Toast appears either to indicate that the word has been modified or created
+            if (!TextUtils.isEmpty(mOldWord)) {
+                Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
+            } else {
+                final String localeInToast = new LocaleRenderer(context, mLocale).toString();
+                final String messageWordAdded = context.getString(R.string.user_dict_word_added) + " " + localeInToast;
+                Toast.makeText(context, messageWordAdded, Toast.LENGTH_SHORT).show();
+            }
+            return CODE_UPDATED;
+        }
+
         // Delete duplicates
         UserDictionarySettings.deleteWordInInsertMode(newWord, resolver);
 
@@ -211,32 +242,12 @@ public class UserDictionaryAddWordContents {
                 Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocale) ?
                         null : LocaleUtils.constructLocaleFromString(mLocale));
 
-        if (mMode == MODE_INSERT) {
-            final String localeInToast = new LocaleRenderer(context, mLocale).toString();
-            final String messageWordAdded = context.getString(R.string.user_dict_word_added) + " " + localeInToast;
-            Toast.makeText(context, messageWordAdded, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
-        }
-
         return CODE_WORD_ADDED;
-    }
-
-    public void editWord(final Context context) {
-        final String newWord = mWordEditText.getText().toString();
-
-        mModeTitle.setText(R.string.user_dict_mode_edit);
-
-        if (hasWord(newWord, context)) {
-            mMode = MODE_UPDATE;
-        } else {
-            mMode = MODE_EDIT;
-        }
     }
 
     public boolean isExistingWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
-        if (mMode == MODE_INSERT || mMode == MODE_UPDATE) {
+        if (mMode == MODE_INSERT || apply(context) == CODE_ALREADY_PRESENT) {
             return hasWord(newWord, context);
         } else {
             return false;

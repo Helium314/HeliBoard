@@ -594,11 +594,7 @@ New dictionary:
     <!-- Message of successful modification of a word in the user dictionary -->
     <string name="user_dict_word_modified">Word successfully updated</string>
     <!-- Message in user dictionary dialog -->
-    <string name="user_dict_word_already_present">This word is already present in the user dictionary. Would you like to correct or update it?</string>
-    <!-- Text of dialog button to correct word in user dictionary -->
-    <string name="user_dict_correct_button">Correct</string>
-    <!-- Text of dialog button to update the word in the user dictionary -->
-    <string name="user_dict_update_button">Update</string>
+    <string name="user_dict_word_already_present">This word is already present in the user dictionary. Please type another one.</string>
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
     <!-- Style name for Rounded style -->

@@ -178,12 +178,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         if (mContents.isExistingWord(requireContext())) {
             new AlertDialog.Builder(requireContext())
                     .setMessage(R.string.user_dict_word_already_present)
-                    .setPositiveButton(R.string.user_dict_update_button, (dialog, which) -> {
-                        mContents.editWord(requireContext());
-                        mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
-                        mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    })
-                    .setNegativeButton(R.string.user_dict_correct_button, (dialog, which) -> {
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         dialog.dismiss();
                         mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
                     })
