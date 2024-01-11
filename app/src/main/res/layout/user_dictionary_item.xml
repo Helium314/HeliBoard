@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2013 The Android Open Source Project
+    modified
     SPDX-License-Identifier: Apache-2.0
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,5 +39,14 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorSecondary" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/user_dictionary_edit_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_user_dictionary_edit"
+        android:contentDescription="@null">
+    </ImageView>
 
 </LinearLayout>
