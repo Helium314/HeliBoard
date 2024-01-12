@@ -151,12 +151,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             cursor.close();
         }
 
-        if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
-            // For ICS, we need to show "For all languages" in case that the keyboard locale
-            // is different from the system locale
-            localeSet.add("");
-        }
-
         final InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         final List<InputMethodInfo> imis = imm.getEnabledInputMethodList();
 

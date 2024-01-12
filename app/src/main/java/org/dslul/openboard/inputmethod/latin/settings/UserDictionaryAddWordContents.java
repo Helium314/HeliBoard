@@ -87,11 +87,6 @@ public class UserDictionaryAddWordContents {
         mWeightEditText.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
         final Button deleteWordButton = view.findViewById(R.id.user_dictionary_delete_button);
 
-        if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
-            mShortcutEditText.setVisibility(View.GONE);
-            view.findViewById(R.id.user_dictionary_add_shortcut_label).setVisibility(View.GONE);
-        }
-
         final String word = args.getString(EXTRA_WORD);
         if (null != word) {
             mWordEditText.setText(word);
@@ -100,15 +95,11 @@ public class UserDictionaryAddWordContents {
             mWordEditText.setSelection(mWordEditText.getText().length());
         }
 
-        if (UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
-            final String shortcut = args.getString(EXTRA_SHORTCUT);
-            if (null != shortcut && null != mShortcutEditText) {
-                mShortcutEditText.setText(shortcut);
-            }
-            mOldShortcut = args.getString(EXTRA_SHORTCUT);
-        } else {
-            mOldShortcut = null;
+        final String shortcut = args.getString(EXTRA_SHORTCUT);
+        if (null != shortcut && null != mShortcutEditText) {
+            mShortcutEditText.setText(shortcut);
         }
+        mOldShortcut = args.getString(EXTRA_SHORTCUT);
 
         final String weight = args.getString(EXTRA_WEIGHT);
         if (null != weight) {
@@ -170,9 +161,7 @@ public class UserDictionaryAddWordContents {
         final String newShortcut;
         final String newWeight;
 
-        if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
-            newShortcut = null;
-        } else if (null == mShortcutEditText) {
+        if (null == mShortcutEditText) {
             newShortcut = null;
         } else {
             final String tmpShortcut = mShortcutEditText.getText().toString();
@@ -282,15 +271,7 @@ public class UserDictionaryAddWordContents {
 
         public LocaleRenderer(final Context context, @Nullable final String localeString) {
             mLocaleString = localeString;
-            // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-/*            if (null == localeString) {
-                mDescription = context.getString(R.string.user_dict_settings_more_languages);
-            } else if ("".equals(localeString)) {
-                mDescription = context.getString(R.string.user_dict_settings_all_languages);
-            } else {
-                mDescription = LocaleUtils.constructLocaleFromString(localeString).getDisplayName();
-            }*/
-            // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+
             if (null == localeString || "".equals(localeString)) {
                 mDescription = context.getString(R.string.user_dict_settings_all_languages);
             } else {
@@ -304,11 +285,7 @@ public class UserDictionaryAddWordContents {
         public String getLocaleString() {
             return mLocaleString;
         }
-        // "More languages..." is null ; "All languages" is the empty string.
-        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-/*        public boolean isMoreLanguages() {
-            return null == mLocaleString;
-        }*/
+
     }
 
     private static void addLocaleDisplayNameToList(final Context context,
@@ -501,8 +478,6 @@ public class UserDictionaryAddWordContents {
                     -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
         }
 
-        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-        // localesList.add(new LocaleRenderer(activity, null)); // meaning: select another locale
         return localesList;
     }
 

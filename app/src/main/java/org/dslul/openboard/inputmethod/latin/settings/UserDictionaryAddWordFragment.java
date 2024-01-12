@@ -47,8 +47,6 @@ import java.util.Collections;
  * from the UserDictionarySettings.
  */
 public class UserDictionaryAddWordFragment extends SubScreenFragment {
-    // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-    //implements LocationChangedListener
 
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
@@ -172,40 +170,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(position);
-                // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-                /*if (locale.isMoreLanguages()) {
-                    AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                    activity.getSupportFragmentManager().beginTransaction()
-                            .replace(android.R.id.content, new UserDictionaryLocalePicker())
-                            .addToBackStack(null)
-                            .commit();
-                } else {
-                    mContents.updateLocale(locale.getLocaleString());
-                    // To have the selected language at the top of the list, this one is removed from the list
-                    localesList.remove(position);
-                    // Then the other languages are sorted alphabetically
-                    Collections.sort(localesList, (locale1, locale2)
-                            -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
 
-                    // Set "For all languages" to the end of the list
-                    if (!locale.getLocaleString().equals("")) {
-                        // After alphabetical sorting, "For all languages" is always in 1st position.
-                        // (The position is 0 because the spinner menu item count starts at 0)
-                        final LocaleRenderer forAllLanguages = adapter.getItem(0);
-                        // So we delete its entry ...
-                        localesList.remove(forAllLanguages);
-                        // ... and we set it at the end of the list.
-                        localesList.add(localesList.size(), forAllLanguages);
-                    }
-
-                    // Finally, we add the selected language to the top of the list.
-                    localesList.add(0, locale);
-
-                    // When a language is selected, the keyboard layout changes automatically
-                    mInput.restartInput(mWordEditText);
-                }*/
-
-                // TODO: To be deleted when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
                 mContents.updateLocale(locale.getLocaleString());
                 // To have the selected language at the top of the list, this one is removed from the list
                 localesList.remove(position);
@@ -244,11 +209,4 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         });
     }
 
-    // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-    // Called by the locale picker
-/*    @Override
-    public void onLocaleSelected(final Locale locale) {
-        mContents.updateLocale(locale.toString());
-        requireActivity().onBackPressed();
-    }*/
 }

@@ -50,40 +50,20 @@ import java.util.Locale;
 
 public class UserDictionarySettings extends ListFragment {
 
-    public static final boolean IS_SHORTCUT_API_SUPPORTED = true;
-
-    private static final String[] QUERY_PROJECTION_SHORTCUT_UNSUPPORTED =
-            { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.FREQUENCY };
-    private static final String[] QUERY_PROJECTION_SHORTCUT_SUPPORTED =
+    private static final String[] QUERY_PROJECTION =
             { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT, UserDictionary.Words.FREQUENCY };
-    private static final String[] QUERY_PROJECTION = IS_SHORTCUT_API_SUPPORTED
-            ? QUERY_PROJECTION_SHORTCUT_SUPPORTED
-            : QUERY_PROJECTION_SHORTCUT_UNSUPPORTED;
 
-    // The index of the shortcut in the above array.
+    // The index of the shortcut in the above array (1 is used for the words)
     private static final int INDEX_SHORTCUT = 2;
     private static final int INDEX_WEIGHT = 3;
-    private static final String[] ADAPTER_FROM_SHORTCUT_UNSUPPORTED = {
-        UserDictionary.Words.WORD, UserDictionary.Words.FREQUENCY
-    };
 
-    private static final String[] ADAPTER_FROM_SHORTCUT_SUPPORTED = {
+    private static final String[] ADAPTER_FROM = {
         UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT, UserDictionary.Words.FREQUENCY
     };
 
-    private static final String[] ADAPTER_FROM = IS_SHORTCUT_API_SUPPORTED ?
-            ADAPTER_FROM_SHORTCUT_SUPPORTED : ADAPTER_FROM_SHORTCUT_UNSUPPORTED;
-
-    private static final int[] ADAPTER_TO_SHORTCUT_UNSUPPORTED = {
-            R.id.user_dictionary_item_word
-    };
-
-    private static final int[] ADAPTER_TO_SHORTCUT_SUPPORTED = {
+    private static final int[] ADAPTER_TO = {
             R.id.user_dictionary_item_word, R.id.user_dictionary_item_shortcut
     };
-
-    private static final int[] ADAPTER_TO = IS_SHORTCUT_API_SUPPORTED ?
-            ADAPTER_TO_SHORTCUT_SUPPORTED : ADAPTER_TO_SHORTCUT_UNSUPPORTED;
 
     // Either the locale is empty (means the word is applicable to all locales)
     // or the word equals our current locale
@@ -97,9 +77,6 @@ public class UserDictionarySettings extends ListFragment {
             UserDictionary.Words.WORD + "=? AND "
             + UserDictionary.Words.SHORTCUT + " is null AND " + UserDictionary.Words.FREQUENCY + "=? OR "
             + UserDictionary.Words.SHORTCUT + "='' AND " + UserDictionary.Words.FREQUENCY + "=?";
-    private static final String DELETE_SELECTION_SHORTCUT_UNSUPPORTED =
-            UserDictionary.Words.WORD + "=? AND "
-            + UserDictionary.Words.FREQUENCY + "=?";
 
     private static final String DELETE_WORD = UserDictionary.Words.WORD + "=?";
 
@@ -276,7 +253,6 @@ public class UserDictionarySettings extends ListFragment {
     }
 
     private String getShortcut(final int position) {
-        if (!IS_SHORTCUT_API_SUPPORTED) return null;
         if (null == mCursor) return null;
         mCursor.moveToPosition(position);
         // Handle a possible race-condition
@@ -296,12 +272,8 @@ public class UserDictionarySettings extends ListFragment {
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.FREQUENCY));
     }
 
-    public static void deleteWordInEditMode(final String word, final String shortcut, final String weight,
-            final ContentResolver resolver) {
-        if (!IS_SHORTCUT_API_SUPPORTED) {
-            resolver.delete(UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_SHORTCUT_UNSUPPORTED,
-                    new String[] { word, weight });
-        } else if (TextUtils.isEmpty(shortcut)) {
+    public static void deleteWordInEditMode(final String word, final String shortcut, final String weight, final ContentResolver resolver) {
+        if (TextUtils.isEmpty(shortcut)) {
             resolver.delete(
                     UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT,
                     new String[] { word, weight });
@@ -332,14 +304,6 @@ public class UserDictionarySettings extends ListFragment {
 
             final String weightAndShortcut = weight + "  |  " + shortcut;
 
-            if (!IS_SHORTCUT_API_SUPPORTED) {
-                // just let SimpleCursorAdapter set the view values
-                if (columnIndex == INDEX_WEIGHT) {
-                    ((TextView)v).setText(weight);
-                    return true;
-                }
-                return false;
-            }
             if (columnIndex == INDEX_SHORTCUT) {
                 if (TextUtils.isEmpty(shortcutText)) {
                     ((TextView)v).setText(weight);
