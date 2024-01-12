@@ -40,10 +40,6 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
-// Caveat: This class is basically taken from
-// packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordContents.java
-// in order to deal with some devices that have issues with the user dictionary handling
-
 /**
  * A container class to factor common code to UserDictionaryAddWordFragment
  * and UserDictionaryAddWordActivity.

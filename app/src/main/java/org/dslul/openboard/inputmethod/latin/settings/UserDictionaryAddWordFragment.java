@@ -37,10 +37,6 @@ import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordConte
 import java.util.ArrayList;
 import java.util.Collections;
 
-// Caveat: This class is basically taken from
-// packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryAddWordFragment.java
-// in order to deal with some devices that have issues with the user dictionary handling
-
 /**
  * Fragment to add a word/shortcut to the user dictionary.
  * As opposed to the UserDictionaryActivity, this is only invoked within Settings

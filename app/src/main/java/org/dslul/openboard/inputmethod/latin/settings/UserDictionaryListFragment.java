@@ -50,10 +50,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 
-// Caveat: This class is basically taken from
-// packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionaryList.java
-// in order to deal with some devices that have issues with the user dictionary handling
-
 public class UserDictionaryListFragment extends SubScreenFragment {
 
     public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =

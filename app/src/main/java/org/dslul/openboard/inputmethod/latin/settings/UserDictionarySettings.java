@@ -44,10 +44,6 @@ import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 
 import java.util.Locale;
 
-// Caveat: This class is basically taken from
-// packages/apps/Settings/src/com/android/settings/inputmethod/UserDictionarySettings.java
-// in order to deal with some devices that have issues with the user dictionary handling
-
 public class UserDictionarySettings extends ListFragment {
 
     private static final String[] QUERY_PROJECTION =
