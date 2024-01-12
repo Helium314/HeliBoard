@@ -117,7 +117,7 @@
             android:layout_weight="0.5"
             android:layout_gravity="bottom"
             android:paddingEnd="10dp">
-
+            <!-- Delete icon is added programmatically in UserDictionaryAddWordFragment -->
             <Button
                 style="@style/User_Dictionary_Button"
                 android:id="@+id/user_dictionary_delete_button"
@@ -135,15 +135,14 @@
             android:layout_weight="0.5"
             android:layout_gravity="bottom"
             android:paddingStart="10dp">
-
+            <!-- Save icon is added programmatically in UserDictionaryAddWordFragment -->
             <Button
                 style="@style/User_Dictionary_Button"
                 android:id="@+id/user_dictionary_save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
-                android:textColor="@android:color/white"
-                android:drawableEnd="@drawable/ic_save">
+                android:textColor="@android:color/white">
             </Button>
 
         </LinearLayout>

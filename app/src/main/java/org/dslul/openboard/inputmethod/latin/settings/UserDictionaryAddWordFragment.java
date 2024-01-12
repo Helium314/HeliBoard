@@ -89,6 +89,8 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         }
 
         final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);
+        final Drawable saveWordIcon = getBitmapFromVectorDrawable(R.drawable.ic_save, 1f);
+        saveWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, saveWordIcon, null);
         saveWordButton.setOnClickListener(v -> addWord());
 
         final Button deleteWordButton = mRootView.findViewById(R.id.user_dictionary_delete_button);
