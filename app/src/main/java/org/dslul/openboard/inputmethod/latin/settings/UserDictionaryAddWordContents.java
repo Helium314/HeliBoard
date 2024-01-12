@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,7 @@ public class UserDictionaryAddWordContents {
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
         mWeightEditText = view.findViewById(R.id.user_dictionary_add_weight);
         mWeightEditText.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+        final Button deleteWordButton = view.findViewById(R.id.user_dictionary_delete_button);
 
         if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
             mShortcutEditText.setVisibility(View.GONE);
@@ -116,8 +118,10 @@ public class UserDictionaryAddWordContents {
         mMode = args.getInt(EXTRA_MODE);
         if (mMode == MODE_EDIT) {
             mModeTitle.setText(R.string.user_dict_mode_edit);
+            deleteWordButton.setVisibility(View.VISIBLE);
         } else if (mMode == MODE_INSERT) {
             mModeTitle.setText(R.string.user_dict_mode_insert);
+            deleteWordButton.setVisibility(View.INVISIBLE);
         }
 
         mOldWord = args.getString(EXTRA_WORD);

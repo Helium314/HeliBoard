@@ -6,20 +6,24 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AlphabetIndexer;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
@@ -30,6 +34,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.ListFragment;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -96,8 +103,6 @@ public class UserDictionarySettings extends ListFragment {
 
     private static final String DELETE_WORD = UserDictionary.Words.WORD + "=?";
 
-    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
-
     private Cursor mCursor;
 
     protected String mLocale;
@@ -112,7 +117,27 @@ public class UserDictionarySettings extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_dictionary_preference_list_fragment, container, false);
+        LinearLayout view = (LinearLayout) inflater.inflate(R.layout.user_dictionary_preference_list_fragment, container, false);
+
+        final Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_user_dictionary_add_word, null);
+        // Parameters of the LinearLayout containing the button
+        LinearLayoutCompat.LayoutParams params = new LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.END;
+        params.setMargins(toPixel(0), toPixel(0), toPixel(23), toPixel(10));
+
+        Button addWordButton = new Button(new ContextThemeWrapper(requireContext(), R.style.User_Dictionary_Button), null, 0);
+        addWordButton.setText(R.string.user_dict_add_word_button);
+        addWordButton.setTextColor(getResources().getColor(android.R.color.white));
+        addWordButton.setPadding(toPixel(30), toPixel(10), toPixel(10), toPixel(10));
+        addWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+        addWordButton.setCompoundDrawablePadding(toPixel(20));
+        addWordButton.setLayoutParams(params);
+        addWordButton.setOnClickListener(v -> showAddOrEditDialog(null, null, null));
+
+        view.addView(addWordButton);
+
+        return view;
     }
 
     @Override
@@ -143,8 +168,6 @@ public class UserDictionarySettings extends ListFragment {
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
         actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
-
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -161,6 +184,11 @@ public class UserDictionarySettings extends ListFragment {
             // user goes back to this view. 
             listAdapter.notifyDataSetChanged();
         }
+    }
+
+    private int toPixel(int dp) {
+        return (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, dp,
+                requireContext().getResources().getDisplayMetrics());
     }
 
     private void createCursor(final String locale) {
@@ -203,30 +231,6 @@ public class UserDictionarySettings extends ListFragment {
         if (word != null) {
             showAddOrEditDialog(word, shortcut, weight);
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        if (!UserDictionarySettings.IS_SHORTCUT_API_SUPPORTED) {
-            final Locale systemLocale = getResources().getConfiguration().locale;
-            if (!TextUtils.isEmpty(mLocale) && !mLocale.equals(systemLocale.toString())) {
-                // Hide the add button for ICS because it doesn't support specifying a locale
-                // for an entry. This new "locale"-aware API has been added in conjunction
-                // with the shortcut API.
-                return;
-            }
-        }
-        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title).setIcon(R.drawable.ic_plus);
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == OPTIONS_MENU_ADD) {
-            showAddOrEditDialog(null, null, null);
-            return true;
-        }
-        return false;
     }
 
     public static String getLocaleDisplayName(Context context, String localeStr) {
@@ -377,4 +381,3 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 }
-

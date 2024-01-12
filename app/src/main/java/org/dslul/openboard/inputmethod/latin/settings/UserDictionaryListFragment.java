@@ -6,25 +6,35 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
@@ -48,8 +58,8 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =
             "android.settings.USER_DICTIONARY_SETTINGS";
-    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
-    // Todo : Implement the import/export function in these menus
+
+    // TODO : Implement the import/export function in these menus
     /*private static final int OPTIONS_MENU_EXPORT = Menu.NONE;
     private static final int OPTIONS_MENU_IMPORT = Menu.NONE;*/
 
@@ -59,8 +69,8 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(requireContext()));
 
         createUserDictSettings(getPreferenceScreen());
-
-        setHasOptionsMenu(true);
+        // TODO : Uncomment to create the import/export function in the menu
+        //setHasOptionsMenu(true);
     }
 
     @Override
@@ -73,31 +83,50 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         }
     }
 
+    @NonNull
     @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        // Todo : Implement the import/export function in these menus
-        /*menu.add(0, OPTIONS_MENU_EXPORT, 0, R.string.button_backup);
-        menu.add(0, OPTIONS_MENU_IMPORT, 0, R.string.button_restore);*/
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LinearLayout view = (LinearLayout) super.onCreateView(inflater, container, savedInstanceState);
 
-        MenuItem actionItem = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title)
-                .setIcon(R.drawable.ic_plus);
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        final Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_user_dictionary_add_word, null);
+        // Parameters of the LinearLayout containing the button
+        LinearLayoutCompat.LayoutParams params = new LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.END;
+        params.setMargins(toPixel(0), toPixel(0), toPixel(23), toPixel(10));
+
+        Button addWordButton = new Button(new ContextThemeWrapper(requireContext(), R.style.User_Dictionary_Button), null, 0);
+        addWordButton.setText(R.string.user_dict_add_word_button);
+        addWordButton.setTextColor(getResources().getColor(android.R.color.white));
+        addWordButton.setPadding(toPixel(30), toPixel(10), toPixel(10), toPixel(10));
+        addWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+        addWordButton.setCompoundDrawablePadding(toPixel(20));
+        addWordButton.setLayoutParams(params);
+        addWordButton.setOnClickListener(v1 -> showAddWordDialog());
+
+        view.addView(addWordButton);
+
+        return view;
+    }
+
+    // TODO : Implement the import/export function in these menus
+/*    @Override
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+        *//*menu.add(0, OPTIONS_MENU_EXPORT, 0, R.string.button_backup);
+        menu.add(0, OPTIONS_MENU_IMPORT, 0, R.string.button_restore);*//*
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Todo : Implement the import/export function in these menus
-        /*if (item.getItemId() == OPTIONS_MENU_EXPORT) {
-        }
-        if (item.getItemId() == OPTIONS_MENU_IMPORT) {
-        }*/
-
-        if (item.getItemId() == OPTIONS_MENU_ADD) {
-            showAddWordDialog();
+        if (item.getItemId() == OPTIONS_MENU_EXPORT) {
             return true;
         }
+        if (item.getItemId() == OPTIONS_MENU_IMPORT) {
+            return true;
+        }
+
         return false;
-    }
+    }*/
 
     public static TreeSet<String> getUserDictionaryLocalesSet(final Activity activity) {
         final Cursor cursor = activity.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
@@ -269,5 +298,9 @@ public class UserDictionaryListFragment extends SubScreenFragment {
                 .commit();
     }
 
-}
+    private int toPixel(int dp) {
+        return (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, dp,
+                requireContext().getResources().getDisplayMetrics());
+    }
 
+}

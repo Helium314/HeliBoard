@@ -9,20 +9,17 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -48,12 +45,9 @@ import java.util.Collections;
  * As opposed to the UserDictionaryActivity, this is only invoked within Settings
  * from the UserDictionarySettings.
  */
-public class UserDictionaryAddWordFragment extends SubScreenFragment
-        // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
-        /*implements LocationChangedListener*/ {
-
-    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
-    private static final int OPTIONS_MENU_DELETE = Menu.FIRST + 1;
+public class UserDictionaryAddWordFragment extends SubScreenFragment {
+    // TODO: To be reactivated when UserDictionaryLocalePicker.UserDictionaryLocalePicker() is implemented
+    //implements LocationChangedListener
 
     private UserDictionaryAddWordContents mContents;
     private View mRootView;
@@ -93,7 +87,18 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
             }
             mActionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
         }
-        setHasOptionsMenu(true);
+
+        final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);
+        saveWordButton.setOnClickListener(v -> addWord());
+
+        final Button deleteWordButton = mRootView.findViewById(R.id.user_dictionary_delete_button);
+        final Drawable deleteWordIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
+        deleteWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, deleteWordIcon, null);
+        deleteWordButton.setOnClickListener(v -> {
+            mContents.delete(requireActivity());
+            requireActivity().onBackPressed();
+        });
+
         return mRootView;
     }
 
@@ -114,23 +119,10 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull final Menu menu, @NonNull final MenuInflater inflater) {
-        final Drawable deleteIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
-        final Bundle args = getArguments();
-        // The delete icon only appears if a word is already present.
-        if (args == null) return;
-        if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
-            final MenuItem actionItemDelete = menu.add(0, OPTIONS_MENU_DELETE, 0, R.string.delete_dict)
-                    .setIcon(deleteIcon);
-            actionItemDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-            if (actionItemDelete.getIcon() != null)
-                actionItemDelete.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
-        }
-
-        final MenuItem actionItemAdd = menu.add(0, OPTIONS_MENU_ADD, 0, R.string.save).setIcon(R.drawable.ic_save);
-        actionItemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        if (actionItemAdd.getIcon() != null)
-            actionItemAdd.getIcon().setColorFilter(getResources().getColor(R.color.foreground_weak), PorterDuff.Mode.SRC_ATOP);
+    public void onResume() {
+        super.onResume();
+        // We are being shown: display the word
+        updateSpinner();
     }
 
     // The bin icon is too big compared to the plus icon; we need to reduce it.
@@ -145,33 +137,6 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return new BitmapDrawable(getResources(), bitmap);
-    }
-
-    /**
-     * Callback for the framework when a menu option is pressed.
-     *
-     * @param item the item that was pressed
-     * @return false to allow normal menu processing to proceed, true to consume it here
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == OPTIONS_MENU_ADD) {
-            addWord();
-            return true;
-        }
-        if (item.getItemId() == OPTIONS_MENU_DELETE) {
-            mContents.delete(requireActivity());
-            requireActivity().onBackPressed();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // We are being shown: display the word
-        updateSpinner();
     }
 
     private void addWord() {
@@ -284,4 +249,3 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment
         requireActivity().onBackPressed();
     }*/
 }
-

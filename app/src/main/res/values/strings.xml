@@ -595,6 +595,8 @@ New dictionary:
     <string name="user_dict_word_modified">Word successfully updated</string>
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the user dictionary. Please type another one.</string>
+    <!-- User dictionary settings. Text button to add a word -->
+    <string name="user_dict_add_word_button">Add a word</string>
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
     <!-- Style name for Rounded style -->

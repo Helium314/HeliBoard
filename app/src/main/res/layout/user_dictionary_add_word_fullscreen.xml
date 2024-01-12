@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2013 The Android Open Source Project
+    modified
     SPDX-License-Identifier: Apache-2.0
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/user_dict_settings_add_dialog_top"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingHorizontal="8dp"
     android:orientation="vertical">
 
@@ -102,5 +103,51 @@
             android:layout_marginTop="8dp"
             app:backgroundTint="@color/foreground_weak" />
     </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="15dp"
+        android:paddingBottom="10dp"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_gravity="bottom"
+            android:paddingEnd="10dp">
+
+            <Button
+                style="@style/User_Dictionary_Button"
+                android:id="@+id/user_dictionary_delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_dict"
+                android:textColor="@android:color/white">
+            </Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_gravity="bottom"
+            android:paddingStart="10dp">
+
+            <Button
+                style="@style/User_Dictionary_Button"
+                android:id="@+id/user_dictionary_save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:textColor="@android:color/white"
+                android:drawableEnd="@drawable/ic_save">
+            </Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
