@@ -71,4 +71,7 @@
     <!-- Actually used keyboard default background colors -->
     <color name="keyboard_background_light">@color/keyboard_background_lxx_light_border</color>
     <color name="keyboard_background_dark">#263238</color>
+
+    <!-- Scrollbar color -->
+    <color name="toolbar_scrollbar">#66808080</color>
 </resources>
