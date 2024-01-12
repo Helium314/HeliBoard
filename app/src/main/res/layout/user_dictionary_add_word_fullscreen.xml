@@ -4,118 +4,129 @@
     modified
     SPDX-License-Identifier: Apache-2.0
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/user_dict_settings_add_dialog_top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
-    android:orientation="vertical">
+    android:paddingHorizontal="8dp">
 
-    <TextView
-        android:id="@+id/user_dictionary_mode_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="30dp"
-        android:textAlignment="center"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textAllCaps="true">
-    </TextView>
-
-    <EditText
-        android:id="@+id/user_dictionary_add_word_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal|center_vertical"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/user_dict_settings_add_word_hint"
-        android:imeOptions="actionNext"
-        android:inputType="textNoSuggestions"
-        android:maxLength="@integer/config_user_dictionary_max_word_length" >
-    </EditText>
-
-    <GridLayout
-        android:id="@+id/user_dictionary_add_word_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:columnCount="2" >
-
-        <TextView
-            android:id="@+id/user_dictionary_add_shortcut_label"
-            style="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:text="@string/user_dict_settings_add_shortcut_option_name" />
-
-        <EditText
-            android:id="@+id/user_dictionary_add_shortcut"
-            android:layout_width="wrap_content"
-            android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="6dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:hint="@string/user_dict_settings_add_shortcut_hint"
-            android:imeOptions="actionNext"
-            android:inputType="textNoSuggestions"
-            android:maxLength="@integer/config_user_dictionary_max_word_length" />
-
-        <TextView
-            android:id="@+id/user_dictionary_add_weight_label"
-            style="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:text="@string/user_dict_settings_add_weight_value"
-            android:visibility="visible" />
-
-        <EditText
-            android:id="@+id/user_dictionary_add_weight"
-            android:layout_width="wrap_content"
-            android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="6dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:imeOptions="actionDone"
-            android:hint="@string/user_dict_settings_add_weight_hint"
-            android:inputType="number"
-            android:maxLength="3" />
-
-        <TextView
-            android:id="@+id/user_dictionary_add_locale_label"
-            style="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:text="@string/user_dict_settings_add_locale_option_name" />
-
-        <Spinner
-            android:id="@+id/user_dictionary_add_locale"
-            android:layout_width="wrap_content"
-            android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_marginBottom="6dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            app:backgroundTint="@color/foreground_weak" />
-    </GridLayout>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/user_dictionary_add_word_buttons">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_dictionary_mode_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textAllCaps="true">
+            </TextView>
+
+            <EditText
+                android:id="@+id/user_dictionary_add_word_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal|center_vertical"
+                android:layout_marginVertical="8dp"
+                android:layout_marginStart="8dp"
+                android:hint="@string/user_dict_settings_add_word_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions"
+                android:maxLength="@integer/config_user_dictionary_max_word_length" >
+            </EditText>
+
+            <GridLayout
+                android:id="@+id/user_dictionary_add_word_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:columnCount="2" >
+
+                <TextView
+                    android:id="@+id/user_dictionary_add_shortcut_label"
+                    style="?android:attr/textAppearanceMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:text="@string/user_dict_settings_add_shortcut_option_name" />
+
+                <EditText
+                    android:id="@+id/user_dictionary_add_shortcut"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="fill_horizontal|center_vertical"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/user_dict_settings_add_shortcut_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="@integer/config_user_dictionary_max_word_length" />
+
+                <TextView
+                    android:id="@+id/user_dictionary_add_weight_label"
+                    style="?android:attr/textAppearanceMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:text="@string/user_dict_settings_add_weight_value"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/user_dictionary_add_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="fill_horizontal|center_vertical"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/user_dict_settings_add_weight_hint"
+                    android:inputType="number"
+                    android:maxLength="3" />
+
+                <TextView
+                    android:id="@+id/user_dictionary_add_locale_label"
+                    style="?android:attr/textAppearanceMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:text="@string/user_dict_settings_add_locale_option_name" />
+
+                <Spinner
+                    android:id="@+id/user_dictionary_add_locale"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="fill_horizontal|center_vertical"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    app:backgroundTint="@color/foreground_weak" />
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/user_dictionary_add_word_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="15dp"
         android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
         android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:paddingEnd="10dp">
             <!-- Delete icon is added programmatically in UserDictionaryAddWordFragment -->
             <Button
@@ -133,7 +144,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:paddingStart="10dp">
             <!-- Save icon is added programmatically in UserDictionaryAddWordFragment -->
             <Button
@@ -149,4 +160,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
