@@ -33,11 +33,8 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -270,6 +267,10 @@ public class UserDictionaryAddWordContents {
 
             if (null == localeString || "".equals(localeString)) {
                 mDescription = context.getString(R.string.user_dict_settings_all_languages);
+            // Special treatment for the known languages with _zz and _ZZ types
+            } else if (localeString.endsWith("_zz") || localeString.endsWith("_ZZ")) {
+                final int resId = context.getResources().getIdentifier("subtype_"+localeString, "string", context.getPackageName());
+                mDescription = context.getString(resId);
             } else {
                 mDescription = LocaleUtils.constructLocaleFromString(localeString).getDisplayName();
             }
@@ -304,181 +305,59 @@ public class UserDictionaryAddWordContents {
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
         // List of user dictionary
         final TreeSet<String> userDictionaryList = UserDictionaryListFragment.getUserDictionaryLocalesSet(activity);
+        // To combine lists
+        final TreeSet<String> languageList = new TreeSet<>(String::compareToIgnoreCase);
 
-        // For each language in each list, entries are handled only by language subtype and not by name,
-        // except for subtypes ending in "zz" or "ZZ".
-        // This avoids conflicts with user dictionaries when adding words and sorting in the drop-down menu.
-
-        // List of all enabled main languages
-        Set<String> mainLocale = new HashSet<>();
-        for (InputMethodSubtype subtype : enabledMainSubtype) {
-            Locale locale = LocaleUtils.constructLocaleFromString(subtype.getLocale());
-            String localeString = locale.toString();
-            // Special treatment for the known languages with _ZZ and _zz types
-            if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz") || localeString.equals("zz")) {
-                localeString = LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, activity).toLowerCase();
-            }
-            mainLocale.add(localeString);
-            // To avoid duplicates between the main language and the user dictionary language
-            if (localeString.equals(mLocale)) {
-                mainLocale.remove(mLocale);
-            }
-            // To avoid duplicates between the main language and the language of the user dictionary list
-            if (userDictionaryList != null) {
-                for (String userDictionarySubtype : userDictionaryList) {
-                    Locale userDictionaryLocale = LocaleUtils.constructLocaleFromString(userDictionarySubtype);
-                    // Special treatment for the known languages with _ZZ and _zz types
-                    if (userDictionarySubtype.endsWith("_ZZ") || userDictionarySubtype.endsWith("_zz") || userDictionarySubtype.equals("zz")) {
-                        userDictionarySubtype = LocaleUtils.getLocaleDisplayNameInSystemLocale(userDictionaryLocale, activity).toLowerCase();
-                    }
-                    if (localeString.equals(userDictionarySubtype)) {
-                        mainLocale.remove(userDictionarySubtype);
-                    }
-                }
-            }
-            // To avoid duplicates between the main language and the system language
-            for (Locale systemSubtype : enabledSystemLocale) {
-                Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                String systemLocaleString = systemLocale.toString();
-                // Special treatment for the known languages with _ZZ and _zz types
-                if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz") || systemLocaleString.equals("zz")) {
-                    systemLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(systemLocale, activity).toLowerCase();
-                }
-                if (localeString.equals(systemLocaleString)) {
-                    mainLocale.remove(systemLocaleString);
-                }
-            }
-            // Secondary language is added only if main language is selected and if system language is not enabled,
-            // so we write it here
-            for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, String.valueOf(locale))) {
-                Locale secondLocale = LocaleUtils.constructLocaleFromString(String.valueOf(secondSubtype));
-                String secondLocaleString = secondLocale.toString();
-                // Special treatment for the known languages with _ZZ and _zz types
-                if (secondLocaleString.endsWith("_ZZ") || secondLocaleString.endsWith("_zz") || secondLocaleString.equals("zz")) {
-                    secondLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(secondLocale, activity).toLowerCase();
-                }
-                if (!localeSystemOnly) {
-                    mainLocale.add(secondLocaleString);
-                }
-                // To avoid duplicates between the secondary language and the user dictionary language
-                if (secondLocaleString.equals(mLocale)) {
-                    mainLocale.remove(mLocale);
-                }
-                // To avoid duplicates between the main language and the secondary language
-                if (localeString.equals(secondLocaleString)) {
-                    mainLocale.remove(secondLocaleString);
-                }
-                // To avoid duplicates between the secondary language and the language of the user dictionary list
-                if (userDictionaryList != null) {
-                    for (String userDictionarySubtype : userDictionaryList) {
-                        Locale userDictionaryLocale = LocaleUtils.constructLocaleFromString(userDictionarySubtype);
-                        // Special treatment for the known languages with _ZZ and _zz types
-                        if (userDictionarySubtype.endsWith("_ZZ") || userDictionarySubtype.endsWith("_zz") || userDictionarySubtype.equals("zz")) {
-                            userDictionarySubtype = LocaleUtils.getLocaleDisplayNameInSystemLocale(userDictionaryLocale, activity).toLowerCase();
-                        }
-                        if (secondLocaleString.equals(userDictionarySubtype)) {
-                            mainLocale.remove(userDictionarySubtype);
-                        }
-                    }
-                }
-                // To avoid duplicates between the secondary language and the system language
-                for (Locale systemSubtype : enabledSystemLocale) {
-                    Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                    String systemLocaleString = systemLocale.toString();
-                    // Special treatment for the known languages with _ZZ and _zz types
-                    if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz") || systemLocaleString.equals("zz")) {
-                        systemLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(systemLocale, activity).toLowerCase();
-                    }
-                    if (secondLocaleString.equals(systemLocaleString)) {
-                        mainLocale.remove(systemLocaleString);
-                    }
-                }
-            }
-        }
-
-        // List of all enabled user dictionary languages
-        Set<String> userDictionaryLocale = new HashSet<>();
+        // Add languages from the user dictionary list
+        // (local system languages and dictionary languages in which a word is already saved)
         if (userDictionaryList != null) {
-            for (String userDictionarySubtype : userDictionaryList) {
-                Locale locale = LocaleUtils.constructLocaleFromString(userDictionarySubtype);
-                // Special treatment for the known languages with _ZZ and _zz types
-                if (userDictionarySubtype.endsWith("_ZZ") || userDictionarySubtype.endsWith("_zz") || userDictionarySubtype.equals("zz")) {
-                    userDictionarySubtype = LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, activity).toLowerCase();
-                }
-                // All user dictionary languages are added except "For all languages"
-                if (!userDictionarySubtype.equals("")) {
-                    userDictionaryLocale.add(userDictionarySubtype);
-                }
-                // To avoid duplicates between the language of the user dictionary list and the language of the user dictionary
-                if (userDictionarySubtype.equals(mLocale)) {
-                    userDictionaryLocale.remove(mLocale);
-                }
-                // To avoid duplicates between the language of the user dictionary list and the system language
-                for (Locale systemSubtype : enabledSystemLocale) {
-                    Locale systemLocale = LocaleUtils.constructLocaleFromString(String.valueOf(systemSubtype));
-                    String systemLocaleString = systemLocale.toString();
-                    // Special treatment for the known languages with _ZZ and _zz types
-                    if (systemLocaleString.endsWith("_ZZ") || systemLocaleString.endsWith("_zz") || systemLocaleString.equals("zz")) {
-                        systemLocaleString = LocaleUtils.getLocaleDisplayNameInSystemLocale(systemLocale, activity).toLowerCase();
-                    }
-                    if (userDictionarySubtype.equals(systemLocaleString)) {
-                        userDictionaryLocale.remove(systemLocaleString);
+            languageList.addAll(userDictionaryList);
+        }
+
+        // mLocale is removed from the language list as it will be added to the top of the list
+        languageList.remove(mLocale);
+
+        // Add the main language selected in the "Language and Layouts" setting except "No language"
+        for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
+            Locale mainLocale = LocaleUtils.constructLocaleFromString(mainSubtype.getLocale());
+            String mainLocaleString = mainLocale.toString();
+            if (userDictionaryList != null && !userDictionaryList.contains(mainLocale.toString())
+                    && !mainLocaleString.equals(mLocale) && !mainLocaleString.equals("zz")) {
+                languageList.add(mainLocaleString);
+            }
+            // Secondary language is added only if main language is selected and if system language is not enabled
+            if (!localeSystemOnly) {
+                for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
+                    String secondLocaleString = secondSubtype.toString();
+                    // Add secondary subtypes if they are not included in the user's dictionary
+                    if (userDictionaryList != null && !userDictionaryList.contains(secondSubtype.toString()) && !secondLocaleString.equals(mLocale)) {
+                        languageList.add(secondLocaleString);
                     }
                 }
             }
         }
 
-        // List of all enabled system languages
-        Set<String> systemLocales = new HashSet<>();
-        for (Locale subtype : enabledSystemLocale) {
-            Locale locale = LocaleUtils.constructLocaleFromString(String.valueOf(subtype));
-            String localeString = locale.toString();
-            // Special treatment for the known languages with _ZZ and _zz types
-            if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz") || localeString.equals("zz")) {
-                localeString = LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, activity).toLowerCase();
-            }
-            systemLocales.add(localeString);
-            if (localeString.equals(mLocale)) {
-                systemLocales.remove(mLocale);
+        for (Locale systemSubtype : enabledSystemLocale) {
+            String systemLocaleString = systemSubtype.toString();
+            if (userDictionaryList != null && !userDictionaryList.contains(systemSubtype.toString()) && !systemLocaleString.equals(mLocale)) {
+                languageList.add(systemLocaleString);
             }
         }
 
         // First, add the language of the personal dictionary at the top of the list
         addLocaleDisplayNameToList(activity, localesList, mLocale);
 
-        // Next, add the main language (and secondary language if defined)
-        for (final String mainLanguage : mainLocale) {
-            addLocaleDisplayNameToList(activity, localesList, mainLanguage);
-        }
-
-        // Next, add the language of the user dictionary list
-        for (final String userDictionaryLanguage : userDictionaryLocale) {
-            addLocaleDisplayNameToList(activity, localesList, userDictionaryLanguage);
-        }
-
-        // Next, add the system language
-        for (final String systemLanguage : systemLocales) {
-            addLocaleDisplayNameToList(activity, localesList, systemLanguage);
+        // Next, add all other languages which will be sorted alphabetically in UserDictionaryAddWordFragment.updateSpinner()
+        for (String languages : languageList) {
+            addLocaleDisplayNameToList(activity, localesList, languages);
         }
 
         // Finally, add "All languages" at the end of the list
         if (!"".equals(mLocale)) {
-            // If mLocale is "", then we already inserted the "all languages" item, so don't do it
-            addLocaleDisplayNameToList(activity, localesList, ""); // meaning: all languages
-        }
-
-        // In insert mode from the user dictionary list, "For all languages" is at the top of the list
-        // in the drop-down menu and the other languages are sorted alphabetically
-        if ("".equals(mLocale)) {
-            Collections.sort(localesList, (locale1, locale2)
-                    -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
+            addLocaleDisplayNameToList(activity, localesList, "");
         }
 
         return localesList;
-    }
-
-    public String getDropDownMenuLanguage() {
-        return mLocale;
     }
 
 }

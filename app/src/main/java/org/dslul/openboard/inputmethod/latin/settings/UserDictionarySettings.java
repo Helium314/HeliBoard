@@ -140,7 +140,13 @@ public class UserDictionarySettings extends ListFragment {
 
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
-        actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
+        // Special treatment for the known languages with _zz and _ZZ types
+        if (mLocale.endsWith("_zz") || mLocale.endsWith("_ZZ")) {
+            final int resId = requireContext().getResources().getIdentifier("subtype_"+mLocale, "string", requireContext().getPackageName());
+            actionBar.setSubtitle(requireContext().getString(resId));
+        } else {
+            actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
+        }
     }
 
     @Override

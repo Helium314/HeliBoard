@@ -80,7 +80,6 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
             } else {
                 mActionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
             }
-            mActionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
         }
 
         final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);
