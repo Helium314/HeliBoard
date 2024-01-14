@@ -27,6 +27,7 @@
         android:paddingEnd="10dp"
         android:src="@drawable/ic_drag_indicator"
         app:tint="@color/foreground_weak"
+        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
