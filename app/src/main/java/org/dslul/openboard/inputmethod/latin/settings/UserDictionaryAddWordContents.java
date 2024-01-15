@@ -135,7 +135,7 @@ public class UserDictionaryAddWordContents {
     void delete(final Context context) {
         final ContentResolver resolver = context.getContentResolver();
         final String localeInToast = new LocaleRenderer(context, mLocale).toString();
-        final String messageDeleted = context.getString(R.string.user_dict_word_deleted) + " " + localeInToast;
+        final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeInToast);
         // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
@@ -207,7 +207,7 @@ public class UserDictionaryAddWordContents {
                 Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
             } else {
                 final String localeInToast = new LocaleRenderer(context, mLocale).toString();
-                final String messageWordAdded = context.getString(R.string.user_dict_word_added) + " " + localeInToast;
+                final String messageWordAdded = context.getString(R.string.user_dict_word_added, localeInToast);
                 Toast.makeText(context, messageWordAdded, Toast.LENGTH_SHORT).show();
             }
             return CODE_UPDATED;

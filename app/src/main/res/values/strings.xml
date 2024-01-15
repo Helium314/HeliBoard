@@ -588,9 +588,9 @@ New dictionary:
     <!-- Title for user dictionary insertion mode -->
     <string name="user_dict_mode_insert">Insert mode</string>
     <!-- Message for successful addition of a word to the user dictionary -->
-    <string name="user_dict_word_added">Word added to the dictionary:</string>
+    <string name="user_dict_word_added">Word added to the dictionary: %s</string>
     <!-- Message for successful deletion of a word to the user dictionary -->
-    <string name="user_dict_word_deleted">Word removed from the dictionary:</string>
+    <string name="user_dict_word_deleted">Word removed from the dictionary: %s</string>
     <!-- Message of successful modification of a word in the user dictionary -->
     <string name="user_dict_word_modified">Word successfully updated</string>
     <!-- Message in user dictionary dialog -->
