@@ -170,9 +170,14 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 mContents.updateLocale(locale.getLocaleString());
                 // To have the selected language at the top of the list, this one is removed from the list
                 localesList.remove(position);
-                // Then the other languages are sorted alphabetically
-                Collections.sort(localesList, (locale1, locale2)
-                        -> locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString()));
+                // The other languages are then sorted alphabetically by name, with the exception of "For all languages"
+                Collections.sort(localesList, (locale1, locale2) -> {
+                    if (!locale1.getLocaleString().equals("") && !locale2.getLocaleString().equals("")) {
+                        return locale1.toString().compareToIgnoreCase(locale2.toString());
+                    } else {
+                        return locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString());
+                    }
+                });
 
                 // Set "For all languages" to the end of the list
                 if (!locale.getLocaleString().equals("")) {

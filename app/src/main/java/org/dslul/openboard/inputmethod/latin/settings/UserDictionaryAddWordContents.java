@@ -304,6 +304,8 @@ public class UserDictionaryAddWordContents {
             languageList.addAll(userDictionaryList);
             // mLocale is removed from the language list as it will be added to the top of the list
             languageList.remove(mLocale);
+            // "For all languages" is removed from the language list as it will be added at the end of the list
+            languageList.remove("");
         }
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
