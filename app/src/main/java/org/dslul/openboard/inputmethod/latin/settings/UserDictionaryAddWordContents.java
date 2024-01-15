@@ -37,10 +37,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 
-/**
- * A container class to factor common code to UserDictionaryAddWordFragment
- * and UserDictionaryAddWordActivity.
- */
 public class UserDictionaryAddWordContents {
     public static final String EXTRA_MODE = "mode";
     public static final String EXTRA_WORD = "word";
@@ -154,6 +150,11 @@ public class UserDictionaryAddWordContents {
         final String newShortcut;
         final String newWeight;
 
+        if (TextUtils.isEmpty(newWord)) {
+            // If the word is empty, don't insert it.
+            return CODE_CANCEL;
+        }
+
         if (null == mShortcutEditText) {
             newShortcut = null;
         } else {
@@ -176,11 +177,6 @@ public class UserDictionaryAddWordContents {
             }
         }
 
-        if (TextUtils.isEmpty(newWord)) {
-            // If the word is empty, don't insert it.
-            return CODE_CANCEL;
-        }
-
         mSavedWord = newWord;
         mSavedShortcut = newShortcut;
         mSavedWeight = newWeight;
@@ -194,8 +190,6 @@ public class UserDictionaryAddWordContents {
             mMode = MODE_INSERT;
         }
 
-        // If the word already exists, a dialog box appears asking you to change the word
-        // See UserDictionaryAddWordFragment.addWord()
         if (mMode == MODE_INSERT && hasWord(newWord, context)) {
             return CODE_ALREADY_PRESENT;
         }
@@ -312,35 +306,32 @@ public class UserDictionaryAddWordContents {
         // (local system languages and dictionary languages in which a word is already saved)
         if (userDictionaryList != null) {
             languageList.addAll(userDictionaryList);
+            // mLocale is removed from the language list as it will be added to the top of the list
+            languageList.remove(mLocale);
         }
-
-        // mLocale is removed from the language list as it will be added to the top of the list
-        languageList.remove(mLocale);
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
-            Locale mainLocale = LocaleUtils.constructLocaleFromString(mainSubtype.getLocale());
-            String mainLocaleString = mainLocale.toString();
-            if (userDictionaryList != null && !userDictionaryList.contains(mainLocale.toString())
-                    && !mainLocaleString.equals(mLocale) && !mainLocaleString.equals("zz")) {
-                languageList.add(mainLocaleString);
+            if (userDictionaryList != null && !userDictionaryList.contains(mainSubtype.getLocale())
+                    && !mainSubtype.getLocale().equals(mLocale) && !mainSubtype.getLocale().equals("zz")) {
+                languageList.add(mainSubtype.getLocale());
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
                 for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
-                    String secondLocaleString = secondSubtype.toString();
                     // Add secondary subtypes if they are not included in the user's dictionary
-                    if (userDictionaryList != null && !userDictionaryList.contains(secondSubtype.toString()) && !secondLocaleString.equals(mLocale)) {
-                        languageList.add(secondLocaleString);
+                    if (userDictionaryList != null && !userDictionaryList.contains(secondSubtype.toString())
+                            && !secondSubtype.toString().equals(mLocale)) {
+                        languageList.add(secondSubtype.toString());
                     }
                 }
             }
         }
 
         for (Locale systemSubtype : enabledSystemLocale) {
-            String systemLocaleString = systemSubtype.toString();
-            if (userDictionaryList != null && !userDictionaryList.contains(systemSubtype.toString()) && !systemLocaleString.equals(mLocale)) {
-                languageList.add(systemLocaleString);
+            if (userDictionaryList != null && !userDictionaryList.contains(systemSubtype.toString())
+                    && !systemSubtype.toString().equals(mLocale)) {
+                languageList.add(systemSubtype.toString());
             }
         }
 
@@ -348,8 +339,8 @@ public class UserDictionaryAddWordContents {
         addLocaleDisplayNameToList(activity, localesList, mLocale);
 
         // Next, add all other languages which will be sorted alphabetically in UserDictionaryAddWordFragment.updateSpinner()
-        for (String languages : languageList) {
-            addLocaleDisplayNameToList(activity, localesList, languages);
+        for (String language : languageList) {
+            addLocaleDisplayNameToList(activity, localesList, language);
         }
 
         // Finally, add "All languages" at the end of the list

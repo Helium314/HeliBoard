@@ -186,19 +186,17 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
-            Locale mainLocale = LocaleUtils.constructLocaleFromString(mainSubtype.getLocale());
-            String mainLocaleString = mainLocale.toString();
             // Add main subtypes if they are not included in the user's dictionary
-            if (enabledUserDictionary != null && !enabledUserDictionary.contains(mainSubtype.getLocale()) && !mainLocaleString.equals("zz")) {
-                sortedLanguages.add(mainLocaleString);
+            if (enabledUserDictionary != null && !enabledUserDictionary.contains(mainSubtype.getLocale())
+                    && !mainSubtype.getLocale().equals("zz")) {
+                sortedLanguages.add(mainSubtype.getLocale());
             }
             // Add secondary subtypes only if "Use system languages" setting is not enabled
             if (!localeSystemOnly) {
                 for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
-                    String secondLocaleString = secondSubtype.toString();
                     // Add secondary subtypes if they are not included in the user's dictionary
                     if (enabledUserDictionary != null && !enabledUserDictionary.contains(secondSubtype.toString())) {
-                        sortedLanguages.add(secondLocaleString);
+                        sortedLanguages.add(secondSubtype.toString());
                     }
                 }
             }
@@ -206,8 +204,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
         // Add the enabled system languages
         for (Locale systemSubtype : enabledSystemLocale) {
-            String systemLocaleString = systemSubtype.toString();
-            sortedLanguages.add(systemLocaleString);
+            sortedLanguages.add(systemSubtype.toString());
         }
 
 
