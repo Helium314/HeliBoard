@@ -233,13 +233,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             if (localeString.isEmpty()) {
                 newPref.setTitle(getString(R.string.user_dict_settings_all_languages));
             } else {
-                // Special treatment for the known languages with _zz and _ZZ types
-                if (localeString.endsWith("_zz") || localeString.endsWith("_ZZ")) {
-                    final int resId = requireContext().getResources().getIdentifier("subtype_"+localeString, "string", requireContext().getPackageName());
-                    newPref.setTitle(requireContext().getString(resId));
-                } else {
-                    newPref.setTitle(LocaleUtils.constructLocaleFromString(localeString).getDisplayName());
-                }
+                newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), localeString));
             }
             intent.putExtra("locale", localeString);
             newPref.getExtras().putString("locale", localeString);

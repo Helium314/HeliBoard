@@ -74,12 +74,13 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
 
         final Bundle args = getArguments();
         mActionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (args != null) {
+        if (args != null && mActionBar != null) {
             if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
                 mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
             } else {
                 mActionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
             }
+            mActionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
         }
 
         final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);

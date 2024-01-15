@@ -140,13 +140,8 @@ public class UserDictionarySettings extends ListFragment {
 
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
-        // Special treatment for the known languages with _zz and _ZZ types
-        if (mLocale.endsWith("_zz") || mLocale.endsWith("_ZZ")) {
-            final int resId = requireContext().getResources().getIdentifier("subtype_"+mLocale, "string", requireContext().getPackageName());
-            actionBar.setSubtitle(requireContext().getString(resId));
-        } else {
-            actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
-        }
+        actionBar.setTitle(R.string.edit_personal_dictionary);
+        actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
     }
 
     @Override
@@ -154,7 +149,6 @@ public class UserDictionarySettings extends ListFragment {
         super.onResume();
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
-        actionBar.setTitle(R.string.edit_personal_dictionary);
 
         ListAdapter adapter = getListView().getAdapter();
         if (adapter instanceof MyAdapter listAdapter) {
@@ -217,10 +211,12 @@ public class UserDictionarySettings extends ListFragment {
             // CAVEAT: localeStr should not be null because a null locale stands for the system
             // locale in UserDictionary.Words.addWord.
             return context.getResources().getString(R.string.user_dict_settings_all_languages);
+        } else if (localeStr.endsWith("_zz") || localeStr.endsWith("_ZZ")) {
+            final int resId = context.getResources().getIdentifier("subtype_" + localeStr, "string", context.getPackageName());
+            return context.getString(resId);
         }
         final Locale locale = LocaleUtils.constructLocaleFromString(localeStr);
-        final Locale systemLocale = context.getResources().getConfiguration().locale;
-        return locale.getDisplayName(systemLocale);
+        return locale.getDisplayName(context.getResources().getConfiguration().locale);
     }
 
     /**

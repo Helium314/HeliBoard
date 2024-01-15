@@ -261,12 +261,8 @@ public class UserDictionaryAddWordContents {
 
             if (null == localeString || "".equals(localeString)) {
                 mDescription = context.getString(R.string.user_dict_settings_all_languages);
-            // Special treatment for the known languages with _zz and _ZZ types
-            } else if (localeString.endsWith("_zz") || localeString.endsWith("_ZZ")) {
-                final int resId = context.getResources().getIdentifier("subtype_"+localeString, "string", context.getPackageName());
-                mDescription = context.getString(resId);
             } else {
-                mDescription = LocaleUtils.constructLocaleFromString(localeString).getDisplayName();
+                mDescription = UserDictionarySettings.getLocaleDisplayName(context, localeString);
             }
         }
         @Override
@@ -349,6 +345,10 @@ public class UserDictionaryAddWordContents {
         }
 
         return localesList;
+    }
+
+    public String getDropDownMenuLanguage() {
+        return mLocale;
     }
 
 }
