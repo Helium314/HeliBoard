@@ -167,7 +167,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(position);
 
-                mContents.updateLocale(locale.getLocaleString());
+                mContents.updateLocale(requireContext(), locale.getLocaleString());
                 // To have the selected language at the top of the list, this one is removed from the list
                 localesList.remove(position);
                 // The other languages are then sorted alphabetically by name, with the exception of "For all languages"
@@ -205,7 +205,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 // I'm not sure we can come here, but if we do, that's the right thing to do.
                 final Bundle args = getArguments();
                 if (args == null) return;
-                mContents.updateLocale(args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE));
+                mContents.updateLocale(requireContext(), args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE));
             }
         });
     }

@@ -66,6 +66,7 @@ public class UserDictionaryAddWordContents {
     private String mSavedWord;
     private String mSavedShortcut;
     private String mSavedWeight;
+    private Context mContext;
 
     UserDictionaryAddWordContents(final View view, final Bundle args) {
         mModeTitle = view.findViewById(R.id.user_dictionary_mode_title);
@@ -106,7 +107,7 @@ public class UserDictionaryAddWordContents {
 
         mOldWord = args.getString(EXTRA_WORD);
         mOldWeight = args.getString(EXTRA_WEIGHT);
-        updateLocale(args.getString(EXTRA_LOCALE));
+        updateLocale(mContext, args.getString(EXTRA_LOCALE));
     }
 
     UserDictionaryAddWordContents(final View view, final UserDictionaryAddWordContents oldInstanceToBeEdited) {
@@ -118,13 +119,17 @@ public class UserDictionaryAddWordContents {
         mOldWord = oldInstanceToBeEdited.mSavedWord;
         mOldShortcut = oldInstanceToBeEdited.mSavedShortcut;
         mOldWeight = oldInstanceToBeEdited.mSavedWeight;
-        updateLocale(mLocale);
+        updateLocale(mContext, mLocale);
     }
 
-    // locale may be null, this means default locale
-    // It may also be the empty string, which means "all locales"
-    void updateLocale(final String locale) {
-        mLocale = null == locale ? Locale.getDefault().toString() : locale;
+    // locale may be null, this means system locale
+    // It may also be the empty string, which means "For all languages"
+    void updateLocale(final Context context, final String locale) {
+        mContext = context;
+
+        mLocale = null == locale
+                ? mContext.getResources().getConfiguration().locale.toString()
+                : locale;
         // The keyboard uses the language layout of the user dictionary
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mWordEditText.setImeHintLocales(new LocaleList(LocaleUtils.constructLocaleFromString(mLocale)));
