@@ -84,6 +84,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                     .setMessage(R.string.disable_personalized_dicts_message)
                     .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((TwoStatePreference) findPreference(key)).setChecked(true))
                     .setPositiveButton(android.R.string.ok, null)
+                    .setOnCancelListener(dialogInterface -> ((TwoStatePreference) findPreference(key)).setChecked(true))
                     .show();
         }
         refreshEnabledSettings();
