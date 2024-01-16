@@ -12,7 +12,6 @@
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.UserDictionaryListFragment"
         android:key="edit_personal_dictionary"
         android:title="@string/edit_personal_dictionary">
-        <intent android:action="android.settings.USER_DICTIONARY_SETTINGS" />
     </PreferenceScreen>
 
     <PreferenceCategory

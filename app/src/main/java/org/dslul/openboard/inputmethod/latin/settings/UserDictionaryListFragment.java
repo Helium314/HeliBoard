@@ -10,7 +10,6 @@ import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -39,7 +38,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
@@ -48,9 +46,6 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 public class UserDictionaryListFragment extends SubScreenFragment {
-
-    public static final String USER_DICTIONARY_SETTINGS_INTENT_ACTION =
-            "android.settings.USER_DICTIONARY_SETTINGS";
 
     // TODO : Implement the import/export function in these menus
     /*private static final int OPTIONS_MENU_EXPORT = Menu.NONE;
@@ -174,7 +169,15 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         // List of enabled system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
         // To combine lists and display them in alphabetical order
-        final TreeSet<String> sortedLanguages = new TreeSet<>(String::compareToIgnoreCase);
+        final TreeSet<String> sortedLanguages = new TreeSet<>((language1, language2) -> {
+            if (!language1.equals("") && !language2.equals("")) {
+                return UserDictionarySettings.getLocaleDisplayName(requireContext(), language1)
+                        .compareToIgnoreCase(UserDictionarySettings.getLocaleDisplayName(requireContext(), language2));
+            } else {
+                return language1.compareToIgnoreCase(language2);
+            }
+        });
+
 
         // Add "For all languages"
         sortedLanguages.add("");
@@ -225,7 +228,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      */
     protected Preference createUserDictionaryPreference(@Nullable final String localeString) {
         final Preference newPref = new Preference(requireContext());
-        final Intent intent = new Intent(USER_DICTIONARY_SETTINGS_INTENT_ACTION);
 
         if (null == localeString) {
             newPref.setTitle(Locale.getDefault().getDisplayName());
@@ -235,12 +237,9 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             } else {
                 newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), localeString));
             }
-            intent.putExtra("locale", localeString);
             newPref.getExtras().putString("locale", localeString);
         }
-        newPref.setKey(localeString);
         newPref.setIconSpaceReserved(false);
-        newPref.setIntent(intent);
         newPref.setFragment(UserDictionarySettings.class.getName());
 
         return newPref;
