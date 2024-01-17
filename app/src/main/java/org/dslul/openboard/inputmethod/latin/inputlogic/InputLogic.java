@@ -844,7 +844,7 @@ public final class InputLogic {
                 || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
                 || !settingsValues.mBigramPredictionEnabled // this is only for next word suggestions, so they need to be enabled
                 || settingsValues.mIncognitoModeEnabled
-                || !settingsValues.mInputAttributes.mShouldShowSuggestions // see comment in performAdditionToUserHistoryDictionary
+                || !settingsValues.isSuggestionsEnabledPerUserSettings() // see comment in performAdditionToUserHistoryDictionary
                 || !StringUtilsKt.isEmoji(text)
         ) return;
         if (mConnection.hasSlowInputConnection()) {
@@ -1524,8 +1524,8 @@ public final class InputLogic {
         // If correction is not enabled, we don't add words to the user history dictionary.
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
-        // mInputTypeNoAutoCorrect changed to !mShouldShowSuggestions because this was cancelling learning way too often
-        if (!settingsValues.mInputAttributes.mShouldShowSuggestions || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
+        // mInputTypeNoAutoCorrect changed to !isSuggestionsEnabledPerUserSettings because this was cancelling learning way too often
+        if (!settingsValues.isSuggestionsEnabledPerUserSettings() || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
             return;
         final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final String word = stripWordSeparatorsFromEnd(suggestion, settingsValues);

@@ -192,8 +192,8 @@ public class SettingsValues {
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
                 //&& !mInputAttributes.mInputTypeNoAutoCorrect; // follow that request or not?
-        mSuggestionsEnabledPerUserSettings = !mInputAttributes.mIsPasswordField &&
-                readSuggestionsEnabled(prefs);
+        mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
+                || (!mInputAttributes.mIsPasswordField && readSuggestionsOverrideEnabled(prefs));
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
@@ -252,8 +252,7 @@ public class SettingsValues {
     }
 
     public boolean needsToLookupSuggestions() {
-        return mInputAttributes.mShouldShowSuggestions
-                && (mAutoCorrectionEnabledPerUserSettings || isSuggestionsEnabledPerUserSettings());
+        return mAutoCorrectionEnabledPerUserSettings || isSuggestionsEnabledPerUserSettings();
     }
 
     public boolean isSuggestionsEnabledPerUserSettings() {
@@ -310,6 +309,10 @@ public class SettingsValues {
 
     private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+    }
+
+    private static boolean readSuggestionsOverrideEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, false);
     }
 
     private static boolean readBigramPredictionEnabled(final SharedPreferences prefs,

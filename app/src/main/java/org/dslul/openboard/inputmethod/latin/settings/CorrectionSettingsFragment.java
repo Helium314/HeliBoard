@@ -29,20 +29,6 @@ import org.dslul.openboard.inputmethod.latin.userdictionary.UserDictionarySettin
 
 import java.util.TreeSet;
 
-/**
- * "Text correction" settings sub screen.
- *
- * This settings sub screen handles the following text correction preferences.
- * - Personal dictionary
- * - Add-on dictionaries
- * - Block offensive words
- * - Auto-correction
- * - Auto-correction confidence
- * - Show correction suggestions
- * - Personalized suggestions
- * - Suggest Contact names
- * - Next-word suggestions
- */
 public final class CorrectionSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
         PermissionsManager.PermissionsResultCallback {
@@ -86,6 +72,8 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                     .setPositiveButton(android.R.string.ok, null)
                     .setOnCancelListener(dialogInterface -> ((TwoStatePreference) findPreference(key)).setChecked(true))
                     .show();
+        } else if (Settings.PREF_SHOW_SUGGESTIONS.equals(key) && !prefs.getBoolean(key, true)) {
+            ((TwoStatePreference)findPreference(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS)).setChecked(false);
         }
         refreshEnabledSettings();
     }
@@ -106,9 +94,9 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     }
 
     private void refreshEnabledSettings() {
-        setPreferenceVisible(Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
-                Settings.readAutoCorrectEnabled(getSharedPreferences()));
+        setPreferenceVisible(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, Settings.readAutoCorrectEnabled(getSharedPreferences()));
         setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
+        setPreferenceVisible(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
         turnOffLookupContactsIfNoPermission();
     }
 
