@@ -96,8 +96,6 @@ public class SettingsValues {
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
     public final boolean mIsShowAppIconSettingInPreferences;
-    public final boolean mShouldShowLxxSuggestionUi;
-    // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
     public final float mSplitKeyboardSpacerRelativeWidth;
     public final int mScreenMetrics;
@@ -177,8 +175,6 @@ public class SettingsValues {
                 : 0f;
         mScreenMetrics = Settings.readScreenMetrics(res);
 
-        mShouldShowLxxSuggestionUi = Settings.SHOULD_SHOW_LXX_SUGGESTION_UI
-                && prefs.getBoolean(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI, true);
         // Compute other readable settings
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
         mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);

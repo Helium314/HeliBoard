@@ -23,7 +23,7 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 
 import java.util.Arrays;
 
-public final class KeyboardTheme implements Comparable<KeyboardTheme> {
+public final class KeyboardTheme {
 
     // old themes
     public static final String STYLE_MATERIAL = "Material";
@@ -59,43 +59,23 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
 
     /* package private for testing */
     static final KeyboardTheme[] KEYBOARD_THEMES = {
-            new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase,
-                    VERSION_CODES.BASE),
-            new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base,
-                    VERSION_CODES.LOLLIPOP),
-            new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border,
-                    VERSION_CODES.LOLLIPOP),
-            new KeyboardTheme(THEME_ID_ROUNDED_BASE, "RoundedBase", R.style.KeyboardTheme_Rounded_Base,
-                    VERSION_CODES.LOLLIPOP),
-            new KeyboardTheme(THEME_ID_ROUNDED_BASE_BORDER, "RoundedBaseBorder", R.style.KeyboardTheme_Rounded_Base_Border,
-                    VERSION_CODES.LOLLIPOP)
+            new KeyboardTheme(THEME_ID_HOLO_BASE, "HoloBase", R.style.KeyboardTheme_HoloBase),
+            new KeyboardTheme(THEME_ID_LXX_BASE, "LXXBase", R.style.KeyboardTheme_LXX_Base),
+            new KeyboardTheme(THEME_ID_LXX_BASE_BORDER, "LXXBaseBorder", R.style.KeyboardTheme_LXX_Base_Border),
+            new KeyboardTheme(THEME_ID_ROUNDED_BASE, "RoundedBase", R.style.KeyboardTheme_Rounded_Base),
+            new KeyboardTheme(THEME_ID_ROUNDED_BASE_BORDER, "RoundedBaseBorder", R.style.KeyboardTheme_Rounded_Base_Border)
     };
-
-    static {
-        // Sort {@link #KEYBOARD_THEME} by descending order of {@link #mMinApiVersion}.
-        Arrays.sort(KEYBOARD_THEMES);
-    }
 
     public final int mThemeId;
     public final int mStyleId;
     public final String mThemeName;
-    public final int mMinApiVersion;
 
     // Note: The themeId should be aligned with "themeId" attribute of Keyboard style
     // in values/themes-<style>.xml.
-    private KeyboardTheme(final int themeId, final String themeName, final int styleId,
-            final int minApiVersion) {
+    private KeyboardTheme(final int themeId, final String themeName, final int styleId) {
         mThemeId = themeId;
         mThemeName = themeName;
         mStyleId = styleId;
-        mMinApiVersion = minApiVersion;
-    }
-
-    @Override
-    public int compareTo(final KeyboardTheme rhs) {
-        if (mMinApiVersion > rhs.mMinApiVersion) return -1;
-        if (mMinApiVersion < rhs.mMinApiVersion) return 1;
-        return 0;
     }
 
     @Override

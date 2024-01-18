@@ -155,10 +155,7 @@ public final class InputLogic {
         } else {
             mInputLogicHandler.reset();
         }
-
-        if (settingsValues.mShouldShowLxxSuggestionUi) {
-            mConnection.requestCursorUpdates(true, true);
-        }
+        mConnection.requestCursorUpdates(true, true);
     }
 
     /**

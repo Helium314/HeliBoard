@@ -40,7 +40,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
-        <androidx.appcompat.widget.SwitchCompat
+        <Switch
             android:id="@+id/language_switch"
             android:padding="6dp"
             android:layout_gravity="center_vertical"

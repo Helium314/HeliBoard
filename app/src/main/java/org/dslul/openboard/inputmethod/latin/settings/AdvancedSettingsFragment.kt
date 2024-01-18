@@ -120,11 +120,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     private fun onClickLoadLibrary(): Boolean {
         // get architecture for telling user which file to use
-        val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Build.SUPPORTED_ABIS[0]
-        } else {
-            @Suppress("Deprecation") Build.CPU_ABI
-        }
+        val abi = Build.SUPPORTED_ABIS[0]
         // show delete / add dialog
         val builder = AlertDialog.Builder(requireContext())
                 .setTitle(R.string.load_gesture_library)
@@ -161,11 +157,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             if (checksum == JniUtils.expectedDefaultChecksum()) {
                 renameToLibfileAndRestart(tmpfile, checksum)
             } else {
-                val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Build.SUPPORTED_ABIS[0]
-                } else {
-                    @Suppress("Deprecation") Build.CPU_ABI
-                }
+                val abi = Build.SUPPORTED_ABIS[0]
                 AlertDialog.Builder(requireContext())
                     .setMessage(getString(R.string.checksum_mismatch_message, abi))
                     .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibfileAndRestart(tmpfile, checksum) }

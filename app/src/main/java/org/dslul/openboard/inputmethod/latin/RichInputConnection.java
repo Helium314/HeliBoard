@@ -1176,14 +1176,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * prevents the application from fulfilling the request. (TODO: Improve the API when it turns
      * out that we actually need more detailed error codes)
      */
-    public boolean requestCursorUpdates(final boolean enableMonitor,
-            final boolean requestImmediateCallback) {
+    public boolean requestCursorUpdates(final boolean enableMonitor, final boolean requestImmediateCallback) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return false;
         }
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP)
-            return false;
         final int cursorUpdateMode = (enableMonitor ? InputConnection.CURSOR_UPDATE_MONITOR : 0)
             | (requestImmediateCallback ? InputConnection.CURSOR_UPDATE_IMMEDIATE : 0);
         return mIC.requestCursorUpdates(cursorUpdateMode);

@@ -225,11 +225,9 @@ final class SuggestionStripLayoutHelper {
             final SuggestedWords suggestedWords) {
         final SettingsValues settingsValues = Settings.getInstance().getCurrent();
         final boolean shouldOmitTypedWord = shouldOmitTypedWord(suggestedWords.mInputStyle,
-                settingsValues.mGestureFloatingPreviewTextEnabled,
-                settingsValues.mShouldShowLxxSuggestionUi);
+                settingsValues.mGestureFloatingPreviewTextEnabled, true);
         return getPositionInSuggestionStrip(indexInSuggestedWords, suggestedWords.mWillAutoCorrect,
-                settingsValues.mShouldShowLxxSuggestionUi && shouldOmitTypedWord,
-                mCenterPositionInStrip, mTypedWordPositionWhenAutocorrect);
+                shouldOmitTypedWord, mCenterPositionInStrip, mTypedWordPositionWhenAutocorrect);
     }
 
     @UsedForTesting
@@ -337,8 +335,7 @@ final class SuggestionStripLayoutHelper {
                     (PunctuationSuggestions)suggestedWords, stripView);
         }
 
-        final int wordCountToShow = suggestedWords.getWordCountToShow(
-                Settings.getInstance().getCurrent().mShouldShowLxxSuggestionUi);
+        final int wordCountToShow = suggestedWords.getWordCountToShow();
         final int startIndexOfMoreSuggestions = setupWordViewsAndReturnStartIndexOfMoreSuggestions(
                 suggestedWords, mSuggestionsCountInStrip);
         final TextView centerWordView = mWordViews.get(mCenterPositionInStrip);

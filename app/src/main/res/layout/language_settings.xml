@@ -7,7 +7,7 @@
     android:paddingTop="6dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.appcompat.widget.SwitchCompat
+    <Switch
         android:id="@+id/language_switch"
         android:text="@string/use_system_language_to_select_input_method_subtypes"
         style="@style/PreferenceTitleText"

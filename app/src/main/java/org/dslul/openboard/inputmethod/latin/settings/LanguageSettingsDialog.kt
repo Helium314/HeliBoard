@@ -11,9 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.ScrollView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -170,7 +170,7 @@ class LanguageSettingsDialog(
         } else {
             row.findViewById<View>(R.id.language_details).isGone = true
         }
-        row.findViewById<SwitchCompat>(R.id.language_switch).apply {
+        row.findViewById<Switch>(R.id.language_switch).apply {
             isChecked = subtype.isEnabled
             isEnabled = !onlySystemLocales
             setOnCheckedChangeListener { _, b ->
@@ -186,7 +186,7 @@ class LanguageSettingsDialog(
             }
         }
         if (isAdditionalSubtype(subtype.subtype)) {
-            row.findViewById<SwitchCompat>(R.id.language_switch).isEnabled = true
+            row.findViewById<Switch>(R.id.language_switch).isEnabled = true
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
