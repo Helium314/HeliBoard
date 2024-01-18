@@ -82,10 +82,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
+    public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "pref_always_show_suggestions";
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "pref_key_use_personalized_dicts";
     public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "pref_key_use_double_space_period";
     public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "pref_key_block_potentially_offensive";
-    public static final boolean SHOULD_SHOW_LXX_SUGGESTION_UI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     public static final String PREF_LANGUAGE_SWITCH_KEY = "pref_language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
     public static final String PREF_ADDITIONAL_SUBTYPES = "pref_additional_subtypes";

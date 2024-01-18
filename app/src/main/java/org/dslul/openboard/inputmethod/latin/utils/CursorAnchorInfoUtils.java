@@ -6,12 +6,10 @@
 
 package org.dslul.openboard.inputmethod.latin.utils;
 
-import android.annotation.TargetApi;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.inputmethodservice.ExtractEditText;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -23,8 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.compat.CursorAnchorInfoCompatWrapper;
-
+// todo: remove this? or is there anything it could be useful for?
 /**
  * This class allows input methods to extract {@link CursorAnchorInfo} directly from the given
  * {@link TextView}. This is useful and even necessary to support full-screen mode where the default
@@ -75,29 +72,11 @@ public final class CursorAnchorInfoUtils {
     }
 
     /**
-     * Extracts {@link CursorAnchorInfoCompatWrapper} from the given {@link TextView}.
-     * @param textView the target text view from which {@link CursorAnchorInfoCompatWrapper} is to
-     * be extracted.
-     * @return the {@link CursorAnchorInfoCompatWrapper} object based on the current layout.
-     * {@code null} if {@code Build.VERSION.SDK_INT} is 20 or prior or {@link TextView} is not
-     * ready to provide layout information.
-     */
-    @Nullable
-    public static CursorAnchorInfoCompatWrapper extractFromTextView(
-            @NonNull final TextView textView) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return null;
-        }
-        return CursorAnchorInfoCompatWrapper.wrap(extractFromTextViewInternal(textView));
-    }
-
-    /**
      * Returns {@link CursorAnchorInfo} from the given {@link TextView}.
      * @param textView the target text view from which {@link CursorAnchorInfo} is to be extracted.
      * @return the {@link CursorAnchorInfo} object based on the current layout. {@code null} if it
      * is not feasible.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     private static CursorAnchorInfo extractFromTextViewInternal(@NonNull final TextView textView) {
         final Layout layout = textView.getLayout();

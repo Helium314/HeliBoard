@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -135,7 +135,7 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
             val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
             val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
             p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
-            val switch = p0.itemView.findViewById<SwitchCompat>(R.id.morekeys_switch)
+            val switch = p0.itemView.findViewById<Switch>(R.id.morekeys_switch)
             switch?.isChecked = wasChecked
             switch?.isEnabled = !(key.contains(Settings.PREF_MORE_KEYS_ORDER) && text == MORE_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->

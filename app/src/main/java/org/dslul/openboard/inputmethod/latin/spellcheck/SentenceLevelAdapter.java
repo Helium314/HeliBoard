@@ -11,7 +11,6 @@ import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
-import org.dslul.openboard.inputmethod.compat.TextInfoCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
 import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
@@ -124,8 +123,7 @@ public class SentenceLevelAdapter {
 
     public SentenceTextInfoParams getSplitWords(TextInfo originalTextInfo) {
         final WordIterator wordIterator = mWordIterator;
-        final CharSequence originalText =
-                TextInfoCompatUtils.getCharSequenceOrString(originalTextInfo);
+        final CharSequence originalText = originalTextInfo.getCharSequence();
         final int cookie = originalTextInfo.getCookie();
         final int start = -1;
         final int end = originalText.length();
@@ -134,7 +132,7 @@ public class SentenceLevelAdapter {
         int wordEnd = wordIterator.getEndOfWord(originalText, wordStart);
         while (wordStart <= end && wordEnd != -1 && wordStart != -1) {
             if (wordEnd >= start && wordEnd > wordStart) {
-                final TextInfo ti = TextInfoCompatUtils.newInstance(originalText, wordStart,
+                final TextInfo ti = new TextInfo(originalText, wordStart,
                         wordEnd, cookie, originalText.subSequence(wordStart, wordEnd).hashCode());
                 wordItems.add(new SentenceWordItem(ti, wordStart, wordEnd));
             }

@@ -14,7 +14,6 @@ import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
-import org.dslul.openboard.inputmethod.compat.TextInfoCompatUtils;
 import org.dslul.openboard.inputmethod.latin.NgramContext;
 import org.dslul.openboard.inputmethod.latin.utils.SpannableStringUtils;
 
@@ -34,7 +33,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
 
     private SentenceSuggestionsInfo fixWronglyInvalidatedWordWithSingleQuote(TextInfo ti,
             SentenceSuggestionsInfo ssi) {
-        final CharSequence typedText = TextInfoCompatUtils.getCharSequenceOrString(ti);
+        final CharSequence typedText = ti.getCharSequence();
         if (!typedText.toString().contains(AndroidSpellCheckerService.SINGLE_QUOTE)) {
             return null;
         }
@@ -184,8 +183,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
                 final CharSequence prevWord;
                 if (sequentialWords && i > 0) {
                     final TextInfo prevTextInfo = textInfos[i - 1];
-                    final CharSequence prevWordCandidate =
-                            TextInfoCompatUtils.getCharSequenceOrString(prevTextInfo);
+                    final CharSequence prevWordCandidate = prevTextInfo.getCharSequence();
                     // Note that an empty string would be used to indicate the initial word
                     // in the future.
                     prevWord = TextUtils.isEmpty(prevWordCandidate) ? null : prevWordCandidate;

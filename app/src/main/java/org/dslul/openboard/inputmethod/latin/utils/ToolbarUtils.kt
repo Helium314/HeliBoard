@@ -11,7 +11,6 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants.*
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey.*
-import java.util.EnumSet
 
 fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey): ImageButton {
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
@@ -50,6 +49,9 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     REDO -> CODE_REDO
     INCOGNITO -> CODE_TOGGLE_INCOGNITO
     AUTOCORRECT -> CODE_TOGGLE_AUTOCORRECT
+    FULL_LEFT -> CODE_HOME
+    FULL_RIGHT -> CODE_END
+    SELECT_WORD -> CODE_SELECT_WORD
     CLEAR_CLIPBOARD -> null // not managed via code input
 }
 
@@ -69,18 +71,22 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
     AUTOCORRECT -> R.styleable.Keyboard_iconLanguageSwitchKey
     CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
+    FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
+    FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
+    SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
 }
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD
+    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
+    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD
 }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
 
 val defaultToolbarPref = entries.filterNot { it == CLEAR_CLIPBOARD }.joinToString(";") {
     when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED -> "${it.name},false"
+        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT -> "${it.name},false"
         else -> "${it.name},true"
     }
 }

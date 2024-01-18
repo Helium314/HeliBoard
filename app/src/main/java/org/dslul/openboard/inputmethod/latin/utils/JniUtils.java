@@ -26,7 +26,7 @@ public final class JniUtils {
     private static final String CHECKSUM_X86 = "bd946d126c957b5a6dea3bafa07fa36a27950b30e2b684dffc60746d0a1c7ad8";
 
     public static String expectedDefaultChecksum() {
-        final String abi = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? Build.SUPPORTED_ABIS[0] : Build.CPU_ABI;
+        final String abi = Build.SUPPORTED_ABIS[0];
         return switch (abi) {
             case "arm64-v8a" -> CHECKSUM_ARM64;
             case "armeabi-v7a" -> CHECKSUM_ARM32;

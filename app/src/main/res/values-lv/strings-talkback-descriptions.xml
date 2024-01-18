@@ -63,14 +63,6 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Lielais burts “<xliff:g id="LOWER_LETTER">%s</xliff:g>”"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Lielais burts “I”"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Lielais burts “I” ar punktu virs tā"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"Nezināms simbols"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"Nezināma emocijzīme"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"Garlaikots"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"Apmulsis"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"Ar saulesbrillēm"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"Pārsteigts"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"Skūpstu sniedzošs"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"Drūms"</string>
     <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Ir pieejamas alternatīvas rakstzīmes."</string>
     <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Alternatīvās rakstzīmes netiek rādītas."</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Ir pieejami alternatīvi ieteikumi."</string>

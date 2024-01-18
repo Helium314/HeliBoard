@@ -59,6 +59,7 @@ import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DialogUtilsKt;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
@@ -81,6 +82,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public static boolean DEBUG_SUGGESTIONS;
     private static final float DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f;
+    private static final String TAG = SuggestionStripView.class.getSimpleName();
 
     private final ViewGroup mSuggestionsStrip;
     private final ImageButton mToolbarExpandKey;
@@ -387,6 +389,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void onLongClickClipboardKey() {
         ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clipData = clipboardManager.getPrimaryClip();
+        Log.d(TAG, "long click clipboard key");
         if (clipData != null && clipData.getItemCount() > 0 && clipData.getItemAt(0) != null) {
             String clipString = clipData.getItemAt(0).coerceToText(getContext()).toString();
             if (clipString.length() == 1) {
@@ -638,6 +641,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (tag instanceof ToolbarKey) {
             final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
             if (code != null) {
+                Log.d(TAG, "click toolbar key "+tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {
                     if (tag == ToolbarKey.INCOGNITO)

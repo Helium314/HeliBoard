@@ -1086,6 +1086,7 @@ public class Key implements Comparable<Key> {
                 actionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
 
             // label
+            String label = null;
             if ((mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0) {
                 mLabel = params.mId.mCustomActionLabel;
             } else if (code >= Character.MIN_SUPPLEMENTARY_CODE_POINT) {
@@ -1094,14 +1095,14 @@ public class Key implements Comparable<Key> {
                 // code point nor as a surrogate pair.
                 mLabel = new StringBuilder().appendCodePoint(code).toString();
             } else {
-                final String label = KeySpecParser.getLabel(keySpec);
+                label = KeySpecParser.getLabel(keySpec);
                 mLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(label, localeForUpcasing)
                         : label;
             }
 
             // moreKeys
-            final String[] moreKeys = MoreKeysUtilsKt.createMoreKeysArray(popupSet, mKeyboardParams, mLabel != null ? mLabel : keySpec);
+            final String[] moreKeys = MoreKeysUtilsKt.createMoreKeysArray(popupSet, mKeyboardParams, label != null ? label : keySpec);
             mMoreKeysColumnAndFlags = getMoreKeysColumnAndFlagsAndSetNullInArray(params, moreKeys);
             final String[] finalMoreKeys = moreKeys == null ? null : MoreKeySpec.filterOutEmptyString(moreKeys);
             if (finalMoreKeys != null) {

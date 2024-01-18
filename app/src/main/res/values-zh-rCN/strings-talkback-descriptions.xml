@@ -63,14 +63,6 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"拉丁文大写字母<xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"拉丁文大写字母I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"带上点的拉丁文大写字母I"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"未知符号"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"未知表情符号"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"无聊"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"尴尬"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"戴墨镜"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"惊讶"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"亲吻"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"皱眉"</string>
     <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"有可用的替代字符"</string>
     <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"已关闭替代字符"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"有可用的其他建议字词"</string>

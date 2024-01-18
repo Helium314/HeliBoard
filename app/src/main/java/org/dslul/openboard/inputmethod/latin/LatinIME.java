@@ -42,8 +42,8 @@ import android.view.inputmethod.InputMethodSubtype;
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
+import org.dslul.openboard.inputmethod.compat.InsetsOutlineProvider;
 import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils;
-import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils.InsetsUpdater;
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants;
 import org.dslul.openboard.inputmethod.event.Event;
 import org.dslul.openboard.inputmethod.event.HangulEventDecoder;
@@ -142,7 +142,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
     private View mInputView;
-    private InsetsUpdater mInsetsUpdater;
+    private InsetsOutlineProvider mInsetsUpdater;
     private SuggestionStripView mSuggestionStripView;
 
     private RichInputMethodManager mRichImm;
@@ -2006,9 +2006,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
+    @SuppressWarnings("deprecation")
     private void setNavigationBarColor() {
         final SettingsValues settingsValues = mSettings.getCurrent();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mCustomNavBarColor)
+        if (!settingsValues.mCustomNavBarColor)
             return;
         final int color = settingsValues.mColors.get(ColorType.NAVIGATION_BAR);
         final Window window = getWindow().getWindow();
@@ -2031,7 +2032,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @SuppressWarnings("deprecation")
     private void clearNavigationBarColor() {
         final SettingsValues settingsValues = mSettings.getCurrent();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || !settingsValues.mCustomNavBarColor)
+        if (!settingsValues.mCustomNavBarColor)
             return;
         final Window window = getWindow().getWindow();
         if (window == null) {
