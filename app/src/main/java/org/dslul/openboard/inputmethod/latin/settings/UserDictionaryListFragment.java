@@ -8,21 +8,14 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.UserDictionary;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -116,45 +109,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         return false;
     }*/
 
-    public static TreeSet<String> getUserDictionaryLocalesSet(final Activity activity) {
-        final Cursor cursor = activity.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
-                new String[] { UserDictionary.Words.LOCALE },
-                null, null, null);
-        final TreeSet<String> localeSet = new TreeSet<>();
-
-        if (null == cursor) {
-            // The user dictionary service is not present or disabled. Return null.
-            return null;
-        }
-
-        try {
-            if (cursor.moveToFirst()) {
-                final int columnIndex = cursor.getColumnIndex(UserDictionary.Words.LOCALE);
-                do {
-                    final String locale = cursor.getString(columnIndex);
-                    localeSet.add(null != locale ? locale : "");
-                } while (cursor.moveToNext());
-            }
-        } finally {
-            cursor.close();
-        }
-
-        final InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        final List<InputMethodInfo> imis = imm.getEnabledInputMethodList();
-
-        for (final InputMethodInfo imi : imis) {
-            final List<InputMethodSubtype> subtypes = imm.getEnabledInputMethodSubtypeList(imi, true);
-            for (InputMethodSubtype subtype : subtypes) {
-                final String locale = subtype.getLocale();
-                if (!TextUtils.isEmpty(locale)) {
-                    localeSet.add(locale);
-                }
-            }
-        }
-
-        return localeSet;
-    }
-
     /**
      * Creates the entries that allow the user to go into the user dictionary for each locale.
      * @param userDictGroup The group to put the settings in.
@@ -162,8 +116,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(requireActivity().getApplicationContext());
         final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        // List of enabled user dictionary languages
-        final TreeSet<String> enabledUserDictionary = getUserDictionaryLocalesSet(requireActivity());
         // List of main language
         final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
         // List of enabled system language
@@ -178,29 +130,20 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             }
         });
 
-
         // Add "For all languages"
         sortedLanguages.add("");
-
-        // Add the language from the user dictionary if a word is present
-        if (enabledUserDictionary != null) {
-            sortedLanguages.addAll(enabledUserDictionary);
-        }
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
             // Add main subtypes if they are not included in the user's dictionary
-            if (enabledUserDictionary != null && !enabledUserDictionary.contains(mainSubtype.getLocale())
-                    && !mainSubtype.getLocale().equals("zz")) {
+            if (!mainSubtype.getLocale().equals("zz")) {
                 sortedLanguages.add(mainSubtype.getLocale());
             }
             // Add secondary subtypes only if "Use system languages" setting is not enabled
             if (!localeSystemOnly) {
                 for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
                     // Add secondary subtypes if they are not included in the user's dictionary
-                    if (enabledUserDictionary != null && !enabledUserDictionary.contains(secondSubtype.toString())) {
-                        sortedLanguages.add(secondSubtype.toString());
-                    }
+                    sortedLanguages.add(secondSubtype.toString());
                 }
             }
         }
@@ -209,7 +152,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         for (Locale systemSubtype : enabledSystemLocale) {
             sortedLanguages.add(systemSubtype.toString());
         }
-
 
         // Add preferences
         if (sortedLanguages.isEmpty()) {

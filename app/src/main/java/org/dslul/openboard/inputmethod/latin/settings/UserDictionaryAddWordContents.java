@@ -310,33 +310,19 @@ public class UserDictionaryAddWordContents {
         final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
         // List of system language
         final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
-        // List of user dictionary
-        final TreeSet<String> userDictionaryList = UserDictionaryListFragment.getUserDictionaryLocalesSet(activity);
         // To combine lists
         final TreeSet<String> languageList = new TreeSet<>(String::compareToIgnoreCase);
 
-        // Add languages from the user dictionary list
-        // (local system languages and dictionary languages in which a word is already saved)
-        if (userDictionaryList != null) {
-            languageList.addAll(userDictionaryList);
-            // mLocale is removed from the language list as it will be added to the top of the list
-            languageList.remove(mLocale);
-            // "For all languages" is removed from the language list as it will be added at the end of the list
-            languageList.remove("");
-        }
-
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
-            if (userDictionaryList != null && !userDictionaryList.contains(mainSubtype.getLocale())
-                    && !mainSubtype.getLocale().equals(mLocale) && !mainSubtype.getLocale().equals("zz")) {
+            if (!mainSubtype.getLocale().equals(mLocale) && !mainSubtype.getLocale().equals("zz")) {
                 languageList.add(mainSubtype.getLocale());
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
                 for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
                     // Add secondary subtypes if they are not included in the user's dictionary
-                    if (userDictionaryList != null && !userDictionaryList.contains(secondSubtype.toString())
-                            && !secondSubtype.toString().equals(mLocale)) {
+                    if (!secondSubtype.toString().equals(mLocale)) {
                         languageList.add(secondSubtype.toString());
                     }
                 }
@@ -344,11 +330,15 @@ public class UserDictionaryAddWordContents {
         }
 
         for (Locale systemSubtype : enabledSystemLocale) {
-            if (userDictionaryList != null && !userDictionaryList.contains(systemSubtype.toString())
-                    && !systemSubtype.toString().equals(mLocale)) {
+            if (!systemSubtype.toString().equals(mLocale)) {
                 languageList.add(systemSubtype.toString());
             }
         }
+
+        // mLocale is removed from the language list as it will be added to the top of the list
+        languageList.remove(mLocale);
+        // "For all languages" is removed from the language list as it will be added at the end of the list
+        languageList.remove("");
 
         // First, add the language of the personal dictionary at the top of the list
         addLocaleDisplayNameToList(activity, localesList, mLocale);
@@ -364,10 +354,6 @@ public class UserDictionaryAddWordContents {
         }
 
         return localesList;
-    }
-
-    public String getDropDownMenuLanguage() {
-        return mLocale;
     }
 
 }
