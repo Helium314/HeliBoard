@@ -43,5 +43,8 @@
         <item name="iconBin">@drawable/ic_delete</item>
         <item name="iconUndo">@drawable/ic_undo</item>
         <item name="iconRedo">@drawable/ic_redo</item>
+        <item name="iconFullLeft">@drawable/ic_to_start</item>
+        <item name="iconFullRight">@drawable/ic_to_end</item>
+        <item name="iconSelectWord">@drawable/ic_select</item>
     </style>
 </resources>

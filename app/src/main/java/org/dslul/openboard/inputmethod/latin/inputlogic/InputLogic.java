@@ -709,6 +709,9 @@ public final class InputLogic {
             case Constants.CODE_SELECT_ALL:
                 mConnection.selectAll();
                 break;
+            case Constants.CODE_SELECT_WORD:
+                mConnection.selectWord(inputTransaction.getMSettingsValues().mSpacingAndPunctuations, currentKeyboardScriptId);
+                break;
             case Constants.CODE_COPY:
                 mConnection.copyText();
                 break;
@@ -729,6 +732,12 @@ public final class InputLogic {
                 break;
             case Constants.CODE_REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
+                break;
+            case Constants.CODE_HOME:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_HOME);
+                break;
+            case Constants.CODE_END:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
                 break;
             case Constants.CODE_SHORTCUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,

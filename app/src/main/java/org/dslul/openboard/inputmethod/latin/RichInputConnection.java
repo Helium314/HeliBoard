@@ -641,8 +641,16 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     public void selectAll() {
+        if (!isConnected()) return;
         mIC.performContextMenuAction(android.R.id.selectAll);
-        // the rest is done via LatinIME.onUpdateSelection
+    }
+
+    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
+        if (!isConnected()) return;
+        if (mExpectedSelStart != mExpectedSelEnd) return; // already something selected
+        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, scriptId, false);
+        if (range == null) return;
+        mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
     public void copyText() {
