@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.common;
 
 import androidx.annotation.NonNull;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 
 public final class Constants {
@@ -229,6 +228,9 @@ public final class Constants {
     public static final int CODE_REDO = -30;
     public static final int CODE_TOGGLE_AUTOCORRECT = -31;
     public static final int CODE_TOGGLE_INCOGNITO = -32;
+    public static final int CODE_HOME = -33;
+    public static final int CODE_END = -34;
+    public static final int CODE_SELECT_WORD = -35;
     // Code value representing the code is not specified.
     public static final int CODE_UNSPECIFIED = -200;
 

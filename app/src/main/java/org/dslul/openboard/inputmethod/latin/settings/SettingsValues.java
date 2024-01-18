@@ -96,8 +96,6 @@ public class SettingsValues {
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
     public final boolean mIsShowAppIconSettingInPreferences;
-    public final boolean mShouldShowLxxSuggestionUi;
-    // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
     public final float mSplitKeyboardSpacerRelativeWidth;
     public final int mScreenMetrics;
@@ -177,8 +175,6 @@ public class SettingsValues {
                 : 0f;
         mScreenMetrics = Settings.readScreenMetrics(res);
 
-        mShouldShowLxxSuggestionUi = Settings.SHOULD_SHOW_LXX_SUGGESTION_UI
-                && prefs.getBoolean(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI, true);
         // Compute other readable settings
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
         mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
@@ -192,8 +188,8 @@ public class SettingsValues {
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
                 //&& !mInputAttributes.mInputTypeNoAutoCorrect; // follow that request or not?
-        mSuggestionsEnabledPerUserSettings = !mInputAttributes.mIsPasswordField &&
-                readSuggestionsEnabled(prefs);
+        mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
+                || (!mInputAttributes.mIsPasswordField && readSuggestionsOverrideEnabled(prefs));
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
@@ -252,8 +248,7 @@ public class SettingsValues {
     }
 
     public boolean needsToLookupSuggestions() {
-        return mInputAttributes.mShouldShowSuggestions
-                && (mAutoCorrectionEnabledPerUserSettings || isSuggestionsEnabledPerUserSettings());
+        return mAutoCorrectionEnabledPerUserSettings || isSuggestionsEnabledPerUserSettings();
     }
 
     public boolean isSuggestionsEnabledPerUserSettings() {
@@ -310,6 +305,10 @@ public class SettingsValues {
 
     private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+    }
+
+    private static boolean readSuggestionsOverrideEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, false);
     }
 
     private static boolean readBigramPredictionEnabled(final SharedPreferences prefs,

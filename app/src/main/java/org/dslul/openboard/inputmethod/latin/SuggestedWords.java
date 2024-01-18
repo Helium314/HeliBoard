@@ -90,11 +90,10 @@ public class SuggestedWords {
     /**
      * Get suggested word to show as suggestions to UI.
      *
-     * @param shouldShowLxxSuggestionUi true if showing suggestion UI introduced in LXX and later.
      * @return the count of suggested word to show as suggestions to UI.
      */
-    public int getWordCountToShow(final boolean shouldShowLxxSuggestionUi) {
-        if (isPrediction() || !shouldShowLxxSuggestionUi) {
+    public int getWordCountToShow() {
+        if (isPrediction()) {
             return size();
         }
         return size() - /* typed word */ 1;

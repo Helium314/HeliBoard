@@ -672,10 +672,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         // crappy workaround...
         val locale = when (params.mId.locale.toString().lowercase()) {
+            // todo: improve this when switching (rich input) subtype to use language tag
             "hi_zz" -> Locale("en", "IN")
-            "sr_zz" -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    Locale.forLanguageTag("sr-Latn")
-                else params.mId.locale // todo: copy strings to sr-rZZ when definitely not increasing min SDK to 21
+            "sr_zz" -> Locale.forLanguageTag("sr-Latn")
             else -> params.mId.locale
         }
         return ril.runInLocale(context.resources, locale)

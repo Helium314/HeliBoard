@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 public class RichInputMethodSubtype {
     private static final String TAG = RichInputMethodSubtype.class.getSimpleName();
 
+    // todo: remove this map when switching (rich input) subtype to use language tag
     private static final HashMap<Locale, Locale> sLocaleMap = initializeLocaleMap();
     private static HashMap<Locale, Locale> initializeLocaleMap() {
         final HashMap<Locale, Locale> map = new HashMap<>();

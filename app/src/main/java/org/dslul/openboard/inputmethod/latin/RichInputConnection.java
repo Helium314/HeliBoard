@@ -641,8 +641,16 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     public void selectAll() {
+        if (!isConnected()) return;
         mIC.performContextMenuAction(android.R.id.selectAll);
-        // the rest is done via LatinIME.onUpdateSelection
+    }
+
+    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
+        if (!isConnected()) return;
+        if (mExpectedSelStart != mExpectedSelEnd) return; // already something selected
+        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, scriptId, false);
+        if (range == null) return;
+        mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
     public void copyText() {
@@ -1168,14 +1176,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * prevents the application from fulfilling the request. (TODO: Improve the API when it turns
      * out that we actually need more detailed error codes)
      */
-    public boolean requestCursorUpdates(final boolean enableMonitor,
-            final boolean requestImmediateCallback) {
+    public boolean requestCursorUpdates(final boolean enableMonitor, final boolean requestImmediateCallback) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return false;
         }
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP)
-            return false;
         final int cursorUpdateMode = (enableMonitor ? InputConnection.CURSOR_UPDATE_MONITOR : 0)
             | (requestImmediateCallback ? InputConnection.CURSOR_UPDATE_IMMEDIATE : 0);
         return mIC.requestCursorUpdates(cursorUpdateMode);

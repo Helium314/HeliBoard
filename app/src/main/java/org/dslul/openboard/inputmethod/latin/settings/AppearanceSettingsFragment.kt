@@ -12,7 +12,6 @@ import androidx.preference.TwoStatePreference
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethod.latin.define.ProductionFlags
 import java.lang.Float.max
 import java.lang.Float.min
 import java.util.*
@@ -78,10 +77,6 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 removePreference(Settings.PREF_THEME_COLORS_NIGHT)
                 removePreference("theme_select_colors_night")
             }
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // todo: consider removing the preference, and always set the navbar color
-            removePreference(Settings.PREF_NAVBAR_COLOR)
         }
         val metrics = requireContext().resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density

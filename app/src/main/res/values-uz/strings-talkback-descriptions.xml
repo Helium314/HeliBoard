@@ -63,14 +63,6 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Bosh harf bilan yozilgan <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Katta I harfi"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Tepasida nuqtasi bor katta I harfi"</string>
-    <string name="spoken_symbol_unknown" msgid="717298227061173706">"Noma’lum belgi"</string>
-    <string name="spoken_emoji_unknown" msgid="5981009928135394306">"Noma’lum kulgich"</string>
-    <string name="spoken_emoticon_3A_2D_21_20" msgid="2410905667389534573">"Zerikkan"</string>
-    <string name="spoken_emoticon_3A_2D_24_20" msgid="2481260475945560438">"Uyalgan"</string>
-    <string name="spoken_emoticon_42_2D_29_20" msgid="1063205250387128068">"Qora ko‘zoynak taqqan yuz"</string>
-    <string name="spoken_emoticon_3A_4F_20" msgid="532695091593447238">"Ajablangan"</string>
-    <string name="spoken_emoticon_3A_2D_2A_20" msgid="5612342617244114291">"Bo‘sa olayotgan yuz"</string>
-    <string name="spoken_emoticon_3A_2D_5B_20" msgid="2223507987759905920">"Xo‘mraygan"</string>
     <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Muqobil belgilar mavjud"</string>
     <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Muqobil belgilar tushirib qoldirildi"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Muqobil takliflar mavjud"</string>

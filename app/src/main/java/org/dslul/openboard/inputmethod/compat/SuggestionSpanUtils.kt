@@ -14,6 +14,7 @@ import android.text.style.SuggestionSpan
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting
 import java.util.*
 
+// todo: this is not compat any more
 object SuggestionSpanUtils {
     @JvmStatic
     @UsedForTesting

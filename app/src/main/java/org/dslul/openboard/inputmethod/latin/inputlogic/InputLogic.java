@@ -155,10 +155,7 @@ public final class InputLogic {
         } else {
             mInputLogicHandler.reset();
         }
-
-        if (settingsValues.mShouldShowLxxSuggestionUi) {
-            mConnection.requestCursorUpdates(true, true);
-        }
+        mConnection.requestCursorUpdates(true, true);
     }
 
     /**
@@ -709,6 +706,9 @@ public final class InputLogic {
             case Constants.CODE_SELECT_ALL:
                 mConnection.selectAll();
                 break;
+            case Constants.CODE_SELECT_WORD:
+                mConnection.selectWord(inputTransaction.getMSettingsValues().mSpacingAndPunctuations, currentKeyboardScriptId);
+                break;
             case Constants.CODE_COPY:
                 mConnection.copyText();
                 break;
@@ -729,6 +729,12 @@ public final class InputLogic {
                 break;
             case Constants.CODE_REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
+                break;
+            case Constants.CODE_HOME:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_HOME);
+                break;
+            case Constants.CODE_END:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
                 break;
             case Constants.CODE_SHORTCUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
@@ -844,7 +850,7 @@ public final class InputLogic {
                 || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
                 || !settingsValues.mBigramPredictionEnabled // this is only for next word suggestions, so they need to be enabled
                 || settingsValues.mIncognitoModeEnabled
-                || !settingsValues.mInputAttributes.mShouldShowSuggestions // see comment in performAdditionToUserHistoryDictionary
+                || !settingsValues.isSuggestionsEnabledPerUserSettings() // see comment in performAdditionToUserHistoryDictionary
                 || !StringUtilsKt.isEmoji(text)
         ) return;
         if (mConnection.hasSlowInputConnection()) {
@@ -1524,8 +1530,8 @@ public final class InputLogic {
         // If correction is not enabled, we don't add words to the user history dictionary.
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
-        // mInputTypeNoAutoCorrect changed to !mShouldShowSuggestions because this was cancelling learning way too often
-        if (!settingsValues.mInputAttributes.mShouldShowSuggestions || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
+        // mInputTypeNoAutoCorrect changed to !isSuggestionsEnabledPerUserSettings because this was cancelling learning way too often
+        if (!settingsValues.isSuggestionsEnabledPerUserSettings() || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
             return;
         final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final String word = stripWordSeparatorsFromEnd(suggestion, settingsValues);

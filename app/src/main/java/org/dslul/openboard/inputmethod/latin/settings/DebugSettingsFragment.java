@@ -40,10 +40,6 @@ public final class DebugSettingsFragment extends SubScreenFragment
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_debug);
 
-        if (!Settings.SHOULD_SHOW_LXX_SUGGESTION_UI) {
-            removePreference(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI);
-        }
-
         final PreferenceGroup dictDumpPreferenceGroup = findPreference(PREF_KEY_DUMP_DICTS);
         for (final String dictName : DictionaryFacilitatorImpl.DICT_TYPE_TO_CLASS.keySet()) {
             final Preference pref = new DictDumpPreference(getActivity(), dictName);

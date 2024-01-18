@@ -13,8 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -114,7 +114,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                         else isVisible = true
                 }
 
-                view.findViewById<SwitchCompat>(R.id.language_switch).apply {
+                view.findViewById<Switch>(R.id.language_switch).apply {
                     isEnabled = !onlySystemLocales
                     // take care: isChecked changes if the language is scrolled out of view and comes back!
                     // disable the change listener when setting the checked status on scroll

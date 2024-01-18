@@ -98,15 +98,15 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
         findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
-            val file = "${CUSTOM_LAYOUT_PREFIX}symbols.txt"
-            val oldLayout = if (File(file).exists()) null else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
-            editCustomLayout(file, context, oldLayout, true)
+            val layoutName = Settings.readSymbolsLayoutName(context, context.resources.configuration.locale).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
+            val oldLayout = if (layoutName != null) null else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
+            editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}symbols.txt", context, oldLayout, true)
             true
         }
         findPreference<Preference>("custom_shift_symbols_layout")?.setOnPreferenceClickListener {
-            val file = "${CUSTOM_LAYOUT_PREFIX}shift_symbols.txt"
-            val oldLayout = if (File(file).exists()) null else context.assets.open("layouts${File.separator}symbols_shifted.txt").reader().readText()
-            editCustomLayout(file, context, oldLayout, true)
+            val layoutName = Settings.readShiftedSymbolsLayoutName(context).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
+            val oldLayout = if (layoutName != null) null else context.assets.open("layouts${File.separator}symbols_shifted.txt").reader().readText()
+            editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}shift_symbols.txt", context, oldLayout, true)
             true
         }
     }
@@ -120,11 +120,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     private fun onClickLoadLibrary(): Boolean {
         // get architecture for telling user which file to use
-        val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Build.SUPPORTED_ABIS[0]
-        } else {
-            @Suppress("Deprecation") Build.CPU_ABI
-        }
+        val abi = Build.SUPPORTED_ABIS[0]
         // show delete / add dialog
         val builder = AlertDialog.Builder(requireContext())
                 .setTitle(R.string.load_gesture_library)
@@ -161,11 +157,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             if (checksum == JniUtils.expectedDefaultChecksum()) {
                 renameToLibfileAndRestart(tmpfile, checksum)
             } else {
-                val abi = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Build.SUPPORTED_ABIS[0]
-                } else {
-                    @Suppress("Deprecation") Build.CPU_ABI
-                }
+                val abi = Build.SUPPORTED_ABIS[0]
                 AlertDialog.Builder(requireContext())
                     .setMessage(getString(R.string.checksum_mismatch_message, abi))
                     .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibfileAndRestart(tmpfile, checksum) }

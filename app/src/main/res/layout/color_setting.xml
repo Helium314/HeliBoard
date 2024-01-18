@@ -34,7 +34,7 @@
             android:paddingHorizontal="10dp"
             style="@style/PreferenceSubtitleText" />
     </LinearLayout>
-    <androidx.appcompat.widget.SwitchCompat
+    <Switch
         android:id="@+id/color_switch"
         android:layout_gravity="center_vertical"
         android:layout_width="0dp"

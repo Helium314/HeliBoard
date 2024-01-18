@@ -12,9 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodSubtype
+import android.widget.Switch
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import org.dslul.openboard.inputmethod.latin.R
@@ -37,7 +37,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private val systemLocales = mutableListOf<Locale>()
     private lateinit var languageFilterList: LanguageFilterList
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var systemOnlySwitch: SwitchCompat
+    private lateinit var systemOnlySwitch: Switch
     private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
 
     private val dictionaryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
