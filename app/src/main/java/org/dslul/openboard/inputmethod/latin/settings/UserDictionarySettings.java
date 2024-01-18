@@ -74,7 +74,11 @@ public class UserDictionarySettings extends ListFragment {
             + UserDictionary.Words.SHORTCUT + " is null AND " + UserDictionary.Words.FREQUENCY + "=? OR "
             + UserDictionary.Words.SHORTCUT + "='' AND " + UserDictionary.Words.FREQUENCY + "=?";
 
-    private static final String DELETE_WORD = UserDictionary.Words.WORD + "=?";
+    private static final String DELETE_WORD_AND_LOCALE = UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.LOCALE + "=?";
+
+    private static final String DELETE_WORD_AND_ALL_LOCALES = UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.LOCALE + " is null";
 
     private Cursor mCursor;
 
@@ -282,10 +286,16 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 
-    public static void deleteWordInInsertMode(final String word, final ContentResolver resolver) {
-        resolver.delete(
-                    UserDictionary.Words.CONTENT_URI, DELETE_WORD,
+    public static void deleteWord(final String word, final String locale, final ContentResolver resolver) {
+        if ("".equals(locale)) {
+            resolver.delete(
+                    UserDictionary.Words.CONTENT_URI, DELETE_WORD_AND_ALL_LOCALES,
                     new String[] { word });
+        } else {
+            resolver.delete(
+                    UserDictionary.Words.CONTENT_URI, DELETE_WORD_AND_LOCALE,
+                    new String[] { word, locale });
+        }
     }
 
     private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {

@@ -50,6 +50,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     private EditText mWeightEditText;
     private InputMethodManager mInput;
     private ActionBar mActionBar;
+    private String mLocaleString;
 
     @NonNull
     @Override
@@ -74,13 +75,14 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
 
         final Bundle args = getArguments();
         mActionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        mLocaleString = mContents.getLocalesList(requireActivity()).get(0).toString();
         if (args != null && mActionBar != null) {
             if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
                 mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
             } else {
                 mActionBar.setTitle(R.string.user_dict_settings_add_dialog_title);
             }
-            mActionBar.setSubtitle(UserDictionarySettings.getLocaleDisplayName(getActivity(), mContents.getDropDownMenuLanguage()));
+            mActionBar.setSubtitle(mLocaleString);
         }
 
         final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);
@@ -139,7 +141,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     private void addWord() {
         if (mContents.isExistingWord(requireContext())) {
             new AlertDialog.Builder(requireContext())
-                    .setMessage(R.string.user_dict_word_already_present)
+                    .setMessage(getString(R.string.user_dict_word_already_present, mLocaleString))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         dialog.dismiss();
                         mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);

@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
@@ -141,9 +142,10 @@ public class UserDictionaryAddWordContents {
         final ContentResolver resolver = context.getContentResolver();
         final String localeInToast = new LocaleRenderer(context, mLocale).toString();
         final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeInToast);
+        final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
         // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            UserDictionarySettings.deleteWord(mOldWord, locale, resolver);
             // Toast appears to indicate that the word has been deleted
             Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
         }
@@ -154,6 +156,7 @@ public class UserDictionaryAddWordContents {
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
         final String newWeight;
+        final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
 
         if (TextUtils.isEmpty(newWord)) {
             // If the word is empty, don't insert it.
@@ -187,7 +190,7 @@ public class UserDictionaryAddWordContents {
         mSavedWeight = newWeight;
 
         // In edit mode, everything is modified without overwriting other existing words
-        if (MODE_EDIT == mMode && hasWord(newWord, context) && newWord.equals(mOldWord)) {
+        if (MODE_EDIT == mMode && hasWord(newWord, locale, context) && newWord.equals(mOldWord)) {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
             // Toast appears to indicate that the word has been modified
             Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
@@ -195,7 +198,7 @@ public class UserDictionaryAddWordContents {
             mMode = MODE_INSERT;
         }
 
-        if (mMode == MODE_INSERT && hasWord(newWord, context)) {
+        if (mMode == MODE_INSERT && hasWord(newWord, locale, context)) {
             return CODE_ALREADY_PRESENT;
         }
 
@@ -219,7 +222,7 @@ public class UserDictionaryAddWordContents {
         }
 
         // Delete duplicates
-        UserDictionarySettings.deleteWordInInsertMode(newWord, resolver);
+        UserDictionarySettings.deleteWord(newWord, locale, resolver);
 
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
         // be null. However the addWord method takes null to mean 'all locales'.
@@ -232,23 +235,32 @@ public class UserDictionaryAddWordContents {
 
     public boolean isExistingWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
+        final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
         if (mMode == MODE_INSERT || apply(context) == CODE_ALREADY_PRESENT) {
-            return hasWord(newWord, context);
+            return hasWord(newWord, locale, context);
         } else {
             return false;
         }
     }
 
-    private static final String[] HAS_WORD_PROJECTION = { UserDictionary.Words.WORD };
-    private static final String HAS_WORD_SELECTION = UserDictionary.Words.WORD + "=?";
+    private static final String[] HAS_WORD_PROJECTION = { UserDictionary.Words.WORD, UserDictionary.Words.LOCALE };
+    private static final String HAS_WORD_AND_LOCALE_SELECTION = UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.LOCALE + "=?";
+    private static final String HAS_WORD_AND_ALL_LOCALES_SELECTION = UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.LOCALE + " is null";
 
-    private boolean hasWord(final String word, final Context context) {
+    private boolean hasWord(final String word, final String locale, final Context context) {
         final Cursor cursor;
 
-        cursor = context.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
-                HAS_WORD_PROJECTION, HAS_WORD_SELECTION,
+        if ("".equals(locale)) {
+            cursor = context.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
+                    HAS_WORD_PROJECTION, HAS_WORD_AND_ALL_LOCALES_SELECTION,
                     new String[] { word }, null);
-
+        } else {
+            cursor = context.getContentResolver().query(UserDictionary.Words.CONTENT_URI,
+                    HAS_WORD_PROJECTION, HAS_WORD_AND_LOCALE_SELECTION,
+                    new String[] { word, locale}, null);
+        }
         try {
             if (null == cursor) return false;
             return cursor.getCount() > 0;
