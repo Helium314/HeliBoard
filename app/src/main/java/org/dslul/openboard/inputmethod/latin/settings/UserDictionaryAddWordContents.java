@@ -145,7 +145,7 @@ public class UserDictionaryAddWordContents {
         final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
         // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            UserDictionarySettings.deleteWord(mOldWord, locale, resolver);
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
             // Toast appears to indicate that the word has been deleted
             Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
         }
@@ -191,7 +191,7 @@ public class UserDictionaryAddWordContents {
 
         // In edit mode, everything is modified without overwriting other existing words
         if (MODE_EDIT == mMode && hasWord(newWord, locale, context) && newWord.equals(mOldWord)) {
-            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
             // Toast appears to indicate that the word has been modified
             Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
         } else {
@@ -204,7 +204,7 @@ public class UserDictionaryAddWordContents {
 
         if (mMode == MODE_INSERT) {
             // Delete duplicate when adding or updating new word
-            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, resolver);
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
             // Update the existing word by adding a new one
             UserDictionary.Words.addWord(context, newWord,
                     Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocale) ?

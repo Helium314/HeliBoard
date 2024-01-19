@@ -66,13 +66,27 @@ public class UserDictionarySettings extends ListFragment {
     private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=?";
     private static final String QUERY_SELECTION_ALL_LOCALES = UserDictionary.Words.LOCALE + " is null";
 
-    private static final String DELETE_SELECTION_WITH_SHORTCUT =
+    private static final String DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_LOCALE =
             UserDictionary.Words.WORD + "=? AND "
-            + UserDictionary.Words.SHORTCUT + "=? AND " + UserDictionary.Words.FREQUENCY + "=?";
-    private static final String DELETE_SELECTION_WITHOUT_SHORTCUT =
+            + UserDictionary.Words.SHORTCUT + "=? AND " + UserDictionary.Words.FREQUENCY + "=? AND " + UserDictionary.Words.LOCALE + "=?";
+
+    private static final String DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_ALL_LOCALES =
             UserDictionary.Words.WORD + "=? AND "
-            + UserDictionary.Words.SHORTCUT + " is null AND " + UserDictionary.Words.FREQUENCY + "=? OR "
-            + UserDictionary.Words.SHORTCUT + "='' AND " + UserDictionary.Words.FREQUENCY + "=?";
+                    + UserDictionary.Words.SHORTCUT + "=? AND " + UserDictionary.Words.FREQUENCY + "=? AND " + UserDictionary.Words.LOCALE + " is null";
+
+    private static final String DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_LOCALE =
+            UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.SHORTCUT + " is null AND " + UserDictionary.Words.FREQUENCY + "=? AND "
+                    + UserDictionary.Words.LOCALE + "=? OR "
+            + UserDictionary.Words.SHORTCUT + "='' AND " + UserDictionary.Words.FREQUENCY + "=? AND "
+                    + UserDictionary.Words.LOCALE + "=?";
+
+    private static final String DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_ALL_LOCALES =
+            UserDictionary.Words.WORD + "=? AND "
+            + UserDictionary.Words.SHORTCUT + " is null AND " + UserDictionary.Words.FREQUENCY + "=? AND "
+                    + UserDictionary.Words.LOCALE + " is null OR "
+            + UserDictionary.Words.SHORTCUT + "='' AND " + UserDictionary.Words.FREQUENCY + "=? AND "
+                    + UserDictionary.Words.LOCALE + " is null";
 
     private static final String DELETE_WORD_AND_LOCALE = UserDictionary.Words.WORD + "=? AND "
             + UserDictionary.Words.LOCALE + "=?";
@@ -274,15 +288,28 @@ public class UserDictionarySettings extends ListFragment {
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.FREQUENCY));
     }
 
-    public static void deleteWordInEditMode(final String word, final String shortcut, final String weight, final ContentResolver resolver) {
+    public static void deleteWordInEditMode(final String word, final String shortcut, final String weight,
+                                            final String locale, final ContentResolver resolver) {
         if (TextUtils.isEmpty(shortcut)) {
-            resolver.delete(
-                    UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT,
-                    new String[] { word, weight });
+            if ("".equals(locale)) {
+                resolver.delete(
+                        UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_ALL_LOCALES,
+                        new String[] { word, weight });
+            } else {
+                resolver.delete(
+                        UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_LOCALE,
+                        new String[] { word, weight, locale });
+            }
         } else {
-            resolver.delete(
-                    UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT,
-                    new String[] { word, shortcut, weight });
+            if ("".equals(locale)) {
+                resolver.delete(
+                        UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_ALL_LOCALES,
+                        new String[] { word, shortcut, weight });
+            } else {
+                resolver.delete(
+                        UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_LOCALE,
+                        new String[] { word, shortcut, weight, locale });
+            }
         }
     }
 
