@@ -9,7 +9,7 @@
     android:id="@+id/user_dict_settings_add_dialog_top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp">
+    android:paddingHorizontal="10dp">
 
     <ScrollView
         android:layout_width="match_parent"

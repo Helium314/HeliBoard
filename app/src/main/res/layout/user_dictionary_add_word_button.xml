@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/User_Dictionary_Button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/user_dict_add_word_button"
+    android:textColor="@android:color/white"
+    android:paddingStart="30dp"
+    android:paddingEnd="10dp"
+    android:drawableEnd="@drawable/ic_user_dictionary_add_word"
+    android:drawablePadding="20dp">
+</Button>

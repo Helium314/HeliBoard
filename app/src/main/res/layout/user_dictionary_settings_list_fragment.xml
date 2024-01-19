@@ -31,4 +31,16 @@
         android:padding="5dip"
         android:visibility="gone" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="bottom|end"
+        android:background="@android:color/transparent">
+        <include
+            android:id="@+id/user_dictionary_add_word_button"
+            layout="@layout/user_dictionary_add_word_button" />
+    </LinearLayout>
+
 </LinearLayout>

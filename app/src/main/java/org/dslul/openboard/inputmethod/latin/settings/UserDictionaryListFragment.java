@@ -6,13 +6,8 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
@@ -68,25 +60,10 @@ public class UserDictionaryListFragment extends SubScreenFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout view = (LinearLayout) super.onCreateView(inflater, container, savedInstanceState);
-
-        final Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_user_dictionary_add_word, null);
-        // Parameters of the LinearLayout containing the button
-        LinearLayoutCompat.LayoutParams params = new LinearLayoutCompat.LayoutParams(
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.END;
-        params.setMargins(toPixel(0), toPixel(0), toPixel(23), toPixel(10));
-
-        Button addWordButton = new Button(new ContextThemeWrapper(requireContext(), R.style.User_Dictionary_Button), null, 0);
-        addWordButton.setText(R.string.user_dict_add_word_button);
-        addWordButton.setTextColor(getResources().getColor(android.R.color.white));
-        addWordButton.setPadding(toPixel(30), toPixel(10), toPixel(10), toPixel(10));
-        addWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        addWordButton.setCompoundDrawablePadding(toPixel(20));
-        addWordButton.setLayoutParams(params);
+        View v = inflater.inflate(R.layout.user_dictionary_settings_list_fragment, null);
+        Button addWordButton = v.findViewById(R.id.user_dictionary_add_word_button);
         addWordButton.setOnClickListener(v1 -> showAddWordDialog());
-
-        view.addView(addWordButton);
-
+        view.addView(v);
         return view;
     }
 
@@ -200,11 +177,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
                 .replace(android.R.id.content, UserDictionaryAddWordFragment.class, args)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    private int toPixel(int dp) {
-        return (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, dp,
-                requireContext().getResources().getDisplayMetrics());
     }
 
 }
