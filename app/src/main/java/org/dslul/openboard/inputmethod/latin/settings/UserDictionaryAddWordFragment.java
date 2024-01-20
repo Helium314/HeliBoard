@@ -75,7 +75,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
 
         final Bundle args = getArguments();
         mActionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        mLocaleDisplayString = mContents.getLocalesList(requireContext()).get(0).toString();
+        mLocaleDisplayString = UserDictionarySettings.getLocaleDisplayName(requireContext(), mContents.getLocale());
         if (args != null && mActionBar != null) {
             if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
                 mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);

@@ -136,14 +136,17 @@ public class UserDictionaryAddWordContents {
 
     }
 
+    String getLocale() {
+        return mLocaleString;
+    }
+
     void delete(final Context context) {
         final ContentResolver resolver = context.getContentResolver();
         final String localeInToast = new LocaleRenderer(context, mLocaleString).toString();
         final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeInToast);
-        final String locale = getLocalesList(context).get(0).getLocaleString();
         // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocaleString, resolver);
             // Toast appears to indicate that the word has been deleted
             Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
         }
@@ -154,7 +157,7 @@ public class UserDictionaryAddWordContents {
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
         final String newWeight;
-        final String locale = getLocalesList(context).get(0).getLocaleString();
+        final String locale = mLocaleString;
 
         if (TextUtils.isEmpty(newWord)) {
             // If the word is empty, don't insert it.
@@ -233,9 +236,8 @@ public class UserDictionaryAddWordContents {
 
     public boolean isExistingWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
-        final String locale = getLocalesList(context).get(0).getLocaleString();
         if (mMode == MODE_INSERT || apply(context) == CODE_ALREADY_PRESENT) {
-            return hasWord(newWord, locale, context);
+            return hasWord(newWord, mLocaleString, context);
         } else {
             return false;
         }
