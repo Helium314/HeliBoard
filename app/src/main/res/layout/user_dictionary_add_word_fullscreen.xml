@@ -124,7 +124,7 @@
         android:baselineAligned="false">
 
         <Button
-            style="@style/User_Dictionary_Button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/user_dictionary_delete_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
         </Button>
 
         <Button
-            style="@style/User_Dictionary_Button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/user_dictionary_save_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -10,6 +10,4 @@
         <item name="android:colorAccent">@color/accent</item>
         <item name="colorAccent">@color/accent</item>
     </style>
-  
-    <style name="User_Dictionary_Button" parent="Widget.AppCompat.Button.Colored"/>
 </resources>
