@@ -61,7 +61,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         LinearLayout view = (LinearLayout) super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.user_dictionary_settings_list_fragment, null);
         Button addWordButton = v.findViewById(R.id.user_dictionary_add_word_button);
-        addWordButton.setOnClickListener(v1 -> showAddWordDialog());
+        addWordButton.setOnClickListener(v1 -> showAddWordFragment());
         view.addView(v);
         return view;
     }
@@ -163,7 +163,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         return newPref;
     }
 
-    private void showAddWordDialog() {
+    private void showAddWordFragment() {
         final Bundle args = new Bundle();
         args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, UserDictionaryAddWordContents.MODE_INSERT);
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, "");

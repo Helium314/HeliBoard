@@ -108,7 +108,7 @@ public class UserDictionarySettings extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.user_dictionary_settings_list_fragment, container, false);
         Button addWordButton = view.findViewById(R.id.user_dictionary_add_word_button);
-        addWordButton.setOnClickListener(v -> showAddOrEditDialog(null, null, null));
+        addWordButton.setOnClickListener(v -> showAddOrEditFragment(null, null, null));
         return view;
     }
 
@@ -196,7 +196,7 @@ public class UserDictionarySettings extends ListFragment {
         final String shortcut = getShortcut(position);
         final String weight = getWeight(position);
         if (word != null) {
-            showAddOrEditDialog(word, shortcut, weight);
+            showAddOrEditFragment(word, shortcut, weight);
         }
     }
 
@@ -218,7 +218,7 @@ public class UserDictionarySettings extends ListFragment {
      * @param editingWord the word to edit, or null if it's an add.
      * @param editingShortcut the shortcut for this entry, or null if none.
      */
-    private void showAddOrEditDialog(final String editingWord, final String editingShortcut, final String editingWeight) {
+    private void showAddOrEditFragment(final String editingWord, final String editingShortcut, final String editingWeight) {
         final Bundle args = new Bundle();
         args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, null == editingWord
                 ? UserDictionaryAddWordContents.MODE_INSERT
