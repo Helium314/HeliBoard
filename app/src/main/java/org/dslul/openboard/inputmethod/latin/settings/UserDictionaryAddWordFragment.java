@@ -29,7 +29,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordContents.LocaleRenderer;
@@ -86,8 +85,6 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         }
 
         final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);
-        final Drawable saveWordIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_save, null);
-        saveWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, saveWordIcon, null);
         saveWordButton.setOnClickListener(v -> addWord());
 
         final Button deleteWordButton = mRootView.findViewById(R.id.user_dictionary_delete_button);

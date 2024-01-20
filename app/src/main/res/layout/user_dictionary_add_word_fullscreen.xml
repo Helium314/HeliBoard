@@ -152,6 +152,7 @@
                 android:id="@+id/user_dictionary_save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_save"
                 android:text="@string/save"
                 android:textColor="@android:color/white">
             </Button>
