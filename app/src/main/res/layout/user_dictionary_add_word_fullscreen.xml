@@ -117,48 +117,33 @@
         android:id="@+id/user_dictionary_add_word_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="15dp"
+        android:paddingHorizontal="5dp"
         android:paddingBottom="10dp"
+        android:layout_gravity="center"
         android:layout_alignParentBottom="true"
         android:baselineAligned="false">
 
-        <LinearLayout
+        <Button
+            style="@style/User_Dictionary_Button"
+            android:id="@+id/user_dictionary_delete_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_gravity="center"
-            android:paddingEnd="10dp">
-            <!-- Delete icon is added programmatically in UserDictionaryAddWordFragment -->
-            <Button
-                style="@style/User_Dictionary_Button"
-                android:id="@+id/user_dictionary_delete_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_dict"
-                android:textColor="@android:color/white">
-            </Button>
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/delete_dict"
+            android:textColor="@android:color/white">
+        </Button>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
+            style="@style/User_Dictionary_Button"
+            android:id="@+id/user_dictionary_save_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_gravity="center"
-            android:paddingStart="10dp">
-            <!-- Save icon is added programmatically in UserDictionaryAddWordFragment -->
-            <Button
-                style="@style/User_Dictionary_Button"
-                android:id="@+id/user_dictionary_save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_save"
-                android:text="@string/save"
-                android:textColor="@android:color/white">
-            </Button>
-
-        </LinearLayout>
-
+            android:layout_weight="1"
+            android:drawableEnd="@drawable/ic_save"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/save"
+            android:textColor="@android:color/white">
+        </Button>
     </LinearLayout>
-
 </RelativeLayout>
