@@ -6,6 +6,7 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,9 +24,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 
@@ -90,53 +91,38 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param userDictGroup The group to put the settings in.
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
-        final SharedPreferences prefs = getSharedPreferences();
-        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        // List of main language
-        final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
-        // List of enabled system language
-        final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
-        // To combine lists and display them in alphabetical order
-        final TreeSet<String> sortedLanguages = new TreeSet<>((language1, language2) -> {
-            if (!language1.equals("") && !language2.equals("")) {
-                return UserDictionarySettings.getLocaleDisplayName(requireContext(), language1)
-                        .compareToIgnoreCase(UserDictionarySettings.getLocaleDisplayName(requireContext(), language2));
-            } else {
-                return language1.compareToIgnoreCase(language2);
-            }
-        });
+        final TreeSet<String> sortedLanguages = getSortedDictionaryLocaleStrings(requireContext());
 
-        // Add "For all languages"
-        sortedLanguages.add("");
+        // Add preference "for all locales"
+        userDictGroup.addPreference(createUserDictionaryPreference(""));
+        // Add preference for each dictionary locale
+        for (String localeUserDictionary : sortedLanguages) {
+            userDictGroup.addPreference(createUserDictionaryPreference(localeUserDictionary));
+        }
+    }
+
+    static TreeSet<String> getSortedDictionaryLocaleStrings(final Context context) {
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
+        final TreeSet<String> sortedLanguages = new TreeSet<>(String::compareToIgnoreCase);
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
-        for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
-            // Add main subtypes if they are not included in the user's dictionary
+        for (InputMethodSubtype mainSubtype : SubtypeSettingsKt.getEnabledSubtypes(prefs, true)) {
             if (!mainSubtype.getLocale().equals("zz")) {
                 sortedLanguages.add(mainSubtype.getLocale());
             }
-            // Add secondary subtypes only if "Use system languages" setting is not enabled
+            // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
-                for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
-                    // Add secondary subtypes if they are not included in the user's dictionary
-                    sortedLanguages.add(secondSubtype.toString());
+                for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
+                    sortedLanguages.add(secondaryLocale.toString());
                 }
             }
         }
 
-        // Add the enabled system languages
-        for (Locale systemSubtype : enabledSystemLocale) {
+        for (Locale systemSubtype : SubtypeSettingsKt.getSystemLocales()) {
             sortedLanguages.add(systemSubtype.toString());
         }
-
-        // Add preferences
-        if (sortedLanguages.isEmpty()) {
-            userDictGroup.addPreference(createUserDictionaryPreference(null));
-        } else {
-            for (String localeUserDictionary : sortedLanguages) {
-                userDictGroup.addPreference(createUserDictionaryPreference(localeUserDictionary));
-            }
-        }
+        return sortedLanguages;
     }
 
     /**

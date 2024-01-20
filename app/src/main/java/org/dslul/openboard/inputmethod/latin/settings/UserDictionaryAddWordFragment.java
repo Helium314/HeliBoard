@@ -152,7 +152,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     }
 
     private void updateSpinner() {
-        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(requireContext());
+        final ArrayList<LocaleRenderer> localesList = mContents.getLocaleRendererList(requireContext());
 
         final Spinner localeSpinner = mRootView.findViewById(R.id.user_dictionary_add_locale);
         final ArrayAdapter<LocaleRenderer> adapter = new ArrayAdapter<>(

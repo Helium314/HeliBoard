@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.provider.UserDictionary;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.view.View;
-import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,11 +26,8 @@ import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
-import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.TreeSet;
 
 public class UserDictionaryAddWordContents {
@@ -288,28 +283,8 @@ public class UserDictionaryAddWordContents {
     }
 
     // Helper method to get the list of locales and subtypes to display for this word
-    public ArrayList<LocaleRenderer> getLocalesList(final Context context) {
-
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        final TreeSet<String> sortedLanguages = new TreeSet<>(String::compareToIgnoreCase);
-
-        // Add the main language selected in the "Language and Layouts" setting except "No language"
-        for (InputMethodSubtype mainSubtype : SubtypeSettingsKt.getEnabledSubtypes(prefs, true)) {
-            if (!mainSubtype.getLocale().equals("zz")) {
-                sortedLanguages.add(mainSubtype.getLocale());
-            }
-            // Secondary language is added only if main language is selected and if system language is not enabled
-            if (!localeSystemOnly) {
-                for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
-                    sortedLanguages.add(secondaryLocale.toString());
-                }
-            }
-        }
-
-        for (Locale systemSubtype : SubtypeSettingsKt.getSystemLocales()) {
-            sortedLanguages.add(systemSubtype.toString());
-        }
+    public ArrayList<LocaleRenderer> getLocaleRendererList(final Context context) {
+        final TreeSet<String> sortedLanguages = UserDictionaryListFragment.getSortedDictionaryLocaleStrings(context);
 
         // mLocale is removed from the language list as it will be added to the top of the list
         sortedLanguages.remove(mLocaleString);
