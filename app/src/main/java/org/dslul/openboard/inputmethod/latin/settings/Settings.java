@@ -527,7 +527,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         String[] layouts = new File(context.getFilesDir(), "layouts").list();
         if (layouts != null) {
             for (String name : layouts) {
-                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shifted_symbols"))
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shift_symbols"))
                     return name;
             }
         }
