@@ -58,7 +58,7 @@ public class UserDictionaryAddWordContents {
     private final EditText mWordEditText;
     private final EditText mShortcutEditText;
     private final EditText mWeightEditText;
-    private String mLocale;
+    private String mLocaleString;
     private final String mOldWord;
     private final String mOldShortcut;
     private final String mOldWeight;
@@ -118,7 +118,7 @@ public class UserDictionaryAddWordContents {
         mOldWord = oldInstanceToBeEdited.mSavedWord;
         mOldShortcut = oldInstanceToBeEdited.mSavedShortcut;
         mOldWeight = oldInstanceToBeEdited.mSavedWeight;
-        updateLocale(mContext, mLocale);
+        updateLocale(mContext, mLocaleString);
     }
 
     // locale may be null, this means system locale
@@ -126,19 +126,19 @@ public class UserDictionaryAddWordContents {
     void updateLocale(final Context context, final String locale) {
         mContext = context;
 
-        mLocale = null == locale
+        mLocaleString = null == locale
                 ? mContext.getResources().getConfiguration().locale.toString()
                 : locale;
         // The keyboard uses the language layout of the user dictionary
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mWordEditText.setImeHintLocales(new LocaleList(LocaleUtils.constructLocaleFromString(mLocale)));
+            mWordEditText.setImeHintLocales(new LocaleList(LocaleUtils.constructLocaleFromString(mLocaleString)));
         }
 
     }
 
     void delete(final Context context) {
         final ContentResolver resolver = context.getContentResolver();
-        final String localeInToast = new LocaleRenderer(context, mLocale).toString();
+        final String localeInToast = new LocaleRenderer(context, mLocaleString).toString();
         final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeInToast);
         final String locale = getLocalesList(context).get(0).getLocaleString();
         // Mode edit: remove the old entry.
@@ -205,14 +205,14 @@ public class UserDictionaryAddWordContents {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
             // Update the existing word by adding a new one
             UserDictionary.Words.addWord(context, newWord,
-                    Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocale) ?
-                            null : LocaleUtils.constructLocaleFromString(mLocale));
+                    Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocaleString) ?
+                            null : LocaleUtils.constructLocaleFromString(mLocaleString));
 
             // Toast appears either to indicate that the word has been modified or created
             if (!TextUtils.isEmpty(mOldWord)) {
                 Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
             } else {
-                final String localeInToast = new LocaleRenderer(context, mLocale).toString();
+                final String localeInToast = new LocaleRenderer(context, mLocaleString).toString();
                 final String messageWordAdded = context.getString(R.string.user_dict_word_added, localeInToast);
                 Toast.makeText(context, messageWordAdded, Toast.LENGTH_SHORT).show();
             }
@@ -225,8 +225,8 @@ public class UserDictionaryAddWordContents {
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
         // be null. However the addWord method takes null to mean 'all locales'.
         UserDictionary.Words.addWord(context, newWord,
-                Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocale) ?
-                        null : LocaleUtils.constructLocaleFromString(mLocale));
+                Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocaleString) ?
+                        null : LocaleUtils.constructLocaleFromString(mLocaleString));
 
         return CODE_WORD_ADDED;
     }
@@ -313,14 +313,14 @@ public class UserDictionaryAddWordContents {
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
-            if (!mainSubtype.getLocale().equals(mLocale) && !mainSubtype.getLocale().equals("zz")) {
+            if (!mainSubtype.getLocale().equals(mLocaleString) && !mainSubtype.getLocale().equals("zz")) {
                 languageList.add(mainSubtype.getLocale());
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
                 for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
                     // Add secondary subtypes if they are not included in the user's dictionary
-                    if (!secondSubtype.toString().equals(mLocale)) {
+                    if (!secondSubtype.toString().equals(mLocaleString)) {
                         languageList.add(secondSubtype.toString());
                     }
                 }
@@ -328,18 +328,18 @@ public class UserDictionaryAddWordContents {
         }
 
         for (Locale systemSubtype : enabledSystemLocale) {
-            if (!systemSubtype.toString().equals(mLocale)) {
+            if (!systemSubtype.toString().equals(mLocaleString)) {
                 languageList.add(systemSubtype.toString());
             }
         }
 
         // mLocale is removed from the language list as it will be added to the top of the list
-        languageList.remove(mLocale);
+        languageList.remove(mLocaleString);
         // "For all languages" is removed from the language list as it will be added at the end of the list
         languageList.remove("");
 
         // First, add the language of the personal dictionary at the top of the list
-        addLocaleDisplayNameToList(context, localesList, mLocale);
+        addLocaleDisplayNameToList(context, localesList, mLocaleString);
 
         // Next, add all other languages which will be sorted alphabetically in UserDictionaryAddWordFragment.updateSpinner()
         for (String language : languageList) {
@@ -347,7 +347,7 @@ public class UserDictionaryAddWordContents {
         }
 
         // Finally, add "All languages" at the end of the list
-        if (!"".equals(mLocale)) {
+        if (!"".equals(mLocaleString)) {
             addLocaleDisplayNameToList(context, localesList, "");
         }
 
