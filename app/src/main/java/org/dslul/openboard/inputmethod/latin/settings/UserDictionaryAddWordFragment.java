@@ -75,7 +75,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
 
         final Bundle args = getArguments();
         mActionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        mLocaleString = mContents.getLocalesList(requireActivity()).get(0).toString();
+        mLocaleString = mContents.getLocalesList(requireContext()).get(0).toString();
         if (args != null && mActionBar != null) {
             if (args.getInt(UserDictionaryAddWordContents.EXTRA_MODE) == UserDictionaryAddWordContents.MODE_EDIT) {
                 mActionBar.setTitle(R.string.user_dict_settings_edit_dialog_title);
@@ -94,7 +94,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         final Drawable deleteWordIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
         deleteWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, deleteWordIcon, null);
         deleteWordButton.setOnClickListener(v -> {
-            mContents.delete(requireActivity());
+            mContents.delete(requireContext());
             requireActivity().onBackPressed();
         });
 
@@ -105,7 +105,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Automatically display the keyboard when we want to add or modify a word
-        mInput = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         mInput.showSoftInput(mWordEditText, InputMethodManager.SHOW_IMPLICIT);
 
         // Add a word using the Enter key
@@ -157,11 +157,11 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     }
 
     private void updateSpinner() {
-        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(requireActivity());
+        final ArrayList<LocaleRenderer> localesList = mContents.getLocalesList(requireContext());
 
         final Spinner localeSpinner = mRootView.findViewById(R.id.user_dictionary_add_locale);
         final ArrayAdapter<LocaleRenderer> adapter = new ArrayAdapter<>(
-                requireActivity(), android.R.layout.simple_spinner_item, localesList);
+                requireContext(), android.R.layout.simple_spinner_item, localesList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         localeSpinner.setAdapter(adapter);
         localeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

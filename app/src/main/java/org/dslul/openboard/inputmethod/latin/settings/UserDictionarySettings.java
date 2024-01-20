@@ -140,7 +140,7 @@ public class UserDictionarySettings extends ListFragment {
         final ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar == null) return;
         actionBar.setTitle(R.string.edit_personal_dictionary);
-        actionBar.setSubtitle(getLocaleDisplayName(getActivity(), mLocale));
+        actionBar.setSubtitle(getLocaleDisplayName(requireContext(), mLocale));
     }
 
     @Override
@@ -174,19 +174,19 @@ public class UserDictionarySettings extends ListFragment {
 
         if ("".equals(locale)) {
             // Case-insensitive sort
-            mCursor = requireActivity().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+            mCursor = requireContext().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION_ALL_LOCALES, null,
                     "UPPER(" + UserDictionary.Words.WORD + ")");
         } else {
             final String queryLocale = null != locale ? locale : Locale.getDefault().toString();
-            mCursor = requireActivity().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+            mCursor = requireContext().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION, new String[] { queryLocale },
                     "UPPER(" + UserDictionary.Words.WORD + ")");
         }
     }
 
     private ListAdapter createAdapter() {
-        return new MyAdapter(getActivity(), R.layout.user_dictionary_item, mCursor,
+        return new MyAdapter(requireContext(), R.layout.user_dictionary_item, mCursor,
                 ADAPTER_FROM, ADAPTER_TO);
     }
 

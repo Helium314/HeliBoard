@@ -6,7 +6,6 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
@@ -142,7 +140,7 @@ public class UserDictionaryAddWordContents {
         final ContentResolver resolver = context.getContentResolver();
         final String localeInToast = new LocaleRenderer(context, mLocale).toString();
         final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeInToast);
-        final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
+        final String locale = getLocalesList(context).get(0).getLocaleString();
         // Mode edit: remove the old entry.
         if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
@@ -156,7 +154,7 @@ public class UserDictionaryAddWordContents {
         final String newWord = mWordEditText.getText().toString();
         final String newShortcut;
         final String newWeight;
-        final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
+        final String locale = getLocalesList(context).get(0).getLocaleString();
 
         if (TextUtils.isEmpty(newWord)) {
             // If the word is empty, don't insert it.
@@ -235,7 +233,7 @@ public class UserDictionaryAddWordContents {
 
     public boolean isExistingWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
-        final String locale = getLocalesList((AppCompatActivity) context).get(0).getLocaleString();
+        final String locale = getLocalesList(context).get(0).getLocaleString();
         if (mMode == MODE_INSERT || apply(context) == CODE_ALREADY_PRESENT) {
             return hasWord(newWord, locale, context);
         } else {
@@ -300,9 +298,9 @@ public class UserDictionaryAddWordContents {
     }
 
     // Helper method to get the list of locales and subtypes to display for this word
-    public ArrayList<LocaleRenderer> getLocalesList(final Activity activity) {
+    public ArrayList<LocaleRenderer> getLocalesList(final Context context) {
 
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(activity.getApplicationContext());
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
 
@@ -341,16 +339,16 @@ public class UserDictionaryAddWordContents {
         languageList.remove("");
 
         // First, add the language of the personal dictionary at the top of the list
-        addLocaleDisplayNameToList(activity, localesList, mLocale);
+        addLocaleDisplayNameToList(context, localesList, mLocale);
 
         // Next, add all other languages which will be sorted alphabetically in UserDictionaryAddWordFragment.updateSpinner()
         for (String language : languageList) {
-            addLocaleDisplayNameToList(activity, localesList, language);
+            addLocaleDisplayNameToList(context, localesList, language);
         }
 
         // Finally, add "All languages" at the end of the list
         if (!"".equals(mLocale)) {
-            addLocaleDisplayNameToList(activity, localesList, "");
+            addLocaleDisplayNameToList(context, localesList, "");
         }
 
         return localesList;

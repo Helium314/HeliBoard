@@ -23,7 +23,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 
 import java.util.List;
@@ -91,7 +90,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param userDictGroup The group to put the settings in.
      */
     protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(requireActivity().getApplicationContext());
+        final SharedPreferences prefs = getSharedPreferences();
         final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
         // List of main language
         final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
