@@ -205,12 +205,9 @@ public class UserDictionarySettings extends ListFragment {
             // CAVEAT: localeStr should not be null because a null locale stands for the system
             // locale in UserDictionary.Words.addWord.
             return context.getResources().getString(R.string.user_dict_settings_all_languages);
-        } else if (localeStr.endsWith("_zz") || localeStr.endsWith("_ZZ")) {
-            final int resId = context.getResources().getIdentifier("subtype_" + localeStr, "string", context.getPackageName());
-            return context.getString(resId);
         }
         final Locale locale = LocaleUtils.constructLocaleFromString(localeStr);
-        return locale.getDisplayName(context.getResources().getConfiguration().locale);
+        return LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context);
     }
 
     /**
