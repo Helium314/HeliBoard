@@ -304,47 +304,37 @@ public class UserDictionaryAddWordContents {
 
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
-
-        // List of main language
-        final List<InputMethodSubtype> enabledMainSubtype = SubtypeSettingsKt.getEnabledSubtypes(prefs, true);
-        // List of system language
-        final List<Locale> enabledSystemLocale = SubtypeSettingsKt.getSystemLocales();
-        // To combine lists
-        final TreeSet<String> languageList = new TreeSet<>(String::compareToIgnoreCase);
+        final TreeSet<String> sortedLanguages = new TreeSet<>(String::compareToIgnoreCase);
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
-        for (InputMethodSubtype mainSubtype : enabledMainSubtype) {
-            if (!mainSubtype.getLocale().equals(mLocaleString) && !mainSubtype.getLocale().equals("zz")) {
-                languageList.add(mainSubtype.getLocale());
+        for (InputMethodSubtype mainSubtype : SubtypeSettingsKt.getEnabledSubtypes(prefs, true)) {
+            if (!mainSubtype.getLocale().equals("zz")) {
+                sortedLanguages.add(mainSubtype.getLocale());
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
-                for (Locale secondSubtype : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
-                    // Add secondary subtypes if they are not included in the user's dictionary
-                    if (!secondSubtype.toString().equals(mLocaleString)) {
-                        languageList.add(secondSubtype.toString());
-                    }
+                for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
+                    sortedLanguages.add(secondaryLocale.toString());
                 }
             }
         }
 
-        for (Locale systemSubtype : enabledSystemLocale) {
-            if (!systemSubtype.toString().equals(mLocaleString)) {
-                languageList.add(systemSubtype.toString());
-            }
+        for (Locale systemSubtype : SubtypeSettingsKt.getSystemLocales()) {
+            sortedLanguages.add(systemSubtype.toString());
         }
 
         // mLocale is removed from the language list as it will be added to the top of the list
-        languageList.remove(mLocaleString);
+        sortedLanguages.remove(mLocaleString);
         // "For all languages" is removed from the language list as it will be added at the end of the list
-        languageList.remove("");
+        sortedLanguages.remove("");
 
+        // final list of locales to show
+        final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
         // First, add the language of the personal dictionary at the top of the list
         addLocaleDisplayNameToList(context, localesList, mLocaleString);
 
         // Next, add all other languages which will be sorted alphabetically in UserDictionaryAddWordFragment.updateSpinner()
-        for (String language : languageList) {
+        for (String language : sortedLanguages) {
             addLocaleDisplayNameToList(context, localesList, language);
         }
 
