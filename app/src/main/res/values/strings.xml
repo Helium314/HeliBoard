@@ -713,17 +713,21 @@ New dictionary:
         &#9658; Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
         \t&#8226; Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt;
         \t&#8226; For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s \'q\' for Dvorak layout). &lt;br&gt; &lt;br&gt;
+        &#9658; When incognito mode is enabled, no words will be learned, and no emojis will be added to recents. &lt;br&gt; &lt;br&gt;
         &#9658; Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt;
         &#9658; Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt;
         \t&#8226; This also works for the \'?123\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt;
         &#9658; Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt;
         &#9658; Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
+        &#9658; Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt;
         &#9658; You can add dictionaries by opening them in a file explorer: &lt;br&gt;
         \t&#8226; This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;
-        &lt;i&gt;Debug APK only&lt;/i&gt; &lt;br&gt;
-        &#9658; Long-press a suggestion to show the source dictionary.&lt;br&gt; &lt;br&gt;
-        &#9658; The Debug Settings are located within the Advanced Preferences, though the usability is limited except for dumping dictionaries into the log. &lt;br&gt; &lt;br&gt;
-        &#9658; In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
+        &lt;i&gt;Debug mode / debug APK&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+        \t&#8226; Long-press a suggestion to show the source dictionary.&lt;br&gt; &lt;br&gt;
+        \t&#8226; When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt; &lt;br&gt;
+        \t&#8226; In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
+        \t&#8226; When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
+        \t&#8226; Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).
         &#9658; For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. &lt;br&gt;
         This is necessary so the settings can be read before the device is unlocked, e.g. at boot. &lt;br&gt;
         The file is located in /data/user_de/0/package_id/shared_prefs/, though this may depend on the device and Android version.</string>
