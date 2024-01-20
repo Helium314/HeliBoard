@@ -563,8 +563,6 @@ New dictionary:
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the weight field -->
     <string name="user_dict_settings_add_weight_value">Weight:</string>
-    <!-- User dictionary settings. Hint for the text field to type the weight of the word. Initial value = 250 -->
-    <string name="user_dict_settings_add_weight_hint">250</string>
     <!-- User dictionary settings. Label to put before the language field. [CHAR LIMIT=20] -->
     <!-- This resource is corresponding to msgid="5696358317061318532" -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>

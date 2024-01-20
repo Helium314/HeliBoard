@@ -89,7 +89,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:imeOptions="actionDone"
-                    android:hint="@string/user_dict_settings_add_weight_hint"
+                    android:hint="250"
                     android:inputType="number"
                     android:maxLength="3" />
 

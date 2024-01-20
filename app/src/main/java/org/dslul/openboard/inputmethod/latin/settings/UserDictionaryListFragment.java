@@ -150,8 +150,6 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         args.putInt(UserDictionaryAddWordContents.EXTRA_MODE, UserDictionaryAddWordContents.MODE_INSERT);
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, "");
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, "");
-        args.putString(UserDictionaryAddWordContents.EXTRA_WEIGHT,
-                String.valueOf(UserDictionaryAddWordContents.WEIGHT_FOR_USER_DICTIONARY_ADDS));
         args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, ""); // Empty means "For all languages"
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.getSupportFragmentManager().beginTransaction()
