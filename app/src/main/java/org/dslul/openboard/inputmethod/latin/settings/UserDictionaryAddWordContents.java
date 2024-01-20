@@ -79,7 +79,7 @@ public class UserDictionaryAddWordContents {
         }
 
         final String shortcut = args.getString(EXTRA_SHORTCUT);
-        if (null != shortcut && null != mShortcutEditText) {
+        if (null != shortcut) {
             mShortcutEditText.setText(shortcut);
         }
         mOldShortcut = args.getString(EXTRA_SHORTCUT);
@@ -157,18 +157,14 @@ public class UserDictionaryAddWordContents {
             return CODE_CANCEL;
         }
 
-        final String tmpShortcut = mShortcutEditText.getText().toString();
-        if (TextUtils.isEmpty(tmpShortcut)) {
+        mSavedShortcut = mShortcutEditText.getText().toString();
+        if (TextUtils.isEmpty(mSavedShortcut)) {
             mSavedShortcut = null;
-        } else {
-            mSavedShortcut = tmpShortcut;
         }
 
-        final String tmpWeight = mWeightEditText.getText().toString();
-        if (TextUtils.isEmpty(tmpWeight)) {
+        mSavedWeight = mWeightEditText.getText().toString();
+        if (TextUtils.isEmpty(mSavedWeight)) {
             mSavedWeight = String.valueOf(WEIGHT_FOR_USER_DICTIONARY_ADDS);
-        } else {
-            mSavedWeight = tmpWeight;
         }
 
         mSavedWord = newWord;
