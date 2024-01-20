@@ -142,10 +142,8 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         if (mContents.isExistingWord(requireContext())) {
             new AlertDialog.Builder(requireContext())
                     .setMessage(getString(R.string.user_dict_word_already_present, mLocaleDisplayString))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        dialog.dismiss();
-                        mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    })
+                    .setPositiveButton(android.R.string.ok, (dialog, which) ->
+                            mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY))
                     .show();
 
             mWordEditText.requestFocus();
