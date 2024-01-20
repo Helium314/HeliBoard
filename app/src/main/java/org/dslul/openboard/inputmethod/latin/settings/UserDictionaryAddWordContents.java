@@ -140,15 +140,16 @@ public class UserDictionaryAddWordContents {
     }
 
     void delete(final Context context) {
+        // do nothing if mode is wrong or word is empty
+        if (MODE_EDIT != mMode || TextUtils.isEmpty(mOldWord))
+            return;
         final ContentResolver resolver = context.getContentResolver();
         final String localeDisplayName = UserDictionarySettings.getLocaleDisplayName(context, mLocaleString);
         final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeDisplayName);
-        // Mode edit: remove the old entry.
-        if (MODE_EDIT == mMode && !TextUtils.isEmpty(mOldWord)) {
-            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocaleString, resolver);
-            // Toast appears to indicate that the word has been deleted
-            Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
-        }
+        // Remove the old entry.
+        UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocaleString, resolver);
+        // Toast appears to indicate that the word has been deleted
+        Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
     }
 
     public final int apply(@NonNull final Context context) {
