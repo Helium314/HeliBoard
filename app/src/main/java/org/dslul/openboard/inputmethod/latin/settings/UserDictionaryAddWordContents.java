@@ -163,26 +163,18 @@ public class UserDictionaryAddWordContents {
             return CODE_CANCEL;
         }
 
-        if (null == mShortcutEditText) {
+        final String tmpShortcut = mShortcutEditText.getText().toString();
+        if (TextUtils.isEmpty(tmpShortcut)) {
             newShortcut = null;
         } else {
-            final String tmpShortcut = mShortcutEditText.getText().toString();
-            if (TextUtils.isEmpty(tmpShortcut)) {
-                newShortcut = null;
-            } else {
-                newShortcut = tmpShortcut;
-            }
+            newShortcut = tmpShortcut;
         }
 
-        if (mWeightEditText == null) {
+        final String tmpWeight = mWeightEditText.getText().toString();
+        if (TextUtils.isEmpty(tmpWeight)) {
             newWeight = String.valueOf(WEIGHT_FOR_USER_DICTIONARY_ADDS);
         } else {
-            final String tmpWeight = mWeightEditText.getText().toString();
-            if (TextUtils.isEmpty(tmpWeight)) {
-                newWeight = String.valueOf(WEIGHT_FOR_USER_DICTIONARY_ADDS);
-            } else {
-                newWeight = tmpWeight;
-            }
+            newWeight = tmpWeight;
         }
 
         mSavedWord = newWord;
