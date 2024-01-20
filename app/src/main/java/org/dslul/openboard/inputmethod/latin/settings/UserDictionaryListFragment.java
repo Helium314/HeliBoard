@@ -90,7 +90,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * Creates the entries that allow the user to go into the user dictionary for each locale.
      * @param userDictGroup The group to put the settings in.
      */
-    protected void createUserDictSettings(final PreferenceGroup userDictGroup) {
+    private void createUserDictSettings(final PreferenceGroup userDictGroup) {
         final TreeSet<String> sortedLanguages = getSortedDictionaryLocaleStrings(requireContext());
 
         // Add preference "for all locales"
@@ -130,19 +130,15 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param localeString The locale for which this user dictionary is for.
      * @return The corresponding preference.
      */
-    protected Preference createUserDictionaryPreference(@Nullable final String localeString) {
+    private Preference createUserDictionaryPreference(@NonNull final String localeString) {
         final Preference newPref = new Preference(requireContext());
 
-        if (null == localeString) {
-            newPref.setTitle(Locale.getDefault().getDisplayName());
+        if (localeString.isEmpty()) {
+            newPref.setTitle(getString(R.string.user_dict_settings_all_languages));
         } else {
-            if (localeString.isEmpty()) {
-                newPref.setTitle(getString(R.string.user_dict_settings_all_languages));
-            } else {
-                newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), localeString));
-            }
-            newPref.getExtras().putString("locale", localeString);
+            newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), localeString));
         }
+        newPref.getExtras().putString("locale", localeString);
         newPref.setIconSpaceReserved(false);
         newPref.setFragment(UserDictionarySettings.class.getName());
 
