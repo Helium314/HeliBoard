@@ -38,9 +38,18 @@
         android:layout_marginBottom="10dp"
         android:gravity="bottom|end"
         android:background="@android:color/transparent">
-        <include
+        <Button
+            style="@style/User_Dictionary_Button"
             android:id="@+id/user_dictionary_add_word_button"
-            layout="@layout/user_dictionary_add_word_button" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_dict_add_word_button"
+            android:textColor="@android:color/white"
+            android:paddingStart="30dp"
+            android:paddingEnd="10dp"
+            android:drawableEnd="@drawable/ic_user_dictionary_add_word"
+            android:drawablePadding="20dp">
+        </Button>
     </LinearLayout>
 
 </LinearLayout>
