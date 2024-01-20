@@ -154,8 +154,6 @@ public class UserDictionaryAddWordContents {
     public final int apply(@NonNull final Context context) {
         final ContentResolver resolver = context.getContentResolver();
         final String newWord = mWordEditText.getText().toString();
-        final String newShortcut;
-        final String newWeight;
         final String locale = mLocaleString;
 
         if (TextUtils.isEmpty(newWord)) {
@@ -165,21 +163,19 @@ public class UserDictionaryAddWordContents {
 
         final String tmpShortcut = mShortcutEditText.getText().toString();
         if (TextUtils.isEmpty(tmpShortcut)) {
-            newShortcut = null;
+            mSavedShortcut = null;
         } else {
-            newShortcut = tmpShortcut;
+            mSavedShortcut = tmpShortcut;
         }
 
         final String tmpWeight = mWeightEditText.getText().toString();
         if (TextUtils.isEmpty(tmpWeight)) {
-            newWeight = String.valueOf(WEIGHT_FOR_USER_DICTIONARY_ADDS);
+            mSavedWeight = String.valueOf(WEIGHT_FOR_USER_DICTIONARY_ADDS);
         } else {
-            newWeight = tmpWeight;
+            mSavedWeight = tmpWeight;
         }
 
         mSavedWord = newWord;
-        mSavedShortcut = newShortcut;
-        mSavedWeight = newWeight;
 
         // In edit mode, everything is modified without overwriting other existing words
         if (MODE_EDIT == mMode && hasWord(newWord, locale, context) && newWord.equals(mOldWord)) {
@@ -199,7 +195,7 @@ public class UserDictionaryAddWordContents {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
             // Update the existing word by adding a new one
             UserDictionary.Words.addWord(context, newWord,
-                    Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocaleString) ?
+                    Integer.parseInt(mSavedWeight), mSavedShortcut, TextUtils.isEmpty(mLocaleString) ?
                             null : LocaleUtils.constructLocaleFromString(mLocaleString));
 
             // Toast appears either to indicate that the word has been modified or created
@@ -219,7 +215,7 @@ public class UserDictionaryAddWordContents {
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
         // be null. However the addWord method takes null to mean 'all locales'.
         UserDictionary.Words.addWord(context, newWord,
-                Integer.parseInt(newWeight), newShortcut, TextUtils.isEmpty(mLocaleString) ?
+                Integer.parseInt(mSavedWeight), mSavedShortcut, TextUtils.isEmpty(mLocaleString) ?
                         null : LocaleUtils.constructLocaleFromString(mLocaleString));
 
         return CODE_WORD_ADDED;
