@@ -88,7 +88,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         saveWordButton.setOnClickListener(v -> addWord());
 
         final Button deleteWordButton = mRootView.findViewById(R.id.user_dictionary_delete_button);
-        final Drawable deleteWordIcon = getBitmapFromVectorDrawable(R.drawable.ic_delete, 0.75f);
+        final Drawable deleteWordIcon = toScaledBitmapDrawable(R.drawable.ic_delete, 0.75f);
         deleteWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, deleteWordIcon, null);
         deleteWordButton.setOnClickListener(v -> {
             mContents.delete(requireContext());
@@ -122,16 +122,16 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     }
 
     // The bin icon is too big compared to the plus icon; we need to reduce it.
-    // We therefore need to convert the Vector drawable image to Bitmap.
-    private BitmapDrawable getBitmapFromVectorDrawable(int drawable, float scale) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(requireContext(), drawable);
-        if (vectorDrawable == null) return null;
-        final int h = (int) (scale * vectorDrawable.getIntrinsicHeight());
-        final int w = (int) (scale * vectorDrawable.getIntrinsicWidth());
-        vectorDrawable.setBounds(0, 0, /*right*/ w, /*bottom*/ h);
-        Bitmap bitmap = Bitmap.createBitmap(/*width*/ w, /*height*/ h, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
+    // We therefore need to convert the drawable image to a BitmapDrawable.
+    private BitmapDrawable toScaledBitmapDrawable(int drawableResId, float scale) {
+        final Drawable drawable = ContextCompat.getDrawable(requireContext(), drawableResId);
+        if (drawable == null) return null;
+        final int height = (int) (scale * drawable.getIntrinsicHeight());
+        final int width = (int) (scale * drawable.getIntrinsicWidth());
+        drawable.setBounds(0, 0, width, height);
+        final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        drawable.draw(canvas);
         return new BitmapDrawable(getResources(), bitmap);
     }
 
