@@ -18,8 +18,6 @@ import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,7 +46,6 @@ public class UserDictionaryAddWordContents {
     public static final int WEIGHT_FOR_USER_DICTIONARY_ADDS = 250;
 
     private int mMode; // Either MODE_EDIT or MODE_INSERT
-    private final TextView mModeTitle;
     private final EditText mWordEditText;
     private final EditText mShortcutEditText;
     private final EditText mWeightEditText;
@@ -62,7 +59,6 @@ public class UserDictionaryAddWordContents {
     private Context mContext;
 
     UserDictionaryAddWordContents(final View view, final Bundle args) {
-        mModeTitle = view.findViewById(R.id.user_dictionary_mode_title);
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
         mWordEditText.requestFocus();
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
@@ -91,10 +87,8 @@ public class UserDictionaryAddWordContents {
 
         mMode = args.getInt(EXTRA_MODE);
         if (mMode == MODE_EDIT) {
-            mModeTitle.setText(R.string.user_dict_mode_edit);
             deleteWordButton.setVisibility(View.VISIBLE);
         } else if (mMode == MODE_INSERT) {
-            mModeTitle.setText(R.string.user_dict_mode_insert);
             deleteWordButton.setVisibility(View.INVISIBLE);
         }
 
@@ -104,7 +98,6 @@ public class UserDictionaryAddWordContents {
     }
 
     UserDictionaryAddWordContents(final View view, final UserDictionaryAddWordContents oldInstanceToBeEdited) {
-        mModeTitle = view.findViewById(R.id.user_dictionary_mode_title);
         mWordEditText = view.findViewById(R.id.user_dictionary_add_word_text);
         mShortcutEditText = view.findViewById(R.id.user_dictionary_add_shortcut);
         mWeightEditText = view.findViewById(R.id.user_dictionary_add_weight);
@@ -139,12 +132,8 @@ public class UserDictionaryAddWordContents {
         if (MODE_EDIT != mMode || TextUtils.isEmpty(mOldWord))
             return;
         final ContentResolver resolver = context.getContentResolver();
-        final String localeDisplayName = UserDictionarySettings.getLocaleDisplayName(context, mLocaleString);
-        final String messageDeleted = context.getString(R.string.user_dict_word_deleted, localeDisplayName);
         // Remove the old entry.
         UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocaleString, resolver);
-        // Toast appears to indicate that the word has been deleted
-        Toast.makeText(context, messageDeleted, Toast.LENGTH_SHORT).show();
     }
 
     public final int apply(@NonNull final Context context) {
@@ -172,8 +161,6 @@ public class UserDictionaryAddWordContents {
         // In edit mode, everything is modified without overwriting other existing words
         if (MODE_EDIT == mMode && hasWord(newWord, locale, context) && newWord.equals(mOldWord)) {
             UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, locale, resolver);
-            // Toast appears to indicate that the word has been modified
-            Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
         } else {
             mMode = MODE_INSERT;
         }
@@ -190,14 +177,6 @@ public class UserDictionaryAddWordContents {
                     Integer.parseInt(mSavedWeight), mSavedShortcut, TextUtils.isEmpty(mLocaleString) ?
                             null : LocaleUtils.constructLocaleFromString(mLocaleString));
 
-            // Toast appears either to indicate that the word has been modified or created
-            if (!TextUtils.isEmpty(mOldWord)) {
-                Toast.makeText(context, context.getText(R.string.user_dict_word_modified), Toast.LENGTH_SHORT).show();
-            } else {
-                final String localeDisplayName = UserDictionarySettings.getLocaleDisplayName(context, mLocaleString);
-                final String messageWordAdded = context.getString(R.string.user_dict_word_added, localeDisplayName);
-                Toast.makeText(context, messageWordAdded, Toast.LENGTH_SHORT).show();
-            }
             return CODE_UPDATED;
         }
 

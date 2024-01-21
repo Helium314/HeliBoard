@@ -588,16 +588,6 @@ New dictionary:
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
     <!-- This resource is corresponding to msgid="5433275485499039199" -->
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <!-- Title for user dictionary editing mode -->
-    <string name="user_dict_mode_edit">Edit mode</string>
-    <!-- Title for user dictionary insertion mode -->
-    <string name="user_dict_mode_insert">Insert mode</string>
-    <!-- Message for successful addition of a word to the user dictionary -->
-    <string name="user_dict_word_added">Word added to the dictionary: %s</string>
-    <!-- Message for successful deletion of a word to the user dictionary -->
-    <string name="user_dict_word_deleted">Word removed from the dictionary: %s</string>
-    <!-- Message of successful modification of a word in the user dictionary -->
-    <string name="user_dict_word_modified">Word successfully updated</string>
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>
     <!-- User dictionary settings. Text button to add a word -->
