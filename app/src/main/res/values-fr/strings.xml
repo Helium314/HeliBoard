@@ -215,7 +215,10 @@ Nouveau dictionnaire:
     <string name="voice">Entrée vocale</string>
     <string name="settings">Paramètres</string>
     <string name="select_all">Sélectionner tout</string>
+    <string name="select_word">Sélectionner mot</string>
     <string name="one_handed">Mode une main</string>
+    <string name="full_left">Début de ligne</string>
+    <string name="full_right">Fin de ligne</string>
     <string name="left">Gauche</string>
     <string name="right">Droite</string>
     <string name="up">Haut</string>
