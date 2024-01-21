@@ -240,10 +240,15 @@ private fun loadEnabledSubtypes(context: Context) {
     for (localeAndLayout in subtypeStrings) {
         require(localeAndLayout.size == 2)
         val subtypesForLocale = resourceSubtypesByLocale[localeAndLayout.first()]
-        if (DebugFlags.DEBUG_ENABLED) // should not happen, but should not crash for normal user
-            require(subtypesForLocale != null)
-        else if (subtypesForLocale == null)
+        if (subtypesForLocale == null) {
+            val message = "no resource subtype for $localeAndLayout"
+            Log.w(TAG, message)
+            if (DebugFlags.DEBUG_ENABLED)
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            else // don't remove in debug mode
+                removeEnabledSubtype(prefs, localeAndLayout.joinToString(LOCALE_LAYOUT_SEPARATOR))
             continue
+        }
 
         val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
             ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first() && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.last() }
