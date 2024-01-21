@@ -39,13 +39,13 @@
         android:layout_height="wrap_content" />
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
         <Switch
             android:id="@+id/language_switch"
             android:padding="6dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
         <TextView
             android:id="@+id/blocker"
             android:visibility="gone"
