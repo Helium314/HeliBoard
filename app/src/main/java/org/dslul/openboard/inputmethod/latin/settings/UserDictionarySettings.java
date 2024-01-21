@@ -58,7 +58,7 @@ public class UserDictionarySettings extends ListFragment {
     private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=?";
     private static final String QUERY_SELECTION_ALL_LOCALES = UserDictionary.Words.LOCALE + " is null";
 
-    private static final String DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_LOCALE =UserDictionary.Words.WORD + "=? AND "
+    private static final String DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_LOCALE = UserDictionary.Words.WORD + "=? AND "
             + UserDictionary.Words.SHORTCUT + "=? AND "
             + UserDictionary.Words.FREQUENCY + "=? AND "
             + UserDictionary.Words.LOCALE + "=?";
@@ -232,33 +232,24 @@ public class UserDictionarySettings extends ListFragment {
     }
 
     private String getWord(final int position) {
-        if (null == mCursor) return null;
-        mCursor.moveToPosition(position);
-        // Handle a possible race-condition
-        if (mCursor.isAfterLast()) return null;
-
-        return mCursor.getString(
-                mCursor.getColumnIndexOrThrow(UserDictionary.Words.WORD));
+        return getEntry(position, UserDictionary.Words.WORD);
     }
 
     private String getShortcut(final int position) {
-        if (null == mCursor) return null;
-        mCursor.moveToPosition(position);
-        // Handle a possible race-condition
-        if (mCursor.isAfterLast()) return null;
-
-        return mCursor.getString(
-                mCursor.getColumnIndexOrThrow(UserDictionary.Words.SHORTCUT));
+        return getEntry(position, UserDictionary.Words.SHORTCUT);
     }
 
     private String getWeight(final int position) {
+        return getEntry(position, UserDictionary.Words.FREQUENCY);
+    }
+
+    private String getEntry(final int position, final String column) {
         if (null == mCursor) return null;
         mCursor.moveToPosition(position);
         // Handle a possible race-condition
         if (mCursor.isAfterLast()) return null;
 
-        return mCursor.getString(
-                mCursor.getColumnIndexOrThrow(UserDictionary.Words.FREQUENCY));
+        return mCursor.getString(mCursor.getColumnIndexOrThrow(column));
     }
 
     public static void deleteWordInEditMode(final String word, final String shortcut, final String weight,
