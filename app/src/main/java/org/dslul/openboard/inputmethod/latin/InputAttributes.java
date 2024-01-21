@@ -30,6 +30,7 @@ public final class InputAttributes {
     final public boolean mInputTypeNoAutoCorrect;
     final public boolean mIsPasswordField;
     final public boolean mShouldShowSuggestions;
+    final public boolean mMayOverrideShowingSuggestions;
     final public boolean mApplicationSpecifiedCompletionOn;
     final public boolean mShouldInsertSpacesAutomatically;
     final public boolean mShouldShowVoiceInputKey;
@@ -71,6 +72,7 @@ public final class InputAttributes {
                         + " imeOptions=0x%08x", inputType, editorInfo.imeOptions));
             }
             mShouldShowSuggestions = false;
+            mMayOverrideShowingSuggestions = false;
             mInputTypeNoAutoCorrect = false;
             mApplicationSpecifiedCompletionOn = false;
             mShouldInsertSpacesAutomatically = false;
@@ -90,6 +92,7 @@ public final class InputAttributes {
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
         mShouldShowSuggestions = !mIsPasswordField && !flagNoSuggestions;
+        mMayOverrideShowingSuggestions = !mIsPasswordField;
 
         mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(inputType);
 
