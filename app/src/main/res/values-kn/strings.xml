@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"ಲಾಂಚರ್‌ನಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ಪ್ರದರ್ಶಿಸು"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"ನಿಘಂಟುಗಳಿಗಾಗಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"ಬಳಕೆದಾರರ ನಿಘಂಟುಗಳು"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"ಬಳಕೆದಾರರ ನಿಘಂಟು"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"ನಿಘಂಟು ಲಭ್ಯವಿದೆ"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"ನಿಘಂಟು ಸೇವೆಗೆ ಸಂಪರ್ಕಗೊಳಿಸುವಾಗ ಸಮಸ್ಯೆ"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"ನಿಘಂಟುಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
@@ -112,21 +110,14 @@
     <string name="version_text" msgid="2715354215568469385">"ಆವೃತ್ತಿ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ಸೇರಿಸು"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"ನಿಘಂಟಿಗೆ ಸೇರಿಸಿ"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"ನುಡಿಗಟ್ಟು"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"ಕಡಿಮೆ ಆಯ್ಕೆಗಳು"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"ಪದ:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"ಶಾರ್ಟ್‌ಕಟ್:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ಭಾಷೆ:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ಪದವನ್ನು ಟೈಪ್ ಮಾಡಿ"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ಐಚ್ಛಿಕ ಶಾರ್ಟ್‌ಕಟ್"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"ಪದವನ್ನು ಎಡಿಟ್ ಮಾಡಿ"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"ಎಡಿಟ್"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"ಅಳಿಸಿ"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ಬಳಕೆದಾರರ ನಿಘಂಟಿನಲ್ಲಿ ನೀವು ಯಾವುದೇ ಪದಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ಪದವನ್ನು ಸೇರಿಸಲು, ಸೇರಿಸು (+) ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ಎಲ್ಲ ಭಾಷೆಗಳಿಗೆ"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ಇನ್ನಷ್ಟು ಭಾಷೆಗಳು…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"ಅಳಿಸಿ"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ಸಿಸ್ಟಂ ಭಾಷೆಗಳನ್ನು ಬಳಸಿ"</string>
     <string name="select_input_method">"ಇನ್‌ಪುಟ್‌‌ ವಿಧಾನವನ್ನು ಆರಿಸಿ"</string>

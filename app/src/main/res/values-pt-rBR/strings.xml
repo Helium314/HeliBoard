@@ -81,7 +81,6 @@
     <string name="setup_step3_title">Parabéns, configuração concluída!</string>
     <string name="show_setup_wizard_icon">Mostrar ícone do aplicativo</string>
     <string name="dictionary_settings_title">Adicionar dicionários</string>
-    <string name="default_user_dict_pref_name">Dicionário da(o) usuária(o)</string>
     <string name="cannot_connect_to_dict_service">Erro ao contatar o serviço de dicionário</string>
     <string name="no_dictionaries_available">Nenhum dicionário disponível</string>
     <string name="check_for_updates_now">Atualizar</string>
@@ -89,14 +88,12 @@
     <string name="settings">Configurações</string>
     <string name="delete_dict">Apagar</string>
     <string name="user_dict_settings_add_menu_title">Adicionar</string>
-    <string name="user_dict_settings_add_dialog_more_options">Mais opções</string>
     <string name="user_dict_settings_add_shortcut_option_name">Atalho:</string>
     <string name="user_dict_settings_add_locale_option_name">Idioma:</string>
     <string name="user_dict_settings_edit_dialog_title">Editar palavra</string>
     <string name="user_dict_settings_empty_text">Não existem palavras no dicionário da(o) usuária(o). Para adicionar uma palavra, toque na tecla (+).</string>
     <string name="user_dict_settings_all_languages">Para todos os idiomas</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
-    <string name="user_dict_settings_delete">Apagar</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Borda em teclas</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do OpenBoard</string>
@@ -145,18 +142,12 @@
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Em seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de entrada.</string>
-    <string name="user_dictionaries">Dicionários da(o) usuária(o)</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar e escrever nos seus aplicativos favoritos.</string>
     <string name="main_dict_description">Dicionário principal</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_screen_title">Frase</string>
-    <string name="user_dict_settings_add_dialog_less_options">Menos opções</string>
-    <string name="user_dict_settings_context_menu_delete_title">Apagar</string>
-    <string name="user_dict_settings_add_word_option_name">Palavra:</string>
     <string name="user_dict_settings_add_word_hint">Escreva uma palavra</string>
     <string name="user_dict_settings_add_shortcut_hint">Atalho opcional</string>
-    <string name="user_dict_settings_context_menu_edit_title">Editar</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">A aparência seguirá as configurações de tema do sistema</string>
     <string name="language_switch_key_switch_input_method">Mudar para outros métodos de entrada</string>

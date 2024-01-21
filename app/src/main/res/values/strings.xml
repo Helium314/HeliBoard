@@ -536,10 +536,6 @@ New dictionary:
     <string name="dictionary_file_wrong_locale_ok">"Still use"</string>
     <!-- Text shown on other errors when loading dictionary file -->
     <string name="dictionary_load_error">"Error loading dictionary file"</string>
-    <!-- Name of the user dictionaries settings category -->
-    <string name="user_dictionaries">User dictionaries</string>
-    <!-- Name for the "user dictionary" preference item when there is only one -->
-    <string name="default_user_dict_pref_name">User dictionary</string>
     <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
     <string name="dictionary_available">Dictionary available</string>
     <!-- Message to display in the dictionaries setting screen when some error prevented us to list installed dictionaries [CHAR LIMIT=20] -->
@@ -562,21 +558,11 @@ New dictionary:
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. [CHAR LIMIT=25] -->
     <!-- This resource is corresponding to msgid="4702613990174126482" -->
     <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
-    <!-- User dictionary settings. The title of the screen to add/edit a new word to the user dictionary; it describes the phrase that will be added to the user dictionary. [CHAR LIMIT=25] -->
-    <!-- This resource is corresponding to msgid="742580720124344291" -->
-    <string name="user_dict_settings_add_screen_title">Phrase</string>
-    <!-- User dictionary settings. Text on the dialog button to pop more options for adding a word. [CHAR LIMIT=16] -->
-    <!-- This resource is corresponding to msgid="8848798370746019825" -->
-    <string name="user_dict_settings_add_dialog_more_options">More options</string>
-    <!-- User dictionary settings. Text on the dialog button mask advanced options. [CHAR LIMIT=15] -->
-    <!-- This resource is corresponding to msgid="2441785268726036101" -->
-    <string name="user_dict_settings_add_dialog_less_options">Less options</string>
-    <!-- User dictionary settings. Label to put before the word field (that's the word that will actually be added to the user dictionary when OK is pressed). [CHAR LIMIT=20] -->
-    <!-- This resource is corresponding to msgid="7868879174905963135" -->
-    <string name="user_dict_settings_add_word_option_name">Word:</string>
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). [CHAR LIMIT=20] -->
     <!-- This resource is corresponding to msgid="660089258866063925" -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
+    <!-- User dictionary settings. Label to put before the weight field -->
+    <string name="user_dict_settings_add_weight_value">Weight:</string>
     <!-- User dictionary settings. Label to put before the language field. [CHAR LIMIT=20] -->
     <!-- This resource is corresponding to msgid="5696358317061318532" -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
@@ -589,12 +575,6 @@ New dictionary:
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- This resource is corresponding to msgid="8967476444840548674" -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
-    <!-- User dictionary settings. The title of the context menu item to edit the current word -->
-    <!-- This resource is corresponding to msgid="2210564879320004837" -->
-    <string name="user_dict_settings_context_menu_edit_title">Edit</string>
-    <!-- User dictionary settings. The title of the context menu item to delete the current word -->
-    <!-- This resource is corresponding to msgid="9140703913776549054" -->
-    <string name="user_dict_settings_context_menu_delete_title">Delete</string>
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary  [CHAR LIMIT=200] -->
     <!-- This resource is corresponding to msgid="8165273379942105271" -->
     <string name="user_dict_settings_empty_text">You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.</string>
@@ -604,14 +584,14 @@ New dictionary:
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one [CHAR LIMIT=30] -->
     <!-- This resource is corresponding to msgid="7316375944684977910" -->
     <string name="user_dict_settings_more_languages">More languages…</string>
-    <!-- User dictionary settings. Label to delete an entry in the user dictionary [CHAR LIMIT=30]
-         This resource is copied from packages/apps/Settings/res/values/strings.xml -->
-    <!-- This resource is corresponding to msgid="4219243412325163003" -->
-    <string name="user_dict_settings_delete">Delete</string>
     <!-- User dictionary settings. Index of the user dictionary [CHAR LIMIT=30]
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
     <!-- This resource is corresponding to msgid="5433275485499039199" -->
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <!-- Message in user dictionary dialog -->
+    <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>
+    <!-- User dictionary settings. Text button to add a word -->
+    <string name="user_dict_add_word_button">Add a word</string>
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
     <!-- Style name for Rounded style -->

@@ -140,8 +140,6 @@ Nouveau dictionnaire:
     <string name="dictionary_file_wrong_script">"Erreur: script non compatible avec ce clavier"</string>
     <string name="dictionary_file_wrong_locale_ok">"Utiliser quand même"</string>
     <string name="dictionary_load_error">"Erreur de chargement du fichier dictionnaire"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Dictionnaires personnels"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Dictionnaire personnel"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Dictionnaire disponible"</string>
     <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Aucun dictionnaire"</string>
@@ -152,22 +150,18 @@ Nouveau dictionnaire:
     <string name="version_text" msgid="2715354215568469385">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Ajouter"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Ajouter au dictionnaire"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Expression"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Plus d\'options"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Moins d\'options"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Mot :"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Raccourci :"</string>
+    <string name="user_dict_settings_add_weight_value">Poids :</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Langue :"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Saisissez un mot"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Raccourci facultatif"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Modifier le mot"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Modifier"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Supprimer"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Votre dictionnaire personnel ne contient aucun mot. Pour ajouter un mot, appuyez sur le bouton d\'ajout \"+\"."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Pour toutes les langues"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Plus de langues…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Supprimer"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_word_already_present">Ce mot est déjà présent dans le dictionnaire utilisateur %s. Veuillez en saisir un autre.</string>
+    <string name="user_dict_add_word_button">Ajouter un mot</string>
     <string name="spell_checker_service_name">Correcteur orthographique OpenBoard</string>
     <string name="android_spell_checker_settings">Paramètres du correcteur orthographique OpenBoard</string>
     <string name="number_row">Ligne de chiffres</string>

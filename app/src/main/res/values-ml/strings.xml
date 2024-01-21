@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"ആഡ്-ഓൺ നിഘണ്ടുക്കൾ"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"നിഘണ്ടുക്കൾക്കായുള്ള ക്രമീകരണങ്ങൾ"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"ഉപയോക്തൃ നിഘണ്ടുക്കൾ"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"ഉപയോക്തൃ നിഘണ്ടു"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"നിഘണ്ടു ലഭ്യമാണ്"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"നിഘണ്ടു സേവനത്തിൽ കണക്റ്റുചെയ്യുന്നതിൽ പ്രശ്‌നം"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"നിഘണ്ടുക്കളൊന്നും ലഭ്യമല്ല"</string>
@@ -112,21 +110,14 @@
     <string name="version_text" msgid="2715354215568469385">വേർഷൻ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ചേര്‍ക്കുക"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"നിഘണ്ടുവിൽ ചേർക്കുക"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"വാക്യം"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"കുറച്ച് ഓപ്‌ഷനുകൾ"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"പദം:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"കുറുക്കുവഴി:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ഭാഷ:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ഒരു പദം ടൈപ്പുചെയ്യുക"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ഓപ്‌ഷണൽ കുറുക്കുവഴി"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"പദം എഡിറ്റുചെയ്യുക"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"എഡിറ്റുചെയ്യുക"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"ഇല്ലാതാക്കുക"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ഉപയോക്തൃ നിഘണ്ടുവിൽ നിങ്ങൾക്ക് പദങ്ങളൊന്നുമില്ല. ഒരു പദം ചേർക്കുന്നതിന്, ചേർക്കുക (+) ബട്ടൺ ടാപ്പ് ചെയ്യുക."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"എല്ലാ ഭാഷകൾക്കുമായി"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"കൂടുതൽ ഭാഷകൾ…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"ഇല്ലാതാക്കുക"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_miscellaneous">വിവിധ</string>
     <string name="settings_no_limit">പരിധിയില്ല</string>

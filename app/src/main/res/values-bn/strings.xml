@@ -202,8 +202,6 @@
     <string name="dictionary_file_wrong_locale">"নির্বাচিত ফাইলটি %1$s এর জন্য, %2$s এর জন্য ফাইল প্রয়োজন। তবুও %2$s এর জন্য ব্যবহৃত হবে?"</string>
     <string name="dictionary_file_wrong_locale_ok">"তবুও ব্যবহার করুন"</string>
     <string name="dictionary_load_error">"অভিধান ফাইল যোগ করতে ত্রুটি"</string>
-    <string name="user_dictionaries">ব্যবহারকারী-যোগকৃত অভিধান</string>
-    <string name="default_user_dict_pref_name">ব্যবহারকারী-যোগকৃত অভিধান</string>
     <string name="dictionary_available">অভিধান উপলব্ধ</string>
     <string name="cannot_connect_to_dict_service">অভিধান পরিষেবার সাথে সংযুক্ত হতে সমস্যা হচ্ছে</string>
     <string name="no_dictionaries_available">কোনো অভিধান উপলব্ধ নয়</string>
@@ -215,21 +213,14 @@
     <string name="version_text">সংস্করণ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">যোগ করুন</string>
     <string name="user_dict_settings_add_dialog_title">অভিধানে যোগ</string>
-    <string name="user_dict_settings_add_screen_title">শব্দগুচ্ছ</string>
-    <string name="user_dict_settings_add_dialog_more_options">আরও বিকল্প</string>
-    <string name="user_dict_settings_add_dialog_less_options">কম বিকল্প</string>
-    <string name="user_dict_settings_add_word_option_name">শব্দ:</string>
     <string name="user_dict_settings_add_shortcut_option_name">শর্টকাট:</string>
     <string name="user_dict_settings_add_locale_option_name">ভাষা:</string>
     <string name="user_dict_settings_add_word_hint">শব্দ টাইপ করুন</string>
     <string name="user_dict_settings_add_shortcut_hint">ঐচ্ছিক শর্টকাট</string>
     <string name="user_dict_settings_edit_dialog_title">শব্দ সম্পাদনা</string>
-    <string name="user_dict_settings_context_menu_edit_title">সম্পাদনা</string>
-    <string name="user_dict_settings_context_menu_delete_title">অপসারণ করুন</string>
     <string name="user_dict_settings_empty_text">ব্যবহারকারী অভিধানে আপনার কোনো শব্দ নেই। শব্দ যোগ করতে (+) বোতামটি ট্যাপ করুন।</string>
     <string name="user_dict_settings_all_languages">সব ভাষার জন্য</string>
     <string name="user_dict_settings_more_languages">আরও ভাষা…</string>
-    <string name="user_dict_settings_delete">অপসারণ করুন</string>
     <string name="user_dict_fast_scroll_alphabet">\u0020অআইঈউঊঋএঐওঔংঃকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ</string>
     <string name="theme_style">শৈলী</string>
     <string name="theme_colors">রং</string>

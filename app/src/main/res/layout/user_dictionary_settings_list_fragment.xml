@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2013 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:cacheColorHint="@android:color/transparent"
+        android:clipToPadding="false"
+        android:drawSelectorOnTop="false"
+        android:paddingTop="0dip"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:divider="@null" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:gravity="center"
+        android:padding="5dip"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="bottom|end"
+        android:background="@android:color/transparent">
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/user_dictionary_add_word_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_dict_add_word_button"
+            android:textColor="@android:color/white"
+            android:paddingStart="30dp"
+            android:paddingEnd="10dp"
+            android:drawableEnd="@drawable/ic_user_dictionary_add_word"
+            android:drawablePadding="20dp">
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

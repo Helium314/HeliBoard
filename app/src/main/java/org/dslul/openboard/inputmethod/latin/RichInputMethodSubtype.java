@@ -40,7 +40,7 @@ public class RichInputMethodSubtype {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Locale#forLanguageTag is available on API Level 21+.
             // TODO: Remove this workaround once when we become able to deal with "sr-Latn".
-            map.put(Locale.forLanguageTag("sr-Latn"), new Locale("sr_ZZ"));
+            map.put(Locale.forLanguageTag("sr-Latn"), new Locale("sr", "ZZ"));
         }
         return map;
     }

@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Икона апликације се приказује у покретачу"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Помоћни речници"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Подешавања за речнике"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Кориснички речници"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Кориснички речник"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Речник је доступан"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Проблем при повезивању с услугом речника"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Нема доступних речника"</string>
@@ -112,21 +110,14 @@
     <string name="version_text" msgid="2715354215568469385">"Верзија <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Додај"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Додавање у речник"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Фраза"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Више опција"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Мање опција"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Реч:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Пречица:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Језик:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Унесите реч"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Опционална пречица"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Измена речи"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Измени"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Избриши"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Немате ниједну реч у корисничком речнику. Да бисте додали реч, додирните дугме Додај (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"За све језике"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Још језика..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Избриши"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Користи језике система"</string>
     <string name="select_input_method">"Избор метода уноса"</string>

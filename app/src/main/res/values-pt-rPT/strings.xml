@@ -100,8 +100,6 @@
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone da aplicação no iniciador"</string>
     <string name="dictionary_settings_title">"Dicionários suplementares"</string>
     <string name="dictionary_settings_summary">"Definições dos dicionários"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Dicionários do utilizador"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Dicionário do utilizador"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Dicionário disponível"</string>
     <string name="cannot_connect_to_dict_service">"Problema ao ligar ao serviço de dicionário"</string>
     <string name="no_dictionaries_available">"Nenhum dicionário"</string>
@@ -113,21 +111,14 @@
     <string name="version_text" msgid="2715354215568469385">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Adicionar"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Adicionar ao dicionário"</string>
-    <string name="user_dict_settings_add_screen_title">"Expressão"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Mais opções"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Menos opções"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Palavra:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Atalho:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Escreva uma palavra"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Atalho opcional"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Editar palavra"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Editar"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Eliminar"</string>
     <string name="user_dict_settings_empty_text">"Não tem palavras no dicionário do utilizador. Para adicionar uma palavra, toque no botão Adicionar (+)."</string>
     <string name="user_dict_settings_all_languages">"Em todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">"Mais idiomas..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Eliminar"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="delete_swipe">Deslize para eliminar</string>

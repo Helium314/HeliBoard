@@ -79,7 +79,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
@@ -137,7 +136,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
     public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
     public static final String PREF_URL_DETECTION = "pref_url_detection";
-
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
     public static final String PREF_PINNED_TOOLBAR_KEYS = "pref_pinned_toolbar_keys";
     public static final String PREF_TOOLBAR_KEYS = "pref_toolbar_keys";

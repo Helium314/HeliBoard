@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"लॉन्चर में ऐप आइकॉन दिखाएं"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"अन्य शब्दकोष"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"डिक्‍शनरी की सेटिंग"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"उपयोगकर्ता डिक्शनरी"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"उपयोगकर्ता डिक्शनरी"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"शब्दकोश उपलब्‍ध"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"शब्दकोश सेवा से कनेक्ट करने में समस्या"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"डिक्‍शनरी अनुपलब्‍ध"</string>
@@ -112,21 +110,14 @@
     <string name="version_text" msgid="2715354215568469385">"वर्शन <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"जोड़ें"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"शब्दकोश में जोड़ें"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"वाक्यांश"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"ज़्यादा विकल्प"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"कम विकल्‍प"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"शब्द:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"शॉर्टकट:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"भाषा:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"कोई शब्द लिखें"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"वैकल्पिक शॉर्टकट"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"शब्द बदलें"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"बदलाव करें"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"मिटाएं"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"आपके पास उपयोगकर्ता डिक्शनरी में कोई भी शब्द नहीं है. कोई शब्द जोड़ने के लिए, जोड़ें (+) बटन छूएं."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"सभी भाषाओं के लिए"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ज़्यादा भाषाएं…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"मिटाएं"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"सिस्टम की भाषाओं का इस्तेमाल करें"</string>
     <string name="select_input_method">"इनपुट का तरीका चुनें"</string>

@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‏‎‏‏‎‎‎‎‎‎‏‏‎‏‎‎‏‏‏‏‏‏‎‎‏‏‎‏‏‏‎‏‎‏‏‎‏‎‎‏‎‏‏‏‏‎‏‎‏‏‏‏‎‏‎Display application icon in the launcher‎‏‎‎‏‎"</string>
     <string name="dictionary_settings_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‎‎‏‎‎‏‏‏‎‎‏‎‎‏‏‎‏‏‏‏‎‏‏‎‏‏‏‏‎‎‎‏‎‏‏‎‏‎‎‏‏‏‎‎‏‏‏‏‎‎‏‏‎‏‎Add-on dictionaries‎‏‎‎‏‎"</string>
     <string name="dictionary_settings_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‎‏‎‏‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‎‎‏‏‏‏‏‏‏‎‏‏‎‏‎‎Settings for dictionaries‎‏‎‎‏‎"</string>
-    <string name="user_dictionaries">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‎‎‎‏‎‏‎‏‎‏‎‎‏‎‎‏‎‎‏‏‏‎‎‎‏‎‎‏‏‎‎‏‏‎‏‎‏‎‎‎‎‏‎‏‎‎‎‎‏‏‎‏‎‎User dictionaries‎‏‎‎‏‎"</string>
-    <string name="default_user_dict_pref_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‏‏‏‎‏‎‎‏‏‎‎‏‏‎‎‏‏‎‎‏‏‎‏‎‎‏‎‏‏‎‎‏‏‎‎‏‏‏‎‏‎‎‎‏‎‏‏‎‏‎‎‎‏‏‎‏‎User dictionary‎‏‎‎‏‎"</string>
     <string name="dictionary_available">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‏‏‎‎‏‎‎‏‏‏‎‏‏‎‎‏‏‏‏‎‏‏‎‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‏‎‎‏‎‏‎Dictionary available‎‏‎‎‏‎"</string>
     <string name="cannot_connect_to_dict_service">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‎‎‏‎‎‎‎‏‎‎‏‏‏‏‎‏‎‏‎‏‏‎‏‏‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‏‏‏‏‎‏‏‎‎‎‏‏‏‏‎‎‎‎‎‎Problem connecting to dictionary service‎‏‎‎‏‎"</string>
     <string name="no_dictionaries_available">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‏‏‎‎‎‏‎‎‏‏‎‎‏‎‎‎‏‎‎‎‎‎‏‎‎‏‎‎‎‎‎‏‏‎‎‎‏‏‏‎‎‎‎‎‏‏‏‎‏‏‏‎‎No dictionaries available‎‏‎‎‏‎"</string>
@@ -112,21 +110,14 @@
     <string name="version_text" msgid="2715354215568469385">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‎‏‎‏‏‏‎‏‏‏‎‎‎‎‎‎‏‎‎‎‏‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‎‎‏‎Version ‎‏‎‎‏‏‎<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_menu_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‎‏‎‎‎‎‎‎‏‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‏‎‎‏‎‏‏‏‏‎‏‎‎‏‏‏‏‎‎‎‏‏‏‎‏‏‏‎‏‏‎Add‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_dialog_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‎‎‎‎‏‏‎‎‏‏‎‎‏‏‏‏‎‏‎‏‎‎‏‏‎‎‏‎‎‎‏‏‏‎‎‎‎‏‏‏‎‎‏‎‏‏‎‏‎‎‎‎‎‎‎Add to dictionary‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_screen_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‎‏‏‎‏‏‏‎‎‎‎‏‏‏‎‎‏‏‏‏‎‎‏‏‎‎‎‏‏‎‏‏‎‏‎‎‎‎‎‏‏‏‏‏‎‏‏‎‏‎‏‏‎‏‎‏‎Phrase‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_dialog_more_options">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‏‎‎‏‎‏‎‏‎‎‎‏‏‎‎‎‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎‏‎‏‎‏‎‎‎‏‎‎‏‏‎‏‎‏‏‏‎More options‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_dialog_less_options">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‎‎‏‎‎‎‏‎‎‏‎‏‎‎‏‏‏‎‎‎‏‎‎‎‎‎‏‎‏‏‏‏‏‎‏‎‎‎‎‎‎‏‏‎‎‏‎‏‏‏‎Less options‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_word_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‎‎‎‏‎‎‎‎‏‎‏‎‎‏‎‏‎‏‎‏‎‎‏‏‎‎‏‎‏‏‏‎‎‎‎‏‏‎‎‏‏‎‎‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‎Word:‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‎‏‏‎‏‏‏‎‏‏‏‏‎‏‏‎‏‎‎‏‎‎‏‎‏‏‏‎‎‏‎‎‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎Shortcut:‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_locale_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‏‎‎‏‎‎‎‎‏‎‏‎‏‎‏‎‏‏‏‎‏‎‎‏‎‏‏‏‏‎‎‏‎‎‏‎‏‏‏‎‏‏‏‏‏‎‏‏‏‎‏‏‎Language:‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_word_hint">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‏‎‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‏‎‏‎‎‎‏‎‏‎‎‏‎‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‎‏‎‏‎‏‏‎Type a word‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_shortcut_hint">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‏‎‎‎‏‏‎‏‏‎‏‏‏‎‎‎‎‏‎‎‏‏‏‎‎‏‏‎‎‎‎‎‎‏‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‎‎Optional shortcut‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_edit_dialog_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‏‎‏‎‎‏‏‎‏‎‎‏‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‏‎‏‎‏‎‏‎‏‎‎‏‎‎‏‏‎‎‏‏‏‎‏‎‎‎‎‏‏‎Edit word‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_context_menu_edit_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‏‎‏‎‎‎‎‎‏‎‏‎‎‎‏‎‏‏‎‎‎‎‎‏‎‎‎‎‏‏‏‏‏‏‎‎‏‏‏‎‏‏‏‎‎‏‏‎‎‎‏‏‎‎Edit‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‏‎‎‏‏‎‎‎‏‏‏‎‏‏‎‎‎‎‏‎‎‏‎‎‎‏‏‏‏‎‏‏‎‎‏‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Delete‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_empty_text">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‏‎‎‏‎‎‎‎‎‎‎‏‏‏‎‎‏‎You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_all_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‎‎‎‏‎‎‎‎‏‎‎‏‎‏‏‏‎‎‎‏‎‎For all languages‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_more_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‏‎‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‏‎‏‎‎‎‏‏‎‎‏‏‎‎‎‎‎‎‎‎‎‏‎‎‎‏‏‎‎More languages…‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_delete">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‎‎‎‏‎‏‏‎‎‎‎‏‏‎‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‎‎‎‏‏‎‏‏‎‏‎‏‏‎‏‏‏‎‎‏‎‎‏‎Delete‎‏‎‎‏‎"</string>
     <string name="user_dict_fast_scroll_alphabet">" ‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‏‎‎‎‎‎‏‎‏‏‎‏‎‎‏‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‏‎‏‎‏‎‏‏‏‏‏‎‏‎‎‏‎‏‎‏‎‎ ABCDEFGHIJKLMNOPQRSTUVWXYZ‎‏‎‎‏‎"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‎‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‎‏‏‏‏‎‎‏‎‎‎‎‏‎‎‏‏‏‎‏‏‏‎‏‏‏‎‎‏‎‎‎‎‎‎Use system languages‎‏‎‎‏‎"</string>
     <string name="select_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‎‎‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‎‏‎‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎Choose input method‎‏‎‎‏‎"</string>

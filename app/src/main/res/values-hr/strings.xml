@@ -99,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Rječnici kao dodaci"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Postavke za rječnike"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Korisnički rječnici"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Korisnički rječnik"</string>
     <string name="dictionary_available">"Dostupan je rječnik"</string>
     <string name="cannot_connect_to_dict_service">"Nema usluge rječnika"</string>
     <string name="no_dictionaries_available">"Rječnici nedostupni"</string>
@@ -112,21 +110,14 @@
     <string name="version_text" msgid="2715354215568469385">Verzija <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Dodavanje"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Dodaj u rječnik"</string>
-    <string name="user_dict_settings_add_screen_title">"Fraza"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Više opcija"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Manje opcija"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Riječ:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Prečac:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Upišite riječ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Neobavezni prečac"</string>
     <string name="user_dict_settings_edit_dialog_title">"Uređivanje riječi"</string>
-    <string name="user_dict_settings_context_menu_edit_title">"Uređivanje"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"Brisanje"</string>
     <string name="user_dict_settings_empty_text">"Nemate nijednu riječ u korisničkom rječniku. Da biste dodali riječ, dodirnite gumb Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Izbriši"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCČĆDDŽĐEFGHIJKLLJMNNJOPRSŠTUVZŽ"</string>
     <string name="spell_checker_service_name">OpenBoard provjera pravopisa</string>
     <string name="android_spell_checker_settings">Postavke OpenBoard provjere pravopisa</string>
