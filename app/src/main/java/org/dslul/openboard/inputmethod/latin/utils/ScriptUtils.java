@@ -41,6 +41,7 @@ public class ScriptUtils {
     public static final int SCRIPT_THAI = 17;
     public static final int SCRIPT_BULGARIAN = 18; // todo: why is bulgarian a separate script?
     public static final int SCRIPT_HANGUL = 19;
+    public static final int SCRIPT_GUJARATI = 20;
 
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
     private final static ArraySet<Integer> UPPERCASE_SCRIPTS = new ArraySet<>();
@@ -79,6 +80,7 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("kk", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ky", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ne", SCRIPT_DEVANAGARI);
+        mLanguageCodeToScriptCode.put("gu", SCRIPT_GUJARATI);
 
         // only Latin, Cyrillic, Greek and Armenian have upper/lower case
         // https://unicode.org/faq/casemap_charprop.html#3
@@ -203,6 +205,9 @@ public class ScriptUtils {
                         || codePoint >= 0xA960 && codePoint <= 0xA97C
                         || codePoint >= 0xD7B0 && codePoint <= 0xD7C6
                         || codePoint >= 0xD7CB && codePoint <= 0xD7FB);
+            case SCRIPT_GUJARATI:
+                // Gujarati unicode block is U+0A80..U+0AFF
+                return (codePoint >= 0xA80 && codePoint <= 0xAFF);
             case SCRIPT_UNKNOWN:
                 return true;
             default:

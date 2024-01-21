@@ -44,6 +44,7 @@
     fr_CA: French (Canada)/qwerty
     fr_CH: French (Switzerland)/qwertz+
     gl_ES: Galician (Spain)/qwerty+
+    gu: Gujarati/gujarati
     hi: Hindi/hindi
     hi: Hindi/hindi_compact
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
@@ -420,6 +421,15 @@
             android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x39713b7f"
+            android:imeSubtypeLocale="gu"
+            android:languageTag="gu"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=gujarati,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+        <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x39753b7f"
             android:imeSubtypeLocale="hi"
