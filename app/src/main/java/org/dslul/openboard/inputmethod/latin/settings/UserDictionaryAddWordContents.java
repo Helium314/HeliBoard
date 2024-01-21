@@ -215,7 +215,7 @@ public class UserDictionaryAddWordContents {
 
     public boolean isExistingWord(final Context context) {
         final String newWord = mWordEditText.getText().toString();
-        if (mMode == MODE_INSERT || apply(context) == CODE_ALREADY_PRESENT) {
+        if (mMode != MODE_EDIT) {
             return hasWord(newWord, mLocaleString, context);
         } else {
             return false;
