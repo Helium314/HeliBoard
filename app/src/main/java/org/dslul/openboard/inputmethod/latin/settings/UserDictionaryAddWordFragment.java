@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewKt;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordContents.LocaleRenderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import kotlin.Unit;
 
 /**
  * Fragment to add a word/shortcut to the user dictionary.
@@ -86,6 +90,13 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
 
         final Button saveWordButton = mRootView.findViewById(R.id.user_dictionary_save_button);
         saveWordButton.setOnClickListener(v -> addWord());
+
+        TextViewKt.doAfterTextChanged(mWordEditText, (editable) -> {
+            final int visibility = TextUtils.isEmpty(editable.toString()) ? View.INVISIBLE : View.VISIBLE;
+            saveWordButton.setVisibility(visibility);
+            return Unit.INSTANCE;
+        });
+        saveWordButton.setVisibility(TextUtils.isEmpty(mWordEditText.getText().toString()) ? View.INVISIBLE : View.VISIBLE);
 
         final Button deleteWordButton = mRootView.findViewById(R.id.user_dictionary_delete_button);
         final Drawable deleteWordIcon = toScaledBitmapDrawable(R.drawable.ic_delete, 0.75f);
