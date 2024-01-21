@@ -67,6 +67,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             val colonSpaceRegex = ":\\s+".toRegex()
             reader.forEachLine { l ->
                 val line = l.trim()
+                if (line.isEmpty()) return@forEachLine
                 when (line) {
                     "[morekeys]" -> { mode = READER_MODE_MORE_KEYS; return@forEachLine }
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
@@ -284,7 +285,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
         return genericCurrencyKey(getCurrency(locale))
     if (locale.country != "IN" && locale.language == "ta")
         return genericCurrencyKey("௹")
-    if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te".toRegex()))
+    if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te|gu".toRegex()))
         return rupee
     if (locale.country == "GB")
         return pound
