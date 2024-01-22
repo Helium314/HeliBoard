@@ -39,12 +39,29 @@ public final class KeyboardTheme {
     public static final String THEME_DYNAMIC = "dynamic";
     public static final String THEME_USER = "user";
     public static final String THEME_USER_NIGHT = "user_night";
+    public static final String THEME_BLUE_GRAY = "blue_gray";
+    public static final String THEME_BROWN = "brown";
+    public static final String THEME_CHOCOLATE = "chocolate";
+    public static final String THEME_CLOUDY = "cloudy";
+    public static final String THEME_FOREST = "forest";
+    public static final String THEME_INDIGO = "indigo";
+    public static final String THEME_OCEAN = "ocean";
+    public static final String THEME_PINK = "pink";
+    public static final String THEME_SAND = "sand";
+    public static final String THEME_VIOLETTE = "violette";
+
     public static final String[] COLORS = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
-            ? new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER }
-            : new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_DYNAMIC, THEME_USER } ;
+            ? new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER,
+            THEME_BLUE_GRAY, THEME_BROWN, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_INDIGO,
+            THEME_PINK, THEME_OCEAN, THEME_SAND, THEME_VIOLETTE }
+            : new String[] { THEME_LIGHT, THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_DYNAMIC,
+            THEME_USER, THEME_BLUE_GRAY, THEME_BROWN, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_INDIGO,
+            THEME_PINK, THEME_OCEAN, THEME_SAND, THEME_VIOLETTE } ;
     public static final String[] COLORS_DARK = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
-            ? new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT }
-            : new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_DYNAMIC, THEME_USER_NIGHT } ;
+            ? new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_USER_NIGHT,
+            THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_OCEAN, THEME_VIOLETTE }
+            : new String[] { THEME_HOLO_WHITE, THEME_DARK, THEME_DARKER, THEME_BLACK, THEME_DYNAMIC,
+            THEME_USER_NIGHT, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_OCEAN, THEME_VIOLETTE } ;
 
     public static final String[] STYLES = { STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED };
 
@@ -229,6 +246,156 @@ public final class KeyboardTheme {
                 if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
                     return new DynamicColors(context, themeStyle, hasBorders);
                 }
+            case THEME_BLUE_GRAY:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(120, 144, 156),
+                        Color.rgb(120, 144, 156),
+                        Color.rgb(236, 239, 241),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(207, 216, 220),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0)
+                );
+            case THEME_BROWN:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(141, 110, 99),
+                        Color.rgb(141, 110, 99),
+                        Color.rgb(239, 235, 233),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(215, 204, 200),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0)
+                );
+            case THEME_CHOCOLATE:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(80, 128, 255),
+                        Color.rgb(80, 128, 255),
+                        Color.rgb(140, 112, 94),
+                        Color.rgb(193, 163, 146),
+                        Color.rgb(168, 127, 103),
+                        Color.rgb(193, 163, 146),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255)
+                );
+            case THEME_CLOUDY:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(255,113,129),
+                        Color.rgb(255,113,129),
+                        Color.rgb(81,97,113),
+                        Color.rgb(117, 128, 142),
+                        Color.rgb(99, 109, 121),
+                        Color.rgb(117, 128, 142),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255)
+                );
+            case THEME_FOREST:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(75, 110, 75),
+                        Color.rgb(75, 110, 75),
+                        Color.rgb(181, 125, 88),
+                        Color.rgb(228, 212, 191),
+                        Color.rgb(212, 186, 153),
+                        Color.rgb(228, 212, 191),
+                        Color.rgb(0, 50, 0),
+                        Color.rgb(0, 50, 0),
+                        Color.rgb(0, 50, 0),
+                        Color.rgb(0, 80, 0)
+                );
+            case THEME_INDIGO:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(92, 107, 192),
+                        Color.rgb(92, 107, 192),
+                        Color.rgb(232, 234, 246),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(197, 202, 233),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0)
+                );
+            case THEME_OCEAN:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(255, 124, 0),
+                        Color.rgb(255, 124, 0),
+                        Color.rgb(89, 109, 155),
+                        Color.rgb(132, 157, 212),
+                        Color.rgb(81, 116, 194),
+                        Color.rgb(132, 157, 212),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255)
+                );
+            case THEME_PINK:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(236, 64, 122),
+                        Color.rgb(236, 64, 122),
+                        Color.rgb(252, 228, 236),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(248, 187, 208),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0)
+                );
+            case THEME_SAND:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(110, 155, 255),
+                        Color.rgb(110, 155, 255),
+                        Color.rgb(242, 232, 218),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(234, 211, 185),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0),
+                        Color.rgb(0, 0, 0)
+                );
+            case THEME_VIOLETTE:
+                return new DefaultColors(
+                        themeStyle,
+                        hasBorders,
+                        Color.rgb(255, 96, 255),
+                        Color.rgb(255, 96, 255),
+                        Color.rgb(112, 112, 174),
+                        Color.rgb(150, 150, 216),
+                        Color.rgb(123, 123, 206),
+                        Color.rgb(150, 150, 216),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(255, 255, 255)
+                );
             case THEME_LIGHT:
             default:
                 return new DefaultColors(
