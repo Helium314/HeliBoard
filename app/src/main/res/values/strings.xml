@@ -623,6 +623,26 @@ New dictionary:
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Black</string>
     <!-- Theme name for dynamic colors light theme -->
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamic colors</string>
+    <!-- Theme name for blue-gray theme -->
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blue Gray</string>
+    <!-- Theme name for brown theme -->
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brown</string>
+    <!-- Theme name for chocolate theme -->
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
+    <!-- Theme name for cloudy theme -->
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Cloudy</string>
+    <!-- Theme name for forest theme -->
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Forest</string>
+    <!-- Theme name for indigo theme -->
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <!-- Theme name for ocean theme -->
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ocean</string>
+    <!-- Theme name for pink theme -->
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pink</string>
+    <!-- Theme name for sand theme -->
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
+    <!-- Theme name for violette theme -->
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violette</string>
     <!-- Theme name for user-defined theme -->
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Theme name for user-defined theme night mode theme -->

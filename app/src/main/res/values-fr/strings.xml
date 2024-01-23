@@ -237,6 +237,16 @@ Nouveau dictionnaire:
     <string name="theme_name_darker">Noir</string>
     <string name="theme_name_black">Amoled</string>
     <string name="theme_name_dynamic">Couleurs dynamiques</string>
+    <string name="theme_name_blue_gray">Bleu Gris</string>
+    <string name="theme_name_brown">Marron</string>
+    <string name="theme_name_chocolate">Chocolat</string>
+    <string name="theme_name_cloudy">Nuageux</string>
+    <string name="theme_name_forest">Forêt</string>
+    <string name="theme_name_indigo">Indigo</string>
+    <string name="theme_name_ocean">Océan</string>
+    <string name="theme_name_pink">Rose</string>
+    <string name="theme_name_sand">Sable</string>
+    <string name="theme_name_violette">Violette</string>
     <string name="theme_name_user">Personnalisé</string>
     <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
     <string name="select_user_colors">Personnaliser le thème</string>
