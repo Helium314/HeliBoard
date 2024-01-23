@@ -13,13 +13,12 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.os.SystemClock;
 
-import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.ResizableIntArray;
 
 /**
  * This class holds drawing points to represent a gesture trail. The gesture trail may contain
  * multiple non-contiguous gesture strokes and will be animated asynchronously from gesture input.
- *
+ * <p>
  * On the other hand, {@link GestureStrokeDrawingPoints} class holds drawing points of each gesture
  * stroke. This class holds drawing points of those gesture strokes to draw as a gesture trail.
  * Drawing points in this class will be asynchronously removed when fading out animation goes.
@@ -109,13 +108,14 @@ final class GestureTrailDrawingPoints {
      * @return the width of a gesture trail
      */
     private static int getAlpha(final int elapsedTime, final GestureTrailDrawingParams params) {
+        final int fullAlpha = Color.alpha(params.mTrailColor);
         if (elapsedTime < params.mFadeoutStartDelay) {
-            return Constants.Color.ALPHA_OPAQUE;
+            return fullAlpha;
         }
-        final int decreasingAlpha = Constants.Color.ALPHA_OPAQUE
+        final int decreasingAlpha = fullAlpha
                 * (elapsedTime - params.mFadeoutStartDelay)
                 / params.mFadeoutDuration;
-        return Constants.Color.ALPHA_OPAQUE - decreasingAlpha;
+        return fullAlpha - decreasingAlpha;
     }
 
     /**
