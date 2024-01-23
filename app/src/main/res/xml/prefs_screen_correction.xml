@@ -31,6 +31,13 @@
             android:defaultValue="true"
             android:persistent="true" />
 
+        <SwitchPreferenceCompat
+            android:key="pref_more_auto_correction"
+            android:title="@string/more_autocorrect"
+            android:summary="@string/more_autocorrect_summary"
+            android:defaultValue="true"
+            android:persistent="true" />
+
         <ListPreference
             android:key="pref_key_auto_correction_confidence"
             android:title="@string/auto_correction_confidence"

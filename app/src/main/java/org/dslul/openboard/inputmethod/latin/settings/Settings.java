@@ -80,6 +80,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
+    public static final String PREF_MORE_AUTO_CORRECTION = "pref_more_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "pref_always_show_suggestions";
@@ -262,6 +263,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static boolean readAutoCorrectEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_AUTO_CORRECTION, true);
+    }
+
+    public static boolean readMoreAutoCorrectEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_MORE_AUTO_CORRECTION, true);
     }
 
     public void toggleAutoCorrect() {

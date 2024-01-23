@@ -10,6 +10,8 @@ import android.Manifest;
 import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
+
+import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.LruCache;
 
@@ -569,7 +571,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // add word to user dictionary if it is in no other dictionary except user history dictionary,
         // reasoning: typing the same word again -> we probably want it in some dictionary permanently
-        if (Settings.getInstance().getCurrent().mAddToPersonalDictionary // require the setting
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        if (sv.mAddToPersonalDictionary // require the setting
+                && sv.mAutoCorrectEnabled == sv.mAutoCorrectionEnabledPerUserSettings // don't add if user wants autocorrect but input field does not, see https://github.com/Helium314/openboard/issues/427#issuecomment-1905438000
                 && mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions
                 && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
                 && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture

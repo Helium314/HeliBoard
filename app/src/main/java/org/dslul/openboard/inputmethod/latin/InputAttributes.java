@@ -27,7 +27,7 @@ public final class InputAttributes {
     private final String TAG = InputAttributes.class.getSimpleName();
 
     final public String mTargetApplicationPackageName;
-    final public boolean mInputTypeNoAutoCorrect;
+    final public boolean mInputTypeShouldAutoCorrect;
     final public boolean mIsPasswordField;
     final public boolean mShouldShowSuggestions;
     final public boolean mMayOverrideShowingSuggestions;
@@ -42,7 +42,7 @@ public final class InputAttributes {
      */
     final public boolean mDisableGestureFloatingPreviewText;
     final public boolean mIsGeneralTextInput;
-    final private int mInputType;
+    final public int mInputType;
     final private EditorInfo mEditorInfo;
     final private String mPackageNameForPrivateImeOptions;
 
@@ -73,7 +73,7 @@ public final class InputAttributes {
             }
             mShouldShowSuggestions = false;
             mMayOverrideShowingSuggestions = false;
-            mInputTypeNoAutoCorrect = false;
+            mInputTypeShouldAutoCorrect = false;
             mApplicationSpecifiedCompletionOn = false;
             mShouldInsertSpacesAutomatically = false;
             mShouldShowVoiceInputKey = false;
@@ -82,6 +82,7 @@ public final class InputAttributes {
             mNoLearning = false;
             return;
         }
+
         // inputClass == InputType.TYPE_CLASS_TEXT
         final int variation = inputType & InputType.TYPE_MASK_VARIATION;
         final boolean flagNoSuggestions = 0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -106,14 +107,16 @@ public final class InputAttributes {
         mDisableGestureFloatingPreviewText = InputAttributes.inPrivateImeOptions(
                 mPackageNameForPrivateImeOptions, NO_FLOATING_GESTURE_PREVIEW, editorInfo);
 
-        // If it's a browser edit field and auto correct is not ON explicitly, then
-        // disable auto correction, but keep suggestions on.
-        // If NO_SUGGESTIONS is set, don't do prediction.
-        // If it's not multiline and the autoCorrect flag is not set, then don't correct
-        mInputTypeNoAutoCorrect =
-                (variation == InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT && !flagAutoCorrect)
-                || flagNoSuggestions
-                || (!flagAutoCorrect && !flagMultiLine);
+        // autocorrect if explicitly wanted, but also for most multi-line input types (like AOSP keyboard)
+        // originally, URI and email were always excluded from autocorrect (in Suggest.java), but this is
+        //  and unexpected place, and if the input field explicitly requests autocorrect we should follow the flag
+        mInputTypeShouldAutoCorrect = flagAutoCorrect || (
+                flagMultiLine
+                && variation != InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
+                && variation != InputType.TYPE_TEXT_VARIATION_URI
+                && !InputTypeUtils.isEmailVariation(variation)
+                && !flagNoSuggestions
+        );
 
         mApplicationSpecifiedCompletionOn = flagAutoComplete && isFullscreenMode;
 
@@ -274,7 +277,7 @@ public final class InputAttributes {
         return String.format(
                 "%s: inputType=0x%08x%s%s%s%s%s targetApp=%s\n", getClass().getSimpleName(),
                 mInputType,
-                (mInputTypeNoAutoCorrect ? " noAutoCorrect" : ""),
+                (mInputTypeShouldAutoCorrect ? " noAutoCorrect" : ""),
                 (mIsPasswordField ? " password" : ""),
                 (mShouldShowSuggestions ? " shouldShowSuggestions" : ""),
                 (mApplicationSpecifiedCompletionOn ? " appSpecified" : ""),
