@@ -153,7 +153,7 @@ public final class KeyboardTheme {
                         themeStyle,
                         hasBorders,
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
-                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
+                        Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true),
                         Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
