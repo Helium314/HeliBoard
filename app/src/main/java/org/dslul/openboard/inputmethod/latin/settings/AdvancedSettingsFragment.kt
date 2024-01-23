@@ -90,7 +90,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         // singleton and utility classes may not have been initialized.  We have to call
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
         AudioAndHapticFeedbackManager.init(context)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
         }
         setupKeyLongpressTimeoutSettings()
