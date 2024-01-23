@@ -37,7 +37,7 @@ import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
-import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
+import org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
@@ -50,6 +50,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
+
+import kotlin.jvm.functions.Function1;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
@@ -228,13 +230,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         try {
             final SharedPreferences prefs = mPrefs;
             Log.i(TAG, "loadSettings");
-            final RunInLocale<SettingsValues> job = new RunInLocale<>() {
-                @Override
-                protected SettingsValues job(final Resources res) {
-                    return new SettingsValues(context, prefs, res, inputAttributes);
-                }
-            };
-            mSettingsValues = job.runInLocale(mRes, locale);
+            mSettingsValues = RunInLocaleKt.runInLocale(context, locale,
+                    (Function1<Context, SettingsValues>) ctx -> new SettingsValues(ctx, prefs, ctx.getResources(), inputAttributes));
         } finally {
             mSettingsValuesLock.unlock();
         }

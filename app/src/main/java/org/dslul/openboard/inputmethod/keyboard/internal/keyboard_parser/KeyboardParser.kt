@@ -3,8 +3,6 @@ package org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
 import org.dslul.openboard.inputmethod.latin.utils.Log
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
@@ -28,7 +26,7 @@ import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_LAYOUT
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_NUMBER
-import org.dslul.openboard.inputmethod.latin.utils.RunInLocale
+import org.dslul.openboard.inputmethod.latin.utils.runInLocale
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import java.io.File
 import java.util.Locale
@@ -667,17 +665,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun getInLocale(@StringRes id: Int): String {
-        val ril = object : RunInLocale<String>() {
-            override fun job(res: Resources) = res.getString(id)
-        }
-        // crappy workaround...
         val locale = when (params.mId.locale.toString().lowercase()) {
             // todo: improve this when switching (rich input) subtype to use language tag
             "hi_zz" -> Locale("en", "IN")
             "sr_zz" -> Locale.forLanguageTag("sr-Latn")
             else -> params.mId.locale
         }
-        return ril.runInLocale(context.resources, locale)
+        return runInLocale(context, locale) { it.getString(id) }
     }
 
     private fun getToSymbolLabel() =

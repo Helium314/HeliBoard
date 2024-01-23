@@ -38,7 +38,7 @@ import java.util.Locale;
 
 /**
  * When you call the constructor of this class, you may want to change the current system locale by
- * using {@link org.dslul.openboard.inputmethod.latin.utils.RunInLocale}.
+ * using {@link org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt}.
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
