@@ -64,6 +64,11 @@ public final class InputTypeUtils implements InputType {
                 || isWebEmailAddressVariation(variation);
     }
 
+    public static boolean isUriOrEmailType(final int inputType) {
+        final int maskedInputType = inputType & TYPE_MASK_VARIATION;
+        return maskedInputType == TYPE_TEXT_VARIATION_URI || isEmailVariation(maskedInputType);
+    }
+
     public static boolean isWebInputType(final int inputType) {
         final int maskedInputType =
                 inputType & (TYPE_MASK_CLASS | TYPE_MASK_VARIATION);

@@ -74,6 +74,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
     private void refreshEnabledSettings() {
         setPreferenceVisible(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, Settings.readAutoCorrectEnabled(getSharedPreferences()));
+        setPreferenceVisible(Settings.PREF_MORE_AUTO_CORRECTION, Settings.readAutoCorrectEnabled(getSharedPreferences()));
         setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         setPreferenceVisible(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
         turnOffLookupContactsIfNoPermission();

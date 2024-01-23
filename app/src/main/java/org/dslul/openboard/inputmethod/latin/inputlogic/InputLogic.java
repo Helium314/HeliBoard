@@ -999,7 +999,7 @@ public final class InputLogic {
         }
         // isComposingWord() may have changed since we stored wasComposing
         if (mWordComposer.isComposingWord()) {
-            if (settingsValues.mAutoCorrectionEnabledPerUserSettings) {
+            if (settingsValues.mAutoCorrectEnabled) {
                 final String separator = shouldAvoidSendingCode ? LastComposedWord.NOT_A_SEPARATOR
                         : StringUtils.newSingleCodePointString(codePoint);
                 commitCurrentAutoCorrection(settingsValues, separator, handler);
@@ -2111,10 +2111,8 @@ public final class InputLogic {
 
     private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues, final Boolean forAutoSpace) {
         final EditorInfo ei = getCurrentInputEditorInfo();
-        // URL field and no space -> may be URL
-        // for whatever absurd reason long message, postal address and email subject have type values that return true when filtering for URI, see https://developer.android.com/reference/android/text/InputType
-        // so we really need to specifically require URI as only type variation
-        if (ei != null && (ei.inputType & 0x000000f0) == 0x00000010 &&
+        // URL / mail field and no space -> may be URL
+        if (ei != null && (InputTypeUtils.isUriOrEmailType(ei.inputType)) &&
                 // we never want to commit the first part of the url, but we want to insert autospace if text might be a normal word
                 (forAutoSpace ? mConnection.nonWordCodePointAndNoSpaceBeforeCursor(settingsValues.mSpacingAndPunctuations) // avoid detecting URL if it could be a word
                 : !mConnection.spaceBeforeCursor()))
@@ -2349,7 +2347,7 @@ public final class InputLogic {
                         mWordComposer.isComposingWord() ? 2 : 1),
                 keyboard,
                 settingsValues.mSettingsValuesForSuggestion,
-                settingsValues.mAutoCorrectionEnabledPerUserSettings,
+                settingsValues.mAutoCorrectEnabled,
                 inputStyle, sequenceNumber, callback);
     }
 

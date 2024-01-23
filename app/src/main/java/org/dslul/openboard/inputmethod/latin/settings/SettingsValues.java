@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -26,6 +25,8 @@ import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
+import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
@@ -113,10 +114,10 @@ public class SettingsValues {
     // Deduced settings
     public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;
-    private final boolean mAutoCorrectEnabled;
+    public final boolean mAutoCorrectionEnabledPerUserSettings;
+    public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final int mScoreLimitForAutocorrect;
-    public final boolean mAutoCorrectionEnabledPerUserSettings;
     private final boolean mSuggestionsEnabledPerUserSettings;
     private final boolean mOverrideShowingSuggestions;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
@@ -159,7 +160,11 @@ public class SettingsValues {
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
         mBlockPotentiallyOffensive = Settings.readBlockPotentiallyOffensive(prefs, res);
-        mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs);
+        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
+        mAutoCorrectionEnabledPerUserSettings = Settings.readAutoCorrectEnabled(prefs);
+        mAutoCorrectEnabled = mAutoCorrectionEnabledPerUserSettings
+                && (mInputAttributes.mInputTypeShouldAutoCorrect || Settings.readMoreAutoCorrectEnabled(prefs))
+                && (mUrlDetectionEnabled || !InputTypeUtils.isUriOrEmailType(mInputAttributes.mInputType));
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
@@ -187,8 +192,6 @@ public class SettingsValues {
         mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
-        mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
-                //&& !mInputAttributes.mInputTypeNoAutoCorrect; // follow that request or not?
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
         mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
                 || mOverrideShowingSuggestions;
@@ -240,7 +243,6 @@ public class SettingsValues {
                 mBlockPotentiallyOffensive,
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
-        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
     }
@@ -251,7 +253,7 @@ public class SettingsValues {
 
     public boolean needsToLookupSuggestions() {
         return (mInputAttributes.mShouldShowSuggestions || mOverrideShowingSuggestions)
-                && (mAutoCorrectionEnabledPerUserSettings || isSuggestionsEnabledPerUserSettings());
+                && (mAutoCorrectEnabled || isSuggestionsEnabledPerUserSettings());
     }
 
     public boolean isSuggestionsEnabledPerUserSettings() {

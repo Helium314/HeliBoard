@@ -109,11 +109,14 @@
     <string name="prefs_block_potentially_offensive_title">Block offensive words</string>
     <!-- Summary for option to block potentially offensive words to be shown [CHAR_LIMIT=80 (two lines) or 40 (fits on one line, preferable)] -->
     <string name="prefs_block_potentially_offensive_summary">Do not suggest potentially offensive words</string>
-    <!-- Option to decide the auto correction threshold score -->
-    <!-- Option to enable auto correction [CHAR LIMIT=20]-->
+    <!-- Option to enable auto correction [CHAR LIMIT=20] -->
     <string name="autocorrect">Auto-correction</string>
     <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
+    <!-- Option to enable auto correction for many fields that do not request auto correction -->
+    <string name="more_autocorrect">More auto-correction</string>
+    <!-- Description for more_autocorrect -->
+    <string name="more_autocorrect_summary">Auto-correct even when not explicitly requested by the input field</string>
     <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
     <string name="auto_correction_confidence">Auto-correction confidence</string>
     <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
