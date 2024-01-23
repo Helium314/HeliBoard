@@ -89,7 +89,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
     private fun setColorPrefs(style: String) {
         colorsPref.apply {
-            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS
+            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS.toTypedArray()
                 else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
             if (value !in entryValues)
@@ -103,7 +103,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
         }
         colorsNightPref?.apply {
-            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK
+            entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS_DARK.toTypedArray()
                 else KeyboardTheme.COLORS_DARK.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
             if (value !in entryValues)

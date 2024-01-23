@@ -21,8 +21,8 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.DrawableCompat
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_HOLO
-import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.STYLE_MATERIAL
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.Companion.STYLE_HOLO
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import org.dslul.openboard.inputmethod.latin.common.ColorType.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.adjustLuminosityAndKeepAlpha
@@ -350,15 +350,15 @@ class DefaultColors (
     override val themeStyle: String,
     override val hasKeyBorders: Boolean,
     private val accent: Int,
-    private val gesture: Int,
     private val background: Int,
     private val keyBackground: Int,
     private val functionalKey: Int,
     private val spaceBar: Int,
     private val keyText: Int,
     private val keyHintText: Int,
-    private val suggestionText: Int,
-    private val spaceBarText: Int
+    private val suggestionText: Int = keyText,
+    private val spaceBarText: Int = keyHintText,
+    private val gesture: Int = accent,
 ) : Colors {
     private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
