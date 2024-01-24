@@ -80,6 +80,7 @@ public final class AdditionalSubtypeUtils {
         return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName, asciiCapable, true);
     }
 
+    // todo: relation to InputMethodSubtype.prefString()?
     public static String getPrefSubtype(final InputMethodSubtype subtype) {
         final String localeString = subtype.getLocale();
         final String keyboardLayoutSetName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);

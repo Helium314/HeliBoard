@@ -24,6 +24,7 @@ import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -316,7 +317,7 @@ public class RichInputMethodManager {
         // search for exact match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.equals(locale)) {
                 return subtype;
             }
@@ -324,7 +325,7 @@ public class RichInputMethodManager {
         // search for language + country + variant match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage()) &&
                     subtypeLocale.getCountry().equals(locale.getCountry()) &&
                     subtypeLocale.getVariant().equals(locale.getVariant())) {
@@ -334,7 +335,7 @@ public class RichInputMethodManager {
         // search for language + country match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage()) &&
                     subtypeLocale.getCountry().equals(locale.getCountry())) {
                 return subtype;
@@ -355,7 +356,7 @@ public class RichInputMethodManager {
         // search for language match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage())) {
                 return subtype;
             }
@@ -378,7 +379,7 @@ public class RichInputMethodManager {
         if (script != ScriptUtils.getScriptFromSpellCheckerLocale(getCurrentSubtypeLocale())) {
             for (int i = 0; i < count; ++i) {
                 final InputMethodSubtype subtype = subtypes.get(i);
-                final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+                final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
                 if (ScriptUtils.getScriptFromSpellCheckerLocale(subtypeLocale) == script) {
                     return subtype;
                 }

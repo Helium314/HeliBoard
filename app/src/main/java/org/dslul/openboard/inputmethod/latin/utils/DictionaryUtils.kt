@@ -77,6 +77,7 @@ fun cleanUnusedMainDicts(context: Context) {
     getEnabledSubtypes(prefs).forEach {
         val locale = it.locale()
         usedLocales.add(locale)
+        // todo: need a custom localeString function that considers ZZ stuff (for dealing with dictionaries, also on system)
         Settings.getSecondaryLocales(prefs, locale).forEach { usedLocales.add(it.toString().lowercase()) }
     }
     for (dir in dirs) {

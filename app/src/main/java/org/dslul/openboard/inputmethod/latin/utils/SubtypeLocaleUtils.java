@@ -236,7 +236,7 @@ public final class SubtypeLocaleUtils {
         if (subtype == null) {
             return "<null subtype>";
         }
-        return getSubtypeLocale(subtype) + "/" + getKeyboardLayoutSetName(subtype);
+        return SubtypeUtilsKt.locale(subtype) + "/" + getKeyboardLayoutSetName(subtype);
     }
 
     @NonNull
@@ -260,12 +260,6 @@ public final class SubtypeLocaleUtils {
                     return "";
                 }
             });
-    }
-
-    @NonNull
-    public static Locale getSubtypeLocale(@NonNull final InputMethodSubtype subtype) {
-        final String localeString = subtype.getLocale();
-        return LocaleUtils.constructLocaleFromString(localeString);
     }
 
     @Nullable

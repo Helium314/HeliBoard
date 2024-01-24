@@ -150,19 +150,31 @@ public final class LocaleUtils {
      * Creates a locale from a string specification.
      * @param localeString a string specification of a locale, in a format of "ll_cc_variant" where
      * "ll" is a language code, "cc" is a country code.
+     * converts zz regions that used to signal latin script into actual latin script (using language tag)
      */
+    // todo: test whether e.g. en-US and en_US return the same (equals) locale, also for sr-Latn and sr_ZZ
     @NonNull
     public static Locale constructLocaleFromString(@NonNull final String localeString) {
         synchronized (sLocaleCache) {
             if (sLocaleCache.containsKey(localeString)) {
                 return sLocaleCache.get(localeString);
             }
-            final String[] elements = localeString.split("_", 3);
             final Locale locale;
+            if (localeString.contains("-")) {
+                // it's actually a language tag, and not a locale string
+                locale = Locale.forLanguageTag(localeString);
+                sLocaleCache.put(localeString, locale);
+                return locale;
+            }
+            final String[] elements = localeString.split("_", 3);
             if (elements.length == 1) {
+                // todo: what if "zz"? then toLanguageTag may not work as expected?
                 locale = new Locale(elements[0]);
             } else if (elements.length == 2) {
-                locale = new Locale(elements[0], elements[1]);
+                if (elements[1].toLowerCase(Locale.ROOT).equals("zz"))
+                    locale = Locale.forLanguageTag(elements[0] + "-Latn");
+                else
+                    locale = new Locale(elements[0], elements[1]);
             } else { // localeParams.length == 3
                 locale = new Locale(elements[0], elements[1], elements[2]);
             }

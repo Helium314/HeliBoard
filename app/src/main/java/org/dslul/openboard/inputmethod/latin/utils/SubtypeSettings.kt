@@ -173,6 +173,9 @@ private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
 }
 
 private fun InputMethodSubtype.prefString() =
+    // todo: locale string or language tag?
+    //  locale string is backwards compatible, but bah
+    //  also this is a semi-duplicate of getPrefSubtype -> decide or clarify when to use what
     locale() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
 
 private fun loadResourceSubtypes(resources: Resources) {
@@ -295,11 +298,3 @@ private val systemSubtypes = mutableListOf<InputMethodSubtype>()
 private const val SUBTYPE_SEPARATOR = ";"
 private const val LOCALE_LAYOUT_SEPARATOR = ":"
 private const val TAG = "SubtypeSettings"
-
-@Suppress("deprecation") // it's deprecated, but no replacement for API < 24
-// todo: subtypes should now have language tags -> use them for api >= 24
-//  but only replace subtype-related usage, otherwise the api mess will be horrible
-//  maybe rather return a locale instead of a string...
-//   is this acceptable for performance? any place where there are many call to locale()?
-//  see also InputMethodSubtypeCompatUtils
-fun InputMethodSubtype.locale() = locale

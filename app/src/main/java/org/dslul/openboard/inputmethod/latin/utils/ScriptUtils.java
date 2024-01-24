@@ -47,6 +47,9 @@ public class ScriptUtils {
     private final static ArraySet<Integer> UPPERCASE_SCRIPTS = new ArraySet<>();
 
 
+    // todo: switch to strings used in language tags, e.g. Latn or Cyrl
+    //  then getting script from locale could first look up explicit script and only then get default
+    //  how to do the bulgarian thing?
     static {
         mLanguageCodeToScriptCode = new TreeMap<>();
         mLanguageCodeToScriptCode.put("", SCRIPT_LATIN); // default
