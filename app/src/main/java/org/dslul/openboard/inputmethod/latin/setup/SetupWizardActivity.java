@@ -14,9 +14,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.BlendMode;
-import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -255,17 +254,15 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
 
-        // Set the status bar and the navigation bar colors
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            getWindow().setStatusBarColor(setupBackgroundColor);
-            getWindow().setNavigationBarColor(setupBackgroundColor);
-        } else {
-            getWindow().setStatusBarColor(Color.GRAY);
-            getWindow().setNavigationBarColor(ColorUtils.setAlphaComponent(Color.GRAY, 180));
-        }
         // Set the background color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().getDecorView().getBackground().setColorFilter(new BlendModeColorFilter(setupBackgroundColor, BlendMode.SRC));
+        getWindow().getDecorView().getBackground().setColorFilter(setupBackgroundColor, PorterDuff.Mode.SRC);
+        // Set the status bar color
+        getWindow().setStatusBarColor(setupBackgroundColor);
+        // Navigation bar color
+        if (!isNight && !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)) {
+            getWindow().setNavigationBarColor(ColorUtils.setAlphaComponent(Color.GRAY, 180));
+        } else {
+            getWindow().setNavigationBarColor(setupBackgroundColor);
         }
         // Set the icons of the status bar and the navigation bar light or dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -275,9 +272,9 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
                 controller.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
                 controller.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final View view = getWindow().getDecorView();
-            view.setSystemUiVisibility(!isNight ? View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR : ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            view.setSystemUiVisibility(!isNight ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0);
         }
     }
 
