@@ -18,8 +18,6 @@ import org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import kotlin.jvm.functions.Function1;
-
 /**
  * This code is mostly lifted directly from android.service.textservice.SpellCheckerService in
  * the framework; maybe that should be protected instead, so that implementers don't have to
@@ -67,8 +65,7 @@ public class SentenceLevelAdapter {
     private static class WordIterator {
         private final SpacingAndPunctuations mSpacingAndPunctuations;
         public WordIterator(final Resources res, final Locale locale) {
-            mSpacingAndPunctuations = RunInLocaleKt.runInLocale(res, locale,
-                    (Function1<Resources, SpacingAndPunctuations>) r -> new SpacingAndPunctuations(r, false));
+            mSpacingAndPunctuations = RunInLocaleKt.runInLocale(res, locale, r -> new SpacingAndPunctuations(r, false));
         }
 
         public int getEndOfWord(final CharSequence sequence, final int fromIndex) {

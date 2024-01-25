@@ -24,8 +24,6 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.Ext
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import kotlin.jvm.functions.Function1;
-
 /**
  * A helper class to deal with subtype locales.
   */
@@ -188,8 +186,7 @@ public final class SubtypeLocaleUtils {
 
         final String displayName;
         if (exceptionalNameResId != null) {
-            displayName = RunInLocaleKt.runInLocale(sResources, displayLocale,
-                    (Function1<Resources, String>) res -> res.getString(exceptionalNameResId));
+            displayName = RunInLocaleKt.runInLocale(sResources, displayLocale, res -> res.getString(exceptionalNameResId));
         } else {
             displayName = LocaleUtils.constructLocaleFromString(localeString)
                     .getDisplayName(displayLocale);
@@ -246,7 +243,7 @@ public final class SubtypeLocaleUtils {
         // TODO: rework this for multi-lingual subtypes
         final int nameResId = subtype.getNameResId();
         return RunInLocaleKt.runInLocale(sResources, displayLocale,
-            (Function1<Resources, String>) res -> {
+            res -> {
                 try {
                     return StringUtils.capitalizeFirstCodePoint(res.getString(nameResId, replacementString), displayLocale);
                 } catch (Resources.NotFoundException e) {

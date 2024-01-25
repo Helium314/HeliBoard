@@ -51,8 +51,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
-import kotlin.jvm.functions.Function1;
-
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
     // Settings screens
@@ -231,7 +229,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             final SharedPreferences prefs = mPrefs;
             Log.i(TAG, "loadSettings");
             mSettingsValues = RunInLocaleKt.runInLocale(context, locale,
-                    (Function1<Context, SettingsValues>) ctx -> new SettingsValues(ctx, prefs, ctx.getResources(), inputAttributes));
+                    ctx -> new SettingsValues(ctx, prefs, ctx.getResources(), inputAttributes));
         } finally {
             mSettingsValuesLock.unlock();
         }

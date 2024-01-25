@@ -38,8 +38,6 @@ import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordConte
 import java.util.ArrayList;
 import java.util.Collections;
 
-import kotlin.Unit;
-
 /**
  * Fragment to add a word/shortcut to the user dictionary.
  * As opposed to the UserDictionaryActivity, this is only invoked within Settings
@@ -94,7 +92,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         TextViewKt.doAfterTextChanged(mWordEditText, (editable) -> {
             final int visibility = TextUtils.isEmpty(editable.toString()) ? View.INVISIBLE : View.VISIBLE;
             saveWordButton.setVisibility(visibility);
-            return Unit.INSTANCE;
+            return null;
         });
         saveWordButton.setVisibility(TextUtils.isEmpty(mWordEditText.getText().toString()) ? View.INVISIBLE : View.VISIBLE);
 
