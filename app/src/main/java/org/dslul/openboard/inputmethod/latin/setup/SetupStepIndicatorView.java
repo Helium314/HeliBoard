@@ -15,9 +15,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import androidx.core.view.ViewCompat;
-import com.google.android.material.elevation.SurfaceColors;
 
 public final class SetupStepIndicatorView extends View {
     private final Path mIndicatorPath = new Path();
@@ -26,8 +26,13 @@ public final class SetupStepIndicatorView extends View {
 
     public SetupStepIndicatorView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
+        final boolean isNight = ResourceUtils.isNight(context.getResources());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            mIndicatorPaint.setColor(SurfaceColors.SURFACE_5.getColor(context));
+            if (!isNight) {
+                mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_50, null));
+            } else {
+                mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_800, null));
+            }
         } else {
             mIndicatorPaint.setColor(getResources().getColor(R.color.setup_step_background));
         }

@@ -11,7 +11,7 @@
     <color name="keyboard_background">@color/keyboard_background_dark</color>
 
     <!-- Color resources for setup wizard and tutorial -->
-    <color name="setup_step_background">#FF25333C</color>
-    <color name="setup_step_action_pressed">#FF222F35</color>
+    <color name="setup_step_background">#FF2D4260</color>
+    <color name="setup_step_action_pressed">#FF314868</color>
     <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
 </resources>

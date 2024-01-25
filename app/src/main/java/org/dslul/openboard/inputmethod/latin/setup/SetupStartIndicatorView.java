@@ -26,7 +26,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
-import com.google.android.material.elevation.SurfaceColors;
 
 public final class SetupStartIndicatorView extends LinearLayout {
     public SetupStartIndicatorView(final Context context, final AttributeSet attrs) {
@@ -46,15 +45,17 @@ public final class SetupStartIndicatorView extends LinearLayout {
             final boolean isNight = ResourceUtils.isNight(context.getResources());
             final int activatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? ContextCompat.getColor(context, android.R.color.system_accent1_500)
-                    : Color.parseColor("#007FAC");
+                    : !isNight
+                        ? Color.parseColor("#5E9CED")
+                        : Color.parseColor("#72A4F3");
 
             final int deactivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
                         ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
                         : ContextCompat.getColor(context, android.R.color.system_accent1_200)
                     : !isNight
-                        ? Color.parseColor("#004C69")
-                        : Color.parseColor("#76D1FF");
+                        ? Color.parseColor("#1971E3")
+                        : Color.parseColor("#5C94F1");
 
             setTextColor(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
                     new int[] { activatedColor, activatedColor, deactivatedColor }));
@@ -85,10 +86,16 @@ public final class SetupStartIndicatorView extends LinearLayout {
 
         public IndicatorView(final Context context, final AttributeSet attrs) {
             super(context, attrs);
+            final boolean isNight = ResourceUtils.isNight(context.getResources());
             mIndicatorColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                            new int[] { SurfaceColors.SURFACE_3.getColor(context), SurfaceColors.SURFACE_3.getColor(context),
-                                    SurfaceColors.SURFACE_5.getColor(context) })
+                    ? !isNight
+                        ? new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
+                                new int[] { getResources().getColor(android.R.color.system_accent1_100, null), getResources().getColor(android.R.color.system_accent1_100, null),
+                                        getResources().getColor(android.R.color.system_accent1_50, null) })
+                        : new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
+                                new int[] { getResources().getColor(android.R.color.system_accent1_700, null), getResources().getColor(android.R.color.system_accent1_700, null),
+                                        getResources().getColor(android.R.color.system_accent1_800, null) })
+
                     : AppCompatResources.getColorStateList(context, R.color.setup_step_action_background);
 
             mIndicatorPaint.setStyle(Paint.Style.FILL);

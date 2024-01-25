@@ -18,45 +18,4 @@
     <color name="keyboard_background_light">@android:color/system_neutral1_100</color>
     <color name="keyboard_background_dark">@android:color/system_neutral1_800</color>
 
-    <!-- Colors resources for Settings and Setup wizard (all colors are indicated to avoid "ThemeEnforcement" errors) -->
-    <color name="settingColorPrimary">@android:color/system_accent1_600</color>
-    <color name="settingColorOnPrimary">@android:color/system_accent1_0</color>
-    <color name="settingColorPrimaryContainer">@android:color/system_accent1_100</color>
-    <color name="settingColorOnPrimaryContainer">@android:color/system_accent1_900</color>
-    <color name="settingColorPrimaryInverse">@android:color/system_accent1_200</color>
-    <color name="settingColorPrimaryFixed">@android:color/system_accent1_100</color>
-    <color name="settingColorPrimaryFixedDim">@android:color/system_accent1_200</color>
-    <color name="settingColorOnPrimaryFixed">@android:color/system_accent1_900</color>
-    <color name="settingColorOnPrimaryFixedVariant">@android:color/system_accent1_700</color>
-    <color name="settingColorSecondary">@android:color/system_accent2_600</color>
-    <color name="settingColorOnSecondary">@android:color/system_accent2_0</color>
-    <color name="settingColorSecondaryContainer">@android:color/system_accent2_100</color>
-    <color name="settingColorOnSecondaryContainer">@android:color/system_accent2_900</color>
-    <color name="settingColorSecondaryFixed">@android:color/system_accent2_100</color>
-    <color name="settingColorSecondaryFixedDim">@android:color/system_accent2_200</color>
-    <color name="settingColorOnSecondaryFixed">@android:color/system_accent2_900</color>
-    <color name="settingColorOnSecondaryFixedVariant">@android:color/system_accent2_700</color>
-    <color name="settingColorTertiary">@android:color/system_accent3_600</color>
-    <color name="settingColorOnTertiary">@android:color/system_accent3_0</color>
-    <color name="settingColorTertiaryContainer">@android:color/system_accent3_100</color>
-    <color name="settingColorOnTertiaryContainer">@android:color/system_accent3_900</color>
-    <color name="settingColorTertiaryFixed">@android:color/system_accent3_100</color>
-    <color name="settingColorTertiaryFixedDim">@android:color/system_accent3_200</color>
-    <color name="settingColorOnTertiaryFixed">@android:color/system_accent3_900</color>
-    <color name="settingColorOnTertiaryFixedVariant">@android:color/system_accent3_700</color>
-    <color name="settingColorError">#B3261E</color>
-    <color name="settingColorOnError">@android:color/white</color>
-    <color name="settingColorErrorContainer">#F9DEDC</color>
-    <color name="settingColorOnErrorContainer">#410E0B</color>
-    <color name="settingColorOutline">@android:color/system_neutral2_500</color>
-    <color name="settingColorOutlineVariant">@android:color/system_neutral2_200</color>
-    <color name="settingColorBackground">@android:color/system_neutral1_0</color>
-    <color name="settingColorOnBackground">@android:color/system_neutral1_900</color>
-    <color name="settingColorSurface">@android:color/system_neutral1_10</color>
-    <color name="settingColorOnSurface">@android:color/system_neutral1_900</color>
-    <color name="settingColorSurfaceVariant">@android:color/system_neutral2_100</color>
-    <color name="settingColorOnSurfaceVariant">@android:color/system_neutral2_700</color>
-    <color name="settingColorSurfaceInverse">@android:color/system_neutral1_800</color>
-    <color name="settingColorOnSurfaceInverse">@android:color/system_neutral1_50</color>
-    <color name="settingColorSurfaceContainerHighest">@android:color/system_neutral2_100</color>
 </resources>

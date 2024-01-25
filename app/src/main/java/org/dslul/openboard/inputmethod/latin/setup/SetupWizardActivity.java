@@ -22,8 +22,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
-
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowInsetsController;
@@ -37,10 +35,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
-import com.google.android.material.elevation.SurfaceColors;
+
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.UncachedInputMethodManagerUtils;
 
@@ -128,18 +127,20 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mHandler = new SettingsPoolingHandler(this, mImm);
 
         final int setupBackgroundColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                ? getResources().getColor(R.color.settingColorSurface, null)
+                ? !isNight
+                    ? getResources().getColor(android.R.color.system_neutral1_10, null)
+                    : getResources().getColor(android.R.color.system_neutral1_900, null)
                 : !isNight
-                    ? Color.parseColor("#FCFCFE")
-                    : Color.parseColor("#181C1F");
+                    ? Color.parseColor("#FAFAFA")
+                    : Color.parseColor("#303030");
 
         final int setupTextColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                 ? !isNight
                     ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
                     : ContextCompat.getColor(context, android.R.color.system_accent1_200)
                 : !isNight
-                    ? Color.parseColor("#004C69")
-                    : Color.parseColor("#76D1FF");
+                    ? Color.parseColor("#1971E3")
+                    : Color.parseColor("#5C94F1");
 
         setContentView(R.layout.setup_wizard);
         mSetupWizard = findViewById(R.id.setup_wizard);
@@ -491,34 +492,45 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             final Context context = mStepView.getContext();
             final Resources res = stepView.getResources();
             final boolean isNight = ResourceUtils.isNight(context.getResources());
-            mColorPressed = SurfaceColors.SURFACE_3.getColor(context);
-            mColorEnabled = SurfaceColors.SURFACE_5.getColor(context);
+            mColorPressed = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                    ? !isNight
+                        ? res.getColor(android.R.color.system_accent1_100, null)
+                        : res.getColor(android.R.color.system_accent1_700, null)
+                    : 0;
+
+            mColorEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                    ? !isNight
+                        ? res.getColor(android.R.color.system_accent1_50, null)
+                        : res.getColor(android.R.color.system_accent1_800, null)
+                    : 0;
 
             mActivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? ContextCompat.getColor(context, android.R.color.system_accent1_500)
-                    : Color.parseColor("#007FAC");
+                    ? res.getColor(android.R.color.system_accent1_500, null)
+                    : !isNight
+                        ? Color.parseColor("#5E9CED")
+                        : Color.parseColor("#72A4F3");
 
             mDeactivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
-                        ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
-                        : ContextCompat.getColor(context, android.R.color.system_accent1_200)
+                        ? res.getColor(android.R.color.system_accent1_700, null)
+                        : res.getColor(android.R.color.system_accent1_200, null)
                     : !isNight
-                        ? Color.parseColor("#004C69")
-                        : Color.parseColor("#76D1FF");
+                        ? Color.parseColor("#1971E3")
+                        : Color.parseColor("#5C94F1");
 
             mLabelBackgroundColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? mColorEnabled
                     : !isNight
-                        ? Color.parseColor("#D9E8EF")
-                        : Color.parseColor("#25333C");
+                        ? Color.parseColor("#D1E3FA")
+                        : Color.parseColor("#2D4260");
 
             mTextColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
-                        ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
-                        : ContextCompat.getColor(context, android.R.color.system_accent1_200)
+                        ? res.getColor(android.R.color.system_accent1_700, null)
+                        : res.getColor(android.R.color.system_accent1_200, null)
                     : !isNight
-                        ? Color.parseColor("#004C69")
-                        : Color.parseColor("#76D1FF");
+                        ? Color.parseColor("#1971E3")
+                        : Color.parseColor("#5C94F1");
 
             final TextView titleView = mStepView.findViewById(R.id.setup_step_title);
             titleView.setText(res.getString(title, applicationName));
