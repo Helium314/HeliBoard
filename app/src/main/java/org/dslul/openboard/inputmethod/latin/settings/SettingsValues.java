@@ -30,6 +30,7 @@ import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 import java.util.Arrays;
@@ -221,7 +222,7 @@ public class SettingsValues {
         } else
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeUtilsKt.locale(selectedSubtype));
         mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMoreMoreKeysPref(prefs)
                 : LocaleKeyTextsKt.MORE_KEYS_NORMAL;

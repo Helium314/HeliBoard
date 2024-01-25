@@ -104,6 +104,7 @@ public final class SubtypeLocaleUtils {
             sExceptionalLocaleDisplayedInRootLocale.put(localeString, resId);
         }
 
+        // todo: change the exceptional locales to language tags
         final String[] exceptionalLocales = res.getStringArray(R.array.subtype_locale_exception_keys);
         for (final String localeString : exceptionalLocales) {
             final String resourceName = SUBTYPE_NAME_RESOURCE_PREFIX + localeString;
@@ -115,6 +116,7 @@ public final class SubtypeLocaleUtils {
         }
     }
 
+    // todo: language tag
     public static boolean isExceptionalLocale(final String localeString) {
         return sExceptionalLocaleToNameIdsMap.containsKey(localeString);
     }
@@ -123,7 +125,9 @@ public final class SubtypeLocaleUtils {
         return NO_LANGUAGE + "_" + keyboardLayoutName;
     }
 
-    public static int getSubtypeNameId(final String localeString, final String keyboardLayoutName) {
+    public static int getSubtypeNameId(final Locale locale, final String keyboardLayoutName) {
+        // todo: use language tag
+        final String localeString = locale.toString();
         if (isExceptionalLocale(localeString)) {
             return sExceptionalLocaleToWithLayoutNameIdsMap.get(localeString);
         }

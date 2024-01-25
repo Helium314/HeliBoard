@@ -9,12 +9,12 @@ package org.dslul.openboard.inputmethod.latin;
 import android.os.Build;
 import android.view.inputmethod.InputMethodSubtype;
 
-import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -54,7 +54,7 @@ public class RichInputMethodSubtype {
 
     public RichInputMethodSubtype(@NonNull final InputMethodSubtype subtype) {
         mSubtype = subtype;
-        mOriginalLocale = InputMethodSubtypeCompatUtils.getLocaleObject(mSubtype);
+        mOriginalLocale = SubtypeUtilsKt.locale(mSubtype);
         final Locale mappedLocale = sLocaleMap.get(mOriginalLocale);
         mLocale = mappedLocale != null ? mappedLocale : mOriginalLocale;
     }

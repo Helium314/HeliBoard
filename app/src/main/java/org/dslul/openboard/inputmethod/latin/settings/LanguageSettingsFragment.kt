@@ -105,12 +105,11 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->
-                val localeString = locale.toString()
                 val iterator = allSubtypes.iterator()
                 var added = false
                 while (iterator.hasNext()) {
                     val subtype = iterator.next()
-                    if (subtype.locale() == localeString) {
+                    if (subtype.locale() == locale) {
                         subtypesToAdd.add(subtype.toSubtypeInfo(locale))
                         iterator.remove()
                         added = true
@@ -122,7 +121,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale() == languageString) {
+                        if (subtype.locale().language == languageString) {
                             subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(languageString)))
                             iter.remove()
                             added = true
@@ -135,8 +134,8 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale().substringBefore("_") == languageString) {
-                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(subtype.locale())))
+                        if (subtype.locale().toString().substringBefore("_") == languageString) { // todo: will break with language tag
+                            subtypesToAdd.add(subtype.toSubtypeInfo(subtype.locale()))
                             iter.remove()
                         }
                     }
@@ -146,7 +145,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         }
 
         // add enabled subtypes
-        enabledSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale()), true) }
+        enabledSubtypes.map { it.toSubtypeInfo(it.locale(), true) }
             .sortedBy { it.displayName }.addToSortedSubtypes()
         allSubtypes.removeAll(enabledSubtypes)
 
@@ -169,8 +168,8 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         systemLocales.sortedAddToSubtypesAndRemoveFromAllSubtypes()
 
         // add the remaining ones
-        allSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale())) }
-            .sortedBy { if (it.subtype.locale().equals("zz", true))
+        allSubtypes.map { it.toSubtypeInfo(it.locale()) }
+            .sortedBy { if (it.subtype.locale().toString().equals("zz", true))
                     "zz" // "No language (Alphabet)" should be last
                 else it.displayName
             }.addToSortedSubtypes()

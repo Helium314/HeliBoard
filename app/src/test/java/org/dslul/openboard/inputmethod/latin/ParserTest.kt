@@ -25,6 +25,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
+import java.util.Locale
 
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
@@ -112,21 +113,21 @@ f""", // no newline at the end
 
     @Test fun canLoadKeyboard() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype("en", "qwerty", true)
+        val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(kb.sortedKeys.size, keys.sumOf { it.size })
     }
 
     @Test fun `dvorak has 4 rows`() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype("en", "dvorak", true)
+        val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "dvorak", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(keys.size, 4)
     }
 
     @Test fun `de_DE has extra keys`() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype("de_DE", "qwertz+", true)
+        val subtype = createEmojiCapableAdditionalSubtype(Locale.GERMANY, "qwertz+", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(keys[0].size, 11)
         assertEquals(keys[1].size, 11)
@@ -139,7 +140,7 @@ f""", // no newline at the end
 
     @Test fun `moreKey count does not depend on shift for (for simply layout)`() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype("en", "qwerty", true)
+        val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
         assertEquals(kb.sortedKeys.size, kb2.sortedKeys.size)

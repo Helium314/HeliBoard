@@ -12,11 +12,11 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.ASCII_CAPABLE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.EMOJI_CAPABLE;
@@ -40,7 +40,7 @@ public final class AdditionalSubtypeUtils {
     }
 
     private static final String LOCALE_AND_LAYOUT_SEPARATOR = ":";
-    private static final int INDEX_OF_LOCALE = 0;
+    private static final int INDEX_OF_LANGUAGE_TAG = 0;
     private static final int INDEX_OF_KEYBOARD_LAYOUT = 1;
     private static final int INDEX_OF_EXTRA_VALUE = 2;
     private static final int LENGTH_WITHOUT_EXTRA_VALUE = (INDEX_OF_KEYBOARD_LAYOUT + 1);
@@ -48,17 +48,17 @@ public final class AdditionalSubtypeUtils {
     private static final String PREF_SUBTYPE_SEPARATOR = ";";
 
     private static InputMethodSubtype createAdditionalSubtypeInternal(
-            final String localeString, final String keyboardLayoutSetName,
+            final Locale locale, final String keyboardLayoutSetName,
             final boolean isAsciiCapable, final boolean isEmojiCapable) {
-        final int nameId = SubtypeLocaleUtils.getSubtypeNameId(localeString, keyboardLayoutSetName);
+        final int nameId = SubtypeLocaleUtils.getSubtypeNameId(locale, keyboardLayoutSetName);
         final String platformVersionDependentExtraValues = getPlatformVersionDependentExtraValue(
-                localeString, keyboardLayoutSetName, isAsciiCapable, isEmojiCapable);
+                locale, keyboardLayoutSetName, isAsciiCapable, isEmojiCapable);
         final int platformVersionIndependentSubtypeId =
-                getPlatformVersionIndependentSubtypeId(localeString, keyboardLayoutSetName);
+                getPlatformVersionIndependentSubtypeId(locale, keyboardLayoutSetName);
         final InputMethodSubtype.InputMethodSubtypeBuilder builder = new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeNameResId(nameId)
                 .setSubtypeIconResId(R.drawable.ic_ime_switcher)
-                .setSubtypeLocale(localeString)
+                .setSubtypeLocale(locale.toString())
                 .setSubtypeMode(KEYBOARD_MODE)
                 .setSubtypeExtraValue(platformVersionDependentExtraValues)
                 .setIsAuxiliary(false)
@@ -66,22 +66,21 @@ public final class AdditionalSubtypeUtils {
                 .setSubtypeId(platformVersionIndependentSubtypeId)
                 .setIsAsciiCapable(isAsciiCapable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            builder.setLanguageTag(LocaleUtils.constructLocaleFromString(localeString).toLanguageTag());
+            builder.setLanguageTag(locale.toLanguageTag());
         return builder.build();
     }
 
     public static InputMethodSubtype createDummyAdditionalSubtype(
-            final String localeString, final String keyboardLayoutSetName) {
-        return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName, false, false);
+            final Locale locale, final String keyboardLayoutSetName) {
+        return createAdditionalSubtypeInternal(locale, keyboardLayoutSetName, false, false);
     }
 
     public static InputMethodSubtype createEmojiCapableAdditionalSubtype(
-            final String localeString, final String keyboardLayoutSetName, final boolean asciiCapable) {
-        return createAdditionalSubtypeInternal(localeString, keyboardLayoutSetName, asciiCapable, true);
+            final Locale locale, final String keyboardLayoutSetName, final boolean asciiCapable) {
+        return createAdditionalSubtypeInternal(locale, keyboardLayoutSetName, asciiCapable, true);
     }
 
-    // todo: relation to InputMethodSubtype.prefString()?
-    public static String getPrefSubtype(final InputMethodSubtype subtype) {
+    private static String getPrefSubtype(final InputMethodSubtype subtype) {
         final String localeString = subtype.getLocale();
         final String keyboardLayoutSetName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
         final String layoutExtraValue = KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName;
@@ -116,11 +115,12 @@ public final class AdditionalSubtypeUtils {
             Log.w(TAG, "Unknown additional subtype specified: " + prefSubtype);
             return null;
         }
-        final String localeString = elems[INDEX_OF_LOCALE];
+        final String languageTag = elems[INDEX_OF_LANGUAGE_TAG];
+        final Locale locale = Locale.forLanguageTag(languageTag); // todo: or use the cache?
         final String keyboardLayoutSetName = elems[INDEX_OF_KEYBOARD_LAYOUT];
-        final boolean asciiCapable = ScriptUtils.getScriptFromSpellCheckerLocale(LocaleUtils.constructLocaleFromString(localeString)) == ScriptUtils.SCRIPT_LATIN;
+        final boolean asciiCapable = ScriptUtils.getScriptFromSpellCheckerLocale(locale) == ScriptUtils.SCRIPT_LATIN;
         // Here we assume that all the additional subtypes are EmojiCapable
-        final InputMethodSubtype subtype = createEmojiCapableAdditionalSubtype(localeString, keyboardLayoutSetName, asciiCapable);
+        final InputMethodSubtype subtype = createEmojiCapableAdditionalSubtype(locale, keyboardLayoutSetName, asciiCapable);
         if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !keyboardLayoutSetName.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX)) {
             // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
             // layout has been removed.
@@ -172,7 +172,7 @@ public final class AdditionalSubtypeUtils {
      * @return extra value that is optimized for the running OS.
      * @see #getPlatformVersionIndependentSubtypeId(String, String)
      */
-    private static String getPlatformVersionDependentExtraValue(final String localeString,
+    private static String getPlatformVersionDependentExtraValue(final Locale locale,
             final String keyboardLayoutSetName, final boolean isAsciiCapable,
             final boolean isEmojiCapable) {
         final ArrayList<String> extraValueItems = new ArrayList<>();
@@ -180,7 +180,7 @@ public final class AdditionalSubtypeUtils {
         if (isAsciiCapable) {
             extraValueItems.add(ASCII_CAPABLE);
         }
-        if (SubtypeLocaleUtils.isExceptionalLocale(localeString)) {
+        if (SubtypeLocaleUtils.isExceptionalLocale(locale.toString())) { // todo: locale or language tag
             extraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +
                     SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
         }
@@ -208,7 +208,7 @@ public final class AdditionalSubtypeUtils {
      * @return a platform-version independent subtype ID.
      * @see #getPlatformVersionDependentExtraValue(String, String, boolean, boolean)
      */
-    private static int getPlatformVersionIndependentSubtypeId(final String localeString,
+    private static int getPlatformVersionIndependentSubtypeId(final Locale locale,
             final String keyboardLayoutSetName) {
         // For compatibility reasons, we concatenate the extra values in the following order.
         // - KeyboardLayoutSet
@@ -219,7 +219,7 @@ public final class AdditionalSubtypeUtils {
         final ArrayList<String> compatibilityExtraValueItems = new ArrayList<>();
         compatibilityExtraValueItems.add(KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName);
         compatibilityExtraValueItems.add(ASCII_CAPABLE);
-        if (SubtypeLocaleUtils.isExceptionalLocale(localeString)) {
+        if (SubtypeLocaleUtils.isExceptionalLocale(locale.toString())) {
             compatibilityExtraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +
                     SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
         }
@@ -227,7 +227,7 @@ public final class AdditionalSubtypeUtils {
         compatibilityExtraValueItems.add(IS_ADDITIONAL_SUBTYPE);
         final String compatibilityExtraValues = TextUtils.join(",", compatibilityExtraValueItems);
         return Arrays.hashCode(new Object[] {
-                localeString,
+                locale,
                 KEYBOARD_MODE,
                 compatibilityExtraValues,
                 false /* isAuxiliary */,

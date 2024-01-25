@@ -26,6 +26,7 @@ import androidx.preference.PreferenceGroup;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
 import java.util.Locale;
 import java.util.TreeSet;
@@ -113,7 +114,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
-                for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
+                for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, SubtypeUtilsKt.locale(mainSubtype))) {
                     sortedLanguages.add(secondaryLocale.toString());
                 }
             }

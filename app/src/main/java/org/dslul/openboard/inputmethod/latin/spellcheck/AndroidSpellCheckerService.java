@@ -210,8 +210,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     private Keyboard createKeyboardForLocale(final Locale locale) {
         final String keyboardLayoutName = getKeyboardLayoutNameForLocale(locale);
-        final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(
-                locale.toString(), keyboardLayoutName);
+        final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(locale, keyboardLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
         return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
     }

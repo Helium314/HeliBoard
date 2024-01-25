@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
-import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
@@ -345,7 +344,7 @@ public class RichInputMethodManager {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final String subtypeLocale = subtype.getLocale();
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
             for (final Locale secondaryLocale : secondaryLocales) {
                 if (secondaryLocale.equals(locale)) {
@@ -364,7 +363,7 @@ public class RichInputMethodManager {
         // search for secondary language match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final String subtypeLocale = subtype.getLocale();
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
             for (final Locale secondaryLocale : secondaryLocales) {
                 if (secondaryLocale.getLanguage().equals(locale.getLanguage())) {

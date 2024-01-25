@@ -152,7 +152,10 @@ public final class LocaleUtils {
      * "ll" is a language code, "cc" is a country code.
      * converts zz regions that used to signal latin script into actual latin script (using language tag)
      */
-    // todo: test whether e.g. en-US and en_US return the same (equals) locale, also for sr-Latn and sr_ZZ
+    // todo: check whether Android supports hybrids like hi-Latn-t-en-h0-hybrid, see https://unicode.org/reports/tr35/
+    //  but checking some locale source: probably not, see https://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-28/+/refs/heads/androidx-lifecycle-release/java/util/Locale.java
+    // todo: check performance of using this cache vs Locale.forLanguageTag
+    //  also whether forLanguageTag returns equal or the same object
     @NonNull
     public static Locale constructLocaleFromString(@NonNull final String localeString) {
         synchronized (sLocaleCache) {
@@ -161,21 +164,21 @@ public final class LocaleUtils {
             }
             final Locale locale;
             if (localeString.contains("-")) {
-                // it's actually a language tag, and not a locale string
+                // looks like it's actually a language tag, and not a locale string
                 locale = Locale.forLanguageTag(localeString);
                 sLocaleCache.put(localeString, locale);
                 return locale;
             }
             final String[] elements = localeString.split("_", 3);
             if (elements.length == 1) {
-                // todo: what if "zz"? then toLanguageTag may not work as expected?
-                locale = new Locale(elements[0]);
+                locale = new Locale(elements[0]); // "zz" works both in constructor and forLanguageTag
             } else if (elements.length == 2) {
                 if (elements[1].toLowerCase(Locale.ROOT).equals("zz"))
                     locale = Locale.forLanguageTag(elements[0] + "-Latn");
                 else
                     locale = new Locale(elements[0], elements[1]);
             } else { // localeParams.length == 3
+                // todo: what to do? just hope we never encounter a ZZ string here?
                 locale = new Locale(elements[0], elements[1], elements[2]);
             }
             sLocaleCache.put(localeString, locale);

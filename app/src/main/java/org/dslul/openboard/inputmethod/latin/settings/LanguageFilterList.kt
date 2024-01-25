@@ -124,7 +124,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     setOnCheckedChangeListener { _, b ->
                         if (b) {
                             if (!infos.first().hasDictionary)
-                                showMissingDictionaryDialog(context, infos.first().subtype.locale().toLocale())
+                                showMissingDictionaryDialog(context, infos.first().subtype.locale())
                             addEnabledSubtype(prefs, infos.first().subtype)
                             infos.first().isEnabled = true
                         } else {

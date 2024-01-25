@@ -73,10 +73,10 @@ fun cleanUnusedMainDicts(context: Context) {
     val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val usedLocales = hashSetOf<String>()
+    val usedLocales = hashSetOf<String>() // todo: bah...
     getEnabledSubtypes(prefs).forEach {
         val locale = it.locale()
-        usedLocales.add(locale)
+        usedLocales.add(locale.toString())
         // todo: need a custom localeString function that considers ZZ stuff (for dealing with dictionaries, also on system)
         Settings.getSecondaryLocales(prefs, locale).forEach { usedLocales.add(it.toString().lowercase()) }
     }
