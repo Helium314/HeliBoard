@@ -53,10 +53,8 @@
     <color name="emoji_tab_page_indicator_background_lxx_base_border">@android:color/white</color>
 
     <!-- Color resources for setup wizard and tutorial -->
-    <color name="setup_background">#FFEBEBEB</color>
-    <color name="setup_text_dark">#FF707070</color>
-    <color name="setup_text_action">@android:color/holo_blue_light</color>
-    <color name="setup_step_background">@android:color/background_light</color>
+    <color name="setup_step_background">#FFD9E8EF</color>
+    <color name="setup_step_action_pressed">#FFE1ECF2</color>
     <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
 
     <!-- Colors that are different for night theme -->

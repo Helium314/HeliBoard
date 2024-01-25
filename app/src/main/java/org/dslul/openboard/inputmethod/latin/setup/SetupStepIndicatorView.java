@@ -10,12 +10,14 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
 import org.dslul.openboard.inputmethod.latin.R;
 
 import androidx.core.view.ViewCompat;
+import com.google.android.material.elevation.SurfaceColors;
 
 public final class SetupStepIndicatorView extends View {
     private final Path mIndicatorPath = new Path();
@@ -24,7 +26,11 @@ public final class SetupStepIndicatorView extends View {
 
     public SetupStepIndicatorView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        mIndicatorPaint.setColor(getResources().getColor(R.color.setup_step_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            mIndicatorPaint.setColor(SurfaceColors.SURFACE_5.getColor(context));
+        } else {
+            mIndicatorPaint.setColor(getResources().getColor(R.color.setup_step_background));
+        }
         mIndicatorPaint.setStyle(Paint.Style.FILL);
     }
 

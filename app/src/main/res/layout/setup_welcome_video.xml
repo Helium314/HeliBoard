@@ -28,7 +28,6 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/setup_background"
                 android:contentDescription="@string/setup_welcome_additional_description"/>
             <ImageView
                 android:id="@+id/setup_welcome_image"

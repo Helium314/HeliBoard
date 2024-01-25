@@ -7,10 +7,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_focused="true"
-        android:drawable="@color/setup_text_action" />
+        android:drawable="@color/setup_step_action_pressed" />
     <item
         android:state_pressed="true"
-        android:drawable="@color/setup_text_action" />
+        android:drawable="@color/setup_step_action_pressed" />
     <item
         android:drawable="@color/setup_step_background" />
 </selector>
