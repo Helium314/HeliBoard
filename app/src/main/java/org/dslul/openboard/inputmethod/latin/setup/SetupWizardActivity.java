@@ -38,6 +38,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
+import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
@@ -139,9 +140,9 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
         welcomeTitle.setText(getString(R.string.setup_welcome_title, applicationName));
 
-        // disable the "with gesture typing" for now, as it's not really correct, even though it can be enabled...
-        final TextView welcomeDescription = findViewById(R.id.setup_welcome_description);
-        welcomeDescription.setText("");
+        // disable the "with gesture typing" when no library is available (at this point, this likely means library is in system and this is a system app)
+        if (!JniUtils.sHaveGestureLib)
+            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
 
         mSetupScreen = findViewById(R.id.setup_steps_screen);
         final TextView stepsTitle = findViewById(R.id.setup_title);
