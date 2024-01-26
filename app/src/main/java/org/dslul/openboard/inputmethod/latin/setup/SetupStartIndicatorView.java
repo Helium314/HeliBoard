@@ -9,22 +9,18 @@ package org.dslul.openboard.inputmethod.latin.setup;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 public final class SetupStartIndicatorView extends LinearLayout {
@@ -42,23 +38,7 @@ public final class SetupStartIndicatorView extends LinearLayout {
 
         public LabelView(final Context context, final AttributeSet attrs) {
             super(context, attrs);
-            final boolean isNight = ResourceUtils.isNight(context.getResources());
-            final int activatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? ContextCompat.getColor(context, android.R.color.system_accent1_500)
-                    : !isNight
-                        ? Color.parseColor("#5E9CED")
-                        : Color.parseColor("#72A4F3");
-
-            final int deactivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? !isNight
-                        ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
-                        : Color.WHITE
-                    : !isNight
-                        ? Color.parseColor("#1767CF")
-                        : Color.WHITE;
-
-            setTextColor(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                    new int[] { activatedColor, activatedColor, deactivatedColor }));
+            setTextColor(AppCompatResources.getColorStateList(context, R.color.setup_step_action_text_color));
         }
 
         public void setIndicatorView(final View indicatorView) {
@@ -86,18 +66,7 @@ public final class SetupStartIndicatorView extends LinearLayout {
 
         public IndicatorView(final Context context, final AttributeSet attrs) {
             super(context, attrs);
-            final boolean isNight = ResourceUtils.isNight(context.getResources());
-            mIndicatorColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? !isNight
-                        ? new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                                new int[] { getResources().getColor(android.R.color.system_accent1_100, null), getResources().getColor(android.R.color.system_accent1_100, null),
-                                        getResources().getColor(android.R.color.system_accent1_50, null) })
-                        : new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                                new int[] { getResources().getColor(android.R.color.system_accent1_700, null), getResources().getColor(android.R.color.system_accent1_700, null),
-                                        getResources().getColor(android.R.color.system_accent1_500, null) })
-
-                    : AppCompatResources.getColorStateList(context, R.color.setup_step_action_background);
-
+            mIndicatorColor = AppCompatResources.getColorStateList(context, R.color.setup_step_action_background);
             mIndicatorPaint.setStyle(Paint.Style.FILL);
         }
 

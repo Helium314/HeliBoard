@@ -11,7 +11,8 @@
     android:paddingLeft="@dimen/setup_horizontal_padding"
     android:paddingRight="@dimen/setup_horizontal_padding"
     android:paddingTop="@dimen/setup_vertical_padding"
-    android:paddingBottom="@dimen/setup_vertical_padding">
+    android:paddingBottom="@dimen/setup_vertical_padding"
+    android:background="@color/setup_background">
     <include
         android:id="@+id/setup_welcome_screen"
         layout="@layout/setup_welcome_screen" />

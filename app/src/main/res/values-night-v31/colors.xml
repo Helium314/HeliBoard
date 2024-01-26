@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <color name="accent">@android:color/system_accent1_500</color>
+
+    <!-- Color resources for setup wizard and tutorial -->
+    <color name="setup_background">@android:color/system_neutral1_900</color>
+    <color name="setup_step_background">@android:color/system_accent1_500</color>
+    <color name="setup_step_action_pressed">@android:color/system_accent1_700</color>
+    <color name="setup_text_title">@android:color/system_accent1_300</color>
+    <color name="setup_text_action">#FFFFFFFF</color>
+    <color name="setup_step_action_text_pressed">@android:color/system_accent1_500</color>
+    <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
+</resources>

@@ -10,12 +10,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Build;
+
 import android.util.AttributeSet;
 import android.view.View;
 
 import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 
 import androidx.core.view.ViewCompat;
 
@@ -26,16 +25,7 @@ public final class SetupStepIndicatorView extends View {
 
     public SetupStepIndicatorView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        final boolean isNight = ResourceUtils.isNight(context.getResources());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (!isNight) {
-                mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_50, null));
-            } else {
-                mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_500, null));
-            }
-        } else {
-            mIndicatorPaint.setColor(getResources().getColor(R.color.setup_step_background));
-        }
+        mIndicatorPaint.setColor(getResources().getColor(R.color.setup_step_background));
         mIndicatorPaint.setStyle(Paint.Style.FILL);
     }
 

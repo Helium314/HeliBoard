@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2013 The Android Open Source Project
+    modified
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="setupTitleStyleCommon">
+        <item name="android:textColor">@color/setup_text_title</item>
         <item name="android:textSize">@dimen/setup_title_text_size</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="setupWelcomeDescritpionStyle" parent="setupTitleStyle">
+    <style name="setupWelcomeDescriptionStyle" parent="setupTitleStyle">
         <item name="android:textSize">@dimen/setup_welcome_description_text_size</item>
     </style>
     <style name="setupStepIndicatorStyle">
@@ -24,15 +26,18 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
     <style name="setupStepBaseStyle">
+        <item name="android:background">@color/setup_step_background</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">@dimen/setup_step_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/setup_step_horizontal_padding</item>
     </style>
     <style name="setupStepTitleStyle" parent="setupStepBaseStyle">
+        <item name="android:textColor">@color/setup_text_action</item>
         <item name="android:textSize">@dimen/setup_step_title_text_size</item>
     </style>
     <style name="setupStepInstructionStyle" parent="setupStepBaseStyle">
+        <item name="android:textColor">@color/setup_step_action_text_color</item>
         <item name="android:textSize">@dimen/setup_step_instruction_text_size</item>
     </style>
     <style name="setupStepStartIndicatorStyle">
@@ -41,6 +46,8 @@
         <item name="android:layout_height">@dimen/setup_step_action_height</item>
     </style>
     <style name="setupStepActionLabelStyleCommon" parent="setupStepBaseStyle">
+        <item name="android:textColor">@color/setup_step_action_text_color</item>
+        <item name="android:background">@drawable/setup_step_action_background</item>
         <item name="android:layout_height">@dimen/setup_step_action_height</item>
         <item name="android:paddingLeft">@dimen/setup_step_horizontal_padding_half</item>
         <item name="android:textSize">@dimen/setup_step_action_text_size</item>

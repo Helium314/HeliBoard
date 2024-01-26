@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -31,6 +30,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
@@ -125,26 +125,8 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         mImm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mHandler = new SettingsPoolingHandler(this, mImm);
-
-        final int setupBackgroundColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                ? !isNight
-                    ? getResources().getColor(android.R.color.system_neutral1_10, null)
-                    : getResources().getColor(android.R.color.system_neutral1_900, null)
-                : !isNight
-                    ? Color.parseColor("#FAFAFA")
-                    : Color.parseColor("#303030");
-
-        final int setupTextColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                ? !isNight
-                    ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
-                    : ContextCompat.getColor(context, android.R.color.system_accent1_300)
-                : !isNight
-                    ? Color.parseColor("#1767CF")
-                    : Color.parseColor("#5C94F1");
-
         setContentView(R.layout.setup_wizard);
         mSetupWizard = findViewById(R.id.setup_wizard);
-        mSetupWizard.setBackgroundColor(setupBackgroundColor);
 
         if (savedInstanceState == null) {
             mStepNumber = determineSetupStepNumberFromLauncher();
@@ -156,7 +138,6 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mWelcomeScreen = findViewById(R.id.setup_welcome_screen);
         final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
         welcomeTitle.setText(getString(R.string.setup_welcome_title, applicationName));
-        welcomeTitle.setTextColor(setupTextColor);
 
         // disable the "with gesture typing" for now, as it's not really correct, even though it can be enabled...
         final TextView welcomeDescription = findViewById(R.id.setup_welcome_description);
@@ -165,7 +146,6 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         mSetupScreen = findViewById(R.id.setup_steps_screen);
         final TextView stepsTitle = findViewById(R.id.setup_title);
         stepsTitle.setText(getString(R.string.setup_steps_title, applicationName));
-        stepsTitle.setTextColor(setupTextColor);
 
         final SetupStepIndicatorView indicatorView = findViewById(R.id.setup_step_indicator);
         mSetupStepGroup = new SetupStepGroup(indicatorView);
@@ -230,44 +210,23 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
-        mActionNext.setTextColor((new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                new int[] { step1.mActivatedColor, step1.mActivatedColor, step1.mDeactivatedColor } )));
 
         mActionFinish = findViewById(R.id.setup_finish);
-        mActionFinish.setTextColor(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                new int[] { step1.mActivatedColor, step1.mActivatedColor, step1.mDeactivatedColor } ));
-
         final Drawable finishDrawable = ContextCompat.getDrawable(this, R.drawable.ic_setup_check);
         if (finishDrawable == null) {
             return;
         }
-        DrawableCompat.setTintList(finishDrawable, new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                new int[] { step1.mActivatedColor, step1.mActivatedColor, step1.mDeactivatedColor } ));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            mActionStart.setBackgroundColor(step1.mLabelBackgroundColor);
-            mActionStart.setBackgroundTintList(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                    new int[] { step1.mColorPressed, step1.mColorPressed, step1.mColorEnabled } ));
-
-            mActionFinish.setBackgroundColor(step1.mLabelBackgroundColor);
-            mActionFinish.setBackgroundTintList(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed}, {} },
-                    new int[] { step1.mColorPressed, step1.mColorPressed, step1.mColorEnabled } ));
-        } else {
-            mActionStart.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.setup_step_action_background, null));
-            mActionFinish.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.setup_step_action_background, null));
-        }
+        DrawableCompat.setTintList(finishDrawable, step1.mTextColorStateList);
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
 
-        // Set the background color
-        getWindow().getDecorView().getBackground().setColorFilter(setupBackgroundColor, PorterDuff.Mode.SRC);
         // Set the status bar color
-        getWindow().setStatusBarColor(setupBackgroundColor);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
         // Navigation bar color
         if (!isNight && !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)) {
             getWindow().setNavigationBarColor(ColorUtils.setAlphaComponent(Color.GRAY, 180));
         } else {
-            getWindow().setNavigationBarColor(setupBackgroundColor);
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.setup_background));
         }
         // Set the icons of the status bar and the navigation bar light or dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -476,12 +435,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         public final int mStepNo;
         private final View mStepView;
         private final TextView mBulletView;
-        private final int mActivatedColor;
-        private final int mDeactivatedColor;
-        private final int mLabelBackgroundColor;
-        private final int mTextColor;
-        private final int mColorPressed;
-        private final int mColorEnabled;
+        private final ColorStateList mTextColorStateList;
         private final String mInstruction;
         private final String mFinishedInstruction;
         private final TextView mActionLabel;
@@ -493,84 +447,27 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             mStepNo = stepNo;
             mStepView = stepView;
             mBulletView = bulletView;
-            final Context context = mStepView.getContext();
             final Resources res = stepView.getResources();
-            final boolean isNight = ResourceUtils.isNight(context.getResources());
-            mColorPressed = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? !isNight
-                        ? res.getColor(android.R.color.system_accent1_100, null)
-                        : res.getColor(android.R.color.system_accent1_700, null)
-                    : 0;
-
-            mColorEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? !isNight
-                        ? res.getColor(android.R.color.system_accent1_50, null)
-                        : res.getColor(android.R.color.system_accent1_500, null)
-                    : 0;
-
-            mActivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? res.getColor(android.R.color.system_accent1_500, null)
-                    : !isNight
-                        ? Color.parseColor("#5E9CED")
-                        : Color.parseColor("#72A4F3");
-
-            mDeactivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? !isNight
-                        ? res.getColor(android.R.color.system_accent1_700, null)
-                        : Color.WHITE
-                    : !isNight
-                        ? Color.parseColor("#1767CF")
-                        : Color.WHITE;
-
-            mLabelBackgroundColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? mColorEnabled
-                    : !isNight
-                        ? Color.parseColor("#D1E3FA")
-                        : Color.parseColor("#2D4260");
-
-            mTextColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                    ? !isNight
-                        ? res.getColor(android.R.color.system_accent1_700, null)
-                        : Color.WHITE
-                    : !isNight
-                        ? Color.parseColor("#1767CF")
-                        : Color.WHITE;
+            mTextColorStateList = AppCompatResources.getColorStateList(mStepView.getContext(), R.color.setup_step_action_text_color);
 
             final TextView titleView = mStepView.findViewById(R.id.setup_step_title);
             titleView.setText(res.getString(title, applicationName));
-            titleView.setTextColor(mTextColor);
-            titleView.setBackgroundColor(mLabelBackgroundColor);
 
-            final View stepInstruction = mStepView.findViewById(R.id.setup_step_instruction);
-            stepInstruction.setBackgroundColor(mLabelBackgroundColor);
             mInstruction = (instruction == 0) ? null : res.getString(instruction, applicationName);
             mFinishedInstruction = (finishedInstruction == 0) ? null : res.getString(finishedInstruction, applicationName);
 
             mActionLabel = mStepView.findViewById(R.id.setup_step_action_label);
             mActionLabel.setText(res.getString(actionLabel));
-            mActionLabel.setTextColor(new ColorStateList(new int[][]{ { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                    new int[] { mActivatedColor, mActivatedColor, mDeactivatedColor }));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                mActionLabel.setBackgroundColor(mLabelBackgroundColor);
-                mActionLabel.setBackgroundTintList(new ColorStateList(new int[][]{ { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {}},
-                        new int[] { mColorPressed, mColorPressed, mColorEnabled }));
-            } else {
-                mActionLabel.setBackground(ResourcesCompat.getDrawable(res, R.drawable.setup_step_action_background, null));
-            }
-
             final Drawable actionIconDrawable = ResourcesCompat.getDrawable(res, actionIcon, null);
-            if (actionIconDrawable != null) {
-                DrawableCompat.setTintList(actionIconDrawable, new ColorStateList(new int[][]{ { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
-                        new int[] { mActivatedColor, mActivatedColor, mDeactivatedColor }));
+            if (actionIconDrawable == null) {
+                return;
             }
+            DrawableCompat.setTintList(actionIconDrawable, mTextColorStateList);
             if (actionIcon == 0) {
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
                 final int size = (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, 24f, res.getDisplayMetrics());
-                if (actionIconDrawable == null) {
-                    return;
-                }
                 actionIconDrawable.setBounds(0,0, size, size);
                 mActionLabel.setCompoundDrawablesRelative(actionIconDrawable, null, null, null);
             }
@@ -578,10 +475,11 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         public void setEnabled(final boolean enabled, final boolean isStepActionAlreadyDone) {
             mStepView.setVisibility(enabled ? View.VISIBLE : View.GONE);
-            mBulletView.setTextColor(enabled ? mActivatedColor : mDeactivatedColor);
+            mBulletView.setTextColor(enabled
+                    ? mBulletView.getContext().getResources().getColor(R.color.setup_step_action_text_pressed)
+                    : mBulletView.getContext().getResources().getColor(R.color.setup_text_action));
             final TextView instructionView = mStepView.findViewById(R.id.setup_step_instruction);
             instructionView.setText(isStepActionAlreadyDone ? mFinishedInstruction : mInstruction);
-            instructionView.setTextColor(mTextColor);
             mActionLabel.setVisibility(isStepActionAlreadyDone ? View.GONE : View.VISIBLE);
         }
 
