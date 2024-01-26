@@ -38,7 +38,6 @@ public final class SetupStartIndicatorView extends LinearLayout {
 
         public LabelView(final Context context, final AttributeSet attrs) {
             super(context, attrs);
-            setTextColor(AppCompatResources.getColorStateList(context, R.color.setup_step_action_text_color));
         }
 
         public void setIndicatorView(final View indicatorView) {

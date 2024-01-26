@@ -22,5 +22,4 @@
     <color name="setup_text_title">@android:color/system_accent1_700</color>
     <color name="setup_text_action">@android:color/system_accent1_700</color>
     <color name="setup_step_action_text_pressed">@android:color/system_accent1_500</color>
-    <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
 </resources>
