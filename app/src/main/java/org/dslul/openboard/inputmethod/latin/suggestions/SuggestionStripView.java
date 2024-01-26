@@ -164,7 +164,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
-            colors.setBackground(word, ColorType.SUGGESTION_BACKGROUND);
+            colors.setBackground(word, ColorType.STRIP_BACKGROUND);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);
             mDividerViews.add(divider);
@@ -204,7 +204,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final int toolbarHeight = Math.min(mToolbarExpandKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
         mToolbarExpandKey.getLayoutParams().height = toolbarHeight;
         mToolbarExpandKey.getLayoutParams().width = toolbarHeight; // we want it square
-        colors.setBackground(mToolbarExpandKey, ColorType.SUGGESTION_BACKGROUND);
+        colors.setBackground(mToolbarExpandKey, ColorType.STRIP_BACKGROUND);
         mDefaultBackground = mToolbarExpandKey.getBackground();
         mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
@@ -228,7 +228,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
         }
 
-        colors.setBackground(this, ColorType.SUGGESTION_BACKGROUND);
+        colors.setBackground(this, ColorType.STRIP_BACKGROUND);
         keyboardAttr.recycle();
     }
 
@@ -714,6 +714,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
         colors.setColor(view, ColorType.TOOL_BAR_KEY);
-        colors.setBackground(view, ColorType.SUGGESTION_BACKGROUND);
+        colors.setBackground(view, ColorType.STRIP_BACKGROUND);
     }
 }

@@ -122,9 +122,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
-            colors.setBackground(it, ColorType.BACKGROUND)
+            colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
-        colors.setBackground(clipboardStrip, ColorType.BACKGROUND)
         initialized = true
     }
 
@@ -198,7 +197,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
             adapter = clipboardAdapter
             layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
         }
-        Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }
 
     fun stopClipboardHistory() {
