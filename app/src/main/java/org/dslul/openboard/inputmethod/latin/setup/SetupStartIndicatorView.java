@@ -52,10 +52,10 @@ public final class SetupStartIndicatorView extends LinearLayout {
             final int deactivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
                         ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
-                        : ContextCompat.getColor(context, android.R.color.system_accent1_200)
+                        : Color.WHITE
                     : !isNight
-                        ? Color.parseColor("#1971E3")
-                        : Color.parseColor("#5C94F1");
+                        ? Color.parseColor("#1767CF")
+                        : Color.WHITE;
 
             setTextColor(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
                     new int[] { activatedColor, activatedColor, deactivatedColor }));
@@ -94,7 +94,7 @@ public final class SetupStartIndicatorView extends LinearLayout {
                                         getResources().getColor(android.R.color.system_accent1_50, null) })
                         : new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
                                 new int[] { getResources().getColor(android.R.color.system_accent1_700, null), getResources().getColor(android.R.color.system_accent1_700, null),
-                                        getResources().getColor(android.R.color.system_accent1_800, null) })
+                                        getResources().getColor(android.R.color.system_accent1_500, null) })
 
                     : AppCompatResources.getColorStateList(context, R.color.setup_step_action_background);
 

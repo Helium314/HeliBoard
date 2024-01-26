@@ -31,7 +31,7 @@ public final class SetupStepIndicatorView extends View {
             if (!isNight) {
                 mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_50, null));
             } else {
-                mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_800, null));
+                mIndicatorPaint.setColor(getResources().getColor(android.R.color.system_accent1_500, null));
             }
         } else {
             mIndicatorPaint.setColor(getResources().getColor(R.color.setup_step_background));

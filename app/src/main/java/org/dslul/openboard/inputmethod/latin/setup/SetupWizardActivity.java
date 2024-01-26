@@ -62,7 +62,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
     private VideoView mWelcomeVideoView;
     private ImageView mWelcomeImageView;
     private View mActionStart;
-    private View mActionNext;
+    private TextView mActionNext;
     private TextView mStep1Bullet;
     private TextView mActionFinish;
     private SetupStepGroup mSetupStepGroup;
@@ -137,9 +137,9 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final int setupTextColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                 ? !isNight
                     ? ContextCompat.getColor(context, android.R.color.system_accent1_700)
-                    : ContextCompat.getColor(context, android.R.color.system_accent1_200)
+                    : ContextCompat.getColor(context, android.R.color.system_accent1_300)
                 : !isNight
-                    ? Color.parseColor("#1971E3")
+                    ? Color.parseColor("#1767CF")
                     : Color.parseColor("#5C94F1");
 
         setContentView(R.layout.setup_wizard);
@@ -227,8 +227,12 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         mActionStart = findViewById(R.id.setup_start_label);
         mActionStart.setOnClickListener(this);
+
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
+        mActionNext.setTextColor((new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
+                new int[] { step1.mActivatedColor, step1.mActivatedColor, step1.mDeactivatedColor } )));
+
         mActionFinish = findViewById(R.id.setup_finish);
         mActionFinish.setTextColor(new ColorStateList(new int[][] { { android.R.attr.state_focused }, { android.R.attr.state_pressed }, {} },
                 new int[] { step1.mActivatedColor, step1.mActivatedColor, step1.mDeactivatedColor } ));
@@ -501,7 +505,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             mColorEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
                         ? res.getColor(android.R.color.system_accent1_50, null)
-                        : res.getColor(android.R.color.system_accent1_800, null)
+                        : res.getColor(android.R.color.system_accent1_500, null)
                     : 0;
 
             mActivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -513,10 +517,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             mDeactivatedColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
                         ? res.getColor(android.R.color.system_accent1_700, null)
-                        : res.getColor(android.R.color.system_accent1_200, null)
+                        : Color.WHITE
                     : !isNight
-                        ? Color.parseColor("#1971E3")
-                        : Color.parseColor("#5C94F1");
+                        ? Color.parseColor("#1767CF")
+                        : Color.WHITE;
 
             mLabelBackgroundColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? mColorEnabled
@@ -527,10 +531,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             mTextColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                     ? !isNight
                         ? res.getColor(android.R.color.system_accent1_700, null)
-                        : res.getColor(android.R.color.system_accent1_200, null)
+                        : Color.WHITE
                     : !isNight
-                        ? Color.parseColor("#1971E3")
-                        : Color.parseColor("#5C94F1");
+                        ? Color.parseColor("#1767CF")
+                        : Color.WHITE;
 
             final TextView titleView = mStepView.findViewById(R.id.setup_step_title);
             titleView.setText(res.getString(title, applicationName));
