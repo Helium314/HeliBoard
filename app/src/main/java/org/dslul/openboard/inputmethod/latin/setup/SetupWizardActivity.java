@@ -448,7 +448,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             mStepView = stepView;
             mBulletView = bulletView;
             final Resources res = stepView.getResources();
-            mTextColorStateList = AppCompatResources.getColorStateList(mStepView.getContext(), R.color.setup_step_action_text_color);
+            mTextColorStateList = AppCompatResources.getColorStateList(mStepView.getContext(), R.color.setup_step_action_text);
 
             final TextView titleView = mStepView.findViewById(R.id.setup_step_title);
             titleView.setText(res.getString(title, applicationName));
