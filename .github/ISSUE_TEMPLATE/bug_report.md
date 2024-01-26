@@ -4,8 +4,9 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-<!-- Please search open and closed issues to avoid duplicates, and don't put several issues / bugs into one report
-If you're interested, you can read the following text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
+<!-- Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
+If you want to report more issues / bugs, open mulitple issues (one for each).
+If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
 **Does it happen in OpenBoard, or is it exclusive to this modified version?**
 
 **Describe the bug**
