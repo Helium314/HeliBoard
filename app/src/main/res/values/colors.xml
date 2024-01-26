@@ -52,7 +52,7 @@
     <color name="key_bottom_bevel_lxx_base">#A9ABAD</color>
     <color name="emoji_tab_page_indicator_background_lxx_base_border">@android:color/white</color>
 
-    <!-- Color resources for setup wizard and tutorial -->
+    <!-- Color resources for setup wizard, tutorial and settings -->
     <color name="setup_background">#FFFAFAFA</color>
     <color name="setup_step_background">#FFD1E3FA</color>
     <color name="setup_step_action_pressed">#FFE8F1FC</color>
@@ -60,6 +60,8 @@
     <color name="setup_text_action">#FF1767CF</color>
     <color name="setup_step_action_text_pressed">#FF5E9CED</color>
     <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
+    <color name="action_bar_color">#FFF5F5F5</color>
+    <color name="sliding_items_background">#FFFFFFFF</color>
 
     <!-- Colors that are different for night theme -->
     <color name="foreground">#000</color>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight">
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="android:actionBarSize">80dp</item>
+        <item name="actionBarSize">80dp</item>
+
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+
+        <item name="android:buttonCornerRadius">50dp</item>
+
+        <item name="android:spinnerDropDownItemStyle">@style/DropDownMenuTheme</item>
+        <item name="spinnerDropDownItemStyle">@style/DropDownMenuTheme</item>
+
+        <item name="android:actionBarPopupTheme">@style/MenuTheme</item>
+        <item name="actionBarPopupTheme">@style/MenuTheme</item>
+
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/dialog_background</item>
+        <item name="background">@color/dialog_background</item>
+        <item name="android:dialogCornerRadius">28dp</item>
+        <item name="dialogCornerRadius">28dp</item>
+    </style>
+
+    <style name="DropDownMenuTheme" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:background">@color/drop_down_menu_background</item>
+        <item name="background">@color/drop_down_menu_background</item>
+    </style>
+
+    <style name="MenuTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:background">@color/drop_down_menu_background</item>
+        <item name="background">@color/drop_down_menu_background</item>
+    </style>
+
+</resources>

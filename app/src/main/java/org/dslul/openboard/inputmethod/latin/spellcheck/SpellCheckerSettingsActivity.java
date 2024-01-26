@@ -9,6 +9,7 @@ package org.dslul.openboard.inputmethod.latin.spellcheck;
 import android.os.Bundle;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
+import org.dslul.openboard.inputmethod.latin.utils.ColorSettingsUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -18,7 +19,6 @@ import androidx.core.app.ActivityCompat;
  */
 public final class SpellCheckerSettingsActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
-    private static final String DEFAULT_FRAGMENT = SpellCheckerSettingsFragment.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,8 @@ public final class SpellCheckerSettingsActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SpellCheckerSettingsFragment())
                 .commit();
+
+        ColorSettingsUtils.setSettingColor(this);
     }
 
     @Override

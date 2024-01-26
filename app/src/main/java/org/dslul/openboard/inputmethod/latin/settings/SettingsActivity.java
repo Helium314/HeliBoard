@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
+import org.dslul.openboard.inputmethod.latin.utils.ColorSettingsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.NewDictionaryAdder;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,8 @@ public final class SettingsActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(android.R.id.content, new SettingsFragment())
                     .commit();
+
+        ColorSettingsUtils.setSettingColor(this);
     }
 
     @Override
