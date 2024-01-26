@@ -204,7 +204,8 @@ public class KeyboardView extends View {
         } else if (keyboard instanceof MoreKeysKeyboard) {
             mColors.setBackground(this, ColorType.MORE_KEYS_BACKGROUND);
         } else {
-            mColors.setBackground(this, ColorType.KEYBOARD_BACKGROUND);
+            // actual background color/drawable is applied to main_keyboard_frame
+            setBackgroundColor(Color.TRANSPARENT);
         }
 
         mKeyboard = keyboard;

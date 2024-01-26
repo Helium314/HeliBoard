@@ -258,7 +258,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND -> functionalKey
         SPACE_BAR_BACKGROUND -> spaceBar
-        BACKGROUND, KEYBOARD_BACKGROUND, MAIN_BACKGROUND -> background
+        BACKGROUND, MAIN_BACKGROUND -> background
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_MORE_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
@@ -340,7 +340,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
                 if (themeStyle != STYLE_HOLO)
                     setColor(view.background, MORE_KEYS_BACKGROUND)
                 else view.background.colorFilter = adjustedBackgroundFilter
-            KEYBOARD_BACKGROUND -> view.setBackgroundColor(Color.TRANSPARENT)
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
@@ -469,7 +468,7 @@ class DefaultColors (
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND -> functionalKey
         SPACE_BAR_BACKGROUND -> spaceBar
-        BACKGROUND, KEYBOARD_BACKGROUND, MAIN_BACKGROUND -> background
+        BACKGROUND, MAIN_BACKGROUND -> background
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_MORE_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
@@ -517,7 +516,6 @@ class DefaultColors (
             FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
             ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) BACKGROUND else STRIP_BACKGROUND)
             MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
-            KEYBOARD_BACKGROUND -> view.setBackgroundColor(Color.TRANSPARENT)
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
@@ -598,7 +596,6 @@ enum class ColorType {
     KEY_TEXT,
     KEY_HINT_TEXT,
     KEY_PREVIEW,
-    KEYBOARD_BACKGROUND,
     MORE_SUGGESTIONS_HINT,
     MORE_SUGGESTIONS_BACKGROUND,
     MORE_KEYS_BACKGROUND,
