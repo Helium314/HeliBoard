@@ -441,7 +441,7 @@ class DefaultColors (
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
             backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = stateList(brightenOrDarken(background, true), Color.TRANSPARENT)
+            keyStateList = stateList(keyBackground, Color.TRANSPARENT)
             functionalKeyStateList = keyStateList
             actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
                 else stateList(brightenOrDarken(accent, true), accent)
