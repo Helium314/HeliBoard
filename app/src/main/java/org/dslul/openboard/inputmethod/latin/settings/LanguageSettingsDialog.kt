@@ -123,7 +123,7 @@ class LanguageSettingsDialog(
             .setMessage(message)
             .setNegativeButton(android.R.string.cancel, null)
             .setNeutralButton(R.string.button_copy_existing_layout) { _, _ -> copyLayout() }
-            .setPositiveButton(R.string.button_load_custom_layout) { _, _ -> fragment?.requestLayoutFile() }
+            .setPositiveButton(R.string.button_load_custom) { _, _ -> fragment?.requestLayoutFile() }
             .create()
         dialog.show()
         (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
@@ -201,7 +201,7 @@ class LanguageSettingsDialog(
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName!!)), context.getString(R.string.delete_dict)) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName!!)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }
@@ -345,7 +345,7 @@ class LanguageSettingsDialog(
             isVisible = true
             setOnClickListener {
                 confirmDialog(context, context.getString(R.string.remove_dictionary_message, dictType), context.getString(
-                    R.string.delete_dict)) {
+                    R.string.delete)) {
                     val parent = dictFile.parentFile
                     dictFile.delete()
                     if (parent?.list()?.isEmpty() == true)

@@ -420,8 +420,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_title_add_custom_layout">Add custom layout</string>
     <!-- Message text for adding a custom layout, interpreted as HTML -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
-    <!-- Button text for loading a custom layout file -->
-    <string name="button_load_custom_layout">Load file</string>
+    <!-- Button text for loading a custom layout or image file -->
+    <string name="button_load_custom">Load file</string>
+    <!-- Error message when file cannot be read -->
+    <string name="file_read_error">Cannot read file</string>
     <!-- Button text for copying an existing layout -->
     <string name="button_copy_existing_layout">Copy existing layout</string>
     <!-- Title text for choosing a layout name -->
@@ -438,6 +440,14 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="customize_shift_symbols">Customize more symbols layout</string>
     <!-- Name for more symbols layout -->
     <string name="shift_symbols">More symbols</string>
+    <!-- Title for customizing background image -->
+    <string name="customize_background_image">Set background image</string>
+    <!-- Message for selecting day or night background image -->
+    <string name="day_or_night_image">Set image for day or night mode?</string>
+    <!-- Button for selecting day -->
+    <string name="day_or_night_day">Day</string>
+    <!-- Button for selecting night -->
+    <string name="day_or_night_night">Night</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
@@ -551,8 +561,8 @@ New dictionary:
     <string name="last_update">Last updated</string>
     <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
     <string name="main_dict_description">Main dictionary</string>
-    <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
-    <string name="delete_dict">Delete</string>
+    <!-- Action to delete (a file) [CHAR_LIMIT=15] -->
+    <string name="delete">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->

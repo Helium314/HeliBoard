@@ -106,7 +106,7 @@
     <string name="last_update" msgid="730467549913588780">"இறுதியாகப் புதுப்பித்தது"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"முதன்மை அகராதி"</string>
     <string name="settings" msgid="3876892339342569259">"அமைப்பு"</string>
-    <string name="delete_dict" msgid="756853268088330054">"நீக்கு"</string>
+    <string name="delete" msgid="756853268088330054">"நீக்கு"</string>
     <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> பதிப்பு"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"சேர்"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"அகராதியில் சேர்"</string>

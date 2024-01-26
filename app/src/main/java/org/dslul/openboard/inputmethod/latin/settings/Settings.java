@@ -12,7 +12,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
@@ -23,6 +26,7 @@ import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
@@ -159,6 +163,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private SharedPreferences mPrefs;
     private SettingsValues mSettingsValues;
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
+
+    // static cache for background images to avoid potentially slow reload on every settings reload
+    private static Drawable sCachedBackgroundDay;
+    private static Drawable sCachedBackgroundNight;
 
     private static final Settings sInstance = new Settings();
 
@@ -532,6 +540,37 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return "symbols_shifted";
     }
 
+    @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
+        if (night && sCachedBackgroundNight != null) return sCachedBackgroundNight;
+        if (!night && sCachedBackgroundDay != null) return sCachedBackgroundDay;
+        final File image = getCustomBackgroundFile(context, night);
+        if (!image.isFile()) return null;
+        try {
+            if (night) {
+                sCachedBackgroundNight = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
+                return sCachedBackgroundNight;
+            } else {
+                sCachedBackgroundDay = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
+                return sCachedBackgroundDay;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static File getCustomBackgroundFile(final Context context, final boolean night) {
+        return new File(context.getFilesDir(), "custom_background_image" + (night ? "_night" : ""));
+    }
+
+    public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {
+        return prefs.getBoolean(PREF_THEME_DAY_NIGHT, res.getBoolean(R.bool.day_night_default));
+    }
+
+    public static void clearCachedBackgroundImages() {
+        sCachedBackgroundDay = null;
+        sCachedBackgroundNight = null;
+    }
+
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
         final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "");
 
@@ -558,7 +597,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (prefs.getBoolean(PREF_FORCE_OPPOSITE_THEME, false)) isNight = !isNight;
-        final String themeColors = (isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
+        final String themeColors = (isNight && readDayNightPref(prefs, context.getResources()))
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARKER)
                 : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);

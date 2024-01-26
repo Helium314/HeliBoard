@@ -86,7 +86,7 @@
     <string name="check_for_updates_now">Atualizar</string>
     <string name="last_update">Última atualização</string>
     <string name="settings">Configurações</string>
-    <string name="delete_dict">Apagar</string>
+    <string name="delete">Apagar</string>
     <string name="user_dict_settings_add_menu_title">Adicionar</string>
     <string name="user_dict_settings_add_shortcut_option_name">Atalho:</string>
     <string name="user_dict_settings_add_locale_option_name">Idioma:</string>

@@ -20,6 +20,6 @@
     <string name="setup_start_action">Bdu</string>
     <string name="settings">Iɣewwaren</string>
     <string name="setup_finish_action">IH</string>
-    <string name="delete_dict">Kkes</string>
+    <string name="delete">Kkes</string>
     <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
 </resources>

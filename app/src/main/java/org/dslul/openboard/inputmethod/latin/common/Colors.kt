@@ -9,6 +9,7 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -21,6 +22,7 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.toBitmap
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.Companion.STYLE_HOLO
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import org.dslul.openboard.inputmethod.latin.common.ColorType.*
@@ -60,7 +62,7 @@ interface Colors {
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
-class DynamicColors(context: Context, override val themeStyle: String, override val hasKeyBorders: Boolean) : Colors {
+class DynamicColors(context: Context, override val themeStyle: String, override val hasKeyBorders: Boolean, private var keyboardBackground: Drawable? = null) : Colors {
 
     private val isNight = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
@@ -126,9 +128,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     private val stripBackgroundList: ColorStateList
     private val toolbarKeyStateList = activatedStateList(keyText, darken(darken(keyText)))
 
-    /** custom drawable used for keyboard background */
-    private val keyboardBackground: Drawable?
-
     /** darkened variant of [accent] because the accent color is always light for dynamic colors */
     private val adjustedAccent: Int = darken(accent)
     /** further darkened variant of [adjustedAccent] */
@@ -143,17 +142,18 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     private val adjustedKeyBackground: Int = brighten(keyBackground)
     /** further brightened variant of [adjustedKeyBackground] */
     private val doubleAdjustedKeyBackground: Int = brighten(adjustedKeyBackground)
+    private var backgroundSetupDone = false
 
     init {
         accentColorFilter = colorFilter(doubleAdjustedAccent)
 
-        if (themeStyle == STYLE_HOLO) {
+        if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
             val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
             navBar = darkerBackground
             keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
+            backgroundSetupDone = true
         } else {
             navBar = background
-            keyboardBackground = null
         }
 
         // todo (idea): make better use of the states?
@@ -342,8 +342,15 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
                 else view.background.colorFilter = adjustedBackgroundFilter
             KEYBOARD_BACKGROUND -> view.setBackgroundColor(Color.TRANSPARENT)
             MAIN_BACKGROUND -> {
-                if (keyboardBackground != null) view.background = keyboardBackground
-                else view.background.colorFilter = backgroundFilter
+                if (keyboardBackground != null) {
+                    if (!backgroundSetupDone) {
+                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        backgroundSetupDone = true
+                    }
+                    view.background = keyboardBackground
+                } else {
+                    view.background.colorFilter = backgroundFilter
+                }
             }
             else -> view.background.colorFilter = backgroundFilter
         }
@@ -363,6 +370,7 @@ class DefaultColors (
     private val suggestionText: Int = keyText,
     private val spaceBarText: Int = keyHintText,
     private val gesture: Int = accent,
+    private var keyboardBackground: Drawable? = null,
 ) : Colors {
     private val navBar: Int
     /** brightened or darkened variant of [background], to be used if exact background color would be
@@ -389,20 +397,18 @@ class DefaultColors (
     private val adjustedBackgroundStateList: ColorStateList
     private val stripBackgroundList: ColorStateList
     private val toolbarKeyStateList = activatedStateList(suggestionText, darken(darken(suggestionText)))
-
-    /** custom drawable used for keyboard background */
-    private val keyboardBackground: Drawable?
+    private var backgroundSetupDone = false
 
     override fun haveColorsChanged(context: Context) = false
 
     init {
-        if (themeStyle == STYLE_HOLO) {
+        if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
             val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
             navBar = darkerBackground
             keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
+            backgroundSetupDone = true
         } else {
             navBar = background
-            keyboardBackground = null
         }
 
         if (isDarkColor(background)) {
@@ -513,8 +519,15 @@ class DefaultColors (
             MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
             KEYBOARD_BACKGROUND -> view.setBackgroundColor(Color.TRANSPARENT)
             MAIN_BACKGROUND -> {
-                if (keyboardBackground != null) view.background = keyboardBackground
-                else view.background.colorFilter = backgroundFilter
+                if (keyboardBackground != null) {
+                    if (!backgroundSetupDone) {
+                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        backgroundSetupDone = true
+                    }
+                    view.background = keyboardBackground
+                } else {
+                    view.background.colorFilter = backgroundFilter
+                }
             }
             else -> view.background.colorFilter = backgroundFilter
         }
