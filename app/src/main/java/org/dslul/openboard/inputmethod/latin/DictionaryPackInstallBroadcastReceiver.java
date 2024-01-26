@@ -16,11 +16,10 @@ import android.net.Uri;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants;
-import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 /**
  * Receives broadcasts pertaining to dictionary management and takes the appropriate action.
- *
+ * <p>
  * This object receives three types of broadcasts.
  * - Package installed/added. When a dictionary provider application is added or removed, we
  * need to query the dictionaries.
@@ -55,7 +54,7 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
         final PackageManager manager = context.getPackageManager();
 
         // We need to reread the dictionary if a new dictionary package is installed.
-        if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {
+        if (Intent.ACTION_PACKAGE_ADDED.equals(action)) {
             if (null == mService) {
                 Log.e(TAG, "Called with intent " + action + " but we don't know the service: this "
                         + "should never happen");
@@ -65,8 +64,6 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
             if (null == packageUri) return; // No package name : we can't do anything
             final String packageName = packageUri.getSchemeSpecificPart();
             if (null == packageName) return;
-            // TODO: do this in a more appropriate place
-            TargetPackageInfoGetterTask.removeCachedPackageInfo(packageName);
             final PackageInfo packageInfo;
             try {
                 packageInfo = manager.getPackageInfo(packageName, PackageManager.GET_PROVIDERS);
@@ -85,7 +82,7 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
             }
             // If we come here none of the authorities matched the one we searched for.
             // We can exit safely.
-        } else if (action.equals(Intent.ACTION_PACKAGE_REMOVED)
+        } else if (Intent.ACTION_PACKAGE_REMOVED.equals(action)
                 && !intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) {
             if (null == mService) {
                 Log.e(TAG, "Called with intent " + action + " but we don't know the service: this "
@@ -102,7 +99,7 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
             // TODO: Only reload dictionary on REMOVED when the removed package is the one we
             // read dictionary from?
             mService.resetSuggestMainDict();
-        } else if (action.equals(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)) {
+        } else if (DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION.equals(action)) {
             if (null == mService) {
                 Log.e(TAG, "Called with intent " + action + " but we don't know the service: this "
                         + "should never happen");

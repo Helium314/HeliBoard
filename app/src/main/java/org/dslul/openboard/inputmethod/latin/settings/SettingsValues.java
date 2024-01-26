@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.inputmethod.EditorInfo;
@@ -17,20 +16,17 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
-import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
-import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 import java.util.Arrays;
 import java.util.List;
@@ -121,7 +117,6 @@ public class SettingsValues {
     private final boolean mOverrideShowingSuggestions;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
-    private final AsyncResultHolder<AppWorkaroundsUtils> mAppWorkarounds;
 
     // User-defined colors
     public final Colors mColors;
@@ -197,15 +192,6 @@ public class SettingsValues {
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
-        mAppWorkarounds = new AsyncResultHolder<>("AppWorkarounds");
-        final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(
-                mInputAttributes.mTargetApplicationPackageName);
-        if (null != packageInfo) {
-            mAppWorkarounds.set(new AppWorkaroundsUtils(packageInfo));
-        } else {
-            new TargetPackageInfoGetterTask(context, mAppWorkarounds)
-                    .execute(mInputAttributes.mTargetApplicationPackageName);
-        }
         mSpaceTrackpadEnabled = Settings.readSpaceTrackpadEnabled(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
@@ -407,8 +393,6 @@ public class SettingsValues {
         sb.append("\n   mDisplayOrientation = ");
         sb.append("" + mDisplayOrientation);
         sb.append("\n   mAppWorkarounds = ");
-        final AppWorkaroundsUtils awu = mAppWorkarounds.get(null, 0);
-        sb.append("" + (null == awu ? "null" : awu.toString()));
         return sb.toString();
     }
 }
