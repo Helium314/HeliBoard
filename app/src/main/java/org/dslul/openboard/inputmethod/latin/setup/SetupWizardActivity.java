@@ -6,31 +6,41 @@
 
 package org.dslul.openboard.inputmethod.latin.setup;
 
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
+
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
+import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
 import org.dslul.openboard.inputmethod.latin.utils.UncachedInputMethodManagerUtils;
 
 import java.util.ArrayList;
@@ -52,7 +62,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
     private VideoView mWelcomeVideoView;
     private ImageView mWelcomeImageView;
     private View mActionStart;
-    private View mActionNext;
+    private TextView mActionNext;
     private TextView mStep1Bullet;
     private TextView mActionFinish;
     private SetupStepGroup mSetupStepGroup;
@@ -109,12 +119,12 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        setTheme(android.R.style.Theme_Translucent_NoTitleBar);
         super.onCreate(savedInstanceState);
+        final Context context = getApplicationContext();
+        final boolean isNight = ResourceUtils.isNight(context.getResources());
 
         mImm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mHandler = new SettingsPoolingHandler(this, mImm);
-
         setContentView(R.layout.setup_wizard);
         mSetupWizard = findViewById(R.id.setup_wizard);
 
@@ -137,8 +147,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         final TextView stepsTitle = findViewById(R.id.setup_title);
         stepsTitle.setText(getString(R.string.setup_steps_title, applicationName));
 
-        final SetupStepIndicatorView indicatorView =
-                findViewById(R.id.setup_step_indicator);
+        final SetupStepIndicatorView indicatorView = findViewById(R.id.setup_step_indicator);
         mSetupStepGroup = new SetupStepGroup(indicatorView);
 
         mStep1Bullet = findViewById(R.id.setup_step1_bullet);
@@ -198,15 +207,39 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         mActionStart = findViewById(R.id.setup_start_label);
         mActionStart.setOnClickListener(this);
+
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
+
         mActionFinish = findViewById(R.id.setup_finish);
         final Drawable finishDrawable = ContextCompat.getDrawable(this, R.drawable.ic_setup_check);
-        assert finishDrawable != null;
-        DrawableCompat.setTintList(finishDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
-                new int[]{Color.WHITE, Color.WHITE, step1.mActivatedColor}));
+        if (finishDrawable == null) {
+            return;
+        }
+        DrawableCompat.setTintList(finishDrawable, step1.mTextColorStateList);
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
+
+        // Set the status bar color
+        getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
+        // Navigation bar color
+        if (!isNight && !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)) {
+            getWindow().setNavigationBarColor(ColorUtils.setAlphaComponent(Color.GRAY, 180));
+        } else {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.setup_background));
+        }
+        // Set the icons of the status bar and the navigation bar light or dark
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            final WindowInsetsController controller = getWindow().getInsetsController();
+            if (controller == null) return;
+            if (!isNight) {
+                controller.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+                controller.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final View view = getWindow().getDecorView();
+            view.setSystemUiVisibility(!isNight ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0);
+        }
     }
 
     @Override
@@ -402,8 +435,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         public final int mStepNo;
         private final View mStepView;
         private final TextView mBulletView;
-        private final int mActivatedColor;
-        private final int mDeactivatedColor;
+        private final ColorStateList mTextColorStateList;
         private final String mInstruction;
         private final String mFinishedInstruction;
         private final TextView mActionLabel;
@@ -416,26 +448,26 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
             mStepView = stepView;
             mBulletView = bulletView;
             final Resources res = stepView.getResources();
-            mActivatedColor = res.getColor(R.color.setup_text_action);
-            mDeactivatedColor = res.getColor(R.color.setup_text_dark);
+            mTextColorStateList = AppCompatResources.getColorStateList(mStepView.getContext(), R.color.setup_step_action_text);
 
             final TextView titleView = mStepView.findViewById(R.id.setup_step_title);
             titleView.setText(res.getString(title, applicationName));
-            mInstruction = (instruction == 0) ? null
-                    : res.getString(instruction, applicationName);
-            mFinishedInstruction = (finishedInstruction == 0) ? null
-                    : res.getString(finishedInstruction, applicationName);
+
+            mInstruction = (instruction == 0) ? null : res.getString(instruction, applicationName);
+            mFinishedInstruction = (finishedInstruction == 0) ? null : res.getString(finishedInstruction, applicationName);
 
             mActionLabel = mStepView.findViewById(R.id.setup_step_action_label);
             mActionLabel.setText(res.getString(actionLabel));
-            final Drawable actionIconDrawable = res.getDrawable(actionIcon);
-            DrawableCompat.setTintList(actionIconDrawable, new ColorStateList(new int[][]{{android.R.attr.state_focused}, {android.R.attr.state_pressed}, {}},
-                    new int[]{Color.WHITE, Color.WHITE, this.mActivatedColor}));
+            final Drawable actionIconDrawable = ResourcesCompat.getDrawable(res, actionIcon, null);
+            if (actionIconDrawable == null) {
+                return;
+            }
+            DrawableCompat.setTintList(actionIconDrawable, mTextColorStateList);
             if (actionIcon == 0) {
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
-                int size = (int) (24 * res.getDisplayMetrics().density);  // width and height of drawables is 24dp
+                final int size = (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, 24f, res.getDisplayMetrics());
                 actionIconDrawable.setBounds(0,0, size, size);
                 mActionLabel.setCompoundDrawablesRelative(actionIconDrawable, null, null, null);
             }
@@ -443,9 +475,10 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         public void setEnabled(final boolean enabled, final boolean isStepActionAlreadyDone) {
             mStepView.setVisibility(enabled ? View.VISIBLE : View.GONE);
-            mBulletView.setTextColor(enabled ? mActivatedColor : mDeactivatedColor);
-            final TextView instructionView = mStepView.findViewById(
-                    R.id.setup_step_instruction);
+            mBulletView.setTextColor(enabled
+                    ? mBulletView.getContext().getResources().getColor(R.color.setup_step_action_text_pressed)
+                    : mBulletView.getContext().getResources().getColor(R.color.setup_text_action));
+            final TextView instructionView = mStepView.findViewById(R.id.setup_step_instruction);
             instructionView.setText(isStepActionAlreadyDone ? mFinishedInstruction : mInstruction);
             mActionLabel.setVisibility(isStepActionAlreadyDone ? View.GONE : View.VISIBLE);
         }
