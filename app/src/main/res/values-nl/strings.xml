@@ -52,13 +52,13 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Engels (GB)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engels (VS)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spaans (VS)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hindi-Engels"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Servisch (Latijns)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hindi-Engels"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Servisch (Latijns)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hindi-Engels (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Servisch (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hindi-Engels (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Servisch (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditioneel)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (compact)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Geen taal (alfabet)"</string>

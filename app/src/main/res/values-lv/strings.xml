@@ -52,13 +52,13 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Angļu valoda (Lielbritānija)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Angļu valoda (ASV)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spāņu (ASV)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hindi–angļu valoda"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbu (latīņu)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hindi–angļu valoda"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Serbu (latīņu)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Angļu (Lielbritānija) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Angļu (ASV) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spāņu (ASV) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hindi–angļu valoda (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbu (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hindi–angļu valoda (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Serbu (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionālā)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktā)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Nav valodas (alfabēts)"</string>

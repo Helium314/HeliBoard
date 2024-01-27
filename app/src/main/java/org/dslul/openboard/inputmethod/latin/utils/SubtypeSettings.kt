@@ -188,7 +188,7 @@ private fun loadResourceSubtypes(resources: Resources) {
             val label = xml.getAttributeResourceValue(namespace, "label", 0)
             val subtypeId = xml.getAttributeIntValue(namespace, "subtypeId", 0)
             val localeString = xml.getAttributeValue(namespace, "imeSubtypeLocale").intern()
-            val languageTag = xml.getAttributeValue(namespace, "languageTag")
+            val languageTag = xml.getAttributeValue(namespace, "languageTag").intern()
             val imeSubtypeMode = xml.getAttributeValue(namespace, "imeSubtypeMode")
             val imeSubtypeExtraValue = xml.getAttributeValue(namespace, "imeSubtypeExtraValue").intern()
             val isAsciiCapable = xml.getAttributeBooleanValue(namespace, "isAsciiCapable", false)

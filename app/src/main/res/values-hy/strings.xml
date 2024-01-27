@@ -52,13 +52,13 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Անգլերեն (ՄԹ)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Անգլերեն (ԱՄՆ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Իսպաներեն (ԱՄՆ)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Հինգլիշ"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Սերբերեն (Լատինական)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Հինգլիշ"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Սերբերեն (Լատինական)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Անգլերեն (ՄԹ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Անգլերեն (ԱՄՆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Իսպաներեն (ԱՄՆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Հինգլիշ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Սերբերեն (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Հինգլիշ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Սերբերեն (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ավանդական)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (սեղմ)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Ոչ մի լեզվով (Այբուբեն)"</string>
