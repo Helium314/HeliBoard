@@ -172,8 +172,7 @@ private fun InputMethodSubtype.prefString() =
     locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
 
 private fun String.toLocaleAndLayout(): Pair<Locale, String> =
-    // todo: Locale.forLanguageTag vs constructLocaleFromString
-    Locale.forLanguageTag(substringBefore(LOCALE_LAYOUT_SEPARATOR)) to substringAfter(LOCALE_LAYOUT_SEPARATOR)
+    substringBefore(LOCALE_LAYOUT_SEPARATOR).constructLocale() to substringAfter(LOCALE_LAYOUT_SEPARATOR)
 
 private fun Pair<Locale, String>.prefString() =
     first.toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + second

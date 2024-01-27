@@ -22,6 +22,7 @@ import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.getAllAvailableSubtypes
 import org.dslul.openboard.inputmethod.latin.utils.getDictionaryLocales
@@ -33,7 +34,7 @@ import java.util.*
 // not a SettingsFragment, because with androidx.preferences it's very complicated or
 // impossible to have the languages RecyclerView scrollable (this way it works nicely out of the box)
 class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
-    private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
+    private val sortedSubtypesByDisplayName = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
     private lateinit var languageFilterList: LanguageFilterList
@@ -93,13 +94,10 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         languageFilterList.setSettingsFragment(null)
     }
 
-    // todo: directly use subtype locale
     private fun loadSubtypes(systemOnly: Boolean) {
-        sortedSubtypes.clear()
+        sortedSubtypesByDisplayName.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
-        // todo: re-write this, it's hard to understand
-        //  also consider  that more _ZZ languages might be added
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->
@@ -108,31 +106,35 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
                 while (iterator.hasNext()) {
                     val subtype = iterator.next()
                     if (subtype.locale() == locale) {
+                        // add subtypes with matching locale
                         subtypesToAdd.add(subtype.toSubtypeInfo(locale))
                         iterator.remove()
                         added = true
                     }
                 }
-                // try again, but with language only
+                // if locale has a country try again, but match language and script only
                 if (!added && locale.country.isNotEmpty()) {
-                    val languageString = locale.language
+                    val language = locale.language
+                    val script = locale.script()
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale().language == languageString) {
-                            subtypesToAdd.add(subtype.toSubtypeInfo(languageString.constructLocale()))
+                        val subtypeLocale = subtype.locale()
+                        if (subtypeLocale.toLanguageTag() == subtypeLocale.language && subtypeLocale.language == language && script == subtypeLocale.script()) {
+                            // add subtypes using the language only
+                            subtypesToAdd.add(subtype.toSubtypeInfo(language.constructLocale()))
                             iter.remove()
                             added = true
                         }
                     }
                 }
-                // special treatment for the known languages with _ZZ types
-                if (!added && (locale.language == "sr" || locale.language == "hi")) {
-                    val languageString = locale.language
+                // try again if script is not the default script, match language only
+                if (!added && locale.script() != locale.language.constructLocale().script()) {
+                    val language = locale.language
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale().toString().substringBefore("_") == languageString) { // todo: will break with language tag
+                        if (subtype.locale().language == language) {
                             subtypesToAdd.add(subtype.toSubtypeInfo(subtype.locale()))
                             iter.remove()
                         }
@@ -148,7 +150,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         allSubtypes.removeAll(enabledSubtypes)
 
         if (systemOnly) { // don't add anything else
-            languageFilterList.setLanguages(sortedSubtypes.values, systemOnly)
+            languageFilterList.setLanguages(sortedSubtypesByDisplayName.values, systemOnly)
             return
         }
 
@@ -172,8 +174,11 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
                 else it.displayName
             }.addToSortedSubtypes()
 
+//        sortedSubtypesByDisplayName.clear()
+//        val s = getAllAvailableSubtypes().groupBy { it.locale() }
+//        s.
         // set languages
-        languageFilterList.setLanguages(sortedSubtypes.values, systemOnly)
+        languageFilterList.setLanguages(sortedSubtypesByDisplayName.values, systemOnly)
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
@@ -181,7 +186,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
-            sortedSubtypes.getOrPut(it.displayName) { mutableListOf() }.add(it)
+            sortedSubtypesByDisplayName.getOrPut(it.displayName) { mutableListOf() }.add(it)
         }
     }
 

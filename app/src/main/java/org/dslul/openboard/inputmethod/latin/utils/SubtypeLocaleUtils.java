@@ -98,21 +98,20 @@ public final class SubtypeLocaleUtils {
         }
 
         final String[] exceptionalLocaleInRootLocale = res.getStringArray(R.array.subtype_locale_displayed_in_root_locale);
-        for (final String localeString : exceptionalLocaleInRootLocale) {
-            final String resourceName = SUBTYPE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX + localeString;
+        for (final String languageTag : exceptionalLocaleInRootLocale) {
+            final String resourceName = SUBTYPE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX + languageTag.replace('-', '_');
             final int resId = res.getIdentifier(resourceName, null, RESOURCE_PACKAGE_NAME);
-            sExceptionalLocaleDisplayedInRootLocale.put(localeString, resId);
+            sExceptionalLocaleDisplayedInRootLocale.put(languageTag, resId);
         }
 
-        // todo: change the exceptional locales to language tags
         final String[] exceptionalLocales = res.getStringArray(R.array.subtype_locale_exception_keys);
-        for (final String localeString : exceptionalLocales) {
-            final String resourceName = SUBTYPE_NAME_RESOURCE_PREFIX + localeString;
+        for (final String languageTag : exceptionalLocales) {
+            final String resourceName = SUBTYPE_NAME_RESOURCE_PREFIX + languageTag.replace('-', '_');
             final int resId = res.getIdentifier(resourceName, null, RESOURCE_PACKAGE_NAME);
-            sExceptionalLocaleToNameIdsMap.put(localeString, resId);
-            final String resourceNameWithLayout = SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX + localeString;
+            sExceptionalLocaleToNameIdsMap.put(languageTag, resId);
+            final String resourceNameWithLayout = SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX + languageTag.replace('-', '_');
             final int resIdWithLayout = res.getIdentifier(resourceNameWithLayout, null, RESOURCE_PACKAGE_NAME);
-            sExceptionalLocaleToWithLayoutNameIdsMap.put(localeString, resIdWithLayout);
+            sExceptionalLocaleToWithLayoutNameIdsMap.put(languageTag, resIdWithLayout);
         }
     }
 

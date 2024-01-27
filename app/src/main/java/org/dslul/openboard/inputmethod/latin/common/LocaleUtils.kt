@@ -109,26 +109,12 @@ object LocaleUtils {
             else LOCALE_LANGUAGE_AND_COUNTRY_MATCH_VARIANT_DIFFER
     }
 
-    /**
-     * Find out whether a match level should be considered a match.
-     *
-     *
-     * This method takes a match level as returned by the #getMatchLevel method, and returns whether
-     * it should be considered a match in the usual sense with standard Locale functions.
-     *
-     * @param level the match level, as returned by getMatchLevel.
-     * @return whether this is a match or not.
-     */
-    fun isMatch(level: Int): Boolean {
-        return level >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
-    }
-
     fun <T> getBestMatch(locale: Locale, collection: Collection<T>, toLocale: (T) -> Locale): T? {
         var best: T? = null
         var bestLevel = 0
         collection.forEach {
             val level = getMatchLevel(locale, toLocale(it))
-            if (level > bestLevel && isMatch(level)) {
+            if (level > bestLevel && level >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER) {
                 bestLevel = level
                 best = it
             }
@@ -140,10 +126,10 @@ object LocaleUtils {
 
     /**
      * Creates a locale from a string specification or language tag.
-     * @param localeString a string specification of a locale, in a format of "ll_cc_variant" where
+     * localeString is a string specification of a locale, in a format of "ll_cc_variant" where
      * "ll" is a language code, "cc" is a country code.
      * Converts zz regions that used to signal latin script into actual latin script (using language tag).
-     * If a localeString contains "-" it is interpreted as language tag.
+     * If a localeString contains "-" it is always interpreted as language tag.
      */
     @JvmStatic
     fun String.constructLocale(): Locale {
@@ -180,14 +166,10 @@ object LocaleUtils {
 
     @JvmStatic
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
-        // todo:
-        //  either need different toString method that considers non-standard scripts
-        //  or recognize non-default script and rename subtype_ resources
-        //  or add manual exceptions for some locales (plz no)
-        val localeString = locale.toString()
-        if (localeString == "zz") return context.getString(R.string.subtype_no_language)
-        if (localeString.endsWith("_ZZ") || localeString.endsWith("_zz")) {
-            val resId = context.resources.getIdentifier("subtype_$localeString", "string", context.packageName)
+        val languageTag = locale.toLanguageTag()
+        if (languageTag == "zz") return context.getString(R.string.subtype_no_language)
+        if (locale.script() != locale.language.constructLocale().script()) {
+            val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
             if (resId != 0) return context.getString(resId)
         }
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

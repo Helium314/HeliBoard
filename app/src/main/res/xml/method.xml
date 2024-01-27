@@ -451,10 +451,10 @@
                This isn't based on the final specification.
                Was disabled because there is no LM yet, and this layout does not offer anything different. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
-            android:label="@string/subtype_hi_ZZ"
+            android:label="@string/subtype_hi_Latn"
             android:subtypeId="0x352eb37c"
             android:imeSubtypeLocale="hi_ZZ"
-            android:languageTag="hi-ZZ"
+            android:languageTag="hi-Latn"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
@@ -817,7 +817,7 @@
     <!-- This Serbian Latin keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
-            android:label="@string/subtype_sr_ZZ"
+            android:label="@string/subtype_sr_Latn"
             android:subtypeId="0xf4a5569c"
             android:imeSubtypeLocale="sr_ZZ"
             android:languageTag="sr-Latn"

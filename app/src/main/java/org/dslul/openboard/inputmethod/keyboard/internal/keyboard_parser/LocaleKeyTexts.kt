@@ -245,10 +245,10 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreK
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
         if (locale.toString() == "zz") context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
-        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toString().lowercase()}.txt")
+        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language.lowercase()}.txt")
+            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language}.txt")
         } catch (_: Exception) {
             null
         }
