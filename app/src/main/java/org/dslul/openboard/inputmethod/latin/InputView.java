@@ -13,8 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.core.view.ViewKt;
+
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
+import org.dslul.openboard.inputmethod.latin.common.ColorType;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView;
 import org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripView;
 
@@ -39,6 +43,10 @@ public final class InputView extends FrameLayout {
                 mMainKeyboardView, suggestionStripView);
         mMoreSuggestionsViewCanceler = new MoreSuggestionsViewCanceler(
                 mMainKeyboardView, suggestionStripView);
+        ViewKt.doOnNextLayout(this, v -> {
+            Settings.getInstance().getCurrent().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
+            return null;
+        });
     }
 
     public void setKeyboardTopPadding(final int keyboardTopPadding) {

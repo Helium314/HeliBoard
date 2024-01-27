@@ -7,8 +7,6 @@
 package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,6 +28,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableKt;
 import androidx.core.widget.TextViewKt;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -37,8 +36,6 @@ import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordConte
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import kotlin.Unit;
 
 /**
  * Fragment to add a word/shortcut to the user dictionary.
@@ -94,7 +91,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         TextViewKt.doAfterTextChanged(mWordEditText, (editable) -> {
             final int visibility = TextUtils.isEmpty(editable.toString()) ? View.INVISIBLE : View.VISIBLE;
             saveWordButton.setVisibility(visibility);
-            return Unit.INSTANCE;
+            return null;
         });
         saveWordButton.setVisibility(TextUtils.isEmpty(mWordEditText.getText().toString()) ? View.INVISIBLE : View.VISIBLE);
 
@@ -137,13 +134,8 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     private BitmapDrawable toScaledBitmapDrawable(int drawableResId, float scale) {
         final Drawable drawable = ContextCompat.getDrawable(requireContext(), drawableResId);
         if (drawable == null) return null;
-        final int height = (int) (scale * drawable.getIntrinsicHeight());
-        final int width = (int) (scale * drawable.getIntrinsicWidth());
-        drawable.setBounds(0, 0, width, height);
-        final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        final Canvas canvas = new Canvas(bitmap);
-        drawable.draw(canvas);
-        return new BitmapDrawable(getResources(), bitmap);
+        return new BitmapDrawable(getResources(), DrawableKt.toBitmap(drawable,
+                (int) (scale * drawable.getIntrinsicHeight()), (int) (scale * drawable.getIntrinsicWidth()), null));
     }
 
     private void addWord() {

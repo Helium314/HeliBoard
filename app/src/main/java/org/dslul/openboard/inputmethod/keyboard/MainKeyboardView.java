@@ -440,7 +440,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         locatePreviewPlacerView();
         getLocationInWindow(mOriginCoords);
         mKeyPreviewChoreographer.placeAndShowKeyPreview(key, keyboard.mIconsSet, getKeyDrawParams(),
-                getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
+                KeyboardSwitcher.getInstance().getWrapperView().getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
     }
 
     private void dismissKeyPreviewWithoutDelay(@NonNull final Key key) {

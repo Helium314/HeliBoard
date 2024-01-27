@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.inputmethod.EditorInfo;
@@ -17,20 +16,17 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
-import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
-import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +34,7 @@ import java.util.Locale;
 
 /**
  * When you call the constructor of this class, you may want to change the current system locale by
- * using {@link org.dslul.openboard.inputmethod.latin.utils.RunInLocale}.
+ * using {@link org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt}.
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
@@ -96,7 +92,6 @@ public class SettingsValues {
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
-    public final boolean mIsShowAppIconSettingInPreferences;
     public final boolean mIsSplitKeyboardEnabled;
     public final float mSplitKeyboardSpacerRelativeWidth;
     public final int mScreenMetrics;
@@ -122,7 +117,6 @@ public class SettingsValues {
     private final boolean mOverrideShowingSuggestions;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
-    private final AsyncResultHolder<AppWorkaroundsUtils> mAppWorkarounds;
 
     // User-defined colors
     public final Colors mColors;
@@ -186,7 +180,6 @@ public class SettingsValues {
         mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
         mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs, res);
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
-        mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         mAccount = null; // remove? or can it be useful somewhere?
@@ -199,15 +192,6 @@ public class SettingsValues {
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
-        mAppWorkarounds = new AsyncResultHolder<>("AppWorkarounds");
-        final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(
-                mInputAttributes.mTargetApplicationPackageName);
-        if (null != packageInfo) {
-            mAppWorkarounds.set(new AppWorkaroundsUtils(packageInfo));
-        } else {
-            new TargetPackageInfoGetterTask(context, mAppWorkarounds)
-                    .execute(mInputAttributes.mTargetApplicationPackageName);
-        }
         mSpaceTrackpadEnabled = Settings.readSpaceTrackpadEnabled(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
@@ -409,8 +393,6 @@ public class SettingsValues {
         sb.append("\n   mDisplayOrientation = ");
         sb.append("" + mDisplayOrientation);
         sb.append("\n   mAppWorkarounds = ");
-        final AppWorkaroundsUtils awu = mAppWorkarounds.get(null, 0);
-        sb.append("" + (null == awu ? "null" : awu.toString()));
         return sb.toString();
     }
 }

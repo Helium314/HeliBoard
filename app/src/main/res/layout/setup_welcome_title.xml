@@ -15,5 +15,5 @@
         android:text="@string/setup_welcome_additional_description"
         android:layout_marginTop="@dimen/setup_welcome_description_top_margin"
         android:gravity="center"
-        style="@style/setupWelcomeDescritpionStyle" />
+        style="@style/setupWelcomeDescriptionStyle" />
 </merge>

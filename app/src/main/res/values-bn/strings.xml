@@ -209,7 +209,7 @@
     <string name="last_update">সর্বশেষ আপডেট</string>
     <string name="main_dict_description">মূল অভিধান</string>
     <string name="settings">সেটিংস</string>
-    <string name="delete_dict">অপসারণ করুন</string>
+    <string name="delete">অপসারণ করুন</string>
     <string name="version_text">সংস্করণ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">যোগ করুন</string>
     <string name="user_dict_settings_add_dialog_title">অভিধানে যোগ</string>

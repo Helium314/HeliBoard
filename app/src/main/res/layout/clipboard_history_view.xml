@@ -9,6 +9,7 @@
     android:layout_gravity="bottom"
     android:orientation="vertical"
     android:visibility="gone"
+    android:background="@android:color/transparent"
     style="?attr/clipboardHistoryViewStyle">
 
     <FrameLayout

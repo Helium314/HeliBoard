@@ -52,7 +52,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     private val colorPrefsToHideInitially by lazy {
         listOf(Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX,Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, Settings.PREF_COLOR_GESTURE_SUFFIX) +
             if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) listOf(Settings.PREF_COLOR_SPACEBAR_SUFFIX)
-            else listOf(Settings.PREF_COLOR_KEYS_SUFFIX, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX)
+            else listOf(Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX)
     }
 
     override fun onResume() {

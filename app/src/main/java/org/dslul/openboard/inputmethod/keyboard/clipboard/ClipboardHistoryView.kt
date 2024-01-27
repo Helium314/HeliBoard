@@ -68,7 +68,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //  even when state is activated, the not activated color is set
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
-        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.ONE_HANDED)
+        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL)
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
@@ -122,9 +122,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
-            colors.setBackground(it, ColorType.BACKGROUND)
+            colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
-        colors.setBackground(clipboardStrip, ColorType.BACKGROUND)
         initialized = true
     }
 
@@ -198,7 +197,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
             adapter = clipboardAdapter
             layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
         }
-        Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }
 
     fun stopClipboardHistory() {

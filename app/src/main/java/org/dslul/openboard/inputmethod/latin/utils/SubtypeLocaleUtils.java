@@ -186,13 +186,7 @@ public final class SubtypeLocaleUtils {
 
         final String displayName;
         if (exceptionalNameResId != null) {
-            final RunInLocale<String> getExceptionalName = new RunInLocale<String>() {
-                @Override
-                protected String job(final Resources res) {
-                    return res.getString(exceptionalNameResId);
-                }
-            };
-            displayName = getExceptionalName.runInLocale(sResources, displayLocale);
+            displayName = RunInLocaleKt.runInLocale(sResources, displayLocale, res -> res.getString(exceptionalNameResId));
         } else {
             displayName = LocaleUtils.constructLocaleFromString(localeString)
                     .getDisplayName(displayLocale);
@@ -248,11 +242,10 @@ public final class SubtypeLocaleUtils {
         final String replacementString = getReplacementString(subtype, displayLocale);
         // TODO: rework this for multi-lingual subtypes
         final int nameResId = subtype.getNameResId();
-        final RunInLocale<String> getSubtypeName = new RunInLocale<String>() {
-            @Override
-            protected String job(final Resources res) {
+        return RunInLocaleKt.runInLocale(sResources, displayLocale,
+            res -> {
                 try {
-                    return res.getString(nameResId, replacementString);
+                    return StringUtils.capitalizeFirstCodePoint(res.getString(nameResId, replacementString), displayLocale);
                 } catch (Resources.NotFoundException e) {
                     // TODO: Remove this catch when InputMethodManager.getCurrentInputMethodSubtype
                     // is fixed.
@@ -263,10 +256,7 @@ public final class SubtypeLocaleUtils {
                             + "\n" + DebugLogUtils.getStackTrace());
                     return "";
                 }
-            }
-        };
-        return StringUtils.capitalizeFirstCodePoint(
-                getSubtypeName.runInLocale(sResources, displayLocale), displayLocale);
+            });
     }
 
     @NonNull

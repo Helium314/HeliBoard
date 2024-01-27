@@ -31,7 +31,6 @@
     <!-- Color resources for the old LXX_Dark theme, now used for several dark themes. -->
     <color name="key_text_color_lxx_dark">#FFFFFF</color>
     <color name="key_hint_letter_color_lxx_dark">#80FFFFFF</color>
-    <color name="spacebar_letter_color_lxx_dark">#80FFFFFF</color>
 
     <!-- Color resources for the old LXX_Dark_Border theme, now for THEME_DARKER. -->
     <color name="keyboard_background_lxx_dark_border">#0d0d0d</color>
@@ -54,10 +53,12 @@
     <color name="emoji_tab_page_indicator_background_lxx_base_border">@android:color/white</color>
 
     <!-- Color resources for setup wizard and tutorial -->
-    <color name="setup_background">#FFEBEBEB</color>
-    <color name="setup_text_dark">#FF707070</color>
-    <color name="setup_text_action">@android:color/holo_blue_light</color>
-    <color name="setup_step_background">@android:color/background_light</color>
+    <color name="setup_background">#FFFAFAFA</color>
+    <color name="setup_step_background">#FFD1E3FA</color>
+    <color name="setup_step_action_pressed">#FFE8F1FC</color>
+    <color name="setup_text_title">#FF1767CF</color>
+    <color name="setup_text_action">#FF1767CF</color>
+    <color name="setup_step_action_text_pressed">#FF5E9CED</color>
     <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
 
     <!-- Colors that are different for night theme -->

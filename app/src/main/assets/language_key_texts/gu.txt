@@ -1,0 +1,6 @@
+[number_row]
+૧ ૨ ૩ ૪ ૫ ૬ ૭ ૮ ૯ ૦
+
+[labels]
+symbol: ?૧૨૩
+alphabet: કખગ

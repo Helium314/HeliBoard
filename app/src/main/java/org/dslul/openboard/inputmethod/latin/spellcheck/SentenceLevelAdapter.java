@@ -13,7 +13,7 @@ import android.view.textservice.TextInfo;
 
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
-import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
+import org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -65,13 +65,7 @@ public class SentenceLevelAdapter {
     private static class WordIterator {
         private final SpacingAndPunctuations mSpacingAndPunctuations;
         public WordIterator(final Resources res, final Locale locale) {
-            final RunInLocale<SpacingAndPunctuations> job = new RunInLocale<>() {
-                @Override
-                protected SpacingAndPunctuations job(final Resources r) {
-                    return new SpacingAndPunctuations(r, false);
-                }
-            };
-            mSpacingAndPunctuations = job.runInLocale(res, locale);
+            mSpacingAndPunctuations = RunInLocaleKt.runInLocale(res, locale, r -> new SpacingAndPunctuations(r, false));
         }
 
         public int getEndOfWord(final CharSequence sequence, final int fromIndex) {
