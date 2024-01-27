@@ -8,6 +8,7 @@ package org.dslul.openboard.inputmethod.latin
 import android.content.Context
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.settings.USER_DICTIONARY_SUFFIX // todo: should be in utils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
 import org.dslul.openboard.inputmethod.latin.utils.Log
@@ -49,21 +50,12 @@ object DictionaryFactory {
         val dictsByType = assetsDicts.groupBy { it.substringBefore("_") }
         // for each type find the best match
         dictsByType.forEach { (dictType, dicts) ->
-            var best: String? = null
-            var bestLevel = 0
-            dicts.forEach {
-                val dictLocale = LocaleUtils.constructLocaleFromString(it.substringAfter("_").substringBefore("."))
-                val level = LocaleUtils.getMatchLevel(locale, dictLocale)
-                if (level > bestLevel && LocaleUtils.isMatch(level)) {
-                    bestLevel = level
-                    best = it
-                }
-            }
-            if (best == null) return@forEach
+            val bestMatch = LocaleUtils.getBestMatch(locale, dicts) { it.substringAfter("_")
+                .substringBefore(".").constructLocale() } ?: return@forEach
             // extract dict and add extracted file
             val targetFile = File(cacheDir, "$dictType.dict")
             FileUtils.copyStreamToNewFile(
-                context.assets.open(DictionaryInfoUtils.ASSETS_DICTIONARY_FOLDER + File.separator + best),
+                context.assets.open(DictionaryInfoUtils.ASSETS_DICTIONARY_FOLDER + File.separator + bestMatch),
                 targetFile
             )
             checkAndAddDictionaryToListIfNotExisting(targetFile, dictList, locale)

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.File
 import java.util.*
@@ -23,8 +24,8 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
         for (directory in cachedDirectoryList) {
             if (!directory.isDirectory) continue
             if (!hasAnythingOtherThanExtractedMainDictionary(directory)) continue
-            val dirLocale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
-            val locale = dirLocale.toLocale()
+            val dirLocaleString = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
+            val locale = dirLocaleString.constructLocale()
             locales.add(locale)
         }
     }
@@ -32,10 +33,10 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
     if (assetsDictionaryList != null) {
         for (dictionary in assetsDictionaryList) {
-            val dictLocale =
+            val dirLocaleString =
                 DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)
                     ?: continue
-            val locale = dictLocale.toLocale()
+            val locale = dirLocaleString.constructLocale()
             locales.add(locale)
         }
     }

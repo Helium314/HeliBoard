@@ -126,7 +126,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             Log.d(TAG, "Updating locale from " + oldLocal + " to " + localeString);
 
             mLocale = (null == localeString) ? null
-                    : LocaleUtils.constructLocaleFromString(localeString);
+                    : LocaleUtils.constructLocale(localeString);
             if (mLocale == null) mScript = ScriptUtils.SCRIPT_UNKNOWN;
                 else mScript = ScriptUtils.script(mLocale);
         }

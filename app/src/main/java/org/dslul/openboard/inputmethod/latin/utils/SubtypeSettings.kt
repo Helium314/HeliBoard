@@ -14,6 +14,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.xmlpull.v1.XmlPullParser
@@ -154,8 +155,7 @@ private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
     val subtypes = systemLocales.mapNotNull { locale ->
         val subtypesOfLocale = resourceSubtypesByLocale[locale]
             // get best match
-            ?: resourceSubtypesByLocale.maxByOrNull { LocaleUtils.getMatchLevel(locale, it.key) }
-                ?.takeIf { LocaleUtils.isMatch(LocaleUtils.getMatchLevel(locale, it.key)) }?.value
+            ?: LocaleUtils.getBestMatch(locale, resourceSubtypesByLocale.keys) {it}?.let { resourceSubtypesByLocale[it] }
         subtypesOfLocale?.firstOrNull()
     }
     if (subtypes.isEmpty()) {
@@ -204,8 +204,8 @@ private fun loadResourceSubtypes(resources: Resources) {
             b.setSubtypeMode(imeSubtypeMode)
             b.setSubtypeExtraValue(imeSubtypeExtraValue)
             b.setIsAsciiCapable(isAsciiCapable)
-            val locale = if (languageTag.isEmpty()) LocaleUtils.constructLocaleFromString(localeString)
-                else LocaleUtils.constructLocaleFromString(languageTag)
+            val locale = if (languageTag.isEmpty()) localeString.constructLocale()
+                else languageTag.constructLocale()
             resourceSubtypesByLocale.getOrPut(locale) { ArrayList(2) }.add(b.build())
         }
         eventType = xml.next()

@@ -19,7 +19,6 @@ import org.dslul.openboard.inputmethod.latin.Dictionary;
 import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import org.dslul.openboard.inputmethod.latin.makedict.UnsupportedFormatException;
-import org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragmentKt;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
 
 import java.io.File;
@@ -87,13 +86,6 @@ public class DictionaryInfoUtils {
     }
 
     /**
-     * Helper method to get the top level temp directory.
-     */
-    public static String getWordListTempDirectory(final Context context) {
-        return context.getFilesDir() + File.separator + "tmp";
-    }
-
-    /**
      * Reverse escaping done by {@link #replaceFileNameDangerousCharacters(String)}.
      */
     @NonNull
@@ -123,27 +115,6 @@ public class DictionaryInfoUtils {
     }
 
     /**
-     * Returns the category for a given file name.
-     * <p>
-     * This parses the file name, extracts the category, and returns it. See
-     * {@link #getMainDictId(Locale)} and {@link #isMainWordListId(String)}.
-     * @return The category as a string or null if it can't be found in the file name.
-     */
-    @Nullable
-    public static String getCategoryFromFileName(@NonNull final String fileName) {
-        final String id = getWordListIdFromFileName(fileName);
-        final String[] idArray = id.split(DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION);
-        // An id is supposed to be in format category:locale, so splitting on the separator
-        // should yield a 2-elements array
-        // Also allow '_' as separator, this is ok for locales like pt_br because
-        // we're interested in the part before first separator anyway
-        if (1 == idArray.length) {
-            return null;
-        }
-        return idArray[0];
-    }
-
-    /**
      * Find out the cache directory associated with a specific locale.
      */
     public static String getCacheDirectoryForLocale(final Locale locale, final Context context) {
@@ -165,18 +136,6 @@ public class DictionaryInfoUtils {
         return cachedDir.listFiles();
     }
 
-    public static boolean isMainWordListId(final String id) {
-        final String[] idArray = id.split(DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION);
-        // An id is supposed to be in format category:locale, so splitting on the separator
-        // should yield a 2-elements array
-        // Also allow '_' as separator, this is ok for locales like pt_br because
-        // we're interested in the part before first separator anyway
-        if (1 == idArray.length) {
-            return false;
-        }
-        return Dictionary.TYPE_MAIN.equals(idArray[0]);
-    }
-
     /**
      * Returns the id associated with the main word list for a specified locale.
      * <p>
@@ -194,15 +153,6 @@ public class DictionaryInfoUtils {
 
     public static String getExtractedMainDictFilename() {
         return DEFAULT_MAIN_DICT + ".dict";
-    }
-
-    public static String getUserMainDictFilename() {
-        return MAIN_DICT_PREFIX + LanguageSettingsFragmentKt.USER_DICTIONARY_SUFFIX;
-    }
-
-    public static File getMainDictFile(@NonNull final Locale locale, @NonNull final Context context) {
-        return new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
-                File.separator + DictionaryInfoUtils.getExtractedMainDictFilename());
     }
 
     @Nullable

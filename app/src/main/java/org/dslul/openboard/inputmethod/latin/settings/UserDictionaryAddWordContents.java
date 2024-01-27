@@ -118,7 +118,7 @@ public class UserDictionaryAddWordContents {
                 : locale;
         // The keyboard uses the language layout of the user dictionary
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mWordEditText.setImeHintLocales(new LocaleList(LocaleUtils.constructLocaleFromString(mLocaleString)));
+            mWordEditText.setImeHintLocales(new LocaleList(LocaleUtils.constructLocale(mLocaleString)));
         }
 
     }
@@ -175,7 +175,7 @@ public class UserDictionaryAddWordContents {
             // Update the existing word by adding a new one
             UserDictionary.Words.addWord(context, newWord,
                     Integer.parseInt(mSavedWeight), mSavedShortcut, TextUtils.isEmpty(mLocaleString) ?
-                            null : LocaleUtils.constructLocaleFromString(mLocaleString));
+                            null : LocaleUtils.constructLocale(mLocaleString));
 
             return CODE_UPDATED;
         }
@@ -187,7 +187,7 @@ public class UserDictionaryAddWordContents {
         // be null. However the addWord method takes null to mean 'all locales'.
         UserDictionary.Words.addWord(context, newWord,
                 Integer.parseInt(mSavedWeight), mSavedShortcut, TextUtils.isEmpty(mLocaleString) ?
-                        null : LocaleUtils.constructLocaleFromString(mLocaleString));
+                        null : LocaleUtils.constructLocale(mLocaleString));
 
         return CODE_WORD_ADDED;
     }

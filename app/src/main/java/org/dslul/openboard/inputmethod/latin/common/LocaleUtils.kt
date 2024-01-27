@@ -123,6 +123,19 @@ object LocaleUtils {
         return level >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
     }
 
+    fun <T> getBestMatch(locale: Locale, collection: Collection<T>, toLocale: (T) -> Locale): T? {
+        var best: T? = null
+        var bestLevel = 0
+        collection.forEach {
+            val level = getMatchLevel(locale, toLocale(it))
+            if (level > bestLevel && isMatch(level)) {
+                bestLevel = level
+                best = it
+            }
+        }
+        return best
+    }
+
     private val sLocaleCache = HashMap<String, Locale>()
 
     /**
@@ -133,16 +146,16 @@ object LocaleUtils {
      * If a localeString contains "-" it is interpreted as language tag.
      */
     @JvmStatic
-    fun constructLocaleFromString(localeString: String): Locale {
+    fun String.constructLocale(): Locale {
         synchronized(sLocaleCache) {
-            sLocaleCache[localeString]?.let { return it }
-            if (localeString.contains("-")) {
+            sLocaleCache[this]?.let { return it }
+            if (contains("-")) {
                 // looks like it's actually a language tag, and not a locale string
-                val locale = Locale.forLanguageTag(localeString)
-                sLocaleCache[localeString] = locale
+                val locale = Locale.forLanguageTag(this)
+                sLocaleCache[this] = locale
                 return locale
             }
-            val elements = localeString.split("_", limit = 3)
+            val elements = split("_", limit = 3)
             val locale = if (elements.size == 1) {
                 Locale(elements[0]) // "zz" works both in constructor and forLanguageTag
             } else if (elements.size == 2) {
@@ -153,7 +166,7 @@ object LocaleUtils {
             } else  {
                 Locale(elements[0], elements[1], elements[2])
             }
-            sLocaleCache[localeString] = locale
+            sLocaleCache[this] = locale
             return locale
         }
     }

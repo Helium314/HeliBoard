@@ -19,6 +19,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
@@ -38,7 +39,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private lateinit var languageFilterList: LanguageFilterList
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var systemOnlySwitch: Switch
-    private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
+    private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()) }
 
     private val dictionaryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
@@ -62,11 +63,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         systemLocales.addAll(getSystemLocales())
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState) ?: return null
         systemOnlySwitch = view.findViewById(R.id.language_switch)
         systemOnlySwitch.isChecked = sharedPreferences.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
@@ -96,6 +93,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         languageFilterList.setSettingsFragment(null)
     }
 
+    // todo: directly use subtype locale
     private fun loadSubtypes(systemOnly: Boolean) {
         sortedSubtypes.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
@@ -122,7 +120,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
                     while (iter.hasNext()) {
                         val subtype = iter.next()
                         if (subtype.locale().language == languageString) {
-                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(languageString)))
+                            subtypesToAdd.add(subtype.toSubtypeInfo(languageString.constructLocale()))
                             iter.remove()
                             added = true
                         }
@@ -159,7 +157,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
             if (!dir.isDirectory)
                 return@mapNotNull null
             if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
-                LocaleUtils.constructLocaleFromString(dir.name)
+                dir.name.constructLocale()
             else null
         }
         localesWithDictionary?.sortedAddToSubtypesAndRemoveFromAllSubtypes()
@@ -179,7 +177,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        toSubtypeInfo(locale, requireContext(), isEnabled, dictionaryLocales.contains(locale.languageConsideringZZ()))
+        toSubtypeInfo(locale, requireContext(), isEnabled, LocaleUtils.getBestMatch(locale, dictionaryLocales) {it} != null)
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
@@ -228,12 +226,5 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
 
 fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean, hasDictionary: Boolean): SubtypeInfo =
     SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled, hasDictionary)
-
-private fun Locale.languageConsideringZZ(): String {
-    return if (country.equals("zz", false))
-        "${language}_zz"
-    else
-        language
-}
 
 const val USER_DICTIONARY_SUFFIX = "user.dict"

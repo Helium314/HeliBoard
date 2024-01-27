@@ -5,12 +5,15 @@ package org.dslul.openboard.inputmethod.latin.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
+import org.dslul.openboard.inputmethod.latin.Dictionary
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.ReadOnlyBinaryDictionary
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
 import org.dslul.openboard.inputmethod.latin.settings.*
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
@@ -35,7 +38,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
         val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(cachedDictionaryFile, 0, cachedDictionaryFile.length())
             ?: return onDictionaryLoadingError(R.string.dictionary_file_error)
-        val locale = newHeader.mLocaleString.toLocale()
+        val locale = newHeader.mLocaleString.constructLocale()
 
         val dict = ReadOnlyBinaryDictionary(cachedDictionaryFile.absolutePath, 0, cachedDictionaryFile.length(), false, locale, "test")
         if (!dict.isValidDictionary) {
@@ -105,20 +108,17 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
     private fun addDictAndAskToReplace(header: DictionaryHeader, mainLocale: Locale) {
         val dictionaryType = header.mIdString.substringBefore(":")
-        val dictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale, context) +
-                File.separator + dictionaryType + "_" + USER_DICTIONARY_SUFFIX
-        val dictFile = File(dictFilename)
+        val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale, context)
+        val dictFile = File(cacheDir, dictionaryType + "_" + USER_DICTIONARY_SUFFIX)
 
         fun moveDict(replaced: Boolean) {
             if (!cachedDictionaryFile.renameTo(dictFile)) {
                 return onDictionaryLoadingError(R.string.dictionary_load_error)
             }
-            if (dictionaryType == DictionaryInfoUtils.DEFAULT_MAIN_DICT) {
+            if (dictionaryType == Dictionary.TYPE_MAIN) {
                 // replaced main dict, remove the one created from internal data
-                // todo: currently not, see also BinaryDictionaryGetter.getDictionaryFiles
-//                val internalMainDictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocaleString, context) +
-//                        File.separator + DictionaryInfoUtils.getMainDictFilename(mainLocaleString)
-//                File(internalMainDictFilename).delete()
+                val internalMainDictFile = File(cacheDir, DictionaryInfoUtils.getExtractedMainDictFilename())
+                internalMainDictFile.delete()
             }
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             context.sendBroadcast(newDictBroadcast)
@@ -129,7 +129,12 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
             return moveDict(false)
         }
 
-        val systemLocale = context.resources.configuration.locale
+        // todo: this is also in other places -> move it to some compatUtils
+        val systemLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.resources.configuration.locales[0]
+        } else {
+            @Suppress("deprecation") context.resources.configuration.locale
+        }
         val newInfo = header.info(systemLocale)
         val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(systemLocale)
         confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType, newInfo, oldInfo), context.getString(
@@ -143,5 +148,3 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
         infoDialog(context, messageId)
     }
 }
-
-fun String.toLocale() = LocaleUtils.constructLocaleFromString(this)

@@ -121,7 +121,7 @@ public final class SubtypeLocaleUtils {
         return sExceptionalLocaleToNameIdsMap.containsKey(localeString);
     }
 
-    private static final String getNoLanguageLayoutKey(final String keyboardLayoutName) {
+    private static String getNoLanguageLayoutKey(final String keyboardLayoutName) {
         return NO_LANGUAGE + "_" + keyboardLayoutName;
     }
 
@@ -146,7 +146,7 @@ public final class SubtypeLocaleUtils {
         if (sExceptionalLocaleDisplayedInRootLocale.containsKey(localeString)) {
             return Locale.ROOT;
         }
-        return LocaleUtils.constructLocaleFromString(localeString);
+        return LocaleUtils.constructLocale(localeString);
     }
 
     public static String getSubtypeLocaleDisplayNameInSystemLocale(
@@ -168,7 +168,7 @@ public final class SubtypeLocaleUtils {
         if (sExceptionalLocaleDisplayedInRootLocale.containsKey(localeString)) {
             languageString = localeString;
         } else {
-            languageString = LocaleUtils.constructLocaleFromString(localeString).getLanguage();
+            languageString = LocaleUtils.constructLocale(localeString).getLanguage();
         }
         return getSubtypeLocaleDisplayNameInternal(languageString, displayLocale);
     }
@@ -195,7 +195,7 @@ public final class SubtypeLocaleUtils {
             displayName = RunInLocaleKt.runInLocale(sResources, displayLocale,
                     (Function1<Resources, String>) res -> res.getString(exceptionalNameResId));
         } else {
-            displayName = LocaleUtils.constructLocaleFromString(localeString)
+            displayName = LocaleUtils.constructLocale(localeString)
                     .getDisplayName(displayLocale);
         }
         return StringUtils.capitalizeFirstCodePoint(displayName, displayLocale);

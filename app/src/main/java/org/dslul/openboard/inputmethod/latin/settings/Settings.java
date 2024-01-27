@@ -538,9 +538,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "");
 
         final ArrayList<Locale> locales = new ArrayList<>();
-        for (String locale : localesString.split(";")) {
-            if (locale.isEmpty()) continue;
-            locales.add(LocaleUtils.constructLocaleFromString(locale));
+        for (String languageTag : localesString.split(";")) {
+            if (languageTag.isEmpty()) continue;
+            locales.add(LocaleUtils.constructLocale(languageTag));
         }
         return locales;
     }
