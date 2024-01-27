@@ -6,7 +6,6 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -56,7 +55,6 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
 
     private ContentObserver mObserver;
     // this really needs to be the locale string, as it interacts with system
-    // todo: check if string for sr-Latn works properly here
     final private String mLocaleString;
     final private boolean mAlsoUseMoreRestrictiveLocales;
 
@@ -73,7 +71,6 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
             mLocaleString = localeStr;
         }
         mAlsoUseMoreRestrictiveLocales = alsoUseMoreRestrictiveLocales;
-        ContentResolver cres = context.getContentResolver();
 
         mObserver = new ContentObserver(null) {
             @Override
@@ -81,7 +78,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
                 setNeedsToRecreate();
             }
         };
-        cres.registerContentObserver(Words.CONTENT_URI, true, mObserver);
+        context.getContentResolver().registerContentObserver(Words.CONTENT_URI, true, mObserver);
         reloadDictionaryIfRequired();
     }
 
@@ -106,7 +103,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
     public void loadInitialContentsLocked() {
         // Split the locale. For example "en" => ["en"], "de_DE" => ["de", "DE"],
         // "en_US_foo_bar_qux" => ["en", "US", "foo_bar_qux"] because of the limit of 3.
-        // This is correct for locale processing.
+        // This is correct for locale processing. (well, and it sucks e.g. for sr-Latn, resp. sr__#Latn as string)
         // For this example, we'll look at the "en_US_POSIX" case.
         final String[] localeElements =
                 TextUtils.isEmpty(mLocaleString) ? new String[] {} : mLocaleString.split("_", 3);
@@ -133,8 +130,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
         // and request = "(locale is NULL) or (locale=?) or (locale=?) or (locale=?)"
 
         final String[] requestArguments;
-        // If length == 3, we already have all the arguments we need (common prefix is meaningless
-        // inside variants
+        // If length == 3, we already have all the arguments we need (common prefix is meaningless inside variants)
         if (mAlsoUseMoreRestrictiveLocales && length < 3) {
             request.append(" or (locale like ?)");
             // The following creates an array with one more (null) position
@@ -153,18 +149,15 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
         }
         final String requestString = request.toString();
         try {
-            addWordsFromProjectionLocked(PROJECTION_QUERY_WITH_SHORTCUT, requestString,
-                    requestArguments);
+            addWordsFromProjectionLocked(PROJECTION_QUERY_WITH_SHORTCUT, requestString, requestArguments);
         } catch (IllegalArgumentException e) {
             // This may happen on some non-compliant devices where the declared API is JB+ but
             // the SHORTCUT column is not present for some reason.
-            addWordsFromProjectionLocked(PROJECTION_QUERY_WITHOUT_SHORTCUT, requestString,
-                    requestArguments);
+            addWordsFromProjectionLocked(PROJECTION_QUERY_WITHOUT_SHORTCUT, requestString, requestArguments);
         }
     }
 
-    private void addWordsFromProjectionLocked(final String[] query, String request,
-                                              final String[] requestArguments)
+    private void addWordsFromProjectionLocked(final String[] query, String request, final String[] requestArguments)
             throws IllegalArgumentException {
         Cursor cursor = null;
         try {

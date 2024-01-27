@@ -424,7 +424,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
             // load blacklist
             if (noExistingDictsForThisLocale) {
-                newDictGroup.blacklistFileName = context.getFilesDir().getAbsolutePath() + File.separator + "blacklists" + File.separator + locale.toString().toLowerCase(Locale.ENGLISH) + ".txt";
+                newDictGroup.blacklistFileName = context.getFilesDir().getAbsolutePath() + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt";
                 if (!new File(newDictGroup.blacklistFileName).exists())
                     new File(context.getFilesDir().getAbsolutePath() + File.separator + "blacklists").mkdirs();
                 newDictGroup.blacklist.addAll(readBlacklistFile(newDictGroup.blacklistFileName));

@@ -151,7 +151,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     public static String getDictName(final String name, final Locale locale,
             final File dictFile) {
-        return dictFile != null ? dictFile.getName() : name + "." + locale.toString(); // todo: this is using locale.toString -> switch to language tag? solve this and binary dict, then it should be fine
+        return dictFile != null ? dictFile.getName() : name + "." + locale.toString();
     }
 
     private void asyncExecuteTaskWithWriteLock(final Runnable task) {
