@@ -895,7 +895,7 @@
             android:label="@string/subtype_generic"
             android:subtypeId="0xf08285ef"
             android:imeSubtypeLocale="tl"
-            android:languageTag="fil"
+            android:languageTag="tl"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty+,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
