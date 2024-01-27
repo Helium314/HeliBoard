@@ -125,7 +125,7 @@ public final class SubtypeLocaleUtils {
     }
 
     public static int getSubtypeNameId(final Locale locale, final String keyboardLayoutName) {
-        final String languageTag = locale.toString();
+        final String languageTag = locale.toLanguageTag();
         if (isExceptionalLocale(locale)) {
             return sExceptionalLocaleToWithLayoutNameIdsMap.get(languageTag);
         }

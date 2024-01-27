@@ -163,11 +163,14 @@ object LocaleUtils {
     }
 
     @JvmStatic
-    fun isRtlLanguage(locale: Locale): Boolean =
-        when (Character.getDirectionality(locale.displayName.codePointAt(0))) {
+    fun isRtlLanguage(locale: Locale): Boolean {
+        val displayName = locale.displayName
+        if (displayName.isEmpty()) return true
+        return when (Character.getDirectionality(displayName.codePointAt(0))) {
             Character.DIRECTIONALITY_RIGHT_TO_LEFT, Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC -> true
             else -> false
         }
+    }
 
     @JvmStatic
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
