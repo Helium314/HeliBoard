@@ -19,9 +19,8 @@
 
         <item name="android:spinnerDropDownItemStyle">@style/DropDownMenuTheme</item>
         <item name="spinnerDropDownItemStyle">@style/DropDownMenuTheme</item>
-
-        <item name="android:actionBarPopupTheme">@style/MenuTheme</item>
-        <item name="actionBarPopupTheme">@style/MenuTheme</item>
+        <!-- To change the background of options menu -->
+        <item name="android:itemBackground">@color/drop_down_menu_background</item>
 
     </style>
 
@@ -33,11 +32,6 @@
     </style>
 
     <style name="DropDownMenuTheme" parent="Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:background">@color/drop_down_menu_background</item>
-        <item name="background">@color/drop_down_menu_background</item>
-    </style>
-
-    <style name="MenuTheme" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/drop_down_menu_background</item>
         <item name="background">@color/drop_down_menu_background</item>
     </style>
