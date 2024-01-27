@@ -13,15 +13,15 @@ import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
+import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import org.xmlpull.v1.XmlPullParser
 import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashMap
 
 /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
  *  subtypes for system locales will be returned, or en-US if none found. */
@@ -37,6 +37,22 @@ fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): Lis
 fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
     require(initialized)
     return resourceSubtypesByLocale.values.flatten() + additionalSubtypes
+}
+
+fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
+    val subtypes = resourceSubtypesByLocale.values.flatten()
+    val name = LocaleUtils.getBestMatch(locale, subtypes) { it.locale() }?.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET)
+    if (name != null) return name
+    return when (locale.script()) {
+        ScriptUtils.SCRIPT_LATIN -> "qwerty"
+        ScriptUtils.SCRIPT_ARMENIAN -> "armenian_phonetic"
+        ScriptUtils.SCRIPT_CYRILLIC -> "ru"
+        ScriptUtils.SCRIPT_GREEK -> "greek"
+        ScriptUtils.SCRIPT_HEBREW -> "hebrew"
+        ScriptUtils.SCRIPT_GEORGIAN -> "georgian"
+        ScriptUtils.SCRIPT_BENGALI -> "bengali_unijoy"
+        else -> throw RuntimeException("Wrong script supplied: ${locale.script()}")
+    };
 }
 
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {

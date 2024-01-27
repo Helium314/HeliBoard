@@ -154,7 +154,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
 
             val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
-            Log.i("test", "cs $checksum")
             if (checksum == JniUtils.expectedDefaultChecksum()) {
                 renameToLibfileAndRestart(tmpfile, checksum)
             } else {
