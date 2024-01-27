@@ -50,7 +50,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     // Immutable, but not available in the constructor.
     private Locale mLocale;
     // Cache this for performance
-    private String mScript; // One of SCRIPT_LATIN or SCRIPT_CYRILLIC for now.
+    private String mScript;
     private final AndroidSpellCheckerService mService;
     protected final SuggestionsCache mSuggestionsCache = new SuggestionsCache();
     private final ContentObserver mObserver;
@@ -107,15 +107,13 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
     AndroidWordLevelSpellCheckerSession(final AndroidSpellCheckerService service) {
         mService = service;
-        final ContentResolver cres = service.getContentResolver();
-
         mObserver = new ContentObserver(null) {
             @Override
             public void onChange(boolean self) {
                 mSuggestionsCache.clearCache();
             }
         };
-        cres.registerContentObserver(Words.CONTENT_URI, true, mObserver);
+        service.getContentResolver().registerContentObserver(Words.CONTENT_URI, true, mObserver);
     }
 
     private void updateLocale() {
@@ -138,7 +136,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     }
 
     @Override
-    public String getLocale() { // todo: better not string
+    public String getLocale() { // unfortunately this can only return a string, with the obvious issues for
         // This function was taken from https://github.com/LineageOS/android_frameworks_base/blob/1235c24a0f092d0e41fd8e86f332f8dc03896a7b/services/core/java/com/android/server/TextServicesManagerService.java#L544 and slightly adopted.
 
         final InputMethodManager imm;
@@ -180,7 +178,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static final int CHECKABILITY_TOO_SHORT = 5;
     /**
      * Finds out whether a particular string should be filtered out of spell checking.
-     *
+     * <p>
      * This will loosely match URLs, numbers, symbols. To avoid always underlining words that
      * we know we will never recognize, this accepts a script identifier that should be one
      * of the SCRIPT_* constants defined above, to rule out quickly characters from very
@@ -229,7 +227,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
     /**
      * Helper method to test valid capitalizations of a word.
-     *
+     * <p>
      * If the "text" is lower-case, we test only the exact string.
      * If the "Text" is capitalized, we test the exact string "Text" and the lower-cased
      *  version of it "text".
@@ -331,8 +329,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             if (null == keyboard) {
                 Log.w(TAG, "onGetSuggestionsInternal() : No keyboard for locale: " + mLocale);
                 // If there is no keyboard for this locale, don't do any spell-checking.
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(
-                        false /* reportAsTypo */);
+                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
             }
 
             final WordComposer composer = new WordComposer();

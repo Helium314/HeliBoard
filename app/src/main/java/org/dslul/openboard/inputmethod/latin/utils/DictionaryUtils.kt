@@ -32,10 +32,7 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
     if (assetsDictionaryList != null) {
         for (dictionary in assetsDictionaryList) {
-            val dirLocaleString =
-                DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)
-                    ?: continue
-            val locale = dirLocaleString.constructLocale()
+            val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)?.constructLocale() ?: continue
             locales.add(locale)
         }
     }
@@ -72,16 +69,15 @@ fun cleanUnusedMainDicts(context: Context) {
     val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val usedLocales = hashSetOf<String>() // todo: bah...
+    val usedLocaleLanguageTags = hashSetOf<String>()
     getEnabledSubtypes(prefs).forEach {
         val locale = it.locale()
-        usedLocales.add(locale.toString())
-        // todo: need a custom localeString function that considers ZZ stuff (for dealing with dictionaries, also on system)
-        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocales.add(it.toString().lowercase()) }
+        usedLocaleLanguageTags.add(locale.toLanguageTag())
+        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
     }
     for (dir in dirs) {
         if (!dir.isDirectory) continue
-        if (dir.name in usedLocales) continue
+        if (dir.name in usedLocaleLanguageTags) continue
         if (hasAnythingOtherThanExtractedMainDictionary(dir))
             continue
         dir.deleteRecursively()

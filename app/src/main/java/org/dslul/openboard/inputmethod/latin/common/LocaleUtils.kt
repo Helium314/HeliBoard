@@ -150,7 +150,10 @@ object LocaleUtils {
                 else Locale(elements[0], elements[1])
             } else if (elements[1].lowercase() == "zz") { // localeParams.length == 3
                 Locale.Builder().setLanguage(elements[0]).setVariant(elements[2]).setScript("Latn").build()
-            } else  {
+            } else if (elements[2].startsWith("#")) {
+                // best guess: elements[2] is a script, e.g. sr-Latn locale to string is sr__#Latn
+                Locale.Builder().setLanguage(elements[0]).setRegion(elements[1]).setScript(elements[2].substringAfter("#")).build()
+            } else {
                 Locale(elements[0], elements[1], elements[2])
             }
             sLocaleCache[this] = locale
