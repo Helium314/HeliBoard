@@ -41,6 +41,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
 import org.dslul.openboard.inputmethod.compat.InsetsOutlineProvider;
 import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils;
@@ -698,7 +699,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             // case, we are about to go down but we still don't know it, however the system tells
             // us there is no current subtype.
             Log.e(TAG, "System is reporting no current subtype.");
-            subtypeLocale = getResources().getConfiguration().locale;
+            subtypeLocale = ConfigurationCompatKt.locale(getResources().getConfiguration());
         } else {
             subtypeLocale = subtypeSwitcherLocale;
         }

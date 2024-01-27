@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.utils.ChecksumCalculator
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
@@ -98,7 +99,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
         findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
-            val layoutName = Settings.readSymbolsLayoutName(context, context.resources.configuration.locale).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
+            val layoutName = Settings.readSymbolsLayoutName(context, context.resources.configuration.locale()).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
             val oldLayout = if (layoutName != null) null else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
             editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}symbols.txt", context, oldLayout, true)
             true

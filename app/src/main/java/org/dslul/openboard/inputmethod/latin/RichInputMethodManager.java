@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.os.AsyncTask;
 import android.os.IBinder;
+
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -418,7 +420,7 @@ public class RichInputMethodManager {
         final RichInputMethodSubtype richSubtype = mCurrentRichInputMethodSubtype;
         final boolean implicitlyEnabledSubtype = checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
                 richSubtype.getRawSubtype());
-        final Locale systemLocale = mContext.getResources().getConfiguration().locale;
+        final Locale systemLocale = ConfigurationCompatKt.locale(mContext.getResources().getConfiguration());
         LanguageOnSpacebarUtils.onSubtypeChanged(
                 richSubtype, implicitlyEnabledSubtype, systemLocale);
         LanguageOnSpacebarUtils.setEnabledSubtypes(getMyEnabledInputMethodSubtypeList(

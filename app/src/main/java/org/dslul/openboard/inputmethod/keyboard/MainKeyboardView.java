@@ -18,6 +18,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -800,7 +802,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final List<Locale> secondaryLocalesToUse = withoutDuplicateLanguages(secondaryLocales, subtype.getLocale().getLanguage());
         if (secondaryLocalesToUse.size() > 0) {
             StringBuilder sb = new StringBuilder(subtype.getMiddleDisplayName());
-            final Locale displayLocale = getResources().getConfiguration().locale;
+            final Locale displayLocale = ConfigurationCompatKt.locale(getResources().getConfiguration());
             for (Locale locale : secondaryLocales) {
                 sb.append(" - ");
                 sb.append(locale.getDisplayLanguage(displayLocale));

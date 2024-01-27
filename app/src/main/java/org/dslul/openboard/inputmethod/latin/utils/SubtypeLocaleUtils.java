@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.inputmethod.InputMethodSubtype;
 
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
@@ -139,7 +140,7 @@ public final class SubtypeLocaleUtils {
     public static Locale getDisplayLocaleOfSubtypeLocale(@NonNull final Locale locale) {
         final String languageTag = locale.toLanguageTag();
         if (NO_LANGUAGE.equals(languageTag)) {
-            return sResources.getConfiguration().locale;
+            return ConfigurationCompatKt.locale(sResources.getConfiguration());
         }
         if (sExceptionalLocaleDisplayedInRootLocale.containsKey(languageTag)) {
             return Locale.ROOT;
@@ -148,7 +149,7 @@ public final class SubtypeLocaleUtils {
     }
 
     public static String getSubtypeLocaleDisplayNameInSystemLocale(@NonNull final Locale locale) {
-        final Locale displayLocale = sResources.getConfiguration().locale;
+        final Locale displayLocale = ConfigurationCompatKt.locale(sResources.getConfiguration());
         return getSubtypeLocaleDisplayNameInternal(locale, displayLocale);
     }
 
@@ -227,7 +228,7 @@ public final class SubtypeLocaleUtils {
     @NonNull
     public static String getSubtypeDisplayNameInSystemLocale(
             @NonNull final InputMethodSubtype subtype) {
-        final Locale displayLocale = sResources.getConfiguration().locale;
+        final Locale displayLocale = ConfigurationCompatKt.locale(sResources.getConfiguration());
         return getSubtypeDisplayNameInternal(subtype, displayLocale);
     }
 

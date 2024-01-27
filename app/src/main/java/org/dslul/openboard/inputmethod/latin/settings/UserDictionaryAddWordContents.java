@@ -22,6 +22,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 
@@ -114,7 +115,7 @@ public class UserDictionaryAddWordContents {
         mContext = context;
 
         mLocaleString = null == locale
-                ? mContext.getResources().getConfiguration().locale.toString()
+                ? ConfigurationCompatKt.locale(mContext.getResources().getConfiguration()).toString()
                 : locale;
         // The keyboard uses the language layout of the user dictionary
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.latin.Dictionary
 import org.dslul.openboard.inputmethod.latin.R
@@ -129,12 +130,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
             return moveDict(false)
         }
 
-        // todo: this is also in other places -> move it to some compatUtils
-        val systemLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            context.resources.configuration.locales[0]
-        } else {
-            @Suppress("deprecation") context.resources.configuration.locale
-        }
+        val systemLocale = context.resources.configuration.locale()
         val newInfo = header.info(systemLocale)
         val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(systemLocale)
         confirmDialog(context, context.getString(R.string.replace_dictionary_message, dictionaryType, newInfo, oldInfo), context.getString(

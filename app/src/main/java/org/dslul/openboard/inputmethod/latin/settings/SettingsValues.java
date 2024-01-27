@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -133,7 +134,7 @@ public class SettingsValues {
     // creation of Colors and SpacingAndPunctuations are the slowest parts in here, but still ok
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
-        mLocale = res.getConfiguration().locale;
+        mLocale = ConfigurationCompatKt.locale(res.getConfiguration());
 
         // Store the input attributes
         mInputAttributes = inputAttributes;

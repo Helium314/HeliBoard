@@ -18,6 +18,7 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
@@ -331,11 +332,7 @@ class LanguageSettingsDialog(
         }
         rowBinding.languageText.setOnClickListener {
             if (header == null) return@setOnClickListener
-            val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                context.resources.configuration.locales[0]
-            } else {
-                @Suppress("Deprecation") context.resources.configuration.locale
-            }
+            val locale = context.resources.configuration.locale()
             Builder(context)
                 .setMessage(header.info(locale))
                 .setPositiveButton(android.R.string.ok, null)

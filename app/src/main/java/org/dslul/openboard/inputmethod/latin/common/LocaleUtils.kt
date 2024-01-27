@@ -7,6 +7,7 @@ package org.dslul.openboard.inputmethod.latin.common
 
 import android.content.Context
 import android.os.Build
+import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
@@ -176,10 +177,6 @@ object LocaleUtils {
             val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
             if (resId != 0) return context.getString(resId)
         }
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locale.getDisplayName(context.resources.configuration.locales[0])
-        } else {
-            @Suppress("deprecation") locale.getDisplayName(context.resources.configuration.locale)
-        }
+        return locale.getDisplayName(context.resources.configuration.locale())
     }
 }

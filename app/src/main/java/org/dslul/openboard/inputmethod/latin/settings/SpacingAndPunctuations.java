@@ -8,6 +8,7 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.res.Resources;
 
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.keyboard.internal.MoreKeySpec;
 import org.dslul.openboard.inputmethod.latin.PunctuationSuggestions;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -50,7 +51,7 @@ public final class SpacingAndPunctuations {
         mCurrentLanguageHasSpaces = res.getBoolean(R.bool.current_language_has_spaces);
         // make it empty if language doesn't have spaces, to avoid weird glitches
         mSortedSometimesWordConnectors = (urlDetection && mCurrentLanguageHasSpaces) ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
-        final Locale locale = res.getConfiguration().locale;
+        final Locale locale = ConfigurationCompatKt.locale(res.getConfiguration());
         // Heuristic: we use American Typography rules because it's the most common rules for all
         // English variants. German rules (not "German typography") also have small gotchas.
         mUsesAmericanTypography = Locale.ENGLISH.getLanguage().equals(locale.getLanguage());
