@@ -95,6 +95,10 @@
     <string name="customize_symbols">Personnaliser la dispostion des symboles</string>
     <string name="customize_shift_symbols">Personnaliser davantage la disposition des symboles</string>
     <string name="shift_symbols">Plus de symboles</string>
+    <string name="customize_background_image">Définir une image d\'arrière-plan</string>
+    <string name="day_or_night_image">Définir l\'image pour le mode jour ou nuit ?</string>
+    <string name="day_or_night_day">Jour</string>
+    <string name="day_or_night_night">Nuit</string>
     <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durée de vibration des touches"</string>
     <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volume du son des touches"</string>
     <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Délai d\'un appui long sur les touches"</string>
