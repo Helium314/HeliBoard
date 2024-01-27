@@ -6,7 +6,6 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.os.Build;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -16,7 +15,6 @@ import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
@@ -33,30 +31,14 @@ import androidx.annotation.Nullable;
 public class RichInputMethodSubtype {
     private static final String TAG = RichInputMethodSubtype.class.getSimpleName();
 
-    // todo: remove this map when switching (rich input) subtype to use language tag
-    private static final HashMap<Locale, Locale> sLocaleMap = initializeLocaleMap();
-    private static HashMap<Locale, Locale> initializeLocaleMap() {
-        final HashMap<Locale, Locale> map = new HashMap<>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Locale#forLanguageTag is available on API Level 21+.
-            // TODO: Remove this workaround once when we become able to deal with "sr-Latn".
-            map.put(Locale.forLanguageTag("sr-Latn"), new Locale("sr", "ZZ"));
-        }
-        return map;
-    }
-
     @NonNull
     private final InputMethodSubtype mSubtype;
     @NonNull
     private final Locale mLocale;
-    @NonNull
-    private final Locale mOriginalLocale;
 
     public RichInputMethodSubtype(@NonNull final InputMethodSubtype subtype) {
         mSubtype = subtype;
-        mOriginalLocale = SubtypeUtilsKt.locale(mSubtype);
-        final Locale mappedLocale = sLocaleMap.get(mOriginalLocale);
-        mLocale = mappedLocale != null ? mappedLocale : mOriginalLocale;
+        mLocale = SubtypeUtilsKt.locale(mSubtype);
     }
 
     // Extra values are determined by the primary subtype. This is probably right, but
@@ -139,11 +121,6 @@ public class RichInputMethodSubtype {
     @NonNull
     public Locale getLocale() {
         return mLocale;
-    }
-
-    @NonNull
-    public Locale getOriginalLocale() {
-        return mOriginalLocale;
     }
 
     public boolean isRtlSubtype() {

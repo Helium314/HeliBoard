@@ -54,7 +54,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
                 .setMessage(message)
                 .setNeutralButton(android.R.string.cancel) { _, _ -> cachedDictionaryFile.delete() }
                 .setNegativeButton(R.string.button_select_language) { _, _ -> selectLocaleForDictionary(newHeader, locale) }
-            if (hasMatchingSubtypeForLocaleString(locale.toString())) {
+            if (hasMatchingSubtypeForLocale(locale)) {
                 val buttonText = context.getString(R.string.button_add_to_language, localeName)
                 b.setPositiveButton(buttonText) { _, _ ->
                     addDictAndAskToReplace(newHeader, locale)
@@ -88,13 +88,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
     }
 
     private fun selectLocaleForDictionary(newHeader: DictionaryHeader, dictLocale: Locale) {
-        val localeStrings = getAvailableSubtypeLocaleStrings()
-        val locales = linkedSetOf<Locale>()
-        localeStrings.forEach {
-            if (it.substringBefore("_") == dictLocale.language)
-                locales.add(it.toLocale())
-        }
-        localeStrings.forEach { locales.add(it.toLocale()) }
+        val locales = getAvailableSubtypeLocales().sortedBy { it.language != dictLocale.language } // matching languages should show first
         val displayNamesArray = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
         AlertDialog.Builder(context)
             .setTitle(R.string.button_select_language)

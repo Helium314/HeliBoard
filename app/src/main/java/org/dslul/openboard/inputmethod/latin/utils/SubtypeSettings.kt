@@ -13,6 +13,7 @@ import androidx.core.content.edit
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.xmlpull.v1.XmlPullParser
@@ -22,7 +23,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
- *  subtypes for system locales will be returned, or en_US if none found. */
+ *  subtypes for system locales will be returned, or en-US if none found. */
 fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
     require(initialized)
     if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true))
@@ -123,12 +124,12 @@ fun getSystemLocales(): List<Locale> {
     return systemLocales
 }
 
-fun hasMatchingSubtypeForLocaleString(localeString: String): Boolean {
+fun hasMatchingSubtypeForLocale(locale: Locale): Boolean {
     require(initialized)
-    return !resourceSubtypesByLocale[localeString].isNullOrEmpty()
+    return !resourceSubtypesByLocale[locale].isNullOrEmpty()
 }
 
-fun getAvailableSubtypeLocaleStrings(): Collection<String> {
+fun getAvailableSubtypeLocales(): Collection<Locale> {
     require(initialized)
     return resourceSubtypesByLocale.keys
 }
@@ -151,21 +152,15 @@ fun init(context: Context) {
 private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
     if (systemSubtypes.isNotEmpty()) return systemSubtypes
     val subtypes = systemLocales.mapNotNull { locale ->
-        val localeString = locale.toString()
-        val subtypesOfLocale = resourceSubtypesByLocale[localeString]
-            ?: resourceSubtypesByLocale[localeString.substringBefore("_")] // fall back to language matching the subtype
-            ?: localeString.substringBefore("_").let { language -> // fall back to languages matching subtype language
-                resourceSubtypesByLocale.firstNotNullOfOrNull {
-                    if (it.key.substringBefore("_") == language)
-                        it.value
-                    else null
-                }
-            }
+        val subtypesOfLocale = resourceSubtypesByLocale[locale]
+            // get best match
+            ?: resourceSubtypesByLocale.maxByOrNull { LocaleUtils.getMatchLevel(locale, it.key) }
+                ?.takeIf { LocaleUtils.isMatch(LocaleUtils.getMatchLevel(locale, it.key)) }?.value
         subtypesOfLocale?.firstOrNull()
     }
     if (subtypes.isEmpty()) {
-        // hardcoded fallback for weird cases
-        systemSubtypes.add(resourceSubtypesByLocale["en_US"]!!.first())
+        // hardcoded fallback to en-US for weird cases
+        systemSubtypes.add(resourceSubtypesByLocale[Locale.US]!!.first())
     } else {
         systemSubtypes.addAll(subtypes)
     }
@@ -193,7 +188,7 @@ private fun loadResourceSubtypes(resources: Resources) {
             val icon = xml.getAttributeResourceValue(namespace, "icon", 0)
             val label = xml.getAttributeResourceValue(namespace, "label", 0)
             val subtypeId = xml.getAttributeIntValue(namespace, "subtypeId", 0)
-            val locale = xml.getAttributeValue(namespace, "imeSubtypeLocale").intern()
+            val localeString = xml.getAttributeValue(namespace, "imeSubtypeLocale").intern()
             val languageTag = xml.getAttributeValue(namespace, "languageTag")
             val imeSubtypeMode = xml.getAttributeValue(namespace, "imeSubtypeMode")
             val imeSubtypeExtraValue = xml.getAttributeValue(namespace, "imeSubtypeExtraValue").intern()
@@ -203,12 +198,14 @@ private fun loadResourceSubtypes(resources: Resources) {
             b.setSubtypeNameResId(label)
             if (subtypeId != 0)
                 b.setSubtypeId(subtypeId)
-            b.setSubtypeLocale(locale)
+            b.setSubtypeLocale(localeString)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && languageTag != null)
                 b.setLanguageTag(languageTag)
             b.setSubtypeMode(imeSubtypeMode)
             b.setSubtypeExtraValue(imeSubtypeExtraValue)
             b.setIsAsciiCapable(isAsciiCapable)
+            val locale = if (languageTag.isEmpty()) LocaleUtils.constructLocaleFromString(localeString)
+                else LocaleUtils.constructLocaleFromString(languageTag)
             resourceSubtypesByLocale.getOrPut(locale) { ArrayList(2) }.add(b.build())
         }
         eventType = xml.next()
@@ -246,7 +243,7 @@ private fun loadEnabledSubtypes(context: Context) {
         .split(SUBTYPE_SEPARATOR).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
 
     for (localeAndLayout in subtypeStrings) {
-        val subtypesForLocale = resourceSubtypesByLocale[localeAndLayout.first.toLanguageTag()] // todo: use locale or language tag as key?
+        val subtypesForLocale = resourceSubtypesByLocale[localeAndLayout.first]
         if (subtypesForLocale == null) {
             val message = "no resource subtype for $localeAndLayout"
             Log.w(TAG, message)
@@ -294,7 +291,7 @@ private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String
 var initialized = false
     private set
 private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
-private val resourceSubtypesByLocale = LinkedHashMap<String, MutableList<InputMethodSubtype>>(100)
+private val resourceSubtypesByLocale = LinkedHashMap<Locale, MutableList<InputMethodSubtype>>(100)
 private val additionalSubtypes = mutableListOf<InputMethodSubtype>()
 private val systemLocales = mutableListOf<Locale>()
 private val systemSubtypes = mutableListOf<InputMethodSubtype>()

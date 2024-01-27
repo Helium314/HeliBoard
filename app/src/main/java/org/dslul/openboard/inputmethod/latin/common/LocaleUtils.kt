@@ -8,6 +8,7 @@ package org.dslul.openboard.inputmethod.latin.common
 import android.content.Context
 import android.os.Build
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import java.util.Locale
 
 /**
@@ -26,37 +27,33 @@ object LocaleUtils {
     // are both present and different, and the case where one of the locales does not
     // specify the countries. This difference is not needed now.
     // Nothing matches.
-    const val LOCALE_NO_MATCH = 0
+    private const val LOCALE_NO_MATCH = 0
 
     // The language (and maybe more) matches, but the script is different
-    const val LOCALE_MATCH_SCRIPT_DIFFER = 1
+    private const val LOCALE_MATCH_SCRIPT_DIFFER = 1
 
     // The languages matches, but the country are different. Or, the reference locale requires a
     // country and the tested locale does not have one.
-    const val LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER = 3
+    private const val LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER = 3
 
     // The languages and country match, but the variants are different. Or, the reference locale
     // requires a variant and the tested locale does not have one.
-    const val LOCALE_LANGUAGE_AND_COUNTRY_MATCH_VARIANT_DIFFER = 6
+    private const val LOCALE_LANGUAGE_AND_COUNTRY_MATCH_VARIANT_DIFFER = 6
 
     // The required locale is null or empty so it will accept anything, and the tested locale
     // is non-null and non-empty.
-    const val LOCALE_ANY_MATCH = 10
+    private const val LOCALE_ANY_MATCH = 10
 
     // The language matches, and the tested locale specifies a country but the reference locale
     // does not require one.
-    const val LOCALE_LANGUAGE_MATCH = 15
+    private const val LOCALE_LANGUAGE_MATCH = 15
 
     // The language and the country match, and the tested locale specifies a variant but the
     // reference locale does not require one.
-    const val LOCALE_LANGUAGE_AND_COUNTRY_MATCH = 20
+    private const val LOCALE_LANGUAGE_AND_COUNTRY_MATCH = 20
 
     // The compared locales are fully identical. This is the best match level.
-    const val LOCALE_FULL_MATCH = 30
-
-    // The level at which a match is "normally" considered a locale match with standard algorithms.
-    // Don't use this directly, use #isMatch to test.
-    private const val LOCALE_MATCH = LOCALE_ANY_MATCH
+    private const val LOCALE_FULL_MATCH = 30
 
     /**
      * Return how well a tested locale matches a reference locale.
@@ -98,9 +95,7 @@ object LocaleUtils {
         if (reference.toString().isEmpty()) return LOCALE_ANY_MATCH
         if (reference.language != tested.language) return LOCALE_NO_MATCH
         // language matches
-        if (reference.script != tested.script) {
-            // todo: how to best check?
-            //  problem: by default script is empty, so en-Latn does not match en, but it really should
+        if (reference.script() != tested.script()) {
             return LOCALE_MATCH_SCRIPT_DIFFER
         }
         // script matches
@@ -110,6 +105,7 @@ object LocaleUtils {
         }
         // country matches
         return if (reference.variant == tested.variant) LOCALE_FULL_MATCH
+            else if (reference.variant.isEmpty()) LOCALE_LANGUAGE_AND_COUNTRY_MATCH
             else LOCALE_LANGUAGE_AND_COUNTRY_MATCH_VARIANT_DIFFER
     }
 
@@ -124,13 +120,7 @@ object LocaleUtils {
      * @return whether this is a match or not.
      */
     fun isMatch(level: Int): Boolean {
-        return LOCALE_MATCH <= level
-    }
-
-    /** similar to isMatch, but returns true if there is anything matching (used for fallback, even script may be different) */
-    // todo: remove this?
-    fun isMatchWeak(level: Int): Boolean {
-        return level > LOCALE_NO_MATCH
+        return level >= LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
     }
 
     private val sLocaleCache = HashMap<String, Locale>()
@@ -158,8 +148,9 @@ object LocaleUtils {
             } else if (elements.size == 2) {
                 if (elements[1].lowercase() == "zz") Locale.forLanguageTag(elements[0] + "-Latn")
                 else Locale(elements[0], elements[1])
-            } else { // localeParams.length == 3
-                // todo: what to do? just hope we never encounter a ZZ string here?
+            } else if (elements[1].lowercase() == "zz") { // localeParams.length == 3
+                Locale.Builder().setLanguage(elements[0]).setVariant(elements[2]).setScript("Latn").build()
+            } else  {
                 Locale(elements[0], elements[1], elements[2])
             }
             sLocaleCache[localeString] = locale
@@ -167,26 +158,12 @@ object LocaleUtils {
         }
     }
 
-    // TODO: Get this information from the framework instead of maintaining here by ourselves.
-    private val sRtlLanguageCodes = HashSet<String>()
-
-    init {
-        // List of known Right-To-Left language codes.
-        sRtlLanguageCodes.add("ar") // Arabic
-        sRtlLanguageCodes.add("fa") // Persian
-        sRtlLanguageCodes.add("iw") // Hebrew
-        sRtlLanguageCodes.add("ku") // Kurdish
-        sRtlLanguageCodes.add("ps") // Pashto
-        sRtlLanguageCodes.add("sd") // Sindhi
-        sRtlLanguageCodes.add("ug") // Uyghur
-        sRtlLanguageCodes.add("ur") // Urdu
-        sRtlLanguageCodes.add("yi") // Yiddish
-    }
-
     @JvmStatic
-    fun isRtlLanguage(locale: Locale): Boolean {
-        return sRtlLanguageCodes.contains(locale.language)
-    }
+    fun isRtlLanguage(locale: Locale): Boolean =
+        when (Character.getDirectionality(locale.displayName.codePointAt(0))) {
+            Character.DIRECTIONALITY_RIGHT_TO_LEFT, Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC -> true
+            else -> false
+        }
 
     @JvmStatic
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {

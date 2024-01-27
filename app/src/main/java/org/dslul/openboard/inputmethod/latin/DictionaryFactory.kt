@@ -45,17 +45,16 @@ object DictionaryFactory {
 
         // no main dict found -> check assets
         val assetsDicts = DictionaryInfoUtils.getAssetsDictionaryList(context)
-        // file name is <type>_<language tag>.dict, todo: actually rename the asset files!
+        // file name is <type>_<language tag>.dict
         val dictsByType = assetsDicts.groupBy { it.substringBefore("_") }
         // for each type find the best match
-        val minMatchLevel = LocaleUtils.LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
         dictsByType.forEach { (dictType, dicts) ->
             var best: String? = null
             var bestLevel = 0
             dicts.forEach {
                 val dictLocale = LocaleUtils.constructLocaleFromString(it.substringAfter("_").substringBefore("."))
                 val level = LocaleUtils.getMatchLevel(locale, dictLocale)
-                if (level > bestLevel && level >= minMatchLevel) {
+                if (level > bestLevel && LocaleUtils.isMatch(level)) {
                     bestLevel = level
                     best = it
                 }
