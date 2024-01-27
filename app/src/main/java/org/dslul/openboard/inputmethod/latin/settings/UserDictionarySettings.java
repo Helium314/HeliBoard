@@ -94,7 +94,7 @@ public class UserDictionarySettings extends ListFragment {
 
     private Cursor mCursor;
 
-    protected String mLocale;
+    protected Locale mLocale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,13 +122,13 @@ public class UserDictionarySettings extends ListFragment {
         final Bundle arguments = getArguments();
         final String localeFromArguments = null == arguments ? null : arguments.getString("locale");
 
-        final String locale;
+        final String localeString;
         if (null != localeFromArguments) {
-            locale = localeFromArguments;
-        } else locale = localeFromIntent;
+            localeString = localeFromArguments;
+        } else localeString = localeFromIntent;
+        mLocale = localeString == null ? null : LocaleUtils.constructLocale(localeString);
 
-        mLocale = locale;
-        createCursor(locale);
+        createCursor(mLocale == null ? null : mLocale.toString());
         TextView emptyView = view.findViewById(android.R.id.empty);
         emptyView.setText(R.string.user_dict_settings_empty_text);
 
@@ -158,8 +158,9 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 
-    private void createCursor(final String locale) {
-        // Locale can be any of:
+    // cursor must be created using localeString to be in line with Android system
+    private void createCursor(@Nullable final String localeString) {
+        // localeString can be any of:
         // - The string representation of a locale, as returned by Locale#toString()
         // - The empty string. This means we want a cursor returning words valid for all locales.
         // - null. This means we want a cursor for the current locale, whatever this is.
@@ -172,13 +173,13 @@ public class UserDictionarySettings extends ListFragment {
         //  human-readable, like "all_locales" and "current_locales" strings, provided they
         //  can be guaranteed not to match locales that may exist.
 
-        if ("".equals(locale)) {
+        if ("".equals(localeString)) {
             // Case-insensitive sort
             mCursor = requireContext().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION_ALL_LOCALES, null,
                     "UPPER(" + UserDictionary.Words.WORD + ")");
         } else {
-            final String queryLocale = null != locale ? locale : Locale.getDefault().toString();
+            final String queryLocale = null != localeString ? localeString : Locale.getDefault().toString();
             mCursor = requireContext().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION, new String[] { queryLocale },
                     "UPPER(" + UserDictionary.Words.WORD + ")");
@@ -200,14 +201,12 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 
-    // todo: consider when to use string
-    public static String getLocaleDisplayName(Context context, String localeStr) {
-        if (TextUtils.isEmpty(localeStr)) {
+    public static String getLocaleDisplayName(Context context, Locale locale) {
+        if (locale.toString().isEmpty()) {
             // CAVEAT: localeStr should not be null because a null locale stands for the system
             // locale in UserDictionary.Words.addWord.
             return context.getResources().getString(R.string.user_dict_settings_all_languages);
         }
-        final Locale locale = LocaleUtils.constructLocale(localeStr);
         return LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context);
     }
 
@@ -224,7 +223,7 @@ public class UserDictionarySettings extends ListFragment {
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, editingWord);
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, editingShortcut);
         args.putString(UserDictionaryAddWordContents.EXTRA_WEIGHT, editingWeight);
-        args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale);
+        args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale.toLanguageTag());
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, UserDictionaryAddWordFragment.class, args)
@@ -253,27 +252,28 @@ public class UserDictionarySettings extends ListFragment {
         return mCursor.getString(mCursor.getColumnIndexOrThrow(column));
     }
 
+    // requires use of locale string for interaction with Android system
     public static void deleteWordInEditMode(final String word, final String shortcut, final String weight,
-                                            final String locale, final ContentResolver resolver) {
+                                            final String localeString, final ContentResolver resolver) {
         if (TextUtils.isEmpty(shortcut)) {
-            if ("".equals(locale)) {
+            if ("".equals(localeString)) {
                 resolver.delete(
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_ALL_LOCALES,
                         new String[] { word, weight });
             } else {
                 resolver.delete(
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_LOCALE,
-                        new String[] { word, weight, locale });
+                        new String[] { word, weight, localeString });
             }
         } else {
-            if ("".equals(locale)) {
+            if ("".equals(localeString)) {
                 resolver.delete(
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_ALL_LOCALES,
                         new String[] { word, shortcut, weight });
             } else {
                 resolver.delete(
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_LOCALE,
-                        new String[] { word, shortcut, weight, locale });
+                        new String[] { word, shortcut, weight, localeString });
             }
         }
     }

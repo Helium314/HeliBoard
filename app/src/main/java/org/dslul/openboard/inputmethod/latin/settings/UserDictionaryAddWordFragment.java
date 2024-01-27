@@ -33,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewKt;
 
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.settings.UserDictionaryAddWordContents.LocaleRenderer;
 
 import java.util.ArrayList;
@@ -173,22 +174,22 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         localeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                final LocaleRenderer locale = (LocaleRenderer)parent.getItemAtPosition(position);
+                final LocaleRenderer localeRenderer = (LocaleRenderer)parent.getItemAtPosition(position);
 
-                mContents.updateLocale(requireContext(), locale.getLocaleString());
+                mContents.updateLocale(requireContext(), localeRenderer.getLocale());
                 // To have the selected language at the top of the list, this one is removed from the list
                 localesList.remove(position);
                 // The other languages are then sorted alphabetically by name, with the exception of "For all languages"
-                Collections.sort(localesList, (locale1, locale2) -> {
-                    if (!locale1.getLocaleString().equals("") && !locale2.getLocaleString().equals("")) {
-                        return locale1.toString().compareToIgnoreCase(locale2.toString());
+                Collections.sort(localesList, (localeRenderer1, localeRenderer2) -> {
+                    if (!localeRenderer1.getLocaleString().equals("") && !localeRenderer2.getLocaleString().equals("")) {
+                        return localeRenderer1.toString().compareToIgnoreCase(localeRenderer2.toString());
                     } else {
-                        return locale1.getLocaleString().compareToIgnoreCase(locale2.getLocaleString());
+                        return localeRenderer1.getLocaleString().compareToIgnoreCase(localeRenderer2.getLocaleString());
                     }
                 });
 
                 // Set "For all languages" to the end of the list
-                if (!locale.getLocaleString().equals("")) {
+                if (!localeRenderer.getLocaleString().equals("")) {
                     // After alphabetical sorting, "For all languages" is always in 1st position.
                     // (The position is 0 because the spinner menu item count starts at 0)
                     final LocaleRenderer forAllLanguages = adapter.getItem(0);
@@ -199,13 +200,13 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 }
 
                 // Finally, we add the selected language to the top of the list.
-                localesList.add(0, locale);
+                localesList.add(0, localeRenderer);
 
                 // When a language is selected, the keyboard layout changes automatically
                 mInput.restartInput(mWordEditText);
 
                 // The action bar subtitle is updated when a language is selected in the drop-down menu
-                mActionBar.setSubtitle(locale.toString());
+                mActionBar.setSubtitle(localeRenderer.toString());
             }
 
             @Override
@@ -213,7 +214,8 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 // I'm not sure we can come here, but if we do, that's the right thing to do.
                 final Bundle args = getArguments();
                 if (args == null) return;
-                mContents.updateLocale(requireContext(), args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE));
+                final String localeString = args.getString(UserDictionaryAddWordContents.EXTRA_LOCALE);
+                mContents.updateLocale(requireContext(), localeString == null ? null : LocaleUtils.constructLocale(localeString));
             }
         });
     }
