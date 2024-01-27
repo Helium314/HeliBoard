@@ -5,7 +5,6 @@ package org.dslul.openboard.inputmethod.latin.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants

@@ -5,7 +5,6 @@
  */
 package org.dslul.openboard.inputmethod.latin.utils
 
-import androidx.collection.ArraySet
 import java.util.Locale
 
 /**
@@ -34,9 +33,6 @@ object ScriptUtils {
     const val SCRIPT_THAI = "Thai"
     const val SCRIPT_HANGUL = "Hang"
     const val SCRIPT_GUJARATI = "Gujr"
-    // todo: zh-CN is simplified, HK & TW are traditional (but those are not supported anyway)
-    const val SCRIPT_CHINESE_SIMPLIFIED = "Hans"
-    const val SCRIPT_CHINESE_TRADITIONAL = "Hant"
 
     @JvmStatic
     fun scriptSupportsUppercase(locale: Locale): Boolean {
@@ -161,7 +157,10 @@ object ScriptUtils {
     @JvmStatic
     fun Locale.script(): String {
         if (script.isNotEmpty()) return script
-        // todo: consider ZZ country, or can be sure that we never run into e.g. sr_ZZ here?
+        if (country.equals("ZZ", true)) {
+            Log.w("ScriptUtils", "old _ZZ locale found: $this")
+            return SCRIPT_LATIN
+        }
         return when (language) {
             "ar", "ur", "fa" -> SCRIPT_ARABIC
             "hy" -> SCRIPT_ARMENIAN

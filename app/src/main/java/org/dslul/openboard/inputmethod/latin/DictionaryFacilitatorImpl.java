@@ -494,7 +494,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 mainDicts[i] = null;
                 continue;
             }
-            mainDicts[i] = DictionaryFactory.createMainDictionary(context, dictionaryGroup.mLocale);
+            mainDicts[i] = DictionaryFactoryKt.createMainDictionary(context, dictionaryGroup.mLocale);
         }
 
         synchronized (mLock) {

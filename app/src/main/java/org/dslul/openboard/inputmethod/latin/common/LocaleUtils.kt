@@ -92,7 +92,7 @@ object LocaleUtils {
      * @param tested the locale to test.
      * @return a constant that measures how well the tested locale matches the reference locale.
      */
-    fun getMatchLevel(reference: Locale, tested: Locale): Int {
+    private fun getMatchLevel(reference: Locale, tested: Locale): Int {
         if (reference == tested) return LOCALE_FULL_MATCH
         if (reference.toString().isEmpty()) return LOCALE_ANY_MATCH
         if (reference.language != tested.language) return LOCALE_NO_MATCH
@@ -128,10 +128,12 @@ object LocaleUtils {
 
     /**
      * Creates a locale from a string specification or language tag.
+     * Ideally this works as reverse of Locale.toString and Locale.toLanguageTag
+     * If a localeString contains "-" it is always interpreted as language tag.
      * localeString is a string specification of a locale, in a format of "ll_cc_variant" where
      * "ll" is a language code, "cc" is a country code.
-     * Converts zz regions that used to signal latin script into actual latin script (using language tag).
-     * If a localeString contains "-" it is always interpreted as language tag.
+     * The script may also be part of the locale string, e.g. "ll_cc_#script"
+     * Converts "ZZ" regions that used to signal latin script into actual latin script.
      */
     @JvmStatic
     fun String.constructLocale(): Locale {

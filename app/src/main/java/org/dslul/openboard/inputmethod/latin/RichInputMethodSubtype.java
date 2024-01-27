@@ -35,10 +35,14 @@ public class RichInputMethodSubtype {
     private final InputMethodSubtype mSubtype;
     @NonNull
     private final Locale mLocale;
+    // The subtype is considered RTL if the language of the main subtype is RTL.
+    // Cached because it might get read frequently, e.g. when moving pointer with space bar
+    private final boolean mIsRtl;
 
     public RichInputMethodSubtype(@NonNull final InputMethodSubtype subtype) {
         mSubtype = subtype;
         mLocale = SubtypeUtilsKt.locale(mSubtype);
+        mIsRtl = LocaleUtils.isRtlLanguage(mLocale);
     }
 
     // Extra values are determined by the primary subtype. This is probably right, but
@@ -124,8 +128,7 @@ public class RichInputMethodSubtype {
     }
 
     public boolean isRtlSubtype() {
-        // The subtype is considered RTL if the language of the main subtype is RTL.
-        return LocaleUtils.isRtlLanguage(mLocale);
+        return mIsRtl;
     }
 
     // TODO: remove this method
