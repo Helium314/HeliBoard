@@ -53,7 +53,7 @@ public class RichInputMethodSubtype {
     }
 
     public boolean isNoLanguage() {
-        return SubtypeLocaleUtils.NO_LANGUAGE.equals(mSubtype.getLocale());
+        return SubtypeLocaleUtils.NO_LANGUAGE.equals(mLocale.getLanguage());
     }
 
     public boolean isCustom() {
@@ -87,7 +87,7 @@ public class RichInputMethodSubtype {
         if (isNoLanguage()) {
             return SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(mSubtype);
         }
-        return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(mSubtype.getLocale());
+        return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(mLocale);
     }
 
     // Get the RichInputMethodSubtype's middle display name in its locale.
@@ -96,7 +96,7 @@ public class RichInputMethodSubtype {
         if (isNoLanguage()) {
             return SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(mSubtype);
         }
-        return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(mSubtype.getLocale());
+        return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(mLocale);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class RichInputMethodSubtype {
         RichInputMethodSubtype noLanguageSubtype = sNoLanguageSubtype;
         if (noLanguageSubtype == null) {
             final InputMethodSubtype rawNoLanguageSubtype = RichInputMethodManager.getInstance()
-                    .findSubtypeByLocaleAndKeyboardLayoutSet(SubtypeLocaleUtils.NO_LANGUAGE, SubtypeLocaleUtils.QWERTY);
+                    .findSubtypeByLocaleAndKeyboardLayoutSet(LocaleUtils.constructLocale(SubtypeLocaleUtils.NO_LANGUAGE), SubtypeLocaleUtils.QWERTY);
             if (rawNoLanguageSubtype != null) {
                 noLanguageSubtype = new RichInputMethodSubtype(rawNoLanguageSubtype);
             }

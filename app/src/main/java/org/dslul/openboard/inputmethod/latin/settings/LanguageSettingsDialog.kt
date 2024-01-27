@@ -24,6 +24,7 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.databinding.LanguageListItemBinding
 import org.dslul.openboard.inputmethod.latin.databinding.LocaleSettingsDialogBinding
 import org.dslul.openboard.inputmethod.latin.utils.*
@@ -384,14 +385,9 @@ class LanguageSettingsDialog(
 
 /** @return list of user dictionary files and whether an internal dictionary exists */
 fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
-    val localeString = locale.toString().lowercase() // internal files and folders always use lowercase, todo: should we consider language tag too?
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
-    // todo: get directory by locale, not by localeString
-    // todo: make sure and check whether a de_DE dictionary in de-DE folder works
-    // todo: check whether user history dict can be moved and renamed and still works (manual in import would be sufficient)
-    //  move this to do to a better place, probably facilitator
-    val userLocaleDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context), localeString)
+    val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
             if (it.name.endsWith(USER_DICTIONARY_SUFFIX))
@@ -402,21 +398,11 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
     }
     if (hasInternalDict)
         return userDicts to true
-    val language = localeString.languageConsideringZZ()
-    DictionaryInfoUtils.getAssetsDictionaryList(context)?.forEach { dictFile ->
-        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictFile)?.let {
-            if (it == localeString || it.languageConsideringZZ() == language)
-                return userDicts to true
-        }
+    val internalDicts = DictionaryInfoUtils.getAssetsDictionaryList(context) ?: return userDicts to false
+    val best = LocaleUtils.getBestMatch(locale, internalDicts.toList()) {
+        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale() ?: SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
     }
-    return userDicts to false
-}
-
-private fun String.languageConsideringZZ(): String {
-    return if (endsWith("zz", false))
-        this
-    else
-        substringBefore("_")
+    return userDicts to (best != null)
 }
 
 // get locales with same script as main locale, but different language

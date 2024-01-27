@@ -25,6 +25,7 @@ import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
@@ -109,7 +110,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : SubtypeSettingsKt.getEnabledSubtypes(prefs, true)) {
-            if (!mainSubtype.getLocale().equals("zz")) {
+            if (!mainSubtype.getLocale().equals(SubtypeLocaleUtils.NO_LANGUAGE)) {
                 sortedLanguages.add(mainSubtype.getLocale());
             }
             // Secondary language is added only if main language is selected and if system language is not enabled

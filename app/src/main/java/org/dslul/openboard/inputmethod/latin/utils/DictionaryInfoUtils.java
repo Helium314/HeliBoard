@@ -176,12 +176,12 @@ public class DictionaryInfoUtils {
 
     /**
      * Returns the locale for a dictionary file name stored in assets.
-     *
+     * <p>
      * Assumes file name main_[locale].dict
-     *
+     * <p>
      * Returns the locale, or null if file name does not match the pattern
      */
-    public static String extractLocaleFromAssetsDictionaryFile(final String dictionaryFileName) {
+    @Nullable public static String extractLocaleFromAssetsDictionaryFile(final String dictionaryFileName) {
         if (dictionaryFileName.startsWith(DictionaryInfoUtils.MAIN_DICT_PREFIX)
                 && dictionaryFileName.endsWith(".dict")) {
             return dictionaryFileName.substring(
@@ -192,7 +192,7 @@ public class DictionaryInfoUtils {
         return null;
     }
 
-    public static String[] getAssetsDictionaryList(final Context context) {
+    @Nullable public static String[] getAssetsDictionaryList(final Context context) {
         final String[] dictionaryList;
         try {
             dictionaryList = context.getAssets().list(ASSETS_DICTIONARY_FOLDER);

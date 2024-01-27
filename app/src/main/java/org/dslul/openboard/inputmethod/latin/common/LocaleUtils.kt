@@ -9,6 +9,7 @@ import android.content.Context
 import android.os.Build
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import java.util.Locale
 
 /**
@@ -167,7 +168,7 @@ object LocaleUtils {
     @JvmStatic
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
         val languageTag = locale.toLanguageTag()
-        if (languageTag == "zz") return context.getString(R.string.subtype_no_language)
+        if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return context.getString(R.string.subtype_no_language)
         if (locale.script() != locale.language.constructLocale().script()) {
             val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
             if (resId != 0) return context.getString(resId)

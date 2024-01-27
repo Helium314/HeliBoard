@@ -47,9 +47,9 @@ object DictionaryFactory {
         // no main dict found -> check assets
         val assetsDicts = DictionaryInfoUtils.getAssetsDictionaryList(context)
         // file name is <type>_<language tag>.dict
-        val dictsByType = assetsDicts.groupBy { it.substringBefore("_") }
+        val dictsByType = assetsDicts?.groupBy { it.substringBefore("_") }
         // for each type find the best match
-        dictsByType.forEach { (dictType, dicts) ->
+        dictsByType?.forEach { (dictType, dicts) ->
             val bestMatch = LocaleUtils.getBestMatch(locale, dicts) { it.substringAfter("_")
                 .substringBefore(".").constructLocale() } ?: return@forEach
             // extract dict and add extracted file

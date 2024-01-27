@@ -10,6 +10,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.
 import org.dslul.openboard.inputmethod.latin.common.splitOnFirstSpacesOnly
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import java.io.InputStream
 import java.util.Locale
 import kotlin.math.round
@@ -244,7 +245,7 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreK
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toString() == "zz") context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
+        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
         else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {

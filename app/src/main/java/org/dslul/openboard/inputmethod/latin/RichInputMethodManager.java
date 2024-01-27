@@ -293,14 +293,14 @@ public class RichInputMethodManager {
         return keyboardCount > 1;
     }
 
-    public InputMethodSubtype findSubtypeByLocaleAndKeyboardLayoutSet(final String localeString,
+    public InputMethodSubtype findSubtypeByLocaleAndKeyboardLayoutSet(final Locale locale,
             final String keyboardLayoutSetName) {
         final InputMethodInfo myImi = getInputMethodInfoOfThisIme();
         final int count = myImi.getSubtypeCount();
         for (int i = 0; i < count; i++) {
             final InputMethodSubtype subtype = myImi.getSubtypeAt(i);
             final String layoutName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
-            if (localeString.equals(subtype.getLocale())
+            if (locale.equals(SubtypeUtilsKt.locale(subtype))
                     && keyboardLayoutSetName.equals(layoutName)) {
                 return subtype;
             }

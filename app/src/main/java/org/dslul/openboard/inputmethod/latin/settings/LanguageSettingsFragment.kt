@@ -169,14 +169,11 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
         // add the remaining ones
         allSubtypes.map { it.toSubtypeInfo(it.locale()) }
-            .sortedBy { if (it.subtype.locale().toString().equals("zz", true))
-                    "zz" // "No language (Alphabet)" should be last
+            .sortedBy { if (it.subtype.locale().toLanguageTag().equals(SubtypeLocaleUtils.NO_LANGUAGE, true))
+                    SubtypeLocaleUtils.NO_LANGUAGE // "No language (Alphabet)" should be last
                 else it.displayName
             }.addToSortedSubtypes()
 
-//        sortedSubtypesByDisplayName.clear()
-//        val s = getAllAvailableSubtypes().groupBy { it.locale() }
-//        s.
         // set languages
         languageFilterList.setLanguages(sortedSubtypesByDisplayName.values, systemOnly)
     }

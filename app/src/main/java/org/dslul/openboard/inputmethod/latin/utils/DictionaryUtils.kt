@@ -24,8 +24,7 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
         for (directory in cachedDirectoryList) {
             if (!directory.isDirectory) continue
             if (!hasAnythingOtherThanExtractedMainDictionary(directory)) continue
-            val dirLocaleString = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
-            val locale = dirLocaleString.constructLocale()
+            val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
             locales.add(locale)
         }
     }

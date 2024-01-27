@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.R;
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 
 import java.util.ArrayList;
@@ -81,13 +82,12 @@ public final class AdditionalSubtypeUtils {
     }
 
     private static String getPrefSubtype(final InputMethodSubtype subtype) {
-        final String localeString = subtype.getLocale();
         final String keyboardLayoutSetName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
         final String layoutExtraValue = KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName;
         final String extraValue = StringUtils.removeFromCommaSplittableTextIfExists(
                 layoutExtraValue, StringUtils.removeFromCommaSplittableTextIfExists(
                         IS_ADDITIONAL_SUBTYPE, subtype.getExtraValue()));
-        final String basePrefSubtype = localeString + LOCALE_AND_LAYOUT_SEPARATOR
+        final String basePrefSubtype = SubtypeUtilsKt.locale(subtype).toLanguageTag() + LOCALE_AND_LAYOUT_SEPARATOR
                 + keyboardLayoutSetName;
         return extraValue.isEmpty() ? basePrefSubtype
                 : basePrefSubtype + LOCALE_AND_LAYOUT_SEPARATOR + extraValue;
@@ -116,7 +116,7 @@ public final class AdditionalSubtypeUtils {
             return null;
         }
         final String languageTag = elems[INDEX_OF_LANGUAGE_TAG];
-        final Locale locale = Locale.forLanguageTag(languageTag); // todo: or use the cache?
+        final Locale locale = LocaleUtils.constructLocale(languageTag);
         final String keyboardLayoutSetName = elems[INDEX_OF_KEYBOARD_LAYOUT];
         final boolean asciiCapable = ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_LATIN);
         // Here we assume that all the additional subtypes are EmojiCapable
@@ -179,7 +179,7 @@ public final class AdditionalSubtypeUtils {
         if (isAsciiCapable) {
             extraValueItems.add(ASCII_CAPABLE);
         }
-        if (SubtypeLocaleUtils.isExceptionalLocale(locale.toString())) { // todo: locale or language tag
+        if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
             extraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +
                     SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
         }
@@ -217,7 +217,7 @@ public final class AdditionalSubtypeUtils {
         final ArrayList<String> compatibilityExtraValueItems = new ArrayList<>();
         compatibilityExtraValueItems.add(KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName);
         compatibilityExtraValueItems.add(ASCII_CAPABLE);
-        if (SubtypeLocaleUtils.isExceptionalLocale(locale.toString())) {
+        if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
             compatibilityExtraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +
                     SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
         }
