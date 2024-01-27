@@ -645,10 +645,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mIC.performContextMenuAction(android.R.id.selectAll);
     }
 
-    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
+    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final String script) {
         if (!isConnected()) return;
         if (mExpectedSelStart != mExpectedSelEnd) return; // already something selected
-        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, scriptId, false);
+        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script, false);
         if (range == null) return;
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
@@ -726,23 +726,23 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     private static boolean isPartOfCompositionForScript(final int codePoint,
-            final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
+            final SpacingAndPunctuations spacingAndPunctuations, final String script) {
         // We always consider word connectors part of compositions.
         return spacingAndPunctuations.isWordConnector(codePoint)
                 // Otherwise, it's part of composition if it's part of script and not a separator.
                 || (!spacingAndPunctuations.isWordSeparator(codePoint)
-                        && ScriptUtils.isLetterPartOfScript(codePoint, scriptId));
+                        && ScriptUtils.isLetterPartOfScript(codePoint, script));
     }
 
     /**
      * Returns the text surrounding the cursor.
      *
      * @param spacingAndPunctuations the rules for spacing and punctuation
-     * @param scriptId the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
+     * @param script the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
      * @return a range containing the text surrounding the cursor
      */
     public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final int scriptId, final boolean justDeleted) {
+            final String script, final boolean justDeleted) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -764,7 +764,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // we need text before, and text after is either empty or a separator or similar
         if (justDeleted && before.length() > 0 &&
                 (after.length() == 0
-                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, scriptId)
+                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, script)
                 )
         ) {
             // issue:
@@ -786,7 +786,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
             final int codePoint = Character.codePointBefore(before, startIndexInBefore);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
                 if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
                     break;
                 // continue to the next whitespace and see whether this contains a sometimesWordConnector
@@ -815,7 +815,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (endIndexInAfter == -1) {
             while (++endIndexInAfter < after.length()) {
                 final int codePoint = Character.codePointAt(after, endIndexInAfter);
-                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
                     if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
                         break;
                     // continue to the next whitespace and see whether this contains a sometimesWordConnector

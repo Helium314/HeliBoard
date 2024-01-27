@@ -257,6 +257,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     }
                 }
             }
+            // todo: might need to upgrade file names from locale string to language tag
+            //  check whether all names or just user-related stuff (user history maybe should not be upgraded?)
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             activity?.sendBroadcast(newDictBroadcast)
             // reload current prefs screen

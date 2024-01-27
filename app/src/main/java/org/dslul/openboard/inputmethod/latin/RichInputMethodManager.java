@@ -374,12 +374,12 @@ public class RichInputMethodManager {
 
         // extra: if current script is not compatible to current subtype, search for compatible script
         // this is acceptable only because this function is only used for switching to a certain locale using EditorInfo.hintLocales
-        final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);
-        if (script != ScriptUtils.getScriptFromSpellCheckerLocale(getCurrentSubtypeLocale())) {
+        final String script = ScriptUtils.script(locale);
+        if (!script.equals(ScriptUtils.script(getCurrentSubtypeLocale()))) {
             for (int i = 0; i < count; ++i) {
                 final InputMethodSubtype subtype = subtypes.get(i);
                 final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-                if (ScriptUtils.getScriptFromSpellCheckerLocale(subtypeLocale) == script) {
+                if (ScriptUtils.script(subtypeLocale).equals(script)) {
                     return subtype;
                 }
             }

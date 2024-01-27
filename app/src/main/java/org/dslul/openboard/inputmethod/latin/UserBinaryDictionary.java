@@ -55,6 +55,8 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
     private static final String NAME = "userunigram";
 
     private ContentObserver mObserver;
+    // this really needs to be the locale string, as it interacts with system
+    // todo: check if string for sr-Latn works properly here
     final private String mLocaleString;
     final private boolean mAlsoUseMoreRestrictiveLocales;
 

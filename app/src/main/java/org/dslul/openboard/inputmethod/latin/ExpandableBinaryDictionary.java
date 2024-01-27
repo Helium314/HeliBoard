@@ -151,7 +151,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     public static String getDictName(final String name, final Locale locale,
             final File dictFile) {
-        return dictFile != null ? dictFile.getName() : name + "." + locale.toString();
+        return dictFile != null ? dictFile.getName() : name + "." + locale.toString(); // todo: this is using locale.toString -> switch to language tag?
     }
 
     private void asyncExecuteTaskWithWriteLock(final Runnable task) {

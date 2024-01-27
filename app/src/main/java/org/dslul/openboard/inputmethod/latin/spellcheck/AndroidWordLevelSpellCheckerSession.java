@@ -50,7 +50,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     // Immutable, but not available in the constructor.
     private Locale mLocale;
     // Cache this for performance
-    private int mScript; // One of SCRIPT_LATIN or SCRIPT_CYRILLIC for now.
+    private String mScript; // One of SCRIPT_LATIN or SCRIPT_CYRILLIC for now.
     private final AndroidSpellCheckerService mService;
     protected final SuggestionsCache mSuggestionsCache = new SuggestionsCache();
     private final ContentObserver mObserver;
@@ -58,7 +58,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static final String quotesRegexp =
             "(\\u0022|\\u0027|\\u0060|\\u00B4|\\u2018|\\u2018|\\u201C|\\u201D)";
 
-    private static final Map<Integer, String> scriptToPunctuationRegexMap = new TreeMap<>();
+    private static final Map<String, String> scriptToPunctuationRegexMap = new TreeMap<>();
 
     static {
         // TODO: add other non-English language specific punctuation later.
@@ -127,7 +127,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
             mLocale = (null == localeString) ? null
                     : LocaleUtils.constructLocaleFromString(localeString);
-            mScript = ScriptUtils.getScriptFromSpellCheckerLocale(mLocale);
+            if (mLocale == null) mScript = ScriptUtils.SCRIPT_UNKNOWN;
+                else mScript = ScriptUtils.script(mLocale);
         }
     }
 
@@ -137,7 +138,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     }
 
     @Override
-    public String getLocale() {
+    public String getLocale() { // todo: better not string
         // This function was taken from https://github.com/LineageOS/android_frameworks_base/blob/1235c24a0f092d0e41fd8e86f332f8dc03896a7b/services/core/java/com/android/server/TextServicesManagerService.java#L544 and slightly adopted.
 
         final InputMethodManager imm;
@@ -189,7 +190,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
      * @param script the identifier for the script this spell checker recognizes
      * @return one of the FILTER_OUT_* constants above.
      */
-    private static int getCheckabilityInScript(final String text, final int script) {
+    private static int getCheckabilityInScript(final String text, final String script) {
         if (TextUtils.isEmpty(text) || text.length() <= 1) return CHECKABILITY_TOO_SHORT;
 
         // TODO: check if an equivalent processing can't be done more quickly with a
@@ -276,9 +277,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                     .replaceAll("^" + quotesRegexp, "")
                     .replaceAll(quotesRegexp + "$", "");
 
-            final String localeRegex = scriptToPunctuationRegexMap.get(
-                    ScriptUtils.getScriptFromSpellCheckerLocale(mLocale)
-            );
+            final String localeRegex = scriptToPunctuationRegexMap.get(ScriptUtils.script(mLocale));
 
             if (localeRegex != null) {
                 text = text.replaceAll(localeRegex, "");

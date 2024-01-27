@@ -21,13 +21,13 @@ import androidx.core.view.size
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
-import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.databinding.LanguageListItemBinding
 import org.dslul.openboard.inputmethod.latin.databinding.LocaleSettingsDialogBinding
 import org.dslul.openboard.inputmethod.latin.utils.*
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import java.io.File
 import java.util.*
 
@@ -387,6 +387,10 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
     val localeString = locale.toString().lowercase() // internal files and folders always use lowercase, todo: should we consider language tag too?
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
+    // todo: get directory by locale, not by localeString
+    // todo: make sure and check whether a de_DE dictionary in de-DE folder works
+    // todo: check whether user history dict can be moved and renamed and still works (manual in import would be sufficient)
+    //  move this to do to a better place, probably facilitator
     val userLocaleDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context), localeString)
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
@@ -399,8 +403,8 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
     if (hasInternalDict)
         return userDicts to true
     val language = localeString.languageConsideringZZ()
-    BinaryDictionaryGetter.getAssetsDictionaryList(context)?.forEach { dictFile ->
-        BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictFile)?.let {
+    DictionaryInfoUtils.getAssetsDictionaryList(context)?.forEach { dictFile ->
+        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictFile)?.let {
             if (it == localeString || it.languageConsideringZZ() == language)
                 return userDicts to true
         }
@@ -419,15 +423,13 @@ private fun String.languageConsideringZZ(): String {
 private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale, asciiCapable: Boolean): Set<Locale> {
     val locales = getDictionaryLocales(context)
     val mainScript = if (asciiCapable) ScriptUtils.SCRIPT_LATIN
-    else ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale)
-    // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not
-    //  e.g. for persian or chinese
+        else mainLocale.script()
+    // script() extension function may return latin in case script cannot be determined
     // workaround: don't allow secondary locales for these locales
     if (!asciiCapable && mainScript == ScriptUtils.SCRIPT_LATIN) return emptySet()
 
     locales.removeAll {
-        it.language == mainLocale.language
-                || ScriptUtils.getScriptFromSpellCheckerLocale(it) != mainScript
+        it.language == mainLocale.language || it.script() != mainScript
     }
     return locales
 }

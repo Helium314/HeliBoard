@@ -520,7 +520,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                     return name;
             }
         }
-        return ScriptUtils.getScriptFromSpellCheckerLocale(locale) == ScriptUtils.SCRIPT_ARABIC ? "symbols_arabic" : "symbols";
+        return ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_ARABIC) ? "symbols_arabic" : "symbols";
     }
 
     public static String readShiftedSymbolsLayoutName(final Context context) {

@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
-import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.File
@@ -30,11 +29,11 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
         }
     }
     // get assets dictionaries
-    val assetsDictionaryList = BinaryDictionaryGetter.getAssetsDictionaryList(context)
+    val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
     if (assetsDictionaryList != null) {
         for (dictionary in assetsDictionaryList) {
             val dictLocale =
-                BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictionary)
+                DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)
                     ?: continue
             val locale = dictLocale.toLocale()
             locales.add(locale)
@@ -90,6 +89,6 @@ fun cleanUnusedMainDicts(context: Context) {
 }
 
 private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
-    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getMainDictFilename(dir.name) } != false
+    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getExtractedMainDictFilename() } != false
 
 const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"

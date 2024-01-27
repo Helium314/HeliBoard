@@ -594,11 +594,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public int getCurrentKeyboardScriptId() {
+    public String getCurrentKeyboardScript() {
         if (null == mKeyboardLayoutSet) {
             return ScriptUtils.SCRIPT_UNKNOWN;
         }
-        return mKeyboardLayoutSet.getScriptId();
+        return mKeyboardLayoutSet.getScript();
     }
 
     public void switchToSubtype(InputMethodSubtype subtype) {

@@ -118,7 +118,7 @@ public final class AdditionalSubtypeUtils {
         final String languageTag = elems[INDEX_OF_LANGUAGE_TAG];
         final Locale locale = Locale.forLanguageTag(languageTag); // todo: or use the cache?
         final String keyboardLayoutSetName = elems[INDEX_OF_KEYBOARD_LAYOUT];
-        final boolean asciiCapable = ScriptUtils.getScriptFromSpellCheckerLocale(locale) == ScriptUtils.SCRIPT_LATIN;
+        final boolean asciiCapable = ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_LATIN);
         // Here we assume that all the additional subtypes are EmojiCapable
         final InputMethodSubtype subtype = createEmojiCapableAdditionalSubtype(locale, keyboardLayoutSetName, asciiCapable);
         if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !keyboardLayoutSetName.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX)) {
@@ -165,12 +165,11 @@ public final class AdditionalSubtypeUtils {
      * assume that the extra values stored in a persistent storage are always valid. We need to
      * regenerate the extra value on the fly instead.
      * </p>
-     * @param localeString the locale string (e.g., "en_US").
      * @param keyboardLayoutSetName the keyboard layout set name (e.g., "dvorak").
      * @param isAsciiCapable true when ASCII characters are supported with this layout.
      * @param isEmojiCapable true when Unicode Emoji characters are supported with this layout.
      * @return extra value that is optimized for the running OS.
-     * @see #getPlatformVersionIndependentSubtypeId(String, String)
+     * @see #getPlatformVersionIndependentSubtypeId(Locale, String)
      */
     private static String getPlatformVersionDependentExtraValue(final Locale locale,
             final String keyboardLayoutSetName, final boolean isAsciiCapable,
@@ -203,10 +202,9 @@ public final class AdditionalSubtypeUtils {
      * method even when we need to add some new extra values for the actual instance of
      * {@link InputMethodSubtype}.
      * </p>
-     * @param localeString the locale string (e.g., "en_US").
      * @param keyboardLayoutSetName the keyboard layout set name (e.g., "dvorak").
      * @return a platform-version independent subtype ID.
-     * @see #getPlatformVersionDependentExtraValue(String, String, boolean, boolean)
+     * @see #getPlatformVersionDependentExtraValue(Locale, String, boolean, boolean)
      */
     private static int getPlatformVersionIndependentSubtypeId(final Locale locale,
             final String keyboardLayoutSetName) {

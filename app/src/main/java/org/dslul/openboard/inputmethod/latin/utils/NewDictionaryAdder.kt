@@ -13,6 +13,7 @@ import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader
 import org.dslul.openboard.inputmethod.latin.settings.*
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -65,7 +66,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
         // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not,
         // e.g. for Persian or Chinese. But at least fail when dictionary certainly is incompatible
-        if (ScriptUtils.getScriptFromSpellCheckerLocale(locale) != ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale))
+        if (locale.script() != mainLocale.script())
             return onDictionaryLoadingError(R.string.dictionary_file_wrong_script)
 
         if (locale != mainLocale) {
@@ -110,7 +111,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
     private fun addDictAndAskToReplace(header: DictionaryHeader, mainLocale: Locale) {
         val dictionaryType = header.mIdString.substringBefore(":")
-        val dictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale.toString(), context) +
+        val dictFilename = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale, context) +
                 File.separator + dictionaryType + "_" + USER_DICTIONARY_SUFFIX
         val dictFile = File(dictFilename)
 
