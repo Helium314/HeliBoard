@@ -10,7 +10,7 @@
     <string name="vibrate_on_keypress" msgid="5258079494276955460">"Rezgés gombnyomásra"</string>
     <string name="sound_on_keypress" msgid="6093592297198243644">"Hangjelzés gombnyomásra"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Nagyobb billentyű gombnyomásra"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Beállítások"</string>
+    <string name="settings_screen_preferences" msgid="2696713156722014624">Preferenciák</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Kézmozdulatokkal történő gépelés"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Szövegjavítás"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Speciális"</string>
@@ -21,7 +21,7 @@
     <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"Alapértelmezett"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Javasolt névjegyek"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"A névjegyek használata a javaslatokhoz és javításokhoz"</string>
+    <string name="use_contacts_dict_summary" msgid="6599983334507879959">A névjegyzék használata a javaslatokhoz és javításokhoz</string>
     <string name="use_personalized_dicts" msgid="5167396352105467626">"Testreszabott javaslatok"</string>
     <string name="use_double_space_period" msgid="8781529969425082860">"Dupla szóköz: pont"</string>
     <string name="use_double_space_period_summary" msgid="6532892187247952799">"A szóköz kétszeri megérintése beszúr egy pontot, majd egy szóközt"</string>
@@ -54,11 +54,11 @@
     <string name="subtype_es_US" msgid="5583145191430180200">"spanyol (USA)"</string>
     <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish (hindi-angol)"</string>
     <string name="subtype_sr_Latn" msgid="9059219552986034343">"Szerb (latin)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"angol (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"angol (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"spanyol (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Angol (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Angol (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spanyol (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hinglish (hindi-angol, <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Szerb (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Szerb (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (hagyományos)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakt)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Nincs nyelv (ábécé)"</string>
@@ -119,14 +119,40 @@
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Minden nyelven"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"További nyelvek…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="number_row_summary">Mindig mutassa a szám sort</string>
-    <string name="settings_category_additional_keys">További gombok</string>
-    <string name="day_night_mode">Automata nappal/este mód</string>
+    <string name="settings_category_clipboard_history">Vágólap előzmények</string>
+    <string name="settings_category_correction">Javítások</string>
+    <string name="settings_category_suggestions">Javaslatok</string>
+    <string name="settings_category_experimental">Kísérlet</string>
+    <string name="settings_category_miscellaneous">Vegyes</string>
+    <string name="settings_no_limit">Nincs korlát</string>
+    <string name="enable_clipboard_history">A vágólap előzményeinek engedélyezése</string>
+    <string name="key_borders">Kulcshatárok</string>
+    <string name="ime_settings">OpenBoard Beállítások</string>
+    <string name="android_spell_checker_settings">OpenBoard helyesírás-ellenőrző beállításai</string>
+    <string name="settings_category_additional_keys">Kiegészítő kulcsok</string>
+    <string name="delete_swipe_summary">A törlés billentyű hosszabb lenyomásával nagyobb szövegrészleteket jelölhet ki és távolíthat el</string>
+    <string name="enable_clipboard_history_summary">Ha le van tiltva, a vágólap billentyű beilleszti a vágólap tartalmát, ha van</string>
+    <string name="clipboard_history_retention_time">Előzmények megőrzési ideje</string>
+    <string name="prefs_keyboard_height_scale">Billentyűzet magassági skála</string>
+    <string name="number_row_summary">Mindig mutassa a számsort</string>
+    <string name="show_hints">Kulcsfontosságú tippek megjelenítése</string>
     <string name="subtype_no_language_colemak_dh">Ábécé (Colemak Mod-DH)</string>
+    <string name="show_hints_summary">Hosszan lenyomott súgók megjelenítése</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">A szóköz billentyű hosszan történő megnyomásával a beviteli módszer kiválasztási menüje jelenik meg</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Beviteli módszer módosítása a szóköz billentyűvel</string>
     <string name="subtype_no_language_workman">Ábécé (Workman)</string>
-    <string name="day_night_mode_summary">A kinézet követi a rendszerbeállítást</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Rendszernyelvek használata"</string>
-    <string name="select_input_method">"Beviteli mód kiválasztása"</string>
-    <string name="undo">"Visszavonás"</string>
-    <string name="redo">"Újra"</string>
+    <string name="day_night_mode">Automatikus nappali/éjszakai üzemmód</string>
+    <string name="spell_checker_service_name">OpenBoard helyesírás-ellenőrző</string>
+    <string name="delete_swipe">Húzás törlése</string>
+    <string name="show_emoji_key">Emoji kulcs</string>
+    <string name="space_trackpad_summary">A kurzor mozgatásához nyomja meg a szóköz billentyűt</string>
+    <string name="incognito">Inkognitó mód kényszerítése</string>
+    <string name="prefs_force_incognito_mode_summary">Új szavak tanulásának letiltása</string>
+    <string name="more_keys_strip_description">Több kulcs</string>
+    <string name="autospace_after_punctuation">Automatikus szóköz írásjelek után</string>
+    <string name="autospace_after_punctuation_summary">Automatikus szóköz beillesztése az írásjelek után új szó beírásakor</string>
+    <string name="number_row">Számsor</string>
+    <string name="day_night_mode_summary">A megjelenés követi a rendszerbeállításokat</string>
+    <string name="settings_category_input">Bemenet</string>
+    <string name="space_trackpad">Space billentyű trackpad</string>
 </resources>
