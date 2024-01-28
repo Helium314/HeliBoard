@@ -46,6 +46,7 @@ import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysPanel;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
+import org.dslul.openboard.inputmethod.latin.Dictionary;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -404,32 +405,40 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
     private boolean onLongClickSuggestion(final TextView wordView) {
-        final Drawable icon = mBinIcon;
-        Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.REMOVE_SUGGESTION_ICON);
-        int w = icon.getIntrinsicWidth();
-        int h = icon.getIntrinsicWidth();
-        wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-        wordView.setEllipsize(TextUtils.TruncateAt.END);
-        AtomicBoolean downOk = new AtomicBoolean(false);
-        wordView.setOnTouchListener((view1, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                final float x = motionEvent.getX();
-                final float y = motionEvent.getY();
-                if (0 < x && x < w && 0 < y && y < h) {
-                    removeSuggestion(wordView);
-                    wordView.cancelLongPress();
-                    wordView.setPressed(false);
-                    return true;
+        boolean showIcon = true;
+        if (wordView.getTag() instanceof Integer) {
+            final int index = (int) wordView.getTag();
+            if (index < mSuggestedWords.size() && mSuggestedWords.getInfo(index).mSourceDict == Dictionary.DICTIONARY_USER_TYPED)
+                showIcon = false;
+        }
+        if (showIcon) {
+            final Drawable icon = mBinIcon;
+            Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.REMOVE_SUGGESTION_ICON);
+            int w = icon.getIntrinsicWidth();
+            int h = icon.getIntrinsicWidth();
+            wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            wordView.setEllipsize(TextUtils.TruncateAt.END);
+            AtomicBoolean downOk = new AtomicBoolean(false);
+            wordView.setOnTouchListener((view1, motionEvent) -> {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    final float x = motionEvent.getX();
+                    final float y = motionEvent.getY();
+                    if (0 < x && x < w && 0 < y && y < h) {
+                        removeSuggestion(wordView);
+                        wordView.cancelLongPress();
+                        wordView.setPressed(false);
+                        return true;
+                    }
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    final float x = motionEvent.getX();
+                    final float y = motionEvent.getY();
+                    if (0 < x && x < w && 0 < y && y < h) {
+                        downOk.set(true);
+                    }
                 }
-            } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                final float x = motionEvent.getX();
-                final float y = motionEvent.getY();
-                if (0 < x && x < w && 0 < y && y < h) {
-                    downOk.set(true);
-                }
-            }
-            return false;
-        });
+                return false;
+            });
+        }
         if (DebugFlags.DEBUG_ENABLED && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
             showSourceDict(wordView);
             return true;

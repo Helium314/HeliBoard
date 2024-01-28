@@ -149,8 +149,7 @@ public final class Suggest {
             final int inputStyleIfNotPrediction, final boolean isCorrectionEnabled,
             final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
         final String typedWordString = wordComposer.getTypedWord();
-        final int trailingSingleQuotesCount =
-                StringUtils.getTrailingSingleQuotesCount(typedWordString);
+        final int trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString);
 
         final SuggestionResults suggestionResults = typedWordString.isEmpty()
                 ? getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
@@ -162,7 +161,6 @@ public final class Suggest {
                 getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
                         trailingSingleQuotesCount, locale);
 
-        boolean foundInDictionary = false;
         Dictionary sourceDictionaryOfRemovedWord = null;
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
@@ -170,10 +168,9 @@ public final class Suggest {
         for (final SuggestedWordInfo info : suggestionsContainer) {
             // Search for the best dictionary, defined as the first one with the highest match
             // quality we can find.
-            if (!foundInDictionary && typedWordString.equals(info.mWord)) {
+            if (typedWordString.equals(info.mWord)) {
                 // Use this source if the old match had lower quality than this match
                 sourceDictionaryOfRemovedWord = info.mSourceDict;
-                foundInDictionary = true;
                 typedWordFirstOccurrenceWordInfo = info;
                 break;
             }
@@ -238,23 +235,20 @@ public final class Suggest {
         final boolean isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1
                 || (!resultsArePredictions && !allowsToBeAutoCorrected);
 
-        if (hasAutoCorrection && typedWordFirstOccurrenceWordInfo != null) {
-            // typed word is valid (in suggestions), but will not be shown if hasAutoCorrection
-            // -> add it after the auto-correct suggestion
-            // todo: it would be better to adjust this in SuggestedWords (getWordCountToShow, maybe more)
-            //  and SuggestionStripView (shouldOmitTypedWord, getStyledSuggestedWord)
-            //  but this could become more complicated than simply adding a duplicate word in a case
-            //  where the first occurrence of that word is ignored
-            if (SuggestionStripView.DEBUG_SUGGESTIONS)
-                addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString);
-            suggestionsList.add(2, typedWordFirstOccurrenceWordInfo);
+        if (hasAutoCorrection) {
+            // make sure typed word is shown, so user is able to override incoming autocorrection
+            if (typedWordFirstOccurrenceWordInfo != null) {
+                if (SuggestionStripView.DEBUG_SUGGESTIONS)
+                    addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString);
+                suggestionsList.add(2, typedWordFirstOccurrenceWordInfo);
+            } else {
+                suggestionsList.add(2, new SuggestedWordInfo(typedWordString, "", 0, SuggestedWordInfo.KIND_TYPED,
+                        Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE));
+            }
         }
 
-        callback.onGetSuggestedWords(new SuggestedWords(suggestionsList,
-                suggestionResults.mRawSuggestions, typedWordInfo,
-                isTypedWordValid,
-                hasAutoCorrection /* willAutoCorrect */,
-                false /* isObsoleteSuggestions */, inputStyle, sequenceNumber));
+        callback.onGetSuggestedWords(new SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
+                typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber));
     }
 
     // annoyingly complicated thing to avoid getting emptyWordSuggestions more than once
