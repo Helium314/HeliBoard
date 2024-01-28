@@ -25,8 +25,8 @@
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
-        <item name="android:background">@color/dialog_background</item>
-        <item name="background">@color/dialog_background</item>
+        <item name="android:colorBackgroundFloating">@color/dialog_background</item>
+        <item name="colorBackgroundFloating">@color/dialog_background</item>
         <item name="android:dialogCornerRadius">28dp</item>
         <item name="dialogCornerRadius">28dp</item>
     </style>
