@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -63,8 +64,10 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         "userunigram.*/userunigram.*\\.(body|header)".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "spellcheck_userunigram.*/spellcheck_userunigram.*\\.(body|header)".toRegex(),
+        "custom_background_image.*".toRegex(),
     ) }
 
+    // is there any way to get additional information into the ActivityResult? would remove the need for 5 times the (almost) same code
     private val libraryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = it.data?.data ?: return@registerForActivityResult
@@ -83,6 +86,18 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         restore(uri)
     }
 
+    private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, false)
+    }
+
+    private val nightImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, true)
+    }
+
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         addPreferencesFromResource(R.xml.prefs_screen_advanced)
@@ -98,6 +113,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
+        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
 
         findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
             val layoutName = Settings.readSymbolsLayoutName(context, context.resources.configuration.locale()).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
@@ -169,6 +185,55 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             tmpfile.delete()
             // should inform user, but probably the issues will only come when reading the library
         }
+    }
+
+    private fun onClickLoadImage(): Boolean {
+        if (Settings.readDayNightPref(sharedPreferences, resources)) {
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.day_or_night_image)
+                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false) }
+                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true) }
+                .setNeutralButton(android.R.string.cancel, null)
+                .show()
+        } else {
+            customImageDialog(false)
+        }
+        return true
+    }
+
+    private fun customImageDialog(night: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+        val builder = AlertDialog.Builder(requireContext())
+            .setMessage(R.string.customize_background_image)
+            .setPositiveButton(R.string.button_load_custom) { _, _ ->
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("image/*")
+                if (night) nightImageFilePicker.launch(intent)
+                else dayImageFilePicker.launch(intent)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+        if (imageFile.exists()) {
+            builder.setNeutralButton(R.string.delete) { _, _ ->
+                imageFile.delete()
+                Settings.clearCachedBackgroundImages()
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            }
+        }
+        builder.show()
+    }
+
+    private fun loadImage(uri: Uri, night: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+        FileUtils.copyStreamToNewFile(requireContext().contentResolver.openInputStream(uri), imageFile)
+        try {
+            BitmapFactory.decodeFile(imageFile.absolutePath)
+        } catch (_: Exception) {
+            infoDialog(requireContext(), R.string.file_read_error)
+            imageFile.delete()
+        }
+        Settings.clearCachedBackgroundImages()
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     @SuppressLint("ApplySharedPref")

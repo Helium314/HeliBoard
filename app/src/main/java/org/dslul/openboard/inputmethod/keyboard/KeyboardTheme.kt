@@ -17,6 +17,7 @@ import org.dslul.openboard.inputmethod.latin.common.DefaultColors
 import org.dslul.openboard.inputmethod.latin.common.DynamicColors
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
+import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -100,6 +101,8 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         @JvmStatic
         fun getThemeColors(themeColors: String, themeStyle: String, context: Context, prefs: SharedPreferences): Colors {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+            val useNightImage = Settings.readDayNightPref(prefs, context.resources) && ResourceUtils.isNight(context.resources)
+            val backgroundImage = Settings.readUserBackgroundImage(context, useNightImage)
             return when (themeColors) {
                 THEME_USER -> DefaultColors(
                     themeStyle,
@@ -114,6 +117,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, false),
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false),
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_USER_NIGHT -> DefaultColors(
                     themeStyle,
@@ -128,9 +132,10 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, true),
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true),
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, true),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_DYNAMIC -> {
-                    if (Build.VERSION.SDK_INT >= VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders)
+                    if (Build.VERSION.SDK_INT >= VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
                     else getThemeColors(THEME_LIGHT, themeStyle, context, prefs)
                 }
                 THEME_DARK -> DefaultColors(
@@ -143,6 +148,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.parseColor("#364248"),
                     ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                     ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_HOLO_WHITE -> DefaultColors(
                     themeStyle,
@@ -156,6 +162,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.parseColor("#282828"),
                     Color.WHITE,
                     Color.parseColor("#80FFFFFF"),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_DARKER -> DefaultColors(
                     themeStyle,
@@ -167,6 +174,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     ContextCompat.getColor(context, R.color.key_background_normal_lxx_dark_border),
                     ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                     ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_BLACK -> DefaultColors(
                     themeStyle,
@@ -178,6 +186,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     ContextCompat.getColor(context, R.color.background_amoled_dark),
                     ContextCompat.getColor(context, R.color.key_text_color_lxx_dark),
                     ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_dark),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_BLUE_GRAY -> DefaultColors(
                     themeStyle,
@@ -189,6 +198,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.WHITE,
                     Color.BLACK,
                     Color.BLACK,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_BROWN -> DefaultColors(
                     themeStyle,
@@ -200,6 +210,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.WHITE,
                     Color.BLACK,
                     Color.BLACK,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_CHOCOLATE -> DefaultColors(
                     themeStyle,
@@ -211,6 +222,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.rgb(193, 163, 146),
                     Color.WHITE,
                     Color.WHITE,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_CLOUDY -> DefaultColors(
                     themeStyle,
@@ -222,6 +234,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.rgb(117, 128, 142),
                     Color.WHITE,
                     Color.WHITE,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_FOREST -> DefaultColors(
                     themeStyle,
@@ -235,6 +248,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.rgb(0, 50, 0),
                     Color.rgb(0, 50, 0),
                     Color.rgb(0, 80, 0),
+                    keyboardBackground = backgroundImage
                 )
                 THEME_INDIGO -> DefaultColors(
                     themeStyle,
@@ -246,6 +260,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.WHITE,
                     Color.BLACK,
                     Color.BLACK,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_OCEAN -> DefaultColors(
                     themeStyle,
@@ -257,6 +272,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.rgb(132, 157, 212),
                     Color.WHITE,
                     Color.WHITE,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_PINK -> DefaultColors(
                     themeStyle,
@@ -268,6 +284,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.WHITE,
                     Color.BLACK,
                     Color.BLACK,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_SAND -> DefaultColors(
                     themeStyle,
@@ -279,6 +296,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.WHITE,
                     Color.BLACK,
                     Color.BLACK,
+                    keyboardBackground = backgroundImage
                 )
                 THEME_VIOLETTE -> DefaultColors(
                     themeStyle,
@@ -290,6 +308,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.rgb(150, 150, 216),
                     Color.WHITE,
                     Color.WHITE,
+                    keyboardBackground = backgroundImage
                 )
                 else /* THEME_LIGHT */ -> DefaultColors(
                     themeStyle,
@@ -301,6 +320,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
                     ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
                     ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
+                    keyboardBackground = backgroundImage
                 )
             }
         }

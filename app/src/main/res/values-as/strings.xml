@@ -75,7 +75,7 @@
     <string name="last_update">"অন্তিমবাৰ আপডে’ট কৰা হৈছিল"</string>
     <string name="main_dict_description">"মুখ্য অভিধান"</string>
     <string name="settings">"ছেটিংসমূহ"</string>
-    <string name="delete_dict">"মচক"</string>
+    <string name="delete">"মচক"</string>
     <string name="user_dict_settings_add_menu_title">"যোগ কৰক"</string>
     <string name="user_dict_settings_add_dialog_title">"অভিধানত যোগ কৰক"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"শ্বৰ্টকাট:"</string>

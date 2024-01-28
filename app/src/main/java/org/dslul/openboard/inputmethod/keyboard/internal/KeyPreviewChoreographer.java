@@ -75,16 +75,16 @@ public final class KeyPreviewChoreographer {
     }
 
     public void placeAndShowKeyPreview(final Key key, final KeyboardIconsSet iconsSet,
-            final KeyDrawParams drawParams, final int keyboardViewWidth, final int[] keyboardOrigin,
+            final KeyDrawParams drawParams, final int fullKeyboardViewWidth, final int[] keyboardOrigin,
             final ViewGroup placerView) {
         final KeyPreviewView keyPreviewView = getKeyPreviewView(key, placerView);
-        placeKeyPreview(key, keyPreviewView, iconsSet, drawParams, keyboardViewWidth, keyboardOrigin);
+        placeKeyPreview(key, keyPreviewView, iconsSet, drawParams, fullKeyboardViewWidth, keyboardOrigin);
         showKeyPreview(key, keyPreviewView);
     }
 
     private void placeKeyPreview(final Key key, final KeyPreviewView keyPreviewView,
             final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams,
-            final int keyboardViewWidth, final int[] originCoords) {
+            final int fullKeyboardViewWidth, final int[] originCoords) {
         keyPreviewView.setPreviewVisual(key, iconsSet, drawParams);
         keyPreviewView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mParams.setGeometry(keyPreviewView);
@@ -99,8 +99,8 @@ public final class KeyPreviewChoreographer {
         if (previewX < 0) {
             previewX = 0;
             keyPreviewPosition = KeyPreviewView.POSITION_LEFT;
-        } else if (previewX > keyboardViewWidth - previewWidth) {
-            previewX = keyboardViewWidth - previewWidth;
+        } else if (previewX > fullKeyboardViewWidth - previewWidth) {
+            previewX = fullKeyboardViewWidth - previewWidth;
             keyPreviewPosition = KeyPreviewView.POSITION_RIGHT;
         } else {
             keyPreviewPosition = KeyPreviewView.POSITION_MIDDLE;

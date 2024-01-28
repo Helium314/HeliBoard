@@ -161,8 +161,8 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
     if (isSymbols) {
         val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.more_keys_symbols)
         if (file.exists()) {
-            builder.setNeutralButton(R.string.delete_dict) { _, _ ->
-                confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete_dict)) {
+            builder.setNeutralButton(R.string.delete) { _, _ ->
+                confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete)) {
                     file.delete()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                 }

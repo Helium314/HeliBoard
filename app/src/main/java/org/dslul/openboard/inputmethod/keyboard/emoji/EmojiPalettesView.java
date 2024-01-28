@@ -146,7 +146,7 @@ public final class EmojiPalettesView extends LinearLayout
     //   and the attrs categoryIndicatorDrawable, categoryIndicatorEnabled, categoryIndicatorBackground (and the connected drawables)
     private void addTab(final LinearLayout host, final int categoryId) {
         final ImageView iconView = new ImageView(getContext());
-        mColors.setBackground(iconView, ColorType.EMOJI_CATEGORY_BACKGROUND);
+        mColors.setBackground(iconView, ColorType.STRIP_BACKGROUND);
         mColors.setColor(iconView, ColorType.EMOJI_CATEGORY);
         iconView.setScaleType(ImageView.ScaleType.CENTER);
         iconView.setImageResource(mEmojiCategory.getCategoryTabIcon(categoryId));
@@ -249,7 +249,7 @@ public final class EmojiPalettesView extends LinearLayout
         mColors.setBackground(mAlphabetKeyLeft, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mColors.setBackground(mDeleteKey, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mColors.setBackground(mSpacebar, ColorType.SPACE_BAR_BACKGROUND);
-        mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.EMOJI_CATEGORY_BACKGROUND));
+        mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
         initialized = true;
     }
 
@@ -368,7 +368,6 @@ public final class EmojiPalettesView extends LinearLayout
             mEmojiRecyclerView.setAdapter(mEmojiPalettesAdapter);
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
         }
-        mColors.setBackground(this, ColorType.EMOJI_BACKGROUND);
     }
 
     public void stopEmojiPalettes() {

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2012 The Android Open Source Project
-    modified
-    SPDX-License-Identifier: Apache-2.0
+    SPDX-License-Identifier: GPL-3.0-only
 -->
-
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- System theming colors for LXX_Light theme, overriding some colors in main colors.xml -->
     <color name="highlight_color_lxx_light">@android:color/system_accent1_500</color>
@@ -17,4 +14,12 @@
     <!-- colors used when user sets keyboard background color to be determined automatically -->
     <color name="keyboard_background_light">@android:color/system_neutral1_100</color>
     <color name="keyboard_background_dark">@android:color/system_neutral1_800</color>
+
+    <!-- Color resources for setup wizard and tutorial -->
+    <color name="setup_background">@android:color/system_neutral1_10</color>
+    <color name="setup_step_background">@android:color/system_accent1_50</color>
+    <color name="setup_step_action_pressed">@android:color/system_accent1_100</color>
+    <color name="setup_text_title">@android:color/system_accent1_700</color>
+    <color name="setup_text_action">@android:color/system_accent1_700</color>
+    <color name="setup_step_action_text_pressed">@android:color/system_accent1_500</color>
 </resources>

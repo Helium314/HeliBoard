@@ -106,7 +106,7 @@
     <string name="last_update" msgid="730467549913588780">"Cập nhật lần cuối"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Từ điển chính"</string>
     <string name="settings" msgid="3876892339342569259">"Cài đặt"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Xóa"</string>
+    <string name="delete" msgid="756853268088330054">"Xóa"</string>
     <string name="version_text" msgid="2715354215568469385">"Phiên bản <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Thêm"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Thêm vào từ điển"</string>

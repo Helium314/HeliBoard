@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginHorizontal="10dp"
-            android:text="@string/delete_dict"
+            android:text="@string/delete"
             android:textColor="@android:color/white">
         </Button>
 

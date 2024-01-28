@@ -92,6 +92,10 @@
             android:defaultValue="false" />
 
         <Preference
+            android:key="custom_background_image"
+            android:title="@string/customize_background_image" />
+
+        <Preference
             android:key="custom_symbols_layout"
             android:title="@string/customize_symbols" />
 
