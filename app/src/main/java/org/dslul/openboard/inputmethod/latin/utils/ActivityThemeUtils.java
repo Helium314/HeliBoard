@@ -7,18 +7,10 @@ import android.view.WindowInsetsController;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.dslul.openboard.inputmethod.latin.R;
-import org.dslul.openboard.inputmethod.latin.setup.SetupWizardActivity;
-
 public class ActivityThemeUtils {
 
     public static void setActivityTheme(final AppCompatActivity activity) {
         final boolean isNight = ResourceUtils.isNight(activity.getResources());
-
-        // Set status bar color only in install views
-        if (activity instanceof SetupWizardActivity) {
-            activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.setup_background));
-        }
 
         // Set the icons of the status bar and the navigation bar light or dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

@@ -122,6 +122,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             return;
         }
         actionBar.hide();
+        getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
 
         mImm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mHandler = new SettingsPoolingHandler(this, mImm);
