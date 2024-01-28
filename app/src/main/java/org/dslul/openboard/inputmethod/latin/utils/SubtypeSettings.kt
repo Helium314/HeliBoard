@@ -151,6 +151,12 @@ fun getAvailableSubtypeLocales(): Collection<Locale> {
     return resourceSubtypesByLocale.keys
 }
 
+fun reloadEnabledSubtypes(context: Context) {
+    require(initialized)
+    enabledSubtypes.clear()
+    loadEnabledSubtypes(context)
+}
+
 fun init(context: Context) {
     if (initialized) return
     SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName

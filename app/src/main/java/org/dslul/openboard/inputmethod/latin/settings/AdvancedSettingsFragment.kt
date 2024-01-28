@@ -36,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils
 import org.dslul.openboard.inputmethod.latin.utils.editCustomLayout
 import org.dslul.openboard.inputmethod.latin.utils.infoDialog
+import org.dslul.openboard.inputmethod.latin.utils.reloadEnabledSubtypes
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -324,6 +325,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 }
             }
             checkVersionUpgrade(requireContext())
+            reloadEnabledSubtypes(requireContext())
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             activity?.sendBroadcast(newDictBroadcast)
             // reload current prefs screen
