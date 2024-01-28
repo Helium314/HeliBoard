@@ -61,9 +61,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         "blacklists/.*\\.txt".toRegex(),
         "layouts/.*.(txt|json)".toRegex(),
         "dicts/.*/.*user\\.dict".toRegex(),
-        "userunigram.*/userunigram.*\\.(body|header)".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
-        "spellcheck_userunigram.*/spellcheck_userunigram.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
     ) }
 
