@@ -155,6 +155,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
     public static final String PREF_SHOW_ALL_COLORS = "show_all_colors";
+    public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
@@ -251,13 +252,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     // Accessed from the settings interface, hence public
-    public static boolean readKeypressSoundEnabled(final SharedPreferences prefs,
-                                                   final Resources res) {
+    public static boolean readKeypressSoundEnabled(final SharedPreferences prefs, final Resources res) {
         return prefs.getBoolean(PREF_SOUND_ON, res.getBoolean(R.bool.config_default_sound_enabled));
     }
 
-    public static boolean readVibrationEnabled(final SharedPreferences prefs,
-                                               final Resources res) {
+    public static boolean readVibrationEnabled(final SharedPreferences prefs, final Resources res) {
         return prefs.getBoolean(PREF_VIBRATE_ON, res.getBoolean(R.bool.config_default_vibration_enabled))
                 && AudioAndHapticFeedbackManager.getInstance().hasVibrator();
     }
@@ -274,14 +273,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !readAutoCorrectEnabled(mPrefs)).apply();
     }
 
-    public static String readAutoCorrectConfidence(final SharedPreferences prefs,
-                                                   final Resources res) {
+    public static String readAutoCorrectConfidence(final SharedPreferences prefs, final Resources res) {
         return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
                 res.getString(R.string.auto_correction_threshold_mode_index_modest));
     }
 
-    public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs,
-                                                        final Resources res) {
+    public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs, final Resources res) {
         return prefs.getBoolean(PREF_BLOCK_POTENTIALLY_OFFENSIVE,
                 res.getBoolean(R.bool.config_block_potentially_offensive));
     }
@@ -294,8 +291,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getBoolean(R.bool.config_enable_show_key_preview_popup_option);
     }
 
-    public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs,
-                                                     final Resources res) {
+    public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
         final boolean defaultKeyPreviewPopup = res.getBoolean(
                 R.bool.config_default_key_preview_popup);
         if (!readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
@@ -313,20 +309,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
 
-    public static String readPrefAdditionalSubtypes(final SharedPreferences prefs,
-                                                    final Resources res) {
+    public static String readPrefAdditionalSubtypes(final SharedPreferences prefs, final Resources res) {
         final String predefinedPrefSubtypes = AdditionalSubtypeUtils.createPrefSubtypes(
                 res.getStringArray(R.array.predefined_subtypes));
         return prefs.getString(PREF_ADDITIONAL_SUBTYPES, predefinedPrefSubtypes);
     }
 
-    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs,
-                                                   final String prefSubtypes) {
+    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
-    public static float readKeypressSoundVolume(final SharedPreferences prefs,
-                                                final Resources res) {
+    public static float readKeypressSoundVolume(final SharedPreferences prefs, final Resources res) {
         final float volume = prefs.getFloat(
                 PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
         return (volume != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? volume
@@ -342,8 +335,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 R.array.keypress_volumes, DEFAULT_KEYPRESS_SOUND_VOLUME));
     }
 
-    public static int readKeyLongpressTimeout(final SharedPreferences prefs,
-                                              final Resources res) {
+    public static int readKeyLongpressTimeout(final SharedPreferences prefs, final Resources res) {
         final int milliseconds = prefs.getInt(
                 PREF_KEY_LONGPRESS_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
@@ -354,8 +346,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_default_longpress_key_timeout);
     }
 
-    public static int readKeypressVibrationDuration(final SharedPreferences prefs,
-                                                    final Resources res) {
+    public static int readKeypressVibrationDuration(final SharedPreferences prefs, final Resources res) {
         final int milliseconds = prefs.getInt(
                 PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
@@ -420,7 +411,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
+                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean portrait) {
@@ -428,7 +420,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void writeOneHandedModeScale(final Float scale) {
-        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
+                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
     }
 
     @SuppressLint("RtlHardcoded")
@@ -437,7 +430,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
+                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
@@ -517,7 +511,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static String readSymbolsLayoutName(final Context context, final Locale locale) {
-        String[] layouts = new File(context.getFilesDir(), "layouts").list();
+        String[] layouts = getLayoutsDir(context).list();
         if (layouts != null) {
             for (String name : layouts) {
                 if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "symbols"))
@@ -528,7 +522,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static String readShiftedSymbolsLayoutName(final Context context) {
-        String[] layouts = new File(context.getFilesDir(), "layouts").list();
+        String[] layouts = getLayoutsDir(context).list();
         if (layouts != null) {
             for (String name : layouts) {
                 if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shift_symbols"))
@@ -536,6 +530,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             }
         }
         return "symbols_shifted";
+    }
+
+    public static File getLayoutsDir(final Context context) {
+        return new File(DeviceProtectedUtils.getDeviceProtectedContext(context).getFilesDir(), "layouts");
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
@@ -557,7 +555,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static File getCustomBackgroundFile(final Context context, final boolean night) {
-        return new File(context.getFilesDir(), "custom_background_image" + (night ? "_night" : ""));
+        return new File(DeviceProtectedUtils.getDeviceProtectedContext(context).getFilesDir(),
+                "custom_background_image" + (night ? "_night" : ""));
     }
 
     public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {

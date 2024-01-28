@@ -26,6 +26,7 @@ import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_LAYOUT
 import org.dslul.openboard.inputmethod.latin.utils.MORE_KEYS_NUMBER
+import org.dslul.openboard.inputmethod.latin.utils.getLayoutFile
 import org.dslul.openboard.inputmethod.latin.utils.runInLocale
 import org.dslul.openboard.inputmethod.latin.utils.sumOf
 import java.io.File
@@ -202,10 +203,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     private fun addSymbolMoreKeys(baseKeys: MutableList<List<KeyData>>) {
         val layoutName = Settings.readSymbolsLayoutName(context, params.mId.locale)
         val layout = if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
-            val file = File(context.filesDir, "layouts${File.separator}$layoutName")
             val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
                 else SimpleKeyboardParser(params, context)
-            parser.parseCoreLayout(file.readText())
+            parser.parseCoreLayout(getLayoutFile(layoutName, context).readText())
         } else {
             SimpleKeyboardParser(params, context).parseCoreLayout(context.readAssetsFile("layouts/$layoutName.txt"))
         }
@@ -771,10 +771,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         fun parseLayout(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
             val layoutName = getLayoutFileName(params, context)
             if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
-                val file = File(context.filesDir, "layouts${File.separator}$layoutName")
                 val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
                     else SimpleKeyboardParser(params, context)
-                return parser.parseLayoutString(file.readText())
+                return parser.parseLayoutString(getLayoutFile(layoutName, context).readText())
             }
             val layoutFileNames = context.assets.list("layouts")!!
             if (layoutFileNames.contains("$layoutName.json")) {

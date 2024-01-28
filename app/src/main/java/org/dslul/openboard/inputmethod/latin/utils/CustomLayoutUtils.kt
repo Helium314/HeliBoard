@@ -18,6 +18,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
@@ -61,7 +62,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
             name = "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
-            val file = getFile(name, context)
+            val file = getLayoutFile(name, context)
             if (file.exists())
                 file.delete()
             file.parentFile?.mkdir()
@@ -119,8 +120,8 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     return true
 }
 
-private fun getFile(layoutName: String, context: Context) =
-    File(context.filesDir, "layouts${File.separator}$layoutName")
+fun getLayoutFile(layoutName: String, context: Context) =
+    File(Settings.getLayoutsDir(context), layoutName)
 
 // undo the name changes in loadCustomLayout when clicking ok
 fun getLayoutDisplayName(layoutName: String) =
@@ -131,11 +132,11 @@ fun getLayoutDisplayName(layoutName: String) =
     }
 
 fun removeCustomLayoutFile(layoutName: String, context: Context) {
-    getFile(layoutName, context).delete()
+    getLayoutFile(layoutName, context).delete()
 }
 
 fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, isSymbols: Boolean = false) {
-    val file = getFile(layoutName, context)
+    val file = getLayoutFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
     }

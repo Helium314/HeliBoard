@@ -17,6 +17,7 @@ import org.dslul.openboard.inputmethod.latin.utils.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
+import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.compat.locale
@@ -33,6 +34,7 @@ import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
 import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
+import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils
 import org.dslul.openboard.inputmethod.latin.utils.editCustomLayout
 import org.dslul.openboard.inputmethod.latin.utils.infoDialog
@@ -117,13 +119,15 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
         findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
             val layoutName = Settings.readSymbolsLayoutName(context, context.resources.configuration.locale()).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
-            val oldLayout = if (layoutName != null) null else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
+            val oldLayout = if (layoutName != null) null
+                else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
             editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}symbols.txt", context, oldLayout, true)
             true
         }
         findPreference<Preference>("custom_shift_symbols_layout")?.setOnPreferenceClickListener {
             val layoutName = Settings.readShiftedSymbolsLayoutName(context).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
-            val oldLayout = if (layoutName != null) null else context.assets.open("layouts${File.separator}symbols_shifted.txt").reader().readText()
+            val oldLayout = if (layoutName != null) null
+                else context.assets.open("layouts${File.separator}symbols_shifted.txt").reader().readText()
             editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}shift_symbols.txt", context, oldLayout, true)
             true
         }
@@ -136,6 +140,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
     }
 
+    @SuppressLint("ApplySharedPref")
     private fun onClickLoadLibrary(): Boolean {
         // get architecture for telling user which file to use
         val abi = Build.SUPPORTED_ABIS[0]
@@ -153,6 +158,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         if (libfile.exists()) {
             builder.setNeutralButton(R.string.load_gesture_library_button_delete) { _, _ ->
                 libfile.delete()
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().remove(Settings.PREF_LIBRARY_CHECKSUM).commit()
                 Runtime.getRuntime().exit(0)
             }
         }
@@ -239,7 +245,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     @SuppressLint("ApplySharedPref")
     private fun renameToLibfileAndRestart(file: File, checksum: String) {
         libfile.delete()
-        sharedPreferences.edit().putString("lib_checksum", checksum).commit()
+        // store checksum in default preferences (soo JniUtils)
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString(Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
         file.renameTo(libfile)
         Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
     }
@@ -281,6 +288,14 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             if (backupFilePatterns.any { path.matches(it) })
                 files.add(file)
         }
+        val protectedFilesDir = DeviceProtectedUtils.getDeviceProtectedContext(requireContext()).filesDir
+        val protectedFilesPath = protectedFilesDir.path + File.separator
+        val protectedFiles = mutableListOf<File>()
+        protectedFilesDir.walk().forEach { file ->
+            val path = file.path.replace(protectedFilesPath, "")
+            if (backupFilePatterns.any { path.matches(it) })
+                protectedFiles.add(file)
+        }
         try {
             activity?.contentResolver?.openOutputStream(uri)?.use { os ->
                 // write files to zip
@@ -292,8 +307,17 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     fileStream.close()
                     zipStream.closeEntry()
                 }
+                protectedFiles.forEach {
+                    val fileStream = FileInputStream(it).buffered()
+                    zipStream.putNextEntry(ZipEntry(it.path.replace(protectedFilesDir.path, "unprotected")))
+                    fileStream.copyTo(zipStream, 1024)
+                    fileStream.close()
+                    zipStream.closeEntry()
+                }
                 zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
                 zipStream.bufferedWriter().use { settingsToJsonStream(sharedPreferences.all, it) }
+                zipStream.putNextEntry(ZipEntry(PROTECTED_PREFS_FILE_NAME))
+                zipStream.bufferedWriter().use { settingsToJsonStream(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, it) }
                 zipStream.close()
             }
         } catch (t: Throwable) {
@@ -310,13 +334,24 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     var entry: ZipEntry? = zip.nextEntry
                     val filesDir = requireContext().filesDir?.path ?: return
                     while (entry != null) {
-                        if (backupFilePatterns.any { entry!!.name.matches(it) }) {
+                        if (entry.name.startsWith("unprotected")) {
+                            val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
+                            if (backupFilePatterns.any { adjustedName.matches(it) }) {
+                                val targetFileName = upgradeFileNames(adjustedName)
+                                val file = File(filesDir, targetFileName)
+                                FileUtils.copyStreamToNewFile(zip, file)
+                            }
+                        } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
                             val targetFileName = upgradeFileNames(entry.name)
                             val file = File(filesDir, targetFileName)
                             FileUtils.copyStreamToNewFile(zip, file)
                         } else if (entry.name == PREFS_FILE_NAME) {
                             val prefLines = String(zip.readBytes()).split("\n")
                             sharedPreferences.edit().clear().apply()
+                            readJsonLinesToSettings(prefLines)
+                        } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
+                            val prefLines = String(zip.readBytes()).split("\n")
+                            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().clear().apply()
                             readJsonLinesToSettings(prefLines)
                         }
                         zip.closeEntry()
@@ -442,4 +477,5 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 }
 
 private const val PREFS_FILE_NAME = "preferences.json"
+private const val PROTECTED_PREFS_FILE_NAME = "protected_preferences.json"
 private const val TAG = "AdvancedSettingsFragment"

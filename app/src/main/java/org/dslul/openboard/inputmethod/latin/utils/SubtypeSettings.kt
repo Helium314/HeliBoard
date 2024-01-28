@@ -154,6 +154,7 @@ fun getAvailableSubtypeLocales(): Collection<Locale> {
 fun reloadEnabledSubtypes(context: Context) {
     require(initialized)
     enabledSubtypes.clear()
+    removeInvalidCustomSubtypes(context)
     loadEnabledSubtypes(context)
 }
 
@@ -233,18 +234,11 @@ private fun loadResourceSubtypes(resources: Resources) {
     }
 }
 
-private fun loadAdditionalSubtypes(context: Context) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
-    val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
-    additionalSubtypes.addAll(subtypes)
-}
-
 // remove custom subtypes without a layout file
 private fun removeInvalidCustomSubtypes(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
-    val customSubtypeFiles by lazy { File(context.filesDir, "layouts").list() }
+    val customSubtypeFiles by lazy { Settings.getLayoutsDir(context).list() }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
         val name = it.substringAfter(":").substringBefore(":")
@@ -255,6 +249,13 @@ private fun removeInvalidCustomSubtypes(context: Context) {
     if (subtypesToRemove.isEmpty()) return
     Log.w(TAG, "removing custom subtypes without files: $subtypesToRemove")
     Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
+}
+
+private fun loadAdditionalSubtypes(context: Context) {
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+    val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
+    additionalSubtypes.addAll(subtypes)
 }
 
 // requires loadResourceSubtypes to be called before

@@ -9,9 +9,8 @@ package org.dslul.openboard.inputmethod.latin.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
 
-import androidx.annotation.RequiresApi;
+import androidx.preference.PreferenceManager;
 
 public final class DeviceProtectedUtils {
 
@@ -29,15 +28,14 @@ public final class DeviceProtectedUtils {
         prefs = PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
         if (prefs.getAll().isEmpty()) {
             Log.i(TAG, "Device encrypted storage is empty, copying values from credential encrypted storage");
-            deviceProtectedContext.moveSharedPreferencesFrom(context, PreferenceManager.getDefaultSharedPreferencesName(context));
+            deviceProtectedContext.moveSharedPreferencesFrom(context, android.preference.PreferenceManager.getDefaultSharedPreferencesName(context));
         }
         return prefs;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private static Context getDeviceProtectedContext(final Context context) {
-        return context.isDeviceProtectedStorage()
-                ? context : context.createDeviceProtectedStorageContext();
+    public static Context getDeviceProtectedContext(final Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return context;
+        return context.isDeviceProtectedStorage() ? context : context.createDeviceProtectedStorageContext();
     }
 
     private DeviceProtectedUtils() {
