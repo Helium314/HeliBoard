@@ -5,12 +5,17 @@ import android.os.Build;
 import android.view.View;
 import android.view.WindowInsetsController;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ActivityThemeUtils {
 
     public static void setActivityTheme(final AppCompatActivity activity) {
         final boolean isNight = ResourceUtils.isNight(activity.getResources());
+        final ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar == null) {
+            return;
+        }
 
         // Set the icons of the status bar and the navigation bar light or dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
