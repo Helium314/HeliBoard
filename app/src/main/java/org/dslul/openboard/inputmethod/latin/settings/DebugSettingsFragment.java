@@ -19,7 +19,7 @@ import androidx.preference.TwoStatePreference;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
-import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
+import org.dslul.openboard.inputmethod.latin.DictionaryFacilitator;
 import org.dslul.openboard.inputmethod.latin.R;
 
 /**
@@ -41,7 +41,7 @@ public final class DebugSettingsFragment extends SubScreenFragment
         addPreferencesFromResource(R.xml.prefs_screen_debug);
 
         final PreferenceGroup dictDumpPreferenceGroup = findPreference(PREF_KEY_DUMP_DICTS);
-        for (final String dictName : DictionaryFacilitatorImpl.DICT_TYPE_TO_CLASS.keySet()) {
+        for (final String dictName : DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES) {
             final Preference pref = new DictDumpPreference(getActivity(), dictName);
             pref.setOnPreferenceClickListener(this);
             dictDumpPreferenceGroup.addPreference(pref);

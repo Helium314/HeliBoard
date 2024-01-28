@@ -34,8 +34,6 @@ import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,19 +73,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private boolean mTryChangingWords = false;
     private String mChangeFrom = "";
     private String mChangeTo = "";
-
-    public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
-            DICT_TYPE_TO_CLASS = new HashMap<>();
-
-    static {
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER_HISTORY, UserHistoryDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER, UserBinaryDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_CONTACTS, ContactsBinaryDictionary.class);
-    }
-
-    private static final String DICT_FACTORY_METHOD_NAME = "getDictionary";
-    private static final Class<?>[] DICT_FACTORY_METHOD_ARG_TYPES =
-            new Class[] { Context.class, Locale.class, File.class, String.class, String.class };
 
     // todo: write cache never set, and never read (only written)
     //  tried to use read cache for a while, but small performance improvements are not worth the work (https://github.com/Helium314/openboard/issues/307)
@@ -314,21 +299,20 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static ExpandableBinaryDictionary getSubDict(final String dictType,
             final Context context, final Locale locale, final File dictFile,
             final String dictNamePrefix, @Nullable final String account) {
-        final Class<? extends ExpandableBinaryDictionary> dictClass = DICT_TYPE_TO_CLASS.get(dictType);
-        if (dictClass == null) {
-            Log.e(TAG, "Cannot create dictionary: no class for " + dictType);
-            return null;
-        }
+        ExpandableBinaryDictionary dict = null;
         try {
-            final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
-                    DICT_FACTORY_METHOD_ARG_TYPES);
-            final Object dict = factoryMethod.invoke(null, context, locale, dictFile, dictNamePrefix, account);
-            return (ExpandableBinaryDictionary) dict;
-        } catch (final NoSuchMethodException | SecurityException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
+            dict = switch (dictType) {
+                case Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                default -> null;
+            };
+        } catch (final SecurityException | IllegalArgumentException e) {
             Log.e(TAG, "Cannot create dictionary: " + dictType, e);
-            return null;
         }
+        if (dict == null)
+            Log.e(TAG, "Cannot create dictionary for " + dictType);
+        return dict;
     }
 
     @Nullable

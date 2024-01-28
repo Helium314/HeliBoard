@@ -82,7 +82,6 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
         reloadDictionaryIfRequired();
     }
 
-    // Note: This method is called by {@link DictionaryFacilitator} using Java reflection.
     @ExternallyReferenced
     public static UserBinaryDictionary getDictionary(
             final Context context, final Locale locale, final File dictFile,

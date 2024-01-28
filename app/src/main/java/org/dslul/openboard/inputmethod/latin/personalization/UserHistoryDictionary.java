@@ -49,8 +49,6 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
         return getDictName(name, locale, dictFile);
     }
 
-    // Note: This method is called by {@link DictionaryFacilitator} using Java reflection.
-    @SuppressWarnings("unused")
     @ExternallyReferenced
     public static UserHistoryDictionary getDictionary(final Context context, final Locale locale,
             final File dictFile, final String dictNamePrefix, @Nullable final String account) {

@@ -50,7 +50,6 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
         reloadDictionaryIfRequired();
     }
 
-    // Note: This method is called by {@link DictionaryFacilitator} using Java reflection.
     @ExternallyReferenced
     public static ContactsBinaryDictionary getDictionary(final Context context, final Locale locale,
             final File dictFile, final String dictNamePrefix, @Nullable final String account) {
