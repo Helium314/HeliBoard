@@ -7,6 +7,7 @@
 package org.dslul.openboard.inputmethod.latin.makedict
 
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.makedict.FormatSpec.DictionaryOptions
 import org.dslul.openboard.inputmethod.latin.makedict.FormatSpec.FormatOptions
 import java.text.DateFormat
@@ -44,7 +45,7 @@ class DictionaryHeader(
     fun info(locale: Locale): String {
         val date = if (mDate == null) ""
             else DateFormat.getDateInstance(DateFormat.SHORT, locale).format(Date(mDate * 1000L)) + "\n"
-        return mIdString + "\n" + LocaleUtils.constructLocaleFromString(mLocaleString).getDisplayName(locale) +
+        return mIdString + "\n" + mLocaleString.constructLocale().getDisplayName(locale) +
                 "\nv" + mVersionString + "\n" + date + description
     }
 

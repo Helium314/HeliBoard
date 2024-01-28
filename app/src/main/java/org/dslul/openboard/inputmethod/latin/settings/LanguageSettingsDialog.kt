@@ -18,16 +18,18 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.dictionarypack.DictionaryPackConstants
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher
-import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.databinding.LanguageListItemBinding
 import org.dslul.openboard.inputmethod.latin.databinding.LocaleSettingsDialogBinding
 import org.dslul.openboard.inputmethod.latin.utils.*
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import java.io.File
 import java.util.*
 
@@ -40,8 +42,7 @@ class LanguageSettingsDialog(
 ) : AlertDialog(context), LanguageSettingsFragment.Listener {
     private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
     private val binding = LocaleSettingsDialogBinding.inflate(LayoutInflater.from(context))
-    private val mainLocaleString = infos.first().subtype.locale()
-    private val mainLocale = mainLocaleString.toLocale()
+    private val mainLocale = infos.first().subtype.locale()
     private var hasInternalDictForLanguage = false
     private val userDicts = mutableSetOf<File>()
 
@@ -97,7 +98,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSubtype(name: String) {
-        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocaleString, name, infos.first().subtype.isAsciiCapable)
+        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
         val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
         val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
@@ -148,14 +149,15 @@ class LanguageSettingsDialog(
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
                 val fileName = context.assets.list("layouts")!!.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
-                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(), displayNames[i], mainLocaleString, context) { addSubtype(it) }
+                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
+                    displayNames[i], mainLocale.toLanguageTag(), context) { addSubtype(it) }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
     override fun onNewLayoutFile(uri: Uri?) {
-        loadCustomLayout(uri, mainLocaleString, context) { addSubtype(it) }
+        loadCustomLayout(uri, mainLocale.toLanguageTag(), context) { addSubtype(it) }
     }
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
@@ -215,10 +217,10 @@ class LanguageSettingsDialog(
         // can only use multilingual typing if there is more than one dictionary available
         val availableSecondaryLocales = getAvailableSecondaryLocales(
             context,
-            mainLocaleString,
+            mainLocale,
             infos.first().subtype.isAsciiCapable
         )
-        val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocaleString)
+        val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
         selectedSecondaryLocales.forEach {
             addSecondaryLocaleView(it)
         }
@@ -226,14 +228,14 @@ class LanguageSettingsDialog(
             binding.addSecondaryLanguage.apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocaleString)).sortedBy { it.displayName }
+                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocale)).sortedBy { it.displayName }
                     val localeNames = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.button_select_language)
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
-                            val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
-                            Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings + locale.toString())
+                            val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                            Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales + locale)
                             addSecondaryLocaleView(locale)
                             di.dismiss()
                             reloadSetting()
@@ -256,8 +258,8 @@ class LanguageSettingsDialog(
         rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
-                val localeStrings = Settings.getSecondaryLocales(prefs, mainLocaleString).map { it.toString() }
-                Settings.setSecondaryLocales(prefs, mainLocaleString, localeStrings - locale.toString())
+                val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
                 reloadDictionaries()
@@ -280,7 +282,7 @@ class LanguageSettingsDialog(
             dialog.show()
             (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
         }
-        val userDictsAndHasInternal = getUserAndInternalDictionaries(context, mainLocaleString)
+        val userDictsAndHasInternal = getUserAndInternalDictionaries(context, mainLocale)
         hasInternalDictForLanguage = userDictsAndHasInternal.second
         userDicts.addAll(userDictsAndHasInternal.first)
         if (hasInternalDictForLanguage) {
@@ -330,11 +332,7 @@ class LanguageSettingsDialog(
         }
         rowBinding.languageText.setOnClickListener {
             if (header == null) return@setOnClickListener
-            val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                context.resources.configuration.locales[0]
-            } else {
-                @Suppress("Deprecation") context.resources.configuration.locale
-            }
+            val locale = context.resources.configuration.locale()
             Builder(context)
                 .setMessage(header.info(locale))
                 .setPositiveButton(android.R.string.ok, null)
@@ -369,12 +367,12 @@ class LanguageSettingsDialog(
     private fun setupPopupSettings() {
         binding.popupOrder.setOnClickListener {
             val moreKeyTypesDefault = prefs.getString(Settings.PREF_MORE_KEYS_ORDER, MORE_KEYS_ORDER_DEFAULT)!!
-            reorderMoreKeysDialog(context, Settings.PREF_MORE_KEYS_ORDER + "_" + mainLocaleString, moreKeyTypesDefault, R.string.popup_order)
+            reorderMoreKeysDialog(context, Settings.PREF_MORE_KEYS_ORDER + "_" + mainLocale.toLanguageTag(), moreKeyTypesDefault, R.string.popup_order)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
         binding.popupLabelPriority.setOnClickListener {
             val moreKeyTypesDefault = prefs.getString(Settings.PREF_MORE_KEYS_LABELS_ORDER, MORE_KEYS_LABEL_DEFAULT)!!
-            reorderMoreKeysDialog(context, Settings.PREF_MORE_KEYS_LABELS_ORDER + "_" + mainLocaleString, moreKeyTypesDefault, R.string.hint_source)
+            reorderMoreKeysDialog(context, Settings.PREF_MORE_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(), moreKeyTypesDefault, R.string.hint_source)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
     }
@@ -383,11 +381,10 @@ class LanguageSettingsDialog(
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */
-fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<File>, Boolean> {
-    val localeString = locale.lowercase() // internal files and folders always use lowercase
+fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
-    val userLocaleDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context), localeString)
+    val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
             if (it.name.endsWith(USER_DICTIONARY_SUFFIX))
@@ -398,37 +395,24 @@ fun getUserAndInternalDictionaries(context: Context, locale: String): Pair<List<
     }
     if (hasInternalDict)
         return userDicts to true
-    val language = localeString.languageConsideringZZ()
-    BinaryDictionaryGetter.getAssetsDictionaryList(context)?.forEach { dictFile ->
-        BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictFile)?.let {
-            if (it == localeString || it.languageConsideringZZ() == language)
-                return userDicts to true
-        }
+    val internalDicts = DictionaryInfoUtils.getAssetsDictionaryList(context) ?: return userDicts to false
+    val best = LocaleUtils.getBestMatch(locale, internalDicts.toList()) {
+        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale() ?: SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
     }
-    return userDicts to false
-}
-
-private fun String.languageConsideringZZ(): String {
-    return if (endsWith("zz", false))
-        this
-    else
-        substringBefore("_")
+    return userDicts to (best != null)
 }
 
 // get locales with same script as main locale, but different language
-private fun getAvailableSecondaryLocales(context: Context, mainLocaleString: String, asciiCapable: Boolean): Set<Locale> {
-    val mainLocale = mainLocaleString.toLocale()
+private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale, asciiCapable: Boolean): Set<Locale> {
     val locales = getDictionaryLocales(context)
     val mainScript = if (asciiCapable) ScriptUtils.SCRIPT_LATIN
-    else ScriptUtils.getScriptFromSpellCheckerLocale(mainLocale)
-    // ScriptUtils.getScriptFromSpellCheckerLocale may return latin when it should not
-    //  e.g. for persian or chinese
+        else mainLocale.script()
+    // script() extension function may return latin in case script cannot be determined
     // workaround: don't allow secondary locales for these locales
     if (!asciiCapable && mainScript == ScriptUtils.SCRIPT_LATIN) return emptySet()
 
     locales.removeAll {
-        it.language == mainLocale.language
-                || ScriptUtils.getScriptFromSpellCheckerLocale(it) != mainScript
+        it.language == mainLocale.language || it.script() != mainScript
     }
     return locales
 }

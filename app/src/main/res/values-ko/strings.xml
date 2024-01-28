@@ -52,13 +52,13 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"영어(영국)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"영어(미국)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"스페인어(미국)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"인도 영어"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"세르비아어(라틴 문자)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"인도 영어"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"세르비아어(라틴 문자)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">영어(영국)(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">영어(미국)(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">스페인어 (미국) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">인도 영어(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">세르비아어(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">인도 영어(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">세르비아어(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (번체)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (소형)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"언어 없음(알파벳)"</string>

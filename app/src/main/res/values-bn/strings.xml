@@ -102,7 +102,7 @@
     <string name="subtype_en_GB">ইংরেজি (ইউকে)</string>
     <string name="subtype_en_US">ইংরেজি (ইউএস)</string>
     <string name="subtype_es_US">স্প্যানিশ (ইউএস)</string>
-    <string name="subtype_hi_ZZ">হিংলিশ</string>
+    <string name="subtype_hi_Latn">হিংলিশ</string>
     <string name="hidden_features_title">প্রচ্ছন্ন বৈশিষ্ট্য</string>
     <string name="hidden_features_summary">অপরিদৃষ্ট হতে পারে এমন বৈশিষ্ট্যের বর্ণনা</string>
     <string name="hidden_features_text">ডিভাইস সুরক্ষিত স্টোরেজ</string>
@@ -126,13 +126,12 @@
         &#9658; রুট উপলব্ধতাসহ ম্যানুয়াল ব্যাকআপ করা ব্যবহারকারীদের জন্য: Android 7 থেকে শেয়ারড্ প্রেফারেন্স ফাইল ডিফল্ট জায়গা নয়। কারণ অ্যাপ %s ব্যবহার করছে। &lt;br&gt;
         ডিভাইস আনলকের আগে সেটিংস খোলার জন্য এটি প্রয়োজনীয়, যেমন: বুট করার সময়। &lt;br&gt;
         ফাইলটি /data/user_de/0/package_id/shared_prefs/ থাকে। যদিও এটা ডিভাইস এবং অ্যান্ড্রয়েড সংস্করণের উপরে নির্ভর করে।</string>
-    <string name="subtype_hu_ZZ">হাঙ্গেরীয় (QWERTY)</string>
-    <string name="subtype_sr_ZZ">সার্বীয় (ল্যাটিন)</string>
+    <string name="subtype_sr_Latn">সার্বীয় (ল্যাটিন)</string>
     <string name="subtype_with_layout_en_GB">ইংরেজি (ইউকে) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">ইংরেজি (ইউএস) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">স্প্যানিশ (ইউএস) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ">হিংলিশ (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ">সার্বিয়ান (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">হিংলিশ (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">সার্বিয়ান (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (প্রথাগত)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (অক্ষর)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (সংক্ষিপ্ত)</string>

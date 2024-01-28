@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.BinaryDictionary;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.common.FileUtils;
@@ -27,14 +26,12 @@ import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestio
 import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
 import org.dslul.openboard.inputmethod.latin.utils.CombinedFormatUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
-import com.android.inputmethod.latin.utils.WordInputEventForPersonalization;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
@@ -44,7 +41,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Abstract base class for an expandable dictionary that can be created and updated dynamically
  * during runtime. When updated it automatically generates a new binary dictionary to handle future
  * queries in native code. This binary dictionary is written to internal storage.
- *
+ * <p>
  * A class that extends this abstract class must have a static factory method named
  *   getDictionary(Context context, Locale locale, File dictFile, String dictNamePrefix)
  */
@@ -95,8 +92,6 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     private boolean mNeedsToRecreate;
 
     private final ReentrantReadWriteLock mLock;
-
-    private Map<String, String> mAdditionalAttributeMap = null;
 
     /* A extension for a binary dictionary file. */
     protected static final String DICT_FILE_EXTENSION = ".dict";
@@ -151,7 +146,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     public static String getDictName(final String name, final Locale locale,
             final File dictFile) {
-        return dictFile != null ? dictFile.getName() : name + "." + locale.toString();
+        return dictFile != null ? dictFile.getName() : name + "." + locale.toLanguageTag();
     }
 
     private void asyncExecuteTaskWithWriteLock(final Runnable task) {
@@ -191,9 +186,6 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     protected Map<String, String> getHeaderAttributeMap() {
         HashMap<String, String> attributeMap = new HashMap<>();
-        if (mAdditionalAttributeMap != null) {
-            attributeMap.putAll(mAdditionalAttributeMap);
-        }
         attributeMap.put(DictionaryHeader.DICTIONARY_ID_KEY, mDictName);
         attributeMap.put(DictionaryHeader.DICTIONARY_LOCALE_KEY, mLocale.toString());
         attributeMap.put(DictionaryHeader.DICTIONARY_VERSION_KEY,
@@ -338,41 +330,6 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                 if (DEBUG) {
                     Log.e(TAG, "Cannot update counter. word: " + word
                             + " context: " + ngramContext);
-                }
-            }
-        });
-    }
-
-    /**
-     * Used by Sketch.
-     * {@see https://cs.corp.google.com/#android/vendor/unbundled_google/packages/LatinIMEGoogle/tools/sketch/ime-simulator/src/com/android/inputmethod/sketch/imesimulator/ImeSimulator.java&q=updateEntriesForInputEventsCallback&l=286}
-     */
-    @UsedForTesting
-    public interface UpdateEntriesForInputEventsCallback {
-        void onFinished();
-    }
-
-    /**
-     * Dynamically update entries according to input events.
-     *
-     * Used by Sketch.
-     * {@see https://cs.corp.google.com/#android/vendor/unbundled_google/packages/LatinIMEGoogle/tools/sketch/ime-simulator/src/com/android/inputmethod/sketch/imesimulator/ImeSimulator.java&q=updateEntriesForInputEventsCallback&l=286}
-     */
-    @UsedForTesting
-    public void updateEntriesForInputEvents(
-            @NonNull final ArrayList<WordInputEventForPersonalization> inputEvents,
-            final UpdateEntriesForInputEventsCallback callback) {
-        reloadDictionaryIfRequired();
-        asyncExecuteTaskWithWriteLock(() -> {
-            try {
-                final BinaryDictionary binaryDictionary = getBinaryDictionary();
-                if (binaryDictionary == null) {
-                    return;
-                }
-                binaryDictionary.updateEntriesForInputEvents(inputEvents.toArray(new WordInputEventForPersonalization[0]));
-            } finally {
-                if (callback != null) {
-                    callback.onFinished();
                 }
             }
         });
@@ -606,24 +563,6 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
             }
         });
         return result.get(null /* defaultValue */, TIMEOUT_FOR_READ_OPS_IN_MILLISECONDS);
-    }
-
-    @UsedForTesting
-    public void waitAllTasksForTests() {
-        final CountDownLatch countDownLatch = new CountDownLatch(1);
-        asyncExecuteTaskWithWriteLock(countDownLatch::countDown);
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            Log.e(TAG, "Interrupted while waiting for finishing dictionary operations.", e);
-        }
-    }
-
-    @UsedForTesting
-    public void clearAndFlushDictionaryWithAdditionalAttributes(
-            final Map<String, String> attributeMap) {
-        mAdditionalAttributeMap = attributeMap;
-        clear();
     }
 
     public void dumpAllWordsForDebug() {

@@ -98,7 +98,7 @@ public final class KeyboardLayoutSet {
         boolean mIsSpellChecker;
         int mKeyboardWidth;
         int mKeyboardHeight;
-        int mScriptId = ScriptUtils.SCRIPT_LATIN;
+        String mScript = ScriptUtils.SCRIPT_LATIN;
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
         boolean mIsSplitLayoutEnabled;
@@ -202,8 +202,8 @@ public final class KeyboardLayoutSet {
         return keyboard;
     }
 
-    public int getScriptId() {
-        return mParams.mScriptId;
+    public String getScript() {
+        return mParams.mScript;
     }
 
     public static final class Builder {
@@ -298,7 +298,7 @@ public final class KeyboardLayoutSet {
         public KeyboardLayoutSet build() {
             if (mParams.mSubtype == null)
                 throw new RuntimeException("KeyboardLayoutSet subtype is not specified");
-            mParams.mScriptId = ScriptUtils.getScriptFromSpellCheckerLocale(mParams.mSubtype.getLocale());
+            mParams.mScript = ScriptUtils.script(mParams.mSubtype.getLocale());
             // todo: the whole parsing stuff below should be removed, but currently
             //  it simply breaks when it's not available
             //  for emojis, moreKeys and moreSuggestions there are relevant parameters included

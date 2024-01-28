@@ -52,13 +52,13 @@
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Srpski (latinica)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Srpski (latinica)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Engleski (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Engleski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Španjolski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Srpski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Srpski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionalno)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktno)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">Neodređen jezik (abeceda)</string>

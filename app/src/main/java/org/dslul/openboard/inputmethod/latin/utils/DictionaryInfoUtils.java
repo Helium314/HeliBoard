@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
-import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter;
+import org.dslul.openboard.inputmethod.latin.Dictionary;
 import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
 import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
 import org.dslul.openboard.inputmethod.latin.makedict.UnsupportedFormatException;
@@ -32,9 +32,11 @@ public class DictionaryInfoUtils {
     private static final String TAG = DictionaryInfoUtils.class.getSimpleName();
     public static final String DEFAULT_MAIN_DICT = "main";
     public static final String MAIN_DICT_PREFIX = DEFAULT_MAIN_DICT + "_";
-    private static final String DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION = "[" + BinaryDictionaryGetter.ID_CATEGORY_SEPARATOR + "_]";
     // 6 digits - unicode is limited to 21 bits
     private static final int MAX_HEX_DIGITS_FOR_CODEPOINT = 6;
+    public static final String ASSETS_DICTIONARY_FOLDER = "dicts";
+    public static final String ID_CATEGORY_SEPARATOR = ":";
+    private static final String DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION = "[" + ID_CATEGORY_SEPARATOR + "_]";
 
     private DictionaryInfoUtils() {
         // Private constructor to forbid instantation of this helper class.
@@ -49,7 +51,7 @@ public class DictionaryInfoUtils {
         if (codePoint >= 0x30 && codePoint <= 0x39) return true; // Digit
         if (codePoint >= 0x41 && codePoint <= 0x5A) return true; // Uppercase
         if (codePoint >= 0x61 && codePoint <= 0x7A) return true; // Lowercase
-        return codePoint == '_'; // Underscore
+        return codePoint == '_' || codePoint == '-';
     }
 
     /**
@@ -84,13 +86,6 @@ public class DictionaryInfoUtils {
     }
 
     /**
-     * Helper method to get the top level temp directory.
-     */
-    public static String getWordListTempDirectory(final Context context) {
-        return context.getFilesDir() + File.separator + "tmp";
-    }
-
-    /**
      * Reverse escaping done by {@link #replaceFileNameDangerousCharacters(String)}.
      */
     @NonNull
@@ -120,31 +115,10 @@ public class DictionaryInfoUtils {
     }
 
     /**
-     * Returns the category for a given file name.
-     * <p>
-     * This parses the file name, extracts the category, and returns it. See
-     * {@link #getMainDictId(Locale)} and {@link #isMainWordListId(String)}.
-     * @return The category as a string or null if it can't be found in the file name.
-     */
-    @Nullable
-    public static String getCategoryFromFileName(@NonNull final String fileName) {
-        final String id = getWordListIdFromFileName(fileName);
-        final String[] idArray = id.split(DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION);
-        // An id is supposed to be in format category:locale, so splitting on the separator
-        // should yield a 2-elements array
-        // Also allow '_' as separator, this is ok for locales like pt_br because
-        // we're interested in the part before first separator anyway
-        if (1 == idArray.length) {
-            return null;
-        }
-        return idArray[0];
-    }
-
-    /**
      * Find out the cache directory associated with a specific locale.
      */
-    public static String getCacheDirectoryForLocale(final String locale, final Context context) {
-        final String relativeDirectoryName = replaceFileNameDangerousCharacters(locale).toLowerCase(Locale.ENGLISH);
+    public static String getCacheDirectoryForLocale(final Locale locale, final Context context) {
+        final String relativeDirectoryName = replaceFileNameDangerousCharacters(locale.toLanguageTag());
         final String absoluteDirectoryName = getWordListCacheDirectory(context) + File.separator + relativeDirectoryName;
         final File directory = new File(absoluteDirectoryName);
         if (!directory.exists()) {
@@ -155,16 +129,11 @@ public class DictionaryInfoUtils {
         return absoluteDirectoryName;
     }
 
-    public static boolean isMainWordListId(final String id) {
-        final String[] idArray = id.split(DICTIONARY_CATEGORY_SEPARATOR_EXPRESSION);
-        // An id is supposed to be in format category:locale, so splitting on the separator
-        // should yield a 2-elements array
-        // Also allow '_' as separator, this is ok for locales like pt_br because
-        // we're interested in the part before first separator anyway
-        if (1 == idArray.length) {
-            return false;
-        }
-        return BinaryDictionaryGetter.MAIN_DICTIONARY_CATEGORY.equals(idArray[0]);
+    public static File[] getCachedDictsForLocale(final Locale locale, final Context context) {
+        final File cachedDir = new File(getCacheDirectoryForLocale(locale, context));
+        if (!cachedDir.isDirectory())
+            return new File[]{};
+        return cachedDir.listFiles();
     }
 
     /**
@@ -179,17 +148,11 @@ public class DictionaryInfoUtils {
         // This works because we don't include by default different dictionaries for
         // different countries. This actually needs to return the id that we would
         // like to use for word lists included in resources, and the following is okay.
-        return BinaryDictionaryGetter.MAIN_DICTIONARY_CATEGORY +
-                BinaryDictionaryGetter.ID_CATEGORY_SEPARATOR + locale.toString().toLowerCase();
+        return Dictionary.TYPE_MAIN + ID_CATEGORY_SEPARATOR + locale.toString().toLowerCase();
     }
 
-    public static String getMainDictFilename(@NonNull final String locale) {
-        return MAIN_DICT_PREFIX + locale.toLowerCase(Locale.ENGLISH) + ".dict";
-    }
-
-    public static File getMainDictFile(@NonNull final String locale, @NonNull final Context context) {
-        return new File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context) +
-                File.separator + DictionaryInfoUtils.getMainDictFilename(locale));
+    public static String getExtractedMainDictFilename() {
+        return DEFAULT_MAIN_DICT + ".dict";
     }
 
     @Nullable
@@ -200,6 +163,43 @@ public class DictionaryInfoUtils {
         } catch (UnsupportedFormatException | IOException e) {
             return null;
         }
+    }
+
+    @Nullable
+    public static DictionaryHeader getDictionaryFileHeaderOrNull(final File file) {
+        try {
+            return BinaryDictionaryUtils.getHeader(file);
+        } catch (UnsupportedFormatException | IOException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Returns the locale for a dictionary file name stored in assets.
+     * <p>
+     * Assumes file name main_[locale].dict
+     * <p>
+     * Returns the locale, or null if file name does not match the pattern
+     */
+    @Nullable public static String extractLocaleFromAssetsDictionaryFile(final String dictionaryFileName) {
+        if (dictionaryFileName.startsWith(DictionaryInfoUtils.MAIN_DICT_PREFIX)
+                && dictionaryFileName.endsWith(".dict")) {
+            return dictionaryFileName.substring(
+                    DictionaryInfoUtils.MAIN_DICT_PREFIX.length(),
+                    dictionaryFileName.lastIndexOf('.')
+            );
+        }
+        return null;
+    }
+
+    @Nullable public static String[] getAssetsDictionaryList(final Context context) {
+        final String[] dictionaryList;
+        try {
+            dictionaryList = context.getAssets().list(ASSETS_DICTIONARY_FOLDER);
+        } catch (IOException e) {
+            return null;
+        }
+        return dictionaryList;
     }
 
     @UsedForTesting

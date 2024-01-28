@@ -526,7 +526,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                     return name;
             }
         }
-        return ScriptUtils.getScriptFromSpellCheckerLocale(locale) == ScriptUtils.SCRIPT_ARABIC ? "symbols_arabic" : "symbols";
+        return ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_ARABIC) ? "symbols_arabic" : "symbols";
     }
 
     public static String readShiftedSymbolsLayoutName(final Context context) {
@@ -571,27 +571,27 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         sCachedBackgroundNight = null;
     }
 
-    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
-        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "");
+    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {
+        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "");
 
         final ArrayList<Locale> locales = new ArrayList<>();
-        for (String locale : localesString.split(";")) {
-            if (locale.isEmpty()) continue;
-            locales.add(LocaleUtils.constructLocaleFromString(locale));
+        for (String languageTag : localesString.split(";")) {
+            if (languageTag.isEmpty()) continue;
+            locales.add(LocaleUtils.constructLocale(languageTag));
         }
         return locales;
     }
 
-    public static void setSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString, final List<String> locales) {
+    public static void setSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale, final List<Locale> locales) {
         if (locales.isEmpty()) {
-            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "").apply();
+            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale, "").apply();
             return;
         }
         final StringBuilder sb = new StringBuilder();
-        for (String locale : locales) {
-            sb.append(";").append(locale);
+        for (Locale locale : locales) {
+            sb.append(";").append(locale.toLanguageTag());
         }
-        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), sb.toString()).apply();
+        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale, sb.toString()).apply();
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {

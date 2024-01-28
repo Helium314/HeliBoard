@@ -25,8 +25,11 @@ import androidx.preference.PreferenceGroup;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.TreeSet;
 
@@ -91,54 +94,58 @@ public class UserDictionaryListFragment extends SubScreenFragment {
      * @param userDictGroup The group to put the settings in.
      */
     private void createUserDictSettings(final PreferenceGroup userDictGroup) {
-        final TreeSet<String> sortedLanguages = getSortedDictionaryLocaleStrings(requireContext());
+        final TreeSet<Locale> sortedLocales = getSortedDictionaryLocales(requireContext());
 
         // Add preference "for all locales"
-        userDictGroup.addPreference(createUserDictionaryPreference(""));
+        userDictGroup.addPreference(createUserDictionaryPreference(new Locale("")));
         // Add preference for each dictionary locale
-        for (String localeUserDictionary : sortedLanguages) {
-            userDictGroup.addPreference(createUserDictionaryPreference(localeUserDictionary));
+        for (final Locale locale : sortedLocales) {
+            userDictGroup.addPreference(createUserDictionaryPreference(locale));
         }
     }
 
-    static TreeSet<String> getSortedDictionaryLocaleStrings(final Context context) {
+    static TreeSet<Locale> getSortedDictionaryLocales(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
-        final TreeSet<String> sortedLanguages = new TreeSet<>(String::compareToIgnoreCase);
+        final TreeSet<Locale> sortedLocales = new TreeSet<>(new LocaleComparator());
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
         for (InputMethodSubtype mainSubtype : SubtypeSettingsKt.getEnabledSubtypes(prefs, true)) {
-            if (!mainSubtype.getLocale().equals("zz")) {
-                sortedLanguages.add(mainSubtype.getLocale());
+            final Locale mainLocale = SubtypeUtilsKt.locale(mainSubtype);
+            if (!mainLocale.toLanguageTag().equals(SubtypeLocaleUtils.NO_LANGUAGE)) {
+                sortedLocales.add(mainLocale);
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
-                for (Locale secondaryLocale : Settings.getSecondaryLocales(prefs, mainSubtype.getLocale())) {
-                    sortedLanguages.add(secondaryLocale.toString());
-                }
+                sortedLocales.addAll(Settings.getSecondaryLocales(prefs, mainLocale));
             }
         }
 
-        for (Locale systemSubtype : SubtypeSettingsKt.getSystemLocales()) {
-            sortedLanguages.add(systemSubtype.toString());
+        sortedLocales.addAll(SubtypeSettingsKt.getSystemLocales());
+        return sortedLocales;
+    }
+
+    private static class LocaleComparator implements Comparator<Locale> {
+        @Override
+        public int compare(Locale locale1, Locale locale2) {
+            return locale1.toLanguageTag().compareToIgnoreCase(locale2.toLanguageTag());
         }
-        return sortedLanguages;
     }
 
     /**
      * Create a single User Dictionary Preference object, with its parameters set.
-     * @param localeString The locale for which this user dictionary is for.
+     * @param locale The locale for which this user dictionary is for.
      * @return The corresponding preference.
      */
-    private Preference createUserDictionaryPreference(@NonNull final String localeString) {
+    private Preference createUserDictionaryPreference(@NonNull final Locale locale) {
         final Preference newPref = new Preference(requireContext());
 
-        if (localeString.isEmpty()) {
+        if (locale.toString().isEmpty()) {
             newPref.setTitle(getString(R.string.user_dict_settings_all_languages));
         } else {
-            newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), localeString));
+            newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), locale));
         }
-        newPref.getExtras().putString("locale", localeString);
+        newPref.getExtras().putString("locale", locale.toLanguageTag());
         newPref.setIconSpaceReserved(false);
         newPref.setFragment(UserDictionarySettings.class.getName());
 

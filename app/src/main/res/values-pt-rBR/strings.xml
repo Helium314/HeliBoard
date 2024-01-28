@@ -54,10 +54,10 @@
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>
     <string name="subtype_en_US">Inglês (EUA)</string>
     <string name="subtype_es_US">Espanhol (EUA)</string>
-    <string name="subtype_hi_ZZ">Hindi-Inglês</string>
-    <string name="subtype_sr_ZZ">Sérvio (Latino)</string>
+    <string name="subtype_hi_Latn">Hindi-Inglês</string>
+    <string name="subtype_sr_Latn">Sérvio (Latino)</string>
     <string name="subtype_with_layout_es_US">Espanhol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ">Sérvio <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
+    <string name="subtype_with_layout_sr_Latn">Sérvio <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_generic_traditional">Nepali (Nepal) <xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_with_layout_bn_BD">Bengali (Bangladesh) <xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_pcqwerty">Alfabeto (PC)</string>
@@ -122,7 +122,7 @@
     <string name="number_row">Linha de números</string>
     <string name="subtype_with_layout_en_GB">Inglês (Reino Unido) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_with_layout_en_US">Inglês (EUA) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_hi_ZZ">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
+    <string name="subtype_with_layout_hi_Latn">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_no_language">Nenhum idioma (Alfabeto)</string>
     <string name="subtype_no_language_qwerty">Alfabeto (QWERTY)</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado nas configurações de \'Idiomas e Entrada\'. Esta etapa já está concluída. Vamos avançar para a próxima!</string>

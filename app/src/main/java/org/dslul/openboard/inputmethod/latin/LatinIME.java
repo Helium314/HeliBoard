@@ -41,6 +41,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
 import org.dslul.openboard.inputmethod.compat.InsetsOutlineProvider;
 import org.dslul.openboard.inputmethod.compat.ViewOutlineProviderCompatUtils;
@@ -281,7 +282,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 case MSG_RESUME_SUGGESTIONS:
                     latinIme.mInputLogic.restartSuggestionsOnWordTouchedByCursor(
                             latinIme.mSettings.getCurrent(),
-                            latinIme.mKeyboardSwitcher.getCurrentKeyboardScriptId());
+                            latinIme.mKeyboardSwitcher.getCurrentKeyboardScript());
                     break;
                 case MSG_REOPEN_DICTIONARIES:
                     // We need to re-evaluate the currently composing word in case the script has
@@ -698,7 +699,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             // case, we are about to go down but we still don't know it, however the system tells
             // us there is no current subtype.
             Log.e(TAG, "System is reporting no current subtype.");
-            subtypeLocale = getResources().getConfiguration().locale;
+            subtypeLocale = ConfigurationCompatKt.locale(getResources().getConfiguration());
         } else {
             subtypeLocale = subtypeSwitcherLocale;
         }
@@ -1467,7 +1468,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mInputLogic.finishInput();
         int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
         mInputLogic.mConnection.setSelection(newPosition, newPosition);
-        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScriptId());
+        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
     }
 
     @Override
@@ -1606,7 +1607,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(),
-                        mKeyboardSwitcher.getCurrentKeyboardScriptId(), mHandler);
+                        mKeyboardSwitcher.getCurrentKeyboardScript(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
@@ -1763,7 +1764,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final InputTransaction completeInputTransaction = mInputLogic.onPickSuggestionManually(
                 mSettings.getCurrent(), suggestionInfo,
                 mKeyboardSwitcher.getKeyboardShiftMode(),
-                mKeyboardSwitcher.getCurrentKeyboardScriptId(),
+                mKeyboardSwitcher.getCurrentKeyboardScript(),
                 mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
     }
@@ -1915,7 +1916,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mInputLogic.onCodeInput(mSettings.getCurrent(), event,
                     mKeyboardSwitcher.getKeyboardShiftMode(),
                     // TODO: this is not necessarily correct for a hardware keyboard right now
-                    mKeyboardSwitcher.getCurrentKeyboardScriptId(),
+                    mKeyboardSwitcher.getCurrentKeyboardScript(),
                     mHandler);
             return true;
         }

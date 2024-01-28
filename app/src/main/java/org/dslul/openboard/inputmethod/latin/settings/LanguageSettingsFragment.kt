@@ -19,8 +19,10 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.getAllAvailableSubtypes
 import org.dslul.openboard.inputmethod.latin.utils.getDictionaryLocales
@@ -32,13 +34,13 @@ import java.util.*
 // not a SettingsFragment, because with androidx.preferences it's very complicated or
 // impossible to have the languages RecyclerView scrollable (this way it works nicely out of the box)
 class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
-    private val sortedSubtypes = LinkedHashMap<String, MutableList<SubtypeInfo>>()
+    private val sortedSubtypesByDisplayName = LinkedHashMap<String, MutableList<SubtypeInfo>>()
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
     private lateinit var languageFilterList: LanguageFilterList
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var systemOnlySwitch: Switch
-    private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()).mapTo(HashSet()) { it.languageConsideringZZ() } }
+    private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()) }
 
     private val dictionaryFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
@@ -62,11 +64,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         systemLocales.addAll(getSystemLocales())
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState) ?: return null
         systemOnlySwitch = view.findViewById(R.id.language_switch)
         systemOnlySwitch.isChecked = sharedPreferences.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
@@ -97,46 +95,47 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     }
 
     private fun loadSubtypes(systemOnly: Boolean) {
-        sortedSubtypes.clear()
+        sortedSubtypesByDisplayName.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
         val allSubtypes = getAllAvailableSubtypes().toMutableList()
-        // todo: re-write this, it's hard to understand
-        //  also consider  that more _ZZ languages might be added
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->
-                val localeString = locale.toString()
                 val iterator = allSubtypes.iterator()
                 var added = false
                 while (iterator.hasNext()) {
                     val subtype = iterator.next()
-                    if (subtype.locale() == localeString) {
+                    if (subtype.locale() == locale) {
+                        // add subtypes with matching locale
                         subtypesToAdd.add(subtype.toSubtypeInfo(locale))
                         iterator.remove()
                         added = true
                     }
                 }
-                // try again, but with language only
+                // if locale has a country try again, but match language and script only
                 if (!added && locale.country.isNotEmpty()) {
-                    val languageString = locale.language
+                    val language = locale.language
+                    val script = locale.script()
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale() == languageString) {
-                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(languageString)))
+                        val subtypeLocale = subtype.locale()
+                        if (subtypeLocale.toLanguageTag() == subtypeLocale.language && subtypeLocale.language == language && script == subtypeLocale.script()) {
+                            // add subtypes using the language only
+                            subtypesToAdd.add(subtype.toSubtypeInfo(language.constructLocale()))
                             iter.remove()
                             added = true
                         }
                     }
                 }
-                // special treatment for the known languages with _ZZ types
-                if (!added && (locale.language == "sr" || locale.language == "hi")) {
-                    val languageString = locale.language
+                // try again if script is not the default script, match language only
+                if (!added && locale.script() != locale.language.constructLocale().script()) {
+                    val language = locale.language
                     val iter = allSubtypes.iterator()
                     while (iter.hasNext()) {
                         val subtype = iter.next()
-                        if (subtype.locale().substringBefore("_") == languageString) {
-                            subtypesToAdd.add(subtype.toSubtypeInfo(LocaleUtils.constructLocaleFromString(subtype.locale())))
+                        if (subtype.locale().language == language) {
+                            subtypesToAdd.add(subtype.toSubtypeInfo(subtype.locale()))
                             iter.remove()
                         }
                     }
@@ -146,12 +145,12 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         }
 
         // add enabled subtypes
-        enabledSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale()), true) }
+        enabledSubtypes.map { it.toSubtypeInfo(it.locale(), true) }
             .sortedBy { it.displayName }.addToSortedSubtypes()
         allSubtypes.removeAll(enabledSubtypes)
 
         if (systemOnly) { // don't add anything else
-            languageFilterList.setLanguages(sortedSubtypes.values, systemOnly)
+            languageFilterList.setLanguages(sortedSubtypesByDisplayName.values, systemOnly)
             return
         }
 
@@ -160,7 +159,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
             if (!dir.isDirectory)
                 return@mapNotNull null
             if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
-                LocaleUtils.constructLocaleFromString(dir.name)
+                dir.name.constructLocale()
             else null
         }
         localesWithDictionary?.sortedAddToSubtypesAndRemoveFromAllSubtypes()
@@ -169,22 +168,22 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         systemLocales.sortedAddToSubtypesAndRemoveFromAllSubtypes()
 
         // add the remaining ones
-        allSubtypes.map { it.toSubtypeInfo(LocaleUtils.constructLocaleFromString(it.locale())) }
-            .sortedBy { if (it.subtype.locale().equals("zz", true))
-                    "zz" // "No language (Alphabet)" should be last
+        allSubtypes.map { it.toSubtypeInfo(it.locale()) }
+            .sortedBy { if (it.subtype.locale().toLanguageTag().equals(SubtypeLocaleUtils.NO_LANGUAGE, true))
+                    SubtypeLocaleUtils.NO_LANGUAGE // "No language (Alphabet)" should be last
                 else it.displayName
             }.addToSortedSubtypes()
 
         // set languages
-        languageFilterList.setLanguages(sortedSubtypes.values, systemOnly)
+        languageFilterList.setLanguages(sortedSubtypesByDisplayName.values, systemOnly)
     }
 
     private fun InputMethodSubtype.toSubtypeInfo(locale: Locale, isEnabled: Boolean = false) =
-        toSubtypeInfo(locale, requireContext(), isEnabled, dictionaryLocales.contains(locale.languageConsideringZZ()))
+        toSubtypeInfo(locale, requireContext(), isEnabled, LocaleUtils.getBestMatch(locale, dictionaryLocales) {it} != null)
 
     private fun List<SubtypeInfo>.addToSortedSubtypes() {
         forEach {
-            sortedSubtypes.getOrPut(it.displayName) { mutableListOf() }.add(it)
+            sortedSubtypesByDisplayName.getOrPut(it.displayName) { mutableListOf() }.add(it)
         }
     }
 
@@ -229,12 +228,5 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
 
 fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean, hasDictionary: Boolean): SubtypeInfo =
     SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled, hasDictionary)
-
-private fun Locale.languageConsideringZZ(): String {
-    return if (country.equals("zz", false))
-        "${language}_zz"
-    else
-        language
-}
 
 const val USER_DICTIONARY_SUFFIX = "user.dict"

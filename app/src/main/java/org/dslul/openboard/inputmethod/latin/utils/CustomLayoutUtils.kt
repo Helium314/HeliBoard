@@ -22,7 +22,7 @@ import java.io.File
 import java.io.IOException
 import java.math.BigInteger
 
-fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded: (String) -> Unit) {
+fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     if (uri == null)
         return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
     val layoutContent: String
@@ -41,10 +41,10 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
-    loadCustomLayout(layoutContent, name, localeString, context, onAdded)
+    loadCustomLayout(layoutContent, name, languageTag, context, onAdded)
 }
 
-fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: String, context: Context, onAdded: (String) -> Unit) {
+fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     var name = layoutName
     val isJson = checkLayout(layoutContent, context)
         ?: return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog(10).lastOrNull { it.tag == TAG }?.message}"))
@@ -60,7 +60,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: St
         })
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
-            name = "$CUSTOM_LAYOUT_PREFIX${localeString}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
+            name = "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
             val file = getFile(name, context)
             if (file.exists())
                 file.delete()

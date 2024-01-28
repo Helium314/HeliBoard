@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -27,6 +28,7 @@ import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
 import java.util.Arrays;
 import java.util.List;
@@ -127,7 +129,7 @@ public class SettingsValues {
     // creation of Colors and SpacingAndPunctuations are the slowest parts in here, but still ok
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
-        mLocale = res.getConfiguration().locale;
+        mLocale = ConfigurationCompatKt.locale(res.getConfiguration());
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -207,7 +209,7 @@ public class SettingsValues {
         } else
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeUtilsKt.locale(selectedSubtype));
         mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMoreMoreKeysPref(prefs)
                 : LocaleKeyTextsKt.MORE_KEYS_NORMAL;

@@ -10,21 +10,20 @@
          explicit keyboard layout. The string resource name must be "subtype_<locale>" or
          "subtype_with_layout_<locale>. Please refer to strings.xml for these resources. -->
     <string-array name="subtype_locale_exception_keys">
-        <item>en_US</item>
-        <item>en_GB</item>
-        <item>es_US</item>
-        <item>hi_ZZ</item>
-        <item>hu_ZZ</item>
-        <item>sr_ZZ</item>
+        <item>en-US</item>
+        <item>en-GB</item>
+        <item>es-US</item>
+        <item>hi-Latn</item>
+        <item>sr-Latn</item>
     </string-array>
 
     <!-- Subtype locale whose name should be displayed in Locale.ROOT. -->
     <string-array name="subtype_locale_displayed_in_root_locale">
-        <item>hi_ZZ</item>
-        <item>sr_ZZ</item>
+        <item>hi-Latn</item>
+        <item>sr-Latn</item>
     </string-array>
-    <string name="subtype_in_root_locale_hi_ZZ" translatable="false" tools:keep="@string/subtype_in_root_locale_hi_ZZ">Hinglish</string>
-    <string name="subtype_in_root_locale_sr_ZZ" translatable="false" tools:keep="@string/subtype_in_root_locale_sr_ZZ">Srpski</string>
+    <string name="subtype_in_root_locale_hi_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_hi_Latn">Hinglish</string>
+    <string name="subtype_in_root_locale_sr_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_sr_Latn">Srpski</string>
 
     <!-- Generic subtype label -->
     <string name="subtype_generic" translatable="false">%s</string>

@@ -6,17 +6,15 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
-import android.os.Build;
 import android.view.inputmethod.InputMethodSubtype;
 
-import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
@@ -33,30 +31,18 @@ import androidx.annotation.Nullable;
 public class RichInputMethodSubtype {
     private static final String TAG = RichInputMethodSubtype.class.getSimpleName();
 
-    // todo: remove this map when switching (rich input) subtype to use language tag
-    private static final HashMap<Locale, Locale> sLocaleMap = initializeLocaleMap();
-    private static HashMap<Locale, Locale> initializeLocaleMap() {
-        final HashMap<Locale, Locale> map = new HashMap<>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Locale#forLanguageTag is available on API Level 21+.
-            // TODO: Remove this workaround once when we become able to deal with "sr-Latn".
-            map.put(Locale.forLanguageTag("sr-Latn"), new Locale("sr", "ZZ"));
-        }
-        return map;
-    }
-
     @NonNull
     private final InputMethodSubtype mSubtype;
     @NonNull
     private final Locale mLocale;
-    @NonNull
-    private final Locale mOriginalLocale;
+    // The subtype is considered RTL if the language of the main subtype is RTL.
+    // Cached because it might get read frequently, e.g. when moving pointer with space bar
+    private final boolean mIsRtl;
 
     public RichInputMethodSubtype(@NonNull final InputMethodSubtype subtype) {
         mSubtype = subtype;
-        mOriginalLocale = InputMethodSubtypeCompatUtils.getLocaleObject(mSubtype);
-        final Locale mappedLocale = sLocaleMap.get(mOriginalLocale);
-        mLocale = mappedLocale != null ? mappedLocale : mOriginalLocale;
+        mLocale = SubtypeUtilsKt.locale(mSubtype);
+        mIsRtl = LocaleUtils.isRtlLanguage(mLocale);
     }
 
     // Extra values are determined by the primary subtype. This is probably right, but
@@ -71,7 +57,7 @@ public class RichInputMethodSubtype {
     }
 
     public boolean isNoLanguage() {
-        return SubtypeLocaleUtils.NO_LANGUAGE.equals(mSubtype.getLocale());
+        return SubtypeLocaleUtils.NO_LANGUAGE.equals(mLocale.getLanguage());
     }
 
     public boolean isCustom() {
@@ -105,7 +91,7 @@ public class RichInputMethodSubtype {
         if (isNoLanguage()) {
             return SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(mSubtype);
         }
-        return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(mSubtype.getLocale());
+        return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(mLocale);
     }
 
     // Get the RichInputMethodSubtype's middle display name in its locale.
@@ -114,7 +100,7 @@ public class RichInputMethodSubtype {
         if (isNoLanguage()) {
             return SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(mSubtype);
         }
-        return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(mSubtype.getLocale());
+        return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(mLocale);
     }
 
     @Override
@@ -141,14 +127,8 @@ public class RichInputMethodSubtype {
         return mLocale;
     }
 
-    @NonNull
-    public Locale getOriginalLocale() {
-        return mOriginalLocale;
-    }
-
     public boolean isRtlSubtype() {
-        // The subtype is considered RTL if the language of the main subtype is RTL.
-        return LocaleUtils.isRtlLanguage(mLocale);
+        return mIsRtl;
     }
 
     // TODO: remove this method
@@ -215,7 +195,7 @@ public class RichInputMethodSubtype {
         RichInputMethodSubtype noLanguageSubtype = sNoLanguageSubtype;
         if (noLanguageSubtype == null) {
             final InputMethodSubtype rawNoLanguageSubtype = RichInputMethodManager.getInstance()
-                    .findSubtypeByLocaleAndKeyboardLayoutSet(SubtypeLocaleUtils.NO_LANGUAGE, SubtypeLocaleUtils.QWERTY);
+                    .findSubtypeByLocaleAndKeyboardLayoutSet(LocaleUtils.constructLocale(SubtypeLocaleUtils.NO_LANGUAGE), SubtypeLocaleUtils.QWERTY);
             if (rawNoLanguageSubtype != null) {
                 noLanguageSubtype = new RichInputMethodSubtype(rawNoLanguageSubtype);
             }

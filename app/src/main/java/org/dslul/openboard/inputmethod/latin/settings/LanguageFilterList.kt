@@ -28,7 +28,6 @@ import org.dslul.openboard.inputmethod.latin.utils.isAdditionalSubtype
 import org.dslul.openboard.inputmethod.latin.utils.locale
 import org.dslul.openboard.inputmethod.latin.utils.removeEnabledSubtype
 import org.dslul.openboard.inputmethod.latin.utils.showMissingDictionaryDialog
-import org.dslul.openboard.inputmethod.latin.utils.toLocale
 
 class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 
@@ -124,7 +123,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     setOnCheckedChangeListener { _, b ->
                         if (b) {
                             if (!infos.first().hasDictionary)
-                                showMissingDictionaryDialog(context, infos.first().subtype.locale().toLocale())
+                                showMissingDictionaryDialog(context, infos.first().subtype.locale())
                             addEnabledSubtype(prefs, infos.first().subtype)
                             infos.first().isEnabled = true
                         } else {

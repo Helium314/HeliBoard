@@ -11,19 +11,20 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
-import org.dslul.openboard.inputmethod.compat.InputMethodSubtypeCompatUtils;
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -293,14 +294,14 @@ public class RichInputMethodManager {
         return keyboardCount > 1;
     }
 
-    public InputMethodSubtype findSubtypeByLocaleAndKeyboardLayoutSet(final String localeString,
+    public InputMethodSubtype findSubtypeByLocaleAndKeyboardLayoutSet(final Locale locale,
             final String keyboardLayoutSetName) {
         final InputMethodInfo myImi = getInputMethodInfoOfThisIme();
         final int count = myImi.getSubtypeCount();
         for (int i = 0; i < count; i++) {
             final InputMethodSubtype subtype = myImi.getSubtypeAt(i);
             final String layoutName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
-            if (localeString.equals(subtype.getLocale())
+            if (locale.equals(SubtypeUtilsKt.locale(subtype))
                     && keyboardLayoutSetName.equals(layoutName)) {
                 return subtype;
             }
@@ -316,7 +317,7 @@ public class RichInputMethodManager {
         // search for exact match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.equals(locale)) {
                 return subtype;
             }
@@ -324,7 +325,7 @@ public class RichInputMethodManager {
         // search for language + country + variant match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage()) &&
                     subtypeLocale.getCountry().equals(locale.getCountry()) &&
                     subtypeLocale.getVariant().equals(locale.getVariant())) {
@@ -334,7 +335,7 @@ public class RichInputMethodManager {
         // search for language + country match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage()) &&
                     subtypeLocale.getCountry().equals(locale.getCountry())) {
                 return subtype;
@@ -344,7 +345,7 @@ public class RichInputMethodManager {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final String subtypeLocale = subtype.getLocale();
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
             for (final Locale secondaryLocale : secondaryLocales) {
                 if (secondaryLocale.equals(locale)) {
@@ -355,7 +356,7 @@ public class RichInputMethodManager {
         // search for language match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             if (subtypeLocale.getLanguage().equals(locale.getLanguage())) {
                 return subtype;
             }
@@ -363,7 +364,7 @@ public class RichInputMethodManager {
         // search for secondary language match
         for (int i = 0; i < count; ++i) {
             final InputMethodSubtype subtype = subtypes.get(i);
-            final String subtypeLocale = subtype.getLocale();
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
             final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
             for (final Locale secondaryLocale : secondaryLocales) {
                 if (secondaryLocale.getLanguage().equals(locale.getLanguage())) {
@@ -374,12 +375,12 @@ public class RichInputMethodManager {
 
         // extra: if current script is not compatible to current subtype, search for compatible script
         // this is acceptable only because this function is only used for switching to a certain locale using EditorInfo.hintLocales
-        final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);
-        if (script != ScriptUtils.getScriptFromSpellCheckerLocale(getCurrentSubtypeLocale())) {
+        final String script = ScriptUtils.script(locale);
+        if (!script.equals(ScriptUtils.script(getCurrentSubtypeLocale()))) {
             for (int i = 0; i < count; ++i) {
                 final InputMethodSubtype subtype = subtypes.get(i);
-                final Locale subtypeLocale = InputMethodSubtypeCompatUtils.getLocaleObject(subtype);
-                if (ScriptUtils.getScriptFromSpellCheckerLocale(subtypeLocale) == script) {
+                final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
+                if (ScriptUtils.script(subtypeLocale).equals(script)) {
                     return subtype;
                 }
             }
@@ -418,7 +419,7 @@ public class RichInputMethodManager {
         final RichInputMethodSubtype richSubtype = mCurrentRichInputMethodSubtype;
         final boolean implicitlyEnabledSubtype = checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
                 richSubtype.getRawSubtype());
-        final Locale systemLocale = mContext.getResources().getConfiguration().locale;
+        final Locale systemLocale = ConfigurationCompatKt.locale(mContext.getResources().getConfiguration());
         LanguageOnSpacebarUtils.onSubtypeChanged(
                 richSubtype, implicitlyEnabledSubtype, systemLocale);
         LanguageOnSpacebarUtils.setEnabledSubtypes(getMyEnabledInputMethodSubtypeList(

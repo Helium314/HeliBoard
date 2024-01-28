@@ -9,16 +9,16 @@ package org.dslul.openboard.inputmethod.latin.spellcheck;
 import android.content.res.Resources;
 import android.os.Binder;
 import android.text.TextUtils;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
 import org.dslul.openboard.inputmethod.latin.NgramContext;
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.SpannableStringUtils;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheckerSession {
     private static final String TAG = AndroidSpellCheckerSession.class.getSimpleName();
@@ -142,10 +142,9 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
         synchronized(this) {
             sentenceLevelAdapter = mSentenceLevelAdapter;
             if (sentenceLevelAdapter == null) {
-                final String localeStr = getLocale();
-                if (!TextUtils.isEmpty(localeStr)) {
-                    sentenceLevelAdapter = new SentenceLevelAdapter(mResources,
-                            new Locale(localeStr));
+                final String localeString = getLocale();
+                if (!TextUtils.isEmpty(localeString)) {
+                    sentenceLevelAdapter = new SentenceLevelAdapter(mResources, LocaleUtils.constructLocale(localeString));
                     mSentenceLevelAdapter = sentenceLevelAdapter;
                 }
             }
