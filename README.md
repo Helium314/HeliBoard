@@ -1,4 +1,5 @@
 # OpenBoard upgrade, WIP
+IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do not submit any PRs until the renaming is done.
 
 ## Plan for actual release
 The plans for major changes are completed, and most features appear to be stable enough for a proper release.
@@ -73,6 +74,7 @@ There will not be any further dictionaries bundled in this app. However, you can
 To create or update a dictionary for your language, you can use [this tool](https://github.com/remi0s/aosp-dictionary-tools). You will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme.
 
 ## Code contribution
+IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do not submit any PRs until the renaming is done.
 
 ### Getting started
 
