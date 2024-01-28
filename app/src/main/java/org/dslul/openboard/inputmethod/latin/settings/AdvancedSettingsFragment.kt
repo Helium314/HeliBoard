@@ -28,6 +28,7 @@ import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
+import org.dslul.openboard.inputmethod.latin.checkVersionUpgrade
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
@@ -322,6 +323,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     }
                 }
             }
+            checkVersionUpgrade(requireContext())
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             activity?.sendBroadcast(newDictBroadcast)
             // reload current prefs screen

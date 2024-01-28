@@ -60,7 +60,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // Settings screens
     public static final String SCREEN_DEBUG = "screen_debug";
     public static final String SCREEN_GESTURE = "screen_gesture";
-    // In the same order as xml/prefs.xml
+
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
     public static final String PREF_SOUND_ON = "sound_on";
@@ -117,7 +117,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "pref_one_handed_mode_gravity_p_";
     public static final String PREF_ONE_HANDED_SCALE_PREFIX = "pref_one_handed_mode_scale_p_";
 
-
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
 
@@ -151,6 +150,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
+    public static final String PREF_VERSION_CODE = "version_code";
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
     public static final String PREF_SHOW_ALL_COLORS = "pref_show_all_colors";
@@ -159,7 +159,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
 
     private Context mContext;
-    private Resources mRes;
     private SharedPreferences mPrefs;
     private SettingsValues mSettingsValues;
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
@@ -196,10 +195,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     private void onCreate(final Context context) {
         mContext = context;
-        mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
-        ToolbarUtilsKt.upgradeToolbarPref(mPrefs);
     }
 
     public void onDestroy() {
