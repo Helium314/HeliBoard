@@ -111,7 +111,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
-        findPreference<Preference>("pref_backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
+        findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
 
         findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {

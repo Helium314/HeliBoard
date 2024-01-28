@@ -16,7 +16,7 @@
     <Preference
         android:title="@string/version"
         android:summary="@string/version_text"
-        android:key="pref_key_version"
+        android:key="version"
         android:icon="@drawable/ic_settings_about"/>
 
     <Preference

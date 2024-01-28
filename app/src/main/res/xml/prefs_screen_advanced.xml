@@ -11,26 +11,26 @@
     android:key="screen_advanced">
 
     <SwitchPreferenceCompat
-        android:key="pref_always_incognito_mode"
+        android:key="always_incognito_mode"
         android:title="@string/incognito"
         android:summary="@string/prefs_force_incognito_mode_summary"
         android:defaultValue="false" />
 
     <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-        android:key="pref_key_longpress_timeout"
+        android:key="key_longpress_timeout"
         android:title="@string/prefs_key_longpress_timeout_settings"
         latin:minValue="@integer/config_min_longpress_timeout"
         latin:maxValue="@integer/config_max_longpress_timeout"
         latin:stepValue="@integer/config_longpress_timeout_step" />
 
     <SwitchPreferenceCompat
-        android:key="pref_space_trackpad"
+        android:key="space_trackpad"
         android:title="@string/space_trackpad"
         android:summary="@string/space_trackpad_summary"
         android:defaultValue="true" />
 
     <SwitchPreferenceCompat
-        android:key="pref_delete_swipe"
+        android:key="delete_swipe"
         android:title="@string/delete_swipe"
         android:summary="@string/delete_swipe_summary"
         android:defaultValue="true" />
@@ -43,21 +43,21 @@
         android:defaultValue="true" />
 
     <SwitchPreferenceCompat
-        android:key="pref_enable_emoji_alt_physical_key"
+        android:key="enable_emoji_alt_physical_key"
         android:title="@string/prefs_enable_emoji_alt_physical_key"
         android:summary="@string/prefs_enable_emoji_alt_physical_key_summary"
         android:defaultValue="true"
         android:persistent="true" />
 
     <SwitchPreferenceCompat
-        android:key="pref_show_setup_wizard_icon"
+        android:key="show_setup_wizard_icon"
         android:title="@string/show_setup_wizard_icon"
         android:summary="@string/show_setup_wizard_icon_summary"
         android:defaultValue="true"
         android:persistent="true" />
 
     <ListPreference
-        android:key="pref_more_more_keys"
+        android:key="more_more_keys"
         android:title="@string/show_more_keys_title"
         android:entries="@array/show_more_keys_entries"
         android:entryValues="@array/show_more_keys_values"
@@ -66,7 +66,7 @@
         android:persistent="true" />
 
     <Preference
-        android:key="pref_backup_restore"
+        android:key="backup_restore"
         android:title="@string/backup_restore_title" />
 
     <PreferenceScreen
@@ -80,13 +80,13 @@
         android:title="@string/settings_category_experimental">
 
         <SwitchPreferenceCompat
-            android:key="pref_space_language_slide"
+            android:key="space_language_slide"
             android:title="@string/space_language_slide"
             android:summary="@string/space_language_slide_summary"
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat
-            android:key="pref_url_detection"
+            android:key="url_detection"
             android:title="@string/url_detection_title"
             android:summary="@string/url_detection_summary"
             android:defaultValue="false" />

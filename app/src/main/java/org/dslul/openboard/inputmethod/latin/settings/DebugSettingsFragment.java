@@ -29,8 +29,8 @@ import org.dslul.openboard.inputmethod.latin.R;
  */
 public final class DebugSettingsFragment extends SubScreenFragment
         implements Preference.OnPreferenceClickListener {
-    private static final String PREF_KEY_DUMP_DICTS = "pref_key_dump_dictionaries";
-    private static final String PREF_KEY_DUMP_DICT_PREFIX = "pref_key_dump_dictionaries";
+    private static final String PREF_KEY_DUMP_DICTS = "dump_dictionaries";
+    private static final String PREF_KEY_DUMP_DICT_PREFIX = "dump_dictionaries";
 
     private boolean mServiceNeedsRestart = false;
     private TwoStatePreference mDebugMode;

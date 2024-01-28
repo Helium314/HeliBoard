@@ -43,7 +43,7 @@ import java.util.concurrent.Semaphore;
 public final class AndroidSpellCheckerService extends SpellCheckerService
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static final String PREF_USE_CONTACTS_KEY = "pref_spellcheck_use_contacts";
+    public static final String PREF_USE_CONTACTS_KEY = "spellcheck_use_contacts";
 
     public static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
     public static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;

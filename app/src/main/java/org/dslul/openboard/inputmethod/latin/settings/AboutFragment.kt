@@ -71,7 +71,7 @@ class AboutFragment : SubScreenFragment() {
     }
 
     private fun setupVersionPref() {
-        val versionPreference = findPreference<Preference>("pref_key_version") ?: return
+        val versionPreference = findPreference<Preference>("version") ?: return
         versionPreference.summary = BuildConfig.VERSION_NAME
         if (BuildConfig.DEBUG) return
         var count = 0
