@@ -246,11 +246,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     val filesDir = requireContext().filesDir?.path ?: return
                     while (entry != null) {
                         if (backupFilePatterns.any { entry!!.name.matches(it) }) {
-                            // todo:
-                            //  does the history work when renaming (sr_ZZ to new) or is there some internal locale mismatch issue?
-                            //   if it works, i could rename the files too
-                            //   probably won't work, but still test it! maybe do sth about the header?
-
                             val targetFileName = upgradeFileNames(entry.name)
                             val file = File(filesDir, targetFileName)
                             FileUtils.copyStreamToNewFile(zip, file)
@@ -299,6 +294,11 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     originalName.replace(localeString, locale.toLanguageTag())
                 else
                     originalName // no valid locale -> must be symbols layout, don't change
+            }
+            originalName.startsWith("UserHistoryDictionary") -> {
+                val localeString = originalName.substringAfter(".").substringBefore(".")
+                val locale = localeString.constructLocale()
+                originalName.replace(localeString, locale.toLanguageTag())
             }
             else -> originalName
         }
