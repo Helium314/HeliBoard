@@ -53,18 +53,18 @@ Features that may go unnoticed, and further potentially useful information
   * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings.
   * When using multilingual typing, space bar will show an confidence value used for determining the currenly used language.
   * Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled)
-* For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings can be read before the device is unlocked, e.g. at boot. The file is located in `/data/user_de/0/package_id/shared_prefs/`, though this may depend on the device and Android version.
+* For users doing manual backups with root access: Starting at Android 7, some files and the main shared preferences file are not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings and layout files can be read before the device is unlocked, e.g. at boot. The files are usually located in `/data/user_de/0/<package_id>/`, though the location may depend on the device and Android version.
 
-# Contribution ❤
+# Contributing ❤
 
 ## Issue reporting
 
 Whether you encountered a bug, or want to see a new feature in OpenBoard, you can contribute to the project by opening a new issue [here](https://github.com/openboard-team/openboard/issues). Your help is always welcome!
 
 Before opening a new issue, be sure to check the following:
- - **Does the issue already exist ?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/openboard/issues). Please search open and closed issues.
- - **Is the issue still relevant ?** Make sure your issue is not already fixed in the latest version of OpenBoard.
- - **Did you use the issue template ?** It is important to make life of our kind contributors easier by avoiding  issues that miss key informations to their resolution.
+ - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/openboard/issues). Please search open and closed issues.
+ - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of OpenBoard.
+ - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding  issues that miss key informations to their resolution.
 
 ## Translation
 Currently there is no simple way of translating the app, but it's coming soon...
@@ -78,13 +78,13 @@ IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do
 
 ### Getting started
 
-OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you'll just need to install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/openboard-team/openboard) (or git SSH [URL](git@github.com:openboard-team/openboard.git)).
+OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you'll just need to install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/openboard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
 
-Once everything got setted up correctly, you're ready to go !
+Once everything got setted up correctly, you're ready to go!
 
 ### Guidelines
 
-OpenBoard is a complex application, when contributing, you must take a step back and make sure your contribution :
+OpenBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
 - **Uses already in-place mechanism and take advantage of them**. In other terms, does not reinvent the wheel or uses shortcuts that could alter the consistency of the existing code.
 - **Has the lowest footprint possible**. OpenBoard code has been written by android experts (AOSP/Google engineers). It has been tested and runned on millions of devices. Thus, **existing code will always be safer than new code**. The less we alter existing code, the more OpenBoard will stay stable. Especially in the input logic scope.
 - **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
