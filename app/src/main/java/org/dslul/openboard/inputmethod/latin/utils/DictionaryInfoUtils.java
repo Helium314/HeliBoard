@@ -51,7 +51,7 @@ public class DictionaryInfoUtils {
         if (codePoint >= 0x30 && codePoint <= 0x39) return true; // Digit
         if (codePoint >= 0x41 && codePoint <= 0x5A) return true; // Uppercase
         if (codePoint >= 0x61 && codePoint <= 0x7A) return true; // Lowercase
-        return codePoint == '_'; // Underscore
+        return codePoint == '_' || codePoint == '-';
     }
 
     /**

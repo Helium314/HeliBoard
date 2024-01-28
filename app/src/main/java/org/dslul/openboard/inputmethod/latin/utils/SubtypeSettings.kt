@@ -243,7 +243,7 @@ private fun removeInvalidCustomSubtypes(context: Context) {
     additionalSubtypes.forEach {
         val name = it.substringAfter(":").substringBefore(":")
         if (!name.startsWith(CUSTOM_LAYOUT_PREFIX)) return@forEach
-        if (name !in customSubtypeFiles)
+        if (customSubtypeFiles?.contains(name) != true)
             subtypesToRemove.add(it)
     }
     if (subtypesToRemove.isEmpty()) return

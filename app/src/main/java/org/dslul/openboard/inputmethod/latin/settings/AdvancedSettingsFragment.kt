@@ -28,6 +28,7 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SystemBroadcastReceiver
 import org.dslul.openboard.inputmethod.latin.common.FileUtils
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference.ValueProxy
 import org.dslul.openboard.inputmethod.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils
@@ -245,7 +246,13 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     val filesDir = requireContext().filesDir?.path ?: return
                     while (entry != null) {
                         if (backupFilePatterns.any { entry!!.name.matches(it) }) {
-                            val file = File(filesDir, entry.name)
+                            // todo:
+                            //  does the history work when renaming (sr_ZZ to new) or is there some internal locale mismatch issue?
+                            //   if it works, i could rename the files too
+                            //   probably won't work, but still test it! maybe do sth about the header?
+
+                            val targetFileName = upgradeFileNames(entry.name)
+                            val file = File(filesDir, targetFileName)
                             FileUtils.copyStreamToNewFile(zip, file)
                         } else if (entry.name == PREFS_FILE_NAME) {
                             val prefLines = String(zip.readBytes()).split("\n")
@@ -257,8 +264,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     }
                 }
             }
-            // todo: might need to upgrade file names from locale string to language tag
-            //  check whether all names or just user-related stuff (user history maybe should not be upgraded?)
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             activity?.sendBroadcast(newDictBroadcast)
             // reload current prefs screen
@@ -269,6 +274,33 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             // inform about every error
             Log.w(TAG, "error during restore", t)
             infoDialog(requireContext(), requireContext().getString(R.string.restore_error, t.message))
+        }
+    }
+
+    // todo (later): remove this when new package name has been in use for long enough, this is only for migrating from old openboard name
+    private fun upgradeFileNames(originalName: String): String {
+        return when {
+            originalName.endsWith(USER_DICTIONARY_SUFFIX) -> {
+                // replace directory after switch to language tag
+                val dirName = originalName.substringAfter(File.separator).substringBefore(File.separator)
+                originalName.replace(dirName, dirName.constructLocale().toLanguageTag())
+            }
+            originalName.startsWith("blacklists") -> {
+                // replace file name after switch to language tag
+                val fileName = originalName.substringAfter("blacklists${File.separator}").substringBefore(".txt")
+                originalName.replace(fileName, fileName.constructLocale().toLanguageTag())
+            }
+            originalName.startsWith("layouts") -> {
+                // replace file name after switch to language tag
+                // but only if it's not a symbols layout
+                val localeString = originalName.substringAfter(".").substringBefore(".")
+                val locale = localeString.constructLocale()
+                if (locale.toLanguageTag() != "und")
+                    originalName.replace(localeString, locale.toLanguageTag())
+                else
+                    originalName // no valid locale -> must be symbols layout, don't change
+            }
+            else -> originalName
         }
     }
 

@@ -151,6 +151,8 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     public static String getDictName(final String name, final Locale locale,
             final File dictFile) {
+        // we could change the default name to use language tag, but this will cause issues with backwards compatibility (file name stored in header)
+        // todo: test it and write down result
         return dictFile != null ? dictFile.getName() : name + "." + locale.toString();
     }
 

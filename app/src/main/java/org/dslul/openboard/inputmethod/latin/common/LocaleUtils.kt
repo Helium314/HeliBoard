@@ -134,6 +134,7 @@ object LocaleUtils {
      * "ll" is a language code, "cc" is a country code.
      * The script may also be part of the locale string, e.g. "ll_cc_#script"
      * Converts "ZZ" regions that used to signal latin script into actual latin script.
+     * "cc" / region should be uppercase and language should be lowercase, this is automatically converted
      */
     @JvmStatic
     fun String.constructLocale(): Locale {
@@ -146,18 +147,20 @@ object LocaleUtils {
                 return locale
             }
             val elements = split("_", limit = 3)
+            val language = elements[0].lowercase()
+            val region = elements.getOrNull(1)?.uppercase()
             val locale = if (elements.size == 1) {
-                Locale(elements[0]) // "zz" works both in constructor and forLanguageTag
+                Locale(language) // "zz" works both in constructor and forLanguageTag
             } else if (elements.size == 2) {
-                if (elements[1].lowercase() == "zz") Locale.forLanguageTag(elements[0] + "-Latn")
-                else Locale(elements[0], elements[1])
-            } else if (elements[1].lowercase() == "zz") { // localeParams.length == 3
-                Locale.Builder().setLanguage(elements[0]).setVariant(elements[2]).setScript("Latn").build()
+                if (region == "ZZ") Locale.forLanguageTag(elements[0] + "-Latn")
+                else Locale(language, region!!)
+            } else if (language == "zz") { // localeParams.length == 3
+                Locale.Builder().setLanguage(language).setVariant(elements[2]).setScript("Latn").build()
             } else if (elements[2].startsWith("#")) {
                 // best guess: elements[2] is a script, e.g. sr-Latn locale to string is sr__#Latn
-                Locale.Builder().setLanguage(elements[0]).setRegion(elements[1]).setScript(elements[2].substringAfter("#")).build()
+                Locale.Builder().setLanguage(language).setRegion(region).setScript(elements[2].substringAfter("#")).build()
             } else {
-                Locale(elements[0], elements[1], elements[2])
+                Locale(language, region!!, elements[2])
             }
             sLocaleCache[this] = locale
             return locale

@@ -120,8 +120,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         final String localeString = getLocale();
 
         if (mLocale == null || !mLocale.toString().equals(localeString)) {
-            final String oldLocal = mLocale == null ? "null" : mLocale.toString();
-            Log.d(TAG, "Updating locale from " + oldLocal + " to " + localeString);
+            final String oldLocale = mLocale == null ? "null" : mLocale.toString();
+            Log.d(TAG, "Updating locale from " + oldLocale + " to " + localeString);
 
             mLocale = (null == localeString) ? null
                     : LocaleUtils.constructLocale(localeString);
