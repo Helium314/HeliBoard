@@ -100,9 +100,14 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         loadImage(uri, true)
     }
 
-    override fun onCreate(icicle: Bundle?) {
-        super.onCreate(icicle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupPreferences()
+    }
+
+    private fun setupPreferences() {
         addPreferencesFromResource(R.xml.prefs_screen_advanced)
+        setDebugPrefVisibility()
         val context = requireContext()
 
         // When we are called from the Settings application but we are not already running, some
@@ -135,6 +140,12 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     override fun onStart() {
         super.onStart()
+        // Remove debug preference. This is already done in onCreate, but if we come back from
+        // debug prefs and have just disabled debug settings, they should disappear.
+        setDebugPrefVisibility()
+    }
+
+    private fun setDebugPrefVisibility() {
         if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
             removePreference(Settings.SCREEN_DEBUG)
         }
@@ -365,7 +376,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             activity?.sendBroadcast(newDictBroadcast)
             // reload current prefs screen
             preferenceScreen.removeAll()
-            onCreate(null)
+            setupPreferences()
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         } catch (t: Throwable) {
             // inform about every error
