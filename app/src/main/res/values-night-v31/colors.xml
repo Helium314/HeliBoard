@@ -14,5 +14,5 @@
     <color name="action_bar_color">@android:color/system_neutral2_800</color>
     <color name="sliding_items_background">@android:color/system_neutral2_800</color>
     <color name="dialog_background">@android:color/system_neutral2_800</color>
-    <color name="drop_down_menu_background">@android:color/system_neutral2_800</color>
+    <color name="drop_down_menu_background">@android:color/system_neutral2_700</color>
 </resources>
