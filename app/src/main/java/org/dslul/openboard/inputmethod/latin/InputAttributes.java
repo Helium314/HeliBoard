@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
 
 /**
  * Class to hold attributes of the input field.
@@ -28,9 +27,10 @@ public final class InputAttributes {
     private final String TAG = InputAttributes.class.getSimpleName();
 
     final public String mTargetApplicationPackageName;
-    final public boolean mInputTypeNoAutoCorrect;
+    final public boolean mInputTypeShouldAutoCorrect;
     final public boolean mIsPasswordField;
     final public boolean mShouldShowSuggestions;
+    final public boolean mMayOverrideShowingSuggestions;
     final public boolean mApplicationSpecifiedCompletionOn;
     final public boolean mShouldInsertSpacesAutomatically;
     final public boolean mShouldShowVoiceInputKey;
@@ -42,7 +42,7 @@ public final class InputAttributes {
      */
     final public boolean mDisableGestureFloatingPreviewText;
     final public boolean mIsGeneralTextInput;
-    final private int mInputType;
+    final public int mInputType;
     final private EditorInfo mEditorInfo;
     final private String mPackageNameForPrivateImeOptions;
 
@@ -72,7 +72,8 @@ public final class InputAttributes {
                         + " imeOptions=0x%08x", inputType, editorInfo.imeOptions));
             }
             mShouldShowSuggestions = false;
-            mInputTypeNoAutoCorrect = false;
+            mMayOverrideShowingSuggestions = false;
+            mInputTypeShouldAutoCorrect = false;
             mApplicationSpecifiedCompletionOn = false;
             mShouldInsertSpacesAutomatically = false;
             mShouldShowVoiceInputKey = false;
@@ -81,6 +82,7 @@ public final class InputAttributes {
             mNoLearning = false;
             return;
         }
+
         // inputClass == InputType.TYPE_CLASS_TEXT
         final int variation = inputType & InputType.TYPE_MASK_VARIATION;
         final boolean flagNoSuggestions = 0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -90,7 +92,8 @@ public final class InputAttributes {
 
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
-        mShouldShowSuggestions = !mIsPasswordField;
+        mShouldShowSuggestions = !mIsPasswordField && !flagNoSuggestions;
+        mMayOverrideShowingSuggestions = !mIsPasswordField;
 
         mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(inputType);
 
@@ -104,14 +107,16 @@ public final class InputAttributes {
         mDisableGestureFloatingPreviewText = InputAttributes.inPrivateImeOptions(
                 mPackageNameForPrivateImeOptions, NO_FLOATING_GESTURE_PREVIEW, editorInfo);
 
-        // If it's a browser edit field and auto correct is not ON explicitly, then
-        // disable auto correction, but keep suggestions on.
-        // If NO_SUGGESTIONS is set, don't do prediction.
-        // If it's not multiline and the autoCorrect flag is not set, then don't correct
-        mInputTypeNoAutoCorrect =
-                (variation == InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT && !flagAutoCorrect)
-                || flagNoSuggestions
-                || (!flagAutoCorrect && !flagMultiLine);
+        // autocorrect if explicitly wanted, but also for most multi-line input types (like AOSP keyboard)
+        // originally, URI and email were always excluded from autocorrect (in Suggest.java), but this is
+        //  and unexpected place, and if the input field explicitly requests autocorrect we should follow the flag
+        mInputTypeShouldAutoCorrect = flagAutoCorrect || (
+                flagMultiLine
+                && variation != InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
+                && variation != InputType.TYPE_TEXT_VARIATION_URI
+                && !InputTypeUtils.isEmailVariation(variation)
+                && !flagNoSuggestions
+        );
 
         mApplicationSpecifiedCompletionOn = flagAutoComplete && isFullscreenMode;
 
@@ -141,12 +146,7 @@ public final class InputAttributes {
     }
 
     private boolean hasNoMicrophoneKeyOption() {
-        @SuppressWarnings("deprecation")
-        final boolean deprecatedNoMicrophone = InputAttributes.inPrivateImeOptions(
-                null, NO_MICROPHONE_COMPAT, mEditorInfo);
-        final boolean noMicrophone = InputAttributes.inPrivateImeOptions(
-                mPackageNameForPrivateImeOptions, NO_MICROPHONE, mEditorInfo);
-        return noMicrophone || deprecatedNoMicrophone;
+        return InputAttributes.inPrivateImeOptions(mPackageNameForPrivateImeOptions, NO_MICROPHONE, mEditorInfo);
     }
 
     @SuppressWarnings("unused")
@@ -277,7 +277,7 @@ public final class InputAttributes {
         return String.format(
                 "%s: inputType=0x%08x%s%s%s%s%s targetApp=%s\n", getClass().getSimpleName(),
                 mInputType,
-                (mInputTypeNoAutoCorrect ? " noAutoCorrect" : ""),
+                (mInputTypeShouldAutoCorrect ? " noAutoCorrect" : ""),
                 (mIsPasswordField ? " password" : ""),
                 (mShouldShowSuggestions ? " shouldShowSuggestions" : ""),
                 (mApplicationSpecifiedCompletionOn ? " appSpecified" : ""),

@@ -23,7 +23,6 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardBuilder;
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardParams;
 import org.dslul.openboard.inputmethod.keyboard.internal.UniqueKeysCache;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
-import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
@@ -35,8 +34,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
-
-import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -101,7 +98,7 @@ public final class KeyboardLayoutSet {
         boolean mIsSpellChecker;
         int mKeyboardWidth;
         int mKeyboardHeight;
-        int mScriptId = ScriptUtils.SCRIPT_LATIN;
+        String mScript = ScriptUtils.SCRIPT_LATIN;
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
         boolean mIsSplitLayoutEnabled;
@@ -205,8 +202,8 @@ public final class KeyboardLayoutSet {
         return keyboard;
     }
 
-    public int getScriptId() {
-        return mParams.mScriptId;
+    public String getScript() {
+        return mParams.mScript;
     }
 
     public static final class Builder {
@@ -248,9 +245,7 @@ public final class KeyboardLayoutSet {
 
         public Builder setSubtype(@NonNull final RichInputMethodSubtype subtype) {
             final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
-            // TODO: Consolidate with {@link InputAttributes}.
-            final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0
-                    || InputAttributes.inPrivateImeOptions(mPackageName, FORCE_ASCII, mParams.mEditorInfo);
+            final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0;
             final RichInputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
                     ? RichInputMethodSubtype.getNoLanguageSubtype()
                     : subtype;
@@ -303,7 +298,7 @@ public final class KeyboardLayoutSet {
         public KeyboardLayoutSet build() {
             if (mParams.mSubtype == null)
                 throw new RuntimeException("KeyboardLayoutSet subtype is not specified");
-            mParams.mScriptId = ScriptUtils.getScriptFromSpellCheckerLocale(mParams.mSubtype.getLocale());
+            mParams.mScript = ScriptUtils.script(mParams.mSubtype.getLocale());
             // todo: the whole parsing stuff below should be removed, but currently
             //  it simply breaks when it's not available
             //  for emojis, moreKeys and moreSuggestions there are relevant parameters included

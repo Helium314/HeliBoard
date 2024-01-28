@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"សំឡេង​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"លេច​ឡើង​នៅ​​ពេល​ចុច​គ្រាប់​ចុច"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"ចំណូលចិត្ត"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"រូបរាង &amp;amp ប្លង់"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"កាយវិការ​បញ្ចូល"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ការ​កែ​​អត្ថបទ"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"កម្រិត​ខ្ពស់"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"​មើល​ពាក្យ​​​ដែល​បាន​ស្នើ​​​ខណៈ​ពេល​កំពុង​ធ្វើ​កាយ​វិការ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"កាយវិការ​​ឃ្លា"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"បញ្ចូល​​ដកឃ្លា​​​អំឡុង​​​កាយវិការ​ ដោយ​រំកិល​ទៅ​គ្រាប់​ចុច​ដកឃ្លា"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ភាសា"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"ជំនួយ &amp; មតិ​ត្រឡប់"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"អង់គ្លេស (​អង់គ្លេស)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"អង់គ្លេស (សហរដ្ឋ​អាមេរិក)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"អេស្ប៉ាញ (សហរដ្ឋ​អាមេរិក​)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"សើប (ឡាតាំង​)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"សើប (ឡាតាំង​)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"អង់គ្លេស (ចក្រភព​អង់គ្លេស) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"អង់គ្លេស (អាមេរិក) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"អេស្ប៉ាញ (អាមេរិក) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"សើប (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"សើប (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (អក្សរ​ពេញ)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (បង្រួម)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"គ្មាន​ភាសា (អក្សរ​ក្រម)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"បង្ហាញ​រូប​កម្មវិធី​នៅ​ក្នុង​កម្ម​​វិធី​ចាប់ផ្ដើម"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"ផ្នែក​បន្ថែម​វចនានុក្រម​​"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"ការ​កំណត់​សម្រាប់​វចនានុក្រម"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"វចនានុក្រម​​​អ្នក​ប្រើ"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"វចនានុក្រម​អ្នកប្រើ"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"វចនានុក្រម​​​អាច​ប្រើ​បាន"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"មាន​បញ្ហា​ក្នុង​ការ​​ភ្ជាប់​ទៅ​​សេវា​កម្ម​វចនានុក្រម"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"គ្មាន​វចនានុក្រម"</string>
@@ -111,27 +106,22 @@
     <string name="last_update" msgid="730467549913588780">"បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"វចនានុក្រម​ចម្បង"</string>
     <string name="settings" msgid="3876892339342569259">"ការ​កំណត់"</string>
-    <string name="delete_dict" msgid="756853268088330054">"លុប"</string>
+    <string name="delete" msgid="756853268088330054">"លុប"</string>
     <string name="version_text" msgid="2715354215568469385">"កំណែ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"បន្ថែម"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"បន្ថែម​ទៅ​វចនានុក្រម"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"ឃ្លា"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"ជម្រើស​ច្រើន"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"ជម្រើស​តិច"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"ពាក្យ៖"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"ផ្លូវកាត់​៖"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ភាសា៖"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"វាយ​បញ្ចូល​ពាក្យ​"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ផ្លូវកាត់​ជា​ជម្រើស"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"កែ​ពាក្យ"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"កែ"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"លុប"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"អ្នកមិនមានពាក្យនៅក្នុងវចនានុក្រមអ្នកប្រើទេ។ ដើម្បីបន្ថែមពាក្យ សូមប៉ះប៊ូតុងបន្ថែម (+)។"</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"សម្រាប់​ភាសា​ទាំងអស់"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ភាសា​ច្រើន​ទៀត…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"លុប"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ប្រើភាសាប្រព័ន្ធ"</string>
     <string name="select_input_method">"ជ្រើស​វិធីសាស្ត្រ​បញ្ចូល"</string>
     <string name="settings_screen_appearance">"រូបរាង"</string>
+    <string name="undo">"មិនធ្វើវិញ"</string>
+    <string name="redo">"ធ្វើវិញ"</string>
 </resources>

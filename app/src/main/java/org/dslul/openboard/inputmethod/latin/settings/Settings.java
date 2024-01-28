@@ -12,15 +12,17 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
-
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
@@ -32,15 +34,19 @@ import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ColorUtilKt;
+import org.dslul.openboard.inputmethod.latin.utils.CustomLayoutUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils;
-import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
+import org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt;
+import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarKey;
 import org.dslul.openboard.inputmethod.latin.utils.ToolbarUtilsKt;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -52,14 +58,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // Settings screens
     public static final String SCREEN_DEBUG = "screen_debug";
     public static final String SCREEN_GESTURE = "screen_gesture";
-    // In the same order as xml/prefs.xml
-    public static final String PREF_AUTO_CAP = "auto_cap";
-    public static final String PREF_VIBRATE_ON = "vibrate_on";
-    public static final String PREF_SOUND_ON = "sound_on";
-    public static final String PREF_POPUP_ON = "popup_on";
+
+    // theme-related stuff
     public static final String PREF_THEME_STYLE = "theme_style";
-    public static final String PREF_THEME_COLORS = "theme_variant";
-    public static final String PREF_THEME_COLORS_NIGHT = "theme_variant_night";
+    public static final String PREF_THEME_COLORS = "theme_colors";
+    public static final String PREF_THEME_COLORS_NIGHT = "theme_colors_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
     public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
@@ -75,68 +78,72 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
-    public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
-    public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
+
+    public static final String PREF_AUTO_CAP = "auto_cap";
+    public static final String PREF_VIBRATE_ON = "vibrate_on";
+    public static final String PREF_SOUND_ON = "sound_on";
+    public static final String PREF_POPUP_ON = "popup_on";
+    public static final String PREF_AUTO_CORRECTION = "auto_correction";
+    public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
+    public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "auto_correction_confidence";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
-    public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "pref_key_use_personalized_dicts";
-    public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "pref_key_use_double_space_period";
-    public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "pref_key_block_potentially_offensive";
-    public static final boolean SHOULD_SHOW_LXX_SUGGESTION_UI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-    public static final String PREF_LANGUAGE_SWITCH_KEY = "pref_language_switch_key";
-    public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
-    public static final String PREF_ADDITIONAL_SUBTYPES = "pref_additional_subtypes";
-    public static final String PREF_ENABLE_SPLIT_KEYBOARD = "pref_split_keyboard";
-    public static final String PREF_SPLIT_SPACER_SCALE = "pref_split_spacer_scale";
-    public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
-    public static final String PREF_BOTTOM_PADDING_SCALE = "pref_bottom_padding_scale";
-    public static final String PREF_SPACE_TRACKPAD = "pref_space_trackpad";
-    public static final String PREF_DELETE_SWIPE = "pref_delete_swipe";
-    public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "pref_autospace_after_punctuation";
-    public static final String PREF_ALWAYS_INCOGNITO_MODE = "pref_always_incognito_mode";
+    public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "always_show_suggestions";
+    public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "use_personalized_dicts";
+    public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "use_double_space_period";
+    public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "block_potentially_offensive";
+    public static final String PREF_LANGUAGE_SWITCH_KEY = "language_switch_key";
+    public static final String PREF_SHOW_EMOJI_KEY = "show_emoji_key";
+    public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
+    public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
+    public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
+    public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
+    public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
+    public static final String PREF_SPACE_TRACKPAD = "space_trackpad";
+    public static final String PREF_DELETE_SWIPE = "delete_swipe";
+    public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
+    public static final String PREF_ALWAYS_INCOGNITO_MODE = "always_incognito_mode";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
     public static final String PREF_GESTURE_INPUT = "gesture_input";
-    public static final String PREF_VIBRATION_DURATION_SETTINGS = "pref_vibration_duration_settings";
-    public static final String PREF_KEYPRESS_SOUND_VOLUME = "pref_keypress_sound_volume";
-    public static final String PREF_KEY_LONGPRESS_TIMEOUT = "pref_key_longpress_timeout";
-    public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "pref_enable_emoji_alt_physical_key";
-    public static final String PREF_GESTURE_PREVIEW_TRAIL = "pref_gesture_preview_trail";
-    public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "pref_gesture_floating_preview_text";
-    public static final String PREF_GESTURE_SPACE_AWARE = "pref_gesture_space_aware";
-    public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
+    public static final String PREF_VIBRATION_DURATION_SETTINGS = "vibration_duration_settings";
+    public static final String PREF_KEYPRESS_SOUND_VOLUME = "keypress_sound_volume";
+    public static final String PREF_KEY_LONGPRESS_TIMEOUT = "key_longpress_timeout";
+    public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "enable_emoji_alt_physical_key";
+    public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
+    public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
+    public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
+    public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
 
-    public static final String PREF_ONE_HANDED_MODE_PREFIX = "pref_one_handed_mode_enabled_p_";
-    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "pref_one_handed_mode_gravity_p_";
-    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "pref_one_handed_mode_scale_p_";
+    // one-handed mode gravity, enablement and scale, stored separately per orientation
+    public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled_p_";
+    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "one_handed_mode_gravity_p_";
+    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "one_handed_mode_scale_p_";
 
+    public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
+    public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
 
-    public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
-    public static final String PREF_LOCALIZED_NUMBER_ROW = "pref_localized_number_row";
-
-    public static final String PREF_SHOW_HINTS = "pref_show_hints";
-    public static final String PREF_MORE_KEYS_ORDER = "pref_more_keys_order";
-    public static final String PREF_MORE_KEYS_LABELS_ORDER = "pref_more_keys_labels_order";
-    public static final String PREF_SHOW_POPUP_HINTS = "pref_show_popup_hints";
-    public static final String PREF_MORE_MORE_KEYS = "pref_more_more_keys";
+    public static final String PREF_SHOW_HINTS = "show_hints";
+    public static final String PREF_MORE_KEYS_ORDER = "more_keys_order";
+    public static final String PREF_MORE_KEYS_LABELS_ORDER = "more_keys_labels_order";
+    public static final String PREF_SHOW_POPUP_HINTS = "show_popup_hints";
+    public static final String PREF_MORE_MORE_KEYS = "more_more_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
-    public static final String PREF_SPACE_LANGUAGE_SLIDE = "pref_space_language_slide";
+    public static final String PREF_SPACE_LANGUAGE_SLIDE = "space_language_slide";
 
-    public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "pref_enable_clipboard_history";
-    public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "pref_clipboard_history_retention_time";
+    public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
+    public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
 
-    public static final String PREF_SECONDARY_LOCALES_PREFIX = "pref_secondary_locales_";
-    public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "pref_add_to_personal_dictionary";
-    public static final String PREF_NAVBAR_COLOR = "pref_navbar_color";
-    public static final String PREF_NARROW_KEY_GAPS = "pref_narrow_key_gaps";
-    public static final String PREF_ENABLED_INPUT_STYLES = "pref_enabled_input_styles";
-    public static final String PREF_SELECTED_INPUT_STYLE = "pref_selected_input_style";
-    public static final String PREF_USE_SYSTEM_LOCALES = "pref_use_system_locales";
-    public static final String PREF_URL_DETECTION = "pref_url_detection";
-
-    public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "pref_dont_show_missing_dict_dialog";
-    public static final String PREF_PINNED_TOOLBAR_KEYS = "pref_pinned_toolbar_keys";
-    public static final String PREF_TOOLBAR_KEYS = "pref_toolbar_keys";
+    public static final String PREF_SECONDARY_LOCALES_PREFIX = "secondary_locales_";
+    public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
+    public static final String PREF_NAVBAR_COLOR = "navbar_color";
+    public static final String PREF_NARROW_KEY_GAPS = "narrow_key_gaps";
+    public static final String PREF_ENABLED_INPUT_STYLES = "enabled_input_styles";
+    public static final String PREF_SELECTED_INPUT_STYLE = "selected_input_style";
+    public static final String PREF_USE_SYSTEM_LOCALES = "use_system_locales";
+    public static final String PREF_URL_DETECTION = "url_detection";
+    public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
+    public static final String PREF_PINNED_TOOLBAR_KEYS = "pinned_toolbar_keys";
+    public static final String PREF_TOOLBAR_KEYS = "toolbar_keys";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -144,18 +151,23 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
+    public static final String PREF_VERSION_CODE = "version_code";
     // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
     public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
-    public static final String PREF_SHOW_ALL_COLORS = "pref_show_all_colors";
+    public static final String PREF_SHOW_ALL_COLORS = "show_all_colors";
+    public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
     private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
 
     private Context mContext;
-    private Resources mRes;
     private SharedPreferences mPrefs;
     private SettingsValues mSettingsValues;
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
+
+    // static cache for background images to avoid potentially slow reload on every settings reload
+    private static Drawable sCachedBackgroundDay;
+    private static Drawable sCachedBackgroundNight;
 
     private static final Settings sInstance = new Settings();
 
@@ -185,10 +197,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     private void onCreate(final Context context) {
         mContext = context;
-        mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
-        ToolbarUtilsKt.upgradeToolbarPref(mPrefs);
     }
 
     public void onDestroy() {
@@ -225,13 +235,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         try {
             final SharedPreferences prefs = mPrefs;
             Log.i(TAG, "loadSettings");
-            final RunInLocale<SettingsValues> job = new RunInLocale<>() {
-                @Override
-                protected SettingsValues job(final Resources res) {
-                    return new SettingsValues(context, prefs, res, inputAttributes);
-                }
-            };
-            mSettingsValues = job.runInLocale(mRes, locale);
+            mSettingsValues = RunInLocaleKt.runInLocale(context, locale,
+                    ctx -> new SettingsValues(ctx, prefs, ctx.getResources(), inputAttributes));
         } finally {
             mSettingsValuesLock.unlock();
         }
@@ -247,13 +252,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     // Accessed from the settings interface, hence public
-    public static boolean readKeypressSoundEnabled(final SharedPreferences prefs,
-                                                   final Resources res) {
+    public static boolean readKeypressSoundEnabled(final SharedPreferences prefs, final Resources res) {
         return prefs.getBoolean(PREF_SOUND_ON, res.getBoolean(R.bool.config_default_sound_enabled));
     }
 
-    public static boolean readVibrationEnabled(final SharedPreferences prefs,
-                                               final Resources res) {
+    public static boolean readVibrationEnabled(final SharedPreferences prefs, final Resources res) {
         return prefs.getBoolean(PREF_VIBRATE_ON, res.getBoolean(R.bool.config_default_vibration_enabled))
                 && AudioAndHapticFeedbackManager.getInstance().hasVibrator();
     }
@@ -262,18 +265,20 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_AUTO_CORRECTION, true);
     }
 
+    public static boolean readMoreAutoCorrectEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_MORE_AUTO_CORRECTION, true);
+    }
+
     public void toggleAutoCorrect() {
         mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !readAutoCorrectEnabled(mPrefs)).apply();
     }
 
-    public static String readAutoCorrectConfidence(final SharedPreferences prefs,
-                                                   final Resources res) {
+    public static String readAutoCorrectConfidence(final SharedPreferences prefs, final Resources res) {
         return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
                 res.getString(R.string.auto_correction_threshold_mode_index_modest));
     }
 
-    public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs,
-                                                        final Resources res) {
+    public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs, final Resources res) {
         return prefs.getBoolean(PREF_BLOCK_POTENTIALLY_OFFENSIVE,
                 res.getBoolean(R.bool.config_block_potentially_offensive));
     }
@@ -286,8 +291,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getBoolean(R.bool.config_enable_show_key_preview_popup_option);
     }
 
-    public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs,
-                                                     final Resources res) {
+    public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
         final boolean defaultKeyPreviewPopup = res.getBoolean(
                 R.bool.config_default_key_preview_popup);
         if (!readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
@@ -305,20 +309,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
 
-    public static String readPrefAdditionalSubtypes(final SharedPreferences prefs,
-                                                    final Resources res) {
+    public static String readPrefAdditionalSubtypes(final SharedPreferences prefs, final Resources res) {
         final String predefinedPrefSubtypes = AdditionalSubtypeUtils.createPrefSubtypes(
                 res.getStringArray(R.array.predefined_subtypes));
         return prefs.getString(PREF_ADDITIONAL_SUBTYPES, predefinedPrefSubtypes);
     }
 
-    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs,
-                                                   final String prefSubtypes) {
+    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
-    public static float readKeypressSoundVolume(final SharedPreferences prefs,
-                                                final Resources res) {
+    public static float readKeypressSoundVolume(final SharedPreferences prefs, final Resources res) {
         final float volume = prefs.getFloat(
                 PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
         return (volume != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? volume
@@ -334,8 +335,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 R.array.keypress_volumes, DEFAULT_KEYPRESS_SOUND_VOLUME));
     }
 
-    public static int readKeyLongpressTimeout(final SharedPreferences prefs,
-                                              final Resources res) {
+    public static int readKeyLongpressTimeout(final SharedPreferences prefs, final Resources res) {
         final int milliseconds = prefs.getInt(
                 PREF_KEY_LONGPRESS_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
@@ -346,8 +346,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_default_longpress_key_timeout);
     }
 
-    public static int readKeypressVibrationDuration(final SharedPreferences prefs,
-                                                    final Resources res) {
+    public static int readKeypressVibrationDuration(final SharedPreferences prefs, final Resources res) {
         final int milliseconds = prefs.getInt(
                 PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
@@ -412,7 +411,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
+                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean portrait) {
@@ -420,7 +420,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void writeOneHandedModeScale(final Float scale) {
-        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
+                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
     }
 
     @SuppressLint("RtlHardcoded")
@@ -429,7 +430,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX + (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
+                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
@@ -508,33 +510,91 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         };
     }
 
-    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString) {
-        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "");
+    public static String readSymbolsLayoutName(final Context context, final Locale locale) {
+        String[] layouts = getLayoutsDir(context).list();
+        if (layouts != null) {
+            for (String name : layouts) {
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "symbols"))
+                    return name;
+            }
+        }
+        return ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_ARABIC) ? "symbols_arabic" : "symbols";
+    }
+
+    public static String readShiftedSymbolsLayoutName(final Context context) {
+        String[] layouts = getLayoutsDir(context).list();
+        if (layouts != null) {
+            for (String name : layouts) {
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shift_symbols"))
+                    return name;
+            }
+        }
+        return "symbols_shifted";
+    }
+
+    public static File getLayoutsDir(final Context context) {
+        return new File(DeviceProtectedUtils.getDeviceProtectedContext(context).getFilesDir(), "layouts");
+    }
+
+    @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
+        if (night && sCachedBackgroundNight != null) return sCachedBackgroundNight;
+        if (!night && sCachedBackgroundDay != null) return sCachedBackgroundDay;
+        final File image = getCustomBackgroundFile(context, night);
+        if (!image.isFile()) return null;
+        try {
+            if (night) {
+                sCachedBackgroundNight = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
+                return sCachedBackgroundNight;
+            } else {
+                sCachedBackgroundDay = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
+                return sCachedBackgroundDay;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static File getCustomBackgroundFile(final Context context, final boolean night) {
+        return new File(DeviceProtectedUtils.getDeviceProtectedContext(context).getFilesDir(),
+                "custom_background_image" + (night ? "_night" : ""));
+    }
+
+    public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {
+        return prefs.getBoolean(PREF_THEME_DAY_NIGHT, res.getBoolean(R.bool.day_night_default));
+    }
+
+    public static void clearCachedBackgroundImages() {
+        sCachedBackgroundDay = null;
+        sCachedBackgroundNight = null;
+    }
+
+    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {
+        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "");
 
         final ArrayList<Locale> locales = new ArrayList<>();
-        for (String locale : localesString.split(";")) {
-            if (locale.isEmpty()) continue;
-            locales.add(LocaleUtils.constructLocaleFromString(locale));
+        for (String languageTag : localesString.split(";")) {
+            if (languageTag.isEmpty()) continue;
+            locales.add(LocaleUtils.constructLocale(languageTag));
         }
         return locales;
     }
 
-    public static void setSecondaryLocales(final SharedPreferences prefs, final String mainLocaleString, final List<String> locales) {
+    public static void setSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale, final List<Locale> locales) {
         if (locales.isEmpty()) {
-            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), "").apply();
+            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale, "").apply();
             return;
         }
         final StringBuilder sb = new StringBuilder();
-        for (String locale : locales) {
-            sb.append(";").append(locale);
+        for (Locale locale : locales) {
+            sb.append(";").append(locale.toLanguageTag());
         }
-        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocaleString.toLowerCase(Locale.ROOT), sb.toString()).apply();
+        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale, sb.toString()).apply();
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (prefs.getBoolean(PREF_FORCE_OPPOSITE_THEME, false)) isNight = !isNight;
-        final String themeColors = (isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, context.getResources().getBoolean(R.bool.day_night_default)))
+        final String themeColors = (isNight && readDayNightPref(prefs, context.getResources()))
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARKER)
                 : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);

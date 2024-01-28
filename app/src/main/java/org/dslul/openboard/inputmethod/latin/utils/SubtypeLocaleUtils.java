@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.inputmethod.InputMethodSubtype;
 
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
@@ -96,36 +97,37 @@ public final class SubtypeLocaleUtils {
         }
 
         final String[] exceptionalLocaleInRootLocale = res.getStringArray(R.array.subtype_locale_displayed_in_root_locale);
-        for (final String localeString : exceptionalLocaleInRootLocale) {
-            final String resourceName = SUBTYPE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX + localeString;
+        for (final String languageTag : exceptionalLocaleInRootLocale) {
+            final String resourceName = SUBTYPE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX + languageTag.replace('-', '_');
             final int resId = res.getIdentifier(resourceName, null, RESOURCE_PACKAGE_NAME);
-            sExceptionalLocaleDisplayedInRootLocale.put(localeString, resId);
+            sExceptionalLocaleDisplayedInRootLocale.put(languageTag, resId);
         }
 
         final String[] exceptionalLocales = res.getStringArray(R.array.subtype_locale_exception_keys);
-        for (final String localeString : exceptionalLocales) {
-            final String resourceName = SUBTYPE_NAME_RESOURCE_PREFIX + localeString;
+        for (final String languageTag : exceptionalLocales) {
+            final String resourceName = SUBTYPE_NAME_RESOURCE_PREFIX + languageTag.replace('-', '_');
             final int resId = res.getIdentifier(resourceName, null, RESOURCE_PACKAGE_NAME);
-            sExceptionalLocaleToNameIdsMap.put(localeString, resId);
-            final String resourceNameWithLayout = SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX + localeString;
+            sExceptionalLocaleToNameIdsMap.put(languageTag, resId);
+            final String resourceNameWithLayout = SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX + languageTag.replace('-', '_');
             final int resIdWithLayout = res.getIdentifier(resourceNameWithLayout, null, RESOURCE_PACKAGE_NAME);
-            sExceptionalLocaleToWithLayoutNameIdsMap.put(localeString, resIdWithLayout);
+            sExceptionalLocaleToWithLayoutNameIdsMap.put(languageTag, resIdWithLayout);
         }
     }
 
-    public static boolean isExceptionalLocale(final String localeString) {
-        return sExceptionalLocaleToNameIdsMap.containsKey(localeString);
+    public static boolean isExceptionalLocale(final Locale locale) {
+        return sExceptionalLocaleToNameIdsMap.containsKey(locale.toLanguageTag());
     }
 
-    private static final String getNoLanguageLayoutKey(final String keyboardLayoutName) {
+    private static String getNoLanguageLayoutKey(final String keyboardLayoutName) {
         return NO_LANGUAGE + "_" + keyboardLayoutName;
     }
 
-    public static int getSubtypeNameId(final String localeString, final String keyboardLayoutName) {
-        if (isExceptionalLocale(localeString)) {
-            return sExceptionalLocaleToWithLayoutNameIdsMap.get(localeString);
+    public static int getSubtypeNameId(final Locale locale, final String keyboardLayoutName) {
+        final String languageTag = locale.toLanguageTag();
+        if (isExceptionalLocale(locale)) {
+            return sExceptionalLocaleToWithLayoutNameIdsMap.get(languageTag);
         }
-        final String key = NO_LANGUAGE.equals(localeString)
+        final String key = NO_LANGUAGE.equals(languageTag)
                 ? getNoLanguageLayoutKey(keyboardLayoutName)
                 : keyboardLayoutName;
         final Integer nameId = sKeyboardLayoutToNameIdsMap.get(key);
@@ -133,69 +135,63 @@ public final class SubtypeLocaleUtils {
     }
 
     @NonNull
-    public static Locale getDisplayLocaleOfSubtypeLocale(@NonNull final String localeString) {
-        if (NO_LANGUAGE.equals(localeString)) {
-            return sResources.getConfiguration().locale;
+    public static Locale getDisplayLocaleOfSubtypeLocale(@NonNull final Locale locale) {
+        final String languageTag = locale.toLanguageTag();
+        if (NO_LANGUAGE.equals(languageTag)) {
+            return ConfigurationCompatKt.locale(sResources.getConfiguration());
         }
-        if (sExceptionalLocaleDisplayedInRootLocale.containsKey(localeString)) {
+        if (sExceptionalLocaleDisplayedInRootLocale.containsKey(languageTag)) {
             return Locale.ROOT;
         }
-        return LocaleUtils.constructLocaleFromString(localeString);
+        return locale;
     }
 
-    public static String getSubtypeLocaleDisplayNameInSystemLocale(
-            @NonNull final String localeString) {
-        final Locale displayLocale = sResources.getConfiguration().locale;
-        return getSubtypeLocaleDisplayNameInternal(localeString, displayLocale);
-    }
-
-    @NonNull
-    public static String getSubtypeLocaleDisplayName(@NonNull final String localeString) {
-        final Locale displayLocale = getDisplayLocaleOfSubtypeLocale(localeString);
-        return getSubtypeLocaleDisplayNameInternal(localeString, displayLocale);
+    public static String getSubtypeLocaleDisplayNameInSystemLocale(@NonNull final Locale locale) {
+        final Locale displayLocale = ConfigurationCompatKt.locale(sResources.getConfiguration());
+        return getSubtypeLocaleDisplayNameInternal(locale, displayLocale);
     }
 
     @NonNull
-    public static String getSubtypeLanguageDisplayName(@NonNull final String localeString) {
-        final Locale displayLocale = getDisplayLocaleOfSubtypeLocale(localeString);
-        final String languageString;
-        if (sExceptionalLocaleDisplayedInRootLocale.containsKey(localeString)) {
-            languageString = localeString;
+    public static String getSubtypeLocaleDisplayName(@NonNull final Locale locale) {
+        final Locale displayLocale = getDisplayLocaleOfSubtypeLocale(locale);
+        return getSubtypeLocaleDisplayNameInternal(locale, displayLocale);
+    }
+
+    @NonNull
+    public static String getSubtypeLanguageDisplayName(@NonNull final Locale locale) {
+        final Locale displayLocale = getDisplayLocaleOfSubtypeLocale(locale);
+        final Locale languageLocale;
+        if (sExceptionalLocaleDisplayedInRootLocale.containsKey(locale.toLanguageTag())) {
+            languageLocale = locale;
         } else {
-            languageString = LocaleUtils.constructLocaleFromString(localeString).getLanguage();
+            languageLocale = LocaleUtils.constructLocale(locale.getLanguage());
         }
-        return getSubtypeLocaleDisplayNameInternal(languageString, displayLocale);
+        return getSubtypeLocaleDisplayNameInternal(languageLocale, displayLocale);
     }
 
     @NonNull
-    private static String getSubtypeLocaleDisplayNameInternal(@NonNull final String localeString,
+    private static String getSubtypeLocaleDisplayNameInternal(@NonNull final Locale locale,
             @NonNull final Locale displayLocale) {
-        if (NO_LANGUAGE.equals(localeString)) {
+        final String languageTag = locale.toLanguageTag();
+        if (NO_LANGUAGE.equals(locale.toLanguageTag())) {
             // No language subtype should be displayed in system locale.
             return sResources.getString(R.string.subtype_no_language);
         }
         final Integer exceptionalNameResId;
         if (displayLocale.equals(Locale.ROOT)
-                && sExceptionalLocaleDisplayedInRootLocale.containsKey(localeString)) {
-            exceptionalNameResId = sExceptionalLocaleDisplayedInRootLocale.get(localeString);
-        } else if (sExceptionalLocaleToNameIdsMap.containsKey(localeString)) {
-            exceptionalNameResId = sExceptionalLocaleToNameIdsMap.get(localeString);
+                && sExceptionalLocaleDisplayedInRootLocale.containsKey(languageTag)) {
+            exceptionalNameResId = sExceptionalLocaleDisplayedInRootLocale.get(languageTag);
+        } else if (sExceptionalLocaleToNameIdsMap.containsKey(languageTag)) {
+            exceptionalNameResId = sExceptionalLocaleToNameIdsMap.get(languageTag);
         } else {
             exceptionalNameResId = null;
         }
 
         final String displayName;
         if (exceptionalNameResId != null) {
-            final RunInLocale<String> getExceptionalName = new RunInLocale<String>() {
-                @Override
-                protected String job(final Resources res) {
-                    return res.getString(exceptionalNameResId);
-                }
-            };
-            displayName = getExceptionalName.runInLocale(sResources, displayLocale);
+            displayName = RunInLocaleKt.runInLocale(sResources, displayLocale, res -> res.getString(exceptionalNameResId));
         } else {
-            displayName = LocaleUtils.constructLocaleFromString(localeString)
-                    .getDisplayName(displayLocale);
+            displayName = locale.getDisplayName(displayLocale);
         }
         return StringUtils.capitalizeFirstCodePoint(displayName, displayLocale);
     }
@@ -224,13 +220,13 @@ public final class SubtypeLocaleUtils {
         if (subtype.containsExtraValueKey(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)) {
             return subtype.getExtraValueOf(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME);
         }
-        return getSubtypeLocaleDisplayNameInternal(subtype.getLocale(), displayLocale);
+        return getSubtypeLocaleDisplayNameInternal(SubtypeUtilsKt.locale(subtype), displayLocale);
     }
 
     @NonNull
     public static String getSubtypeDisplayNameInSystemLocale(
             @NonNull final InputMethodSubtype subtype) {
-        final Locale displayLocale = sResources.getConfiguration().locale;
+        final Locale displayLocale = ConfigurationCompatKt.locale(sResources.getConfiguration());
         return getSubtypeDisplayNameInternal(subtype, displayLocale);
     }
 
@@ -239,7 +235,7 @@ public final class SubtypeLocaleUtils {
         if (subtype == null) {
             return "<null subtype>";
         }
-        return getSubtypeLocale(subtype) + "/" + getKeyboardLayoutSetName(subtype);
+        return SubtypeUtilsKt.locale(subtype) + "/" + getKeyboardLayoutSetName(subtype);
     }
 
     @NonNull
@@ -248,11 +244,10 @@ public final class SubtypeLocaleUtils {
         final String replacementString = getReplacementString(subtype, displayLocale);
         // TODO: rework this for multi-lingual subtypes
         final int nameResId = subtype.getNameResId();
-        final RunInLocale<String> getSubtypeName = new RunInLocale<String>() {
-            @Override
-            protected String job(final Resources res) {
+        return RunInLocaleKt.runInLocale(sResources, displayLocale,
+            res -> {
                 try {
-                    return res.getString(nameResId, replacementString);
+                    return StringUtils.capitalizeFirstCodePoint(res.getString(nameResId, replacementString), displayLocale);
                 } catch (Resources.NotFoundException e) {
                     // TODO: Remove this catch when InputMethodManager.getCurrentInputMethodSubtype
                     // is fixed.
@@ -263,16 +258,7 @@ public final class SubtypeLocaleUtils {
                             + "\n" + DebugLogUtils.getStackTrace());
                     return "";
                 }
-            }
-        };
-        return StringUtils.capitalizeFirstCodePoint(
-                getSubtypeName.runInLocale(sResources, displayLocale), displayLocale);
-    }
-
-    @NonNull
-    public static Locale getSubtypeLocale(@NonNull final InputMethodSubtype subtype) {
-        final String localeString = subtype.getLocale();
-        return LocaleUtils.constructLocaleFromString(localeString);
+            });
     }
 
     @Nullable

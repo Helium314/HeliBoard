@@ -31,7 +31,6 @@ import org.dslul.openboard.inputmethod.latin.LatinIME;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.WordComposer;
-import org.dslul.openboard.inputmethod.latin.define.ProductionFlags;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.utils.CapsModeUtils;
@@ -549,8 +548,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public View onCreateInputView(@NonNull Context displayContext,
-                                  final boolean isHardwareAcceleratedDrawingEnabled) {
+    @SuppressLint("InflateParams")
+    public View onCreateInputView(@NonNull Context displayContext, final boolean isHardwareAcceleratedDrawingEnabled) {
         if (mKeyboardView != null) {
             mKeyboardView.closing();
         }
@@ -573,9 +572,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
         mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
-        // todo: try delaying, it's not needed at this point
-        //  but when initializing right before showing, selected emoji category is not colored correctly
-        mEmojiPalettesView.initialize();
 
         return mCurrentInputView;
     }
@@ -598,11 +594,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public int getCurrentKeyboardScriptId() {
+    public String getCurrentKeyboardScript() {
         if (null == mKeyboardLayoutSet) {
             return ScriptUtils.SCRIPT_UNKNOWN;
         }
-        return mKeyboardLayoutSet.getScriptId();
+        return mKeyboardLayoutSet.getScript();
     }
 
     public void switchToSubtype(InputMethodSubtype subtype) {

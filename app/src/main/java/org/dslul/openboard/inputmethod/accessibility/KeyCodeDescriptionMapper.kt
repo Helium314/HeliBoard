@@ -17,7 +17,6 @@ import org.dslul.openboard.inputmethod.keyboard.KeyboardId
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.common.StringUtils
-import java.util.*
 
 internal class KeyCodeDescriptionMapper private constructor() {
     // Sparse array of spoken description resource IDs indexed by key codes
@@ -73,9 +72,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
             return getDescriptionForActionKey(context, keyboard, key)
         }
         if (code == Constants.CODE_OUTPUT_TEXT) {
-            val outputText = key.outputText ?: return context.getString(R.string.spoken_description_unknown)
-            val description = getSpokenEmoticonDescription(context, outputText)
-            return if (TextUtils.isEmpty(description)) outputText else description
+            return key.outputText ?: context.getString(R.string.spoken_description_unknown)
         }
         // Just attempt to speak the description.
         if (code != Constants.CODE_UNSPECIFIED) {
@@ -110,83 +107,13 @@ internal class KeyCodeDescriptionMapper private constructor() {
         if (index >= 0) {
             return context.getString(mKeyCodeMap.valueAt(index))
         }
-        val accentedLetter = getSpokenAccentedLetterDescription(context, codePoint)
-        if (accentedLetter != null) {
-            return accentedLetter
-        }
-        // Here, <code>code</code> may be a base (non-accented) letter.
-        val unsupportedSymbol = getSpokenSymbolDescription(context, codePoint)
-        if (unsupportedSymbol != null) {
-            return unsupportedSymbol
-        }
-        val emojiDescription = getSpokenEmojiDescription(context, codePoint)
-        if (emojiDescription != null) {
-            return emojiDescription
-        }
         return if (Character.isDefined(codePoint) && !Character.isISOControl(codePoint)) {
             StringUtils.newSingleCodePointString(codePoint)
         } else null
     }
 
-    // TODO: Remove this method once TTS supports those accented letters' verbalization.
-    private fun getSpokenAccentedLetterDescription(context: Context, code: Int): String? {
-        val isUpperCase = Character.isUpperCase(code)
-        val baseCode = if (isUpperCase) Character.toLowerCase(code) else code
-        val baseIndex = mKeyCodeMap.indexOfKey(baseCode)
-        val resId = if (baseIndex >= 0) mKeyCodeMap.valueAt(baseIndex) else getSpokenDescriptionId(context, baseCode, SPOKEN_LETTER_RESOURCE_NAME_FORMAT)
-        if (resId == 0) {
-            return null
-        }
-        val spokenText = context.getString(resId)
-        return if (isUpperCase) context.getString(R.string.spoken_description_upper_case, spokenText) else spokenText
-    }
-
-    // TODO: Remove this method once TTS supports those symbols' verbalization.
-    private fun getSpokenSymbolDescription(context: Context, code: Int): String? {
-        val resId = getSpokenDescriptionId(context, code, SPOKEN_SYMBOL_RESOURCE_NAME_FORMAT)
-        if (resId == 0) {
-            return null
-        }
-        val spokenText = context.getString(resId)
-        return if (!TextUtils.isEmpty(spokenText)) {
-            spokenText
-        } else context.getString(R.string.spoken_symbol_unknown)
-        // If a translated description is empty, fall back to unknown symbol description.
-    }
-
-    // TODO: Remove this method once TTS supports emoji verbalization.
-    private fun getSpokenEmojiDescription(context: Context, code: Int): String? {
-        val resId = getSpokenDescriptionId(context, code, SPOKEN_EMOJI_RESOURCE_NAME_FORMAT)
-        if (resId == 0) {
-            return null
-        }
-        val spokenText = context.getString(resId)
-        return if (!TextUtils.isEmpty(spokenText)) {
-            spokenText
-        } else context.getString(R.string.spoken_emoji_unknown)
-        // If a translated description is empty, fall back to unknown emoji description.
-    }
-
-    private fun getSpokenDescriptionId(context: Context, code: Int,
-                                       resourceNameFormat: String): Int {
-        val resourceName = String.format(Locale.ROOT, resourceNameFormat, code)
-        val resources = context.resources
-        // Note that the resource package name may differ from the context package name.
-        val resourcePackageName = resources.getResourcePackageName(R.string.spoken_description_unknown)
-        val resId = resources.getIdentifier(resourceName, "string", resourcePackageName)
-        if (resId != 0) {
-            mKeyCodeMap.append(code, resId)
-        }
-        return resId
-    }
-
     companion object {
         private val TAG = KeyCodeDescriptionMapper::class.java.simpleName
-        private const val SPOKEN_LETTER_RESOURCE_NAME_FORMAT = "spoken_accented_letter_%04X"
-        private const val SPOKEN_SYMBOL_RESOURCE_NAME_FORMAT = "spoken_symbol_%04X"
-        private const val SPOKEN_EMOJI_RESOURCE_NAME_FORMAT = "spoken_emoji_%04X"
-        private const val SPOKEN_EMOTICON_RESOURCE_NAME_PREFIX = "spoken_emoticon"
-        private const val SPOKEN_EMOTICON_CODE_POINT_FORMAT = "_%02X"
         // The resource ID of the string spoken for obscured keys
         private val OBSCURED_KEY_RES_ID = R.string.spoken_description_dot
         val instance = KeyCodeDescriptionMapper()
@@ -255,24 +182,6 @@ internal class KeyCodeDescriptionMapper private constructor() {
                 else -> R.string.spoken_description_return
             }
             return context.getString(resId)
-        }
-
-        // TODO: Remove this method once TTS supports emoticon verbalization.
-        private fun getSpokenEmoticonDescription(context: Context, outputText: String): String? {
-            val sb = StringBuilder(SPOKEN_EMOTICON_RESOURCE_NAME_PREFIX)
-            val textLength = outputText.length
-            var index = 0
-            while (index < textLength) {
-                val codePoint = outputText.codePointAt(index)
-                sb.append(String.format(Locale.ROOT, SPOKEN_EMOTICON_CODE_POINT_FORMAT, codePoint))
-                index = outputText.offsetByCodePoints(index, 1)
-            }
-            val resourceName = sb.toString()
-            val resources = context.resources
-            // Note that the resource package name may differ from the context package name.
-            val resourcePackageName = resources.getResourcePackageName(R.string.spoken_description_unknown)
-            val resId = resources.getIdentifier(resourceName, "string", resourcePackageName)
-            return if (resId == 0) null else resources.getString(resId)
         }
     }
 

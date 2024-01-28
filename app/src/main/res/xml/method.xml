@@ -44,6 +44,7 @@
     fr_CA: French (Canada)/qwerty
     fr_CH: French (Switzerland)/qwertz+
     gl_ES: Galician (Spain)/qwerty+
+    gu: Gujarati/gujarati
     hi: Hindi/hindi
     hi: Hindi/hindi_compact
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
@@ -421,6 +422,15 @@
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
+            android:subtypeId="0x39713b7f"
+            android:imeSubtypeLocale="gu"
+            android:languageTag="gu"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=gujarati,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+        <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic"
             android:subtypeId="0x39753b7f"
             android:imeSubtypeLocale="hi"
             android:languageTag="hi"
@@ -441,10 +451,10 @@
                This isn't based on the final specification.
                Was disabled because there is no LM yet, and this layout does not offer anything different. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
-            android:label="@string/subtype_hi_ZZ"
+            android:label="@string/subtype_hi_Latn"
             android:subtypeId="0x352eb37c"
             android:imeSubtypeLocale="hi_ZZ"
-            android:languageTag="hi-ZZ"
+            android:languageTag="hi-Latn"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
@@ -807,7 +817,7 @@
     <!-- This Serbian Latin keyboard is a preliminary layout.
                This isn't based on the final specification. -->
     <subtype android:icon="@drawable/ic_ime_switcher"
-            android:label="@string/subtype_sr_ZZ"
+            android:label="@string/subtype_sr_Latn"
             android:subtypeId="0xf4a5569c"
             android:imeSubtypeLocale="sr_ZZ"
             android:languageTag="sr-Latn"
@@ -885,7 +895,7 @@
             android:label="@string/subtype_generic"
             android:subtypeId="0xf08285ef"
             android:imeSubtypeLocale="tl"
-            android:languageTag="fil"
+            android:languageTag="tl"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty+,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"

@@ -13,8 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -28,7 +28,6 @@ import org.dslul.openboard.inputmethod.latin.utils.isAdditionalSubtype
 import org.dslul.openboard.inputmethod.latin.utils.locale
 import org.dslul.openboard.inputmethod.latin.utils.removeEnabledSubtype
 import org.dslul.openboard.inputmethod.latin.utils.showMissingDictionaryDialog
-import org.dslul.openboard.inputmethod.latin.utils.toLocale
 
 class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 
@@ -114,7 +113,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                         else isVisible = true
                 }
 
-                view.findViewById<SwitchCompat>(R.id.language_switch).apply {
+                view.findViewById<Switch>(R.id.language_switch).apply {
                     isEnabled = !onlySystemLocales
                     // take care: isChecked changes if the language is scrolled out of view and comes back!
                     // disable the change listener when setting the checked status on scroll
@@ -124,7 +123,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     setOnCheckedChangeListener { _, b ->
                         if (b) {
                             if (!infos.first().hasDictionary)
-                                showMissingDictionaryDialog(context, infos.first().subtype.locale().toLocale())
+                                showMissingDictionaryDialog(context, infos.first().subtype.locale())
                             addEnabledSubtype(prefs, infos.first().subtype)
                             infos.first().isEnabled = true
                         } else {

@@ -95,10 +95,9 @@ class KeyboardWrapperView @JvmOverloads constructor(
         colors.setColor(stopOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
         colors.setColor(switchOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
         colors.setColor(resizeOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
-        colors.setBackground(stopOneHandedModeBtn, ColorType.BACKGROUND)
-        colors.setBackground(switchOneHandedModeBtn, ColorType.BACKGROUND)
-        colors.setBackground(resizeOneHandedModeBtn, ColorType.BACKGROUND)
-        colors.setBackground(this, ColorType.KEYBOARD_WRAPPER_BACKGROUND)
+        colors.setBackground(stopOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
+        colors.setBackground(switchOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
+        colors.setBackground(resizeOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
     }
 
     @SuppressLint("RtlHardcoded")

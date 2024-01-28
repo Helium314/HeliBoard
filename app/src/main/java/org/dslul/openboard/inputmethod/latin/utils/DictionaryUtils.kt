@@ -8,8 +8,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
-import org.dslul.openboard.inputmethod.latin.BinaryDictionaryGetter
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.common.LocaleUtils.constructLocale
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.File
 import java.util.*
@@ -24,19 +24,15 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
         for (directory in cachedDirectoryList) {
             if (!directory.isDirectory) continue
             if (!hasAnythingOtherThanExtractedMainDictionary(directory)) continue
-            val dirLocale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name)
-            val locale = dirLocale.toLocale()
+            val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
             locales.add(locale)
         }
     }
     // get assets dictionaries
-    val assetsDictionaryList = BinaryDictionaryGetter.getAssetsDictionaryList(context)
+    val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
     if (assetsDictionaryList != null) {
         for (dictionary in assetsDictionaryList) {
-            val dictLocale =
-                BinaryDictionaryGetter.extractLocaleFromAssetsDictionaryFile(dictionary)
-                    ?: continue
-            val locale = dictLocale.toLocale()
+            val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)?.constructLocale() ?: continue
             locales.add(locale)
         }
     }
@@ -73,15 +69,15 @@ fun cleanUnusedMainDicts(context: Context) {
     val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val usedLocales = hashSetOf<String>()
+    val usedLocaleLanguageTags = hashSetOf<String>()
     getEnabledSubtypes(prefs).forEach {
         val locale = it.locale()
-        usedLocales.add(locale)
-        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocales.add(it.toString().lowercase()) }
+        usedLocaleLanguageTags.add(locale.toLanguageTag())
+        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
     }
     for (dir in dirs) {
         if (!dir.isDirectory) continue
-        if (dir.name in usedLocales) continue
+        if (dir.name in usedLocaleLanguageTags) continue
         if (hasAnythingOtherThanExtractedMainDictionary(dir))
             continue
         dir.deleteRecursively()
@@ -89,6 +85,6 @@ fun cleanUnusedMainDicts(context: Context) {
 }
 
 private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
-    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getMainDictFilename(dir.name) } != false
+    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getExtractedMainDictFilename() } != false
 
 const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"

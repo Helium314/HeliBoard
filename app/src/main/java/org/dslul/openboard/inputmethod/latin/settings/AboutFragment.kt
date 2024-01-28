@@ -7,8 +7,6 @@ package org.dslul.openboard.inputmethod.latin.settings
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -16,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
@@ -30,15 +27,6 @@ class AboutFragment : SubScreenFragment() {
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         addPreferencesFromResource(R.xml.prefs_screen_about)
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // need to set icon tint because old android versions don't use the vector drawables
-            for (i in 0 until preferenceScreen.preferenceCount) {
-                val p = preferenceScreen.getPreference(0)
-                val icon = p.icon
-                if (icon != null) DrawableCompat.setTint(icon, Color.WHITE)
-            }
-        }
 
         setupHiddenFeatures()
         setupVersionPref()
@@ -83,7 +71,7 @@ class AboutFragment : SubScreenFragment() {
     }
 
     private fun setupVersionPref() {
-        val versionPreference = findPreference<Preference>("pref_key_version") ?: return
+        val versionPreference = findPreference<Preference>("version") ?: return
         versionPreference.summary = BuildConfig.VERSION_NAME
         if (BuildConfig.DEBUG) return
         var count = 0

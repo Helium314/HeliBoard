@@ -31,7 +31,7 @@
         <item name="iconEmojiNormalKey">@drawable/sym_keyboard_smiley_rounded</item>
         <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_rounded</item>
         <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_rounded</item>
-        <item name="iconCopyKey">@drawable/sym_keyboard_copy</item>
+        <item name="iconCopyKey">@drawable/sym_keyboard_copy_rounded</item>
         <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_rounded</item>
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_rounded</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_rounded</item>
@@ -47,5 +47,8 @@
         <item name="iconBin">@drawable/ic_delete_rounded</item>
         <item name="iconUndo">@drawable/ic_undo_rounded</item>
         <item name="iconRedo">@drawable/ic_redo_rounded</item>
+        <item name="iconFullLeft">@drawable/ic_to_start_rounded</item>
+        <item name="iconFullRight">@drawable/ic_to_end_rounded</item>
+        <item name="iconSelectWord">@drawable/ic_select_rounded</item>
     </style>
 </resources>

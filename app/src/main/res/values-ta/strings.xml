@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"விசையழுத்தத்தின்போது ஒலியெழுப்பு"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"விழை அழுத்தத்தின்போது பாப்அப் செய்"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"விருப்பங்கள்"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"தோற்றம் &amp; தளவமைப்புகள்"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ஸ்வைப் தட்டச்சு"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"உரை திருத்தம்"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"மேம்பட்டவை"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"சைகையிடும் போது பரிந்துரைக்கும் வார்த்தையைப் பார்க்கலாம்"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"சொற்றொடர் ஸ்வைப்"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ஸ்பேஸ் விசைக்கு இழுப்பதன் மூலம் சைகைகளுக்கு இடையே இடைவெளிகளை உள்ளிடலாம்"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"மொழிகள்"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"உதவி &amp; கருத்து"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ஆங்கிலம் (யூகே)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ஆங்கிலம் (யூஎஸ்)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ஸ்பானிஷ் (யூஎஸ்)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"ஹிங்கிலிஷ்"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"செர்பியன் (லத்தீன்)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"ஹிங்கிலிஷ்"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"செர்பியன் (லத்தீன்)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"ஆங்கிலம் (யூகே) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"ஆங்கிலம் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"ஸ்பானிஷ் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"ஹிங்கிலிஷ் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"செர்பியன் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"ஹிங்கிலிஷ் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"செர்பியன் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (பாரம்பரியமானது)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (வசதியான)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"மொழியில்லை (அகரவரிசை)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"துவக்கியில் ஆப்ஸ் ஐகானைக் காட்டும்"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"துணை அகராதிகள்"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"அகராதிகளுக்கான அமைப்பு"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"பயனர் அகராதிகள்"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"பயனர் அகராதி"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"அகராதி கிடைக்கிறது"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"அகராதி சேவையில் இணைப்பதில் பிரச்சனை ஏற்பட்டது"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"அகராதிகள் எதுவும் இல்லை"</string>
@@ -111,26 +106,21 @@
     <string name="last_update" msgid="730467549913588780">"இறுதியாகப் புதுப்பித்தது"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"முதன்மை அகராதி"</string>
     <string name="settings" msgid="3876892339342569259">"அமைப்பு"</string>
-    <string name="delete_dict" msgid="756853268088330054">"நீக்கு"</string>
+    <string name="delete" msgid="756853268088330054">"நீக்கு"</string>
     <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> பதிப்பு"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"சேர்"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"அகராதியில் சேர்"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"சொற்றொடர்"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"மேலும் விருப்பங்கள்"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"குறைவான விருப்பங்கள்"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"வார்த்தை:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"ஷார்ட்கட்:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"மொழி:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"வார்த்தையை உள்ளிடவும்"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"விருப்பத்திற்குரிய ஷார்ட்கட்"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"வார்த்தையைத் திருத்து"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"திருத்து"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"நீக்கு"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"பயனர் அகராதியில் எந்தச் சொற்களும் இல்லை. சொல்லைச் சேர்க்க, சேர் (+) எனும் பொத்தானைத் தட்டவும்."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"எல்லா மொழிகளுக்கும்"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"மேலும் மொழிகள்..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"நீக்கு"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"சாதன மொழிகளைப் பயன்படுத்து"</string>
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
+    <string name="undo">"செயல்தவிர்"</string>
+    <string name="redo">"மீண்டும்செய்"</string>
 </resources>

@@ -10,6 +10,8 @@ import android.Manifest;
 import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
+
+import org.dslul.openboard.inputmethod.latin.settings.SettingsValues;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.util.LruCache;
 
@@ -32,8 +34,6 @@ import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,19 +73,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private boolean mTryChangingWords = false;
     private String mChangeFrom = "";
     private String mChangeTo = "";
-
-    public static final Map<String, Class<? extends ExpandableBinaryDictionary>>
-            DICT_TYPE_TO_CLASS = new HashMap<>();
-
-    static {
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER_HISTORY, UserHistoryDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_USER, UserBinaryDictionary.class);
-        DICT_TYPE_TO_CLASS.put(Dictionary.TYPE_CONTACTS, ContactsBinaryDictionary.class);
-    }
-
-    private static final String DICT_FACTORY_METHOD_NAME = "getDictionary";
-    private static final Class<?>[] DICT_FACTORY_METHOD_ARG_TYPES =
-            new Class[] { Context.class, Locale.class, File.class, String.class, String.class };
 
     // todo: write cache never set, and never read (only written)
     //  tried to use read cache for a while, but small performance improvements are not worth the work (https://github.com/Helium314/openboard/issues/307)
@@ -312,21 +299,20 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     private static ExpandableBinaryDictionary getSubDict(final String dictType,
             final Context context, final Locale locale, final File dictFile,
             final String dictNamePrefix, @Nullable final String account) {
-        final Class<? extends ExpandableBinaryDictionary> dictClass = DICT_TYPE_TO_CLASS.get(dictType);
-        if (dictClass == null) {
-            Log.e(TAG, "Cannot create dictionary: no class for " + dictType);
-            return null;
-        }
+        ExpandableBinaryDictionary dict = null;
         try {
-            final Method factoryMethod = dictClass.getMethod(DICT_FACTORY_METHOD_NAME,
-                    DICT_FACTORY_METHOD_ARG_TYPES);
-            final Object dict = factoryMethod.invoke(null, context, locale, dictFile, dictNamePrefix, account);
-            return (ExpandableBinaryDictionary) dict;
-        } catch (final NoSuchMethodException | SecurityException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
+            dict = switch (dictType) {
+                case Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                default -> null;
+            };
+        } catch (final SecurityException | IllegalArgumentException e) {
             Log.e(TAG, "Cannot create dictionary: " + dictType, e);
-            return null;
         }
+        if (dict == null)
+            Log.e(TAG, "Cannot create dictionary for " + dictType);
+        return dict;
     }
 
     @Nullable
@@ -422,7 +408,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
             // load blacklist
             if (noExistingDictsForThisLocale) {
-                newDictGroup.blacklistFileName = context.getFilesDir().getAbsolutePath() + File.separator + "blacklists" + File.separator + locale.toString().toLowerCase(Locale.ENGLISH) + ".txt";
+                newDictGroup.blacklistFileName = context.getFilesDir().getAbsolutePath() + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt";
                 if (!new File(newDictGroup.blacklistFileName).exists())
                     new File(context.getFilesDir().getAbsolutePath() + File.separator + "blacklists").mkdirs();
                 newDictGroup.blacklist.addAll(readBlacklistFile(newDictGroup.blacklistFileName));
@@ -492,7 +478,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 mainDicts[i] = null;
                 continue;
             }
-            mainDicts[i] = DictionaryFactory.createMainDictionaryFromManager(context, dictionaryGroup.mLocale);
+            mainDicts[i] = DictionaryFactoryKt.createMainDictionary(context, dictionaryGroup.mLocale);
         }
 
         synchronized (mLock) {
@@ -569,7 +555,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // add word to user dictionary if it is in no other dictionary except user history dictionary,
         // reasoning: typing the same word again -> we probably want it in some dictionary permanently
-        if (Settings.getInstance().getCurrent().mAddToPersonalDictionary // require the setting
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        if (sv.mAddToPersonalDictionary // require the setting
+                && sv.mAutoCorrectEnabled == sv.mAutoCorrectionEnabledPerUserSettings // don't add if user wants autocorrect but input field does not, see https://github.com/Helium314/openboard/issues/427#issuecomment-1905438000
                 && mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions
                 && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
                 && words.length == 1) { // ignore if more than a single word, this only happens with (badly working) spaceAwareGesture

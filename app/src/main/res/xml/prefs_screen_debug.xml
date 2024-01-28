@@ -10,7 +10,7 @@
     android:key="english_ime_debug_settings"
 >
     <SwitchPreferenceCompat
-        android:key="pref_show_debug_settings"
+        android:key="show_debug_settings"
         android:title="@string/prefs_show_debug_settings"
         android:persistent="true" />
     <SwitchPreferenceCompat
@@ -19,7 +19,7 @@
         android:defaultValue="false"
         android:persistent="true" />
     <SwitchPreferenceCompat
-        android:key="pref_show_suggestion_infos"
+        android:key="show_suggestion_infos"
         android:title="@string/prefs_show_suggestion_infos"
         android:defaultValue="false"
         android:persistent="true" />
@@ -29,18 +29,13 @@
         android:defaultValue="false"
         android:persistent="true" />
     <SwitchPreferenceCompat
-        android:key="pref_should_show_lxx_suggestion_ui"
-        android:title="@string/prefs_should_show_lxx_suggestion_ui"
-        android:defaultValue="true"
-        android:persistent="true" />
-    <SwitchPreferenceCompat
-        android:key="pref_sliding_key_input_preview"
+        android:key="sliding_key_input_preview"
         android:title="@string/sliding_key_input_preview"
         android:summary="@string/sliding_key_input_preview_summary"
         android:defaultValue="true"
         android:persistent="true" />
     <PreferenceCategory
-        android:key="pref_key_dump_dictionaries"
+        android:key="dump_dictionaries"
         android:title="@string/prefs_dump_dynamic_dicts">
     </PreferenceCategory>
 </PreferenceScreen>

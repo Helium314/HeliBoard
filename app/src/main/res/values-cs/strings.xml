@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk při stisku klávesy"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Detail znaku při stisku klávesy"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Předvolby"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Vzhled a rozvržení"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Vzhled"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Psaní gesty"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Oprava textu"</string>
@@ -51,18 +50,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Zobrazení navrhovaného slova při psaní gesty"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Frázové gesto"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Mezery mezi gesty zadáte přejetím po klávese mezerníku."</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jazyky"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Nápověda a zpětná vazba"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Angličtina (Velká Británie)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Angličtina (USA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Španělština (USA)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Srbština (Latinka)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Srbština (Latinka)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Angličtina (Velká Británie) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Angličtina (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Španělština (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Srbština (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Srbština (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradiční)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompaktní)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Standardní (Latinka)"</string>
@@ -103,8 +100,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Zobrazí ikonu aplikace ve spouštěči"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Doplňkové slovníky"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Nastavení slovníků"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Uživatelské slovníky"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Uživatelský slovník"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Slovník k dispozici"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Chyba přip. k slovníku"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Žádné slovníky"</string>
@@ -112,25 +107,18 @@
     <string name="last_update" msgid="730467549913588780">"Poslední aktualizace"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Hlavní slovník"</string>
     <string name="settings" msgid="3876892339342569259">"Nastavení"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Smazat"</string>
+    <string name="delete" msgid="756853268088330054">"Smazat"</string>
     <string name="version_text" msgid="2715354215568469385">"Verze <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Přidat"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Přidat do slovníku"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Fráze"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Více možností"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Méně možností"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Slovo:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Zkratka:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Napište slovo"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Volitelná zkratka"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Upravit slovo"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Upravit"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Smazat"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"V uživatelském slovníku nejsou žádná slova. Slovo můžete přidat klepnutím na tlačítko Přidat (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Pro všechny jazyky"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Další jazyky…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Smazat"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCČDEFGHChIJKLMNOPQRŘSŠTUVWXYZŽ"</string>
     <string name="settings_category_clipboard_history">Historie schránky</string>
     <string name="settings_category_correction">Opravy</string>
@@ -171,4 +159,6 @@
     <string name="delete_swipe_summary">Posuňte prstem z tlačítka Delete a mažte větší části textu společně</string>
     <string name="key_borders">Okraje kláves</string>
     <string name="day_night_mode">Automatický denní/noční režim</string>
+    <string name="undo">"Vrátit zpět"</string>
+    <string name="redo">"Opakovat"</string>
 </resources>

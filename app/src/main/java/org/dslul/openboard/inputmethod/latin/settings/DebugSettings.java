@@ -12,11 +12,10 @@ package org.dslul.openboard.inputmethod.latin.settings;
 public final class DebugSettings {
     public static final String PREF_DEBUG_MODE = "debug_mode";
     public static final String PREF_FORCE_NON_DISTINCT_MULTITOUCH = "force_non_distinct_multitouch";
-    public static final String PREF_SHOULD_SHOW_LXX_SUGGESTION_UI = "pref_should_show_lxx_suggestion_ui";
-    public static final String PREF_SLIDING_KEY_INPUT_PREVIEW = "pref_sliding_key_input_preview";
-    public static final String PREF_SHOW_DEBUG_SETTINGS = "pref_show_debug_settings";
+    public static final String PREF_SLIDING_KEY_INPUT_PREVIEW = "sliding_key_input_preview";
+    public static final String PREF_SHOW_DEBUG_SETTINGS = "show_debug_settings";
 
-    public static final String PREF_SHOW_SUGGESTION_INFOS = "pref_show_suggestion_infos";
+    public static final String PREF_SHOW_SUGGESTION_INFOS = "show_suggestion_infos";
     private DebugSettings() {
         // This class is not publicly instantiable.
     }

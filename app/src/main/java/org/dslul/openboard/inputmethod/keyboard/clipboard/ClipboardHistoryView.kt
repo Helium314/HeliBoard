@@ -64,7 +64,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         spacebarBackground = Settings.getInstance().current.mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
-        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.SELECT_ALL, ToolbarKey.CLEAR_CLIPBOARD)
+        // todo (maybe): setting the correct color only works because the activated state is inverted
+        //  even when state is activated, the not activated color is set
+        //   in suggestionStripView the same thing works correctly, wtf?
+        //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
+        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL)
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
@@ -118,9 +122,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
-            colors.setBackground(it, ColorType.TOOL_BAR_KEY)
+            colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
-        colors.setBackground(clipboardStrip, ColorType.BACKGROUND)
         initialized = true
     }
 
@@ -194,7 +197,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
             adapter = clipboardAdapter
             layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
         }
-        Settings.getInstance().current.mColors.setBackground(this, ColorType.CLIPBOARD_BACKGROUND)
     }
 
     fun stopClipboardHistory() {

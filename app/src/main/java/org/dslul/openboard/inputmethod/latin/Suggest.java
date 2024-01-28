@@ -11,7 +11,6 @@ import org.dslul.openboard.inputmethod.latin.utils.Log;
 
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
-import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
@@ -201,7 +200,6 @@ public final class Suggest {
                             settingsValuesForSuggestion, inputStyleIfNotPrediction, first.getWord(), typedWordString);
                 },
                 isCorrectionEnabled,
-                keyboard.mId.mMode,
                 wordComposer,
                 suggestionResults,
                 firstOccurrenceOfTypedWordInSuggestions,
@@ -289,7 +287,6 @@ public final class Suggest {
             final List<SuggestedWordInfo> firstAndTypedWordEmptyInfos,
             final Runnable putEmptyWordSuggestions,
             final boolean isCorrectionEnabled,
-            final int keyboardIdMode,
             final WordComposer wordComposer,
             final SuggestionResults suggestionResults,
             final int firstOccurrenceOfTypedWordInSuggestions,
@@ -336,6 +333,8 @@ public final class Suggest {
         // If correction is not enabled, we never auto-correct. This is for example for when
         // the setting "Auto-correction" is "off": we still suggest, but we don't auto-correct.
         if (!isCorrectionEnabled
+                // todo: can some parts be moved to isCorrectionEnabled? e.g. keyboardIdMode only depends on input type
+                //  i guess then not mAutoCorrectionEnabledPerUserSettings should be read, but rather some isAutocorrectEnabled()
                 // If the word does not allow to be auto-corrected, then we don't auto-correct.
                 || !allowsToBeAutoCorrected
                 // If we are doing prediction, then we never auto-correct of course
@@ -351,10 +350,6 @@ public final class Suggest {
                 || wordComposer.isMostlyCaps()
                 // We never auto-correct when suggestions are resumed because it would be unexpected
                 || wordComposer.isResumed()
-                // We don't autocorrect in URL or email input, since websites and emails can be
-                // deliberate misspellings of actual words
-                || keyboardIdMode == KeyboardId.MODE_URL
-                || keyboardIdMode == KeyboardId.MODE_EMAIL
                 // If we don't have a main dictionary, we never want to auto-correct. The reason
                 // for this is, the user may have a contact whose name happens to match a valid
                 // word in their language, and it will unexpectedly auto-correct. For example, if

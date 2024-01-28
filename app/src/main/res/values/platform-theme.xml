@@ -6,5 +6,8 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight" />
+    <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight">
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
 </resources>

@@ -18,11 +18,12 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.MORE_KE
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.settings.Settings
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
 
-fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded: (String) -> Unit) {
+fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     if (uri == null)
         return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
     val layoutContent: String
@@ -41,10 +42,10 @@ fun loadCustomLayout(uri: Uri?, localeString: String, context: Context, onAdded:
                 name = it.getString(idx).substringBeforeLast(".")
         }
     }
-    loadCustomLayout(layoutContent, name, localeString, context, onAdded)
+    loadCustomLayout(layoutContent, name, languageTag, context, onAdded)
 }
 
-fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: String, context: Context, onAdded: (String) -> Unit) {
+fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     var name = layoutName
     val isJson = checkLayout(layoutContent, context)
         ?: return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog(10).lastOrNull { it.tag == TAG }?.message}"))
@@ -54,13 +55,14 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, localeString: St
         .setView(EditText(context).apply {
             setText(name)
             doAfterTextChanged { name = it.toString() }
-            setPadding(30, 10, 30, 10)
+            val padding = (8 * context.resources.displayMetrics.density).toInt()
+            setPadding(3 * padding, padding, 3 * padding, padding)
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         })
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
-            name = "$CUSTOM_LAYOUT_PREFIX${localeString}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
-            val file = getFile(name, context)
+            name = "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
+            val file = getLayoutFile(name, context)
             if (file.exists())
                 file.delete()
             file.parentFile?.mkdir()
@@ -118,8 +120,8 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     return true
 }
 
-private fun getFile(layoutName: String, context: Context) =
-    File(context.filesDir, "layouts${File.separator}$layoutName")
+fun getLayoutFile(layoutName: String, context: Context) =
+    File(Settings.getLayoutsDir(context), layoutName)
 
 // undo the name changes in loadCustomLayout when clicking ok
 fun getLayoutDisplayName(layoutName: String) =
@@ -130,15 +132,15 @@ fun getLayoutDisplayName(layoutName: String) =
     }
 
 fun removeCustomLayoutFile(layoutName: String, context: Context) {
-    getFile(layoutName, context).delete()
+    getLayoutFile(layoutName, context).delete()
 }
 
-fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null) {
-    val file = getFile(layoutName, context)
+fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, isSymbols: Boolean = false) {
+    val file = getLayoutFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
     }
-    AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context)
         .setTitle(getLayoutDisplayName(layoutName))
         .setView(editText)
         .setPositiveButton(R.string.save) { _, _ ->
@@ -149,6 +151,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
                 infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
+                file.parentFile?.mkdir()
                 file.writeText(content)
                 if (isJson != wasJson) // unlikely to be needed, but better be safe
                     file.renameTo(File(file.absolutePath.substringBeforeLast(".") + if (isJson) "json" else "txt"))
@@ -156,7 +159,19 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             }
         }
         .setNegativeButton(android.R.string.cancel, null)
-        .show()
+    if (isSymbols) {
+        val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.more_keys_symbols)
+        if (file.exists()) {
+            builder.setNeutralButton(R.string.delete) { _, _ ->
+                confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete)) {
+                    file.delete()
+                    KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+                }
+            }
+        }
+        builder.setTitle(name)
+    }
+    builder.show()
 }
 
 private fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)

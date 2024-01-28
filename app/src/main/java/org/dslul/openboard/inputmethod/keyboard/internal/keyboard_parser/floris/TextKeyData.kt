@@ -47,7 +47,7 @@ class TextKeyData(
                 return params.mLocaleKeyTexts.currencyKey
                     .let { it.first.toTextKey(it.second.toList(), labelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO) } // the flag is to match old parser, but why for main currency key, but not for others?
             val n = label.substringAfter("$$$").toIntOrNull()
-            if (n != null && n <= 4)
+            if (n != null && n <= 4 && n > 0)
                 return params.mLocaleKeyTexts.currencyKey.second[n - 1].toTextKey()
         }
         return this

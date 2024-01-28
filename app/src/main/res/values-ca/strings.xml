@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"So en prémer tecles"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Amplia en prémer tecles"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferències"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aparença i disposició"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escriptura gestual"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Correcció de textos"</string>
     <string name="settings_screen_advanced">"Configuració avançada"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Mostra la paraula suggerida en fer els gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gest de frase"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Per afegir espais als gestos, apropa el dit a la tecla d\'espai"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Idiomes"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Ajuda i suggeriments"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"anglès (Regne Unit)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"anglès (EUA)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Espanyol (EUA)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">Hinglès</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbi (llatí)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">Hinglès</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Serbi (llatí)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Anglès (Regne Unit) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Angles (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Espanyol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglès (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Hinglès (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Serbi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacte)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"cap idioma (alfabet)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Mostra la icona de l\'aplicació al menú d\'aplicacions"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Diccionaris complementaris"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Configuració dels diccionaris"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Diccionaris de l\'usuari"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Diccionari de l\'usuari"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Diccionari disponible"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Error en connectar amb el diccionari"</string>
     <string name="no_dictionaries_available">"Cap diccion. dispon."</string>
@@ -111,25 +106,18 @@
     <string name="last_update" msgid="730467549913588780">"Última actualització"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Diccionari principal"</string>
     <string name="settings" msgid="3876892339342569259">"Configuració"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Suprimeix"</string>
+    <string name="delete" msgid="756853268088330054">"Suprimeix"</string>
     <string name="version_text" msgid="2715354215568469385">Versió <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Afegeix"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Afegeix al diccionari"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frase"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Més opcions"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Menys opcions"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Paraula:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Drecera:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Escriu una paraula"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Drecera opcional"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edició de la paraula"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Edita"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Suprimeix"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tens cap paraula al diccionari de l\'usuari. Toca el botó Afegeix (+) per afegir-n\'hi una."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Per a tots els idiomes"</string>
     <string name="user_dict_settings_more_languages">"Més idiomes..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Suprimeix"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
     <string name="settings_no_limit">Sense límit</string>
@@ -172,4 +160,6 @@
     <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
     <string name="select_input_method">"Selecciona un mètode d\'introducció"</string>
+    <string name="undo">"Desfés"</string>
+    <string name="redo">"Refés"</string>
 </resources>

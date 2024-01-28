@@ -9,14 +9,10 @@ package org.dslul.openboard.inputmethod.latin.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodSubtype;
 
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.preference.Preference;
 
 import org.dslul.openboard.inputmethod.keyboard.KeyboardLayoutSet;
@@ -38,16 +34,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_preferences);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // need to set icon tint because old android versions don't use the vector drawables
-            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
-                final Preference p = getPreferenceScreen().getPreference(0);
-                final Drawable icon = p.getIcon();
-                if (icon != null)
-                    DrawableCompat.setTint(icon, Color.WHITE);
-            }
-        }
 
         final Resources res = getResources();
         final Context context = getActivity();
@@ -116,7 +102,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         final Preference pref = findPreference(Settings.PREF_LOCALIZED_NUMBER_ROW);
         if (pref == null) return;
         // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
-        final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "hi", "mr", "ne", "ur" };
+        final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "gu", "hi", "mr", "ne", "ur" };
         for (final InputMethodSubtype subtype : SubtypeSettingsKt.getEnabledSubtypes(getSharedPreferences(), true)) {
             if (ArraysKt.any(numberRowLocales, (l) -> l.equals(subtype.getLocale().substring(0, 2)))) {
                 pref.setVisible(true);

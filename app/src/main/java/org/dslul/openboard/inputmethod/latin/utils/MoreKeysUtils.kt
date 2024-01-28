@@ -3,12 +3,11 @@ package org.dslul.openboard.inputmethod.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -48,7 +47,16 @@ fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: S
         return null
     val fco = moreKeys.firstOrNull { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
     if (fco != null && fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != moreKeys.size - 1) {
-        moreKeys.remove(fco) // maybe rather adjust the number instead of remove?
+        val fcoExpected = moreKeys.size - moreKeys.count { it.startsWith("!") && it.endsWith("!") } - 1
+        if (fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != fcoExpected)
+            moreKeys.remove(fco) // maybe rather adjust the number instead of remove?
+    }
+    if (moreKeys.size > 1 && (label == "(" || label == ")")) { // add fixed column order for that case (typically other variants of brackets / parentheses
+        // not really fast, but no other way to add first in a LinkedHashSet
+        val tmp = moreKeys.toList()
+        moreKeys.clear()
+        moreKeys.add("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${tmp.size}")
+        moreKeys.addAll(tmp)
     }
     // autoColumnOrder should be fine
 
@@ -106,7 +114,8 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
         both.first() to both.last().toBoolean()
     }
     val rv = RecyclerView(context)
-    rv.setPadding(30, 10, 10, 10)
+    val padding = (8 * context.resources.displayMetrics.density).toInt()
+    rv.setPadding(3 * padding, padding, padding, padding)
     rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     val callback = object : DiffUtil.ItemCallback<Pair<String, Boolean>>() {
         override fun areItemsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
@@ -126,7 +135,7 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
             val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
             val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
             p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
-            val switch = p0.itemView.findViewById<SwitchCompat>(R.id.morekeys_switch)
+            val switch = p0.itemView.findViewById<Switch>(R.id.morekeys_switch)
             switch?.isChecked = wasChecked
             switch?.isEnabled = !(key.contains(Settings.PREF_MORE_KEYS_ORDER) && text == MORE_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->

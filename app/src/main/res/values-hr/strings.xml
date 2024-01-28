@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress">"Povećani font na pritisak tipke"</string>
     <string name="settings_screen_preferences">"Postavke"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Izgled i rasporedi"</string>
     <string name="settings_screen_gesture">"Pisanje kretnjama"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Ispravljanje teksta"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">Napredno</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary">"Vidi predloženu riječ tijekom pokreta"</string>
     <string name="gesture_space_aware">"Unos izraza kretnjom"</string>
     <string name="gesture_space_aware_summary">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Jezici"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Pomoć i povratne informacije"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Engleski (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Engleski (SAD)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Španjolski (SAD)</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Srpski (latinica)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Srpski (latinica)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Engleski (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Engleski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Španjolski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Srpski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Srpski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionalno)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktno)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">Neodređen jezik (abeceda)</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Rječnici kao dodaci"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Postavke za rječnike"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Korisnički rječnici"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Korisnički rječnik"</string>
     <string name="dictionary_available">"Dostupan je rječnik"</string>
     <string name="cannot_connect_to_dict_service">"Nema usluge rječnika"</string>
     <string name="no_dictionaries_available">"Rječnici nedostupni"</string>
@@ -111,25 +106,18 @@
     <string name="last_update" msgid="730467549913588780">"Zadnje ažuriranje"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Glavni rječnik"</string>
     <string name="settings" msgid="3876892339342569259">"Postavke"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Izbriši"</string>
+    <string name="delete" msgid="756853268088330054">"Izbriši"</string>
     <string name="version_text" msgid="2715354215568469385">Verzija <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Dodavanje"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Dodaj u rječnik"</string>
-    <string name="user_dict_settings_add_screen_title">"Fraza"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Više opcija"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Manje opcija"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Riječ:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Prečac:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Upišite riječ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Neobavezni prečac"</string>
     <string name="user_dict_settings_edit_dialog_title">"Uređivanje riječi"</string>
-    <string name="user_dict_settings_context_menu_edit_title">"Uređivanje"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"Brisanje"</string>
     <string name="user_dict_settings_empty_text">"Nemate nijednu riječ u korisničkom rječniku. Da biste dodali riječ, dodirnite gumb Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Izbriši"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCČĆDDŽĐEFGHIJKLLJMNNJOPRSŠTUVZŽ"</string>
     <string name="spell_checker_service_name">OpenBoard provjera pravopisa</string>
     <string name="android_spell_checker_settings">Postavke OpenBoard provjere pravopisa</string>
@@ -172,4 +160,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Upotrijebi jezike sustava"</string>
     <string name="auto_correction_confidence">Pouzdanje u automatsko ispravljanje</string>
     <string name="select_input_method">"Odabir načina unosa"</string>
+    <string name="undo">"Poništi"</string>
+    <string name="redo">"Ponovi"</string>
 </resources>

@@ -9,7 +9,6 @@
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
     <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa entradas da sua lista de contatos</string>
-    <string name="settings_screen_appearance_and_layouts">Aparência e Layouts</string>
     <string name="settings_screen_gesture">Escrita por Gestos</string>
     <string name="settings_screen_correction">Correção de Texto</string>
     <string name="settings_screen_advanced">Avançado</string>
@@ -47,8 +46,6 @@
     <string name="incognito">Forçar modo anônimo</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>
-    <string name="language_selection_title">Idiomas</string>
-    <string name="help_and_feedback">Ajuda e comentários</string>
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de entrada</string>
@@ -57,10 +54,10 @@
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>
     <string name="subtype_en_US">Inglês (EUA)</string>
     <string name="subtype_es_US">Espanhol (EUA)</string>
-    <string name="subtype_hi_ZZ">Hindi-Inglês</string>
-    <string name="subtype_sr_ZZ">Sérvio (Latino)</string>
+    <string name="subtype_hi_Latn">Hindi-Inglês</string>
+    <string name="subtype_sr_Latn">Sérvio (Latino)</string>
     <string name="subtype_with_layout_es_US">Espanhol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ">Sérvio <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
+    <string name="subtype_with_layout_sr_Latn">Sérvio <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_generic_traditional">Nepali (Nepal) <xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_with_layout_bn_BD">Bengali (Bangladesh) <xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_pcqwerty">Alfabeto (PC)</string>
@@ -84,22 +81,19 @@
     <string name="setup_step3_title">Parabéns, configuração concluída!</string>
     <string name="show_setup_wizard_icon">Mostrar ícone do aplicativo</string>
     <string name="dictionary_settings_title">Adicionar dicionários</string>
-    <string name="default_user_dict_pref_name">Dicionário da(o) usuária(o)</string>
     <string name="cannot_connect_to_dict_service">Erro ao contatar o serviço de dicionário</string>
     <string name="no_dictionaries_available">Nenhum dicionário disponível</string>
     <string name="check_for_updates_now">Atualizar</string>
     <string name="last_update">Última atualização</string>
     <string name="settings">Configurações</string>
-    <string name="delete_dict">Apagar</string>
+    <string name="delete">Apagar</string>
     <string name="user_dict_settings_add_menu_title">Adicionar</string>
-    <string name="user_dict_settings_add_dialog_more_options">Mais opções</string>
     <string name="user_dict_settings_add_shortcut_option_name">Atalho:</string>
     <string name="user_dict_settings_add_locale_option_name">Idioma:</string>
     <string name="user_dict_settings_edit_dialog_title">Editar palavra</string>
     <string name="user_dict_settings_empty_text">Não existem palavras no dicionário da(o) usuária(o). Para adicionar uma palavra, toque na tecla (+).</string>
     <string name="user_dict_settings_all_languages">Para todos os idiomas</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
-    <string name="user_dict_settings_delete">Apagar</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Borda em teclas</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do OpenBoard</string>
@@ -128,7 +122,7 @@
     <string name="number_row">Linha de números</string>
     <string name="subtype_with_layout_en_GB">Inglês (Reino Unido) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_with_layout_en_US">Inglês (EUA) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_hi_ZZ">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
+    <string name="subtype_with_layout_hi_Latn">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_no_language">Nenhum idioma (Alfabeto)</string>
     <string name="subtype_no_language_qwerty">Alfabeto (QWERTY)</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado nas configurações de \'Idiomas e Entrada\'. Esta etapa já está concluída. Vamos avançar para a próxima!</string>
@@ -148,18 +142,12 @@
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Em seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de entrada.</string>
-    <string name="user_dictionaries">Dicionários da(o) usuária(o)</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar e escrever nos seus aplicativos favoritos.</string>
     <string name="main_dict_description">Dicionário principal</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_screen_title">Frase</string>
-    <string name="user_dict_settings_add_dialog_less_options">Menos opções</string>
-    <string name="user_dict_settings_context_menu_delete_title">Apagar</string>
-    <string name="user_dict_settings_add_word_option_name">Palavra:</string>
     <string name="user_dict_settings_add_word_hint">Escreva uma palavra</string>
     <string name="user_dict_settings_add_shortcut_hint">Atalho opcional</string>
-    <string name="user_dict_settings_context_menu_edit_title">Editar</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">A aparência seguirá as configurações de tema do sistema</string>
     <string name="language_switch_key_switch_input_method">Mudar para outros métodos de entrada</string>
@@ -172,4 +160,6 @@
     <string name="auto_correction_confidence">Confiança de correção automática</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Usa idiomas do sistema"</string>
     <string name="select_input_method">"Selecione o método de entrada"</string>
+    <string name="undo">"Desfazer"</string>
+    <string name="redo">"Refazer"</string>
 </resources>

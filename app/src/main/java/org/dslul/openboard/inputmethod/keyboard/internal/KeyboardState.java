@@ -19,14 +19,14 @@ import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
 
 /**
  * Keyboard state machine.
- *
+ * <p>
  * This class contains all keyboard state transition logic.
- *
+ * <p>
  * The input events are {@link #onLoadKeyboard(int, int, boolean)}, {@link #onSaveKeyboardState()},
  * {@link #onPressKey(int,boolean,int,int)}, {@link #onReleaseKey(int,boolean,int,int)},
  * {@link #onEvent(Event,int,int)}, {@link #onFinishSlidingInput(int,int)},
  * {@link #onUpdateShiftState(int,int)}, {@link #onResetKeyboardStateToAlphabet(int,int)}.
- *
+ * <p>
  * The actions are {@link SwitchActions}'s methods.
  */
 public final class KeyboardState {
@@ -65,9 +65,9 @@ public final class KeyboardState {
 
     private final SwitchActions mSwitchActions;
 
-    private ShiftKeyState mShiftKeyState = new ShiftKeyState("Shift");
-    private ModifierKeyState mSymbolKeyState = new ModifierKeyState("Symbol");
-    private ModifierKeyState mAlphaNumpadKeyState = new ModifierKeyState("AlphaNumpad");
+    private final ShiftKeyState mShiftKeyState = new ShiftKeyState("Shift");
+    private final ModifierKeyState mSymbolKeyState = new ModifierKeyState("Symbol");
+    private final ModifierKeyState mAlphaNumpadKeyState = new ModifierKeyState("AlphaNumpad");
     private final AlphabetShiftState mAlphabetShiftState = new AlphabetShiftState();
 
     // TODO: Merge {@link #mSwitchState}, {@link #mIsAlphabetMode}, {@link #mAlphabetShiftState},

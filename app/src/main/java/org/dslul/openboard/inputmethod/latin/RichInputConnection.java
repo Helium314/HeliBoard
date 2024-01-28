@@ -289,6 +289,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
     }
 
+    public void commitCodePoint(final int codePoint) {
+        commitText(StringUtils.newSingleCodePointString(codePoint), 1);
+    }
+
     /**
      * Calls {@link InputConnection#commitText(CharSequence, int)}.
      *
@@ -555,7 +559,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 }
                 break;
             default:
-                final String text = StringUtils.newSingleCodePointString(keyEvent.getUnicodeChar());
+                final int codePoint = keyEvent.getUnicodeChar();
+                if (Character.isISOControl(codePoint))
+                    break; // don't append text if there is no actual text
+                final String text = StringUtils.newSingleCodePointString(codePoint);
                 mCommittedTextBeforeComposingText.append(text);
                 mExpectedSelStart += text.length();
                 mExpectedSelEnd = mExpectedSelStart;
@@ -634,8 +641,16 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     public void selectAll() {
+        if (!isConnected()) return;
         mIC.performContextMenuAction(android.R.id.selectAll);
-        // the rest is done via LatinIME.onUpdateSelection
+    }
+
+    public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final String script) {
+        if (!isConnected()) return;
+        if (mExpectedSelStart != mExpectedSelEnd) return; // already something selected
+        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script, false);
+        if (range == null) return;
+        mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
     public void copyText() {
@@ -643,12 +658,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
         if (text == null || text.length() == 0) {
             // we have no selection, get the whole text
-            ExtractedTextRequest etr = new ExtractedTextRequest();
+            final ExtractedTextRequest etr = new ExtractedTextRequest();
             etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
             etr.hintMaxChars = Integer.MAX_VALUE;
-            text = mIC.getExtractedText(etr, 0).text;
+            final ExtractedText et = mIC.getExtractedText(etr, 0);
+            if (et == null) return;
+            text = et.text;
         }
-        if (text == null) return;
+        if (text == null || text.length() == 0) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
     }
@@ -709,23 +726,23 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     private static boolean isPartOfCompositionForScript(final int codePoint,
-            final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
+            final SpacingAndPunctuations spacingAndPunctuations, final String script) {
         // We always consider word connectors part of compositions.
         return spacingAndPunctuations.isWordConnector(codePoint)
                 // Otherwise, it's part of composition if it's part of script and not a separator.
                 || (!spacingAndPunctuations.isWordSeparator(codePoint)
-                        && ScriptUtils.isLetterPartOfScript(codePoint, scriptId));
+                        && ScriptUtils.isLetterPartOfScript(codePoint, script));
     }
 
     /**
      * Returns the text surrounding the cursor.
      *
      * @param spacingAndPunctuations the rules for spacing and punctuation
-     * @param scriptId the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
+     * @param script the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
      * @return a range containing the text surrounding the cursor
      */
     public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final int scriptId, final boolean justDeleted) {
+            final String script, final boolean justDeleted) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -747,7 +764,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // we need text before, and text after is either empty or a separator or similar
         if (justDeleted && before.length() > 0 &&
                 (after.length() == 0
-                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, scriptId)
+                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, script)
                 )
         ) {
             // issue:
@@ -769,7 +786,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         int endIndexInAfter = -1;
         while (startIndexInBefore > 0) {
             final int codePoint = Character.codePointBefore(before, startIndexInBefore);
-            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+            if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
                 if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
                     break;
                 // continue to the next whitespace and see whether this contains a sometimesWordConnector
@@ -798,7 +815,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (endIndexInAfter == -1) {
             while (++endIndexInAfter < after.length()) {
                 final int codePoint = Character.codePointAt(after, endIndexInAfter);
-                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, scriptId)) {
+                if (!isPartOfCompositionForScript(codePoint, spacingAndPunctuations, script)) {
                     if (Character.isWhitespace(codePoint) || !spacingAndPunctuations.mCurrentLanguageHasSpaces)
                         break;
                     // continue to the next whitespace and see whether this contains a sometimesWordConnector
@@ -1159,14 +1176,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * prevents the application from fulfilling the request. (TODO: Improve the API when it turns
      * out that we actually need more detailed error codes)
      */
-    public boolean requestCursorUpdates(final boolean enableMonitor,
-            final boolean requestImmediateCallback) {
+    public boolean requestCursorUpdates(final boolean enableMonitor, final boolean requestImmediateCallback) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return false;
         }
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP)
-            return false;
         final int cursorUpdateMode = (enableMonitor ? InputConnection.CURSOR_UPDATE_MONITOR : 0)
             | (requestImmediateCallback ? InputConnection.CURSOR_UPDATE_IMMEDIATE : 0);
         return mIC.requestCursorUpdates(cursorUpdateMode);

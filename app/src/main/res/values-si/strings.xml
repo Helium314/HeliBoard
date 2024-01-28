@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"යතුරු එබිම මත හඬ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"යතුරු එබීම මත උත්පතනය"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"අභිරුචි"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"පෙනුම සහ පිරිසැලසුම්"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"ඉංගිත ටයිප් කිරීම"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"පෙළ නිවැරදි කිරීම"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"උසස්"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ඉංගිතය කරන අතරතුර යෝජිත වචන බලන්න"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"ජේද ඉංගිතය"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ඉංගිතයන් අතරතුර space යතුර වෙත ලිස්සීම මඟින් ඉඩ ඇතුල් කරන්න"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"භාෂා"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"උදවු සහ ප්‍රතිපෝෂණ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"ඉංග්‍රීසි (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"ඉංග්‍රීසි (US)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"ස්පාඤ්ඤ (US)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"හින්ග්ලිෂ්"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"සර්බියානු (ලතින්)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"හින්ග්ලිෂ්"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"සර්බියානු (ලතින්)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"ඉංග්‍රීසි (එ.රා) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"ඉංග්‍රීසි (එ.ජ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"ස්පාඤ්ඤ (එ.ජ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"හින්ග්ලිෂ් (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"සර්බියානු (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"හින්ග්ලිෂ් (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"සර්බියානු (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (සාම්ප්‍රදායික)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (සංයුක්ත)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"භාෂාවක් නැත (අකාරාදිය)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"දියත්කරනය තුළ යෙදුම් නිරූපකය දර්ශනය කරන්න"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"ඈඳුම් ශබ්ද කෝෂ"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"ශබ්ද කෝෂ සඳහා සැකසීම්"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"පරිශීලක ශබ්ද කෝෂ"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"පරිශීලක ශබ්ද කෝෂය"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"ශබ්දකෝෂය ලබාගත හැක"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"ශබ්දකෝෂ සේවාව වෙත සම්බන්ධ වීමට ගැටලුවක්ද"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"ශබ්ද කෝෂ ලබාගත නොහැක"</string>
@@ -111,27 +106,22 @@
     <string name="last_update" msgid="730467549913588780">"අවසන් වරට යාවත්කාලීන කළේ"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"ප්‍රධාන ශබ්ද කෝෂය"</string>
     <string name="settings" msgid="3876892339342569259">"සැකසීම්"</string>
-    <string name="delete_dict" msgid="756853268088330054">"මකන්න"</string>
+    <string name="delete" msgid="756853268088330054">"මකන්න"</string>
     <string name="version_text" msgid="2715354215568469385">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> අනුවාදය"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"එක් කරන්න"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"ශබ්ද කෝෂය වෙත එක් කරන්න"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"වාක්‍ය ඛණ්ඩය"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"තවත් විකල්ප"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"අඩු විකල්ප"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"වචනය:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"කෙටිමග:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"භාෂාව:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"වචනයක් ටයිප් කරන්න"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"විකල්පමය කෙටිමග"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"වචනය සංස්කරණය කරන්න"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"සංස්කරණය"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"මකන්න"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ඔබට පරිශීලක ශබ්ද කෝෂය තුළ වචන කිසිවක් නැත. වචනයක් එක් කිරීමට, එක් කිරීමේ (+) බොත්තම තට්ටු කරන්න."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"සියලු භාෂාවන් සඳහා"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"තවත් භාෂා…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"මකන්න"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"පද්ධති භාෂා භාවිත කරන්න"</string>
     <string name="select_input_method">"ආදාන ක්‍රමයක් තෝරන්න"</string>
     <string name="settings_screen_appearance">"පෙනුම"</string>
+    <string name="undo">"අස් කරන්න"</string>
+    <string name="redo">"යළි කරන්න"</string>
 </resources>

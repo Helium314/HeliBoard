@@ -11,10 +11,9 @@ import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
-import org.dslul.openboard.inputmethod.compat.TextInfoCompatUtils;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
-import org.dslul.openboard.inputmethod.latin.utils.RunInLocale;
+import org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -66,13 +65,7 @@ public class SentenceLevelAdapter {
     private static class WordIterator {
         private final SpacingAndPunctuations mSpacingAndPunctuations;
         public WordIterator(final Resources res, final Locale locale) {
-            final RunInLocale<SpacingAndPunctuations> job = new RunInLocale<>() {
-                @Override
-                protected SpacingAndPunctuations job(final Resources r) {
-                    return new SpacingAndPunctuations(r, false);
-                }
-            };
-            mSpacingAndPunctuations = job.runInLocale(res, locale);
+            mSpacingAndPunctuations = RunInLocaleKt.runInLocale(res, locale, r -> new SpacingAndPunctuations(r, false));
         }
 
         public int getEndOfWord(final CharSequence sequence, final int fromIndex) {
@@ -124,8 +117,7 @@ public class SentenceLevelAdapter {
 
     public SentenceTextInfoParams getSplitWords(TextInfo originalTextInfo) {
         final WordIterator wordIterator = mWordIterator;
-        final CharSequence originalText =
-                TextInfoCompatUtils.getCharSequenceOrString(originalTextInfo);
+        final CharSequence originalText = originalTextInfo.getCharSequence();
         final int cookie = originalTextInfo.getCookie();
         final int start = -1;
         final int end = originalText.length();
@@ -134,7 +126,7 @@ public class SentenceLevelAdapter {
         int wordEnd = wordIterator.getEndOfWord(originalText, wordStart);
         while (wordStart <= end && wordEnd != -1 && wordStart != -1) {
             if (wordEnd >= start && wordEnd > wordStart) {
-                final TextInfo ti = TextInfoCompatUtils.newInstance(originalText, wordStart,
+                final TextInfo ti = new TextInfo(originalText, wordStart,
                         wordEnd, cookie, originalText.subSequence(wordStart, wordEnd).hashCode());
                 wordItems.add(new SentenceWordItem(ti, wordStart, wordEnd));
             }

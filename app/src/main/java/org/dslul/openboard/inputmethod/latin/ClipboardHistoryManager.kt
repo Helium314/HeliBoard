@@ -5,6 +5,7 @@ package org.dslul.openboard.inputmethod.latin
 import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
+import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.compat.ClipboardManagerCompat
@@ -131,8 +132,9 @@ class ClipboardHistoryManager(
         return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
     }
 
+    // pinned clips are stored in default shared preferences, not in device protected preferences!
     private fun loadPinnedClips() {
-        val pinnedClipString = Settings.readPinnedClipString(DeviceProtectedUtils.getSharedPreferences(latinIME))
+        val pinnedClipString = Settings.readPinnedClipString(PreferenceManager.getDefaultSharedPreferences(latinIME))
         if (pinnedClipString.isEmpty()) return
         val pinnedClips: List<ClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
         latinIME.mHandler.postUpdateClipboardPinnedClips(pinnedClips)
@@ -140,7 +142,7 @@ class ClipboardHistoryManager(
 
     private fun savePinnedClips() {
         val pinnedClips = Json.encodeToString(historyEntries.filter { it.isPinned })
-        Settings.writePinnedClipString(DeviceProtectedUtils.getSharedPreferences(latinIME), pinnedClips)
+        Settings.writePinnedClipString(PreferenceManager.getDefaultSharedPreferences(latinIME), pinnedClips)
     }
 
     interface OnHistoryChangeListener {

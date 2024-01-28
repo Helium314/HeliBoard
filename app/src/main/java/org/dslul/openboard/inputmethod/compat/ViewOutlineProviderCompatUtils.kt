@@ -6,24 +6,44 @@
 
 package org.dslul.openboard.inputmethod.compat
 
+import android.graphics.Outline
 import android.inputmethodservice.InputMethodService
-import android.os.Build
-import android.os.Build.VERSION_CODES
 import android.view.View
+import android.view.ViewOutlineProvider
 
+// todo: this is not compat any more
 object ViewOutlineProviderCompatUtils {
-    private val EMPTY_INSETS_UPDATER: InsetsUpdater = object : InsetsUpdater {
-        override fun setInsets(insets: InputMethodService.Insets) {}
-    }
-
     @JvmStatic
-    fun setInsetsOutlineProvider(view: View): InsetsUpdater {
-        return if (Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
-            EMPTY_INSETS_UPDATER
-        } else ViewOutlineProviderCompatUtilsLXX.setInsetsOutlineProvider(view)
+    fun setInsetsOutlineProvider(view: View): InsetsOutlineProvider {
+        val provider = InsetsOutlineProvider(view)
+        view.outlineProvider = provider
+        return provider
+    }
+}
+
+class InsetsOutlineProvider(private val mView: View) : ViewOutlineProvider() {
+    private var mLastVisibleTopInsets = NO_DATA
+    init {
+        mView.outlineProvider = this
+    }
+    fun setInsets(insets: InputMethodService.Insets) {
+        val visibleTopInsets = insets.visibleTopInsets
+        if (mLastVisibleTopInsets != visibleTopInsets) {
+            mLastVisibleTopInsets = visibleTopInsets
+            mView.invalidateOutline()
+        }
     }
 
-    interface InsetsUpdater {
-        fun setInsets(insets: InputMethodService.Insets)
+    override fun getOutline(view: View, outline: Outline) {
+        if (mLastVisibleTopInsets == NO_DATA) { // Call default implementation.
+            BACKGROUND.getOutline(view, outline)
+            return
+        }
+        // TODO: Revisit this when floating/resize keyboard is supported.
+        outline.setRect(view.left, mLastVisibleTopInsets, view.right, view.bottom)
+    }
+
+    companion object {
+        private const val NO_DATA = -1
     }
 }

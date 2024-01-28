@@ -9,7 +9,7 @@
     android:title="@string/android_spell_checker_settings"
 >
     <SwitchPreferenceCompat
-        android:key="pref_spellcheck_use_contacts"
+        android:key="spellcheck_use_contacts"
         android:title="@string/use_contacts_for_spellchecking_option_title"
         android:summary="@string/use_contacts_for_spellchecking_option_summary"
         android:defaultValue="true"

@@ -8,7 +8,6 @@ package org.dslul.openboard.inputmethod.latin.common;
 
 import androidx.annotation.NonNull;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 
 public final class Constants {
@@ -25,27 +24,8 @@ public final class Constants {
          * The private IME option used to indicate that no microphone should be shown for a given
          * text field. For instance, this is specified by the search dialog when the dialog is
          * already showing a voice search button.
-         *
-         * @deprecated Use {@link ImeOption#NO_MICROPHONE} with package name prefixed.
-         */
-        @SuppressWarnings("dep-ann")
-        public static final String NO_MICROPHONE_COMPAT = "nm";
-
-        /**
-         * The private IME option used to indicate that no microphone should be shown for a given
-         * text field. For instance, this is specified by the search dialog when the dialog is
-         * already showing a voice search button.
          */
         public static final String NO_MICROPHONE = "noMicrophoneKey";
-
-        /**
-         * The private IME option used to indicate that the given text field needs ASCII code points
-         * input.
-         *
-         * @deprecated Use EditorInfo#IME_FLAG_FORCE_ASCII.
-         */
-        @SuppressWarnings("dep-ann")
-        public static final String FORCE_ASCII = "forceAscii";
 
         /**
          * The private IME option used to suppress the floating gesture preview for a given text
@@ -248,6 +228,9 @@ public final class Constants {
     public static final int CODE_REDO = -30;
     public static final int CODE_TOGGLE_AUTOCORRECT = -31;
     public static final int CODE_TOGGLE_INCOGNITO = -32;
+    public static final int CODE_HOME = -33;
+    public static final int CODE_END = -34;
+    public static final int CODE_SELECT_WORD = -35;
     // Code value representing the code is not specified.
     public static final int CODE_UNSPECIFIED = -200;
 
@@ -291,19 +274,6 @@ public final class Constants {
         }
     }
 
-    @NonNull
-    public static String printableCodes(@NonNull final int[] codes) {
-        final StringBuilder sb = new StringBuilder();
-        boolean addDelimiter = false;
-        for (final int code : codes) {
-            if (code == NOT_A_CODE) break;
-            if (addDelimiter) sb.append(", ");
-            sb.append(printableCode(code));
-            addDelimiter = true;
-        }
-        return "[" + sb + "]";
-    }
-
     /**
      * Screen metrics (a.k.a. Device form factor) constants of
      * {@link org.dslul.openboard.inputmethod.latin.R.integer#config_screen_metrics}.
@@ -312,18 +282,6 @@ public final class Constants {
     public static final int SCREEN_METRICS_LARGE_PHONE = 1;
     public static final int SCREEN_METRICS_LARGE_TABLET = 2;
     public static final int SCREEN_METRICS_SMALL_TABLET = 3;
-
-    @UsedForTesting
-    public static boolean isPhone(final int screenMetrics) {
-        return screenMetrics == SCREEN_METRICS_SMALL_PHONE
-                || screenMetrics == SCREEN_METRICS_LARGE_PHONE;
-    }
-
-    @UsedForTesting
-    public static boolean isTablet(final int screenMetrics) {
-        return screenMetrics == SCREEN_METRICS_SMALL_TABLET
-                || screenMetrics == SCREEN_METRICS_LARGE_TABLET;
-    }
 
     /**
      * Default capacity of gesture points container.

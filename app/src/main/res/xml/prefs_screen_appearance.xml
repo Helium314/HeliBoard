@@ -19,7 +19,7 @@
             android:defaultValue="Material"/>
 
         <ListPreference
-            android:key="theme_variant"
+            android:key="theme_colors"
             android:title="@string/theme_colors"/>
 
         <PreferenceScreen
@@ -39,7 +39,7 @@
             android:summary="@string/day_night_mode_summary"/>
 
         <ListPreference
-            android:key="theme_variant_night"
+            android:key="theme_colors_night"
             android:title="@string/theme_colors_night"/>
 
         <PreferenceScreen
@@ -49,7 +49,7 @@
             android:summary="@string/select_user_colors_summary"/>
 
         <SwitchPreferenceCompat
-            android:key="pref_navbar_color"
+            android:key="navbar_color"
             android:title="@string/theme_navbar"/>
 
     </PreferenceCategory>
@@ -58,31 +58,31 @@
         android:title="@string/settings_category_miscellaneous">
 
         <SwitchPreferenceCompat
-            android:key="pref_split_keyboard"
+            android:key="split_keyboard"
             android:title="@string/enable_split_keyboard"
             android:persistent="true"
             android:defaultValue="false" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:key="pref_split_spacer_scale"
+            android:key="split_spacer_scale"
             android:title="@string/split_spacer_scale"
             latin:minValue="50"
             latin:maxValue="200" /> <!-- percentage -->
 
         <SwitchPreferenceCompat
-            android:key="pref_narrow_key_gaps"
+            android:key="narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
             android:defaultValue="true"
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:key="pref_keyboard_height_scale"
+            android:key="keyboard_height_scale"
             android:title="@string/prefs_keyboard_height_scale"
             latin:minValue="50"
             latin:maxValue="150" /> <!-- percentage -->
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:key="pref_bottom_padding_scale"
+            android:key="bottom_padding_scale"
             android:title="@string/prefs_bottom_padding_scale"
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->

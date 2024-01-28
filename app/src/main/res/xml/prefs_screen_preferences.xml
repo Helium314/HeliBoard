@@ -11,22 +11,22 @@
     <PreferenceCategory android:title="@string/settings_category_input">
 
         <SwitchPreferenceCompat
-            android:key="pref_show_hints"
+            android:key="show_hints"
             android:title="@string/show_hints"
             android:summary="@string/show_hints_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
         <Preference
-            android:key="pref_more_keys_labels_order"
+            android:key="more_keys_labels_order"
             android:title="@string/hint_source" />
 
         <Preference
-            android:key="pref_more_keys_order"
+            android:key="more_keys_order"
             android:title="@string/popup_order" />
 
         <SwitchPreferenceCompat
-            android:key="pref_show_popup_hints"
+            android:key="show_popup_hints"
             android:title="@string/show_popup_hints"
             android:summary="@string/show_popup_hints_summary"
             android:defaultValue="false"
@@ -39,7 +39,7 @@
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:key="pref_vibration_duration_settings"
+            android:key="vibration_duration_settings"
             android:title="@string/prefs_keypress_vibration_duration_settings"
             latin:maxValue="@integer/config_max_vibration_duration" />
 
@@ -50,7 +50,7 @@
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:key="pref_keypress_sound_volume"
+            android:key="keypress_sound_volume"
             android:title="@string/prefs_keypress_sound_volume_settings"
             latin:maxValue="100" /> <!-- percent -->
 
@@ -66,21 +66,21 @@
         android:title="@string/settings_category_additional_keys">
 
         <SwitchPreferenceCompat
-            android:key="pref_show_number_row"
+            android:key="show_number_row"
             android:title="@string/number_row"
             android:summary="@string/number_row_summary"
             android:defaultValue="false"
             android:persistent="true" />
 
         <SwitchPreferenceCompat
-            android:key="pref_localized_number_row"
+            android:key="localized_number_row"
             android:title="@string/localized_number_row"
             android:summary="@string/localized_number_row_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
         <ListPreference
-            android:key="pref_language_switch_key"
+            android:key="language_switch_key"
             android:title="@string/show_language_switch_key"
             android:entries="@array/language_switch_key_entries"
             android:entryValues="@array/language_switch_key_values"
@@ -89,13 +89,13 @@
             android:persistent="true" />
 
         <SwitchPreferenceCompat
-            android:key="pref_show_emoji_key"
+            android:key="show_emoji_key"
             android:title="@string/show_emoji_key"
             android:defaultValue="false"
             android:persistent="true" />
 
         <Preference
-            android:key="pref_toolbar_keys"
+            android:key="toolbar_keys"
             android:title="@string/toolbar_keys" />
 
     </PreferenceCategory>
@@ -103,14 +103,14 @@
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">
 
         <SwitchPreferenceCompat
-            android:key="pref_enable_clipboard_history"
+            android:key="enable_clipboard_history"
             android:title="@string/enable_clipboard_history"
             android:summary="@string/enable_clipboard_history_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
-            android:key="pref_clipboard_history_retention_time"
+            android:key="clipboard_history_retention_time"
             android:title="@string/clipboard_history_retention_time"
             latin:maxValue="120" /> <!-- minutes -->
 

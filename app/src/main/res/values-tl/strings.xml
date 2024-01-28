@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Tumunog sa keypress"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Mag-popup sa keypress"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Mga Kagustuhan"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Hitsura at Mga Layout"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Gesture na Pagta-type"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Pagwawasto ng text"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Advanced"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Tingnan ang iminungkahing salita habang gumagalaw"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Phrase gesture"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Maglagay ng espasyo sa pamamagitan ng pag-glide sa space key"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Mga Wika"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Tulong at feedback"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"English (UK)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"English (United States)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Spanish (US)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbian (Latin)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Serbian (Latin)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"English (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"English (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Walang wika (Alpabeto)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Ipakita ang icon ng application sa launcher"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Mga add-on na diksyunaryo"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Mga setting para sa mga diksyunaryo"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Mga diksyunaryo ng user"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Diksyunaryo ng user"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Available ang diksyunaryo"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Di makakonekta sa serbisyong diksyunaryo"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"Walang mga diksyunaryo"</string>
@@ -111,26 +106,21 @@
     <string name="last_update" msgid="730467549913588780">"Huling na-update"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Pangunahing diksyunaryo"</string>
     <string name="settings" msgid="3876892339342569259">"Mga Setting"</string>
-    <string name="delete_dict" msgid="756853268088330054">"I-delete"</string>
+    <string name="delete" msgid="756853268088330054">"I-delete"</string>
     <string name="version_text" msgid="2715354215568469385">"Bersyon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Idagdag"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Idagdag sa diksyunaryo"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Parirala"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Higit pa"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Mas kaunti"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Salita:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Shortcut:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Wika:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Mag-type ng salita"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Opsyonal na shortcut"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"I-edit ang salita"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"I-edit"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"I-delete"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Wala kang anumang salita sa diksyunaryo ng user. Para magdagdag ng salita, i-tap ang button na Magdagdag (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Para sa lahat ng wika"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Higit pang mga wika..."</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"I-delete"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gamitin ang mga wika ng system"</string>
     <string name="select_input_method">"Pumili ng pamamaraan ng pag-input"</string>
+    <string name="undo">"I-undo"</string>
+    <string name="redo">"Gawing muli"</string>
 </resources>

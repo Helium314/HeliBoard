@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Process;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -83,6 +84,8 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
     }
 
     public static void toggleAppIcon(final Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            return; // can't change visibility in Android 10 and above
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         context.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(context, SetupActivity.class),

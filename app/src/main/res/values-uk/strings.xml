@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"Звук при натиску клав."</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Збільшення натиснутих"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметри"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вигляд і розкладка"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">"Зовнішній вигляд"</string>
     <string name="settings_screen_gesture">"Введення тексту жестами"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Виправлення тексту"</string>
@@ -51,18 +50,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Мови"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Довідка й відгуки"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"Англійська (Велика Британія)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"Англійська (США)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Іспанська (США)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"Хінґліш"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Сербська (латиниця)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Хінґліш"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Сербська (латиниця)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Англійська (Британія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Англійська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Іспанська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Гінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Сербська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Гінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Сербська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традиційна)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Компактна)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Стандартна (латиниця)"</string>
@@ -103,8 +100,6 @@
     <string name="show_setup_wizard_icon_summary">Відображати піктограму програми на панелі запуску</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">Додаткові словники</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">Налаштування для словників</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">Словники користувача</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">Словник користувача</string>
     <string name="dictionary_available" msgid="4728975345815214218">Словник доступний</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Нема з’єднання зі службою словника"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">Словники недоступні</string>
@@ -112,25 +107,18 @@
     <string name="last_update" msgid="730467549913588780">Останнє оновлення</string>
     <string name="main_dict_description" msgid="3072821352793492143">Основний словник</string>
     <string name="settings" msgid="3876892339342569259">Налаштування</string>
-    <string name="delete_dict" msgid="756853268088330054">Видалити</string>
+    <string name="delete" msgid="756853268088330054">Видалити</string>
     <string name="version_text" msgid="2715354215568469385">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">Додати</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">Додати в словник</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">Фраза</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">Інші варіанти</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">Менше опцій</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Слово:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Ярлик:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Мова:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">Введіть слово</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Необов’язковий ярлик"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">Редагувати слово</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Редагувати</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">Видалити</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"У словнику користувача нічого немає. Щоб додати слово, торкніться кнопки \"Додати\" (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всіх мов</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Інші мови…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">Видалити</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
     <string name="ime_settings">Налаштування OpenBoard</string>
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
@@ -220,4 +208,6 @@
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
+    <string name="undo">"Відмінити"</string>
+    <string name="redo">"Повторити"</string>
 </resources>

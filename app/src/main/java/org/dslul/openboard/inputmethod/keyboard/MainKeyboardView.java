@@ -18,7 +18,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,6 +30,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.accessibility.MainKeyboardAccessibilityDelegate;
 import org.dslul.openboard.inputmethod.annotations.ExternallyReferenced;
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.keyboard.internal.DrawingPreviewPlacerView;
 import org.dslul.openboard.inputmethod.keyboard.internal.DrawingProxy;
 import org.dslul.openboard.inputmethod.keyboard.internal.GestureFloatingTextDrawingPreview;
@@ -55,6 +55,7 @@ import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.settings.Settings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils;
 
 import java.util.ArrayList;
@@ -440,7 +441,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         locatePreviewPlacerView();
         getLocationInWindow(mOriginCoords);
         mKeyPreviewChoreographer.placeAndShowKeyPreview(key, keyboard.mIconsSet, getKeyDrawParams(),
-                getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
+                KeyboardSwitcher.getInstance().getWrapperView().getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
     }
 
     private void dismissKeyPreviewWithoutDelay(@NonNull final Key key) {
@@ -800,7 +801,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final List<Locale> secondaryLocalesToUse = withoutDuplicateLanguages(secondaryLocales, subtype.getLocale().getLanguage());
         if (secondaryLocalesToUse.size() > 0) {
             StringBuilder sb = new StringBuilder(subtype.getMiddleDisplayName());
-            final Locale displayLocale = getResources().getConfiguration().locale;
+            final Locale displayLocale = ConfigurationCompatKt.locale(getResources().getConfiguration());
             for (Locale locale : secondaryLocales) {
                 sb.append(" - ");
                 sb.append(locale.getDisplayLanguage(displayLocale));

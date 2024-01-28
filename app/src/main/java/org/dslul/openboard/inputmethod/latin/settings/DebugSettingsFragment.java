@@ -19,7 +19,7 @@ import androidx.preference.TwoStatePreference;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.DictionaryDumpBroadcastReceiver;
-import org.dslul.openboard.inputmethod.latin.DictionaryFacilitatorImpl;
+import org.dslul.openboard.inputmethod.latin.DictionaryFacilitator;
 import org.dslul.openboard.inputmethod.latin.R;
 
 /**
@@ -29,8 +29,8 @@ import org.dslul.openboard.inputmethod.latin.R;
  */
 public final class DebugSettingsFragment extends SubScreenFragment
         implements Preference.OnPreferenceClickListener {
-    private static final String PREF_KEY_DUMP_DICTS = "pref_key_dump_dictionaries";
-    private static final String PREF_KEY_DUMP_DICT_PREFIX = "pref_key_dump_dictionaries";
+    private static final String PREF_KEY_DUMP_DICTS = "dump_dictionaries";
+    private static final String PREF_KEY_DUMP_DICT_PREFIX = "dump_dictionaries";
 
     private boolean mServiceNeedsRestart = false;
     private TwoStatePreference mDebugMode;
@@ -40,12 +40,8 @@ public final class DebugSettingsFragment extends SubScreenFragment
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_debug);
 
-        if (!Settings.SHOULD_SHOW_LXX_SUGGESTION_UI) {
-            removePreference(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI);
-        }
-
         final PreferenceGroup dictDumpPreferenceGroup = findPreference(PREF_KEY_DUMP_DICTS);
-        for (final String dictName : DictionaryFacilitatorImpl.DICT_TYPE_TO_CLASS.keySet()) {
+        for (final String dictName : DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES) {
             final Preference pref = new DictDumpPreference(getActivity(), dictName);
             pref.setOnPreferenceClickListener(this);
             dictDumpPreferenceGroup.addPreference(pref);

@@ -11,7 +11,6 @@
     <string name="sound_on_keypress">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‎‏‏‎‎‎‎‎‏‏‏‏‎‏‎‏‎‎‎‏‎‎‏‎‏‎‎‎‏‎‏‏‏‎‏‎‎‎‏‏‎‎‏‎‎‎‏‎‎‎‏‏‎‎‎Sound on keypress‎‏‎‎‏‎"</string>
     <string name="popup_on_keypress">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‎‏‏‏‎‎‏‎‎‎‏‎‏‏‏‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‎‏‎‏‎‏‏‎‎‎‏‏‎‏‏‎‎‎‎‎‏‎Popup on keypress‎‏‎‎‏‎"</string>
     <string name="settings_screen_preferences">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‏‏‎‎‏‎‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‏‎‏‏‎‎‏‎‎‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎Preferences‎‏‎‎‏‎"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‎‏‏‏‎‏‎‎‎‎‏‎‎‎‎‎‏‏‎‏‏‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‏‏‏‏‎‎‎‏‎‎‏‏‎‏‏‏‏‏‎Appearance &amp; Layouts‎‏‎‎‏‎"</string>
     <string name="settings_screen_gesture">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‏‎‎‎‏‏‎‏‏‎‏‏‎‏‏‏‎‏‏‎‏‎‏‎‏‎‏‏‏‎‎‏‏‏‎‏‎‎‏‏‎‏‎‎‎‏‎‎‎‏‏‏‎‎‎Gesture Typing‎‏‎‎‏‎"</string>
     <string name="settings_screen_correction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‏‏‎‏‏‏‏‎‏‏‏‎‎‏‎‏‎‎‏‎‎‏‎‏‏‏‎‎‏‏‏‎‏‏‎‎‏‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‎‎‎‏‎‎Text correction‎‏‎‎‏‎"</string>
     <string name="settings_screen_advanced">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‎‎‏‎‏‎‎‎‏‏‏‎‏‏‏‏‎‎‏‎‏‏‎‏‏‏‎‏‏‎‎‏‏‎‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‎‏‎‏‎‏‏‎‎Advanced‎‏‎‎‏‎"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‏‎‎‏‏‎‎‏‏‏‏‎‏‏‎‏‎‎‎‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‎‎‏‎‎See the suggested word while gesturing‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎‎‎‎‎‎‎‏‎‏‎‎‎‏‏‎‏‏‎‏‏‎‏‏‎‏‎‏‎‎‏‏‎‎‏‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‎‏‏‎‎‎Phrase gesture‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‎‏‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‏‎‎‎‎‎‎Input spaces during gestures by gliding to the space key‎‏‎‎‏‎"</string>
-    <string name="language_selection_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‎‎‏‎‏‎‏‎‏‎‏‎‎‎‎‎‎‏‏‎‎‎‎‏‏‎‏‏‎‏‏‎‏‎Languages‎‏‎‎‏‎"</string>
-    <string name="help_and_feedback">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‏‏‎‏‏‎‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‎‏‏‎‎‏‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‎‏‎‏‏‏‏‎Help &amp; feedback‎‏‎‎‏‎"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‏‏‎‏‎‏‏‎‎‏‎‎‎‎‎‎‎‎‎‎‏‏‎‎‏‏‏‎‏‏‎‎‎‎‏‏‎‏‏‏‎‏‏‎English (UK)‎‏‎‎‏‎"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‏‏‎English (US)‎‏‎‎‏‎"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Spanish (US)‎‏‎‎‏‎"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‏‎‏‎‏‎‎‏‎‎‏‏‏‏‎‏‎‎‏‏‎‎‎‎‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‏‎Hinglish‎‏‎‎‏‎"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‎‎‏‎‏‏‏‎‎‎‎‏‎‏‎‎‏‏‏‎Serbian (Latin)‎‏‎‎‏‎"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‏‎‏‎‏‎‎‏‎‎‏‏‏‏‎‏‎‎‏‏‎‎‎‎‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‏‎Hinglish‎‏‎‎‏‎"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‎‎‏‎‏‏‏‎‎‎‎‏‎‏‎‎‏‏‏‎Serbian (Latin)‎‏‎‎‏‎"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‎‎‏‎‏‏‎‏‏‏‏‏‏‎‎‎‎‎English (UK) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‎‎‎‏‏‏‏‎‏‎‏‏‏‏‏‎‎‎‏‎‎‏‏‏‎‎‏‎‎‎‎‏‏‎‏‏‎‎‏‎‏‏‎‎‏‏‎‏‏‏‎‎English (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‎‏‏‎‎‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎‏‏‎‏‏‎‏‏‏‎‏‎‏‎‎‎‎‎‎‎‏‎‏‏‎‏‎‎Spanish (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‏‎‏‏‎‏‎‎‎‎‎‎‏‏‏‎‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‎‎‏‎‎‎Hinglish (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‏‎‎‎‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‏‏‏‎‏‏‏‎Serbian (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‏‎‏‏‎‏‎‎‎‎‎‎‏‏‏‎‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‎‎‏‎‎‎Hinglish (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‏‎‎‎‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‏‏‏‎‏‏‏‎Serbian (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‏‎‏‎‎‏‏‎‏‏‎‎‎‏‎‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‏‏‏‎‎‏‎‏‎‎‎‎‏‎‎‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Traditional)‎‏‎‎‏‎"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‎‎‏‎‏‎‏‎‏‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‎‏‏‏‏‎‏‏‎‏‏‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Compact)‎‏‎‎‏‎"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‏‏‎‏‎‎‎‏‏‎‏‎‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‎‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎No language (Alphabet)‎‏‎‎‏‎"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‏‎‏‏‎‎‎‎‎‎‏‏‎‏‎‎‏‏‏‏‏‏‎‎‏‏‎‏‏‏‎‏‎‏‏‎‏‎‎‏‎‏‏‏‏‎‏‎‏‏‏‏‎‏‎Display application icon in the launcher‎‏‎‎‏‎"</string>
     <string name="dictionary_settings_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‎‎‏‎‎‏‏‏‎‎‏‎‎‏‏‎‏‏‏‏‎‏‏‎‏‏‏‏‎‎‎‏‎‏‏‎‏‎‎‏‏‏‎‎‏‏‏‏‎‎‏‏‎‏‎Add-on dictionaries‎‏‎‎‏‎"</string>
     <string name="dictionary_settings_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‎‏‎‏‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‎‎‏‏‏‏‏‏‏‎‏‏‎‏‎‎Settings for dictionaries‎‏‎‎‏‎"</string>
-    <string name="user_dictionaries">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‎‎‎‏‎‏‎‏‎‏‎‎‏‎‎‏‎‎‏‏‏‎‎‎‏‎‎‏‏‎‎‏‏‎‏‎‏‎‎‎‎‏‎‏‎‎‎‎‏‏‎‏‎‎User dictionaries‎‏‎‎‏‎"</string>
-    <string name="default_user_dict_pref_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‏‏‏‎‏‎‎‏‏‎‎‏‏‎‎‏‏‎‎‏‏‎‏‎‎‏‎‏‏‎‎‏‏‎‎‏‏‏‎‏‎‎‎‏‎‏‏‎‏‎‎‎‏‏‎‏‎User dictionary‎‏‎‎‏‎"</string>
     <string name="dictionary_available">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‏‏‎‎‏‎‎‏‏‏‎‏‏‎‎‏‏‏‏‎‏‏‎‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‏‎‎‏‎‏‎Dictionary available‎‏‎‎‏‎"</string>
     <string name="cannot_connect_to_dict_service">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‎‎‏‎‎‎‎‏‎‎‏‏‏‏‎‏‎‏‎‏‏‎‏‏‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‏‏‏‏‎‏‏‎‎‎‏‏‏‏‎‎‎‎‎‎Problem connecting to dictionary service‎‏‎‎‏‎"</string>
     <string name="no_dictionaries_available">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‏‏‎‎‎‏‎‎‏‏‎‎‏‎‎‎‏‎‎‎‎‎‏‎‎‏‎‎‎‎‎‏‏‎‎‎‏‏‏‎‎‎‎‎‏‏‏‎‏‏‏‎‎No dictionaries available‎‏‎‎‏‎"</string>
@@ -111,26 +106,21 @@
     <string name="last_update">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‎‎‏‏‏‏‏‏‎‏‎‎‏‎‎‎‏‎‏‏‎‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‎‏‎‎‏‏‏‏‏‎‎‎‎‎‎‏‎‎‏‏‎‎‎Last updated‎‏‎‎‏‎"</string>
     <string name="main_dict_description">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‎‏‎‎‏‏‎‎‎‏‎‏‎‎‏‏‏‏‎‏‏‎‎‏‎‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‏‎‎‎‎‎‏‎‏‏‎‏‏‎‎Main dictionary‎‏‎‎‏‎"</string>
     <string name="settings">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‎‏‏‎‎‏‎‏‎‎‏‎‎‏‎‏‏‎‎‏‏‎‏‏‏‎‎‎‏‏‏‎‏‏‏‎‎‏‎‎‎‏‎‏‏‏‎‏‏‎‎‎‎Settings‎‏‎‎‏‎"</string>
-    <string name="delete_dict">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‎‎‎‎‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‏‎‏‎‎‏‎‎‎‏‎‏‏‏‎‏‎‎‏‎‏‏‏‎‏‎‎‏‏‎‏‎‏‏‎‎‏‎‎‎Delete‎‏‎‎‏‎"</string>
+    <string name="delete">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‎‎‎‎‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‏‎‏‎‎‏‎‎‎‏‎‏‏‏‎‏‎‎‏‎‏‏‏‎‏‎‎‏‏‎‏‎‏‏‎‎‏‎‎‎Delete‎‏‎‎‏‎"</string>
     <string name="version_text" msgid="2715354215568469385">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‎‏‎‏‏‏‎‏‏‏‎‎‎‎‎‎‏‎‎‎‏‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‎‎‏‎Version ‎‏‎‎‏‏‎<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_menu_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‎‏‎‎‎‎‎‎‏‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‏‎‎‏‎‏‏‏‏‎‏‎‎‏‏‏‏‎‎‎‏‏‏‎‏‏‏‎‏‏‎Add‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_dialog_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‎‎‎‎‏‏‎‎‏‏‎‎‏‏‏‏‎‏‎‏‎‎‏‏‎‎‏‎‎‎‏‏‏‎‎‎‎‏‏‏‎‎‏‎‏‏‎‏‎‎‎‎‎‎‎Add to dictionary‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_screen_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‎‏‏‎‏‏‏‎‎‎‎‏‏‏‎‎‏‏‏‏‎‎‏‏‎‎‎‏‏‎‏‏‎‏‎‎‎‎‎‏‏‏‏‏‎‏‏‎‏‎‏‏‎‏‎‏‎Phrase‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_dialog_more_options">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‏‎‎‏‎‏‎‏‎‎‎‏‏‎‎‎‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎‏‎‏‎‏‎‎‎‏‎‎‏‏‎‏‎‏‏‏‎More options‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_dialog_less_options">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‎‎‏‎‎‎‏‎‎‏‎‏‎‎‏‏‏‎‎‎‏‎‎‎‎‎‏‎‏‏‏‏‏‎‏‎‎‎‎‎‎‏‏‎‎‏‎‏‏‏‎Less options‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_add_word_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‎‎‎‏‎‎‎‎‏‎‏‎‎‏‎‏‎‏‎‏‎‎‏‏‎‎‏‎‏‏‏‎‎‎‎‏‏‎‎‏‏‎‎‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‎Word:‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‎‏‏‎‏‏‏‎‏‏‏‏‎‏‏‎‏‎‎‏‎‎‏‎‏‏‏‎‎‏‎‎‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎Shortcut:‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_locale_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‏‎‎‏‎‎‎‎‏‎‏‎‏‎‏‎‏‏‏‎‏‎‎‏‎‏‏‏‏‎‎‏‎‎‏‎‏‏‏‎‏‏‏‏‏‎‏‏‏‎‏‏‎Language:‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_word_hint">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‏‎‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‏‎‏‎‎‎‏‎‏‎‎‏‎‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‎‏‎‏‎‏‏‎Type a word‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_shortcut_hint">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‏‎‎‎‏‏‎‏‏‎‏‏‏‎‎‎‎‏‎‎‏‏‏‎‎‏‏‎‎‎‎‎‎‏‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‎‎Optional shortcut‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_edit_dialog_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‏‎‏‎‎‏‏‎‏‎‎‏‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‏‎‏‎‏‎‏‎‏‎‎‏‎‎‏‏‎‎‏‏‏‎‏‎‎‎‎‏‏‎Edit word‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_context_menu_edit_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‏‎‏‎‎‎‎‎‏‎‏‎‎‎‏‎‏‏‎‎‎‎‎‏‎‎‎‎‏‏‏‏‏‏‎‎‏‏‏‎‏‏‏‎‎‏‏‎‎‎‏‏‎‎Edit‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_context_menu_delete_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‏‎‎‏‏‎‎‎‏‏‏‎‏‏‎‎‎‎‏‎‎‏‎‎‎‏‏‏‏‎‏‏‎‎‏‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Delete‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_empty_text">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‏‎‎‏‎‎‎‎‎‎‎‏‏‏‎‎‏‎You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_all_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‏‏‏‏‏‏‏‎‏‎‎‏‏‎‎‎‎‎‏‎‎‎‎‏‎‎‏‎‏‏‏‎‎‎‏‎‎For all languages‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_more_languages">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‏‎‎‏‎‏‎‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‏‎‏‎‎‎‏‏‎‎‏‏‎‎‎‎‎‎‎‎‎‏‎‎‎‏‏‎‎More languages…‎‏‎‎‏‎"</string>
-    <string name="user_dict_settings_delete">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‎‎‎‏‎‏‏‎‎‎‎‏‏‎‏‏‏‏‎‏‏‏‎‏‎‎‎‎‏‎‎‎‏‏‎‏‏‎‏‎‏‏‎‏‏‏‎‎‏‎‎‏‎Delete‎‏‎‎‏‎"</string>
     <string name="user_dict_fast_scroll_alphabet">" ‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‏‎‎‎‎‎‏‎‏‏‎‏‎‎‏‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‏‎‏‎‏‎‏‏‏‏‏‎‏‎‎‏‎‏‎‏‎‎ ABCDEFGHIJKLMNOPQRSTUVWXYZ‎‏‎‎‏‎"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‏‎‏‏‏‏‏‏‏‎‎‎‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‏‎‏‏‏‎‏‎‏‎‏‏‏‏‎‎‏‎‎‎‎‏‎‎‏‏‏‎‏‏‏‎‏‏‏‎‎‏‎‎‎‎‎‎Use system languages‎‏‎‎‏‎"</string>
     <string name="select_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‎‎‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‎‏‎‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎Choose input method‎‏‎‎‏‎"</string>
+    <string name="undo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‎‏‏‎‏‏‏‎‎‎‎‎‎‎‎‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‎‏‏‏‏‎‎‎‎Undo‎‏‎‎‏‎"</string>
+    <string name="redo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‏‏‏‏‎‎‏‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‎‏‏‏‏‎‏‏‏‎‎‎‏‎‎‏‏‏‎‏‎‏‏‎‏‏‎‎‎‎‎Redo‎‏‎‎‏‎"</string>
 </resources>

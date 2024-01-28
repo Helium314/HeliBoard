@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_focused="true"
+        android:color="@color/setup_step_action_text_pressed" />
+    <item
+        android:state_pressed="true"
+        android:color="@color/setup_step_action_text_pressed" />
+    <item
+        android:color="@color/setup_text_action" />
+</selector>

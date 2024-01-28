@@ -8,28 +8,27 @@ package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import org.dslul.openboard.inputmethod.latin.utils.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.dslul.openboard.inputmethod.compat.AppWorkaroundsUtils;
+import org.dslul.openboard.inputmethod.compat.ConfigurationCompatKt;
 import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodManager;
 import org.dslul.openboard.inputmethod.latin.common.Colors;
 import org.dslul.openboard.inputmethod.latin.spellcheck.AndroidSpellCheckerService;
-import org.dslul.openboard.inputmethod.latin.utils.AsyncResultHolder;
+import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
+import org.dslul.openboard.inputmethod.latin.utils.Log;
 import org.dslul.openboard.inputmethod.latin.utils.MoreKeysUtilsKt;
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
-import org.dslul.openboard.inputmethod.latin.utils.TargetPackageInfoGetterTask;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeUtilsKt;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +36,7 @@ import java.util.Locale;
 
 /**
  * When you call the constructor of this class, you may want to change the current system locale by
- * using {@link org.dslul.openboard.inputmethod.latin.utils.RunInLocale}.
+ * using {@link org.dslul.openboard.inputmethod.latin.utils.RunInLocaleKt}.
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
@@ -95,9 +94,6 @@ public class SettingsValues {
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
-    public final boolean mIsShowAppIconSettingInPreferences;
-    public final boolean mShouldShowLxxSuggestionUi;
-    // Use split layout for keyboard.
     public final boolean mIsSplitKeyboardEnabled;
     public final float mSplitKeyboardSpacerRelativeWidth;
     public final int mScreenMetrics;
@@ -115,14 +111,14 @@ public class SettingsValues {
     // Deduced settings
     public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;
-    private final boolean mAutoCorrectEnabled;
+    public final boolean mAutoCorrectionEnabledPerUserSettings;
+    public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final int mScoreLimitForAutocorrect;
-    public final boolean mAutoCorrectionEnabledPerUserSettings;
     private final boolean mSuggestionsEnabledPerUserSettings;
+    private final boolean mOverrideShowingSuggestions;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
-    private final AsyncResultHolder<AppWorkaroundsUtils> mAppWorkarounds;
 
     // User-defined colors
     public final Colors mColors;
@@ -133,7 +129,7 @@ public class SettingsValues {
     // creation of Colors and SpacingAndPunctuations are the slowest parts in here, but still ok
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
-        mLocale = res.getConfiguration().locale;
+        mLocale = ConfigurationCompatKt.locale(res.getConfiguration());
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -160,7 +156,11 @@ public class SettingsValues {
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
         mBlockPotentiallyOffensive = Settings.readBlockPotentiallyOffensive(prefs, res);
-        mAutoCorrectEnabled = Settings.readAutoCorrectEnabled(prefs);
+        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
+        mAutoCorrectionEnabledPerUserSettings = Settings.readAutoCorrectEnabled(prefs);
+        mAutoCorrectEnabled = mAutoCorrectionEnabledPerUserSettings
+                && (mInputAttributes.mInputTypeShouldAutoCorrect || Settings.readMoreAutoCorrectEnabled(prefs))
+                && (mUrlDetectionEnabled || !InputTypeUtils.isUriOrEmailType(mInputAttributes.mInputType));
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
@@ -177,36 +177,23 @@ public class SettingsValues {
                 : 0f;
         mScreenMetrics = Settings.readScreenMetrics(res);
 
-        mShouldShowLxxSuggestionUi = Settings.SHOULD_SHOW_LXX_SUGGESTION_UI
-                && prefs.getBoolean(DebugSettings.PREF_SHOULD_SHOW_LXX_SUGGESTION_UI, true);
         // Compute other readable settings
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
         mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
         mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs, res);
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
-        mIsShowAppIconSettingInPreferences = prefs.contains(Settings.PREF_SHOW_SETUP_WIZARD_ICON);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
-        mAutoCorrectionEnabledPerUserSettings = mAutoCorrectEnabled;
-                //&& !mInputAttributes.mInputTypeNoAutoCorrect; // follow that request or not?
-        mSuggestionsEnabledPerUserSettings = !mInputAttributes.mIsPasswordField &&
-                readSuggestionsEnabled(prefs);
+        mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
+        mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
+                || mOverrideShowingSuggestions;
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
-        mAppWorkarounds = new AsyncResultHolder<>("AppWorkarounds");
-        final PackageInfo packageInfo = TargetPackageInfoGetterTask.getCachedPackageInfo(
-                mInputAttributes.mTargetApplicationPackageName);
-        if (null != packageInfo) {
-            mAppWorkarounds.set(new AppWorkaroundsUtils(packageInfo));
-        } else {
-            new TargetPackageInfoGetterTask(context, mAppWorkarounds)
-                    .execute(mInputAttributes.mTargetApplicationPackageName);
-        }
         mSpaceTrackpadEnabled = Settings.readSpaceTrackpadEnabled(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
@@ -222,7 +209,7 @@ public class SettingsValues {
         } else
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, selectedSubtype.getLocale());
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeUtilsKt.locale(selectedSubtype));
         mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMoreMoreKeysPref(prefs)
                 : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
@@ -242,7 +229,6 @@ public class SettingsValues {
                 mBlockPotentiallyOffensive,
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
-        mUrlDetectionEnabled = prefs.getBoolean(Settings.PREF_URL_DETECTION, false);
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
     }
@@ -252,8 +238,8 @@ public class SettingsValues {
     }
 
     public boolean needsToLookupSuggestions() {
-        return mInputAttributes.mShouldShowSuggestions
-                && (mAutoCorrectionEnabledPerUserSettings || isSuggestionsEnabledPerUserSettings());
+        return (mInputAttributes.mShouldShowSuggestions || mOverrideShowingSuggestions)
+                && (mAutoCorrectEnabled || isSuggestionsEnabledPerUserSettings());
     }
 
     public boolean isSuggestionsEnabledPerUserSettings() {
@@ -310,6 +296,10 @@ public class SettingsValues {
 
     private static boolean readSuggestionsEnabled(final SharedPreferences prefs) {
         return prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true);
+    }
+
+    private static boolean readSuggestionsOverrideEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, false);
     }
 
     private static boolean readBigramPredictionEnabled(final SharedPreferences prefs,
@@ -405,8 +395,6 @@ public class SettingsValues {
         sb.append("\n   mDisplayOrientation = ");
         sb.append("" + mDisplayOrientation);
         sb.append("\n   mAppWorkarounds = ");
-        final AppWorkaroundsUtils awu = mAppWorkarounds.get(null, 0);
-        sb.append("" + (null == awu ? "null" : awu.toString()));
         return sb.toString();
     }
 }

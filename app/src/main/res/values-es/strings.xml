@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Sonar al pulsar tecla"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"Ampliar al pulsar tecla"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferencias"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Aspecto y diseño"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"Escritura gestual"</string>
     <string name="settings_screen_correction">"Corrección ortográfica"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"Ajustes avanzados"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary">"Ver palabra sugerida al hacer gestos"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"Gestos con tecla Espacio"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Desliza el dedo a Espacio para introducir espacios durante gestos"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"Idiomas"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"Ayuda y sugerencias"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Inglés (Reino Unido)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Inglés (EE.UU.)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"Español (EE.UU.)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">inglés indio</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"Serbio (latino)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">inglés indio</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Serbio (latino)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Inglés (Reino Unido) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Inglés (EE.UU.) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Español (EE.UU.)) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">inglés indio (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Serbio (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">inglés indio (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Serbio (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"Ningún idioma (alfabeto)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Mostrar icono de aplicación en menú de aplicaciones"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"Diccionarios complementarios"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"Ajustes de diccionarios"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"Diccionarios del usuario"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"Diccionario del usuario"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"Diccionario disponible"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Error al conectar"</string>
     <string name="no_dictionaries_available">"No hay diccionarios"</string>
@@ -111,25 +106,18 @@
     <string name="last_update" msgid="730467549913588780">"Última actualización"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"Diccionario principal"</string>
     <string name="settings" msgid="3876892339342569259">"Ajustes"</string>
-    <string name="delete_dict" msgid="756853268088330054">"Eliminar"</string>
+    <string name="delete" msgid="756853268088330054">"Eliminar"</string>
     <string name="version_text" msgid="2715354215568469385">Versión <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Añadir"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Añadir al diccionario"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"Frase"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"Más opciones"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"Menos opciones"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Palabra:"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Escribe una palabra"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Introducir"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Editar palabra"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"Editar"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"Eliminar"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tienes ninguna palabra en el diccionario del usuario. Toca el botón (+) para añadir una."</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Más idiomas…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"Eliminar"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">La apariencia seguirá los ajustes del sistema</string>
@@ -172,4 +160,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">"Usar idiomas del sistema"</string>
     <string name="auto_correction_confidence">Precisión de la corrección automática</string>
     <string name="select_input_method">"Selecciona un método de entrada"</string>
+    <string name="undo">"Deshacer"</string>
+    <string name="redo">"Rehacer"</string>
 </resources>

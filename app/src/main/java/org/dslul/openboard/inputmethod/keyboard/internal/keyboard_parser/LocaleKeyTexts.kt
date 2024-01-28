@@ -10,6 +10,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.floris.
 import org.dslul.openboard.inputmethod.latin.common.splitOnFirstSpacesOnly
 import org.dslul.openboard.inputmethod.latin.common.splitOnWhitespace
 import org.dslul.openboard.inputmethod.latin.settings.Settings
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 import java.io.InputStream
 import java.util.Locale
 import kotlin.math.round
@@ -67,6 +68,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
             val colonSpaceRegex = ":\\s+".toRegex()
             reader.forEachLine { l ->
                 val line = l.trim()
+                if (line.isEmpty()) return@forEachLine
                 when (line) {
                     "[morekeys]" -> { mode = READER_MODE_MORE_KEYS; return@forEachLine }
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
@@ -133,7 +135,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
                     Array(split.size - 1) { split[it + 1] }
                 else mergeMoreKeys(existingMoreKeys, split.drop(1))
             moreKeys[key] = when (key) {
-                "'", "\"", "«", "»", ")", "(" -> addFixedColumnOrder(newMoreKeys)
+                "'", "\"", "«", "»" -> addFixedColumnOrder(newMoreKeys)
                 else -> newMoreKeys
             }
         }
@@ -243,11 +245,11 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreK
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toString() == "zz") context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
-        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toString().lowercase()}.txt")
+        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
+        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language.lowercase()}.txt")
+            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language}.txt")
         } catch (_: Exception) {
             null
         }
@@ -284,7 +286,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
         return genericCurrencyKey(getCurrency(locale))
     if (locale.country != "IN" && locale.language == "ta")
         return genericCurrencyKey("௹")
-    if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te".toRegex()))
+    if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te|gu".toRegex()))
         return rupee
     if (locale.country == "GB")
         return pound

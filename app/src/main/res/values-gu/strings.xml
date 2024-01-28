@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"કીપ્રેસ પર ધ્વનિ"</string>
     <string name="popup_on_keypress" msgid="123894815723512944">"કીપ્રેસ પર પોપઅપ"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"પસંદગી"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"દેખાવ અને લેઆઉટ્સ"</string>
     <string name="settings_screen_gesture" msgid="8826372746901183556">"સાંકેતિક ટાઇપિંગ"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"ટેક્સ્ટ સુધારણા"</string>
     <string name="settings_screen_advanced" msgid="7472408607625972994">"વિગતવાર"</string>
@@ -50,18 +49,16 @@
     <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"હાવભાવ કરતી વખતે સૂચિત શબ્દ જુઓ"</string>
     <string name="gesture_space_aware" msgid="2078291600664682496">"શબ્દસમૂહ હાવભાવ"</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">"સ્પેસ કી પર જઈને હાવભાવ દરમિયાન સ્પેસ ઇનપુટ કરો"</string>
-    <string name="language_selection_title" msgid="3666971864764478269">"ભાષાઓ"</string>
-    <string name="help_and_feedback" msgid="5328219371839879161">"સહાય અને પ્રતિસાદ"</string>
     <string name="subtype_en_GB" msgid="88170601942311355">"અંગ્રેજી (યુકે)"</string>
     <string name="subtype_en_US" msgid="6160452336634534239">"અંગ્રેજી (યુ એસ)"</string>
     <string name="subtype_es_US" msgid="5583145191430180200">"સ્પેનિશ (US)"</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">"હિંગ્લિશ"</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">"સર્બિયન (લેટિન)"</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">"હિંગ્લિશ"</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">"સર્બિયન (લેટિન)"</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"અંગ્રેજી (યુકે) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"અંગ્રેજી (યુએસ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">"સ્પેનિશ (યુએસ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">"હિંગ્લિશ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">"સર્બિયન (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"હિંગ્લિશ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"સર્બિયન (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (પરંપરાગત)"</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (કોમ્પેક્ટ)"</string>
     <string name="subtype_no_language" msgid="7137390094240139495">"ભાષા નથી (આલ્ફાબેટ)"</string>
@@ -102,8 +99,6 @@
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"લોંચરમાં ઍપ્લિકેશન આયકન પ્રદર્શિત કરો"</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">"એડ-ઓન શબ્દકોશ"</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">"શબ્દકોશો માટેની સેટિંગ્સ"</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">"વપરાશકર્તા શબ્દકોશ"</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">"વપરાશકર્તા શબ્દકોશ"</string>
     <string name="dictionary_available" msgid="4728975345815214218">"શબ્દકોશ ઉપલબ્ધ છે"</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"શબ્દકોશ સેવા સાથે કનેક્ટ થવામાં સમસ્યા"</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">"કોઈ શબ્દકોશ ઉપલબ્ધ નથી"</string>
@@ -111,26 +106,21 @@
     <string name="last_update" msgid="730467549913588780">"છેલ્લે અપડેટ કર્યું"</string>
     <string name="main_dict_description" msgid="3072821352793492143">"મુખ્ય શબ્દકોશ"</string>
     <string name="settings" msgid="3876892339342569259">"સેટિંગ્સ"</string>
-    <string name="delete_dict" msgid="756853268088330054">"કાઢી નાખો"</string>
+    <string name="delete" msgid="756853268088330054">"કાઢી નાખો"</string>
     <string name="version_text" msgid="2715354215568469385">"સંસ્કરણ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ઉમેરો"</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"શબ્દકોષમાં ઉમેરો"</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">"શબ્દસમૂહ"</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">"વધુ વિકલ્પો"</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">"ઓછા વિકલ્પો"</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"શબ્દ:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"શોર્ટકટ:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ભાષા:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"એક શબ્દ લખો"</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"વૈકલ્પિક શોર્ટકટ"</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"શબ્દ સંપાદિત કરો"</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">"સંપાદિત કરો"</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">"કાઢી નાખો"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"તમારી પાસે વપરાશકર્તા શબ્દકોશમાં કોઈપણ શબ્દ નથી. શબ્દને ઉમેરવા માટે, ઉમેરો (+) બટન ટૅપ કરો."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"તમામ"</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"વધુ ભાષાઓ…"</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">"કાઢી નાખો"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" [અ આ ઇ ઈ ઉ ઊ ઋ એ ઐ ઓ ઔ ક ખ ગ ઘ ઙ ચ છ જ ઝ ઞ ટ ઠ ડ ઢ ણ ત થ દ ધ ન પ ફ બ ભ મ ય ર લ વ શ ષ સ હ ળ]"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"સિસ્ટમ ભાષાઓનો ઉપયોગ કરો"</string>
     <string name="select_input_method">"ઇનપુટ પદ્ધતિ પસંદ કરો"</string>
+    <string name="undo">"પૂર્વવત્ કરો"</string>
+    <string name="redo">"ફરી કરો"</string>
 </resources>

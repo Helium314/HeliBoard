@@ -11,7 +11,12 @@ import android.app.Application;
 import android.os.Build;
 import android.text.TextUtils;
 
+import androidx.preference.PreferenceManager;
+
+import org.dslul.openboard.inputmethod.latin.App;
 import org.dslul.openboard.inputmethod.latin.BuildConfig;
+import org.dslul.openboard.inputmethod.latin.settings.Settings;
+
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -26,7 +31,7 @@ public final class JniUtils {
     private static final String CHECKSUM_X86 = "bd946d126c957b5a6dea3bafa07fa36a27950b30e2b684dffc60746d0a1c7ad8";
 
     public static String expectedDefaultChecksum() {
-        final String abi = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? Build.SUPPORTED_ABIS[0] : Build.CPU_ABI;
+        final String abi = Build.SUPPORTED_ABIS[0];
         return switch (abi) {
             case "arm64-v8a" -> CHECKSUM_ARM64;
             case "armeabi-v7a" -> CHECKSUM_ARM32;
@@ -40,18 +45,28 @@ public final class JniUtils {
     static {
         // hardcoded default path, may not work on all phones
         @SuppressLint("SdCardPath") String filesDir = "/data/data/" + BuildConfig.APPLICATION_ID + "/files";
-        Application app = null;
-        try {
-            // try using reflection to get (app)context: https://stackoverflow.com/a/38967293
-            app = (Application) Class.forName("android.app.ActivityThread")
-                    .getMethod("currentApplication").invoke(null, (Object[]) null);
-            // and use the actual path if possible
+        Application app = App.Companion.getApp();
+        if (app == null) {
+            try {
+                // try using reflection to get (app)context: https://stackoverflow.com/a/38967293
+                // this may not be necessary any more, now that we get the app somewhere else?
+                app = (Application) Class.forName("android.app.ActivityThread")
+                        .getMethod("currentApplication").invoke(null, (Object[]) null);
+            } catch (Exception ignored) { }
+        }
+        if (app != null) // use the actual path if possible
             filesDir = app.getFilesDir().getAbsolutePath();
-        } catch (Exception ignored) { }
         final File userSuppliedLibrary = new File(filesDir + File.separator + JNI_LIB_IMPORT_FILE_NAME);
         if (userSuppliedLibrary.exists()) {
-            final String wantedChecksum = app == null ? expectedDefaultChecksum() : DeviceProtectedUtils.getSharedPreferences(app).getString("lib_checksum", "");
+            String wantedChecksum = expectedDefaultChecksum();
             try {
+                if (app != null) {
+                    // we want the default preferences, because storing the checksum in device protected storage is discouraged
+                    // see https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()
+                    // todo: test what happens on an encrypted phone after reboot (don't have one...)
+                    //  does the app restart after unlocking, or is gesture typing unavailable?
+                    wantedChecksum = PreferenceManager.getDefaultSharedPreferences(app).getString(Settings.PREF_LIBRARY_CHECKSUM, wantedChecksum);
+                }
                 final String checksum = ChecksumCalculator.INSTANCE.checksum(new FileInputStream(userSuppliedLibrary));
                 if (TextUtils.equals(wantedChecksum, checksum)) {
                     // try loading the library
@@ -59,10 +74,9 @@ public final class JniUtils {
                     sHaveGestureLib = true; // this is an assumption, any way to actually check?
                 } else {
                     // delete if checksum doesn't match
-                    // this actually is bad if we can't get the application and the user has a different library than expected
-                    // todo: this is disabled until app is renamed, otherwise it will delete everyone's library!
-                    //  though there could be a default check?
-//                    userSuppliedLibrary.delete();
+                    // this is bad if we can't get the application and the user has a different library than expected...
+                    userSuppliedLibrary.delete();
+                    sHaveGestureLib = false;
                 }
             } catch (Throwable t) { // catch everything, maybe provided library simply doesn't work
                 Log.w(TAG, "Could not load user-supplied library", t);

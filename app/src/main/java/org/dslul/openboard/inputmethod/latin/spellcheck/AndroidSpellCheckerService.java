@@ -29,7 +29,7 @@ import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import org.dslul.openboard.inputmethod.latin.utils.AdditionalSubtypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
-import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils;
+import org.dslul.openboard.inputmethod.latin.utils.SubtypeSettingsKt;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
 import java.util.Locale;
@@ -43,7 +43,7 @@ import java.util.concurrent.Semaphore;
 public final class AndroidSpellCheckerService extends SpellCheckerService
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static final String PREF_USE_CONTACTS_KEY = "pref_spellcheck_use_contacts";
+    public static final String PREF_USE_CONTACTS_KEY = "spellcheck_use_contacts";
 
     public static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
     public static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;
@@ -81,34 +81,15 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     @Override
     public void onCreate() {
         super.onCreate();
-        mRecommendedThreshold = Float.parseFloat(
-                getString(R.string.spellchecker_recommended_threshold_value));
+        mRecommendedThreshold = Float.parseFloat(getString(R.string.spellchecker_recommended_threshold_value));
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         onSharedPreferenceChanged(prefs, PREF_USE_CONTACTS_KEY);
+        SubtypeSettingsKt.init(this);
     }
 
     public float getRecommendedThreshold() {
         return mRecommendedThreshold;
-    }
-
-    private static String getKeyboardLayoutNameForLocale(final Locale locale) {
-        // See b/19963288.
-        if (locale.getLanguage().equals("sr") || locale.getLanguage().equals("mk")) {
-            return locale.getLanguage();
-        }
-        final int script = ScriptUtils.getScriptFromSpellCheckerLocale(locale);
-        return switch (script) {
-            case ScriptUtils.SCRIPT_LATIN -> "qwerty";
-            case ScriptUtils.SCRIPT_ARMENIAN -> "armenian_phonetic";
-            case ScriptUtils.SCRIPT_CYRILLIC -> "ru";
-            case ScriptUtils.SCRIPT_GREEK -> "greek";
-            case ScriptUtils.SCRIPT_HEBREW -> "hebrew";
-            case ScriptUtils.SCRIPT_BULGARIAN -> "bulgarian";
-            case ScriptUtils.SCRIPT_GEORGIAN -> "georgian";
-            case ScriptUtils.SCRIPT_BENGALI -> "bengali_unijoy";
-            default -> throw new RuntimeException("Wrong script supplied: " + script);
-        };
     }
 
     @Override
@@ -201,17 +182,14 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         Keyboard keyboard = mKeyboardCache.get(locale);
         if (keyboard == null) {
             keyboard = createKeyboardForLocale(locale);
-            if (keyboard != null) {
-                mKeyboardCache.put(locale, keyboard);
-            }
+            mKeyboardCache.put(locale, keyboard);
         }
         return keyboard;
     }
 
     private Keyboard createKeyboardForLocale(final Locale locale) {
-        final String keyboardLayoutName = getKeyboardLayoutNameForLocale(locale);
-        final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(
-                locale.toString(), keyboardLayoutName);
+        final String keyboardLayoutName = SubtypeSettingsKt.getMatchingLayoutSetNameForLocale(locale);
+        final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(locale, keyboardLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
         return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
     }

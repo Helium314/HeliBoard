@@ -11,7 +11,6 @@
     <string name="sound_on_keypress" msgid="6093592297198243644">"Звук клавиш"</string>
     <string name="popup_on_keypress">"Увеличивать при нажатии"</string>
     <string name="settings_screen_preferences" msgid="2696713156722014624">"Настройки"</string>
-    <string name="settings_screen_appearance_and_layouts" msgid="7358046399111611615">"Вид и раскладки"</string>
     <string name="settings_screen_appearance" msgid="7358046399111611615">Оформление</string>
     <string name="settings_screen_gesture">"Непрерывный ввод"</string>
     <string name="settings_screen_correction" msgid="1616818407747682955">"Исправление текста"</string>
@@ -51,18 +50,16 @@
     <string name="gesture_floating_preview_text_summary">Показывать подсказки при вводе текста</string>
     <string name="gesture_space_aware">Непрерывный ввод фраз</string>
     <string name="gesture_space_aware_summary" msgid="4371385818348528538">Проводите по клавише пробела после каждого слова</string>
-    <string name="language_selection_title">Языки</string>
-    <string name="help_and_feedback">Справка/отзыв</string>
     <string name="subtype_en_GB" msgid="88170601942311355">Английский (Великобритания)</string>
     <string name="subtype_en_US" msgid="6160452336634534239">Английский (США)</string>
     <string name="subtype_es_US" msgid="5583145191430180200">Испанский (США)</string>
-    <string name="subtype_hi_ZZ" msgid="8860448146262798623">Хинглиш</string>
-    <string name="subtype_sr_ZZ" msgid="9059219552986034343">Сербский (латиница)</string>
+    <string name="subtype_hi_Latn" msgid="8860448146262798623">Хинглиш</string>
+    <string name="subtype_sr_Latn" msgid="9059219552986034343">Сербский (латиница)</string>
     <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Английский (Великобритания, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Английский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US" msgid="510930471167541338">Испанский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_ZZ" msgid="6827402953860547044">Хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_ZZ" msgid="2859024772719772407">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (классическая)</string>
     <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Компактная)</string>
     <string name="subtype_no_language" msgid="7137390094240139495">Стандартная (Латиница)</string>
@@ -103,8 +100,6 @@
     <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
     <string name="dictionary_settings_title" msgid="8091417676045693313">Дополнительные словари</string>
     <string name="dictionary_settings_summary" msgid="5305694987799824349">Настройки словарей</string>
-    <string name="user_dictionaries" msgid="3582332055892252845">Пользовательские словари</string>
-    <string name="default_user_dict_pref_name" msgid="1625055720489280530">Пользовательский словарь</string>
     <string name="dictionary_available" msgid="4728975345815214218">Доступен словарь</string>
     <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">Сбой подключения</string>
     <string name="no_dictionaries_available" msgid="8039920716566132611">Словарей нет</string>
@@ -112,25 +107,18 @@
     <string name="last_update" msgid="730467549913588780">Последнее обновление</string>
     <string name="main_dict_description" msgid="3072821352793492143">Основной словарь</string>
     <string name="settings" msgid="3876892339342569259">Настройки</string>
-    <string name="delete_dict" msgid="756853268088330054">Удалить</string>
+    <string name="delete" msgid="756853268088330054">Удалить</string>
     <string name="version_text" msgid="2715354215568469385">Версия <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">Добавить</string>
     <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">Добавление в словарь</string>
-    <string name="user_dict_settings_add_screen_title" msgid="5818914331629278758">Фраза</string>
-    <string name="user_dict_settings_add_dialog_more_options" msgid="5671682004887093112">Больше настроек</string>
-    <string name="user_dict_settings_add_dialog_less_options" msgid="2716586567241724126">Меньше настроек</string>
-    <string name="user_dict_settings_add_word_option_name" msgid="6665558053408962865">"Слово:"</string>
     <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Быстрые клавиши:"</string>
     <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Язык:"</string>
     <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">Введите слово</string>
     <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">Ярлык для фразы (необязательно)</string>
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">Изменение слова</string>
-    <string name="user_dict_settings_context_menu_edit_title" msgid="6812255903472456302">Изменить</string>
-    <string name="user_dict_settings_context_menu_delete_title" msgid="8142932447689461181">Удалить</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки \"Добавить (+)\"."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другой язык</string>
-    <string name="user_dict_settings_delete" msgid="110413335187193859">Удалить</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
     <string name="number_row">Ряд с цифрами</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
@@ -220,4 +208,6 @@
     <string name="select_input_method">"Выберите метод ввода"</string>
     <string name="hidden_features_title">Описание скрытых функций</string>
     <string name="hidden_features_summary">Показать функции, которые могут остаться незамеченными</string>
+    <string name="undo">"Отменить"</string>
+    <string name="redo">"Повторить"</string>
 </resources>

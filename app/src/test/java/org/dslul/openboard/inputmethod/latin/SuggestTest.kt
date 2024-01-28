@@ -271,7 +271,6 @@ class SuggestTest {
             listOf(firstSuggestionForEmpty, typedWordSuggestionForEmpty),
             {}, // only used to fill above if needed
             true, // doesn't make sense otherwise
-            0, // not really relevant here
             WordComposer.getComposerForTest(false),
             suggestionResults,
             firstOccurrenceOfTypedWordInSuggestions,
