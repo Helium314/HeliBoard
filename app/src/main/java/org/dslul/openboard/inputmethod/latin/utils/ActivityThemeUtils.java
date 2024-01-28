@@ -15,9 +15,9 @@ import androidx.core.graphics.ColorUtils;
 
 import org.dslul.openboard.inputmethod.latin.R;
 
-public class ColorSettingsUtils {
+public class ActivityThemeUtils {
 
-    public static void setSettingColor(final AppCompatActivity activity) {
+    public static void setActivityTheme(final AppCompatActivity activity) {
         final ActionBar actionBar = activity.getSupportActionBar();
         final boolean isNight = ResourceUtils.isNight(activity.getResources());
         final ColorDrawable actionBarColor = new ColorDrawable(ContextCompat.getColor(activity, R.color.action_bar_color));

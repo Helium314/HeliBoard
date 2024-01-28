@@ -34,7 +34,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity;
-import org.dslul.openboard.inputmethod.latin.utils.ColorSettingsUtils;
+import org.dslul.openboard.inputmethod.latin.utils.ActivityThemeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
 import org.dslul.openboard.inputmethod.latin.utils.Log;
@@ -220,7 +220,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
 
-        ColorSettingsUtils.setSettingColor(this);
+        ActivityThemeUtils.setActivityTheme(this);
     }
 
     @Override
