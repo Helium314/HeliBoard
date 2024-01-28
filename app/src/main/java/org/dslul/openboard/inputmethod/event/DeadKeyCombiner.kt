@@ -59,11 +59,10 @@ class DeadKeyCombiner : Combiner {
         }
 
         // Caution! This may only contain chars, not supplementary code points. It's unlikely
-// it will ever need to, but if it does we'll have to change this
+        // it will ever need to, but if it does we'll have to change this
         private val sNonstandardDeadCombinations = SparseIntArray()
 
-        private fun addNonStandardDeadCombination(deadCodePoint: Int,
-                                                  spacingCodePoint: Int, result: Int) {
+        private fun addNonStandardDeadCombination(deadCodePoint: Int, spacingCodePoint: Int, result: Int) {
             val combination = deadCodePoint shl 16 or spacingCodePoint
             sNonstandardDeadCombinations.put(combination, result)
         }
@@ -105,14 +104,14 @@ class DeadKeyCombiner : Combiner {
             // U+030D: COMBINING VERTICAL LINE ABOVE
             addCombining('\u030D'.code, ACCENT_VERTICAL_LINE_ABOVE)
             // U+030E: COMBINING DOUBLE VERTICAL LINE ABOVE
-//addCombining('\u030E', ACCENT_DOUBLE_VERTICAL_LINE_ABOVE);
-// U+030F: COMBINING DOUBLE GRAVE ACCENT
-//addCombining('\u030F', ACCENT_DOUBLE_GRAVE);
-// U+0310: COMBINING CANDRABINDU
-//addCombining('\u0310', ACCENT_CANDRABINDU);
-// U+0311: COMBINING INVERTED BREVE
-//addCombining('\u0311', ACCENT_INVERTED_BREVE);
-// U+0312: COMBINING TURNED COMMA ABOVE
+            //addCombining('\u030E', ACCENT_DOUBLE_VERTICAL_LINE_ABOVE);
+            // U+030F: COMBINING DOUBLE GRAVE ACCENT
+            //addCombining('\u030F', ACCENT_DOUBLE_GRAVE);
+            // U+0310: COMBINING CANDRABINDU
+            //addCombining('\u0310', ACCENT_CANDRABINDU);
+            // U+0311: COMBINING INVERTED BREVE
+            //addCombining('\u0311', ACCENT_INVERTED_BREVE);
+            // U+0312: COMBINING TURNED COMMA ABOVE
             addCombining('\u0312'.code, ACCENT_TURNED_COMMA_ABOVE)
             // U+0313: COMBINING COMMA ABOVE
             addCombining('\u0313'.code, ACCENT_COMMA_ABOVE)
@@ -125,8 +124,8 @@ class DeadKeyCombiner : Combiner {
             // U+0323: COMBINING DOT BELOW
             addCombining('\u0323'.code, ACCENT_DOT_BELOW)
             // U+0326: COMBINING COMMA BELOW
-//addCombining('\u0326', ACCENT_COMMA_BELOW);
-// U+0327: COMBINING CEDILLA
+            //addCombining('\u0326', ACCENT_COMMA_BELOW);
+            // U+0327: COMBINING CEDILLA
             addCombining('\u0327'.code, ACCENT_CEDILLA)
             // U+0328: COMBINING OGONEK
             addCombining('\u0328'.code, ACCENT_OGONEK)
@@ -137,20 +136,20 @@ class DeadKeyCombiner : Combiner {
             // U+0335: COMBINING SHORT STROKE OVERLAY
             addCombining('\u0335'.code, ACCENT_STROKE)
             // U+0342: COMBINING GREEK PERISPOMENI
-//addCombining('\u0342', ACCENT_PERISPOMENI);
-// U+0344: COMBINING GREEK DIALYTIKA TONOS
-//addCombining('\u0344', ACCENT_DIALYTIKA_TONOS);
-// U+0345: COMBINING GREEK YPOGEGRAMMENI
-//addCombining('\u0345', ACCENT_YPOGEGRAMMENI);
-// One-way mappings to equivalent preferred accents.
-// U+0340: COMBINING GRAVE TONE MARK
+            //addCombining('\u0342', ACCENT_PERISPOMENI);
+            // U+0344: COMBINING GREEK DIALYTIKA TONOS
+            //addCombining('\u0344', ACCENT_DIALYTIKA_TONOS);
+            // U+0345: COMBINING GREEK YPOGEGRAMMENI
+            //addCombining('\u0345', ACCENT_YPOGEGRAMMENI);
+            // One-way mappings to equivalent preferred accents.
+            // U+0340: COMBINING GRAVE TONE MARK
             sCombiningToAccent.append('\u0340'.code, ACCENT_GRAVE)
             // U+0341: COMBINING ACUTE TONE MARK
             sCombiningToAccent.append('\u0341'.code, ACCENT_ACUTE)
             // U+0343: COMBINING GREEK KORONIS
             sCombiningToAccent.append('\u0343'.code, ACCENT_COMMA_ABOVE)
             // One-way legacy mappings to preserve compatibility with older applications.
-// U+0300: COMBINING GRAVE ACCENT
+            // U+0300: COMBINING GRAVE ACCENT
             sAccentToCombining.append(ACCENT_GRAVE_LEGACY, '\u0300'.code)
             // U+0302: COMBINING CIRCUMFLEX ACCENT
             sAccentToCombining.append(ACCENT_CIRCUMFLEX_LEGACY, '\u0302'.code)
@@ -159,8 +158,8 @@ class DeadKeyCombiner : Combiner {
         }
 
         init { // Non-standard decompositions.
-// Stroke modifier for Finnish multilingual keyboard and others.
-// U+0110: LATIN CAPITAL LETTER D WITH STROKE
+            // Stroke modifier for Finnish multilingual keyboard and others.
+            // U+0110: LATIN CAPITAL LETTER D WITH STROKE
             addNonStandardDeadCombination(ACCENT_STROKE, 'D'.code, '\u0110'.code)
             // U+01E4: LATIN CAPITAL LETTER G WITH STROKE
             addNonStandardDeadCombination(ACCENT_STROKE, 'G'.code, '\u01e4'.code)
@@ -258,14 +257,14 @@ class DeadKeyCombiner : Combiner {
             if (index <= 0) {
                 return originalEvent
             }
-            lateinit var lastEvent: Event
+            var lastEvent: Event? = null
             do {
                 val codePoint = Character.codePointBefore(text, index)
-                lastEvent = Event.createHardwareKeypressEvent(codePoint,
-                        originalEvent.mKeyCode, lastEvent, false /* isKeyRepeat */)
+                lastEvent = Event.createHardwareKeypressEvent(codePoint, originalEvent.mKeyCode, lastEvent, false)
                 index -= Character.charCount(codePoint)
             } while (index > 0)
-            return lastEvent
+            // can't be null because
+            return lastEvent!!
         }
     }
 }
