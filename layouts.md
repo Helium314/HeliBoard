@@ -20,6 +20,7 @@ One special label that might be wanted though is `$$$`, which will be replaced b
 * Two consecutive newlines mark beginning of a new row
 
 ## Json format
+* Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from FlorisBoard
 * There is no need for specifying a code, it will be determined from the label automatically
   * Specify it if you want key label and code to be different
@@ -28,13 +29,15 @@ One special label that might be wanted though is `$$$`, which will be replaced b
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
+  * Popup keys in the layout will be in the "Layout" popup key group.
 * Add a layout entry to [method.xml](app/src/main/res/xml/method.xml)
   * `KeyboardLayoutSet` must be set to the name of your layout file (without file ending)
   * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. `%s` will be replaced with the language
 * If you add a new language, you might want to provide a [language_key_texts](/app/src/main/assets/language_key_texts) file
   * `[morekeys]` section contains popup keys that are similar to the letter (like `a` and `ä` or `य` and `य़`)
-    * Such forms should _not_ be in the layout. They will apply to all layouts of that language, even custom ones
-    * Use `%` to mark all preceding keys as "important" (ses the popup key order setting)
+    * Such forms should _not_ be in the layout. They will apply to all layouts of that language, even custom ones.
+    * The popup keys will be added to the "_Language_" popup key group (relevant for setting popup key order).
+      * Use `%` to mark all preceding keys as "_Language (important)_" instead. Keys after `%` will still be in the "_Language_" group.
     * The `punctuation` key is typically the period key. `morekeys` set here override the default.
   * `[labels]` may contain non-default labels for the following keys `symbol`, `alphabet`, `shift_symbol`, `shift_symbol_tablet`, `comma`, `period`, `question`
   * `[number_row]` may contain a custom number row (1-9 and 0 separated by space). You should also add the language to `numberRowLocales` in [`PreferencesSettingsFragment`](app/src/main/java/org/dslul/openboard/inputmethod/latin/settings/PreferencesSettingsFragment.java) so the user can opt into having a localized number row.
