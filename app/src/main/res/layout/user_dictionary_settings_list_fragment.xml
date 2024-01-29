@@ -39,8 +39,8 @@
         android:gravity="bottom|end"
         android:background="@android:color/transparent">
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/user_dictionary_add_word_button"
+            android:backgroundTint="@color/accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_dict_add_word_button"
