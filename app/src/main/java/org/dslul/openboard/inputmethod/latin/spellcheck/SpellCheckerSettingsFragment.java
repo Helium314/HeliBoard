@@ -11,13 +11,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import androidx.preference.SwitchPreference;
+
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
 import org.dslul.openboard.inputmethod.latin.settings.SubScreenFragment;
 import org.dslul.openboard.inputmethod.latin.utils.ActivityThemeUtils;
-
-import androidx.preference.SwitchPreferenceCompat;
 
 /**
  * Preference screen.
@@ -26,7 +26,7 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
             PermissionsManager.PermissionsResultCallback {
 
-    private SwitchPreferenceCompat mLookupContactsPreference;
+    private SwitchPreference mLookupContactsPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

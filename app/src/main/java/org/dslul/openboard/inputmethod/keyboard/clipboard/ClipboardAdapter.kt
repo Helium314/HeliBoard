@@ -2,6 +2,7 @@
 
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -79,11 +80,11 @@ class ClipboardAdapter(
             pinnedIconView.visibility = if (historyEntry?.isPinned == true) View.VISIBLE else View.GONE
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         override fun onTouch(view: View, event: MotionEvent): Boolean {
-            if (event.actionMasked != MotionEvent.ACTION_DOWN) {
-                return false
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                keyEventListener.onKeyDown(view.tag as Long)
             }
-            keyEventListener.onKeyDown(view.tag as Long)
             return false
         }
 

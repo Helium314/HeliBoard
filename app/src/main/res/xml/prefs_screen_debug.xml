@@ -9,26 +9,26 @@
     android:title="@string/debug_settings_title"
     android:key="english_ime_debug_settings"
 >
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="show_debug_settings"
         android:title="@string/prefs_show_debug_settings"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="debug_mode"
         android:title="@string/prefs_debug_mode"
         android:defaultValue="false"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="show_suggestion_infos"
         android:title="@string/prefs_show_suggestion_infos"
         android:defaultValue="false"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="force_non_distinct_multitouch"
         android:title="@string/prefs_force_non_distinct_multitouch"
         android:defaultValue="false"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="sliding_key_input_preview"
         android:title="@string/sliding_key_input_preview"
         android:summary="@string/sliding_key_input_preview_summary"

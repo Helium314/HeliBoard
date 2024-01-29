@@ -18,7 +18,8 @@
             app:tint="@color/foreground"
             android:layout_gravity="center_vertical"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:contentDescription="@string/label_search_key" />
         <EditText
             android:id="@+id/search_field"
             android:layout_marginHorizontal="6dp"
@@ -26,7 +27,8 @@
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:autofillHints="language" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"

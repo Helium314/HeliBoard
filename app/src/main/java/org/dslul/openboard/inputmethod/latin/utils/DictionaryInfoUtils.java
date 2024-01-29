@@ -110,7 +110,7 @@ public class DictionaryInfoUtils {
     /**
      * Helper method to the list of cache directories, one for each distinct locale.
      */
-    public static File[] getCachedDirectoryList(final Context context) {
+    @Nullable public static File[] getCachedDirectoryList(final Context context) {
         return new File(DictionaryInfoUtils.getWordListCacheDirectory(context)).listFiles();
     }
 

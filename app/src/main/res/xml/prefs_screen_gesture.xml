@@ -8,24 +8,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_screen_gesture"
     android:key="screen_gesture">
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="gesture_input"
         android:title="@string/gesture_input"
         android:summary="@string/gesture_input_summary"
         android:defaultValue="true"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="gesture_floating_preview_text"
         android:title="@string/gesture_floating_preview_text"
         android:summary="@string/gesture_floating_preview_text_summary"
         android:defaultValue="true"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="gesture_preview_trail"
         android:title="@string/gesture_preview_trail"
         android:defaultValue="true"
         android:persistent="true" />
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="gesture_space_aware"
         android:title="@string/gesture_space_aware"
         android:summary="@string/gesture_space_aware_summary"

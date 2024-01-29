@@ -13,7 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.preference.SwitchPreferenceCompat;
+import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -25,7 +25,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
         PermissionsManager.PermissionsResultCallback {
 
-    private SwitchPreferenceCompat mLookupContactsPreference;
+    private SwitchPreference mLookupContactsPreference;
 
     @Override
     public void onCreate(final Bundle icicle) {

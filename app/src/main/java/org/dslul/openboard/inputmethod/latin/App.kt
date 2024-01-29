@@ -9,7 +9,6 @@ import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.settings.USER_DICTIONARY_SUFFIX
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils
-import org.dslul.openboard.inputmethod.latin.utils.Log
 import org.dslul.openboard.inputmethod.latin.utils.upgradeToolbarPref
 import java.io.File
 
@@ -34,12 +33,11 @@ class App : Application() {
 fun checkVersionUpgrade(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
-    Log.i("test", "old version $oldVersion")
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
     upgradeToolbarPref(prefs)
     // clear extracted dictionaries, in case updated version contains newer ones
-    DictionaryInfoUtils.getCachedDirectoryList(context).forEach {
+    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
         if (!it.isDirectory) return@forEach
         val files = it.listFiles() ?: return@forEach
         for (file in files) {

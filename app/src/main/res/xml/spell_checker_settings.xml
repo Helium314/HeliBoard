@@ -8,7 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/android_spell_checker_settings"
 >
-    <SwitchPreferenceCompat
+    <SwitchPreference
         android:key="spellcheck_use_contacts"
         android:title="@string/use_contacts_for_spellchecking_option_title"
         android:summary="@string/use_contacts_for_spellchecking_option_summary"

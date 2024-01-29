@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ProximityInfo {
     private static final String TAG = ProximityInfo.class.getSimpleName();
@@ -192,7 +193,7 @@ public class ProximityInfo {
                             touchPositionCorrection.getRadius(row) * hitBoxDiagonal;
                 }
                 if (DEBUG) {
-                    Log.d(TAG, String.format(
+                    Log.d(TAG, String.format(Locale.US,
                             "  [%2d] row=%d x/y/r=%7.2f/%7.2f/%5.2f %s code=%s", infoIndex, row,
                             sweetSpotCenterXs[infoIndex], sweetSpotCenterYs[infoIndex],
                             sweetSpotRadii[infoIndex], (row < rows ? "correct" : "default"),

@@ -28,11 +28,11 @@
             android:title="@string/select_user_colors"
             android:summary="@string/select_user_colors_summary"/>
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="theme_key_borders"
             android:title="@string/key_borders"/>
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="theme_auto_day_night"
             android:title="@string/day_night_mode"
             android:defaultValue="@bool/day_night_default"
@@ -48,7 +48,7 @@
             android:title="@string/select_user_colors_night"
             android:summary="@string/select_user_colors_summary"/>
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="navbar_color"
             android:title="@string/theme_navbar"/>
 
@@ -57,7 +57,7 @@
     <PreferenceCategory
         android:title="@string/settings_category_miscellaneous">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="split_keyboard"
             android:title="@string/enable_split_keyboard"
             android:persistent="true"
@@ -69,7 +69,7 @@
             latin:minValue="50"
             latin:maxValue="200" /> <!-- percentage -->
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
             android:defaultValue="true"

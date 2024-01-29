@@ -1,6 +1,18 @@
 # OpenBoard upgrade, WIP
 IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do not submit any PRs until the renaming is done.
 
+## Table of contents
+
+- [Features](#features)
+   * [Hidden functionality](#hidden-functionality)
+- [Contributing](#contributing-)
+   * [Reporting issues](#reporting-issues)
+   * [Translation](#translation)
+   * [Dictionary creation](#dictionary-creation)
+   * [Code contribution](#code-contribution)
+- [License](#license)
+- [Credits](#credits)
+
 ## Plan for actual release
 The plans for major changes are completed, and most features appear to be stable enough for a proper release.
 So what comes next:
@@ -57,7 +69,7 @@ Features that may go unnoticed, and further potentially useful information
 
 # Contributing ❤
 
-## Issue reporting
+## Reporting issues
 
 Whether you encountered a bug, or want to see a new feature in OpenBoard, you can contribute to the project by opening a new issue [here](https://github.com/openboard-team/openboard/issues). Your help is always welcome!
 
@@ -78,16 +90,22 @@ IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do
 
 ### Getting started
 
-OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you'll just need to install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/openboard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
+OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/openboard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
+Of course you can also use any other compatible IDE, or work with text editor and command line.
 
-Once everything got setted up correctly, you're ready to go!
+Once everything is up correctly, you're ready to go!
 
 ### Guidelines
 
 OpenBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
+- **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it.
+If there is no issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
+- **Is only about a single thing**. Mixing unrelated contributions into a single PR is hard to review and can get messy.
+- **Has a proper description**. What your coutribution does is usually less obvious to reviewers than for yourself. A good description helps a lot for understanding what is going on, and for separating wanted from unintended changes in behavior.
 - **Uses already in-place mechanism and take advantage of them**. In other terms, does not reinvent the wheel or uses shortcuts that could alter the consistency of the existing code.
-- **Has the lowest footprint possible**. OpenBoard code has been written by android experts (AOSP/Google engineers). It has been tested and runned on millions of devices. Thus, **existing code will always be safer than new code**. The less we alter existing code, the more OpenBoard will stay stable. Especially in the input logic scope.
+- **Has a low footprint**. Some parts of the code are executed very frequently, and the keyboard should stay responsive even on older devices.
 - **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
+If your contribution contains code that is not your own, provide a link to the source.
 - **Complies with the user privacy principle OpenBoard follows**. 
 
 In addition to previous elements, OpenBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).

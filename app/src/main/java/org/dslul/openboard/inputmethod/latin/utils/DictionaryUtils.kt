@@ -19,14 +19,11 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val locales = HashSet<Locale>()
 
     // get cached dictionaries: extracted or user-added dictionaries
-    val cachedDirectoryList = DictionaryInfoUtils.getCachedDirectoryList(context)
-    if (cachedDirectoryList != null) {
-        for (directory in cachedDirectoryList) {
-            if (!directory.isDirectory) continue
-            if (!hasAnythingOtherThanExtractedMainDictionary(directory)) continue
-            val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
-            locales.add(locale)
-        }
+    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach { directory ->
+        if (!directory.isDirectory) return@forEach
+        if (!hasAnythingOtherThanExtractedMainDictionary(directory)) return@forEach
+        val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
+        locales.add(locale)
     }
     // get assets dictionaries
     val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
@@ -70,8 +67,8 @@ fun cleanUnusedMainDicts(context: Context) {
     val dirs = dictionaryDir.listFiles() ?: return
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val usedLocaleLanguageTags = hashSetOf<String>()
-    getEnabledSubtypes(prefs).forEach {
-        val locale = it.locale()
+    getEnabledSubtypes(prefs).forEach { subtype ->
+        val locale = subtype.locale()
         usedLocaleLanguageTags.add(locale.toLanguageTag())
         Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
     }

@@ -17,21 +17,21 @@
     <PreferenceCategory
         android:title="@string/settings_category_correction">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="block_potentially_offensive"
             android:title="@string/prefs_block_potentially_offensive_title"
             android:summary="@string/prefs_block_potentially_offensive_summary"
             android:defaultValue="@bool/config_block_potentially_offensive"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="auto_correction"
             android:title="@string/autocorrect"
             android:summary="@string/auto_correction_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="more_auto_correction"
             android:title="@string/more_autocorrect"
             android:summary="@string/more_autocorrect_summary"
@@ -46,21 +46,21 @@
             android:entryValues="@array/auto_correction_threshold_mode_indexes"
             android:defaultValue="@string/auto_correction_threshold_mode_index_modest" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="auto_cap"
             android:title="@string/auto_cap"
             android:summary="@string/auto_cap_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="use_double_space_period"
             android:title="@string/use_double_space_period"
             android:summary="@string/use_double_space_period_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="autospace_after_punctuation"
             android:title="@string/autospace_after_punctuation"
             android:summary="@string/autospace_after_punctuation_summary"
@@ -71,42 +71,42 @@
     <PreferenceCategory
         android:title="@string/settings_category_suggestions">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="show_suggestions"
             android:summary="@string/prefs_show_suggestions_summary"
             android:title="@string/prefs_show_suggestions"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="always_show_suggestions"
             android:title="@string/prefs_always_show_suggestions"
             android:summary="@string/prefs_always_show_suggestions_summary"
             android:defaultValue="false"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="use_personalized_dicts"
             android:title="@string/use_personalized_dicts"
             android:summary="@string/use_personalized_dicts_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="next_word_prediction"
             android:title="@string/bigram_prediction"
             android:summary="@string/bigram_prediction_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="spellcheck_use_contacts"
             android:title="@string/use_contacts_dict"
             android:summary="@string/use_contacts_dict_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="add_to_personal_dictionary"
             android:title="@string/add_to_personal_dictionary"
             android:summary="@string/add_to_personal_dictionary_summary"

@@ -17,7 +17,6 @@
 
 # Keep classes that are used as a parameter type of methods that are also marked as keep
 # to preserve changing those methods' signature.
--keep class org.dslul.openboard.inputmethod.latin.AssetFileAddress
 -keep class org.dslul.openboard.inputmethod.latin.Dictionary
 -keep class org.dslul.openboard.inputmethod.latin.NgramContext
 -keep class org.dslul.openboard.inputmethod.latin.makedict.ProbabilityInfo
