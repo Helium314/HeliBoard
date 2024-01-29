@@ -113,8 +113,8 @@
         android:baselineAligned="false">
 
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/user_dictionary_delete_button"
+            android:backgroundTint="@color/accent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -124,8 +124,8 @@
         </Button>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/user_dictionary_save_button"
+            android:backgroundTint="@color/accent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

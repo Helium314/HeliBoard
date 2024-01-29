@@ -15,6 +15,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
 import org.dslul.openboard.inputmethod.latin.settings.SubScreenFragment;
+import org.dslul.openboard.inputmethod.latin.utils.ActivityThemeUtils;
 
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -31,8 +32,10 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.spell_checker_settings);
-        mLookupContactsPreference = (SwitchPreferenceCompat) findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+        mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
         turnOffLookupContactsIfNoPermission();
+
+        ActivityThemeUtils.setActivityTheme(requireActivity());
     }
 
     @Override

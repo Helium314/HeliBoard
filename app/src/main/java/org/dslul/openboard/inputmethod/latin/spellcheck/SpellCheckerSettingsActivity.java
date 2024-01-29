@@ -18,7 +18,6 @@ import androidx.core.app.ActivityCompat;
  */
 public final class SpellCheckerSettingsActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
-    private static final String DEFAULT_FRAGMENT = SpellCheckerSettingsFragment.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

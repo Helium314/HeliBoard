@@ -9,5 +9,8 @@
     <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:colorAccent">@color/accent</item>
         <item name="colorAccent">@color/accent</item>
+
+        <item name="android:statusBarColor">@color/action_bar_color</item>
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
     </style>
 </resources>
