@@ -68,8 +68,8 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     private final SettingsValuesForSuggestion mSettingsValuesForSuggestion =
             new SettingsValuesForSuggestion(true, false);
 
-    public static final String SINGLE_QUOTE = "\u0027";
-    public static final String APOSTROPHE = "\u2019";
+    public static final String SINGLE_QUOTE = "'";
+    public static final String APOSTROPHE = "’";
 
     public AndroidSpellCheckerService() {
         super();

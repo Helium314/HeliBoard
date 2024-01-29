@@ -64,7 +64,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     // dictionary.
     private static final int CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT = 140;
 
-    private ArrayList<DictionaryGroup> mDictionaryGroups = new ArrayList<DictionaryGroup>() {{ add(new DictionaryGroup()); }};
+    private ArrayList<DictionaryGroup> mDictionaryGroups = new ArrayList<>() {{ add(new DictionaryGroup()); }};
     private volatile CountDownLatch mLatchForWaitingLoadingMainDictionaries = new CountDownLatch(0);
     // To synchronize assigning mDictionaryGroup to ensure closing dictionaries.
     private final Object mLock = new Object();
@@ -1028,20 +1028,16 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         return maxFreq;
     }
 
-    private boolean clearSubDictionary(final String dictName) {
+    @Override
+    public boolean clearUserHistoryDictionary(final Context context) {
         for (DictionaryGroup dictionaryGroup : mDictionaryGroups) {
-            final ExpandableBinaryDictionary dictionary = dictionaryGroup.getSubDict(dictName);
+            final ExpandableBinaryDictionary dictionary = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
             if (dictionary == null) {
                 return false; // should only ever happen for primary dictionary, so this is safe
             }
             dictionary.clear();
         }
         return true;
-    }
-
-    @Override
-    public boolean clearUserHistoryDictionary(final Context context) {
-        return clearSubDictionary(Dictionary.TYPE_USER_HISTORY);
     }
 
     @Override

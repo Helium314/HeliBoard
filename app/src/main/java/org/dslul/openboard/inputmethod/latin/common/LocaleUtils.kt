@@ -6,7 +6,6 @@
 package org.dslul.openboard.inputmethod.latin.common
 
 import android.content.Context
-import android.os.Build
 import org.dslul.openboard.inputmethod.compat.locale
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script

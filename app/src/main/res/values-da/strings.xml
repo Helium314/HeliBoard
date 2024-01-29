@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Rediger ord"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Du har ikke nogen ord i brugerordbogen. Du kan tilføje et ord ved at trykke på knappen Tilføj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"For alle sprog"</string>
-    <string name="user_dict_settings_more_languages">"Flere sprog..."</string>
+    <string name="user_dict_settings_more_languages">"Flere sprog…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Udklipsholder-historik</string>
     <string name="settings_category_correction">Rettelser</string>

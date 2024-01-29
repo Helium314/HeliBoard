@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Redigera ord"</string>
     <string name="user_dict_settings_empty_text">"Du har inga ord i din egen ordlista. Tryck på knappen Lägg till (+) om du vill lägga till ett ord."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"För alla språk"</string>
-    <string name="user_dict_settings_more_languages">"Fler språk ..."</string>
+    <string name="user_dict_settings_more_languages">"Fler språk …"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_correction">Korrigeringar</string>
     <string name="settings_category_suggestions">Förslag</string>

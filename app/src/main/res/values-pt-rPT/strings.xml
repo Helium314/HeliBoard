@@ -118,7 +118,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Editar palavra"</string>
     <string name="user_dict_settings_empty_text">"Não tem palavras no dicionário do utilizador. Para adicionar uma palavra, toque no botão Adicionar (+)."</string>
     <string name="user_dict_settings_all_languages">"Em todos os idiomas"</string>
-    <string name="user_dict_settings_more_languages">"Mais idiomas..."</string>
+    <string name="user_dict_settings_more_languages">"Mais idiomas…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="delete_swipe">Deslize para eliminar</string>

@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"शब्द संपादित करा"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"वापरकर्ता डिक्शनरीमध्ये तुमच्याकडे कोणतेही शब्द नाहीत. एखादा शब्द जोडण्यासाठी, जोडा (+) बटणावर टॅप करा."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"सर्व भाषांसाठी"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"अधिक भाषा..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"अधिक भाषा…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"सिस्टम भाषा वापरा"</string>
     <string name="select_input_method">"इनपुट पद्धत निवडा"</string>

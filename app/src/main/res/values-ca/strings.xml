@@ -84,7 +84,7 @@
     <string name="setup_welcome_additional_description" msgid="8150252008545768953">"amb Escriptura gestual"</string>
     <string name="setup_start_action" msgid="8936036460897347708">"Comença"</string>
     <string name="setup_next_action" msgid="371821437915144603">"Pas següent"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">S\'està configurant <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>...</string>
+    <string name="setup_steps_title" msgid="6400373034871816182">S\'està configurant <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>…</string>
     <string name="setup_step1_title" msgid="3147967630253462315">Activa <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction" msgid="4295448056733329661">Comproveu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» a la configuració d\'idioma i entrada de text. D\'aquesta manera, es podrà executar al dispositiu.</string>
     <string name="setup_step1_finished_instruction" msgid="8701441895377434947">L\'aplicació <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ja està activada a la configuració d\'idioma i entrada de text. Aneu al pas següent.</string>
@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edició de la paraula"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"No tens cap paraula al diccionari de l\'usuari. Toca el botó Afegeix (+) per afegir-n\'hi una."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Per a tots els idiomes"</string>
-    <string name="user_dict_settings_more_languages">"Més idiomes..."</string>
+    <string name="user_dict_settings_more_languages">"Més idiomes…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
     <string name="settings_no_limit">Sense límit</string>

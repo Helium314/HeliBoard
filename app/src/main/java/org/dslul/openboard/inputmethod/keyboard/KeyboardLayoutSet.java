@@ -208,7 +208,6 @@ public final class KeyboardLayoutSet {
 
     public static final class Builder {
         private final Context mContext;
-        private final String mPackageName;
         private final Resources mResources;
 
         private final Params mParams = new Params();
@@ -217,7 +216,6 @@ public final class KeyboardLayoutSet {
 
         public Builder(final Context context, @Nullable final EditorInfo ei) {
             mContext = context;
-            mPackageName = context.getPackageName();
             mResources = context.getResources();
             final Params params = mParams;
 

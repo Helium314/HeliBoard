@@ -20,7 +20,6 @@ import org.dslul.openboard.inputmethod.latin.define.DebugFlags
 import org.dslul.openboard.inputmethod.latin.settings.Settings
 import org.dslul.openboard.inputmethod.latin.utils.ScriptUtils.script
 import org.xmlpull.v1.XmlPullParser
-import java.io.File
 import java.util.*
 
 /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
@@ -52,7 +51,7 @@ fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
         ScriptUtils.SCRIPT_GEORGIAN -> "georgian"
         ScriptUtils.SCRIPT_BENGALI -> "bengali_unijoy"
         else -> throw RuntimeException("Wrong script supplied: ${locale.script()}")
-    };
+    }
 }
 
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
@@ -221,7 +220,7 @@ private fun loadResourceSubtypes(resources: Resources) {
             if (subtypeId != 0)
                 b.setSubtypeId(subtypeId)
             b.setSubtypeLocale(localeString)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && languageTag != null)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 b.setLanguageTag(languageTag)
             b.setSubtypeMode(imeSubtypeMode)
             b.setSubtypeExtraValue(imeSubtypeExtraValue)

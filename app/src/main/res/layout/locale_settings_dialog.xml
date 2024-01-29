@@ -10,7 +10,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
-    <!-- layout appears unnecessary, but more views will be added -->
     <LinearLayout
         android:id="@+id/subtypes"
         android:orientation="vertical"
@@ -21,7 +20,8 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables"> <!-- view gets an onClickListener -->
+            tools:ignore="UseCompoundDrawables,UselessParent">
+            <!-- view gets an onClickListener, and more views will be added to parent layout programmatically -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -34,7 +34,8 @@
                 android:padding="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_plus" />
+                android:src="@drawable/ic_plus"
+                android:contentDescription="@string/add" />
         </LinearLayout>
     </LinearLayout>
     <!-- layout appears unnecessary, but more views will be added -->
@@ -47,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables,UselessParent">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -61,7 +63,8 @@
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_plus" />
+                android:src="@drawable/ic_plus"
+                android:contentDescription="@string/add" />
         </LinearLayout>
     </LinearLayout>
     <!-- layout appears unnecessary, but more views will be added -->
@@ -74,7 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables,UselessParent">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -87,7 +91,8 @@
                 android:padding="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_plus" />
+                android:src="@drawable/ic_plus"
+                android:contentDescription="@string/add" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

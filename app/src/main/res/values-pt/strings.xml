@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Editar palavra"</string>
     <string name="user_dict_settings_empty_text">"Você não tem nenhuma palavra no dicionário do usuário. Para adicionar uma palavra, toque no botão de adição (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Para todos os idiomas"</string>
-    <string name="user_dict_settings_more_languages">"Mais idiomas..."</string>
+    <string name="user_dict_settings_more_languages">"Mais idiomas…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="spell_checker_service_name">Verificação ortográfica OpenBoard</string>
     <string name="android_spell_checker_settings">Definições de verificação ortográfica OpenBoard</string>

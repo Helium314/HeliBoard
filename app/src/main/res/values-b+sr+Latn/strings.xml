@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Izmena reči"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nemate nijednu reč u korisničkom rečniku. Da biste dodali reč, dodirnite dugme Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Za sve jezike"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Još jezika..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Još jezika…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABVGDĐEŽZIJKLLJMNNJOPRSTĆUFHCČDŽŠ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Koristi jezike sistema"</string>
     <string name="select_input_method">"Izbor metoda unosa"</string>

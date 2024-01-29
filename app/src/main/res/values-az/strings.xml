@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Sözü redaktə edin"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"İstifadəçi lüğətinizdə heç bir söz yoxdur. Söz əlavə etmək üçün Əlavə et (+) düyməsinə tıklayın."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Bütün dillər üçün"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Digər dillər​​..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Digər dillər…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Pano keçmişi</string>
     <string name="spell_checker_service_name">OpenBoard Yazı Yoxlayıcısı</string>

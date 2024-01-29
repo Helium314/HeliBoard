@@ -247,7 +247,7 @@
     <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
-    <string name="full_left" tools:keep="@string/foll_left">Full left</string>
+    <string name="full_left" tools:keep="@string/full_left">Full left</string>
     <string name="full_right" tools:keep="@string/full_right">Full right</string>
     <string name="left" tools:keep="@string/left">Left</string>
     <string name="right" tools:keep="@string/right">Right</string>

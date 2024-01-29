@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Badilisha neno"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Huna maneno yoyote katika kamusi ya mtumiaji. Gusa kitufe cha Ongeza (+) ili kuongeza neno."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Ya lugha zote"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Lugha zingine..."</string>
+    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Lugha zingine…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Tumia lugha za mfumo"</string>
     <string name="select_input_method">"Chagua njia ya ingizo"</string>

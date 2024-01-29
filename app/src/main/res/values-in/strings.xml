@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Edit kata"</string>
     <string name="user_dict_settings_empty_text">"Tidak ada kata-kata dalam kamus pengguna. Untuk menambahkan kata, ketuk Tambahkan (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Untuk semua bahasa"</string>
-    <string name="user_dict_settings_more_languages">"Bahasa lainnya..."</string>
+    <string name="user_dict_settings_more_languages">"Bahasa lainnya…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Skala tinggi keyboard</string>
     <string name="delete_swipe">Gestur hapus</string>

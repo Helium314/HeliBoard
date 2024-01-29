@@ -6,6 +6,7 @@
 
 package org.dslul.openboard.inputmethod.keyboard.emoji;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -61,6 +62,7 @@ public final class EmojiPalettesView extends LinearLayout
     private boolean initialized = false;
     private final int mFunctionalKeyBackgroundId;
     private final Drawable mSpacebarBackground;
+    // keep the indicator in case emoji view is changed to tabs / viewpager
     private final boolean mCategoryIndicatorEnabled;
     private final int mCategoryIndicatorDrawableResId;
     private final int mCategoryIndicatorBackgroundResId;
@@ -157,6 +159,7 @@ public final class EmojiPalettesView extends LinearLayout
         iconView.setOnClickListener(this);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void initialize() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
         if (initialized) return;
         mEmojiCategory.initialize();
@@ -426,6 +429,7 @@ public final class EmojiPalettesView extends LinearLayout
             mKeyboardActionListener = listener;
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(final View v, final MotionEvent event) {
             switch (event.getActionMasked()) {

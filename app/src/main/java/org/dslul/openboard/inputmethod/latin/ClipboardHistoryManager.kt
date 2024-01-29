@@ -10,7 +10,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.dslul.openboard.inputmethod.compat.ClipboardManagerCompat
 import org.dslul.openboard.inputmethod.latin.settings.Settings
-import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils
 import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(

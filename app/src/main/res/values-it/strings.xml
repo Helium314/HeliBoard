@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Modifica parola"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nessuna parola presente nel dizionario utente. Per aggiungere una parola, tocca il pulsante Aggiungi (+)."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Per tutte le lingue"</string>
-    <string name="user_dict_settings_more_languages">"Altre lingue..."</string>
+    <string name="user_dict_settings_more_languages">"Altre lingue…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Altezza tastiera</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>

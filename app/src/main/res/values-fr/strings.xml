@@ -217,12 +217,10 @@ Nouveau dictionnaire:
     <string name="more_keys_layout">Disposition</string>
     <string name="more_keys_symbols">Symboles</string>
     <string name="toolbar_keys">Sélectionner les touches de la barre d\'outils</string>
-    <string name="copy">Copier</string>
     <string name="clipboard">Presse-papier</string>
     <string name="clear_clipboard">Effacer presse-papier</string>
     <string name="voice">Entrée vocale</string>
     <string name="settings">Paramètres</string>
-    <string name="select_all">Sélectionner tout</string>
     <string name="select_word">Sélectionner mot</string>
     <string name="one_handed">Mode une main</string>
     <string name="full_left">Début de ligne</string>

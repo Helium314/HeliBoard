@@ -88,7 +88,7 @@ final class EmojiCategory {
 
     private static final int[] sAccessibilityDescriptionResourceIdsForCategories = {
             R.string.spoken_descrption_emoji_category_recents,
-            R.string.spoken_descrption_emoji_category_eight_smiley_people,
+            R.string.spoken_descrption_emoji_category_eight_smiley_people, // todo: actually this is smiley only... and duplicate string
             R.string.spoken_descrption_emoji_category_eight_smiley_people,
             R.string.spoken_descrption_emoji_category_eight_animals_nature,
             R.string.spoken_descrption_emoji_category_eight_food_drink,

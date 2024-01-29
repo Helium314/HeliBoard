@@ -14,8 +14,7 @@
         android:layout_height="match_parent"
         android:layout_weight="@integer/setup_title_weight_in_screen"
         android:orientation="vertical"
-        android:layout_marginEnd="@dimen/setup_title_end_margin"
-        android:layout_marginRight="@dimen/setup_title_end_margin">
+        android:layout_marginEnd="@dimen/setup_title_end_margin">
         <include layout="@layout/setup_steps_title" />
     </LinearLayout>
     <LinearLayout

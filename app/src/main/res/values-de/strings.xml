@@ -117,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Wort bearbeiten"</string>
     <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Es sind noch keine Wörter in deinem Wörterbuch vorhanden. Du kannst Wörter hinzufügen, indem du auf das \"+\"-Symbol tippst."</string>
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Für alle Sprachen"</string>
-    <string name="user_dict_settings_more_languages">"Weitere Sprachen..."</string>
+    <string name="user_dict_settings_more_languages">"Weitere Sprachen…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Systemsprachen verwenden"</string>
     <string name="select_input_method">"Eingabemethode wählen"</string>
