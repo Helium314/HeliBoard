@@ -9,7 +9,6 @@ package org.dslul.openboard.inputmethod.latin.spellcheck;
 import android.os.Bundle;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
-import org.dslul.openboard.inputmethod.latin.utils.ActivityThemeUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -26,8 +25,6 @@ public final class SpellCheckerSettingsActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SpellCheckerSettingsFragment())
                 .commit();
-
-        ActivityThemeUtils.setActivityTheme(this);
     }
 
     @Override
