@@ -39,7 +39,7 @@
     <string name="prefs_show_suggestions" msgid="8026799663445531637">"Suggestions de correction"</string>
     <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Affiche les mots suggérés lors de la saisie"</string>
     <string name="prefs_always_show_suggestions">Toujours afficher les suggestions</string>
-    <string name="prefs_always_show_suggestions_summary">Ignore les requêtes des autres applications pour désactiver les suggestions</string>
+    <string name="prefs_always_show_suggestions_summary">Ignore les requêtes des autres applications qui désactivent les suggestions</string>
     <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blocage des termes choquants"</string>
     <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Ne suggère pas de mots potentiellement offensants"</string>
     <string name="autocorrect" msgid="7630720885194996950">"Correction automatique"</string>
