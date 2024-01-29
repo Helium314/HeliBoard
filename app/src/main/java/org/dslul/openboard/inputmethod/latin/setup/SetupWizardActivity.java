@@ -123,6 +123,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         }
         actionBar.hide();
         getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
+        ActivityThemeUtils.setActivityTheme(this);
 
         mImm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mHandler = new SettingsPoolingHandler(this, mImm);
@@ -220,8 +221,6 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         DrawableCompat.setTintList(finishDrawable, step1.mTextColorStateList);
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
-
-        ActivityThemeUtils.setActivityTheme(this);
     }
 
     @Override

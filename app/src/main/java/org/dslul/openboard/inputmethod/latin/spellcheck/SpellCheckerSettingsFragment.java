@@ -35,7 +35,7 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
         mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
         turnOffLookupContactsIfNoPermission();
 
-        ActivityThemeUtils.setFragmentTheme(requireActivity());
+        ActivityThemeUtils.setActivityTheme(requireActivity());
     }
 
     @Override
