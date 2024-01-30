@@ -43,6 +43,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.OutputStream
 import java.io.Writer
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -326,9 +327,11 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     zipStream.closeEntry()
                 }
                 zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
-                zipStream.bufferedWriter().use { settingsToJsonStream(sharedPreferences.all, it) }
+                settingsToJsonStream2(sharedPreferences.all, zipStream)
+                zipStream.closeEntry()
                 zipStream.putNextEntry(ZipEntry(PROTECTED_PREFS_FILE_NAME))
-                zipStream.bufferedWriter().use { settingsToJsonStream(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, it) }
+                settingsToJsonStream2(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, zipStream)
+                zipStream.closeEntry()
                 zipStream.close()
             }
         } catch (t: Throwable) {
@@ -345,7 +348,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     var entry: ZipEntry? = zip.nextEntry
                     val filesDir = requireContext().filesDir?.path ?: return
                     while (entry != null) {
-                        if (entry.name.startsWith("unprotected")) {
+                        if (entry.name.startsWith("unprotected${File.separator}")) {
                             val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
                             if (backupFilePatterns.any { adjustedName.matches(it) }) {
                                 val targetFileName = upgradeFileNames(adjustedName)
@@ -359,11 +362,12 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                         } else if (entry.name == PREFS_FILE_NAME) {
                             val prefLines = String(zip.readBytes()).split("\n")
                             sharedPreferences.edit().clear().apply()
-                            readJsonLinesToSettings(prefLines)
+                            readJsonLinesToSettings(prefLines, sharedPreferences)
                         } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
                             val prefLines = String(zip.readBytes()).split("\n")
-                            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().clear().apply()
-                            readJsonLinesToSettings(prefLines)
+                            val protectedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                            protectedPrefs.edit().clear().apply()
+                            readJsonLinesToSettings(prefLines, protectedPrefs)
                         }
                         zip.closeEntry()
                         entry = zip.nextEntry
@@ -435,54 +439,56 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
-    @Suppress("UNCHECKED_CAST") // it is checked... but whatever (except string set, because can't check for that))
-    private fun settingsToJsonStream(settings: Map<String, Any?>, out: Writer) {
-        val booleans = settings.filterValues { it is Boolean } as Map<String, Boolean>
-        val ints = settings.filterValues { it is Int } as Map<String, Int>
-        val longs = settings.filterValues { it is Long } as Map<String, Long>
-        val floats = settings.filterValues { it is Float } as Map<String, Float>
-        val strings = settings.filterValues { it is String } as Map<String, String>
-        val stringSets = settings.filterValues { it is Set<*> } as Map<String, Set<String>>
-        // now write
-        out.appendLine("boolean settings")
-        out.appendLine( Json.encodeToString(booleans))
-        out.appendLine("int settings")
-        out.appendLine( Json.encodeToString(ints))
-        out.appendLine("long settings")
-        out.appendLine( Json.encodeToString(longs))
-        out.appendLine("float settings")
-        out.appendLine( Json.encodeToString(floats))
-        out.appendLine("string settings")
-        out.appendLine( Json.encodeToString(strings))
-        out.appendLine("string set settings")
-        out.appendLine( Json.encodeToString(stringSets))
-    }
-
-    private fun readJsonLinesToSettings(list: List<String>): Boolean {
-        val i = list.iterator()
-        val e = sharedPreferences.edit()
-        try {
-            while (i.hasNext()) {
-                when (i.next()) {
-                    "boolean settings" -> Json.decodeFromString<Map<String, Boolean>>(i.next()).forEach { e.putBoolean(it.key, it.value) }
-                    "int settings" -> Json.decodeFromString<Map<String, Int>>(i.next()).forEach { e.putInt(it.key, it.value) }
-                    "long settings" -> Json.decodeFromString<Map<String, Long>>(i.next()).forEach { e.putLong(it.key, it.value) }
-                    "float settings" -> Json.decodeFromString<Map<String, Float>>(i.next()).forEach { e.putFloat(it.key, it.value) }
-                    "string settings" -> Json.decodeFromString<Map<String, String>>(i.next()).forEach { e.putString(it.key, it.value) }
-                    "string set settings" -> Json.decodeFromString<Map<String, Set<String>>>(i.next()).forEach { e.putStringSet(it.key, it.value) }
-                }
-            }
-            e.apply()
-            return true
-        } catch (e: Exception) {
-            return false
-        }
-    }
-
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_MORE_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+        }
+    }
+
+    companion object {
+        @Suppress("UNCHECKED_CAST") // it is checked... but whatever (except string set, because can't check for that))
+        private fun settingsToJsonStream2(settings: Map<String, Any?>, out: OutputStream) {
+            val booleans = settings.filterValues { it is Boolean } as Map<String, Boolean>
+            val ints = settings.filterValues { it is Int } as Map<String, Int>
+            val longs = settings.filterValues { it is Long } as Map<String, Long>
+            val floats = settings.filterValues { it is Float } as Map<String, Float>
+            val strings = settings.filterValues { it is String } as Map<String, String>
+            val stringSets = settings.filterValues { it is Set<*> } as Map<String, Set<String>>
+            // now write
+            out.write("boolean settings\n".toByteArray())
+            out.write(Json.encodeToString(booleans).toByteArray())
+            out.write("\nint settings\n".toByteArray())
+            out.write(Json.encodeToString(ints).toByteArray())
+            out.write("\nlong settings\n".toByteArray())
+            out.write(Json.encodeToString(longs).toByteArray())
+            out.write("\nfloat settings\n".toByteArray())
+            out.write(Json.encodeToString(floats).toByteArray())
+            out.write("\nstring settings\n".toByteArray())
+            out.write(Json.encodeToString(strings).toByteArray())
+            out.write("\nstring set settings\n".toByteArray())
+            out.write(Json.encodeToString(stringSets).toByteArray())
+        }
+
+        private fun readJsonLinesToSettings(list: List<String>, prefs: SharedPreferences): Boolean {
+            val i = list.iterator()
+            val e = prefs.edit()
+            try {
+                while (i.hasNext()) {
+                    when (i.next()) {
+                        "boolean settings" -> Json.decodeFromString<Map<String, Boolean>>(i.next()).forEach { e.putBoolean(it.key, it.value) }
+                        "int settings" -> Json.decodeFromString<Map<String, Int>>(i.next()).forEach { e.putInt(it.key, it.value) }
+                        "long settings" -> Json.decodeFromString<Map<String, Long>>(i.next()).forEach { e.putLong(it.key, it.value) }
+                        "float settings" -> Json.decodeFromString<Map<String, Float>>(i.next()).forEach { e.putFloat(it.key, it.value) }
+                        "string settings" -> Json.decodeFromString<Map<String, String>>(i.next()).forEach { e.putString(it.key, it.value) }
+                        "string set settings" -> Json.decodeFromString<Map<String, Set<String>>>(i.next()).forEach { e.putStringSet(it.key, it.value) }
+                    }
+                }
+                e.apply()
+                return true
+            } catch (e: Exception) {
+                return false
+            }
         }
     }
 }
