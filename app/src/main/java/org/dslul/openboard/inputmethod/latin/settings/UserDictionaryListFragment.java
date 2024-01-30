@@ -97,7 +97,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         final TreeSet<Locale> sortedLocales = getSortedDictionaryLocales(requireContext());
 
         // Add preference "for all locales"
-        userDictGroup.addPreference(createUserDictionaryPreference(new Locale("")));
+        userDictGroup.addPreference(createUserDictionaryPreference(UserDictionarySettings.emptyLocale));
         // Add preference for each dictionary locale
         for (final Locale locale : sortedLocales) {
             userDictGroup.addPreference(createUserDictionaryPreference(locale));

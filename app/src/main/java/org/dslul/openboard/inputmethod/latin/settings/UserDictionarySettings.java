@@ -37,7 +37,7 @@ import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import java.util.Locale;
 
 public class UserDictionarySettings extends ListFragment {
-
+    static final Locale emptyLocale = new Locale("");
     private static final String[] QUERY_PROJECTION =
             { UserDictionary.Words._ID, UserDictionary.Words.WORD, UserDictionary.Words.SHORTCUT, UserDictionary.Words.FREQUENCY };
 
@@ -128,7 +128,7 @@ public class UserDictionarySettings extends ListFragment {
         } else localeString = localeFromIntent;
         mLocale = localeString == null ? null : LocaleUtils.constructLocale(localeString);
 
-        createCursor(mLocale == null ? null : mLocale.toString());
+        createCursor(mLocale == null ? null : mLocale);
         TextView emptyView = view.findViewById(android.R.id.empty);
         emptyView.setText(R.string.user_dict_settings_empty_text);
 
@@ -158,11 +158,10 @@ public class UserDictionarySettings extends ListFragment {
         }
     }
 
-    // cursor must be created using localeString to be in line with Android system
-    private void createCursor(@Nullable final String localeString) {
-        // localeString can be any of:
-        // - The string representation of a locale, as returned by Locale#toString()
-        // - The empty string. This means we want a cursor returning words valid for all locales.
+    private void createCursor(@Nullable final Locale locale) {
+        // locale can be any of:
+        // - An actual locale, for use of Locale#toString()
+        // - The emptyLocale. This means we want a cursor returning words valid for all locales.
         // - null. This means we want a cursor for the current locale, whatever this is.
 
         // Note that this contrasts with the data inside the database, where NULL means "all
@@ -173,15 +172,16 @@ public class UserDictionarySettings extends ListFragment {
         //  human-readable, like "all_locales" and "current_locales" strings, provided they
         //  can be guaranteed not to match locales that may exist.
 
-        if ("".equals(localeString)) {
+        if (emptyLocale.equals(locale)) {
             // Case-insensitive sort
             mCursor = requireContext().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
                     QUERY_SELECTION_ALL_LOCALES, null,
                     "UPPER(" + UserDictionary.Words.WORD + ")");
         } else {
-            final String queryLocale = null != localeString ? localeString : Locale.getDefault().toString();
+            // requires use of locale string for interaction with Android system
+            final String queryLocaleString = null != locale ? locale.toString() : Locale.getDefault().toString();
             mCursor = requireContext().getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
-                    QUERY_SELECTION, new String[] { queryLocale },
+                    QUERY_SELECTION, new String[] { queryLocaleString },
                     "UPPER(" + UserDictionary.Words.WORD + ")");
         }
     }
@@ -202,7 +202,7 @@ public class UserDictionarySettings extends ListFragment {
     }
 
     public static String getLocaleDisplayName(Context context, Locale locale) {
-        if (locale.toString().isEmpty()) {
+        if (locale.equals(UserDictionarySettings.emptyLocale)) {
             // CAVEAT: localeStr should not be null because a null locale stands for the system
             // locale in UserDictionary.Words.addWord.
             return context.getResources().getString(R.string.user_dict_settings_all_languages);
@@ -252,41 +252,42 @@ public class UserDictionarySettings extends ListFragment {
         return mCursor.getString(mCursor.getColumnIndexOrThrow(column));
     }
 
-    // requires use of locale string for interaction with Android system
     public static void deleteWordInEditMode(final String word, final String shortcut, final String weight,
-                                            final String localeString, final ContentResolver resolver) {
+                                            final Locale locale, final ContentResolver resolver) {
         if (TextUtils.isEmpty(shortcut)) {
-            if ("".equals(localeString)) {
+            if (locale.equals(UserDictionarySettings.emptyLocale)) {
                 resolver.delete(
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_ALL_LOCALES,
                         new String[] { word, weight });
             } else {
                 resolver.delete(
+                        // requires use of locale string for interaction with Android system
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITHOUT_SHORTCUT_AND_WITH_LOCALE,
-                        new String[] { word, weight, localeString });
+                        new String[] { word, weight, locale.toString() });
             }
         } else {
-            if ("".equals(localeString)) {
+            if (locale.equals(UserDictionarySettings.emptyLocale)) {
                 resolver.delete(
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_ALL_LOCALES,
                         new String[] { word, shortcut, weight });
             } else {
                 resolver.delete(
+                        // requires use of locale string for interaction with Android system
                         UserDictionary.Words.CONTENT_URI, DELETE_SELECTION_WITH_SHORTCUT_AND_WITH_LOCALE,
-                        new String[] { word, shortcut, weight, localeString });
+                        new String[] { word, shortcut, weight, locale.toString() });
             }
         }
     }
 
-    public static void deleteWord(final String word, final String locale, final ContentResolver resolver) {
-        if ("".equals(locale)) {
+    public static void deleteWord(final String word, final Locale locale, final ContentResolver resolver) {
+        if (locale.equals(UserDictionarySettings.emptyLocale)) {
             resolver.delete(
                     UserDictionary.Words.CONTENT_URI, DELETE_WORD_AND_ALL_LOCALES,
                     new String[] { word });
         } else {
             resolver.delete(
                     UserDictionary.Words.CONTENT_URI, DELETE_WORD_AND_LOCALE,
-                    new String[] { word, locale });
+                    new String[] { word, locale.toString() });
         }
     }
 

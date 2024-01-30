@@ -173,7 +173,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 localesList.remove(position);
                 // The other languages are then sorted alphabetically by name, with the exception of "For all languages"
                 Collections.sort(localesList, (localeRenderer1, localeRenderer2) -> {
-                    if (!localeRenderer1.getLocaleString().equals("") && !localeRenderer2.getLocaleString().equals("")) {
+                    if (!localeRenderer1.getLocale().equals(UserDictionarySettings.emptyLocale) && !localeRenderer2.getLocale().equals(UserDictionarySettings.emptyLocale)) {
                         return localeRenderer1.toString().compareToIgnoreCase(localeRenderer2.toString());
                     } else {
                         return localeRenderer1.getLocaleString().compareToIgnoreCase(localeRenderer2.getLocaleString());
@@ -181,7 +181,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 });
 
                 // Set "For all languages" to the end of the list
-                if (!localeRenderer.getLocaleString().equals("")) {
+                if (!localeRenderer.getLocale().equals(UserDictionarySettings.emptyLocale)) {
                     // After alphabetical sorting, "For all languages" is always in 1st position.
                     // (The position is 0 because the spinner menu item count starts at 0)
                     final LocaleRenderer forAllLanguages = adapter.getItem(0);
