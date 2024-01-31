@@ -22,6 +22,6 @@
         android:layout_height="match_parent"
         android:layout_weight="@integer/setup_body_weight_in_screen"
         android:orientation="vertical">
-        <include layout="@layout/setup_welcome_video" />
+        <include layout="@layout/setup_welcome_image" />
     </LinearLayout>
 </LinearLayout>

@@ -11,5 +11,5 @@
     android:orientation="vertical"
     android:gravity="center">
     <include layout="@layout/setup_welcome_title" />
-    <include layout="@layout/setup_welcome_video" />
+    <include layout="@layout/setup_welcome_image" />
 </LinearLayout>

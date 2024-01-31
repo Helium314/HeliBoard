@@ -16,28 +16,16 @@
             android:layout_weight="@integer/setup_welcome_video_end_padding_weight_in_screen"
             android:layout_width="0dp"
             android:layout_height="0dp" />
-        <LinearLayout
+        <ImageView
+            android:id="@+id/setup_welcome_image"
             android:layout_weight="@integer/setup_welcome_video_weight_in_screen"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="1dp"
-            android:background="@color/setup_welcome_video_margin_color" >
-            <VideoView
-                android:id="@+id/setup_welcome_video"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/setup_background"
-                android:contentDescription="@string/setup_welcome_additional_description"/>
-            <ImageView
-                android:id="@+id/setup_welcome_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:visibility="gone"
-                android:contentDescription="@string/setup_welcome_additional_description"/>
-        </LinearLayout>
+            android:background="@color/setup_welcome_video_margin_color"
+            android:adjustViewBounds="true"
+            android:src="@drawable/setup_welcome_image" />
         <View
             android:layout_weight="@integer/setup_welcome_video_end_padding_weight_in_screen"
             android:layout_width="0dp"
