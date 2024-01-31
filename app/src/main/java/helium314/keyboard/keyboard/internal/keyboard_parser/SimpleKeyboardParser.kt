@@ -13,9 +13,11 @@ import helium314.keyboard.latin.common.splitOnWhitespace
  *  for alphabet, 3 keys for symbols and 4 keys for shift symbols. MoreKeys on period and comma get
  *  merged with defaults.
  */
-class SimpleKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
-    private val addExtraKeys = params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
-
+class SimpleKeyboardParser(
+    private val params: KeyboardParams,
+    context: Context,
+    private val addExtraKeys: Boolean = params.mId.mSubtype.keyboardLayoutSetName.endsWith("+") && params.mId.isAlphabetKeyboard
+) : KeyboardParser(params, context) {
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val rowStrings = layoutContent.replace("\r\n", "\n").split("\\n\\s*\\n".toRegex())
         return rowStrings.mapIndexedNotNullTo(mutableListOf()) { i, row ->

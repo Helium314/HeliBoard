@@ -27,7 +27,7 @@ object ShadowLocaleManagerCompat {
 class ShadowInputMethodManager2 : ShadowInputMethodManager() {
     @Implementation
     override fun getInputMethodList() = listOf(
-        InputMethodInfo("helium314.keyboard.latin.debug", "LatinIME", "openboard debug", null),
+        InputMethodInfo("helium314.keyboard.debug", "LatinIME", "openboard debug", null),
     )
     @Implementation
     fun getShortcutInputMethodsAndSubtypes() = emptyMap<InputMethodInfo, List<InputMethodSubtype>>()

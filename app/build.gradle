@@ -7,7 +7,7 @@ android {
     buildToolsVersion = '34.0.0'
 
     defaultConfig {
-        applicationId "helium314.keyboard.latin"
+        applicationId "helium314.keyboard"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1000

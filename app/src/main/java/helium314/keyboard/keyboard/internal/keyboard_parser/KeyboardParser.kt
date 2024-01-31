@@ -204,10 +204,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val layoutName = Settings.readSymbolsLayoutName(context, params.mId.locale)
         val layout = if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
-                else SimpleKeyboardParser(params, context)
+                else SimpleKeyboardParser(params, context, false)
             parser.parseCoreLayout(getLayoutFile(layoutName, context).readText())
         } else {
-            SimpleKeyboardParser(params, context).parseCoreLayout(context.readAssetsFile("layouts/$layoutName.txt"))
+            SimpleKeyboardParser(params, context, false).parseCoreLayout(context.readAssetsFile("layouts/$layoutName.txt"))
         }
         layout.forEachIndexed { i, row ->
             val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
