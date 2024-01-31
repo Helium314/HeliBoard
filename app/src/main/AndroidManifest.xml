@@ -26,21 +26,21 @@
          To use this, add the following line into calling application's AndroidManifest.xml
          <pre>
          {@code
-         <uses-permission android:name="org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT"/>
+         <uses-permission android:name="helium314.keyboard.latin.HIDE_SOFT_INPUT"/>
          }
          </pre>
          then call {@link android.content.Context#sendBroadcast(Intent)} as follows:
          <pre>
          {@code
-         sendBroadcast(new Intent("org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT")
-                 .setPackage("org.dslul.openboard.inputmethod.latin"));
+         sendBroadcast(new Intent("helium314.keyboard.latin.HIDE_SOFT_INPUT")
+                 .setPackage("helium314.keyboard.latin"));
          }
          </pre> -->
     <permission android:name="@string/hide_soft_input_permission"
                 android:protectionLevel="signature" />
 
     <application android:label="@string/english_ime_name"
-            android:name="org.dslul.openboard.inputmethod.latin.App"
+            android:name="helium314.keyboard.latin.App"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
@@ -139,7 +139,7 @@
 
         <receiver android:name="DictionaryPackInstallBroadcastReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="org.dslul.openboard.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
+                <action android:name="helium314.keyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver>
 

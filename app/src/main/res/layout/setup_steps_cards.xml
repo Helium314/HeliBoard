@@ -26,7 +26,7 @@
             style="@style/setupStepBulletStyle"
             android:text="@string/setup_step3_bullet" />
     </LinearLayout>
-    <org.dslul.openboard.inputmethod.latin.setup.SetupStepIndicatorView
+    <helium314.keyboard.latin.setup.SetupStepIndicatorView
         android:id="@+id/setup_step_indicator"
         style="@style/setupStepIndicatorStyle" />
     <FrameLayout

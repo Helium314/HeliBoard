@@ -189,7 +189,7 @@
     <declare-styleable name="SuggestionStripView">
         <attr name="suggestionStripOptions" format="integer">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.latin.suggestions.SuggestionStripLayoutHelper.AUTO_CORRECT_BOLD} etc. -->
+                 {@link helium314.keyboard.latin.suggestions.SuggestionStripLayoutHelper.AUTO_CORRECT_BOLD} etc. -->
             <flag name="autoCorrectBold" value="0x01" />
             <flag name="autoCorrectUnderline" value="0x02" />
             <flag name="validTypedWordBold" value="0x04" />
@@ -204,7 +204,7 @@
     <declare-styleable name="Keyboard">
         <attr name="themeId" format="enum">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
+                 {@link helium314.keyboard.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
             <enum name="HoloBase" value="0" />
             <enum name="LXXBase" value="1" />
             <enum name="LXXBaseBorder" value="2" />
@@ -232,7 +232,7 @@
         <!-- More keys keyboard layout template -->
         <attr name="moreKeysTemplate" format="reference" />
         <!-- Icon set for key top and key preview. These should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet#NAMES_AND_ATTR_IDS} -->
+             {@link helium314.keyboard.keyboard.internal.KeyboardIconsSet#NAMES_AND_ATTR_IDS} -->
         <attr name="iconShiftKey" format="reference" />
         <attr name="iconDeleteKey" format="reference" />
         <attr name="iconSettingsKey" format="reference" />
@@ -302,7 +302,7 @@
         <attr name="maxMoreKeysColumn" format="integer" />
         <attr name="backgroundType" format="enum">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.Key#BACKGROUND_TYPE_NORMAL} etc. -->
+                 {@link helium314.keyboard.keyboard.Key#BACKGROUND_TYPE_NORMAL} etc. -->
             <enum name="empty" value="0" />
             <enum name="normal" value="1" />
             <enum name="functional" value="2" />
@@ -314,7 +314,7 @@
         <!-- The key action flags. -->
         <attr name="keyActionFlags" format="integer">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.Key#ACTION_FLAGS_IS_REPEATABLE} etc. -->
+                 {@link helium314.keyboard.keyboard.Key#ACTION_FLAGS_IS_REPEATABLE} etc. -->
             <flag name="isRepeatable" value="0x01" />
             <flag name="noKeyPreview" value="0x02" />
             <flag name="altCodeWhileTyping" value="0x04" />
@@ -329,7 +329,7 @@
         <!-- The key label flags. -->
         <attr name="keyLabelFlags" format="integer">
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.keyboard.Key#LABEL_FLAGS_FONT_NORMAL} etc. -->
+                 {@link helium314.keyboard.keyboard.Key#LABEL_FLAGS_FONT_NORMAL} etc. -->
             <flag name="alignHintLabelToBottom" value="0x02" />
             <flag name="alignIconToBottom" value="0x04" />
             <flag name="alignLabelOffCenter" value="0x08" />
@@ -375,7 +375,7 @@
              If the value is fillRight, the actual key width will be determined to fill out the
              area up to the right edge of the keyboard. -->
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.internal.keyboard_parser.XmlKeyboardRow#KEYWIDTH_FILL_RIGHT}. -->
+             {@link helium314.keyboard.keyboard.internal.keyboard_parser.XmlKeyboardRow#KEYWIDTH_FILL_RIGHT}. -->
         <attr name="keyWidth" format="fraction|enum">
             <enum name="fillRight" value="-1" />
         </attr>
@@ -409,11 +409,11 @@
         <attr name="keyShiftedLetterHintRatio" format="fraction" />
         <!-- The label's horizontal offset to the center of the key. Negative is to left and
              positive is to right. The value is in proportion of the width of
-             {@link org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
+             {@link helium314.keyboard.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
         <attr name="keyLabelOffCenterRatio" format="fraction" />
         <!-- The hint label's horizontal offset to the center of the key. Negative is to left and
              positive is to right. The value is in proportion of the width of
-             {@link org.dslul.openboard.inputmethod.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
+             {@link helium314.keyboard.latin.utils.TypefaceUtils#KEY_LABEL_REFERENCE_CHAR}. -->
         <attr name="keyHintLabelOffCenterRatio" format="fraction" />
         <attr name="keyTextShadowColor" format="color" />
         <!-- Color to use for the label in a key when in inactivated state. -->
@@ -434,7 +434,7 @@
     <declare-styleable name="Keyboard_Case">
         <attr name="keyboardLayoutSet" format="string" />
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
         <attr name="keyboardLayoutSetElement" format="enum|string">
             <enum name="alphabet" value="0" />
             <enum name="alphabetManualShifted" value="1" />
@@ -466,7 +466,7 @@
             <enum name="numpad" value="28"  />
         </attr>
         <!-- This should be aligned with Keyboard.themeId and
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardTheme#THEME_ID_HOLO_BASE} etc. -->
         <attr name="keyboardTheme" format="enum|string">
             <enum name="HoloBase" value="0" />
             <enum name="LXXBase" value="1" />
@@ -475,7 +475,7 @@
             <enum name="RoundedBaseBorder" value="4" />
         </attr>
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#MODE_TEXT} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardId#MODE_TEXT} etc. -->
         <attr name="mode" format="enum|string">
             <enum name="text" value="0" />
             <enum name="url" value="1" />
@@ -506,7 +506,7 @@
             <enum name="actionDone" value="6" />
             <enum name="actionPrevious" value="7" />
             <!-- This should be aligned with
-                 {@link org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils#IME_ACTION_CUSTOM_LABEL}. -->
+                 {@link helium314.keyboard.latin.utils.InputTypeUtils#IME_ACTION_CUSTOM_LABEL}. -->
             <enum name="actionCustomLabel" value="0x100" />
         </attr>
         <attr name="isIconDefined" format="string" />
@@ -524,7 +524,7 @@
 
     <declare-styleable name="KeyboardLayoutSet_Element">
         <!-- This should be aligned with
-             {@link org.dslul.openboard.inputmethod.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
+             {@link helium314.keyboard.keyboard.KeyboardId#ELEMENT_ALPHABET} etc. -->
         <attr name="elementName" format="enum">
             <enum name="alphabet" value="0" />
             <enum name="alphabetManualShifted" value="1" />

@@ -109,7 +109,7 @@
      subtype.-->
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:settingsActivity="org.dslul.openboard.inputmethod.latin.settings.SettingsActivity"
+        android:settingsActivity="helium314.keyboard.latin.settings.SettingsActivity"
         android:isDefault="@bool/im_is_default"
         android:supportsSwitchingToNextInputMethod="true"
         android:supportsInlineSuggestions="true"

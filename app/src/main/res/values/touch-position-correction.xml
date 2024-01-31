@@ -4,7 +4,7 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Note that correctionX is obsolete (See org.dslul.openboard.inputmethod.keyboard.internal.TouchPositionCorrection)
+    <!-- Note that correctionX is obsolete (See helium314.keyboard.keyboard.internal.TouchPositionCorrection)
         An entry of the touch_position_correction word should be:
         1. correctionX: (touch_center_x - hitbox_center_x) / hitbox_width
         2. correctionY: (touch_center_y - hitbox_center_y) / hitbox_height

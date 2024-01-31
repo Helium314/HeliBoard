@@ -6,12 +6,12 @@
 
 package com.android.inputmethod.latin.utils;
 
-import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
+import helium314.keyboard.annotations.UsedForTesting;
 import com.android.inputmethod.latin.BinaryDictionary;
-import org.dslul.openboard.inputmethod.latin.common.StringUtils;
-import org.dslul.openboard.inputmethod.latin.makedict.DictionaryHeader;
-import org.dslul.openboard.inputmethod.latin.makedict.UnsupportedFormatException;
-import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
+import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.makedict.DictionaryHeader;
+import helium314.keyboard.latin.makedict.UnsupportedFormatException;
+import helium314.keyboard.latin.utils.JniUtils;
 
 import java.io.File;
 import java.io.IOException;

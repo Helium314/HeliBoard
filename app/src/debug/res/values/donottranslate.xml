@@ -3,5 +3,5 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 <resources>
-    <string name="hide_soft_input_permission">org.dslul.openboard.inputmethod.latin.debug.HIDE_SOFT_INPUT</string>
+    <string name="hide_soft_input_permission">helium314.keyboard.latin.debug.HIDE_SOFT_INPUT</string>
 </resources>

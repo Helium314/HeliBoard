@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp" />
     </LinearLayout>
-    <org.dslul.openboard.inputmethod.latin.setup.SetupStartIndicatorView
+    <helium314.keyboard.latin.setup.SetupStartIndicatorView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </merge>

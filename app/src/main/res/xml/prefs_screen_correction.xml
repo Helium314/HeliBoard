@@ -9,7 +9,7 @@
     android:key="screen_correction">
 
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.UserDictionaryListFragment"
+        android:fragment="helium314.keyboard.latin.settings.UserDictionaryListFragment"
         android:key="edit_personal_dictionary"
         android:title="@string/edit_personal_dictionary">
     </PreferenceScreen>

@@ -7,37 +7,37 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/ime_settings">
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.LanguageSettingsFragment"
+        android:fragment="helium314.keyboard.latin.settings.LanguageSettingsFragment"
         android:title="@string/language_and_layouts_title"
         android:key="screen_languages"
         android:icon="@drawable/ic_settings_languages"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment"
+        android:fragment="helium314.keyboard.latin.settings.PreferencesSettingsFragment"
         android:title="@string/settings_screen_preferences"
         android:key="screen_preferences"
         android:icon="@drawable/ic_settings_preferences"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.AppearanceSettingsFragment"
+        android:fragment="helium314.keyboard.latin.settings.AppearanceSettingsFragment"
         android:title="@string/settings_screen_appearance"
         android:key="screen_appearance"
         android:icon="@drawable/ic_settings_appearance"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.GestureSettingsFragment"
+        android:fragment="helium314.keyboard.latin.settings.GestureSettingsFragment"
         android:title="@string/settings_screen_gesture"
         android:key="screen_gesture"
         android:icon="@drawable/ic_settings_gesture"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.CorrectionSettingsFragment"
+        android:fragment="helium314.keyboard.latin.settings.CorrectionSettingsFragment"
         android:title="@string/settings_screen_correction"
         android:key="screen_correction"
         android:icon="@drawable/ic_settings_correction"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.AdvancedSettingsFragment"
+        android:fragment="helium314.keyboard.latin.settings.AdvancedSettingsFragment"
         android:title="@string/settings_screen_advanced"
         android:key="screen_advanced"
         android:icon="@drawable/ic_settings_advanced"/>
     <PreferenceScreen
-        android:fragment="org.dslul.openboard.inputmethod.latin.settings.AboutFragment"
+        android:fragment="helium314.keyboard.latin.settings.AboutFragment"
         android:title="@string/settings_screen_about"
         android:key="screen_about"
         android:icon="@drawable/ic_settings_about"/>

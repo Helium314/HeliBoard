@@ -92,9 +92,9 @@
     <style
         name="MainKeyboardView"
         parent="KeyboardView" />
-    <!-- Though {@link org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPalettesView} doesn't extend
-         {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}, some views inside it, for instance
-         delete button, need themed {@link org.dslul.openboard.inputmethod.keyboard.KeyboardView}
+    <!-- Though {@link helium314.keyboard.keyboard.emoji.EmojiPalettesView} doesn't extend
+         {@link helium314.keyboard.keyboard.KeyboardView}, some views inside it, for instance
+         delete button, need themed {@link helium314.keyboard.keyboard.KeyboardView}
          attributes. -->
     <style name="EmojiPalettesView" />
     <style name="ClipboardHistoryView" />
