@@ -326,10 +326,10 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     zipStream.closeEntry()
                 }
                 zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
-                settingsToJsonStream2(sharedPreferences.all, zipStream)
+                settingsToJsonStream(sharedPreferences.all, zipStream)
                 zipStream.closeEntry()
                 zipStream.putNextEntry(ZipEntry(PROTECTED_PREFS_FILE_NAME))
-                settingsToJsonStream2(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, zipStream)
+                settingsToJsonStream(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, zipStream)
                 zipStream.closeEntry()
                 zipStream.close()
             }
@@ -346,12 +346,13 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 ZipInputStream(inputStream).use { zip ->
                     var entry: ZipEntry? = zip.nextEntry
                     val filesDir = requireContext().filesDir?.path ?: return
+                    val deviceProtectedFilesDir = DeviceProtectedUtils.getDeviceProtectedContext(requireContext()).filesDir?.path ?: return
                     while (entry != null) {
                         if (entry.name.startsWith("unprotected${File.separator}")) {
                             val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
                             if (backupFilePatterns.any { adjustedName.matches(it) }) {
                                 val targetFileName = upgradeFileNames(adjustedName)
-                                val file = File(filesDir, targetFileName)
+                                val file = File(deviceProtectedFilesDir, targetFileName)
                                 FileUtils.copyStreamToNewFile(zip, file)
                             }
                         } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
@@ -447,7 +448,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     companion object {
         @Suppress("UNCHECKED_CAST") // it is checked... but whatever (except string set, because can't check for that))
-        private fun settingsToJsonStream2(settings: Map<String, Any?>, out: OutputStream) {
+        private fun settingsToJsonStream(settings: Map<String, Any?>, out: OutputStream) {
             val booleans = settings.filterValues { it is Boolean } as Map<String, Boolean>
             val ints = settings.filterValues { it is Int } as Map<String, Int>
             val longs = settings.filterValues { it is Long } as Map<String, Long>

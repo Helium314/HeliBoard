@@ -145,7 +145,8 @@ public class UserDictionaryListFragment extends SubScreenFragment {
         } else {
             newPref.setTitle(UserDictionarySettings.getLocaleDisplayName(requireContext(), locale));
         }
-        newPref.getExtras().putString("locale", locale.toLanguageTag());
+        if (locale == UserDictionarySettings.emptyLocale) newPref.getExtras().putString("locale", "");
+        else newPref.getExtras().putString("locale", locale.toLanguageTag());
         newPref.setIconSpaceReserved(false);
         newPref.setFragment(UserDictionarySettings.class.getName());
 
