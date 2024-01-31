@@ -58,6 +58,7 @@
     it_CH: Italian (Switzerland)/qwertz+
     iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
     ka_GE: Georgian (Georgia)/georgian
+    kab: Kabyle (Algeria)/azerty # This is a preliminary keyboard layout.
     kk: Kazakh/ru
     km_KH: Khmer (Cambodia)/khmer
     kn_IN: Kannada (India)/kannada
@@ -532,6 +533,15 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=hebrew,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0x2d5e7a1f"
+            android:imeSubtypeLocale="kab"
+            android:languageTag="kab"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=kabyle,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
