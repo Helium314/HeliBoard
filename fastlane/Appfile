@@ -1,2 +1,0 @@
-json_key_file("/home/daniele/Documenti/chiavi/api-6930663337756230740-637209-3adcd2d0f296.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
-package_name("org.dslul.openboard.inputmethod.latin") # e.g. com.krausefx.app

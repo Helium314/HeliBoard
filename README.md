@@ -1,27 +1,16 @@
 # OpenBoard upgrade, WIP
-IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do not submit any PRs until the renaming is done.
 
 ## Table of contents
 
 - [Features](#features)
-   * [Hidden functionality](#hidden-functionality)
+   * [Hidden Functionality](#hidden-functionality)
 - [Contributing](#contributing-)
-   * [Reporting issues](#reporting-issues)
+   * [Reporting Issues](#reporting-issues)
    * [Translation](#translation)
-   * [Dictionary creation](#dictionary-creation)
-   * [Code contribution](#code-contribution)
+   * [Dictionary Creation](#dictionary-creation)
+   * [Code Contribution](#code-contribution)
 - [License](#license)
 - [Credits](#credits)
-
-## Plan for actual release
-The plans for major changes are completed, and most features appear to be stable enough for a proper release.
-So what comes next:
-* Work on issues with the [when ready](https://github.com/Helium314/openboard/labels/when%20ready) label
-* Rename app, package and this repository
-* New icon
-* Use a translation tool (probably weblate)
-* Release on F-Droid
-* Maybe add a version that does not allow providing a glide typing library, for people concerned about security
 
 ## Features
 * Allow loading Glide typing library
@@ -43,7 +32,7 @@ So what comes next:
 * Add custom keyboard [layouts](layouts.md)
 * Adjustable bottom padding
 
-## Hidden functionality
+## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
 * Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents.
 * Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip.
@@ -69,7 +58,7 @@ Features that may go unnoticed, and further potentially useful information
 
 # Contributing ❤
 
-## Reporting issues
+## Reporting Issues
 
 Whether you encountered a bug, or want to see a new feature in OpenBoard, you can contribute to the project by opening a new issue [here](https://github.com/openboard-team/openboard/issues). Your help is always welcome!
 
@@ -81,14 +70,13 @@ Before opening a new issue, be sure to check the following:
 ## Translation
 Currently there is no simple way of translating the app, but it's coming soon...
 
-## Dictionary creation
+## Dictionary Creation
 There will not be any further dictionaries bundled in this app. However, you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries).
 To create or update a dictionary for your language, you can use [this tool](https://github.com/remi0s/aosp-dictionary-tools). You will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme.
 
-## Code contribution
-IMPORTANT: The package will be renamed soon. To avoid merge conflicts, please do not submit any PRs until the renaming is done.
+## Code Contribution
 
-### Getting started
+### Getting Started
 
 OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/openboard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
 Of course you can also use any other compatible IDE, or work with text editor and command line.
@@ -110,11 +98,11 @@ If your contribution contains code that is not your own, provide a link to the s
 
 In addition to previous elements, OpenBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
 
-### Adding layouts
+### Adding Layouts
 
 See [layouts.md](layouts.md) for how to add new layouts to the app.
 
-### Update emojis
+### Update Emojis
 
 See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 
