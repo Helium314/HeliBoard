@@ -1,0 +1,16 @@
+[morekeys]
+a ɛ
+z ẓ
+r ṛ
+t ṭ
+u o
+s ṣ
+d ḍ
+g ǧ
+h ḥ
+c č
+b p
+
+[labels]
+alphabet: AƐΓ
+
