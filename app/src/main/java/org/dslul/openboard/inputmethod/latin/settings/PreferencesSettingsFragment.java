@@ -56,13 +56,13 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setupHistoryRetentionTimeSettings();
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         setLocalizedNumberRowVisibility();
-        findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
-        findPreference(Settings.PREF_MORE_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
-            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT, R.string.popup_order);
+        findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
+        findPreference(Settings.PREF_POPUP_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT, R.string.popup_order);
             return true;
         });
-        findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setOnPreferenceClickListener((pref) -> {
-            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT, R.string.hint_source);
+        findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setOnPreferenceClickListener((pref) -> {
+            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT, R.string.hint_source);
             return true;
         });
         findPreference(Settings.PREF_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
@@ -81,12 +81,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         if (key == null) return;
         switch (key) {
-            case Settings.PREF_MORE_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
-                    Settings.PREF_MORE_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS
+            case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
+                    Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS
                     -> mReloadKeyboard = true;
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
             case Settings.PREF_SHOW_HINTS
-                    -> findPreference(Settings.PREF_MORE_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+                    -> findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
         }
     }
 

@@ -135,7 +135,7 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
             p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
             val switch = p0.itemView.findViewById<Switch>(R.id.morekeys_switch)
             switch?.isChecked = wasChecked
-            switch?.isEnabled = !(key.contains(Settings.PREF_MORE_KEYS_ORDER) && text == MORE_KEYS_LAYOUT) // layout can't be disabled
+            switch?.isEnabled = !(key.contains(Settings.PREF_POPUP_KEYS_ORDER) && text == MORE_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->
                 val position = orderedItems.indexOfFirst { it.first == text }
                 orderedItems[position] = text to isChecked

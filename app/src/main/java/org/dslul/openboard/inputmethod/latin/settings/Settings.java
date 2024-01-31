@@ -122,10 +122,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
 
     public static final String PREF_SHOW_HINTS = "show_hints";
-    public static final String PREF_MORE_KEYS_ORDER = "more_keys_order";
-    public static final String PREF_MORE_KEYS_LABELS_ORDER = "more_keys_labels_order";
+    public static final String PREF_POPUP_KEYS_ORDER = "popup_keys_order";
+    public static final String PREF_POPUP_KEYS_LABELS_ORDER = "popup_keys_labels_order";
     public static final String PREF_SHOW_POPUP_HINTS = "show_popup_hints";
-    public static final String PREF_MORE_MORE_KEYS = "more_more_keys";
+    public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_SPACE_LANGUAGE_SLIDE = "space_language_slide";
@@ -503,7 +503,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readMoreMoreKeysPref(final SharedPreferences prefs) {
-        return switch (prefs.getString(Settings.PREF_MORE_MORE_KEYS, "normal")) {
+        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "normal")) {
             case "all" -> LocaleKeyTextsKt.MORE_KEYS_ALL;
             case "more" -> LocaleKeyTextsKt.MORE_KEYS_MORE;
             default -> LocaleKeyTextsKt.MORE_KEYS_NORMAL;

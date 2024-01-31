@@ -110,6 +110,19 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
                 prefs.edit().remove(it.key).apply()
         }
     }
+    // change more_keys to popup_keys
+    if (prefs.contains("more_keys_order")) {
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")).apply()
+        prefs.edit().remove("more_keys_order").apply()
+    }
+    if (prefs.contains("more_keys_labels_order")) {
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")).apply()
+        prefs.edit().remove("more_keys_labels_order").apply()
+    }
+    if (prefs.contains("more_more_keys")) {
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_more_keys", "")).apply()
+        prefs.edit().remove("more_more_keys").apply()
+    }
     // upgrade additional subtype locale strings
     val additionalSubtypes = mutableListOf<String>()
     Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";").forEach {

@@ -18,11 +18,11 @@
             android:persistent="true" />
 
         <Preference
-            android:key="more_keys_labels_order"
+            android:key="popup_keys_labels_order"
             android:title="@string/hint_source" />
 
         <Preference
-            android:key="more_keys_order"
+            android:key="popup_keys_order"
             android:title="@string/popup_order" />
 
         <SwitchPreference

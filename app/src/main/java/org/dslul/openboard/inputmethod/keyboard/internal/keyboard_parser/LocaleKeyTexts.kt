@@ -233,9 +233,9 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, moreKeys
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreKeysSetting: Int): LocaleKeyTexts {
     val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     if (moreKeysSetting == MORE_KEYS_MORE)
-        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_more_keys.txt"))
+        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_popup_keys.txt"))
     else if (moreKeysSetting == MORE_KEYS_ALL)
-        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt"))
+        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt"))
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context))
@@ -245,7 +245,7 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreK
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_more_keys.txt")
+        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt")
         else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {

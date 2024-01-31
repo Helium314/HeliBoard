@@ -216,10 +216,10 @@ public class SettingsValues {
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         // read locale-specific popup key settings, fall back to global settings
-        final String moreKeyTypesDefault = prefs.getString(Settings.PREF_MORE_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT);
-        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_MORE_KEYS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyTypesDefault);
-        final String moreKeyLabelDefault = prefs.getString(Settings.PREF_MORE_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT);
-        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_MORE_KEYS_LABELS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyLabelDefault);
+        final String moreKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT);
+        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyTypesDefault);
+        final String moreKeyLabelDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT);
+        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyLabelDefault);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY, false);
