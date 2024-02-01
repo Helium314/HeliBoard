@@ -148,6 +148,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             val isJson = checkLayout(content, context)
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
+                // todo: this actually always returns the "simple layout" error, even on a json layout with a single small error
                 infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"

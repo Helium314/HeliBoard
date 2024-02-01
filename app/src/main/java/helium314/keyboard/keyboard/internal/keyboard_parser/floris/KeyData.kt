@@ -49,7 +49,13 @@ interface AbstractKeyData {
      */
     fun asString(isForDisplay: Boolean): String // todo: remove it? not used at all (better only later, maybe useful for getting display label in some languages)
 
-    fun getLabel(params: KeyboardParams) = if (this is KeyData) label else compute(params)?.label ?: ""
+    /** get the label, but also considers code, which can't be set separately for popup keys and thus goes into the label */
+    fun getPopupLabel(params: KeyboardParams): String {
+        val keyData = if (this is KeyData) this else compute(params) ?: return ""
+        if (keyData.code == KeyCode.UNSPECIFIED || keyData.code < 0) // don't allow negative codes in popups
+            return keyData.label
+        return "${keyData.label}|${StringUtils.newSingleCodePointString(keyData.code)}"
+    }
 }
 
 /**

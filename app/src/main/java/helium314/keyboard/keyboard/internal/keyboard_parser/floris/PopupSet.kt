@@ -9,8 +9,8 @@ import kotlinx.serialization.Serializable
 import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardParams
 
-// taken from FlorisBoard, considerably modified
-// we don't care about the difference between main and relevant in this app
+// only the constructor and name remain from FlorisBoard
+// we don't care about the difference between main and relevant (at least for now)
 @Serializable
 open class PopupSet<T : AbstractKeyData>(
     open val main: T? = null,
@@ -20,8 +20,8 @@ open class PopupSet<T : AbstractKeyData>(
     open fun getPopupKeyLabels(params: KeyboardParams): Collection<String>? {
         if (main == null && relevant == null) return null
         val moreKeys = mutableListOf<String>()
-        main?.getLabel(params)?.let { moreKeys.add(KeySpecParser.getLabel(it)!!) }
-        relevant?.let { moreKeys.addAll(it.map { KeySpecParser.getLabel(it.getLabel(params))!! }) }
+        main?.getPopupLabel(params)?.let { moreKeys.add(it) }
+        relevant?.let { moreKeys.addAll(it.map { it.getPopupLabel(params) }) }
         if (moreKeys.isEmpty()) return null
         return moreKeys
     }

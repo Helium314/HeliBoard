@@ -289,7 +289,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 if (key.type != KeyType.NUMERIC && keyParams.mBackgroundType != Key.BACKGROUND_TYPE_ACTION)
                     keyParams.mBackgroundType = Key.BACKGROUND_TYPE_FUNCTIONAL
 
-                if (params.mId.mElementId == KeyboardId.ELEMENT_PHONE && key.popup.main?.getLabel(params)?.length?.let { it > 1 } == true) {
+                if (params.mId.mElementId == KeyboardId.ELEMENT_PHONE && key.popup.main?.getPopupLabel(params)?.length?.let { it > 1 } == true) {
                     keyParams.mMoreKeys = null // the ABC and stuff labels should not create moreKeys
                 }
                 if (keyParams.mLabel?.length?.let { it > 1 } == true && keyParams.mLabel?.startsWith("!string/") == true) {

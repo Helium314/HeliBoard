@@ -1120,7 +1120,6 @@ public class Key implements Comparable<Key> {
                 mHintLabel = null;
             } else {
                 // maybe also always null for comma and period keys
-                // todo: maybe remove mKeyboardParams.mHintLabelFromFirstMoreKey?
                 final String hintLabel = MoreKeysUtilsKt.getHintLabel(popupSet, params, keySpec);
                 mHintLabel = needsToUpcase
                         ? StringUtils.toTitleCaseOfKeyLabel(hintLabel, localeForUpcasing)

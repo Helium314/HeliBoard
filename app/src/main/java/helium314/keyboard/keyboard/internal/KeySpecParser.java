@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 
 /**
  * The string parser of the key specification.
- *
+ * <p>
  * Each key specification is one of the following:
  * - Label optionally followed by keyOutputText (keyLabel|keyOutputText).
  * - Label optionally followed by code point (keyLabel|!code/code_name).
@@ -83,7 +83,7 @@ public final class KeySpecParser {
     private static int indexOfLabelEnd(@NonNull final String keySpec) {
         final int length = keySpec.length();
         if (keySpec.indexOf(BACKSLASH) < 0) {
-            final int labelEnd = keySpec.indexOf(VERTICAL_BAR);
+            final int labelEnd = keySpec.lastIndexOf(VERTICAL_BAR);
             if (labelEnd == 0) {
                 if (length == 1) {
                     // Treat a sole vertical bar as a special case of key label.
@@ -95,12 +95,12 @@ public final class KeySpecParser {
             }
             return labelEnd;
         }
-        for (int pos = 0; pos < length; pos++) {
+        for (int pos = length - 1; pos >= 0; pos--) {
             final char c = keySpec.charAt(pos);
-            if (c == BACKSLASH && pos + 1 < length) {
-                // Skip escape char
-                pos++;
-            } else if (c == VERTICAL_BAR) {
+            if (c != VERTICAL_BAR) continue;
+            if (pos > 0 && keySpec.charAt(pos - 1) == BACKSLASH) {
+                pos--; // Skip escape char
+            } else {
                 return pos;
             }
         }

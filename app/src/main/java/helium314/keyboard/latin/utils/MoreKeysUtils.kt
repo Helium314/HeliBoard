@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import helium314.keyboard.keyboard.Key
+import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
@@ -80,11 +81,10 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
         if (hintLabel != null) break
     }
 
-    // don't do the rtl transform, hint label is only the label
-    return hintLabel?.let { if (it == "$$$") transformLabel(it, params) else it }
+    return hintLabel?.let { KeySpecParser.getLabel(transformLabel(it, params)) }
         // avoid e.g. !autoColumnOrder! as label
         //  this will avoid having labels on comma and period keys
-        ?.takeIf { !it.startsWith("!") || it == "!" }
+        ?.takeIf { !it.startsWith("!") || it.count { it == '!' } != 2 } // excluding the special labels
 }
 
 private fun transformLabel(label: String, params: KeyboardParams): String =
