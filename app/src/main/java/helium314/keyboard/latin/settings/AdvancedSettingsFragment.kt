@@ -117,6 +117,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
         }
+        if (BuildConfig.BUILD_TYPE == "nouserlib") {
+            removePreference("load_gesture_library")
+        }
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }

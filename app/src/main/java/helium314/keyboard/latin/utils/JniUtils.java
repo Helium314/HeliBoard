@@ -57,7 +57,7 @@ public final class JniUtils {
         if (app != null) // use the actual path if possible
             filesDir = app.getFilesDir().getAbsolutePath();
         final File userSuppliedLibrary = new File(filesDir + File.separator + JNI_LIB_IMPORT_FILE_NAME);
-        if (userSuppliedLibrary.exists()) {
+        if (!BuildConfig.BUILD_TYPE.equals("nouserlib") && userSuppliedLibrary.exists()) {
             String wantedChecksum = expectedDefaultChecksum();
             try {
                 if (app != null) {
