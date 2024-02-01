@@ -11,8 +11,4 @@
     latin:keyLabelSize="@fraction/config_emoji_keyboard_key_label_size"
     latin:rowHeight="@fraction/config_emoji_keyboard_row_height"
 >
-    <GridRows
-        latin:codesArray="@array/emoji_travel_places"
-        latin:keyLabelFlags="fontNormal"
-        latin:backgroundType="empty" />
 </Keyboard>

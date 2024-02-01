@@ -9,29 +9,20 @@ package helium314.keyboard.keyboard;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.text.InputType;
-
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTexts;
-import helium314.keyboard.latin.utils.Log;
-import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.UniqueKeysCache;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTexts;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.utils.InputTypeUtils;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ScriptUtils;
-import helium314.keyboard.latin.utils.XmlParseUtils;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
@@ -48,9 +39,6 @@ import androidx.annotation.Nullable;
 public final class KeyboardLayoutSet {
     private static final String TAG = KeyboardLayoutSet.class.getSimpleName();
     private static final boolean DEBUG_CACHE = false;
-
-    private static final String TAG_KEYBOARD_SET = "KeyboardLayoutSet";
-    private static final String TAG_ELEMENT = "Element";
 
     private static final String KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX = "keyboard_layout_set_";
 
@@ -82,9 +70,9 @@ public final class KeyboardLayoutSet {
     }
 
     public static final class Params {
-        String mKeyboardLayoutSetName;
+        String mKeyboardLayoutSetName; // this is only for xml, can be removed together with xmls
         int mMode;
-        boolean mDisableTouchPositionCorrectionDataForTest;
+        boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
         EditorInfo mEditorInfo;
         boolean mIsPasswordField;
@@ -297,75 +285,7 @@ public final class KeyboardLayoutSet {
             if (mParams.mSubtype == null)
                 throw new RuntimeException("KeyboardLayoutSet subtype is not specified");
             mParams.mScript = ScriptUtils.script(mParams.mSubtype.getLocale());
-            // todo: the whole parsing stuff below should be removed, but currently
-            //  it simply breaks when it's not available
-            //  for emojis, moreKeys and moreSuggestions there are relevant parameters included
-            int xmlId = getXmlId(mResources, mParams.mKeyboardLayoutSetName);
-            if (xmlId == 0)
-                xmlId = R.xml.keyboard_layout_set_default;
-            try {
-                parseKeyboardLayoutSet(mResources, xmlId);
-            } catch (final IOException | XmlPullParserException e) {
-                throw new RuntimeException(e.getMessage() + " in " + mParams.mKeyboardLayoutSetName, e);
-            }
             return new KeyboardLayoutSet(mContext, mParams);
-        }
-
-        private static int getXmlId(final Resources resources, final String keyboardLayoutSetName) {
-            final String packageName = resources.getResourcePackageName(R.xml.keyboard_layout_set_default);
-            return resources.getIdentifier(keyboardLayoutSetName, "xml", packageName);
-        }
-
-        private void parseKeyboardLayoutSet(final Resources res, final int resId)
-                throws XmlPullParserException, IOException {
-            try (XmlResourceParser parser = res.getXml(resId)) {
-                while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
-                    final int event = parser.next();
-                    if (event == XmlPullParser.START_TAG) {
-                        final String tag = parser.getName();
-                        if (TAG_KEYBOARD_SET.equals(tag)) {
-                            parseKeyboardLayoutSetContent(parser);
-                        } else {
-                            throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_KEYBOARD_SET);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void parseKeyboardLayoutSetContent(final XmlPullParser parser)
-                throws XmlPullParserException, IOException {
-            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
-                final int event = parser.next();
-                if (event == XmlPullParser.START_TAG) {
-                    final String tag = parser.getName();
-                    if (TAG_ELEMENT.equals(tag)) {
-                        parseKeyboardLayoutSetElement(parser);
-                    } else {
-                        throw new XmlParseUtils.IllegalStartTag(parser, tag, TAG_KEYBOARD_SET);
-                    }
-                } else if (event == XmlPullParser.END_TAG) {
-                    final String tag = parser.getName();
-                    if (TAG_KEYBOARD_SET.equals(tag)) {
-                        break;
-                    }
-                    throw new XmlParseUtils.IllegalEndTag(parser, tag, TAG_KEYBOARD_SET);
-                }
-            }
-        }
-
-        private void parseKeyboardLayoutSetElement(final XmlPullParser parser)
-                throws XmlPullParserException, IOException {
-            final TypedArray a = mResources.obtainAttributes(Xml.asAttributeSet(parser),
-                    R.styleable.KeyboardLayoutSet_Element);
-            try {
-                XmlParseUtils.checkAttributeExists(a,
-                        R.styleable.KeyboardLayoutSet_Element_elementName, "elementName",
-                        TAG_ELEMENT, parser);
-                XmlParseUtils.checkEndTag(TAG_ELEMENT, parser);
-            } finally {
-                a.recycle();
-            }
         }
 
         private static int getKeyboardMode(final EditorInfo editorInfo) {

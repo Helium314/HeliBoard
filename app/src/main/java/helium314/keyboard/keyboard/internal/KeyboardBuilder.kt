@@ -51,7 +51,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mId = id
         if (id.isEmojiKeyboard) {
             setAllowRedundantMoreKeys(true)
-            readAttributes(R.xml.kbd_emoji_category1) // all the same anyway, gridRows are ignored
+            readAttributes(R.xml.kbd_emoji)
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
