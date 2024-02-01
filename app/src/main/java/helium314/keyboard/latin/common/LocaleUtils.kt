@@ -168,8 +168,8 @@ object LocaleUtils {
 
     @JvmStatic
     fun isRtlLanguage(locale: Locale): Boolean {
-        val displayName = locale.displayName
-        if (displayName.isEmpty()) return true
+        val displayName = locale.getDisplayName(locale)
+        if (displayName.isEmpty()) return false
         return when (Character.getDirectionality(displayName.codePointAt(0))) {
             Character.DIRECTIONALITY_RIGHT_TO_LEFT, Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC -> true
             else -> false
