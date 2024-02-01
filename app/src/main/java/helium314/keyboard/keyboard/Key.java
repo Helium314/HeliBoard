@@ -1159,7 +1159,10 @@ public class Key implements Comparable<Key> {
             }
 
             // action flags don't need to be specified, they can be deduced from the key
-            if (backgroundType == BACKGROUND_TYPE_SPACEBAR || mCode == Constants.CODE_LANGUAGE_SWITCH)
+            if (backgroundType == BACKGROUND_TYPE_SPACEBAR
+                    || mCode == Constants.CODE_LANGUAGE_SWITCH
+                    || (mCode == CODE_SWITCH_ALPHA_SYMBOL && !params.mId.isAlphabetKeyboard())
+            )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != CODE_OUTPUT_TEXT)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;

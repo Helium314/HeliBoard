@@ -45,6 +45,7 @@ Features that may go unnoticed, and further potentially useful information
 * Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion.
 * Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
 * Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).
+* Long-press the `?123` from main view to directly open numpad.
 * Swipe left in clipboard view to remove an entry (except when it's pinned)
 * You can add dictionaries by opening them in a file explorer:
   * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.

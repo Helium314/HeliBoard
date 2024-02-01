@@ -310,8 +310,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // Note that we need primaryCode argument because the keyboard may be in shifted state and the
     // primaryCode is different from {@link Key#mKeyCode}.
-    private void callListenerOnRelease(final Key key, final int primaryCode,
-            final boolean withSliding) {
+    private void callListenerOnRelease(final Key key, final int primaryCode, final boolean withSliding) {
         // See the comment at {@link #callListenerOnPressAndCheckKeyboardLayoutChange(Key}}.
         if (sInGesture || mIsDetectingGesture || mIsTrackingForActionDisabled) {
             return;
@@ -1104,7 +1103,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         final int code = key.getCode();
-        if (code == Constants.CODE_SPACE&&Settings.getInstance().getCurrent().mSpaceForLangChange || code == Constants.CODE_LANGUAGE_SWITCH) {
+        if (code == Constants.CODE_LANGUAGE_SWITCH
+                || (code == Constants.CODE_SPACE && Settings.getInstance().getCurrent().mSpaceForLangChange)
+        ) {
             // Long pressing the space key invokes IME switcher dialog.
             if (sListener.onCustomRequest(Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)) {
                 cancelKeyTracking();
@@ -1112,8 +1113,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 return;
             }
         }
+        if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+            sListener.onCodeInput(Constants.CODE_NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            return;
+        }
 
-        setReleasedKeyGraphics(key, false /* withAnimation */);
+        setReleasedKeyGraphics(key, false);
         final MoreKeysPanel moreKeysPanel = sDrawingProxy.showMoreKeysKeyboard(key, this);
         if (moreKeysPanel == null) {
             return;
@@ -1159,8 +1164,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return true;
         }
         // Here curKey points to the different key from newKey.
-        final int keyHysteresisDistanceSquared = mKeyDetector.getKeyHysteresisDistanceSquared(
-                mIsInSlidingKeyInput);
+        final int keyHysteresisDistanceSquared = mKeyDetector.getKeyHysteresisDistanceSquared(mIsInSlidingKeyInput);
         final int distanceFromKeyEdgeSquared = curKey.squaredDistanceToEdge(x, y);
         if (distanceFromKeyEdgeSquared >= keyHysteresisDistanceSquared) {
             if (DEBUG_MODE) {

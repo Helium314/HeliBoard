@@ -18,7 +18,7 @@
     <string name="enable_split_keyboard" msgid="4177264923999493614">"Enable split keyboard"</string>
     <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Switch to other input methods"</string>
     <string name="show_language_switch_key" msgid="5915478828318774384">"Language switch key"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default" msgid="6268225104743331821">"System default"</string>
     <string name="use_contacts_dict" msgid="4435317977804180815">"Suggest Contact names"</string>
     <string name="use_contacts_dict_summary">"Use names from Contacts for suggestions and corrections"</string>
@@ -150,7 +150,7 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
     <string name="settings_no_limit">No limit</string>
     <string name="settings_category_clipboard_history">Clipboard history</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
     <string name="clipboard_history_retention_time">History retention time</string>
