@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.BinaryDictionary;
 
-import helium314.keyboard.annotations.ExternallyReferenced;
 import helium314.keyboard.latin.ContactsManager.ContactsChangedListener;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
@@ -50,7 +49,6 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
         reloadDictionaryIfRequired();
     }
 
-    @ExternallyReferenced
     public static ContactsBinaryDictionary getDictionary(final Context context, final Locale locale,
             final File dictFile, final String dictNamePrefix, @Nullable final String account) {
         return new ContactsBinaryDictionary(context, locale, dictFile, dictNamePrefix + NAME);

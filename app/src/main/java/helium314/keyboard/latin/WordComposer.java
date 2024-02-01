@@ -8,7 +8,6 @@ package helium314.keyboard.latin;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.event.CombinerChain;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.keyboard.Keyboard;
@@ -483,17 +482,14 @@ public final class WordComposer {
         return mRejectedBatchModeSuggestion;
     }
 
-    @UsedForTesting
     void addInputPointerForTest(int index, int keyX, int keyY) {
         mInputPointers.addPointerAt(index, keyX, keyY, 0, 0);
     }
 
-    @UsedForTesting
     void setTypedWordCacheForTests(String typedWordCacheForTests) {
         mTypedWordCache = typedWordCacheForTests;
     }
 
-    @UsedForTesting
     static WordComposer getComposerForTest(boolean isEmpty) {
         return new WordComposer(isEmpty);
     }

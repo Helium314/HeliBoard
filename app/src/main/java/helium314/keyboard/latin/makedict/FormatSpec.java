@@ -6,7 +6,6 @@
 
 package helium314.keyboard.latin.makedict;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.define.DecoderSpecificConstants;
 
 import java.util.Date;
@@ -243,11 +242,6 @@ public final class FormatSpec {
     public static final class FormatOptions {
         public final int mVersion;
         public final boolean mHasTimestamp;
-
-        @UsedForTesting
-        public FormatOptions(final int version) {
-            this(version, false /* hasTimestamp */);
-        }
 
         public FormatOptions(final int version, final boolean hasTimestamp) {
             mVersion = version;

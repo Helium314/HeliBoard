@@ -15,7 +15,6 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.settings.Settings;
@@ -210,7 +209,6 @@ public class RichInputMethodManager {
 
     private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
-    @UsedForTesting
     static void forceSubtype(@NonNull final InputMethodSubtype subtype) {
         sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }

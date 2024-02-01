@@ -16,8 +16,6 @@ import android.text.TextUtils;
 import android.text.style.SuggestionSpan;
 import android.text.style.URLSpan;
 
-import helium314.keyboard.annotations.UsedForTesting;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -144,7 +142,6 @@ public final class SpannableStringUtils {
      * @return the array which contains the result. All the spans in the <code>charSequence</code>
      * is preserved.
      */
-    @UsedForTesting
     public static CharSequence[] split(final CharSequence charSequence, final String regex,
             final boolean preserveTrailingEmptySegments) {
         // A short-cut for non-spanned strings.

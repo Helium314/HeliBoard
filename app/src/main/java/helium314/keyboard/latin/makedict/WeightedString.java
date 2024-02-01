@@ -6,8 +6,6 @@
 
 package helium314.keyboard.latin.makedict;
 
-import helium314.keyboard.annotations.UsedForTesting;
-
 import java.util.Arrays;
 
 /**
@@ -28,7 +26,6 @@ public final class WeightedString {
         mProbabilityInfo = probabilityInfo;
     }
 
-    @UsedForTesting
     public int getProbability() {
         return mProbabilityInfo.mProbability;
     }

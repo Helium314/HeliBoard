@@ -12,7 +12,6 @@ import android.view.inputmethod.CompletionInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
 
@@ -427,7 +426,6 @@ public class SuggestedWords {
      * typed by the user. Otherwise returns {@code null}. Note that gesture input is not
      * considered to be a typed word.
      */
-    @UsedForTesting
     public SuggestedWordInfo getTypedWordInfoOrNull() {
         if (SuggestedWords.INDEX_OF_TYPED_WORD >= size()) {
             return null;

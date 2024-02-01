@@ -8,8 +8,6 @@ package helium314.keyboard.latin.common;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.annotations.UsedForTesting;
-
 // TODO: This class is not thread-safe.
 public final class InputPointers {
     private static final boolean DEBUG_TIME = false;
@@ -54,7 +52,6 @@ public final class InputPointers {
         mTimes.addAt(index, time);
     }
 
-    @UsedForTesting
     public void addPointer(final int x, final int y, final int pointerId, final int time) {
         mXCoordinates.add(x);
         mYCoordinates.add(y);
@@ -102,7 +99,6 @@ public final class InputPointers {
      * Shift to the left by elementCount, discarding elementCount pointers at the start.
      * @param elementCount how many elements to shift.
      */
-    @UsedForTesting
     public void shift(final int elementCount) {
         mXCoordinates.shift(elementCount);
         mYCoordinates.shift(elementCount);

@@ -9,7 +9,6 @@ package helium314.keyboard.latin;
 import android.text.TextUtils;
 import helium314.keyboard.latin.utils.Log;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
@@ -272,7 +271,6 @@ public final class Suggest {
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
-    @UsedForTesting
     boolean[] shouldBeAutoCorrected(
             final int trailingSingleQuotesCount,
             final String typedWordString,

@@ -10,7 +10,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodSubtype;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.StringUtils;
@@ -35,7 +34,6 @@ public final class AdditionalSubtypeUtils {
         // This utility class is not publicly instantiable.
     }
 
-    @UsedForTesting
     public static boolean isAdditionalSubtype(final InputMethodSubtype subtype) {
         return subtype.containsExtraValueKey(IS_ADDITIONAL_SUBTYPE);
     }

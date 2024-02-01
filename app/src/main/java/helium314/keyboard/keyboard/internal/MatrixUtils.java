@@ -8,8 +8,6 @@ package helium314.keyboard.keyboard.internal;
 
 import helium314.keyboard.latin.utils.Log;
 
-import helium314.keyboard.annotations.UsedForTesting;
-
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -17,7 +15,6 @@ import java.util.Locale;
  * Utilities for matrix operations. Don't instantiate objects inside this class to prevent
  * unexpected performance regressions.
  */
-@UsedForTesting
 public class MatrixUtils {
     static final String TAG = MatrixUtils.class.getSimpleName();
 
@@ -88,7 +85,6 @@ public class MatrixUtils {
      * The inverse matrix of squareMatrix will be output to inverseMatrix. Please notice that
      * the value of squareMatrix is modified in this function and can't be resuable.
      */
-    @UsedForTesting
     public static void inverse(final float[][] squareMatrix,
             final float[][] inverseMatrix) throws MatrixOperationFailedException {
         final int size = squareMatrix.length;
@@ -110,7 +106,6 @@ public class MatrixUtils {
     /**
      * A matrix operation to multiply m0 and m1.
      */
-    @UsedForTesting
     public static void multiply(final float[][] m0, final float[][] m1,
             final float[][] retval) throws MatrixOperationFailedException {
         if (m0[0].length != m1.length) {
@@ -138,7 +133,6 @@ public class MatrixUtils {
     /**
      * A utility function to dump the specified matrix in a readable way
      */
-    @UsedForTesting
     public static void dump(final String title, final float[][] a) {
         final int column = a[0].length;
         final int row = a.length;

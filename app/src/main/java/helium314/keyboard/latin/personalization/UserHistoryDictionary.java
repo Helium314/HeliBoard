@@ -11,8 +11,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.annotations.ExternallyReferenced;
-import helium314.keyboard.annotations.UsedForTesting;
 import com.android.inputmethod.latin.BinaryDictionary;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.ExpandableBinaryDictionary;
@@ -43,13 +41,11 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
     /**
      * @returns the name of the {@link UserHistoryDictionary}.
      */
-    @UsedForTesting
     static String getUserHistoryDictName(final String name, final Locale locale,
             @Nullable final File dictFile, @Nullable final String account) {
         return getDictName(name, locale, dictFile);
     }
 
-    @ExternallyReferenced
     public static UserHistoryDictionary getDictionary(final Context context, final Locale locale,
             final File dictFile, final String dictNamePrefix, @Nullable final String account) {
         return PersonalizationHelper.getUserHistoryDictionary(context, locale, account);

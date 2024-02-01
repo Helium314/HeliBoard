@@ -8,7 +8,6 @@ package com.android.inputmethod.latin.utils;
 
 import helium314.keyboard.latin.utils.Log;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DecoderSpecificConstants;
@@ -34,7 +33,6 @@ public final class WordInputEventForPersonalization {
     // Time stamp in seconds.
     public final int mTimestamp;
 
-    @UsedForTesting
     public WordInputEventForPersonalization(final CharSequence targetWord,
             final NgramContext ngramContext, final int timestamp) {
         mTargetWord = StringUtils.toCodePointArray(targetWord);

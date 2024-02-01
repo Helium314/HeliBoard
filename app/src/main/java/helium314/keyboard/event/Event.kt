@@ -6,7 +6,6 @@
 
 package helium314.keyboard.event
 
-import helium314.keyboard.annotations.ExternallyReferenced
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
@@ -146,7 +145,6 @@ class Event private constructor(
         }
 
         // This creates an input event for a dead character. @see {@link #FLAG_DEAD}
-        @ExternallyReferenced
         fun createDeadEvent(codePoint: Int, keyCode: Int, next: Event?): Event { // TODO: add an argument or something if we ever create a software layout with dead keys.
             return Event(EVENT_TYPE_INPUT_KEYPRESS, null /* text */, codePoint, keyCode,
                     Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,

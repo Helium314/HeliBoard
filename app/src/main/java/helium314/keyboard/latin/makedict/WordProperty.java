@@ -8,7 +8,6 @@ package helium314.keyboard.latin.makedict;
 
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import com.android.inputmethod.latin.BinaryDictionary;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.NgramContext;
@@ -39,7 +38,6 @@ public final class WordProperty implements Comparable<WordProperty> {
     private int mHashCode = 0;
 
     // TODO: Support n-gram.
-    @UsedForTesting
     public WordProperty(final String word, final ProbabilityInfo probabilityInfo,
             final ArrayList<WeightedString> shortcutTargets,
             @Nullable final ArrayList<WeightedString> bigrams,
@@ -122,7 +120,6 @@ public final class WordProperty implements Comparable<WordProperty> {
     }
 
     // TODO: Remove
-    @UsedForTesting
     public ArrayList<WeightedString> getBigrams() {
         if (null == mNgrams) {
             return null;
@@ -197,7 +194,6 @@ public final class WordProperty implements Comparable<WordProperty> {
         return mHashCode;
     }
 
-    @UsedForTesting
     public boolean isValid() {
         return getProbability() != Dictionary.NOT_A_PROBABILITY;
     }

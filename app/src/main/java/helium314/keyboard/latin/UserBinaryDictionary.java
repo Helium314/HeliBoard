@@ -13,13 +13,12 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
-import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.BinaryDictionary;
 
-import helium314.keyboard.annotations.ExternallyReferenced;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 
 import java.io.File;
@@ -82,7 +81,6 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
         reloadDictionaryIfRequired();
     }
 
-    @ExternallyReferenced
     public static UserBinaryDictionary getDictionary(
             final Context context, final Locale locale, final File dictFile,
             final String dictNamePrefix, @Nullable final String account) {

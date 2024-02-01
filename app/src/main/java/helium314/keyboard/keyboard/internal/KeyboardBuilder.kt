@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.Xml
 import androidx.annotation.XmlRes
-import helium314.keyboard.annotations.UsedForTesting
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.Keyboard
@@ -86,7 +85,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.readAttributes(mContext, null)
     }
 
-    @UsedForTesting
     fun disableTouchPositionCorrectionDataForTest() {
         mParams.mTouchPositionCorrection.setEnabled(false)
     }

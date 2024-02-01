@@ -6,7 +6,6 @@
 
 package helium314.keyboard.keyboard.internal;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.define.DebugFlags;
 
 public final class TouchPositionCorrection {
@@ -57,7 +56,6 @@ public final class TouchPositionCorrection {
         }
     }
 
-    @UsedForTesting
     public void setEnabled(final boolean enabled) {
         mEnabled = enabled;
     }

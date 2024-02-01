@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.SettingsValues;
 
@@ -109,7 +108,6 @@ public final class ResourceUtils {
      * @return the constant part of the matched "condition,constant" element. Returns null if no
      * condition matches.
      */
-    @UsedForTesting
     static String findConstantForKeyValuePairs(final HashMap<String, String> keyValuePairs,
             final String[] conditionConstantArray) {
         if (conditionConstantArray == null || keyValuePairs == null) {

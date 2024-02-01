@@ -37,7 +37,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
@@ -230,7 +229,6 @@ final class SuggestionStripLayoutHelper {
                 shouldOmitTypedWord, mCenterPositionInStrip, mTypedWordPositionWhenAutocorrect);
     }
 
-    @UsedForTesting
     static boolean shouldOmitTypedWord(final int inputStyle,
             final boolean gestureFloatingPreviewTextEnabled,
             final boolean shouldShowUiToAcceptTypedWord) {
@@ -240,7 +238,6 @@ final class SuggestionStripLayoutHelper {
         return shouldShowUiToAcceptTypedWord && omitTypedWord;
     }
 
-    @UsedForTesting
     static int getPositionInSuggestionStrip(final int indexInSuggestedWords,
             final boolean willAutoCorrect, final boolean omitTypedWord,
             final int centerPositionInStrip, final int typedWordPositionWhenAutoCorrect) {

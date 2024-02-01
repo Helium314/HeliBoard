@@ -6,7 +6,6 @@
 
 package com.android.inputmethod.latin.utils;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import com.android.inputmethod.latin.BinaryDictionary;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.makedict.DictionaryHeader;
@@ -31,7 +30,6 @@ public final class BinaryDictionaryUtils {
         JniUtils.loadNativeLibrary();
     }
 
-    @UsedForTesting
     private static native boolean createEmptyDictFileNative(String filePath, long dictVersion,
             String locale, String[] attributeKeyStringArray, String[] attributeValueStringArray);
     private static native float calcNormalizedScoreNative(int[] before, int[] after, int score);
@@ -82,7 +80,6 @@ public final class BinaryDictionaryUtils {
         return false;
     }
 
-    @UsedForTesting
     public static boolean createEmptyDictFile(final String filePath, final long dictVersion,
             final Locale locale, final Map<String, String> attributeMap) {
         final String[] keyArray = new String[attributeMap.size()];
@@ -112,7 +109,6 @@ public final class BinaryDictionaryUtils {
      * @param currentTime seconds since the unix epoch
      * @return current time got in the native code.
      */
-    @UsedForTesting
     public static int setCurrentTimeForTest(final int currentTime) {
         return setCurrentTimeForTestNative(currentTime);
     }

@@ -6,10 +6,6 @@
 
 package helium314.keyboard.latin.utils;
 
-import helium314.keyboard.latin.utils.Log;
-
-import helium314.keyboard.annotations.UsedForTesting;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -52,10 +48,8 @@ public class ExecutorUtils {
         }
     }
 
-    @UsedForTesting
     private static ScheduledExecutorService sExecutorServiceForTests;
 
-    @UsedForTesting
     public static void setExecutorServiceForTests(
             final ScheduledExecutorService executorServiceForTests) {
         sExecutorServiceForTests = executorServiceForTests;
@@ -107,12 +101,10 @@ public class ExecutorUtils {
         }
     }
 
-    @UsedForTesting
     public static Runnable chain(final Runnable... runnables) {
         return new RunnableChain(runnables);
     }
 
-    @UsedForTesting
     public static class RunnableChain implements Runnable {
         private final Runnable[] mRunnables;
 
@@ -123,7 +115,6 @@ public class ExecutorUtils {
             mRunnables = runnables;
         }
 
-        @UsedForTesting
         public Runnable[] getRunnables() {
             return mRunnables;
         }

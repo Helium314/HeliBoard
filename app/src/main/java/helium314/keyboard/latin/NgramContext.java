@@ -10,7 +10,6 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DecoderSpecificConstants;
 
@@ -199,7 +198,6 @@ public class NgramContext {
     }
 
     // n is 1-indexed.
-    @UsedForTesting
     public boolean isNthPrevWordBeginningOfSentence(final int n) {
         if (n <= 0 || n > mPrevWordsCount) {
             return false;

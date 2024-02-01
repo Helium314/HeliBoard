@@ -29,7 +29,6 @@ import androidx.appcompat.view.ContextThemeWrapper;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.MainKeyboardAccessibilityDelegate;
-import helium314.keyboard.annotations.ExternallyReferenced;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.internal.DrawingPreviewPlacerView;
 import helium314.keyboard.keyboard.internal.DrawingProxy;
@@ -310,36 +309,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
     }
 
-    @ExternallyReferenced
-    public int getLanguageOnSpacebarAnimAlpha() {
-        return mLanguageOnSpacebarAnimAlpha;
-    }
-
-    @ExternallyReferenced
     public void setLanguageOnSpacebarAnimAlpha(final int alpha) {
         mLanguageOnSpacebarAnimAlpha = alpha;
         invalidateKey(mSpaceKey);
-    }
-
-    @ExternallyReferenced
-    public int getAltCodeKeyWhileTypingAnimAlpha() {
-        return mAltCodeKeyWhileTypingAnimAlpha;
-    }
-
-    @ExternallyReferenced
-    public void setAltCodeKeyWhileTypingAnimAlpha(final int alpha) {
-        if (mAltCodeKeyWhileTypingAnimAlpha == alpha) {
-            return;
-        }
-        // Update the visual of alt-code-key-while-typing.
-        mAltCodeKeyWhileTypingAnimAlpha = alpha;
-        final Keyboard keyboard = getKeyboard();
-        if (keyboard == null) {
-            return;
-        }
-        for (final Key key : keyboard.mAltCodeKeysWhileTyping) {
-            invalidateKey(key);
-        }
     }
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {

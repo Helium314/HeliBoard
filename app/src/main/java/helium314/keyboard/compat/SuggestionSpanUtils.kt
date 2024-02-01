@@ -11,13 +11,11 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.SuggestionSpan
-import helium314.keyboard.annotations.UsedForTesting
 import java.util.*
 
 // todo: this is not compat any more
 object SuggestionSpanUtils {
     @JvmStatic
-    @UsedForTesting
     fun getTextWithAutoCorrectionIndicatorUnderline(context: Context?, text: String, locale: Locale?): CharSequence {
         if (text.isEmpty())
             return text

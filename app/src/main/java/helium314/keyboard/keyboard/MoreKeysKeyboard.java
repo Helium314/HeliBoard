@@ -11,7 +11,6 @@ import android.graphics.Paint;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.MoreKeySpec;
@@ -31,7 +30,6 @@ public final class MoreKeysKeyboard extends Keyboard {
         return mDefaultKeyCoordX;
     }
 
-    @UsedForTesting
     static class MoreKeysKeyboardParams extends KeyboardParams {
         public boolean mIsMoreKeysFixedOrder;
         /* package */int mTopRowAdjustment;

@@ -6,7 +6,6 @@
 
 package helium314.keyboard.latin;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
@@ -186,9 +185,7 @@ public abstract class Dictionary {
      * Not a true dictionary. A placeholder used to indicate suggestions that don't come from any
      * real dictionary.
      */
-    @UsedForTesting
     static class PhonyDictionary extends Dictionary {
-        @UsedForTesting
         PhonyDictionary(final String type) {
             super(type, null);
         }

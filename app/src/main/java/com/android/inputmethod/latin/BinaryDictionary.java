@@ -12,7 +12,6 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
@@ -52,13 +51,9 @@ public final class BinaryDictionary extends Dictionary {
     public static final int DICTIONARY_MAX_WORD_LENGTH = 48;
     public static final int MAX_PREV_WORD_COUNT_FOR_N_GRAM = 3;
 
-    @UsedForTesting
     public static final String UNIGRAM_COUNT_QUERY = "UNIGRAM_COUNT";
-    @UsedForTesting
     public static final String BIGRAM_COUNT_QUERY = "BIGRAM_COUNT";
-    @UsedForTesting
     public static final String MAX_UNIGRAM_COUNT_QUERY = "MAX_UNIGRAM_COUNT";
-    @UsedForTesting
     public static final String MAX_BIGRAM_COUNT_QUERY = "MAX_BIGRAM_COUNT";
 
     public static final int NOT_A_VALID_TIMESTAMP = -1;
@@ -364,7 +359,6 @@ public final class BinaryDictionary extends Dictionary {
         return getMaxProbabilityOfExactMatchesNative(mNativeDict, codePoints);
     }
 
-    @UsedForTesting
     public boolean isValidNgram(final NgramContext ngramContext, final String word) {
         return getNgramProbability(ngramContext, word) != NOT_A_PROBABILITY;
     }
@@ -505,7 +499,6 @@ public final class BinaryDictionary extends Dictionary {
         return true;
     }
 
-    @UsedForTesting
     public void updateEntriesForInputEvents(final WordInputEventForPersonalization[] inputEvents) {
         if (!isValidDictionary()) {
             return;
@@ -620,7 +613,6 @@ public final class BinaryDictionary extends Dictionary {
         }
     }
 
-    @UsedForTesting
     public String getPropertyForGettingStats(final String query) {
         if (!isValidDictionary()) {
             return "";

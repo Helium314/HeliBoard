@@ -6,10 +6,8 @@
 
 package helium314.keyboard.keyboard.internal;
 
-import helium314.keyboard.latin.utils.Log;
-
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.keyboard.internal.MatrixUtils.MatrixOperationFailedException;
+import helium314.keyboard.latin.utils.Log;
 
 import java.util.Arrays;
 
@@ -17,7 +15,7 @@ import java.util.Arrays;
  * Utilities to smooth coordinates. Currently, we calculate 3d least squares formula by using
  * Lagrangian smoothing
  */
-@UsedForTesting
+// todo: unused, what could this be used for? maybe just remove (then also remove MatrixUtils)
 public class SmoothingUtils {
     private static final String TAG = SmoothingUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -30,7 +28,6 @@ public class SmoothingUtils {
      * Find a most likely 3d least squares formula for specified coordinates.
      * "retval" should be a 1x4 size matrix.
      */
-    @UsedForTesting
     public static void get3DParameters(final float[] xs, final float[] ys,
             final float[][] retval) throws MatrixOperationFailedException {
         final int COEFF_COUNT = 4; // Coefficient count for 3d smoothing

@@ -14,8 +14,6 @@ import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
-import helium314.keyboard.annotations.UsedForTesting;
-import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.define.DecoderSpecificConstants;
 import helium314.keyboard.latin.makedict.DictionaryHeader;
 import helium314.keyboard.latin.makedict.UnsupportedFormatException;
@@ -187,7 +185,6 @@ public class DictionaryInfoUtils {
         return dictionaryList;
     }
 
-    @UsedForTesting
     public static boolean looksValidForDictionaryInsertion(final CharSequence text,
             final SpacingAndPunctuations spacingAndPunctuations) {
         if (TextUtils.isEmpty(text)) {

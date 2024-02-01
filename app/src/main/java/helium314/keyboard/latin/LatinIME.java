@@ -40,7 +40,6 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
-import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
 import helium314.keyboard.compat.InsetsOutlineProvider;
@@ -147,7 +146,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private SuggestionStripView mSuggestionStripView;
 
     private RichInputMethodManager mRichImm;
-    @UsedForTesting final KeyboardSwitcher mKeyboardSwitcher;
+    final KeyboardSwitcher mKeyboardSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
     private EmojiAltPhysicalKeyDetector mEmojiAltPhysicalKeyDetector;
     private final StatsUtilsManager mStatsUtilsManager;
@@ -407,7 +406,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return hasMessages(MSG_DEALLOCATE_MEMORY);
         }
 
-        @UsedForTesting
         public void removeAllMessages() {
             for (int i = 0; i <= MSG_LAST; ++i) {
                 removeMessages(i);
@@ -647,9 +645,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
     }
 
-    // Has to be package-visible for unit tests
-    @UsedForTesting
-    void loadSettings() {
+    private void loadSettings() {
         final Locale locale = mRichImm.getCurrentSubtypeLocale();
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
         final InputAttributes inputAttributes = new InputAttributes(
@@ -762,7 +758,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         super.onDestroy();
     }
 
-    @UsedForTesting
     public void recycle() {
         unregisterReceiver(mDictionaryPackInstallReceiver);
         unregisterReceiver(mDictionaryDumpBroadcastReceiver);
@@ -1785,9 +1780,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mDictionaryFacilitator.removeWord(word);
     }
 
-    // Outside LatinIME, only used by the {@link InputTestsBase} test suite.
-    @UsedForTesting
-    void loadKeyboard() {
+    private void loadKeyboard() {
         // Since we are switching languages, the most urgent thing is to let the keyboard graphics
         // update. LoadKeyboard does that, but we need to wait for buffer flip for it to be on
         // the screen. Anything we do right now will delay this, so wait until the next frame

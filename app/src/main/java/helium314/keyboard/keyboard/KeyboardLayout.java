@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.android.inputmethod.keyboard.ProximityInfo;
 
-import helium314.keyboard.annotations.UsedForTesting;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +55,6 @@ public class KeyboardLayout {
         }
     }
 
-    @UsedForTesting
     public int[] getKeyCodes() {
         return mKeyCodes;
     }
