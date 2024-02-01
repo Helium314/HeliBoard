@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import helium314.keyboard.annotations.UsedForTesting;
 import helium314.keyboard.compat.ConfigurationCompatKt;
+import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
@@ -309,81 +310,33 @@ public class RichInputMethodManager {
         return null;
     }
 
-    public InputMethodSubtype findSubtypeByLocale(final Locale locale) {
-        // Find the best subtype based on a straightforward matching algorithm.
-        final List<InputMethodSubtype> subtypes =
-                getMyEnabledInputMethodSubtypeList(true /* allowsImplicitlySelectedSubtypes */);
-        final int count = subtypes.size();
-        // search for exact match
-        for (int i = 0; i < count; ++i) {
-            final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-            if (subtypeLocale.equals(locale)) {
-                return subtype;
-            }
-        }
-        // search for language + country + variant match
-        for (int i = 0; i < count; ++i) {
-            final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-            if (subtypeLocale.getLanguage().equals(locale.getLanguage()) &&
-                    subtypeLocale.getCountry().equals(locale.getCountry()) &&
-                    subtypeLocale.getVariant().equals(locale.getVariant())) {
-                return subtype;
-            }
-        }
-        // search for language + country match
-        for (int i = 0; i < count; ++i) {
-            final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-            if (subtypeLocale.getLanguage().equals(locale.getLanguage()) &&
-                    subtypeLocale.getCountry().equals(locale.getCountry())) {
-                return subtype;
-            }
-        }
-        // search for secondary locale match
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
-        for (int i = 0; i < count; ++i) {
-            final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
-            for (final Locale secondaryLocale : secondaryLocales) {
-                if (secondaryLocale.equals(locale)) {
-                    return subtype;
-                }
-            }
-        }
-        // search for language match
-        for (int i = 0; i < count; ++i) {
-            final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-            if (subtypeLocale.getLanguage().equals(locale.getLanguage())) {
-                return subtype;
-            }
-        }
-        // search for secondary language match
-        for (int i = 0; i < count; ++i) {
-            final InputMethodSubtype subtype = subtypes.get(i);
-            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
-            for (final Locale secondaryLocale : secondaryLocales) {
-                if (secondaryLocale.getLanguage().equals(locale.getLanguage())) {
-                    return subtype;
-                }
-            }
-        }
+    public InputMethodSubtype findSubtypeForHintLocale(final Locale locale) {
+        // Find the best subtype based on a locale matching
+        final List<InputMethodSubtype> subtypes = getMyEnabledInputMethodSubtypeList(true);
+        InputMethodSubtype bestMatch = LocaleUtils.getBestMatch(locale, subtypes, SubtypeUtilsKt::locale);
+        if (bestMatch != null) return bestMatch;
 
-        // extra: if current script is not compatible to current subtype, search for compatible script
-        // this is acceptable only because this function is only used for switching to a certain locale using EditorInfo.hintLocales
+        // search for first secondary language & script match
+        final int count = subtypes.size();
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        final String language = locale.getLanguage();
         final String script = ScriptUtils.script(locale);
-        if (!script.equals(ScriptUtils.script(getCurrentSubtypeLocale()))) {
-            for (int i = 0; i < count; ++i) {
-                final InputMethodSubtype subtype = subtypes.get(i);
-                final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
-                if (ScriptUtils.script(subtypeLocale).equals(script)) {
-                    return subtype;
+        for (int i = 0; i < count; ++i) {
+            final InputMethodSubtype subtype = subtypes.get(i);
+            final Locale subtypeLocale = SubtypeUtilsKt.locale(subtype);
+            if (!ScriptUtils.script(subtypeLocale).equals(script))
+                continue; // need compatible script
+            bestMatch = subtype;
+            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
+            for (final Locale secondaryLocale : secondaryLocales) {
+                if (secondaryLocale.getLanguage().equals(language)) {
+                    return bestMatch;
                 }
             }
+        }
+        // if wanted script is not compatible to current subtype, return a subtype with compatible script if possible
+        if (!script.equals(ScriptUtils.script(getCurrentSubtypeLocale()))) {
+            return bestMatch;
         }
         return null;
     }

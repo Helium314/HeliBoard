@@ -914,15 +914,15 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
         // Try switching to a subtype matching the hint language.
         for (final Locale hintLocale : hintLocales) {
-            final InputMethodSubtype newSubtype = mRichImm.findSubtypeByLocale(hintLocale);
+            final InputMethodSubtype newSubtype = mRichImm.findSubtypeForHintLocale(hintLocale);
             if (newSubtype == null) continue;
             if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
                 return; // no need to switch, we already use the correct locale
             mHandler.postSwitchLanguage(newSubtype);
+            break;
         }
     }
 
-    @SuppressWarnings("deprecation")
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
 

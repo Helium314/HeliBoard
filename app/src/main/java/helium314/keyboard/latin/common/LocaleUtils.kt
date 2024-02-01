@@ -110,6 +110,7 @@ object LocaleUtils {
             else LOCALE_LANGUAGE_AND_COUNTRY_MATCH_VARIANT_DIFFER
     }
 
+    @JvmStatic
     fun <T> getBestMatch(locale: Locale, collection: Collection<T>, toLocale: (T) -> Locale): T? {
         var best: T? = null
         var bestLevel = 0
