@@ -579,14 +579,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void setSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale, final List<Locale> locales) {
         if (locales.isEmpty()) {
-            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale, "").apply();
+            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "").apply();
             return;
         }
         final StringBuilder sb = new StringBuilder();
         for (Locale locale : locales) {
             sb.append(";").append(locale.toLanguageTag());
         }
-        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale, sb.toString()).apply();
+        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), sb.toString()).apply();
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {

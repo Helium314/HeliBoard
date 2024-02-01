@@ -27,7 +27,6 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.MoreKeysUtilsKt;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
-import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.Arrays;
 import java.util.List;
@@ -208,7 +207,7 @@ public class SettingsValues {
         } else
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, SubtypeUtilsKt.locale(selectedSubtype));
+        mSecondaryLocales = Settings.getSecondaryLocales(prefs, mLocale);
         mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMoreMoreKeysPref(prefs)
                 : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
@@ -216,9 +215,9 @@ public class SettingsValues {
 
         // read locale-specific popup key settings, fall back to global settings
         final String moreKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT);
-        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyTypesDefault);
+        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_ORDER + "_" + mLocale.toLanguageTag(), moreKeyTypesDefault);
         final String moreKeyLabelDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT);
-        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + selectedSubtype.getLocale(), moreKeyLabelDefault);
+        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mLocale.toLanguageTag(), moreKeyLabelDefault);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, false);
