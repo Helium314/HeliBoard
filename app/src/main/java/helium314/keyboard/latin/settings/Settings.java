@@ -153,8 +153,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
-    // used as a workaround against keyboard not showing edited theme in ColorsSettingsFragment
-    public static final String PREF_FORCE_OPPOSITE_THEME = "force_opposite_theme";
     public static final String PREF_SHOW_ALL_COLORS = "show_all_colors";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
 
@@ -174,7 +172,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // preferences that are not used in SettingsValues and thus should not trigger reload when changed
     private static final HashSet<String> dontReloadOnChanged = new HashSet<>() {{
-        add(PREF_FORCE_OPPOSITE_THEME);
         add(PREF_PINNED_CLIPS);
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
@@ -594,7 +591,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
-        if (prefs.getBoolean(PREF_FORCE_OPPOSITE_THEME, false)) isNight = !isNight;
+        if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
         final String themeColors = (isNight && readDayNightPref(prefs, context.getResources()))
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARKER)
                 : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);

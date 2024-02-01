@@ -43,7 +43,7 @@ interface Colors {
 
     /** use to check whether colors have changed, for colors (in)directly derived from context,
      *  e.g. night mode or potentially changing system colors */
-    fun haveColorsChanged(context: Context): Boolean
+    fun haveColorsChanged(context: Context): Boolean = false
 
     /** get the colorInt */
     @ColorInt fun get(color: ColorType): Int
@@ -58,7 +58,27 @@ interface Colors {
     fun setBackground(view: View, color: ColorType)
 
     /** returns a colored drawable selected from [attr], which must contain using R.styleable.KeyboardView_* */
-    fun selectAndColorDrawable(attr: TypedArray, color: ColorType): Drawable
+    fun selectAndColorDrawable(attr: TypedArray, color: ColorType): Drawable {
+        val drawable = when (color) {
+            KEY_BACKGROUND, BACKGROUND, ACTION_KEY_MORE_KEYS_BACKGROUND, MORE_KEYS_BACKGROUND ->
+                attr.getDrawable(R.styleable.KeyboardView_keyBackground)
+            FUNCTIONAL_KEY_BACKGROUND -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
+            SPACE_BAR_BACKGROUND -> {
+                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
+                else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
+            }
+            ACTION_KEY_BACKGROUND -> {
+                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
+                    attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
+                else
+                    attr.getDrawable(R.styleable.KeyboardView_keyBackground)
+            }
+            else -> null // keyBackground
+        }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
+
+        setColor(drawable, color)
+        return drawable
+    }
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
@@ -306,28 +326,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         else -> colorFilter(get(color))
     }
 
-    override fun selectAndColorDrawable(attr: TypedArray, color: ColorType): Drawable {
-        val drawable = when (color) {
-            KEY_BACKGROUND, BACKGROUND, ACTION_KEY_MORE_KEYS_BACKGROUND, MORE_KEYS_BACKGROUND ->
-                attr.getDrawable(R.styleable.KeyboardView_keyBackground)
-            FUNCTIONAL_KEY_BACKGROUND -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
-            SPACE_BAR_BACKGROUND -> {
-                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
-                else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
-            }
-            ACTION_KEY_BACKGROUND -> {
-                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
-                    attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
-                else
-                    attr.getDrawable(R.styleable.KeyboardView_keyBackground)
-            }
-            else -> null // keyBackground
-        }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
-
-        setColor(drawable, color)
-        return drawable
-    }
-
     override fun setBackground(view: View, color: ColorType) {
         if (view.background == null)
             view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
@@ -397,8 +395,6 @@ class DefaultColors (
     private val stripBackgroundList: ColorStateList
     private val toolbarKeyStateList = activatedStateList(suggestionText, darken(darken(suggestionText)))
     private var backgroundSetupDone = false
-
-    override fun haveColorsChanged(context: Context) = false
 
     init {
         if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
@@ -538,28 +534,6 @@ class DefaultColors (
         KEY_PREVIEW -> adjustedBackgroundFilter
         ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color)) // create color filter (not great for performance, so the frequently used filters should be stored)
-    }
-
-    override fun selectAndColorDrawable(attr: TypedArray, color: ColorType): Drawable {
-        val drawable = when (color) {
-            KEY_BACKGROUND, BACKGROUND, ACTION_KEY_MORE_KEYS_BACKGROUND, MORE_KEYS_BACKGROUND ->
-                attr.getDrawable(R.styleable.KeyboardView_keyBackground)
-            FUNCTIONAL_KEY_BACKGROUND -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
-            SPACE_BAR_BACKGROUND -> {
-                if (hasKeyBorders) attr.getDrawable(R.styleable.KeyboardView_spacebarBackground)
-                else attr.getDrawable(R.styleable.KeyboardView_spacebarNoBorderBackground)
-            }
-            ACTION_KEY_BACKGROUND -> {
-                if (themeStyle == STYLE_HOLO && hasKeyBorders) // no borders has a very small pressed drawable otherwise
-                    attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
-                else
-                    attr.getDrawable(R.styleable.KeyboardView_keyBackground)
-            }
-            else -> null // keyBackground
-        }?.mutate() ?: attr.getDrawable(R.styleable.KeyboardView_keyBackground)?.mutate()!! // keyBackground always exists
-
-        setColor(drawable, color)
-        return drawable
     }
 }
 
