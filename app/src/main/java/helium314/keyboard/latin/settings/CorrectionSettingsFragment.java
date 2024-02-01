@@ -19,7 +19,6 @@ import androidx.preference.TwoStatePreference;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
-import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService;
 
 public final class CorrectionSettingsFragment extends SubScreenFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener,
@@ -32,14 +31,14 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_correction);
 
-        mLookupContactsPreference = findPreference(AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+        mLookupContactsPreference = findPreference(Settings.PREF_USE_CONTACTS);
 
         refreshEnabledSettings();
     }
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY.equals(key)
+        if (Settings.PREF_USE_CONTACTS.equals(key)
                 && prefs.getBoolean(key, false)
                 && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)
         ) {

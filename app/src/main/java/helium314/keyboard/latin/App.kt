@@ -10,7 +10,6 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.upgradeToolbarPref
 import java.io.File
 
@@ -35,7 +34,6 @@ class App : Application() {
 fun checkVersionUpgrade(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
-    Log.d("test", "old v $oldVersion, current ${BuildConfig.VERSION_CODE}")
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
     upgradeToolbarPref(prefs)
@@ -88,7 +86,6 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     }
     prefs.all.toMap().forEach {
         if (it.key.startsWith("pref_key_") && it.key != "pref_key_longpress_timeout") {
-            Log.d("test", "adjusting ${it.key}")
             var remove = true
             when (val value = it.value) {
                 is Boolean -> prefs.edit().putBoolean(it.key.substringAfter("pref_key_"), value).apply()
@@ -101,7 +98,6 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
             if (remove)
                 prefs.edit().remove(it.key).apply()
         } else if (it.key.startsWith("pref_")) {
-            Log.d("test", "adjusting ${it.key}")
             var remove = true
             when (val value = it.value) {
                 is Boolean -> prefs.edit().putBoolean(it.key.substringAfter("pref_"), value).apply()
@@ -113,25 +109,24 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
             }
             if (remove)
                 prefs.edit().remove(it.key).apply()
-        } else {
-            Log.d("test", "keeping ${it.key}")
         }
     }
     // change more_keys to popup_keys
     if (prefs.contains("more_keys_order")) {
-        Log.d("test", "more_keys_order")
         prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")).apply()
         prefs.edit().remove("more_keys_order").apply()
     }
     if (prefs.contains("more_keys_labels_order")) {
-        Log.d("test", "more_keys_labels_order")
         prefs.edit().putString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")).apply()
         prefs.edit().remove("more_keys_labels_order").apply()
     }
     if (prefs.contains("more_more_keys")) {
-        Log.d("test", "more_more_keys")
         prefs.edit().putString(Settings.PREF_MORE_POPUP_KEYS, prefs.getString("more_more_keys", "")).apply()
         prefs.edit().remove("more_more_keys").apply()
+    }
+    if (prefs.contains("spellcheck_use_contacts")) {
+        prefs.edit().putBoolean(Settings.PREF_USE_CONTACTS, prefs.getBoolean("spellcheck_use_contacts", false)).apply()
+        prefs.edit().remove("spellcheck_use_contacts").apply()
     }
     // upgrade additional subtype locale strings
     val additionalSubtypes = mutableListOf<String>()

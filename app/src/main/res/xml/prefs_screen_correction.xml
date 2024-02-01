@@ -100,10 +100,10 @@
             android:persistent="true" />
 
         <SwitchPreference
-            android:key="spellcheck_use_contacts"
+            android:key="use_contacts"
             android:title="@string/use_contacts_dict"
             android:summary="@string/use_contacts_dict_summary"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:persistent="true" />
 
         <SwitchPreference

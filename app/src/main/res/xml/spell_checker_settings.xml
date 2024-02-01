@@ -9,9 +9,15 @@
     android:title="@string/android_spell_checker_settings"
 >
     <SwitchPreference
-        android:key="spellcheck_use_contacts"
+        android:key="use_contacts"
         android:title="@string/use_contacts_for_spellchecking_option_title"
         android:summary="@string/use_contacts_for_spellchecking_option_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
+        android:persistent="true" />
+
+    <SwitchPreference
+        android:key="block_potentially_offensive"
+        android:title="@string/prefs_block_potentially_offensive_title"
+        android:defaultValue="@bool/config_block_potentially_offensive"
         android:persistent="true" />
 </PreferenceScreen>

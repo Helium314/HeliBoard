@@ -21,11 +21,13 @@ import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.DictionaryFacilitatorLruCache;
+import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
@@ -43,8 +45,6 @@ import java.util.concurrent.Semaphore;
 public final class AndroidSpellCheckerService extends SpellCheckerService
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static final String PREF_USE_CONTACTS_KEY = "spellcheck_use_contacts";
-
     public static final int SPELLCHECKER_DUMMY_KEYBOARD_WIDTH = 480;
     public static final int SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT = 301;
 
@@ -53,20 +53,17 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private final int MAX_NUM_OF_THREADS_READ_DICTIONARY = 2;
-    private final Semaphore mSemaphore = new Semaphore(MAX_NUM_OF_THREADS_READ_DICTIONARY,
-            true /* fair */);
+    private final Semaphore mSemaphore = new Semaphore(MAX_NUM_OF_THREADS_READ_DICTIONARY, true);
     // TODO: Make each spell checker session has its own session id.
     private final ConcurrentLinkedQueue<Integer> mSessionIdPool = new ConcurrentLinkedQueue<>();
 
     private final DictionaryFacilitatorLruCache mDictionaryFacilitatorCache =
-            new DictionaryFacilitatorLruCache(this /* context */, DICTIONARY_NAME_PREFIX);
+            new DictionaryFacilitatorLruCache(this, DICTIONARY_NAME_PREFIX);
     private final ConcurrentHashMap<Locale, Keyboard> mKeyboardCache = new ConcurrentHashMap<>();
 
     // The threshold for a suggestion to be considered "recommended".
     private float mRecommendedThreshold;
-    // TODO: make a spell checker option to block offensive words or not
-    private final SettingsValuesForSuggestion mSettingsValuesForSuggestion =
-            new SettingsValuesForSuggestion(true, false);
+    private SettingsValuesForSuggestion mSettingsValuesForSuggestion;
 
     public static final String SINGLE_QUOTE = "'";
     public static final String APOSTROPHE = "’";
@@ -84,7 +81,9 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         mRecommendedThreshold = Float.parseFloat(getString(R.string.spellchecker_recommended_threshold_value));
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
-        onSharedPreferenceChanged(prefs, PREF_USE_CONTACTS_KEY);
+        onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
+        final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());
+        mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
         SubtypeSettingsKt.init(this);
     }
 
@@ -94,9 +93,13 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (!PREF_USE_CONTACTS_KEY.equals(key)) return;
-        final boolean useContactsDictionary = prefs.getBoolean(PREF_USE_CONTACTS_KEY, true);
-        mDictionaryFacilitatorCache.setUseContactsDictionary(useContactsDictionary);
+        if (Settings.PREF_USE_CONTACTS.equals(key)) {
+            final boolean useContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, true);
+            mDictionaryFacilitatorCache.setUseContactsDictionary(useContactsDictionary);
+        } else if (Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE.equals(key)) {
+            final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());
+            mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
+        }
     }
 
     @Override
@@ -121,8 +124,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
      * @return the empty SuggestionsInfo with the appropriate flags set.
      */
     public static SuggestionsInfo getInDictEmptySuggestions() {
-        return new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY,
-                EMPTY_STRING_ARRAY);
+        return new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY, EMPTY_STRING_ARRAY);
     }
 
     public boolean isValidWord(final Locale locale, final String word) {
@@ -142,8 +144,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         mSemaphore.acquireUninterruptibly();
         try {
             sessionId = mSessionIdPool.poll();
-            DictionaryFacilitator dictionaryFacilitatorForLocale =
-                    mDictionaryFacilitatorCache.get(locale);
+            DictionaryFacilitator dictionaryFacilitatorForLocale = mDictionaryFacilitatorCache.get(locale);
             return dictionaryFacilitatorForLocale.getSuggestionResults(composedData, ngramContext,
                     keyboard, mSettingsValuesForSuggestion,
                     sessionId, SuggestedWords.INPUT_STYLE_TYPING);
@@ -188,6 +189,15 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     }
 
     private Keyboard createKeyboardForLocale(final Locale locale) {
+        if (Settings.getInstance().getCurrent() == null) {
+            // creating a keyboard reads SettingsValues from Settings instance
+            // maybe it would be "more correct" to create an instance of SettingsValues and use that one instead
+            // but creating a global one if not existing should be fine too
+            Settings.init(this);
+            final EditorInfo editorInfo = new EditorInfo();
+            editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
+            Settings.getInstance().loadSettings(this, locale, new InputAttributes(editorInfo, false, getPackageName()));
+        }
         final String keyboardLayoutName = SubtypeSettingsKt.getMatchingLayoutSetNameForLocale(locale);
         final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(locale, keyboardLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
@@ -201,7 +211,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         return builder
                 .setKeyboardGeometry(SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT)
                 .setSubtype(RichInputMethodSubtype.getRichInputMethodSubtype(subtype))
-                .setIsSpellChecker(true /* isSpellChecker */)
+                .setIsSpellChecker(true)
                 .disableTouchPositionCorrectionData()
                 .build();
     }

@@ -12,6 +12,7 @@ import android.provider.UserDictionary;
 import android.text.TextUtils;
 
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.Log;
 import android.util.LruCache;
 
@@ -29,6 +30,7 @@ import helium314.keyboard.latin.personalization.UserHistoryDictionary;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.ExecutorUtils;
+import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
 import java.io.File;
@@ -342,7 +344,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         subDictTypesToUse.add(Dictionary.TYPE_USER);
         final List<Locale> allLocales = new ArrayList<>() {{
             add(newLocale);
-            addAll(Settings.getInstance().getCurrent().mSecondaryLocales);
+            addAll(Settings.getSecondaryLocales(DeviceProtectedUtils.getSharedPreferences(context), newLocale));
         }};
 
         // Do not use contacts dictionary if we do not have permissions to read contacts.
