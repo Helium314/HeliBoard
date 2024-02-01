@@ -31,11 +31,14 @@ private const val MORE_KEYS_LANGUAGE = "more_keys_language"
 const val MORE_KEYS_LABEL_DEFAULT = "$MORE_KEYS_NUMBER,true;$MORE_KEYS_LANGUAGE_PRIORITY,false;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LANGUAGE,false"
 const val MORE_KEYS_ORDER_DEFAULT = "$MORE_KEYS_LANGUAGE_PRIORITY,true;$MORE_KEYS_NUMBER,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_LANGUAGE,true"
 
+private val allMoreKeyTypes = listOf(MORE_KEYS_NUMBER, MORE_KEYS_LAYOUT, MORE_KEYS_SYMBOLS, MORE_KEYS_LANGUAGE, MORE_KEYS_LANGUAGE_PRIORITY)
+
 fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): Array<String>? {
     // often moreKeys are empty, so we want to avoid unnecessarily creating sets
     val moreKeysDelegate = lazy { mutableSetOf<String>() }
     val moreKeys by moreKeysDelegate
-    params.mMoreKeyTypes.forEach { type ->
+    val types = if (params.mId.isAlphabetKeyboard) params.mMoreKeyTypes else allMoreKeyTypes
+    types.forEach { type ->
         when (type) {
             MORE_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { moreKeys.add(it) }
             MORE_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { moreKeys.addAll(it) }

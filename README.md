@@ -40,14 +40,14 @@ Features that may go unnoticed, and further potentially useful information
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
 * When incognito mode is enabled, no words will be learned, and no emojis will be added to recents.
-* Sliding key input: Swipe from shift to another key to type a single uppercase key:
+* Sliding key input: Swipe from shift to another key to type a single uppercase key
   * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys.
+* Long-press the `?123` from main view to directly open numpad.
 * Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion.
 * Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
 * Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).
-* Long-press the `?123` from main view to directly open numpad.
 * Swipe left in clipboard view to remove an entry (except when it's pinned)
-* You can add dictionaries by opening them in a file explorer:
+* You can add dictionaries by opening the file
   * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.
 * _When using debug mode / debug APK_
   * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
@@ -66,7 +66,8 @@ Whether you encountered a bug, or want to see a new feature in OpenBoard, you ca
 Before opening a new issue, be sure to check the following:
  - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/openboard/issues). Please search open and closed issues.
  - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of OpenBoard.
- - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding  issues that miss key informations to their resolution.
+ - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
+Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
 
 ## Translation
 Currently there is no simple way of translating the app, but it's coming soon...
