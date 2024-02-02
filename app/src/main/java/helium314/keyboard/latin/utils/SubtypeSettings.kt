@@ -98,14 +98,17 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
         else enabledSubtypes
     val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-        ?: subtypes.firstOrNull()
-    if (subtype == null) {
-        val defaultSubtypes = getDefaultEnabledSubtypes()
-        return defaultSubtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-            ?: defaultSubtypes.firstOrNull { localeAndLayout.first.language == it.locale().language && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-            ?: defaultSubtypes.first()
+    if (subtype != null) {
+        return subtype
+    } else {
+        Log.w(TAG, "selected subtype $localeAndLayout not found")
     }
-    return subtype
+    if (subtypes.isNotEmpty())
+        return subtypes.first()
+    val defaultSubtypes = getDefaultEnabledSubtypes()
+    return defaultSubtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+        ?: defaultSubtypes.firstOrNull { localeAndLayout.first.language == it.locale().language && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+        ?: defaultSubtypes.first()
 }
 
 fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
