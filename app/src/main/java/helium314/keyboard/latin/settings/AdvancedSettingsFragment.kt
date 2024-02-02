@@ -33,12 +33,14 @@ import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
+import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.editCustomLayout
 import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
+import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -350,6 +352,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     var entry: ZipEntry? = zip.nextEntry
                     val filesDir = requireContext().filesDir?.path ?: return
                     val deviceProtectedFilesDir = DeviceProtectedUtils.getDeviceProtectedContext(requireContext()).filesDir?.path ?: return
+                    Settings.getInstance().stopListener()
                     while (entry != null) {
                         if (entry.name.startsWith("unprotected${File.separator}")) {
                             val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
@@ -377,7 +380,15 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     }
                 }
             }
+        } catch (t: Throwable) {
+            // inform about every error
+            Log.w(TAG, "error during restore", t)
+            infoDialog(requireContext(), requireContext().getString(R.string.restore_error, t.message))
+        } finally {
+            Settings.getInstance().startListener()
             checkVersionUpgrade(requireContext())
+            val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources);
+            updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
             reloadEnabledSubtypes(requireContext())
             val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
             activity?.sendBroadcast(newDictBroadcast)
@@ -385,10 +396,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             preferenceScreen.removeAll()
             setupPreferences()
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
-        } catch (t: Throwable) {
-            // inform about every error
-            Log.w(TAG, "error during restore", t)
-            infoDialog(requireContext(), requireContext().getString(R.string.restore_error, t.message))
         }
     }
 

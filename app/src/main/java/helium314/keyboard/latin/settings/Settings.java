@@ -240,6 +240,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         }
     }
 
+    public void stopListener() {
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    public void startListener() {
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
+    }
+
     // TODO: Remove this method and add proxy method to SettingsValues.
     public SettingsValues getCurrent() {
         return mSettingsValues;
