@@ -159,4 +159,5 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dolg pritisk na preslednico bo priklical meni za izbiro načina vnosa</string>
     <string name="undo">"Razveljavi"</string>
     <string name="redo">"Uveljavi"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Vaša sporočila in vnesene podatke uporabi za boljše predloge"</string>
 </resources>

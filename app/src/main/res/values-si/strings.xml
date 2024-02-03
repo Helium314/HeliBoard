@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"පෙනුම"</string>
     <string name="undo">"අස් කරන්න"</string>
     <string name="redo">"යළි කරන්න"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"යෝජනා දියුණුවට, ඔබගේ සන්නිවේදන සහ ටයිප් කළ දත්තවලින් ඉගෙන ගන්න"</string>
 </resources>

@@ -49,17 +49,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"besedilo"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"ura"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Nedavni"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Osebe"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Predmeti"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Simboli"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Zastave"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Čustveni simboli in ljudje"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Živali in narava"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Hrana in pijača"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Potovanje in mesta"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Dejavnost"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Čustveni simboli"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Nedavni"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Predmeti"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simboli"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Zastave"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Čustveni simboli in ljudje"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Živali in narava"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Hrana in pijača"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Potovanje in mesta"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Dejavnost"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Čustveni simboli"</string>
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Velika črka <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Velika črka I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Velika črka I s piko zgoraj"</string>

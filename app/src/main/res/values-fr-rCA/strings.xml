@@ -123,4 +123,5 @@
     <string name="select_input_method">"Sélectionnez le mode de saisie"</string>
     <string name="undo">"Annuler"</string>
     <string name="redo">"Répéter"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Apprendre de vos communic. et données entrées pour amél. suggestions"</string>
 </resources>

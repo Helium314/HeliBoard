@@ -155,4 +155,5 @@
     <string name="day_night_mode_summary">A megjelenés követi a rendszerbeállításokat</string>
     <string name="settings_category_input">Bemenet</string>
     <string name="space_trackpad">Space billentyű trackpad</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Javaslatok javítása a kommunikáció és begépelt adatok alapján"</string>
 </resources>

@@ -123,4 +123,5 @@
     <string name="select_input_method">"Chọn phương thức nhập"</string>
     <string name="undo">"Hoàn tác"</string>
     <string name="redo">"Làm lại"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Tìm hiểu từ thư từ trao đổi và dữ liệu đã nhập của bạn để cải tiến đề xuất"</string>
 </resources>

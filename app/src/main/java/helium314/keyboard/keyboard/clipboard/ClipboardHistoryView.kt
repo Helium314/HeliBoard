@@ -115,7 +115,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         spacebar.tag = Constants.CODE_SPACE
         spacebar.setOnTouchListener(this)
         spacebar.setOnClickListener(this)
-        // todo: add more buttons, like select all, arrow keys, copy, clear (and maybe start/end select?)
         val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
         toolbarKeys.forEach {
             clipboardStrip.addView(it)

@@ -123,4 +123,5 @@
     <string name="select_input_method">"Izbor metoda unosa"</string>
     <string name="undo">"Opozovi"</string>
     <string name="redo">"Ponovi"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Koristi komunikacije i unete podatke radi poboljšanja predloga"</string>
 </resources>

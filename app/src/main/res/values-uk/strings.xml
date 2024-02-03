@@ -210,4 +210,5 @@
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
     <string name="undo">"Відмінити"</string>
     <string name="redo">"Повторити"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Пристрій буде запам’ятовувати, що ви пишете, надсилаєте й отримуєте"</string>
 </resources>

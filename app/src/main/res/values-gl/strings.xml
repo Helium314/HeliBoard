@@ -123,4 +123,5 @@
     <string name="select_input_method">"Escoller método de introdución de texto"</string>
     <string name="undo">"Desfacer"</string>
     <string name="redo">"Refacer"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Aprende das comunicacións e dos datos para mellorar as suxestións"</string>
 </resources>

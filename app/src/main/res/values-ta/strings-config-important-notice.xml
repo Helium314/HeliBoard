@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Copyright (C) 2014 The Android Open Source Project
-    SPDX-License-Identifier: Apache-2.0
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"தொடர்புகளிலிருந்தும், உள்ளிட்ட தரவிலிருந்தும் பரிந்துரைகளை மேம்படுத்த அறியவும்"</string>
-</resources>

@@ -163,4 +163,5 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="undo">"Desfazer"</string>
     <string name="redo">"Refazer"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Aprender com mensagens e dados digitados para melhorar sugestões"</string>
 </resources>

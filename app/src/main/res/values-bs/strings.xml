@@ -124,4 +124,5 @@
     <string name="select_input_method">"Odaberite način unosa"</string>
     <string name="undo">"Vrati"</string>
     <string name="redo">"Ponovo uradi"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Uči iz komunikacija i otkucanih podataka radi boljih prijedloga"</string>
 </resources>

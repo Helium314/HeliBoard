@@ -123,4 +123,5 @@
     <string name="select_input_method">"ເລືອກຮູບແບບການປ້ອນ"</string>
     <string name="settings_screen_appearance">"​ຮູບ​ແບບ​ໜ້າ​ຕາ"</string>
     <string name="redo">"ເຮັດໃໝ່"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"ຮຽນຮູ້ຈາກການສື່ສານ ແລະຂໍ້ມູນທີ່ທ່ານເຄີຍພິມເພື່ອປັບປຸງຄຳແນະນຳ"</string>
 </resources>

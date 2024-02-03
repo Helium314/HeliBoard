@@ -123,4 +123,5 @@
     <string name="select_input_method">"เลือกวิธีการป้อนข้อมูล"</string>
     <string name="undo">"เลิกทำ"</string>
     <string name="redo">"ทำซ้ำ"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"เรียนรู้จากการสื่อสารและข้อมูลที่พิมพ์ของคุณเพื่อปรับปรุงคำแนะนำ"</string>
 </resources>

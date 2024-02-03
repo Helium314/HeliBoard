@@ -138,4 +138,5 @@
     <string name="select_input_method">"選擇輸入法"</string>
     <string name="undo">"復原"</string>
     <string name="redo">"取消復原"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"根據您的通訊記錄和已輸入的資料改善建議"</string>
 </resources>

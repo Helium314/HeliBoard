@@ -161,4 +161,5 @@
     <string name="select_input_method">"Aukeratu idazketa-metodoa"</string>
     <string name="undo">"Desegin"</string>
     <string name="redo">"Berregin"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Iradokizunak hobetzeko, ikasi komunikazioetatik eta idazten duzunetik"</string>
 </resources>

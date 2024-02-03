@@ -162,4 +162,5 @@
     <string name="select_input_method">"选择输入法"</string>
     <string name="undo">"撤消"</string>
     <string name="redo">"重做"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"根据您的通信记录和以往输入的数据来完善建议"</string>
 </resources>

@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"Aspect"</string>
     <string name="undo">"Anulați"</string>
     <string name="redo">"Repetați"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Utilizează mesajele și datele introduse pt. a îmbunătăți sugestiile"</string>
 </resources>

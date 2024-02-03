@@ -162,4 +162,5 @@
     <string name="select_input_method">"Giriş yöntemini seçin"</string>
     <string name="undo">"Geri al"</string>
     <string name="redo">"Yeniden yap"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Önerileri iyileştirmek için iletşmlrmdn. ve yazılan verilerden öğren"</string>
 </resources>

@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"Ulkonäkö"</string>
     <string name="undo">"Kumoa"</string>
     <string name="redo">"Toista"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Ehdotusten parannus viestinnän ja kirjoitettujen tietojen avulla"</string>
 </resources>

@@ -123,4 +123,5 @@
     <string name="select_input_method">"Одбери метод на внес"</string>
     <string name="undo">"Врати"</string>
     <string name="redo">"Повтори"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Учете од комуникациите и напишаните податоци за подобри предлози"</string>
 </resources>

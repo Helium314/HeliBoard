@@ -162,4 +162,5 @@
     <string name="select_input_method">"Selecciona un mètode d\'introducció"</string>
     <string name="undo">"Desfés"</string>
     <string name="redo">"Refés"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Considera comunicacions i dades introd. per millorar suggeriments"</string>
 </resources>

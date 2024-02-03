@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"Útlit"</string>
     <string name="undo">"Afturkalla"</string>
     <string name="redo">"Endurgera"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Læra af samskiptum þínum og innslegnum gögnum til að bæta tillögur"</string>
 </resources>

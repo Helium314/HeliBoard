@@ -162,4 +162,5 @@
     <string name="subtype_no_language_colemak_dh">알파벳 (Colemak Mod-DH)</string>
     <string name="undo">"실행취소"</string>
     <string name="redo">"다시 실행"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"사용자의 대화 내용과 입력한 데이터를 통해 단어 추천의 정확도를 개선합니다."</string>
 </resources>

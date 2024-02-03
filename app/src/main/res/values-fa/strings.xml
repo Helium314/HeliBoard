@@ -161,4 +161,5 @@
     <string name="day_night_mode">حالت روز/شب خودکار</string>
     <string name="undo">"لغو"</string>
     <string name="redo">"بازانجام"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"یادگیری از ارتباطات و اطلاعات تایپ شده شما برای بهبود پیشنهادات"</string>
 </resources>

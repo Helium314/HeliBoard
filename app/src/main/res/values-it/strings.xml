@@ -162,4 +162,5 @@
     <string name="select_input_method">"Scegli il metodo di immissione"</string>
     <string name="undo">"Annulla"</string>
     <string name="redo">"Ripeti"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Usa comunicazioni e dati digitati per migliorare i suggerimenti"</string>
 </resources>

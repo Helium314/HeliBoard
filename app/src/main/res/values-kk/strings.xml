@@ -123,4 +123,5 @@
     <string name="select_input_method">"Енгізу әдісін таңдау"</string>
     <string name="undo">"Қайтару"</string>
     <string name="redo">"Қайтару"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Ұсыныстарды жақсарту үшін хабарлардан және терілген деректерден үйрену"</string>
 </resources>

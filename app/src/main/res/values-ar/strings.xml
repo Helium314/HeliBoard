@@ -162,4 +162,5 @@
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
     <string name="undo">"تراجع"</string>
     <string name="redo">"إعادة"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"التعلم من اتصالاتك والبيانات التي تكتبها لتحسين الاقتراحات"</string>
 </resources>

@@ -162,4 +162,5 @@
     <string name="auto_correction_confidence">Vertrauenslevel der Autokorrektur</string>
     <string name="undo">"Rückgängig machen"</string>
     <string name="redo">"Wiederholen"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Vorschläge anhand bisheriger Nachrichten und Eingaben verbessern"</string>
 </resources>

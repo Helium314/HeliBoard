@@ -87,17 +87,17 @@ final class EmojiCategory {
             R.styleable.EmojiPalettesView_iconEmojiCategory10Tab };
 
     private static final int[] sAccessibilityDescriptionResourceIdsForCategories = {
-            R.string.spoken_descrption_emoji_category_recents,
-            R.string.spoken_descrption_emoji_category_eight_smiley_people, // todo: actually this is smiley only... and duplicate string
-            R.string.spoken_descrption_emoji_category_eight_smiley_people,
-            R.string.spoken_descrption_emoji_category_eight_animals_nature,
-            R.string.spoken_descrption_emoji_category_eight_food_drink,
-            R.string.spoken_descrption_emoji_category_eight_travel_places,
-            R.string.spoken_descrption_emoji_category_eight_activity,
-            R.string.spoken_descrption_emoji_category_objects,
-            R.string.spoken_descrption_emoji_category_symbols,
-            R.string.spoken_descrption_emoji_category_flags,
-            R.string.spoken_descrption_emoji_category_emoticons };
+            R.string.spoken_description_emoji_category_recents,
+            R.string.spoken_description_emoji_category_eight_smiley,
+            R.string.spoken_description_emoji_category_eight_smiley_people,
+            R.string.spoken_description_emoji_category_eight_animals_nature,
+            R.string.spoken_description_emoji_category_eight_food_drink,
+            R.string.spoken_description_emoji_category_eight_travel_places,
+            R.string.spoken_description_emoji_category_eight_activity,
+            R.string.spoken_description_emoji_category_objects,
+            R.string.spoken_description_emoji_category_symbols,
+            R.string.spoken_description_emoji_category_flags,
+            R.string.spoken_description_emoji_category_emoticons};
 
     private static final int[] sCategoryElementId = {
             KeyboardId.ELEMENT_EMOJI_RECENTS,

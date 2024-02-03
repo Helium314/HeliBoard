@@ -123,4 +123,5 @@
     <string name="select_input_method">"Chagua njia ya ingizo"</string>
     <string name="undo">"Tendua"</string>
     <string name="redo">"Rejesha"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Tumia mawasiliano yako na data unayocharaza, kujifunza ili kuboresha mapendekezo"</string>
 </resources>

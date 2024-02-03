@@ -210,4 +210,5 @@
     <string name="auto_correction_confidence">Упэўненасць у аўтавыпраўленні</string>
     <string name="undo">"Адрабіць"</string>
     <string name="redo">"Узнавіць"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Запам. паведамл. і даныя, якія вы ўводзіце, для паляпшэння прапаноў"</string>
 </resources>

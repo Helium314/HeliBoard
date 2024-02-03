@@ -258,4 +258,5 @@
     <string name="settings_screen_appearance">"অবয়ব"</string>
     <string name="undo">"পূর্বাবস্থায় ফিরুন"</string>
     <string name="redo">"আবার করুন"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"পরামর্শ উন্নত করতে আপনার যোগাযোগ এবং টাইপ করা তথ্য থেকে শিখবে"</string>
 </resources>

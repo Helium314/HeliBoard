@@ -123,4 +123,5 @@
     <string name="select_input_method">"Zgjidh metodën e hyrjes"</string>
     <string name="undo">"Zhbëj"</string>
     <string name="redo">"Ribëj"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Mëso nga komunikimet dhe të dhënat e shkruara për të përmirësuar sugjerimet"</string>
 </resources>

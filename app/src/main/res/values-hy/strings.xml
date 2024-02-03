@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"Արտաքին տեսք"</string>
     <string name="undo">"Հետարկել"</string>
     <string name="redo">"Կրկնել"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Բարելավեք առաջարկները` ձեր նամակագրությունից և մուտքագրած տվյալներից"</string>
 </resources>

@@ -14,6 +14,7 @@ import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.common.StringUtilsKt;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -74,10 +75,13 @@ public final class SpacingAndPunctuations {
     }
 
     public boolean containsSometimesWordConnector(final CharSequence word) {
-        // todo: this only works if all mSortedSometimesWordConnectors are simple chars
-        for (int i = 0; i < word.length(); i++) {
-            if (isSometimesWordConnector(word.charAt(i)))
-                return true;
+        final String s = (word instanceof String) ? (String) word : word.toString();
+        final int length = s.length();
+        int offset = 0;
+        while (offset < length) {
+            int cp = s.codePointAt(offset);
+            if (isSometimesWordConnector(cp)) return true;
+            offset += Character.charCount(cp);
         }
         return false;
     }

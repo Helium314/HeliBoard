@@ -123,4 +123,5 @@
     <string name="select_input_method">"ઇનપુટ પદ્ધતિ પસંદ કરો"</string>
     <string name="undo">"પૂર્વવત્ કરો"</string>
     <string name="redo">"ફરી કરો"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"સૂચનોને બહેતર બનાવવા માટે તમારા સંચારો અને  લખેલ ડેટાથી જાણો"</string>
 </resources>

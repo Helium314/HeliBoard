@@ -23,8 +23,7 @@
         <item name="maxMoreKeysColumn">@integer/config_max_more_keys_column</item>
     </style>
     <style name="KeyboardView">
-        <!-- This keyBackground is needed to run unit tests based on {@link InputTestBase}. -->
-        <!-- TODO: Apply default {@link KeyboardTheme} to {@link InputTestBase} and remove this. -->
+        <!-- This keyBackground is needed to run unit tests based on {@link InputTestBase}. -> todo: so it can be removed? -->
         <item name="keyBackground">@drawable/btn_keyboard_key_holo_white</item>
         <item name="keyTypeface">normal</item>
         <!-- A negative value to disable key text shadow layer. -->
@@ -98,7 +97,6 @@
          attributes. -->
     <style name="EmojiPalettesView" />
     <style name="ClipboardHistoryView" />
-<!-- todo: remove?    <style name="MoreKeysKeyboard" /> -->
     <style name="MoreKeysKeyboardView" />
     <style name="SuggestionStripView" />
     <style name="SuggestionWord">

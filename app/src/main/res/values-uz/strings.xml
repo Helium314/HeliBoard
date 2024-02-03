@@ -162,4 +162,5 @@
     <string name="more_keys_strip_description">Ko‘proq so‘zlar</string>
     <string name="undo">"Bekor qilish"</string>
     <string name="redo">"Qaytarish"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Qurilma siz ko‘p yozgan ma’lumotlarni eslab qoladi"</string>
 </resources>

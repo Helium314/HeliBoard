@@ -56,9 +56,4 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>
-<!-- todo: remove? -->
-<!--    <style name="setupStepStartActionLabelStyleCommon" parent="setupStepActionLabelStyleCommon">
-            <item name="android:paddingLeft">@dimen/setup_step_horizontal_padding</item>
-            <item name="android:paddingRight">@dimen/setup_step_horizontal_padding</item>
-        </style> -->
 </resources>

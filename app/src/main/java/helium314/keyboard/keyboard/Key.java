@@ -1172,7 +1172,6 @@ public class Key implements Comparable<Key> {
                 actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
             mActionFlags = actionFlags;
 
-            // todo: for what it is actually used? maybe it could be removed?
             final int altCodeInAttr; // settings and language switch keys have alt code space, all others nothing
             if (mCode == Constants.CODE_SETTINGS || mCode == Constants.CODE_LANGUAGE_SWITCH)
                 altCodeInAttr = Constants.CODE_SPACE;

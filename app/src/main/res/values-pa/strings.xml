@@ -123,4 +123,5 @@
     <string name="select_input_method">"ਇਨਪੁਟ ਵਿਧੀ ਚੁਣੋ"</string>
     <string name="undo">"ਅਣਕੀਤਾ ਕਰੋ"</string>
     <string name="redo">"ਮੁੜ-ਓਹੀ ਕਰੋ"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"ਸੁਝਾਵਾਂ ਨੂੰ ਬਿਹਤਰ ਬਣਾਉਣ ਲਈ ਆਪਣੀਆਂ ਗੱਲਬਾਤਾਂ ਅਤੇ ਟਾਈਪ ਕੀਤੇ  ਡਾਟਾ  ਤੋਂ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰੋ"</string>
 </resources>

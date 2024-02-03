@@ -49,17 +49,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"ຂໍ້ຄວາມ"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"ເວລາ"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"ຫາ​ກໍ​ໃຊ້"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"ຜູ່​ຄົນ"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"​ວັດ​ຖຸ"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"ສັນຍາລັກ"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"ໝາຍ​ຄະ​ແນນ"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"ຮອຍ​ຍິ້ມ ແລະ ຜູ້​ຄົນ"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"ສັດ ແລະ ທຳ​ມະ​ຊາດ"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"ອາ​ຫານ ແລະ ເຄື່ອງດື່ມ"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"ການ​ເດີນ​ທາງ ແລະ ສະ​ຖານ​ທີ່"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"ກິດຈະກໍາ"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"​ອີ​ໂມ​ຕິ​ຄອນ"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"ຫາ​ກໍ​ໃຊ້"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"​ວັດ​ຖຸ"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"ສັນຍາລັກ"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ໝາຍ​ຄະ​ແນນ"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"ຮອຍ​ຍິ້ມ ແລະ ຜູ້​ຄົນ"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"ສັດ ແລະ ທຳ​ມະ​ຊາດ"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ອາ​ຫານ ແລະ ເຄື່ອງດື່ມ"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ການ​ເດີນ​ທາງ ແລະ ສະ​ຖານ​ທີ່"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"ກິດຈະກໍາ"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"​ອີ​ໂມ​ຕິ​ຄອນ"</string>
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"ໂຕ​ພິມ​ໃຫຍ່ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"ໂຕ​ພິມ​ໃຫຍ່ I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"​ໂຕພິມ​ໃຫຍ່ I ມີ​ຈ້ຳ​ເມັດ​ຢູ່​ເທິງ"</string>

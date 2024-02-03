@@ -17,6 +17,8 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.common.LocaleUtils
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.define.DebugFlags
@@ -455,8 +457,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 SimplePopups(moreKeys?.let { getCommaMoreKeys() + it } ?: getCommaMoreKeys())
             )
             FunctionalKey.PERIOD -> KeyParams(
-                // special period moreKey only in alphabet layout, except for ar and fa
-                // todo: here is not the place to decide this, put it somewhere else (labelPeriod and labelPeriodSymbols?)
                 label ?: getPeriodLabel(),
                 params,
                 width,
@@ -665,12 +665,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun getInLocale(@StringRes id: Int): String {
-        val locale = when (params.mId.locale.toString().lowercase()) {
-            // todo: improve this when switching (rich input) subtype to use language tag
-            "hi_zz" -> Locale("en", "IN")
-            "sr_zz" -> Locale.forLanguageTag("sr-Latn")
-            else -> params.mId.locale
-        }
+        // todo: hi-Latn strings instead of this workaround?
+        val locale = if (params.mId.locale.toLanguageTag() == "hi-Latn") "en_IN".constructLocale()
+            else params.mId.locale
         return runInLocale(context, locale) { it.getString(id) }
     }
 
@@ -703,7 +700,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     private fun getPeriodLabel(): String {
         if (params.mId.isNumberLayout) return "."
-        if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa"))
+        if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa")) // todo: this exception is not so great...
             return params.mLocaleKeyTexts.labelPeriod
         return "."
     }
@@ -738,7 +735,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             return listOf("…")
         if (params.mId.isNumberLayout)
             return listOf(":", "…", ";", "∞", "π", "√", "°", "^")
-        val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation")!!
+        val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation")!!.toMutableList()
         if (params.mId.mSubtype.isRtlSubtype) {
             for (i in moreKeys.indices)
                 moreKeys[i] = moreKeys[i].rtlLabel(params) // for parentheses
@@ -752,7 +749,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             if (columns != null)
                 moreKeys[0] = "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
         }
-        return moreKeys.toList()
+        return moreKeys
     }
 
     private fun getSpaceLabel(): String =

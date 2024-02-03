@@ -123,4 +123,5 @@
     <string name="select_input_method">"Pumili ng pamamaraan ng pag-input"</string>
     <string name="undo">"I-undo"</string>
     <string name="redo">"Gawing muli"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Pahusayin ang suhestiyon batay sa iyong pag-uusap at na-type na data"</string>
 </resources>

@@ -49,17 +49,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"نص"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"الوقت"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"‏عنوان URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"الحديثة"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"أشخاص"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"كائنات"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"رموز"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"أعلام"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"وجوه مبتسمة وأشخاص"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"حيوانات وطبيعة"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"أغذية ومشروبات"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"سفر وأماكن"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"أنشطة"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"رموز تعبيرية"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"الحديثة"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"كائنات"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"رموز"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"أعلام"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"وجوه مبتسمة وأشخاص"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"حيوانات وطبيعة"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"أغذية ومشروبات"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"سفر وأماكن"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"أنشطة"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"رموز تعبيرية"</string>
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> كبير"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"‏I كبير"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Capital I, dot above"</string>

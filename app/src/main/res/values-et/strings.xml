@@ -123,4 +123,5 @@
     <string name="select_input_method">"Valige sisestusmeetod"</string>
     <string name="undo">"Võta tagasi"</string>
     <string name="redo">"Tee uuesti"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Kommunikats. ja sisestatud andmetest õppimine soovit. täiustamiseks"</string>
 </resources>

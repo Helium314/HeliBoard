@@ -13,7 +13,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.SuggestionSpan;
-import helium314.keyboard.latin.utils.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.CorrectionInfo;
@@ -21,7 +20,6 @@ import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.compat.SuggestionSpanUtils;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.HangulEventDecoder;
 import helium314.keyboard.event.InputTransaction;
@@ -42,12 +40,14 @@ import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
+import helium314.keyboard.latin.common.SuggestionSpanUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.utils.AsyncResultHolder;
 import helium314.keyboard.latin.utils.InputTypeUtils;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
@@ -2023,12 +2023,12 @@ public final class InputLogic {
     }
 
     /**
-     * @return the {@link Locale} of the {@link #mDictionaryFacilitator} if available. Otherwise
+     * @return the current {@link Locale} of the {@link #mDictionaryFacilitator} if available. Otherwise
      * {@link Locale#ROOT}.
      */
     @NonNull
     private Locale getDictionaryFacilitatorLocale() {
-        return mDictionaryFacilitator != null ? mDictionaryFacilitator.getLocale() : Locale.ROOT;
+        return mDictionaryFacilitator != null ? mDictionaryFacilitator.getCurrentLocale() : Locale.ROOT;
     }
 
     /**
@@ -2052,7 +2052,7 @@ public final class InputLogic {
     private CharSequence getTextWithUnderline(final String text) {
         // TODO: Locale should be determined based on context and the text given.
         return mIsAutoCorrectionIndicatorOn
-                ? SuggestionSpanUtils.getTextWithAutoCorrectionIndicatorUnderline(
+                ? SuggestionSpanUtilsKt.getTextWithAutoCorrectionIndicatorUnderline(
                         mLatinIME, text, getDictionaryFacilitatorLocale())
                 : text;
     }

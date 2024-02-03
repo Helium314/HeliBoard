@@ -161,4 +161,5 @@
     <string name="select_input_method">"Kies invoermetode"</string>
     <string name="undo">"Ontdoen"</string>
     <string name="redo">"Herdoen"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Leer uit jou kommunikasie en getikte data om voorstelle te verbeter"</string>
 </resources>

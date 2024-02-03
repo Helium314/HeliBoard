@@ -158,4 +158,5 @@
     <string name="select_input_method">"Selecciona el método de entrada"</string>
     <string name="undo">"Deshacer"</string>
     <string name="redo">"Rehacer"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Aprende de mensajes y datos ingresados para mejorar las sugerencias."</string>
 </resources>

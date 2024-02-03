@@ -3,22 +3,17 @@
  * modified
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
-
-package helium314.keyboard.compat
+package helium314.keyboard.latin.common
 
 import android.graphics.Outline
 import android.inputmethodservice.InputMethodService
 import android.view.View
 import android.view.ViewOutlineProvider
 
-// todo: this is not compat any more
-object ViewOutlineProviderCompatUtils {
-    @JvmStatic
-    fun setInsetsOutlineProvider(view: View): InsetsOutlineProvider {
-        val provider = InsetsOutlineProvider(view)
-        view.outlineProvider = provider
-        return provider
-    }
+fun setInsetsOutlineProvider(view: View): InsetsOutlineProvider {
+    val provider = InsetsOutlineProvider(view)
+    view.outlineProvider = provider
+    return provider
 }
 
 class InsetsOutlineProvider(private val mView: View) : ViewOutlineProvider() {

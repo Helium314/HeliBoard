@@ -141,4 +141,5 @@
     <string name="select_input_method">"Zvoliť metódu vstupu"</string>
     <string name="undo">"Späť"</string>
     <string name="redo">"Znova"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Zlepšovať návrhy na základe komunikácie a zadaných údajov"</string>
 </resources>

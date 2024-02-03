@@ -123,4 +123,5 @@
     <string name="select_input_method">"ان پٹ کا طریقہ منتخب کریں"</string>
     <string name="undo">"کالعدم کریں"</string>
     <string name="redo">"دوبارہ کریں"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"تجاویز کو بہتر بنانے کیلئے اپنی مواصلات اور ٹائپ کردہ ڈیٹا سے سیکھیں"</string>
 </resources>

@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"Tampilan"</string>
     <string name="undo">"Buat asal"</string>
     <string name="redo">"Buat semula"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Perbaik cadangan berdasarkan komunikasi anda dan data yang ditaip"</string>
 </resources>

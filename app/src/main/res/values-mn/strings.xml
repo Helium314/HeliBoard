@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"Харагдац"</string>
     <string name="undo">"Буцаах"</string>
     <string name="redo">"Дахин хийх"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Зөвлөмжүүдийг сайжруулахын тулд таны харилцсан, бичсэн зүйлсээс суралцана"</string>
 </resources>

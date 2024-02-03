@@ -162,4 +162,5 @@
     <string name="select_input_method">"Välj inmatningsmetod"</string>
     <string name="undo">"Ångra"</string>
     <string name="redo">"Gör om"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Få bättre förslag genom att använda tidigare angiven data och annan kommunikation"</string>
 </resources>

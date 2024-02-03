@@ -755,4 +755,5 @@ New dictionary:
         &#9658; For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. &lt;br&gt;
         This is necessary so the settings can be read before the device is unlocked, e.g. at boot. &lt;br&gt;
         The file is located in /data/user_de/0/package_id/shared_prefs/, though this may depend on the device and Android version.</string>
+    <string name="use_personalized_dicts_summary">Learn from your communications and typed data to improve suggestions</string>
 </resources>

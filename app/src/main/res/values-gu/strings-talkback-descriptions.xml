@@ -49,17 +49,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"ટેક્સ્ટ કરો"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"સમય"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"તાજેતરના"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"લોકો"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"પદાર્થો"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"પ્રતીકો"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"ફ્લેગ્સ"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"સ્માઇલી અને લોકો"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"પ્રાણીઓ અને કુદરત"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"ભોજન અને પીણાં"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"મુસાફરી અને જગ્યાઓ"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"પ્રવૃત્તિ"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"ઇમોટિકન્સ"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"તાજેતરના"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"પદાર્થો"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"પ્રતીકો"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ફ્લેગ્સ"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"સ્માઇલી અને લોકો"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"પ્રાણીઓ અને કુદરત"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ભોજન અને પીણાં"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"મુસાફરી અને જગ્યાઓ"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"પ્રવૃત્તિ"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ઇમોટિકન્સ"</string>
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"કેપિટલ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"કેપિટલ I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"કેપિટલ I, ઉપર ડોટ"</string>

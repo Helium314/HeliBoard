@@ -142,4 +142,5 @@
     <string name="settings_category_additional_keys">అదనపు కీస్</string>
     <string name="undo">"చర్య రద్దు చేయి"</string>
     <string name="redo">"చర్యను పునరావృతం చేయి"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"సూచనలను మెరుగుపరచడానికి మీ కమ్యూనికేషన్‌లు మరియు టైప్ చేయబడిన డేటా నుండి తెలుసుకోండి"</string>
 </resources>

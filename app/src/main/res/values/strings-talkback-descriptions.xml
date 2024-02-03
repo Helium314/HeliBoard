@@ -103,27 +103,27 @@
     <string name="keyboard_mode_url">URL</string>
 
     <!-- Description of the emoji category icon of Recents. -->
-    <string name="spoken_descrption_emoji_category_recents">Recents</string>
-    <!-- Description of the emoji category icon of People. -->
-    <string name="spoken_descrption_emoji_category_people">People</string>
+    <string name="spoken_description_emoji_category_recents">Recents</string>
     <!-- Description of the emoji category icon of Objects. -->
-    <string name="spoken_descrption_emoji_category_objects">Objects</string>
+    <string name="spoken_description_emoji_category_objects">Objects</string>
     <!-- Description of the emoji category icon of Symbols. -->
-    <string name="spoken_descrption_emoji_category_symbols">Symbols</string>
+    <string name="spoken_description_emoji_category_symbols">Symbols</string>
     <!-- Description of the emoji category icon of Flags. -->
-    <string name="spoken_descrption_emoji_category_flags">Flags</string>
+    <string name="spoken_description_emoji_category_flags">Flags</string>
+    <!-- Description of the emoji category icon of Smiley. -->
+    <string name="spoken_description_emoji_category_eight_smiley">Smiley</string>
     <!-- Description of the emoji category icon of Smiley & People. -->
-    <string name="spoken_descrption_emoji_category_eight_smiley_people">Smiley and People</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">Smiley and People</string>
     <!-- Description of the emoji category icon of Animals & Nature. -->
-    <string name="spoken_descrption_emoji_category_eight_animals_nature">Animals &amp; Nature</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">Animals &amp; Nature</string>
     <!-- Description of the emoji category icon of Food & Drink. -->
-    <string name="spoken_descrption_emoji_category_eight_food_drink">Food &amp; Drink</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">Food &amp; Drink</string>
     <!-- Description of the emoji category icon of Travel & Places. -->
-    <string name="spoken_descrption_emoji_category_eight_travel_places">Travel &amp; Places</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">Travel &amp; Places</string>
     <!-- Description of the emoji category icon of Activity. -->
-    <string name="spoken_descrption_emoji_category_eight_activity">Activity</string>
+    <string name="spoken_description_emoji_category_eight_activity">Activity</string>
     <!-- Description of the emoji category icon of Emoticons. -->
-    <string name="spoken_descrption_emoji_category_emoticons">Emoticons</string>
+    <string name="spoken_description_emoji_category_emoticons">Emoticons</string>
 
     <!-- Description of an upper case letter of LOWER_LETTER. -->
     <string name="spoken_description_upper_case">Capital <xliff:g id="LOWER_LETTER" example="A, E, ligature">%s</xliff:g></string>

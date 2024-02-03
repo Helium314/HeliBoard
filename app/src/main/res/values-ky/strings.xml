@@ -123,4 +123,5 @@
     <string name="select_input_method">"Дайын киргизүү ыкмасын тандаңыз"</string>
     <string name="undo">"Артка кайтаруу"</string>
     <string name="redo">"Кайталоо"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Сунуштарды байланыш каражаттарыңыздын жана терилген дайындардын негизинде жакшыртыңыз"</string>
 </resources>

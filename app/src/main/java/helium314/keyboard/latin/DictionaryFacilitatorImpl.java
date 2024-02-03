@@ -30,7 +30,6 @@ import helium314.keyboard.latin.personalization.UserHistoryDictionary;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.ExecutorUtils;
-import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
 import java.io.File;
@@ -267,13 +266,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         return !mDictionaryGroups.get(0).mLocale.getLanguage().isEmpty();
     }
 
-    // used in
-    //  putWordIntoValidSpellingWordCache -> should probably return most confidence locale, but the cache is not used anyway
-    //  LatinIME.resetSuggestMainDict -> should return primary locale
-    //  Suggest.getSuggestedWordsFor... -> should not matter if suggestions have a word locale, todo: check whether they do!
-    //  InputLogic.getDictionaryFacilitatorLocale -> not sure, but probably doesn't matter
     @Override
-    public Locale getLocale() {
+    public Locale getMainLocale() {
         return mDictionaryGroups.get(0).mLocale;
     }
 
@@ -640,12 +634,12 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             return;
         }
 
-        final String lowerCaseWord = originalWord.toLowerCase(getLocale());
+        final String lowerCaseWord = originalWord.toLowerCase(getCurrentLocale());
         final boolean lowerCaseValid = isValidSpellingWord(lowerCaseWord);
         mValidSpellingWordWriteCache.put(lowerCaseWord, lowerCaseValid);
 
         final String capitalWord =
-                StringUtils.capitalizeFirstAndDowncaseRest(originalWord, getLocale());
+                StringUtils.capitalizeFirstAndDowncaseRest(originalWord, getCurrentLocale());
         final boolean capitalValid;
         if (lowerCaseValid) {
             // The lower case form of the word is valid, so the upper case must be valid.

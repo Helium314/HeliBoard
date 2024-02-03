@@ -49,17 +49,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"matn kiritish"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"vaqt"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Oxirgilar"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Odamlar"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Narsa-buyumlar"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Belgilar"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Bayroqchalar"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Kulgichlar va odamlar"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Hayvonot va tabiat"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Taom va ichimliklar"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Sayohat va joylar"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Harakat"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Kulgichlar"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Oxirgilar"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Narsa-buyumlar"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Belgilar"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Bayroqchalar"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Kulgichlar va odamlar"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Hayvonot va tabiat"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Taom va ichimliklar"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Sayohat va joylar"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Harakat"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Kulgichlar"</string>
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Bosh harf bilan yozilgan <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Katta I harfi"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Tepasida nuqtasi bor katta I harfi"</string>

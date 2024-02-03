@@ -123,4 +123,5 @@
     <string name="select_input_method">"इनपुट का तरीका चुनें"</string>
     <string name="undo">"वापस लाएं"</string>
     <string name="redo">"फिर से करें"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"सुझावों में सुधार के लिए अपनी बातचीत और लिखे गए डेटा को देखने दें"</string>
 </resources>

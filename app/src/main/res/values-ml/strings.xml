@@ -162,4 +162,5 @@
     <string name="select_input_method">"ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കുക"</string>
     <string name="undo">"പഴയപടിയാക്കുക"</string>
     <string name="redo">"വീണ്ടും ചെയ്യുക"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"നിർദ്ദേശങ്ങൾ മെച്ചപ്പെടുത്തുന്നതിന് നിങ്ങളുടെ ആശയവിനിമയങ്ങൾ, ടൈപ്പുചെയ്‌ത ഡാറ്റ എന്നിവയിൽ നിന്നും അറിയുക"</string>
 </resources>

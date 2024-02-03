@@ -162,4 +162,5 @@
     <string name="select_input_method">"Pilih metode masukan"</string>
     <string name="undo">"Urungkan"</string>
     <string name="redo">"Ulangi"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Belajar dari komunikasi &amp; data terketik untuk meningkatkan saran"</string>
 </resources>

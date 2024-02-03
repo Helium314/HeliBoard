@@ -16,8 +16,8 @@ import java.util.Locale
 import kotlin.math.round
 
 class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
-    private val moreKeys = hashMapOf<String, Array<String>>() // todo: no need for arrays any more, better use a list?
-    private val priorityMoreKeys = hashMapOf<String, Array<String>>()
+    private val moreKeys = hashMapOf<String, List<String>>()
+    private val priorityMoreKeys = hashMapOf<String, List<String>>()
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbol = "\\?123"
         private set
@@ -50,15 +50,15 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         // set default quote moreKeys if necessary
         // should this also be done with punctuation moreKeys?
         if ("\'" !in moreKeys)
-            moreKeys["\'"] = arrayOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
+            moreKeys["\'"] = listOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
         if ("\"" !in moreKeys)
-            moreKeys["\""] = arrayOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
+            moreKeys["\""] = listOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
         if ("!" !in moreKeys)
-            moreKeys["!"] = arrayOf("¡")
+            moreKeys["!"] = listOf("¡")
         if (labelQuestion !in moreKeys)
-            moreKeys[labelQuestion] = if (labelQuestion == "?") arrayOf("¿") else arrayOf("?", "¿")
+            moreKeys[labelQuestion] = if (labelQuestion == "?") listOf("¿") else listOf("?", "¿")
         if ("punctuation" !in moreKeys)
-            moreKeys["punctuation"] = arrayOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+            moreKeys["punctuation"] = listOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
 
     private fun readStream(stream: InputStream?, onlyMoreKeys: Boolean) {
@@ -98,8 +98,8 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 
     fun getShiftSymbolLabel(isTablet: Boolean) = if (isTablet) labelShiftSymbolTablet else labelShiftSymbol
 
-    fun getMoreKeys(label: String): Array<String>? = moreKeys[label]
-    fun getPriorityMoreKeys(label: String): Array<String>? = priorityMoreKeys[label]
+    fun getMoreKeys(label: String): List<String>? = moreKeys[label]
+    fun getPriorityMoreKeys(label: String): List<String>? = priorityMoreKeys[label]
 
     // used by simple parser only, but could be possible for json as well (if necessary)
     fun getExtraKeys(row: Int): List<KeyData>? =
@@ -122,17 +122,17 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         if (priorityMarkerIndex > 0) {
             val existingPriorityMoreKeys = priorityMoreKeys[key]
             priorityMoreKeys[key] = if (existingPriorityMoreKeys == null)
-                    Array(priorityMarkerIndex - 1) { split[it + 1] }
+                    split.subList(1, priorityMarkerIndex)
                 else existingPriorityMoreKeys + split.subList(1, priorityMarkerIndex)
             val existingMoreKeys = moreKeys[key]
             moreKeys[key] = if (existingMoreKeys == null)
-                    Array(split.size - priorityMarkerIndex - 1) { split[it + priorityMarkerIndex + 1] }
+                    split.subList(priorityMarkerIndex, split.size)
                 else existingMoreKeys + split.subList(priorityMarkerIndex, split.size)
         } else {
             // a but more special treatment, this should not occur together with priority marker (but technically could)
             val existingMoreKeys = moreKeys[key]
             val newMoreKeys = if (existingMoreKeys == null)
-                    Array(split.size - 1) { split[it + 1] }
+                    split.drop(1)
                 else mergeMoreKeys(existingMoreKeys, split.drop(1))
             moreKeys[key] = when (key) {
                 "'", "\"", "«", "»" -> addFixedColumnOrder(newMoreKeys)
@@ -191,7 +191,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
     fun getNumberLabel(numberIndex: Int?): String? = numberIndex?.let { numberKeys.getOrNull(it) }
 }
 
-private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<String> {
+private fun mergeMoreKeys(original: List<String>, added: List<String>): List<String> {
     if (original.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }) {
         val moreKeys = (original + added).toSet()
         val originalColumnCount = original.firstOrNull { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
@@ -200,22 +200,17 @@ private fun mergeMoreKeys(original: Array<String>, added: List<String>): Array<S
         if (originalColumnCount != null && moreKeys.size <= 20 // not for too wide layout
             && originalColumnCount == round((original.size - 1 + 0.1f) / 2f).toInt()) { // +0.1 f against rounding issues
             // we had 2 rows, and want it again
-            return (l + "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}").toTypedArray()
+            return (l + "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
         }
         // just drop autoColumnOrder otherwise
-        return l.toTypedArray()
+        return l
     }
     return original + added
 }
 
-private fun addFixedColumnOrder(moreKeys: Array<String>): Array<String> {
-    if (moreKeys.none { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) })
-        return arrayOf("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${moreKeys.size}", *moreKeys)
+private fun addFixedColumnOrder(moreKeys: List<String>): List<String> {
     val newMoreKeys = moreKeys.filterNot { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
-    return Array(newMoreKeys.size + 1) {
-        if (it == 0) "${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${newMoreKeys.size}"
-        else newMoreKeys[it - 1]
-    }
+    return listOf("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${newMoreKeys.size}") + newMoreKeys
 }
 
 fun getOrCreate(context: Context, locale: Locale): LocaleKeyTexts =

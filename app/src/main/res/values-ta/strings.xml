@@ -123,4 +123,5 @@
     <string name="select_input_method">"உள்ளீட்டு முறையைத் தேர்வுசெய்க"</string>
     <string name="undo">"செயல்தவிர்"</string>
     <string name="redo">"மீண்டும்செய்"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"தொடர்புகளிலிருந்தும், உள்ளிட்ட தரவிலிருந்தும் பரிந்துரைகளை மேம்படுத்த அறியவும்"</string>
 </resources>

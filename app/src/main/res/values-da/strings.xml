@@ -162,4 +162,5 @@
     <string name="select_input_method">"Vælg inputmetode"</string>
     <string name="undo">"Fortryd"</string>
     <string name="redo">"Annuller fortryd"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Giv bedre forslag ud fra tidligere kommunikation og data"</string>
 </resources>

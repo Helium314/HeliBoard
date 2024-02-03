@@ -123,4 +123,5 @@
     <string name="select_input_method">"ಇನ್‌ಪುಟ್‌‌ ವಿಧಾನವನ್ನು ಆರಿಸಿ"</string>
     <string name="undo">"ರದ್ದುಗೊಳಿಸಿ"</string>
     <string name="redo">"ಪುನಃ ಮಾಡು"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"ಸಲಹೆಗಳನ್ನು ಸುಧಾರಿಸಲು ನಿಮ್ಮ ಸಂವಹನಗಳು ಮತ್ತು ಟೈಪ್ ಮಾಡಿದ ಡೇಟಾದಿಂದ ತಿಳಿಯಿರಿ"</string>
 </resources>

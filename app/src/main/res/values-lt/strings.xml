@@ -125,4 +125,5 @@
     <string name="select_input_method">"Pasirinkite įvesties metodą"</string>
     <string name="undo">"Anuliuoti"</string>
     <string name="redo">"Grąžinti"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Mokytis iš ryšių ir įvestų duomenų, siekiant pagerinti pasiūlymus"</string>
 </resources>

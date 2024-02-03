@@ -163,4 +163,5 @@
     <string name="day_night_mode">დღის/ღამის ავტ. არჩევანი</string>
     <string name="undo">"დაბრუნება"</string>
     <string name="redo">"გამეორება"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"უკეთესი შეთავაზებისთვის თქვენი კომუნიკაციიდან და ტექსტიდან სწავლა"</string>
 </resources>

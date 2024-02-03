@@ -163,4 +163,5 @@
     <string name="settings_screen_appearance">"מראה"</string>
     <string name="undo">"ביטול"</string>
     <string name="redo">"בצע מחדש"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"למד מהתכתבויות ומנתונים שהקלדת כדי לשפר את ההצעות"</string>
 </resources>

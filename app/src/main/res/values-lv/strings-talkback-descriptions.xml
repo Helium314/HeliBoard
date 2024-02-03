@@ -49,17 +49,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"teksts"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"laiks"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Pēdējie"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Cilvēki"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Objekti"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Simboli"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Karogi"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smaidiņš un cilvēki"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Dzīvnieki un daba"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Pārtika un dzērieni"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Ceļošana un vietas"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Darbības"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Emocijzīmes"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Pēdējie"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objekti"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simboli"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Karogi"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smaidiņš un cilvēki"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Dzīvnieki un daba"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Pārtika un dzērieni"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Ceļošana un vietas"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Darbības"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emocijzīmes"</string>
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Lielais burts “<xliff:g id="LOWER_LETTER">%s</xliff:g>”"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Lielais burts “I”"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Lielais burts “I” ar punktu virs tā"</string>

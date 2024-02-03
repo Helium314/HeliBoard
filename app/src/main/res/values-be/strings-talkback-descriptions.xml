@@ -50,17 +50,16 @@
     <string name="keyboard_mode_text" msgid="9138789594969187494">"тэкст"</string>
     <string name="keyboard_mode_time" msgid="8558297845514402675">"час"</string>
     <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_descrption_emoji_category_recents" msgid="4185344945205590692">"Апошнія"</string>
-    <string name="spoken_descrption_emoji_category_people" msgid="8414196269847492817">"Людзі"</string>
-    <string name="spoken_descrption_emoji_category_objects" msgid="6116297906606195278">"Аб\'екты"</string>
-    <string name="spoken_descrption_emoji_category_symbols" msgid="474680659024880601">"Сімвалы"</string>
-    <string name="spoken_descrption_emoji_category_flags" msgid="5971573825866381472">"Сцягі"</string>
-    <string name="spoken_descrption_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Смайлікі і людзі"</string>
-    <string name="spoken_descrption_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Жывёлы і прырода"</string>
-    <string name="spoken_descrption_emoji_category_eight_food_drink" msgid="6196944764485349650">"Ежа і напоі"</string>
-    <string name="spoken_descrption_emoji_category_eight_travel_places" msgid="3834085499381434611">"Падарожжы і месцы"</string>
-    <string name="spoken_descrption_emoji_category_eight_activity" msgid="4795281669042975993">"Дзейнасць"</string>
-    <string name="spoken_descrption_emoji_category_emoticons" msgid="456737544787823539">"Эматыконы"</string>
+    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Апошнія"</string>
+    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Аб\'екты"</string>
+    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Сімвалы"</string>
+    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Сцягі"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Смайлікі і людзі"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Жывёлы і прырода"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Ежа і напоі"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Падарожжы і месцы"</string>
+    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Дзейнасць"</string>
+    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Эматыконы"</string>
     <!-- no translation found for spoken_description_upper_case (4904835255229433916) -->
     <skip />
     <!-- no translation found for spoken_letter_0049 (4743162182646977944) -->

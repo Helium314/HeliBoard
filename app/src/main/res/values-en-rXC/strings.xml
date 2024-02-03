@@ -123,4 +123,5 @@
     <string name="select_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‎‎‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‎‏‎‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎Choose input method‎‏‎‎‏‎"</string>
     <string name="undo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‎‏‏‎‏‏‏‎‎‎‎‎‎‎‎‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‎‏‏‏‏‎‎‎‎Undo‎‏‎‎‏‎"</string>
     <string name="redo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‏‏‏‏‎‎‏‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‎‏‏‏‏‎‏‏‏‎‎‎‏‎‎‏‏‏‎‏‎‏‏‎‏‏‎‎‎‎‎Redo‎‏‎‎‏‎"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‏‏‏‏‎‎‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‎‏‏‏‎‏‏‎Learn from your communications and typed data to improve suggestions‎‏‎‎‏‎"</string>
 </resources>

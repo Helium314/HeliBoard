@@ -155,7 +155,7 @@ public final class Suggest {
                 : mDictionaryFacilitator.getSuggestionResults(
                         wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
                         settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction);
-        final Locale locale = mDictionaryFacilitator.getLocale();
+        final Locale locale = mDictionaryFacilitator.getMainLocale();
         final ArrayList<SuggestedWordInfo> suggestionsContainer =
                 getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
                         trailingSingleQuotesCount, locale);
@@ -418,7 +418,7 @@ public final class Suggest {
         replaceSingleLetterFirstSuggestion(suggestionResults);
 
         // For transforming words that don't come from a dictionary, because it's our best bet
-        final Locale locale = mDictionaryFacilitator.getLocale();
+        final Locale locale = mDictionaryFacilitator.getMainLocale();
         final ArrayList<SuggestedWordInfo> suggestionsContainer = new ArrayList<>(suggestionResults);
         final int suggestionsCount = suggestionsContainer.size();
         final boolean isFirstCharCapitalized = wordComposer.wasShiftedNoLock();

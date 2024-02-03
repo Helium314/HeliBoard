@@ -162,4 +162,5 @@
     <string name="select_input_method">"Επιλογή μεθόδου εισόδου"</string>
     <string name="undo">"Αναίρεση"</string>
     <string name="redo">"Επανάληψη"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Χρήση επικοινωνιών/δεδομένων πληκτρολόγησης για βελτίωση προτάσεων"</string>
 </resources>

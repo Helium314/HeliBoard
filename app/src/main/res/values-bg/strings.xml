@@ -124,4 +124,5 @@
     <string name="select_input_method">"Избор на метод на въвеждане"</string>
     <string name="undo">"Отмяна"</string>
     <string name="redo">"Възстановяване"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Ползване на съобщ. ви и въведени от вас данни за подобр. на предлож."</string>
 </resources>

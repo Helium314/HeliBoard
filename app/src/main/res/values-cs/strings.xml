@@ -161,4 +161,5 @@
     <string name="day_night_mode">Automatický denní/noční režim</string>
     <string name="undo">"Vrátit zpět"</string>
     <string name="redo">"Opakovat"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Zlepšovat návrhy na základě vaší komunikace a zadaných dat"</string>
 </resources>

@@ -124,4 +124,5 @@
     <string name="settings_screen_appearance">"उपस्थिति"</string>
     <string name="undo">"अनडू गर्नुहोस्"</string>
     <string name="redo">"रिडू गर्नुहोस्"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"सुझावहरू सुधार गर्न सञ्‍चारहरू र टाइप गरिएको डेटाबाट जान्नुहोस्"</string>
 </resources>

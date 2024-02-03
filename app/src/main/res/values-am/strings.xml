@@ -123,4 +123,5 @@
     <string name="select_input_method">"የግቤት ስልት ምረጥ"</string>
     <string name="undo">"ቀልብስ"</string>
     <string name="redo">"ድገም"</string>
+    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"የአስተያየት ጥቆማዎችን ለማሻሻል ከእርስዎ ግንኙነቶች እና የተተየበ ውሂብ ይማሩ"</string>
 </resources>
