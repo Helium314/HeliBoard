@@ -242,15 +242,12 @@ public final class SubtypeLocaleUtils {
     private static String getSubtypeDisplayNameInternal(@NonNull final InputMethodSubtype subtype,
             @NonNull final Locale displayLocale) {
         final String replacementString = getReplacementString(subtype, displayLocale);
-        // TODO: rework this for multi-lingual subtypes
         final int nameResId = subtype.getNameResId();
         return RunInLocaleKt.runInLocale(sResources, displayLocale,
             res -> {
                 try {
                     return StringUtils.capitalizeFirstCodePoint(res.getString(nameResId, replacementString), displayLocale);
                 } catch (Resources.NotFoundException e) {
-                    // TODO: Remove this catch when InputMethodManager.getCurrentInputMethodSubtype
-                    // is fixed.
                     Log.w(TAG, "Unknown subtype: mode=" + subtype.getMode()
                             + " nameResId=" + subtype.getNameResId()
                             + " locale=" + subtype.getLocale()
@@ -280,8 +277,7 @@ public final class SubtypeLocaleUtils {
         if (keyboardLayoutSet == null && subtype.isAsciiCapable()) {
             keyboardLayoutSet = QWERTY;
         }
-        // TODO: Remove this null check when InputMethodManager.getCurrentInputMethodSubtype is fixed.
-        if (keyboardLayoutSet == null) {
+        if (keyboardLayoutSet == null) { // we could search for a subtype with the correct script, but this is a bug anyway...
             Log.w(TAG, "KeyboardLayoutSet not found, use QWERTY: " +
                     "locale=" + subtype.getLocale() + " extraValue=" + subtype.getExtraValue());
             return QWERTY;

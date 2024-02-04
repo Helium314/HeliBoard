@@ -51,6 +51,10 @@ public class RichInputMethodSubtype {
         return mSubtype.getExtraValueOf(key);
     }
 
+    public boolean hasExtraValue(@NonNull final String key) {
+        return mSubtype.containsExtraValueKey(key);
+    }
+
     // The mode is also determined by the primary subtype.
     public String getMode() {
         return mSubtype.getMode();

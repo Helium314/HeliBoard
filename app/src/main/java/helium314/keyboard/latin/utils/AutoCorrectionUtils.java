@@ -25,7 +25,6 @@ public final class AutoCorrectionUtils {
             if (suggestion.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) {
                 return true;
             }
-            // TODO: return suggestion.isAppropriateForAutoCorrection();
             if (!suggestion.isAppropriateForAutoCorrection()) {
                 return false;
             }

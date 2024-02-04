@@ -37,7 +37,6 @@ import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
 
 import java.util.ArrayList;
 
-// TODO: Use Fragment to implement welcome screen and setup steps.
 public final class SetupWizardActivity extends AppCompatActivity implements View.OnClickListener {
     // For debugging purpose.
     private static final boolean FORCE_TO_SHOW_WELCOME_SCREEN = false;

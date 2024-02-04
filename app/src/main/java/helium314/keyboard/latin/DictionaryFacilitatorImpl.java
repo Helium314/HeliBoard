@@ -58,7 +58,6 @@ import java.util.concurrent.TimeUnit;
  * a client for interacting with dictionaries.
  */
 public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
-    // TODO: Consolidate dictionaries in native code.
     public static final String TAG = DictionaryFacilitatorImpl.class.getSimpleName();
 
     // HACK: This threshold is being used when adding a capitalized entry in the User History
@@ -333,7 +332,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             final String dictNamePrefix,
             @Nullable final DictionaryInitializationListener listener) {
         final HashMap<Locale, ArrayList<String>> existingDictionariesToCleanup = new HashMap<>();
-        // TODO: Make subDictTypesToUse configurable by resource or a static final list.
         final HashSet<String> subDictTypesToUse = new HashSet<>();
         subDictTypesToUse.add(Dictionary.TYPE_USER);
         final List<Locale> allLocales = new ArrayList<>() {{

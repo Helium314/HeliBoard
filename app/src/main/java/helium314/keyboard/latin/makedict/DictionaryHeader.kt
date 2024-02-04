@@ -38,8 +38,6 @@ class DictionaryHeader(
 
     val description: String?
         // Helper method to get the description
-        // TODO: Right now each dictionary file comes with a description in its own language.
-        // It will display as is no matter the device's locale. It should be internationalized.
         get() = mDictionaryOptions.mAttributes[DICTIONARY_DESCRIPTION_KEY]
 
     fun info(locale: Locale): String {
@@ -52,8 +50,6 @@ class DictionaryHeader(
     companion object {
         // Note that these are corresponding definitions in native code in latinime::HeaderPolicy
         // and latinime::HeaderReadWriteUtils.
-        // TODO: Standardize the key names and bump up the format version, taking care not to
-        // break format version 2 dictionaries.
         const val DICTIONARY_VERSION_KEY = "version"
         const val DICTIONARY_LOCALE_KEY = "locale"
         const val DICTIONARY_ID_KEY = "dictionary"

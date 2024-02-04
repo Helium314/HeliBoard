@@ -95,9 +95,6 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
             // If we are replacing the package, we will receive ADDED right away so no need to
             // remove the dictionary at the moment, since we will do it when we receive the
             // ADDED broadcast.
-
-            // TODO: Only reload dictionary on REMOVED when the removed package is the one we
-            // read dictionary from?
             mService.resetSuggestMainDict();
         } else if (DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION.equals(action)) {
             if (null == mService) {

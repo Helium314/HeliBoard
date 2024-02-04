@@ -47,8 +47,6 @@ public final class KeyVisualAttributes {
     public final float mLabelOffCenterRatio;
     public final float mHintLabelOffCenterRatio;
 
-    // todo: replace the remaining colors with something from new colors instead of theme
-    //  but first check which colors are actually used
     private static final int[] VISUAL_ATTRIBUTE_IDS = {
         R.styleable.Keyboard_Key_keyTypeface,
         R.styleable.Keyboard_Key_keyLetterSize,
@@ -115,15 +113,20 @@ public final class KeyVisualAttributes {
         mPreviewTextRatio = ResourceUtils.getFraction(keyAttr,
                 R.styleable.Keyboard_Key_keyPreviewTextRatio);
 
+        // todo: check what colors do, and if irrelevant and no plan to use -> remove here and from attr
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         mTextColor = colors.get(ColorType.KEY_TEXT);
+        // when? -> isShiftedLetterActivated, which is a label flag
         mTextInactivatedColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextInactivatedColor, 0);
+        // when? -> mKeyTextShadowRadius > 0, but it's always set to -1 (in theme) -> maybe play with this?
         mTextShadowColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextShadowColor, 0);
         mFunctionalTextColor = colors.get(ColorType.FUNCTIONAL_KEY_TEXT);
         mHintLetterColor = colors.get(ColorType.KEY_HINT_TEXT);
         mHintLabelColor = colors.get(ColorType.KEY_TEXT);
+        // when? -> hasShiftedLetterHint and not isShiftedLetterActivated -> both are label flags
         mShiftedLetterHintInactivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintInactivatedColor, 0);
+        // when? -> hasShiftedLetterHint and isShiftedLetterActivated -> both are label flags
         mShiftedLetterHintActivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintActivatedColor, 0);
         mPreviewTextColor = colors.get(ColorType.KEY_TEXT);

@@ -1995,8 +1995,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         p.println("  Keyboard mode = " + keyboardMode);
         final SettingsValues settingsValues = mSettings.getCurrent();
         p.println(settingsValues.dump());
-        p.println(mDictionaryFacilitator.dump(this /* context */));
-        // TODO: Dump all settings values
+        p.println(mDictionaryFacilitator.dump(this));
     }
 
     // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
