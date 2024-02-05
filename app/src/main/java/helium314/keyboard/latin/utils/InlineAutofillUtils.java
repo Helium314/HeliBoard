@@ -140,7 +140,6 @@ public class InlineAutofillUtils {
      * the InlineContentViews' surfaces would cover parts of your app as these surfaces
      * are owned by another process and always appearing on top of your app.
      */
-    @RequiresApi(api = Build.VERSION_CODES.R)
     private static class InlineContentClipView extends FrameLayout {
         @NonNull
         private final ViewTreeObserver.OnDrawListener mOnDrawListener =
