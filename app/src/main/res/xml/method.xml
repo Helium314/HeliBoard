@@ -14,7 +14,7 @@
     ar: Arabic/arabic
     ar: Arabic/arabic_pc
     az_AZ: Azerbaijani (Azerbaijan)/qwerty
-    be_BY: Belarusian (Belarus)/be
+    be_BY: Belarusian (Belarus)/belarusian
     bg: Bulgarian/bulgarian
     bg: Bulgarian/bulgarian_bds
     bg: Bulgarian/bulgarian_bekl
@@ -32,7 +32,7 @@
     en_IN: English (India)/qwerty
     en_US: English (United States)/qwerty
     en_GB: English (Great Britain)/qwerty
-    eo: Esperanto/qwerty+
+    eo: Esperanto/esperanto
     es: Spanish/qwerty+
     es_US: Spanish (United States)/qwerty+
     es_419: Spanish (Latin America)/qwerty+
@@ -59,14 +59,14 @@
     iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
     ka_GE: Georgian (Georgia)/georgian
     kab: Kabyle (Algeria)/azerty # This is a preliminary keyboard layout.
-    kk: Kazakh/ru
+    kk: Kazakh/russian
     km_KH: Khmer (Cambodia)/khmer
     kn_IN: Kannada (India)/kannada
-    ky: Kyrgyz/ru
+    ky: Kyrgyz/russian
     lo_LA: Lao (Laos)/lao
     lt: Lithuanian/qwerty
     lv: Latvian/qwerty
-    mk: Macedonian/mk
+    mk: Macedonian/macedonian
     ml_IN: Malayalam (India)/malayalam
     mn_MN: Mongolian (Mongolia)/mongolian
     mr_IN: Marathi (India)/marathi
@@ -80,12 +80,12 @@
     pt_BR: Portuguese (Brazil)/qwerty
     pt_PT: Portuguese (Portugal)/qwerty
     ro: Romanian/qwerty
-    ru: Russian/ru
+    ru: Russian/russian
     si_LK: Sinhala (Sri Lanka)/sinhala # This is a preliminary keyboard layout.
     sk: Slovak/qwerty
     sl: Slovenian/qwerty
-    sr: Serbian/sr
-    sr_ZZ: Serbian (Latin)/serbian_qwertz # This is a preliminary keyboard layout.
+    sr: Serbian/serbian
+    sr_ZZ: Serbian (Latin)/qwertz+ # This is a preliminary keyboard layout.
     sv: Swedish/qwerty+
     sw: Swahili/qwerty
     ta_IN: Tamil (India)/tamil
@@ -96,7 +96,7 @@
     tl: Tagalog/qwerty+
     tr: Turkish/qwerty
     ur_PK: Urdu Pakistan
-    uk: Ukrainian/uk
+    uk: Ukrainian/ukrainian
     uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
     vi: Vietnamese/qwerty
     zu: Zulu/qwerty
@@ -184,7 +184,7 @@
             android:imeSubtypeLocale="be_BY"
             android:languageTag="be-BY"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=be,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=belarusian,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -319,7 +319,7 @@
             android:imeSubtypeLocale="eo"
             android:languageTag="eo"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=eo,AsciiCapable,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=esperanto,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -558,7 +558,7 @@
             android:imeSubtypeLocale="kk"
             android:languageTag="kk"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=russian,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -612,7 +612,7 @@
             android:imeSubtypeLocale="ky"
             android:languageTag="ky"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=russian,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -656,7 +656,7 @@
             android:imeSubtypeLocale="mk"
             android:languageTag="mk"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=mk,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=macedonian,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -782,7 +782,7 @@
             android:imeSubtypeLocale="ru"
             android:languageTag="ru"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=ru,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=russian,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <!-- TODO: This Sinhala keyboard is a preliminary layout.
@@ -821,7 +821,7 @@
             android:imeSubtypeLocale="sr"
             android:languageTag="sr"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=sr,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=serbian,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <!-- This Serbian Latin keyboard is a preliminary layout.
@@ -925,7 +925,7 @@
             android:imeSubtypeLocale="uk"
             android:languageTag="uk"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=uk,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ukrainian,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
