@@ -95,7 +95,7 @@ public class InlineAutofillUtils {
         final Size min = new Size(100, height);
         final Size max = new Size(740, height);
 
-        // Three InlinePresentationSpec is required for some password managers
+        // Three InlinePresentationSpec are required for some password managers
         final ArrayList<InlinePresentationSpec> presentationSpecs = new ArrayList<>();
         presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
         presentationSpecs.add(new InlinePresentationSpec.Builder(min, max).setStyle(stylesBundle).build());
