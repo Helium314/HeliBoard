@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ঙ ং %
 য য় %
 ড ঢ %

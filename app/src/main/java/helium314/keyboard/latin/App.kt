@@ -113,11 +113,11 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     }
     // change more_keys to popup_keys
     if (prefs.contains("more_keys_order")) {
-        prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")).apply()
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")?.replace("more_", "popup_")).apply()
         prefs.edit().remove("more_keys_order").apply()
     }
     if (prefs.contains("more_keys_labels_order")) {
-        prefs.edit().putString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")).apply()
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")?.replace("more_", "popup_")).apply()
         prefs.edit().remove("more_keys_labels_order").apply()
     }
     if (prefs.contains("more_more_keys")) {

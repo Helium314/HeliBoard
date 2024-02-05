@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 औ ऒं
 ऐ ऐं
 आ आं आँ

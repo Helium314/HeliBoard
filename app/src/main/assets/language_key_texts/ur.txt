@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 و ؤ
 ر ڑ
 ت ٹ

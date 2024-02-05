@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
-import helium314.keyboard.accessibility.MoreKeysKeyboardAccessibilityDelegate;
+import helium314.keyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate;
 import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.latin.R;
@@ -27,10 +27,10 @@ import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 
 /**
- * A view that renders a virtual {@link MoreKeysKeyboard}. It handles rendering of keys and
+ * A view that renders a virtual {@link PopupKeysKeyboard}. It handles rendering of keys and
  * detecting key presses and touch movements.
  */
-public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel {
+public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPanel {
     private final int[] mCoordinates = CoordinateUtils.newInstance();
 
     private final Drawable mDivider;
@@ -44,21 +44,21 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
 
     private int mActivePointerId;
 
-    protected MoreKeysKeyboardAccessibilityDelegate mAccessibilityDelegate;
+    protected PopupKeysKeyboardAccessibilityDelegate mAccessibilityDelegate;
 
-    public MoreKeysKeyboardView(final Context context, final AttributeSet attrs) {
-        this(context, attrs, R.attr.moreKeysKeyboardViewStyle);
+    public PopupKeysKeyboardView(final Context context, final AttributeSet attrs) {
+        this(context, attrs, R.attr.popupKeysKeyboardViewStyle);
     }
 
-    public MoreKeysKeyboardView(final Context context, final AttributeSet attrs,
-            final int defStyle) {
+    public PopupKeysKeyboardView(final Context context, final AttributeSet attrs,
+                                 final int defStyle) {
         super(context, attrs, defStyle);
-        final TypedArray moreKeysKeyboardViewAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.MoreKeysKeyboardView, defStyle, R.style.MoreKeysKeyboardView);
-        mDivider = moreKeysKeyboardViewAttr.getDrawable(R.styleable.MoreKeysKeyboardView_divider);
-        moreKeysKeyboardViewAttr.recycle();
-        mKeyDetector = new MoreKeysDetector(getResources().getDimension(
-                R.dimen.config_more_keys_keyboard_slide_allowance));
+        final TypedArray popupKeysKeyboardViewAttr = context.obtainStyledAttributes(attrs,
+                R.styleable.PopupKeysKeyboardView, defStyle, R.style.PopupKeysKeyboardView);
+        mDivider = popupKeysKeyboardViewAttr.getDrawable(R.styleable.PopupKeysKeyboardView_divider);
+        popupKeysKeyboardViewAttr.recycle();
+        mKeyDetector = new PopupKeysDetector(getResources().getDimension(
+                R.dimen.config_popup_keys_keyboard_slide_allowance));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
     @Override
     protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
             @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
-        if (!key.isSpacer() || !(key instanceof MoreKeysKeyboard.MoreKeyDivider)
+        if (!key.isSpacer() || !(key instanceof PopupKeysKeyboard.PopupKeyDivider)
                 || mDivider == null) {
             super.onDrawKeyTopVisuals(key, canvas, paint, params);
             return;
@@ -97,10 +97,10 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
                 keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
         if (AccessibilityUtils.Companion.getInstance().isAccessibilityEnabled()) {
             if (mAccessibilityDelegate == null) {
-                mAccessibilityDelegate = new MoreKeysKeyboardAccessibilityDelegate(
+                mAccessibilityDelegate = new PopupKeysKeyboardAccessibilityDelegate(
                         this, mKeyDetector);
-                mAccessibilityDelegate.setOpenAnnounce(R.string.spoken_open_more_keys_keyboard);
-                mAccessibilityDelegate.setCloseAnnounce(R.string.spoken_close_more_keys_keyboard);
+                mAccessibilityDelegate.setOpenAnnounce(R.string.spoken_open_popup_keys_keyboard);
+                mAccessibilityDelegate.setCloseAnnounce(R.string.spoken_close_popup_keys_keyboard);
             }
             mAccessibilityDelegate.setKeyboard(keyboard);
         } else {
@@ -112,25 +112,25 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
      * {@inheritDoc}
      */
     @Override
-    public void showMoreKeysPanel(final View parentView, final Controller controller,
+    public void showPopupKeysPanel(final View parentView, final Controller controller,
             final int pointX, final int pointY, final KeyboardActionListener listener) {
         mListener = listener;
         mKeyEventListener = null;
-        showMoreKeysPanelInternal(parentView, controller, pointX, pointY);
+        showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void showMoreKeysPanel(final View parentView, final Controller controller,
+    public void showPopupKeysPanel(final View parentView, final Controller controller,
             final int pointX, final int pointY, final OnKeyEventListener listener) {
         mListener = null;
         mKeyEventListener = listener;
-        showMoreKeysPanelInternal(parentView, controller, pointX, pointY);
+        showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
-    private void showMoreKeysPanelInternal(final View parentView, final Controller controller,
+    private void showPopupKeysPanelInternal(final View parentView, final Controller controller,
             final int pointX, final int pointY) {
         mController = controller;
         final View container = getContainerView();
@@ -150,11 +150,11 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
 
         mOriginX = x + container.getPaddingLeft();
         mOriginY = y + container.getPaddingTop();
-        controller.onShowMoreKeysPanel(this);
-        final MoreKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
+        controller.onShowPopupKeysPanel(this);
+        final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
                 && AccessibilityUtils.Companion.getInstance().isAccessibilityEnabled()) {
-            accessibilityDelegate.onShowMoreKeysKeyboard();
+            accessibilityDelegate.onShowPopupKeysKeyboard();
         }
     }
 
@@ -162,7 +162,7 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
      * Returns the default x coordinate for showing this panel.
      */
     protected int getDefaultCoordX() {
-        return ((MoreKeysKeyboard)getKeyboard()).getDefaultCoordX();
+        return ((PopupKeysKeyboard)getKeyboard()).getDefaultCoordX();
     }
 
     @Override
@@ -179,8 +179,8 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
         final boolean hasOldKey = (mCurrentKey != null);
         mCurrentKey = detectKey(x, y);
         if (hasOldKey && mCurrentKey == null) {
-            // A more keys keyboard is canceled when detecting no key.
-            mController.onCancelMoreKeysPanel();
+            // A popup keys keyboard is canceled when detecting no key.
+            mController.onCancelPopupKeysPanel();
         }
     }
 
@@ -249,16 +249,16 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
     }
 
     @Override
-    public void dismissMoreKeysPanel() {
+    public void dismissPopupKeysPanel() {
         if (!isShowingInParent()) {
             return;
         }
-        final MoreKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
+        final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
                 && AccessibilityUtils.Companion.getInstance().isAccessibilityEnabled()) {
-            accessibilityDelegate.onDismissMoreKeysKeyboard();
+            accessibilityDelegate.onDismissPopupKeysKeyboard();
         }
-        mController.onDismissMoreKeysPanel();
+        mController.onDismissPopupKeysPanel();
     }
 
     @Override
@@ -300,7 +300,7 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
      */
     @Override
     public boolean onHoverEvent(final MotionEvent event) {
-        final MoreKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
+        final PopupKeysKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
                 && AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled()) {
             return accessibilityDelegate.onHoverEvent(event);

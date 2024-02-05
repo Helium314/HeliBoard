@@ -508,11 +508,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
-    public static int readMoreMoreKeysPref(final SharedPreferences prefs) {
+    public static int readMorePopupKeysPref(final SharedPreferences prefs) {
         return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "normal")) {
-            case "all" -> LocaleKeyTextsKt.MORE_KEYS_ALL;
-            case "more" -> LocaleKeyTextsKt.MORE_KEYS_MORE;
-            default -> LocaleKeyTextsKt.MORE_KEYS_NORMAL;
+            case "all" -> LocaleKeyTextsKt.POPUP_KEYS_ALL;
+            case "more" -> LocaleKeyTextsKt.POPUP_KEYS_MORE;
+            default -> LocaleKeyTextsKt.POPUP_KEYS_NORMAL;
         };
     }
 

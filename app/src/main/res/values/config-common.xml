@@ -33,7 +33,7 @@
     <integer name="config_min_longpress_timeout">100</integer>
     <integer name="config_longpress_timeout_step">10</integer>
     <integer name="config_accessibility_long_press_key_timeout">3000</integer>
-    <integer name="config_max_more_keys_column">5</integer>
+    <integer name="config_max_popup_keys_column">5</integer>
 
     <!-- Long pressing shift will invoke caps-lock if > 0, never invoke caps-lock if == 0 -->
     <integer name="config_longpress_shift_lock_timeout">1200</integer>
@@ -90,7 +90,7 @@
     <fraction name="config_center_suggestion_percentile">36%</fraction>
     <integer name="config_delay_in_milliseconds_to_update_suggestions">100</integer>
 
-    <!-- Common more suggestions configuraion. -->
+    <!-- Common more suggestions configuration. -->
     <dimen name="config_more_suggestions_key_horizontal_padding">12dp</dimen>
     <dimen name="config_more_suggestions_bottom_gap">6dp</dimen>
     <dimen name="config_more_suggestions_modal_tolerance">32.0dp</dimen>

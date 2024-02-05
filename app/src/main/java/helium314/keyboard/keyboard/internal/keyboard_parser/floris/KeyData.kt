@@ -16,7 +16,7 @@ import helium314.keyboard.latin.common.StringUtils
 
 // taken from FlorisBoard, small modifications
 //  popup not nullable (maybe change back, but currently that's necessary for number keys)
-//  added getLabel for creating moreKeys from popups (which may be abstract)
+//  added getLabel for creating popup keys from popups (which may be abstract)
 //  added toKeyParams for non-abstract KeyData
 //  compute is using KeyboardParams (for shift state and variation)
 //  char_width_selector and kana_selector throw an error (not yet supported)

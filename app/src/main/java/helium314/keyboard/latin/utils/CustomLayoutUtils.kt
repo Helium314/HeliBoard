@@ -14,7 +14,7 @@ import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.JsonKeyboardParser
-import helium314.keyboard.keyboard.internal.keyboard_parser.MORE_KEYS_NORMAL
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
@@ -75,8 +75,8 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
 private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     val params = KeyboardParams()
     params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
-    params.mMoreKeyTypes.add(MORE_KEYS_LAYOUT)
-    addLocaleKeyTextsToParams(context, params, MORE_KEYS_NORMAL)
+    params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
+    addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
     try {
         val keys = JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
         if (!checkKeys(keys))
@@ -109,11 +109,11 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too long text on key")
         return false
     }
-    if (keys.any { it.any { (it.mMoreKeys?.size ?: 0) > 20 } }) {
+    if (keys.any { it.any { (it.mPopupKeys?.size ?: 0) > 20 } }) {
         Log.w(TAG, "too many popup keys on a key")
         return false
     }
-    if (keys.any { it.any { it.mMoreKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
+    if (keys.any { it.any { it.mPopupKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
         Log.w(TAG, "too long text on popup key")
         return false
     }
@@ -161,7 +161,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
         }
         .setNegativeButton(android.R.string.cancel, null)
     if (isSymbols) {
-        val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.more_keys_symbols)
+        val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.popup_keys_symbols)
         if (file.exists()) {
             builder.setNeutralButton(R.string.delete) { _, _ ->
                 confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete)) {

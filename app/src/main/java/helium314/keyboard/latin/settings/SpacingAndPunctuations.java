@@ -9,12 +9,11 @@ package helium314.keyboard.latin.settings;
 import android.content.res.Resources;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
-import helium314.keyboard.keyboard.internal.MoreKeySpec;
+import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.PunctuationSuggestions;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
-import helium314.keyboard.latin.common.StringUtilsKt;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -57,7 +56,7 @@ public final class SpacingAndPunctuations {
         // English variants. German rules (not "German typography") also have small gotchas.
         mUsesAmericanTypography = Locale.ENGLISH.getLanguage().equals(locale.getLanguage());
         mUsesGermanRules = Locale.GERMAN.getLanguage().equals(locale.getLanguage());
-        final String[] suggestPuncsSpec = MoreKeySpec.splitKeySpecs(
+        final String[] suggestPuncsSpec = PopupKeySpec.splitKeySpecs(
                 res.getString(R.string.suggested_punctuations));
         mSuggestPuncList = PunctuationSuggestions.newPunctuationSuggestions(suggestPuncsSpec);
     }

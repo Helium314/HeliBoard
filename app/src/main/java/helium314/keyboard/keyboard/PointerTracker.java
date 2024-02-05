@@ -139,8 +139,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // true if this pointer is no longer triggering any action because it has been canceled.
     private boolean mIsTrackingForActionDisabled;
 
-    // the more keys panel currently being shown. equals null if no panel is active.
-    private MoreKeysPanel mMoreKeysPanel;
+    // the popup keys panel currently being shown. equals null if no panel is active.
+    private PopupKeysPanel mPopupKeysPanel;
 
     private static final int MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT = 3;
     // true if this pointer is in the dragging finger mode.
@@ -231,11 +231,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    public static void dismissAllMoreKeysPanels() {
+    public static void dismissAllPopupKeysPanels() {
         final int trackersSize = sTrackers.size();
         for (int i = 0; i < trackersSize; ++i) {
             final PointerTracker tracker = sTrackers.get(i);
-            tracker.dismissMoreKeysPanel();
+            tracker.dismissPopupKeysPanel();
         }
     }
 
@@ -521,7 +521,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             Log.d(TAG, String.format(Locale.US, "[%d] onStartBatchInput", mPointerId));
         }
         sListener.onStartBatchInput();
-        dismissAllMoreKeysPanels();
+        dismissAllPopupKeysPanels();
         sTimerProxy.cancelLongPressTimersOf(this);
     }
 
@@ -585,10 +585,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int action = me.getActionMasked();
         final long eventTime = me.getEventTime();
         if (action == MotionEvent.ACTION_MOVE) {
-            // When this pointer is the only active pointer and is showing a more keys panel,
+            // When this pointer is the only active pointer and is showing a popup keys panel,
             // we should ignore other pointers' motion event.
             final boolean shouldIgnoreOtherPointers =
-                    isShowingMoreKeysPanel() && getActivePointerTrackerCount() == 1;
+                    isShowingPopupKeysPanel() && getActivePointerTrackerCount() == 1;
             final int pointerCount = me.getPointerCount();
             for (int index = 0; index < pointerCount; index++) {
                 final int id = me.getPointerId(index);
@@ -661,14 +661,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    /* package */ boolean isShowingMoreKeysPanel() {
-        return (mMoreKeysPanel != null);
+    /* package */ boolean isShowingPopupKeysPanel() {
+        return (mPopupKeysPanel != null);
     }
 
-    private void dismissMoreKeysPanel() {
-        if (isShowingMoreKeysPanel()) {
-            mMoreKeysPanel.dismissMoreKeysPanel();
-            mMoreKeysPanel = null;
+    private void dismissPopupKeysPanel() {
+        if (isShowingPopupKeysPanel()) {
+            mPopupKeysPanel.dismissPopupKeysPanel();
+            mPopupKeysPanel = null;
         }
     }
 
@@ -677,7 +677,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Key selection by dragging finger is allowed when 1) key selection by dragging finger is
         // enabled by configuration, 2) this pointer starts dragging from modifier key, or 3) this
         // pointer's KeyDetector always allows key selection by dragging finger, such as
-        // {@link MoreKeysKeyboard}.
+        // {@link PopupKeysKeyboard}.
         mIsAllowedDraggingFinger = sParams.mKeySelectionByDraggingFinger
                 || (key != null && key.isModifier())
                 || mKeyDetector.alwaysAllowsKeySelectionByDraggingFinger();
@@ -733,9 +733,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         mGestureStrokeDrawingPoints.onMoveEvent(
                 x, y, mBatchInputArbiter.getElapsedTimeSinceFirstDown(eventTime));
-        // If the MoreKeysPanel is showing then do not attempt to enter gesture mode. However,
+        // If the PopupKeysPanel is showing then do not attempt to enter gesture mode. However,
         // the gestured touch points are still being recorded in case the panel is dismissed.
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingPopupKeysPanel()) {
             return;
         }
         if (!sInGesture && key != null && Character.isLetter(key.getCode())
@@ -770,10 +770,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
         }
 
-        if (isShowingMoreKeysPanel()) {
-            final int translatedX = mMoreKeysPanel.translateX(x);
-            final int translatedY = mMoreKeysPanel.translateY(y);
-            mMoreKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
+        if (isShowingPopupKeysPanel()) {
+            final int translatedX = mPopupKeysPanel.translateX(x);
+            final int translatedY = mPopupKeysPanel.translateY(y);
+            mPopupKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
             onMoveKey(x, y);
             if (mIsInSlidingKeyInput) {
                 sDrawingProxy.showSlidingKeyInputPreview(this);
@@ -1027,13 +1027,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             sListener.onUpWithDeletePointerActive();
         }
 
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingPopupKeysPanel()) {
             if (!mIsTrackingForActionDisabled) {
-                final int translatedX = mMoreKeysPanel.translateX(x);
-                final int translatedY = mMoreKeysPanel.translateY(y);
-                mMoreKeysPanel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
+                final int translatedX = mPopupKeysPanel.translateX(x);
+                final int translatedY = mPopupKeysPanel.translateY(y);
+                mPopupKeysPanel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
             }
-            dismissMoreKeysPanel();
+            dismissPopupKeysPanel();
             if (isInSlidingKeyInput)
                 callListenerOnFinishSlidingInput();
             return;
@@ -1072,7 +1072,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     @Override
     public void cancelTrackingForAction() {
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingPopupKeysPanel()) {
             return;
         }
         mIsTrackingForActionDisabled = true;
@@ -1084,7 +1084,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     public void onLongPressed() {
         sTimerProxy.cancelLongPressTimersOf(this);
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingPopupKeysPanel()) {
             return;
         }
         if(mCursorMoved) {
@@ -1094,12 +1094,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (key == null) {
             return;
         }
-        if (key.hasNoPanelAutoMoreKey()) {
+        if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
-            final int moreKeyCode = key.getMoreKeys()[0].mCode;
-            sListener.onPressKey(moreKeyCode, 0, true);
-            sListener.onCodeInput(moreKeyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-            sListener.onReleaseKey(moreKeyCode, false);
+            final int popupKeyCode = key.getPopupKeys()[0].mCode;
+            sListener.onPressKey(popupKeyCode, 0, true);
+            sListener.onCodeInput(popupKeyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            sListener.onReleaseKey(popupKeyCode, false);
             return;
         }
         final int code = key.getCode();
@@ -1119,14 +1119,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
 
         setReleasedKeyGraphics(key, false);
-        final MoreKeysPanel moreKeysPanel = sDrawingProxy.showMoreKeysKeyboard(key, this);
-        if (moreKeysPanel == null) {
+        final PopupKeysPanel popupKeysPanel = sDrawingProxy.showPopupKeysKeyboard(key, this);
+        if (popupKeysPanel == null) {
             return;
         }
-        final int translatedX = moreKeysPanel.translateX(mLastX);
-        final int translatedY = moreKeysPanel.translateY(mLastY);
-        moreKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
-        mMoreKeysPanel = moreKeysPanel;
+        final int translatedX = popupKeysPanel.translateX(mLastX);
+        final int translatedY = popupKeysPanel.translateY(mLastY);
+        popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
+        mPopupKeysPanel = popupKeysPanel;
     }
 
     private void cancelKeyTracking() {
@@ -1151,7 +1151,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         sTimerProxy.cancelKeyTimersOf(this);
         setReleasedKeyGraphics(mCurrentKey, true);
         resetKeySelectionByDraggingFinger();
-        dismissMoreKeysPanel();
+        dismissPopupKeysPanel();
     }
 
     private boolean isMajorEnoughMoveToBeOnNewKey(final int x, final int y, final long eventTime,
@@ -1195,11 +1195,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (key == null) return;
         if (!key.isLongPressEnabled()) return;
         // Caveat: Please note that isLongPressEnabled() can be true even if the current key
-        // doesn't have its more keys. (e.g. spacebar, globe key) If we are in the dragging finger
+        // doesn't have its popup keys. (e.g. spacebar, globe key) If we are in the dragging finger
         // mode, we will disable long press timer of such key.
-        // We always need to start the long press timer if the key has its more keys regardless of
+        // We always need to start the long press timer if the key has its popup keys regardless of
         // whether or not we are in the dragging finger mode.
-        if (mIsInDraggingFinger && key.getMoreKeys() == null) return;
+        if (mIsInDraggingFinger && key.getPopupKeys() == null) return;
 
         final int delay = getLongPressTimeout(key.getCode());
         if (delay <= 0) return;

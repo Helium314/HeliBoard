@@ -13,15 +13,15 @@ import androidx.annotation.NonNull;
 
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
-import helium314.keyboard.keyboard.internal.MoreKeySpec;
+import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
-public final class MoreKeysKeyboard extends Keyboard {
+public final class PopupKeysKeyboard extends Keyboard {
     private final int mDefaultKeyCoordX;
 
-    MoreKeysKeyboard(final MoreKeysKeyboardParams params) {
+    PopupKeysKeyboard(final PopupKeysKeyboardParams params) {
         super(params);
         mDefaultKeyCoordX = params.getDefaultKeyCoordX() + params.mDefaultKeyWidth / 2;
     }
@@ -30,8 +30,8 @@ public final class MoreKeysKeyboard extends Keyboard {
         return mDefaultKeyCoordX;
     }
 
-    static class MoreKeysKeyboardParams extends KeyboardParams {
-        public boolean mIsMoreKeysFixedOrder;
+    static class PopupKeysKeyboardParams extends KeyboardParams {
+        public boolean mIsPopupKeysFixedOrder;
         /* package */int mTopRowAdjustment;
         public int mNumRows;
         public int mNumColumns;
@@ -41,41 +41,41 @@ public final class MoreKeysKeyboard extends Keyboard {
         public int mDividerWidth;
         public int mColumnWidth;
 
-        public MoreKeysKeyboardParams() {
+        public PopupKeysKeyboardParams() {
             super();
         }
 
         /**
-         * Set keyboard parameters of more keys keyboard.
+         * Set keyboard parameters of popup keys keyboard.
          *
-         * @param numKeys number of keys in this more keys keyboard.
-         * @param numColumn number of columns of this more keys keyboard.
-         * @param keyWidth more keys keyboard key width in pixel, including horizontal gap.
-         * @param rowHeight more keys keyboard row height in pixel, including vertical gap.
+         * @param numKeys number of keys in this popup keys keyboard.
+         * @param numColumn number of columns of this popup keys keyboard.
+         * @param keyWidth popup keys keyboard key width in pixel, including horizontal gap.
+         * @param rowHeight popup keys keyboard row height in pixel, including vertical gap.
          * @param coordXInParent coordinate x of the key preview in parent keyboard.
          * @param parentKeyboardWidth parent keyboard width in pixel.
-         * @param isMoreKeysFixedColumn true if more keys keyboard should have
-         *   <code>numColumn</code> columns. Otherwise more keys keyboard should have
+         * @param isPopupKeysFixedColumn true if popup keys keyboard should have
+         *   <code>numColumn</code> columns. Otherwise popup keys keyboard should have
          *   <code>numColumn</code> columns at most.
-         * @param isMoreKeysFixedOrder true if the order of more keys is determined by the order in
-         *   the more keys' specification. Otherwise the order of more keys is automatically
+         * @param isPopupKeysFixedOrder true if the order of popup keys is determined by the order in
+         *   the popup keys' specification. Otherwise the order of popup keys is automatically
          *   determined.
          * @param dividerWidth width of divider, zero for no dividers.
          */
         public void setParameters(final int numKeys, final int numColumn, final int keyWidth,
                 final int rowHeight, final int coordXInParent, final int parentKeyboardWidth,
-                final boolean isMoreKeysFixedColumn, final boolean isMoreKeysFixedOrder,
+                final boolean isPopupKeysFixedColumn, final boolean isPopupKeysFixedOrder,
                 final int dividerWidth) {
-            mIsMoreKeysFixedOrder = isMoreKeysFixedOrder;
+            mIsPopupKeysFixedOrder = isPopupKeysFixedOrder;
             if (parentKeyboardWidth / keyWidth < Math.min(numKeys, numColumn)) {
-                throw new IllegalArgumentException("Keyboard is too small to hold more keys: "
+                throw new IllegalArgumentException("Keyboard is too small to hold popup keys: "
                         + parentKeyboardWidth + " " + keyWidth + " " + numKeys + " " + numColumn);
             }
             mDefaultKeyWidth = keyWidth;
             mDefaultRowHeight = rowHeight;
 
             mNumRows = (numKeys + numColumn - 1) / numColumn;
-            final int numColumns = isMoreKeysFixedColumn ? Math.min(numKeys, numColumn)
+            final int numColumns = isPopupKeysFixedColumn ? Math.min(numKeys, numColumn)
                     : getOptimizedColumns(numKeys, numColumn);
             mNumColumns = numColumns;
             final int topKeys = numKeys % numColumns;
@@ -97,13 +97,13 @@ public final class MoreKeysKeyboard extends Keyboard {
                 leftKeys = numLeftKeys;
                 rightKeys = numRightKeys;
             }
-            // If the left keys fill the left side of the parent key, entire more keys keyboard
+            // If the left keys fill the left side of the parent key, entire popup keys keyboard
             // should be shifted to the right unless the parent key is on the left edge.
             if (maxLeftKeys == leftKeys && leftKeys > 0) {
                 leftKeys--;
                 rightKeys++;
             }
-            // If the right keys fill the right side of the parent key, entire more keys
+            // If the right keys fill the right side of the parent key, entire popup keys
             // should be shifted to the left unless the parent key is on the right edge.
             if (maxRightKeys == rightKeys - 1 && rightKeys > 1) {
                 leftKeys++;
@@ -113,7 +113,7 @@ public final class MoreKeysKeyboard extends Keyboard {
             mRightKeys = rightKeys;
 
             // Adjustment of the top row.
-            mTopRowAdjustment = isMoreKeysFixedOrder ? getFixedOrderTopRowAdjustment()
+            mTopRowAdjustment = isPopupKeysFixedOrder ? getFixedOrderTopRowAdjustment()
                     : getAutoOrderTopRowAdjustment();
             mDividerWidth = dividerWidth;
             mColumnWidth = mDefaultKeyWidth + mDividerWidth;
@@ -141,7 +141,7 @@ public final class MoreKeysKeyboard extends Keyboard {
 
         // Return key position according to column count (0 is default).
         /* package */int getColumnPos(final int n) {
-            return mIsMoreKeysFixedOrder ? getFixedOrderColumnPos(n) : getAutomaticColumnPos(n);
+            return mIsPopupKeysFixedOrder ? getFixedOrderColumnPos(n) : getAutomaticColumnPos(n);
         }
 
         private int getFixedOrderColumnPos(final int n) {
@@ -242,42 +242,42 @@ public final class MoreKeysKeyboard extends Keyboard {
         }
     }
 
-    public static class Builder extends KeyboardBuilder<MoreKeysKeyboardParams> {
+    public static class Builder extends KeyboardBuilder<PopupKeysKeyboardParams> {
         private final Key mParentKey;
 
         private static final float LABEL_PADDING_RATIO = 0.2f;
         private static final float DIVIDER_RATIO = 0.2f;
 
         /**
-         * The builder of MoreKeysKeyboard.
-         * @param context the context of {@link MoreKeysKeyboardView}.
-         * @param key the {@link Key} that invokes more keys keyboard.
+         * The builder of PopupKeysKeyboard.
+         * @param context the context of {@link PopupKeysKeyboardView}.
+         * @param key the {@link Key} that invokes popup keys keyboard.
          * @param keyboard the {@link Keyboard} that contains the parentKey.
-         * @param isSingleMoreKeyWithPreview true if the <code>key</code> has just a single
-         *        "more key" and its key popup preview is enabled.
+         * @param isSinglePopupKeyWithPreview true if the <code>key</code> has just a single
+         *        "popup key" and its key popup preview is enabled.
          * @param keyPreviewVisibleWidth the width of visible part of key popup preview.
          * @param keyPreviewVisibleHeight the height of visible part of key popup preview
-         * @param paintToMeasure the {@link Paint} object to measure a "more key" width
+         * @param paintToMeasure the {@link Paint} object to measure a "popup key" width
          */
         public Builder(final Context context, final Key key, final Keyboard keyboard,
-                final boolean isSingleMoreKeyWithPreview, final int keyPreviewVisibleWidth,
+                final boolean isSinglePopupKeyWithPreview, final int keyPreviewVisibleWidth,
                 final int keyPreviewVisibleHeight, final Paint paintToMeasure) {
-            super(context, new MoreKeysKeyboardParams());
+            super(context, new PopupKeysKeyboardParams());
             mParams.mId = keyboard.mId;
-            readAttributes(keyboard.mMoreKeysTemplate);
+            readAttributes(keyboard.mPopupKeysTemplate);
 
-            // TODO: More keys keyboard's vertical gap is currently calculated heuristically.
+            // TODO: Popup keys keyboard's vertical gap is currently calculated heuristically.
             // Should revise the algorithm.
             mParams.mVerticalGap = keyboard.mVerticalGap / 2;
-            // This {@link MoreKeysKeyboard} is invoked from the <code>key</code>.
+            // This {@link PopupKeysKeyboard} is invoked from the <code>key</code>.
             mParentKey = key;
 
             final int keyWidth, rowHeight;
-            if (isSingleMoreKeyWithPreview) {
-                // Use pre-computed width and height if this more keys keyboard has only one key to
-                // mitigate visual flicker between key preview and more keys keyboard.
+            if (isSinglePopupKeyWithPreview) {
+                // Use pre-computed width and height if this popup keys keyboard has only one key to
+                // mitigate visual flicker between key preview and popup keys keyboard.
                 // Caveats for the visual assets: To achieve this effect, both the key preview
-                // backgrounds and the more keys keyboard panel background have the exact same
+                // backgrounds and the popup keys keyboard panel background have the exact same
                 // left/right/top paddings. The bottom paddings of both backgrounds don't need to
                 // be considered because the vertical positions of both backgrounds were already
                 // adjusted with their bottom paddings deducted.
@@ -285,33 +285,33 @@ public final class MoreKeysKeyboard extends Keyboard {
                 rowHeight = keyPreviewVisibleHeight + mParams.mVerticalGap;
             } else {
                 final float padding = context.getResources().getDimension(
-                        R.dimen.config_more_keys_keyboard_key_horizontal_padding)
-                        + (key.hasLabelsInMoreKeys()
+                        R.dimen.config_popup_keys_keyboard_key_horizontal_padding)
+                        + (key.hasLabelsInPopupKeys()
                                 ? mParams.mDefaultKeyWidth * LABEL_PADDING_RATIO : 0.0f);
                 keyWidth = getMaxKeyWidth(key, mParams.mDefaultKeyWidth, padding, paintToMeasure);
                 rowHeight = keyboard.mMostCommonKeyHeight;
             }
             final int dividerWidth;
-            if (key.needsDividersInMoreKeys()) {
+            if (key.needsDividersInPopupKeys()) {
                 dividerWidth = (int)(keyWidth * DIVIDER_RATIO);
             } else {
                 dividerWidth = 0;
             }
-            final MoreKeySpec[] moreKeys = key.getMoreKeys();
-            final int defaultColumns = key.getMoreKeysColumnNumber();
+            final PopupKeySpec[] popupKeys = key.getPopupKeys();
+            final int defaultColumns = key.getPopupKeysColumnNumber();
             final int spaceForKeys = keyboard.mId.mWidth / keyWidth;
-            final int finalNumColumns = spaceForKeys >= Math.min(moreKeys.length, defaultColumns)
+            final int finalNumColumns = spaceForKeys >= Math.min(popupKeys.length, defaultColumns)
                     ? defaultColumns
                     : (spaceForKeys > 0 ? spaceForKeys : defaultColumns); // in last case setParameters will throw an exception
-            mParams.setParameters(moreKeys.length, finalNumColumns, keyWidth,
+            mParams.setParameters(popupKeys.length, finalNumColumns, keyWidth,
                     rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.mWidth,
-                    key.isMoreKeysFixedColumn(), key.isMoreKeysFixedOrder(), dividerWidth);
+                    key.isPopupKeysFixedColumn(), key.isPopupKeysFixedOrder(), dividerWidth);
         }
 
         private static int getMaxKeyWidth(final Key parentKey, final int minKeyWidth,
                 final float padding, final Paint paint) {
             int maxWidth = minKeyWidth;
-            for (final MoreKeySpec spec : parentKey.getMoreKeys()) {
+            for (final PopupKeySpec spec : parentKey.getPopupKeys()) {
                 final String label = spec.mLabel;
                 // If the label is single letter, minKeyWidth is enough to hold the label.
                 if (label != null && StringUtils.codePointCount(label) > 1) {
@@ -324,16 +324,16 @@ public final class MoreKeysKeyboard extends Keyboard {
 
         @Override
         @NonNull
-        public MoreKeysKeyboard build() {
-            final MoreKeysKeyboardParams params = mParams;
-            final int moreKeyFlags = mParentKey.getMoreKeyLabelFlags();
-            final MoreKeySpec[] moreKeys = mParentKey.getMoreKeys();
-            for (int n = 0; n < moreKeys.length; n++) {
-                final MoreKeySpec moreKeySpec = moreKeys[n];
+        public PopupKeysKeyboard build() {
+            final PopupKeysKeyboardParams params = mParams;
+            final int popupKeyFlags = mParentKey.getPopupKeyLabelFlags();
+            final PopupKeySpec[] popupKeys = mParentKey.getPopupKeys();
+            for (int n = 0; n < popupKeys.length; n++) {
+                final PopupKeySpec popupKeySpec = popupKeys[n];
                 final int row = n / params.mNumColumns;
                 final int x = params.getX(n, row);
                 final int y = params.getY(row);
-                final Key key = moreKeySpec.buildKey(x, y, moreKeyFlags, params);
+                final Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, params);
                 params.markAsEdgeKey(key, row);
                 params.onAddKey(key);
 
@@ -343,18 +343,18 @@ public final class MoreKeysKeyboard extends Keyboard {
                 if (params.mDividerWidth > 0 && pos != 0) {
                     final int dividerX = (pos > 0) ? x - params.mDividerWidth
                             : x + params.mDefaultKeyWidth;
-                    final Key divider = new MoreKeyDivider(
+                    final Key divider = new PopupKeyDivider(
                             params, dividerX, y, params.mDividerWidth, params.mDefaultRowHeight);
                     params.onAddKey(divider);
                 }
             }
-            return new MoreKeysKeyboard(params);
+            return new PopupKeysKeyboard(params);
         }
     }
 
-    // Used as a divider maker. A divider is drawn by {@link MoreKeysKeyboardView}.
-    public static class MoreKeyDivider extends Key.Spacer {
-        public MoreKeyDivider(final KeyboardParams params, final int x, final int y,
+    // Used as a divider maker. A divider is drawn by {@link PopupKeysKeyboardView}.
+    public static class PopupKeyDivider extends Key.Spacer {
+        public PopupKeyDivider(final KeyboardParams params, final int x, final int y,
                 final int width, final int height) {
             super(params, x, y, width, height);
         }

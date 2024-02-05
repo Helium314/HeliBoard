@@ -23,48 +23,48 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import java.util.Collections
 
-const val MORE_KEYS_NUMBER = "more_keys_number"
-private const val MORE_KEYS_LANGUAGE_PRIORITY = "more_keys_language_priority"
-const val MORE_KEYS_LAYOUT = "more_keys_layout"
-private const val MORE_KEYS_SYMBOLS = "more_keys_symbols"
-private const val MORE_KEYS_LANGUAGE = "more_keys_language"
-const val MORE_KEYS_LABEL_DEFAULT = "$MORE_KEYS_NUMBER,true;$MORE_KEYS_LANGUAGE_PRIORITY,false;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LANGUAGE,false"
-const val MORE_KEYS_ORDER_DEFAULT = "$MORE_KEYS_LANGUAGE_PRIORITY,true;$MORE_KEYS_NUMBER,true;$MORE_KEYS_SYMBOLS,true;$MORE_KEYS_LAYOUT,true;$MORE_KEYS_LANGUAGE,true"
+const val POPUP_KEYS_NUMBER = "popup_keys_number"
+private const val POPUP_KEYS_LANGUAGE_PRIORITY = "popup_keys_language_priority"
+const val POPUP_KEYS_LAYOUT = "popup_keys_layout"
+private const val POPUP_KEYS_SYMBOLS = "popup_keys_symbols"
+private const val POPUP_KEYS_LANGUAGE = "popup_keys_language"
+const val POPUP_KEYS_LABEL_DEFAULT = "$POPUP_KEYS_NUMBER,true;$POPUP_KEYS_LANGUAGE_PRIORITY,false;$POPUP_KEYS_LAYOUT,true;$POPUP_KEYS_SYMBOLS,true;$POPUP_KEYS_LANGUAGE,false"
+const val POPUP_KEYS_ORDER_DEFAULT = "$POPUP_KEYS_LANGUAGE_PRIORITY,true;$POPUP_KEYS_NUMBER,true;$POPUP_KEYS_SYMBOLS,true;$POPUP_KEYS_LAYOUT,true;$POPUP_KEYS_LANGUAGE,true"
 
-private val allMoreKeyTypes = listOf(MORE_KEYS_NUMBER, MORE_KEYS_LAYOUT, MORE_KEYS_SYMBOLS, MORE_KEYS_LANGUAGE, MORE_KEYS_LANGUAGE_PRIORITY)
+private val allPopupKeyTypes = listOf(POPUP_KEYS_NUMBER, POPUP_KEYS_LAYOUT, POPUP_KEYS_SYMBOLS, POPUP_KEYS_LANGUAGE, POPUP_KEYS_LANGUAGE_PRIORITY)
 
-fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): Array<String>? {
-    // often moreKeys are empty, so we want to avoid unnecessarily creating sets
-    val moreKeysDelegate = lazy { mutableSetOf<String>() }
-    val moreKeys by moreKeysDelegate
-    val types = if (params.mId.isAlphabetKeyboard) params.mMoreKeyTypes else allMoreKeyTypes
+fun createPopupKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): Array<String>? {
+    // often PopupKeys are empty, so we want to avoid unnecessarily creating sets
+    val popupKeysDelegate = lazy { mutableSetOf<String>() }
+    val popupKeys by popupKeysDelegate
+    val types = if (params.mId.isAlphabetKeyboard) params.mPopupKeyTypes else allPopupKeyTypes
     types.forEach { type ->
         when (type) {
-            MORE_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { moreKeys.add(it) }
-            MORE_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { moreKeys.addAll(it) }
-            MORE_KEYS_SYMBOLS -> popupSet?.symbol?.let { moreKeys.add(it) }
-            MORE_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getMoreKeys(label)?.let { moreKeys.addAll(it) }
-            MORE_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityMoreKeys(label)?.let { moreKeys.addAll(it) }
+            POPUP_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { popupKeys.add(it) }
+            POPUP_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { popupKeys.addAll(it) }
+            POPUP_KEYS_SYMBOLS -> popupSet?.symbol?.let { popupKeys.add(it) }
+            POPUP_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getPopupKeys(label)?.let { popupKeys.addAll(it) }
+            POPUP_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityPopupKeys(label)?.let { popupKeys.addAll(it) }
         }
     }
-    if (!moreKeysDelegate.isInitialized() || moreKeys.isEmpty())
+    if (!popupKeysDelegate.isInitialized() || popupKeys.isEmpty())
         return null
-    val fco = moreKeys.firstOrNull { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
-    if (fco != null && fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != moreKeys.size - 1) {
-        val fcoExpected = moreKeys.size - moreKeys.count { it.startsWith("!") && it.endsWith("!") } - 1
-        if (fco.substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != fcoExpected)
-            moreKeys.remove(fco) // maybe rather adjust the number instead of remove?
+    val fco = popupKeys.firstOrNull { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
+    if (fco != null && fco.substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != popupKeys.size - 1) {
+        val fcoExpected = popupKeys.size - popupKeys.count { it.startsWith("!") && it.endsWith("!") } - 1
+        if (fco.substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull() != fcoExpected)
+            popupKeys.remove(fco) // maybe rather adjust the number instead of remove?
     }
-    if (moreKeys.size > 1 && (label == "(" || label == ")")) { // add fixed column order for that case (typically other variants of brackets / parentheses
+    if (popupKeys.size > 1 && (label == "(" || label == ")")) { // add fixed column order for that case (typically other variants of brackets / parentheses
         // not really fast, but no other way to add first in a LinkedHashSet
-        val tmp = moreKeys.toList()
-        moreKeys.clear()
-        moreKeys.add("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${tmp.size}")
-        moreKeys.addAll(tmp)
+        val tmp = popupKeys.toList()
+        popupKeys.clear()
+        popupKeys.add("${Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${tmp.size}")
+        popupKeys.addAll(tmp)
     }
     // autoColumnOrder should be fine
 
-    val array = moreKeys.toTypedArray()
+    val array = popupKeys.toTypedArray()
     for (i in array.indices) {
         array[i] = transformLabel(array[i], params)
     }
@@ -73,13 +73,13 @@ fun createMoreKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: S
 
 fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String): String? {
     var hintLabel: String? = null
-    for (type in params.mMoreKeyLabelSources) {
+    for (type in params.mPopupKeyLabelSources) {
         when (type) {
-            MORE_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { hintLabel = it }
-            MORE_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { hintLabel = it.firstOrNull() }
-            MORE_KEYS_SYMBOLS -> popupSet?.symbol?.let { hintLabel = it }
-            MORE_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getMoreKeys(label)?.let { hintLabel = it.firstOrNull() }
-            MORE_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityMoreKeys(label)?.let { hintLabel = it.firstOrNull() }
+            POPUP_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { hintLabel = it }
+            POPUP_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { hintLabel = it.firstOrNull() }
+            POPUP_KEYS_SYMBOLS -> popupSet?.symbol?.let { hintLabel = it }
+            POPUP_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
+            POPUP_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
         }
         if (hintLabel != null) break
     }
@@ -98,8 +98,8 @@ private fun transformLabel(label: String, params: KeyboardParams): String =
         label.rtlLabel(params)
     } else label
 
-/** returns a list of enabled more keys for pref [key] */
-fun getEnabledMoreKeys(prefs: SharedPreferences, key: String, defaultSetting: String): List<String> {
+/** returns a list of enabled popup keys for pref [key] */
+fun getEnabledPopupKeys(prefs: SharedPreferences, key: String, defaultSetting: String): List<String> {
     return prefs.getString(key, defaultSetting)?.split(";")?.mapNotNull {
         val split = it.split(",")
         if (split.last() == "true") split.first() else null
@@ -107,10 +107,10 @@ fun getEnabledMoreKeys(prefs: SharedPreferences, key: String, defaultSetting: St
 }
 
 /**
- *  show a dialog that allows re-ordering and dis/enabling the more keys list for the pref [key]
- *  see e.g. [MORE_KEYS_LABEL_DEFAULT] for the internally used format
+ *  show a dialog that allows re-ordering and dis/enabling the popup keys list for the pref [key]
+ *  see e.g. [POPUP_KEYS_LABEL_DEFAULT] for the internally used format
  */
-fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String, title: Int) {
+fun reorderPopupKeysDialog(context: Context, key: String, defaultSetting: String, title: Int) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val orderedItems = prefs.getString(key, defaultSetting)!!.split(";").mapTo(ArrayList()) {
         val both = it.split(",")
@@ -127,7 +127,7 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
     val bgColor = ContextCompat.getColor(context, R.color.sliding_items_background)
     val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
-            val b = LayoutInflater.from(context).inflate(R.layout.morekeys_list_item, rv, false)
+            val b = LayoutInflater.from(context).inflate(R.layout.popup_keys_list_item, rv, false)
             b.setBackgroundColor(bgColor)
             return object : RecyclerView.ViewHolder(b) { }
         }
@@ -135,10 +135,10 @@ fun reorderMoreKeysDialog(context: Context, key: String, defaultSetting: String,
             val (text, wasChecked) = orderedItems[p1]
             val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
             val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
-            p0.itemView.findViewById<TextView>(R.id.morekeys_type)?.text = displayText
-            val switch = p0.itemView.findViewById<Switch>(R.id.morekeys_switch)
+            p0.itemView.findViewById<TextView>(R.id.popup_keys_type)?.text = displayText
+            val switch = p0.itemView.findViewById<Switch>(R.id.popup_keys_switch)
             switch?.isChecked = wasChecked
-            switch?.isEnabled = !(key.contains(Settings.PREF_POPUP_KEYS_ORDER) && text == MORE_KEYS_LAYOUT) // layout can't be disabled
+            switch?.isEnabled = !(key.contains(Settings.PREF_POPUP_KEYS_ORDER) && text == POPUP_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->
                 val position = orderedItems.indexOfFirst { it.first == text }
                 orderedItems[position] = text to isChecked

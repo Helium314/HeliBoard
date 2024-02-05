@@ -22,18 +22,18 @@ import java.util.HashSet;
 import java.util.Locale;
 
 /**
- * The more key specification object. The more keys are an array of {@link MoreKeySpec}.
- *
- * The more keys specification is comma separated "key specification" each of which represents one
- * "more key".
+ * The popup key specification object. The popup keys are an array of {@link PopupKeySpec}.
+ * <p>
+ * The popup keys specification is comma separated "key specification" each of which represents one
+ * "popup key".
  * The key specification might have label or string resource reference in it. These references are
  * expanded before parsing comma.
  * Special character, comma ',' backslash '\' can be escaped by '\' character.
- * Note that the '\' is also parsed by XML parser and {@link MoreKeySpec#splitKeySpecs(String)}
+ * Note that the '\' is also parsed by XML parser and {@link PopupKeySpec#splitKeySpecs(String)}
  * as well.
  */
 // TODO: Should extend the key specification object.
-public final class MoreKeySpec {
+public final class PopupKeySpec {
     public final int mCode;
     @Nullable
     public final String mLabel;
@@ -41,14 +41,14 @@ public final class MoreKeySpec {
     public final String mOutputText;
     public final int mIconId;
 
-    public MoreKeySpec(@NonNull final String moreKeySpec, boolean needsToUpperCase,
-            @NonNull final Locale locale) {
-        if (moreKeySpec.isEmpty()) {
-            throw new KeySpecParser.KeySpecParserError("Empty more key spec");
+    public PopupKeySpec(@NonNull final String popupKeySpec, boolean needsToUpperCase,
+                        @NonNull final Locale locale) {
+        if (popupKeySpec.isEmpty()) {
+            throw new KeySpecParser.KeySpecParserError("Empty popup key spec");
         }
-        final String label = KeySpecParser.getLabel(moreKeySpec);
+        final String label = KeySpecParser.getLabel(popupKeySpec);
         mLabel = needsToUpperCase ? StringUtils.toTitleCaseOfKeyLabel(label, locale) : label;
-        final int codeInSpec = KeySpecParser.getCode(moreKeySpec);
+        final int codeInSpec = KeySpecParser.getCode(popupKeySpec);
         final int code = needsToUpperCase ? StringUtils.toTitleCaseOfKeyCode(codeInSpec, locale)
                 : codeInSpec;
         if (code == Constants.CODE_UNSPECIFIED) {
@@ -58,11 +58,11 @@ public final class MoreKeySpec {
             mOutputText = mLabel;
         } else {
             mCode = code;
-            final String outputText = KeySpecParser.getOutputText(moreKeySpec);
+            final String outputText = KeySpecParser.getOutputText(popupKeySpec);
             mOutputText = needsToUpperCase
                     ? StringUtils.toTitleCaseOfKeyLabel(outputText, locale) : outputText;
         }
-        mIconId = KeySpecParser.getIconId(moreKeySpec);
+        mIconId = KeySpecParser.getIconId(popupKeySpec);
     }
 
     @NonNull
@@ -89,8 +89,8 @@ public final class MoreKeySpec {
         if (this == o) {
             return true;
         }
-        if (o instanceof MoreKeySpec) {
-            final MoreKeySpec other = (MoreKeySpec)o;
+        if (o instanceof PopupKeySpec) {
+            final PopupKeySpec other = (PopupKeySpec)o;
             return mCode == other.mCode
                     && mIconId == other.mIconId
                     && TextUtils.equals(mLabel, other.mLabel)
@@ -124,40 +124,40 @@ public final class MoreKeySpec {
             }
         }
 
-        public boolean contains(@NonNull final MoreKeySpec moreKey) {
-            final int code = moreKey.mCode;
+        public boolean contains(@NonNull final PopupKeySpec popupKey) {
+            final int code = popupKey.mCode;
             if (mCodes.indexOfKey(code) >= 0) {
                 return true;
-            } else return code == Constants.CODE_OUTPUT_TEXT && mTexts.contains(moreKey.mOutputText);
+            } else return code == Constants.CODE_OUTPUT_TEXT && mTexts.contains(popupKey.mOutputText);
         }
     }
 
     @Nullable
-    public static MoreKeySpec[] removeRedundantMoreKeys(@Nullable final MoreKeySpec[] moreKeys,
+    public static PopupKeySpec[] removeRedundantPopupKeys(@Nullable final PopupKeySpec[] popupKeys,
             @NonNull final LettersOnBaseLayout lettersOnBaseLayout) {
-        if (moreKeys == null) {
+        if (popupKeys == null) {
             return null;
         }
-        final ArrayList<MoreKeySpec> filteredMoreKeys = new ArrayList<>();
-        for (final MoreKeySpec moreKey : moreKeys) {
-            if (!lettersOnBaseLayout.contains(moreKey)) {
-                filteredMoreKeys.add(moreKey);
+        final ArrayList<PopupKeySpec> filteredPopupKeys = new ArrayList<>();
+        for (final PopupKeySpec popupKey : popupKeys) {
+            if (!lettersOnBaseLayout.contains(popupKey)) {
+                filteredPopupKeys.add(popupKey);
             }
         }
-        final int size = filteredMoreKeys.size();
-        if (size == moreKeys.length) {
-            return moreKeys;
+        final int size = filteredPopupKeys.size();
+        if (size == popupKeys.length) {
+            return popupKeys;
         }
         if (size == 0) {
             return null;
         }
-        return filteredMoreKeys.toArray(new MoreKeySpec[size]);
+        return filteredPopupKeys.toArray(new PopupKeySpec[size]);
     }
 
     // Constants for parsing.
     private static final char COMMA = Constants.CODE_COMMA;
     private static final char BACKSLASH = Constants.CODE_BACKSLASH;
-    private static final String ADDITIONAL_MORE_KEY_MARKER =
+    private static final String ADDITIONAL_POPUP_KEY_MARKER =
             StringUtils.newSingleCodePointString(Constants.CODE_PERCENT);
 
     /**
@@ -239,55 +239,55 @@ public final class MoreKeySpec {
         return out.toArray(new String[0]);
     }
 
-    public static String[] insertAdditionalMoreKeys(@Nullable final String[] moreKeySpecs,
-            @Nullable final String[] additionalMoreKeySpecs) {
-        final String[] moreKeys = filterOutEmptyString(moreKeySpecs);
-        final String[] additionalMoreKeys = filterOutEmptyString(additionalMoreKeySpecs);
-        final int moreKeysCount = moreKeys.length;
-        final int additionalCount = additionalMoreKeys.length;
+    public static String[] insertAdditionalPopupKeys(@Nullable final String[] popupKeySpecs,
+            @Nullable final String[] additionalPopupKeySpecs) {
+        final String[] popupKeys = filterOutEmptyString(popupKeySpecs);
+        final String[] additionalPopupKeys = filterOutEmptyString(additionalPopupKeySpecs);
+        final int popupKeysCount = popupKeys.length;
+        final int additionalCount = additionalPopupKeys.length;
         ArrayList<String> out = null;
         int additionalIndex = 0;
-        for (int moreKeyIndex = 0; moreKeyIndex < moreKeysCount; moreKeyIndex++) {
-            final String moreKeySpec = moreKeys[moreKeyIndex];
-            if (moreKeySpec.equals(ADDITIONAL_MORE_KEY_MARKER)) {
+        for (int popupKeyIndex = 0; popupKeyIndex < popupKeysCount; popupKeyIndex++) {
+            final String popupKeySpec = popupKeys[popupKeyIndex];
+            if (popupKeySpec.equals(ADDITIONAL_POPUP_KEY_MARKER)) {
                 if (additionalIndex < additionalCount) {
-                    // Replace '%' marker with additional more key specification.
-                    final String additionalMoreKey = additionalMoreKeys[additionalIndex];
+                    // Replace '%' marker with additional popup key specification.
+                    final String additionalPopupKey = additionalPopupKeys[additionalIndex];
                     if (out != null) {
-                        out.add(additionalMoreKey);
+                        out.add(additionalPopupKey);
                     } else {
-                        moreKeys[moreKeyIndex] = additionalMoreKey;
+                        popupKeys[popupKeyIndex] = additionalPopupKey;
                     }
                     additionalIndex++;
                 } else {
                     // Filter out excessive '%' marker.
                     if (out == null) {
-                        out = CollectionUtils.arrayAsList(moreKeys, 0, moreKeyIndex);
+                        out = CollectionUtils.arrayAsList(popupKeys, 0, popupKeyIndex);
                     }
                 }
             } else {
                 if (out != null) {
-                    out.add(moreKeySpec);
+                    out.add(popupKeySpec);
                 }
             }
         }
         if (additionalCount > 0 && additionalIndex == 0) {
-            // No '%' marker is found in more keys.
-            // Insert all additional more keys to the head of more keys.
-            out = CollectionUtils.arrayAsList(additionalMoreKeys, additionalIndex, additionalCount);
-            for (int i = 0; i < moreKeysCount; i++) {
-                out.add(moreKeys[i]);
+            // No '%' marker is found in popup keys.
+            // Insert all additional popup keys to the head of popup keys.
+            out = CollectionUtils.arrayAsList(additionalPopupKeys, additionalIndex, additionalCount);
+            for (int i = 0; i < popupKeysCount; i++) {
+                out.add(popupKeys[i]);
             }
         } else if (additionalIndex < additionalCount) {
-            // The number of '%' markers are less than additional more keys.
-            // Append remained additional more keys to the tail of more keys.
-            out = CollectionUtils.arrayAsList(moreKeys, 0, moreKeysCount);
+            // The number of '%' markers are less than additional popup keys.
+            // Append remained additional popup keys to the tail of popup keys.
+            out = CollectionUtils.arrayAsList(popupKeys, 0, popupKeysCount);
             for (int i = additionalIndex; i < additionalCount; i++) {
-                out.add(additionalMoreKeys[i]);
+                out.add(additionalPopupKeys[i]);
             }
         }
-        if (out == null && moreKeysCount > 0) {
-            return moreKeys;
+        if (out == null && popupKeysCount > 0) {
+            return popupKeys;
         } else if (out != null && out.size() > 0) {
             return out.toArray(new String[0]);
         } else {
@@ -295,44 +295,44 @@ public final class MoreKeySpec {
         }
     }
 
-    public static int getIntValue(@Nullable final String[] moreKeys, final String key,
+    public static int getIntValue(@Nullable final String[] popupKeys, final String key,
             final int defaultValue) {
-        if (moreKeys == null) {
+        if (popupKeys == null) {
             return defaultValue;
         }
         final int keyLen = key.length();
         boolean foundValue = false;
         int value = defaultValue;
-        for (int i = 0; i < moreKeys.length; i++) {
-            final String moreKeySpec = moreKeys[i];
-            if (moreKeySpec == null || !moreKeySpec.startsWith(key)) {
+        for (int i = 0; i < popupKeys.length; i++) {
+            final String popupKeySpec = popupKeys[i];
+            if (popupKeySpec == null || !popupKeySpec.startsWith(key)) {
                 continue;
             }
-            moreKeys[i] = null;
+            popupKeys[i] = null;
             try {
                 if (!foundValue) {
-                    value = Integer.parseInt(moreKeySpec.substring(keyLen));
+                    value = Integer.parseInt(popupKeySpec.substring(keyLen));
                     foundValue = true;
                 }
             } catch (NumberFormatException e) {
                 throw new RuntimeException(
-                        "integer should follow after " + key + ": " + moreKeySpec);
+                        "integer should follow after " + key + ": " + popupKeySpec);
             }
         }
         return value;
     }
 
-    public static boolean getBooleanValue(@Nullable final String[] moreKeys, final String key) {
-        if (moreKeys == null) {
+    public static boolean getBooleanValue(@Nullable final String[] popupKeys, final String key) {
+        if (popupKeys == null) {
             return false;
         }
         boolean value = false;
-        for (int i = 0; i < moreKeys.length; i++) {
-            final String moreKeySpec = moreKeys[i];
-            if (moreKeySpec == null || !moreKeySpec.equals(key)) {
+        for (int i = 0; i < popupKeys.length; i++) {
+            final String popupKeySpec = popupKeys[i];
+            if (popupKeySpec == null || !popupKeySpec.equals(key)) {
                 continue;
             }
-            moreKeys[i] = null;
+            popupKeys[i] = null;
             value = true;
         }
         return value;

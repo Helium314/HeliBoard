@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 a ɛ
 z ẓ
 r ṛ

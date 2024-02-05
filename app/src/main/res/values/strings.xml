@@ -194,14 +194,14 @@
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
     <!-- Description for "insert_more_spaces" option. -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
-    <!-- Preferences item for showing more keys in long-press popup -->
-    <string name="show_more_keys_title">Show more letters with diacritics in popup</string>
+    <!-- Preferences item for showing popup keys in long-press popup -->
+    <string name="show_popup_keys_title">Show more letters with diacritics in popup</string>
     <!-- Option for showing only letters defined in the current language file in long-press popup -->
-    <string name="show_more_keys_normal">Show variants defined in keyboard languages (default)</string>
+    <string name="show_popup_keys_normal">Show variants defined in keyboard languages (default)</string>
     <!-- Option for showing letters defined in at least two locales -->
-    <string name="show_more_keys_more">Add common variants</string>
+    <string name="show_popup_keys_more">Add common variants</string>
     <!-- Option for showing letters defined in any locale -->
-    <string name="show_more_keys_all">Add all available variants</string>
+    <string name="show_popup_keys_all">Add all available variants</string>
     <!-- Preferences item for enabling URL detection -->
     <string name="url_detection_title">URL detection</string>
     <!-- Description for "url_detection_title" option. -->
@@ -210,7 +210,7 @@
     <string name="incognito">Force incognito mode</string>
     <!-- Description for "prefs_force_incognito_mode" option. -->
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
-    <!-- Content description for "more keys" suggestions view -->
+    <!-- Content description for "popup keys" suggestions view -->
     <string name="more_keys_strip_description">More keys</string>
     <!-- Title for input language & layout selection screen -->
     <string name="language_and_layouts_title">Languages &amp; Layouts</string>
@@ -230,12 +230,12 @@
     <string name="hint_source">Select hint source</string>
     <!-- Title of the settings to set popup key order -->
     <string name="popup_order">Select popup key order</string>
-    <!-- Names of the more key classes -->
-    <string name="more_keys_number" tools:keep="@string/more_keys_number">Number row</string>
-    <string name="more_keys_language" tools:keep="@string/more_keys_language">Language</string>
-    <string name="more_keys_language_priority" tools:keep="@string/more_keys_language_priority">Language (priority)</string>
-    <string name="more_keys_layout" tools:keep="@string/more_keys_layout">Layout</string>
-    <string name="more_keys_symbols" tools:keep="@string/more_keys_symbols">Symbols</string>
+    <!-- Names of the popup key classes -->
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Language</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
     <!-- Title of the settings to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->

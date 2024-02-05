@@ -12,7 +12,7 @@
     <dimen name="config_default_keyboard_height">283.5dp</dimen>
     <fraction name="config_min_keyboard_height">40%p</fraction>
 
-    <dimen name="config_more_keys_keyboard_key_height">81.9dp</dimen>
+    <dimen name="config_popup_keys_keyboard_key_height">81.9dp</dimen>
 
     <fraction name="config_keyboard_top_padding_holo">2.727%p</fraction>
     <fraction name="config_keyboard_bottom_padding_holo">0.0%p</fraction>

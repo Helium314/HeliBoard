@@ -6,7 +6,7 @@
 -->
 <Keyboard xmlns:latin="http://schemas.android.com/apk/res-auto"
     latin:keyWidth="8%p"
-    latin:rowHeight="@dimen/config_more_keys_keyboard_key_height"
-    style="?attr/moreKeysKeyboardStyle"
+    latin:rowHeight="@dimen/config_popup_keys_keyboard_key_height"
+    style="?attr/popupKeysKeyboardStyle"
     >
 </Keyboard>

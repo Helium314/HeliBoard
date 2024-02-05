@@ -63,8 +63,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"বড় হাতের <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"বড় হাতের I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"বড় হাতের I, উপরে বিন্দু"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"বিকল্প অক্ষরগুলি উপলব্ধ রয়েছে"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"বিকল্প অক্ষরগুলি সরিয়ে দেওয়া হয়"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"বিকল্প অক্ষরগুলি উপলব্ধ রয়েছে"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"বিকল্প অক্ষরগুলি সরিয়ে দেওয়া হয়"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"বিকল্প প্রস্তাবনাগুলি উপলব্ধ রয়েছে"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"বিকল্প প্রস্তাবনাগুলি সরিয়ে দেওয়া হয়"</string>
 </resources>

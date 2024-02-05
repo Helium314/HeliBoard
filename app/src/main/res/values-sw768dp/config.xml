@@ -19,14 +19,14 @@
     <fraction name="config_key_horizontal_gap_holo">1.066%p</fraction>
     <fraction name="config_key_vertical_gap_holo_narrow">3.312%p</fraction>
     <fraction name="config_key_horizontal_gap_holo_narrow">1.066%p</fraction>
-    <!-- config_more_keys_keyboard_key_height x -0.5 -->
-    <dimen name="config_more_keys_keyboard_vertical_correction_holo">-31.5dp</dimen>
+    <!-- config_popup_keys_keyboard_key_height x -0.5 -->
+    <dimen name="config_popup_keys_keyboard_vertical_correction_holo">-31.5dp</dimen>
 
-    <dimen name="config_more_keys_keyboard_key_height">63.0dp</dimen>
-    <dimen name="config_more_keys_keyboard_key_horizontal_padding">12dp</dimen>
+    <dimen name="config_popup_keys_keyboard_key_height">63.0dp</dimen>
+    <dimen name="config_popup_keys_keyboard_key_horizontal_padding">12dp</dimen>
     <!-- Amount of allowance for selecting keys in a mini popup keyboard by sliding finger. -->
-    <!-- config_more_keys_keyboard_key_height x 1.2 -->
-    <dimen name="config_more_keys_keyboard_slide_allowance">98.3dp</dimen>
+    <!-- config_popup_keys_keyboard_key_height x 1.2 -->
+    <dimen name="config_popup_keys_keyboard_slide_allowance">98.3dp</dimen>
 
     <fraction name="config_key_preview_text_ratio">50%</fraction>
     <fraction name="config_key_letter_ratio_holo">40%</fraction>

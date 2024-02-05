@@ -16,8 +16,8 @@ import java.util.Locale
 import kotlin.math.round
 
 class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
-    private val moreKeys = hashMapOf<String, List<String>>()
-    private val priorityMoreKeys = hashMapOf<String, List<String>>()
+    private val popupKeys = hashMapOf<String, List<String>>()
+    private val priorityPopupKeys = hashMapOf<String, List<String>>()
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbol = "\\?123"
         private set
@@ -32,7 +32,7 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
     private var labelQuestion = "?"
     val currencyKey = getCurrencyKey(locale)
     private var numberKeys = ((1..9) + 0).map { it.toString() }
-    private val numbersMoreKeys = arrayOf(
+    private val numbersPopupKeys = arrayOf(
         mutableListOf("¹", "½", "⅓","¼", "⅛"),
         mutableListOf("²", "⅔"),
         mutableListOf("³", "¾", "⅜"),
@@ -47,21 +47,21 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 
     init {
         readStream(dataStream, false)
-        // set default quote moreKeys if necessary
-        // should this also be done with punctuation moreKeys?
-        if ("\'" !in moreKeys)
-            moreKeys["\'"] = listOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
-        if ("\"" !in moreKeys)
-            moreKeys["\""] = listOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
-        if ("!" !in moreKeys)
-            moreKeys["!"] = listOf("¡")
-        if (labelQuestion !in moreKeys)
-            moreKeys[labelQuestion] = if (labelQuestion == "?") listOf("¿") else listOf("?", "¿")
-        if ("punctuation" !in moreKeys)
-            moreKeys["punctuation"] = listOf("${Key.MORE_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+        // set default quote popupKeys if necessary
+        // should this also be done with punctuation popupKeys?
+        if ("\'" !in popupKeys)
+            popupKeys["\'"] = listOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
+        if ("\"" !in popupKeys)
+            popupKeys["\""] = listOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
+        if ("!" !in popupKeys)
+            popupKeys["!"] = listOf("¡")
+        if (labelQuestion !in popupKeys)
+            popupKeys[labelQuestion] = if (labelQuestion == "?") listOf("¿") else listOf("?", "¿")
+        if ("punctuation" !in popupKeys)
+            popupKeys["punctuation"] = listOf("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
 
-    private fun readStream(stream: InputStream?, onlyMoreKeys: Boolean) {
+    private fun readStream(stream: InputStream?, onlyPopupKeys: Boolean) {
         if (stream == null) return
         stream.reader().use { reader ->
             var mode = READER_MODE_NONE
@@ -70,16 +70,16 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
                 val line = l.trim()
                 if (line.isEmpty()) return@forEachLine
                 when (line) {
-                    "[morekeys]" -> { mode = READER_MODE_MORE_KEYS; return@forEachLine }
+                    "[popup_keys]" -> { mode = READER_MODE_POPUP_KEYS; return@forEachLine }
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
                     "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
                     "[number_row]" -> { mode = READER_MODE_NUMBER_ROW; return@forEachLine }
                 }
                 when (mode) {
-                    READER_MODE_MORE_KEYS -> addMoreKeys(line)
-                    READER_MODE_EXTRA_KEYS -> if (!onlyMoreKeys) addExtraKey(line.split(colonSpaceRegex, 2))
-                    READER_MODE_LABELS -> if (!onlyMoreKeys) addLabel(line.split(colonSpaceRegex, 2))
-                    READER_MODE_NUMBER_ROW -> setNumberRow(line.splitOnWhitespace(), onlyMoreKeys)
+                    READER_MODE_POPUP_KEYS -> addPopupKeys(line)
+                    READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
+                    READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
+                    READER_MODE_NUMBER_ROW -> setNumberRow(line.splitOnWhitespace(), onlyPopupKeys)
                 }
             }
         }
@@ -98,8 +98,8 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
 
     fun getShiftSymbolLabel(isTablet: Boolean) = if (isTablet) labelShiftSymbolTablet else labelShiftSymbol
 
-    fun getMoreKeys(label: String): List<String>? = moreKeys[label]
-    fun getPriorityMoreKeys(label: String): List<String>? = priorityMoreKeys[label]
+    fun getPopupKeys(label: String): List<String>? = popupKeys[label]
+    fun getPriorityPopupKeys(label: String): List<String>? = priorityPopupKeys[label]
 
     // used by simple parser only, but could be possible for json as well (if necessary)
     fun getExtraKeys(row: Int): List<KeyData>? =
@@ -110,33 +110,33 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         readStream(dataStream, true)
     }
 
-    private fun addMoreKeys(line: String) {
+    private fun addPopupKeys(line: String) {
         val split = if (line.contains("|"))
-                // if a moreKey contains label/code separately, there are cases where space can be in there too
-                // normally this should work for all moreKeys, but if we split them on whitespace there is less chance for unnecessary issues
+                // if a popup key contains label/code separately, there are cases where space can be in there too
+                // normally this should work for all popup keys, but if we split them on whitespace there is less chance for unnecessary issues
                 line.splitOnFirstSpacesOnly()
             else line.splitOnWhitespace()
         if (split.size == 1) return
         val key = split.first()
         val priorityMarkerIndex = split.indexOf("%")
         if (priorityMarkerIndex > 0) {
-            val existingPriorityMoreKeys = priorityMoreKeys[key]
-            priorityMoreKeys[key] = if (existingPriorityMoreKeys == null)
+            val existingPriorityPopupKeys = priorityPopupKeys[key]
+            priorityPopupKeys[key] = if (existingPriorityPopupKeys == null)
                     split.subList(1, priorityMarkerIndex)
-                else existingPriorityMoreKeys + split.subList(1, priorityMarkerIndex)
-            val existingMoreKeys = moreKeys[key]
-            moreKeys[key] = if (existingMoreKeys == null)
+                else existingPriorityPopupKeys + split.subList(1, priorityMarkerIndex)
+            val existingPopupKeys = popupKeys[key]
+            popupKeys[key] = if (existingPopupKeys == null)
                     split.subList(priorityMarkerIndex, split.size)
-                else existingMoreKeys + split.subList(priorityMarkerIndex, split.size)
+                else existingPopupKeys + split.subList(priorityMarkerIndex, split.size)
         } else {
             // a but more special treatment, this should not occur together with priority marker (but technically could)
-            val existingMoreKeys = moreKeys[key]
-            val newMoreKeys = if (existingMoreKeys == null)
+            val existingPopupKeys = popupKeys[key]
+            val newPopupKeys = if (existingPopupKeys == null)
                     split.drop(1)
-                else mergeMoreKeys(existingMoreKeys, split.drop(1))
-            moreKeys[key] = when (key) {
-                "'", "\"", "«", "»" -> addFixedColumnOrder(newMoreKeys)
-                else -> newMoreKeys
+                else mergePopupKeys(existingPopupKeys, split.drop(1))
+            popupKeys[key] = when (key) {
+                "'", "\"", "«", "»" -> addFixedColumnOrder(newPopupKeys)
+                else -> newPopupKeys
             }
         }
     }
@@ -163,44 +163,44 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         }
     }
 
-    // set number row only, does not affect moreKeys
+    // set number row only, does not affect popupKeys
     // setting more than 10 number keys will cause crashes, but could actually be implemented at some point
-    private fun setNumberRow(split: List<String>, onlyAddToMoreKeys: Boolean) {
-        if (onlyAddToMoreKeys) {
+    private fun setNumberRow(split: List<String>, onlyAddToPopupKeys: Boolean) {
+        if (onlyAddToPopupKeys) {
             // as of now this should never be used, but better have it
             numberKeys.forEachIndexed { i, n ->
-                if (numberKeys[i] != n && n !in numbersMoreKeys[i])
-                    numbersMoreKeys[i].add(0, n)
+                if (numberKeys[i] != n && n !in numbersPopupKeys[i])
+                    numbersPopupKeys[i].add(0, n)
             }
             return
         }
         if (Settings.getInstance().current.mLocalizedNumberRow) {
-            numberKeys.forEachIndexed { i, n -> numbersMoreKeys[i].add(0, n) }
+            numberKeys.forEachIndexed { i, n -> numbersPopupKeys[i].add(0, n) }
             numberKeys = split
         } else {
-            split.forEachIndexed { i, n -> numbersMoreKeys[i].add(0, n) }
+            split.forEachIndexed { i, n -> numbersPopupKeys[i].add(0, n) }
         }
     }
 
-    // get number row including moreKeys
+    // get number row including popupKeys
     fun getNumberRow(): List<KeyData> =
         numberKeys.mapIndexed { i, label ->
-            label.toTextKey(numbersMoreKeys[i])
+            label.toTextKey(numbersPopupKeys[i])
         }
 
     fun getNumberLabel(numberIndex: Int?): String? = numberIndex?.let { numberKeys.getOrNull(it) }
 }
 
-private fun mergeMoreKeys(original: List<String>, added: List<String>): List<String> {
-    if (original.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }) {
-        val moreKeys = (original + added).toSet()
-        val originalColumnCount = original.firstOrNull { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
-            ?.substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
-        val l = moreKeys.filterNot { it.startsWith(Key.MORE_KEYS_AUTO_COLUMN_ORDER) }
-        if (originalColumnCount != null && moreKeys.size <= 20 // not for too wide layout
+private fun mergePopupKeys(original: List<String>, added: List<String>): List<String> {
+    if (original.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }) {
+        val popupKeys = (original + added).toSet()
+        val originalColumnCount = original.firstOrNull { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
+            ?.substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
+        val l = popupKeys.filterNot { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
+        if (originalColumnCount != null && popupKeys.size <= 20 // not for too wide layout
             && originalColumnCount == round((original.size - 1 + 0.1f) / 2f).toInt()) { // +0.1 f against rounding issues
             // we had 2 rows, and want it again
-            return (l + "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
+            return (l + "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
         }
         // just drop autoColumnOrder otherwise
         return l
@@ -208,9 +208,9 @@ private fun mergeMoreKeys(original: List<String>, added: List<String>): List<Str
     return original + added
 }
 
-private fun addFixedColumnOrder(moreKeys: List<String>): List<String> {
-    val newMoreKeys = moreKeys.filterNot { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
-    return listOf("${Key.MORE_KEYS_FIXED_COLUMN_ORDER}${newMoreKeys.size}") + newMoreKeys
+private fun addFixedColumnOrder(popupKeys: List<String>): List<String> {
+    val newPopupKeys = popupKeys.filterNot { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
+    return listOf("${Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${newPopupKeys.size}") + newPopupKeys
 }
 
 fun getOrCreate(context: Context, locale: Locale): LocaleKeyTexts =
@@ -218,18 +218,18 @@ fun getOrCreate(context: Context, locale: Locale): LocaleKeyTexts =
         LocaleKeyTexts(getStreamForLocale(locale, context), locale)
     }
 
-fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, moreKeysSetting: Int) {
+fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: Int) {
     val locales = params.mSecondaryLocales + params.mId.locale
     params.mLocaleKeyTexts = localeKeyTextsCache.getOrPut(locales.joinToString { it.toString() }) {
-        createLocaleKeyTexts(context, params, moreKeysSetting)
+        createLocaleKeyTexts(context, params, popupKeysSetting)
     }
 }
 
-private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, moreKeysSetting: Int): LocaleKeyTexts {
+private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyTexts {
     val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context), params.mId.locale)
-    if (moreKeysSetting == MORE_KEYS_MORE)
+    if (popupKeysSetting == POPUP_KEYS_MORE)
         lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_popup_keys.txt"))
-    else if (moreKeysSetting == MORE_KEYS_ALL)
+    else if (popupKeysSetting == POPUP_KEYS_ALL)
         lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt"))
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
@@ -256,7 +256,7 @@ fun clearCache() = localeKeyTextsCache.clear()
 private val localeKeyTextsCache = hashMapOf<String, LocaleKeyTexts>()
 
 private const val READER_MODE_NONE = 0
-private const val READER_MODE_MORE_KEYS = 1
+private const val READER_MODE_POPUP_KEYS = 1
 private const val READER_MODE_EXTRA_KEYS = 2
 private const val READER_MODE_LABELS = 3
 private const val READER_MODE_NUMBER_ROW = 4
@@ -288,8 +288,8 @@ private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
     return dollar
 }
 
-private fun genericCurrencyKey(currency: String) = currency to genericCurrencyMoreKeys
-private val genericCurrencyMoreKeys = arrayOf("£", "€", "$", "¢", "¥", "₱")
+private fun genericCurrencyKey(currency: String) = currency to genericCurrencyPopupKeys
+private val genericCurrencyPopupKeys = arrayOf("£", "€", "$", "¢", "¥", "₱")
 
 private fun getCurrency(locale: Locale): String {
     if (locale.country == "BD") return "৳"
@@ -310,7 +310,7 @@ private fun getCurrency(locale: Locale): String {
     }
 }
 
-// needs at least 4 moreKeys for working shift-symbol keyboard
+// needs at least 4 popupKeys for working shift-symbol keyboard
 private val euro = "€" to arrayOf("£", "¥", "$", "¢", "₱")
 private val dram = "֏" to arrayOf("€", "₽", "$", "£", "¥")
 private val rupee = "₹" to arrayOf("£", "€", "$", "¢", "¥", "₱")
@@ -321,8 +321,8 @@ private val dollar = "$" to arrayOf("£", "¢", "€", "¥", "₱")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
 
-const val MORE_KEYS_ALL = 2
-const val MORE_KEYS_MORE = 1
-const val MORE_KEYS_NORMAL = 0
+const val POPUP_KEYS_ALL = 2
+const val POPUP_KEYS_MORE = 1
+const val POPUP_KEYS_NORMAL = 0
 
 const val LANGUAGE_TEXTS_FOLDER = "language_key_texts"

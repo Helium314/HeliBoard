@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Veliko slovo <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Veliko slovo I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Veliko slovo I, s točkicom iznad"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Dostupni su zamjenski znakovi"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Zamjenski su znakovi isključeni"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Dostupni su zamjenski znakovi"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Zamjenski su znakovi isključeni"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Dostupni su zamjenski prijedlozi"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Zamjenski su prijedlozi isključeni"</string>
 </resources>

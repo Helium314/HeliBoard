@@ -6,11 +6,11 @@
 
 package helium314.keyboard.keyboard;
 
-public final class MoreKeysDetector extends KeyDetector {
+public final class PopupKeysDetector extends KeyDetector {
     private final int mSlideAllowanceSquare;
     private final int mSlideAllowanceSquareTop;
 
-    public MoreKeysDetector(float slideAllowance) {
+    public PopupKeysDetector(float slideAllowance) {
         super();
         mSlideAllowanceSquare = (int)(slideAllowance * slideAllowance);
         // Top slide allowance is slightly longer (sqrt(2) times) than other edges.

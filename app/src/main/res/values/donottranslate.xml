@@ -95,14 +95,14 @@
         <item>@string/language_switch_key_switch_input_method</item>
         <item>@string/language_switch_key_switch_both</item>
     </string-array>
-    <string-array name="show_more_keys_values">
+    <string-array name="show_popup_keys_values">
         <item>normal</item>
         <item>more</item>
         <item>all</item>
     </string-array>
-    <string-array name="show_more_keys_entries">
-        <item>@string/show_more_keys_normal</item>
-        <item>@string/show_more_keys_more</item>
-        <item>@string/show_more_keys_all</item>
+    <string-array name="show_popup_keys_entries">
+        <item>@string/show_popup_keys_normal</item>
+        <item>@string/show_popup_keys_more</item>
+        <item>@string/show_popup_keys_all</item>
     </string-array>
 </resources>

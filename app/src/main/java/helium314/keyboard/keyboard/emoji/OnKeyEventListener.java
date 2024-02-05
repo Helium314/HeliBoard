@@ -18,7 +18,7 @@ public interface OnKeyEventListener {
     /**
      * Called when a key is released.
      * This may be called without any prior call to {@link OnKeyEventListener#onPressKey(Key)},
-     * for example when a key from a more keys keyboard is selected by releasing touch on it.
+     * for example when a key from a popup keys keyboard is selected by releasing touch on it.
      */
     void onReleaseKey(Key key);
 }

@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ق ڨ
 ف ڤ ڢ ڥ
 ه ﻫ|ه‍

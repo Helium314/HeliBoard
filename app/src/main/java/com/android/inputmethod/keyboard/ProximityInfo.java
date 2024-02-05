@@ -66,7 +66,7 @@ public class ProximityInfo {
         mSortedKeys = sortedKeys;
         mGridNeighbors = new List[mGridSize];
         if (minWidth == 0 || height == 0) {
-            // No proximity required. Keyboard might be more keys keyboard.
+            // No proximity required. Keyboard might be popup keys keyboard.
             return;
         }
         computeNearestNeighbors();

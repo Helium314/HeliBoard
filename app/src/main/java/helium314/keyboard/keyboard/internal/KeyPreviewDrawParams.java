@@ -33,13 +33,13 @@ public final class KeyPreviewDrawParams {
     // |    key|
     // +-------+
     // The background of a {@link TextView} being used for a key preview may have invisible
-    // paddings. To align the more keys keyboard panel's visible part with the visible part of
+    // paddings. To align the popup keys keyboard panel's visible part with the visible part of
     // the background, we need to record the width and height of key preview that don't include
     // invisible paddings.
     private int mVisibleWidth;
     private int mVisibleHeight;
     // The key preview may have an arbitrary offset and its background that may have a bottom
-    // padding. To align the more keys keyboard and the key preview we also need to record the
+    // padding. To align the popup keys keyboard and the key preview we also need to record the
     // offset between the top edge of parent key and the bottom of the visible part of key
     // preview background.
     private int mVisibleOffset;

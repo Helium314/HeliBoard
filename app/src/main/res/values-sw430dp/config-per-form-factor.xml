@@ -12,8 +12,8 @@
     <bool name="config_default_key_preview_popup">true</bool>
     <bool name="config_default_sound_enabled">false</bool>
     <bool name="config_key_selection_by_dragging_finger">true</bool>
-    <!-- Showing more keys keyboard, just above the touched point if true, aligned to the key if
+    <!-- Showing popup keys keyboard, just above the touched point if true, aligned to the key if
          false -->
-    <bool name="config_show_more_keys_keyboard_at_touched_point">false</bool>
+    <bool name="config_show_popup_keys_keyboard_at_touched_point">false</bool>
     <bool name="config_fullscreen_mode_allowed">false</bool>
 </resources>

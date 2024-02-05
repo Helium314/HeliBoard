@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ೌ ಔ ೧ %
 ೈ ಐ ೨ %
 ಾ ಆ ೩ %

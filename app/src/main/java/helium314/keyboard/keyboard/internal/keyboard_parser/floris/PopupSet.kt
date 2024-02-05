@@ -19,17 +19,17 @@ open class PopupSet<T : AbstractKeyData>(
     // get labels of all popup keys
     open fun getPopupKeyLabels(params: KeyboardParams): Collection<String>? {
         if (main == null && relevant == null) return null
-        val moreKeys = mutableListOf<String>()
-        main?.getPopupLabel(params)?.let { moreKeys.add(it) }
-        relevant?.let { moreKeys.addAll(it.map { it.getPopupLabel(params) }) }
-        if (moreKeys.isEmpty()) return null
-        return moreKeys
+        val popupKeys = mutableListOf<String>()
+        main?.getPopupLabel(params)?.let { popupKeys.add(it) }
+        relevant?.let { popupKeys.addAll(it.map { it.getPopupLabel(params) }) }
+        if (popupKeys.isEmpty()) return null
+        return popupKeys
     }
 
     var numberIndex: Int? = null
     var symbol: String? = null // maybe list of keys?
 }
 
-class SimplePopups(val moreKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {
-    override fun getPopupKeyLabels(params: KeyboardParams) = moreKeys
+class SimplePopups(val popupKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {
+    override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys
 }

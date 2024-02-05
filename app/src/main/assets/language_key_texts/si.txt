@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ඥ ෴
 ද ඳ
 ඤ ෴

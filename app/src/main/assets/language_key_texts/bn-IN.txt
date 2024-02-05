@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ব ভ %
 গ ঘ %
 দ ধ %

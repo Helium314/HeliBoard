@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"대문자 <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"대문자 아이"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"대문자 아이, 위 닷"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"대체 문자를 사용할 수 있습니다"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"대체 문자를 닫았습니다."</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"대체 문자를 사용할 수 있습니다"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"대체 문자를 닫았습니다."</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"대체 추천 단어를 사용할 수 있습니다"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"대체 추천 단어를 닫았습니다."</string>
 </resources>

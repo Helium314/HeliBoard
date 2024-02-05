@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 + ﬩
 ג ג׳
 י ײַ

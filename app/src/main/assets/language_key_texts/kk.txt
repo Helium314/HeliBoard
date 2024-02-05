@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 у ү ұ
 к қ
 е ё

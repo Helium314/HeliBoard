@@ -19,12 +19,12 @@
         <attr name="emojiPalettesViewStyle" format="reference" />
         <!-- ClipboardHistoryView style -->
         <attr name="clipboardHistoryViewStyle" format="reference" />
-        <!-- MoreKeysKeyboard style -->
-        <attr name="moreKeysKeyboardStyle" format="reference" />
-        <!-- MoreKeysKeyboardView style -->
-        <attr name="moreKeysKeyboardViewStyle" format="reference" />
-        <!-- MoreKeysKeyboardView style for action key -->
-        <attr name="moreKeysKeyboardViewForActionStyle" format="reference" />
+        <!-- PopupKeysKeyboard style -->
+        <attr name="popupKeysKeyboardStyle" format="reference" />
+        <!-- PopupKeysKeyboardView style -->
+        <attr name="popupKeysKeyboardViewStyle" format="reference" />
+        <!-- PopupKeysKeyboardView style for action key -->
+        <attr name="popupKeysKeyboardViewForActionStyle" format="reference" />
         <!-- Suggestions strip style -->
         <attr name="suggestionStripViewStyle" format="reference" />
         <!-- Suggestion word style -->
@@ -61,7 +61,7 @@
         <!-- Key preview background states -->
         <attr name="state_left_edge" format="boolean" />
         <attr name="state_right_edge" format="boolean" />
-        <attr name="state_has_morekeys" format="boolean" />
+        <attr name="state_has_popup_keys" format="boolean" />
 
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
         <attr name="verticalCorrection" format="dimension" />
@@ -104,13 +104,13 @@
         <attr name="keyPreviewOffset" format="dimension" />
         <!-- Height of the key press feedback popup. -->
         <attr name="keyPreviewHeight" format="dimension" />
-        <!-- Layout resource for more keys keyboard -->
-        <attr name="moreKeysKeyboardLayout" format="reference" />
-        <!-- Layout resource for more keys keyboard of action key -->
-        <attr name="moreKeysKeyboardForActionLayout" format="reference" />
+        <!-- Layout resource for popup keys keyboard -->
+        <attr name="popupKeysKeyboardLayout" format="reference" />
+        <!-- Layout resource for popup keys keyboard of action key -->
+        <attr name="popupKeysKeyboardForActionLayout" format="reference" />
         <attr name="backgroundDimAlpha" format="integer" />
-        <!-- More keys keyboard will shown at touched point. -->
-        <attr name="showMoreKeysKeyboardAtTouchedPoint" format="boolean" />
+        <!-- Popup keys keyboard will shown at touched point. -->
+        <attr name="showPopupKeysKeyboardAtTouchedPoint" format="boolean" />
         <!-- Minimum distance between gesture trail sampling points. -->
         <attr name="gestureTrailMinSamplingDistance" format="dimension" />
         <!-- Maximum angular threshold between gesture trail interpolation segments in degree. -->
@@ -159,7 +159,7 @@
         <attr name="suppressKeyPreviewAfterBatchInputDuration" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="MoreKeysKeyboardView">
+    <declare-styleable name="PopupKeysKeyboardView">
         <attr name="divider" format="reference" />
     </declare-styleable>
 
@@ -229,8 +229,8 @@
         <attr name="verticalGap" format="fraction" />
         <!-- Default vertical gap between rows of keys, in the proportion of keyboard height. -->
         <attr name="verticalGapNarrow" format="fraction" />
-        <!-- More keys keyboard layout template -->
-        <attr name="moreKeysTemplate" format="reference" />
+        <!-- Popup keys keyboard layout template -->
+        <attr name="popupKeysTemplate" format="reference" />
         <!-- Icon set for key top and key preview. These should be aligned with
              {@link helium314.keyboard.keyboard.internal.KeyboardIconsSet#NAMES_AND_ATTR_IDS} -->
         <attr name="iconShiftKey" format="reference" />
@@ -284,16 +284,8 @@
              Code value represented in hexadecimal prefixed with "0x" or code value reference using
              "!code/<code_name>" notation. -->
         <attr name="altCode" format="string" />
-        <!-- The keys to display in the more keys keyboard. -->
-        <attr name="moreKeys" format="string" />
-        <!-- The keys to display in the more keys keyboard in addition to moreKeys.
-             The additional more keys are inserted at the '%' markers in the moreKeys if any.
-             They are inserted at the head of moreKeys if none.
-             If there are remaining entries of additionalMoreKeys even after all '%' markers have
-             been replaced, those remaining entries are appended at the end of moreKeys. -->
-        <attr name="additionalMoreKeys" format="string" />
-        <!-- Maximum column of more keys keyboard -->
-        <attr name="maxMoreKeysColumn" format="integer" />
+        <!-- Maximum column of popup keys keyboard -->
+        <attr name="maxPopupKeysColumn" format="integer" />
         <attr name="backgroundType" format="enum">
             <!-- This should be aligned with
                  {@link helium314.keyboard.keyboard.Key#BACKGROUND_TYPE_NORMAL} etc. -->
@@ -340,7 +332,7 @@
             <flag name="autoXScale" value="0x4000" />
             <!-- The autoScale value implies autoXScale bit on to optimize scaling code path. -->
             <flag name="autoScale" value="0xc000" />
-            <!-- If true, character case of code, altCode, moreKeys, keyOutputText, keyLabel,
+            <!-- If true, character case of code, altCode, popupKeys, keyOutputText, keyLabel,
                  or keyHintLabel will never be subject to change. -->
             <flag name="preserveCase" value="0x10000" />
             <!-- If true, use keyShiftedLetterHintActivatedColor for the shifted letter hint and
@@ -355,8 +347,8 @@
             <flag name="keepBackgroundAspectRatio" value="0x100000" />
             <!-- If true, disable keyHintLabel. -->
             <flag name="disableKeyHintLabel" value="0x40000000" />
-            <!-- If true, disable additionalMoreKeys. -->
-            <flag name="disableAdditionalMoreKeys" value="0x80000000" />
+            <!-- If true, disable additionalPopupKeys. todo: is this still working? -->
+            <flag name="disableAdditionalPopupKeys" value="0x80000000" />
         </attr>
         <!-- The icon for disabled key -->
         <attr name="keyIconDisabled" format="string" />

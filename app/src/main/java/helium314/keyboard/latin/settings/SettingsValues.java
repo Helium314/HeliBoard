@@ -24,7 +24,7 @@ import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.MoreKeysUtilsKt;
+import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 
@@ -80,9 +80,9 @@ public class SettingsValues {
     public final int mOneHandedModeGravity;
     public final float mOneHandedModeScale;
     public final boolean mNarrowKeyGaps;
-    public final int mShowMoreMoreKeys;
-    public final List<String> mMoreKeyTypes;
-    public final List<String> mMoreKeyLabelSources;
+    public final int mShowMorePopupKeys;
+    public final List<String> mPopupKeyTypes;
+    public final List<String> mPopupKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
     // Use bigrams to predict the next word when there is no input for it yet
     public final boolean mBigramPredictionEnabled;
@@ -208,16 +208,16 @@ public class SettingsValues {
             mOneHandedModeScale = 1f;
         final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, mLocale);
-        mShowMoreMoreKeys = selectedSubtype.isAsciiCapable()
-                ? Settings.readMoreMoreKeysPref(prefs)
-                : LocaleKeyTextsKt.MORE_KEYS_NORMAL;
+        mShowMorePopupKeys = selectedSubtype.isAsciiCapable()
+                ? Settings.readMorePopupKeysPref(prefs)
+                : LocaleKeyTextsKt.POPUP_KEYS_NORMAL;
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         // read locale-specific popup key settings, fall back to global settings
-        final String moreKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT);
-        mMoreKeyTypes = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_ORDER + "_" + mLocale.toLanguageTag(), moreKeyTypesDefault);
-        final String moreKeyLabelDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT);
-        mMoreKeyLabelSources = MoreKeysUtilsKt.getEnabledMoreKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mLocale.toLanguageTag(), moreKeyLabelDefault);
+        final String popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_ORDER_DEFAULT);
+        mPopupKeyTypes = PopupKeysUtilsKt.getEnabledPopupKeys(prefs, Settings.PREF_POPUP_KEYS_ORDER + "_" + mLocale.toLanguageTag(), popupKeyTypesDefault);
+        final String popupKeyLabelDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_LABEL_DEFAULT);
+        mPopupKeyLabelSources = PopupKeysUtilsKt.getEnabledPopupKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mLocale.toLanguageTag(), popupKeyLabelDefault);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, false);

@@ -25,7 +25,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.VariationSele
  *   if label or code are missing one is created from the other
  *   auto_text_key ignored (i.e. interpreted like the default TextKey)
  *   codes of multi_text_key not used, only the label
- *   (currently) popups is always read to [number, main, relevant] layoutMoreKeys, no choice of which to use or which hint is provided
+ *   (currently) popups is always read to [number, main, relevant] layoutPopupKeys, no choice of which to use or which hint is provided
  */
 class JsonKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
 

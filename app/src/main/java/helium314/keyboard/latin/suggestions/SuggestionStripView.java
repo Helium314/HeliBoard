@@ -44,7 +44,7 @@ import android.widget.TextView;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.MainKeyboardView;
-import helium314.keyboard.keyboard.MoreKeysPanel;
+import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.R;
@@ -57,7 +57,7 @@ import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.DebugSettings;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
-import helium314.keyboard.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener;
+import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.Log;
@@ -98,7 +98,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     MainKeyboardView mMainKeyboardView;
 
     private final View mMoreSuggestionsContainer;
-    private final MoreSuggestionsView mMoreSuggestionsView;
+    private final PopupSuggestionsView mMoreSuggestionsView;
     private final MoreSuggestions.Builder mMoreSuggestionsBuilder;
 
     private final ArrayList<TextView> mWordViews = new ArrayList<>();
@@ -331,20 +331,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     };
 
-    private final MoreKeysPanel.Controller mMoreSuggestionsController =
-            new MoreKeysPanel.Controller() {
+    private final PopupKeysPanel.Controller mMoreSuggestionsController =
+            new PopupKeysPanel.Controller() {
         @Override
-        public void onDismissMoreKeysPanel() {
-            mMainKeyboardView.onDismissMoreKeysPanel();
+        public void onDismissPopupKeysPanel() {
+            mMainKeyboardView.onDismissPopupKeysPanel();
         }
 
         @Override
-        public void onShowMoreKeysPanel(final MoreKeysPanel panel) {
-            mMainKeyboardView.onShowMoreKeysPanel(panel);
+        public void onShowPopupKeysPanel(final PopupKeysPanel panel) {
+            mMainKeyboardView.onShowPopupKeysPanel(panel);
         }
 
         @Override
-        public void onCancelMoreKeysPanel() {
+        public void onCancelPopupKeysPanel() {
             dismissMoreSuggestionsPanel();
         }
     };
@@ -354,7 +354,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public void dismissMoreSuggestionsPanel() {
-        mMoreSuggestionsView.dismissMoreKeysPanel();
+        mMoreSuggestionsView.dismissPopupKeysPanel();
     }
 
     @Override
@@ -466,7 +466,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void removeSuggestion(TextView wordView) {
         final String word = wordView.getText().toString();
         mListener.removeSuggestion(word);
-        mMoreSuggestionsView.dismissMoreKeysPanel();
+        mMoreSuggestionsView.dismissPopupKeysPanel();
         // show suggestions, but without the removed word
         final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
         for (int i = 0; i < mSuggestedWords.size(); i ++) {
@@ -516,7 +516,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final int pointX = stripWidth / 2;
         final int pointY = -layoutHelper.mMoreSuggestionsBottomGap;
-        mMoreSuggestionsView.showMoreKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
+        mMoreSuggestionsView.showPopupKeysPanel(this, mMoreSuggestionsController, pointX, pointY,
                 mMoreSuggestionsListener);
         mOriginX = mLastX;
         mOriginY = mLastY;

@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"អក្សរ​ធំ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"I ធំ"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"I ធំមានចំណុចពីលើ"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"តួអក្សរ​ជំនួស​អាច​ប្រើ​បាន"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"បាន​បដិសេធ​តួអក្សរ​ជំនួស"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"តួអក្សរ​ជំនួស​អាច​ប្រើ​បាន"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"បាន​បដិសេធ​តួអក្សរ​ជំនួស"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ការ​ស្នើ​ជំនួស​អាច​ប្រើ​បាន"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"បាន​បដិសេធ​ការ​ស្នើ​ជំនួស"</string>
 </resources>

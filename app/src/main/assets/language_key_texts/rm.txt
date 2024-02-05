@@ -1,2 +1,2 @@
-[morekeys]
+[popup_keys]
 o ò ó ö ô õ œ ø

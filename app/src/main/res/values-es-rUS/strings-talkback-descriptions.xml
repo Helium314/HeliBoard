@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> mayúscula"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"I mayúscula"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"I mayúscula, con punto superior"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Hay caracteres alternativos disponibles."</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Los caracteres alternativos se descartan."</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Hay caracteres alternativos disponibles."</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Los caracteres alternativos se descartan."</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Hay sugerencias alternativas disponibles."</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Las sugerencias alternativas se descartan."</string>
 </resources>

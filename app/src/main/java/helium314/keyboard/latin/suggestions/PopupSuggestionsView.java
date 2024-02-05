@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardActionListener;
-import helium314.keyboard.keyboard.MoreKeysKeyboardView;
+import helium314.keyboard.keyboard.PopupKeysKeyboardView;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
@@ -25,8 +25,8 @@ import helium314.keyboard.latin.suggestions.MoreSuggestions.MoreSuggestionKey;
  * A view that renders a virtual {@link MoreSuggestions}. It handles rendering of keys and detecting
  * key presses and touch movements.
  */
-public final class MoreSuggestionsView extends MoreKeysKeyboardView {
-    private static final String TAG = MoreSuggestionsView.class.getSimpleName();
+public final class PopupSuggestionsView extends PopupKeysKeyboardView {
+    private static final String TAG = PopupSuggestionsView.class.getSimpleName();
 
     public static abstract class MoreSuggestionsListener extends KeyboardActionListener.Adapter {
         public abstract void onSuggestionSelected(final SuggestedWordInfo info);
@@ -34,12 +34,12 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
 
     private boolean mIsInModalMode;
 
-    public MoreSuggestionsView(final Context context, final AttributeSet attrs) {
-        this(context, attrs, R.attr.moreKeysKeyboardViewStyle);
+    public PopupSuggestionsView(final Context context, final AttributeSet attrs) {
+        this(context, attrs, R.attr.popupKeysKeyboardViewStyle);
     }
 
-    public MoreSuggestionsView(final Context context, final AttributeSet attrs,
-            final int defStyle) {
+    public PopupSuggestionsView(final Context context, final AttributeSet attrs,
+                                final int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -49,10 +49,10 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
         super.setKeyboard(keyboard);
         mIsInModalMode = false;
         // With accessibility mode off, {@link #mAccessibilityDelegate} is set to null at the
-        // above {@link MoreKeysKeyboardView#setKeyboard(Keyboard)} call.
+        // above {@link PopupKeysKeyboardView#setKeyboard(Keyboard)} call.
         // With accessibility mode on, {@link #mAccessibilityDelegate} is set to a
-        // {@link MoreKeysKeyboardAccessibilityDelegate} object at the above
-        // {@link MoreKeysKeyboardView#setKeyboard(Keyboard)} call.
+        // {@link PopupKeysKeyboardAccessibilityDelegate} object at the above
+        // {@link PopupKeysKeyboardView#setKeyboard(Keyboard)} call.
         if (mAccessibilityDelegate != null) {
             mAccessibilityDelegate.setOpenAnnounce(R.string.spoken_open_more_suggestions);
             mAccessibilityDelegate.setCloseAnnounce(R.string.spoken_close_more_suggestions);
@@ -71,8 +71,8 @@ public final class MoreSuggestionsView extends MoreKeysKeyboardView {
 
     public void setModalMode() {
         mIsInModalMode = true;
-        // Set vertical correction to zero (Reset more keys keyboard sliding allowance
-        // {@link R#dimen.config_more_keys_keyboard_slide_allowance}).
+        // Set vertical correction to zero (Reset popup keys keyboard sliding allowance
+        // {@link R#dimen.config_popup_keys_keyboard_slide_allowance}).
         mKeyDetector.setKeyboard(getKeyboard(), -getPaddingLeft(), -getPaddingTop());
     }
 

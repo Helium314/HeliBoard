@@ -40,7 +40,7 @@
       "date": { "label": "/" },
       "time": { "label": ":" },
       "datetime": { "label": "/ :|/", "popup": { "relevant": [
-        { "label": "!noPanelAutoMoreKey!" },
+        { "label": "!noPanelAutoPopupKey!" },
         { "label": "," }
       ] } }
     },

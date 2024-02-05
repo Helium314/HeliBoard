@@ -58,9 +58,9 @@
 
     <ListPreference
         android:key="more_popup_keys"
-        android:title="@string/show_more_keys_title"
-        android:entries="@array/show_more_keys_entries"
-        android:entryValues="@array/show_more_keys_values"
+        android:title="@string/show_popup_keys_title"
+        android:entries="@array/show_popup_keys_entries"
+        android:entryValues="@array/show_popup_keys_values"
         android:defaultValue="normal"
         android:summary="%s"
         android:persistent="true" />

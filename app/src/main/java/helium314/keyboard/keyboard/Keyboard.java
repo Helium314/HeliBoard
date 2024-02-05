@@ -67,11 +67,11 @@ public class Keyboard {
     public final int mMostCommonKeyHeight;
     public final int mMostCommonKeyWidth;
 
-    /** More keys keyboard template */
-    public final int mMoreKeysTemplate;
+    /** Popup keys keyboard template */
+    public final int mPopupKeysTemplate;
 
-    /** Maximum column for more keys keyboard */
-    public final int mMaxMoreKeysKeyboardColumn;
+    /** Maximum column for popup keys keyboard */
+    public final int mMaxPopupKeysKeyboardColumn;
 
     /** List of keys in this keyboard */
     @NonNull
@@ -101,8 +101,8 @@ public class Keyboard {
         mBaseWidth = params.mBaseWidth;
         mMostCommonKeyHeight = params.mMostCommonKeyHeight;
         mMostCommonKeyWidth = params.mMostCommonKeyWidth;
-        mMoreKeysTemplate = params.mMoreKeysTemplate;
-        mMaxMoreKeysKeyboardColumn = params.mMaxMoreKeysKeyboardColumn;
+        mPopupKeysTemplate = params.mPopupKeysTemplate;
+        mMaxPopupKeysKeyboardColumn = params.mMaxPopupKeysKeyboardColumn;
         mKeyVisualAttributes = params.mKeyVisualAttributes;
         mTopPadding = params.mTopPadding;
         mVerticalGap = params.mVerticalGap;
@@ -129,8 +129,8 @@ public class Keyboard {
         mBaseWidth = keyboard.mBaseWidth;
         mMostCommonKeyHeight = keyboard.mMostCommonKeyHeight;
         mMostCommonKeyWidth = keyboard.mMostCommonKeyWidth;
-        mMoreKeysTemplate = keyboard.mMoreKeysTemplate;
-        mMaxMoreKeysKeyboardColumn = keyboard.mMaxMoreKeysKeyboardColumn;
+        mPopupKeysTemplate = keyboard.mPopupKeysTemplate;
+        mMaxPopupKeysKeyboardColumn = keyboard.mMaxPopupKeysKeyboardColumn;
         mKeyVisualAttributes = keyboard.mKeyVisualAttributes;
         mTopPadding = keyboard.mTopPadding;
         mVerticalGap = keyboard.mVerticalGap;

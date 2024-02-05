@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.Key;
-import helium314.keyboard.keyboard.MoreKeysPanel;
+import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.PointerTracker;
 
 public interface DrawingProxy {
@@ -29,14 +29,13 @@ public interface DrawingProxy {
     void onKeyReleased(@NonNull Key key, boolean withAnimation);
 
     /**
-     * Start showing more keys keyboard of a key that is being long pressed.
-     * @param key the {@link Key} that is being long pressed and showing more keys keyboard.
+     * Start showing popup keys keyboard of a key that is being long pressed.
+     * @param key the {@link Key} that is being long pressed and showing popup keys keyboard.
      * @param tracker the {@link PointerTracker} that detects this long pressing.
-     * @return {@link MoreKeysPanel} that is being shown. null if there is no need to show more keys
-     *     keyboard.
+     * @return {@link PopupKeysPanel} that is being shown. null if there is no need to show popup keys keyboard.
      */
     @Nullable
-    MoreKeysPanel showMoreKeysKeyboard(@NonNull Key key, @NonNull PointerTracker tracker);
+    PopupKeysPanel showPopupKeysKeyboard(@NonNull Key key, @NonNull PointerTracker tracker);
 
     /**
      * Start a while-typing-animation.

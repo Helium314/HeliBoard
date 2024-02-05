@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ! !icon/zwj_key|‍
 ៗ !icon/zwnj_key|‌
 &quot; ៑

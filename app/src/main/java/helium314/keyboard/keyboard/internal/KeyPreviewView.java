@@ -110,26 +110,26 @@ public class KeyPreviewView extends AppCompatTextView {
     private static final int[][][] KEY_PREVIEW_BACKGROUND_STATE_TABLE = {
         { // POSITION_MIDDLE
             {},
-            { R.attr.state_has_morekeys }
+            { R.attr.state_has_popup_keys}
         },
         { // POSITION_LEFT
             { R.attr.state_left_edge },
-            { R.attr.state_left_edge, R.attr.state_has_morekeys }
+            { R.attr.state_left_edge, R.attr.state_has_popup_keys}
         },
         { // POSITION_RIGHT
             { R.attr.state_right_edge },
-            { R.attr.state_right_edge, R.attr.state_has_morekeys }
+            { R.attr.state_right_edge, R.attr.state_has_popup_keys}
         }
     };
     private static final int STATE_NORMAL = 0;
-    private static final int STATE_HAS_MOREKEYS = 1;
+    private static final int STATE_HAS_POPUPKEYS = 1;
 
-    public void setPreviewBackground(final boolean hasMoreKeys, final int position) {
+    public void setPreviewBackground(final boolean hasPopupKeys, final int position) {
         final Drawable background = getBackground();
         if (background == null) {
             return;
         }
-        final int hasMoreKeysState = hasMoreKeys ? STATE_HAS_MOREKEYS : STATE_NORMAL;
-        background.setState(KEY_PREVIEW_BACKGROUND_STATE_TABLE[position][hasMoreKeysState]);
+        final int hasPopupKeysState = hasPopupKeys ? STATE_HAS_POPUPKEYS : STATE_NORMAL;
+        background.setState(KEY_PREVIEW_BACKGROUND_STATE_TABLE[position][hasPopupKeysState]);
     }
 }

@@ -17,7 +17,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
-import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.common.splitOnWhitespace
@@ -26,13 +25,12 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.InputTypeUtils
-import helium314.keyboard.latin.utils.MORE_KEYS_LAYOUT
-import helium314.keyboard.latin.utils.MORE_KEYS_NUMBER
+import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
+import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
 import helium314.keyboard.latin.utils.getLayoutFile
 import helium314.keyboard.latin.utils.runInLocale
 import helium314.keyboard.latin.utils.sumOf
 import java.io.File
-import java.util.Locale
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,
@@ -55,7 +53,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
         params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
-        params.mAllowRedundantMoreKeys = infos.allowRedundantMoreKeys
+        params.mAllowRedundantPopupKeys = infos.allowRedundantPopupKeys
         if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
             params.mTouchPositionCorrection.load(emptyArray())
         else
@@ -80,9 +78,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun createAlphaSymbolRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
-        addNumberRowOrMoreKeys(baseKeys)
+        addNumberRowOrPopupKeys(baseKeys)
         if (params.mId.isAlphabetKeyboard)
-            addSymbolMoreKeys(baseKeys)
+            addSymbolPopupKeys(baseKeys)
         val bottomRow = getBottomRowAndAdjustBaseKeys(baseKeys) // not really fast, but irrelevant compared to the loop
 
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
@@ -177,22 +175,22 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
-    private fun addNumberRowOrMoreKeys(baseKeys: MutableList<List<KeyData>>) {
+    private fun addNumberRowOrPopupKeys(baseKeys: MutableList<List<KeyData>>) {
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
-            // replace first symbols row with number row, but use the labels as moreKeys
+            // replace first symbols row with number row, but use the labels as popupKeys
             val numberRow = params.mLocaleKeyTexts.getNumberRow()
             numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
             baseKeys[0] = numberRow
         } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && infos.numbersOnTopRow) {
-            if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout more key
-                && params.mMoreKeyLabelSources.let {
-                    val layout = it.indexOf(MORE_KEYS_LAYOUT)
-                    val number = it.indexOf(MORE_KEYS_NUMBER)
+            if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
+                && params.mPopupKeyLabelSources.let {
+                    val layout = it.indexOf(POPUP_KEYS_LAYOUT)
+                    val number = it.indexOf(POPUP_KEYS_NUMBER)
                     layout != -1 && layout < number // layout before number label
                 }
             ) {
-                // remove number from labels, to avoid awkward mix of numbers and others caused by layout more keys
-                params.mMoreKeyLabelSources.remove(MORE_KEYS_NUMBER)
+                // remove number from labels, to avoid awkward mix of numbers and others caused by layout popup keys
+                params.mPopupKeyLabelSources.remove(POPUP_KEYS_NUMBER)
             }
             // add number to the first 10 keys in first row
             baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
@@ -202,7 +200,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
     }
 
-    private fun addSymbolMoreKeys(baseKeys: MutableList<List<KeyData>>) {
+    private fun addSymbolPopupKeys(baseKeys: MutableList<List<KeyData>>) {
         val layoutName = Settings.readSymbolsLayoutName(context, params.mId.locale)
         val layout = if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
@@ -265,7 +263,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     "view_characters" -> "alpha"
                     "view_symbols" -> "symbol"
                     "enter" -> "action"
-                    // todo (later): maybe add special moreKeys for phone and number layouts?
+                    // todo (later): maybe add special popupKeys for phone and number layouts?
                     "." -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) "period" else "."
                     "," -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) "comma" else ","
                     else -> key.label
@@ -292,7 +290,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     keyParams.mBackgroundType = Key.BACKGROUND_TYPE_FUNCTIONAL
 
                 if (params.mId.mElementId == KeyboardId.ELEMENT_PHONE && key.popup.main?.getPopupLabel(params)?.length?.let { it > 1 } == true) {
-                    keyParams.mMoreKeys = null // the ABC and stuff labels should not create moreKeys
+                    keyParams.mPopupKeys = null // the ABC and stuff labels should not create popupKeys
                 }
                 if (keyParams.mLabel?.length?.let { it > 1 } == true && keyParams.mLabel?.startsWith("!string/") == true) {
                     // resolve string label
@@ -417,16 +415,16 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             it.toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
         }
 
-    private fun getFunctionalKeyParams(def: String, label: String? = null, moreKeys: Collection<String>? = null): KeyParams {
+    private fun getFunctionalKeyParams(def: String, label: String? = null, popupKeys: Collection<String>? = null): KeyParams {
         val split = def.trim().splitOnWhitespace()
         val key = FunctionalKey.valueOf(split[0].uppercase())
         val width = if (split.size == 2) split[1].substringBefore("%").toFloat() / 100f
             else params.mDefaultRelativeKeyWidth
-        return getFunctionalKeyParams(key, width, label, moreKeys)
+        return getFunctionalKeyParams(key, width, label, popupKeys)
     }
 
-    private fun getFunctionalKeyParams(key: FunctionalKey, relativeWidth: Float? = null, label: String? = null, moreKeys: Collection<String>? = null): KeyParams {
-        // for comma and period: label will override default, moreKeys will be appended
+    private fun getFunctionalKeyParams(key: FunctionalKey, relativeWidth: Float? = null, label: String? = null, popupKeys: Collection<String>? = null): KeyParams {
+        // for comma and period: label will override default, popupKeys will be appended
         val width = relativeWidth ?: params.mDefaultRelativeKeyWidth
         return when (key) {
             FunctionalKey.SYMBOL -> KeyParams(
@@ -454,7 +452,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 Key.LABEL_FLAGS_HAS_POPUP_HINT, // previously only if normal comma, but always is more correct
                 if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL // mimic behavior of old dvorak and halmak layouts
                     else Key.BACKGROUND_TYPE_FUNCTIONAL,
-                SimplePopups(moreKeys?.let { getCommaMoreKeys() + it } ?: getCommaMoreKeys())
+                SimplePopups(popupKeys?.let { getCommaPopupKeys() + it } ?: getCommaPopupKeys())
             )
             FunctionalKey.PERIOD -> KeyParams(
                 label ?: getPeriodLabel(),
@@ -463,7 +461,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 Key.LABEL_FLAGS_HAS_POPUP_HINT or defaultLabelFlags,
                 if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL
                     else Key.BACKGROUND_TYPE_FUNCTIONAL,
-                SimplePopups(moreKeys?.let { getPunctuationMoreKeys() + it } ?: getPunctuationMoreKeys())
+                SimplePopups(popupKeys?.let { getPunctuationPopupKeys() + it } ?: getPunctuationPopupKeys())
             )
             FunctionalKey.SPACE -> KeyParams(
                 getSpaceLabel(),
@@ -484,7 +482,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         or Key.LABEL_FLAGS_HAS_POPUP_HINT
                         or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId),
                 Key.BACKGROUND_TYPE_ACTION,
-                getActionKeyMoreKeys()?.let { SimplePopups(it) }
+                getActionKeyPopupKeys()?.let { SimplePopups(it) }
             )
             FunctionalKey.DELETE -> KeyParams(
                 "!icon/delete_key|!code/key_delete",
@@ -503,7 +501,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
                     Key.BACKGROUND_TYPE_STICKY_ON
                 else Key.BACKGROUND_TYPE_STICKY_OFF,
-                if (params.mId.isAlphabetKeyboard) SimplePopups(listOf("!noPanelAutoMoreKey!", " |!code/key_capslock")) else null // why the alphabet morekeys actually?
+                if (params.mId.isAlphabetKeyboard) SimplePopups(listOf("!noPanelAutoPopupKey!", " |!code/key_capslock")) else null // why the alphabet popup keys actually?
             )
             FunctionalKey.EMOJI -> KeyParams(
                 "!icon/emoji_normal_key|!code/key_emoji",
@@ -518,14 +516,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                         getFunctionalKeyParams(FunctionalKey.COM, width)
                     else getFunctionalKeyParams(FunctionalKey.EMOJI, width)
             FunctionalKey.COM -> KeyParams(
-                // todo (later): label and moreKeys could be in localeKeyTexts, handled similar to currency key
+                // todo (later): label and popupKeys could be in localeKeyTexts, handled similar to currency key
                 //  better not in the text files, because it should be handled per country
                 ".com",
                 params,
                 width,
                 Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE,
                 Key.BACKGROUND_TYPE_FUNCTIONAL,
-                SimplePopups(listOf(Key.MORE_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
+                SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
             )
             FunctionalKey.LANGUAGE_SWITCH -> KeyParams(
                 "!icon/language_switch_key|!code/key_language_switch",
@@ -580,71 +578,71 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             "!code/key_shift_enter"
         else "!code/key_enter"
 
-    private fun getActionKeyMoreKeys(): Collection<String>? {
+    private fun getActionKeyPopupKeys(): Collection<String>? {
         val action = params.mId.imeAction()
         val navigatePrev = params.mId.navigatePrevious()
         val navigateNext = params.mId.navigateNext()
         return when {
             params.mId.passwordInput() -> when {
-                navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> createMoreKeys(MORE_KEYS_NAVIGATE_PREVIOUS)
+                navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
                 action == EditorInfo.IME_ACTION_NEXT -> null
-                navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> createMoreKeys(MORE_KEYS_NAVIGATE_NEXT)
+                navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
                 action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                navigateNext && navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_PREVIOUS_NEXT)
-                navigateNext -> createMoreKeys(MORE_KEYS_NAVIGATE_NEXT)
-                navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_PREVIOUS)
+                navigateNext && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS_NEXT)
+                navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
+                navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
                 else -> null
             }
             // could change definition of numbers to query a range, or have a pre-defined list, but not that crucial
             params.mId.isNumberLayout || params.mId.mMode in listOf(KeyboardId.MODE_EMAIL, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME) -> when {
-                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_PREVIOUS)
+                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
                 action == EditorInfo.IME_ACTION_NEXT -> null
-                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> createMoreKeys(MORE_KEYS_NAVIGATE_NEXT)
+                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
                 action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                navigateNext && navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_PREVIOUS_NEXT)
-                navigateNext -> createMoreKeys(MORE_KEYS_NAVIGATE_NEXT)
-                navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_PREVIOUS)
+                navigateNext && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS_NEXT)
+                navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
+                navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
                 else -> null
             }
-            action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS)
-            action == EditorInfo.IME_ACTION_NEXT -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI)
-            action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI_NEXT)
-            action == EditorInfo.IME_ACTION_PREVIOUS -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI)
-            navigateNext && navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT)
-            navigateNext -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI_NEXT)
-            navigatePrev -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS)
-            else -> createMoreKeys(MORE_KEYS_NAVIGATE_EMOJI)
+            action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS)
+            action == EditorInfo.IME_ACTION_NEXT -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI)
+            action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_NEXT)
+            action == EditorInfo.IME_ACTION_PREVIOUS -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI)
+            navigateNext && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT)
+            navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_NEXT)
+            navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS)
+            else -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI)
         }
     }
 
-    private fun createMoreKeys(moreKeysDef: String): List<String> {
-        val moreKeys = mutableListOf<String>()
-        for (moreKey in moreKeysDef.split(",")) {
-            val iconPrefixRemoved = moreKey.substringAfter("!icon/")
-            if (iconPrefixRemoved == moreKey) { // i.e. there is no !icon/
-                moreKeys.add(moreKey)
+    private fun createPopupKeys(popupKeysDef: String): List<String> {
+        val popupKeys = mutableListOf<String>()
+        for (popupKey in popupKeysDef.split(",")) {
+            val iconPrefixRemoved = popupKey.substringAfter("!icon/")
+            if (iconPrefixRemoved == popupKey) { // i.e. there is no !icon/
+                popupKeys.add(popupKey)
                 continue
             }
             val iconName = iconPrefixRemoved.substringBefore("|")
             val replacementText = iconName.replaceIconWithLabelIfNoDrawable()
             if (replacementText == iconName) { // i.e. we have the drawable
-                moreKeys.add(moreKey)
+                popupKeys.add(popupKey)
             } else {
-                moreKeys.add(Key.MORE_KEYS_HAS_LABELS)
-                moreKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
+                popupKeys.add(Key.POPUP_KEYS_HAS_LABELS)
+                popupKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
             }
         }
         // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
         // (probably not necessary, but whatever)
-        if (isTablet() && moreKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
-            val i = moreKeys.indexOfFirst { it.startsWith(Key.MORE_KEYS_FIXED_COLUMN_ORDER) }
+        if (isTablet() && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
+            val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
             if (i > -1) {
-                val n = moreKeys[i].substringAfter(Key.MORE_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
+                val n = popupKeys[i].substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
                 if (n != null)
-                    moreKeys[i] = moreKeys[i].replace(n.toString(), (n - 1).toString())
+                    popupKeys[i] = popupKeys[i].replace(n.toString(), (n - 1).toString())
             }
         }
-        return moreKeys
+        return popupKeys
     }
 
     private fun String.replaceIconWithLabelIfNoDrawable(): String {
@@ -715,7 +713,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return params.mLocaleKeyTexts.labelComma
     }
 
-    private fun getCommaMoreKeys(): List<String> {
+    private fun getCommaPopupKeys(): List<String> {
         val keys = mutableListOf<String>()
         if (!params.mId.mDeviceLocked)
             keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
@@ -730,26 +728,26 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keys
     }
 
-    private fun getPunctuationMoreKeys(): List<String> {
+    private fun getPunctuationPopupKeys(): List<String> {
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             return listOf("…")
         if (params.mId.isNumberLayout)
             return listOf(":", "…", ";", "∞", "π", "√", "°", "^")
-        val moreKeys = params.mLocaleKeyTexts.getMoreKeys("punctuation")!!.toMutableList()
+        val popupKeys = params.mLocaleKeyTexts.getPopupKeys("punctuation")!!.toMutableList()
         if (params.mId.mSubtype.isRtlSubtype) {
-            for (i in moreKeys.indices)
-                moreKeys[i] = moreKeys[i].rtlLabel(params) // for parentheses
+            for (i in popupKeys.indices)
+                popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
         }
-        if (isTablet() && moreKeys.contains("!") && moreKeys.contains("?")) {
+        if (isTablet() && popupKeys.contains("!") && popupKeys.contains("?")) {
             // remove ! and ? keys and reduce number in autoColumnOrder
-            // this makes use of removal of empty moreKeys in MoreKeySpec.insertAdditionalMoreKeys
-            moreKeys[moreKeys.indexOf("!")] = ""
-            moreKeys[moreKeys.indexOf("?")] = ""
-            val columns = moreKeys[0].substringAfter(Key.MORE_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
+            // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
+            popupKeys[popupKeys.indexOf("!")] = ""
+            popupKeys[popupKeys.indexOf("?")] = ""
+            val columns = popupKeys[0].substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
             if (columns != null)
-                moreKeys[0] = "${Key.MORE_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
+                popupKeys[0] = "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
         }
-        return moreKeys
+        return popupKeys
     }
 
     private fun getSpaceLabel(): String =
@@ -818,7 +816,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 else -> true
             }
-            val allowRedundantMoreKeys = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS // todo: always set to false?
+            val allowRedundantPopupKeys = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS // todo: always set to false?
             // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
             // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
             val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && layout in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
@@ -828,7 +826,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             // custom non-json layout for non-uppercase language should not have shift key
             val hasShiftKey = !params.mId.isAlphabetKeyboard || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
             val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
-            return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantMoreKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey, numbersOnTopRow)
+            return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantPopupKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey, numbersOnTopRow)
         }
     }
 
@@ -845,9 +843,9 @@ data class LayoutInfos(
     // currently set in keyboardLayoutSet
     val enableProximityCharsCorrection: Boolean = false,
     // previously was false for nordic and serbian_qwertz, true for all others
-    val allowRedundantMoreKeys: Boolean = true,
+    val allowRedundantPopupKeys: Boolean = true,
     // there is holo, default and null
-    // null only for moreKeys keyboard
+    // null only for popupKeys keyboard
     val touchPositionCorrectionData: Int? = null,
     val hasZwnjKey: Boolean = false,
     val hasShiftKey: Boolean = true,
@@ -877,11 +875,11 @@ fun String.rtlLabel(params: KeyboardParams): String {
     }
 }
 
-// could make arrays right away, but they need to be copied anyway as moreKeys arrays are modified when creating KeyParams
-private const val MORE_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
-private const val MORE_KEYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-private const val MORE_KEYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-private const val MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-private const val MORE_KEYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-private const val MORE_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
-private const val MORE_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+// could make arrays right away, but they need to be copied anyway as popupKeys arrays are modified when creating KeyParams
+private const val POPUP_EYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
+private const val POPUP_EYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
+private const val POPUP_EYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
+private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+private const val POPUP_EYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+private const val POPUP_EYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"

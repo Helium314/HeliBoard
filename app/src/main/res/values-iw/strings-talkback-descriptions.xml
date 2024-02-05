@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> גדולה"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"‏I גדולה"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"‏I גדולה, נקודה מעל"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"תווים חלופיים זמינים"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"תווים חלופיים נדחים"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"תווים חלופיים זמינים"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"תווים חלופיים נדחים"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"הצעות חלופיות זמינות"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"הצעות חלופיות נדחות"</string>
 </resources>

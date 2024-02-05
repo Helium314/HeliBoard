@@ -12,7 +12,7 @@
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.Rounded_Base_Border</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.Rounded_Base_Border</item>
         <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.Rounded_Base_Border</item>
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.Rounded_Base_Border</item>
+        <item name="popupKeysKeyboardViewStyle">@style/PopupKeysKeyboardView.Rounded_Base_Border</item>
         <item name="suggestionStripViewStyle">@style/SuggestionStripView.Rounded_Base_Border</item>
     </style>
     <style
@@ -59,8 +59,8 @@
     </style>
 
     <style
-        name="MoreKeysKeyboardView.Rounded_Base_Border"
-        parent="MoreKeysKeyboardView.Rounded_Base">
+        name="PopupKeysKeyboardView.Rounded_Base_Border"
+        parent="PopupKeysKeyboardView.Rounded_Base">
         <item name="android:background">@drawable/keyboard_popup_panel_background_rounded_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_rounded_base</item>
     </style>

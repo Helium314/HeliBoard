@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ე ჱ
 ყ ჸ
 ი ჲ

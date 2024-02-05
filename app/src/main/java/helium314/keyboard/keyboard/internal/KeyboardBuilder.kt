@@ -42,23 +42,23 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.GRID_HEIGHT = res.getInteger(R.integer.config_keyboard_grid_height)
     }
 
-    fun setAllowRedundantMoreKeys(enabled: Boolean) {
-        mParams.mAllowRedundantMoreKeys = enabled
+    fun setAllowRedundantPopupKeys(enabled: Boolean) {
+        mParams.mAllowRedundantPopupKeys = enabled
     }
 
     fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {
-            setAllowRedundantMoreKeys(true)
+            setAllowRedundantPopupKeys(true)
             readAttributes(R.xml.kbd_emoji)
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
                 val sv = Settings.getInstance().current
-                addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMoreMoreKeys)
-                mParams.mMoreKeyTypes.addAll(sv.mMoreKeyTypes)
-                // add label source only if moreKey type enabled
-                sv.mMoreKeyLabelSources.forEach { if (it in sv.mMoreKeyTypes) mParams.mMoreKeyLabelSources.add(it) }
+                addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
+                mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
+                // add label source only if popup key type enabled
+                sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
                 keysInRows = KeyboardParser.parseLayout(mParams, mContext)
                 determineAbsoluteValues()
             } catch (e: Exception) {
@@ -259,7 +259,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun endKeyboard() {
-        mParams.removeRedundantMoreKeys()
+        mParams.removeRedundantPopupKeys()
         // {@link #parseGridRows(XmlPullParser,boolean)} may populate keyboard rows higher than
         // previously expected.
         // todo (low priority): mCurrentY may end up too high with the new parser and 4 row keyboards in landscape mode

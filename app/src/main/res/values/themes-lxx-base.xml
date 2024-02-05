@@ -12,9 +12,9 @@
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Base</item>
         <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.LXX_Base</item>
-        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.LXX_Base</item>
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.LXX_Base</item>
-        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.LXX_Base.Action</item>
+        <item name="popupKeysKeyboardStyle">@style/PopupKeysKeyboard.LXX_Base</item>
+        <item name="popupKeysKeyboardViewStyle">@style/PopupKeysKeyboardView.LXX_Base</item>
+        <item name="popupKeysKeyboardViewForActionStyle">@style/PopupKeysKeyboardView.LXX_Base.Action</item>
         <item name="suggestionStripViewStyle">@style/SuggestionStripView.LXX_Base</item>
         <item name="suggestionWordStyle">@style/SuggestionWord.LXX_Base</item>
     </style>
@@ -40,7 +40,7 @@
         name="MainKeyboardView.LXX_Base"
         parent="KeyboardView.LXX_Base"
         >
-        <item name="moreKeysKeyboardForActionLayout">@layout/more_keys_keyboard_for_action_lxx</item>
+        <item name="popupKeysKeyboardForActionLayout">@layout/popup_keys_keyboard_for_action_lxx</item>
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_light</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
@@ -77,7 +77,7 @@
         <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx</item>
     </style>
     <style
-        name="MoreKeysKeyboard.LXX_Base"
+        name="PopupKeysKeyboard.LXX_Base"
         parent="Keyboard.LXX_Base"
         >
         <item name="keyboardTopPadding">0%p</item>
@@ -87,18 +87,18 @@
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style
-        name="MoreKeysKeyboardView.LXX_Base"
+        name="PopupKeysKeyboardView.LXX_Base"
         parent="KeyboardView.LXX_Base"
         >
         <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_base</item>
-        <item name="divider">@drawable/more_keys_divider</item>
+        <item name="divider">@drawable/popup_keys_divider</item>
         <item name="keyTypeface">normal</item>
-        <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
+        <item name="verticalCorrection">@dimen/config_popup_keys_keyboard_vertical_correction_holo</item>
     </style>
     <style
-        name="MoreKeysKeyboardView.LXX_Base.Action"
-        parent="MoreKeysKeyboardView.LXX_Base"
+        name="PopupKeysKeyboardView.LXX_Base.Action"
+        parent="PopupKeysKeyboardView.LXX_Base"
         >
         <item name="android:background">@android:color/transparent</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_action_lxx_base</item>

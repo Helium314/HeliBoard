@@ -12,9 +12,9 @@
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.Rounded_Base</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.Rounded_Base</item>
         <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.Rounded_Base</item>
-        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.Rounded_Base</item>
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.Rounded_Base</item>
-        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.Rounded_Base.Action</item>
+        <item name="popupKeysKeyboardStyle">@style/PopupKeysKeyboard.Rounded_Base</item>
+        <item name="popupKeysKeyboardViewStyle">@style/PopupKeysKeyboardView.Rounded_Base</item>
+        <item name="popupKeysKeyboardViewForActionStyle">@style/PopupKeysKeyboardView.Rounded_Base.Action</item>
         <item name="suggestionStripViewStyle">@style/SuggestionStripView.Rounded_Base</item>
         <item name="suggestionWordStyle">@style/SuggestionWord.Rounded_Base</item>
     </style>
@@ -46,7 +46,7 @@
         name="MainKeyboardView.Rounded_Base"
         parent="KeyboardView.Rounded_Base"
         >
-        <item name="moreKeysKeyboardForActionLayout">@layout/more_keys_keyboard_for_action_lxx</item>
+        <item name="popupKeysKeyboardForActionLayout">@layout/popup_keys_keyboard_for_action_lxx</item>
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_light</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
@@ -86,7 +86,7 @@
     </style>
 
     <style
-        name="MoreKeysKeyboard.Rounded_Base"
+        name="PopupKeysKeyboard.Rounded_Base"
         parent="Keyboard.Rounded_Base"
         >
         <item name="keyboardTopPadding">0%p</item>
@@ -97,19 +97,19 @@
     </style>
 
     <style
-        name="MoreKeysKeyboardView.Rounded_Base"
+        name="PopupKeysKeyboardView.Rounded_Base"
         parent="KeyboardView.Rounded_Base"
         >
         <item name="android:background">@drawable/keyboard_popup_panel_background_rounded_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_rounded_base</item>
-        <item name="divider">@drawable/more_keys_divider</item>
+        <item name="divider">@drawable/popup_keys_divider</item>
         <item name="keyTypeface">normal</item>
-        <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
+        <item name="verticalCorrection">@dimen/config_popup_keys_keyboard_vertical_correction_holo</item>
     </style>
 
     <style
-        name="MoreKeysKeyboardView.Rounded_Base.Action"
-        parent="MoreKeysKeyboardView.Rounded_Base"
+        name="PopupKeysKeyboardView.Rounded_Base.Action"
+        parent="PopupKeysKeyboardView.Rounded_Base"
         >
         <item name="android:background">@android:color/transparent</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_action_lxx_base</item>

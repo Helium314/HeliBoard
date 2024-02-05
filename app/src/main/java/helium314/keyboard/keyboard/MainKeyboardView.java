@@ -38,7 +38,7 @@ import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyPreviewChoreographer;
 import helium314.keyboard.keyboard.internal.KeyPreviewDrawParams;
 import helium314.keyboard.keyboard.internal.KeyPreviewView;
-import helium314.keyboard.keyboard.internal.MoreKeySpec;
+import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.keyboard.internal.NonDistinctMultitouchHelper;
 import helium314.keyboard.keyboard.internal.SlidingKeyInputDrawingPreview;
 import helium314.keyboard.keyboard.internal.TimerHandler;
@@ -83,10 +83,10 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_keyPreviewLayout
  * @attr ref R.styleable#MainKeyboardView_keyPreviewOffset
  * @attr ref R.styleable#MainKeyboardView_keyPreviewHeight
- * @attr ref R.styleable#MainKeyboardView_moreKeysKeyboardLayout
- * @attr ref R.styleable#MainKeyboardView_moreKeysKeyboardForActionLayout
+ * @attr ref R.styleable#MainKeyboardView_popupKeysKeyboardLayout
+ * @attr ref R.styleable#MainKeyboardView_popupKeysKeyboardForActionLayout
  * @attr ref R.styleable#MainKeyboardView_backgroundDimAlpha
- * @attr ref R.styleable#MainKeyboardView_showMoreKeysKeyboardAtTouchPoint
+ * @attr ref R.styleable#MainKeyboardView_showPopupKeysKeyboardAtTouchPoint
  * @attr ref R.styleable#MainKeyboardView_gestureFloatingPreviewTextLingerTimeout
  * @attr ref R.styleable#MainKeyboardView_gestureStaticTimeThresholdAfterFastTyping
  * @attr ref R.styleable#MainKeyboardView_gestureDetectFastMoveSpeedThreshold
@@ -101,7 +101,7 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_suppressKeyPreviewAfterBatchInputDuration
  */
 public final class MainKeyboardView extends KeyboardView implements DrawingProxy,
-        MoreKeysPanel.Controller {
+        PopupKeysPanel.Controller {
     private static final String TAG = MainKeyboardView.class.getSimpleName();
 
     /** Listener for {@link KeyboardActionListener}. */
@@ -142,13 +142,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     // More keys keyboard
     private final Paint mBackgroundDimAlphaPaint = new Paint();
-    private final View mMoreKeysKeyboardContainer;
-    private final View mMoreKeysKeyboardForActionContainer;
-    private final WeakHashMap<Key, Keyboard> mMoreKeysKeyboardCache = new WeakHashMap<>();
-    private final boolean mConfigShowMoreKeysKeyboardAtTouchedPoint;
-    // More keys panel (used by both more keys keyboard and more suggestions view)
-    // TODO: Consider extending to support multiple more keys panels
-    private MoreKeysPanel mMoreKeysPanel;
+    private final View mPopupKeysKeyboardContainer;
+    private final View mPopupKeysKeyboardForActionContainer;
+    private final WeakHashMap<Key, Keyboard> mPopupKeysKeyboardCache = new WeakHashMap<>();
+    private final boolean mConfigShowPopupKeysKeyboardAtTouchedPoint;
+    // More keys panel (used by both popup keys keyboard and more suggestions view)
+    // TODO: Consider extending to support multiple popup keys panels
+    private PopupKeysPanel mPopupKeysPanel;
 
     // Gesture floating preview text
     // TODO: Make this parameter customizable by user via settings.
@@ -220,13 +220,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mKeyPreviewDrawParams = new KeyPreviewDrawParams(mainKeyboardViewAttr);
         mKeyPreviewChoreographer = new KeyPreviewChoreographer(mKeyPreviewDrawParams);
 
-        final int moreKeysKeyboardLayoutId = mainKeyboardViewAttr.getResourceId(
-                R.styleable.MainKeyboardView_moreKeysKeyboardLayout, 0);
-        final int moreKeysKeyboardForActionLayoutId = mainKeyboardViewAttr.getResourceId(
-                R.styleable.MainKeyboardView_moreKeysKeyboardForActionLayout,
-                moreKeysKeyboardLayoutId);
-        mConfigShowMoreKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
-                R.styleable.MainKeyboardView_showMoreKeysKeyboardAtTouchedPoint, false);
+        final int popupKeysKeyboardLayoutId = mainKeyboardViewAttr.getResourceId(
+                R.styleable.MainKeyboardView_popupKeysKeyboardLayout, 0);
+        final int popupKeysKeyboardForActionLayoutId = mainKeyboardViewAttr.getResourceId(
+                R.styleable.MainKeyboardView_popupKeysKeyboardForActionLayout,
+                popupKeysKeyboardLayoutId);
+        mConfigShowPopupKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
+                R.styleable.MainKeyboardView_showPopupKeysKeyboardAtTouchedPoint, false);
 
         mGestureFloatingPreviewTextLingerTimeout = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureFloatingPreviewTextLingerTimeout, 0);
@@ -244,8 +244,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mDrawingPreviewPlacerView = drawingPreviewPlacerView;
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
-        mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
-        mMoreKeysKeyboardForActionContainer = inflater.inflate(moreKeysKeyboardForActionLayoutId, null);
+        mPopupKeysKeyboardContainer = inflater.inflate(popupKeysKeyboardLayoutId, null);
+        mPopupKeysKeyboardForActionContainer = inflater.inflate(popupKeysKeyboardForActionLayoutId, null);
         mLanguageOnSpacebarFadeoutAnimator = loadObjectAnimator(languageOnSpacebarFadeoutAnimatorResId, this);
         if (mLanguageOnSpacebarFadeoutAnimator != null)
             mLanguageOnSpacebarFadeoutAnimator.setIntValues(255, mLanguageOnSpacebarFinalAlpha);
@@ -344,7 +344,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mKeyDetector.setKeyboard(
                 keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
         PointerTracker.setKeyDetector(mKeyDetector);
-        mMoreKeysKeyboardCache.clear();
+        mPopupKeysKeyboardCache.clear();
 
         mSpaceKey = keyboard.getKey(Constants.CODE_SPACE);
         final int keyHeight = keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap;
@@ -513,94 +513,94 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mDrawingPreviewPlacerView.removeAllViews();
     }
 
-    // Implements {@link DrawingProxy@showMoreKeysKeyboard(Key,PointerTracker)}.
+    // Implements {@link DrawingProxy@showPopupKeysKeyboard(Key,PointerTracker)}.
     @Override
     @Nullable
-    public MoreKeysPanel showMoreKeysKeyboard(@NonNull final Key key,
-            @NonNull final PointerTracker tracker) {
-        final MoreKeySpec[] moreKeys = key.getMoreKeys();
-        if (moreKeys == null) {
+    public PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
+                                                @NonNull final PointerTracker tracker) {
+        final PopupKeySpec[] popupKeys = key.getPopupKeys();
+        if (popupKeys == null) {
             return null;
         }
-        Keyboard moreKeysKeyboard = mMoreKeysKeyboardCache.get(key);
-        if (moreKeysKeyboard == null) {
+        Keyboard popupKeysKeyboard = mPopupKeysKeyboardCache.get(key);
+        if (popupKeysKeyboard == null) {
             // {@link KeyPreviewDrawParams#mPreviewVisibleWidth} should have been set at
             // {@link KeyPreviewChoreographer#placeKeyPreview(Key,TextView,KeyboardIconsSet,KeyDrawParams,int,int[]},
             // though there may be some chances that the value is zero. <code>width == 0</code>
             // will cause zero-division error at
-            // {@link MoreKeysKeyboardParams#setParameters(int,int,int,int,int,int,boolean,int)}.
-            final boolean isSingleMoreKeyWithPreview = mKeyPreviewDrawParams.isPopupEnabled()
-                    && !key.noKeyPreview() && moreKeys.length == 1
+            // {@link PopupKeysKeyboardParams#setParameters(int,int,int,int,int,int,boolean,int)}.
+            final boolean isSinglePopupKeyWithPreview = mKeyPreviewDrawParams.isPopupEnabled()
+                    && !key.noKeyPreview() && popupKeys.length == 1
                     && mKeyPreviewDrawParams.getVisibleWidth() > 0;
-            final MoreKeysKeyboard.Builder builder = new MoreKeysKeyboard.Builder(
-                    getContext(), key, getKeyboard(), isSingleMoreKeyWithPreview,
+            final PopupKeysKeyboard.Builder builder = new PopupKeysKeyboard.Builder(
+                    getContext(), key, getKeyboard(), isSinglePopupKeyWithPreview,
                     mKeyPreviewDrawParams.getVisibleWidth(),
                     mKeyPreviewDrawParams.getVisibleHeight(), newLabelPaint(key));
-            moreKeysKeyboard = builder.build();
-            mMoreKeysKeyboardCache.put(key, moreKeysKeyboard);
+            popupKeysKeyboard = builder.build();
+            mPopupKeysKeyboardCache.put(key, popupKeysKeyboard);
         }
 
-        final View container = key.isActionKey() ? mMoreKeysKeyboardForActionContainer
-                : mMoreKeysKeyboardContainer;
-        final MoreKeysKeyboardView moreKeysKeyboardView =
-                container.findViewById(R.id.more_keys_keyboard_view);
-        moreKeysKeyboardView.setKeyboard(moreKeysKeyboard);
+        final View container = key.isActionKey() ? mPopupKeysKeyboardForActionContainer
+                : mPopupKeysKeyboardContainer;
+        final PopupKeysKeyboardView popupKeysKeyboardView =
+                container.findViewById(R.id.popup_keys_keyboard_view);
+        popupKeysKeyboardView.setKeyboard(popupKeysKeyboard);
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         final int[] lastCoords = CoordinateUtils.newInstance();
         tracker.getLastCoordinates(lastCoords);
         final boolean keyPreviewEnabled = mKeyPreviewDrawParams.isPopupEnabled()
                 && !key.noKeyPreview();
-        // The more keys keyboard is usually horizontally aligned with the center of the parent key.
-        // If showMoreKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
+        // The popup keys keyboard is usually horizontally aligned with the center of the parent key.
+        // If showPopupKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
         // keys keyboard is placed at the touch point of the parent key.
-        final int pointX = (mConfigShowMoreKeysKeyboardAtTouchedPoint && !keyPreviewEnabled)
+        final int pointX = (mConfigShowPopupKeysKeyboardAtTouchedPoint && !keyPreviewEnabled)
                 ? CoordinateUtils.x(lastCoords)
                 : key.getX() + key.getWidth() / 2;
-        // The more keys keyboard is usually vertically aligned with the top edge of the parent key
-        // (plus vertical gap). If the key preview is enabled, the more keys keyboard is vertically
+        // The popup keys keyboard is usually vertically aligned with the top edge of the parent key
+        // (plus vertical gap). If the key preview is enabled, the popup keys keyboard is vertically
         // aligned with the bottom edge of the visible part of the key preview.
         // {@code mPreviewVisibleOffset} has been set appropriately in
         // {@link KeyboardView#showKeyPreview(PointerTracker)}.
         final int pointY = key.getY() + mKeyPreviewDrawParams.getVisibleOffset();
-        moreKeysKeyboardView.showMoreKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
-        return moreKeysKeyboardView;
+        popupKeysKeyboardView.showPopupKeysPanel(this, this, pointX, pointY, mKeyboardActionListener);
+        return popupKeysKeyboardView;
     }
 
     public boolean isInDraggingFinger() {
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingPopupKeysPanel()) {
             return true;
         }
         return PointerTracker.isAnyInDraggingFinger();
     }
 
     @Override
-    public void onShowMoreKeysPanel(final MoreKeysPanel panel) {
+    public void onShowPopupKeysPanel(final PopupKeysPanel panel) {
         locatePreviewPlacerView();
-        // Dismiss another {@link MoreKeysPanel} that may be being showed.
-        onDismissMoreKeysPanel();
+        // Dismiss another {@link PopupKeysPanel} that may be being showed.
+        onDismissPopupKeysPanel();
         // Dismiss all key previews that may be being showed.
         PointerTracker.setReleasedKeyGraphicsToAllKeys();
         // Dismiss sliding key input preview that may be being showed.
         mSlidingKeyInputDrawingPreview.dismissSlidingKeyInputPreview();
         panel.showInParent(mDrawingPreviewPlacerView);
-        mMoreKeysPanel = panel;
+        mPopupKeysPanel = panel;
     }
 
-    public boolean isShowingMoreKeysPanel() {
-        return mMoreKeysPanel != null && mMoreKeysPanel.isShowingInParent();
-    }
-
-    @Override
-    public void onCancelMoreKeysPanel() {
-        PointerTracker.dismissAllMoreKeysPanels();
+    public boolean isShowingPopupKeysPanel() {
+        return mPopupKeysPanel != null && mPopupKeysPanel.isShowingInParent();
     }
 
     @Override
-    public void onDismissMoreKeysPanel() {
-        if (isShowingMoreKeysPanel()) {
-            mMoreKeysPanel.removeFromParent();
-            mMoreKeysPanel = null;
+    public void onCancelPopupKeysPanel() {
+        PointerTracker.dismissAllPopupKeysPanels();
+    }
+
+    @Override
+    public void onDismissPopupKeysPanel() {
+        if (isShowingPopupKeysPanel()) {
+            mPopupKeysPanel.removeFromParent();
+            mPopupKeysPanel = null;
         }
     }
 
@@ -623,7 +623,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
         if (mNonDistinctMultitouchHelper != null) {
             if (event.getPointerCount() > 1 && mTimerHandler.isInKeyRepeat()) {
-                // Key repeating timer will be canceled if 2 or more keys are in action.
+                // Key repeating timer will be canceled if 2 or popup keys are in action.
                 mTimerHandler.cancelKeyRepeatTimers();
             }
             // Non distinct multitouch screen support
@@ -637,9 +637,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final int index = event.getActionIndex();
         final int id = event.getPointerId(index);
         final PointerTracker tracker = PointerTracker.getPointerTracker(id);
-        // When a more keys panel is showing, we should ignore other fingers' single touch events
-        // other than the finger that is showing the more keys panel.
-        if (isShowingMoreKeysPanel() && !tracker.isShowingMoreKeysPanel()
+        // When a popup keys panel is showing, we should ignore other fingers' single touch events
+        // other than the finger that is showing the popup keys panel.
+        if (isShowingPopupKeysPanel() && !tracker.isShowingPopupKeysPanel()
                 && PointerTracker.getActivePointerTrackerCount() == 1) {
             return true;
         }
@@ -652,17 +652,17 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         PointerTracker.setReleasedKeyGraphicsToAllKeys();
         mGestureFloatingTextDrawingPreview.dismissGestureFloatingPreviewText();
         mSlidingKeyInputDrawingPreview.dismissSlidingKeyInputPreview();
-        PointerTracker.dismissAllMoreKeysPanels();
+        PointerTracker.dismissAllPopupKeysPanels();
         PointerTracker.cancelAllPointerTrackers();
     }
 
     public void closing() {
         cancelAllOngoingEvents();
-        mMoreKeysKeyboardCache.clear();
+        mPopupKeysKeyboardCache.clear();
     }
 
     public void onHideWindow() {
-        onDismissMoreKeysPanel();
+        onDismissPopupKeysPanel();
         final MainKeyboardAccessibilityDelegate accessibilityDelegate = mAccessibilityDelegate;
         if (accessibilityDelegate != null
                 && AccessibilityUtils.Companion.getInstance().isAccessibilityEnabled()) {

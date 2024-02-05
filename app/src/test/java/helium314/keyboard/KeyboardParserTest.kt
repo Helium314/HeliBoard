@@ -12,7 +12,7 @@ import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.TouchPositionCorrection
 import helium314.keyboard.keyboard.internal.UniqueKeysCache
-import helium314.keyboard.keyboard.internal.keyboard_parser.MORE_KEYS_NORMAL
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.LatinIME
@@ -48,7 +48,7 @@ class ParserTest {
     @Test fun simpleParser() {
         val params = KeyboardParams()
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
-        addLocaleKeyTextsToParams(latinIME, params, MORE_KEYS_NORMAL)
+        addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
         val layoutStrings = listOf(
 """
 a
@@ -141,17 +141,17 @@ f""", // no newline at the end
         assertEquals(keys2[2].size, 10)
     }
 
-    @Test fun `moreKey count does not depend on shift for (for simple layout)`() {
+    @Test fun `popup key count does not depend on shift for (for simple layout)`() {
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
         assertEquals(kb.sortedKeys.size, kb2.sortedKeys.size)
         keys.forEachIndexed { i, kpList -> kpList.forEachIndexed { j, kp ->
-            assertEquals(kp.mMoreKeys?.size, keys2[i][j].mMoreKeys?.size)
+            assertEquals(kp.mPopupKeys?.size, keys2[i][j].mPopupKeys?.size)
         } }
         kb.sortedKeys.forEachIndexed { index, key ->
-            assertEquals(key.moreKeys?.size, kb2.sortedKeys[index].moreKeys?.size)
+            assertEquals(key.popupKeys?.size, kb2.sortedKeys[index].popupKeys?.size)
         }
     }
 

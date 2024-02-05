@@ -8,9 +8,9 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
 import helium314.keyboard.latin.common.splitOnWhitespace
 
 /**
- *  Parser for simple layouts, defined only as rows of (normal) keys with moreKeys.
+ *  Parser for simple layouts, defined only as rows of (normal) keys with popup keys.
  *  There may be a short "extra row" for the configurable keys in the bottom row. This is two keys
- *  for alphabet, 3 keys for symbols and 4 keys for shift symbols. MoreKeys on period and comma get
+ *  for alphabet, 3 keys for symbols and 4 keys for shift symbols. Popup keys on period and comma get
  *  merged with defaults.
  */
 class SimpleKeyboardParser(

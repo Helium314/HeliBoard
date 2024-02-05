@@ -503,11 +503,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return mClipboardHistoryView != null && mClipboardHistoryView.isShown();
     }
 
-    public boolean isShowingMoreKeysPanel() {
+    public boolean isShowingPopupKeysPanel() {
         if (isShowingEmojiPalettes() || isShowingClipboardHistory()) {
             return false;
         }
-        return mKeyboardView.isShowingMoreKeysPanel();
+        return mKeyboardView.isShowingPopupKeysPanel();
     }
 
     public View getVisibleKeyboardView() {

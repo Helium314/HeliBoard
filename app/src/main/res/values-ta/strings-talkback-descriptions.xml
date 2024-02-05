@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"பேரெழுத்து <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"பேரெழுத்து I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"பேரெழுத்து I, மேல் புள்ளி"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"மாற்று எழுத்துக்குறிகள் உள்ளன"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"மாற்று எழுத்துக்குறிகள் நிராகரிக்கப்பட்டன"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"மாற்று எழுத்துக்குறிகள் உள்ளன"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"மாற்று எழுத்துக்குறிகள் நிராகரிக்கப்பட்டன"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"மாற்று பரிந்துரைகள் உள்ளன"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"மாற்று பரிந்துரைகள் நிராகரிக்கப்பட்டன"</string>
 </resources>

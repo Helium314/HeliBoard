@@ -134,10 +134,10 @@
          Note that depending on locale, the lower-case of this letter is U+0069 or U+0131. -->
     <string name="spoken_letter_0130">Capital I, dot above</string>
 
-    <!-- Spoken descriptions when opening a more keys keyboard that has alternative characters. -->
-    <string name="spoken_open_more_keys_keyboard">Alternative characters are available</string>
-    <!-- Spoken descriptions when closing a more keys keyboard that has alternative characters. -->
-    <string name="spoken_close_more_keys_keyboard">Alternative characters are dismissed</string>
+    <!-- Spoken descriptions when opening a popup keys keyboard that has alternative characters. -->
+    <string name="spoken_open_popup_keys_keyboard">Alternative characters are available</string>
+    <!-- Spoken descriptions when closing a popup keys keyboard that has alternative characters. -->
+    <string name="spoken_close_popup_keys_keyboard">Alternative characters are dismissed</string>
 
     <!-- Spoken descriptions when opening a more suggestions panel that has alternative suggested words. -->
     <string name="spoken_open_more_suggestions">Alternative suggestions are available</string>

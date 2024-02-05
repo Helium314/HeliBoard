@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 е ё
 ь ъ
 ' ’ ‚ ‘

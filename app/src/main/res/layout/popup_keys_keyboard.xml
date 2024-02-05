@@ -10,9 +10,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
 >
-    <helium314.keyboard.keyboard.MoreKeysKeyboardView
-        android:id="@+id/more_keys_keyboard_view"
+    <helium314.keyboard.keyboard.PopupKeysKeyboardView
+        android:id="@+id/popup_keys_keyboard_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?attr/moreKeysKeyboardViewStyle" />
+        style="?attr/popupKeysKeyboardViewStyle" />
 </LinearLayout>

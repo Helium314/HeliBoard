@@ -627,7 +627,7 @@ public final class KeyboardState {
                 }
             }
         } else {
-            // In symbol mode, just toggle symbol and symbol more keyboard.
+            // In symbol mode, just toggle symbol and symbol popup keyboard.
             toggleShiftInSymbols();
             mSwitchState = SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE;
             mShiftKeyState.onPress();

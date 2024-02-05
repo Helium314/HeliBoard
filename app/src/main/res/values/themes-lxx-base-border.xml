@@ -12,7 +12,7 @@
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.LXX_Base_Border</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.LXX_Base_Border</item>
         <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.LXX_Base_Border</item>
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.LXX_Base_Border</item>
+        <item name="popupKeysKeyboardViewStyle">@style/PopupKeysKeyboardView.LXX_Base_Border</item>
         <item name="suggestionStripViewStyle">@style/SuggestionStripView.LXX_Base_Border</item>
     </style>
     <style
@@ -59,8 +59,8 @@
     </style>
 
     <style
-        name="MoreKeysKeyboardView.LXX_Base_Border"
-        parent="MoreKeysKeyboardView.LXX_Base">
+        name="PopupKeysKeyboardView.LXX_Base_Border"
+        parent="PopupKeysKeyboardView.LXX_Base">
         <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_base</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_base</item>
     </style>

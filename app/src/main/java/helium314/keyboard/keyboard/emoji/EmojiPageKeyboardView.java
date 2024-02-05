@@ -32,10 +32,10 @@ import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.KeyDetector;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardView;
-import helium314.keyboard.keyboard.MoreKeysKeyboard;
-import helium314.keyboard.keyboard.MoreKeysKeyboardView;
-import helium314.keyboard.keyboard.MoreKeysPanel;
-import helium314.keyboard.keyboard.internal.MoreKeySpec;
+import helium314.keyboard.keyboard.PopupKeysKeyboard;
+import helium314.keyboard.keyboard.PopupKeysKeyboardView;
+import helium314.keyboard.keyboard.PopupKeysPanel;
+import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
@@ -47,7 +47,7 @@ import java.util.WeakHashMap;
  * Multi-touch unsupported. No gesture support.
  */
 public final class EmojiPageKeyboardView extends KeyboardView implements
-        MoreKeysPanel.Controller {
+        PopupKeysPanel.Controller {
     private static final String TAG = "EmojiPageKeyboardView";
     private static final boolean LOG = false;
     private static final long KEY_PRESS_DELAY_TIME = 250;  // msec
@@ -73,13 +73,13 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     private final Handler mHandler;
 
     // More keys keyboard
-    private final View mMoreKeysKeyboardContainer;
-    private final WeakHashMap<Key, Keyboard> mMoreKeysKeyboardCache = new WeakHashMap<>();
-    private final boolean mConfigShowMoreKeysKeyboardAtTouchedPoint;
-    private final ViewGroup mMoreKeysPlacerView;
-    // More keys panel (used by more keys keyboard view)
-    // TODO: Consider extending to support multiple more keys panels
-    private MoreKeysPanel mMoreKeysPanel;
+    private final View mPopupKeysKeyboardContainer;
+    private final WeakHashMap<Key, Keyboard> mPopupKeysKeyboardCache = new WeakHashMap<>();
+    private final boolean mConfigShowPopupKeysKeyboardAtTouchedPoint;
+    private final ViewGroup mPopupKeysPlacerView;
+    // More keys panel (used by popup keys keyboard view)
+    // TODO: Consider extending to support multiple popup keys panels
+    private PopupKeysPanel mPopupKeysPanel;
 
     public EmojiPageKeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -90,18 +90,18 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         super(context, attrs, defStyle);
         mHandler = new Handler();
 
-        mMoreKeysPlacerView = new FrameLayout(context, attrs);
+        mPopupKeysPlacerView = new FrameLayout(context, attrs);
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.MainKeyboardView, defStyle, R.style.MainKeyboardView);
-        final int moreKeysKeyboardLayoutId = keyboardViewAttr.getResourceId(
-                R.styleable.MainKeyboardView_moreKeysKeyboardLayout, 0);
-        mConfigShowMoreKeysKeyboardAtTouchedPoint = keyboardViewAttr.getBoolean(
-                R.styleable.MainKeyboardView_showMoreKeysKeyboardAtTouchedPoint, false);
+        final int popupKeysKeyboardLayoutId = keyboardViewAttr.getResourceId(
+                R.styleable.MainKeyboardView_popupKeysKeyboardLayout, 0);
+        mConfigShowPopupKeysKeyboardAtTouchedPoint = keyboardViewAttr.getBoolean(
+                R.styleable.MainKeyboardView_showPopupKeysKeyboardAtTouchedPoint, false);
         keyboardViewAttr.recycle();
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
-        mMoreKeysKeyboardContainer = inflater.inflate(moreKeysKeyboardLayoutId, null);
+        mPopupKeysKeyboardContainer = inflater.inflate(popupKeysKeyboardLayoutId, null);
     }
 
     @Override
@@ -123,10 +123,10 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         if (!enabled) return;
         final Paint layerPaint = new Paint();
         layerPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
-        mMoreKeysPlacerView.setLayerType(LAYER_TYPE_HARDWARE, layerPaint);
+        mPopupKeysPlacerView.setLayerType(LAYER_TYPE_HARDWARE, layerPaint);
     }
 
-    private void installMoreKeysPlacerView(final boolean uninstall) {
+    private void installPopupKeysPlacerView(final boolean uninstall) {
         final View rootView = getRootView();
         if (rootView == null) {
             Log.w(TAG, "Cannot find root view");
@@ -140,9 +140,9 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         }
 
         if (uninstall) {
-            windowContentView.removeView(mMoreKeysPlacerView);
+            windowContentView.removeView(mPopupKeysPlacerView);
         } else {
-            windowContentView.addView(mMoreKeysPlacerView);
+            windowContentView.addView(mPopupKeysPlacerView);
         }
     }
 
@@ -157,7 +157,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     public void setKeyboard(@NonNull final Keyboard keyboard) {
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(keyboard, 0 /* correctionX */, 0 /* correctionY */);
-        mMoreKeysKeyboardCache.clear();
+        mPopupKeysKeyboardCache.clear();
         if (AccessibilityUtils.Companion.getInstance().isAccessibilityEnabled()) {
             if (mAccessibilityDelegate == null) {
                 mAccessibilityDelegate = new KeyboardAccessibilityDelegate<>(this, mKeyDetector);
@@ -169,68 +169,68 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     @Nullable
-    public MoreKeysPanel showMoreKeysKeyboard(@NonNull final Key key, final int lastX, final int lastY) {
-        final MoreKeySpec[] moreKeys = key.getMoreKeys();
-        if (moreKeys == null) {
+    public PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key, final int lastX, final int lastY) {
+        final PopupKeySpec[] popupKeys = key.getPopupKeys();
+        if (popupKeys == null) {
             return null;
         }
-        Keyboard moreKeysKeyboard = mMoreKeysKeyboardCache.get(key);
-        if (moreKeysKeyboard == null) {
-            final MoreKeysKeyboard.Builder builder = new MoreKeysKeyboard.Builder(
+        Keyboard popupKeysKeyboard = mPopupKeysKeyboardCache.get(key);
+        if (popupKeysKeyboard == null) {
+            final PopupKeysKeyboard.Builder builder = new PopupKeysKeyboard.Builder(
                     getContext(), key, getKeyboard(), false, 0, 0, newLabelPaint(key));
-            moreKeysKeyboard = builder.build();
-            mMoreKeysKeyboardCache.put(key, moreKeysKeyboard);
+            popupKeysKeyboard = builder.build();
+            mPopupKeysKeyboardCache.put(key, popupKeysKeyboard);
         }
 
-        final View container = mMoreKeysKeyboardContainer;
-        final MoreKeysKeyboardView moreKeysKeyboardView = container.findViewById(R.id.more_keys_keyboard_view);
-        moreKeysKeyboardView.setKeyboard(moreKeysKeyboard);
+        final View container = mPopupKeysKeyboardContainer;
+        final PopupKeysKeyboardView popupKeysKeyboardView = container.findViewById(R.id.popup_keys_keyboard_view);
+        popupKeysKeyboardView.setKeyboard(popupKeysKeyboard);
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         final int[] lastCoords = CoordinateUtils.newCoordinateArray(1, lastX, lastY);
-        // The more keys keyboard is usually horizontally aligned with the center of the parent key.
-        // If showMoreKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
+        // The popup keys keyboard is usually horizontally aligned with the center of the parent key.
+        // If showPopupKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
         // keys keyboard is placed at the touch point of the parent key.
-        final int pointX = mConfigShowMoreKeysKeyboardAtTouchedPoint
+        final int pointX = mConfigShowPopupKeysKeyboardAtTouchedPoint
                 ? CoordinateUtils.x(lastCoords)
                 : key.getX() + key.getWidth() / 2;
         final int pointY = key.getY();
-        moreKeysKeyboardView.showMoreKeysPanel(this, this, pointX, pointY, mListener);
-        return moreKeysKeyboardView;
+        popupKeysKeyboardView.showPopupKeysPanel(this, this, pointX, pointY, mListener);
+        return popupKeysKeyboardView;
     }
 
-    private void dismissMoreKeysPanel() {
-        if (isShowingMoreKeysPanel()) {
-            mMoreKeysPanel.dismissMoreKeysPanel();
+    private void dismissPopupKeysPanel() {
+        if (isShowingPopupKeysPanel()) {
+            mPopupKeysPanel.dismissPopupKeysPanel();
         }
     }
 
-    public boolean isShowingMoreKeysPanel() {
-        return mMoreKeysPanel != null;
+    public boolean isShowingPopupKeysPanel() {
+        return mPopupKeysPanel != null;
     }
 
     @Override
-    public void onShowMoreKeysPanel(final MoreKeysPanel panel) {
+    public void onShowPopupKeysPanel(final PopupKeysPanel panel) {
         // install placer view only when needed instead of when this
         // view is attached to window
-        installMoreKeysPlacerView(false /* uninstall */);
-        panel.showInParent(mMoreKeysPlacerView);
-        mMoreKeysPanel = panel;
+        installPopupKeysPlacerView(false /* uninstall */);
+        panel.showInParent(mPopupKeysPlacerView);
+        mPopupKeysPanel = panel;
     }
 
     @Override
-    public void onDismissMoreKeysPanel() {
-        if (isShowingMoreKeysPanel()) {
-            mMoreKeysPanel.removeFromParent();
-            mMoreKeysPanel = null;
-            installMoreKeysPlacerView(true /* uninstall */);
+    public void onDismissPopupKeysPanel() {
+        if (isShowingPopupKeysPanel()) {
+            mPopupKeysPanel.removeFromParent();
+            mPopupKeysPanel = null;
+            installPopupKeysPlacerView(true /* uninstall */);
         }
     }
 
     @Override
-    public void onCancelMoreKeysPanel() {
-        if (isShowingMoreKeysPanel()) {
-            dismissMoreKeysPanel();
+    public void onCancelPopupKeysPanel() {
+        if (isShowingPopupKeysPanel()) {
+            dismissPopupKeysPanel();
         }
     }
 
@@ -281,7 +281,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     private void onLongPressed(final Key key) {
-        if (isShowingMoreKeysPanel()) {
+        if (isShowingPopupKeysPanel()) {
             return;
         }
 
@@ -292,11 +292,11 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
         final int x = mLastX;
         final int y = mLastY;
-        final MoreKeysPanel moreKeysPanel = showMoreKeysKeyboard(key, x, y);
-        if (moreKeysPanel != null) {
-            final int translatedX = moreKeysPanel.translateX(x);
-            final int translatedY = moreKeysPanel.translateY(y);
-            moreKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, 0 /* nor used for now */);
+        final PopupKeysPanel popupKeysPanel = showPopupKeysKeyboard(key, x, y);
+        if (popupKeysPanel != null) {
+            final int translatedX = popupKeysPanel.translateX(x);
+            final int translatedY = popupKeysPanel.translateY(y);
+            popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, 0 /* nor used for now */);
             // No need of re-allowing parent later as we don't
             // want any scroll to append during this entire input.
             disallowParentInterceptTouchEvent(true);
@@ -371,13 +371,13 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         final Key currentKey = mCurrentKey;
         releaseCurrentKey(false /* withKeyRegistering */);
 
-        final boolean isShowingMoreKeysPanel = isShowingMoreKeysPanel();
-        if (isShowingMoreKeysPanel) {
+        final boolean isShowingPopupKeysPanel = isShowingPopupKeysPanel();
+        if (isShowingPopupKeysPanel) {
             final long eventTime = e.getEventTime();
-            final int translatedX = mMoreKeysPanel.translateX(x);
-            final int translatedY = mMoreKeysPanel.translateY(y);
-            mMoreKeysPanel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
-            dismissMoreKeysPanel();
+            final int translatedX = mPopupKeysPanel.translateX(x);
+            final int translatedY = mPopupKeysPanel.translateY(y);
+            mPopupKeysPanel.onUpEvent(translatedX, translatedY, mPointerId, eventTime);
+            dismissPopupKeysPanel();
         } else if (key == currentKey && pendingKeyDown != null) {
             pendingKeyDown.run();
             // Trigger key-release event a little later so that a user can see visual feedback.
@@ -392,7 +392,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     public boolean onCancel(final MotionEvent e) {
         releaseCurrentKey(false);
-        dismissMoreKeysPanel();
+        dismissPopupKeysPanel();
         cancelLongPress();
         return true;
     }
@@ -401,11 +401,11 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         final int x = (int)e.getX();
         final int y = (int)e.getY();
         final Key key = getKey(x, y);
-        final boolean isShowingMoreKeysPanel = isShowingMoreKeysPanel();
+        final boolean isShowingPopupKeysPanel = isShowingPopupKeysPanel();
 
         // Touched key has changed, release previous key's callbacks and
         // re-register them for the new key.
-        if (key != mCurrentKey && !isShowingMoreKeysPanel) {
+        if (key != mCurrentKey && !isShowingPopupKeysPanel) {
             releaseCurrentKey(false);
             mCurrentKey = key;
             if (key == null) {
@@ -417,11 +417,11 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             registerLongPress(key);
         }
 
-        if (isShowingMoreKeysPanel) {
+        if (isShowingPopupKeysPanel) {
             final long eventTime = e.getEventTime();
-            final int translatedX = mMoreKeysPanel.translateX(x);
-            final int translatedY = mMoreKeysPanel.translateY(y);
-            mMoreKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
+            final int translatedX = mPopupKeysPanel.translateX(x);
+            final int translatedY = mPopupKeysPanel.translateY(y);
+            mPopupKeysPanel.onMoveEvent(translatedX, translatedY, mPointerId, eventTime);
         }
 
         mLastX = x;

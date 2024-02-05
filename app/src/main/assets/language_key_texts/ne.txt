@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ट ़
 ् ऽ
 punctuation !autoColumnOrder!9 . \, ? ! # ) ( / ; ' @ : - " + \% &

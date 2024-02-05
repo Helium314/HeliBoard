@@ -64,8 +64,8 @@ public class KeyboardParams {
     public int mHorizontalGap;
     public int mVerticalGap;
 
-    public int mMoreKeysTemplate;
-    public int mMaxMoreKeysKeyboardColumn;
+    public int mPopupKeysTemplate;
+    public int mMaxPopupKeysKeyboardColumn;
 
     public int GRID_WIDTH;
     public int GRID_HEIGHT;
@@ -81,12 +81,12 @@ public class KeyboardParams {
     public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
     @NonNull // todo: not good, this only works because params are currently always created for the active subtype
     public final List<Locale> mSecondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
-    public final ArrayList<String> mMoreKeyTypes = new ArrayList<>();
-    public final ArrayList<String> mMoreKeyLabelSources = new ArrayList<>();
+    public final ArrayList<String> mPopupKeyTypes = new ArrayList<>();
+    public final ArrayList<String> mPopupKeyLabelSources = new ArrayList<>();
 
     @NonNull
     private final UniqueKeysCache mUniqueKeysCache;
-    public boolean mAllowRedundantMoreKeys;
+    public boolean mAllowRedundantPopupKeys;
     @NonNull
     public LocaleKeyTexts mLocaleKeyTexts;
 
@@ -142,19 +142,19 @@ public class KeyboardParams {
         }
     }
 
-    public void removeRedundantMoreKeys() {
-        if (mAllowRedundantMoreKeys) {
+    public void removeRedundantPopupKeys() {
+        if (mAllowRedundantPopupKeys) {
             return;
         }
-        final MoreKeySpec.LettersOnBaseLayout lettersOnBaseLayout =
-                new MoreKeySpec.LettersOnBaseLayout();
+        final PopupKeySpec.LettersOnBaseLayout lettersOnBaseLayout =
+                new PopupKeySpec.LettersOnBaseLayout();
         for (final Key key : mSortedKeys) {
             lettersOnBaseLayout.addLetter(key);
         }
         final ArrayList<Key> allKeys = new ArrayList<>(mSortedKeys);
         mSortedKeys.clear();
         for (final Key key : allKeys) {
-            final Key filteredKey = Key.removeRedundantMoreKeys(key, lettersOnBaseLayout);
+            final Key filteredKey = Key.removeRedundantPopupKeys(key, lettersOnBaseLayout);
             mSortedKeys.add(mUniqueKeysCache.getUniqueKey(filteredKey));
         }
     }
@@ -199,7 +199,7 @@ public class KeyboardParams {
 
     // when attr is null, default attributes will be loaded
     //  these are good for basic keyboards already, but have wrong/unsuitable sizes e.g. for emojis,
-    //  moreKeys and moreSuggestions
+    //  popupKeys and moreSuggestions
     public void readAttributes(final Context context, @Nullable final AttributeSet attr) {
         final TypedArray keyboardAttr = context.obtainStyledAttributes(
                 attr, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
@@ -260,8 +260,8 @@ public class KeyboardParams {
 
             mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
 
-            mMoreKeysTemplate = keyboardAttr.getResourceId(R.styleable.Keyboard_moreKeysTemplate, 0);
-            mMaxMoreKeysKeyboardColumn = keyAttr.getInt(R.styleable.Keyboard_Key_maxMoreKeysColumn, 5);
+            mPopupKeysTemplate = keyboardAttr.getResourceId(R.styleable.Keyboard_popupKeysTemplate, 0);
+            mMaxPopupKeysKeyboardColumn = keyAttr.getInt(R.styleable.Keyboard_Key_maxPopupKeysColumn, 5);
 
             mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
             mIconsSet.loadIcons(keyboardAttr);

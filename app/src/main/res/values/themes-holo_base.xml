@@ -13,10 +13,10 @@
         <item name="mainKeyboardViewStyle">@style/MainKeyboardView.HoloBase</item>
         <item name="emojiPalettesViewStyle">@style/EmojiPalettesView.HoloBase</item>
         <item name="clipboardHistoryViewStyle">@style/ClipboardHistoryView.HoloBase</item>
-        <item name="moreKeysKeyboardStyle">@style/MoreKeysKeyboard.HoloBase</item>
-        <!-- Note: HoloBase theme uses the same style for both general more keys and action more keys. -->
-        <item name="moreKeysKeyboardViewStyle">@style/MoreKeysKeyboardView.HoloBase</item>
-        <item name="moreKeysKeyboardViewForActionStyle">@style/MoreKeysKeyboardView.HoloBase</item>
+        <item name="popupKeysKeyboardStyle">@style/PopupKeysKeyboard.HoloBase</item>
+        <!-- Note: HoloBase theme uses the same style for both general popup keys and action popup keys. -->
+        <item name="popupKeysKeyboardViewStyle">@style/PopupKeysKeyboardView.HoloBase</item>
+        <item name="popupKeysKeyboardViewForActionStyle">@style/PopupKeysKeyboardView.HoloBase</item>
         <item name="suggestionStripViewStyle">@style/SuggestionStripView.HoloBase</item>
         <item name="suggestionWordStyle">@style/SuggestionWord.HoloBase</item>
     </style>
@@ -93,7 +93,7 @@
         <item name="iconPinnedClip">@drawable/ic_clipboard_pin_holo_dark</item>
     </style>
     <style
-        name="MoreKeysKeyboard.HoloBase"
+        name="PopupKeysKeyboard.HoloBase"
         parent="Keyboard.HoloBase"
     >
         <item name="keyboardTopPadding">0%p</item>
@@ -103,15 +103,15 @@
         <item name="touchPositionCorrectionData">@null</item>
     </style>
     <style
-        name="MoreKeysKeyboardView.HoloBase"
+        name="PopupKeysKeyboardView.HoloBase"
         parent="KeyboardView.HoloBase"
     >
         <item name="android:background">@drawable/keyboard_popup_panel_background_holo_white</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_holo_white</item>
         <item name="functionalKeyBackground">@drawable/btn_keyboard_key_popup_holo_white</item>
-        <item name="divider">@drawable/more_keys_divider</item>
+        <item name="divider">@drawable/popup_keys_divider</item>
         <item name="keyTypeface">normal</item>
-        <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
+        <item name="verticalCorrection">@dimen/config_popup_keys_keyboard_vertical_correction_holo</item>
     </style>
     <style
         name="SuggestionStripView.HoloBase"

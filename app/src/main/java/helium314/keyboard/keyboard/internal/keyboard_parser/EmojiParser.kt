@@ -32,10 +32,10 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             else -> throw(IllegalStateException("can only parse emoji categories where an array exists"))
         }
         val emojiArray = context.resources.getStringArray(emojiArrayId)
-        val moreEmojisArray = if (params.mId.mElementId != KeyboardId.ELEMENT_EMOJI_CATEGORY2) null
+        val popupEmojisArray = if (params.mId.mElementId != KeyboardId.ELEMENT_EMOJI_CATEGORY2) null
             else context.resources.getStringArray(R.array.emoji_people_body_more)
-        if (moreEmojisArray != null && emojiArray.size != moreEmojisArray.size)
-            throw(IllegalStateException("Inconsistent array size between codesArray and moreKeysArray"))
+        if (popupEmojisArray != null && emojiArray.size != popupEmojisArray.size)
+            throw(IllegalStateException("Inconsistent array size between codesArray and popupKeysArray"))
 
         val row = ArrayList<KeyParams>(emojiArray.size)
         var currentX = params.mLeftPadding.toFloat()
@@ -51,7 +51,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val keyHeight = emojiKeyboardHeight * params.mDefaultRelativeRowHeight * Settings.getInstance().current.mKeyboardHeightScale // still apply height scale to key
 
         emojiArray.forEachIndexed { i, codeArraySpec ->
-            val keyParams = parseEmojiKey(codeArraySpec, moreEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
+            val keyParams = parseEmojiKey(codeArraySpec, popupEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
             keyParams.xPos = currentX
             keyParams.yPos = currentY
             keyParams.mFullWidth = keyWidth
@@ -78,24 +78,24 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         return labelBuilder.toString() to Constants.CODE_OUTPUT_TEXT
     }
 
-    private fun parseEmojiKey(spec: String, moreKeysString: String? = null): KeyParams? {
+    private fun parseEmojiKey(spec: String, popupKeysString: String? = null): KeyParams? {
         val (label, code) = getLabelAndCode(spec) ?: return null
         val sb = StringBuilder()
-        moreKeysString?.split(";")?.let { moreKeys ->
-            moreKeys.forEach {
+        popupKeysString?.split(";")?.let { popupKeys ->
+            popupKeys.forEach {
                 val (mkLabel, _) = getLabelAndCode(it) ?: return@forEach
                 sb.append(mkLabel).append(",")
             }
         }
-        val moreKeysSpec = if (sb.isNotEmpty()) {
+        val popupKeysSpec = if (sb.isNotEmpty()) {
             sb.deleteCharAt(sb.length - 1)
             sb.toString()
         } else null
         return KeyParams(
             label,
             code,
-            if (moreKeysSpec != null) EMOJI_HINT_LABEL else null,
-            moreKeysSpec,
+            if (popupKeysSpec != null) EMOJI_HINT_LABEL else null,
+            popupKeysSpec,
             Key.LABEL_FLAGS_FONT_NORMAL,
             params
         )

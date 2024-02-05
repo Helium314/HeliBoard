@@ -365,13 +365,13 @@ class LanguageSettingsDialog(
 
     private fun setupPopupSettings() {
         binding.popupOrder.setOnClickListener {
-            val moreKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, MORE_KEYS_ORDER_DEFAULT)!!
-            reorderMoreKeysDialog(context, Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(), moreKeyTypesDefault, R.string.popup_order)
+            val popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, POPUP_KEYS_ORDER_DEFAULT)!!
+            reorderPopupKeysDialog(context, Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.popup_order)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
         binding.popupLabelPriority.setOnClickListener {
-            val moreKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, MORE_KEYS_LABEL_DEFAULT)!!
-            reorderMoreKeysDialog(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(), moreKeyTypesDefault, R.string.hint_source)
+            val popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, POPUP_KEYS_LABEL_DEFAULT)!!
+            reorderPopupKeysDialog(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.hint_source)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
     }

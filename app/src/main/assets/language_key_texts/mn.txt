@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ш щ
 ё е
 ь ъ

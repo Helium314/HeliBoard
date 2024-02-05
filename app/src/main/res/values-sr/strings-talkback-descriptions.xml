@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Велико <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Велико И"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Велико И са тачком изнад"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Доступни су алтернативни знаци"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Алтернативни знаци су одбачени"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Доступни су алтернативни знаци"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Алтернативни знаци су одбачени"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Доступни су алтернативни предлози"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Алтернативни предлози су одбачени"</string>
 </resources>

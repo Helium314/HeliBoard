@@ -17,7 +17,7 @@ import helium314.keyboard.latin.common.StringUtils;
  * The string parser of moreCodesArray specification for <GridRows />. The attribute moreCodesArray is an
  * array of string.
  * The more codes array specification is semicolon separated "codes array specification" each of which represents one
- * "more key".
+ * "popup key".
  * Each element of the array defines a sequence of key labels specified as hexadecimal strings
  * representing code points separated by a vertical bar.
  *

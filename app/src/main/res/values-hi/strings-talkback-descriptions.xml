@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"बड़ा <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"बड़ा आई"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"बड़ा आई, बिंदु ऊपर"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"वैकल्पिक वर्ण उपलब्ध हैं"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"वैकल्पिक वर्ण ख़ारिज कर दिए जाते हैं"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"वैकल्पिक वर्ण उपलब्ध हैं"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"वैकल्पिक वर्ण ख़ारिज कर दिए जाते हैं"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"वैकल्पिक सुझाव उपलब्ध हैं"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"वैकल्पिक सुझाव ख़ारिज कर दिए जाते हैं"</string>
 </resources>

@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"Huruf kapital <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"Huruf kapital I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"Huruf kapital I dengan aksen titik di bagian atas"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"Karakter alternatif tersedia"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"Karakter alternatif ditolak"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Karakter alternatif tersedia"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Karakter alternatif ditolak"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Saran alternatif tersedia"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Saran alternatif ditolak"</string>
 </resources>

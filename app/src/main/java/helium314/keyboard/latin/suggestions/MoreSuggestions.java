@@ -167,12 +167,12 @@ public final class MoreSuggestions extends Keyboard {
     }
 
     public static final class Builder extends KeyboardBuilder<MoreSuggestionsParam> {
-        private final MoreSuggestionsView mPaneView;
+        private final PopupSuggestionsView mPaneView;
         private SuggestedWords mSuggestedWords;
         private int mFromIndex;
         private int mToIndex;
 
-        public Builder(final Context context, final MoreSuggestionsView paneView) {
+        public Builder(final Context context, final PopupSuggestionsView paneView) {
             super(context, new MoreSuggestionsParam());
             mPaneView = paneView;
         }

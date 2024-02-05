@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ه ﻫ|ه‍ هٔ ة
 ی ئ ي ﯨ|ى
 ا !fixedColumnOrder!5 ٱ ء آ أ إ

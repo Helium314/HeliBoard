@@ -37,7 +37,7 @@ import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.MoreSuggestions;
-import helium314.keyboard.latin.suggestions.MoreSuggestionsView;
+import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
@@ -134,17 +134,17 @@ public class KeyboardView extends View {
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
-        if (this instanceof EmojiPageKeyboardView || this instanceof MoreSuggestionsView)
+        if (this instanceof EmojiPageKeyboardView || this instanceof PopupSuggestionsView)
             mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.BACKGROUND);
-        else if (this instanceof MoreKeysKeyboardView)
-            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.MORE_KEYS_BACKGROUND);
+        else if (this instanceof PopupKeysKeyboardView)
+            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.POPUP_KEYS_BACKGROUND);
         else
             mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.KEY_BACKGROUND);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
         mFunctionalKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mSpacebarBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND);
-        if (this instanceof MoreKeysKeyboardView)
-            mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_MORE_KEYS_BACKGROUND);
+        if (this instanceof PopupKeysKeyboardView)
+            mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_POPUP_KEYS_BACKGROUND);
         else
             mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_BACKGROUND);
 
@@ -201,8 +201,8 @@ public class KeyboardView extends View {
     public void setKeyboard(@NonNull final Keyboard keyboard) {
         if (keyboard instanceof MoreSuggestions) {
             mColors.setBackground(this, ColorType.MORE_SUGGESTIONS_BACKGROUND);
-        } else if (keyboard instanceof MoreKeysKeyboard) {
-            mColors.setBackground(this, ColorType.MORE_KEYS_BACKGROUND);
+        } else if (keyboard instanceof PopupKeysKeyboard) {
+            mColors.setBackground(this, ColorType.POPUP_KEYS_BACKGROUND);
         } else {
             // actual background color/drawable is applied to main_keyboard_frame
             setBackgroundColor(Color.TRANSPARENT);
@@ -530,7 +530,7 @@ public class KeyboardView extends View {
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }
 
-        if (key.hasPopupHint() && key.getMoreKeys() != null) {
+        if (key.hasPopupHint() && key.getPopupKeys() != null) {
             drawKeyPopupHint(key, canvas, paint, params);
         }
     }
@@ -637,7 +637,7 @@ public class KeyboardView extends View {
                 mColors.setColor(icon, ColorType.KEY_ICON); // normal key if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             mColors.setColor(icon, ColorType.KEY_ICON);
-        } else if (this instanceof MoreKeysKeyboardView) {
+        } else if (this instanceof PopupKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
             mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == 0x200C) {

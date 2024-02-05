@@ -14,11 +14,11 @@
     <dimen name="config_default_keyboard_height">176.0dp</dimen>
     <fraction name="config_min_keyboard_height">45%p</fraction>
 
-    <!-- key_height + key_bottom_gap = config_more_keys_keyboard_key_height -->
-    <dimen name="config_more_keys_keyboard_key_height">44.8dp</dimen>
+    <!-- key_height + key_bottom_gap = config_popup_keys_keyboard_key_height -->
+    <dimen name="config_popup_keys_keyboard_key_height">44.8dp</dimen>
     <!-- Amount of allowance for selecting keys in a mini popup keyboard by sliding finger. -->
-    <!-- config_more_keys_keyboard_key_height x 1.2 -->
-    <dimen name="config_more_keys_keyboard_slide_allowance">53.76dp</dimen>
+    <!-- config_popup_keys_keyboard_key_height x 1.2 -->
+    <dimen name="config_popup_keys_keyboard_slide_allowance">53.76dp</dimen>
 
     <fraction name="config_keyboard_top_padding_holo">2.727%p</fraction>
     <fraction name="config_keyboard_bottom_padding_holo">0.0%p</fraction>
@@ -26,8 +26,8 @@
     <fraction name="config_key_horizontal_gap_holo">1.020%p</fraction>
     <fraction name="config_key_vertical_gap_holo_narrow">4.85%p</fraction>
     <fraction name="config_key_horizontal_gap_holo_narrow">0.920%p</fraction>
-    <!-- config_more_keys_keyboard_key_height x -0.5 -->
-    <dimen name="config_more_keys_keyboard_vertical_correction_holo">-22.4dp</dimen>
+    <!-- config_popup_keys_keyboard_key_height x -0.5 -->
+    <dimen name="config_popup_keys_keyboard_vertical_correction_holo">-22.4dp</dimen>
     <dimen name="config_key_preview_offset_holo">1.6dp</dimen>
     <dimen name="config_key_preview_height_holo">80dp</dimen>
     <dimen name="config_key_preview_offset_lxx">0dp</dimen>

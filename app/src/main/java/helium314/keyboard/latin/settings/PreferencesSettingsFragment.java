@@ -20,7 +20,7 @@ import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
-import helium314.keyboard.latin.utils.MoreKeysUtilsKt;
+import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
@@ -59,15 +59,15 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setLocalizedNumberRowVisibility();
         findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
         findPreference(Settings.PREF_POPUP_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
-            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER, MoreKeysUtilsKt.MORE_KEYS_ORDER_DEFAULT, R.string.popup_order);
+            PopupKeysUtilsKt.reorderPopupKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_ORDER_DEFAULT, R.string.popup_order);
             return true;
         });
         findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setOnPreferenceClickListener((pref) -> {
-            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_LABELS_ORDER, MoreKeysUtilsKt.MORE_KEYS_LABEL_DEFAULT, R.string.hint_source);
+            PopupKeysUtilsKt.reorderPopupKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_LABELS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_LABEL_DEFAULT, R.string.hint_source);
             return true;
         });
         findPreference(Settings.PREF_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
-            MoreKeysUtilsKt.reorderMoreKeysDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(), R.string.toolbar_keys);
+            PopupKeysUtilsKt.reorderPopupKeysDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(), R.string.toolbar_keys);
             return true;
         });
     }

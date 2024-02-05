@@ -12,14 +12,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
     <TextView
-        android:id="@+id/morekeys_type"
+        android:id="@+id/popup_keys_type"
         style="@style/PreferenceTitleText"
         android:layout_gravity="center_vertical"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content" />
     <Switch
-        android:id="@+id/morekeys_switch"
+        android:id="@+id/popup_keys_switch"
         android:padding="6dp"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"

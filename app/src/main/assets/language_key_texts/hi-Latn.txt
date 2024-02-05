@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 a à á â ä æ ã å ā
 e é è ê ë ē
 i í î ï ī ì

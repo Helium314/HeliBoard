@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 s š
 c č ć
 d đ

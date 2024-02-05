@@ -62,8 +62,8 @@
     <string name="spoken_description_upper_case" msgid="4904835255229433916">"ಕ್ಯಾಪಿಟಲ್ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049" msgid="4743162182646977944">"ಕ್ಯಾಪಿಟಲ್ I"</string>
     <string name="spoken_letter_0130" msgid="4766619646231612274">"ಕ್ಯಾಪಿಟಲ್ I, ಮೇಲೆ ಡಾಟ್"</string>
-    <string name="spoken_open_more_keys_keyboard" msgid="6832897688371903747">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳು ಲಭ್ಯ"</string>
-    <string name="spoken_close_more_keys_keyboard" msgid="3524914657934712026">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
+    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳು ಲಭ್ಯ"</string>
+    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ಪರ್ಯಾಯ ಸಲಹೆಗಳು ಲಭ್ಯ"</string>
     <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ಪರ್ಯಾಯ ಸಲಹೆಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
 </resources>

@@ -19,7 +19,7 @@
     <fraction name="config_key_vertical_gap_holo_narrow">3.690%p</fraction>
     <fraction name="config_key_horizontal_gap_holo_narrow">1.030%p</fraction>
 
-    <dimen name="config_more_keys_keyboard_key_height">81.9dp</dimen>
+    <dimen name="config_popup_keys_keyboard_key_height">81.9dp</dimen>
 
     <fraction name="config_key_letter_ratio_holo">43%</fraction>
     <fraction name="config_key_letter_ratio_lxx">50%</fraction>

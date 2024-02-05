@@ -105,8 +105,8 @@ public final class KeyPreviewChoreographer {
         } else {
             keyPreviewPosition = KeyPreviewView.POSITION_MIDDLE;
         }
-        final boolean hasMoreKeys = (key.getMoreKeys() != null);
-        keyPreviewView.setPreviewBackground(hasMoreKeys, keyPreviewPosition);
+        final boolean hasPopupKeys = (key.getPopupKeys() != null);
+        keyPreviewView.setPreviewBackground(hasPopupKeys, keyPreviewPosition);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         colors.setBackground(keyPreviewView, ColorType.KEY_PREVIEW);
 

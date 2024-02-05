@@ -221,12 +221,12 @@ class MainKeyboardAccessibilityDelegate(
         downEvent.recycle()
         // Invoke {@link PointerTracker#onLongPressed()} as if a long press timeout has passed.
         tracker.onLongPressed()
-        // If {@link Key#hasNoPanelAutoMoreKeys()} is true (such as "0 +" key on the phone layout)
+        // If {@link Key#hasNoPanelAutoPopupKeys()} is true (such as "0 +" key on the phone layout)
         // or a key invokes IME switcher dialog, we should just ignore the next
         // {@link #onRegisterHoverKey(Key,MotionEvent)}. It can be determined by whether
         // {@link PointerTracker} is in operation or not.
         if (tracker.isInOperation) {
-            // This long press shows a more keys keyboard and further hover events should be
+            // This long press shows a popup keys keyboard and further hover events should be
             // handled.
             mBoundsToIgnoreHoverEvent.setEmpty()
             return
@@ -234,12 +234,12 @@ class MainKeyboardAccessibilityDelegate(
         // This long press has handled at {@link MainKeyboardView#onLongPress(PointerTracker)}.
         // We should ignore further hover events on this key.
         mBoundsToIgnoreHoverEvent.set(key.hitBox)
-        if (key.hasNoPanelAutoMoreKey()) {
-            // This long press has registered a code point without showing a more keys keyboard.
+        if (key.hasNoPanelAutoPopupKey()) {
+            // This long press has registered a code point without showing a popup keys keyboard.
             // We should talk back the code point if possible.
-            val codePointOfNoPanelAutoMoreKey = key.moreKeys?.get(0)?.mCode ?: return
+            val codePointOfNoPanelAutoPopupKey = key.popupKeys?.get(0)?.mCode ?: return
             val text: String = KeyCodeDescriptionMapper.instance.getDescriptionForCodePoint(
-                    mKeyboardView.context, codePointOfNoPanelAutoMoreKey) ?: return
+                    mKeyboardView.context, codePointOfNoPanelAutoPopupKey) ?: return
             sendWindowStateChanged(text)
         }
     }

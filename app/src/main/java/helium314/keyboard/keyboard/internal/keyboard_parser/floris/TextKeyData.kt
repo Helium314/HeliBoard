@@ -144,9 +144,9 @@ class MultiTextKeyData(
     }
 }
 
-fun String.toTextKey(moreKeys: Collection<String>? = null, labelFlags: Int = 0): TextKeyData =
+fun String.toTextKey(popupKeys: Collection<String>? = null, labelFlags: Int = 0): TextKeyData =
     TextKeyData(
         label = this,
         labelFlags = labelFlags,
-        popup = SimplePopups(moreKeys)
+        popup = SimplePopups(popupKeys)
     )

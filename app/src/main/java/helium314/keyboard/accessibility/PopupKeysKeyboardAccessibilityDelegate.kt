@@ -10,18 +10,18 @@ import android.graphics.Rect
 import helium314.keyboard.latin.utils.Log
 import android.view.MotionEvent
 import helium314.keyboard.keyboard.KeyDetector
-import helium314.keyboard.keyboard.MoreKeysKeyboardView
+import helium314.keyboard.keyboard.PopupKeysKeyboardView
 import helium314.keyboard.keyboard.PointerTracker
 
 /**
- * This class represents a delegate that can be registered in [MoreKeysKeyboardView] to
+ * This class represents a delegate that can be registered in [PopupKeysKeyboardView] to
  * enhance accessibility support via composition rather via inheritance.
  */
-class MoreKeysKeyboardAccessibilityDelegate(
-    moreKeysKeyboardView: MoreKeysKeyboardView,
+class PopupKeysKeyboardAccessibilityDelegate(
+    popupKeysKeyboardView: PopupKeysKeyboardView,
     keyDetector: KeyDetector
-) : KeyboardAccessibilityDelegate<MoreKeysKeyboardView>(moreKeysKeyboardView, keyDetector) {
-    private val mMoreKeysKeyboardValidBounds = Rect()
+) : KeyboardAccessibilityDelegate<PopupKeysKeyboardView>(popupKeysKeyboardView, keyDetector) {
+    private val mPopupKeysKeyboardValidBounds = Rect()
     private var mOpenAnnounceResId = 0
     private var mCloseAnnounceResId = 0
     fun setOpenAnnounce(resId: Int) {
@@ -32,11 +32,11 @@ class MoreKeysKeyboardAccessibilityDelegate(
         mCloseAnnounceResId = resId
     }
 
-    fun onShowMoreKeysKeyboard() {
+    fun onShowPopupKeysKeyboard() {
         sendWindowStateChanged(mOpenAnnounceResId)
     }
 
-    fun onDismissMoreKeysKeyboard() {
+    fun onDismissPopupKeysKeyboard() {
         sendWindowStateChanged(mCloseAnnounceResId)
     }
 
@@ -77,27 +77,27 @@ class MoreKeysKeyboardAccessibilityDelegate(
         val y = event.getY(actionIndex).toInt()
         val pointerId = event.getPointerId(actionIndex)
         val eventTime = event.eventTime
-        // A hover exit event at one pixel width or height area on the edges of more keys keyboard
+        // A hover exit event at one pixel width or height area on the edges of popup keys keyboard
         // are treated as closing.
-        mMoreKeysKeyboardValidBounds[0, 0, mKeyboardView.width] = mKeyboardView.height
-        mMoreKeysKeyboardValidBounds.inset(CLOSING_INSET_IN_PIXEL, CLOSING_INSET_IN_PIXEL)
-        if (mMoreKeysKeyboardValidBounds.contains(x, y)) {
-            // Invoke {@link MoreKeysKeyboardView#onUpEvent(int,int,int,long)} as if this hover
+        mPopupKeysKeyboardValidBounds[0, 0, mKeyboardView.width] = mKeyboardView.height
+        mPopupKeysKeyboardValidBounds.inset(CLOSING_INSET_IN_PIXEL, CLOSING_INSET_IN_PIXEL)
+        if (mPopupKeysKeyboardValidBounds.contains(x, y)) {
+            // Invoke {@link PopupKeysKeyboardView#onUpEvent(int,int,int,long)} as if this hover
             // exit event selects a key.
             mKeyboardView.onUpEvent(x, y, pointerId, eventTime)
             // TODO: Should fix this reference. This is a hack to clear the state of
             // {@link PointerTracker}.
-            PointerTracker.dismissAllMoreKeysPanels()
+            PointerTracker.dismissAllPopupKeysPanels()
             return
         }
-        // Close the more keys keyboard.
+        // Close the popup keys keyboard.
         // TODO: Should fix this reference. This is a hack to clear the state of
         // {@link PointerTracker}.
-        PointerTracker.dismissAllMoreKeysPanels()
+        PointerTracker.dismissAllPopupKeysPanels()
     }
 
     companion object {
-        private val TAG = MoreKeysKeyboardAccessibilityDelegate::class.java.simpleName
+        private val TAG = PopupKeysKeyboardAccessibilityDelegate::class.java.simpleName
         private const val CLOSING_INSET_IN_PIXEL = 1
     }
 }

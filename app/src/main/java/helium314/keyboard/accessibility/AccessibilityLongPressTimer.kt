@@ -12,7 +12,7 @@ import android.os.Message
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.latin.R
 
-// Handling long press timer to show a more keys keyboard.
+// Handling long press timer to show a popup keys keyboard.
 internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimerCallback,
                                            context: Context) : Handler() {
     interface LongPressTimerCallback {

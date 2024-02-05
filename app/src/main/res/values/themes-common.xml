@@ -19,8 +19,8 @@
         <item name="keyboardBottomPadding">@fraction/config_keyboard_bottom_padding_holo</item>
         <item name="keyboardLeftPadding">@fraction/config_keyboard_left_padding</item>
         <item name="keyboardRightPadding">@fraction/config_keyboard_right_padding</item>
-        <item name="moreKeysTemplate">@xml/kbd_more_keys_keyboard_template</item>
-        <item name="maxMoreKeysColumn">@integer/config_max_more_keys_column</item>
+        <item name="popupKeysTemplate">@xml/kbd_popup_keys_keyboard_template</item>
+        <item name="maxPopupKeysColumn">@integer/config_max_popup_keys_column</item>
     </style>
     <style name="KeyboardView">
         <!-- This keyBackground is needed to run unit tests based on {@link InputTestBase}. -> todo: so it can be removed? -->
@@ -63,8 +63,8 @@
         <item name="keyRepeatInterval">@integer/config_key_repeat_interval</item>
         <item name="longPressShiftLockTimeout">@integer/config_longpress_shift_lock_timeout</item>
         <item name="ignoreAltCodeKeyTimeout">@integer/config_ignore_alt_code_key_timeout</item>
-        <item name="moreKeysKeyboardLayout">@layout/more_keys_keyboard</item>
-        <item name="showMoreKeysKeyboardAtTouchedPoint">@bool/config_show_more_keys_keyboard_at_touched_point</item>
+        <item name="popupKeysKeyboardLayout">@layout/popup_keys_keyboard</item>
+        <item name="showPopupKeysKeyboardAtTouchedPoint">@bool/config_show_popup_keys_keyboard_at_touched_point</item>
         <item name="languageOnSpacebarTextRatio">@fraction/config_language_on_spacebar_text_ratio</item>
         <item name="languageOnSpacebarFadeoutAnimator">@animator/language_on_spacebar_fadeout</item>
         <!-- Remove animations for now because it could drain a non-negligible amount of battery while typing.
@@ -97,7 +97,7 @@
          attributes. -->
     <style name="EmojiPalettesView" />
     <style name="ClipboardHistoryView" />
-    <style name="MoreKeysKeyboardView" />
+    <style name="PopupKeysKeyboardView" />
     <style name="SuggestionStripView" />
     <style name="SuggestionWord">
         <item name="android:minWidth">@dimen/config_suggestion_min_width</item>

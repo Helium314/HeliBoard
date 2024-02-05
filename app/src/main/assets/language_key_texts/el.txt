@@ -1,4 +1,4 @@
-[morekeys]
+[popup_keys]
 ε έ %
 υ ύ % ϋ ΰ
 ι ί % ϊ ΐ
