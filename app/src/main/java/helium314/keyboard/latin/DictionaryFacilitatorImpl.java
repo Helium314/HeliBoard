@@ -266,6 +266,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
+    @NonNull
     public Locale getMainLocale() {
         return mDictionaryGroups.get(0).mLocale;
     }

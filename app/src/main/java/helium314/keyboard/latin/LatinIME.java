@@ -660,8 +660,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             resetDictionaryFacilitatorIfNecessary();
         }
         refreshPersonalizationDictionarySession(currentSettingsValues);
-        Suggest.nextWordSuggestionsCache.clear();
-        mStatsUtilsManager.onLoadSettings(this /* context */, currentSettingsValues);
+        mInputLogic.mSuggest.clearNextWordSuggestionsCache();
+        mStatsUtilsManager.onLoadSettings(this, currentSettingsValues);
     }
 
     private void refreshPersonalizationDictionarySession(

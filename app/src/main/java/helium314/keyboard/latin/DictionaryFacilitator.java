@@ -86,7 +86,7 @@ public interface DictionaryFacilitator {
 
     boolean isActive();
 
-    Locale getMainLocale();
+    @NonNull Locale getMainLocale();
 
     // useful for multilingual typing
     Locale getCurrentLocale();
