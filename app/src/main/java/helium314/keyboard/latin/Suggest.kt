@@ -20,7 +20,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.utils.AutoCorrectionUtils
-import helium314.keyboard.latin.utils.Log.d
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SuggestionResults
 import java.util.Locale
 
@@ -53,8 +53,8 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                           settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
                           inputStyle: Int, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback) {
         if (wordComposer.isBatchMode) {
-            getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard,
-                settingsValuesForSuggestion, inputStyle, sequenceNumber, callback)
+            getSuggestedWordsForBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
+                inputStyle, sequenceNumber, callback)
         } else {
             getSuggestedWordsForNonBatchInput(wordComposer, ngramContext, keyboard, settingsValuesForSuggestion,
                 inputStyle, isCorrectionEnabled, sequenceNumber, callback)
@@ -67,48 +67,30 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                       settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: Int,
                       isCorrectionEnabled: Boolean, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback) {
         val typedWordString = wordComposer.typedWord
-        val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
+        val resultsArePredictions = !wordComposer.isComposingWord
         val suggestionResults = if (typedWordString.isEmpty())
                 getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
             else mDictionaryFacilitator.getSuggestionResults(wordComposer.composedDataSnapshot, ngramContext, keyboard,
                 settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction)
-        val locale = mDictionaryFacilitator.mainLocale
-        val suggestionsContainer = getTransformedSuggestedWordInfoList(wordComposer, suggestionResults, trailingSingleQuotesCount, locale)
-        var sourceDictionaryOfRemovedWord: Dictionary? = null
+        val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
+        val suggestionsContainer = getTransformedSuggestedWordInfoList(wordComposer, suggestionResults,
+            trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale)
+
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
-        var typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = null
-        for (info in suggestionsContainer) {
-            // Search for the best dictionary, defined as the first one with the highest match
-            // quality we can find.
-            if (typedWordString == info.mWord) {
-                // Use this source if the old match had lower quality than this match
-                sourceDictionaryOfRemovedWord = info.mSourceDict
-                typedWordFirstOccurrenceWordInfo = info
-                break
-            }
-        }
+        val typedWordFirstOccurrenceWordInfo = suggestionsContainer.firstOrNull { it.mWord == typedWordString }
         val firstOccurrenceOfTypedWordInSuggestions = SuggestedWordInfo.removeDupsAndTypedWord(typedWordString, suggestionsContainer)
-        val resultsArePredictions = !wordComposer.isComposingWord
 
-        // SuggestedWordInfos for suggestions for empty word (based only on previously typed words)
-        // done in a weird way to imitate what kotlin does with lazy
-        val firstAndTypedWordEmptyInfos = ArrayList<SuggestedWordInfo?>(2)
-        val thoseTwo = shouldBeAutoCorrected( // todo: do it better...
+        val (allowsToBeAutoCorrected, hasAutoCorrection) = shouldBeAutoCorrected(
             trailingSingleQuotesCount,
             typedWordString,
-            suggestionsContainer,
-            sourceDictionaryOfRemovedWord,
-            firstAndTypedWordEmptyInfos,
+            suggestionsContainer.firstOrNull(),
             {
-                val firstSuggestionInContainer =
-                    if (suggestionsContainer.isEmpty()) null else suggestionsContainer[0]
-                val first =
-                    firstSuggestionInContainer ?: suggestionResults.first()
-                putEmptyWordSuggestions(
-                    firstAndTypedWordEmptyInfos, ngramContext, keyboard,
-                    settingsValuesForSuggestion, inputStyleIfNotPrediction, first.word, typedWordString
-                )
+                val first = suggestionsContainer.firstOrNull() ?: suggestionResults.first()
+                val suggestions = getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
+                val suggestionForFirstInContainer = suggestions.firstOrNull { it.mWord == first.word }
+                val suggestionForTypedWord = suggestions.firstOrNull { it.mWord == typedWordString }
+                suggestionForFirstInContainer to suggestionForTypedWord
             },
             isCorrectionEnabled,
             wordComposer,
@@ -116,26 +98,23 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             firstOccurrenceOfTypedWordInSuggestions,
             typedWordFirstOccurrenceWordInfo
         )
-        val allowsToBeAutoCorrected = thoseTwo[0]
-        val hasAutoCorrection = thoseTwo[1]
         val typedWordInfo = SuggestedWordInfo(typedWordString, "", SuggestedWordInfo.MAX_SCORE,
-            SuggestedWordInfo.KIND_TYPED, sourceDictionaryOfRemovedWord ?: Dictionary.DICTIONARY_USER_TYPED,
+            SuggestedWordInfo.KIND_TYPED, typedWordFirstOccurrenceWordInfo?.mSourceDict ?: Dictionary.DICTIONARY_USER_TYPED,
             SuggestedWordInfo.NOT_AN_INDEX , SuggestedWordInfo.NOT_A_CONFIDENCE)
         if (!TextUtils.isEmpty(typedWordString)) {
             suggestionsContainer.add(0, typedWordInfo)
         }
-        val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty()) {
-            getSuggestionsInfoListWithDebugInfo(typedWordString, suggestionsContainer)
-        } else {
-            suggestionsContainer
-        }
+        val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty())
+                getSuggestionsInfoListWithDebugInfo(typedWordString, suggestionsContainer)
+            else suggestionsContainer
+
         val inputStyle = if (resultsArePredictions) {
             if (suggestionResults.mIsBeginningOfSentence) SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
             else SuggestedWords.INPUT_STYLE_PREDICTION
         } else {
             inputStyleIfNotPrediction
         }
-        val isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1 || !resultsArePredictions && !allowsToBeAutoCorrected
+
         if (hasAutoCorrection) {
             // make sure typed word is shown, so user is able to override incoming autocorrection
             if (typedWordFirstOccurrenceWordInfo != null) {
@@ -148,30 +127,9 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 )
             }
         }
+        val isTypedWordValid = firstOccurrenceOfTypedWordInSuggestions > -1 || (!resultsArePredictions && !allowsToBeAutoCorrected)
         callback.onGetSuggestedWords(SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions,
             typedWordInfo, isTypedWordValid, hasAutoCorrection, false, inputStyle, sequenceNumber))
-    }
-
-    // annoyingly complicated thing to avoid getting emptyWordSuggestions more than once
-    // todo: now with the cache just remove it...
-    //  and best convert the class to kotlin, that should make it much more readable
-    /** puts word infos for suggestions with an empty word in [infos], based on previously typed words  */
-    private fun putEmptyWordSuggestions(
-        infos: ArrayList<SuggestedWordInfo?>, ngramContext: NgramContext,
-        keyboard: Keyboard, settingsValuesForSuggestion: SettingsValuesForSuggestion,
-        inputStyleIfNotPrediction: Int, firstSuggestionInContainer: String, typedWordString: String
-    ): ArrayList<SuggestedWordInfo?> {
-        if (infos.size != 0) return infos
-        infos.add(null)
-        infos.add(null)
-        val emptyWordSuggestions = getNextWordSuggestions(ngramContext, keyboard, inputStyleIfNotPrediction, settingsValuesForSuggestion)
-        val nextWordSuggestionInfoForFirstSuggestionInContainer =
-            emptyWordSuggestions.firstOrNull { word: SuggestedWordInfo -> word.mWord == firstSuggestionInContainer }
-        val nextWordSuggestionInfoForTypedWord =
-            emptyWordSuggestions.firstOrNull { word: SuggestedWordInfo -> word.mWord == typedWordString }
-        infos.add(nextWordSuggestionInfoForFirstSuggestionInContainer)
-        infos.add(nextWordSuggestionInfoForTypedWord)
-        return infos
     }
 
     // returns [allowsToBeAutoCorrected, hasAutoCorrection]
@@ -179,129 +137,111 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     fun shouldBeAutoCorrected(
         trailingSingleQuotesCount: Int,
         typedWordString: String,
-        suggestionsContainer: List<SuggestedWordInfo>,
-        sourceDictionaryOfRemovedWord: Dictionary?,
-        firstAndTypedWordEmptyInfos: List<SuggestedWordInfo?>,
-        putEmptyWordSuggestions: Runnable,
+        firstSuggestionInContainer: SuggestedWordInfo?,
+        getEmptyWordSuggestions: () -> Pair<SuggestedWordInfo?, SuggestedWordInfo?>,
         isCorrectionEnabled: Boolean,
         wordComposer: WordComposer,
         suggestionResults: SuggestionResults,
         firstOccurrenceOfTypedWordInSuggestions: Int,
-        typedWordFirstOccurrenceWordInfo: SuggestedWordInfo?
-    ): BooleanArray {
-        val consideredWord = if (trailingSingleQuotesCount > 0) typedWordString.substring(
-            0,
-            typedWordString.length - trailingSingleQuotesCount
-        ) else typedWordString
-        val whitelistedWordInfo = getWhitelistedWordInfoOrNull(suggestionsContainer)
-        val whitelistedWord = whitelistedWordInfo?.mWord
-        val firstSuggestionInContainer = if (suggestionsContainer.isEmpty()) null else suggestionsContainer[0]
+        typedWordInfo: SuggestedWordInfo?
+    ): Pair<Boolean, Boolean> {
+        val consideredWord = if (trailingSingleQuotesCount > 0)
+                typedWordString.substring(0, typedWordString.length - trailingSingleQuotesCount)
+            else typedWordString
+        val firstAndTypedEmptyInfos by lazy { getEmptyWordSuggestions() }
 
+        val scoreLimit = Settings.getInstance().current.mScoreLimitForAutocorrect
         // We allow auto-correction if whitelisting is not required or the word is whitelisted,
         // or if the word had more than one char and was not suggested.
         val allowsToBeAutoCorrected: Boolean
-        val scoreLimit = Settings.getInstance().current.mScoreLimitForAutocorrect
-        allowsToBeAutoCorrected =
-            if (SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION || whitelistedWord != null || consideredWord.length > 1 && sourceDictionaryOfRemovedWord == null // more than 1 letter and not in dictionary
+        if (SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION
+                || firstSuggestionInContainer?.isKindOf(SuggestedWordInfo.KIND_WHITELIST) == true
+                || (consideredWord.length > 1 && typedWordInfo?.mSourceDict == null) // more than 1 letter and not in dictionary
             ) {
-                true
-            } else if (firstSuggestionInContainer != null && typedWordString.isNotEmpty()) {
-                // maybe allow autocorrect, depending on scores and emptyWordSuggestions
-                putEmptyWordSuggestions.run()
-                val first = firstAndTypedWordEmptyInfos[0]
-                val typed = firstAndTypedWordEmptyInfos[1]
-                if (firstSuggestionInContainer.mScore > scoreLimit) {
-                    true // suggestion has good score, allow
-                } else if (first == null) {
-                    false // no autocorrect if first suggestion unknown in this context
-                } else if (typed == null) {
-                    true // allow autocorrect if typed word not known in this context, todo: this may be too aggressive
-                } else {
-                    // autocorrect if suggested word has clearly higher score for empty word suggestions
-                    first.mScore - typed.mScore > 20
-                }
-            } else {
-                false
+            allowsToBeAutoCorrected = true
+        } else if (firstSuggestionInContainer != null && typedWordString.isNotEmpty()) {
+            // maybe allow autocorrect, depending on scores and emptyWordSuggestions
+            val first = firstAndTypedEmptyInfos.first
+            val typed = firstAndTypedEmptyInfos.second
+            allowsToBeAutoCorrected = when {
+                firstSuggestionInContainer.mScore > scoreLimit -> true // suggestion has good score, allow
+                first == null -> false // no autocorrect if first suggestion unknown in this ngram context
+                typed == null -> true // allow autocorrect if typed word not known in this ngram context, todo: this may be too aggressive
+                else -> first.mScore - typed.mScore > 20 // autocorrect if suggested word has clearly higher score for empty word suggestions
             }
+        } else {
+            allowsToBeAutoCorrected = false
+        }
         // If correction is not enabled, we never auto-correct. This is for example for when
         // the setting "Auto-correction" is "off": we still suggest, but we don't auto-correct.
-        val hasAutoCorrection =
-            if (!isCorrectionEnabled // todo: can some parts be moved to isCorrectionEnabled? e.g. keyboardIdMode only depends on input type
-                //  i guess then not mAutoCorrectionEnabledPerUserSettings should be read, but rather some isAutocorrectEnabled()
-                // If the word does not allow to be auto-corrected, then we don't auto-correct.
-                || !allowsToBeAutoCorrected // If we are doing prediction, then we never auto-correct of course
-                || !wordComposer.isComposingWord // If we don't have suggestion results, we can't evaluate the first suggestion
-                // for auto-correction
-                || suggestionResults.isEmpty() // If the word has digits, we never auto-correct because it's likely the word
-                // was type with a lot of care
-                || wordComposer.hasDigits() // If the word is mostly caps, we never auto-correct because this is almost
-                // certainly intentional (and careful input)
-                || wordComposer.isMostlyCaps // We never auto-correct when suggestions are resumed because it would be unexpected
-                || wordComposer.isResumed // If we don't have a main dictionary, we never want to auto-correct. The reason
-                // for this is, the user may have a contact whose name happens to match a valid
-                // word in their language, and it will unexpectedly auto-correct. For example, if
-                // the user types in English with no dictionary and has a "Will" in their contact
-                // list, "will" would always auto-correct to "Will" which is unwanted. Hence, no
-                // main dict => no auto-correct. Also, it would probably get obnoxious quickly.
-                // TODO: now that we have personalization, we may want to re-evaluate this decision
-                || !mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()
-            ) {
-                false
-            } else {
-                val firstSuggestion = suggestionResults.first()
-                if (suggestionResults.mFirstSuggestionExceedsConfidenceThreshold
-                    && firstOccurrenceOfTypedWordInSuggestions != 0
-                ) {
-                    // mFirstSuggestionExceedsConfidenceThreshold is always set to false, so currently
-                    //  this branch is useless
-                    return booleanArrayOf(true, true)
-                }
-                if (!AutoCorrectionUtils.suggestionExceedsThreshold(
-                        firstSuggestion, consideredWord, mAutoCorrectionThreshold
-                    )
-                ) {
-                    // todo: maybe also do something here depending on ngram context?
-                    // Score is too low for autocorrect
-                    return booleanArrayOf(true, false)
-                }
-                // We have a high score, so we need to check if this suggestion is in the correct
-                // form to allow auto-correcting to it in this language. For details of how this
-                // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
-                // TODO: this should not have its own logic here but be handled by the dictionary.
-                val allowed = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion)
-                if (allowed && typedWordFirstOccurrenceWordInfo != null && typedWordFirstOccurrenceWordInfo.mScore > scoreLimit) {
-                    // typed word is valid and has good score
-                    // do not auto-correct if typed word is better match than first suggestion
-                    val first = firstSuggestionInContainer ?: firstSuggestion
-                    val dictLocale = mDictionaryFacilitator.currentLocale
-                    if (first.mScore < scoreLimit) {
-                        // don't allow if suggestion has too low score
-                        return booleanArrayOf(true, false)
-                    }
-                    if (first.mSourceDict.mLocale !== typedWordFirstOccurrenceWordInfo.mSourceDict.mLocale) {
-                        // dict locale different -> return the better match
-                        return booleanArrayOf(true, dictLocale === first.mSourceDict.mLocale)
-                    }
-                    // the score difference may need tuning, but so far it seems alright
-                    val firstWordBonusScore =
-                        ((if (first.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) 20 else 0) // large bonus because it's wanted by dictionary
-                                + (if (StringUtils.isLowerCaseAscii(typedWordString)) 5 else 0) // small bonus because typically only ascii is typed (applies to latin keyboards only)
-                                + if (first.mScore > typedWordFirstOccurrenceWordInfo.mScore) 5 else 0) // small bonus if score is higher
-                    putEmptyWordSuggestions.run()
-                    val firstScoreForEmpty = if (firstAndTypedWordEmptyInfos[0] != null) firstAndTypedWordEmptyInfos[0]!!.mScore else 0
-                    val typedScoreForEmpty = if (firstAndTypedWordEmptyInfos[1] != null) firstAndTypedWordEmptyInfos[1]!!.mScore else 0
-                    if (firstScoreForEmpty + firstWordBonusScore >= typedScoreForEmpty + 20) {
-                        // return the better match for ngram context
-                        //  biased towards typed word
-                        //  but with bonus depending on
-                        return booleanArrayOf(true, true)
-                    }
-                    false
-                } else {
-                    allowed
-                }
+        val hasAutoCorrection: Boolean
+        if (!isCorrectionEnabled
+            // todo: can some parts be moved to isCorrectionEnabled? e.g. keyboardIdMode only depends on input type
+            //  i guess then not mAutoCorrectionEnabledPerUserSettings should be read, but rather some isAutocorrectEnabled()
+            // If the word does not allow to be auto-corrected, then we don't auto-correct.
+            || !allowsToBeAutoCorrected // If we are doing prediction, then we never auto-correct of course
+            || !wordComposer.isComposingWord // If we don't have suggestion results, we can't evaluate the first suggestion
+            // for auto-correction
+            || suggestionResults.isEmpty() // If the word has digits, we never auto-correct because it's likely the word
+            // was type with a lot of care
+            || wordComposer.hasDigits() // If the word is mostly caps, we never auto-correct because this is almost
+            // certainly intentional (and careful input)
+            || wordComposer.isMostlyCaps // We never auto-correct when suggestions are resumed because it would be unexpected
+            || wordComposer.isResumed // If we don't have a main dictionary, we never want to auto-correct. The reason
+            // for this is, the user may have a contact whose name happens to match a valid
+            // word in their language, and it will unexpectedly auto-correct. For example, if
+            // the user types in English with no dictionary and has a "Will" in their contact
+            // list, "will" would always auto-correct to "Will" which is unwanted. Hence, no
+            // main dict => no auto-correct. Also, it would probably get obnoxious quickly.
+            // TODO: now that we have personalization, we may want to re-evaluate this decision
+            || !mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary()
+        ) {
+            hasAutoCorrection = false
+        } else {
+            val firstSuggestion = suggestionResults.first()
+            if (suggestionResults.mFirstSuggestionExceedsConfidenceThreshold && firstOccurrenceOfTypedWordInSuggestions != 0) {
+                // mFirstSuggestionExceedsConfidenceThreshold is always set to false, so currently this branch is useless
+                return true to true
             }
-        return booleanArrayOf(allowsToBeAutoCorrected, hasAutoCorrection)
+            if (!AutoCorrectionUtils.suggestionExceedsThreshold(firstSuggestion, consideredWord, mAutoCorrectionThreshold)) {
+                // Score is too low for autocorrect
+                // todo: maybe also do something here depending on ngram context?
+                return true to false
+            }
+            // We have a high score, so we need to check if this suggestion is in the correct
+            // form to allow auto-correcting to it in this language. For details of how this
+            // is determined, see #isAllowedByAutoCorrectionWithSpaceFilter.
+            val allowed = isAllowedByAutoCorrectionWithSpaceFilter(firstSuggestion)
+            if (allowed && typedWordInfo != null && typedWordInfo.mScore > scoreLimit) {
+                // typed word is valid and has good score
+                // do not auto-correct if typed word is better match than first suggestion
+                val first = firstSuggestionInContainer ?: firstSuggestion
+                val dictLocale = mDictionaryFacilitator.currentLocale
+                if (first.mScore < scoreLimit) {
+                    // don't allow if suggestion has too low score
+                    return true to false
+                }
+                if (first.mSourceDict.mLocale !== typedWordInfo.mSourceDict.mLocale) {
+                    // dict locale different -> return the better match
+                    return true to (dictLocale == first.mSourceDict.mLocale)
+                }
+                // the score difference may need tuning, but so far it seems alright
+                val firstWordBonusScore =
+                    ((if (first.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) 20 else 0) // large bonus because it's wanted by dictionary
+                            + (if (StringUtils.isLowerCaseAscii(typedWordString)) 5 else 0) // small bonus because typically only lower case ascii is typed (applies to latin keyboards only)
+                            + if (first.mScore > typedWordInfo.mScore) 5 else 0) // small bonus if score is higher
+                val firstScoreForEmpty = firstAndTypedEmptyInfos.first?.mScore ?: 0
+                val typedScoreForEmpty = firstAndTypedEmptyInfos.second?.mScore ?: 0
+                if (firstScoreForEmpty + firstWordBonusScore >= typedScoreForEmpty + 20) {
+                    // first word is clearly better match for this ngram context
+                    return true to true
+                }
+                hasAutoCorrection = false
+            } else {
+                hasAutoCorrection = allowed
+            }
+        }
+        return allowsToBeAutoCorrected to hasAutoCorrection
     }
 
     // Retrieves suggestions for the batch input
@@ -328,9 +268,9 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         if (isFirstCharCapitalized || isAllUpperCase) {
             for (i in 0 until suggestionsCount) {
                 val wordInfo = suggestionsContainer[i]
-                val wordlocale = wordInfo!!.mSourceDict.mLocale
+                val wordLocale = wordInfo!!.mSourceDict.mLocale
                 val transformedWordInfo = getTransformedSuggestedWordInfo(
-                    wordInfo, wordlocale ?: locale, isAllUpperCase,
+                    wordInfo, wordLocale ?: locale, isAllUpperCase,
                     isFirstCharCapitalized, 0
                 )
                 suggestionsContainer[i] = transformedWordInfo
@@ -362,7 +302,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // Note that because this method is never used to get predictions, there is no need to
         // modify inputType such in getSuggestedWordsForNonBatchInput.
         val pseudoTypedWordInfo = preferNextWordSuggestion(
-            if (suggestionsContainer.isEmpty()) null else suggestionsContainer[0],
+            suggestionsContainer.firstOrNull(),
             suggestionsContainer, getNextWordSuggestions(ngramContext, keyboard, inputStyle, settingsValuesForSuggestion), rejected
         )
         val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty()) {
@@ -391,17 +331,15 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                     first.mKindAndFlags, first.mSourceDict, first.mIndexOfTouchPointOfSecondWord, first.mAutoCommitFirstWordConfidence
                 )
             )
-            if (DebugFlags.DEBUG_ENABLED) d(
-                TAG,
-                "reduced score of " + first.mWord + " from " + first.mScore + ", new first: " + suggestionResults.first().mWord + " (" + suggestionResults.first().mScore + ")"
-            )
+            if (DebugFlags.DEBUG_ENABLED)
+                Log.d(TAG, "reduced score of ${first.mWord} from ${first.mScore}, new first: ${suggestionResults.first().mWord} (${suggestionResults.first().mScore})")
         }
     }
 
     // returns new pseudoTypedWordInfo, puts it in suggestionsContainer, modifies nextWordSuggestions
     private fun preferNextWordSuggestion(
         pseudoTypedWordInfo: SuggestedWordInfo?,
-        suggestionsContainer: ArrayList<SuggestedWordInfo?>,
+        suggestionsContainer: ArrayList<SuggestedWordInfo>,
         nextWordSuggestions: SuggestionResults, rejected: SuggestedWordInfo?
     ): SuggestedWordInfo? {
         if (pseudoTypedWordInfo == null || !Settings.getInstance().current.mUsePersonalizedDicts
@@ -409,41 +347,31 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         ) return pseudoTypedWordInfo
         nextWordSuggestions.removeAll { info: SuggestedWordInfo -> info.mScore < 170 } // we only want reasonably often typed words, value may require tuning
         if (nextWordSuggestions.isEmpty()) return pseudoTypedWordInfo
+
         // for each suggestion, check whether the word was already typed in this ngram context (i.e. is nextWordSuggestion)
         for (suggestion in suggestionsContainer) {
-            if (suggestion!!.mScore < pseudoTypedWordInfo.mScore * 0.93) break // we only want reasonably good suggestions, value may require tuning
+            if (suggestion.mScore < pseudoTypedWordInfo.mScore * 0.93) break // we only want reasonably good suggestions, value may require tuning
             if (suggestion === rejected) continue  // ignore rejected suggestions
             for (nextWordSuggestion in nextWordSuggestions) {
                 if (nextWordSuggestion.mWord != suggestion.mWord) continue
                 // if we have a high scoring suggestion in next word suggestions, take it (because it's expected that user might want to type it again)
                 suggestionsContainer.remove(suggestion)
                 suggestionsContainer.add(0, suggestion)
-                if (DebugFlags.DEBUG_ENABLED) d(
-                    TAG,
-                    "replaced batch word $pseudoTypedWordInfo with $suggestion"
-                )
+                if (DebugFlags.DEBUG_ENABLED)
+                    Log.d(TAG, "replaced batch word $pseudoTypedWordInfo with $suggestion")
                 return suggestion
             }
         }
         return pseudoTypedWordInfo
     }
 
-    /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do)  */ // todo: integrate it into shouldBeAutoCorrected, remove putEmptySuggestions
-    //  and make that thing more readable
-    private fun getNextWordSuggestions(
-        ngramContext: NgramContext,
-        keyboard: Keyboard, inputStyle: Int, settingsValuesForSuggestion: SettingsValuesForSuggestion
-    ): SuggestionResults {
+    /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do)  */
+    private fun getNextWordSuggestions(ngramContext: NgramContext, keyboard: Keyboard, inputStyle: Int,
+                                       settingsValuesForSuggestion: SettingsValuesForSuggestion): SuggestionResults {
         val cachedResults = nextWordSuggestionsCache[ngramContext]
         if (cachedResults != null) return cachedResults
-        val newResults = mDictionaryFacilitator.getSuggestionResults(
-            ComposedData(InputPointers(1), false, ""),
-            ngramContext,
-            keyboard,
-            settingsValuesForSuggestion,
-            SESSION_ID_TYPING,
-            inputStyle
-        )
+        val newResults = mDictionaryFacilitator.getSuggestionResults(ComposedData(InputPointers(1),
+            false, ""), ngramContext, keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyle)
         nextWordSuggestionsCache[ngramContext] = newResults
         return newResults
     }
@@ -451,32 +379,30 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     companion object {
         private val TAG: String = Suggest::class.java.simpleName
 
-        // Session id for
-        // {@link #getSuggestedWords(WordComposer,String,ProximityInfo,boolean,int)}.
+        // Session id for {@link #getSuggestedWords(WordComposer,String,ProximityInfo,boolean,int)}.
         // We are sharing the same ID between typing and gesture to save RAM footprint.
         const val SESSION_ID_TYPING = 0
         const val SESSION_ID_GESTURE = 0
 
         // Close to -2**31
         private const val SUPPRESS_SUGGEST_THRESHOLD = -2000000000
+
         private const val MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN = 12
         // TODO: should we add Finnish here?
-        // TODO: This should not be hardcoded here but be written in the dictionary header
         private val sLanguageToMaximumAutoCorrectionWithSpaceLength = hashMapOf(Locale.GERMAN.language to MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN)
 
         private fun getTransformedSuggestedWordInfoList(
             wordComposer: WordComposer, results: SuggestionResults,
             trailingSingleQuotesCount: Int, defaultLocale: Locale
         ): ArrayList<SuggestedWordInfo> {
-            val shouldMakeSuggestionsAllUpperCase = (wordComposer.isAllUpperCase
-                    && !wordComposer.isResumed)
+            val shouldMakeSuggestionsAllUpperCase = wordComposer.isAllUpperCase && !wordComposer.isResumed
             val isOnlyFirstCharCapitalized = wordComposer.isOrWillBeOnlyFirstCharCapitalized
             val suggestionsContainer = ArrayList(results)
             val suggestionsCount = suggestionsContainer.size
             if (isOnlyFirstCharCapitalized || shouldMakeSuggestionsAllUpperCase || 0 != trailingSingleQuotesCount) {
                 for (i in 0 until suggestionsCount) {
                     val wordInfo = suggestionsContainer[i]
-                    val wordLocale = wordInfo!!.mSourceDict.mLocale
+                    val wordLocale = wordInfo.mSourceDict.mLocale
                     val transformedWordInfo = getTransformedSuggestedWordInfo(
                         wordInfo, wordLocale ?: defaultLocale,
                         shouldMakeSuggestionsAllUpperCase, isOnlyFirstCharCapitalized,
@@ -486,16 +412,6 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 }
             }
             return suggestionsContainer
-        }
-
-        private fun getWhitelistedWordInfoOrNull(suggestions: List<SuggestedWordInfo>): SuggestedWordInfo? {
-            if (suggestions.isEmpty()) {
-                return null
-            }
-            val firstSuggestedWordInfo = suggestions[0]
-            return if (!firstSuggestedWordInfo.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) {
-                null
-            } else firstSuggestedWordInfo
         }
 
         private fun getSuggestionsInfoListWithDebugInfo(

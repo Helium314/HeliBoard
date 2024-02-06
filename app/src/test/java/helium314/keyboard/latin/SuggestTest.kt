@@ -247,20 +247,7 @@ class SuggestTest {
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
-        var typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = null
-        var foundInDictionary = false
-        var sourceDictionaryOfRemovedWord: Dictionary? = null
-        for (info in suggestionsContainer) {
-            // Search for the best dictionary, defined as the first one with the highest match
-            // quality we can find.
-            if (!foundInDictionary && word == info.mWord) {
-                // Use this source if the old match had lower quality than this match
-                sourceDictionaryOfRemovedWord = info.mSourceDict
-                foundInDictionary = true
-                typedWordFirstOccurrenceWordInfo = info
-                break
-            }
-        }
+        val typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = suggestionsContainer.firstOrNull { it.mWord == word }
 
         val firstOccurrenceOfTypedWordInSuggestions =
             SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
@@ -268,10 +255,8 @@ class SuggestTest {
         return suggest.shouldBeAutoCorrected(
             StringUtils.getTrailingSingleQuotesCount(word),
             word,
-            suggestionsContainer, // todo: get from suggestions? mostly it's just removing the typed word, right?
-            sourceDictionaryOfRemovedWord,
-            listOf(firstSuggestionForEmpty, typedWordSuggestionForEmpty),
-            {}, // only used to fill above if needed
+            suggestionsContainer.firstOrNull(), // todo: get from suggestions? mostly it's just removing the typed word, right?
+            { firstSuggestionForEmpty to typedWordSuggestionForEmpty },
             true, // doesn't make sense otherwise
             WordComposer.getComposerForTest(false),
             suggestionResults,
