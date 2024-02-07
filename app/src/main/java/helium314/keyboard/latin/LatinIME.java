@@ -1346,8 +1346,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         final View inlineSuggestionView = InlineAutofillUtils.createView(inlineSuggestions, mDisplayContext);
 
+        // Without this function the inline autofill suggestions will not be visible
         mHandler.cancelResumeSuggestions();
-        mHandler.cancelUpdateSuggestionStrip();
+
         mSuggestionStripView.setInlineSuggestionsView(inlineSuggestionView);
 
         return true;

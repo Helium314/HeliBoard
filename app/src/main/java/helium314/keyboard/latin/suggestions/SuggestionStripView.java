@@ -112,6 +112,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
+    private boolean isInlineAutofillSuggestionsVisible = false; // Required to disable the more suggestions if inline autofill suggestions are visible
 
     private static class StripVisibilityGroup {
         private final View mSuggestionStripView;
@@ -259,7 +260,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
         mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
-        mToolbarExpandKey.setVisibility(VISIBLE);
+        isInlineAutofillSuggestionsVisible = false;
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -278,8 +279,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public void setInlineSuggestionsView(final View view) {
         clear();
-        mToolbarExpandKey.setVisibility(GONE);
-        mPinnedKeys.setVisibility(GONE);
+        isInlineAutofillSuggestionsVisible = true;
         mSuggestionsStrip.addView(view);
     }
 
@@ -552,7 +552,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public boolean onInterceptTouchEvent(final MotionEvent me) {
 
         // Disable More Suggestions if inline autofill suggestions is visible
-        if(mToolbarExpandKey.getVisibility() != VISIBLE && mPinnedKeys.getVisibility() != VISIBLE) {
+        if(isInlineAutofillSuggestionsVisible) {
             return false;
         }
 
