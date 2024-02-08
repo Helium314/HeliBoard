@@ -1,8 +1,9 @@
 # OpenBoard upgrade, WIP
 
-## Table of contents
+## Table of Contents
 
 - [Features](#features)
+   * [FAQ / Common Issues](#faq--common-issues)
    * [Hidden Functionality](#hidden-functionality)
 - [Contributing](#contributing-)
    * [Reporting Issues](#reporting-issues)
@@ -12,10 +13,10 @@
 - [License](#license)
 - [Credits](#credits)
 
-## Features
+# Features
 * Allow loading Glide typing library
   * not included in the app, as there is no compatible open source library
-  * can be extracted from GApps packages (_swypelibs_), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
+  * can be extracted from GApps packages ("_swypelibs_"), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
 * Multilingual typing
 * Load external dictionaries
   * get them [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
@@ -31,6 +32,13 @@
 * Backup your learned word / history data
 * Add custom keyboard [layouts](layouts.md)
 * Adjustable bottom padding
+
+## FAQ / Common Issues
+* __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search funtion does not exist.
+* __No suggestions for some language__: Check [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries) whether a dictionary is available. If there is one, download it and add it in the language settings for this language.
+* __No suggestions in some app / text field__: This app respects the [no suggestions flag](https://developer.android.com/reference/android/text/InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS) set by some input fields, i.e. the developer does not want you to see suggestions here. Best do in issue report for that app if you think this behavior is wrong. Alternatively you can enable the _always show suggestions_ setting that overrides the _no suggestions_ flag.
+* __How to enable glide typing__: There is no glide typing built into this app, but you can load compatible libraries: Go to advanced settings -> _load gesture typing library_ and point to a file. You can extract the file from GApps packages ("_swypelibs_"), or download one [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs). Make sure to use the correct version (app will tell you in the dialog to load the library).
+* (_to be expanded_...) <!-- auto-correct? incognito always on? can't load library? -->
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
