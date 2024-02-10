@@ -13,23 +13,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-    <!-- A signature-protected permission to ask AOSP Keyboard to close the software keyboard.
-         To use this, add the following line into calling application's AndroidManifest.xml
-         <pre>
-         {@code
-         <uses-permission android:name="helium314.keyboard.latin.HIDE_SOFT_INPUT"/>
-         }
-         </pre>
-         then call {@link android.content.Context#sendBroadcast(Intent)} as follows:
-         <pre>
-         {@code
-         sendBroadcast(new Intent("helium314.keyboard.latin.HIDE_SOFT_INPUT")
-                 .setPackage("helium314.keyboard.latin"));
-         }
-         </pre> -->
-    <permission android:name="@string/hide_soft_input_permission"
-                android:protectionLevel="signature" />
-
     <application android:label="@string/english_ime_name"
             android:name="helium314.keyboard.latin.App"
             android:icon="@mipmap/ic_launcher"
