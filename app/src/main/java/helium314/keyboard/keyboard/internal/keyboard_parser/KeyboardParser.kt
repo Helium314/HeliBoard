@@ -824,7 +824,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 else R.array.touch_position_correction_data_holo
             val hasZwnjKey = params.mId.locale.language in listOf("fa", "ne", "kn", "te") // determine from language, user might have custom layout
             // custom non-json layout for non-uppercase language should not have shift key
-            val hasShiftKey = !params.mId.isAlphabetKeyboard || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "malayalam", "marathi", "farsi", "tamil", "telugu")
+            val hasShiftKey = !params.mId.isAlphabetKeyboard
+                    || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "kannada_extended","malayalam", "marathi", "farsi", "tamil", "telugu")
             val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
             return LayoutInfos(labelFlags, enableProximityCharsCorrection, allowRedundantPopupKeys, touchPositionCorrectionData, hasZwnjKey, hasShiftKey, numbersOnTopRow)
         }
