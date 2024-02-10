@@ -960,8 +960,6 @@ public class Key implements Comparable<Key> {
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
         public float mRelativeWidth;
         public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
-        public float mRelativeVisualInsetLeft;
-        public float mRelativeVisualInsetRight;
 
         // params that may change
         public float mFullWidth;
@@ -980,7 +978,7 @@ public class Key implements Comparable<Key> {
         public int mBackgroundType;
         public final int mActionFlags;
         @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
-        @Nullable public OptionalAttributes mOptionalAttributes;
+        @Nullable public final OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
         public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
@@ -1007,18 +1005,6 @@ public class Key implements Comparable<Key> {
             yPos = newY;
             mFullWidth = mRelativeWidth * mKeyboardParams.mBaseWidth;
             mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
-
-            // set visual insets if any
-            if (mRelativeVisualInsetRight != 0f || mRelativeVisualInsetLeft != 0f) {
-                final int insetLeft = (int) (mRelativeVisualInsetLeft * mKeyboardParams.mBaseWidth);
-                final int insetRight = (int) (mRelativeVisualInsetRight * mKeyboardParams.mBaseWidth);
-                if (mOptionalAttributes == null) {
-                    mOptionalAttributes = OptionalAttributes.newInstance(null, CODE_UNSPECIFIED, ICON_UNDEFINED, insetLeft, insetRight);
-                } else {
-                    mOptionalAttributes = OptionalAttributes
-                            .newInstance(mOptionalAttributes.mOutputText, mOptionalAttributes.mAltCode, mOptionalAttributes.mDisabledIconId, insetLeft, insetRight);
-                }
-            }
         }
 
         private static int getPopupKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] popupKeys) {
@@ -1269,8 +1255,6 @@ public class Key implements Comparable<Key> {
             mActionFlags = keyParams.mActionFlags;
             mKeyVisualAttributes = keyParams.mKeyVisualAttributes;
             mOptionalAttributes = keyParams.mOptionalAttributes;
-            mRelativeVisualInsetLeft = keyParams.mRelativeVisualInsetLeft;
-            mRelativeVisualInsetRight = keyParams.mRelativeVisualInsetRight;
         }
     }
 }

@@ -122,8 +122,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 spacerWidth = 0f
                 keyWidth = availableWidth / row.size
             }
-            if (spacerWidth != 0f && functionalKeysLeft.isNotEmpty()) {
-                // add a spacer between left functional key and keyboard key
+            if (spacerWidth != 0f) {
                 paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
             }
             if (keyWidth < params.mDefaultRelativeKeyWidth * 0.82 && spacerWidth == 0f) {
@@ -146,24 +145,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 paramsRow.add(keyParams)
             }
             if (spacerWidth != 0f) {
-                if (functionalKeysLeft.isEmpty()) {
-                    // we did not add a spacer above, but extend the key to the edge and set visual insets
-                    paramsRow.first().mRelativeWidth += spacerWidth
-                    paramsRow.first().mRelativeVisualInsetLeft = spacerWidth
-                }
-                if (functionalKeysRight.isEmpty()) {
-                    // extend right key to the edge and set visual insets
-                    paramsRow.last().mRelativeWidth += spacerWidth
-                    paramsRow.last().mRelativeVisualInsetRight = spacerWidth
-                } else {
-                    // add a spacer between keyboard key and right functional key (like for the left side)
-                    // unless it's the enter key, in that case increase the key's width (to match original layout in tablet mode)
-                    if (functionalKeysRight.singleOrNull()?.mBackgroundType == Key.BACKGROUND_TYPE_ACTION) {
-                        functionalKeysRight.single().mRelativeWidth += spacerWidth
-                    } else {
-                        paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
-                    }
-                }
+                paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
             }
             functionalKeysRight.forEach { paramsRow.add(it) }
             keysInRows.add(paramsRow)
