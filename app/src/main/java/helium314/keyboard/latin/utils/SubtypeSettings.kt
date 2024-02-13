@@ -193,8 +193,12 @@ private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
 }
 
 /** string for for identifying a subtype, does not contain all necessary information to actually create it */
-private fun InputMethodSubtype.prefString() =
-    locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
+private fun InputMethodSubtype.prefString(): String {
+    if (DebugFlags.DEBUG_ENABLED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && locale().toLanguageTag() == "und") {
+        Log.e(TAG, "unknown language, should not happen ${locale}, $languageTag, $this")
+    }
+    return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
+}
 
 private fun String.toLocaleAndLayout(): Pair<Locale, String> =
     substringBefore(LOCALE_LAYOUT_SEPARATOR).constructLocale() to substringAfter(LOCALE_LAYOUT_SEPARATOR)
