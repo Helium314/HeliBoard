@@ -223,7 +223,7 @@ public class UserDictionarySettings extends ListFragment {
         args.putString(UserDictionaryAddWordContents.EXTRA_WORD, editingWord);
         args.putString(UserDictionaryAddWordContents.EXTRA_SHORTCUT, editingShortcut);
         args.putString(UserDictionaryAddWordContents.EXTRA_WEIGHT, editingWeight);
-        args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale.toLanguageTag());
+        args.putString(UserDictionaryAddWordContents.EXTRA_LOCALE, mLocale.equals(emptyLocale) ? "" : mLocale.toLanguageTag());
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, UserDictionaryAddWordFragment.class, args)
