@@ -304,7 +304,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             if (backupFilePatterns.any { path.matches(it) })
                 files.add(file)
         }
-        val protectedFilesDir = DeviceProtectedUtils.getDeviceProtectedContext(requireContext()).filesDir
+        val protectedFilesDir = DeviceProtectedUtils.getFilesDir(requireContext())
         val protectedFilesPath = protectedFilesDir.path + File.separator
         val protectedFiles = mutableListOf<File>()
         protectedFilesDir.walk().forEach { file ->
@@ -351,7 +351,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 ZipInputStream(inputStream).use { zip ->
                     var entry: ZipEntry? = zip.nextEntry
                     val filesDir = requireContext().filesDir?.path ?: return
-                    val deviceProtectedFilesDir = DeviceProtectedUtils.getDeviceProtectedContext(requireContext()).filesDir?.path ?: return
+                    val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(requireContext()).path
                     Settings.getInstance().stopListener()
                     while (entry != null) {
                         if (entry.name.startsWith("unprotected${File.separator}")) {

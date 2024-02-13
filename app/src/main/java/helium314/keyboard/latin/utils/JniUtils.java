@@ -63,8 +63,7 @@ public final class JniUtils {
                 if (app != null) {
                     // we want the default preferences, because storing the checksum in device protected storage is discouraged
                     // see https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()
-                    // todo: test what happens on an encrypted phone after reboot (don't have one...)
-                    //  does the app restart after unlocking, or is gesture typing unavailable?
+                    // if device is locked, this will throw an IllegalStateException
                     wantedChecksum = PreferenceManager.getDefaultSharedPreferences(app).getString(Settings.PREF_LIBRARY_CHECKSUM, wantedChecksum);
                 }
                 final String checksum = ChecksumCalculator.INSTANCE.checksum(new FileInputStream(userSuppliedLibrary));
@@ -79,7 +78,9 @@ public final class JniUtils {
                     sHaveGestureLib = false;
                 }
             } catch (Throwable t) { // catch everything, maybe provided library simply doesn't work
-                Log.w(TAG, "Could not load user-supplied library", t);
+                if (!(t instanceof IllegalStateException) || !"SharedPreferences in credential encrypted storage are not available until after user is unlocked".equals(t.getMessage()))
+                    // but don't log if device is locked, here we expect the exception and only load system library, if possible
+                    Log.w(TAG, "Could not load user-supplied library", t);
             }
         }
 

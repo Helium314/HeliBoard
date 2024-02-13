@@ -135,9 +135,13 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
         additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
     }
     Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
-    // move pinned clips to credential protected storage
+    // move pinned clips to credential protected storage if device is not locked (should never happen)
     if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return
-    val defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-    defaultPrefs.edit { putString(Settings.PREF_PINNED_CLIPS, prefs.getString(Settings.PREF_PINNED_CLIPS, "")) }
-    prefs.edit { remove(Settings.PREF_PINNED_CLIPS) }
+    try {
+        val defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context)
+        defaultPrefs.edit { putString(Settings.PREF_PINNED_CLIPS, prefs.getString(Settings.PREF_PINNED_CLIPS, "")) }
+        prefs.edit { remove(Settings.PREF_PINNED_CLIPS) }
+    } catch (_: IllegalStateException) {
+        // SharedPreferences in credential encrypted storage are not available until after user is unlocked
+    }
 }

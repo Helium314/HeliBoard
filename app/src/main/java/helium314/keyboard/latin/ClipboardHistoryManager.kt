@@ -133,7 +133,7 @@ class ClipboardHistoryManager(
 
     // pinned clips are stored in default shared preferences, not in device protected preferences!
     private fun loadPinnedClips() {
-        val pinnedClipString = Settings.readPinnedClipString(PreferenceManager.getDefaultSharedPreferences(latinIME))
+        val pinnedClipString = Settings.readPinnedClipString(latinIME)
         if (pinnedClipString.isEmpty()) return
         val pinnedClips: List<ClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
         latinIME.mHandler.postUpdateClipboardPinnedClips(pinnedClips)
@@ -141,7 +141,7 @@ class ClipboardHistoryManager(
 
     private fun savePinnedClips() {
         val pinnedClips = Json.encodeToString(historyEntries.filter { it.isPinned })
-        Settings.writePinnedClipString(PreferenceManager.getDefaultSharedPreferences(latinIME), pinnedClips)
+        Settings.writePinnedClipString(latinIME, pinnedClips)
     }
 
     interface OnHistoryChangeListener {

@@ -24,6 +24,7 @@ import android.view.Gravity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
@@ -477,12 +478,23 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
     }
 
-    public static String readPinnedClipString(final SharedPreferences prefs) {
-        return prefs.getString(PREF_PINNED_CLIPS, "");
+    public static String readPinnedClipString(final Context context) {
+        try {
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            return prefs.getString(PREF_PINNED_CLIPS, "");
+        } catch (final IllegalStateException e) {
+            // SharedPreferences in credential encrypted storage are not available until after user is unlocked
+            return "";
+        }
     }
 
-    public static void writePinnedClipString(final SharedPreferences prefs, final String clips) {
-        prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
+    public static void writePinnedClipString(final Context context, final String clips) {
+        try {
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
+        } catch (final IllegalStateException e) {
+            // SharedPreferences in credential encrypted storage are not available until after user is unlocked
+        }
     }
 
     public static ArrayList<ToolbarKey> readPinnedKeys(final SharedPreferences prefs) {
@@ -539,7 +551,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static File getLayoutsDir(final Context context) {
-        return new File(DeviceProtectedUtils.getDeviceProtectedContext(context).getFilesDir(), "layouts");
+        return new File(DeviceProtectedUtils.getFilesDir(context), "layouts");
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
@@ -561,8 +573,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static File getCustomBackgroundFile(final Context context, final boolean night) {
-        return new File(DeviceProtectedUtils.getDeviceProtectedContext(context).getFilesDir(),
-                "custom_background_image" + (night ? "_night" : ""));
+        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_background_image" + (night ? "_night" : ""));
     }
 
     public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {

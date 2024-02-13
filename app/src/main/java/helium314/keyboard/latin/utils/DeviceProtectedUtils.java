@@ -12,6 +12,8 @@ import android.os.Build;
 
 import androidx.preference.PreferenceManager;
 
+import java.io.File;
+
 public final class DeviceProtectedUtils {
 
     static final String TAG = DeviceProtectedUtils.class.getSimpleName();
@@ -33,9 +35,14 @@ public final class DeviceProtectedUtils {
         return prefs;
     }
 
-    public static Context getDeviceProtectedContext(final Context context) {
+    // keep this private to avoid accidental use of device protected context anywhere in the app
+    private static Context getDeviceProtectedContext(final Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return context;
         return context.isDeviceProtectedStorage() ? context : context.createDeviceProtectedStorageContext();
+    }
+
+    public static File getFilesDir(final Context context) {
+        return getDeviceProtectedContext(context).getFilesDir();
     }
 
     private DeviceProtectedUtils() {
