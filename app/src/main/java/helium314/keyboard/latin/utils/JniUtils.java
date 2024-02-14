@@ -66,7 +66,9 @@ public final class JniUtils {
                     // if device is locked, this will throw an IllegalStateException
                     wantedChecksum = PreferenceManager.getDefaultSharedPreferences(app).getString(Settings.PREF_LIBRARY_CHECKSUM, wantedChecksum);
                 }
-                final String checksum = ChecksumCalculator.INSTANCE.checksum(new FileInputStream(userSuppliedLibrary));
+                final FileInputStream libStream = new FileInputStream(userSuppliedLibrary);
+                final String checksum = ChecksumCalculator.INSTANCE.checksum(libStream);
+                libStream.close();
                 if (TextUtils.equals(wantedChecksum, checksum)) {
                     // try loading the library
                     System.load(userSuppliedLibrary.getAbsolutePath());
