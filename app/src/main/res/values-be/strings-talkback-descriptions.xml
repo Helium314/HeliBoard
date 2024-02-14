@@ -4,62 +4,62 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Каб праслухаць паролi, падключыце гарнiтуру."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Бягучы тэкст – %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Тэкст не ўведзены"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Націснуўшы <xliff:g id="KEY_NAME">%1$s</xliff:g>, вы паправіце <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> на <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Націснуўшы <xliff:g id="KEY_NAME">%1$s</xliff:g>, вы выканаеце аўтакарэкцыю"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Няма прапаноў"</string>
+    <string name="spoken_use_headphones">"Каб праслухаць паролi, падключыце гарнiтуру."</string>
+    <string name="spoken_current_text_is">"Бягучы тэкст – %s"</string>
+    <string name="spoken_no_text_entered">"Тэкст не ўведзены"</string>
+    <string name="spoken_auto_correct">"Націснуўшы <xliff:g id="KEY_NAME">%1$s</xliff:g>, вы паправіце <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> на <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"Націснуўшы <xliff:g id="KEY_NAME">%1$s</xliff:g>, вы выканаеце аўтакарэкцыю"</string>
+    <string name="spoken_empty_suggestion">"Няма прапаноў"</string>
     <!-- no translation found for spoken_description_unknown (5139930082759824442) -->
     <skip />
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Больш сімвалаў"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Сімвалы"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Delete"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Сімвалы"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Літары"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Лічбы"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Налады"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Прабел"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Галасавы ўвод"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Эмодзі"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Вярнуцца"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Пошук"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Маркер спіса"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Пераключыць мову"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Далей"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Назад"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift уключаны"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps Lock уключаны"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Рэжым сімвалаў"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Рэжым з большай колькасцю сімвалаў"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Рэжым лiтар"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Рэжым тэлефона"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Рэжым тэлефонных сімвалаў"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Клавіятура схавана"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Паказваецца клавіятура <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"дата"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"дата i час"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"электронная пошта"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"абмен паведамленнямі"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"лічбы"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"нумары тэлефонаў"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"тэкст"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"час"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Апошнія"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Аб\'екты"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Сімвалы"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Сцягі"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Смайлікі і людзі"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Жывёлы і прырода"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Ежа і напоі"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Падарожжы і месцы"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Дзейнасць"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Эматыконы"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Больш сімвалаў"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Сімвалы"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Delete"</string>
+    <string name="spoken_description_to_symbol">"Сімвалы"</string>
+    <string name="spoken_description_to_alpha">"Літары"</string>
+    <string name="spoken_description_to_numeric">"Лічбы"</string>
+    <string name="spoken_description_settings">"Налады"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Прабел"</string>
+    <string name="spoken_description_mic">"Галасавы ўвод"</string>
+    <string name="spoken_description_emoji">"Эмодзі"</string>
+    <string name="spoken_description_return">"Вярнуцца"</string>
+    <string name="spoken_description_search">"Пошук"</string>
+    <string name="spoken_description_dot">"Маркер спіса"</string>
+    <string name="spoken_description_language_switch">"Пераключыць мову"</string>
+    <string name="spoken_description_action_next">"Далей"</string>
+    <string name="spoken_description_action_previous">"Назад"</string>
+    <string name="spoken_description_shiftmode_on">"Shift уключаны"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps Lock уключаны"</string>
+    <string name="spoken_description_mode_symbol">"Рэжым сімвалаў"</string>
+    <string name="spoken_description_mode_symbol_shift">"Рэжым з большай колькасцю сімвалаў"</string>
+    <string name="spoken_description_mode_alpha">"Рэжым лiтар"</string>
+    <string name="spoken_description_mode_phone">"Рэжым тэлефона"</string>
+    <string name="spoken_description_mode_phone_shift">"Рэжым тэлефонных сімвалаў"</string>
+    <string name="announce_keyboard_hidden">"Клавіятура схавана"</string>
+    <string name="announce_keyboard_mode">"Паказваецца клавіятура <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"дата"</string>
+    <string name="keyboard_mode_date_time">"дата i час"</string>
+    <string name="keyboard_mode_email">"электронная пошта"</string>
+    <string name="keyboard_mode_im">"абмен паведамленнямі"</string>
+    <string name="keyboard_mode_number">"лічбы"</string>
+    <string name="keyboard_mode_phone">"нумары тэлефонаў"</string>
+    <string name="keyboard_mode_text">"тэкст"</string>
+    <string name="keyboard_mode_time">"час"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Апошнія"</string>
+    <string name="spoken_description_emoji_category_objects">"Аб\'екты"</string>
+    <string name="spoken_description_emoji_category_symbols">"Сімвалы"</string>
+    <string name="spoken_description_emoji_category_flags">"Сцягі"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Смайлікі і людзі"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Жывёлы і прырода"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Ежа і напоі"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Падарожжы і месцы"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Дзейнасць"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Эматыконы"</string>
     <!-- no translation found for spoken_description_upper_case (4904835255229433916) -->
     <skip />
     <!-- no translation found for spoken_letter_0049 (4743162182646977944) -->

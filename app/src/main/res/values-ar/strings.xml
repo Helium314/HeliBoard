@@ -12,35 +12,35 @@
     <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
     <string name="settings_screen_preferences">"الإعدادات المفضّلة"</string>
     <string name="settings_screen_gesture">"الكتابة بالإشارة"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"تصحيح النص"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"الإعدادات المتقدمة"</string>
+    <string name="settings_screen_correction">"تصحيح النص"</string>
+    <string name="settings_screen_advanced">"الإعدادات المتقدمة"</string>
     <string name="settings_screen_theme">"المظهر"</string>
     <string name="enable_split_keyboard">"هل تريد تفعيل لوحة المفاتيح المقسمة"</string>
     <string name="language_switch_key_switch_input_method">"التبديل إلى أسلوب إدخال آخر"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"مفتاح تبديل اللغة"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363"><xliff:g id="MILLISECONDS">%s</xliff:g> ملي ثانية</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"الضبط التلقائي للنظام"</string>
+    <string name="show_language_switch_key">"مفتاح تبديل اللغة"</string>
+    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ملي ثانية</string>
+    <string name="settings_system_default">"الضبط التلقائي للنظام"</string>
     <string name="use_contacts_dict">"اقتراح أسماء جهات الاتصال"</string>
     <string name="use_contacts_dict_summary">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"اقتراحات مخصصة"</string>
+    <string name="use_personalized_dicts">"اقتراحات مخصصة"</string>
     <string name="use_double_space_period">"نقطة المسافة المزدوجة"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"أحرف كبيرة تلقائيًا"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"كتابة الحرف الأول من كل جملة بحرف كبير"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"القاموس الشخصي"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"القواميس الإضافية"</string>
+    <string name="use_double_space_period_summary">"يؤدي النقر مرّتين على مفتاح المسافة إلى إدخال نقطة متبوعة بمسافة"</string>
+    <string name="auto_cap">"أحرف كبيرة تلقائيًا"</string>
+    <string name="auto_cap_summary">"كتابة الحرف الأول من كل جملة بحرف كبير"</string>
+    <string name="edit_personal_dictionary">"القاموس الشخصي"</string>
+    <string name="configure_dictionaries_title">"القواميس الإضافية"</string>
     <string name="main_dictionary">"القاموس الرئيسي"</string>
     <string name="prefs_show_suggestions">"عرض اقتراحات التصحيح"</string>
     <string name="prefs_show_suggestions_summary">"عرض الكلمات المقترحة أثناء الكتابة"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"حظر الكلمات المسيئة"</string>
+    <string name="prefs_block_potentially_offensive_title">"حظر الكلمات المسيئة"</string>
     <string name="prefs_block_potentially_offensive_summary">"عدم اقتراح كلمات محتمل أن تكون مسيئة"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"التصحيح التلقائي"</string>
+    <string name="autocorrect">"التصحيح التلقائي"</string>
     <string name="auto_correction_summary">"تؤدي المسافة والترقيم إلى تصحيح الكلمات المكتوبة بشكل غير صحيح"</string>
     <string name="auto_correction_threshold_mode_off">"إيقاف"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"معتدل"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"صارم"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"شديد الصرامة"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"اقتراحات الكلمات التالية"</string>
+    <string name="auto_correction_threshold_mode_modest">"معتدل"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"صارم"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"شديد الصرامة"</string>
+    <string name="bigram_prediction">"اقتراحات الكلمات التالية"</string>
     <string name="bigram_prediction_summary">"استخدام الكلمة السابقة لتقديم الاقتراحات"</string>
     <string name="gesture_input">"تفعيل الكتابة بالإيماءة"</string>
     <string name="gesture_input_summary">"إدخال كلمة من خلال التمرير على الأحرف"</string>
@@ -49,76 +49,76 @@
     <string name="gesture_floating_preview_text_summary">"مشاهدة الكلمة المقترحة أثناء الإيماءة"</string>
     <string name="gesture_space_aware">"عبارة الإيماء"</string>
     <string name="gesture_space_aware_summary">"إدخال مسافات خلال الإيماءات من خلال تمرير مفتاح المسافة"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"الإنجليزية (المملكة المتحدة)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"الإنجليزية (الولايات المتحدة)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"الإسبانية (الأميركية)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"هنجليزية"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"الصربية (اللاتينية)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">الإنجليزية (المملكة المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">الإنجليزية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">الإسبانية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">الهنجليزية (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">الصربية (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (التقليدية)</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (مضغوط)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"بدون لغة (أبجدية)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"‏الأبجدية (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"‏الأبجدية (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"‏الأبجدية (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"‏الأبجدية (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"‏الأبجدية (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"‏الأبجدية (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"الرموز التعبيرية"</string>
-    <string name="add" msgid="8299699805688017798">"إضافة"</string>
-    <string name="remove" msgid="4486081658752944606">"إزالة"</string>
-    <string name="save" msgid="7646738597196767214">"حفظ"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"اللغة"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"التخطيط"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"مدة اهتزاز الضغط على المفاتيح"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"مستوى صوت الضغط على المفاتيح"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"مهلة الضغط مع الاستمرار على المفاتيح"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"الرموز التعبيرية للوحة مفاتيح فعلية"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"‏مفتاح Alt الفعلي يعرض لوحة الرموز التعبيرية"</string>
-    <string name="button_default" msgid="3988017840431881491">"التلقائية"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">أهلًا بك في <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"مع الكتابة بالإشارة"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"بدء الاستخدام"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"الخطوة التالية"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">قيد إعداد <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title" msgid="3147967630253462315">مكِّن <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">يُرجى تحديد \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" في إعدادات اللغات &amp; والإدخال؛ وذلك للسماح بتشغيل هذا التطبيق على جهازك.</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">تم تفعيل <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> من قبل في إعدادات اللغات والإدخال، وبالتالي هذه الخطوة مكتملة. انتقل إلى الخطوة التالية!</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"تفعيل في الإعدادات"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">التبديل إلى <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">بعد ذلك، حدد \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" باعتباره أسلوب إدخال النص النشط.</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"تبديل أساليب الإدخال"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">تهانينا ، لقد انتهيت من الإعداد!</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">الآن أصبح بإمكانك الكتابة في جميع تطبيقاتك المفضلة باستخدام <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"إنهاء العملية"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"عرض رمز التطبيق"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"عرض رمز التطبيق في المشغل"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"القواميس الإضافية"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"إعدادات القواميس"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"القاموس متاح"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"مشكلة في الاتصال بخدمة القاموس"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"لا تتوفر أي قواميس"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"تحديث"</string>
-    <string name="last_update" msgid="730467549913588780">"تاريخ آخر تحديث"</string>
+    <string name="subtype_en_GB">"الإنجليزية (المملكة المتحدة)"</string>
+    <string name="subtype_en_US">"الإنجليزية (الولايات المتحدة)"</string>
+    <string name="subtype_es_US">"الإسبانية (الأميركية)"</string>
+    <string name="subtype_hi_Latn">"هنجليزية"</string>
+    <string name="subtype_sr_Latn">"الصربية (اللاتينية)"</string>
+    <string name="subtype_with_layout_en_GB">الإنجليزية (المملكة المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">الإنجليزية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">الإسبانية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">الهنجليزية (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">الصربية (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (التقليدية)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (مضغوط)</string>
+    <string name="subtype_no_language">"بدون لغة (أبجدية)"</string>
+    <string name="subtype_no_language_qwerty">"‏الأبجدية (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"‏الأبجدية (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"‏الأبجدية (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"‏الأبجدية (Dvorak)"</string>
+    <string name="subtype_no_language_colemak">"‏الأبجدية (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"‏الأبجدية (PC)"</string>
+    <string name="subtype_emoji">"الرموز التعبيرية"</string>
+    <string name="add">"إضافة"</string>
+    <string name="remove">"إزالة"</string>
+    <string name="save">"حفظ"</string>
+    <string name="subtype_locale">"اللغة"</string>
+    <string name="keyboard_layout_set">"التخطيط"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"مدة اهتزاز الضغط على المفاتيح"</string>
+    <string name="prefs_keypress_sound_volume_settings">"مستوى صوت الضغط على المفاتيح"</string>
+    <string name="prefs_key_longpress_timeout_settings">"مهلة الضغط مع الاستمرار على المفاتيح"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"الرموز التعبيرية للوحة مفاتيح فعلية"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"‏مفتاح Alt الفعلي يعرض لوحة الرموز التعبيرية"</string>
+    <string name="button_default">"التلقائية"</string>
+    <string name="setup_welcome_title">أهلًا بك في <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description">"مع الكتابة بالإشارة"</string>
+    <string name="setup_start_action">"بدء الاستخدام"</string>
+    <string name="setup_next_action">"الخطوة التالية"</string>
+    <string name="setup_steps_title">قيد إعداد <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">مكِّن <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">يُرجى تحديد \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" في إعدادات اللغات &amp; والإدخال؛ وذلك للسماح بتشغيل هذا التطبيق على جهازك.</string>
+    <string name="setup_step1_finished_instruction">تم تفعيل <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> من قبل في إعدادات اللغات والإدخال، وبالتالي هذه الخطوة مكتملة. انتقل إلى الخطوة التالية!</string>
+    <string name="setup_step1_action">"تفعيل في الإعدادات"</string>
+    <string name="setup_step2_title">التبديل إلى <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">بعد ذلك، حدد \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" باعتباره أسلوب إدخال النص النشط.</string>
+    <string name="setup_step2_action">"تبديل أساليب الإدخال"</string>
+    <string name="setup_step3_title">تهانينا ، لقد انتهيت من الإعداد!</string>
+    <string name="setup_step3_instruction">الآن أصبح بإمكانك الكتابة في جميع تطبيقاتك المفضلة باستخدام <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_finish_action">"إنهاء العملية"</string>
+    <string name="show_setup_wizard_icon">"عرض رمز التطبيق"</string>
+    <string name="show_setup_wizard_icon_summary">"عرض رمز التطبيق في المشغل"</string>
+    <string name="dictionary_settings_title">"القواميس الإضافية"</string>
+    <string name="dictionary_settings_summary">"إعدادات القواميس"</string>
+    <string name="dictionary_available">"القاموس متاح"</string>
+    <string name="cannot_connect_to_dict_service">"مشكلة في الاتصال بخدمة القاموس"</string>
+    <string name="no_dictionaries_available">"لا تتوفر أي قواميس"</string>
+    <string name="check_for_updates_now">"تحديث"</string>
+    <string name="last_update">"تاريخ آخر تحديث"</string>
     <string name="main_dict_description">"القاموس الرئيسي"</string>
-    <string name="settings" msgid="3876892339342569259">"إعدادات"</string>
-    <string name="delete" msgid="756853268088330054">"حذف"</string>
-    <string name="version_text" msgid="2715354215568469385">الإصدار <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"إضافة"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"إضافة إلى القاموس"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"الاختصار:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"اللغة:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"اكتب كلمة"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"اختصار اختياري"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"تعديل كلمة"</string>
+    <string name="settings">"إعدادات"</string>
+    <string name="delete">"حذف"</string>
+    <string name="version_text">الإصدار <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="user_dict_settings_add_menu_title">"إضافة"</string>
+    <string name="user_dict_settings_add_dialog_title">"إضافة إلى القاموس"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"الاختصار:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"اللغة:"</string>
+    <string name="user_dict_settings_add_word_hint">"اكتب كلمة"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"اختصار اختياري"</string>
+    <string name="user_dict_settings_edit_dialog_title">"تعديل كلمة"</string>
     <string name="user_dict_settings_empty_text">"ليس هناك أي كلمات في قاموس المستخدم. لإضافة كلمة، انقر على زر الإضافة (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"لجميع اللغات"</string>
+    <string name="user_dict_settings_all_languages">"لجميع اللغات"</string>
     <string name="user_dict_settings_more_languages">"مزيد من اللغات…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
+    <string name="user_dict_fast_scroll_alphabet">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
     <string name="show_emoji_key">مفتاح الرموز التعبيرية</string>
     <string name="settings_no_limit">بلا حدود</string>
     <string name="ime_settings">إعدادات HeliBoard</string>
@@ -162,5 +162,13 @@
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
     <string name="undo">"تراجع"</string>
     <string name="redo">"إعادة"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"التعلم من اتصالاتك والبيانات التي تكتبها لتحسين الاقتراحات"</string>
+    <string name="use_personalized_dicts_summary">"التعلم من اتصالاتك والبيانات التي تكتبها لتحسين الاقتراحات"</string>
+    <string name="label_go_key">"ذهاب"</string>
+    <string name="label_next_key">"تالٍ"</string>
+    <string name="label_previous_key">"سابق"</string>
+    <string name="label_done_key">"تم"</string>
+    <string name="label_send_key">"إرسال"</string>
+    <string name="label_search_key">"بحث"</string>
+    <string name="label_pause_key">"توقف"</string>
+    <string name="label_wait_key">"انتظر"</string>
 </resources>

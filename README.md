@@ -23,15 +23,14 @@
   * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
-* Adjust keyboard themes (style and colors)
+* Adjust keyboard themes (style, colors and background image)
   * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
+  * can follow dynamic colors for Android 12+
 * Split keyboard (if the screen is large enough)
-* Number row
+* Optional number row
 * Number pad
-* Show all available extra characters on long pressing a key
 * Backup your learned word / history data
 * Add custom keyboard [layouts](layouts.md)
-* Adjustable bottom padding
 
 ## FAQ / Common Issues
 * __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search funtion does not exist.
@@ -78,7 +77,7 @@ Before opening a new issue, be sure to check the following:
 Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
 
 ## Translation
-Currently there is no simple way of translating the app, but it's coming soon...
+Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 
 ## Dictionary Creation
 There will not be any further dictionaries bundled in this app. However, you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries).
@@ -99,7 +98,7 @@ HeliBoard is a complex application, when contributing, you must take a step back
 - **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it.
 If there is no issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
 - **Is only about a single thing**. Mixing unrelated contributions into a single PR is hard to review and can get messy.
-- **Has a proper description**. What your coutribution does is usually less obvious to reviewers than for yourself. A good description helps a lot for understanding what is going on, and for separating wanted from unintended changes in behavior.
+- **Has a proper description**. What your contribution does is usually less obvious to reviewers than for yourself. A good description helps a lot for understanding what is going on, and for separating wanted from unintended changes in behavior.
 - **Uses already in-place mechanism and take advantage of them**. In other terms, does not reinvent the wheel or uses shortcuts that could alter the consistency of the existing code.
 - **Has a low footprint**. Some parts of the code are executed very frequently, and the keyboard should stay responsive even on older devices.
 - **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
@@ -118,7 +117,7 @@ See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 
 # License
 
-HeliBoard (as a fork of OpenBoard) project is licensed under GNU General Public License v3.0.
+HeliBoard (as a fork of OpenBoard) is licensed under GNU General Public License v3.0.
 
  > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 

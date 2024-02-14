@@ -5,66 +5,66 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"সশব্দে উচ্চারিত পাসওয়ার্ডের কীগুলি শোনার জন্য একটি হেডসেট সংযুক্ত করুন।"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"বর্তমান পাঠ্য %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"কোনো পাঠ্য লেখা হয়নি"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> কী <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> কে <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> এ সংশোধন করছে"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> স্বত:সংশোধন করে"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"কোনো প্রস্তাবনা নেই"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"অজানা অক্ষর"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"শিফট"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"আরও প্রতীক"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"শিফট"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"প্রতীকগুলি"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"শিফট"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"মুছুন"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"প্রতীকসমূহ"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"অক্ষরসমূহ"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"নম্বরগুলি"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"সেটিংস"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ট্যাব"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"স্পেস"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"ভয়েস ইনপুট"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ইমোজি"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"রিটার্ন"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"সার্চ"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ডট"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ভাষা পরিবর্তন করুন"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"পরবর্তী"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"পূর্ববর্তী"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"শিফট সক্ষম করা হয়েছে"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"বড় হাতের অক্ষর সক্ষম করা হয়েছে"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"প্রতীক মোড"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"আরও প্রতীক মোড"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"অক্ষর মোড"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ফোন মোড"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ফোন প্রতীক মোড"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"কিবোর্ড লুকানো রয়েছে"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> কিবোর্ড দেখানো হচ্ছে"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"তারিখ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"তারিখ ও সময়"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ইমেল"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"মেসেজিং"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"সংখ্যা"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ফোন"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"পাঠ্য"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"সময়"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"ইউআরএল"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"সাম্প্রতিক"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"বিষয়বস্তু</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"প্রতীক"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"পতাকা"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"স্মাইলি ও লোকজন"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"জীবজন্তু ও প্রকৃতি"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"খাদ্য ও পানীয়"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ভ্রমণ ও স্থান</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"অ্যাক্টিভিটি"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ইমোটিকন</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"বড় হাতের <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"বড় হাতের I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"বড় হাতের I, উপরে বিন্দু"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"বিকল্প অক্ষরগুলি উপলব্ধ রয়েছে"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"বিকল্প অক্ষরগুলি সরিয়ে দেওয়া হয়"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"বিকল্প প্রস্তাবনাগুলি উপলব্ধ রয়েছে"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"বিকল্প প্রস্তাবনাগুলি সরিয়ে দেওয়া হয়"</string>
+    <string name="spoken_use_headphones">"সশব্দে উচ্চারিত পাসওয়ার্ডের কীগুলি শোনার জন্য একটি হেডসেট সংযুক্ত করুন।"</string>
+    <string name="spoken_current_text_is">"বর্তমান পাঠ্য %s"</string>
+    <string name="spoken_no_text_entered">"কোনো পাঠ্য লেখা হয়নি"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> কী <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> কে <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> এ সংশোধন করছে"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> স্বত:সংশোধন করে"</string>
+    <string name="spoken_empty_suggestion">"কোনো প্রস্তাবনা নেই"</string>
+    <string name="spoken_description_unknown">"অজানা অক্ষর"</string>
+    <string name="spoken_description_shift">"শিফট"</string>
+    <string name="spoken_description_symbols_shift">"আরও প্রতীক"</string>
+    <string name="spoken_description_shift_shifted">"শিফট"</string>
+    <string name="spoken_description_symbols_shift_shifted">"প্রতীকগুলি"</string>
+    <string name="spoken_description_caps_lock">"শিফট"</string>
+    <string name="spoken_description_delete">"মুছুন"</string>
+    <string name="spoken_description_to_symbol">"প্রতীকসমূহ"</string>
+    <string name="spoken_description_to_alpha">"অক্ষরসমূহ"</string>
+    <string name="spoken_description_to_numeric">"নম্বরগুলি"</string>
+    <string name="spoken_description_settings">"সেটিংস"</string>
+    <string name="spoken_description_tab">"ট্যাব"</string>
+    <string name="spoken_description_space">"স্পেস"</string>
+    <string name="spoken_description_mic">"ভয়েস ইনপুট"</string>
+    <string name="spoken_description_emoji">"ইমোজি"</string>
+    <string name="spoken_description_return">"রিটার্ন"</string>
+    <string name="spoken_description_search">"সার্চ"</string>
+    <string name="spoken_description_dot">"ডট"</string>
+    <string name="spoken_description_language_switch">"ভাষা পরিবর্তন করুন"</string>
+    <string name="spoken_description_action_next">"পরবর্তী"</string>
+    <string name="spoken_description_action_previous">"পূর্ববর্তী"</string>
+    <string name="spoken_description_shiftmode_on">"শিফট সক্ষম করা হয়েছে"</string>
+    <string name="spoken_description_shiftmode_locked">"বড় হাতের অক্ষর সক্ষম করা হয়েছে"</string>
+    <string name="spoken_description_mode_symbol">"প্রতীক মোড"</string>
+    <string name="spoken_description_mode_symbol_shift">"আরও প্রতীক মোড"</string>
+    <string name="spoken_description_mode_alpha">"অক্ষর মোড"</string>
+    <string name="spoken_description_mode_phone">"ফোন মোড"</string>
+    <string name="spoken_description_mode_phone_shift">"ফোন প্রতীক মোড"</string>
+    <string name="announce_keyboard_hidden">"কিবোর্ড লুকানো রয়েছে"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> কিবোর্ড দেখানো হচ্ছে"</string>
+    <string name="keyboard_mode_date">"তারিখ"</string>
+    <string name="keyboard_mode_date_time">"তারিখ ও সময়"</string>
+    <string name="keyboard_mode_email">"ইমেল"</string>
+    <string name="keyboard_mode_im">"মেসেজিং"</string>
+    <string name="keyboard_mode_number">"সংখ্যা"</string>
+    <string name="keyboard_mode_phone">"ফোন"</string>
+    <string name="keyboard_mode_text">"পাঠ্য"</string>
+    <string name="keyboard_mode_time">"সময়"</string>
+    <string name="keyboard_mode_url">"ইউআরএল"</string>
+    <string name="spoken_description_emoji_category_recents">"সাম্প্রতিক"</string>
+    <string name="spoken_description_emoji_category_objects">"বিষয়বস্তু</string>
+    <string name="spoken_description_emoji_category_symbols">"প্রতীক"</string>
+    <string name="spoken_description_emoji_category_flags">"পতাকা"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"স্মাইলি ও লোকজন"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"জীবজন্তু ও প্রকৃতি"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"খাদ্য ও পানীয়"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"ভ্রমণ ও স্থান</string>
+    <string name="spoken_description_emoji_category_eight_activity">"অ্যাক্টিভিটি"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ইমোটিকন</string>
+    <string name="spoken_description_upper_case">"বড় হাতের <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"বড় হাতের I"</string>
+    <string name="spoken_letter_0130">"বড় হাতের I, উপরে বিন্দু"</string>
+    <string name="spoken_open_popup_keys_keyboard">"বিকল্প অক্ষরগুলি উপলব্ধ রয়েছে"</string>
+    <string name="spoken_close_popup_keys_keyboard">"বিকল্প অক্ষরগুলি সরিয়ে দেওয়া হয়"</string>
+    <string name="spoken_open_more_suggestions">"বিকল্প প্রস্তাবনাগুলি উপলব্ধ রয়েছে"</string>
+    <string name="spoken_close_more_suggestions">"বিকল্প প্রস্তাবনাগুলি সরিয়ে দেওয়া হয়"</string>
 </resources>

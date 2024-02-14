@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"የይለፍ ቃል ቁልፎች ጮክ ተብለው ሲነገሩ ለመስማት የጆሮ ማዳመጫ ይሰኩ።"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"የአሁኑ ፅሁፍ %s ነው"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"ምንም ፅሁፍ አልገባም"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>ን ወደ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> ያርመዋል"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> የራስ ሰር እርማት ያከናውናል"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"ጥቆማ ሃሳብ የለም"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"ያልታወቀ ቁምፊ"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"ቀይር"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"ተጨማሪ ምልክቶች"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"ምልክቶች"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"ሰርዝ"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"ምልክቶች"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"ደብዳቤዎች"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"ቁጥሮች"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"ቅንብሮች"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ትር"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"ባዶ ቦታ"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"የድምፅ ግቤት"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ኢሞጂ"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"ተመለስ"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"ፈልግ"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ነጥብ"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ቋንቋ ቀይር"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"ቀጣይ"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"ቀዳሚ"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"መቀያየሪያ ቁልፍ ነቅቷል"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"አብይ ፊደል ማድረጊያ ቁልፍ ነቅቷል"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"የምልክቶች ሁኔታ"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"የተጨማሪ ምልክቶች ሁነታ"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"የደብዳቤዎች ሁኔታ"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"የስልክ ሁኔታ"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"የስልክ ምልክቶች ሁኔታ"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"የቁልፍ ሰሌዳ ተደብቋል"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"የ<xliff:g id="KEYBOARD_MODE">%s</xliff:g> የቁልፍ ሰሌዳ በማሳየት ላይ"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"ቀን"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"ቀን እና ሰዓት"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ኢሜይል"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"መልዕክት መላላክ"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"ቁጥር"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ስልክ"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ፅሁፍ"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"ጊዜ"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"ዩአርኤል"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"የቅርብ ጊዜዎቹ"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"ነገሮች"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"ምልክቶች"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ባንዲራዎች"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"ሳቂታዎች እና ሰዎች"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"እንስሳት እና ተፈጥሮ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ምግብ እና መጠጥ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ጉዞ እና ቦታዎች"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"እንቅስቃሴ"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ስሜት ገላጭ አዶዎች"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"አቢይ ሆሄ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"አቢይ ሆሄ አይ"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"አቢይ ሆሄ አይ፣ ነጥብ ከላይ"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ተለዋጭ ቁምፊዎች ይገኛሉ"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ተለዋጭ ቁምፊዎች ተሰናብተዋል"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ተለዋጭ የአስተያየት ጥቆማዎች ይገኛሉ"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ተለዋጭ የአስተያየት ጥቆማዎች ተሰናብተዋል"</string>
+    <string name="spoken_use_headphones">"የይለፍ ቃል ቁልፎች ጮክ ተብለው ሲነገሩ ለመስማት የጆሮ ማዳመጫ ይሰኩ።"</string>
+    <string name="spoken_current_text_is">"የአሁኑ ፅሁፍ %s ነው"</string>
+    <string name="spoken_no_text_entered">"ምንም ፅሁፍ አልገባም"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>ን ወደ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> ያርመዋል"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> የራስ ሰር እርማት ያከናውናል"</string>
+    <string name="spoken_empty_suggestion">"ጥቆማ ሃሳብ የለም"</string>
+    <string name="spoken_description_unknown">"ያልታወቀ ቁምፊ"</string>
+    <string name="spoken_description_shift">"ቀይር"</string>
+    <string name="spoken_description_symbols_shift">"ተጨማሪ ምልክቶች"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"ምልክቶች"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"ሰርዝ"</string>
+    <string name="spoken_description_to_symbol">"ምልክቶች"</string>
+    <string name="spoken_description_to_alpha">"ደብዳቤዎች"</string>
+    <string name="spoken_description_to_numeric">"ቁጥሮች"</string>
+    <string name="spoken_description_settings">"ቅንብሮች"</string>
+    <string name="spoken_description_tab">"ትር"</string>
+    <string name="spoken_description_space">"ባዶ ቦታ"</string>
+    <string name="spoken_description_mic">"የድምፅ ግቤት"</string>
+    <string name="spoken_description_emoji">"ኢሞጂ"</string>
+    <string name="spoken_description_return">"ተመለስ"</string>
+    <string name="spoken_description_search">"ፈልግ"</string>
+    <string name="spoken_description_dot">"ነጥብ"</string>
+    <string name="spoken_description_language_switch">"ቋንቋ ቀይር"</string>
+    <string name="spoken_description_action_next">"ቀጣይ"</string>
+    <string name="spoken_description_action_previous">"ቀዳሚ"</string>
+    <string name="spoken_description_shiftmode_on">"መቀያየሪያ ቁልፍ ነቅቷል"</string>
+    <string name="spoken_description_shiftmode_locked">"አብይ ፊደል ማድረጊያ ቁልፍ ነቅቷል"</string>
+    <string name="spoken_description_mode_symbol">"የምልክቶች ሁኔታ"</string>
+    <string name="spoken_description_mode_symbol_shift">"የተጨማሪ ምልክቶች ሁነታ"</string>
+    <string name="spoken_description_mode_alpha">"የደብዳቤዎች ሁኔታ"</string>
+    <string name="spoken_description_mode_phone">"የስልክ ሁኔታ"</string>
+    <string name="spoken_description_mode_phone_shift">"የስልክ ምልክቶች ሁኔታ"</string>
+    <string name="announce_keyboard_hidden">"የቁልፍ ሰሌዳ ተደብቋል"</string>
+    <string name="announce_keyboard_mode">"የ<xliff:g id="KEYBOARD_MODE">%s</xliff:g> የቁልፍ ሰሌዳ በማሳየት ላይ"</string>
+    <string name="keyboard_mode_date">"ቀን"</string>
+    <string name="keyboard_mode_date_time">"ቀን እና ሰዓት"</string>
+    <string name="keyboard_mode_email">"ኢሜይል"</string>
+    <string name="keyboard_mode_im">"መልዕክት መላላክ"</string>
+    <string name="keyboard_mode_number">"ቁጥር"</string>
+    <string name="keyboard_mode_phone">"ስልክ"</string>
+    <string name="keyboard_mode_text">"ፅሁፍ"</string>
+    <string name="keyboard_mode_time">"ጊዜ"</string>
+    <string name="keyboard_mode_url">"ዩአርኤል"</string>
+    <string name="spoken_description_emoji_category_recents">"የቅርብ ጊዜዎቹ"</string>
+    <string name="spoken_description_emoji_category_objects">"ነገሮች"</string>
+    <string name="spoken_description_emoji_category_symbols">"ምልክቶች"</string>
+    <string name="spoken_description_emoji_category_flags">"ባንዲራዎች"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"ሳቂታዎች እና ሰዎች"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"እንስሳት እና ተፈጥሮ"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"ምግብ እና መጠጥ"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"ጉዞ እና ቦታዎች"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"እንቅስቃሴ"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ስሜት ገላጭ አዶዎች"</string>
+    <string name="spoken_description_upper_case">"አቢይ ሆሄ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"አቢይ ሆሄ አይ"</string>
+    <string name="spoken_letter_0130">"አቢይ ሆሄ አይ፣ ነጥብ ከላይ"</string>
+    <string name="spoken_open_popup_keys_keyboard">"ተለዋጭ ቁምፊዎች ይገኛሉ"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ተለዋጭ ቁምፊዎች ተሰናብተዋል"</string>
+    <string name="spoken_open_more_suggestions">"ተለዋጭ የአስተያየት ጥቆማዎች ይገኛሉ"</string>
+    <string name="spoken_close_more_suggestions">"ተለዋጭ የአስተያየት ጥቆማዎች ተሰናብተዋል"</string>
 </resources>

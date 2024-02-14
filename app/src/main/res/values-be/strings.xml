@@ -5,121 +5,121 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Шукаць імёны кантактаў"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Модуль праверкі правапісу выкарыстоўвае запісы са спісу кантактаў"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Вібрацыя пры націску клавіш"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Гук пры націску"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Па націску на клавішы ўсплывае акно"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Параметры"</string>
-    <string name="settings_screen_appearance" msgid="7358046399111611615">"Знешні выгляд"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Жэставы набор"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Выпраўленне тэксту"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Дадатковыя"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Тэма"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Уключыць раздзеленую клавіятуру"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"Шукаць імёны кантактаў"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Модуль праверкі правапісу выкарыстоўвае запісы са спісу кантактаў"</string>
+    <string name="vibrate_on_keypress">"Вібрацыя пры націску клавіш"</string>
+    <string name="sound_on_keypress">"Гук пры націску"</string>
+    <string name="popup_on_keypress">"Па націску на клавішы ўсплывае акно"</string>
+    <string name="settings_screen_preferences">"Параметры"</string>
+    <string name="settings_screen_appearance">"Знешні выгляд"</string>
+    <string name="settings_screen_gesture">"Жэставы набор"</string>
+    <string name="settings_screen_correction">"Выпраўленне тэксту"</string>
+    <string name="settings_screen_advanced">"Дадатковыя"</string>
+    <string name="settings_screen_theme">"Тэма"</string>
+    <string name="enable_split_keyboard">"Уключыць раздзеленую клавіятуру"</string>
     <string name="language_switch_key_switch_input_method">"Перакл. да інш. спос. ув."</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Кнопка пераключэння мовы"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> мс"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Стандартныя сістэмныя"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Падказваць імёны кантактаў"</string>
+    <string name="show_language_switch_key">"Кнопка пераключэння мовы"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> мс"</string>
+    <string name="settings_system_default">"Стандартныя сістэмныя"</string>
+    <string name="use_contacts_dict">"Падказваць імёны кантактаў"</string>
     <string name="use_contacts_dict_summary">"Выкарыстоўваць імёны са спісу кантактаў для прапаноў і выпраўл."</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Персанальныя прапановы"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Падвойны iнтэрвал"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Падвойнае нацiсканне на клавішу прабелу ўстаўляе кропку з наступным прабелам"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Аўтаматычна рабіць літары вялікімі"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Пісаць з загалоўнай літары першае слова ў кожным сказе"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Асабісты слоўнік"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Дадатковыя слоўнікі"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Асноўны слоўнік"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Паказваць прапановы выпраўлення"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Паказваць прапанаваныя словы падчас набору тэксту"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Блакіраваць абразлівыя словы"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Не прапануйце патэнцыяльна абразлівых слоў"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"Аўтавыпраўленне"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Прабелы і пунктуацыйныя знакі дазваляюць аўтаматычна выпраўляць памылкова ўведзеныя словы"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Адключаны"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Сціплы"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Агрэсіўна"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Вельмі агрэсіўна"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Падказкi для наступнага слова"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Выкарыстоўваць папярэдняе слова, каб атрымлiваць падказкi"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Уключыць набор жэстамі"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Уводзьце слова, перасоўваючы палец па літарах"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Паказаць след жэста"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Дынамічны плаваючы прагляд"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Праглядаць прапанаванае слова падчас жэсту"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Жэст фразы"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Уводзьце прабелы паміж жэстамі, праводзячы па клавішы прабелу"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Англійская (Вялікабрытанія)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Англійская (ЗША)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Іспанская (ЗША)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Хінгліш"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Сербская (Лацініца)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традыцыйная)</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Кампактная)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Стандартная (Лацініца)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Лацініца (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Лацініца (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Лацініца (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Лацініца (Дворак)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Лацініца (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Лацініца (ПК)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Эмодзі"</string>
-    <string name="add" msgid="8299699805688017798">"Дадаць"</string>
-    <string name="remove" msgid="4486081658752944606">"Выдаліць"</string>
-    <string name="save" msgid="7646738597196767214">"Захаваць"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Мова"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Раскладка"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Працягласць вібрацыі пры націску клавіш"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Гучнасць гуку пры націску клавіш"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Затрымка доўгага націску клавішы"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Эмодзі для фізічнай клавіятуры"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Фізічная клавіша Alt паказвае ўсе даступныя эмодзі"</string>
-    <string name="button_default" msgid="3988017840431881491">"Па змаўчанні"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">Вітаем у прыкладанні <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"з уводам жэстамі"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Пачаць"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Далей"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">Наладка прыкладання <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title" msgid="3147967630253462315">Уключыць прыкладанне <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">Праверце праграму \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" у сваіх наладах параметра \"Мовы і ўвод\". Гэта дазволіць ёй працаваць на вашай прыладзе.</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">Праграма <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ужо ўключана ў вашых наладах параметра \"Мовы і ўвод\", так што гэты крок зроблены. Пераходзім да наступнага!</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Уключыць у наладах"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">Пераключыцца на прыкладанне <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">Выберыце \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як актыўны метад уводу тэксту.</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Пераключэнне метадаў уводу"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Усё гатова!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">Цяпер вы можаце ўводзіць ўсе свае любімыя прыкладанні з iмем <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Гатова"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Паказаць значок прыкладання"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Паказаць значок прыкладання ў панэлi запуску"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Дадатковыя слоўнікі"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Налады для слоўнікаў"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Даступны слоўнік"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Праблема падключэння да слоўніка"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Слоўнікаў няма"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Абнавіць"</string>
-    <string name="last_update" msgid="730467549913588780">"Апошняе абнаўленне"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Асноўны слоўнік"</string>
-    <string name="settings" msgid="3876892339342569259">"Налады"</string>
-    <string name="delete" msgid="756853268088330054">"Выдаліць"</string>
-    <string name="version_text" msgid="2715354215568469385">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Дадаць"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Дадаць у слоўнік"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Гарачая клавіша:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Мова:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Увядзіце слова"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Неабавязковая гарачая клавіша"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Рэдагаваць слова"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"У карыстальніцкім слоўніку няма ніводнага слова. Каб дадаць слова, дакраніце да кнопкі \"Дадаць\" (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Для ўсіх моў"</string>
+    <string name="use_personalized_dicts">"Персанальныя прапановы"</string>
+    <string name="use_double_space_period">"Падвойны iнтэрвал"</string>
+    <string name="use_double_space_period_summary">"Падвойнае нацiсканне на клавішу прабелу ўстаўляе кропку з наступным прабелам"</string>
+    <string name="auto_cap">"Аўтаматычна рабіць літары вялікімі"</string>
+    <string name="auto_cap_summary">"Пісаць з загалоўнай літары першае слова ў кожным сказе"</string>
+    <string name="edit_personal_dictionary">"Асабісты слоўнік"</string>
+    <string name="configure_dictionaries_title">"Дадатковыя слоўнікі"</string>
+    <string name="main_dictionary">"Асноўны слоўнік"</string>
+    <string name="prefs_show_suggestions">"Паказваць прапановы выпраўлення"</string>
+    <string name="prefs_show_suggestions_summary">"Паказваць прапанаваныя словы падчас набору тэксту"</string>
+    <string name="prefs_block_potentially_offensive_title">"Блакіраваць абразлівыя словы"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Не прапануйце патэнцыяльна абразлівых слоў"</string>
+    <string name="autocorrect">"Аўтавыпраўленне"</string>
+    <string name="auto_correction_summary">"Прабелы і пунктуацыйныя знакі дазваляюць аўтаматычна выпраўляць памылкова ўведзеныя словы"</string>
+    <string name="auto_correction_threshold_mode_off">"Адключаны"</string>
+    <string name="auto_correction_threshold_mode_modest">"Сціплы"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"Агрэсіўна"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"Вельмі агрэсіўна"</string>
+    <string name="bigram_prediction">"Падказкi для наступнага слова"</string>
+    <string name="bigram_prediction_summary">"Выкарыстоўваць папярэдняе слова, каб атрымлiваць падказкi"</string>
+    <string name="gesture_input">"Уключыць набор жэстамі"</string>
+    <string name="gesture_input_summary">"Уводзьце слова, перасоўваючы палец па літарах"</string>
+    <string name="gesture_preview_trail">"Паказаць след жэста"</string>
+    <string name="gesture_floating_preview_text">"Дынамічны плаваючы прагляд"</string>
+    <string name="gesture_floating_preview_text_summary">"Праглядаць прапанаванае слова падчас жэсту"</string>
+    <string name="gesture_space_aware">"Жэст фразы"</string>
+    <string name="gesture_space_aware_summary">"Уводзьце прабелы паміж жэстамі, праводзячы па клавішы прабелу"</string>
+    <string name="subtype_en_GB">"Англійская (Вялікабрытанія)"</string>
+    <string name="subtype_en_US">"Англійская (ЗША)"</string>
+    <string name="subtype_es_US">"Іспанская (ЗША)"</string>
+    <string name="subtype_hi_Latn">"Хінгліш"</string>
+    <string name="subtype_sr_Latn">"Сербская (Лацініца)"</string>
+    <string name="subtype_with_layout_en_GB">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">Хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традыцыйная)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Кампактная)</string>
+    <string name="subtype_no_language">"Стандартная (Лацініца)"</string>
+    <string name="subtype_no_language_qwerty">"Лацініца (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"Лацініца (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"Лацініца (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"Лацініца (Дворак)"</string>
+    <string name="subtype_no_language_colemak">"Лацініца (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"Лацініца (ПК)"</string>
+    <string name="subtype_emoji">"Эмодзі"</string>
+    <string name="add">"Дадаць"</string>
+    <string name="remove">"Выдаліць"</string>
+    <string name="save">"Захаваць"</string>
+    <string name="subtype_locale">"Мова"</string>
+    <string name="keyboard_layout_set">"Раскладка"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Працягласць вібрацыі пры націску клавіш"</string>
+    <string name="prefs_keypress_sound_volume_settings">"Гучнасць гуку пры націску клавіш"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Затрымка доўгага націску клавішы"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Эмодзі для фізічнай клавіятуры"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Фізічная клавіша Alt паказвае ўсе даступныя эмодзі"</string>
+    <string name="button_default">"Па змаўчанні"</string>
+    <string name="setup_welcome_title">Вітаем у прыкладанні <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description">"з уводам жэстамі"</string>
+    <string name="setup_start_action">"Пачаць"</string>
+    <string name="setup_next_action">"Далей"</string>
+    <string name="setup_steps_title">Наладка прыкладання <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Уключыць прыкладанне <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Праверце праграму \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" у сваіх наладах параметра \"Мовы і ўвод\". Гэта дазволіць ёй працаваць на вашай прыладзе.</string>
+    <string name="setup_step1_finished_instruction">Праграма <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ужо ўключана ў вашых наладах параметра \"Мовы і ўвод\", так што гэты крок зроблены. Пераходзім да наступнага!</string>
+    <string name="setup_step1_action">"Уключыць у наладах"</string>
+    <string name="setup_step2_title">Пераключыцца на прыкладанне <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Выберыце \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як актыўны метад уводу тэксту.</string>
+    <string name="setup_step2_action">"Пераключэнне метадаў уводу"</string>
+    <string name="setup_step3_title">"Усё гатова!"</string>
+    <string name="setup_step3_instruction">Цяпер вы можаце ўводзіць ўсе свае любімыя прыкладанні з iмем <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_finish_action">"Гатова"</string>
+    <string name="show_setup_wizard_icon">"Паказаць значок прыкладання"</string>
+    <string name="show_setup_wizard_icon_summary">"Паказаць значок прыкладання ў панэлi запуску"</string>
+    <string name="dictionary_settings_title">"Дадатковыя слоўнікі"</string>
+    <string name="dictionary_settings_summary">"Налады для слоўнікаў"</string>
+    <string name="dictionary_available">"Даступны слоўнік"</string>
+    <string name="cannot_connect_to_dict_service">"Праблема падключэння да слоўніка"</string>
+    <string name="no_dictionaries_available">"Слоўнікаў няма"</string>
+    <string name="check_for_updates_now">"Абнавіць"</string>
+    <string name="last_update">"Апошняе абнаўленне"</string>
+    <string name="main_dict_description">"Асноўны слоўнік"</string>
+    <string name="settings">"Налады"</string>
+    <string name="delete">"Выдаліць"</string>
+    <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="user_dict_settings_add_menu_title">"Дадаць"</string>
+    <string name="user_dict_settings_add_dialog_title">"Дадаць у слоўнік"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Гарачая клавіша:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Мова:"</string>
+    <string name="user_dict_settings_add_word_hint">"Увядзіце слова"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Неабавязковая гарачая клавіша"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Рэдагаваць слова"</string>
+    <string name="user_dict_settings_empty_text">"У карыстальніцкім слоўніку няма ніводнага слова. Каб дадаць слова, дакраніце да кнопкі \"Дадаць\" (+)."</string>
+    <string name="user_dict_settings_all_languages">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
+    <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>
     <string name="settings_category_suggestions">Прапановы</string>
@@ -210,5 +210,12 @@
     <string name="auto_correction_confidence">Упэўненасць у аўтавыпраўленні</string>
     <string name="undo">"Адрабіць"</string>
     <string name="redo">"Узнавіць"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Запам. паведамл. і даныя, якія вы ўводзіце, для паляпшэння прапаноў"</string>
+    <string name="use_personalized_dicts_summary">"Запам. паведамл. і даныя, якія вы ўводзіце, для паляпшэння прапаноў"</string>
+    <string name="label_go_key">"Пачаць"</string>
+    <string name="label_next_key">"Далей"</string>
+    <string name="label_previous_key">"Назад"</string>
+    <string name="label_done_key">"Гатова"</string>
+    <string name="label_send_key">"Адпр."</string>
+    <string name="label_pause_key">"Паўза"</string>
+    <string name="label_wait_key">"Чакаць"</string>
 </resources>
