@@ -1,11 +1,12 @@
-HeliBoard is a 100% foss keyboard based on AOSP / OpenBoard, that respects your privacy.
+HeliBoard is a privacy-conscious open-source keyboard, based on AOSP / OpenBoard.
 
 Features:
  - Add your own dictionaries for suggestions and spell check
  - Customizable themes and background
  - Customizable layouts
  - Multilingual typing
- - Emojis
  - Glide typing (only with closed source library)
-
-This app is open source, the code is available here: https://github.com/Helium314/HeliBoard
+ - Clipboard history
+ - One-handed mode
+ - Split keyboard
+ - Backup and restore your data

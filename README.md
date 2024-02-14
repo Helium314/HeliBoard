@@ -1,4 +1,5 @@
 # HeliBoard
+HeliBoard is a privacy-conscious and customizable open-source keyboard, based on AOSP / OpenBoard.
 
 ## Table of Contents
 
@@ -14,24 +15,25 @@
 - [Credits](#credits)
 
 # Features
-* Allow loading Glide typing library
-  * not included in the app, as there is no compatible open source library
-  * can be extracted from GApps packages ("_swypelibs_"), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
-  * if you are concerned about security implications of loading user-provides libraries, please use the _nouserlib_ build variant, which removes this option. If HeliBoard is installed as system app, and _swypelibs_ are available for the system, they will be used.
-* Multilingual typing
-* Load external dictionaries
-  * get them [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
+* Add dictionaries for suggestions and spell check
+  * build your own, or get them [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
   * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
-* Adjust keyboard themes (style, colors and background image)
+* Customize keyboard themes (style, colors and background image)
   * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
   * can follow dynamic colors for Android 12+
+* Customize keyboard [layouts](layouts.md)
+* Multilingual typing
+* Glide typing (_only with closed source library_)
+  * library not included in the app, as there is no compatible open source library available
+  * can be extracted from GApps packages ("_swypelibs_"), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
+  * if you are concerned about security implications of loading user-provides libraries, please use the _nouserlib_ build variant, which removes this option. If HeliBoard is installed as system app, and _swypelibs_ are available for the system, they will be used.
+* Clipboard history
+* One-handed mode
 * Split keyboard (if the screen is large enough)
-* Optional number row
 * Number pad
-* Backup your learned word / history data
-* Add custom keyboard [layouts](layouts.md)
+* Backup and restore your learned word / history data
 
 ## FAQ / Common Issues
 * __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search funtion does not exist.
