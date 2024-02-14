@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2012 The Android Open Source Project
- * Modifications copyright (C) 2019 OpenBoard
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 

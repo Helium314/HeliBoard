@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_settings">Configurações do OpenBoard</string>
+    <string name="ime_settings">Configurações do HeliBoard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
     <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa entradas da sua lista de contatos</string>
@@ -96,8 +96,8 @@
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Borda em teclas</string>
-    <string name="spell_checker_service_name">Corretor Ortográfico do OpenBoard</string>
-    <string name="android_spell_checker_settings">Configurar corretor ortográfico do OpenBoard</string>
+    <string name="spell_checker_service_name">Corretor Ortográfico do HeliBoard</string>
+    <string name="android_spell_checker_settings">Configurar corretor ortográfico do HeliBoard</string>
     <string name="use_contacts_for_spellchecking_option_title">Procurar nomes de contatos</string>
     <string name="popup_on_keypress">Mostrar pop-up ao tocar em teclas</string>
     <string name="settings_screen_preferences">Preferências</string>

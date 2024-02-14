@@ -416,4 +416,4 @@ private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale, a
     return locales
 }
 
-private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/openboard/blob/new/layouts.md"
+private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md"

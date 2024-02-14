@@ -151,7 +151,7 @@
     <string name="day_night_mode">自动主题</string>
     <string name="day_night_mode_summary">系统自动</string>
     <string name="settings_category_input">输入</string>
-    <string name="ime_settings">OpenBoard设置</string>
+    <string name="ime_settings">HeliBoard设置</string>
     <string name="settings_category_additional_keys">额外键</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">长按空格切换输入法</string>
     <string name="prefs_long_press_keyboard_to_change_lang">空格切换输入法</string>

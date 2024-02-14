@@ -127,12 +127,12 @@
     <string name="settings_category_miscellaneous">Рознае</string>
     <string name="settings_no_limit">Без абмежаванняў</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>Мін.</string>
-    <string name="android_spell_checker_settings">Налады праверкі правапісу OpenBoard</string>
+    <string name="android_spell_checker_settings">Налады праверкі правапісу HeliBoard</string>
     <string name="show_emoji_key">Клавіша эмодзі</string>
-    <string name="ime_settings">Налады OpenBoard</string>
+    <string name="ime_settings">Налады HeliBoard</string>
     <string name="settings_category_input">Увод</string>
     <string name="settings_category_additional_keys">Дадатковыя клавішы</string>
-    <string name="spell_checker_service_name">Праграма праверкі правапісу OpenBoard</string>
+    <string name="spell_checker_service_name">Праграма праверкі правапісу HeliBoard</string>
     <string name="enable_clipboard_history">Уключыць гісторыю буфера абмену</string>
     <string name="enable_clipboard_history_summary">Калі выключана, клавіша буфера абмену будзе ўстаўляць змесціва буфера абмену, калі яно ёсць</string>
     <string name="clipboard_history_retention_time">Час захоўвання гісторыі буфера абмену</string>

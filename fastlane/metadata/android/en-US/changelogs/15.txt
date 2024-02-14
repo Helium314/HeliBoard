@@ -1,7 +1,0 @@
-1.4.3:
-- automatic day/night themes
-- emoji with different colors are now accessible with a long-press
-- Add Arabic PC layout
-- German layout fixes
-- changes to themes
-- bugfixes

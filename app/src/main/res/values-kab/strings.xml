@@ -6,7 +6,7 @@
 -->
 <resources>
     <string name="settings_screen_preferences">Imenyafen</string>
-    <string name="ime_settings">Iɣewwaren n OpenBoard</string>
+    <string name="ime_settings">Iɣewwaren n HeliBoard</string>
     <string name="settings_category_miscellaneous">Wiyyaḍ</string>
     <string name="user_dict_settings_add_menu_title">Rnu</string>
     <string name="user_dict_settings_add_locale_option_name">Tutlayt :</string>

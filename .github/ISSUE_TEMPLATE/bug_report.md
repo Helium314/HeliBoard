@@ -5,9 +5,8 @@ labels: bug
 ---
 
 <!-- Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
-If you want to report more issues / bugs, open mulitple issues (one for each).
+If you want to report more issues / bugs, open multiple issues (one for each).
 If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
-**Does it happen in OpenBoard, or is it exclusive to this modified version?**
 
 **Describe the bug**
 <!-- A clear and concise description of what the bug is. -->
@@ -24,11 +23,11 @@ If you're interested, you can read the following useful text about effective bug
 <!-- A clear and concise description of what you expected to happen. -->
 
 **Screenshots**
-<!-- If applicable and helpful, add screenshots to help explain your problem.
+<!-- ONLY if applicable and helpful, add screenshots to help explain your problem.
 If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable. -->
 
 **App version**
-<!-- Which _exact_ version of this fork is affected? -->
+<!-- Which version of this app is affected? If you build the app yourself, please specify the latest commit included in the build -->
 
 **Device (please complete the following information):**
  - Model: <!-- [e.g. Samsung Galaxy S9] -->

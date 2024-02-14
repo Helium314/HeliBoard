@@ -128,8 +128,8 @@
     <string name="more_keys_strip_description">Więcej klawiszy</string>
     <string name="number_row">Rząd numeryczny</string>
     <string name="show_emoji_key">Klawisz Emoji</string>
-    <string name="spell_checker_service_name">Sprawdzanie pisowni OpenBoard</string>
-    <string name="android_spell_checker_settings">Ustawienia sprawdzania pisowni OpenBoard</string>
+    <string name="spell_checker_service_name">Sprawdzanie pisowni HeliBoard</string>
+    <string name="android_spell_checker_settings">Ustawienia sprawdzania pisowni HeliBoard</string>
     <string name="settings_category_clipboard_history">Historia schowka</string>
     <string name="enable_clipboard_history">Włącz historię schowka</string>
     <string name="incognito">Wymuś tryb incognito</string>
@@ -148,7 +148,7 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="space_trackpad">Spacja przesuwa kursor</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="ime_settings">Ustawienia OpenBoard</string>
+    <string name="ime_settings">Ustawienia HeliBoard</string>
     <string name="settings_category_additional_keys">Dodatkowe klawisze</string>
     <string name="settings_category_input">Wprowadzanie</string>
     <string name="settings_category_suggestions">Sugestie</string>

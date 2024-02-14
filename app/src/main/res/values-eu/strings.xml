@@ -138,7 +138,7 @@
     <string name="more_keys_strip_description">Tekla gehiago</string>
     <string name="number_row">zenbaki errenkada</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Espazio tekla luze sakatzeak sarrera-metodoa hautatzeko menua piztuko du</string>
-    <string name="spell_checker_service_name">OpenBoard Ortografia Zuzentzailea</string>
+    <string name="spell_checker_service_name">HeliBoard Ortografia Zuzentzailea</string>
     <string name="autospace_after_punctuation">Autoespazioa puntuazioen ondoren</string>
     <string name="incognito">Ezezagun modua behartu</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor hizkuntza)</string>
@@ -146,9 +146,9 @@
     <string name="key_borders">Gako-ertzak</string>
     <string name="day_night_mode">Egun/gau modu automatikoa</string>
     <string name="day_night_mode_summary">Itxurak sistemaren ezarpenei jarraituko die</string>
-    <string name="ime_settings">OpenBoard Ezarpenak</string>
+    <string name="ime_settings">HeliBoard Ezarpenak</string>
     <string name="settings_category_additional_keys">Giltza gehigarriak</string>
-    <string name="android_spell_checker_settings">OpenBoard Ortografia Zuzentzailearen Ezarpenak</string>
+    <string name="android_spell_checker_settings">HeliBoard Ortografia Zuzentzailearen Ezarpenak</string>
     <string name="show_emoji_key">Emoji giltza</string>
     <string name="delete_swipe">Ezabatu irristatzea</string>
     <string name="delete_swipe_summary">Ezabatu teklatik hatza irristatu, aldiberean testuen zati handiagoak hautatzeko eta ezabatzeko</string>

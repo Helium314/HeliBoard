@@ -131,8 +131,8 @@
     <string name="enable_clipboard_history">Attiva la cronologia degli appunti</string>
     <string name="enable_clipboard_history_summary">Se disattivato, il tasto appunti incolla il contenuto degli appunti, se presente</string>
     <string name="clipboard_history_retention_time">Periodo conservazione cronologia</string>
-    <string name="spell_checker_service_name">OpenBoard - Controllore ortografico</string>
-    <string name="android_spell_checker_settings">OpenBoard - Impostazioni controllore ortografico</string>
+    <string name="spell_checker_service_name">HeliBoard - Controllore ortografico</string>
+    <string name="android_spell_checker_settings">HeliBoard - Impostazioni controllore ortografico</string>
     <string name="number_row">Riga numeri</string>
     <string name="delete_swipe">Scorri per cancellare</string>
     <string name="delete_swipe_summary">Scorri sul tasto cancella per selezionare e rimuovere grandi porzioni di testo in una sola volta</string>
@@ -153,7 +153,7 @@
     <string name="settings_category_experimental">Sperimentali</string>
     <string name="settings_category_miscellaneous">Varie</string>
     <string name="settings_category_input">Immissione</string>
-    <string name="ime_settings">OpenBoard - Impostazioni</string>
+    <string name="ime_settings">HeliBoard - Impostazioni</string>
     <string name="prefs_force_incognito_mode_summary">Disattiva l\'apprendimento di nuove parole</string>
     <string name="key_borders">Bordi tasto</string>
     <string name="day_night_mode">Modalità giorno/notte automatica</string>

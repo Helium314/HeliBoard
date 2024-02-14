@@ -120,7 +120,7 @@
     <string name="user_dict_settings_all_languages" msgid="8276126583216298886">Для всіх мов</string>
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Інші мови…"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"</string>
-    <string name="ime_settings">Налаштування OpenBoard</string>
+    <string name="ime_settings">Налаштування HeliBoard</string>
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
     <string name="theme_style">Стиль теми</string>
@@ -131,7 +131,7 @@
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Аккгор)</string>
     <string name="autospace_after_punctuation">Авто-пробіл після знаків пунктуації</string>
-    <string name="android_spell_checker_settings">Налаштування перевірки правопису OpenBoard</string>
+    <string name="android_spell_checker_settings">Налаштування перевірки правопису HeliBoard</string>
     <string name="settings_category_correction">Виправлення</string>
     <string name="settings_category_suggestions">Пропозиції</string>
     <string name="settings_category_experimental">Експериментальне</string>
@@ -182,7 +182,7 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Змінювати спосіб введення клавішею пробіл</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Довге натискання клавіші пробіл виводить меню вибору способу введення</string>
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
-    <string name="spell_checker_service_name">Перевірка правопису OpenBoard</string>
+    <string name="spell_checker_service_name">Перевірка правопису HeliBoard</string>
     <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>

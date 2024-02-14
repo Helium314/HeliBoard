@@ -129,14 +129,14 @@
     <string name="prefs_force_incognito_mode_summary">Yeni sözcüklerin öğrenilmesini devre dışı bırak</string>
     <string name="number_row">Sayı satırı</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Boşluk tuşuna uzun süre basmak, giriş yöntemi seçim menüsünü gösterecektir</string>
-    <string name="android_spell_checker_settings">OpenBoard Yazım Denetleyicisi Ayarları</string>
+    <string name="android_spell_checker_settings">HeliBoard Yazım Denetleyicisi Ayarları</string>
     <string name="prefs_keyboard_height_scale">Klavye yükseklik ölçeği</string>
     <string name="delete_swipe">Silme kaydırması</string>
     <string name="space_trackpad">Boşluk tuşu dokunması</string>
     <string name="subtype_no_language_workman">Alfabe (Workman)</string>
     <string name="key_borders">Tuş kenarlıkları</string>
     <string name="day_night_mode">Otomatik gündüz/gece modu</string>
-    <string name="spell_checker_service_name">OpenBoard Yazım Denetleyicisi</string>
+    <string name="spell_checker_service_name">HeliBoard Yazım Denetleyicisi</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>dak.</string>
     <string name="settings_category_suggestions">Öneriler</string>
     <string name="show_emoji_key">Emoji tuşu</string>
@@ -152,7 +152,7 @@
     <string name="delete_swipe_summary">Bir kerede metnin daha büyük bölümlerini seçmek ve kaldırmak için silme tuşundan hızlıca kaydırın</string>
     <string name="subtype_no_language_colemak_dh">Alfabe (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">Görünüm sistem ayarlarını takip edecektir</string>
-    <string name="ime_settings">OpenBoard Ayarları</string>
+    <string name="ime_settings">HeliBoard Ayarları</string>
     <string name="settings_category_input">Giriş</string>
     <string name="settings_category_additional_keys">Ek tuşlar</string>
     <string name="autospace_after_punctuation">Noktalama işaretlerinden sonra otomatik boşluk</string>

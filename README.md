@@ -1,4 +1,4 @@
-# OpenBoard upgrade, WIP
+# HeliBoard
 
 ## Table of Contents
 
@@ -69,11 +69,11 @@ Features that may go unnoticed, and further potentially useful information
 
 ## Reporting Issues
 
-Whether you encountered a bug, or want to see a new feature in OpenBoard, you can contribute to the project by opening a new issue [here](https://github.com/openboard-team/openboard/issues). Your help is always welcome!
+Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/Helium314/HeliBoard/issues). Your help is always welcome!
 
 Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/openboard/issues). Please search open and closed issues.
- - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of OpenBoard.
+ - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues). Please search open and closed issues.
+ - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
  - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
 Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
 
@@ -88,14 +88,14 @@ To create or update a dictionary for your language, you can use [this tool](http
 
 ### Getting Started
 
-OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/openboard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
+HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/HeliBoard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
 Of course you can also use any other compatible IDE, or work with text editor and command line.
 
 Once everything is up correctly, you're ready to go!
 
 ### Guidelines
 
-OpenBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
+HeliBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
 - **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it.
 If there is no issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
 - **Is only about a single thing**. Mixing unrelated contributions into a single PR is hard to review and can get messy.
@@ -104,9 +104,9 @@ If there is no issue related to your intended contribution, it's a good idea to 
 - **Has a low footprint**. Some parts of the code are executed very frequently, and the keyboard should stay responsive even on older devices.
 - **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
 If your contribution contains code that is not your own, provide a link to the source.
-- **Complies with the user privacy principle OpenBoard follows**. 
+- **Complies with the user privacy principle HeliBoard follows**. 
 
-In addition to previous elements, OpenBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
+In addition to previous elements, HeliBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
 
 ### Adding Layouts
 
@@ -118,7 +118,7 @@ See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 
 # License
 
-OpenBoard (and this yet unnamed fork) project is licensed under GNU General Public License v3.0.
+HeliBoard (as a fork of OpenBoard) project is licensed under GNU General Public License v3.0.
 
  > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
@@ -134,4 +134,4 @@ Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LIC
 - [Simple Keyboard](https://github.com/rkkr/simple-keyboard)
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
 - [FlorisBoard](https://github.com/florisboard/florisboard/)
-- Our [contributors](https://github.com/Helium314/openboard/graphs/contributors)
+- Our [contributors](https://github.com/Helium314/HeliBoard/graphs/contributors)

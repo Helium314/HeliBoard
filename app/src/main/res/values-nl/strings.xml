@@ -134,8 +134,8 @@
     <string name="more_keys_strip_description">Meer toetsen</string>
     <string name="number_row_summary">Toon altijd nummerrij</string>
     <string name="delete_swipe_summary">Voer een veegbeweging uit vanaf de delete-toets om grotere delen van tekst tegelijk te selecteren en te verwijderen</string>
-    <string name="spell_checker_service_name">OpenBoard spellingcontrole</string>
-    <string name="android_spell_checker_settings">OpenBoard spellingscontrole instellingen</string>
+    <string name="spell_checker_service_name">HeliBoard spellingcontrole</string>
+    <string name="android_spell_checker_settings">HeliBoard spellingscontrole instellingen</string>
     <string name="number_row">Nummer rij</string>
     <string name="incognito">Incognitomodus forceren</string>
     <string name="space_trackpad_summary">Veeg over de spatiebalk om de cursor te verplaatsen</string>
@@ -157,7 +157,7 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="key_borders">Toetsen randen</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na punt bij het typen van een nieuw woord</string>
-    <string name="ime_settings">OpenBoard Instellingen</string>
+    <string name="ime_settings">HeliBoard Instellingen</string>
     <string name="settings_category_input">Invoer</string>
     <string name="settings_category_additional_keys">Extra toetsen</string>
     <string name="undo">"Ongedaan maken"</string>

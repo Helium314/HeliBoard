@@ -1,8 +1,0 @@
-OpenBoard è una tastiera che rispetta la tua privacy, basata su AOSP e priva di dipendenze da binari Google.
-
-Ha le seguenti funzionalità:
- - correzione del testo
- - temi
- - emoji
-
-È possibile trovare il codice sorgente al seguente indirizzo: https://github.com/openboard-team/openboard

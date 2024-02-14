@@ -287,7 +287,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void onVisibilityChanged(@NonNull final View view, final int visibility) {
         super.onVisibilityChanged(view, visibility);
         if (view == this)
-            // workaround for a bug with inline suggestions views that just keep showing up otherwise, https://github.com/Helium314/openboard/pull/386
+            // workaround for a bug with inline suggestions views that just keep showing up otherwise, https://github.com/Helium314/HeliBoard/pull/386
             mSuggestionsStrip.setVisibility(visibility);
     }
 
