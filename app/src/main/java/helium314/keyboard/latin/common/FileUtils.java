@@ -54,6 +54,7 @@ public class FileUtils {
         }
         FileOutputStream out = new FileOutputStream(outfile);
         copyStreamToOtherStream(in, out);
+        out.close();
     }
 
     public static void copyStreamToOtherStream(InputStream in, OutputStream out) throws IOException {

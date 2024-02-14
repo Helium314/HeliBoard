@@ -385,8 +385,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             Log.w(TAG, "error during restore", t)
             infoDialog(requireContext(), requireContext().getString(R.string.restore_error, t.message))
         } finally {
-            Settings.getInstance().startListener()
             checkVersionUpgrade(requireContext())
+            Settings.getInstance().startListener()
             val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources);
             updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
             reloadEnabledSubtypes(requireContext())
