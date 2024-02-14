@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.KeyboardId;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTexts;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.Settings;
@@ -88,7 +88,7 @@ public class KeyboardParams {
     private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantPopupKeys;
     @NonNull
-    public LocaleKeyTexts mLocaleKeyTexts;
+    public LocaleKeyboardInfos mLocaleKeyboardInfos;
 
     public int mMostCommonKeyHeight = 0;
     public int mMostCommonKeyWidth = 0;

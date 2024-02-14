@@ -16,8 +16,8 @@ import android.view.inputmethod.EditorInfo;
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.UniqueKeysCache;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTexts;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -45,7 +45,7 @@ public final class KeyboardLayoutSet {
     private final Context mContext;
     @NonNull
     private final Params mParams;
-    public final LocaleKeyTexts mLocaleKeyTexts;
+    public final LocaleKeyboardInfos mLocaleKeyboardInfos;
 
     // How many layouts we forcibly keep in cache. This only includes ALPHABET (default) and
     // ALPHABET_AUTOMATIC_SHIFTED layouts - other layouts may stay in memory in the map of
@@ -94,7 +94,7 @@ public final class KeyboardLayoutSet {
 
     public static void onSystemLocaleChanged() {
         clearKeyboardCache();
-        LocaleKeyTextsKt.clearCache();
+        LocaleKeyboardInfosKt.clearCache();
     }
 
     public static void onKeyboardThemeChanged() {
@@ -109,7 +109,7 @@ public final class KeyboardLayoutSet {
     KeyboardLayoutSet(final Context context, @NonNull final Params params) {
         mContext = context;
         mParams = params;
-        mLocaleKeyTexts = LocaleKeyTextsKt.getOrCreate(context, params.mSubtype.getLocale());
+        mLocaleKeyboardInfos = LocaleKeyboardInfosKt.getOrCreate(context, params.mSubtype.getLocale());
     }
 
     @NonNull

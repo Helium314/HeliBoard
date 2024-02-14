@@ -15,7 +15,7 @@ import java.io.InputStream
 import java.util.Locale
 import kotlin.math.round
 
-class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
+class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     private val popupKeys = hashMapOf<String, List<String>>()
     private val priorityPopupKeys = hashMapOf<String, List<String>>()
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
@@ -44,6 +44,15 @@ class LocaleKeyTexts(dataStream: InputStream?, locale: Locale) {
         mutableListOf(),
         mutableListOf("ⁿ", "∅"),
     )
+    val hasZwnjKey = when (locale.language) { // todo: move to the info file
+        "fa", "ne", "kn", "te" -> true
+        else -> false
+    }
+    val labelFlags = when (locale.language) { // todo: move to the info file
+        "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> Key.LABEL_FLAGS_FONT_NORMAL
+        "kn", "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        else -> 0
+    }
 
     init {
         readStream(dataStream, false)
@@ -213,20 +222,20 @@ private fun addFixedColumnOrder(popupKeys: List<String>): List<String> {
     return listOf("${Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${newPopupKeys.size}") + newPopupKeys
 }
 
-fun getOrCreate(context: Context, locale: Locale): LocaleKeyTexts =
-    localeKeyTextsCache.getOrPut(locale.toString()) {
-        LocaleKeyTexts(getStreamForLocale(locale, context), locale)
+fun getOrCreate(context: Context, locale: Locale): LocaleKeyboardInfos =
+    localeKeyboardInfosCache.getOrPut(locale.toString()) {
+        LocaleKeyboardInfos(getStreamForLocale(locale, context), locale)
     }
 
 fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: Int) {
     val locales = params.mSecondaryLocales + params.mId.locale
-    params.mLocaleKeyTexts = localeKeyTextsCache.getOrPut(locales.joinToString { it.toString() }) {
+    params.mLocaleKeyboardInfos = localeKeyboardInfosCache.getOrPut(locales.joinToString { it.toString() }) {
         createLocaleKeyTexts(context, params, popupKeysSetting)
     }
 }
 
-private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyTexts {
-    val lkt = LocaleKeyTexts(getStreamForLocale(params.mId.locale, context), params.mId.locale)
+private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
+    val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     if (popupKeysSetting == POPUP_KEYS_MORE)
         lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_popup_keys.txt"))
     else if (popupKeysSetting == POPUP_KEYS_ALL)
@@ -250,10 +259,10 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
-fun clearCache() = localeKeyTextsCache.clear()
+fun clearCache() = localeKeyboardInfosCache.clear()
 
 // cache the texts, so they don't need to be read over and over
-private val localeKeyTextsCache = hashMapOf<String, LocaleKeyTexts>()
+private val localeKeyboardInfosCache = hashMapOf<String, LocaleKeyboardInfos>()
 
 private const val READER_MODE_NONE = 0
 private const val READER_MODE_POPUP_KEYS = 1

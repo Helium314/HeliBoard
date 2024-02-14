@@ -303,7 +303,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiTabStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
         mEmojiPalettesView.startEmojiPalettes(
-                mKeyboardLayoutSet.mLocaleKeyTexts.getLabelAlphabet(),
+                mKeyboardLayoutSet.mLocaleKeyboardInfos.getLabelAlphabet(),
                 mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
         mEmojiPalettesView.setVisibility(View.VISIBLE);
     }
@@ -326,7 +326,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mEmojiPalettesView.setVisibility(View.GONE);
         mClipboardHistoryView.startClipboardHistory(
                 mLatinIME.getClipboardHistoryManager(),
-                mKeyboardLayoutSet.mLocaleKeyTexts.getLabelAlphabet(),
+                mKeyboardLayoutSet.mLocaleKeyboardInfos.getLabelAlphabet(),
                 mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
         mClipboardHistoryView.setVisibility(View.VISIBLE);
     }

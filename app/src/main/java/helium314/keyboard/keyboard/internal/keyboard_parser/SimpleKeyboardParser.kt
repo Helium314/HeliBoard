@@ -35,7 +35,7 @@ class SimpleKeyboardParser(
             else parseKey(it)
         }
 
-    private fun getExtraKeys(rowIndex: Int) = params.mLocaleKeyTexts.getExtraKeys(rowIndex + 1)
+    private fun getExtraKeys(rowIndex: Int) = params.mLocaleKeyboardInfos.getExtraKeys(rowIndex + 1)
 
     private fun parseKey(key: String): KeyData {
         val split = key.splitOnWhitespace()

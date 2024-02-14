@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
@@ -210,7 +210,7 @@ public class SettingsValues {
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, mLocale);
         mShowMorePopupKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMorePopupKeysPref(prefs)
-                : LocaleKeyTextsKt.POPUP_KEYS_NORMAL;
+                : LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 
         // read locale-specific popup key settings, fall back to global settings

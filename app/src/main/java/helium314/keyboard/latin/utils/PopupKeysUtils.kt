@@ -40,11 +40,11 @@ fun createPopupKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: 
     val types = if (params.mId.isAlphabetKeyboard) params.mPopupKeyTypes else allPopupKeyTypes
     types.forEach { type ->
         when (type) {
-            POPUP_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { popupKeys.add(it) }
+            POPUP_KEYS_NUMBER -> params.mLocaleKeyboardInfos.getNumberLabel(popupSet?.numberIndex)?.let { popupKeys.add(it) }
             POPUP_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { popupKeys.addAll(it) }
             POPUP_KEYS_SYMBOLS -> popupSet?.symbol?.let { popupKeys.add(it) }
-            POPUP_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getPopupKeys(label)?.let { popupKeys.addAll(it) }
-            POPUP_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityPopupKeys(label)?.let { popupKeys.addAll(it) }
+            POPUP_KEYS_LANGUAGE -> params.mLocaleKeyboardInfos.getPopupKeys(label)?.let { popupKeys.addAll(it) }
+            POPUP_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyboardInfos.getPriorityPopupKeys(label)?.let { popupKeys.addAll(it) }
         }
     }
     if (!popupKeysDelegate.isInitialized() || popupKeys.isEmpty())
@@ -75,11 +75,11 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
     var hintLabel: String? = null
     for (type in params.mPopupKeyLabelSources) {
         when (type) {
-            POPUP_KEYS_NUMBER -> params.mLocaleKeyTexts.getNumberLabel(popupSet?.numberIndex)?.let { hintLabel = it }
+            POPUP_KEYS_NUMBER -> params.mLocaleKeyboardInfos.getNumberLabel(popupSet?.numberIndex)?.let { hintLabel = it }
             POPUP_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { hintLabel = it.firstOrNull() }
             POPUP_KEYS_SYMBOLS -> popupSet?.symbol?.let { hintLabel = it }
-            POPUP_KEYS_LANGUAGE -> params.mLocaleKeyTexts.getPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
-            POPUP_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyTexts.getPriorityPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
+            POPUP_KEYS_LANGUAGE -> params.mLocaleKeyboardInfos.getPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
+            POPUP_KEYS_LANGUAGE_PRIORITY -> params.mLocaleKeyboardInfos.getPriorityPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
         }
         if (hintLabel != null) break
     }
@@ -93,7 +93,7 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
 private fun transformLabel(label: String, params: KeyboardParams): String =
     if (label == "$$$") { // currency key
         if (params.mId.passwordInput()) "$"
-        else params.mLocaleKeyTexts.currencyKey.first
+        else params.mLocaleKeyboardInfos.currencyKey.first
     } else if (params.mId.mSubtype.isRtlSubtype) {
         label.rtlLabel(params)
     } else label

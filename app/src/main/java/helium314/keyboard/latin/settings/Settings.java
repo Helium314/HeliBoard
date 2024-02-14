@@ -27,7 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 import helium314.keyboard.keyboard.KeyboardTheme;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyTextsKt;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
@@ -522,9 +522,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readMorePopupKeysPref(final SharedPreferences prefs) {
         return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "normal")) {
-            case "all" -> LocaleKeyTextsKt.POPUP_KEYS_ALL;
-            case "more" -> LocaleKeyTextsKt.POPUP_KEYS_MORE;
-            default -> LocaleKeyTextsKt.POPUP_KEYS_NORMAL;
+            case "all" -> LocaleKeyboardInfosKt.POPUP_KEYS_ALL;
+            case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
+            default -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
         };
     }
 
