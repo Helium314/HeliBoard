@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Tengdu heyrnartól til að heyra stafi aðgangsorðsins lesna upphátt."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Núverandi texti er %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Engin texti sleginn inn"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> leiðréttir <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> yfir í <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> framkvæmir sjálfvirka leiðréttingu"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Engin tillaga"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Óþekktur stafur"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Fleiri tákn"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Tákn"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Eyða"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Tákn"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Bókstafir"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Tölur"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Stillingar"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Bil"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Raddinntak"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji-tákn"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Venda"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Leita"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Kúla"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Skipta um tungumál"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Næsta"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Fyrra"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Kveikt á Shift"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Kveikt á hástafalás"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Táknastilling"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Stilling fyrir fleiri tákn"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Stafastilling"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Símastilling"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Símatáknastilling"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Lyklaborð falið"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Sýnir lyklaborð fyrir <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"dagsetning"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"dagsetning og tími"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"netfang"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"skilaboð"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"tala"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"símanúmer"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"texti"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"tími"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"vefslóð"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Nýlegt"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Hlutir"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Tákn"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Fánar"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Broskarlar og fólk"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Dýr og náttúra"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Matur og drykkur"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Ferðalög og staðir"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Hreyfing"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Broskarlar"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Hástafurinn <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Hástafurinn I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Hástafurinn I með depli"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Aukalegir stafir eru í boði"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Aukalegum stöfum lokað"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Aukalegar tillögur eru í boði"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Aukalegum tillögum lokað"</string>
+    <string name="spoken_use_headphones">"Tengdu heyrnartól til að heyra stafi aðgangsorðsins lesna upphátt."</string>
+    <string name="spoken_current_text_is">"Núverandi texti er %s"</string>
+    <string name="spoken_no_text_entered">"Engin texti sleginn inn"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> leiðréttir <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> yfir í <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> framkvæmir sjálfvirka leiðréttingu"</string>
+    <string name="spoken_empty_suggestion">"Engin tillaga"</string>
+    <string name="spoken_description_unknown">"Óþekktur stafur"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Fleiri tákn"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Tákn"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Eyða"</string>
+    <string name="spoken_description_to_symbol">"Tákn"</string>
+    <string name="spoken_description_to_alpha">"Bókstafir"</string>
+    <string name="spoken_description_to_numeric">"Tölur"</string>
+    <string name="spoken_description_settings">"Stillingar"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Bil"</string>
+    <string name="spoken_description_mic">"Raddinntak"</string>
+    <string name="spoken_description_emoji">"Emoji-tákn"</string>
+    <string name="spoken_description_return">"Venda"</string>
+    <string name="spoken_description_search">"Leita"</string>
+    <string name="spoken_description_dot">"Kúla"</string>
+    <string name="spoken_description_language_switch">"Skipta um tungumál"</string>
+    <string name="spoken_description_action_next">"Næsta"</string>
+    <string name="spoken_description_action_previous">"Fyrra"</string>
+    <string name="spoken_description_shiftmode_on">"Kveikt á Shift"</string>
+    <string name="spoken_description_shiftmode_locked">"Kveikt á hástafalás"</string>
+    <string name="spoken_description_mode_symbol">"Táknastilling"</string>
+    <string name="spoken_description_mode_symbol_shift">"Stilling fyrir fleiri tákn"</string>
+    <string name="spoken_description_mode_alpha">"Stafastilling"</string>
+    <string name="spoken_description_mode_phone">"Símastilling"</string>
+    <string name="spoken_description_mode_phone_shift">"Símatáknastilling"</string>
+    <string name="announce_keyboard_hidden">"Lyklaborð falið"</string>
+    <string name="announce_keyboard_mode">"Sýnir lyklaborð fyrir <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"dagsetning"</string>
+    <string name="keyboard_mode_date_time">"dagsetning og tími"</string>
+    <string name="keyboard_mode_email">"netfang"</string>
+    <string name="keyboard_mode_im">"skilaboð"</string>
+    <string name="keyboard_mode_number">"tala"</string>
+    <string name="keyboard_mode_phone">"símanúmer"</string>
+    <string name="keyboard_mode_text">"texti"</string>
+    <string name="keyboard_mode_time">"tími"</string>
+    <string name="keyboard_mode_url">"vefslóð"</string>
+    <string name="spoken_description_emoji_category_recents">"Nýlegt"</string>
+    <string name="spoken_description_emoji_category_objects">"Hlutir"</string>
+    <string name="spoken_description_emoji_category_symbols">"Tákn"</string>
+    <string name="spoken_description_emoji_category_flags">"Fánar"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Broskarlar og fólk"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Dýr og náttúra"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Matur og drykkur"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Ferðalög og staðir"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Hreyfing"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Broskarlar"</string>
+    <string name="spoken_description_upper_case">"Hástafurinn <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Hástafurinn I"</string>
+    <string name="spoken_letter_0130">"Hástafurinn I með depli"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Aukalegir stafir eru í boði"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Aukalegum stöfum lokað"</string>
+    <string name="spoken_open_more_suggestions">"Aukalegar tillögur eru í boði"</string>
+    <string name="spoken_close_more_suggestions">"Aukalegum tillögum lokað"</string>
 </resources>

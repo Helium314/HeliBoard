@@ -5,120 +5,120 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Kontaktlar ichidan qidirish"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Imloni tekshirishda kontaktlar ro‘yxatiga murojaat qilish"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Tugma bosilganda tebranish"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Tugmalar tovushi"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Tugma bosilganda qalqib chiqish"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Sozlamalar"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Qo‘l uzmasdan yozish"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Matnni tuzatish"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Kengaytirilgan sozlamalar"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Mavzu"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Ikkiga ajratiladigan klaviaturani yoqish"</string>
-    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Boshqa usullarga o‘tish"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Tilni almashtirish tugmasi"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Tizim standarti"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Ismlarni taklif qilish"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"Kontaktlar ichidan qidirish"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Imloni tekshirishda kontaktlar ro‘yxatiga murojaat qilish"</string>
+    <string name="vibrate_on_keypress">"Tugma bosilganda tebranish"</string>
+    <string name="sound_on_keypress">"Tugmalar tovushi"</string>
+    <string name="popup_on_keypress">"Tugma bosilganda qalqib chiqish"</string>
+    <string name="settings_screen_preferences">"Sozlamalar"</string>
+    <string name="settings_screen_gesture">"Qo‘l uzmasdan yozish"</string>
+    <string name="settings_screen_correction">"Matnni tuzatish"</string>
+    <string name="settings_screen_advanced">"Kengaytirilgan sozlamalar"</string>
+    <string name="settings_screen_theme">"Mavzu"</string>
+    <string name="enable_split_keyboard">"Ikkiga ajratiladigan klaviaturani yoqish"</string>
+    <string name="language_switch_key_switch_input_method">"Boshqa usullarga o‘tish"</string>
+    <string name="show_language_switch_key">"Tilni almashtirish tugmasi"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="settings_system_default">"Tizim standarti"</string>
+    <string name="use_contacts_dict">"Ismlarni taklif qilish"</string>
     <string name="use_contacts_dict_summary">"Kontaktlar ro‘yxatidagi ismlar asosida tuzatmalarni taklif qilish"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Takliflarni moslashtirish"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Nuqtani avtomatik qo‘yish"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Bo‘sh joy tugmasi ikki marta bosilsa, nuqta qo‘yiladi va bo‘sh joy tashlanadi"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Avtomatik bosh harf"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Har bir gapning birinchi so‘zini bosh harf bilan boshlash"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Shaxsiy lug‘at"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Qo‘shimcha lug‘atlar"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Asosiy lug‘at"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Tuzatma variantlari"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Matn kiritishda so‘z variantlarini taklif qilish"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Senzuraga moyil iboralarni taqiqlash"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Haqoratomuz so‘zlar taklif qilinmasin"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"Avtomatik tuzatish"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Tinish belgisi kiritilganda yoki bo‘sh joy qoldirilganda, xato so‘zni avtomatik tuzatish"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"O‘ch."</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"O‘rtacha"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Juda faol"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Juda faol"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Keyingi so‘zni taklif qilish"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Avvalgi so‘zlar asosida keyingi so‘zni taklif qilish"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Qo‘l uzmasdan yozish"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"So‘zlarni barmog‘ingizni klaviaturadan uzmasdan yozing"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Barmoq yo‘lini chizish"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Takliflarni ko‘rsatish"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Matn kiritishda so‘zlar taklif qilinsin"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Qo‘l uzmasdan yozish"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Barmoqni har bir so‘zdan so‘ng bo‘sh joy qoldirish tugmasiga olib borish"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Ingliz (Buyuk Britaniya)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Ingliz (AQSH)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Ispan (AQSH)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Serb (Lotin)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Ingliz (Buyuk Britaniya) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Ingliz (AQSH) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Ispan (AQSH) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Serb (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (An’anaviy)</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g>(Ixcham)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Til aniqlanmadi (lotin)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Lotin (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Lotin (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Lotin (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Lotin (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Lotin (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Lotin (shaxsiy kompyuter)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Kulgichlar"</string>
-    <string name="add" msgid="8299699805688017798">"Qo‘shish"</string>
-    <string name="remove" msgid="4486081658752944606">"Olib tashlash"</string>
-    <string name="save" msgid="7646738597196767214">"Saqlash"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Til"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Terilma"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Tugma bosilganda tebranish vaqti"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Tugma bosilgandagi ovoz"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Tugmani bosib turish"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Tashqi klaviatura uchun kulgichlar"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Jismoniy klaviaturadagi Alt tugmasi emojilarni ochadi"</string>
-    <string name="button_default" msgid="3988017840431881491">"Standart"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasiga xush kelibsiz!</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"qo‘l uzmasdan yozish"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Boshladik"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Keyingi qadam"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> sozlanmoqda</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">Yoqish <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">Matn kiritishda foydalanish uchun “Tillar va matn kiritish” sozlamalarida “<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” bandiga belgi qo‘ying.</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasi allaqachon “Tillar va matn kiritish” sozlamalarida yoqilgan, shuning uchun keyingi qadamga o‘tish mumkin!</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Sozlamalardan yoqish"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ga o‘zgartirish</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">Endi, joriy matn kiritish usuli sifatida “<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” ilovasini tanlang.</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Matn kiritish usulini o‘zgartirish"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Tabriklaymiz, hammasi tayyor!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">Endi, matn kiritish uchun <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasidan foydalanishingiz mumkin.</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Tugallandi"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Ilova ikonkasini chiqarish"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Launcherga ilova ikonkasini chiqarish"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Qo‘shimcha lug‘atlar"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Lug‘atlar uchun sozlamalar"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Lug‘at mavjud"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Ulanib bo‘lmadi"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Lug‘at mavjud emas"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Yangilash"</string>
-    <string name="last_update" msgid="730467549913588780">"So‘nggi marta yangilandi"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Asosiy lug‘at"</string>
-    <string name="settings" msgid="3876892339342569259">"Sozlamalar"</string>
-    <string name="delete" msgid="756853268088330054">"O‘chirish"</string>
-    <string name="version_text" msgid="2715354215568469385"><xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g> versiya</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Qo‘shish"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Lug‘atga kiritish"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Qisqartma:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Til:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"So‘zni kiriting"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Ibora uchun qisqartma (ixtiyoriy)"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"So‘zni tahrirlash"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Shaxsiy lug‘atingizda hech narsa yo‘q. Unga so‘zlarni qo‘shish uchun “Qo‘shish” (+) tugmasidan foydalaning."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Barcha tillar uchun"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Ko‘proq tillar…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABDEFGHIJKLMNOPQRSTUVXYZO‘G‘SHCH"</string>
+    <string name="use_personalized_dicts">"Takliflarni moslashtirish"</string>
+    <string name="use_double_space_period">"Nuqtani avtomatik qo‘yish"</string>
+    <string name="use_double_space_period_summary">"Bo‘sh joy tugmasi ikki marta bosilsa, nuqta qo‘yiladi va bo‘sh joy tashlanadi"</string>
+    <string name="auto_cap">"Avtomatik bosh harf"</string>
+    <string name="auto_cap_summary">"Har bir gapning birinchi so‘zini bosh harf bilan boshlash"</string>
+    <string name="edit_personal_dictionary">"Shaxsiy lug‘at"</string>
+    <string name="configure_dictionaries_title">"Qo‘shimcha lug‘atlar"</string>
+    <string name="main_dictionary">"Asosiy lug‘at"</string>
+    <string name="prefs_show_suggestions">"Tuzatma variantlari"</string>
+    <string name="prefs_show_suggestions_summary">"Matn kiritishda so‘z variantlarini taklif qilish"</string>
+    <string name="prefs_block_potentially_offensive_title">"Senzuraga moyil iboralarni taqiqlash"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Haqoratomuz so‘zlar taklif qilinmasin"</string>
+    <string name="autocorrect">"Avtomatik tuzatish"</string>
+    <string name="auto_correction_summary">"Tinish belgisi kiritilganda yoki bo‘sh joy qoldirilganda, xato so‘zni avtomatik tuzatish"</string>
+    <string name="auto_correction_threshold_mode_off">"O‘ch."</string>
+    <string name="auto_correction_threshold_mode_modest">"O‘rtacha"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"Juda faol"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"Juda faol"</string>
+    <string name="bigram_prediction">"Keyingi so‘zni taklif qilish"</string>
+    <string name="bigram_prediction_summary">"Avvalgi so‘zlar asosida keyingi so‘zni taklif qilish"</string>
+    <string name="gesture_input">"Qo‘l uzmasdan yozish"</string>
+    <string name="gesture_input_summary">"So‘zlarni barmog‘ingizni klaviaturadan uzmasdan yozing"</string>
+    <string name="gesture_preview_trail">"Barmoq yo‘lini chizish"</string>
+    <string name="gesture_floating_preview_text">"Takliflarni ko‘rsatish"</string>
+    <string name="gesture_floating_preview_text_summary">"Matn kiritishda so‘zlar taklif qilinsin"</string>
+    <string name="gesture_space_aware">"Qo‘l uzmasdan yozish"</string>
+    <string name="gesture_space_aware_summary">"Barmoqni har bir so‘zdan so‘ng bo‘sh joy qoldirish tugmasiga olib borish"</string>
+    <string name="subtype_en_GB">"Ingliz (Buyuk Britaniya)"</string>
+    <string name="subtype_en_US">"Ingliz (AQSH)"</string>
+    <string name="subtype_es_US">"Ispan (AQSH)"</string>
+    <string name="subtype_hi_Latn">"Hinglish"</string>
+    <string name="subtype_sr_Latn">"Serb (Lotin)"</string>
+    <string name="subtype_with_layout_en_GB">Ingliz (Buyuk Britaniya) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">Ingliz (AQSH) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">Ispan (AQSH) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">Serb (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (An’anaviy)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g>(Ixcham)</string>
+    <string name="subtype_no_language">"Til aniqlanmadi (lotin)"</string>
+    <string name="subtype_no_language_qwerty">"Lotin (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"Lotin (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"Lotin (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"Lotin (Dvorak)"</string>
+    <string name="subtype_no_language_colemak">"Lotin (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"Lotin (shaxsiy kompyuter)"</string>
+    <string name="subtype_emoji">"Kulgichlar"</string>
+    <string name="add">"Qo‘shish"</string>
+    <string name="remove">"Olib tashlash"</string>
+    <string name="save">"Saqlash"</string>
+    <string name="subtype_locale">"Til"</string>
+    <string name="keyboard_layout_set">"Terilma"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Tugma bosilganda tebranish vaqti"</string>
+    <string name="prefs_keypress_sound_volume_settings">"Tugma bosilgandagi ovoz"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Tugmani bosib turish"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Tashqi klaviatura uchun kulgichlar"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Jismoniy klaviaturadagi Alt tugmasi emojilarni ochadi"</string>
+    <string name="button_default">"Standart"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasiga xush kelibsiz!</string>
+    <string name="setup_welcome_additional_description">"qo‘l uzmasdan yozish"</string>
+    <string name="setup_start_action">"Boshladik"</string>
+    <string name="setup_next_action">"Keyingi qadam"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> sozlanmoqda</string>
+    <string name="setup_step1_title">Yoqish <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Matn kiritishda foydalanish uchun “Tillar va matn kiritish” sozlamalarida “<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” bandiga belgi qo‘ying.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasi allaqachon “Tillar va matn kiritish” sozlamalarida yoqilgan, shuning uchun keyingi qadamga o‘tish mumkin!</string>
+    <string name="setup_step1_action">"Sozlamalardan yoqish"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ga o‘zgartirish</string>
+    <string name="setup_step2_instruction">Endi, joriy matn kiritish usuli sifatida “<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” ilovasini tanlang.</string>
+    <string name="setup_step2_action">"Matn kiritish usulini o‘zgartirish"</string>
+    <string name="setup_step3_title">"Tabriklaymiz, hammasi tayyor!"</string>
+    <string name="setup_step3_instruction">Endi, matn kiritish uchun <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasidan foydalanishingiz mumkin.</string>
+    <string name="setup_finish_action">"Tugallandi"</string>
+    <string name="show_setup_wizard_icon">"Ilova ikonkasini chiqarish"</string>
+    <string name="show_setup_wizard_icon_summary">"Launcherga ilova ikonkasini chiqarish"</string>
+    <string name="dictionary_settings_title">"Qo‘shimcha lug‘atlar"</string>
+    <string name="dictionary_settings_summary">"Lug‘atlar uchun sozlamalar"</string>
+    <string name="dictionary_available">"Lug‘at mavjud"</string>
+    <string name="cannot_connect_to_dict_service">"Ulanib bo‘lmadi"</string>
+    <string name="no_dictionaries_available">"Lug‘at mavjud emas"</string>
+    <string name="check_for_updates_now">"Yangilash"</string>
+    <string name="last_update">"So‘nggi marta yangilandi"</string>
+    <string name="main_dict_description">"Asosiy lug‘at"</string>
+    <string name="settings">"Sozlamalar"</string>
+    <string name="delete">"O‘chirish"</string>
+    <string name="version_text"><xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g> versiya</string>
+    <string name="user_dict_settings_add_menu_title">"Qo‘shish"</string>
+    <string name="user_dict_settings_add_dialog_title">"Lug‘atga kiritish"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Qisqartma:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Til:"</string>
+    <string name="user_dict_settings_add_word_hint">"So‘zni kiriting"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Ibora uchun qisqartma (ixtiyoriy)"</string>
+    <string name="user_dict_settings_edit_dialog_title">"So‘zni tahrirlash"</string>
+    <string name="user_dict_settings_empty_text">"Shaxsiy lug‘atingizda hech narsa yo‘q. Unga so‘zlarni qo‘shish uchun “Qo‘shish” (+) tugmasidan foydalaning."</string>
+    <string name="user_dict_settings_all_languages">"Barcha tillar uchun"</string>
+    <string name="user_dict_settings_more_languages">"Ko‘proq tillar…"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABDEFGHIJKLMNOPQRSTUVXYZO‘G‘SHCH"</string>
     <string name="settings_category_clipboard_history">Bufer tarixi</string>
     <string name="show_emoji_key">Emoji kaliti</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Tizimdagi mavjud tillar"</string>
@@ -162,5 +162,13 @@
     <string name="more_keys_strip_description">Ko‘proq so‘zlar</string>
     <string name="undo">"Bekor qilish"</string>
     <string name="redo">"Qaytarish"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Qurilma siz ko‘p yozgan ma’lumotlarni eslab qoladi"</string>
+    <string name="use_personalized_dicts_summary">"Qurilma siz ko‘p yozgan ma’lumotlarni eslab qoladi"</string>
+    <string name="label_go_key">"OK"</string>
+    <string name="label_next_key">"Keyingisi"</string>
+    <string name="label_previous_key">"Orqaga"</string>
+    <string name="label_done_key">"Tayyor"</string>
+    <string name="label_send_key">"Yuborish"</string>
+    <string name="label_search_key">"Qidiruv"</string>
+    <string name="label_pause_key">"Pauza"</string>
+    <string name="label_wait_key">"Kutish"</string>
 </resources>

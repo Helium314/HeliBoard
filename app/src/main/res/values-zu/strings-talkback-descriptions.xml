@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Plaka ku-headset ukuze uzwe okhiye bephasiwedi ezindlebeni zakho bezwakala kakhulu."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Umbhalo wamanje ngu %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Awukho umbhalo ofakiwe"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"I-<xliff:g id="KEY_NAME">%1$s</xliff:g> ilungisa i-<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> kube yi-<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"I-<xliff:g id="KEY_NAME">%1$s</xliff:g> yenza ukulungisa okuzenzakalelayo"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Asikho isiphakamiso"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Uhlamvu olungaziwa"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"U-Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Amasimbuli amaningi"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"U-Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Amasimbuli"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"U-Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Susa"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Amasimbuli"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Izinhlamvu"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Izinombolo"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Izilungiselelo"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Ithebhu"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Isikhala"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Okungenayo kwezwi"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"I-Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Buyela"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Sesha"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Icashazi"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Shintsha ulimi"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Okulandelayo"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Okwangaphambilini"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"U-Shift uvunyelwe"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Ofeleba bavunyelwe"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Imodi yezimpawu"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Imodi yamasimbuli amaningi"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Imodi yezinhlamvu"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Imodi yefoni"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Imodi yezimpawu zefoni"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Ikhibhodi ifihliwe"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Ibonisa ikhibhodi ye-<xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"idethi"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"idethi nesikhathi"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"i-imeyili"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"imilayezo"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"inombolo"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ifoni"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"umbhalo"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"isikhathi"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"I-URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Okwakamuva"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Izinto"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Amasimbuli"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Ukuhlaba umkhosi"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Ismayili nabantu"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Izilwane nemvelo"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Awokudla neziphuzo"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Ukuhamba nezindawo"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Umsebenzi"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Izithombe-mzwelo"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Ufeleba <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Ufeleba I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Ufeleba I, icashazi ngenhla"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Ezinye izinhlamvu ziyatholakala"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Ezinye izinhlamvu ziyalahlwa"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Ezinye iziphakamiso ziyatholakala"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Ezinye iziphakamiso ziyalahlwa"</string>
+    <string name="spoken_use_headphones">"Plaka ku-headset ukuze uzwe okhiye bephasiwedi ezindlebeni zakho bezwakala kakhulu."</string>
+    <string name="spoken_current_text_is">"Umbhalo wamanje ngu %s"</string>
+    <string name="spoken_no_text_entered">"Awukho umbhalo ofakiwe"</string>
+    <string name="spoken_auto_correct">"I-<xliff:g id="KEY_NAME">%1$s</xliff:g> ilungisa i-<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> kube yi-<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"I-<xliff:g id="KEY_NAME">%1$s</xliff:g> yenza ukulungisa okuzenzakalelayo"</string>
+    <string name="spoken_empty_suggestion">"Asikho isiphakamiso"</string>
+    <string name="spoken_description_unknown">"Uhlamvu olungaziwa"</string>
+    <string name="spoken_description_shift">"U-Shift"</string>
+    <string name="spoken_description_symbols_shift">"Amasimbuli amaningi"</string>
+    <string name="spoken_description_shift_shifted">"U-Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Amasimbuli"</string>
+    <string name="spoken_description_caps_lock">"U-Shift"</string>
+    <string name="spoken_description_delete">"Susa"</string>
+    <string name="spoken_description_to_symbol">"Amasimbuli"</string>
+    <string name="spoken_description_to_alpha">"Izinhlamvu"</string>
+    <string name="spoken_description_to_numeric">"Izinombolo"</string>
+    <string name="spoken_description_settings">"Izilungiselelo"</string>
+    <string name="spoken_description_tab">"Ithebhu"</string>
+    <string name="spoken_description_space">"Isikhala"</string>
+    <string name="spoken_description_mic">"Okungenayo kwezwi"</string>
+    <string name="spoken_description_emoji">"I-Emoji"</string>
+    <string name="spoken_description_return">"Buyela"</string>
+    <string name="spoken_description_search">"Sesha"</string>
+    <string name="spoken_description_dot">"Icashazi"</string>
+    <string name="spoken_description_language_switch">"Shintsha ulimi"</string>
+    <string name="spoken_description_action_next">"Okulandelayo"</string>
+    <string name="spoken_description_action_previous">"Okwangaphambilini"</string>
+    <string name="spoken_description_shiftmode_on">"U-Shift uvunyelwe"</string>
+    <string name="spoken_description_shiftmode_locked">"Ofeleba bavunyelwe"</string>
+    <string name="spoken_description_mode_symbol">"Imodi yezimpawu"</string>
+    <string name="spoken_description_mode_symbol_shift">"Imodi yamasimbuli amaningi"</string>
+    <string name="spoken_description_mode_alpha">"Imodi yezinhlamvu"</string>
+    <string name="spoken_description_mode_phone">"Imodi yefoni"</string>
+    <string name="spoken_description_mode_phone_shift">"Imodi yezimpawu zefoni"</string>
+    <string name="announce_keyboard_hidden">"Ikhibhodi ifihliwe"</string>
+    <string name="announce_keyboard_mode">"Ibonisa ikhibhodi ye-<xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"idethi"</string>
+    <string name="keyboard_mode_date_time">"idethi nesikhathi"</string>
+    <string name="keyboard_mode_email">"i-imeyili"</string>
+    <string name="keyboard_mode_im">"imilayezo"</string>
+    <string name="keyboard_mode_number">"inombolo"</string>
+    <string name="keyboard_mode_phone">"ifoni"</string>
+    <string name="keyboard_mode_text">"umbhalo"</string>
+    <string name="keyboard_mode_time">"isikhathi"</string>
+    <string name="keyboard_mode_url">"I-URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Okwakamuva"</string>
+    <string name="spoken_description_emoji_category_objects">"Izinto"</string>
+    <string name="spoken_description_emoji_category_symbols">"Amasimbuli"</string>
+    <string name="spoken_description_emoji_category_flags">"Ukuhlaba umkhosi"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Ismayili nabantu"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Izilwane nemvelo"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Awokudla neziphuzo"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Ukuhamba nezindawo"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Umsebenzi"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Izithombe-mzwelo"</string>
+    <string name="spoken_description_upper_case">"Ufeleba <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Ufeleba I"</string>
+    <string name="spoken_letter_0130">"Ufeleba I, icashazi ngenhla"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Ezinye izinhlamvu ziyatholakala"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Ezinye izinhlamvu ziyalahlwa"</string>
+    <string name="spoken_open_more_suggestions">"Ezinye iziphakamiso ziyatholakala"</string>
+    <string name="spoken_close_more_suggestions">"Ezinye iziphakamiso ziyalahlwa"</string>
 </resources>

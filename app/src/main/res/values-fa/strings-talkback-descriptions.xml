@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"برای شنیدن کلیدهای گذرواژه که با صدای بلند خوانده می‌شوند، از هدست استفاده کنید."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"‏نوشتار کنونی %s است"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"نوشتاری وارد نشده است"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g>، ‏<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> را به <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> تصحیح می‌کند"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> تصحیح خودکار را انجام می‌دهد"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"هیچ پیشنهادی وجود ندارد"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"نویسه نامشخص"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"نمادهای بیشتر"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"تبدیل"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"نمادها"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"تبدیل"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"حذف"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"نمادها"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"حروف"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"اعداد"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"تنظیمات"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"فاصله"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"ورودی گفتاری"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"اموجی"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"بازگشت"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"جستجو"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"نقطه"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"تغییر زبان"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"بعدی"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"قبلی"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"‏Shift فعال شد"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"‏Caps lock فعال شد"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"حالت نمادها"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"حالت نمادهای بیشتر"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"حالت حروف"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"حالت تلفن"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"حالت نمادهای تلفن"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"صفحه‌کلید پنهان است"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"در حال نمایش صفحه‌کلید <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"تاریخ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"تاریخ و زمان"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ایمیل"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"پیام‌رسانی"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"عدد"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"تلفن"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"نوشتار"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"زمان"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"نشانی وب"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"موارد اخیر"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"اشیاء"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"نمادها"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"پرچم‌ها"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"شکلک و مردم"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"حیوانات و طبیعت"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"‏غذا و نوشیدنی"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"سفر و مکان‌ها"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"فعالیت"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"شکلک‌ها"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"حرف بزرگ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"‏I بزرگ"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"‏I بزرگ با نقطه بالایی"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"نویسه‌های جایگزین در دسترس هستند"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"از نویسه‌های جایگزین صرفنظر می‌شود"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"پیشنهادهای جایگزین در دسترس هستند"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"از پیشنهادهای جایگزین صرفنظر می‌شود"</string>
+    <string name="spoken_use_headphones">"برای شنیدن کلیدهای گذرواژه که با صدای بلند خوانده می‌شوند، از هدست استفاده کنید."</string>
+    <string name="spoken_current_text_is">"‏نوشتار کنونی %s است"</string>
+    <string name="spoken_no_text_entered">"نوشتاری وارد نشده است"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g>، ‏<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> را به <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> تصحیح می‌کند"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> تصحیح خودکار را انجام می‌دهد"</string>
+    <string name="spoken_empty_suggestion">"هیچ پیشنهادی وجود ندارد"</string>
+    <string name="spoken_description_unknown">"نویسه نامشخص"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"نمادهای بیشتر"</string>
+    <string name="spoken_description_shift_shifted">"تبدیل"</string>
+    <string name="spoken_description_symbols_shift_shifted">"نمادها"</string>
+    <string name="spoken_description_caps_lock">"تبدیل"</string>
+    <string name="spoken_description_delete">"حذف"</string>
+    <string name="spoken_description_to_symbol">"نمادها"</string>
+    <string name="spoken_description_to_alpha">"حروف"</string>
+    <string name="spoken_description_to_numeric">"اعداد"</string>
+    <string name="spoken_description_settings">"تنظیمات"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"فاصله"</string>
+    <string name="spoken_description_mic">"ورودی گفتاری"</string>
+    <string name="spoken_description_emoji">"اموجی"</string>
+    <string name="spoken_description_return">"بازگشت"</string>
+    <string name="spoken_description_search">"جستجو"</string>
+    <string name="spoken_description_dot">"نقطه"</string>
+    <string name="spoken_description_language_switch">"تغییر زبان"</string>
+    <string name="spoken_description_action_next">"بعدی"</string>
+    <string name="spoken_description_action_previous">"قبلی"</string>
+    <string name="spoken_description_shiftmode_on">"‏Shift فعال شد"</string>
+    <string name="spoken_description_shiftmode_locked">"‏Caps lock فعال شد"</string>
+    <string name="spoken_description_mode_symbol">"حالت نمادها"</string>
+    <string name="spoken_description_mode_symbol_shift">"حالت نمادهای بیشتر"</string>
+    <string name="spoken_description_mode_alpha">"حالت حروف"</string>
+    <string name="spoken_description_mode_phone">"حالت تلفن"</string>
+    <string name="spoken_description_mode_phone_shift">"حالت نمادهای تلفن"</string>
+    <string name="announce_keyboard_hidden">"صفحه‌کلید پنهان است"</string>
+    <string name="announce_keyboard_mode">"در حال نمایش صفحه‌کلید <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"تاریخ"</string>
+    <string name="keyboard_mode_date_time">"تاریخ و زمان"</string>
+    <string name="keyboard_mode_email">"ایمیل"</string>
+    <string name="keyboard_mode_im">"پیام‌رسانی"</string>
+    <string name="keyboard_mode_number">"عدد"</string>
+    <string name="keyboard_mode_phone">"تلفن"</string>
+    <string name="keyboard_mode_text">"نوشتار"</string>
+    <string name="keyboard_mode_time">"زمان"</string>
+    <string name="keyboard_mode_url">"نشانی وب"</string>
+    <string name="spoken_description_emoji_category_recents">"موارد اخیر"</string>
+    <string name="spoken_description_emoji_category_objects">"اشیاء"</string>
+    <string name="spoken_description_emoji_category_symbols">"نمادها"</string>
+    <string name="spoken_description_emoji_category_flags">"پرچم‌ها"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"شکلک و مردم"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"حیوانات و طبیعت"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"‏غذا و نوشیدنی"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"سفر و مکان‌ها"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"فعالیت"</string>
+    <string name="spoken_description_emoji_category_emoticons">"شکلک‌ها"</string>
+    <string name="spoken_description_upper_case">"حرف بزرگ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"‏I بزرگ"</string>
+    <string name="spoken_letter_0130">"‏I بزرگ با نقطه بالایی"</string>
+    <string name="spoken_open_popup_keys_keyboard">"نویسه‌های جایگزین در دسترس هستند"</string>
+    <string name="spoken_close_popup_keys_keyboard">"از نویسه‌های جایگزین صرفنظر می‌شود"</string>
+    <string name="spoken_open_more_suggestions">"پیشنهادهای جایگزین در دسترس هستند"</string>
+    <string name="spoken_close_more_suggestions">"از پیشنهادهای جایگزین صرفنظر می‌شود"</string>
 </resources>

@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Ak si chcete pri zadávaní hesla vypočuť nahlas vyslovené klávesy, pripojte náhlavnú súpravu."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Aktuálny text je %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Nie je zadaný žiadny text"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Klávesom <xliff:g id="KEY_NAME">%1$s</xliff:g> opravíte slovo <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> na <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Klávesom <xliff:g id="KEY_NAME">%1$s</xliff:g> spustíte automatické opravy"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Žiaden návrh"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Neznámy znak"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Ďalšie symboly"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Symboly"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Odstrániť"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Symboly"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Písmená"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Čísla"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Nastavenia"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Karta"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Medzerník"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Hlasový vstup"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Enter"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Hľadať"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Bodka"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Prepnúť jazyk"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Ďalej"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Naspäť"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Kláves Shift je povolený"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Kláves Caps Lock je povolený"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Režim symbolov"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Režim ďalších symbolov"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Režim písmen"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Režim telefónu"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Režim telefónnych symbolov"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Klávesnica je skrytá"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Je zobrazená klávesnica <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"dátum"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"dátum a čas"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-mail"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"odosielanie správ"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"číslo"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefón"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"text"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"čas"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"Webová adresa"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Nedávne"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Predmety"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Symboly"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Vlajky"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smajlíky a ľudia"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Zvieratá a príroda"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Jedlo a nápoje"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Cestovanie a miesta"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Aktivita"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emotikony"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Veľké písmeno – <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Veľké I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Veľké I s bodkou nad písmenom"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Alternatívne znaky sú dostupné"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternatívne znaky boli zrušené"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Alternatívne návrhy sú dostupné"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternatívne návrhy boli zrušené"</string>
+    <string name="spoken_use_headphones">"Ak si chcete pri zadávaní hesla vypočuť nahlas vyslovené klávesy, pripojte náhlavnú súpravu."</string>
+    <string name="spoken_current_text_is">"Aktuálny text je %s"</string>
+    <string name="spoken_no_text_entered">"Nie je zadaný žiadny text"</string>
+    <string name="spoken_auto_correct">"Klávesom <xliff:g id="KEY_NAME">%1$s</xliff:g> opravíte slovo <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> na <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"Klávesom <xliff:g id="KEY_NAME">%1$s</xliff:g> spustíte automatické opravy"</string>
+    <string name="spoken_empty_suggestion">"Žiaden návrh"</string>
+    <string name="spoken_description_unknown">"Neznámy znak"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Ďalšie symboly"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Symboly"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Odstrániť"</string>
+    <string name="spoken_description_to_symbol">"Symboly"</string>
+    <string name="spoken_description_to_alpha">"Písmená"</string>
+    <string name="spoken_description_to_numeric">"Čísla"</string>
+    <string name="spoken_description_settings">"Nastavenia"</string>
+    <string name="spoken_description_tab">"Karta"</string>
+    <string name="spoken_description_space">"Medzerník"</string>
+    <string name="spoken_description_mic">"Hlasový vstup"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Enter"</string>
+    <string name="spoken_description_search">"Hľadať"</string>
+    <string name="spoken_description_dot">"Bodka"</string>
+    <string name="spoken_description_language_switch">"Prepnúť jazyk"</string>
+    <string name="spoken_description_action_next">"Ďalej"</string>
+    <string name="spoken_description_action_previous">"Naspäť"</string>
+    <string name="spoken_description_shiftmode_on">"Kláves Shift je povolený"</string>
+    <string name="spoken_description_shiftmode_locked">"Kláves Caps Lock je povolený"</string>
+    <string name="spoken_description_mode_symbol">"Režim symbolov"</string>
+    <string name="spoken_description_mode_symbol_shift">"Režim ďalších symbolov"</string>
+    <string name="spoken_description_mode_alpha">"Režim písmen"</string>
+    <string name="spoken_description_mode_phone">"Režim telefónu"</string>
+    <string name="spoken_description_mode_phone_shift">"Režim telefónnych symbolov"</string>
+    <string name="announce_keyboard_hidden">"Klávesnica je skrytá"</string>
+    <string name="announce_keyboard_mode">"Je zobrazená klávesnica <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"dátum"</string>
+    <string name="keyboard_mode_date_time">"dátum a čas"</string>
+    <string name="keyboard_mode_email">"e-mail"</string>
+    <string name="keyboard_mode_im">"odosielanie správ"</string>
+    <string name="keyboard_mode_number">"číslo"</string>
+    <string name="keyboard_mode_phone">"telefón"</string>
+    <string name="keyboard_mode_text">"text"</string>
+    <string name="keyboard_mode_time">"čas"</string>
+    <string name="keyboard_mode_url">"Webová adresa"</string>
+    <string name="spoken_description_emoji_category_recents">"Nedávne"</string>
+    <string name="spoken_description_emoji_category_objects">"Predmety"</string>
+    <string name="spoken_description_emoji_category_symbols">"Symboly"</string>
+    <string name="spoken_description_emoji_category_flags">"Vlajky"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smajlíky a ľudia"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Zvieratá a príroda"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Jedlo a nápoje"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Cestovanie a miesta"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Aktivita"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emotikony"</string>
+    <string name="spoken_description_upper_case">"Veľké písmeno – <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Veľké I"</string>
+    <string name="spoken_letter_0130">"Veľké I s bodkou nad písmenom"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Alternatívne znaky sú dostupné"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternatívne znaky boli zrušené"</string>
+    <string name="spoken_open_more_suggestions">"Alternatívne návrhy sú dostupné"</string>
+    <string name="spoken_close_more_suggestions">"Alternatívne návrhy boli zrušené"</string>
 </resources>

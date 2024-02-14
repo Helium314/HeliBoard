@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Koble til hodetelefoner for å høre opplesing av tegnene i passordet."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Gjeldende tekst er %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Ingen tekst er skrevet inn"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> retter <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> til <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> utfører automatisk retting"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Ingen forslag"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Ukjent tegn"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Flere symboler"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Symboler"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Slett"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Symboler"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Bokstaver"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Tall"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Innstillinger"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Mellomromstasten"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Stemmedata"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Enter"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Søk"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Prikk"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Bytt språk"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Neste"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Forrige"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift er aktivert"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps Lock er aktivert"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Symbolmodus"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Modus for flere symboler"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Bokstavmodus"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Ringemodus"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Ringemodus med symboler"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Tastaturet er skjult"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Viser <xliff:g id="KEYBOARD_MODE">%s</xliff:g>-tastatur"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"dato"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"dato og klokkeslett"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-post"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"tekstmeldinger"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"tall"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefon"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"tekst"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"klokkeslett"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"nettadresse"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Nylige"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objekter"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Symboler"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Flagg"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smilefjes og folk"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Dyr og natur"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Mat og drikke"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Reising og steder"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Aktivitet"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Smilefjes"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Stor <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Stor I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Stor I med prikk over"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Alternative tegn er tilgjengelige"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternative tegn fjernes"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Alternative forslag er tilgjengelige"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternative forslag fjernes"</string>
+    <string name="spoken_use_headphones">"Koble til hodetelefoner for å høre opplesing av tegnene i passordet."</string>
+    <string name="spoken_current_text_is">"Gjeldende tekst er %s"</string>
+    <string name="spoken_no_text_entered">"Ingen tekst er skrevet inn"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> retter <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> til <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> utfører automatisk retting"</string>
+    <string name="spoken_empty_suggestion">"Ingen forslag"</string>
+    <string name="spoken_description_unknown">"Ukjent tegn"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Flere symboler"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Symboler"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Slett"</string>
+    <string name="spoken_description_to_symbol">"Symboler"</string>
+    <string name="spoken_description_to_alpha">"Bokstaver"</string>
+    <string name="spoken_description_to_numeric">"Tall"</string>
+    <string name="spoken_description_settings">"Innstillinger"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Mellomromstasten"</string>
+    <string name="spoken_description_mic">"Stemmedata"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Enter"</string>
+    <string name="spoken_description_search">"Søk"</string>
+    <string name="spoken_description_dot">"Prikk"</string>
+    <string name="spoken_description_language_switch">"Bytt språk"</string>
+    <string name="spoken_description_action_next">"Neste"</string>
+    <string name="spoken_description_action_previous">"Forrige"</string>
+    <string name="spoken_description_shiftmode_on">"Shift er aktivert"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps Lock er aktivert"</string>
+    <string name="spoken_description_mode_symbol">"Symbolmodus"</string>
+    <string name="spoken_description_mode_symbol_shift">"Modus for flere symboler"</string>
+    <string name="spoken_description_mode_alpha">"Bokstavmodus"</string>
+    <string name="spoken_description_mode_phone">"Ringemodus"</string>
+    <string name="spoken_description_mode_phone_shift">"Ringemodus med symboler"</string>
+    <string name="announce_keyboard_hidden">"Tastaturet er skjult"</string>
+    <string name="announce_keyboard_mode">"Viser <xliff:g id="KEYBOARD_MODE">%s</xliff:g>-tastatur"</string>
+    <string name="keyboard_mode_date">"dato"</string>
+    <string name="keyboard_mode_date_time">"dato og klokkeslett"</string>
+    <string name="keyboard_mode_email">"e-post"</string>
+    <string name="keyboard_mode_im">"tekstmeldinger"</string>
+    <string name="keyboard_mode_number">"tall"</string>
+    <string name="keyboard_mode_phone">"telefon"</string>
+    <string name="keyboard_mode_text">"tekst"</string>
+    <string name="keyboard_mode_time">"klokkeslett"</string>
+    <string name="keyboard_mode_url">"nettadresse"</string>
+    <string name="spoken_description_emoji_category_recents">"Nylige"</string>
+    <string name="spoken_description_emoji_category_objects">"Objekter"</string>
+    <string name="spoken_description_emoji_category_symbols">"Symboler"</string>
+    <string name="spoken_description_emoji_category_flags">"Flagg"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smilefjes og folk"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Dyr og natur"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Mat og drikke"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Reising og steder"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Aktivitet"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Smilefjes"</string>
+    <string name="spoken_description_upper_case">"Stor <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Stor I"</string>
+    <string name="spoken_letter_0130">"Stor I med prikk over"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Alternative tegn er tilgjengelige"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternative tegn fjernes"</string>
+    <string name="spoken_open_more_suggestions">"Alternative forslag er tilgjengelige"</string>
+    <string name="spoken_close_more_suggestions">"Alternative forslag fjernes"</string>
 </resources>

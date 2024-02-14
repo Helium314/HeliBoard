@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"パスワードのキーが音声出力されるのでヘッドセットを接続してください。"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"現在のテキスト: %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"テキストが入力されていません"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g>は<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>を<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>に修正します"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g>で自動修正が実行されます"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"候補はありません"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"不明な文字"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"記号拡張"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"記号"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"削除"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"記号"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"英字"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"数字"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"設定"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"タブ"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Space"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"音声入力"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"絵文字"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Enter"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"検索"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ドット"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"言語を切り替え"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"次へ"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"前へ"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift有効"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"CapsLock有効"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"記号モード"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"記号拡張モード"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"英数モード"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"電話モード"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"電話記号モード"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"キーボードは非表示です"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g>のキーボードを表示しています"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"日付"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"日時"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"メールアドレス"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"メッセージ"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"数値"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"電話番号"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"テキスト"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"時刻"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"最近"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"物"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"記号"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"フラグ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"顔文字、人物"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"動物、自然"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"食品、飲料"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"旅行、場所"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"アクティビティ"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"絵文字"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"大文字<xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"大文字I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"大文字I、上点"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"代替文字が利用可能です"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"代替文字が消去されます"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"代替候補が利用可能です"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"代替候補が消去されます"</string>
+    <string name="spoken_use_headphones">"パスワードのキーが音声出力されるのでヘッドセットを接続してください。"</string>
+    <string name="spoken_current_text_is">"現在のテキスト: %s"</string>
+    <string name="spoken_no_text_entered">"テキストが入力されていません"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g>は<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>を<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>に修正します"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g>で自動修正が実行されます"</string>
+    <string name="spoken_empty_suggestion">"候補はありません"</string>
+    <string name="spoken_description_unknown">"不明な文字"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"記号拡張"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"記号"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"削除"</string>
+    <string name="spoken_description_to_symbol">"記号"</string>
+    <string name="spoken_description_to_alpha">"英字"</string>
+    <string name="spoken_description_to_numeric">"数字"</string>
+    <string name="spoken_description_settings">"設定"</string>
+    <string name="spoken_description_tab">"タブ"</string>
+    <string name="spoken_description_space">"Space"</string>
+    <string name="spoken_description_mic">"音声入力"</string>
+    <string name="spoken_description_emoji">"絵文字"</string>
+    <string name="spoken_description_return">"Enter"</string>
+    <string name="spoken_description_search">"検索"</string>
+    <string name="spoken_description_dot">"ドット"</string>
+    <string name="spoken_description_language_switch">"言語を切り替え"</string>
+    <string name="spoken_description_action_next">"次へ"</string>
+    <string name="spoken_description_action_previous">"前へ"</string>
+    <string name="spoken_description_shiftmode_on">"Shift有効"</string>
+    <string name="spoken_description_shiftmode_locked">"CapsLock有効"</string>
+    <string name="spoken_description_mode_symbol">"記号モード"</string>
+    <string name="spoken_description_mode_symbol_shift">"記号拡張モード"</string>
+    <string name="spoken_description_mode_alpha">"英数モード"</string>
+    <string name="spoken_description_mode_phone">"電話モード"</string>
+    <string name="spoken_description_mode_phone_shift">"電話記号モード"</string>
+    <string name="announce_keyboard_hidden">"キーボードは非表示です"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g>のキーボードを表示しています"</string>
+    <string name="keyboard_mode_date">"日付"</string>
+    <string name="keyboard_mode_date_time">"日時"</string>
+    <string name="keyboard_mode_email">"メールアドレス"</string>
+    <string name="keyboard_mode_im">"メッセージ"</string>
+    <string name="keyboard_mode_number">"数値"</string>
+    <string name="keyboard_mode_phone">"電話番号"</string>
+    <string name="keyboard_mode_text">"テキスト"</string>
+    <string name="keyboard_mode_time">"時刻"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"最近"</string>
+    <string name="spoken_description_emoji_category_objects">"物"</string>
+    <string name="spoken_description_emoji_category_symbols">"記号"</string>
+    <string name="spoken_description_emoji_category_flags">"フラグ"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"顔文字、人物"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"動物、自然"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"食品、飲料"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"旅行、場所"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"アクティビティ"</string>
+    <string name="spoken_description_emoji_category_emoticons">"絵文字"</string>
+    <string name="spoken_description_upper_case">"大文字<xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"大文字I"</string>
+    <string name="spoken_letter_0130">"大文字I、上点"</string>
+    <string name="spoken_open_popup_keys_keyboard">"代替文字が利用可能です"</string>
+    <string name="spoken_close_popup_keys_keyboard">"代替文字が消去されます"</string>
+    <string name="spoken_open_more_suggestions">"代替候補が利用可能です"</string>
+    <string name="spoken_close_more_suggestions">"代替候補が消去されます"</string>
 </resources>

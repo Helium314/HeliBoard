@@ -7,34 +7,34 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Cerca in nomi contatti"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"La funzione di controllo ortografico usa voci dell\'elenco contatti"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrazione tasti"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Suono tasti"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Popup tasti"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferenze"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Digitazione gestuale"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Correzione testo"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Avanzate"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Attiva tastiera divisa"</string>
+    <string name="vibrate_on_keypress">"Vibrazione tasti"</string>
+    <string name="sound_on_keypress">"Suono tasti"</string>
+    <string name="popup_on_keypress">"Popup tasti"</string>
+    <string name="settings_screen_preferences">"Preferenze"</string>
+    <string name="settings_screen_gesture">"Digitazione gestuale"</string>
+    <string name="settings_screen_correction">"Correzione testo"</string>
+    <string name="settings_screen_advanced">"Avanzate"</string>
+    <string name="settings_screen_theme">"Tema"</string>
+    <string name="enable_split_keyboard">"Attiva tastiera divisa"</string>
     <string name="language_switch_key_switch_input_method">"Altri metodi immissione"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Tasto cambio lingua"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="show_language_switch_key">"Tasto cambio lingua"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predefinito"</string>
     <string name="use_contacts_dict">"Suggerisci nomi di contatti"</string>
     <string name="use_contacts_dict_summary">"Utilizza nomi di Contatti per suggerimenti e correzioni"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Suggerimenti personalizzati"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Doppio spazio per punto"</string>
+    <string name="use_personalized_dicts">"Suggerimenti personalizzati"</string>
+    <string name="use_double_space_period">"Doppio spazio per punto"</string>
     <string name="use_double_space_period_summary">"Tocca due volte barra spaziatr. per inserire punto seguito da spazio"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Maiuscole automatiche"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Iniziale maiuscola per la prima parola di ogni frase"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Dizionario personale"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Dizionari aggiuntivi"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Dizionario principale"</string>
+    <string name="auto_cap">"Maiuscole automatiche"</string>
+    <string name="auto_cap_summary">"Iniziale maiuscola per la prima parola di ogni frase"</string>
+    <string name="edit_personal_dictionary">"Dizionario personale"</string>
+    <string name="configure_dictionaries_title">"Dizionari aggiuntivi"</string>
+    <string name="main_dictionary">"Dizionario principale"</string>
     <string name="prefs_show_suggestions">"Mostra suggerimenti correzioni"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Visualizza le parole suggerite durante la digitazione"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blocca parole offensive"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Non suggerire parole potenzialmente offensive"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"Correzione automatica"</string>
+    <string name="prefs_show_suggestions_summary">"Visualizza le parole suggerite durante la digitazione"</string>
+    <string name="prefs_block_potentially_offensive_title">"Blocca parole offensive"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Non suggerire parole potenzialmente offensive"</string>
+    <string name="autocorrect">"Correzione automatica"</string>
     <string name="auto_correction_summary">"Barra spaziatrice/punteggiatura correggono parole con errori"</string>
     <string name="auto_correction_threshold_mode_off">"OFF"</string>
     <string name="auto_correction_threshold_mode_modest">"Media"</string>
@@ -42,83 +42,83 @@
     <string name="auto_correction_threshold_mode_very_aggressive">"Massima"</string>
     <string name="bigram_prediction">"Suggerimenti parola seguente"</string>
     <string name="bigram_prediction_summary">"Usa la parola precedente per i suggerimenti"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Attiva digitazione gestuale"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Inserisci una parola scorrendo tra le lettere"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Mostra traccia del gesto"</string>
+    <string name="gesture_input">"Attiva digitazione gestuale"</string>
+    <string name="gesture_input_summary">"Inserisci una parola scorrendo tra le lettere"</string>
+    <string name="gesture_preview_trail">"Mostra traccia del gesto"</string>
     <string name="gesture_floating_preview_text">"Anteprima mobile dinamica"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Visualizza la parola suggerita durante il gesto"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Gesto frase"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Inserisci spazi durante gesti facendo scivolare dito su spazio"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">Inglese (Regno Unito)</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">Inglese (Stati Uniti)</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">Spagnolo (Stati Uniti)</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hinglish"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">Serbo (Latino)</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">Inglese (Regno Unito) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">Inglese (Stati Uniti) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">Spagnolo (Stati Uniti) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">Serbo (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradizionale)</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (compatto)</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Nessuna lingua (alfabeto)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabeto (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabeto (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Alfabeto (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Alfabeto (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Alfabeto (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabeto (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Emoji"</string>
-    <string name="add" msgid="8299699805688017798">"Aggiungi"</string>
-    <string name="remove" msgid="4486081658752944606">"Rimuovi"</string>
-    <string name="save" msgid="7646738597196767214">"Salva"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Lingua"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Layout"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Durata vibrazione pressione tasto"</string>
+    <string name="gesture_floating_preview_text_summary">"Visualizza la parola suggerita durante il gesto"</string>
+    <string name="gesture_space_aware">"Gesto frase"</string>
+    <string name="gesture_space_aware_summary">"Inserisci spazi durante gesti facendo scivolare dito su spazio"</string>
+    <string name="subtype_en_GB">Inglese (Regno Unito)</string>
+    <string name="subtype_en_US">Inglese (Stati Uniti)</string>
+    <string name="subtype_es_US">Spagnolo (Stati Uniti)</string>
+    <string name="subtype_hi_Latn">"Hinglish"</string>
+    <string name="subtype_sr_Latn">Serbo (Latino)</string>
+    <string name="subtype_with_layout_en_GB">Inglese (Regno Unito) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">Inglese (Stati Uniti) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">Spagnolo (Stati Uniti) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">Serbo (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradizionale)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (compatto)</string>
+    <string name="subtype_no_language">"Nessuna lingua (alfabeto)"</string>
+    <string name="subtype_no_language_qwerty">"Alfabeto (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"Alfabeto (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"Alfabeto (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"Alfabeto (Dvorak)"</string>
+    <string name="subtype_no_language_colemak">"Alfabeto (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"Alfabeto (PC)"</string>
+    <string name="subtype_emoji">"Emoji"</string>
+    <string name="add">"Aggiungi"</string>
+    <string name="remove">"Rimuovi"</string>
+    <string name="save">"Salva"</string>
+    <string name="subtype_locale">"Lingua"</string>
+    <string name="keyboard_layout_set">"Layout"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Durata vibrazione pressione tasto"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volume audio a pressione tasto"</string>
     <string name="prefs_key_longpress_timeout_settings">"Ritardo pressione lunga tasti"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji per tastiera fisica"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Emoji per tastiera fisica"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Il tasto fisico ALT consente di mostrare il riquadro di emoji"</string>
-    <string name="button_default" msgid="3988017840431881491">"Predefinito"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">Benvenuto in <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"con la Digitazione gestuale"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Inizia"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Passaggio successivo"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">Configurazione di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title" msgid="3147967630253462315">Attiva <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">Seleziona \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" nelle impostazioni Lingua e immissione del tuo dispositivo per autorizzarne l\'esecuzione.</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">Attiva nelle impostazioni</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">Passa a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">Quindi, attiva \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" come metodo di immissione del testo.</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Cambia metodo di immissione"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Grazie, adesso sei pronto!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">Puoi usare <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> per digitare in tutte le tue app preferite.</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Terminato"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Mostra icona app"</string>
+    <string name="button_default">"Predefinito"</string>
+    <string name="setup_welcome_title">Benvenuto in <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description">"con la Digitazione gestuale"</string>
+    <string name="setup_start_action">"Inizia"</string>
+    <string name="setup_next_action">"Passaggio successivo"</string>
+    <string name="setup_steps_title">Configurazione di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Attiva <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Seleziona \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" nelle impostazioni Lingua e immissione del tuo dispositivo per autorizzarne l\'esecuzione.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.</string>
+    <string name="setup_step1_action">Attiva nelle impostazioni</string>
+    <string name="setup_step2_title">Passa a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Quindi, attiva \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" come metodo di immissione del testo.</string>
+    <string name="setup_step2_action">"Cambia metodo di immissione"</string>
+    <string name="setup_step3_title">"Grazie, adesso sei pronto!"</string>
+    <string name="setup_step3_instruction">Puoi usare <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> per digitare in tutte le tue app preferite.</string>
+    <string name="setup_finish_action">"Terminato"</string>
+    <string name="show_setup_wizard_icon">"Mostra icona app"</string>
     <string name="show_setup_wizard_icon_summary">"Mostra l\'icona dell\'app in Avvio app"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Dizionari aggiuntivi"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Impostazioni per dizionari"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Dizionario disponibile"</string>
+    <string name="dictionary_settings_title">"Dizionari aggiuntivi"</string>
+    <string name="dictionary_settings_summary">"Impostazioni per dizionari"</string>
+    <string name="dictionary_available">"Dizionario disponibile"</string>
     <string name="cannot_connect_to_dict_service">"Conness. diz. imposs"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Nessun dizionario"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Aggiorna"</string>
-    <string name="last_update" msgid="730467549913588780">"Ultimo aggiornamento"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Dizionario principale"</string>
-    <string name="settings" msgid="3876892339342569259">"Impostazioni"</string>
-    <string name="delete" msgid="756853268088330054">"Elimina"</string>
-    <string name="version_text" msgid="2715354215568469385">Versione <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Aggiungi"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Aggiungi al dizionario"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Scorciatoia:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Lingua:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Digita una parola"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Scorciatoia facoltativa"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Modifica parola"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nessuna parola presente nel dizionario utente. Per aggiungere una parola, tocca il pulsante Aggiungi (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Per tutte le lingue"</string>
+    <string name="no_dictionaries_available">"Nessun dizionario"</string>
+    <string name="check_for_updates_now">"Aggiorna"</string>
+    <string name="last_update">"Ultimo aggiornamento"</string>
+    <string name="main_dict_description">"Dizionario principale"</string>
+    <string name="settings">"Impostazioni"</string>
+    <string name="delete">"Elimina"</string>
+    <string name="version_text">Versione <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="user_dict_settings_add_menu_title">"Aggiungi"</string>
+    <string name="user_dict_settings_add_dialog_title">"Aggiungi al dizionario"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Scorciatoia:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Lingua:"</string>
+    <string name="user_dict_settings_add_word_hint">"Digita una parola"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Scorciatoia facoltativa"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Modifica parola"</string>
+    <string name="user_dict_settings_empty_text">"Nessuna parola presente nel dizionario utente. Per aggiungere una parola, tocca il pulsante Aggiungi (+)."</string>
+    <string name="user_dict_settings_all_languages">"Per tutte le lingue"</string>
     <string name="user_dict_settings_more_languages">"Altre lingue…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Altezza tastiera</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="autospace_after_punctuation">Spazio automatico dopo la punteggiatura</string>
@@ -162,5 +162,13 @@
     <string name="select_input_method">"Scegli il metodo di immissione"</string>
     <string name="undo">"Annulla"</string>
     <string name="redo">"Ripeti"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Usa comunicazioni e dati digitati per migliorare i suggerimenti"</string>
+    <string name="use_personalized_dicts_summary">"Usa comunicazioni e dati digitati per migliorare i suggerimenti"</string>
+    <string name="label_go_key">"Vai"</string>
+    <string name="label_next_key">"Succ."</string>
+    <string name="label_previous_key">"Prec."</string>
+    <string name="label_done_key">"Fine"</string>
+    <string name="label_send_key">"Invia"</string>
+    <string name="label_search_key">"Cerca"</string>
+    <string name="label_pause_key">"Pausa"</string>
+    <string name="label_wait_key">"Attendi"</string>
 </resources>

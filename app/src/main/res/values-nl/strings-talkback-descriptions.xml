@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Sluit een headset aan om wachtwoordtoetsen hardop te laten voorlezen."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Huidige tekst is %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Geen tekst ingevoerd"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Met <xliff:g id="KEY_NAME">%1$s</xliff:g> wordt <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> gecorrigeerd naar <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Met <xliff:g id="KEY_NAME">%1$s</xliff:g> voer je automatische correctie uit"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Geen suggestie"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Onbekend teken"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Meer symbolen"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Symbolen"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Verwijderen"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Symbolen"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Letters"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Cijfers"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Instellingen"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Spatiebalk"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Spraakinvoer"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Return"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Zoeken"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Punt"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Taal wijzigen"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Volgende"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Vorige"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift ingeschakeld"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps Lock ingeschakeld"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Symbolen"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Modus voor meer symbolen"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Alfanumeriek toetsenbord"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Toetsenbord telefoon"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Telefoonsymbolen"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Toetsenbord verborgen"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Toetsenbord voor <xliff:g id="KEYBOARD_MODE">%s</xliff:g> wordt weergegeven"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"datum"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"datum en tijd"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-mail"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"berichten"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"nummer"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefoon"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"tekst"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"tijd"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Recent"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objecten"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Symbolen"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Vlaggen"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smileys en mensen"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Dieren en natuur"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Eten en drinken"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Reizen en plaatsen"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Activiteit"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emoticons"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Hoofdletter <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Hoofdletter I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Hoofdletter I, punt erboven"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Alternatieve tekens zijn beschikbaar"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternatieve tekens worden verwijderd"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Alternatieve suggesties zijn beschikbaar"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternatieve suggesties worden verwijderd"</string>
+    <string name="spoken_use_headphones">"Sluit een headset aan om wachtwoordtoetsen hardop te laten voorlezen."</string>
+    <string name="spoken_current_text_is">"Huidige tekst is %s"</string>
+    <string name="spoken_no_text_entered">"Geen tekst ingevoerd"</string>
+    <string name="spoken_auto_correct">"Met <xliff:g id="KEY_NAME">%1$s</xliff:g> wordt <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> gecorrigeerd naar <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"Met <xliff:g id="KEY_NAME">%1$s</xliff:g> voer je automatische correctie uit"</string>
+    <string name="spoken_empty_suggestion">"Geen suggestie"</string>
+    <string name="spoken_description_unknown">"Onbekend teken"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Meer symbolen"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Symbolen"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Verwijderen"</string>
+    <string name="spoken_description_to_symbol">"Symbolen"</string>
+    <string name="spoken_description_to_alpha">"Letters"</string>
+    <string name="spoken_description_to_numeric">"Cijfers"</string>
+    <string name="spoken_description_settings">"Instellingen"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Spatiebalk"</string>
+    <string name="spoken_description_mic">"Spraakinvoer"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Return"</string>
+    <string name="spoken_description_search">"Zoeken"</string>
+    <string name="spoken_description_dot">"Punt"</string>
+    <string name="spoken_description_language_switch">"Taal wijzigen"</string>
+    <string name="spoken_description_action_next">"Volgende"</string>
+    <string name="spoken_description_action_previous">"Vorige"</string>
+    <string name="spoken_description_shiftmode_on">"Shift ingeschakeld"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps Lock ingeschakeld"</string>
+    <string name="spoken_description_mode_symbol">"Symbolen"</string>
+    <string name="spoken_description_mode_symbol_shift">"Modus voor meer symbolen"</string>
+    <string name="spoken_description_mode_alpha">"Alfanumeriek toetsenbord"</string>
+    <string name="spoken_description_mode_phone">"Toetsenbord telefoon"</string>
+    <string name="spoken_description_mode_phone_shift">"Telefoonsymbolen"</string>
+    <string name="announce_keyboard_hidden">"Toetsenbord verborgen"</string>
+    <string name="announce_keyboard_mode">"Toetsenbord voor <xliff:g id="KEYBOARD_MODE">%s</xliff:g> wordt weergegeven"</string>
+    <string name="keyboard_mode_date">"datum"</string>
+    <string name="keyboard_mode_date_time">"datum en tijd"</string>
+    <string name="keyboard_mode_email">"e-mail"</string>
+    <string name="keyboard_mode_im">"berichten"</string>
+    <string name="keyboard_mode_number">"nummer"</string>
+    <string name="keyboard_mode_phone">"telefoon"</string>
+    <string name="keyboard_mode_text">"tekst"</string>
+    <string name="keyboard_mode_time">"tijd"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Recent"</string>
+    <string name="spoken_description_emoji_category_objects">"Objecten"</string>
+    <string name="spoken_description_emoji_category_symbols">"Symbolen"</string>
+    <string name="spoken_description_emoji_category_flags">"Vlaggen"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smileys en mensen"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Dieren en natuur"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Eten en drinken"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Reizen en plaatsen"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Activiteit"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emoticons"</string>
+    <string name="spoken_description_upper_case">"Hoofdletter <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Hoofdletter I"</string>
+    <string name="spoken_letter_0130">"Hoofdletter I, punt erboven"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Alternatieve tekens zijn beschikbaar"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternatieve tekens worden verwijderd"</string>
+    <string name="spoken_open_more_suggestions">"Alternatieve suggesties zijn beschikbaar"</string>
+    <string name="spoken_close_more_suggestions">"Alternatieve suggesties worden verwijderd"</string>
 </resources>

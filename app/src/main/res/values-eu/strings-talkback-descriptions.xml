@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Pasahitzak idazteko sakatzen dituzun teklak ozen entzuteko, konektatu entzungailuak."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Oraingo testua %s da"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Ez da testurik idatzi"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> teklak \"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>\" hitza \"<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>\" bihurtzen du"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> teklak zuzenketa automatikoa egiten du"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Ez dago iradokizunik"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Karaktere ezezaguna"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Maius"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Ikur gehiago"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Maius"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Ikurrak"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Maius"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Ezabatu"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Ikurrak"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Hizkiak"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Zenbakiak"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Ezarpenak"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabuladorea"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Zuriunea"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Ahozko idazketa"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emojiak"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Itzuli"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Bilatu"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Puntua"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Aldatu hizkuntza"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Hurrengoa"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Aurrekoa"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Maiuskulak aktibatuta"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Maiuskulak aktibatuta"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Ikurrak"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Ikur gehiagoren modua"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Hizkiak"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Telefonoa"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Telefono-ikurrak"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Teklatua ezkutatu da"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> teklatua erakusten"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"data"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"data eta ordua"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"helbide elektronikoak"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"mezuak"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"zenbakiak"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefono-zenbakiak"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"testua"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"ordua"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URLak"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Azkenak"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objektuak"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Ikurrak"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Banderak"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Aurpegierak eta pertsonak"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Animaliak eta natura"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Jan-edanak"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Bidaiak eta tokiak"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Jarduerak"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emotikonoak 2"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> maiuskula"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"I maiuskula"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"I maiuskula goi-puntuduna"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Ordezko karaktereak erabilgarri daude"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Ordezko karaktereak baztertu dira"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Ordezko iradokizunak erabilgarri daude"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Ordezko iradokizunak baztertu dira"</string>
+    <string name="spoken_use_headphones">"Pasahitzak idazteko sakatzen dituzun teklak ozen entzuteko, konektatu entzungailuak."</string>
+    <string name="spoken_current_text_is">"Oraingo testua %s da"</string>
+    <string name="spoken_no_text_entered">"Ez da testurik idatzi"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> teklak \"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>\" hitza \"<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>\" bihurtzen du"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> teklak zuzenketa automatikoa egiten du"</string>
+    <string name="spoken_empty_suggestion">"Ez dago iradokizunik"</string>
+    <string name="spoken_description_unknown">"Karaktere ezezaguna"</string>
+    <string name="spoken_description_shift">"Maius"</string>
+    <string name="spoken_description_symbols_shift">"Ikur gehiago"</string>
+    <string name="spoken_description_shift_shifted">"Maius"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Ikurrak"</string>
+    <string name="spoken_description_caps_lock">"Maius"</string>
+    <string name="spoken_description_delete">"Ezabatu"</string>
+    <string name="spoken_description_to_symbol">"Ikurrak"</string>
+    <string name="spoken_description_to_alpha">"Hizkiak"</string>
+    <string name="spoken_description_to_numeric">"Zenbakiak"</string>
+    <string name="spoken_description_settings">"Ezarpenak"</string>
+    <string name="spoken_description_tab">"Tabuladorea"</string>
+    <string name="spoken_description_space">"Zuriunea"</string>
+    <string name="spoken_description_mic">"Ahozko idazketa"</string>
+    <string name="spoken_description_emoji">"Emojiak"</string>
+    <string name="spoken_description_return">"Itzuli"</string>
+    <string name="spoken_description_search">"Bilatu"</string>
+    <string name="spoken_description_dot">"Puntua"</string>
+    <string name="spoken_description_language_switch">"Aldatu hizkuntza"</string>
+    <string name="spoken_description_action_next">"Hurrengoa"</string>
+    <string name="spoken_description_action_previous">"Aurrekoa"</string>
+    <string name="spoken_description_shiftmode_on">"Maiuskulak aktibatuta"</string>
+    <string name="spoken_description_shiftmode_locked">"Maiuskulak aktibatuta"</string>
+    <string name="spoken_description_mode_symbol">"Ikurrak"</string>
+    <string name="spoken_description_mode_symbol_shift">"Ikur gehiagoren modua"</string>
+    <string name="spoken_description_mode_alpha">"Hizkiak"</string>
+    <string name="spoken_description_mode_phone">"Telefonoa"</string>
+    <string name="spoken_description_mode_phone_shift">"Telefono-ikurrak"</string>
+    <string name="announce_keyboard_hidden">"Teklatua ezkutatu da"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> teklatua erakusten"</string>
+    <string name="keyboard_mode_date">"data"</string>
+    <string name="keyboard_mode_date_time">"data eta ordua"</string>
+    <string name="keyboard_mode_email">"helbide elektronikoak"</string>
+    <string name="keyboard_mode_im">"mezuak"</string>
+    <string name="keyboard_mode_number">"zenbakiak"</string>
+    <string name="keyboard_mode_phone">"telefono-zenbakiak"</string>
+    <string name="keyboard_mode_text">"testua"</string>
+    <string name="keyboard_mode_time">"ordua"</string>
+    <string name="keyboard_mode_url">"URLak"</string>
+    <string name="spoken_description_emoji_category_recents">"Azkenak"</string>
+    <string name="spoken_description_emoji_category_objects">"Objektuak"</string>
+    <string name="spoken_description_emoji_category_symbols">"Ikurrak"</string>
+    <string name="spoken_description_emoji_category_flags">"Banderak"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Aurpegierak eta pertsonak"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Animaliak eta natura"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Jan-edanak"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Bidaiak eta tokiak"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Jarduerak"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emotikonoak 2"</string>
+    <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> maiuskula"</string>
+    <string name="spoken_letter_0049">"I maiuskula"</string>
+    <string name="spoken_letter_0130">"I maiuskula goi-puntuduna"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Ordezko karaktereak erabilgarri daude"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Ordezko karaktereak baztertu dira"</string>
+    <string name="spoken_open_more_suggestions">"Ordezko iradokizunak erabilgarri daude"</string>
+    <string name="spoken_close_more_suggestions">"Ordezko iradokizunak baztertu dira"</string>
 </resources>

@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"เสียบชุดหูฟังเพื่อฟังเสียงเมื่อพิมพ์รหัสผ่าน"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"ข้อความปัจจุบันคือ %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"ไม่มีข้อความ"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> แก้ไข <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> เป็น <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ทำการแก้ไขอัตโนมัติ"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"ไม่มีคำแนะนำ"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"อักขระที่ไม่รู้จัก"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"สัญลักษณ์เพิ่มเติม"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"สัญลักษณ์"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"ลบ"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"สัญลักษณ์"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"ตัวอักษร"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"หมายเลข"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"การตั้งค่า"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"แท็บ"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"วรรค"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"การป้อนข้อมูลด้วยเสียง"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"อีโมจิ"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"ส่งคืน"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"ค้นหา"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"จุด"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"เปลี่ยนภาษา"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"ถัดไป"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"ก่อนหน้า"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"เปิดใช้งาน Shift แล้ว"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"เปิดใช้งาน Caps Lock แล้ว"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"โหมดสัญลักษณ์"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"โหมดสัญลักษณ์เพิ่มเติม"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"โหมดตัวอักษร"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"โหมดโทรศัพท์"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"โหมดสัญลักษณ์โทรศัพท์"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"ซ่อนแป้นพิมพ์แล้ว"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"กำลังแสดงแป้นพิมพ์ <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"วันที่"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"วันที่และเวลา"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"อีเมล"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"ข้อความ"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"หมายเลข"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"โทรศัพท์"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ข้อความ"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"เวลา"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"ล่าสุด"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"วัตถุ"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"สัญลักษณ์"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ธง"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"หน้ายิ้มและผู้คน"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"สัตว์เลี้ยงและธรรมชาติ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"อาหารและเครื่องดื่ม"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"การเดินทางและสถานที่"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"กิจกรรม"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ไอคอนสื่ออารมณ์"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> ตัวใหญ่"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"I ตัวใหญ่"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"I ตัวใหญ่เติมจุดด้านบน"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"อักขระทางเลือกพร้อมใช้งาน"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ปิดอักขระทางเลือกแล้ว"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ข้อเสนอแนะทางเลือกพร้อมใช้งาน"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ปิดข้อเสนอแนะทางเลือกแล้ว"</string>
+    <string name="spoken_use_headphones">"เสียบชุดหูฟังเพื่อฟังเสียงเมื่อพิมพ์รหัสผ่าน"</string>
+    <string name="spoken_current_text_is">"ข้อความปัจจุบันคือ %s"</string>
+    <string name="spoken_no_text_entered">"ไม่มีข้อความ"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> แก้ไข <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> เป็น <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ทำการแก้ไขอัตโนมัติ"</string>
+    <string name="spoken_empty_suggestion">"ไม่มีคำแนะนำ"</string>
+    <string name="spoken_description_unknown">"อักขระที่ไม่รู้จัก"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"สัญลักษณ์เพิ่มเติม"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"สัญลักษณ์"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"ลบ"</string>
+    <string name="spoken_description_to_symbol">"สัญลักษณ์"</string>
+    <string name="spoken_description_to_alpha">"ตัวอักษร"</string>
+    <string name="spoken_description_to_numeric">"หมายเลข"</string>
+    <string name="spoken_description_settings">"การตั้งค่า"</string>
+    <string name="spoken_description_tab">"แท็บ"</string>
+    <string name="spoken_description_space">"วรรค"</string>
+    <string name="spoken_description_mic">"การป้อนข้อมูลด้วยเสียง"</string>
+    <string name="spoken_description_emoji">"อีโมจิ"</string>
+    <string name="spoken_description_return">"ส่งคืน"</string>
+    <string name="spoken_description_search">"ค้นหา"</string>
+    <string name="spoken_description_dot">"จุด"</string>
+    <string name="spoken_description_language_switch">"เปลี่ยนภาษา"</string>
+    <string name="spoken_description_action_next">"ถัดไป"</string>
+    <string name="spoken_description_action_previous">"ก่อนหน้า"</string>
+    <string name="spoken_description_shiftmode_on">"เปิดใช้งาน Shift แล้ว"</string>
+    <string name="spoken_description_shiftmode_locked">"เปิดใช้งาน Caps Lock แล้ว"</string>
+    <string name="spoken_description_mode_symbol">"โหมดสัญลักษณ์"</string>
+    <string name="spoken_description_mode_symbol_shift">"โหมดสัญลักษณ์เพิ่มเติม"</string>
+    <string name="spoken_description_mode_alpha">"โหมดตัวอักษร"</string>
+    <string name="spoken_description_mode_phone">"โหมดโทรศัพท์"</string>
+    <string name="spoken_description_mode_phone_shift">"โหมดสัญลักษณ์โทรศัพท์"</string>
+    <string name="announce_keyboard_hidden">"ซ่อนแป้นพิมพ์แล้ว"</string>
+    <string name="announce_keyboard_mode">"กำลังแสดงแป้นพิมพ์ <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"วันที่"</string>
+    <string name="keyboard_mode_date_time">"วันที่และเวลา"</string>
+    <string name="keyboard_mode_email">"อีเมล"</string>
+    <string name="keyboard_mode_im">"ข้อความ"</string>
+    <string name="keyboard_mode_number">"หมายเลข"</string>
+    <string name="keyboard_mode_phone">"โทรศัพท์"</string>
+    <string name="keyboard_mode_text">"ข้อความ"</string>
+    <string name="keyboard_mode_time">"เวลา"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"ล่าสุด"</string>
+    <string name="spoken_description_emoji_category_objects">"วัตถุ"</string>
+    <string name="spoken_description_emoji_category_symbols">"สัญลักษณ์"</string>
+    <string name="spoken_description_emoji_category_flags">"ธง"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"หน้ายิ้มและผู้คน"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"สัตว์เลี้ยงและธรรมชาติ"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"อาหารและเครื่องดื่ม"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"การเดินทางและสถานที่"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"กิจกรรม"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ไอคอนสื่ออารมณ์"</string>
+    <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> ตัวใหญ่"</string>
+    <string name="spoken_letter_0049">"I ตัวใหญ่"</string>
+    <string name="spoken_letter_0130">"I ตัวใหญ่เติมจุดด้านบน"</string>
+    <string name="spoken_open_popup_keys_keyboard">"อักขระทางเลือกพร้อมใช้งาน"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ปิดอักขระทางเลือกแล้ว"</string>
+    <string name="spoken_open_more_suggestions">"ข้อเสนอแนะทางเลือกพร้อมใช้งาน"</string>
+    <string name="spoken_close_more_suggestions">"ปิดข้อเสนอแนะทางเลือกแล้ว"</string>
 </resources>

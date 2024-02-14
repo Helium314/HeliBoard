@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Подключите гарнитуру, чтобы услышать пароль."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Введенный текст: %s."</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Текст не введен."</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"При нажатии клавиши <xliff:g id="KEY_NAME">%1$s</xliff:g> слово <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> будет исправлено на <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>."</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Клавиша <xliff:g id="KEY_NAME">%1$s</xliff:g> выполняет автоисправление."</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Подсказки не найдены"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Неизвестный символ."</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Клавиша верхнего регистра."</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Дополнительные символы."</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Клавиша верхнего регистра."</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Символы."</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Клавиша верхнего регистра."</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Удалить."</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Символы."</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Буквы."</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Цифры."</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Настройки."</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Клавиша Tab."</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Пробел."</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Голосовой ввод."</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Смайлики."</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Ввод."</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Поиск."</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Маркер списка."</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Сменить язык."</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Далее."</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Назад."</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Верхний регистр включен."</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps Lock включен."</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Режим добавления символов."</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Режим дополнительных символов."</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Режим ввода текста."</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Режим набора номера."</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Режим телефонных символов."</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Клавиатура скрыта."</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Включен режим <xliff:g id="KEYBOARD_MODE">%s</xliff:g>."</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"ввода даты"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"ввода даты и времени"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ввода адреса электронной почты"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"ввода сообщения"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"ввода цифр"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"набора номера"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ввода текста"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"ввода времени"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"ввода URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Недавно использованные."</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Объекты."</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Символы."</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Флаги."</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Смайлики и люди."</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Природа и животные."</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Еда и напитки."</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Путешествия и достопримечательности."</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Действия."</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Смайлики."</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Заглавная <xliff:g id="LOWER_LETTER">%s</xliff:g>."</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Заглавная латинская I."</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Заглавная латинская I с точкой сверху."</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Доступны дополнительные символы."</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Дополнительные символы скрыты."</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Доступны дополнительные подсказки."</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Дополнительные подсказки скрыты."</string>
+    <string name="spoken_use_headphones">"Подключите гарнитуру, чтобы услышать пароль."</string>
+    <string name="spoken_current_text_is">"Введенный текст: %s."</string>
+    <string name="spoken_no_text_entered">"Текст не введен."</string>
+    <string name="spoken_auto_correct">"При нажатии клавиши <xliff:g id="KEY_NAME">%1$s</xliff:g> слово <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> будет исправлено на <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>."</string>
+    <string name="spoken_auto_correct_obscured">"Клавиша <xliff:g id="KEY_NAME">%1$s</xliff:g> выполняет автоисправление."</string>
+    <string name="spoken_empty_suggestion">"Подсказки не найдены"</string>
+    <string name="spoken_description_unknown">"Неизвестный символ."</string>
+    <string name="spoken_description_shift">"Клавиша верхнего регистра."</string>
+    <string name="spoken_description_symbols_shift">"Дополнительные символы."</string>
+    <string name="spoken_description_shift_shifted">"Клавиша верхнего регистра."</string>
+    <string name="spoken_description_symbols_shift_shifted">"Символы."</string>
+    <string name="spoken_description_caps_lock">"Клавиша верхнего регистра."</string>
+    <string name="spoken_description_delete">"Удалить."</string>
+    <string name="spoken_description_to_symbol">"Символы."</string>
+    <string name="spoken_description_to_alpha">"Буквы."</string>
+    <string name="spoken_description_to_numeric">"Цифры."</string>
+    <string name="spoken_description_settings">"Настройки."</string>
+    <string name="spoken_description_tab">"Клавиша Tab."</string>
+    <string name="spoken_description_space">"Пробел."</string>
+    <string name="spoken_description_mic">"Голосовой ввод."</string>
+    <string name="spoken_description_emoji">"Смайлики."</string>
+    <string name="spoken_description_return">"Ввод."</string>
+    <string name="spoken_description_search">"Поиск."</string>
+    <string name="spoken_description_dot">"Маркер списка."</string>
+    <string name="spoken_description_language_switch">"Сменить язык."</string>
+    <string name="spoken_description_action_next">"Далее."</string>
+    <string name="spoken_description_action_previous">"Назад."</string>
+    <string name="spoken_description_shiftmode_on">"Верхний регистр включен."</string>
+    <string name="spoken_description_shiftmode_locked">"Caps Lock включен."</string>
+    <string name="spoken_description_mode_symbol">"Режим добавления символов."</string>
+    <string name="spoken_description_mode_symbol_shift">"Режим дополнительных символов."</string>
+    <string name="spoken_description_mode_alpha">"Режим ввода текста."</string>
+    <string name="spoken_description_mode_phone">"Режим набора номера."</string>
+    <string name="spoken_description_mode_phone_shift">"Режим телефонных символов."</string>
+    <string name="announce_keyboard_hidden">"Клавиатура скрыта."</string>
+    <string name="announce_keyboard_mode">"Включен режим <xliff:g id="KEYBOARD_MODE">%s</xliff:g>."</string>
+    <string name="keyboard_mode_date">"ввода даты"</string>
+    <string name="keyboard_mode_date_time">"ввода даты и времени"</string>
+    <string name="keyboard_mode_email">"ввода адреса электронной почты"</string>
+    <string name="keyboard_mode_im">"ввода сообщения"</string>
+    <string name="keyboard_mode_number">"ввода цифр"</string>
+    <string name="keyboard_mode_phone">"набора номера"</string>
+    <string name="keyboard_mode_text">"ввода текста"</string>
+    <string name="keyboard_mode_time">"ввода времени"</string>
+    <string name="keyboard_mode_url">"ввода URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Недавно использованные."</string>
+    <string name="spoken_description_emoji_category_objects">"Объекты."</string>
+    <string name="spoken_description_emoji_category_symbols">"Символы."</string>
+    <string name="spoken_description_emoji_category_flags">"Флаги."</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Смайлики и люди."</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Природа и животные."</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Еда и напитки."</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Путешествия и достопримечательности."</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Действия."</string>
+    <string name="spoken_description_emoji_category_emoticons">"Смайлики."</string>
+    <string name="spoken_description_upper_case">"Заглавная <xliff:g id="LOWER_LETTER">%s</xliff:g>."</string>
+    <string name="spoken_letter_0049">"Заглавная латинская I."</string>
+    <string name="spoken_letter_0130">"Заглавная латинская I с точкой сверху."</string>
+    <string name="spoken_open_popup_keys_keyboard">"Доступны дополнительные символы."</string>
+    <string name="spoken_close_popup_keys_keyboard">"Дополнительные символы скрыты."</string>
+    <string name="spoken_open_more_suggestions">"Доступны дополнительные подсказки."</string>
+    <string name="spoken_close_more_suggestions">"Дополнительные подсказки скрыты."</string>
 </resources>

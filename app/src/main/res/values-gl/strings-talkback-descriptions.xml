@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Conecta uns auriculares para escoitar as teclas do contrasinal pronunciadas."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"O texto actual é %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Non se introduciu ningún texto"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> corrixe <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> por <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> leva a cabo a corrección automática"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Non hai suxestións"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Carácter descoñecido"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Maiús"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Máis símbolos"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Maiús"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Símbolos"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Maiús"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Suprimir"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Símbolos"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Letras"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Números"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Configuración"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Pestana"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Espazo"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Entrada de voz"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Volver"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Buscar"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Punto"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Cambiar idioma"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Seguinte"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Anterior"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Maiús activadas"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Bloqueo de maiúsculas activado"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Modo de símbolos"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Modo máis símbolos"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Modo de cartas"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Modo teléfono"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Modo de símbolos do teléfono"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Teclado oculto"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Mostrar teclado <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"data"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"data e hora"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"correo electrónico"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"mensaxaría"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"número"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"teléfono"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"texto"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"hora"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Recentes"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Obxectos"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Símbolos"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Bandeiras"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Emoticona e persoas"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Animais e natureza"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Comida e bebida"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Viaxes e lugares"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Actividade"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emoticonas"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> maiúscula"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"I maiúscula"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"I maiúscula, punto superior"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Os caracteres alternativos están dispoñibles"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Descártanse os caracteres alternativos"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"As suxestións alternativas están dispoñibles"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Descártanse as suxestións alternativas"</string>
+    <string name="spoken_use_headphones">"Conecta uns auriculares para escoitar as teclas do contrasinal pronunciadas."</string>
+    <string name="spoken_current_text_is">"O texto actual é %s"</string>
+    <string name="spoken_no_text_entered">"Non se introduciu ningún texto"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> corrixe <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> por <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> leva a cabo a corrección automática"</string>
+    <string name="spoken_empty_suggestion">"Non hai suxestións"</string>
+    <string name="spoken_description_unknown">"Carácter descoñecido"</string>
+    <string name="spoken_description_shift">"Maiús"</string>
+    <string name="spoken_description_symbols_shift">"Máis símbolos"</string>
+    <string name="spoken_description_shift_shifted">"Maiús"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Símbolos"</string>
+    <string name="spoken_description_caps_lock">"Maiús"</string>
+    <string name="spoken_description_delete">"Suprimir"</string>
+    <string name="spoken_description_to_symbol">"Símbolos"</string>
+    <string name="spoken_description_to_alpha">"Letras"</string>
+    <string name="spoken_description_to_numeric">"Números"</string>
+    <string name="spoken_description_settings">"Configuración"</string>
+    <string name="spoken_description_tab">"Pestana"</string>
+    <string name="spoken_description_space">"Espazo"</string>
+    <string name="spoken_description_mic">"Entrada de voz"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Volver"</string>
+    <string name="spoken_description_search">"Buscar"</string>
+    <string name="spoken_description_dot">"Punto"</string>
+    <string name="spoken_description_language_switch">"Cambiar idioma"</string>
+    <string name="spoken_description_action_next">"Seguinte"</string>
+    <string name="spoken_description_action_previous">"Anterior"</string>
+    <string name="spoken_description_shiftmode_on">"Maiús activadas"</string>
+    <string name="spoken_description_shiftmode_locked">"Bloqueo de maiúsculas activado"</string>
+    <string name="spoken_description_mode_symbol">"Modo de símbolos"</string>
+    <string name="spoken_description_mode_symbol_shift">"Modo máis símbolos"</string>
+    <string name="spoken_description_mode_alpha">"Modo de cartas"</string>
+    <string name="spoken_description_mode_phone">"Modo teléfono"</string>
+    <string name="spoken_description_mode_phone_shift">"Modo de símbolos do teléfono"</string>
+    <string name="announce_keyboard_hidden">"Teclado oculto"</string>
+    <string name="announce_keyboard_mode">"Mostrar teclado <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"data"</string>
+    <string name="keyboard_mode_date_time">"data e hora"</string>
+    <string name="keyboard_mode_email">"correo electrónico"</string>
+    <string name="keyboard_mode_im">"mensaxaría"</string>
+    <string name="keyboard_mode_number">"número"</string>
+    <string name="keyboard_mode_phone">"teléfono"</string>
+    <string name="keyboard_mode_text">"texto"</string>
+    <string name="keyboard_mode_time">"hora"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Recentes"</string>
+    <string name="spoken_description_emoji_category_objects">"Obxectos"</string>
+    <string name="spoken_description_emoji_category_symbols">"Símbolos"</string>
+    <string name="spoken_description_emoji_category_flags">"Bandeiras"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Emoticona e persoas"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Animais e natureza"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Comida e bebida"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Viaxes e lugares"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Actividade"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emoticonas"</string>
+    <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> maiúscula"</string>
+    <string name="spoken_letter_0049">"I maiúscula"</string>
+    <string name="spoken_letter_0130">"I maiúscula, punto superior"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Os caracteres alternativos están dispoñibles"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Descártanse os caracteres alternativos"</string>
+    <string name="spoken_open_more_suggestions">"As suxestións alternativas están dispoñibles"</string>
+    <string name="spoken_close_more_suggestions">"Descártanse as suxestións alternativas"</string>
 </resources>

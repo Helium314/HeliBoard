@@ -5,123 +5,131 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಹುಡುಕಿ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"ಕಾಗುಣಿತ ಪರೀಕ್ಷಕವು ನಿಮ್ಮ ಸಂಪರ್ಕ ಪಟ್ಟಿಯ ಮಾಹಿತಿಯನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತದೆ"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"ಕೀಪ್ರೆಸ್‌ನ ವೈಬ್ರೇಟ್"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"ಕೀಪ್ರೆಸ್ ಶಬ್ದ"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"ಕೀಪ್ರೆಸ್‌ನಲ್ಲಿ ಪಾಪ್ಅಪ್"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"ಪ್ರಾಶಸ್ತ್ಯಗಳು"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"ಗೆಸ್ಚರ್ ಟೈಪಿಂಗ್"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"ಪಠ್ಯ ತಿದ್ದುಪಡಿ"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"ಸುಧಾರಿತ"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"ಥೀಮ್"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"ಬೇರ್ಪಡೆ ಕೀಬೋರ್ಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"</string>
-    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"ಇತರೆ ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳಿಗೆ ಬದಲಾಯಿಸು"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"ಭಾಷೆ ಬದಲಾವಣೆ ಕೀ"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>ಮಿ.ಸೆ."</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"ಸಿಸ್ಟಂ ಡಿಫಾಲ್ಟ್"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಸೂಚಿಸು"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"ಸಲಹೆಗಳು ಮತ್ತು ತಿದ್ದುಪಡಿಗಳಿಗಾಗಿ ಸಂಪರ್ಕಗಳಲ್ಲಿನ ಹೆಸರುಗಳನ್ನು ಬಳಸಿ"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"ವೈಯುಕ್ತೀಕರಿಸಿದ ಸಲಹೆಗಳು"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"ಡಬಲ್-ಸ್ಪೇಸ್ ವಿರಾಮ"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"ಸ್ಪೇಸ್‌ಬಾರ್ ಮೇಲೆ ಡಬಲ್ ಟ್ಯಾಪ್ ಮಾಡುವುದರಿಂದ ಸ್ಪೇಸ್ ನಂತರ ವಿರಾಮವನ್ನು ಸೇರಿಸುತ್ತದೆ"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"ಸ್ವಯಂ-ದೊಡ್ಡಕ್ಷರ"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"ಪ್ರತಿ ವಾಕ್ಯದ ಮೊದಲ ಅಕ್ಷರವನ್ನು ದೊಡ್ಡಕ್ಷರಗೊಳಿಸು"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"ವೈಯಕ್ತಿಕ ನಿಘಂಟು"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"ತಿದ್ದುಪಡಿ ಸಲಹೆಗಳನ್ನು ತೋರಿಸು"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"ಟೈಪ್ ಮಾಡುವಾಗ ಸಲಹೆ ನೀಡಿದ ಪದಗಳನ್ನು ಪ್ರದರ್ಶಿಸು"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"ಅಕ್ಷೇಪಾರ್ಹ ಪದಗಳನ್ನು ನಿರ್ಬಂಧಿಸು"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"ಸಂಭಾವ್ಯ ಆಕ್ಷೇಪಾರ್ಹ ಪದಗಳ ಸಲಹೆ ನೀಡದಿರು"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"ಸ್ವಯಂ-ತಿದ್ದುಪಡಿ"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"ತಪ್ಪಾಗಿ ಟೈಪ್ ಮಾಡಿದ ಪದಗಳನ್ನು ಸ್ಪೇಸ್‌ಬಾರ್ ಮತ್ತು ವಿರಾಮಚಿಹ್ನೆಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸರಿಪಡಿಸುತ್ತವೆ"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"ಆಫ್ ಆಗಿದೆ"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"ಸಾಧಾರಣ"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"ಆಕ್ರಮಣಶೀಲ"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"ಹೆಚ್ಚು ಆಕ್ರಮಣಶೀಲ"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"ಮುಂದಿನ ಪದದ ಸಲಹೆಗಳು"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"ಸಲಹೆಗಳನ್ನು ಮಾಡುವಾಗ ಹಿಂದಿನ ಪದವನ್ನು ಬಳಸು"</string>
-    <string name="gesture_input" msgid="826951152254563827">"ಗೆಶ್ಚರ್ ಟೈಪಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸು"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"ಅಕ್ಷರಗಳ ಮೇಲೆ ಸರಿಸುವ ಮೂಲಕ ಪದವೊಂದನ್ನು ನಮೂದಿಸಿ"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"ಗೆಶ್ಚರ್ ಟ್ರೇಲ್ ತೋರಿಸು"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"ಡೈನಮಿಕ್ ಫ್ಲೋಟಿಂಗ್ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"ಗೆಸ್ಟರ್ ಮಾಡುವಾಗ ಸೂಚಿಸಿದ ಪದವನ್ನು ನೋಡಿ"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"ಪದಗುಚ್ಛದ ಗೆಶ್ಚರ್"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"ಸ್ಪೇಸ್ ಕೀಗೆ ಗ್ಲೈಡ್ ಮಾಡುವ ಮೂಲಕ ಗೆಶ್ಚರ್‌ಗಳ ಅವಧಿಯಲ್ಲಿ ಅಂತರ ನಮೂದಿಸಿ"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"ಇಂಗ್ಲಿಷ್ (US)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"ಹಿಂಗ್ಲಿಷ್"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"ಸರ್ಬಿಯನ್ (ಲ್ಯಾಟಿನ್)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"ಇಂಗ್ಲಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"ಸ್ಪ್ಯಾನಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"ಹಿಂಗ್ಲಿಷ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"ಸರ್ಬಿಯನ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ (ವರ್ಣಮಾಲೆ)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"ವರ್ಣಮಾಲೆ (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"ವರ್ಣಮಾಲೆ (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"ವರ್ಣಮಾಲೆ (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"ವರ್ಣಮಾಲೆ (ಡ್ವೊರಕ್)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"ವರ್ಣಮಾಲೆ (ಕೋಲ್‌ಮ್ಯಾಕ್)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"ವರ್ಣಮಾಲೆ (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"ಎಮೋಜಿ"</string>
-    <string name="add" msgid="8299699805688017798">"ಸೇರಿಸು"</string>
-    <string name="remove" msgid="4486081658752944606">"ತೆಗೆದುಹಾಕಿ"</string>
-    <string name="save" msgid="7646738597196767214">"ಉಳಿಸಿ"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"ಭಾಷೆ"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"ಲೇಔಟ್"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"ಕೀಒತ್ತುವ ವೈಬ್ರೇಷನ್‌‌ ಅವಧಿ"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"ಕೀಒತ್ತುವ ಶಬ್ದದ ವಾಲ್ಯೂಮ್"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"ಕೀಯ ದೀರ್ಘ ಒತ್ತುವ ವಿಳಂಬ"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"ಭೌತಿಕ ಕೀಬೋರ್ಡ್‌ಗೆ ಎಮೋಜಿ"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"ಭೌತಿಕ Alt ಕೀ ಎಮೋಜಿ ಪ್ಯಾಲೆಟ್ ತೋರಿಸುತ್ತದೆ"</string>
-    <string name="button_default" msgid="3988017840431881491">"ಡಿಫಾಲ್ಟ್"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಸುಸ್ವಾಗತ"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"ಗೆಶ್ಚರ್ ಟೈಪಿಂಗ್‌ನೊಂದಿಗೆ"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"ಪ್ರಾರಂಭ"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"ಮುಂದಿನ ಹಂತ"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಸಕ್ರಿಯಗೊಳಿಸಿ"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ದಯವಿಟ್ಟು \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಪರಿಶೀಲಿಸಿ. ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಅದನ್ನು ರನ್ ಮಾಡಲು ಅದು ಅನುಮತಿ ನೀಡುತ್ತದೆ."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಈಗಾಗಲೇ ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ, ಹೀಗಾಗಿ ಈ ಹಂತ ಮುಗಿದಿದೆ. ಮುಂದಿನದಕ್ಕೆ ತೆರಳಿ!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸು"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಬದಲಾಯಿಸಿ"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"ಮುಂದೆ, ನಿಮ್ಮ ಸಕ್ರಿಯ ಪಠ್ಯ-ಇನ್‌ಪುಟ್ ವಿಧಾನವಾಗಿ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳನ್ನು ಬದಲಾಯಿಸು"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"ಅಭಿನಂದನೆಗಳು, ನೀವೀಗ ಎಲ್ಲವನ್ನೂ ಹೊಂದಿಸಿರುವಿರಿ!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"ಈಗ ನೀವು <xliff:g id="APPLICATION_NAME">%s</xliff:g> ನೊಂದಿಗೆ ನಿಮ್ಮ ಎಲ್ಲ ಮೆಚ್ಚಿನ ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿ ಟೈಪ್ ಮಾಡಬಹುದು."</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"ಮುಕ್ತಾಯಗೊಂಡಿದೆ"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ತೋರಿಸು"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"ಲಾಂಚರ್‌ನಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ಪ್ರದರ್ಶಿಸು"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"ನಿಘಂಟುಗಳಿಗಾಗಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"ನಿಘಂಟು ಲಭ್ಯವಿದೆ"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"ನಿಘಂಟು ಸೇವೆಗೆ ಸಂಪರ್ಕಗೊಳಿಸುವಾಗ ಸಮಸ್ಯೆ"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"ನಿಘಂಟುಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"ರಿಫ್ರೆಶ್ ಮಾಡಿ"</string>
-    <string name="last_update" msgid="730467549913588780">"ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿರುವುದು"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
-    <string name="settings" msgid="3876892339342569259">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
-    <string name="delete" msgid="756853268088330054">"ಅಳಿಸಿ"</string>
-    <string name="version_text" msgid="2715354215568469385">"ಆವೃತ್ತಿ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"ಸೇರಿಸು"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"ನಿಘಂಟಿಗೆ ಸೇರಿಸಿ"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"ಶಾರ್ಟ್‌ಕಟ್:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"ಭಾಷೆ:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"ಪದವನ್ನು ಟೈಪ್ ಮಾಡಿ"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"ಐಚ್ಛಿಕ ಶಾರ್ಟ್‌ಕಟ್"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"ಪದವನ್ನು ಎಡಿಟ್ ಮಾಡಿ"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"ಬಳಕೆದಾರರ ನಿಘಂಟಿನಲ್ಲಿ ನೀವು ಯಾವುದೇ ಪದಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ಪದವನ್ನು ಸೇರಿಸಲು, ಸೇರಿಸು (+) ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"ಎಲ್ಲ ಭಾಷೆಗಳಿಗೆ"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ಇನ್ನಷ್ಟು ಭಾಷೆಗಳು…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಹುಡುಕಿ"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"ಕಾಗುಣಿತ ಪರೀಕ್ಷಕವು ನಿಮ್ಮ ಸಂಪರ್ಕ ಪಟ್ಟಿಯ ಮಾಹಿತಿಯನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತದೆ"</string>
+    <string name="vibrate_on_keypress">"ಕೀಪ್ರೆಸ್‌ನ ವೈಬ್ರೇಟ್"</string>
+    <string name="sound_on_keypress">"ಕೀಪ್ರೆಸ್ ಶಬ್ದ"</string>
+    <string name="popup_on_keypress">"ಕೀಪ್ರೆಸ್‌ನಲ್ಲಿ ಪಾಪ್ಅಪ್"</string>
+    <string name="settings_screen_preferences">"ಪ್ರಾಶಸ್ತ್ಯಗಳು"</string>
+    <string name="settings_screen_gesture">"ಗೆಸ್ಚರ್ ಟೈಪಿಂಗ್"</string>
+    <string name="settings_screen_correction">"ಪಠ್ಯ ತಿದ್ದುಪಡಿ"</string>
+    <string name="settings_screen_advanced">"ಸುಧಾರಿತ"</string>
+    <string name="settings_screen_theme">"ಥೀಮ್"</string>
+    <string name="enable_split_keyboard">"ಬೇರ್ಪಡೆ ಕೀಬೋರ್ಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"</string>
+    <string name="language_switch_key_switch_input_method">"ಇತರೆ ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳಿಗೆ ಬದಲಾಯಿಸು"</string>
+    <string name="show_language_switch_key">"ಭಾಷೆ ಬದಲಾವಣೆ ಕೀ"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ಮಿ.ಸೆ."</string>
+    <string name="settings_system_default">"ಸಿಸ್ಟಂ ಡಿಫಾಲ್ಟ್"</string>
+    <string name="use_contacts_dict">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಸೂಚಿಸು"</string>
+    <string name="use_contacts_dict_summary">"ಸಲಹೆಗಳು ಮತ್ತು ತಿದ್ದುಪಡಿಗಳಿಗಾಗಿ ಸಂಪರ್ಕಗಳಲ್ಲಿನ ಹೆಸರುಗಳನ್ನು ಬಳಸಿ"</string>
+    <string name="use_personalized_dicts">"ವೈಯುಕ್ತೀಕರಿಸಿದ ಸಲಹೆಗಳು"</string>
+    <string name="use_double_space_period">"ಡಬಲ್-ಸ್ಪೇಸ್ ವಿರಾಮ"</string>
+    <string name="use_double_space_period_summary">"ಸ್ಪೇಸ್‌ಬಾರ್ ಮೇಲೆ ಡಬಲ್ ಟ್ಯಾಪ್ ಮಾಡುವುದರಿಂದ ಸ್ಪೇಸ್ ನಂತರ ವಿರಾಮವನ್ನು ಸೇರಿಸುತ್ತದೆ"</string>
+    <string name="auto_cap">"ಸ್ವಯಂ-ದೊಡ್ಡಕ್ಷರ"</string>
+    <string name="auto_cap_summary">"ಪ್ರತಿ ವಾಕ್ಯದ ಮೊದಲ ಅಕ್ಷರವನ್ನು ದೊಡ್ಡಕ್ಷರಗೊಳಿಸು"</string>
+    <string name="edit_personal_dictionary">"ವೈಯಕ್ತಿಕ ನಿಘಂಟು"</string>
+    <string name="configure_dictionaries_title">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
+    <string name="main_dictionary">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
+    <string name="prefs_show_suggestions">"ತಿದ್ದುಪಡಿ ಸಲಹೆಗಳನ್ನು ತೋರಿಸು"</string>
+    <string name="prefs_show_suggestions_summary">"ಟೈಪ್ ಮಾಡುವಾಗ ಸಲಹೆ ನೀಡಿದ ಪದಗಳನ್ನು ಪ್ರದರ್ಶಿಸು"</string>
+    <string name="prefs_block_potentially_offensive_title">"ಅಕ್ಷೇಪಾರ್ಹ ಪದಗಳನ್ನು ನಿರ್ಬಂಧಿಸು"</string>
+    <string name="prefs_block_potentially_offensive_summary">"ಸಂಭಾವ್ಯ ಆಕ್ಷೇಪಾರ್ಹ ಪದಗಳ ಸಲಹೆ ನೀಡದಿರು"</string>
+    <string name="autocorrect">"ಸ್ವಯಂ-ತಿದ್ದುಪಡಿ"</string>
+    <string name="auto_correction_summary">"ತಪ್ಪಾಗಿ ಟೈಪ್ ಮಾಡಿದ ಪದಗಳನ್ನು ಸ್ಪೇಸ್‌ಬಾರ್ ಮತ್ತು ವಿರಾಮಚಿಹ್ನೆಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸರಿಪಡಿಸುತ್ತವೆ"</string>
+    <string name="auto_correction_threshold_mode_off">"ಆಫ್ ಆಗಿದೆ"</string>
+    <string name="auto_correction_threshold_mode_modest">"ಸಾಧಾರಣ"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"ಆಕ್ರಮಣಶೀಲ"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"ಹೆಚ್ಚು ಆಕ್ರಮಣಶೀಲ"</string>
+    <string name="bigram_prediction">"ಮುಂದಿನ ಪದದ ಸಲಹೆಗಳು"</string>
+    <string name="bigram_prediction_summary">"ಸಲಹೆಗಳನ್ನು ಮಾಡುವಾಗ ಹಿಂದಿನ ಪದವನ್ನು ಬಳಸು"</string>
+    <string name="gesture_input">"ಗೆಶ್ಚರ್ ಟೈಪಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸು"</string>
+    <string name="gesture_input_summary">"ಅಕ್ಷರಗಳ ಮೇಲೆ ಸರಿಸುವ ಮೂಲಕ ಪದವೊಂದನ್ನು ನಮೂದಿಸಿ"</string>
+    <string name="gesture_preview_trail">"ಗೆಶ್ಚರ್ ಟ್ರೇಲ್ ತೋರಿಸು"</string>
+    <string name="gesture_floating_preview_text">"ಡೈನಮಿಕ್ ಫ್ಲೋಟಿಂಗ್ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
+    <string name="gesture_floating_preview_text_summary">"ಗೆಸ್ಟರ್ ಮಾಡುವಾಗ ಸೂಚಿಸಿದ ಪದವನ್ನು ನೋಡಿ"</string>
+    <string name="gesture_space_aware">"ಪದಗುಚ್ಛದ ಗೆಶ್ಚರ್"</string>
+    <string name="gesture_space_aware_summary">"ಸ್ಪೇಸ್ ಕೀಗೆ ಗ್ಲೈಡ್ ಮಾಡುವ ಮೂಲಕ ಗೆಶ್ಚರ್‌ಗಳ ಅವಧಿಯಲ್ಲಿ ಅಂತರ ನಮೂದಿಸಿ"</string>
+    <string name="subtype_en_GB">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ)"</string>
+    <string name="subtype_en_US">"ಇಂಗ್ಲಿಷ್ (US)"</string>
+    <string name="subtype_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>
+    <string name="subtype_hi_Latn">"ಹಿಂಗ್ಲಿಷ್"</string>
+    <string name="subtype_sr_Latn">"ಸರ್ಬಿಯನ್ (ಲ್ಯಾಟಿನ್)"</string>
+    <string name="subtype_with_layout_en_GB">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_en_US">"ಇಂಗ್ಲಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn">"ಹಿಂಗ್ಲಿಷ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn">"ಸರ್ಬಿಯನ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
+    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
+    <string name="subtype_no_language">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ (ವರ್ಣಮಾಲೆ)"</string>
+    <string name="subtype_no_language_qwerty">"ವರ್ಣಮಾಲೆ (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"ವರ್ಣಮಾಲೆ (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"ವರ್ಣಮಾಲೆ (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"ವರ್ಣಮಾಲೆ (ಡ್ವೊರಕ್)"</string>
+    <string name="subtype_no_language_colemak">"ವರ್ಣಮಾಲೆ (ಕೋಲ್‌ಮ್ಯಾಕ್)"</string>
+    <string name="subtype_no_language_pcqwerty">"ವರ್ಣಮಾಲೆ (PC)"</string>
+    <string name="subtype_emoji">"ಎಮೋಜಿ"</string>
+    <string name="add">"ಸೇರಿಸು"</string>
+    <string name="remove">"ತೆಗೆದುಹಾಕಿ"</string>
+    <string name="save">"ಉಳಿಸಿ"</string>
+    <string name="subtype_locale">"ಭಾಷೆ"</string>
+    <string name="keyboard_layout_set">"ಲೇಔಟ್"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"ಕೀಒತ್ತುವ ವೈಬ್ರೇಷನ್‌‌ ಅವಧಿ"</string>
+    <string name="prefs_keypress_sound_volume_settings">"ಕೀಒತ್ತುವ ಶಬ್ದದ ವಾಲ್ಯೂಮ್"</string>
+    <string name="prefs_key_longpress_timeout_settings">"ಕೀಯ ದೀರ್ಘ ಒತ್ತುವ ವಿಳಂಬ"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"ಭೌತಿಕ ಕೀಬೋರ್ಡ್‌ಗೆ ಎಮೋಜಿ"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"ಭೌತಿಕ Alt ಕೀ ಎಮೋಜಿ ಪ್ಯಾಲೆಟ್ ತೋರಿಸುತ್ತದೆ"</string>
+    <string name="button_default">"ಡಿಫಾಲ್ಟ್"</string>
+    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಸುಸ್ವಾಗತ"</string>
+    <string name="setup_welcome_additional_description">"ಗೆಶ್ಚರ್ ಟೈಪಿಂಗ್‌ನೊಂದಿಗೆ"</string>
+    <string name="setup_start_action">"ಪ್ರಾರಂಭ"</string>
+    <string name="setup_next_action">"ಮುಂದಿನ ಹಂತ"</string>
+    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ"</string>
+    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಸಕ್ರಿಯಗೊಳಿಸಿ"</string>
+    <string name="setup_step1_instruction">"ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ದಯವಿಟ್ಟು \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಪರಿಶೀಲಿಸಿ. ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಅದನ್ನು ರನ್ ಮಾಡಲು ಅದು ಅನುಮತಿ ನೀಡುತ್ತದೆ."</string>
+    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಈಗಾಗಲೇ ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ, ಹೀಗಾಗಿ ಈ ಹಂತ ಮುಗಿದಿದೆ. ಮುಂದಿನದಕ್ಕೆ ತೆರಳಿ!"</string>
+    <string name="setup_step1_action">"ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸು"</string>
+    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಬದಲಾಯಿಸಿ"</string>
+    <string name="setup_step2_instruction">"ಮುಂದೆ, ನಿಮ್ಮ ಸಕ್ರಿಯ ಪಠ್ಯ-ಇನ್‌ಪುಟ್ ವಿಧಾನವಾಗಿ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ."</string>
+    <string name="setup_step2_action">"ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳನ್ನು ಬದಲಾಯಿಸು"</string>
+    <string name="setup_step3_title">"ಅಭಿನಂದನೆಗಳು, ನೀವೀಗ ಎಲ್ಲವನ್ನೂ ಹೊಂದಿಸಿರುವಿರಿ!"</string>
+    <string name="setup_step3_instruction">"ಈಗ ನೀವು <xliff:g id="APPLICATION_NAME">%s</xliff:g> ನೊಂದಿಗೆ ನಿಮ್ಮ ಎಲ್ಲ ಮೆಚ್ಚಿನ ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿ ಟೈಪ್ ಮಾಡಬಹುದು."</string>
+    <string name="setup_finish_action">"ಮುಕ್ತಾಯಗೊಂಡಿದೆ"</string>
+    <string name="show_setup_wizard_icon">"ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ತೋರಿಸು"</string>
+    <string name="show_setup_wizard_icon_summary">"ಲಾಂಚರ್‌ನಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ಪ್ರದರ್ಶಿಸು"</string>
+    <string name="dictionary_settings_title">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
+    <string name="dictionary_settings_summary">"ನಿಘಂಟುಗಳಿಗಾಗಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
+    <string name="dictionary_available">"ನಿಘಂಟು ಲಭ್ಯವಿದೆ"</string>
+    <string name="cannot_connect_to_dict_service">"ನಿಘಂಟು ಸೇವೆಗೆ ಸಂಪರ್ಕಗೊಳಿಸುವಾಗ ಸಮಸ್ಯೆ"</string>
+    <string name="no_dictionaries_available">"ನಿಘಂಟುಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
+    <string name="check_for_updates_now">"ರಿಫ್ರೆಶ್ ಮಾಡಿ"</string>
+    <string name="last_update">"ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿರುವುದು"</string>
+    <string name="main_dict_description">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
+    <string name="settings">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
+    <string name="delete">"ಅಳಿಸಿ"</string>
+    <string name="version_text">"ಆವೃತ್ತಿ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="user_dict_settings_add_menu_title">"ಸೇರಿಸು"</string>
+    <string name="user_dict_settings_add_dialog_title">"ನಿಘಂಟಿಗೆ ಸೇರಿಸಿ"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"ಶಾರ್ಟ್‌ಕಟ್:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"ಭಾಷೆ:"</string>
+    <string name="user_dict_settings_add_word_hint">"ಪದವನ್ನು ಟೈಪ್ ಮಾಡಿ"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"ಐಚ್ಛಿಕ ಶಾರ್ಟ್‌ಕಟ್"</string>
+    <string name="user_dict_settings_edit_dialog_title">"ಪದವನ್ನು ಎಡಿಟ್ ಮಾಡಿ"</string>
+    <string name="user_dict_settings_empty_text">"ಬಳಕೆದಾರರ ನಿಘಂಟಿನಲ್ಲಿ ನೀವು ಯಾವುದೇ ಪದಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ಪದವನ್ನು ಸೇರಿಸಲು, ಸೇರಿಸು (+) ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ."</string>
+    <string name="user_dict_settings_all_languages">"ಎಲ್ಲ ಭಾಷೆಗಳಿಗೆ"</string>
+    <string name="user_dict_settings_more_languages">"ಇನ್ನಷ್ಟು ಭಾಷೆಗಳು…"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"ಸಿಸ್ಟಂ ಭಾಷೆಗಳನ್ನು ಬಳಸಿ"</string>
     <string name="select_input_method">"ಇನ್‌ಪುಟ್‌‌ ವಿಧಾನವನ್ನು ಆರಿಸಿ"</string>
     <string name="undo">"ರದ್ದುಗೊಳಿಸಿ"</string>
     <string name="redo">"ಪುನಃ ಮಾಡು"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"ಸಲಹೆಗಳನ್ನು ಸುಧಾರಿಸಲು ನಿಮ್ಮ ಸಂವಹನಗಳು ಮತ್ತು ಟೈಪ್ ಮಾಡಿದ ಡೇಟಾದಿಂದ ತಿಳಿಯಿರಿ"</string>
+    <string name="use_personalized_dicts_summary">"ಸಲಹೆಗಳನ್ನು ಸುಧಾರಿಸಲು ನಿಮ್ಮ ಸಂವಹನಗಳು ಮತ್ತು ಟೈಪ್ ಮಾಡಿದ ಡೇಟಾದಿಂದ ತಿಳಿಯಿರಿ"</string>
+    <string name="label_go_key">"ಹೋಗು"</string>
+    <string name="label_next_key">"ಮುಂದೆ"</string>
+    <string name="label_previous_key">"ಹಿಂದೆ"</string>
+    <string name="label_done_key">"ಮುಗಿದಿದೆ"</string>
+    <string name="label_send_key">"ಕಳುಹಿಸು"</string>
+    <string name="label_search_key">"ಹುಡುಕಾಟ"</string>
+    <string name="label_pause_key">"ವಿರಾಮಗೊಳಿಸು"</string>
+    <string name="label_wait_key">"ನಿರೀಕ್ಷಿಸು"</string>
 </resources>

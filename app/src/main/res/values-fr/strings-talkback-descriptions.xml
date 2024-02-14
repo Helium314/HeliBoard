@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Branchez des écouteurs pour entendre l\'énoncé à haute voix des touches lors de la saisie du mot de passe."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Le texte actuel est \"%s\"."</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Aucun texte saisi"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"La touche <xliff:g id="KEY_NAME">%1$s</xliff:g> permet de remplacer \"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>\" par \"<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>\"."</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"La touche <xliff:g id="KEY_NAME">%1$s</xliff:g> permet d\'effectuer une correction automatique."</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Aucune suggestion"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Caractère inconnu."</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Maj"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Autres symboles"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Maj"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Symboles"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Maj"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Supprimer"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Symboles"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Lettres"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Chiffres"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Paramètres"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabulation"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Espace"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Saisie vocale"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Entrée"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Recherche"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Point"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Changer de langue"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Suivant"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Précédent"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"La touche Maj a bien été activée."</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Le verrouillage des majuscules a bien été activé."</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Mode Symboles"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Mode Autres symboles"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Mode Lettres"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Mode Téléphone"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Mode Symboles du téléphone"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Clavier masqué"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Affichage du clavier <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"Date"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"Date et heure"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"Adresse e-mail"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"SMS/MMS"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"Chiffre"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"Numéro de téléphone"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"Texte"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"Heure"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Récents"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objets"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Symboles"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Drapeaux"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Émoticônes et personnes"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Animaux et nature"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Alimentation et boissons"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Voyages et lieux"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Activité"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Émoticônes"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> majuscule"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"I majuscule"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"I majuscule, point en chef"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Des caractères supplémentaires sont disponibles."</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Les caractères supplémentaires sont ignorés."</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Des suggestions supplémentaires sont disponibles."</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Les suggestions supplémentaires sont ignorées."</string>
+    <string name="spoken_use_headphones">"Branchez des écouteurs pour entendre l\'énoncé à haute voix des touches lors de la saisie du mot de passe."</string>
+    <string name="spoken_current_text_is">"Le texte actuel est \"%s\"."</string>
+    <string name="spoken_no_text_entered">"Aucun texte saisi"</string>
+    <string name="spoken_auto_correct">"La touche <xliff:g id="KEY_NAME">%1$s</xliff:g> permet de remplacer \"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>\" par \"<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>\"."</string>
+    <string name="spoken_auto_correct_obscured">"La touche <xliff:g id="KEY_NAME">%1$s</xliff:g> permet d\'effectuer une correction automatique."</string>
+    <string name="spoken_empty_suggestion">"Aucune suggestion"</string>
+    <string name="spoken_description_unknown">"Caractère inconnu."</string>
+    <string name="spoken_description_shift">"Maj"</string>
+    <string name="spoken_description_symbols_shift">"Autres symboles"</string>
+    <string name="spoken_description_shift_shifted">"Maj"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Symboles"</string>
+    <string name="spoken_description_caps_lock">"Maj"</string>
+    <string name="spoken_description_delete">"Supprimer"</string>
+    <string name="spoken_description_to_symbol">"Symboles"</string>
+    <string name="spoken_description_to_alpha">"Lettres"</string>
+    <string name="spoken_description_to_numeric">"Chiffres"</string>
+    <string name="spoken_description_settings">"Paramètres"</string>
+    <string name="spoken_description_tab">"Tabulation"</string>
+    <string name="spoken_description_space">"Espace"</string>
+    <string name="spoken_description_mic">"Saisie vocale"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Entrée"</string>
+    <string name="spoken_description_search">"Recherche"</string>
+    <string name="spoken_description_dot">"Point"</string>
+    <string name="spoken_description_language_switch">"Changer de langue"</string>
+    <string name="spoken_description_action_next">"Suivant"</string>
+    <string name="spoken_description_action_previous">"Précédent"</string>
+    <string name="spoken_description_shiftmode_on">"La touche Maj a bien été activée."</string>
+    <string name="spoken_description_shiftmode_locked">"Le verrouillage des majuscules a bien été activé."</string>
+    <string name="spoken_description_mode_symbol">"Mode Symboles"</string>
+    <string name="spoken_description_mode_symbol_shift">"Mode Autres symboles"</string>
+    <string name="spoken_description_mode_alpha">"Mode Lettres"</string>
+    <string name="spoken_description_mode_phone">"Mode Téléphone"</string>
+    <string name="spoken_description_mode_phone_shift">"Mode Symboles du téléphone"</string>
+    <string name="announce_keyboard_hidden">"Clavier masqué"</string>
+    <string name="announce_keyboard_mode">"Affichage du clavier <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"Date"</string>
+    <string name="keyboard_mode_date_time">"Date et heure"</string>
+    <string name="keyboard_mode_email">"Adresse e-mail"</string>
+    <string name="keyboard_mode_im">"SMS/MMS"</string>
+    <string name="keyboard_mode_number">"Chiffre"</string>
+    <string name="keyboard_mode_phone">"Numéro de téléphone"</string>
+    <string name="keyboard_mode_text">"Texte"</string>
+    <string name="keyboard_mode_time">"Heure"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Récents"</string>
+    <string name="spoken_description_emoji_category_objects">"Objets"</string>
+    <string name="spoken_description_emoji_category_symbols">"Symboles"</string>
+    <string name="spoken_description_emoji_category_flags">"Drapeaux"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Émoticônes et personnes"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Animaux et nature"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Alimentation et boissons"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Voyages et lieux"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Activité"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Émoticônes"</string>
+    <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> majuscule"</string>
+    <string name="spoken_letter_0049">"I majuscule"</string>
+    <string name="spoken_letter_0130">"I majuscule, point en chef"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Des caractères supplémentaires sont disponibles."</string>
+    <string name="spoken_close_popup_keys_keyboard">"Les caractères supplémentaires sont ignorés."</string>
+    <string name="spoken_open_more_suggestions">"Des suggestions supplémentaires sont disponibles."</string>
+    <string name="spoken_close_more_suggestions">"Les suggestions supplémentaires sont ignorées."</string>
 </resources>

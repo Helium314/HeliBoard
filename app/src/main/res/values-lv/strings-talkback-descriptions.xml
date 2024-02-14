@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Pievienojiet austiņas, lai dzirdētu paroles rakstzīmes."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Pašreizējais teksts ir %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Teksts nav ievadīts"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Nospiežot taustiņu <xliff:g id="KEY_NAME">%1$s</xliff:g>, “<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>” tiek labots uz “<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>”."</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Taustiņam <xliff:g id="KEY_NAME">%1$s</xliff:g> ir automātiskas labošanas funkcija."</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Nav ieteikuma"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Nezināma rakstzīme"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Pārslēgšanas taustiņš"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Citi simboli"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Pārslēgšanas taustiņš"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Simboli"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Pārslēgšanas taustiņš"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Dzēšanas taustiņš"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Simboli"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Burti"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Cipari"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Iestatījumi"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabulēšanas taustiņš"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Atstarpēšanas taustiņš"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Balss ievade"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emocijzīmes"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Ievadīšanas taustiņš"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Meklēšanas taustiņš"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Punkta aizzīme"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Valodas mainīšana"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Tālāk"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Atpakaļ"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Pārslēgšanas režīms ir iespējots"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Burtslēgs ir iespējots"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Simbolu režīms"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Citu simbolu režīms"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Burtu režīms"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Tālruņa režīms"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Tālruņa simbolu režīms"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Tastatūra ir paslēpta"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Tiek rādīts tastatūras režīms: <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"datums"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"datums un laiks"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-pasts"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"ziņojumapmaiņa"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"cipari"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"tālrunis"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"teksts"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"laiks"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Pēdējie"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objekti"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simboli"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Karogi"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smaidiņš un cilvēki"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Dzīvnieki un daba"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Pārtika un dzērieni"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Ceļošana un vietas"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Darbības"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emocijzīmes"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Lielais burts “<xliff:g id="LOWER_LETTER">%s</xliff:g>”"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Lielais burts “I”"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Lielais burts “I” ar punktu virs tā"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Ir pieejamas alternatīvas rakstzīmes."</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternatīvās rakstzīmes netiek rādītas."</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Ir pieejami alternatīvi ieteikumi."</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternatīvie ieteikumi netiek rādīti."</string>
+    <string name="spoken_use_headphones">"Pievienojiet austiņas, lai dzirdētu paroles rakstzīmes."</string>
+    <string name="spoken_current_text_is">"Pašreizējais teksts ir %s"</string>
+    <string name="spoken_no_text_entered">"Teksts nav ievadīts"</string>
+    <string name="spoken_auto_correct">"Nospiežot taustiņu <xliff:g id="KEY_NAME">%1$s</xliff:g>, “<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>” tiek labots uz “<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>”."</string>
+    <string name="spoken_auto_correct_obscured">"Taustiņam <xliff:g id="KEY_NAME">%1$s</xliff:g> ir automātiskas labošanas funkcija."</string>
+    <string name="spoken_empty_suggestion">"Nav ieteikuma"</string>
+    <string name="spoken_description_unknown">"Nezināma rakstzīme"</string>
+    <string name="spoken_description_shift">"Pārslēgšanas taustiņš"</string>
+    <string name="spoken_description_symbols_shift">"Citi simboli"</string>
+    <string name="spoken_description_shift_shifted">"Pārslēgšanas taustiņš"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Simboli"</string>
+    <string name="spoken_description_caps_lock">"Pārslēgšanas taustiņš"</string>
+    <string name="spoken_description_delete">"Dzēšanas taustiņš"</string>
+    <string name="spoken_description_to_symbol">"Simboli"</string>
+    <string name="spoken_description_to_alpha">"Burti"</string>
+    <string name="spoken_description_to_numeric">"Cipari"</string>
+    <string name="spoken_description_settings">"Iestatījumi"</string>
+    <string name="spoken_description_tab">"Tabulēšanas taustiņš"</string>
+    <string name="spoken_description_space">"Atstarpēšanas taustiņš"</string>
+    <string name="spoken_description_mic">"Balss ievade"</string>
+    <string name="spoken_description_emoji">"Emocijzīmes"</string>
+    <string name="spoken_description_return">"Ievadīšanas taustiņš"</string>
+    <string name="spoken_description_search">"Meklēšanas taustiņš"</string>
+    <string name="spoken_description_dot">"Punkta aizzīme"</string>
+    <string name="spoken_description_language_switch">"Valodas mainīšana"</string>
+    <string name="spoken_description_action_next">"Tālāk"</string>
+    <string name="spoken_description_action_previous">"Atpakaļ"</string>
+    <string name="spoken_description_shiftmode_on">"Pārslēgšanas režīms ir iespējots"</string>
+    <string name="spoken_description_shiftmode_locked">"Burtslēgs ir iespējots"</string>
+    <string name="spoken_description_mode_symbol">"Simbolu režīms"</string>
+    <string name="spoken_description_mode_symbol_shift">"Citu simbolu režīms"</string>
+    <string name="spoken_description_mode_alpha">"Burtu režīms"</string>
+    <string name="spoken_description_mode_phone">"Tālruņa režīms"</string>
+    <string name="spoken_description_mode_phone_shift">"Tālruņa simbolu režīms"</string>
+    <string name="announce_keyboard_hidden">"Tastatūra ir paslēpta"</string>
+    <string name="announce_keyboard_mode">"Tiek rādīts tastatūras režīms: <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"datums"</string>
+    <string name="keyboard_mode_date_time">"datums un laiks"</string>
+    <string name="keyboard_mode_email">"e-pasts"</string>
+    <string name="keyboard_mode_im">"ziņojumapmaiņa"</string>
+    <string name="keyboard_mode_number">"cipari"</string>
+    <string name="keyboard_mode_phone">"tālrunis"</string>
+    <string name="keyboard_mode_text">"teksts"</string>
+    <string name="keyboard_mode_time">"laiks"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Pēdējie"</string>
+    <string name="spoken_description_emoji_category_objects">"Objekti"</string>
+    <string name="spoken_description_emoji_category_symbols">"Simboli"</string>
+    <string name="spoken_description_emoji_category_flags">"Karogi"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smaidiņš un cilvēki"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Dzīvnieki un daba"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Pārtika un dzērieni"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Ceļošana un vietas"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Darbības"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emocijzīmes"</string>
+    <string name="spoken_description_upper_case">"Lielais burts “<xliff:g id="LOWER_LETTER">%s</xliff:g>”"</string>
+    <string name="spoken_letter_0049">"Lielais burts “I”"</string>
+    <string name="spoken_letter_0130">"Lielais burts “I” ar punktu virs tā"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Ir pieejamas alternatīvas rakstzīmes."</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternatīvās rakstzīmes netiek rādītas."</string>
+    <string name="spoken_open_more_suggestions">"Ir pieejami alternatīvi ieteikumi."</string>
+    <string name="spoken_close_more_suggestions">"Alternatīvie ieteikumi netiek rādīti."</string>
 </resources>

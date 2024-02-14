@@ -5,123 +5,131 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Meklēt kontaktp. vārdus"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Pareizrakst. pārbaudītājs lieto ierakstus no kontaktp. saraksta."</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Vibrēt, nospiežot taustiņu"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Skaņa, nospiežot taustiņu"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Parādās, nospiežot taustiņu"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferences"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Ievadīt ar žestiem"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Teksta korekcija"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Papildu"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Motīvs"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Iespējot dalīto tastatūru"</string>
-    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Pārsl. uz citām iev. met."</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Valodas pārslēgšanas taustiņš"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Sistēmas noklusējums"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Ieteikt kontaktp. vārdus"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Izmantot kontaktpersonu vārdus kā ieteikumus un labojumus"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Personalizēti ieteikumi"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Dubultpiesk. = punkts"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Divreiz pieskaroties atst. taustiņam, ievada punktu un atstarpi."</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Automātiska lielo burtu lietošana"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Katra teikuma pirmo vārdu rakstīt ar lielo burtu."</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Personiskā vārdnīca"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Papildināmas vārdnīcas"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Galvenā vārdnīca"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Rādīt labojumu ieteikumus"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Ievades laikā attēlot ieteiktos vārdus"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Bloķēt aizvainojošus vārdus"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Neiesakiet vārdus, kas varētu būt aizvainojoši"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"Automātiska labošana"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Atstarpes taustiņš un interpunkcija; automātiska kļūdainu vārdu labošana"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Izslēgta"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Mērena"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Agresīvi"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Ļoti agresīvi"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Nākamā vārda ieteikumi"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Veidojot ieteikumus, izmantot iepriekšējo vārdu"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Iespējot ievadi ar žestiem"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Ievadiet vārdu, velkot ar pirkstu pa burtiem."</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Rādīt žesta pēdas"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Dinamisk. peldošais priekšsk."</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Skatiet ieteikto vārdu, veicot žestu."</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Frāzes žests"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Lai ievietotu atstarpi, velciet uz atstarpes taustiņu."</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Angļu valoda (Lielbritānija)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Angļu valoda (ASV)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Spāņu (ASV)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Hindi–angļu valoda"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Serbu (latīņu)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Angļu (Lielbritānija) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Angļu (ASV) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Spāņu (ASV) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Hindi–angļu valoda (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Serbu (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionālā)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktā)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Nav valodas (alfabēts)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Alfabēts (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Alfabēts (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Alfabēts (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Alfabēts (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Alfabēts (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Alfabēts (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Japāņu emocijzīmes"</string>
-    <string name="add" msgid="8299699805688017798">"Pievienot"</string>
-    <string name="remove" msgid="4486081658752944606">"Noņemt"</string>
-    <string name="save" msgid="7646738597196767214">"Saglabāt"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Valoda"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Izkārtojums"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Taust. nosp. vibrācijas ilgums"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Taustiņu nosp. skaņas skaļums"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Taustiņa ilgās nosp. noildze"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emocijzīmes fiziskajai tastatūrai"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Nospiežot taustiņu Alt, tiek parādīta emocijzīmju palete."</string>
-    <string name="button_default" msgid="3988017840431881491">"Noklusējums"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Laipni lūdzam pakalpojumā <xliff:g id="APPLICATION_NAME">%s</xliff:g>,"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"kurā varat izmantot ievadi ar žestiem"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Sākt darbu"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Nākamā darbība"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Lietojumprogrammas <xliff:g id="APPLICATION_NAME">%s</xliff:g> iestatīšana"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Lietojumprogrammas <xliff:g id="APPLICATION_NAME">%s</xliff:g> iespējošana"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Valodu un ievades iestatījumos atzīmējiet lietotni “<xliff:g id="APPLICATION_NAME">%s</xliff:g>”, autorizējot tās palaišanu savā ierīcē."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"Tā kā lietotne <xliff:g id="APPLICATION_NAME">%s</xliff:g> jau ir iespējota valodu un ievades iestatījumos, šī darbība ir pabeigta. Veiciet nākamo darbību!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Iespējot iestatījumos"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Pārslēgšanās uz lietojumprogrammu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Pēc tam atlasiet “<xliff:g id="APPLICATION_NAME">%s</xliff:g>” kā aktīvo ievades metodi."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Pārslēgt ievades metodes"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Gatavs!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Izmantojot lietojumprogrammu <xliff:g id="APPLICATION_NAME">%s</xliff:g>, varat rakstīt visās iecienītākajās lietotnēs."</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Pabeigts"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Rādīt lietotnes ikonu"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Rādīt palaidēja ekrānā lietojumprogrammas ikonu"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Papildināmas vārdnīcas"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Vārdnīcu iestatījumi"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Vārdnīca ir pieejama"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Nevar savien. ar vārdnīcas pakalp."</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Vārdn. nav pieejamas"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Atsvaidzināt"</string>
-    <string name="last_update" msgid="730467549913588780">"Pēdējo reizi atjaunināts"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Galvenā vārdnīca"</string>
-    <string name="settings" msgid="3876892339342569259">"Iestatījumi"</string>
-    <string name="delete" msgid="756853268088330054">"Dzēst"</string>
-    <string name="version_text" msgid="2715354215568469385">"Versija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Pievienot"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Pievienot vārdnīcai"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Saīsne:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Valoda:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Ierakstiet vārdu."</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Izvēles saīsne"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Vārda rediģēšana"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Lietotāja vārdnīcā nav neviena vārda. Lai pievienotu vārdu, pieskarieties pogai Pievienot (+)."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Visās valodās"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Citas valodas…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"Meklēt kontaktp. vārdus"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Pareizrakst. pārbaudītājs lieto ierakstus no kontaktp. saraksta."</string>
+    <string name="vibrate_on_keypress">"Vibrēt, nospiežot taustiņu"</string>
+    <string name="sound_on_keypress">"Skaņa, nospiežot taustiņu"</string>
+    <string name="popup_on_keypress">"Parādās, nospiežot taustiņu"</string>
+    <string name="settings_screen_preferences">"Preferences"</string>
+    <string name="settings_screen_gesture">"Ievadīt ar žestiem"</string>
+    <string name="settings_screen_correction">"Teksta korekcija"</string>
+    <string name="settings_screen_advanced">"Papildu"</string>
+    <string name="settings_screen_theme">"Motīvs"</string>
+    <string name="enable_split_keyboard">"Iespējot dalīto tastatūru"</string>
+    <string name="language_switch_key_switch_input_method">"Pārsl. uz citām iev. met."</string>
+    <string name="show_language_switch_key">"Valodas pārslēgšanas taustiņš"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="settings_system_default">"Sistēmas noklusējums"</string>
+    <string name="use_contacts_dict">"Ieteikt kontaktp. vārdus"</string>
+    <string name="use_contacts_dict_summary">"Izmantot kontaktpersonu vārdus kā ieteikumus un labojumus"</string>
+    <string name="use_personalized_dicts">"Personalizēti ieteikumi"</string>
+    <string name="use_double_space_period">"Dubultpiesk. = punkts"</string>
+    <string name="use_double_space_period_summary">"Divreiz pieskaroties atst. taustiņam, ievada punktu un atstarpi."</string>
+    <string name="auto_cap">"Automātiska lielo burtu lietošana"</string>
+    <string name="auto_cap_summary">"Katra teikuma pirmo vārdu rakstīt ar lielo burtu."</string>
+    <string name="edit_personal_dictionary">"Personiskā vārdnīca"</string>
+    <string name="configure_dictionaries_title">"Papildināmas vārdnīcas"</string>
+    <string name="main_dictionary">"Galvenā vārdnīca"</string>
+    <string name="prefs_show_suggestions">"Rādīt labojumu ieteikumus"</string>
+    <string name="prefs_show_suggestions_summary">"Ievades laikā attēlot ieteiktos vārdus"</string>
+    <string name="prefs_block_potentially_offensive_title">"Bloķēt aizvainojošus vārdus"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Neiesakiet vārdus, kas varētu būt aizvainojoši"</string>
+    <string name="autocorrect">"Automātiska labošana"</string>
+    <string name="auto_correction_summary">"Atstarpes taustiņš un interpunkcija; automātiska kļūdainu vārdu labošana"</string>
+    <string name="auto_correction_threshold_mode_off">"Izslēgta"</string>
+    <string name="auto_correction_threshold_mode_modest">"Mērena"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"Agresīvi"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"Ļoti agresīvi"</string>
+    <string name="bigram_prediction">"Nākamā vārda ieteikumi"</string>
+    <string name="bigram_prediction_summary">"Veidojot ieteikumus, izmantot iepriekšējo vārdu"</string>
+    <string name="gesture_input">"Iespējot ievadi ar žestiem"</string>
+    <string name="gesture_input_summary">"Ievadiet vārdu, velkot ar pirkstu pa burtiem."</string>
+    <string name="gesture_preview_trail">"Rādīt žesta pēdas"</string>
+    <string name="gesture_floating_preview_text">"Dinamisk. peldošais priekšsk."</string>
+    <string name="gesture_floating_preview_text_summary">"Skatiet ieteikto vārdu, veicot žestu."</string>
+    <string name="gesture_space_aware">"Frāzes žests"</string>
+    <string name="gesture_space_aware_summary">"Lai ievietotu atstarpi, velciet uz atstarpes taustiņu."</string>
+    <string name="subtype_en_GB">"Angļu valoda (Lielbritānija)"</string>
+    <string name="subtype_en_US">"Angļu valoda (ASV)"</string>
+    <string name="subtype_es_US">"Spāņu (ASV)"</string>
+    <string name="subtype_hi_Latn">"Hindi–angļu valoda"</string>
+    <string name="subtype_sr_Latn">"Serbu (latīņu)"</string>
+    <string name="subtype_with_layout_en_GB">"Angļu (Lielbritānija) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_en_US">"Angļu (ASV) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_es_US">"Spāņu (ASV) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn">"Hindi–angļu valoda (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn">"Serbu (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionālā)"</string>
+    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktā)"</string>
+    <string name="subtype_no_language">"Nav valodas (alfabēts)"</string>
+    <string name="subtype_no_language_qwerty">"Alfabēts (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"Alfabēts (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"Alfabēts (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"Alfabēts (Dvorak)"</string>
+    <string name="subtype_no_language_colemak">"Alfabēts (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"Alfabēts (PC)"</string>
+    <string name="subtype_emoji">"Japāņu emocijzīmes"</string>
+    <string name="add">"Pievienot"</string>
+    <string name="remove">"Noņemt"</string>
+    <string name="save">"Saglabāt"</string>
+    <string name="subtype_locale">"Valoda"</string>
+    <string name="keyboard_layout_set">"Izkārtojums"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Taust. nosp. vibrācijas ilgums"</string>
+    <string name="prefs_keypress_sound_volume_settings">"Taustiņu nosp. skaņas skaļums"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Taustiņa ilgās nosp. noildze"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Emocijzīmes fiziskajai tastatūrai"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Nospiežot taustiņu Alt, tiek parādīta emocijzīmju palete."</string>
+    <string name="button_default">"Noklusējums"</string>
+    <string name="setup_welcome_title">"Laipni lūdzam pakalpojumā <xliff:g id="APPLICATION_NAME">%s</xliff:g>,"</string>
+    <string name="setup_welcome_additional_description">"kurā varat izmantot ievadi ar žestiem"</string>
+    <string name="setup_start_action">"Sākt darbu"</string>
+    <string name="setup_next_action">"Nākamā darbība"</string>
+    <string name="setup_steps_title">"Lietojumprogrammas <xliff:g id="APPLICATION_NAME">%s</xliff:g> iestatīšana"</string>
+    <string name="setup_step1_title">"Lietojumprogrammas <xliff:g id="APPLICATION_NAME">%s</xliff:g> iespējošana"</string>
+    <string name="setup_step1_instruction">"Valodu un ievades iestatījumos atzīmējiet lietotni “<xliff:g id="APPLICATION_NAME">%s</xliff:g>”, autorizējot tās palaišanu savā ierīcē."</string>
+    <string name="setup_step1_finished_instruction">"Tā kā lietotne <xliff:g id="APPLICATION_NAME">%s</xliff:g> jau ir iespējota valodu un ievades iestatījumos, šī darbība ir pabeigta. Veiciet nākamo darbību!"</string>
+    <string name="setup_step1_action">"Iespējot iestatījumos"</string>
+    <string name="setup_step2_title">"Pārslēgšanās uz lietojumprogrammu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_step2_instruction">"Pēc tam atlasiet “<xliff:g id="APPLICATION_NAME">%s</xliff:g>” kā aktīvo ievades metodi."</string>
+    <string name="setup_step2_action">"Pārslēgt ievades metodes"</string>
+    <string name="setup_step3_title">"Gatavs!"</string>
+    <string name="setup_step3_instruction">"Izmantojot lietojumprogrammu <xliff:g id="APPLICATION_NAME">%s</xliff:g>, varat rakstīt visās iecienītākajās lietotnēs."</string>
+    <string name="setup_finish_action">"Pabeigts"</string>
+    <string name="show_setup_wizard_icon">"Rādīt lietotnes ikonu"</string>
+    <string name="show_setup_wizard_icon_summary">"Rādīt palaidēja ekrānā lietojumprogrammas ikonu"</string>
+    <string name="dictionary_settings_title">"Papildināmas vārdnīcas"</string>
+    <string name="dictionary_settings_summary">"Vārdnīcu iestatījumi"</string>
+    <string name="dictionary_available">"Vārdnīca ir pieejama"</string>
+    <string name="cannot_connect_to_dict_service">"Nevar savien. ar vārdnīcas pakalp."</string>
+    <string name="no_dictionaries_available">"Vārdn. nav pieejamas"</string>
+    <string name="check_for_updates_now">"Atsvaidzināt"</string>
+    <string name="last_update">"Pēdējo reizi atjaunināts"</string>
+    <string name="main_dict_description">"Galvenā vārdnīca"</string>
+    <string name="settings">"Iestatījumi"</string>
+    <string name="delete">"Dzēst"</string>
+    <string name="version_text">"Versija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="user_dict_settings_add_menu_title">"Pievienot"</string>
+    <string name="user_dict_settings_add_dialog_title">"Pievienot vārdnīcai"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Saīsne:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Valoda:"</string>
+    <string name="user_dict_settings_add_word_hint">"Ierakstiet vārdu."</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Izvēles saīsne"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Vārda rediģēšana"</string>
+    <string name="user_dict_settings_empty_text">"Lietotāja vārdnīcā nav neviena vārda. Lai pievienotu vārdu, pieskarieties pogai Pievienot (+)."</string>
+    <string name="user_dict_settings_all_languages">"Visās valodās"</string>
+    <string name="user_dict_settings_more_languages">"Citas valodas…"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Sistēmas valodu izmantošana"</string>
     <string name="select_input_method">"Ievades metodes izvēle"</string>
     <string name="undo">"Atsaukt"</string>
     <string name="redo">"Atcelt atsaukšanu"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Izmantojiet saziņu un ievadītos datus, lai uzlabotu ieteikumus."</string>
+    <string name="use_personalized_dicts_summary">"Izmantojiet saziņu un ievadītos datus, lai uzlabotu ieteikumus."</string>
+    <string name="label_go_key">"Sākt"</string>
+    <string name="label_next_key">"Tālāk"</string>
+    <string name="label_previous_key">"Iepr."</string>
+    <string name="label_done_key">"Gatavs"</string>
+    <string name="label_send_key">"Sūtīt"</string>
+    <string name="label_search_key">"Meklēt"</string>
+    <string name="label_pause_key">"Pauze"</string>
+    <string name="label_wait_key">"Gaidīt"</string>
 </resources>

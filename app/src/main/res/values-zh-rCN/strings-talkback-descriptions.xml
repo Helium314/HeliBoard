@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"插入耳机可听到输入密码时的按键提示音。"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"当前文字为%s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"未输入文字"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"按<xliff:g id="KEY_NAME">%1$s</xliff:g>键可将<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>更正为<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"按<xliff:g id="KEY_NAME">%1$s</xliff:g>键可进行自动更正"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"没有任何建议"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"未知字符"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"更多符号"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift键"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"符号"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift键"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"删除"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"符号"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"字母"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"数字"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"设置"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"空格"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"语音输入"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"表情符号"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"回车"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"搜索"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"点"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"切换语言"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"下一个"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"上一个"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"已开启Shift模式"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"已锁定大写模式"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"符号模式"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"更多符号模式"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"字母模式"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"电话模式"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"电话符号模式"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"键盘已隐藏"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"当前显示的是<xliff:g id="KEYBOARD_MODE">%s</xliff:g>键盘"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"日期"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"日期和时间"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"电子邮件地址"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"消息"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"数字"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"电话号码"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"文字"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"时间"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"网址"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"最近用过"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"物件"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"符号"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"旗帜"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"表情符号与人物"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"动物与大自然"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"美食"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"旅行与地点"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"活动"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"表情图标"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"拉丁文大写字母<xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"拉丁文大写字母I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"带上点的拉丁文大写字母I"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"有可用的替代字符"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"已关闭替代字符"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"有可用的其他建议字词"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"已关闭其他建议字词"</string>
+    <string name="spoken_use_headphones">"插入耳机可听到输入密码时的按键提示音。"</string>
+    <string name="spoken_current_text_is">"当前文字为%s"</string>
+    <string name="spoken_no_text_entered">"未输入文字"</string>
+    <string name="spoken_auto_correct">"按<xliff:g id="KEY_NAME">%1$s</xliff:g>键可将<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>更正为<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"按<xliff:g id="KEY_NAME">%1$s</xliff:g>键可进行自动更正"</string>
+    <string name="spoken_empty_suggestion">"没有任何建议"</string>
+    <string name="spoken_description_unknown">"未知字符"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"更多符号"</string>
+    <string name="spoken_description_shift_shifted">"Shift键"</string>
+    <string name="spoken_description_symbols_shift_shifted">"符号"</string>
+    <string name="spoken_description_caps_lock">"Shift键"</string>
+    <string name="spoken_description_delete">"删除"</string>
+    <string name="spoken_description_to_symbol">"符号"</string>
+    <string name="spoken_description_to_alpha">"字母"</string>
+    <string name="spoken_description_to_numeric">"数字"</string>
+    <string name="spoken_description_settings">"设置"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"空格"</string>
+    <string name="spoken_description_mic">"语音输入"</string>
+    <string name="spoken_description_emoji">"表情符号"</string>
+    <string name="spoken_description_return">"回车"</string>
+    <string name="spoken_description_search">"搜索"</string>
+    <string name="spoken_description_dot">"点"</string>
+    <string name="spoken_description_language_switch">"切换语言"</string>
+    <string name="spoken_description_action_next">"下一个"</string>
+    <string name="spoken_description_action_previous">"上一个"</string>
+    <string name="spoken_description_shiftmode_on">"已开启Shift模式"</string>
+    <string name="spoken_description_shiftmode_locked">"已锁定大写模式"</string>
+    <string name="spoken_description_mode_symbol">"符号模式"</string>
+    <string name="spoken_description_mode_symbol_shift">"更多符号模式"</string>
+    <string name="spoken_description_mode_alpha">"字母模式"</string>
+    <string name="spoken_description_mode_phone">"电话模式"</string>
+    <string name="spoken_description_mode_phone_shift">"电话符号模式"</string>
+    <string name="announce_keyboard_hidden">"键盘已隐藏"</string>
+    <string name="announce_keyboard_mode">"当前显示的是<xliff:g id="KEYBOARD_MODE">%s</xliff:g>键盘"</string>
+    <string name="keyboard_mode_date">"日期"</string>
+    <string name="keyboard_mode_date_time">"日期和时间"</string>
+    <string name="keyboard_mode_email">"电子邮件地址"</string>
+    <string name="keyboard_mode_im">"消息"</string>
+    <string name="keyboard_mode_number">"数字"</string>
+    <string name="keyboard_mode_phone">"电话号码"</string>
+    <string name="keyboard_mode_text">"文字"</string>
+    <string name="keyboard_mode_time">"时间"</string>
+    <string name="keyboard_mode_url">"网址"</string>
+    <string name="spoken_description_emoji_category_recents">"最近用过"</string>
+    <string name="spoken_description_emoji_category_objects">"物件"</string>
+    <string name="spoken_description_emoji_category_symbols">"符号"</string>
+    <string name="spoken_description_emoji_category_flags">"旗帜"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"表情符号与人物"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"动物与大自然"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"美食"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"旅行与地点"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"活动"</string>
+    <string name="spoken_description_emoji_category_emoticons">"表情图标"</string>
+    <string name="spoken_description_upper_case">"拉丁文大写字母<xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"拉丁文大写字母I"</string>
+    <string name="spoken_letter_0130">"带上点的拉丁文大写字母I"</string>
+    <string name="spoken_open_popup_keys_keyboard">"有可用的替代字符"</string>
+    <string name="spoken_close_popup_keys_keyboard">"已关闭替代字符"</string>
+    <string name="spoken_open_more_suggestions">"有可用的其他建议字词"</string>
+    <string name="spoken_close_more_suggestions">"已关闭其他建议字词"</string>
 </resources>

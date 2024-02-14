@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"შეაერთეთ ყურსასმენი, რათა მოისმინოთ აკრეფილი პაროლის კლავიშების სახელები."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"მიმდინარე ტექსტი არის %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"ტექსტი შეყვანილი არ არის"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> შეასწორებს <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>-ს <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>-ად"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ასრულებს ავტოკორექციას"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"შემოთავაზება არ არის"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"უცნობი სიმბოლო"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"დამატებითი სიმბოლოები"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"სიმბოლოები"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"წაშლა"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"სიმბოლოები"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"ასოები"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"ნომრები"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"პარამეტრები"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab კლავიში"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"შორისი"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"ხმოვანი შეყვანა"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"სიცილაკები"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"დაბრუნება"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"ძიება"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"წერტილი"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ენის გადართვა"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"შემდ."</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"წინა"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift ჩართულია"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"ჩართულია Caps"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"სიმბოლოების რეჟიმი"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"დამატებითი სიმბოლოების რეჟიმი"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"ასოების რეჟიმი"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ტელეფონის რეჟიმი"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ტელეფონის სიმბოლოების რეჟიმი"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"კლავიატურა დამალულია"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"ნაჩვენებია <xliff:g id="KEYBOARD_MODE">%s</xliff:g> კლავიატურა"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"თარიღი"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"თარიღი და დრო"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ელფოსტა"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"შეტყობინებები"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"რიცხვები"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ტელეფონი"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ტექსტი"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"დრო"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"ბოლოს გამოყენებული"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"ობიექტები"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"სიმბოლოები"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"დროშები"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"სიცილაკები და ადამიანები"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"ცხოველები და ბუნება"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"საჭმელი და სასმელი"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"მოგზაურობა და ადგილები"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"აქტივობა"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"სიცილაკები"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"დიდი <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"დიდი I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Capital I, dot above"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ალტერნატიული სიმბოლოები ხელმისაწვდომია"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ალტერნატიული სიმბოლოები გამოტოვებულია"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ალტერნატიული შეთავაზებები ხელმისაწვდომია"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ალტერნატიული შეთავაზებები გამოტოვებულია"</string>
+    <string name="spoken_use_headphones">"შეაერთეთ ყურსასმენი, რათა მოისმინოთ აკრეფილი პაროლის კლავიშების სახელები."</string>
+    <string name="spoken_current_text_is">"მიმდინარე ტექსტი არის %s"</string>
+    <string name="spoken_no_text_entered">"ტექსტი შეყვანილი არ არის"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> შეასწორებს <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>-ს <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>-ად"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ასრულებს ავტოკორექციას"</string>
+    <string name="spoken_empty_suggestion">"შემოთავაზება არ არის"</string>
+    <string name="spoken_description_unknown">"უცნობი სიმბოლო"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"დამატებითი სიმბოლოები"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"სიმბოლოები"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"წაშლა"</string>
+    <string name="spoken_description_to_symbol">"სიმბოლოები"</string>
+    <string name="spoken_description_to_alpha">"ასოები"</string>
+    <string name="spoken_description_to_numeric">"ნომრები"</string>
+    <string name="spoken_description_settings">"პარამეტრები"</string>
+    <string name="spoken_description_tab">"Tab კლავიში"</string>
+    <string name="spoken_description_space">"შორისი"</string>
+    <string name="spoken_description_mic">"ხმოვანი შეყვანა"</string>
+    <string name="spoken_description_emoji">"სიცილაკები"</string>
+    <string name="spoken_description_return">"დაბრუნება"</string>
+    <string name="spoken_description_search">"ძიება"</string>
+    <string name="spoken_description_dot">"წერტილი"</string>
+    <string name="spoken_description_language_switch">"ენის გადართვა"</string>
+    <string name="spoken_description_action_next">"შემდ."</string>
+    <string name="spoken_description_action_previous">"წინა"</string>
+    <string name="spoken_description_shiftmode_on">"Shift ჩართულია"</string>
+    <string name="spoken_description_shiftmode_locked">"ჩართულია Caps"</string>
+    <string name="spoken_description_mode_symbol">"სიმბოლოების რეჟიმი"</string>
+    <string name="spoken_description_mode_symbol_shift">"დამატებითი სიმბოლოების რეჟიმი"</string>
+    <string name="spoken_description_mode_alpha">"ასოების რეჟიმი"</string>
+    <string name="spoken_description_mode_phone">"ტელეფონის რეჟიმი"</string>
+    <string name="spoken_description_mode_phone_shift">"ტელეფონის სიმბოლოების რეჟიმი"</string>
+    <string name="announce_keyboard_hidden">"კლავიატურა დამალულია"</string>
+    <string name="announce_keyboard_mode">"ნაჩვენებია <xliff:g id="KEYBOARD_MODE">%s</xliff:g> კლავიატურა"</string>
+    <string name="keyboard_mode_date">"თარიღი"</string>
+    <string name="keyboard_mode_date_time">"თარიღი და დრო"</string>
+    <string name="keyboard_mode_email">"ელფოსტა"</string>
+    <string name="keyboard_mode_im">"შეტყობინებები"</string>
+    <string name="keyboard_mode_number">"რიცხვები"</string>
+    <string name="keyboard_mode_phone">"ტელეფონი"</string>
+    <string name="keyboard_mode_text">"ტექსტი"</string>
+    <string name="keyboard_mode_time">"დრო"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"ბოლოს გამოყენებული"</string>
+    <string name="spoken_description_emoji_category_objects">"ობიექტები"</string>
+    <string name="spoken_description_emoji_category_symbols">"სიმბოლოები"</string>
+    <string name="spoken_description_emoji_category_flags">"დროშები"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"სიცილაკები და ადამიანები"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"ცხოველები და ბუნება"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"საჭმელი და სასმელი"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"მოგზაურობა და ადგილები"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"აქტივობა"</string>
+    <string name="spoken_description_emoji_category_emoticons">"სიცილაკები"</string>
+    <string name="spoken_description_upper_case">"დიდი <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"დიდი I"</string>
+    <string name="spoken_letter_0130">"Capital I, dot above"</string>
+    <string name="spoken_open_popup_keys_keyboard">"ალტერნატიული სიმბოლოები ხელმისაწვდომია"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ალტერნატიული სიმბოლოები გამოტოვებულია"</string>
+    <string name="spoken_open_more_suggestions">"ალტერნატიული შეთავაზებები ხელმისაწვდომია"</string>
+    <string name="spoken_close_more_suggestions">"ალტერნატიული შეთავაზებები გამოტოვებულია"</string>
 </resources>

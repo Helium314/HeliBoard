@@ -5,123 +5,131 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"查詢聯絡人姓名"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"拼字檢查程式使用你的聯絡人清單項目"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"按鍵時震動"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"按鍵聲音"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"按鍵時顯示大型字體"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"偏好設定"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"手勢輸入"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"文字修正"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"進階"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"主題"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"啟用分離式鍵盤"</string>
-    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"切換到其他輸入法"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"語言切換鍵"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> 毫秒"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"系統預設"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"聯絡人姓名建議"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"根據「聯絡人」名稱提供建議與修正"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"個人化建議"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"輕觸兩下空格鍵即插入句號"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"輕觸兩下空格鍵可插入句號另加一個空格"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"自動大寫"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"句首字詞大寫"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"個人字典"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"外掛字典"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"主要字典"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"顯示修正建議"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"輸入時顯示建議字詞"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"封鎖令人反感的字詞"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"不建議可能令人反感的字詞"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"自動修正"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"按空白鍵或標點符號時，自動修正前面的錯字"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"關閉"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"更正範圍小"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"大幅更正"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"極大幅度更正"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"建議下一個字詞"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"根據前一個字詞提供建議"</string>
-    <string name="gesture_input" msgid="826951152254563827">"啟用滑行輸入"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"以滑動方式寫出字詞中字母來輸入字詞"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"顯示手勢軌跡"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"動態浮動預覽"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"使用滑行輸入時顯示建議字詞"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"詞組手勢"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"手勢輸入時，滑過空格鍵即可輸入空格"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"英文 (英國)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"英文 (美國)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"西班牙文 (美國)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"印度英文"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"塞爾維亞文 (拉丁文)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"英文 (英國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"英文 (美國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"西班牙文 (美國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"印度英文 (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"塞爾維亞文 (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (傳統)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (精簡)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"無語言 (字母)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"字母 (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"字母 (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"字母 (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"字母 (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"字母 (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"字母 (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"表情符號"</string>
-    <string name="add" msgid="8299699805688017798">"新增"</string>
-    <string name="remove" msgid="4486081658752944606">"移除"</string>
-    <string name="save" msgid="7646738597196767214">"儲存"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"語言"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"配置"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"按鍵震動持續時間"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"按鍵音量"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"按鍵長按延遲"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"透過實體鍵盤啟用表情符號"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"按下實體 Alt 鍵即顯示表情符號面板"</string>
-    <string name="button_default" msgid="3988017840431881491">"預設"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"歡迎使用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"含滑行輸入功能"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"開始設定"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"下一步"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"正在設定「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"啟用「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"請在 [語言與輸入設定] 中勾選 [<xliff:g id="APPLICATION_NAME">%s</xliff:g>]，授權該應用程式在你的裝置上執行。"</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"你已在 [語言與輸入設定] 中啟用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>，因此這個步驟已經完成。請進行下一個步驟！"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"在設定中啟用"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"切換至「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"接著，請選取「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」做為目前使用的文字輸入法。"</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"切換輸入法"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"恭喜，你已完成設定！"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"現在，你可以在自己喜愛的所有應用程式中使用「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」輸入文字。"</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"完成"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"顯示應用程式圖示"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"在啟動器中顯示應用程式圖示"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"外掛字典"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"字典設定"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"可用的字典"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"連線至字典服務時發生問題"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"沒有可用的字典"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"重新整理"</string>
-    <string name="last_update" msgid="730467549913588780">"上次更新時間："</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"主要字典"</string>
-    <string name="settings" msgid="3876892339342569259">"設定"</string>
-    <string name="delete" msgid="756853268088330054">"刪除"</string>
-    <string name="version_text" msgid="2715354215568469385">"版本 <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"新增"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"加入字典"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"快速鍵："</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"語言："</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"輸入字詞"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"可選用的快速鍵"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"編輯字詞"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"使用者字典中沒有任何字詞。如要新增字詞，請輕觸「新增」(+) 按鈕。"</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"所有語言"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"更多語言…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"查詢聯絡人姓名"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"拼字檢查程式使用你的聯絡人清單項目"</string>
+    <string name="vibrate_on_keypress">"按鍵時震動"</string>
+    <string name="sound_on_keypress">"按鍵聲音"</string>
+    <string name="popup_on_keypress">"按鍵時顯示大型字體"</string>
+    <string name="settings_screen_preferences">"偏好設定"</string>
+    <string name="settings_screen_gesture">"手勢輸入"</string>
+    <string name="settings_screen_correction">"文字修正"</string>
+    <string name="settings_screen_advanced">"進階"</string>
+    <string name="settings_screen_theme">"主題"</string>
+    <string name="enable_split_keyboard">"啟用分離式鍵盤"</string>
+    <string name="language_switch_key_switch_input_method">"切換到其他輸入法"</string>
+    <string name="show_language_switch_key">"語言切換鍵"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> 毫秒"</string>
+    <string name="settings_system_default">"系統預設"</string>
+    <string name="use_contacts_dict">"聯絡人姓名建議"</string>
+    <string name="use_contacts_dict_summary">"根據「聯絡人」名稱提供建議與修正"</string>
+    <string name="use_personalized_dicts">"個人化建議"</string>
+    <string name="use_double_space_period">"輕觸兩下空格鍵即插入句號"</string>
+    <string name="use_double_space_period_summary">"輕觸兩下空格鍵可插入句號另加一個空格"</string>
+    <string name="auto_cap">"自動大寫"</string>
+    <string name="auto_cap_summary">"句首字詞大寫"</string>
+    <string name="edit_personal_dictionary">"個人字典"</string>
+    <string name="configure_dictionaries_title">"外掛字典"</string>
+    <string name="main_dictionary">"主要字典"</string>
+    <string name="prefs_show_suggestions">"顯示修正建議"</string>
+    <string name="prefs_show_suggestions_summary">"輸入時顯示建議字詞"</string>
+    <string name="prefs_block_potentially_offensive_title">"封鎖令人反感的字詞"</string>
+    <string name="prefs_block_potentially_offensive_summary">"不建議可能令人反感的字詞"</string>
+    <string name="autocorrect">"自動修正"</string>
+    <string name="auto_correction_summary">"按空白鍵或標點符號時，自動修正前面的錯字"</string>
+    <string name="auto_correction_threshold_mode_off">"關閉"</string>
+    <string name="auto_correction_threshold_mode_modest">"更正範圍小"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"大幅更正"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"極大幅度更正"</string>
+    <string name="bigram_prediction">"建議下一個字詞"</string>
+    <string name="bigram_prediction_summary">"根據前一個字詞提供建議"</string>
+    <string name="gesture_input">"啟用滑行輸入"</string>
+    <string name="gesture_input_summary">"以滑動方式寫出字詞中字母來輸入字詞"</string>
+    <string name="gesture_preview_trail">"顯示手勢軌跡"</string>
+    <string name="gesture_floating_preview_text">"動態浮動預覽"</string>
+    <string name="gesture_floating_preview_text_summary">"使用滑行輸入時顯示建議字詞"</string>
+    <string name="gesture_space_aware">"詞組手勢"</string>
+    <string name="gesture_space_aware_summary">"手勢輸入時，滑過空格鍵即可輸入空格"</string>
+    <string name="subtype_en_GB">"英文 (英國)"</string>
+    <string name="subtype_en_US">"英文 (美國)"</string>
+    <string name="subtype_es_US">"西班牙文 (美國)"</string>
+    <string name="subtype_hi_Latn">"印度英文"</string>
+    <string name="subtype_sr_Latn">"塞爾維亞文 (拉丁文)"</string>
+    <string name="subtype_with_layout_en_GB">"英文 (英國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_en_US">"英文 (美國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_es_US">"西班牙文 (美國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn">"印度英文 (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn">"塞爾維亞文 (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (傳統)"</string>
+    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (精簡)"</string>
+    <string name="subtype_no_language">"無語言 (字母)"</string>
+    <string name="subtype_no_language_qwerty">"字母 (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"字母 (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"字母 (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"字母 (Dvorak)"</string>
+    <string name="subtype_no_language_colemak">"字母 (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"字母 (PC)"</string>
+    <string name="subtype_emoji">"表情符號"</string>
+    <string name="add">"新增"</string>
+    <string name="remove">"移除"</string>
+    <string name="save">"儲存"</string>
+    <string name="subtype_locale">"語言"</string>
+    <string name="keyboard_layout_set">"配置"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"按鍵震動持續時間"</string>
+    <string name="prefs_keypress_sound_volume_settings">"按鍵音量"</string>
+    <string name="prefs_key_longpress_timeout_settings">"按鍵長按延遲"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"透過實體鍵盤啟用表情符號"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"按下實體 Alt 鍵即顯示表情符號面板"</string>
+    <string name="button_default">"預設"</string>
+    <string name="setup_welcome_title">"歡迎使用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_additional_description">"含滑行輸入功能"</string>
+    <string name="setup_start_action">"開始設定"</string>
+    <string name="setup_next_action">"下一步"</string>
+    <string name="setup_steps_title">"正在設定「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
+    <string name="setup_step1_title">"啟用「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
+    <string name="setup_step1_instruction">"請在 [語言與輸入設定] 中勾選 [<xliff:g id="APPLICATION_NAME">%s</xliff:g>]，授權該應用程式在你的裝置上執行。"</string>
+    <string name="setup_step1_finished_instruction">"你已在 [語言與輸入設定] 中啟用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>，因此這個步驟已經完成。請進行下一個步驟！"</string>
+    <string name="setup_step1_action">"在設定中啟用"</string>
+    <string name="setup_step2_title">"切換至「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
+    <string name="setup_step2_instruction">"接著，請選取「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」做為目前使用的文字輸入法。"</string>
+    <string name="setup_step2_action">"切換輸入法"</string>
+    <string name="setup_step3_title">"恭喜，你已完成設定！"</string>
+    <string name="setup_step3_instruction">"現在，你可以在自己喜愛的所有應用程式中使用「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」輸入文字。"</string>
+    <string name="setup_finish_action">"完成"</string>
+    <string name="show_setup_wizard_icon">"顯示應用程式圖示"</string>
+    <string name="show_setup_wizard_icon_summary">"在啟動器中顯示應用程式圖示"</string>
+    <string name="dictionary_settings_title">"外掛字典"</string>
+    <string name="dictionary_settings_summary">"字典設定"</string>
+    <string name="dictionary_available">"可用的字典"</string>
+    <string name="cannot_connect_to_dict_service">"連線至字典服務時發生問題"</string>
+    <string name="no_dictionaries_available">"沒有可用的字典"</string>
+    <string name="check_for_updates_now">"重新整理"</string>
+    <string name="last_update">"上次更新時間："</string>
+    <string name="main_dict_description">"主要字典"</string>
+    <string name="settings">"設定"</string>
+    <string name="delete">"刪除"</string>
+    <string name="version_text">"版本 <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="user_dict_settings_add_menu_title">"新增"</string>
+    <string name="user_dict_settings_add_dialog_title">"加入字典"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"快速鍵："</string>
+    <string name="user_dict_settings_add_locale_option_name">"語言："</string>
+    <string name="user_dict_settings_add_word_hint">"輸入字詞"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"可選用的快速鍵"</string>
+    <string name="user_dict_settings_edit_dialog_title">"編輯字詞"</string>
+    <string name="user_dict_settings_empty_text">"使用者字典中沒有任何字詞。如要新增字詞，請輕觸「新增」(+) 按鈕。"</string>
+    <string name="user_dict_settings_all_languages">"所有語言"</string>
+    <string name="user_dict_settings_more_languages">"更多語言…"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"使用系統語言"</string>
     <string name="select_input_method">"選擇輸入法"</string>
     <string name="undo">"復原"</string>
     <string name="redo">"重做"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"根據你的通訊記錄和以往輸入的資料改善建議項目"</string>
+    <string name="use_personalized_dicts_summary">"根據你的通訊記錄和以往輸入的資料改善建議項目"</string>
+    <string name="label_go_key">"執行"</string>
+    <string name="label_next_key">"繼續"</string>
+    <string name="label_previous_key">"返回"</string>
+    <string name="label_done_key">"完成"</string>
+    <string name="label_send_key">"傳送"</string>
+    <string name="label_search_key">"搜尋"</string>
+    <string name="label_pause_key">"暫停"</string>
+    <string name="label_wait_key">"等待"</string>
 </resources>

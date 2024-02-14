@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Prijunkite ausines, kad išgirstumėte sakomus slaptažodžio klavišus."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Dabartinis tekstas yra %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Nėra įvesto teksto"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> pataiso <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> į <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> atlieka automatinį taisymą"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Nėra pasiūlymų"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Nežinomas simbolis"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Klavišas „Shift“"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Daugiau simbolių"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Klavišas „Shift“"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Simboliai"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Klavišas „Shift“"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Ištrinti"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Simbolių klavišas"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Raidžių klavišas"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Skaičių klavišas"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Nustatymai"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabuliavimo klavišas"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Tarpo klavišas"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Balso įvestis"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Jaustukai"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Grįžti"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Paieška"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Taškas"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Keisti kalbą"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Kitas"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Ankstesnis"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Klavišas „Shift“ įgalintas"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Didžiųjų raidžių klavišas įgalintas"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Simbolių režimas"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Daugiau simbolių režimas"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Raidžių režimas"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Telefonų numerių režimas"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Telefonų numerių simbolių režimas"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Klaviatūra paslėpta"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Klaviatūra rodoma <xliff:g id="KEYBOARD_MODE">%s</xliff:g> režimu"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"datos"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"datos ir laiko"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"el. pašto"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"Susirašinėjimas"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"skaičių"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefonų numerių"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"teksto"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"laiko"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Naujausi"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objektai"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simboliai"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Žymos"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Jaustukai ir žmonės"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Gyvūnai ir gamta"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Maistas ir gėrimai"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Kelionės ir vietos"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Veikla"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Jaustukai"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Didžioji <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Didžioji I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Didžioji I su tašku viršuje"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Alternatyvūs ženklai pasiekiami"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternatyvūs simboliai atmetami"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Alternatyvūs pasiūlymai pasiekiami"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternatyvūs pasiūlymai atmetami"</string>
+    <string name="spoken_use_headphones">"Prijunkite ausines, kad išgirstumėte sakomus slaptažodžio klavišus."</string>
+    <string name="spoken_current_text_is">"Dabartinis tekstas yra %s"</string>
+    <string name="spoken_no_text_entered">"Nėra įvesto teksto"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> pataiso <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> į <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> atlieka automatinį taisymą"</string>
+    <string name="spoken_empty_suggestion">"Nėra pasiūlymų"</string>
+    <string name="spoken_description_unknown">"Nežinomas simbolis"</string>
+    <string name="spoken_description_shift">"Klavišas „Shift“"</string>
+    <string name="spoken_description_symbols_shift">"Daugiau simbolių"</string>
+    <string name="spoken_description_shift_shifted">"Klavišas „Shift“"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Simboliai"</string>
+    <string name="spoken_description_caps_lock">"Klavišas „Shift“"</string>
+    <string name="spoken_description_delete">"Ištrinti"</string>
+    <string name="spoken_description_to_symbol">"Simbolių klavišas"</string>
+    <string name="spoken_description_to_alpha">"Raidžių klavišas"</string>
+    <string name="spoken_description_to_numeric">"Skaičių klavišas"</string>
+    <string name="spoken_description_settings">"Nustatymai"</string>
+    <string name="spoken_description_tab">"Tabuliavimo klavišas"</string>
+    <string name="spoken_description_space">"Tarpo klavišas"</string>
+    <string name="spoken_description_mic">"Balso įvestis"</string>
+    <string name="spoken_description_emoji">"Jaustukai"</string>
+    <string name="spoken_description_return">"Grįžti"</string>
+    <string name="spoken_description_search">"Paieška"</string>
+    <string name="spoken_description_dot">"Taškas"</string>
+    <string name="spoken_description_language_switch">"Keisti kalbą"</string>
+    <string name="spoken_description_action_next">"Kitas"</string>
+    <string name="spoken_description_action_previous">"Ankstesnis"</string>
+    <string name="spoken_description_shiftmode_on">"Klavišas „Shift“ įgalintas"</string>
+    <string name="spoken_description_shiftmode_locked">"Didžiųjų raidžių klavišas įgalintas"</string>
+    <string name="spoken_description_mode_symbol">"Simbolių režimas"</string>
+    <string name="spoken_description_mode_symbol_shift">"Daugiau simbolių režimas"</string>
+    <string name="spoken_description_mode_alpha">"Raidžių režimas"</string>
+    <string name="spoken_description_mode_phone">"Telefonų numerių režimas"</string>
+    <string name="spoken_description_mode_phone_shift">"Telefonų numerių simbolių režimas"</string>
+    <string name="announce_keyboard_hidden">"Klaviatūra paslėpta"</string>
+    <string name="announce_keyboard_mode">"Klaviatūra rodoma <xliff:g id="KEYBOARD_MODE">%s</xliff:g> režimu"</string>
+    <string name="keyboard_mode_date">"datos"</string>
+    <string name="keyboard_mode_date_time">"datos ir laiko"</string>
+    <string name="keyboard_mode_email">"el. pašto"</string>
+    <string name="keyboard_mode_im">"Susirašinėjimas"</string>
+    <string name="keyboard_mode_number">"skaičių"</string>
+    <string name="keyboard_mode_phone">"telefonų numerių"</string>
+    <string name="keyboard_mode_text">"teksto"</string>
+    <string name="keyboard_mode_time">"laiko"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Naujausi"</string>
+    <string name="spoken_description_emoji_category_objects">"Objektai"</string>
+    <string name="spoken_description_emoji_category_symbols">"Simboliai"</string>
+    <string name="spoken_description_emoji_category_flags">"Žymos"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Jaustukai ir žmonės"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Gyvūnai ir gamta"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Maistas ir gėrimai"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Kelionės ir vietos"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Veikla"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Jaustukai"</string>
+    <string name="spoken_description_upper_case">"Didžioji <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Didžioji I"</string>
+    <string name="spoken_letter_0130">"Didžioji I su tašku viršuje"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Alternatyvūs ženklai pasiekiami"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternatyvūs simboliai atmetami"</string>
+    <string name="spoken_open_more_suggestions">"Alternatyvūs pasiūlymai pasiekiami"</string>
+    <string name="spoken_close_more_suggestions">"Alternatyvūs pasiūlymai atmetami"</string>
 </resources>

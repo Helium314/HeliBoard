@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Şifre tuşlarının sesli okunmasını dinlemek için kulaklık takın."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Mevcut metin: %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Metin girilmedi"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g>, <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> kelimesini <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> olarak düzeltir"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> otomatik düzeltme yapar"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Öneri yok"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Bilinmeyen karakter"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Üst karakter"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Diğer simgeler"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Üst karakter"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Simgeler"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Üst karakter"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Sil"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Simgeler"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Harfler"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Rakamlar"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Ayarlar"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Sekme"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Boşluk çubuğu"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Ses girişi"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Enter"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Arama"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Nokta"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Dili değiştir"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Sonraki"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Önceki"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Üst karakter etkin"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Büyük harf etkin"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Sembol modu"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Diğer simgeler modu"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Harf modu"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Telefon modu"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Telefon sembolleri modu"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Klavye gizli"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> klavyesi görüntüleniyor"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"tarih"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"tarih ve saat"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-posta"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"mesajlaşma"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"rakam"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefon"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"metin"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"saat"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Son Kullanılanlar"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Nesneler"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simgeler"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Bayraklar"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smiley ve İnsanlar"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Hayvanlar ve Doğa"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Yiyecek ve İçecek"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Seyahat ve Yerler"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Etkinlik"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"İfadeler"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Büyük Harf <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Büyük Harf I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Büyük Harf I, üst noktalı"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Alternatif karakterler kullanılabilir"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternatif karakterler yoksayılır"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Alternatif öneriler kullanılabilir"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternatif öneriler yoksayılır"</string>
+    <string name="spoken_use_headphones">"Şifre tuşlarının sesli okunmasını dinlemek için kulaklık takın."</string>
+    <string name="spoken_current_text_is">"Mevcut metin: %s"</string>
+    <string name="spoken_no_text_entered">"Metin girilmedi"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g>, <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> kelimesini <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> olarak düzeltir"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> otomatik düzeltme yapar"</string>
+    <string name="spoken_empty_suggestion">"Öneri yok"</string>
+    <string name="spoken_description_unknown">"Bilinmeyen karakter"</string>
+    <string name="spoken_description_shift">"Üst karakter"</string>
+    <string name="spoken_description_symbols_shift">"Diğer simgeler"</string>
+    <string name="spoken_description_shift_shifted">"Üst karakter"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Simgeler"</string>
+    <string name="spoken_description_caps_lock">"Üst karakter"</string>
+    <string name="spoken_description_delete">"Sil"</string>
+    <string name="spoken_description_to_symbol">"Simgeler"</string>
+    <string name="spoken_description_to_alpha">"Harfler"</string>
+    <string name="spoken_description_to_numeric">"Rakamlar"</string>
+    <string name="spoken_description_settings">"Ayarlar"</string>
+    <string name="spoken_description_tab">"Sekme"</string>
+    <string name="spoken_description_space">"Boşluk çubuğu"</string>
+    <string name="spoken_description_mic">"Ses girişi"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Enter"</string>
+    <string name="spoken_description_search">"Arama"</string>
+    <string name="spoken_description_dot">"Nokta"</string>
+    <string name="spoken_description_language_switch">"Dili değiştir"</string>
+    <string name="spoken_description_action_next">"Sonraki"</string>
+    <string name="spoken_description_action_previous">"Önceki"</string>
+    <string name="spoken_description_shiftmode_on">"Üst karakter etkin"</string>
+    <string name="spoken_description_shiftmode_locked">"Büyük harf etkin"</string>
+    <string name="spoken_description_mode_symbol">"Sembol modu"</string>
+    <string name="spoken_description_mode_symbol_shift">"Diğer simgeler modu"</string>
+    <string name="spoken_description_mode_alpha">"Harf modu"</string>
+    <string name="spoken_description_mode_phone">"Telefon modu"</string>
+    <string name="spoken_description_mode_phone_shift">"Telefon sembolleri modu"</string>
+    <string name="announce_keyboard_hidden">"Klavye gizli"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> klavyesi görüntüleniyor"</string>
+    <string name="keyboard_mode_date">"tarih"</string>
+    <string name="keyboard_mode_date_time">"tarih ve saat"</string>
+    <string name="keyboard_mode_email">"e-posta"</string>
+    <string name="keyboard_mode_im">"mesajlaşma"</string>
+    <string name="keyboard_mode_number">"rakam"</string>
+    <string name="keyboard_mode_phone">"telefon"</string>
+    <string name="keyboard_mode_text">"metin"</string>
+    <string name="keyboard_mode_time">"saat"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Son Kullanılanlar"</string>
+    <string name="spoken_description_emoji_category_objects">"Nesneler"</string>
+    <string name="spoken_description_emoji_category_symbols">"Simgeler"</string>
+    <string name="spoken_description_emoji_category_flags">"Bayraklar"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smiley ve İnsanlar"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Hayvanlar ve Doğa"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Yiyecek ve İçecek"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Seyahat ve Yerler"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Etkinlik"</string>
+    <string name="spoken_description_emoji_category_emoticons">"İfadeler"</string>
+    <string name="spoken_description_upper_case">"Büyük Harf <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Büyük Harf I"</string>
+    <string name="spoken_letter_0130">"Büyük Harf I, üst noktalı"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Alternatif karakterler kullanılabilir"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternatif karakterler yoksayılır"</string>
+    <string name="spoken_open_more_suggestions">"Alternatif öneriler kullanılabilir"</string>
+    <string name="spoken_close_more_suggestions">"Alternatif öneriler yoksayılır"</string>
 </resources>

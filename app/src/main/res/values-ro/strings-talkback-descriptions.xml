@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Conectați un set căști-microfon pentru a auzi tastele apăsate când introduceți parola."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Textul curent este %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Nu a fost introdus text"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> corectează <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> cu <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> efectuează corectare automată"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Nicio sugestie"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Caracter necunoscut"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Mai multe simboluri"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Simboluri"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Ștergeți"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Simboluri"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Litere"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Cifre"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Setări"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tab"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Tasta Space"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Intrare vocală"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoticonuri"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Return"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Căutați"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Bulină"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Schimbați limba"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Înai."</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Înapoi"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Tasta Shift a fost activată"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Tasta Caps Lock este activată"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Modul Simboluri"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Modul Mai multe simboluri"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Modul Alfanumeric"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Modul Telefon"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Modul Telefon cu simboluri"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Tastatura este ascunsă"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Se afișează tastatura pentru <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"data"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"date și ore"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"adrese de e-mail"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"mesaje"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"numere"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefoane"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"text"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"ore"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"adrese URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Recente"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Obiecte"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simboluri"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Steaguri"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Emoticonuri și persoane"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Animale și natură"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Mâncare și băutură"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Călătorii și locații"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Activitate"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emoticonuri"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"<xliff:g id="LOWER_LETTER">%s</xliff:g> mare"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"I mare"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"I mare, punct deasupra"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Sunt disponibile caractere alternative"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"S-au închis caracterele alternative"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Sunt disponibile sugestii alternative"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"S-au închis sugestiile alternative"</string>
+    <string name="spoken_use_headphones">"Conectați un set căști-microfon pentru a auzi tastele apăsate când introduceți parola."</string>
+    <string name="spoken_current_text_is">"Textul curent este %s"</string>
+    <string name="spoken_no_text_entered">"Nu a fost introdus text"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> corectează <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> cu <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> efectuează corectare automată"</string>
+    <string name="spoken_empty_suggestion">"Nicio sugestie"</string>
+    <string name="spoken_description_unknown">"Caracter necunoscut"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Mai multe simboluri"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Simboluri"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Ștergeți"</string>
+    <string name="spoken_description_to_symbol">"Simboluri"</string>
+    <string name="spoken_description_to_alpha">"Litere"</string>
+    <string name="spoken_description_to_numeric">"Cifre"</string>
+    <string name="spoken_description_settings">"Setări"</string>
+    <string name="spoken_description_tab">"Tab"</string>
+    <string name="spoken_description_space">"Tasta Space"</string>
+    <string name="spoken_description_mic">"Intrare vocală"</string>
+    <string name="spoken_description_emoji">"Emoticonuri"</string>
+    <string name="spoken_description_return">"Return"</string>
+    <string name="spoken_description_search">"Căutați"</string>
+    <string name="spoken_description_dot">"Bulină"</string>
+    <string name="spoken_description_language_switch">"Schimbați limba"</string>
+    <string name="spoken_description_action_next">"Înai."</string>
+    <string name="spoken_description_action_previous">"Înapoi"</string>
+    <string name="spoken_description_shiftmode_on">"Tasta Shift a fost activată"</string>
+    <string name="spoken_description_shiftmode_locked">"Tasta Caps Lock este activată"</string>
+    <string name="spoken_description_mode_symbol">"Modul Simboluri"</string>
+    <string name="spoken_description_mode_symbol_shift">"Modul Mai multe simboluri"</string>
+    <string name="spoken_description_mode_alpha">"Modul Alfanumeric"</string>
+    <string name="spoken_description_mode_phone">"Modul Telefon"</string>
+    <string name="spoken_description_mode_phone_shift">"Modul Telefon cu simboluri"</string>
+    <string name="announce_keyboard_hidden">"Tastatura este ascunsă"</string>
+    <string name="announce_keyboard_mode">"Se afișează tastatura pentru <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"data"</string>
+    <string name="keyboard_mode_date_time">"date și ore"</string>
+    <string name="keyboard_mode_email">"adrese de e-mail"</string>
+    <string name="keyboard_mode_im">"mesaje"</string>
+    <string name="keyboard_mode_number">"numere"</string>
+    <string name="keyboard_mode_phone">"telefoane"</string>
+    <string name="keyboard_mode_text">"text"</string>
+    <string name="keyboard_mode_time">"ore"</string>
+    <string name="keyboard_mode_url">"adrese URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Recente"</string>
+    <string name="spoken_description_emoji_category_objects">"Obiecte"</string>
+    <string name="spoken_description_emoji_category_symbols">"Simboluri"</string>
+    <string name="spoken_description_emoji_category_flags">"Steaguri"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Emoticonuri și persoane"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Animale și natură"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Mâncare și băutură"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Călătorii și locații"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Activitate"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emoticonuri"</string>
+    <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> mare"</string>
+    <string name="spoken_letter_0049">"I mare"</string>
+    <string name="spoken_letter_0130">"I mare, punct deasupra"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Sunt disponibile caractere alternative"</string>
+    <string name="spoken_close_popup_keys_keyboard">"S-au închis caracterele alternative"</string>
+    <string name="spoken_open_more_suggestions">"Sunt disponibile sugestii alternative"</string>
+    <string name="spoken_close_more_suggestions">"S-au închis sugestiile alternative"</string>
 </resources>

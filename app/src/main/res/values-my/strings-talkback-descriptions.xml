@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"စကားဝှက်ပြောဆိုမှုကို ကျယ်လောင်စွာ ကြားနိုင်ရန် မိုက်ခွက်ပါနားကြပ် တပ်ပြီး နားထောင်ပါ"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"လက်ရှိစာသည် %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"စာမရိုက်ထည့်ထားပါ"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> မှ <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> သို့ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> မှန်ကန်စေသည်"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> အလိုအလျောက် မှန်ကန်ခြင်း လုပ်ဆောင်သည်"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"အကြံပြုချက် မရှိပါ"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"မသိရ စာလုံး"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shiftခလုတ်"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"နောက်ထပ် သင်္ကေတများ"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shiftခလုတ်"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"သင်္ကေတများ"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shiftခလုတ်"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"ဖျက်ရန်"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"သင်္ကေတများ"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"စာများ"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"နံပါတ်များ"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"ဆက်တင်များ"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"တဲဘ်"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"space"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"အသံထည့်သွင်းမှု"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ရုပ်ပုံသင်္ကေတ"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"နောက်ပြန်သွားရန်"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"ရှာဖွေရန်"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"အစက်"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ဘာသာစကား ပြောင်းလဲရန်"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"ရှေ့သို့"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"အနောက်သို့"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift ဖွင့်ထားသည်"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"စာလုံးကြီးရိုက်ရန် ဖွင့်ထားသည်"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"သင်္ကေတမုဒ်"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"နောက်ထပ်သင်္ကေတမုဒ်"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"စာသားမုဒ်"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ဖုန်းမုဒ်"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ဖုန်းသင်္ကေတမုဒ်"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"ဝှက်ထားသည့် ကီးဘုတ်"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"ဖော်ထားသည့် <xliff:g id="KEYBOARD_MODE">%s</xliff:g> ကီးဘုတ်"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"ရက်စွဲ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"ရက်စွဲနှင့် အချိန်"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"အီးမေးလ်"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"စာပို့ခြင်း"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"နံပါတ်"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ဖုန်း"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"စာတို"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"အချိန်"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"လတ်တလော"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"အရာဝတ္ထုများ"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"သင်္ကေတများ"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"အလံများ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"အပြုံးပုံများ &amp; လူများ"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"တိရိစ္ဆာတ် &amp; သဘာဝ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"အစားအစာ &amp; သောက်စရာ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ခရီးသွား &amp; နေရာများ"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"လုပ်ဆောင်ချက်"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ခံစားချက်ရုပ်ပုံများ"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"စာလုံးကြီး <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"I အကြီး"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"I အကြီး၊ အပေါ်မှာ အစက်"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"အစားထိုးစရာ စာလုံးများ ရှိနိုင်"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"အစားထိုးစရာ စာလုံးများကို ပယ်ထား"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"အစားထိုးစရာ အကြံပေးချက်များ ရှိနိုင်"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"အစားထိုးစရာ အကြံပေးချက်များကို ပယ်ထား"</string>
+    <string name="spoken_use_headphones">"စကားဝှက်ပြောဆိုမှုကို ကျယ်လောင်စွာ ကြားနိုင်ရန် မိုက်ခွက်ပါနားကြပ် တပ်ပြီး နားထောင်ပါ"</string>
+    <string name="spoken_current_text_is">"လက်ရှိစာသည် %s"</string>
+    <string name="spoken_no_text_entered">"စာမရိုက်ထည့်ထားပါ"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> မှ <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> သို့ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> မှန်ကန်စေသည်"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> အလိုအလျောက် မှန်ကန်ခြင်း လုပ်ဆောင်သည်"</string>
+    <string name="spoken_empty_suggestion">"အကြံပြုချက် မရှိပါ"</string>
+    <string name="spoken_description_unknown">"မသိရ စာလုံး"</string>
+    <string name="spoken_description_shift">"Shiftခလုတ်"</string>
+    <string name="spoken_description_symbols_shift">"နောက်ထပ် သင်္ကေတများ"</string>
+    <string name="spoken_description_shift_shifted">"Shiftခလုတ်"</string>
+    <string name="spoken_description_symbols_shift_shifted">"သင်္ကေတများ"</string>
+    <string name="spoken_description_caps_lock">"Shiftခလုတ်"</string>
+    <string name="spoken_description_delete">"ဖျက်ရန်"</string>
+    <string name="spoken_description_to_symbol">"သင်္ကေတများ"</string>
+    <string name="spoken_description_to_alpha">"စာများ"</string>
+    <string name="spoken_description_to_numeric">"နံပါတ်များ"</string>
+    <string name="spoken_description_settings">"ဆက်တင်များ"</string>
+    <string name="spoken_description_tab">"တဲဘ်"</string>
+    <string name="spoken_description_space">"space"</string>
+    <string name="spoken_description_mic">"အသံထည့်သွင်းမှု"</string>
+    <string name="spoken_description_emoji">"ရုပ်ပုံသင်္ကေတ"</string>
+    <string name="spoken_description_return">"နောက်ပြန်သွားရန်"</string>
+    <string name="spoken_description_search">"ရှာဖွေရန်"</string>
+    <string name="spoken_description_dot">"အစက်"</string>
+    <string name="spoken_description_language_switch">"ဘာသာစကား ပြောင်းလဲရန်"</string>
+    <string name="spoken_description_action_next">"ရှေ့သို့"</string>
+    <string name="spoken_description_action_previous">"အနောက်သို့"</string>
+    <string name="spoken_description_shiftmode_on">"Shift ဖွင့်ထားသည်"</string>
+    <string name="spoken_description_shiftmode_locked">"စာလုံးကြီးရိုက်ရန် ဖွင့်ထားသည်"</string>
+    <string name="spoken_description_mode_symbol">"သင်္ကေတမုဒ်"</string>
+    <string name="spoken_description_mode_symbol_shift">"နောက်ထပ်သင်္ကေတမုဒ်"</string>
+    <string name="spoken_description_mode_alpha">"စာသားမုဒ်"</string>
+    <string name="spoken_description_mode_phone">"ဖုန်းမုဒ်"</string>
+    <string name="spoken_description_mode_phone_shift">"ဖုန်းသင်္ကေတမုဒ်"</string>
+    <string name="announce_keyboard_hidden">"ဝှက်ထားသည့် ကီးဘုတ်"</string>
+    <string name="announce_keyboard_mode">"ဖော်ထားသည့် <xliff:g id="KEYBOARD_MODE">%s</xliff:g> ကီးဘုတ်"</string>
+    <string name="keyboard_mode_date">"ရက်စွဲ"</string>
+    <string name="keyboard_mode_date_time">"ရက်စွဲနှင့် အချိန်"</string>
+    <string name="keyboard_mode_email">"အီးမေးလ်"</string>
+    <string name="keyboard_mode_im">"စာပို့ခြင်း"</string>
+    <string name="keyboard_mode_number">"နံပါတ်"</string>
+    <string name="keyboard_mode_phone">"ဖုန်း"</string>
+    <string name="keyboard_mode_text">"စာတို"</string>
+    <string name="keyboard_mode_time">"အချိန်"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"လတ်တလော"</string>
+    <string name="spoken_description_emoji_category_objects">"အရာဝတ္ထုများ"</string>
+    <string name="spoken_description_emoji_category_symbols">"သင်္ကေတများ"</string>
+    <string name="spoken_description_emoji_category_flags">"အလံများ"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"အပြုံးပုံများ &amp; လူများ"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"တိရိစ္ဆာတ် &amp; သဘာဝ"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"အစားအစာ &amp; သောက်စရာ"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"ခရီးသွား &amp; နေရာများ"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"လုပ်ဆောင်ချက်"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ခံစားချက်ရုပ်ပုံများ"</string>
+    <string name="spoken_description_upper_case">"စာလုံးကြီး <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"I အကြီး"</string>
+    <string name="spoken_letter_0130">"I အကြီး၊ အပေါ်မှာ အစက်"</string>
+    <string name="spoken_open_popup_keys_keyboard">"အစားထိုးစရာ စာလုံးများ ရှိနိုင်"</string>
+    <string name="spoken_close_popup_keys_keyboard">"အစားထိုးစရာ စာလုံးများကို ပယ်ထား"</string>
+    <string name="spoken_open_more_suggestions">"အစားထိုးစရာ အကြံပေးချက်များ ရှိနိုင်"</string>
+    <string name="spoken_close_more_suggestions">"အစားထိုးစရာ အကြံပေးချက်များကို ပယ်ထား"</string>
 </resources>

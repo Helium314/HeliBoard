@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"బిగ్గరగా చదివి వినిపించే పాస్‌వర్డ్ కీలను వినడానికి హెడ్‌సెట్‌ను ప్లగిన్ చేయండి."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"ప్రస్తుత వచనం %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"వచనం ఏదీ నమోదు చేయబడలేదు"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>ని <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>గా సరి చేస్తుంది"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> స్వీయ-సవరణను అమలు చేస్తుంది"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"సూచన లేదు"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"తెలియని అక్షరం"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"షిప్ట్"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"మరిన్ని గుర్తులు"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"షిప్ట్"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"గుర్తులు"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"షిప్ట్"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"తొలగించు"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"గుర్తులు"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"అక్షరాలు"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"సంఖ్యలు"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"సెట్టింగ్‌లు"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ట్యాబ్"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"స్పేస్"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"వాయిస్ ఇన్‌పుట్"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ఎమోజి"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"తిరిగి వెళ్లు"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"వెతుకు"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"చుక్క"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"భాషను మార్చండి"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"తర్వాత"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"మునుపటి"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"షిఫ్ట్ ప్రారంభించబడింది"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps lock ప్రారంభించబడింది"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"గుర్తుల మోడ్"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"మరిన్ని గుర్తుల మోడ్"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"అక్షరాల మోడ్"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ఫోన్ మోడ్"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ఫోన్ గుర్తుల మోడ్"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"కీబోర్డ్ దాచబడింది"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> కీబోర్డ్‌ను చూపుతోంది"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"తేదీ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"తేదీ మరియు సమయం"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ఇమెయిల్"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"సందేశం"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"సంఖ్య"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ఫోన్"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"వచనం"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"సమయం"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"ఇటీవలివి"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"ఆబ్జెక్ట్‌లు"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"గుర్తులు"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"జెండాలు"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"నవ్వుతున్న ముఖం &amp; వ్యక్తులు"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"జంతువులు &amp; ప్రకృతి"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ఆహారం &amp; పానీయం"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ప్రయాణం &amp; స్థలాలు"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"కార్యకలాపం"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ఎమోటికాన్‌లు"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"క్యాపిటల్ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"క్యాపిటల్ I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"క్యాపిటల్ I, ఎగువన చుక్క"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ప్రత్యామ్నాయ అక్షరాలు అందుబాటులో ఉన్నాయి"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ప్రత్యామ్నాయ అక్షరాలు తీసివేయబడ్డాయి"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ప్రత్యామ్నాయ సూచనలు అందుబాటులో ఉన్నాయి"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ప్రత్యామ్నాయ సూచనలు తీసివేయబడ్డాయి"</string>
+    <string name="spoken_use_headphones">"బిగ్గరగా చదివి వినిపించే పాస్‌వర్డ్ కీలను వినడానికి హెడ్‌సెట్‌ను ప్లగిన్ చేయండి."</string>
+    <string name="spoken_current_text_is">"ప్రస్తుత వచనం %s"</string>
+    <string name="spoken_no_text_entered">"వచనం ఏదీ నమోదు చేయబడలేదు"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>ని <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>గా సరి చేస్తుంది"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> స్వీయ-సవరణను అమలు చేస్తుంది"</string>
+    <string name="spoken_empty_suggestion">"సూచన లేదు"</string>
+    <string name="spoken_description_unknown">"తెలియని అక్షరం"</string>
+    <string name="spoken_description_shift">"షిప్ట్"</string>
+    <string name="spoken_description_symbols_shift">"మరిన్ని గుర్తులు"</string>
+    <string name="spoken_description_shift_shifted">"షిప్ట్"</string>
+    <string name="spoken_description_symbols_shift_shifted">"గుర్తులు"</string>
+    <string name="spoken_description_caps_lock">"షిప్ట్"</string>
+    <string name="spoken_description_delete">"తొలగించు"</string>
+    <string name="spoken_description_to_symbol">"గుర్తులు"</string>
+    <string name="spoken_description_to_alpha">"అక్షరాలు"</string>
+    <string name="spoken_description_to_numeric">"సంఖ్యలు"</string>
+    <string name="spoken_description_settings">"సెట్టింగ్‌లు"</string>
+    <string name="spoken_description_tab">"ట్యాబ్"</string>
+    <string name="spoken_description_space">"స్పేస్"</string>
+    <string name="spoken_description_mic">"వాయిస్ ఇన్‌పుట్"</string>
+    <string name="spoken_description_emoji">"ఎమోజి"</string>
+    <string name="spoken_description_return">"తిరిగి వెళ్లు"</string>
+    <string name="spoken_description_search">"వెతుకు"</string>
+    <string name="spoken_description_dot">"చుక్క"</string>
+    <string name="spoken_description_language_switch">"భాషను మార్చండి"</string>
+    <string name="spoken_description_action_next">"తర్వాత"</string>
+    <string name="spoken_description_action_previous">"మునుపటి"</string>
+    <string name="spoken_description_shiftmode_on">"షిఫ్ట్ ప్రారంభించబడింది"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps lock ప్రారంభించబడింది"</string>
+    <string name="spoken_description_mode_symbol">"గుర్తుల మోడ్"</string>
+    <string name="spoken_description_mode_symbol_shift">"మరిన్ని గుర్తుల మోడ్"</string>
+    <string name="spoken_description_mode_alpha">"అక్షరాల మోడ్"</string>
+    <string name="spoken_description_mode_phone">"ఫోన్ మోడ్"</string>
+    <string name="spoken_description_mode_phone_shift">"ఫోన్ గుర్తుల మోడ్"</string>
+    <string name="announce_keyboard_hidden">"కీబోర్డ్ దాచబడింది"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> కీబోర్డ్‌ను చూపుతోంది"</string>
+    <string name="keyboard_mode_date">"తేదీ"</string>
+    <string name="keyboard_mode_date_time">"తేదీ మరియు సమయం"</string>
+    <string name="keyboard_mode_email">"ఇమెయిల్"</string>
+    <string name="keyboard_mode_im">"సందేశం"</string>
+    <string name="keyboard_mode_number">"సంఖ్య"</string>
+    <string name="keyboard_mode_phone">"ఫోన్"</string>
+    <string name="keyboard_mode_text">"వచనం"</string>
+    <string name="keyboard_mode_time">"సమయం"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"ఇటీవలివి"</string>
+    <string name="spoken_description_emoji_category_objects">"ఆబ్జెక్ట్‌లు"</string>
+    <string name="spoken_description_emoji_category_symbols">"గుర్తులు"</string>
+    <string name="spoken_description_emoji_category_flags">"జెండాలు"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"నవ్వుతున్న ముఖం &amp; వ్యక్తులు"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"జంతువులు &amp; ప్రకృతి"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"ఆహారం &amp; పానీయం"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"ప్రయాణం &amp; స్థలాలు"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"కార్యకలాపం"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ఎమోటికాన్‌లు"</string>
+    <string name="spoken_description_upper_case">"క్యాపిటల్ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"క్యాపిటల్ I"</string>
+    <string name="spoken_letter_0130">"క్యాపిటల్ I, ఎగువన చుక్క"</string>
+    <string name="spoken_open_popup_keys_keyboard">"ప్రత్యామ్నాయ అక్షరాలు అందుబాటులో ఉన్నాయి"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ప్రత్యామ్నాయ అక్షరాలు తీసివేయబడ్డాయి"</string>
+    <string name="spoken_open_more_suggestions">"ప్రత్యామ్నాయ సూచనలు అందుబాటులో ఉన్నాయి"</string>
+    <string name="spoken_close_more_suggestions">"ప్రత్యామ్నాయ సూచనలు తీసివేయబడ్డాయి"</string>
 </resources>

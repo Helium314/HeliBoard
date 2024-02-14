@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"ಪಾಸ್‌ವರ್ಡ್ ಕೀಗಳನ್ನು ಗಟ್ಟಿಯಾಗಿ ಕೇಳಲು ಹೆಡ್‌ಸೆಟ್‌ ಪ್ಲಗ್ ಇನ್ ಮಾಡಿ."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"ಪ್ರಸ್ತುತ ಪದವು %s ಆಗಿದೆ"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"ಯಾವುದೇ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿಲ್ಲ"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> ನಿಂದ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> ಆಗಿ <xliff:g id="KEY_NAME">%1$s</xliff:g> ಸರಿಪಡಿಸುತ್ತದೆ"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ಸ್ವಯಂ ತಿದ್ದುಪಡಿಯನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"ಯಾವುದೇ ಸಲಹೆ ಇಲ್ಲ"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"ಅಪರಿಚಿತ ಅಕ್ಷರ"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"ಇನ್ನಷ್ಟು ಸಂಕೇತಗಳು"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"ಸಂಕೇತಗಳು"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"ಅಳಿಸಿ"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"ಸಂಕೇತಗಳು"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"ಪತ್ರಗಳು"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"ಸಂಖ್ಯೆಗಳು"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ಟ್ಯಾಬ್"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"ಸ್ಪೇಸ್"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"ಧ್ವನಿ ಇನ್‌ಪುಟ್‌"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ಎಮೋಜಿ"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"ಹಿಂತಿರುಗು"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"ಹುಡುಕಿ"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ಚುಕ್ಕೆ"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ಭಾಷೆ ಬದಲಾಯಿಸಿ"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"ಮುಂದೆ"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"ಹಿಂದೆ"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift ಸಕ್ರಿಯಗೊಂಡಿದೆ"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps lock ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"ಸಂಕೇತಗಳ ಮೋಡ್"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"ಹೆಚ್ಚು ಸಂಕೇತಗಳ ಮೋಡ್"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"ಅಕ್ಷರಗಳ ಮೋಡ್"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ಫೋನ್ ಮೋಡ್"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ಫೋನ್ ಸಂಕೇತಗಳ ಮೋಡ್"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"ಕೀಬೋರ್ಡ್ ಮರೆಮಾಡಲಾಗಿದೆ"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> ಕೀಬೋರ್ಡ್ ತೋರಿಸಲಾಗುತ್ತಿದೆ"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"ದಿನಾಂಕ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"ದಿನಾಂಕ ಮತ್ತು ಸಮಯ"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ಇಮೇಲ್"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"ಸಂದೇಶ ಕಳುಹಿಸುವಿಕೆ"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"ಸಂಖ್ಯೆ"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ಫೋನ್"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ಪಠ್ಯ"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"ಸಮಯ"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"ಇತ್ತೀಚಿನವುಗಳು"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"ವಸ್ತುಗಳು"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"ಸಂಕೇತಗಳು"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ಫ್ಲ್ಯಾಗ್‌ಗಳು"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"ಸ್ಮೈಲಿ ಮತ್ತು ಜನರು"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"ಪ್ರಾಣಿಗಳು ಮತ್ತು ಪ್ರಕೃತಿ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ಆಹಾರ ಮತ್ತು ಪಾನೀಯ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ಪ್ರಯಾಣ ಮತ್ತು ಸ್ಥಳಗಳು"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"ಚಟುವಟಿಕೆ"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ಎಮೋಟಿಕಾನ್‌ಗಳು"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"ಕ್ಯಾಪಿಟಲ್ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"ಕ್ಯಾಪಿಟಲ್ I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"ಕ್ಯಾಪಿಟಲ್ I, ಮೇಲೆ ಡಾಟ್"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳು ಲಭ್ಯ"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ಪರ್ಯಾಯ ಸಲಹೆಗಳು ಲಭ್ಯ"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ಪರ್ಯಾಯ ಸಲಹೆಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
+    <string name="spoken_use_headphones">"ಪಾಸ್‌ವರ್ಡ್ ಕೀಗಳನ್ನು ಗಟ್ಟಿಯಾಗಿ ಕೇಳಲು ಹೆಡ್‌ಸೆಟ್‌ ಪ್ಲಗ್ ಇನ್ ಮಾಡಿ."</string>
+    <string name="spoken_current_text_is">"ಪ್ರಸ್ತುತ ಪದವು %s ಆಗಿದೆ"</string>
+    <string name="spoken_no_text_entered">"ಯಾವುದೇ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿಲ್ಲ"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> ನಿಂದ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> ಆಗಿ <xliff:g id="KEY_NAME">%1$s</xliff:g> ಸರಿಪಡಿಸುತ್ತದೆ"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ಸ್ವಯಂ ತಿದ್ದುಪಡಿಯನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ"</string>
+    <string name="spoken_empty_suggestion">"ಯಾವುದೇ ಸಲಹೆ ಇಲ್ಲ"</string>
+    <string name="spoken_description_unknown">"ಅಪರಿಚಿತ ಅಕ್ಷರ"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"ಇನ್ನಷ್ಟು ಸಂಕೇತಗಳು"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"ಸಂಕೇತಗಳು"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"ಅಳಿಸಿ"</string>
+    <string name="spoken_description_to_symbol">"ಸಂಕೇತಗಳು"</string>
+    <string name="spoken_description_to_alpha">"ಪತ್ರಗಳು"</string>
+    <string name="spoken_description_to_numeric">"ಸಂಖ್ಯೆಗಳು"</string>
+    <string name="spoken_description_settings">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
+    <string name="spoken_description_tab">"ಟ್ಯಾಬ್"</string>
+    <string name="spoken_description_space">"ಸ್ಪೇಸ್"</string>
+    <string name="spoken_description_mic">"ಧ್ವನಿ ಇನ್‌ಪುಟ್‌"</string>
+    <string name="spoken_description_emoji">"ಎಮೋಜಿ"</string>
+    <string name="spoken_description_return">"ಹಿಂತಿರುಗು"</string>
+    <string name="spoken_description_search">"ಹುಡುಕಿ"</string>
+    <string name="spoken_description_dot">"ಚುಕ್ಕೆ"</string>
+    <string name="spoken_description_language_switch">"ಭಾಷೆ ಬದಲಾಯಿಸಿ"</string>
+    <string name="spoken_description_action_next">"ಮುಂದೆ"</string>
+    <string name="spoken_description_action_previous">"ಹಿಂದೆ"</string>
+    <string name="spoken_description_shiftmode_on">"Shift ಸಕ್ರಿಯಗೊಂಡಿದೆ"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps lock ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"</string>
+    <string name="spoken_description_mode_symbol">"ಸಂಕೇತಗಳ ಮೋಡ್"</string>
+    <string name="spoken_description_mode_symbol_shift">"ಹೆಚ್ಚು ಸಂಕೇತಗಳ ಮೋಡ್"</string>
+    <string name="spoken_description_mode_alpha">"ಅಕ್ಷರಗಳ ಮೋಡ್"</string>
+    <string name="spoken_description_mode_phone">"ಫೋನ್ ಮೋಡ್"</string>
+    <string name="spoken_description_mode_phone_shift">"ಫೋನ್ ಸಂಕೇತಗಳ ಮೋಡ್"</string>
+    <string name="announce_keyboard_hidden">"ಕೀಬೋರ್ಡ್ ಮರೆಮಾಡಲಾಗಿದೆ"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> ಕೀಬೋರ್ಡ್ ತೋರಿಸಲಾಗುತ್ತಿದೆ"</string>
+    <string name="keyboard_mode_date">"ದಿನಾಂಕ"</string>
+    <string name="keyboard_mode_date_time">"ದಿನಾಂಕ ಮತ್ತು ಸಮಯ"</string>
+    <string name="keyboard_mode_email">"ಇಮೇಲ್"</string>
+    <string name="keyboard_mode_im">"ಸಂದೇಶ ಕಳುಹಿಸುವಿಕೆ"</string>
+    <string name="keyboard_mode_number">"ಸಂಖ್ಯೆ"</string>
+    <string name="keyboard_mode_phone">"ಫೋನ್"</string>
+    <string name="keyboard_mode_text">"ಪಠ್ಯ"</string>
+    <string name="keyboard_mode_time">"ಸಮಯ"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"ಇತ್ತೀಚಿನವುಗಳು"</string>
+    <string name="spoken_description_emoji_category_objects">"ವಸ್ತುಗಳು"</string>
+    <string name="spoken_description_emoji_category_symbols">"ಸಂಕೇತಗಳು"</string>
+    <string name="spoken_description_emoji_category_flags">"ಫ್ಲ್ಯಾಗ್‌ಗಳು"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"ಸ್ಮೈಲಿ ಮತ್ತು ಜನರು"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"ಪ್ರಾಣಿಗಳು ಮತ್ತು ಪ್ರಕೃತಿ"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"ಆಹಾರ ಮತ್ತು ಪಾನೀಯ"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"ಪ್ರಯಾಣ ಮತ್ತು ಸ್ಥಳಗಳು"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"ಚಟುವಟಿಕೆ"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ಎಮೋಟಿಕಾನ್‌ಗಳು"</string>
+    <string name="spoken_description_upper_case">"ಕ್ಯಾಪಿಟಲ್ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"ಕ್ಯಾಪಿಟಲ್ I"</string>
+    <string name="spoken_letter_0130">"ಕ್ಯಾಪಿಟಲ್ I, ಮೇಲೆ ಡಾಟ್"</string>
+    <string name="spoken_open_popup_keys_keyboard">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳು ಲಭ್ಯ"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ಪರ್ಯಾಯ ಅಕ್ಷರಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
+    <string name="spoken_open_more_suggestions">"ಪರ್ಯಾಯ ಸಲಹೆಗಳು ಲಭ್ಯ"</string>
+    <string name="spoken_close_more_suggestions">"ಪರ್ಯಾಯ ಸಲಹೆಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
 </resources>

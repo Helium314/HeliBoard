@@ -18,7 +18,7 @@
     <string name="enable_split_keyboard">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‎‏‎‎‏‏‎‏‎‎‎‏‏‏‎‎‏‏‏‎‏‏‏‏‎‎‎‎‏‏‎‎‏‏‎‏‎‎‏‏‏‎‏‎‎‎‏‏‎‏‏‏‎‎‏‎‎Enable split keyboard‎‏‎‎‏‎"</string>
     <string name="language_switch_key_switch_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‏‎‎‎‎‎‎‏‏‏‎‏‏‏‎‎‎‏‎‏‏‎‎‎‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‎‏‎‏‏‎Switch to other input methods‎‏‎‎‏‎"</string>
     <string name="show_language_switch_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‎‏‎‎‏‎‏‏‏‏‎‎‎‏‎‏‏‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‎‎‎‏‏‏‎‏‏‎‏‏‎‎‎‎‎‏‏‎Language switch key‎‏‎‎‏‎"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‏‏‏‏‎‏‏‎‏‎‎‎‎‎‎‎‎‏‏‎‏‏‎‎‏‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‎‏‎‎‎‏‎‎‎‏‏‎‎‏‎‎‏‏‎<xliff:g id="MILLISECONDS">%s</xliff:g>‎‏‎‎‏‏‏‎ms‎‏‎‎‏‎"</string>
+    <string name="abbreviation_unit_milliseconds">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‏‏‏‏‎‏‏‎‏‎‎‎‎‎‎‎‎‏‏‎‏‏‎‎‏‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‎‏‎‎‎‏‎‎‎‏‏‎‎‏‎‎‏‏‎<xliff:g id="MILLISECONDS">%s</xliff:g>‎‏‎‎‏‏‏‎ms‎‏‎‎‏‎"</string>
     <string name="settings_system_default">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‏‎‏‏‎‎‏‎‏‎‎‏‏‎‎‏‏‎‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‎‎‎‏‎‎‏‎‎‎‎‎‎‏‏‎‎‏‎‏‎‏‏‏‎System default‎‏‎‎‏‎"</string>
     <string name="use_contacts_dict">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‎‏‎‎‏‎‎‎‎‏‎‎‏‏‏‎‎‏‏‎‎‎‎‏‎‏‏‎‎‎‎‏‎‏‏‎‏‎‎‏‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‎Suggest Contact names‎‏‎‎‏‎"</string>
     <string name="use_contacts_dict_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‎‏‏‎‎‎‎‎‎‎‏‎‎‏‏‏‎‏‎‏‏‎‏‏‏‏‏‏‏‎‎‏‎‏‏‎‏‎‎‏‏‎‏‎‏‏‎‎‏‏‎‏‎Use names from Contacts for suggestions and corrections‎‏‎‎‏‎"</string>
@@ -49,30 +49,30 @@
     <string name="gesture_floating_preview_text_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‏‏‎‎‏‏‎‎‏‏‏‏‎‏‏‎‏‎‎‎‏‎‎‎‎‏‎‎‎‏‎‎‎‎‎‎‎‏‎‎See the suggested word while gesturing‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎‎‎‎‎‎‎‏‎‏‎‎‎‏‏‎‏‏‎‏‏‎‏‏‎‏‎‏‎‎‏‏‎‎‏‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‎‏‏‎‎‎Phrase gesture‎‏‎‎‏‎"</string>
     <string name="gesture_space_aware_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‎‎‏‏‎‎‏‏‏‏‏‏‏‎‏‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‎‎‏‎‎‎‎‎‎Input spaces during gestures by gliding to the space key‎‏‎‎‏‎"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‏‏‎‏‎‏‏‎‎‏‎‎‎‎‎‎‎‎‎‎‏‏‎‎‏‏‏‎‏‏‎‎‎‎‏‏‎‏‏‏‎‏‏‎English (UK)‎‏‎‎‏‎"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‏‏‎English (US)‎‏‎‎‏‎"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Spanish (US)‎‏‎‎‏‎"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‏‎‏‎‏‎‎‏‎‎‏‏‏‏‎‏‎‎‏‏‎‎‎‎‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‏‎Hinglish‎‏‎‎‏‎"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‎‎‏‎‏‏‏‎‎‎‎‏‎‏‎‎‏‏‏‎Serbian (Latin)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‎‎‏‎‏‏‎‏‏‏‏‏‏‎‎‎‎‎English (UK) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‎‎‎‏‏‏‏‎‏‎‏‏‏‏‏‎‎‎‏‎‎‏‏‏‎‎‏‎‎‎‎‏‏‎‏‏‎‎‏‎‏‏‎‎‏‏‎‏‏‏‎‎English (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‎‏‏‎‎‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎‏‏‎‏‏‎‏‏‏‎‏‎‏‎‎‎‎‎‎‎‏‎‏‏‎‏‎‎Spanish (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‏‎‏‏‎‏‎‎‎‎‎‎‏‏‏‎‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‎‎‏‎‎‎Hinglish (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‏‎‎‎‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‏‏‏‎‏‏‏‎Serbian (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‏‎‏‎‎‏‏‎‏‏‎‎‎‏‎‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‏‏‏‎‎‏‎‏‎‎‎‎‏‎‎‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Traditional)‎‏‎‎‏‎"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‎‎‏‎‏‎‏‎‏‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‎‏‏‏‏‎‏‏‎‏‏‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Compact)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‏‏‎‏‎‎‎‏‏‎‏‎‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‎‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎No language (Alphabet)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‎‏‏‎‏‏‎‎‏‎‎‎‎‎‎‏‏‏‏‏‏‎‎‎‏‏‏‏‏‎‎‏‏‏‎‎‎‏‎‏‎‏‏‏‏‏‎‏‎‏‎‏‏‎‎‏‏‎‎‎Alphabet (QWERTY)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‎‎‏‎‎‏‏‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‏‎‏‏‏‏‎‏‏‏‎‏‎‎‎‏‎‏‎‎‏‎‎‎‎Alphabet (QWERTZ)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‎‏‎‎‎‏‎‎‏‏‏‎‏‎‏‎‏‏‏‎‏‎‎‎‏‎‎‎‏‏‏‏‏‎‎‏‎‏‎‎‎‎‎‎‏‎‏‏‏‎Alphabet (AZERTY)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‏‎‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‎‎‏‎‎‏‏‎‎‎‎‏‎‏‎‎‎‏‎‏‎‎‎‎‏‏‏‎‎Alphabet (Dvorak)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‎‎‎‎‎‏‎‏‎‏‎‏‏‎‏‎‎‎‏‏‎‏‏‎‏‎‏‏‎‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‏‎‎‏‎‎‏‏‏‏‏‎Alphabet (Colemak)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‎‏‏‏‎‎‏‏‎‎‎‎‎‎‏‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎Alphabet (PC)‎‏‎‎‏‎"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‏‏‏‎‏‏‎‏‏‎‎‎‎‏‎‏‎‎‏‎‏‎‏‏‏‏‏‎‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎Emoji‎‏‎‎‏‎"</string>
+    <string name="subtype_en_GB">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‎‏‏‎‎‏‏‏‎‎‏‎‎‏‏‏‏‏‎‏‎‏‏‎‎‏‎‎‎‎‎‎‎‎‎‎‏‏‎‎‏‏‏‎‏‏‎‎‎‎‏‏‎‏‏‏‎‏‏‎English (UK)‎‏‎‎‏‎"</string>
+    <string name="subtype_en_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‎‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‎‎‏‏‎‎‏‎‏‎‏‏‏‏‏‎English (US)‎‏‎‎‏‎"</string>
+    <string name="subtype_es_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Spanish (US)‎‏‎‎‏‎"</string>
+    <string name="subtype_hi_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‏‎‏‎‏‎‎‏‎‎‏‏‏‏‎‏‎‎‏‏‎‎‎‎‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‏‎Hinglish‎‏‎‎‏‎"</string>
+    <string name="subtype_sr_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‎‎‏‎‏‏‏‎‎‎‎‏‎‏‎‎‏‏‏‎Serbian (Latin)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_en_GB">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‎‎‏‎‏‏‎‏‏‏‏‏‏‎‎‎‎‎English (UK) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_en_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‎‎‎‏‏‏‏‎‏‎‏‏‏‏‏‎‎‎‏‎‎‏‏‏‎‎‏‎‎‎‎‏‏‎‏‏‎‎‏‎‏‏‎‎‏‏‎‏‏‏‎‎English (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_es_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‎‏‏‎‎‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎‏‏‎‏‏‎‏‏‏‎‏‎‏‎‎‎‎‎‎‎‏‎‏‏‎‏‎‎Spanish (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_hi_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‏‎‏‏‎‏‎‎‎‎‎‎‏‏‏‎‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‎‎‏‎‎‎Hinglish (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_with_layout_sr_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‏‎‎‎‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‏‏‏‎‏‏‏‎Serbian (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
+    <string name="subtype_generic_traditional">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‏‎‏‎‎‏‏‎‏‏‎‎‎‏‎‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‏‏‏‎‎‏‎‏‎‎‎‎‏‎‎‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Traditional)‎‏‎‎‏‎"</string>
+    <string name="subtype_generic_compact">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‎‎‏‎‏‎‏‎‏‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‎‏‏‏‏‎‏‏‎‏‏‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Compact)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‏‏‎‏‎‎‎‏‏‎‏‎‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‎‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎No language (Alphabet)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language_qwerty">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‎‏‏‎‏‏‎‎‏‎‎‎‎‎‎‏‏‏‏‏‏‎‎‎‏‏‏‏‏‎‎‏‏‏‎‎‎‏‎‏‎‏‏‏‏‏‎‏‎‏‎‏‏‎‎‏‏‎‎‎Alphabet (QWERTY)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language_qwertz">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‎‎‏‎‎‏‏‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‏‎‏‏‏‏‎‏‏‏‎‏‎‎‎‏‎‏‎‎‏‎‎‎‎Alphabet (QWERTZ)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language_azerty">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‎‏‎‎‎‏‎‎‏‏‏‎‏‎‏‎‏‏‏‎‏‎‎‎‏‎‎‎‏‏‏‏‏‎‎‏‎‏‎‎‎‎‎‎‏‎‏‏‏‎Alphabet (AZERTY)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language_dvorak">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‏‎‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‎‎‏‎‎‏‏‎‎‎‎‏‎‏‎‎‎‏‎‏‎‎‎‎‏‏‏‎‎Alphabet (Dvorak)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language_colemak">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‎‎‎‎‎‏‎‏‎‏‎‏‏‎‏‎‎‎‏‏‎‏‏‎‏‎‏‏‎‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‏‎‎‏‎‎‏‏‏‏‏‎Alphabet (Colemak)‎‏‎‎‏‎"</string>
+    <string name="subtype_no_language_pcqwerty">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‎‏‏‏‎‎‏‏‎‎‎‎‎‎‏‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎Alphabet (PC)‎‏‎‎‏‎"</string>
+    <string name="subtype_emoji">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‏‏‏‎‏‏‎‏‏‎‎‎‎‏‎‏‎‎‏‎‏‎‏‏‏‏‏‎‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎Emoji‎‏‎‎‏‎"</string>
     <string name="add">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‎‏‏‏‏‎‎‎‏‏‏‏‎‏‎‎‎‎‎‏‎‎‎‎‎‏‏‎‏‏‎‎‎‎‎‎‏‎‎‎‎‎‏‎‎‏‏‎‏‏‏‏‏‎Add‎‏‎‎‏‎"</string>
     <string name="remove">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‎‎‏‎‏‎‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‎‎‎‏‏‎‎‎‏‏‎‏‏‏‏‎‎‎‏‏‏‏‏‎‏‎‎‏‏‎‎‎Remove‎‏‎‎‏‎"</string>
     <string name="save">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‎‏‏‎‏‎‏‏‏‏‏‏‎‏‎‎‎‎‏‏‎‎‏‎‎‎‏‎‎‎‎‏‎‏‏‎‏‏‎‎‎‏‏‎‏‏‎‏‎‎‎‎‏‏‏‏‎‎‏‎Save‎‏‎‎‏‎"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‎‎‎‎‏‎‏‏‎‏‎‎‏‎‏‏‏‎‏‏‏‏‎‏‎‎‏‎‎‎‏‎‏‏‎‏‏‎‏‎‎‎‎‏‏‏‎‎‎‎‏‎‏‎‎‎Language‎‏‎‎‏‎"</string>
+    <string name="subtype_locale">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‎‎‎‎‏‎‏‏‎‏‎‎‏‎‏‏‏‎‏‏‏‏‎‏‎‎‏‎‎‎‏‎‏‏‎‏‏‎‏‎‎‎‎‏‏‏‎‎‎‎‏‎‏‎‎‎Language‎‏‎‎‏‎"</string>
     <string name="keyboard_layout_set">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‎‏‎‏‏‏‎‎‏‏‏‏‏‏‏‎‎‏‏‏‎‎‏‎‎‎‏‎‎‎‏‏‏‎‏‎‏‏‏‏‏‏‎‎‏‎‏‏‏‎‏‏‏‎‎‏‏‎Layout‎‏‎‎‏‎"</string>
     <string name="prefs_keypress_vibration_duration_settings">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‎‎‎‏‎‎‎‏‎‏‎‎‏‎‎‏‎‏‎‎‏‎‏‎‎‎‏‏‎‏‎‏‎‎‏‎‏‎‎‏‎‎‎‏‏‏‏‎‎‏‎‏‏‎‏‏‏‎‏‎Keypress vibration duration‎‏‎‎‏‎"</string>
     <string name="prefs_keypress_sound_volume_settings">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‎‎‏‎‏‏‏‏‎‎‎‎‎‏‏‏‏‎‏‎‏‏‎‎‎‏‎‏‏‎‎‎‏‎‏‎‏‏‏‏‏‎‏‎‎‏‎‏‏‎‎‏‎‎‎‎Keypress sound volume‎‏‎‎‏‎"</string>
@@ -80,20 +80,20 @@
     <string name="prefs_enable_emoji_alt_physical_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‎‏‎‏‏‏‏‎‎‎‎‏‎‎‏‏‏‎‎‏‎‏‏‎‎‏‏‏‏‏‏‎‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‏‏‏‏‎‏‏‎‎‎‎Emoji for physical keyboard‎‏‎‎‏‎"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‎‏‏‏‏‎‏‎‎‎‏‏‏‏‏‎‏‎‏‎‏‎‏‎‎‎‎‎‎‎‎‎‏‎‏‏‏‏‎‏‏‏‎‎‎‎‎‎‎‎‏‎‏‏‎‎‏‎‎Physical Alt key shows the emoji palette‎‏‎‎‏‎"</string>
     <string name="button_default">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‎‏‎‏‏‏‏‎‏‎‏‏‏‎‎‏‎‎‏‎‎‏‏‎‎‏‎‎‏‏‎‎‏‎‏‎‏‏‏‏‏‎‎‏‎‏‏‏‎‏‎‏‎‎‏‎‏‎‎‎Default‎‏‎‎‏‎"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‎‏‎‏‎‏‎‎‎‏‏‎‏‎‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‏‏‏‎‏‎‏‎‏‏‎‎‎‏‏‎‏‏‏‏‎‎‎‏‏‎Welcome to ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
+    <string name="setup_welcome_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‎‏‎‏‎‏‎‎‎‏‏‎‏‎‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‏‏‏‎‏‎‏‎‏‏‎‎‎‏‏‎‏‏‏‏‎‎‎‏‏‎Welcome to ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
     <string name="setup_welcome_additional_description">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‏‏‏‎‎‏‏‏‏‏‎‎‏‏‎‏‏‎‎‏‏‏‏‏‏‏‏‎‎‏‏‎‏‏‎‏‏‎‎‏‎‏‏‎‏‏‎‎‏‏‏‏‏‏‏‏‎with Gesture Typing‎‏‎‎‏‎"</string>
     <string name="setup_start_action">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‎‎‏‎‎‏‎‏‎‎‎‎‎‎‏‎‏‏‎‎‎‎‎‎‎‎‏‎‎‎‏‏‏‏‏‎‎‎‏‎‎‏‎‏‎‏‏‎‏‎‏‏‎‏‎‏‎Get started‎‏‎‎‏‎"</string>
     <string name="setup_next_action">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‏‏‎‏‎‏‏‎‎‏‏‎‎‏‏‏‎‏‎‎‎‎‎‎‎‎‏‎‏‎‏‎‏‏‏‎‏‎‎‏‏‏‎‎‎‏‏‏‎Next step‎‏‎‎‏‎"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‎‎‏‏‎‏‎‎‏‎‏‎‏‏‎‎‎‏‎‏‎‏‏‏‎‏‎‏‎‏‎‏‎‏‏‎‎‎‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‎Setting up ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‏‏‎‏‎‏‏‏‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‏‏‎‏‏‎‏‎‏‏‏‏‏‎‎‏‎‎‏‏‎‎‏‎‏‎‏‏‎Enable ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‏‏‏‏‎‎‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‎‏‏‏‎‏‏‎‏‏‎‏‎‎‎‏‏‏‏‏‏‎‏‎Please check \"‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎\" in your Languages &amp; input settings. This will authorize it to run on your device.‎‏‎‎‏‎"</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‎‏‏‎‏‏‏‎‏‏‎‏‎‎‏‏‎‏‎‎‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‏‏‏‎‎‏‎‏‎‎‎‎‏‏‎‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!‎‏‎‎‏‎"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‎‏‎‎‏‏‎‎‎‏‏‏‏‏‎‎‎‏‏‏‎‏‏‎‎‏‏‏‎‎‎‎‎‏‎‎‏‏‎‏‎‏‎‏‏‎‏‏‎‎‎‏‎‎‎‎‎‎Enable in Settings‎‏‎‎‏‎"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‏‏‎‏‏‎‎‎‏‏‎‎‎‏‎‏‏‏‎‎‎‏‏‏‏‏‎‏‏‏‏‏‏‏‎‏‏‎‎‎‎‎‎‏‏‎‎‎‏‎‎‎‏‎‎Switch to ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‏‎‎‎‏‎‎‎‏‎‏‏‎‏‎‎‏‏‏‎‏‎‏‎‎‏‎‏‏‎‏‏‏‏‎‏‏‏‎‎‎‏‎‏‎‏‎‎‎‎Next, select \"‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎\" as your active text-input method.‎‏‎‎‏‎"</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‎‏‎‏‏‎‏‏‎‎‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‏‎‎‏‏‏‎‎‏‎‏‏‏‏‏‎‏‎‎‎‏‎Switch input methods‎‏‎‎‏‎"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‏‏‏‎‎‎‏‏‏‏‏‏‏‎‎‏‎‏‏‏‏‎‎‎‏‏‎‏‎‎‎‏‎‏‏‏‏‎‏‏‏‎‏‏‏‏‏‎‎‏‏‏‎‏‎‎‏‎Congratulations, you\'re all set!‎‏‎‎‏‎"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‎‏‎‎‎‎‎‎‎‏‏‏‏‏‏‎‎‏‏‎‏‎‏‎‏‏‏‎‏‎‏‏‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‎‎‎‎‎Now you can type in all your favorite apps with ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎.‎‏‎‎‏‎"</string>
+    <string name="setup_steps_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‎‎‏‏‎‏‎‎‏‎‏‎‏‏‎‎‎‏‎‏‎‏‏‏‎‏‎‏‎‏‎‏‎‏‏‎‎‎‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‎Setting up ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
+    <string name="setup_step1_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‏‏‎‏‎‏‏‏‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‏‏‎‏‏‎‏‎‏‏‏‏‏‎‎‏‎‎‏‏‎‎‏‎‏‎‏‏‎Enable ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
+    <string name="setup_step1_instruction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‏‏‏‏‎‎‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‎‏‏‏‎‏‏‎‏‏‎‏‎‎‎‏‏‏‏‏‏‎‏‎Please check \"‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎\" in your Languages &amp; input settings. This will authorize it to run on your device.‎‏‎‎‏‎"</string>
+    <string name="setup_step1_finished_instruction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‎‏‏‎‏‏‏‎‏‏‎‏‎‎‏‏‎‏‎‎‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‏‏‏‎‎‏‎‏‎‎‎‎‏‏‎‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!‎‏‎‎‏‎"</string>
+    <string name="setup_step1_action">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‎‏‎‎‏‏‎‎‎‏‏‏‏‏‎‎‎‏‏‏‎‏‏‎‎‏‏‏‎‎‎‎‎‏‎‎‏‏‎‏‎‏‎‏‏‎‏‏‎‎‎‏‎‎‎‎‎‎Enable in Settings‎‏‎‎‏‎"</string>
+    <string name="setup_step2_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‏‏‎‏‏‎‎‎‏‏‎‎‎‏‎‏‏‏‎‎‎‏‏‏‏‏‎‏‏‏‏‏‏‏‎‏‏‎‎‎‎‎‎‏‏‎‎‎‏‎‎‎‏‎‎Switch to ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
+    <string name="setup_step2_instruction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‏‎‎‎‏‎‎‎‏‎‏‏‎‏‎‎‏‏‏‎‏‎‏‎‎‏‎‏‏‎‏‏‏‏‎‏‏‏‎‎‎‏‎‏‎‏‎‎‎‎Next, select \"‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎\" as your active text-input method.‎‏‎‎‏‎"</string>
+    <string name="setup_step2_action">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‎‏‎‏‏‎‏‏‎‎‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‏‎‎‏‏‏‎‎‏‎‏‏‏‏‏‎‏‎‎‎‏‎Switch input methods‎‏‎‎‏‎"</string>
+    <string name="setup_step3_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‏‏‏‏‎‎‎‏‏‏‏‏‏‏‎‎‏‎‏‏‏‏‎‎‎‏‏‎‏‎‎‎‏‎‏‏‏‏‎‏‏‏‎‏‏‏‏‏‎‎‏‏‏‎‏‎‎‏‎Congratulations, you\'re all set!‎‏‎‎‏‎"</string>
+    <string name="setup_step3_instruction">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‏‎‎‎‏‎‎‎‎‎‎‎‏‏‏‏‏‏‎‎‏‏‎‏‎‏‎‏‏‏‎‏‎‏‏‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‎‎‎‎‎Now you can type in all your favorite apps with ‎‏‎‎‏‏‎<xliff:g id="APPLICATION_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎.‎‏‎‎‏‎"</string>
     <string name="setup_finish_action">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‏‏‎‎‏‏‎‎‏‏‏‏‎‏‎‏‎‎‏‏‎‎‎‏‎‎‎‎‎‏‎‏‎‏‏‏‎‎‏‏‎‎‎‎‎‎‎‏‏‏‎‏‏‎‎‎Finished‎‏‎‎‏‎"</string>
     <string name="show_setup_wizard_icon">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‎‏‏‎‏‏‏‏‏‏‏‏‎‏‏‎‎‏‏‎‏‏‎‎‏‎‎‎‏‏‏‎‏‎‎‎‏‏‎‎‎‏‎‏‎‏‏‎‎‎‎‏‏‏‏‏‎Show app icon‎‏‎‎‏‎"</string>
     <string name="show_setup_wizard_icon_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‏‏‎‏‏‎‎‎‎‎‎‏‏‎‏‎‎‏‏‏‏‏‏‎‎‏‏‎‏‏‏‎‏‎‏‏‎‏‎‎‏‎‏‏‏‏‎‏‎‏‏‏‏‎‏‎Display application icon in the launcher‎‏‎‎‏‎"</string>
@@ -107,7 +107,7 @@
     <string name="main_dict_description">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‏‏‎‏‎‎‏‏‎‎‎‏‎‏‎‎‏‏‏‏‎‏‏‎‎‏‎‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‏‏‎‎‎‎‎‏‎‏‏‎‏‏‎‎Main dictionary‎‏‎‎‏‎"</string>
     <string name="settings">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‎‎‏‏‏‏‎‎‏‏‎‎‏‎‏‎‎‏‎‎‏‎‏‏‎‎‏‏‎‏‏‏‎‎‎‏‏‏‎‏‏‏‎‎‏‎‎‎‏‎‏‏‏‎‏‏‎‎‎‎Settings‎‏‎‎‏‎"</string>
     <string name="delete">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‎‎‎‎‎‏‎‎‎‏‏‏‏‏‎‏‏‎‏‏‎‏‎‎‏‎‎‎‏‎‏‏‏‎‏‎‎‏‎‏‏‏‎‏‎‎‏‏‎‏‎‏‏‎‎‏‎‎‎Delete‎‏‎‎‏‎"</string>
-    <string name="version_text" msgid="2715354215568469385">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‎‏‎‏‏‏‎‏‏‏‎‎‎‎‎‎‏‎‎‎‏‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‎‎‏‎Version ‎‏‎‎‏‏‎<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
+    <string name="version_text">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‎‏‎‏‏‏‎‏‏‏‎‎‎‎‎‎‏‎‎‎‏‎‏‏‏‎‎‎‎‏‎‎‏‎‏‎‎‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‎‎‏‎Version ‎‏‎‎‏‏‎<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>‎‏‎‎‏‏‏‎‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_menu_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‎‎‏‎‎‎‎‎‎‏‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‏‎‎‏‎‏‏‏‏‎‏‎‎‏‏‏‏‎‎‎‏‏‏‎‏‏‏‎‏‏‎Add‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_dialog_title">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‏‏‏‎‎‎‎‏‏‎‎‏‏‎‎‏‏‏‏‎‏‎‏‎‎‏‏‎‎‏‎‎‎‏‏‏‎‎‎‎‏‏‏‎‎‏‎‏‏‎‏‎‎‎‎‎‎‎Add to dictionary‎‏‎‎‏‎"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‎‏‏‎‏‏‏‎‏‏‏‏‎‏‏‎‏‎‎‏‎‎‏‎‏‏‏‎‎‏‎‎‏‏‏‏‏‏‏‏‎‎‎‏‏‏‎Shortcut:‎‏‎‎‏‎"</string>
@@ -123,5 +123,13 @@
     <string name="select_input_method">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‏‎‎‏‏‎‎‎‏‏‏‎‎‏‏‎‏‎‎‎‎‏‏‏‎‏‎‏‎‎‎‏‏‏‎‏‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎Choose input method‎‏‎‎‏‎"</string>
     <string name="undo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‎‏‏‎‏‏‏‎‎‎‎‎‎‎‎‏‏‎‎‎‎‎‏‏‎‏‎‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‎‏‏‏‏‎‎‎‎Undo‎‏‎‎‏‎"</string>
     <string name="redo">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‏‏‏‏‎‎‏‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‎‏‏‏‏‎‏‏‏‎‎‎‏‎‎‏‏‏‎‏‎‏‏‎‏‏‎‎‎‎‎Redo‎‏‎‎‏‎"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‏‏‏‏‎‎‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‎‏‏‏‎‏‏‎Learn from your communications and typed data to improve suggestions‎‏‎‎‏‎"</string>
+    <string name="use_personalized_dicts_summary">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‎‎‎‎‎‏‏‎‎‎‏‏‎‏‎‎‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‏‏‏‏‎‎‎‎‏‎‏‏‎‎‎‎‏‎‏‎‏‎‏‏‏‎‏‏‎Learn from your communications and typed data to improve suggestions‎‏‎‎‏‎"</string>
+    <string name="label_go_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‏‏‏‏‏‎‎‎‏‏‎‎‎‏‎‎‏‎‏‏‏‏‎‎‏‏‎‏‎‏‎‏‎‏‎‎‏‎‏‏‎‎‏‎Go‎‏‎‎‏‎"</string>
+    <string name="label_next_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‏‎‎‎‎‏‏‎‏‏‏‎‎‏‏‏‏‏‎‏‎‎‏‎‏‎‎‎‏‎‏‎‏‏‎‏‏‏‎‏‎‏‏‎‎‏‎‏‎‏‏‏‏‎‏‏‎Next‎‏‎‎‏‎"</string>
+    <string name="label_previous_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‎‏‏‏‎‏‏‏‎‎‎‏‏‏‎‏‎‎‎‏‏‏‎‎‏‎‏‏‎‏‏‏‎‎‎‏‎‏‏‏‏‎‎‎‏‎‎‏‏‏‏‏‏‏‎‏‎‏‏‎Prev‎‏‎‎‏‎"</string>
+    <string name="label_done_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‏‏‏‏‎‏‏‏‏‎‎‏‏‎‏‏‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‎‏‎‏‏‏‎‏‎‎‏‏‏‎‎‏‏‏‎‎‎‏‎‎‎Done‎‏‎‎‏‎"</string>
+    <string name="label_send_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‎‎‎‏‎‏‎‎‏‏‎‏‏‎‏‏‎‏‎‎‏‏‎‏‏‎‎‎‎‏‎‏‏‎‎‎‎‎‏‎‏‎‎‏‎‏‎‏‎‎‏‏‎Send‎‏‎‎‏‎"</string>
+    <string name="label_search_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‏‎‏‎‎‎‎‎‏‎‏‏‏‏‎‎‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‏‏‎‏‎‏‎‎‎‏‎‎Search‎‏‎‎‏‎"</string>
+    <string name="label_pause_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‎‎‏‎‎‎‏‎‎‎‏‏‎‏‏‏‎‏‏‎‎‎‏‎‎‎‎‎‏‏‏‏‎‏‏‏‎‏‎‏‏‎‏‎‎‏‎‎Pause‎‏‎‎‏‎"</string>
+    <string name="label_wait_key">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‏‏‎‎‎‎‎‏‏‏‏‎‏‎‏‎‏‎‏‏‎‏‎‏‏‎‏‎‏‏‎‏‎‏‎‏‎‏‏‏‎‎‎‏‏‎‎‏‎‎‏‏‎‏‏‏‎Wait‎‏‎‎‏‎"</string>
 </resources>

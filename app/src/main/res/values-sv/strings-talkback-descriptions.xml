@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Anslut hörlurar om du vill att lösenordet ska läsas upp."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Nuvarande text är %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Ingen text har angetts"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Om du trycker på <xliff:g id="KEY_NAME">%1$s</xliff:g> rättas <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> till <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Om du trycker på <xliff:g id="KEY_NAME">%1$s</xliff:g> utförs autokorrigering"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Inga förslag"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Okänt tecken"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Skift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Fler symboler"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Skift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Symboler"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Skift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Ta bort"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Symboler"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Bokstäver"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Siffror"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Inställningar"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabb"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Blanksteg"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Röstindata"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Retur"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Sökning"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Punkt"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Byt språk"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Nästa"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Föregående"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Skift aktiverat"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Caps Lock är aktiverat"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Symbolläge"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Läge med fler symboler"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Bokstavsläge"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Telefonläge"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Telefonsymbolläge"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Tangentbordet är dolt"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Tangentbord för <xliff:g id="KEYBOARD_MODE">%s</xliff:g> visas"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"datum"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"datum och tid"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-post"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"sms/mms"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"siffror"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefonnummer"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"text"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"klockslag"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"webbadresser"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Senaste"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Föremål"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Symboler"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Flaggor"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Känslor och personer"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Djur och natur"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Mat och dryck"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Resor och platser"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Aktivitet"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Uttryckssymboler"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Versalt <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Versalt I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Versalt I, punkt ovanför"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Alternativa tecken är tillgängliga"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternativa tecken avvisas"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Alternativa förslag är tillgängliga"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternativa förslag avvisas"</string>
+    <string name="spoken_use_headphones">"Anslut hörlurar om du vill att lösenordet ska läsas upp."</string>
+    <string name="spoken_current_text_is">"Nuvarande text är %s"</string>
+    <string name="spoken_no_text_entered">"Ingen text har angetts"</string>
+    <string name="spoken_auto_correct">"Om du trycker på <xliff:g id="KEY_NAME">%1$s</xliff:g> rättas <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> till <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"Om du trycker på <xliff:g id="KEY_NAME">%1$s</xliff:g> utförs autokorrigering"</string>
+    <string name="spoken_empty_suggestion">"Inga förslag"</string>
+    <string name="spoken_description_unknown">"Okänt tecken"</string>
+    <string name="spoken_description_shift">"Skift"</string>
+    <string name="spoken_description_symbols_shift">"Fler symboler"</string>
+    <string name="spoken_description_shift_shifted">"Skift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Symboler"</string>
+    <string name="spoken_description_caps_lock">"Skift"</string>
+    <string name="spoken_description_delete">"Ta bort"</string>
+    <string name="spoken_description_to_symbol">"Symboler"</string>
+    <string name="spoken_description_to_alpha">"Bokstäver"</string>
+    <string name="spoken_description_to_numeric">"Siffror"</string>
+    <string name="spoken_description_settings">"Inställningar"</string>
+    <string name="spoken_description_tab">"Tabb"</string>
+    <string name="spoken_description_space">"Blanksteg"</string>
+    <string name="spoken_description_mic">"Röstindata"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Retur"</string>
+    <string name="spoken_description_search">"Sökning"</string>
+    <string name="spoken_description_dot">"Punkt"</string>
+    <string name="spoken_description_language_switch">"Byt språk"</string>
+    <string name="spoken_description_action_next">"Nästa"</string>
+    <string name="spoken_description_action_previous">"Föregående"</string>
+    <string name="spoken_description_shiftmode_on">"Skift aktiverat"</string>
+    <string name="spoken_description_shiftmode_locked">"Caps Lock är aktiverat"</string>
+    <string name="spoken_description_mode_symbol">"Symbolläge"</string>
+    <string name="spoken_description_mode_symbol_shift">"Läge med fler symboler"</string>
+    <string name="spoken_description_mode_alpha">"Bokstavsläge"</string>
+    <string name="spoken_description_mode_phone">"Telefonläge"</string>
+    <string name="spoken_description_mode_phone_shift">"Telefonsymbolläge"</string>
+    <string name="announce_keyboard_hidden">"Tangentbordet är dolt"</string>
+    <string name="announce_keyboard_mode">"Tangentbord för <xliff:g id="KEYBOARD_MODE">%s</xliff:g> visas"</string>
+    <string name="keyboard_mode_date">"datum"</string>
+    <string name="keyboard_mode_date_time">"datum och tid"</string>
+    <string name="keyboard_mode_email">"e-post"</string>
+    <string name="keyboard_mode_im">"sms/mms"</string>
+    <string name="keyboard_mode_number">"siffror"</string>
+    <string name="keyboard_mode_phone">"telefonnummer"</string>
+    <string name="keyboard_mode_text">"text"</string>
+    <string name="keyboard_mode_time">"klockslag"</string>
+    <string name="keyboard_mode_url">"webbadresser"</string>
+    <string name="spoken_description_emoji_category_recents">"Senaste"</string>
+    <string name="spoken_description_emoji_category_objects">"Föremål"</string>
+    <string name="spoken_description_emoji_category_symbols">"Symboler"</string>
+    <string name="spoken_description_emoji_category_flags">"Flaggor"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Känslor och personer"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Djur och natur"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Mat och dryck"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Resor och platser"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Aktivitet"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Uttryckssymboler"</string>
+    <string name="spoken_description_upper_case">"Versalt <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Versalt I"</string>
+    <string name="spoken_letter_0130">"Versalt I, punkt ovanför"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Alternativa tecken är tillgängliga"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternativa tecken avvisas"</string>
+    <string name="spoken_open_more_suggestions">"Alternativa förslag är tillgängliga"</string>
+    <string name="spoken_close_more_suggestions">"Alternativa förslag avvisas"</string>
 </resources>

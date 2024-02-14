@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Priključite slušalice da biste čuli naglas izgovorene tipke dok upisujete zaporku."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Trenutačni tekst glasi %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Nije unesen tekst"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ispravlja <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> u <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> vrši samoispravljanje"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Nema prijedloga"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Nepoznati znak"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Više simbola"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Simboli"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Brisanje"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Simboli"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Slova"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Brojevi"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Postavke"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabulator"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Razmaknica"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Glasovni ulaz"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Enter"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Pretraživanje"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Točka"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Promjena jezika"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Sljedeća"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Prethodna"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Omogućena je tipka Shift"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Omogućen je Caps Lock"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Način unosa simbola"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Način s više simbola"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Način unosa slova"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Telefonski način rada"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Način unosa telefonskih simbola"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Tipkovnica je skrivena"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Prikaz tipkovnice: <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"datum"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"datum i vrijeme"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"e-pošta"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"slanje poruka"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"brojevi"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"telefon"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"tekst"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"vrijeme"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Najnoviji"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objekti"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Simboli"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Zastave"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smajlići i osobe"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Životinje i priroda"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Hrana i piće"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Putovanja i mjesta"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Aktivnost"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emotikoni"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Veliko slovo <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Veliko slovo I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Veliko slovo I, s točkicom iznad"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Dostupni su zamjenski znakovi"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Zamjenski su znakovi isključeni"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Dostupni su zamjenski prijedlozi"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Zamjenski su prijedlozi isključeni"</string>
+    <string name="spoken_use_headphones">"Priključite slušalice da biste čuli naglas izgovorene tipke dok upisujete zaporku."</string>
+    <string name="spoken_current_text_is">"Trenutačni tekst glasi %s"</string>
+    <string name="spoken_no_text_entered">"Nije unesen tekst"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ispravlja <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> u <xliff:g id="CORRECTED_WORD">%3$s</xliff:g>"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> vrši samoispravljanje"</string>
+    <string name="spoken_empty_suggestion">"Nema prijedloga"</string>
+    <string name="spoken_description_unknown">"Nepoznati znak"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"Više simbola"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Simboli"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"Brisanje"</string>
+    <string name="spoken_description_to_symbol">"Simboli"</string>
+    <string name="spoken_description_to_alpha">"Slova"</string>
+    <string name="spoken_description_to_numeric">"Brojevi"</string>
+    <string name="spoken_description_settings">"Postavke"</string>
+    <string name="spoken_description_tab">"Tabulator"</string>
+    <string name="spoken_description_space">"Razmaknica"</string>
+    <string name="spoken_description_mic">"Glasovni ulaz"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Enter"</string>
+    <string name="spoken_description_search">"Pretraživanje"</string>
+    <string name="spoken_description_dot">"Točka"</string>
+    <string name="spoken_description_language_switch">"Promjena jezika"</string>
+    <string name="spoken_description_action_next">"Sljedeća"</string>
+    <string name="spoken_description_action_previous">"Prethodna"</string>
+    <string name="spoken_description_shiftmode_on">"Omogućena je tipka Shift"</string>
+    <string name="spoken_description_shiftmode_locked">"Omogućen je Caps Lock"</string>
+    <string name="spoken_description_mode_symbol">"Način unosa simbola"</string>
+    <string name="spoken_description_mode_symbol_shift">"Način s više simbola"</string>
+    <string name="spoken_description_mode_alpha">"Način unosa slova"</string>
+    <string name="spoken_description_mode_phone">"Telefonski način rada"</string>
+    <string name="spoken_description_mode_phone_shift">"Način unosa telefonskih simbola"</string>
+    <string name="announce_keyboard_hidden">"Tipkovnica je skrivena"</string>
+    <string name="announce_keyboard_mode">"Prikaz tipkovnice: <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"datum"</string>
+    <string name="keyboard_mode_date_time">"datum i vrijeme"</string>
+    <string name="keyboard_mode_email">"e-pošta"</string>
+    <string name="keyboard_mode_im">"slanje poruka"</string>
+    <string name="keyboard_mode_number">"brojevi"</string>
+    <string name="keyboard_mode_phone">"telefon"</string>
+    <string name="keyboard_mode_text">"tekst"</string>
+    <string name="keyboard_mode_time">"vrijeme"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Najnoviji"</string>
+    <string name="spoken_description_emoji_category_objects">"Objekti"</string>
+    <string name="spoken_description_emoji_category_symbols">"Simboli"</string>
+    <string name="spoken_description_emoji_category_flags">"Zastave"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smajlići i osobe"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Životinje i priroda"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Hrana i piće"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Putovanja i mjesta"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Aktivnost"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emotikoni"</string>
+    <string name="spoken_description_upper_case">"Veliko slovo <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Veliko slovo I"</string>
+    <string name="spoken_letter_0130">"Veliko slovo I, s točkicom iznad"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Dostupni su zamjenski znakovi"</string>
+    <string name="spoken_close_popup_keys_keyboard">"Zamjenski su znakovi isključeni"</string>
+    <string name="spoken_open_more_suggestions">"Dostupni su zamjenski prijedlozi"</string>
+    <string name="spoken_close_more_suggestions">"Zamjenski su prijedlozi isključeni"</string>
 </resources>

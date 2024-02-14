@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"ഉറക്കെ പറയുന്ന പാസ്‌വേഡ് കീകൾ കേൾക്കുന്നതിന് ഒരു ഹെഡ്‌സെറ്റ് പ്ലഗ്ഗുചെയ്യുക"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"നിലവിലെ ടെക്സ്റ്റ് ചെയ്യൽ %s ആണ്"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"വാചകമൊന്നും നൽകിയിട്ടില്ല"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g>, <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> എന്നത് <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> എന്നതായി തിരുത്തുന്നു"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> യാന്ത്രിക-തിരുത്തൽ നിർവഹിക്കുന്നു"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"നിർദ്ദേശമൊന്നുമില്ല"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"അജ്ഞാത പ്രതീകം"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Shift"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"കൂടുതൽ ചിഹ്നങ്ങൾ"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Shift"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"ചിഹ്നങ്ങള്‍"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Shift"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"ഇല്ലാതാക്കുക"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"ചിഹ്നങ്ങള്‍"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"അക്ഷരങ്ങൾ"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"നമ്പറുകൾ"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"ക്രമീകരണം"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ടാബ്"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"സ്പെയ്സ്"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"വോയ്‌സ് ഇൻപുട്ട്"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ഇമോജി"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"മടങ്ങുക"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"തിരയുക"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ഡോട്ട്"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ഭാഷ മാറുക"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"അടുത്തത്"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"മുമ്പത്തേത്"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Shift പ്രവർത്തനക്ഷമമാക്കി"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"ക്യാപ്‌സ് ലോക്ക് പ്രവർത്തനക്ഷമമാക്കി"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"ചിഹ്നങ്ങളുടെ മോഡ്"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"കൂടുതൽ ചിഹ്നങ്ങളുടെ മോഡ്"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"അക്ഷര മോഡ്"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ഫോൺ മോഡ്"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ഫോൺ ചിഹ്നങ്ങളുടെ മോഡ്"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"കീബോർഡ് മറച്ചിരിക്കുന്നു"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> കീബോർഡ് കാണിക്കുന്നു"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"തീയതി"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"തീയതിയും സമയവും"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ഇമെയിൽ"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"സന്ദേശം"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"നമ്പർ"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ഫോൺ"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ടെക്‌സ്‌റ്റ്"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"സമയം"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"പുതിയവ"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"ഒബ്ജക്റ്റുകൾ"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"ചിഹ്നങ്ങള്‍"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ഫ്ലാഗുകൾ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"സ്മൈലിയും ആളുകളും"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"മൃഗങ്ങളും പ്രകൃതിയും"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ഭക്ഷണവും പാനീയവും"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"യാത്രയും സ്ഥലങ്ങളും"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"പ്രവര്‍ത്തനം"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ഇമോട്ടിക്കോണുകൾ"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"വലിയക്ഷരം <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"വലിയക്ഷരം I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"വലിയക്ഷരം I, മുകളിൽ ഡോട്ട്"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ഇതര പ്രതീകങ്ങൾ ലഭ്യമാണ്"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ഇതര പ്രതീകങ്ങൾ നിരസിച്ചു"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ഇതര നിർദ്ദേശങ്ങൾ ലഭ്യമാണ്"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ഇതര നിർദ്ദേശങ്ങൾ നിരസിച്ചു"</string>
+    <string name="spoken_use_headphones">"ഉറക്കെ പറയുന്ന പാസ്‌വേഡ് കീകൾ കേൾക്കുന്നതിന് ഒരു ഹെഡ്‌സെറ്റ് പ്ലഗ്ഗുചെയ്യുക"</string>
+    <string name="spoken_current_text_is">"നിലവിലെ ടെക്സ്റ്റ് ചെയ്യൽ %s ആണ്"</string>
+    <string name="spoken_no_text_entered">"വാചകമൊന്നും നൽകിയിട്ടില്ല"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g>, <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> എന്നത് <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> എന്നതായി തിരുത്തുന്നു"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> യാന്ത്രിക-തിരുത്തൽ നിർവഹിക്കുന്നു"</string>
+    <string name="spoken_empty_suggestion">"നിർദ്ദേശമൊന്നുമില്ല"</string>
+    <string name="spoken_description_unknown">"അജ്ഞാത പ്രതീകം"</string>
+    <string name="spoken_description_shift">"Shift"</string>
+    <string name="spoken_description_symbols_shift">"കൂടുതൽ ചിഹ്നങ്ങൾ"</string>
+    <string name="spoken_description_shift_shifted">"Shift"</string>
+    <string name="spoken_description_symbols_shift_shifted">"ചിഹ്നങ്ങള്‍"</string>
+    <string name="spoken_description_caps_lock">"Shift"</string>
+    <string name="spoken_description_delete">"ഇല്ലാതാക്കുക"</string>
+    <string name="spoken_description_to_symbol">"ചിഹ്നങ്ങള്‍"</string>
+    <string name="spoken_description_to_alpha">"അക്ഷരങ്ങൾ"</string>
+    <string name="spoken_description_to_numeric">"നമ്പറുകൾ"</string>
+    <string name="spoken_description_settings">"ക്രമീകരണം"</string>
+    <string name="spoken_description_tab">"ടാബ്"</string>
+    <string name="spoken_description_space">"സ്പെയ്സ്"</string>
+    <string name="spoken_description_mic">"വോയ്‌സ് ഇൻപുട്ട്"</string>
+    <string name="spoken_description_emoji">"ഇമോജി"</string>
+    <string name="spoken_description_return">"മടങ്ങുക"</string>
+    <string name="spoken_description_search">"തിരയുക"</string>
+    <string name="spoken_description_dot">"ഡോട്ട്"</string>
+    <string name="spoken_description_language_switch">"ഭാഷ മാറുക"</string>
+    <string name="spoken_description_action_next">"അടുത്തത്"</string>
+    <string name="spoken_description_action_previous">"മുമ്പത്തേത്"</string>
+    <string name="spoken_description_shiftmode_on">"Shift പ്രവർത്തനക്ഷമമാക്കി"</string>
+    <string name="spoken_description_shiftmode_locked">"ക്യാപ്‌സ് ലോക്ക് പ്രവർത്തനക്ഷമമാക്കി"</string>
+    <string name="spoken_description_mode_symbol">"ചിഹ്നങ്ങളുടെ മോഡ്"</string>
+    <string name="spoken_description_mode_symbol_shift">"കൂടുതൽ ചിഹ്നങ്ങളുടെ മോഡ്"</string>
+    <string name="spoken_description_mode_alpha">"അക്ഷര മോഡ്"</string>
+    <string name="spoken_description_mode_phone">"ഫോൺ മോഡ്"</string>
+    <string name="spoken_description_mode_phone_shift">"ഫോൺ ചിഹ്നങ്ങളുടെ മോഡ്"</string>
+    <string name="announce_keyboard_hidden">"കീബോർഡ് മറച്ചിരിക്കുന്നു"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> കീബോർഡ് കാണിക്കുന്നു"</string>
+    <string name="keyboard_mode_date">"തീയതി"</string>
+    <string name="keyboard_mode_date_time">"തീയതിയും സമയവും"</string>
+    <string name="keyboard_mode_email">"ഇമെയിൽ"</string>
+    <string name="keyboard_mode_im">"സന്ദേശം"</string>
+    <string name="keyboard_mode_number">"നമ്പർ"</string>
+    <string name="keyboard_mode_phone">"ഫോൺ"</string>
+    <string name="keyboard_mode_text">"ടെക്‌സ്‌റ്റ്"</string>
+    <string name="keyboard_mode_time">"സമയം"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"പുതിയവ"</string>
+    <string name="spoken_description_emoji_category_objects">"ഒബ്ജക്റ്റുകൾ"</string>
+    <string name="spoken_description_emoji_category_symbols">"ചിഹ്നങ്ങള്‍"</string>
+    <string name="spoken_description_emoji_category_flags">"ഫ്ലാഗുകൾ"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"സ്മൈലിയും ആളുകളും"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"മൃഗങ്ങളും പ്രകൃതിയും"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"ഭക്ഷണവും പാനീയവും"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"യാത്രയും സ്ഥലങ്ങളും"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"പ്രവര്‍ത്തനം"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ഇമോട്ടിക്കോണുകൾ"</string>
+    <string name="spoken_description_upper_case">"വലിയക്ഷരം <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"വലിയക്ഷരം I"</string>
+    <string name="spoken_letter_0130">"വലിയക്ഷരം I, മുകളിൽ ഡോട്ട്"</string>
+    <string name="spoken_open_popup_keys_keyboard">"ഇതര പ്രതീകങ്ങൾ ലഭ്യമാണ്"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ഇതര പ്രതീകങ്ങൾ നിരസിച്ചു"</string>
+    <string name="spoken_open_more_suggestions">"ഇതര നിർദ്ദേശങ്ങൾ ലഭ്യമാണ്"</string>
+    <string name="spoken_close_more_suggestions">"ഇതര നിർദ്ദേശങ്ങൾ നിരസിച്ചു"</string>
 </resources>

@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"ਉੱਚੀ ਬੋਲੀਆਂ ਗਈਆਂ ਪਾਸਵਰਡ ਕੁੰਜੀਆਂ ਸੁਣਨ ਲਈ ਇੱਕ ਹੈਡਸੈੱਟ ਪਲੱਗ-ਇਨ ਕਰੋ।"</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"ਮੌਜੂਦਾ ਟੈਕਸਟ %s ਹੈ"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"ਕੋਈ ਟੈਕਸਟ ਦਰਜ ਨਹੀਂ ਕੀਤਾ"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> ਦਾ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> ਵਿੱਚ ਸੋਧ ਕਰਦਾ ਹੈ"</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ਆਟੋ-ਸੁਧਾਈ ਕਰਦੀ ਹੈ"</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"ਕੋਈ ਸੁਝਾਅ ਨਹੀਂ"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"ਅਗਿਆਤ ਅੱਖਰ"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"ਸ਼ਿਫਟ ਕੁੰਜੀ"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"ਹੋਰ ਚਿੰਨ੍ਹ"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"ਸ਼ਿਫਟ ਕੁੰਜੀ"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"ਚਿੰਨ੍ਹ"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"ਸ਼ਿਫਟ ਕੁੰਜੀ"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"ਮਿਟਾਓ"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"ਚਿੰਨ੍ਹ"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"ਅੱਖਰ"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"ਨੰਬਰ"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"ਸੈਟਿੰਗਾਂ"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"ਟੈਬ"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"ਸਪੇਸ"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"ਵੌਇਸ ਇਨਪੁਟ"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"ਇਮੋਜੀ"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"ਵਾਪਸ ਜਾਓ"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"ਖੋਜੋ"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"ਬਿੰਦੀ"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"ਭਾਸ਼ਾ ਸਵਿੱਚ ਕਰੋ"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"ਅੱਗੇ"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"ਪਿਛਲਾ"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"ਸ਼ਿਫਟ ਕੁੰਜੀ ਚਾਲੂ"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"ਕੈਪਸ  ਲਾਕ  ਸਮਰਥਿਤ"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"ਚਿੰਨ੍ਹ ਮੋਡ"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"ਹੋਰ ਚਿੰਨ੍ਹ ਮੋਡ"</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"ਅੱਖਰ ਮੋਡ"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"ਫ਼ੋਨ ਮੋਡ"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"ਫ਼ੋਨ ਚਿੰਨ੍ਹ ਮੋਡ"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"ਕੀ-ਬੋਰਡ ਲੁਕਾਇਆ"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> ਕੀ-ਬੋਰਡ ਦਿਖਾ ਰਿਹਾ ਹੈ"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"ਮਿਤੀ"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"ਮਿਤੀ ਅਤੇ ਸਮਾਂ"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"ਈਮੇਲ"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"ਮੈਸੇਂਜ਼ਿੰਗ"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"ਨੰਬਰ"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"ਫ਼ੋਨ"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"ਟੈਕਸਟ"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"ਸਮਾਂ"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"ਹਾਲੀਆ"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"ਵਸਤਾਂ"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"ਚਿੰਨ੍ਹ"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"ਫਲੈਗ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"ਸਮਾਈਲੀ &amp; ਲੋਕ"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"ਜਾਨਵਰ &amp; ਕੁਦਰਤ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"ਖਾਣਾ &amp; ਪੀਣਾ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"ਯਾਤਰਾ &amp; ਥਾਂਵਾਂ"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"ਸਰਗਰਮੀ"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"ਇਮੋਟੀਕੋਨਸ"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"ਕੈਪੀਟਲ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"ਕੈਪੀਟਲ I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"ਕੈਪੀਟਲ I, ਉੱਪਰ ਬਿੰਦੀ"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"ਬਦਲਵੇਂ ਅੱਖਰ ਉਪਲਬਧ ਹਨ"</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"ਬਦਲਵੇਂ ਅੱਖਰ ਖਾਰਜ ਕੀਤੇ ਗਏ ਹਨ"</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"ਬਦਲਵੇਂ ਸੁਝਾਅ ਉਪਲਬਧ ਹਨ"</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"ਬਦਲਵੇਂ ਸੁਝਾਅ ਬਰਖਾਸਤ ਕੀਤੇ ਗਏ ਹਨ"</string>
+    <string name="spoken_use_headphones">"ਉੱਚੀ ਬੋਲੀਆਂ ਗਈਆਂ ਪਾਸਵਰਡ ਕੁੰਜੀਆਂ ਸੁਣਨ ਲਈ ਇੱਕ ਹੈਡਸੈੱਟ ਪਲੱਗ-ਇਨ ਕਰੋ।"</string>
+    <string name="spoken_current_text_is">"ਮੌਜੂਦਾ ਟੈਕਸਟ %s ਹੈ"</string>
+    <string name="spoken_no_text_entered">"ਕੋਈ ਟੈਕਸਟ ਦਰਜ ਨਹੀਂ ਕੀਤਾ"</string>
+    <string name="spoken_auto_correct">"<xliff:g id="KEY_NAME">%1$s</xliff:g> <xliff:g id="ORIGINAL_WORD">%2$s</xliff:g> ਦਾ <xliff:g id="CORRECTED_WORD">%3$s</xliff:g> ਵਿੱਚ ਸੋਧ ਕਰਦਾ ਹੈ"</string>
+    <string name="spoken_auto_correct_obscured">"<xliff:g id="KEY_NAME">%1$s</xliff:g> ਆਟੋ-ਸੁਧਾਈ ਕਰਦੀ ਹੈ"</string>
+    <string name="spoken_empty_suggestion">"ਕੋਈ ਸੁਝਾਅ ਨਹੀਂ"</string>
+    <string name="spoken_description_unknown">"ਅਗਿਆਤ ਅੱਖਰ"</string>
+    <string name="spoken_description_shift">"ਸ਼ਿਫਟ ਕੁੰਜੀ"</string>
+    <string name="spoken_description_symbols_shift">"ਹੋਰ ਚਿੰਨ੍ਹ"</string>
+    <string name="spoken_description_shift_shifted">"ਸ਼ਿਫਟ ਕੁੰਜੀ"</string>
+    <string name="spoken_description_symbols_shift_shifted">"ਚਿੰਨ੍ਹ"</string>
+    <string name="spoken_description_caps_lock">"ਸ਼ਿਫਟ ਕੁੰਜੀ"</string>
+    <string name="spoken_description_delete">"ਮਿਟਾਓ"</string>
+    <string name="spoken_description_to_symbol">"ਚਿੰਨ੍ਹ"</string>
+    <string name="spoken_description_to_alpha">"ਅੱਖਰ"</string>
+    <string name="spoken_description_to_numeric">"ਨੰਬਰ"</string>
+    <string name="spoken_description_settings">"ਸੈਟਿੰਗਾਂ"</string>
+    <string name="spoken_description_tab">"ਟੈਬ"</string>
+    <string name="spoken_description_space">"ਸਪੇਸ"</string>
+    <string name="spoken_description_mic">"ਵੌਇਸ ਇਨਪੁਟ"</string>
+    <string name="spoken_description_emoji">"ਇਮੋਜੀ"</string>
+    <string name="spoken_description_return">"ਵਾਪਸ ਜਾਓ"</string>
+    <string name="spoken_description_search">"ਖੋਜੋ"</string>
+    <string name="spoken_description_dot">"ਬਿੰਦੀ"</string>
+    <string name="spoken_description_language_switch">"ਭਾਸ਼ਾ ਸਵਿੱਚ ਕਰੋ"</string>
+    <string name="spoken_description_action_next">"ਅੱਗੇ"</string>
+    <string name="spoken_description_action_previous">"ਪਿਛਲਾ"</string>
+    <string name="spoken_description_shiftmode_on">"ਸ਼ਿਫਟ ਕੁੰਜੀ ਚਾਲੂ"</string>
+    <string name="spoken_description_shiftmode_locked">"ਕੈਪਸ  ਲਾਕ  ਸਮਰਥਿਤ"</string>
+    <string name="spoken_description_mode_symbol">"ਚਿੰਨ੍ਹ ਮੋਡ"</string>
+    <string name="spoken_description_mode_symbol_shift">"ਹੋਰ ਚਿੰਨ੍ਹ ਮੋਡ"</string>
+    <string name="spoken_description_mode_alpha">"ਅੱਖਰ ਮੋਡ"</string>
+    <string name="spoken_description_mode_phone">"ਫ਼ੋਨ ਮੋਡ"</string>
+    <string name="spoken_description_mode_phone_shift">"ਫ਼ੋਨ ਚਿੰਨ੍ਹ ਮੋਡ"</string>
+    <string name="announce_keyboard_hidden">"ਕੀ-ਬੋਰਡ ਲੁਕਾਇਆ"</string>
+    <string name="announce_keyboard_mode">"<xliff:g id="KEYBOARD_MODE">%s</xliff:g> ਕੀ-ਬੋਰਡ ਦਿਖਾ ਰਿਹਾ ਹੈ"</string>
+    <string name="keyboard_mode_date">"ਮਿਤੀ"</string>
+    <string name="keyboard_mode_date_time">"ਮਿਤੀ ਅਤੇ ਸਮਾਂ"</string>
+    <string name="keyboard_mode_email">"ਈਮੇਲ"</string>
+    <string name="keyboard_mode_im">"ਮੈਸੇਂਜ਼ਿੰਗ"</string>
+    <string name="keyboard_mode_number">"ਨੰਬਰ"</string>
+    <string name="keyboard_mode_phone">"ਫ਼ੋਨ"</string>
+    <string name="keyboard_mode_text">"ਟੈਕਸਟ"</string>
+    <string name="keyboard_mode_time">"ਸਮਾਂ"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"ਹਾਲੀਆ"</string>
+    <string name="spoken_description_emoji_category_objects">"ਵਸਤਾਂ"</string>
+    <string name="spoken_description_emoji_category_symbols">"ਚਿੰਨ੍ਹ"</string>
+    <string name="spoken_description_emoji_category_flags">"ਫਲੈਗ"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"ਸਮਾਈਲੀ &amp; ਲੋਕ"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"ਜਾਨਵਰ &amp; ਕੁਦਰਤ"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"ਖਾਣਾ &amp; ਪੀਣਾ"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"ਯਾਤਰਾ &amp; ਥਾਂਵਾਂ"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"ਸਰਗਰਮੀ"</string>
+    <string name="spoken_description_emoji_category_emoticons">"ਇਮੋਟੀਕੋਨਸ"</string>
+    <string name="spoken_description_upper_case">"ਕੈਪੀਟਲ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"ਕੈਪੀਟਲ I"</string>
+    <string name="spoken_letter_0130">"ਕੈਪੀਟਲ I, ਉੱਪਰ ਬਿੰਦੀ"</string>
+    <string name="spoken_open_popup_keys_keyboard">"ਬਦਲਵੇਂ ਅੱਖਰ ਉਪਲਬਧ ਹਨ"</string>
+    <string name="spoken_close_popup_keys_keyboard">"ਬਦਲਵੇਂ ਅੱਖਰ ਖਾਰਜ ਕੀਤੇ ਗਏ ਹਨ"</string>
+    <string name="spoken_open_more_suggestions">"ਬਦਲਵੇਂ ਸੁਝਾਅ ਉਪਲਬਧ ਹਨ"</string>
+    <string name="spoken_close_more_suggestions">"ਬਦਲਵੇਂ ਸੁਝਾਅ ਬਰਖਾਸਤ ਕੀਤੇ ਗਏ ਹਨ"</string>
 </resources>

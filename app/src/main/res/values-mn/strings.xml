@@ -5,124 +5,132 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Харилцагчийн нэр хайх"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Алдаа шалгагч нь таны харилцагчдын жагсаалтаас ашиглана"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Товч дарахад чичрэх"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Товч дарахад дуу гаргах"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Товч дарахад попап гарна"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Тохируулга"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Зангаагаар бичих"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Текст засварлах"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"Дэлгэрэнгүй"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Загвар"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Хуваагдмал гарыг идэвхжүүлэх"</string>
-    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Оруулах өөр арга руу шилжүүлэх"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Хэл солих товч"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g>мс"</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Системийн өгөгдмөл"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Харилцагчдын нэрс санал болгох"</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Санал болгох, залруулахда Харилцагчдын нэрсээс ашиглах"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Хувийн тохиргоотой зөвлөмжүүд"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Давхар зайтай цэг"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Ардаа зайтай цэг оруулахын тулд Зай авах дээр давхар товшино уу"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Автоматаар томруулах"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Өгүүлбэр бүрийн эхний үгийн эхний үсгийг томруулах"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Хувийн толь бичиг"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Нэмэлт толь бичгүүд"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Үндсэн толь бичиг"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Залруулах санал болголтуудыг харуулах"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Бичих явцад санал болгосон үгсийг харуулах"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Доромжилсон үгсийг хаах"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Доромжилсон үгсийг санал болгохгүй байх"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"Авто-залруулга"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Хоосон зай болон цэг таслал нь буруу бичсэн үгсийг автоматаар залруулна"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Идэвхгүй"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Хүлээцтэй"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"Хүчтэй"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Маш хүчтэй"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Дараагийн-үг санал болгох"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Өмнөх үгийг үг санал болгоход ашиглах"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Зангаагаар бичихийг идэвхжүүлэх"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Үсгүүд дээр гулсуулах замаар үг оруулах"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Зангасан мөрийг харуулах"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Динамик хөвөгчөөр урьдчилан харах"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Зангах явцад санал болгож буй үгийг харах"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Хэллэгийн зангалт"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Зангалтын явцад зай авах товчин дээр гулсуулах замаар зай оруулах"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"Англи (ИБ)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"Англи (АНУ)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"Испани (АНУ)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"Хинглиш"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"Серьби хэл (латин)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"Англи (ИБ) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"Англи (АНУ) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"Испани (АНУ-ын) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"Хинглиш (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"Серьби хэл (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (уламжлалт)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Компакт)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"Хэл байхгүй (Цагаан толгой)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"Цагаан толгой (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"Цагаан толгой (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"Цагаан толгой (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"Цагаан толгой (Dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"Цагаан толгой (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"Цагаан толгой (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"Инээмсэглэл"</string>
-    <string name="add" msgid="8299699805688017798">"Нэмэх"</string>
-    <string name="remove" msgid="4486081658752944606">"Устгах"</string>
-    <string name="save" msgid="7646738597196767214">"Хадгалах"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Хэл"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Байршил"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Товч дарах чичиргээний хугацаа"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Товчны дууны түвшин"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Товчны удаан даралтын тохиргоо"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Бодит гарт зориулсан эможи"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Бодит Alt товчлуур нь эможи палитрыг харуулдаг"</string>
-    <string name="button_default" msgid="3988017840431881491">"Үндсэн"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Та <xliff:g id="APPLICATION_NAME">%s</xliff:g>-д тавтай морилно уу"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"Зангаагаар бичихээр"</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Эхлэх"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Дараагийн алхам"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Хэл, оролтын тохиргоо хэсгээс \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г сонгоно уу. Ингэснээр үүнийг таны төхөөрөмжид ажиллах зөвшөөрлийг өгөх болно."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г Хэл, оролтын тохиргоонд аль хэдийн идэвхжүүлснээр энэ алхам дууслаа. Дараагийн алхмыг хийцгээе!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Тохиргоо дотроос идэвхжүүлэх"</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Дараа нь \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г өөрийн идэвхтэй текст-оруулах аргаар сонгоно уу."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Оруулах аргыг солих"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Баяр хүргэе, та бүгдийг нь тохируулчихлаа!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Та одоо өөрийн дуртай апп-ууд дотроо <xliff:g id="APPLICATION_NAME">%s</xliff:g> ашиглан бичих болохоор боллоо."</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"Дууссан"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Апп дүрсийг харуулах"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Эхлүүлэгч дээр аппликейшний дүрсийг харуулах"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Нэмэлт толь бичгүүд"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Толь бичгийн тохиргоо"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Толь бичиг байна"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Толь бичгийн үйлчилгээнд холбогдоход алдаа гарлаа"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Толь бичиг байхгүй"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Дахин шинэчлэх"</string>
-    <string name="last_update" msgid="730467549913588780">"Сүүлд шинэчлэгдсэн"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Үндсэн толь бичиг"</string>
-    <string name="settings" msgid="3876892339342569259">"Тохиргоо"</string>
-    <string name="delete" msgid="756853268088330054">"Устгах"</string>
-    <string name="version_text" msgid="2715354215568469385">"Хувилбар <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Нэмэх"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Толь бичигт нэмэх"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Товчилбор:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Хэл:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Үг оруулна уу"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Зайлшгүй биш товчилбор"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Үг засах"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Таны хэрэглэгчийн толь бичигт ямар ч үг байхгүй байна. Үг нэмэхийн тулд Нэмэх (+) товчлуурыг дарна уу."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Бүх хэлэнд"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Өөр хэлүүд…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"Харилцагчийн нэр хайх"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Алдаа шалгагч нь таны харилцагчдын жагсаалтаас ашиглана"</string>
+    <string name="vibrate_on_keypress">"Товч дарахад чичрэх"</string>
+    <string name="sound_on_keypress">"Товч дарахад дуу гаргах"</string>
+    <string name="popup_on_keypress">"Товч дарахад попап гарна"</string>
+    <string name="settings_screen_preferences">"Тохируулга"</string>
+    <string name="settings_screen_gesture">"Зангаагаар бичих"</string>
+    <string name="settings_screen_correction">"Текст засварлах"</string>
+    <string name="settings_screen_advanced">"Дэлгэрэнгүй"</string>
+    <string name="settings_screen_theme">"Загвар"</string>
+    <string name="enable_split_keyboard">"Хуваагдмал гарыг идэвхжүүлэх"</string>
+    <string name="language_switch_key_switch_input_method">"Оруулах өөр арга руу шилжүүлэх"</string>
+    <string name="show_language_switch_key">"Хэл солих товч"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>мс"</string>
+    <string name="settings_system_default">"Системийн өгөгдмөл"</string>
+    <string name="use_contacts_dict">"Харилцагчдын нэрс санал болгох"</string>
+    <string name="use_contacts_dict_summary">"Санал болгох, залруулахда Харилцагчдын нэрсээс ашиглах"</string>
+    <string name="use_personalized_dicts">"Хувийн тохиргоотой зөвлөмжүүд"</string>
+    <string name="use_double_space_period">"Давхар зайтай цэг"</string>
+    <string name="use_double_space_period_summary">"Ардаа зайтай цэг оруулахын тулд Зай авах дээр давхар товшино уу"</string>
+    <string name="auto_cap">"Автоматаар томруулах"</string>
+    <string name="auto_cap_summary">"Өгүүлбэр бүрийн эхний үгийн эхний үсгийг томруулах"</string>
+    <string name="edit_personal_dictionary">"Хувийн толь бичиг"</string>
+    <string name="configure_dictionaries_title">"Нэмэлт толь бичгүүд"</string>
+    <string name="main_dictionary">"Үндсэн толь бичиг"</string>
+    <string name="prefs_show_suggestions">"Залруулах санал болголтуудыг харуулах"</string>
+    <string name="prefs_show_suggestions_summary">"Бичих явцад санал болгосон үгсийг харуулах"</string>
+    <string name="prefs_block_potentially_offensive_title">"Доромжилсон үгсийг хаах"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Доромжилсон үгсийг санал болгохгүй байх"</string>
+    <string name="autocorrect">"Авто-залруулга"</string>
+    <string name="auto_correction_summary">"Хоосон зай болон цэг таслал нь буруу бичсэн үгсийг автоматаар залруулна"</string>
+    <string name="auto_correction_threshold_mode_off">"Идэвхгүй"</string>
+    <string name="auto_correction_threshold_mode_modest">"Хүлээцтэй"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"Хүчтэй"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"Маш хүчтэй"</string>
+    <string name="bigram_prediction">"Дараагийн-үг санал болгох"</string>
+    <string name="bigram_prediction_summary">"Өмнөх үгийг үг санал болгоход ашиглах"</string>
+    <string name="gesture_input">"Зангаагаар бичихийг идэвхжүүлэх"</string>
+    <string name="gesture_input_summary">"Үсгүүд дээр гулсуулах замаар үг оруулах"</string>
+    <string name="gesture_preview_trail">"Зангасан мөрийг харуулах"</string>
+    <string name="gesture_floating_preview_text">"Динамик хөвөгчөөр урьдчилан харах"</string>
+    <string name="gesture_floating_preview_text_summary">"Зангах явцад санал болгож буй үгийг харах"</string>
+    <string name="gesture_space_aware">"Хэллэгийн зангалт"</string>
+    <string name="gesture_space_aware_summary">"Зангалтын явцад зай авах товчин дээр гулсуулах замаар зай оруулах"</string>
+    <string name="subtype_en_GB">"Англи (ИБ)"</string>
+    <string name="subtype_en_US">"Англи (АНУ)"</string>
+    <string name="subtype_es_US">"Испани (АНУ)"</string>
+    <string name="subtype_hi_Latn">"Хинглиш"</string>
+    <string name="subtype_sr_Latn">"Серьби хэл (латин)"</string>
+    <string name="subtype_with_layout_en_GB">"Англи (ИБ) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
+    <string name="subtype_with_layout_en_US">"Англи (АНУ) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
+    <string name="subtype_with_layout_es_US">"Испани (АНУ-ын) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn">"Хинглиш (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn">"Серьби хэл (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (уламжлалт)"</string>
+    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Компакт)"</string>
+    <string name="subtype_no_language">"Хэл байхгүй (Цагаан толгой)"</string>
+    <string name="subtype_no_language_qwerty">"Цагаан толгой (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"Цагаан толгой (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"Цагаан толгой (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"Цагаан толгой (Dvorak)"</string>
+    <string name="subtype_no_language_colemak">"Цагаан толгой (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"Цагаан толгой (PC)"</string>
+    <string name="subtype_emoji">"Инээмсэглэл"</string>
+    <string name="add">"Нэмэх"</string>
+    <string name="remove">"Устгах"</string>
+    <string name="save">"Хадгалах"</string>
+    <string name="subtype_locale">"Хэл"</string>
+    <string name="keyboard_layout_set">"Байршил"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Товч дарах чичиргээний хугацаа"</string>
+    <string name="prefs_keypress_sound_volume_settings">"Товчны дууны түвшин"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Товчны удаан даралтын тохиргоо"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Бодит гарт зориулсан эможи"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Бодит Alt товчлуур нь эможи палитрыг харуулдаг"</string>
+    <string name="button_default">"Үндсэн"</string>
+    <string name="setup_welcome_title">"Та <xliff:g id="APPLICATION_NAME">%s</xliff:g>-д тавтай морилно уу"</string>
+    <string name="setup_welcome_additional_description">"Зангаагаар бичихээр"</string>
+    <string name="setup_start_action">"Эхлэх"</string>
+    <string name="setup_next_action">"Дараагийн алхам"</string>
+    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна"</string>
+    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх"</string>
+    <string name="setup_step1_instruction">"Хэл, оролтын тохиргоо хэсгээс \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г сонгоно уу. Ингэснээр үүнийг таны төхөөрөмжид ажиллах зөвшөөрлийг өгөх болно."</string>
+    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г Хэл, оролтын тохиргоонд аль хэдийн идэвхжүүлснээр энэ алхам дууслаа. Дараагийн алхмыг хийцгээе!"</string>
+    <string name="setup_step1_action">"Тохиргоо дотроос идэвхжүүлэх"</string>
+    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих"</string>
+    <string name="setup_step2_instruction">"Дараа нь \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г өөрийн идэвхтэй текст-оруулах аргаар сонгоно уу."</string>
+    <string name="setup_step2_action">"Оруулах аргыг солих"</string>
+    <string name="setup_step3_title">"Баяр хүргэе, та бүгдийг нь тохируулчихлаа!"</string>
+    <string name="setup_step3_instruction">"Та одоо өөрийн дуртай апп-ууд дотроо <xliff:g id="APPLICATION_NAME">%s</xliff:g> ашиглан бичих болохоор боллоо."</string>
+    <string name="setup_finish_action">"Дууссан"</string>
+    <string name="show_setup_wizard_icon">"Апп дүрсийг харуулах"</string>
+    <string name="show_setup_wizard_icon_summary">"Эхлүүлэгч дээр аппликейшний дүрсийг харуулах"</string>
+    <string name="dictionary_settings_title">"Нэмэлт толь бичгүүд"</string>
+    <string name="dictionary_settings_summary">"Толь бичгийн тохиргоо"</string>
+    <string name="dictionary_available">"Толь бичиг байна"</string>
+    <string name="cannot_connect_to_dict_service">"Толь бичгийн үйлчилгээнд холбогдоход алдаа гарлаа"</string>
+    <string name="no_dictionaries_available">"Толь бичиг байхгүй"</string>
+    <string name="check_for_updates_now">"Дахин шинэчлэх"</string>
+    <string name="last_update">"Сүүлд шинэчлэгдсэн"</string>
+    <string name="main_dict_description">"Үндсэн толь бичиг"</string>
+    <string name="settings">"Тохиргоо"</string>
+    <string name="delete">"Устгах"</string>
+    <string name="version_text">"Хувилбар <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="user_dict_settings_add_menu_title">"Нэмэх"</string>
+    <string name="user_dict_settings_add_dialog_title">"Толь бичигт нэмэх"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Товчилбор:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Хэл:"</string>
+    <string name="user_dict_settings_add_word_hint">"Үг оруулна уу"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Зайлшгүй биш товчилбор"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Үг засах"</string>
+    <string name="user_dict_settings_empty_text">"Таны хэрэглэгчийн толь бичигт ямар ч үг байхгүй байна. Үг нэмэхийн тулд Нэмэх (+) товчлуурыг дарна уу."</string>
+    <string name="user_dict_settings_all_languages">"Бүх хэлэнд"</string>
+    <string name="user_dict_settings_more_languages">"Өөр хэлүүд…"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Системийн хэлүүдийг ашиглах"</string>
     <string name="select_input_method">"Оруулах аргыг сонгоно уу"</string>
     <string name="settings_screen_appearance">"Харагдац"</string>
     <string name="undo">"Буцаах"</string>
     <string name="redo">"Дахин хийх"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Зөвлөмжүүдийг сайжруулахын тулд таны харилцсан, бичсэн зүйлсээс суралцана"</string>
+    <string name="use_personalized_dicts_summary">"Зөвлөмжүүдийг сайжруулахын тулд таны харилцсан, бичсэн зүйлсээс суралцана"</string>
+    <string name="label_go_key">"Очих"</string>
+    <string name="label_next_key">"Дараах"</string>
+    <string name="label_previous_key">"Өмнөх"</string>
+    <string name="label_done_key">"Дууссан"</string>
+    <string name="label_send_key">"Илгээх"</string>
+    <string name="label_search_key">"Хайлт"</string>
+    <string name="label_pause_key">"Түр зогсоох"</string>
+    <string name="label_wait_key">"Хүлээх"</string>
 </resources>

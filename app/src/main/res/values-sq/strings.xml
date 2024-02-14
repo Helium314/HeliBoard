@@ -5,123 +5,131 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Kërko emra kontakti"</string>
-    <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Kontrolluesi drejtshkrimor përdor fjalë të futura nga kontaktet e tua"</string>
-    <string name="vibrate_on_keypress" msgid="5258079494276955460">"Lësho dridhje kur shtyp tastin"</string>
-    <string name="sound_on_keypress" msgid="6093592297198243644">"Lësho tingull kur shtyp tastin"</string>
-    <string name="popup_on_keypress" msgid="123894815723512944">"Zmadhim germe kur shtyp"</string>
-    <string name="settings_screen_preferences" msgid="2696713156722014624">"Preferencat"</string>
-    <string name="settings_screen_gesture" msgid="8826372746901183556">"Shkrimi me gjeste"</string>
-    <string name="settings_screen_correction" msgid="1616818407747682955">"Korrigjim teksti"</string>
-    <string name="settings_screen_advanced" msgid="7472408607625972994">"I përparuar"</string>
-    <string name="settings_screen_theme" msgid="2137262503543943871">"Tema"</string>
-    <string name="enable_split_keyboard" msgid="4177264923999493614">"Aktivizo tastierën e ndarë"</string>
-    <string name="language_switch_key_switch_input_method" msgid="4533689960308565519">"Kalo në metoda të tjera hyrjeje"</string>
-    <string name="show_language_switch_key" msgid="5915478828318774384">"Tasti i ndryshimit të gjuhës"</string>
-    <string name="abbreviation_unit_milliseconds" msgid="8700286094028323363">"<xliff:g id="MILLISECONDS">%s</xliff:g> milisek."</string>
-    <string name="settings_system_default" msgid="6268225104743331821">"Parazgjedhja e sistemit"</string>
-    <string name="use_contacts_dict" msgid="4435317977804180815">"Sugjero emra te \"Kontaktet\""</string>
-    <string name="use_contacts_dict_summary" msgid="6599983334507879959">"Përdor emra nga \"Kontaktet\" për sugjerime dhe korrigjime"</string>
-    <string name="use_personalized_dicts" msgid="5167396352105467626">"Sugjerime të personalizuara"</string>
-    <string name="use_double_space_period" msgid="8781529969425082860">"Pikë me hapësirë të dyfishtë"</string>
-    <string name="use_double_space_period_summary" msgid="6532892187247952799">"Trokitja dy herë në tastin e hapësirës vendos një pikë të pasuar nga një hapësirë"</string>
-    <string name="auto_cap" msgid="1719746674854628252">"Kapitalizim automatik"</string>
-    <string name="auto_cap_summary" msgid="7934452761022946874">"Kapitalizo fjalën e parë të çdo fjalie"</string>
-    <string name="edit_personal_dictionary" msgid="3996910038952940420">"Fjalor personal"</string>
-    <string name="configure_dictionaries_title" msgid="4238652338556902049">"Fjalorët shtesë"</string>
-    <string name="main_dictionary" msgid="4798763781818361168">"Fjalori kryesor"</string>
-    <string name="prefs_show_suggestions" msgid="8026799663445531637">"Shfaq sugjerimet e korrigjimit"</string>
-    <string name="prefs_show_suggestions_summary" msgid="1583132279498502825">"Shfaq fjalë sugjeruese kur shkruan"</string>
-    <string name="prefs_block_potentially_offensive_title" msgid="5078480071057408934">"Blloko fjalë ofenduese"</string>
-    <string name="prefs_block_potentially_offensive_summary" msgid="2371835479734991364">"Mos sugjero fjalë që mund të jetë ofenduese"</string>
-    <string name="autocorrect" msgid="7630720885194996950">"Auto-korrigjim"</string>
-    <string name="auto_correction_summary" msgid="5625751551134658006">"Hapësira ose pikësimi korrigjojnë automatikisht fjalët e gabuara"</string>
-    <string name="auto_correction_threshold_mode_off" msgid="8470882665417944026">"Çaktivizuar"</string>
-    <string name="auto_correction_threshold_mode_modest" msgid="8788366690620799097">"Modest"</string>
-    <string name="auto_correction_threshold_mode_aggressive" msgid="7319007299148899623">"I rreptë"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive" msgid="1853309024129480416">"Shumë i rreptë"</string>
-    <string name="bigram_prediction" msgid="1084449187723948550">"Sugjerimet për fjalën e radhës"</string>
-    <string name="bigram_prediction_summary" msgid="3896362682751109677">"Përdor fjalën e mëparshme për të ofruar sugjerime"</string>
-    <string name="gesture_input" msgid="826951152254563827">"Aktivizo shkrimin me gjeste"</string>
-    <string name="gesture_input_summary" msgid="9180350639305731231">"Fut një fjalë duke rrëshqitur përmes shkronjave"</string>
-    <string name="gesture_preview_trail" msgid="3802333369335722221">"Shfaq trajektoren e gjesteve"</string>
-    <string name="gesture_floating_preview_text" msgid="4443240334739381053">"Shikim paraprak dinamik"</string>
-    <string name="gesture_floating_preview_text_summary" msgid="4472696213996203533">"Shiko fjalën e sugjeruar kur bën me gjeste"</string>
-    <string name="gesture_space_aware" msgid="2078291600664682496">"Gjest fraze"</string>
-    <string name="gesture_space_aware_summary" msgid="4371385818348528538">"Hapësirat e hyrjes gjatë gjesteve duke kaluar në tastin e hapësirës"</string>
-    <string name="subtype_en_GB" msgid="88170601942311355">"anglisht (MB)"</string>
-    <string name="subtype_en_US" msgid="6160452336634534239">"anglisht (SHBA)"</string>
-    <string name="subtype_es_US" msgid="5583145191430180200">"spanjisht (SHBA)"</string>
-    <string name="subtype_hi_Latn" msgid="8860448146262798623">"hinglisht"</string>
-    <string name="subtype_sr_Latn" msgid="9059219552986034343">"serbisht (latin)"</string>
-    <string name="subtype_with_layout_en_GB" msgid="1931018968641592304">"anglisht (MB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US" msgid="8809311287529805422">"anglisht (SHBA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US" msgid="510930471167541338">"spanjisht (SHBA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn" msgid="6827402953860547044">"hinglisht (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn" msgid="2859024772719772407">"serbisht (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional" msgid="8584594350973800586">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionale)"</string>
-    <string name="subtype_generic_compact" msgid="3353673321203202922">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakte)"</string>
-    <string name="subtype_no_language" msgid="7137390094240139495">"nuk ka gjuhë (alfabeti)"</string>
-    <string name="subtype_no_language_qwerty" msgid="244337630616742604">"alfabeti (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz" msgid="443066912507547976">"alfabeti (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty" msgid="8144348527575640087">"alfabeti (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak" msgid="1564494667584718094">"alfabeti (dvorak)"</string>
-    <string name="subtype_no_language_colemak" msgid="5837418400010302623">"alfabeti (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty" msgid="5354918232046200018">"alfabeti (PC)"</string>
-    <string name="subtype_emoji" msgid="7483586578074549196">"\"Emoji\""</string>
-    <string name="add" msgid="8299699805688017798">"Shto"</string>
-    <string name="remove" msgid="4486081658752944606">"Hiq"</string>
-    <string name="save" msgid="7646738597196767214">"Ruaj"</string>
-    <string name="subtype_locale" msgid="8576443440738143764">"Gjuha"</string>
-    <string name="keyboard_layout_set" msgid="4309233698194565609">"Struktura"</string>
-    <string name="prefs_keypress_vibration_duration_settings" msgid="7918341459947439226">"Kohëzgjatja e dridhjes nga shtypja e tastit"</string>
-    <string name="prefs_keypress_sound_volume_settings" msgid="6027007337036891623">"Volumi i tingullit të tastit"</string>
-    <string name="prefs_key_longpress_timeout_settings" msgid="6102240298932897873">"Vonesa e shtypjes së gjatë të tastit"</string>
-    <string name="prefs_enable_emoji_alt_physical_key" msgid="5963640002335470112">"Emoji për tastierën fizike"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary" msgid="5259484820941627827">"Tasti fizik Alt shfaq paletën me emoji"</string>
-    <string name="button_default" msgid="3988017840431881491">"I parazgjedhur"</string>
-    <string name="setup_welcome_title" msgid="6112821709832031715">"Mirë se erdhe në <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description" msgid="8150252008545768953">"me \"Shkrimin me gjeste\""</string>
-    <string name="setup_start_action" msgid="8936036460897347708">"Fillo"</string>
-    <string name="setup_next_action" msgid="371821437915144603">"Hapi tjetër"</string>
-    <string name="setup_steps_title" msgid="6400373034871816182">"Po konfiguron <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title" msgid="3147967630253462315">"Aktivizo <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction" msgid="4295448056733329661">"Kontrollo \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" te \"Cilësimet e gjuhës dhe hyrjes\". Kjo do ta autorizojë atë që të ekzekutohet në pajisjen tënde."</string>
-    <string name="setup_step1_finished_instruction" msgid="8701441895377434947">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> është i aktivizuar tashmë te \"Cilësimet e gjuhës dhe të hyrjes\", kështu që ky hap ka mbaruar. Vazhdo me hapin tjetër!"</string>
-    <string name="setup_step1_action" msgid="4366513534999901728">"Aktivizo te \"Cilësimet\""</string>
-    <string name="setup_step2_title" msgid="6860725447906690594">"Kalo në <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction" msgid="9141481964870023336">"Më pas, përzgjidh \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" si metodën tënde aktive të hyrjes së tekstit."</string>
-    <string name="setup_step2_action" msgid="1660330307159824337">"Ndrysho metodat e hyrjes"</string>
-    <string name="setup_step3_title" msgid="3154757183631490281">"Urime, tani je gati!"</string>
-    <string name="setup_step3_instruction" msgid="8025981829605426000">"Tani mund të shkruash të gjitha aplikacionet e tua të preferuara me <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_finish_action" msgid="276559243409465389">"U përfundua"</string>
-    <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Shfaq ikonën e aplikacionit"</string>
-    <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Shfaq ikonën e aplikacionit në mekanizimin e nisjes"</string>
-    <string name="dictionary_settings_title" msgid="8091417676045693313">"Fjalorë shtesë"</string>
-    <string name="dictionary_settings_summary" msgid="5305694987799824349">"Cilësimet për fjalorët"</string>
-    <string name="dictionary_available" msgid="4728975345815214218">"Fjalor i përdorshëm"</string>
-    <string name="cannot_connect_to_dict_service" msgid="9216933695765732398">"Problem në lidhjen me shërbimin e fjalorit"</string>
-    <string name="no_dictionaries_available" msgid="8039920716566132611">"Nuk mund të përdoret asnjë fjalor"</string>
-    <string name="check_for_updates_now" msgid="8087688440916388581">"Rifresko"</string>
-    <string name="last_update" msgid="730467549913588780">"Përditësimi i fundit"</string>
-    <string name="main_dict_description" msgid="3072821352793492143">"Fjalori kryesor"</string>
-    <string name="settings" msgid="3876892339342569259">"Cilësimet"</string>
-    <string name="delete" msgid="756853268088330054">"Fshi"</string>
-    <string name="version_text" msgid="2715354215568469385">"Versioni <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title" msgid="1254195365689387076">"Shto"</string>
-    <string name="user_dict_settings_add_dialog_title" msgid="4096700390211748168">"Shto në fjalor"</string>
-    <string name="user_dict_settings_add_shortcut_option_name" msgid="3094731590655523777">"Shkurtorja:"</string>
-    <string name="user_dict_settings_add_locale_option_name" msgid="4738643440987277705">"Gjuha:"</string>
-    <string name="user_dict_settings_add_word_hint" msgid="4902434148985906707">"Shkruaj një fjalë"</string>
-    <string name="user_dict_settings_add_shortcut_hint" msgid="2265453012555060178">"Shkurtore opsionale"</string>
-    <string name="user_dict_settings_edit_dialog_title" msgid="3765774633869590352">"Redakto fjalën"</string>
-    <string name="user_dict_settings_empty_text" msgid="6889278304342592383">"Nuk ke asnjë fjalë në fjalorin e përdoruesit. Për të shtuar një fjalë, trokit te butoni \"Shto (+)\"."</string>
-    <string name="user_dict_settings_all_languages" msgid="8276126583216298886">"Për të gjitha gjuhët"</string>
-    <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"Gjuhë të tjera…"</string>
-    <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="use_contacts_for_spellchecking_option_title">"Kërko emra kontakti"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">"Kontrolluesi drejtshkrimor përdor fjalë të futura nga kontaktet e tua"</string>
+    <string name="vibrate_on_keypress">"Lësho dridhje kur shtyp tastin"</string>
+    <string name="sound_on_keypress">"Lësho tingull kur shtyp tastin"</string>
+    <string name="popup_on_keypress">"Zmadhim germe kur shtyp"</string>
+    <string name="settings_screen_preferences">"Preferencat"</string>
+    <string name="settings_screen_gesture">"Shkrimi me gjeste"</string>
+    <string name="settings_screen_correction">"Korrigjim teksti"</string>
+    <string name="settings_screen_advanced">"I përparuar"</string>
+    <string name="settings_screen_theme">"Tema"</string>
+    <string name="enable_split_keyboard">"Aktivizo tastierën e ndarë"</string>
+    <string name="language_switch_key_switch_input_method">"Kalo në metoda të tjera hyrjeje"</string>
+    <string name="show_language_switch_key">"Tasti i ndryshimit të gjuhës"</string>
+    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> milisek."</string>
+    <string name="settings_system_default">"Parazgjedhja e sistemit"</string>
+    <string name="use_contacts_dict">"Sugjero emra te \"Kontaktet\""</string>
+    <string name="use_contacts_dict_summary">"Përdor emra nga \"Kontaktet\" për sugjerime dhe korrigjime"</string>
+    <string name="use_personalized_dicts">"Sugjerime të personalizuara"</string>
+    <string name="use_double_space_period">"Pikë me hapësirë të dyfishtë"</string>
+    <string name="use_double_space_period_summary">"Trokitja dy herë në tastin e hapësirës vendos një pikë të pasuar nga një hapësirë"</string>
+    <string name="auto_cap">"Kapitalizim automatik"</string>
+    <string name="auto_cap_summary">"Kapitalizo fjalën e parë të çdo fjalie"</string>
+    <string name="edit_personal_dictionary">"Fjalor personal"</string>
+    <string name="configure_dictionaries_title">"Fjalorët shtesë"</string>
+    <string name="main_dictionary">"Fjalori kryesor"</string>
+    <string name="prefs_show_suggestions">"Shfaq sugjerimet e korrigjimit"</string>
+    <string name="prefs_show_suggestions_summary">"Shfaq fjalë sugjeruese kur shkruan"</string>
+    <string name="prefs_block_potentially_offensive_title">"Blloko fjalë ofenduese"</string>
+    <string name="prefs_block_potentially_offensive_summary">"Mos sugjero fjalë që mund të jetë ofenduese"</string>
+    <string name="autocorrect">"Auto-korrigjim"</string>
+    <string name="auto_correction_summary">"Hapësira ose pikësimi korrigjojnë automatikisht fjalët e gabuara"</string>
+    <string name="auto_correction_threshold_mode_off">"Çaktivizuar"</string>
+    <string name="auto_correction_threshold_mode_modest">"Modest"</string>
+    <string name="auto_correction_threshold_mode_aggressive">"I rreptë"</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">"Shumë i rreptë"</string>
+    <string name="bigram_prediction">"Sugjerimet për fjalën e radhës"</string>
+    <string name="bigram_prediction_summary">"Përdor fjalën e mëparshme për të ofruar sugjerime"</string>
+    <string name="gesture_input">"Aktivizo shkrimin me gjeste"</string>
+    <string name="gesture_input_summary">"Fut një fjalë duke rrëshqitur përmes shkronjave"</string>
+    <string name="gesture_preview_trail">"Shfaq trajektoren e gjesteve"</string>
+    <string name="gesture_floating_preview_text">"Shikim paraprak dinamik"</string>
+    <string name="gesture_floating_preview_text_summary">"Shiko fjalën e sugjeruar kur bën me gjeste"</string>
+    <string name="gesture_space_aware">"Gjest fraze"</string>
+    <string name="gesture_space_aware_summary">"Hapësirat e hyrjes gjatë gjesteve duke kaluar në tastin e hapësirës"</string>
+    <string name="subtype_en_GB">"anglisht (MB)"</string>
+    <string name="subtype_en_US">"anglisht (SHBA)"</string>
+    <string name="subtype_es_US">"spanjisht (SHBA)"</string>
+    <string name="subtype_hi_Latn">"hinglisht"</string>
+    <string name="subtype_sr_Latn">"serbisht (latin)"</string>
+    <string name="subtype_with_layout_en_GB">"anglisht (MB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_en_US">"anglisht (SHBA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_es_US">"spanjisht (SHBA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn">"hinglisht (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_sr_Latn">"serbisht (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionale)"</string>
+    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakte)"</string>
+    <string name="subtype_no_language">"nuk ka gjuhë (alfabeti)"</string>
+    <string name="subtype_no_language_qwerty">"alfabeti (QWERTY)"</string>
+    <string name="subtype_no_language_qwertz">"alfabeti (QWERTZ)"</string>
+    <string name="subtype_no_language_azerty">"alfabeti (AZERTY)"</string>
+    <string name="subtype_no_language_dvorak">"alfabeti (dvorak)"</string>
+    <string name="subtype_no_language_colemak">"alfabeti (Colemak)"</string>
+    <string name="subtype_no_language_pcqwerty">"alfabeti (PC)"</string>
+    <string name="subtype_emoji">"\"Emoji\""</string>
+    <string name="add">"Shto"</string>
+    <string name="remove">"Hiq"</string>
+    <string name="save">"Ruaj"</string>
+    <string name="subtype_locale">"Gjuha"</string>
+    <string name="keyboard_layout_set">"Struktura"</string>
+    <string name="prefs_keypress_vibration_duration_settings">"Kohëzgjatja e dridhjes nga shtypja e tastit"</string>
+    <string name="prefs_keypress_sound_volume_settings">"Volumi i tingullit të tastit"</string>
+    <string name="prefs_key_longpress_timeout_settings">"Vonesa e shtypjes së gjatë të tastit"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">"Emoji për tastierën fizike"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">"Tasti fizik Alt shfaq paletën me emoji"</string>
+    <string name="button_default">"I parazgjedhur"</string>
+    <string name="setup_welcome_title">"Mirë se erdhe në <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_additional_description">"me \"Shkrimin me gjeste\""</string>
+    <string name="setup_start_action">"Fillo"</string>
+    <string name="setup_next_action">"Hapi tjetër"</string>
+    <string name="setup_steps_title">"Po konfiguron <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_step1_title">"Aktivizo <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_step1_instruction">"Kontrollo \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" te \"Cilësimet e gjuhës dhe hyrjes\". Kjo do ta autorizojë atë që të ekzekutohet në pajisjen tënde."</string>
+    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> është i aktivizuar tashmë te \"Cilësimet e gjuhës dhe të hyrjes\", kështu që ky hap ka mbaruar. Vazhdo me hapin tjetër!"</string>
+    <string name="setup_step1_action">"Aktivizo te \"Cilësimet\""</string>
+    <string name="setup_step2_title">"Kalo në <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_step2_instruction">"Më pas, përzgjidh \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" si metodën tënde aktive të hyrjes së tekstit."</string>
+    <string name="setup_step2_action">"Ndrysho metodat e hyrjes"</string>
+    <string name="setup_step3_title">"Urime, tani je gati!"</string>
+    <string name="setup_step3_instruction">"Tani mund të shkruash të gjitha aplikacionet e tua të preferuara me <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_finish_action">"U përfundua"</string>
+    <string name="show_setup_wizard_icon">"Shfaq ikonën e aplikacionit"</string>
+    <string name="show_setup_wizard_icon_summary">"Shfaq ikonën e aplikacionit në mekanizimin e nisjes"</string>
+    <string name="dictionary_settings_title">"Fjalorë shtesë"</string>
+    <string name="dictionary_settings_summary">"Cilësimet për fjalorët"</string>
+    <string name="dictionary_available">"Fjalor i përdorshëm"</string>
+    <string name="cannot_connect_to_dict_service">"Problem në lidhjen me shërbimin e fjalorit"</string>
+    <string name="no_dictionaries_available">"Nuk mund të përdoret asnjë fjalor"</string>
+    <string name="check_for_updates_now">"Rifresko"</string>
+    <string name="last_update">"Përditësimi i fundit"</string>
+    <string name="main_dict_description">"Fjalori kryesor"</string>
+    <string name="settings">"Cilësimet"</string>
+    <string name="delete">"Fshi"</string>
+    <string name="version_text">"Versioni <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="user_dict_settings_add_menu_title">"Shto"</string>
+    <string name="user_dict_settings_add_dialog_title">"Shto në fjalor"</string>
+    <string name="user_dict_settings_add_shortcut_option_name">"Shkurtorja:"</string>
+    <string name="user_dict_settings_add_locale_option_name">"Gjuha:"</string>
+    <string name="user_dict_settings_add_word_hint">"Shkruaj një fjalë"</string>
+    <string name="user_dict_settings_add_shortcut_hint">"Shkurtore opsionale"</string>
+    <string name="user_dict_settings_edit_dialog_title">"Redakto fjalën"</string>
+    <string name="user_dict_settings_empty_text">"Nuk ke asnjë fjalë në fjalorin e përdoruesit. Për të shtuar një fjalë, trokit te butoni \"Shto (+)\"."</string>
+    <string name="user_dict_settings_all_languages">"Për të gjitha gjuhët"</string>
+    <string name="user_dict_settings_more_languages">"Gjuhë të tjera…"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Përdor gjuhët e sistemit"</string>
     <string name="select_input_method">"Zgjidh metodën e hyrjes"</string>
     <string name="undo">"Zhbëj"</string>
     <string name="redo">"Ribëj"</string>
-    <string name="use_personalized_dicts_summary" msgid="590432261305469627">"Mëso nga komunikimet dhe të dhënat e shkruara për të përmirësuar sugjerimet"</string>
+    <string name="use_personalized_dicts_summary">"Mëso nga komunikimet dhe të dhënat e shkruara për të përmirësuar sugjerimet"</string>
+    <string name="label_go_key">"Shko"</string>
+    <string name="label_next_key">"Përpara"</string>
+    <string name="label_previous_key">"Prapa"</string>
+    <string name="label_done_key">"U krye!"</string>
+    <string name="label_send_key">"Dërgo"</string>
+    <string name="label_search_key">"Kërko"</string>
+    <string name="label_pause_key">"Pauzë"</string>
+    <string name="label_wait_key">"Prit!"</string>
 </resources>

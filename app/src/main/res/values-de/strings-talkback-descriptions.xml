@@ -4,66 +4,66 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spoken_use_headphones" msgid="4313642710742229868">"Schließe ein Headset an, um das Passwort gesprochen zu hören."</string>
-    <string name="spoken_current_text_is" msgid="4240549866156675799">"Aktueller Text lautet %s"</string>
-    <string name="spoken_no_text_entered" msgid="1711276837961785646">"Kein Text eingegeben"</string>
-    <string name="spoken_auto_correct" msgid="8989324692167993804">"Mit <xliff:g id="KEY_NAME">%1$s</xliff:g> wird \"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>\" in \"<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>\" geändert."</string>
-    <string name="spoken_auto_correct_obscured" msgid="7769449372355268412">"Mit <xliff:g id="KEY_NAME">%1$s</xliff:g> erfolgt eine Autokorrektur."</string>
-    <string name="spoken_empty_suggestion" msgid="4250215619373459752">"Kein Vorschlag"</string>
-    <string name="spoken_description_unknown" msgid="5139930082759824442">"Unbekanntes Zeichen"</string>
-    <string name="spoken_description_shift" msgid="7209798151676638728">"Umschalttaste"</string>
-    <string name="spoken_description_symbols_shift" msgid="3483198879916435717">"Weitere Symbole"</string>
-    <string name="spoken_description_shift_shifted" msgid="3122704922642232605">"Umschalttaste-Taste"</string>
-    <string name="spoken_description_symbols_shift_shifted" msgid="5179175466878186081">"Symbole"</string>
-    <string name="spoken_description_caps_lock" msgid="1224851412185975036">"Umschalttaste-Taste"</string>
-    <string name="spoken_description_delete" msgid="3878902286264983302">"Löschen"</string>
-    <string name="spoken_description_to_symbol" msgid="8244903740201126590">"Symbole"</string>
-    <string name="spoken_description_to_alpha" msgid="4081215210530031950">"Buchstaben"</string>
-    <string name="spoken_description_to_numeric" msgid="4560261331530795682">"Zahlen"</string>
-    <string name="spoken_description_settings" msgid="7281251004003143204">"Einstellungen"</string>
-    <string name="spoken_description_tab" msgid="8210782459446866716">"Tabulatortaste"</string>
-    <string name="spoken_description_space" msgid="5908716896642059145">"Leertaste"</string>
-    <string name="spoken_description_mic" msgid="6153138783813452464">"Spracheingabe"</string>
-    <string name="spoken_description_emoji" msgid="7990051553008088470">"Emoji"</string>
-    <string name="spoken_description_return" msgid="3183692287397645708">"Eingabetaste"</string>
-    <string name="spoken_description_search" msgid="5099937658231911288">"Suchen"</string>
-    <string name="spoken_description_dot" msgid="5644176501632325560">"Aufzählungspunkt"</string>
-    <string name="spoken_description_language_switch" msgid="6818666779313544553">"Sprache wechseln"</string>
-    <string name="spoken_description_action_next" msgid="431761808119616962">"Weiter"</string>
-    <string name="spoken_description_action_previous" msgid="2919072174697865110">"Zurück"</string>
-    <string name="spoken_description_shiftmode_on" msgid="5107180516341258979">"Umschalttaste aktiviert"</string>
-    <string name="spoken_description_shiftmode_locked" msgid="7307477738053606881">"Feststelltaste aktiviert"</string>
-    <string name="spoken_description_mode_symbol" msgid="111186851131446691">"Symbolmodus"</string>
-    <string name="spoken_description_mode_symbol_shift" msgid="4305607977537665389">"Modus \"Weitere Symbole\""</string>
-    <string name="spoken_description_mode_alpha" msgid="4676004119618778911">"Buchstabenmodus"</string>
-    <string name="spoken_description_mode_phone" msgid="2061220553756692903">"Telefonmodus"</string>
-    <string name="spoken_description_mode_phone_shift" msgid="7879963803547701090">"Telefon-Symbolmodus"</string>
-    <string name="announce_keyboard_hidden" msgid="2313574218950517779">"Tastatur ausgeblendet"</string>
-    <string name="announce_keyboard_mode" msgid="6698257917367823205">"Tastatur für <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
-    <string name="keyboard_mode_date" msgid="6597407244976713364">"Datum"</string>
-    <string name="keyboard_mode_date_time" msgid="3642804408726668808">"Datum und Uhrzeit"</string>
-    <string name="keyboard_mode_email" msgid="1239682082047693644">"E-Mail-Adresse"</string>
-    <string name="keyboard_mode_im" msgid="3812086215529493501">"Messaging"</string>
-    <string name="keyboard_mode_number" msgid="5395042245837996809">"Zahl"</string>
-    <string name="keyboard_mode_phone" msgid="2486230278064523665">"Telefonnummer"</string>
-    <string name="keyboard_mode_text" msgid="9138789594969187494">"Text"</string>
-    <string name="keyboard_mode_time" msgid="8558297845514402675">"Zeit"</string>
-    <string name="keyboard_mode_url" msgid="8072011652949962550">"URL"</string>
-    <string name="spoken_description_emoji_category_recents" msgid="4185344945205590692">"Neueste"</string>
-    <string name="spoken_description_emoji_category_objects" msgid="6116297906606195278">"Objekte"</string>
-    <string name="spoken_description_emoji_category_symbols" msgid="474680659024880601">"Symbole"</string>
-    <string name="spoken_description_emoji_category_flags" msgid="5971573825866381472">"Fahnen"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people" msgid="5682663819532433464">"Smileys &amp; Personen"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature" msgid="5844950234883716704">"Tiere &amp; Natur"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink" msgid="6196944764485349650">"Essen &amp; Trinken"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places" msgid="3834085499381434611">"Reisen &amp; Orte"</string>
-    <string name="spoken_description_emoji_category_eight_activity" msgid="4795281669042975993">"Aktivitäten"</string>
-    <string name="spoken_description_emoji_category_emoticons" msgid="456737544787823539">"Emoticons"</string>
-    <string name="spoken_description_upper_case" msgid="4904835255229433916">"Großbuchstabe <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
-    <string name="spoken_letter_0049" msgid="4743162182646977944">"Großbuchstabe I"</string>
-    <string name="spoken_letter_0130" msgid="4766619646231612274">"Großbuchstabe I mit übergesetztem Punkt"</string>
-    <string name="spoken_open_popup_keys_keyboard" msgid="6832897688371903747">"Es sind Alternativzeichen verfügbar."</string>
-    <string name="spoken_close_popup_keys_keyboard" msgid="3524914657934712026">"Alternativzeichen werden ausgeblendet."</string>
-    <string name="spoken_open_more_suggestions" msgid="4231720702882969760">"Es sind Alternativvorschläge verfügbar."</string>
-    <string name="spoken_close_more_suggestions" msgid="9118455416075032839">"Alternativvorschläge werden ausgeblendet."</string>
+    <string name="spoken_use_headphones">"Schließe ein Headset an, um das Passwort gesprochen zu hören."</string>
+    <string name="spoken_current_text_is">"Aktueller Text lautet %s"</string>
+    <string name="spoken_no_text_entered">"Kein Text eingegeben"</string>
+    <string name="spoken_auto_correct">"Mit <xliff:g id="KEY_NAME">%1$s</xliff:g> wird \"<xliff:g id="ORIGINAL_WORD">%2$s</xliff:g>\" in \"<xliff:g id="CORRECTED_WORD">%3$s</xliff:g>\" geändert."</string>
+    <string name="spoken_auto_correct_obscured">"Mit <xliff:g id="KEY_NAME">%1$s</xliff:g> erfolgt eine Autokorrektur."</string>
+    <string name="spoken_empty_suggestion">"Kein Vorschlag"</string>
+    <string name="spoken_description_unknown">"Unbekanntes Zeichen"</string>
+    <string name="spoken_description_shift">"Umschalttaste"</string>
+    <string name="spoken_description_symbols_shift">"Weitere Symbole"</string>
+    <string name="spoken_description_shift_shifted">"Umschalttaste-Taste"</string>
+    <string name="spoken_description_symbols_shift_shifted">"Symbole"</string>
+    <string name="spoken_description_caps_lock">"Umschalttaste-Taste"</string>
+    <string name="spoken_description_delete">"Löschen"</string>
+    <string name="spoken_description_to_symbol">"Symbole"</string>
+    <string name="spoken_description_to_alpha">"Buchstaben"</string>
+    <string name="spoken_description_to_numeric">"Zahlen"</string>
+    <string name="spoken_description_settings">"Einstellungen"</string>
+    <string name="spoken_description_tab">"Tabulatortaste"</string>
+    <string name="spoken_description_space">"Leertaste"</string>
+    <string name="spoken_description_mic">"Spracheingabe"</string>
+    <string name="spoken_description_emoji">"Emoji"</string>
+    <string name="spoken_description_return">"Eingabetaste"</string>
+    <string name="spoken_description_search">"Suchen"</string>
+    <string name="spoken_description_dot">"Aufzählungspunkt"</string>
+    <string name="spoken_description_language_switch">"Sprache wechseln"</string>
+    <string name="spoken_description_action_next">"Weiter"</string>
+    <string name="spoken_description_action_previous">"Zurück"</string>
+    <string name="spoken_description_shiftmode_on">"Umschalttaste aktiviert"</string>
+    <string name="spoken_description_shiftmode_locked">"Feststelltaste aktiviert"</string>
+    <string name="spoken_description_mode_symbol">"Symbolmodus"</string>
+    <string name="spoken_description_mode_symbol_shift">"Modus \"Weitere Symbole\""</string>
+    <string name="spoken_description_mode_alpha">"Buchstabenmodus"</string>
+    <string name="spoken_description_mode_phone">"Telefonmodus"</string>
+    <string name="spoken_description_mode_phone_shift">"Telefon-Symbolmodus"</string>
+    <string name="announce_keyboard_hidden">"Tastatur ausgeblendet"</string>
+    <string name="announce_keyboard_mode">"Tastatur für <xliff:g id="KEYBOARD_MODE">%s</xliff:g>"</string>
+    <string name="keyboard_mode_date">"Datum"</string>
+    <string name="keyboard_mode_date_time">"Datum und Uhrzeit"</string>
+    <string name="keyboard_mode_email">"E-Mail-Adresse"</string>
+    <string name="keyboard_mode_im">"Messaging"</string>
+    <string name="keyboard_mode_number">"Zahl"</string>
+    <string name="keyboard_mode_phone">"Telefonnummer"</string>
+    <string name="keyboard_mode_text">"Text"</string>
+    <string name="keyboard_mode_time">"Zeit"</string>
+    <string name="keyboard_mode_url">"URL"</string>
+    <string name="spoken_description_emoji_category_recents">"Neueste"</string>
+    <string name="spoken_description_emoji_category_objects">"Objekte"</string>
+    <string name="spoken_description_emoji_category_symbols">"Symbole"</string>
+    <string name="spoken_description_emoji_category_flags">"Fahnen"</string>
+    <string name="spoken_description_emoji_category_eight_smiley_people">"Smileys &amp; Personen"</string>
+    <string name="spoken_description_emoji_category_eight_animals_nature">"Tiere &amp; Natur"</string>
+    <string name="spoken_description_emoji_category_eight_food_drink">"Essen &amp; Trinken"</string>
+    <string name="spoken_description_emoji_category_eight_travel_places">"Reisen &amp; Orte"</string>
+    <string name="spoken_description_emoji_category_eight_activity">"Aktivitäten"</string>
+    <string name="spoken_description_emoji_category_emoticons">"Emoticons"</string>
+    <string name="spoken_description_upper_case">"Großbuchstabe <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
+    <string name="spoken_letter_0049">"Großbuchstabe I"</string>
+    <string name="spoken_letter_0130">"Großbuchstabe I mit übergesetztem Punkt"</string>
+    <string name="spoken_open_popup_keys_keyboard">"Es sind Alternativzeichen verfügbar."</string>
+    <string name="spoken_close_popup_keys_keyboard">"Alternativzeichen werden ausgeblendet."</string>
+    <string name="spoken_open_more_suggestions">"Es sind Alternativvorschläge verfügbar."</string>
+    <string name="spoken_close_more_suggestions">"Alternativvorschläge werden ausgeblendet."</string>
 </resources>
