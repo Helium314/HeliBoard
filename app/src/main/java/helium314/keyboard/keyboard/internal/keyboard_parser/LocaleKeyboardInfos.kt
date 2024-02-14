@@ -130,13 +130,13 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         val priorityMarkerIndex = split.indexOf("%")
         if (priorityMarkerIndex > 0) {
             val existingPriorityPopupKeys = priorityPopupKeys[key]
-            priorityPopupKeys[key] = if (existingPriorityPopupKeys == null)
-                    split.subList(1, priorityMarkerIndex)
-                else existingPriorityPopupKeys + split.subList(1, priorityMarkerIndex)
+            val newPriorityPopupKeys = split.subList(1, priorityMarkerIndex)
+            priorityPopupKeys[key] = if (existingPriorityPopupKeys == null) newPriorityPopupKeys
+                else existingPriorityPopupKeys + newPriorityPopupKeys
             val existingPopupKeys = popupKeys[key]
-            popupKeys[key] = if (existingPopupKeys == null)
-                    split.subList(priorityMarkerIndex, split.size)
-                else existingPopupKeys + split.subList(priorityMarkerIndex, split.size)
+            val newPopupKeys = split.subList(priorityMarkerIndex + 1, split.size)
+            popupKeys[key] = if (existingPopupKeys == null) newPopupKeys
+                else existingPopupKeys + newPopupKeys
         } else {
             // a but more special treatment, this should not occur together with priority marker (but technically could)
             val existingPopupKeys = popupKeys[key]
