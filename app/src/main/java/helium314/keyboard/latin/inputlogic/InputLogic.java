@@ -1253,13 +1253,12 @@ public final class InputLogic {
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
-                    final int lengthToDelete =
-                            Character.isSupplementaryCodePoint(codePointBeforeCursor) ? 2 : 1;
                     if (StringUtils.mightBeEmoji(codePointBeforeCursor)) {
                         // emoji length varies, so we'd need to find out length to delete correctly
                         // the solution is not optimal, but a reasonable workaround for issues when trying to delete emojis
                         sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
                     } else {
+                        final int lengthToDelete = Character.isSupplementaryCodePoint(codePointBeforeCursor) ? 2 : 1;
                         mConnection.deleteTextBeforeCursor(lengthToDelete);
                         int totalDeletedLength = lengthToDelete;
                         if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
