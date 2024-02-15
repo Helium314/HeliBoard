@@ -47,8 +47,8 @@
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "া" },
-      "default": { "label": "অ" }
+      "manualOrLocked": { "label": অ" },
+      "default": { "label": "া" }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ষ" },
