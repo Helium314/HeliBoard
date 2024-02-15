@@ -121,7 +121,8 @@
       "default": { "label": "ম" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ৃ" }
+      "manualOrLocked": { "label": "ৃ" },
+      "default": { "label": "." }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ঁ" },
