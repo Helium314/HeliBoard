@@ -127,9 +127,8 @@
       "manualOrLocked": { "label": "ঁ" },
       "default": { "label": "্" }
     },
-    { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ৎ" },
-      "default": { "label": "ঞ" }
+    {
+    "label": "ঞ", "popup": { "main": { "label": "ৎ" } }
     }
   ]
 ]
