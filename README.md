@@ -18,7 +18,6 @@ Does not use internet permission, and thus is 100% offline.
 # Features
 * Add dictionaries for suggestions and spell check
   * build your own, or get them [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
-  * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
 * Customize keyboard themes (style, colors and background image)
@@ -38,6 +37,7 @@ Does not use internet permission, and thus is 100% offline.
 * Backup and restore your learned word / history data
 
 ## FAQ / Common Issues
+* __Add a dictionary__: First download the dictionary file, e.g. from [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries). Then go to language settings, click on the language, then on `+` next to _dictionary_ the _add_ and select the file. Alternatively you can open a `.dict` file in a file explorer with HeliBoard and then select the language. Note that the latter method does not work with all file explorers.
 * __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search funtion does not exist.
 * __No suggestions for some language__: Check [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries) whether a dictionary is available. If there is one, download it and add it in the language settings for this language.
 * __No suggestions in some app / text field__: This app respects the [no suggestions flag](https://developer.android.com/reference/android/text/InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS) set by some input fields, i.e. the developer does not want you to see suggestions here. Best do in issue report for that app if you think this behavior is wrong. Alternatively you can enable the _always show suggestions_ setting that overrides the _no suggestions_ flag.
