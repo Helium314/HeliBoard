@@ -906,31 +906,37 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
             int dX = x - mStartX;
             int dY = y - mStartY;
+            int stepsY = dY / sPointerStep;
             // language switch: upwards movement
-            if (!mCursorMoved && sv.mSpaceLanguageSlide && -dY > abs(dX) && dY / sPointerStep != 0) {
+            if (!mCursorMoved && sv.mSpaceLanguageSlide && abs(dX) < abs(dY)) {
                 List<InputMethodSubtype> subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false);
-                if (subtypes.size() > 1) { // only allow if we have more than one subtype
-                    mLanguageSlideStarted = true;
-                    if (abs(y - mPreviousY) / sPointerStep < 4)
-                        // we want large enough steps between switches
-                        return;
+                if (subtypes.size() <= 1) return; // only allow if we have more than one subtype
 
-                    // decide next or previous dependent on up or down
-                    InputMethodSubtype current = RichInputMethodManager.getInstance().getCurrentSubtype().getRawSubtype();
-                    int wantedIndex = (subtypes.indexOf(current) + ((y - mPreviousY > 0) ? 1 : -1)) % subtypes.size();
-                    if (wantedIndex < 0) wantedIndex += subtypes.size();
-                    KeyboardSwitcher.getInstance().switchToSubtype(subtypes.get(wantedIndex));
-                    mPreviousY = y;
-                    return;
-                }
+                mLanguageSlideStarted = true;
+                mStartY += stepsY * sPointerStep;
+                if (abs(y - mPreviousY) / sPointerStep < 4) return; // we want large enough steps between switches
+
+                // decide next or previous dependent on up or down
+                InputMethodSubtype current = RichInputMethodManager.getInstance().getCurrentSubtype().getRawSubtype();
+                int wantedIndex = (subtypes.indexOf(current) + ((y - mPreviousY > 0) ? 1 : -1)) % subtypes.size();
+                if (wantedIndex < 0) wantedIndex += subtypes.size();
+                KeyboardSwitcher.getInstance().switchToSubtype(subtypes.get(wantedIndex));
+                mPreviousY = y;
+                return;
             }
             // Pointer slider: sideways movement
-            int steps = dX / sPointerStep;
+            int stepsX = dX / sPointerStep;
             final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
-            if (sv.mSpaceTrackpadEnabled && !mLanguageSlideStarted && steps != 0 && mStartTime + longpressTimeout < System.currentTimeMillis()) {
+            if (sv.mSpaceTrackpadEnabled && !mLanguageSlideStarted && mStartTime + longpressTimeout < System.currentTimeMillis()) {
                 mCursorMoved = true;
-                mStartX += steps * sPointerStep;
-                sListener.onMovePointer(steps);
+                if (stepsX != 0) {
+                    mStartX += stepsX * sPointerStep;
+                    sListener.onHorizontalSpaceSwipe(stepsX);
+                }
+                if (stepsY != 0) {
+                    mStartY += stepsY * sPointerStep;
+                    sListener.onVerticalSpaceSwipe(stepsY);
+                }
             }
             return;
         }
