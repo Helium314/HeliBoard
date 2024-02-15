@@ -30,11 +30,11 @@ If you want different key label and use text, set the label to [label]|[text], e
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
-  * Popup keys in the layout will be in the "Layout" popup key group.
-* Add a layout entry to [method.xml](app/src/main/res/xml/method.xml)
+  * Popup keys in the layout will be in the "_Layout_" popup key group.
+* Add a layout entry to [`method.xml`](app/src/main/res/xml/method.xml)
   * `KeyboardLayoutSet` in `android:imeSubtypeExtraValue` must be set to the name of your layout file (without file ending)
   * `android:subtypeId` must be set to a value that is unique in this file (please use the same length as for other layouts)
-  * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. `%s` will be replaced with the language
+  * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. The new string should be added to default [`strings.xml`](/app/src/main/res/values/strings.xml), and optionally to other languages. `%s` will be replaced with the language.
 * If you add a new language, you might want to provide a [language_key_texts](/app/src/main/assets/language_key_texts) file
   * `[popup_keys]` section contains popup keys that are similar to the letter (like `a` and `ä` or `य` and `य़`)
     * Such forms should _not_ be in the layout. They will apply to all layouts of that language, even custom ones.
