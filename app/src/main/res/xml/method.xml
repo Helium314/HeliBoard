@@ -234,7 +234,7 @@
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_probhat_bn_BD"
-            android:subtypeId="0xa2144b0p"
+            android:subtypeId="0xa2144c0c"
             android:imeSubtypeLocale="bn_BD"
             android:languageTag="bn-BD"
             android:imeSubtypeMode="keyboard"
