@@ -47,7 +47,7 @@
   ],
   [
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": অ" },
+      "manualOrLocked": { "label": "অ" },
       "default": { "label": "া" }
     },
     { "$": "shift_state_selector",
@@ -87,7 +87,7 @@
       "default": { "label": "ো" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "‌" },
+      "manualOrLocked": { "label": "৳" },
       "default": { "label": "॥" }
     }
   ],
@@ -121,12 +121,15 @@
       "default": { "label": "ম" }
     },
     { "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ৃ" },
-      "default": { "label": "।" }
+      "manualOrLocked": { "label": "ৃ" }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ঁ" },
       "default": { "label": "্" }
+    },
+    { "$": "shift_state_selector",
+      "manualOrLocked": { "label": "ৎ" },
+      "default": { "label": "ঞ" }
     }
   ]
 ]
