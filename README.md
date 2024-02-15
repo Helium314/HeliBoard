@@ -30,6 +30,7 @@ Does not use internet permission, and thus is 100% offline.
   * library not included in the app, as there is no compatible open source library available
   * can be extracted from GApps packages ("_swypelibs_"), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
   * if you are concerned about security implications of loading user-provides libraries, please use the _nouserlib_ build variant, which removes this option. If HeliBoard is installed as system app, and _swypelibs_ are available for the system, they will be used.
+  * If the app is installed as a system app and _swypelibs_ are available, glide typing will be available independent of the version.
 * Clipboard history
 * One-handed mode
 * Split keyboard (if the screen is large enough)
@@ -117,7 +118,7 @@ In addition to previous elements, HeliBoard must stick to [F-Droid inclusion gui
 
 ### Adding Layouts
 
-See [layouts.md](layouts.md) for how to add new layouts to the app.
+See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new layouts to the app.
 
 ### Update Emojis
 
