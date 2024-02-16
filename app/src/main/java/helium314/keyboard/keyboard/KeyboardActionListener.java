@@ -95,8 +95,8 @@ public interface KeyboardActionListener {
      * Called when the user performs a horizontal or vertical swipe gesture
      * on the space bar to move the cursor.
      */
-    void onHorizontalSpaceSwipe(int steps);
-    void onVerticalSpaceSwipe(int steps);
+    void onMoveCursorHorizontally(int steps);
+    void onMoveCursorVertically(int steps);
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -129,9 +129,9 @@ public interface KeyboardActionListener {
             return false;
         }
         @Override
-        public void onHorizontalSpaceSwipe(int steps) {}
+        public void onMoveCursorHorizontally(int steps) {}
         @Override
-        public void onVerticalSpaceSwipe(int steps) {}
+        public void onMoveCursorVertically(int steps) {}
         @Override
         public void onMoveDeletePointer(int steps) {}
         @Override

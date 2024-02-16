@@ -931,11 +931,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mCursorMoved = true;
                 if (stepsX != 0) {
                     mStartX += stepsX * sPointerStep;
-                    sListener.onHorizontalSpaceSwipe(stepsX);
+                    sListener.onMoveCursorHorizontally(stepsX);
                 }
                 if (stepsY != 0) {
                     mStartY += stepsY * sPointerStep;
-                    sListener.onVerticalSpaceSwipe(stepsY);
+                    sListener.onMoveCursorVertically(stepsY);
                 }
             }
             return;

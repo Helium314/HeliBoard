@@ -1388,7 +1388,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
-    public void onHorizontalSpaceSwipe(int steps) {
+    public void onMoveCursorHorizontally(int steps) {
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
             steps = -steps;
@@ -1432,7 +1432,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
-    public void onVerticalSpaceSwipe(int steps) {
+    public void onMoveCursorVertically(int steps) {
         int code = (steps < 0) ? Constants.CODE_UP : Constants.CODE_DOWN;
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
     }
