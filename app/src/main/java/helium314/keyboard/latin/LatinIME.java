@@ -1390,11 +1390,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public boolean onHorizontalSpaceSwipe(final int steps) {
         if (mSettings.getCurrent().mSpaceTrackpadEnabled)
-            return onMovePointer(steps);
+            return onMoveCursorHorizontally(steps);
         return false;
     }
 
-    private boolean onMovePointer(int steps) {
+    private boolean onMoveCursorHorizontally(int steps) {
         if (steps == 0) return false;
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
