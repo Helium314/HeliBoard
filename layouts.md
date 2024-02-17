@@ -22,10 +22,10 @@ If you want different key label and use text, set the label to [label]|[text], e
 
 ## Json format
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
-* You can use character layouts from FlorisBoard
+* You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
 * There is no need for specifying a code, it will be determined from the label automatically
-  * Specify it if you want key label and code to be different
-* You can add a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
+  * You can still specify it, but it's only necessary if you want key label and code to be different
+* You can add the numeric value of a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values.
 * More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
 
 ## Adding new layouts / languages
