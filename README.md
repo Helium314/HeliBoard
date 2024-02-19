@@ -124,6 +124,10 @@ See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new la
 
 See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 
+### Update List of Existing Dictionaries
+
+See make-dict-list tool [README](tools/make-dict-list/README.md).
+
 # License
 
 HeliBoard (as a fork of OpenBoard) is licensed under GNU General Public License v3.0.

@@ -85,3 +85,6 @@ private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
     dir.listFiles()?.any { it.name != DictionaryInfoUtils.getExtractedMainDictFilename() } != false
 
 const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"
+const val DICTIONARY_DOWNLOAD_SUFFIX = "/src/branch/main/"
+const val DICTIONARY_NORMAL_SUFFIX = "dictionaries/"
+const val DICTIONARY_EXPERIMENTAL_SUFFIX = "dictionaries_experimental/"

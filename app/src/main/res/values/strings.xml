@@ -547,6 +547,8 @@ New dictionary:
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
     <!-- Title of the link to the download page inserted into messages (add_dictionary and no_dictionary_message) -->
     <string name="dictionary_link_text">"here"</string>
+    <!-- Title of an item in the list of available dictionaries when the dictionary is experimental. This string will be interpreted as HTML -->
+    <string name="available_dictionary_experimental">"%s (experimental)"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->

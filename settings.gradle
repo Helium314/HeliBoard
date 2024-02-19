@@ -1,2 +1,3 @@
 include ':app'
 include ':tools:make-emoji-keys'
+include ':tools:make-dict-list'

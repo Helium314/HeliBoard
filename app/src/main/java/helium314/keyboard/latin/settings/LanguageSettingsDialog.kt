@@ -268,10 +268,41 @@ class LanguageSettingsDialog(
         binding.secondaryLocales.addView(rowBinding.root)
     }
 
+    private fun createDictionaryText(locale: Locale, context: Context): String {
+        val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+        val message = context.getString(R.string.add_dictionary, link)
+        val knownDicts = mutableListOf<String>()
+        context.assets.open("dictionaries_in_dict_repo.csv").reader().forEachLine {
+            if (it.isBlank()) return@forEachLine
+            val (type, localeString, experimental) = it.split(",")
+            // we use a locale string here because that's in the dictionaries repo
+            // ideally the repo would switch to language tag, but not sure how this is handled in the dictionary header
+            // further, the dicts in the dictionaries repo should be compatible with other AOSP-based keyboards
+            val dictLocale = localeString.constructLocale()
+            if (LocaleUtils.getMatchLevel(locale, dictLocale) < 3) return@forEachLine
+            val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
+            val dictString = if (experimental.isEmpty()) rawDictString
+                else context.getString(R.string.available_dictionary_experimental, rawDictString)
+            val dictBaseUrl = DICTIONARY_URL + DICTIONARY_DOWNLOAD_SUFFIX +
+                    if (experimental.isEmpty()) DICTIONARY_NORMAL_SUFFIX else DICTIONARY_EXPERIMENTAL_SUFFIX
+            val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
+            val fullText = "<li><a href='$dictLink'>$dictString</a></li>"
+            knownDicts.add(fullText)
+        }
+        if (knownDicts.isEmpty()) return message
+        return """
+            <p>$message</p>
+            <b>${context.getString(R.string.dictionary_available)}</b>
+            <ul>
+            ${knownDicts.joinToString("\n")}
+            </ul>
+        """.trimIndent()
+    }
+
     private fun fillDictionariesView() {
         binding.addDictionary.setOnClickListener {
-            val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
-            val message = SpannableStringUtils.fromHtml(context.getString(R.string.add_dictionary, link))
+            val messageRawText = createDictionaryText(mainLocale, context)
+            val message = SpannableStringUtils.fromHtml(messageRawText)
             val dialog = Builder(context)
                 .setTitle(R.string.add_new_dictionary_title)
                 .setMessage(message)

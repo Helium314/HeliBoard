@@ -91,7 +91,7 @@ object LocaleUtils {
      * @param tested the locale to test.
      * @return a constant that measures how well the tested locale matches the reference locale.
      */
-    private fun getMatchLevel(reference: Locale, tested: Locale): Int {
+    fun getMatchLevel(reference: Locale, tested: Locale): Int {
         if (reference == tested) return LOCALE_FULL_MATCH
         if (reference.toString().isEmpty()) return LOCALE_ANY_MATCH
         if (reference.language != tested.language) return LOCALE_NO_MATCH
