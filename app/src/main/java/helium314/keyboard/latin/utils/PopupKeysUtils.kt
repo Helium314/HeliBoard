@@ -126,17 +126,18 @@ fun reorderPopupKeysDialog(context: Context, key: String, defaultSetting: String
     }
     val bgColor = ContextCompat.getColor(context, R.color.sliding_items_background)
     val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
-        override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val b = LayoutInflater.from(context).inflate(R.layout.popup_keys_list_item, rv, false)
             b.setBackgroundColor(bgColor)
             return object : RecyclerView.ViewHolder(b) { }
         }
-        override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
-            val (text, wasChecked) = orderedItems[p1]
+        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+            val (text, wasChecked) = orderedItems[position]
             val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
             val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
-            p0.itemView.findViewById<TextView>(R.id.popup_keys_type)?.text = displayText
-            val switch = p0.itemView.findViewById<Switch>(R.id.popup_keys_switch)
+            viewHolder.itemView.findViewById<TextView>(R.id.popup_keys_type)?.text = displayText
+            val switch = viewHolder.itemView.findViewById<Switch>(R.id.popup_keys_switch)
+            switch?.setOnCheckedChangeListener(null)
             switch?.isChecked = wasChecked
             switch?.isEnabled = !(key.contains(Settings.PREF_POPUP_KEYS_ORDER) && text == POPUP_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->
