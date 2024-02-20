@@ -101,7 +101,6 @@
     <string name="dictionary_available">"Dicionario dispoñible"</string>
     <string name="cannot_connect_to_dict_service">"Erro ao conectar"</string>
     <string name="no_dictionaries_available">"Non hai dicionarios"</string>
-    <string name="check_for_updates_now">"Actualizar"</string>
     <string name="last_update">"Última actualización"</string>
     <string name="main_dict_description">"Dicionario principal"</string>
     <string name="settings">"Configuración"</string>
@@ -279,9 +278,7 @@
     <string name="delete_layout">Queres eliminar a disposición persoal %s?</string>
     <string name="layout_error">Erro na disposición: %s</string>
     <string name="edit_layout">Toca para editar a disposición</string>
-    <string name="customize_symbols">Personaliza os símbolos da disposición</string>
-    <string name="customize_shift_symbols">Personaliza máis símbolos na disposición</string>
-    <string name="shift_symbols">Máis símbolos</string>
+    <string name="layout_symbols_shifted">Máis símbolos</string>
     <string name="customize_background_image">Establece imaxe de fondo</string>
     <string name="day_or_night_image">Establecer para o modo diurno ou nocturno?</string>
     <string name="day_or_night_day">Día</string>

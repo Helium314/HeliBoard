@@ -27,6 +27,8 @@ import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
+import helium314.keyboard.latin.utils.ScriptUtils
+import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.getLayoutFile
 import helium314.keyboard.latin.utils.runInLocale
 import helium314.keyboard.latin.utils.sumOf
@@ -185,7 +187,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun addSymbolPopupKeys(baseKeys: MutableList<List<KeyData>>) {
-        val layoutName = Settings.readSymbolsLayoutName(context, params.mId.locale)
+        val layoutName = getLayoutFileName(params, context, overrideElementId = KeyboardId.ELEMENT_SYMBOLS)
         val layout = if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
                 else SimpleKeyboardParser(params, context, false)
@@ -766,17 +768,25 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         private fun Context.readAssetsFile(name: String) = assets.open(name).reader().readText()
 
-        private fun getLayoutFileName(params: KeyboardParams, context: Context) = when (params.mId.mElementId) {
-            KeyboardId.ELEMENT_SYMBOLS -> Settings.readSymbolsLayoutName(context, params.mId.locale)
-            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> Settings.readShiftedSymbolsLayoutName(context)
-            KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    "numpad_landscape"
+        private fun getLayoutFileName(params: KeyboardParams, context: Context, overrideElementId: Int? = null): String {
+            var checkForCustom = true
+            val layoutName = when (overrideElementId ?: params.mId.mElementId) {
+                KeyboardId.ELEMENT_SYMBOLS -> if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
+                KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LAYOUT_SYMBOLS_SHIFTED
+                KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    LAYOUT_NUMPAD_LANDSCAPE
                 else
-                    "numpad"
-            KeyboardId.ELEMENT_NUMBER -> "number"
-            KeyboardId.ELEMENT_PHONE -> "phone"
-            KeyboardId.ELEMENT_PHONE_SYMBOLS -> "phone_symbols"
-            else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
+                    LAYOUT_NUMPAD
+                KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
+                KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
+                KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
+                else -> {
+                    checkForCustom = false // "custom" is already in keyboardLayoutSetName
+                    params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
+                }
+            }
+            return if (checkForCustom) Settings.readLayoutName(layoutName, context)
+            else layoutName
         }
 
         // todo:
@@ -862,3 +872,12 @@ private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!need
 private const val POPUP_EYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
 private const val POPUP_EYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
 private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
+
+const val LAYOUT_SYMBOLS = "symbols"
+const val LAYOUT_SYMBOLS_SHIFTED = "symbols_shifted"
+const val LAYOUT_SYMBOLS_ARABIC = "symbols_arabic"
+const val LAYOUT_NUMPAD = "numpad"
+const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
+const val LAYOUT_NUMBER = "number"
+const val LAYOUT_PHONE = "phone"
+const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Διαθέσιμο λεξικό"</string>
     <string name="cannot_connect_to_dict_service">"Πρόβλ. σύνδ. στο λεξικό."</string>
     <string name="no_dictionaries_available">"Δεν υπάρχουν λεξικά"</string>
-    <string name="check_for_updates_now">"Ανανέωση"</string>
     <string name="last_update">"Τελευταία ενημέρωση"</string>
     <string name="main_dict_description">"Κύριο λεξικό"</string>
     <string name="settings">"Ρυθμίσεις"</string>

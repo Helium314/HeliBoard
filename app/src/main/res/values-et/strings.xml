@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Sõnastik on saadaval"</string>
     <string name="cannot_connect_to_dict_service">"Probleem sõnastikuga ühendumisel"</string>
     <string name="no_dictionaries_available">"Sõnastikke pole"</string>
-    <string name="check_for_updates_now">"Värskenda"</string>
     <string name="last_update">"Viimati värskendatud"</string>
     <string name="main_dict_description">"Peamine sõnastik"</string>
     <string name="settings">"Seaded"</string>

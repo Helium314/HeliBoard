@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Hiztegia erabilgarri"</string>
     <string name="cannot_connect_to_dict_service">"Arazoa gertatu da hiztegi-zerbitzuarekin konektatzean"</string>
     <string name="no_dictionaries_available">"Ez dago hiztegirik erabilgarri"</string>
-    <string name="check_for_updates_now">"Freskatu"</string>
     <string name="last_update">"Azken eguneratzea"</string>
     <string name="main_dict_description">"Hiztegi nagusia"</string>
     <string name="settings">"Ezarpenak"</string>

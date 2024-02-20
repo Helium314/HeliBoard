@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Lüğət mövcuddur"</string>
     <string name="cannot_connect_to_dict_service">"Lüğət xidmətinə bağlantı problemi"</string>
     <string name="no_dictionaries_available">"Lüğət mövcud deyil"</string>
-    <string name="check_for_updates_now">"Təzələ"</string>
     <string name="last_update">"Son yeniləmə"</string>
     <string name="main_dict_description">"Əsas lüğət"</string>
     <string name="settings">"Ayarlar"</string>

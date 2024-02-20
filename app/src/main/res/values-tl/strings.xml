@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Available ang diksyunaryo"</string>
     <string name="cannot_connect_to_dict_service">"Di makakonekta sa serbisyong diksyunaryo"</string>
     <string name="no_dictionaries_available">"Walang mga diksyunaryo"</string>
-    <string name="check_for_updates_now">"I-refresh"</string>
     <string name="last_update">"Huling na-update"</string>
     <string name="main_dict_description">"Pangunahing diksyunaryo"</string>
     <string name="settings">"Mga Setting"</string>

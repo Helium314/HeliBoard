@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Vārdnīca ir pieejama"</string>
     <string name="cannot_connect_to_dict_service">"Nevar savien. ar vārdnīcas pakalp."</string>
     <string name="no_dictionaries_available">"Vārdn. nav pieejamas"</string>
-    <string name="check_for_updates_now">"Atsvaidzināt"</string>
     <string name="last_update">"Pēdējo reizi atjaunināts"</string>
     <string name="main_dict_description">"Galvenā vārdnīca"</string>
     <string name="settings">"Iestatījumi"</string>

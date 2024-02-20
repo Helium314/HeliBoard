@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Woordeboek beskikbaar"</string>
     <string name="cannot_connect_to_dict_service">"Kan nie aan woordeboekdiens koppel nie"</string>
     <string name="no_dictionaries_available">"Geen woordeboeke beskikbaar nie"</string>
-    <string name="check_for_updates_now">"Verfris"</string>
     <string name="last_update">"Laas opgedateer"</string>
     <string name="main_dict_description">"Hoofwoordeboek"</string>
     <string name="settings">"Instellings"</string>

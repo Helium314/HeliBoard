@@ -101,7 +101,6 @@
     <string name="dictionary_available">"القاموس متاح"</string>
     <string name="cannot_connect_to_dict_service">"مشكلة في الاتصال بخدمة القاموس"</string>
     <string name="no_dictionaries_available">"لا تتوفر أي قواميس"</string>
-    <string name="check_for_updates_now">"تحديث"</string>
     <string name="last_update">"تاريخ آخر تحديث"</string>
     <string name="main_dict_description">"القاموس الرئيسي"</string>
     <string name="settings">"إعدادات"</string>
@@ -226,10 +225,9 @@
     <string name="one_handed" tools:keep="@string/one_handed">وضع اليد الواحدة</string>
     <string name="prefs_narrow_key_gaps">تقليص المسافة ما بين الأزرار</string>
     <string name="button_load_custom">تحميل ملف</string>
-    <string name="shift_symbols">المزيد من الرموز</string>
+    <string name="layout_symbols_shifted">المزيد من الرموز</string>
     <string name="button_title_add_custom_layout">إضافة تخطيط مخصص</string>
     <string name="file_read_error">تعذرت قراءة الملف</string>
-    <string name="customize_symbols">تخصيص تخطيط الرموز</string>
     <string name="dictionary_settings_category">القواميس</string>
     <string name="setup_step3_action">إعداد لوحة المفاتيح</string>
     <string name="internal_dictionary_summary">القواميس المدمَجَة</string>

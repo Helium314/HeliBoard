@@ -102,7 +102,6 @@
     <string name="dictionary_available">"ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ"</string>
     <string name="cannot_connect_to_dict_service">"ਸ਼ਬਦਕੋਸ਼ ਸੇਵਾ ਕਨੈਕਟ ਕਰਨ ਵਿੱਚ ਸਮੱਸਿਆ"</string>
     <string name="no_dictionaries_available">"ਕੋਈ ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ ਨਹੀਂ"</string>
-    <string name="check_for_updates_now">"ਤਾਜ਼ਾ"</string>
     <string name="last_update">"ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ"</string>
     <string name="main_dict_description">"ਮੁੱਖ ਸ਼ਬਦਕੋਸ਼"</string>
     <string name="settings">"ਸੈਟਿੰਗਾਂ"</string>

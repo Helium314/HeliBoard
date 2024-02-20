@@ -102,7 +102,6 @@
     <string name="dictionary_available">"ನಿಘಂಟು ಲಭ್ಯವಿದೆ"</string>
     <string name="cannot_connect_to_dict_service">"ನಿಘಂಟು ಸೇವೆಗೆ ಸಂಪರ್ಕಗೊಳಿಸುವಾಗ ಸಮಸ್ಯೆ"</string>
     <string name="no_dictionaries_available">"ನಿಘಂಟುಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
-    <string name="check_for_updates_now">"ರಿಫ್ರೆಶ್ ಮಾಡಿ"</string>
     <string name="last_update">"ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿರುವುದು"</string>
     <string name="main_dict_description">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
     <string name="settings">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>

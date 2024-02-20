@@ -528,26 +528,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         };
     }
 
-    public static String readSymbolsLayoutName(final Context context, final Locale locale) {
+    /** @return custom layout name if there is one for the given layout, else returns "layout" */
+    public static String readLayoutName(final String layout, final Context context) {
         String[] layouts = getLayoutsDir(context).list();
         if (layouts != null) {
             for (String name : layouts) {
-                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "symbols"))
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + layout + "."))
                     return name;
             }
         }
-        return ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_ARABIC) ? "symbols_arabic" : "symbols";
-    }
-
-    public static String readShiftedSymbolsLayoutName(final Context context) {
-        String[] layouts = getLayoutsDir(context).list();
-        if (layouts != null) {
-            for (String name : layouts) {
-                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shift_symbols"))
-                    return name;
-            }
-        }
-        return "symbols_shifted";
+        return layout;
     }
 
     public static File getLayoutsDir(final Context context) {

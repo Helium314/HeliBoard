@@ -102,7 +102,6 @@
     <string name="dictionary_available">"നിഘണ്ടു ലഭ്യമാണ്"</string>
     <string name="cannot_connect_to_dict_service">"നിഘണ്ടു സേവനത്തിൽ കണക്റ്റുചെയ്യുന്നതിൽ പ്രശ്‌നം"</string>
     <string name="no_dictionaries_available">"നിഘണ്ടുക്കളൊന്നും ലഭ്യമല്ല"</string>
-    <string name="check_for_updates_now">"പുതുക്കുക"</string>
     <string name="last_update">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="main_dict_description">"പ്രധാന നിഘണ്ടു"</string>
     <string name="settings">"ക്രമീകരണം"</string>

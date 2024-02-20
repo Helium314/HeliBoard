@@ -103,7 +103,6 @@
     <string name="dictionary_available">"Slovník k dispozici"</string>
     <string name="cannot_connect_to_dict_service">"Chyba přip. k slovníku"</string>
     <string name="no_dictionaries_available">"Žádné slovníky"</string>
-    <string name="check_for_updates_now">"Aktualizovat"</string>
     <string name="last_update">"Poslední aktualizace"</string>
     <string name="main_dict_description">"Hlavní slovník"</string>
     <string name="settings">"Nastavení"</string>

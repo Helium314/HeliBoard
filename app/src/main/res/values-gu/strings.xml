@@ -102,7 +102,6 @@
     <string name="dictionary_available">"શબ્દકોશ ઉપલબ્ધ છે"</string>
     <string name="cannot_connect_to_dict_service">"શબ્દકોશ સેવા સાથે કનેક્ટ થવામાં સમસ્યા"</string>
     <string name="no_dictionaries_available">"કોઈ શબ્દકોશ ઉપલબ્ધ નથી"</string>
-    <string name="check_for_updates_now">"તાજું કરો"</string>
     <string name="last_update">"છેલ્લે અપડેટ કર્યું"</string>
     <string name="main_dict_description">"મુખ્ય શબ્દકોશ"</string>
     <string name="settings">"સેટિંગ્સ"</string>

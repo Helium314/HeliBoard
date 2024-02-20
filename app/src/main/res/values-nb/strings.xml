@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Ordliste tilgjengelig"</string>
     <string name="cannot_connect_to_dict_service">"Kan ikke koble til ordlistetjenesten"</string>
     <string name="no_dictionaries_available">"Fant ingen ordlister"</string>
-    <string name="check_for_updates_now">"Last inn på nytt"</string>
     <string name="last_update">"Sist oppdatert"</string>
     <string name="main_dict_description">"Hovedordliste"</string>
     <string name="settings">"Innstillinger"</string>

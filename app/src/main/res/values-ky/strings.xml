@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Сөздүк бар"</string>
     <string name="cannot_connect_to_dict_service">"Сөздүк кызматына туташуу көйгөйү"</string>
     <string name="no_dictionaries_available">"Сөздүктөр жок"</string>
-    <string name="check_for_updates_now">"Жаңылоо"</string>
     <string name="last_update">"Акыркы жолу жаңыртылган"</string>
     <string name="main_dict_description">"Негизги сөздүк"</string>
     <string name="settings">"Жөндөөлөр"</string>

@@ -12,6 +12,7 @@ import androidx.preference.TwoStatePreference
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.getStringResourceOrName
 import java.lang.Float.max
 import java.lang.Float.min
 import java.util.*
@@ -166,9 +167,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun Array<CharSequence>.getNamesFromResourcesIfAvailable(prefix: String) =
-        map { val resId = resources.getIdentifier("$prefix$it", "string", requireContext().packageName)
-            if (resId == 0) it else getString(resId)
-        }.toTypedArray()
+        map { it.getStringResourceOrName(prefix, requireContext()) }.toTypedArray()
 
     companion object {
         private const val PERCENTAGE_FLOAT = 100.0f

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"K dispozícii je slovník"</string>
     <string name="cannot_connect_to_dict_service">"Probl. s prip. k sl."</string>
     <string name="no_dictionaries_available">"Slovníky sú nedostupné"</string>
-    <string name="check_for_updates_now">"Obnoviť"</string>
     <string name="last_update">"Posledná aktualizácia"</string>
     <string name="main_dict_description">"Hlavný slovník"</string>
     <string name="settings">"Nastavenia"</string>

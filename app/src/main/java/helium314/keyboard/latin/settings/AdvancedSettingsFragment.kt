@@ -20,11 +20,18 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import helium314.keyboard.compat.locale
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMBER
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD_LANDSCAPE
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE_SYMBOLS
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABIC
+import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
@@ -38,6 +45,7 @@ import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.editCustomLayout
+import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
@@ -127,18 +135,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
 
-        findPreference<Preference>("custom_symbols_layout")?.setOnPreferenceClickListener {
-            val layoutName = Settings.readSymbolsLayoutName(context, context.resources.configuration.locale()).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
-            val oldLayout = if (layoutName != null) null
-                else context.assets.open("layouts${File.separator}symbols.txt").reader().readText()
-            editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}symbols.txt", context, oldLayout, true)
-            true
-        }
-        findPreference<Preference>("custom_shift_symbols_layout")?.setOnPreferenceClickListener {
-            val layoutName = Settings.readShiftedSymbolsLayoutName(context).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
-            val oldLayout = if (layoutName != null) null
-                else context.assets.open("layouts${File.separator}symbols_shifted.txt").reader().readText()
-            editCustomLayout(layoutName ?: "${CUSTOM_LAYOUT_PREFIX}shift_symbols.txt", context, oldLayout, true)
+        findPreference<Preference>("custom_symbols_number_layouts")?.setOnPreferenceClickListener {
+            showCustomizeLayoutsDialog()
             true
         }
     }
@@ -154,6 +152,30 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
             removePreference(Settings.SCREEN_DEBUG)
         }
+    }
+
+    private fun showCustomizeLayoutsDialog() {
+        val layouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC, LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS)
+        val layoutNames = layouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.customize_symbols_number_layouts)
+            .setItems(layoutNames) { di, i ->
+                di.dismiss()
+                customizeLayout(layouts[i])
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun customizeLayout(layout: String) {
+        val customLayoutName = Settings.readLayoutName(layout, context).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
+        val originalLayout = if (customLayoutName != null) null
+            else {
+                requireContext().assets.list("layouts")?.firstOrNull { it.startsWith("$layout.") }
+                    ?.let { requireContext().assets.open("layouts" + File.separator + it).reader().readText() }
+            }
+        val displayName = layout.getStringResourceOrName("layout", requireContext())
+        editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.txt", requireContext(), originalLayout, displayName)
     }
 
     @SuppressLint("ApplySharedPref")

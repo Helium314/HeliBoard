@@ -8,6 +8,7 @@ import androidx.preference.PreferenceManager
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
+import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.upgradeToolbarPref
@@ -48,6 +49,13 @@ fun checkVersionUpgrade(context: Context) {
     }
     if (oldVersion == 0) // new install or restoring settings from old app name
         upgradesWhenComingFromOldAppName(context)
+    if (oldVersion == 1000) { // upgrade old custom layouts name
+        val layoutsDir = Settings.getLayoutsDir(context)
+        val oldShiftSymbolsFile = File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}shift_symbols")
+        if (oldShiftSymbolsFile.exists()) {
+            oldShiftSymbolsFile.renameTo(File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}symbols_shifted"))
+        }
+    }
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
 }
 

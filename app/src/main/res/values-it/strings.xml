@@ -101,7 +101,6 @@
     <string name="dictionary_available">"Dizionario disponibile"</string>
     <string name="cannot_connect_to_dict_service">"Conness. diz. imposs"</string>
     <string name="no_dictionaries_available">"Nessun dizionario"</string>
-    <string name="check_for_updates_now">"Aggiorna"</string>
     <string name="last_update">"Ultimo aggiornamento"</string>
     <string name="main_dict_description">"Dizionario principale"</string>
     <string name="settings">"Impostazioni"</string>
@@ -241,10 +240,8 @@
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Tipo tastiera Sebeolsik Final)</string>
     <string name="day_or_night_day">Diurna</string>
     <string name="customize_background_image">Imposta un\'immagine di sfondo</string>
-    <string name="customize_shift_symbols">Personalizza più simboli del layout</string>
     <string name="subtype_no_language_bepo">Alphabet (tipo tastiera Bépo)</string>
-    <string name="customize_symbols">Personalizza i simboli del layout</string>
-    <string name="shift_symbols">Più simboli</string>
+    <string name="layout_symbols_shifted">Più simboli</string>
     <string name="day_or_night_image">Imposta immagine per modalità diurna o notturna?</string>
     <string name="dictionary_settings_category">Dizionari</string>
     <string name="setup_step3_action">Configura la tastiera</string>

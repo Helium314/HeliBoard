@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Woordenboek beschikbaar"</string>
     <string name="cannot_connect_to_dict_service">"Verbindingsprobleem woordenboekservice"</string>
     <string name="no_dictionaries_available">"Geen woordenboeken"</string>
-    <string name="check_for_updates_now">"Vernieuwen"</string>
     <string name="last_update">"Laatst bijgewerkt"</string>
     <string name="main_dict_description">"Algemeen woordenboek"</string>
     <string name="settings">"Instellingen"</string>

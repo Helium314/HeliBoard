@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Даступны слоўнік"</string>
     <string name="cannot_connect_to_dict_service">"Праблема падключэння да слоўніка"</string>
     <string name="no_dictionaries_available">"Слоўнікаў няма"</string>
-    <string name="check_for_updates_now">"Абнавіць"</string>
     <string name="last_update">"Апошняе абнаўленне"</string>
     <string name="main_dict_description">"Асноўны слоўнік"</string>
     <string name="settings">"Налады"</string>

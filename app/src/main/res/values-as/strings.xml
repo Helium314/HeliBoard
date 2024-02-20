@@ -71,7 +71,6 @@
     <string name="dictionary_available">"অভিধান উপলব্ধ"</string>
     <string name="cannot_connect_to_dict_service">"অভিধান সেৱাৰ লগত সংযোগ কৰোঁতে সমস্যাৰ সৃষ্টি হৈছে"</string>
     <string name="no_dictionaries_available">"কোনো অভিধান নাই"</string>
-    <string name="check_for_updates_now">"ৰিফ্ৰেশ্ব কৰক"</string>
     <string name="last_update">"অন্তিমবাৰ আপডে’ট কৰা হৈছিল"</string>
     <string name="main_dict_description">"মুখ্য অভিধান"</string>
     <string name="settings">"ছেটিংসমূহ"</string>

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"字典可供下载"</string>
     <string name="cannot_connect_to_dict_service">"连接到字典服务时发生问题"</string>
     <string name="no_dictionaries_available">"没有可供下载的字典"</string>
-    <string name="check_for_updates_now">"刷新"</string>
     <string name="last_update">"上次更新时间"</string>
     <string name="main_dict_description">"主字典"</string>
     <string name="settings">"设置"</string>

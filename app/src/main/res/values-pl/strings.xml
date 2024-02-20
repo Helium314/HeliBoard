@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Słownik dostępny"</string>
     <string name="cannot_connect_to_dict_service">"Problem z połączeniem z usługą słownika"</string>
     <string name="no_dictionaries_available">"Brak słowników"</string>
-    <string name="check_for_updates_now">"Odśwież"</string>
     <string name="last_update">"Ostatnia aktualizacja"</string>
     <string name="main_dict_description">"Słownik główny"</string>
     <string name="settings">"Ustawienia"</string>
@@ -233,7 +232,6 @@
     <string name="hint_show_keyboard">Dotknij, aby wyświetlić podgląd</string>
     <string name="show_popup_keys_normal">Pokaż warianty zdefiniowane w językach klawiatury (domyślnie)</string>
     <string name="show_popup_keys_more">Pokaż popularne warianty</string>
-    <string name="customize_shift_symbols">Dostosuj układ większej liczby symboli</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Własne</string>
     <string name="replace_dictionary">Zastąp słownik</string>
     <string name="button_add_to_language">Dodaj do %s</string>
@@ -245,12 +243,11 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Rząd numeryczny</string>
     <string name="subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="button_restore">Przywracanie</string>
-    <string name="customize_symbols">Dostosuj układ symboli</string>
     <string name="popup_order">Wybierz kolejność klawiszy w wyskakującym okienku</string>
     <string name="version">Wersja</string>
     <string name="hint_source">Wybierz źródło wskazówek</string>
     <string name="load_gesture_library_summary">Dodaj natywną bibliotekę, aby umożliwić pisanie gestami</string>
-    <string name="shift_symbols">Więcej symboli</string>
+    <string name="layout_symbols_shifted">Więcej symboli</string>
     <string name="url_detection_summary">Próbuj wykrywać adresy URL i podobne jako pojedyncze słowo</string>
     <string name="button_select_language">Wybierz język</string>
     <string name="select_color_key">Tekst klawiszy</string>

@@ -91,9 +91,7 @@
     <string name="delete_layout">Souhaitez-vous réellement supprimer la disposition personnalisée %s?</string>
     <string name="layout_error">Erreur de disposition : %s</string>
     <string name="edit_layout">Appuyez pour modifier la disposition d\'origine</string>
-    <string name="customize_symbols">Personnaliser la dispostion des symboles</string>
-    <string name="customize_shift_symbols">Personnaliser davantage la disposition des symboles</string>
-    <string name="shift_symbols">Plus de symboles</string>
+    <string name="layout_symbols_shifted">Plus de symboles</string>
     <string name="customize_background_image">Définir une image d\'arrière-plan</string>
     <string name="day_or_night_image">Définir l\'image pour le mode jour ou nuit ?</string>
     <string name="day_or_night_day">Jour</string>
@@ -150,7 +148,6 @@ Nouveau dictionnaire:
     <string name="dictionary_available">"Dictionnaire disponible"</string>
     <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
     <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
-    <string name="check_for_updates_now">"Actualiser"</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="main_dict_description">"Dictionnaire principal"</string>
     <string name="delete">"Supprimer"</string>

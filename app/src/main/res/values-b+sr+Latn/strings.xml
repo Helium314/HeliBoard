@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Rečnik je dostupan"</string>
     <string name="cannot_connect_to_dict_service">"Problem pri povezivanju s uslugom rečnika"</string>
     <string name="no_dictionaries_available">"Nema dostupnih rečnika"</string>
-    <string name="check_for_updates_now">"Osveži"</string>
     <string name="last_update">"Poslednje ažuriranje"</string>
     <string name="main_dict_description">"Glavni rečnik"</string>
     <string name="settings">"Podešavanja"</string>

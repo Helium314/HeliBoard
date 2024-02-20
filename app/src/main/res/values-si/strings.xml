@@ -102,7 +102,6 @@
     <string name="dictionary_available">"ශබ්දකෝෂය ලබාගත හැක"</string>
     <string name="cannot_connect_to_dict_service">"ශබ්දකෝෂ සේවාව වෙත සම්බන්ධ වීමට ගැටලුවක්ද"</string>
     <string name="no_dictionaries_available">"ශබ්ද කෝෂ ලබාගත නොහැක"</string>
-    <string name="check_for_updates_now">"නැවුම් කරන්න"</string>
     <string name="last_update">"අවසන් වරට යාවත්කාලීන කළේ"</string>
     <string name="main_dict_description">"ප්‍රධාන ශබ්ද කෝෂය"</string>
     <string name="settings">"සැකසීම්"</string>

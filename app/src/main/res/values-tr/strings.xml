@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Sözlük mevcut"</string>
     <string name="cannot_connect_to_dict_service">"Sözlük hizmetine bağlantı sorunu"</string>
     <string name="no_dictionaries_available">"Kullanılabilir sözlük yok"</string>
-    <string name="check_for_updates_now">"Yenile"</string>
     <string name="last_update">"Son güncelleme tarihi"</string>
     <string name="main_dict_description">"Ana sözlük"</string>
     <string name="settings">"Ayarlar"</string>

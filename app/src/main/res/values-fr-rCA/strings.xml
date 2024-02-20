@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Dictionnaire disponible"</string>
     <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
     <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
-    <string name="check_for_updates_now">"Actualiser"</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="main_dict_description">"Dictionnaire principal"</string>
     <string name="settings">"Paramètres"</string>

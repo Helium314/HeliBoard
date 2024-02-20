@@ -135,7 +135,7 @@ fun removeCustomLayoutFile(layoutName: String, context: Context) {
     getLayoutFile(layoutName, context).delete()
 }
 
-fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, isSymbols: Boolean = false) {
+fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, displayName: CharSequence? = null) {
     val file = getLayoutFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
@@ -149,6 +149,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
                 // todo: this actually always returns the "simple layout" error, even on a json layout with a single small error
+                //  -> check in inverse expected order (set depending in current file name)
                 infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
@@ -160,17 +161,16 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             }
         }
         .setNegativeButton(android.R.string.cancel, null)
-    if (isSymbols) {
-        val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.popup_keys_symbols)
+    if (displayName != null) {
         if (file.exists()) {
             builder.setNeutralButton(R.string.delete) { _, _ ->
-                confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete)) {
+                confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(R.string.delete)) {
                     file.delete()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                 }
             }
         }
-        builder.setTitle(name)
+        builder.setTitle(displayName)
     }
     builder.show()
 }

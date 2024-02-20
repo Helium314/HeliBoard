@@ -133,29 +133,28 @@ fun reorderPopupKeysDialog(context: Context, key: String, defaultSetting: String
         }
         override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
             val (text, wasChecked) = orderedItems[position]
-            val displayTextId = context.resources.getIdentifier(text.lowercase(), "string", context.packageName)
-            val displayText = if (displayTextId == 0) text else context.getString(displayTextId)
+            val displayText = text.lowercase().getStringResourceOrName("", context)
             viewHolder.itemView.findViewById<TextView>(R.id.popup_keys_type)?.text = displayText
             val switch = viewHolder.itemView.findViewById<Switch>(R.id.popup_keys_switch)
             switch?.setOnCheckedChangeListener(null)
             switch?.isChecked = wasChecked
             switch?.isEnabled = !(key.contains(Settings.PREF_POPUP_KEYS_ORDER) && text == POPUP_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->
-                val position = orderedItems.indexOfFirst { it.first == text }
-                orderedItems[position] = text to isChecked
+                val pos = orderedItems.indexOfFirst { it.first == text }
+                orderedItems[pos] = text to isChecked
             }
         }
     }
     rv.adapter = adapter
     ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
-        override fun onMove(p0: RecyclerView, p1: RecyclerView.ViewHolder, p2: RecyclerView.ViewHolder): Boolean {
-            val pos1 = p1.absoluteAdapterPosition
-            val pos2 = p2.absoluteAdapterPosition
+        override fun onMove(rv: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            val pos1 = viewHolder.absoluteAdapterPosition
+            val pos2 = target.absoluteAdapterPosition
             Collections.swap(orderedItems, pos1, pos2)
             adapter.notifyItemMoved(pos1, pos2)
             return true
         }
-        override fun onSwiped(p0: RecyclerView.ViewHolder, p1: Int) { }
+        override fun onSwiped(rv: RecyclerView.ViewHolder, direction: Int) { }
     }).attachToRecyclerView(rv)
     adapter.submitList(orderedItems)
     AlertDialog.Builder(context)

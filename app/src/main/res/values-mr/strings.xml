@@ -102,7 +102,6 @@
     <string name="dictionary_available">"शब्दकोश उपलब्ध"</string>
     <string name="cannot_connect_to_dict_service">"शब्दकोश सेवेस कनेक्ट करताना समस्या"</string>
     <string name="no_dictionaries_available">"कोणतेही शब्दकोश उपलब्ध नाहीत"</string>
-    <string name="check_for_updates_now">"रिफ्रेश करा"</string>
     <string name="last_update">"अंतिम अपडेट"</string>
     <string name="main_dict_description">"मु्ख्य शब्दकोश"</string>
     <string name="settings">"सेटिंग्ज"</string>

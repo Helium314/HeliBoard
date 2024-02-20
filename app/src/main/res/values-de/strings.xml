@@ -101,7 +101,6 @@
     <string name="dictionary_available">"Wörterbuch verfügbar"</string>
     <string name="cannot_connect_to_dict_service">"Kein Wörterbuchdienst"</string>
     <string name="no_dictionaries_available">"Keine Wörterbücher"</string>
-    <string name="check_for_updates_now">"Aktualisieren"</string>
     <string name="last_update">"Zuletzt aktualisiert"</string>
     <string name="main_dict_description">"Allgemeines Wörterbuch"</string>
     <string name="settings">"Einstellungen"</string>
@@ -231,7 +230,6 @@
     <string name="hint_show_keyboard">Für Vorschau klicken</string>
     <string name="show_popup_keys_normal">In den Tastatursprachen definierte Varianten anzeigen (Standard)</string>
     <string name="show_popup_keys_more">Gemeinsame Varianten hinzufügen</string>
-    <string name="customize_shift_symbols">Layout für weitere Symbole anpassen</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Benutzerdefiniert</string>
     <string name="replace_dictionary">Wörterbuch ersetzen</string>
     <string name="button_add_to_language">Hinzufügen zu %s</string>
@@ -243,12 +241,11 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zahlenreihe</string>
     <string name="subtype_no_language_bepo">Alphabet (Bépo)</string>
     <string name="button_restore">Wiederherstellen</string>
-    <string name="customize_symbols">Symbollayout anpassen</string>
     <string name="popup_order">Popup-Tastenreihenfolge wählen</string>
     <string name="version">Version</string>
     <string name="hint_source">Hinweis-Quelle wählen</string>
     <string name="load_gesture_library_summary">Native Bibliothek bereitstellen um Gesteneingabe zu aktivieren</string>
-    <string name="shift_symbols">Mehr Symbole</string>
+    <string name="layout_symbols_shifted">Mehr Symbole</string>
     <string name="url_detection_summary">Versuche URLs und ähnliches als einzelnes Wort zu erkennen</string>
     <string name="button_select_language">Sprache auswählen</string>
     <string name="select_color_key">Tastenbeschriftung</string>

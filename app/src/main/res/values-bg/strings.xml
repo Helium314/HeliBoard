@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Речникът е налице"</string>
     <string name="cannot_connect_to_dict_service">"Няма връзка с речниците"</string>
     <string name="no_dictionaries_available">"Няма налични речници"</string>
-    <string name="check_for_updates_now">"Опресняване"</string>
     <string name="last_update">"Последна актуализация:"</string>
     <string name="main_dict_description">"Основен речник"</string>
     <string name="settings">"Настройки"</string>

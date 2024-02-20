@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Kamus yang tersedia"</string>
     <string name="cannot_connect_to_dict_service">"Problem koneksi kamus"</string>
     <string name="no_dictionaries_available">"Tidak tersedia kamus"</string>
-    <string name="check_for_updates_now">"Segarkan"</string>
     <string name="last_update">"Terakhir diperbarui"</string>
     <string name="main_dict_description">"Kamus utama"</string>
     <string name="settings">"Setelan"</string>

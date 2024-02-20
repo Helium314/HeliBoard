@@ -83,7 +83,6 @@
     <string name="dictionary_settings_title">Adicionar dicionários</string>
     <string name="cannot_connect_to_dict_service">Erro ao contatar o serviço de dicionário</string>
     <string name="no_dictionaries_available">Nenhum dicionário disponível</string>
-    <string name="check_for_updates_now">Atualizar</string>
     <string name="last_update">Última atualização</string>
     <string name="settings">Configurações</string>
     <string name="delete">Apagar</string>

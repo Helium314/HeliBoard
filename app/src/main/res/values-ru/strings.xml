@@ -102,7 +102,6 @@
     <string name="dictionary_available">Доступен словарь</string>
     <string name="cannot_connect_to_dict_service">Сбой подключения</string>
     <string name="no_dictionaries_available">Словарей нет</string>
-    <string name="check_for_updates_now">Обновить</string>
     <string name="last_update">Последнее обновление</string>
     <string name="main_dict_description">Основной словарь</string>
     <string name="settings">Настройки</string>
@@ -303,9 +302,7 @@
     <string name="add_dictionary">Выберите для добавления словаря. Словари в формате .dict можно скачать %s.</string>
     <string name="right" tools:keep="@string/right">Вправо</string>
     <string name="dictionary_load_error">Ошибка загрузки файла словаря</string>
-    <string name="customize_shift_symbols">Редактировать раскладку дополнительных символов</string>
-    <string name="customize_symbols">Редактировать раскладку символов</string>
-    <string name="shift_symbols">Больше символов</string>
+    <string name="layout_symbols_shifted">Больше символов</string>
     <string name="down" tools:keep="@string/down">Вниз</string>
     <string name="full_left" tools:keep="@string/full_left">В конец влево</string>
     <string name="left" tools:keep="@string/left">Влево</string>

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"ມີວັດຈະນານຸກົມ"</string>
     <string name="cannot_connect_to_dict_service">"ມີປັນຫາໃນການເຊື່ອມຕໍ່ກັບບໍລິການວັດຈະນານຸກົມ"</string>
     <string name="no_dictionaries_available">"ບໍ່ມີວັດຈະນານຸກົມ"</string>
-    <string name="check_for_updates_now">"ດຶງຂໍ້ມູນໃຫມ່"</string>
     <string name="last_update">"ອັບເດດຫຼ້າສຸດ"</string>
     <string name="main_dict_description">"ວັດຈະນານຸກົມຫຼັກ"</string>
     <string name="settings">"ການຕັ້ງຄ່າ"</string>
