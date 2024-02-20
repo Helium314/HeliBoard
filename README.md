@@ -23,7 +23,7 @@ Does not use internet permission, and thus is 100% offline.
 * Customize keyboard themes (style, colors and background image)
   * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
   * can follow dynamic colors for Android 12+
-* Customize keyboard [layouts](layouts.md)
+* Customize keyboard [layouts](layouts.md) (only when disabling _use system languages_)
 * Multilingual typing
 * Glide typing (_only with closed source library_)
   * library not included in the app, as there is no compatible open source library available
@@ -39,6 +39,7 @@ Does not use internet permission, and thus is 100% offline.
 ## FAQ / Common Issues
 * __Add a dictionary__: First download the dictionary file, e.g. from [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries). Then go to language settings, click on the language, then on `+` next to _dictionary_ the _add_ and select the file. Alternatively you can open a `.dict` file in a file explorer with HeliBoard and then select the language. Note that the latter method does not work with all file explorers.
 * __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search function does not exist yet.
+* __Cannot switch choose layout__: This is only possible when _use system languages_ is disabled.
 * __No suggestions for some language__: Check [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries) whether a dictionary is available. If there is one, download it and add it in the language settings for this language.
 * __No suggestions in some app / text field__: This app respects the [no suggestions flag](https://developer.android.com/reference/android/text/InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS) set by some input fields, i.e. the developer does not want you to see suggestions here. Best do in issue report for that app if you think this behavior is wrong. Alternatively you can enable the _always show suggestions_ setting that overrides the _no suggestions_ flag.
 * __How to enable glide typing__: There is no glide typing built into this app, but you can load compatible libraries: Go to advanced settings -> _load gesture typing library_ and point to a file (setting not available in _nouserlib_ version). You can extract the file from GApps packages ("_swypelibs_"), or download one [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs). Make sure to use the correct version (app will tell you in the dialog to load the library).

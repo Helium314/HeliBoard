@@ -39,7 +39,7 @@ class LanguageSettingsDialog(
     private val onlySystemLocales: Boolean,
     private val reloadSetting: () -> Unit
 ) : AlertDialog(context), LanguageSettingsFragment.Listener {
-    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
+    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     private val binding = LocaleSettingsDialogBinding.inflate(LayoutInflater.from(context))
     private val mainLocale = infos.first().subtype.locale()
     private var hasInternalDictForLanguage = false
@@ -53,6 +53,10 @@ class LanguageSettingsDialog(
         }
 
         if (onlySystemLocales)
+            // don't allow setting subtypes, because
+            //  a. subtypes are set purely based on system locales (in SubtypeSettings)
+            //  b. extra handling needed if user disables all subtypes for a locale
+            // todo (later): fix above and allow it
             binding.subtypes.isGone = true
         else
             fillSubtypesView()
@@ -147,7 +151,7 @@ class LanguageSettingsDialog(
             .setTitle(R.string.keyboard_layout_set)
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
-                val fileName = context.assets.list("layouts")!!.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
+                val fileName = context.assets.list("layouts")?.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
                 loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
                     displayNames[i], mainLocale.toLanguageTag(), context) { addSubtype(it) }
             }
@@ -161,11 +165,11 @@ class LanguageSettingsDialog(
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
-        val layoutSetName: String? = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
+        val layoutSetName = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "qwerty"
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
-        if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true) {
+        if (layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
             row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
         } else {
@@ -191,18 +195,18 @@ class LanguageSettingsDialog(
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
-                    val isCustom = layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true
+                    val isCustom = layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)
                     fun delete() {
                         binding.subtypes.removeView(row)
                         infos.remove(subtype)
                         if (isCustom)
-                            removeCustomLayoutFile(layoutSetName!!, context)
+                            removeCustomLayoutFile(layoutSetName, context)
                         removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
                         removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName!!)), context.getString(R.string.delete)) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }
