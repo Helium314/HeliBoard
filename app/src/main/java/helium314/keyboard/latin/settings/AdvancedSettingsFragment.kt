@@ -43,6 +43,7 @@ import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.editCustomLayout
 import helium314.keyboard.latin.utils.getStringResourceOrName
@@ -54,6 +55,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.util.concurrent.CountDownLatch
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
@@ -207,12 +209,15 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     private fun copyLibrary(uri: Uri) {
         val tmpfile = File(requireContext().filesDir.absolutePath + File.separator + "tmplib")
         try {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            val otherTemporaryFile = File(requireContext().filesDir.absolutePath + File.separator + "tmpfile")
+            FileUtils.copyContentUriToNewFile(uri, requireContext(), otherTemporaryFile)
+            val inputStream = FileInputStream(otherTemporaryFile)
             val outputStream = FileOutputStream(tmpfile)
             outputStream.use {
                 tmpfile.setReadOnly() // as per recommendations in https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading
                 FileUtils.copyStreamToOtherStream(inputStream, it)
             }
+            otherTemporaryFile.delete()
 
             val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
             if (checksum == JniUtils.expectedDefaultChecksum()) {
@@ -269,7 +274,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     private fun loadImage(uri: Uri, night: Boolean) {
         val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
-        FileUtils.copyStreamToNewFile(requireContext().contentResolver.openInputStream(uri), imageFile)
+        FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
         try {
             BitmapFactory.decodeFile(imageFile.absolutePath)
         } catch (_: Exception) {
@@ -334,91 +339,110 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             if (backupFilePatterns.any { path.matches(it) })
                 protectedFiles.add(file)
         }
-        try {
-            activity?.contentResolver?.openOutputStream(uri)?.use { os ->
-                // write files to zip
-                val zipStream = ZipOutputStream(os)
-                files.forEach {
-                    val fileStream = FileInputStream(it).buffered()
-                    zipStream.putNextEntry(ZipEntry(it.path.replace(filesPath, "")))
-                    fileStream.copyTo(zipStream, 1024)
-                    fileStream.close()
+        var error: String? = ""
+        val wait = CountDownLatch(1)
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
+            try {
+                activity?.contentResolver?.openOutputStream(uri)?.use { os ->
+                    // write files to zip
+                    val zipStream = ZipOutputStream(os)
+                    files.forEach {
+                        val fileStream = FileInputStream(it).buffered()
+                        zipStream.putNextEntry(ZipEntry(it.path.replace(filesPath, "")))
+                        fileStream.copyTo(zipStream, 1024)
+                        fileStream.close()
+                        zipStream.closeEntry()
+                    }
+                    protectedFiles.forEach {
+                        val fileStream = FileInputStream(it).buffered()
+                        zipStream.putNextEntry(ZipEntry(it.path.replace(protectedFilesDir.path, "unprotected")))
+                        fileStream.copyTo(zipStream, 1024)
+                        fileStream.close()
+                        zipStream.closeEntry()
+                    }
+                    zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
+                    settingsToJsonStream(sharedPreferences.all, zipStream)
                     zipStream.closeEntry()
-                }
-                protectedFiles.forEach {
-                    val fileStream = FileInputStream(it).buffered()
-                    zipStream.putNextEntry(ZipEntry(it.path.replace(protectedFilesDir.path, "unprotected")))
-                    fileStream.copyTo(zipStream, 1024)
-                    fileStream.close()
+                    zipStream.putNextEntry(ZipEntry(PROTECTED_PREFS_FILE_NAME))
+                    settingsToJsonStream(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, zipStream)
                     zipStream.closeEntry()
+                    zipStream.close()
                 }
-                zipStream.putNextEntry(ZipEntry(PREFS_FILE_NAME))
-                settingsToJsonStream(sharedPreferences.all, zipStream)
-                zipStream.closeEntry()
-                zipStream.putNextEntry(ZipEntry(PROTECTED_PREFS_FILE_NAME))
-                settingsToJsonStream(PreferenceManager.getDefaultSharedPreferences(requireContext()).all, zipStream)
-                zipStream.closeEntry()
-                zipStream.close()
+            } catch (t: Throwable) {
+                error = t.message
+                Log.w(TAG, "error during backup", t)
+            } finally {
+                wait.countDown()
             }
-        } catch (t: Throwable) {
+        }
+        wait.await()
+        if (!error.isNullOrBlank()) {
             // inform about every error
-            Log.w(TAG, "error during backup", t)
-            infoDialog(requireContext(), requireContext().getString(R.string.backup_error, t.message))
+            infoDialog(requireContext(), requireContext().getString(R.string.backup_error, error))
         }
     }
 
     private fun restore(uri: Uri) {
-        try {
-            activity?.contentResolver?.openInputStream(uri)?.use { inputStream ->
-                ZipInputStream(inputStream).use { zip ->
-                    var entry: ZipEntry? = zip.nextEntry
-                    val filesDir = requireContext().filesDir?.path ?: return
-                    val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(requireContext()).path
-                    Settings.getInstance().stopListener()
-                    while (entry != null) {
-                        if (entry.name.startsWith("unprotected${File.separator}")) {
-                            val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
-                            if (backupFilePatterns.any { adjustedName.matches(it) }) {
-                                val targetFileName = upgradeFileNames(adjustedName)
-                                val file = File(deviceProtectedFilesDir, targetFileName)
+        var error: String? = ""
+        val wait = CountDownLatch(1)
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
+            try {
+                activity?.contentResolver?.openInputStream(uri)?.use { inputStream ->
+                    ZipInputStream(inputStream).use { zip ->
+                        var entry: ZipEntry? = zip.nextEntry
+                        val filesDir = requireContext().filesDir?.path ?: return@execute
+                        val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(requireContext()).path
+                        Settings.getInstance().stopListener()
+                        while (entry != null) {
+                            if (entry.name.startsWith("unprotected${File.separator}")) {
+                                val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
+                                if (backupFilePatterns.any { adjustedName.matches(it) }) {
+                                    val targetFileName = upgradeFileNames(adjustedName)
+                                    val file = File(deviceProtectedFilesDir, targetFileName)
+                                    FileUtils.copyStreamToNewFile(zip, file)
+                                }
+                            } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
+                                val targetFileName = upgradeFileNames(entry.name)
+                                val file = File(filesDir, targetFileName)
                                 FileUtils.copyStreamToNewFile(zip, file)
+                            } else if (entry.name == PREFS_FILE_NAME) {
+                                val prefLines = String(zip.readBytes()).split("\n")
+                                sharedPreferences.edit().clear().apply()
+                                readJsonLinesToSettings(prefLines, sharedPreferences)
+                            } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
+                                val prefLines = String(zip.readBytes()).split("\n")
+                                val protectedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                                protectedPrefs.edit().clear().apply()
+                                readJsonLinesToSettings(prefLines, protectedPrefs)
                             }
-                        } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
-                            val targetFileName = upgradeFileNames(entry.name)
-                            val file = File(filesDir, targetFileName)
-                            FileUtils.copyStreamToNewFile(zip, file)
-                        } else if (entry.name == PREFS_FILE_NAME) {
-                            val prefLines = String(zip.readBytes()).split("\n")
-                            sharedPreferences.edit().clear().apply()
-                            readJsonLinesToSettings(prefLines, sharedPreferences)
-                        } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
-                            val prefLines = String(zip.readBytes()).split("\n")
-                            val protectedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-                            protectedPrefs.edit().clear().apply()
-                            readJsonLinesToSettings(prefLines, protectedPrefs)
+                            zip.closeEntry()
+                            entry = zip.nextEntry
                         }
-                        zip.closeEntry()
-                        entry = zip.nextEntry
                     }
                 }
+            } catch (t: Throwable) {
+                error = t.message
+                Log.w(TAG, "error during restore", t)
+            } finally {
+                wait.countDown()
             }
-        } catch (t: Throwable) {
-            // inform about every error
-            Log.w(TAG, "error during restore", t)
-            infoDialog(requireContext(), requireContext().getString(R.string.restore_error, t.message))
-        } finally {
-            checkVersionUpgrade(requireContext())
-            Settings.getInstance().startListener()
-            val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources);
-            updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
-            reloadEnabledSubtypes(requireContext())
-            val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
-            activity?.sendBroadcast(newDictBroadcast)
-            // reload current prefs screen
-            preferenceScreen.removeAll()
-            setupPreferences()
-            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         }
+        wait.await()
+        if (!error.isNullOrBlank()) {
+            // inform about every error
+            infoDialog(requireContext(), requireContext().getString(R.string.restore_error, error))
+        }
+        checkVersionUpgrade(requireContext())
+        Settings.getInstance().startListener()
+        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources);
+        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
+        reloadEnabledSubtypes(requireContext())
+        val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
+        activity?.sendBroadcast(newDictBroadcast)
+        // reload current prefs screen
+        preferenceScreen.removeAll()
+        setupPreferences()
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     // todo (later): remove this when new package name has been in use for long enough, this is only for migrating from old openboard name

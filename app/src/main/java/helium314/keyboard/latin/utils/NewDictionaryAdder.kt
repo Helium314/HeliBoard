@@ -30,8 +30,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
         cachedDictionaryFile.delete()
         try {
-            val i = context.contentResolver.openInputStream(uri)
-            FileUtils.copyStreamToNewFile(i, cachedDictionaryFile)
+            FileUtils.copyContentUriToNewFile(uri, context, cachedDictionaryFile)
         } catch (e: IOException) {
             return onDictionaryLoadingError(R.string.dictionary_load_error)
         }

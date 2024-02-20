@@ -18,6 +18,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Settings
 import java.io.File
 import java.io.IOException
@@ -28,8 +29,10 @@ fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: 
         return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
     val layoutContent: String
     try {
-        val i = context.contentResolver.openInputStream(uri)
-        layoutContent = i?.use { it.reader().readText() } ?: throw IOException()
+        val tmpFile = File(context.filesDir.absolutePath + File.separator + "tmpfile")
+        FileUtils.copyContentUriToNewFile(uri, context, tmpFile)
+        layoutContent = tmpFile.readText()
+        tmpFile.delete()
     } catch (e: IOException) {
         return infoDialog(context, context.getString(R.string.layout_error, "cannot read layout file"))
     }

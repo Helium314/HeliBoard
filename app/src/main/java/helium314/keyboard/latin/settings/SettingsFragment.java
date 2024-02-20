@@ -128,7 +128,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         if (intent.getResultCode() != Activity.RESULT_OK || intent.getData() == null) return;
         final Uri uri = intent.getData().getData();
         if (uri != null)
-            saveCrashReport(uri);
+            ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> saveCrashReport(uri));
     });
 
     private void saveCrashReport(final Uri uri) {
