@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Поиск в контактах"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Использовать имена контактов при проверке правописания"</string>
     <string name="vibrate_on_keypress">"Виброотклик клавиш"</string>
@@ -14,7 +13,7 @@
     <string name="settings_screen_appearance">Оформление</string>
     <string name="settings_screen_gesture">"Непрерывный ввод"</string>
     <string name="settings_screen_correction">"Исправление текста"</string>
-    <string name="settings_screen_advanced">"Дополнительные настройки"</string>
+    <string name="settings_screen_advanced">Дополнительные</string>
     <string name="settings_screen_theme">"Тема"</string>
     <string name="enable_split_keyboard">"Включить разделённую клавиатуру"</string>
     <string name="language_switch_key_switch_input_method">"Смена способов ввода"</string>
@@ -25,7 +24,7 @@
     <string name="use_contacts_dict_summary">"Подсказывать исправления на основе имен из списка контактов"</string>
     <string name="use_personalized_dicts">"Пользовательские словари"</string>
     <string name="use_double_space_period">"Точки автоматически"</string>
-    <string name="use_double_space_period_summary">"Вводить точку с пробелом двойным нажатием пробела."</string>
+    <string name="use_double_space_period_summary">Вводить точку с пробелом двойным нажатием пробела</string>
     <string name="auto_cap">"Заглавные автоматически"</string>
     <string name="auto_cap_summary">"Писать первое слово предложения с прописной буквы"</string>
     <string name="edit_personal_dictionary">"Личный словарь"</string>
@@ -53,16 +52,16 @@
     <string name="subtype_en_GB">Английский (Великобритания)</string>
     <string name="subtype_en_US">Английский (США)</string>
     <string name="subtype_es_US">Испанский (США)</string>
-    <string name="subtype_hi_Latn">Хинглиш</string>
-    <string name="subtype_sr_Latn">Сербский (латиница)</string>
+    <string name="subtype_hi_Latn">хинглиш</string>
+    <string name="subtype_sr_Latn">сербский (латиница)</string>
     <string name="subtype_with_layout_en_GB">Английский (Великобритания, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Английский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Испанский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (классическая)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Компактная)</string>
-    <string name="subtype_no_language">Стандартная (Латиница)</string>
+    <string name="subtype_no_language">стандартная (латиница)</string>
     <string name="subtype_no_language_qwerty">Латиница (QWERTY)</string>
     <string name="subtype_no_language_qwertz">Латиница (QWERTZ)</string>
     <string name="subtype_no_language_azerty">Латиница (AZERTY)</string>
@@ -118,7 +117,7 @@
     <string name="user_dict_settings_edit_dialog_title">Изменение слова</string>
     <string name="user_dict_settings_empty_text">"В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки \"Добавить (+)\"."</string>
     <string name="user_dict_settings_all_languages">Для всех языков</string>
-    <string name="user_dict_settings_more_languages">Другой язык</string>
+    <string name="user_dict_settings_more_languages">Другие языки…</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
     <string name="number_row">Ряд с цифрами</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
@@ -151,7 +150,7 @@
     <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
     <string name="spell_checker_service_name">Проверка правописания HeliBoard</string>
     <string name="android_spell_checker_settings">Настройки проверки правописания</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> мин</string>
     <string name="ime_settings">Настройки HeliBoard</string>
     <string name="settings_no_limit">Без ограничения</string>
     <string name="clipboard_history_retention_time">Время хранения журнала буфера обмена</string>
@@ -160,7 +159,7 @@
     <string name="key_borders">Контуры клавиш</string>
     <string name="day_night_mode">Использовать тему системы</string>
     <string name="theme_style">Стиль темы</string>
-    <string name="style_name_Rounded">Rounded</string>
+    <string name="style_name_Rounded">Закругленная</string>
     <string name="theme_colors">Цвета темы</string>
     <string name="theme_colors_night">Цвета темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
@@ -199,9 +198,9 @@
     <string name="select_color_accent">Акцент</string>
     <string name="settings_screen_about">Справка</string>
     <string name="version">Версия</string>
-    <string name="about_github_link" >Посмотреть на GitHub</string>
-    <string name="license" >Лицензия с открытым исходным кодом</string>
-    <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="about_github_link">Посмотреть на GitHub</string>
+    <string name="license">Лицензия с открытым исходным кодом</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">Закрыть</string>
     <string name="use_system_language_to_select_input_method_subtypes">Языки системы</string>
     <string name="text_tap_languages">Нажмите на язык, чтобы открыть настройки</string>
@@ -218,5 +217,116 @@
     <string name="label_send_key">"Отправить"</string>
     <string name="label_search_key">"Поиск"</string>
     <string name="label_pause_key">"Пауза"</string>
-    <string name="label_wait_key">"Пауза"</string>
+    <string name="label_wait_key">Ждать</string>
+    <string name="prefs_always_show_suggestions">Всегда показывать предложения</string>
+    <string name="internal_dictionary_summary">Внутренний основной словарь</string>
+    <string name="main_colors">Показывать только основные цвета</string>
+    <string name="voice" tools:keep="@string/voice">Голосовой ввод</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамические цвета</string>
+    <string name="show_popup_hints">Показать функциональные подсказки</string>
+    <string name="message_add_custom_layout">Выберите файл в совместимом формате. Информация о форматах доступна %s.</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Себольсик 390)</string>
+    <string name="add_to_personal_dictionary_summary">Использовать личный словарь устройства для хранения выученных слов</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Себольсик Финальная)</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачная</string>
+    <string name="day_or_night_day">День</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Язык (приоритет)</string>
+    <string name="add_to_personal_dictionary">Добавить слова в личный словарь</string>
+    <string name="customize_background_image">Установить фоновое изображение</string>
+    <string name="edit_layout">Нажмите, чтобы отредактировать базовую раскладку</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Розовая</string>
+    <string name="language_and_layouts_title">Языки и раскладки</string>
+    <string name="hidden_features_text">хранилище, защищенное устройством</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
+    <string name="load_gesture_library_message">Вам понадобится библиотека для «%s». Несовместимые библиотеки могут привести к сбою при использовании набора текста с помощью жестов.
+\n
+\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеку только из источника, которому вы доверяете.</string>
+    <string name="load_gesture_library_button_delete">Удалить библиотеку</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Язык</string>
+    <string name="localized_number_row_summary">Предпочитать локализованные латинские цифры</string>
+    <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили его из надёжного источника и оно предназначено для «%s»?</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Серо-голубой</string>
+    <string name="user_dict_add_word_button">Добавить слово</string>
+    <string name="select_color_suggestion">Текст полосы предложений</string>
+    <string name="show_popup_keys_normal">Показать варианты, определенные для языков клавиатуры (по умолчанию)</string>
+    <string name="show_popup_keys_more">Добавить распространённые варианты</string>
+    <string name="replace_dictionary">Заменить словарь</string>
+    <string name="button_add_to_language">Добавить в %s</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Буфер обмена</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд с цифрами</string>
+    <string name="subtype_no_language_bepo">Алфавит (Бепо)</string>
+    <string name="popup_order">Выберите порядок всплывающих клавиш</string>
+    <string name="hint_source">Выберите источник подсказки</string>
+    <string name="button_select_language">Выберите язык</string>
+    <string name="day_or_night_image">Установить изображение для дневного или ночного режима?</string>
+    <string name="toolbar_keys">Выбор клавиш панели инструментов</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
+    <string name="show_popup_hints_summary">Показывать подсказки, если длительное нажатие клавиши запускает дополнительные функции</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Песок</string>
+    <string name="select_word" tools:keep="@string/select_word">Выберите слово</string>
+    <string name="all_colors">Показывать все цвета</string>
+    <string name="delete_layout">Действительно удалить пользовательскую раскладку %s?</string>
+    <string name="dictionary_settings_category">Словари</string>
+    <string name="button_title_add_custom_layout">Добавить собственную раскладку</string>
+    <string name="setup_step3_action">Настройка клавиатуры</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Символы</string>
+    <string name="add_new_dictionary_title">Добавить словарь из файла</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Коричневый</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Виолетта</string>
+    <string name="localized_number_row">Локализация ряда с цифрами</string>
+    <string name="show_popup_keys_all">Добавить все доступные варианты</string>
+    <string name="more_autocorrect">Больше автокоррекции</string>
+    <string name="split_spacer_scale">Расстояние разделения</string>
+    <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь \"%1$s\" для %2$s?</string>
+    <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений</string>
+    <string name="language_switch_key_switch_subtype">Переключить язык</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистить буфер обмена</string>
+    <string name="day_or_night_night">Ночь</string>
+    <string name="no_dictionary_dont_show_again_button">Больше не показывать</string>
+    <string name="disable_personalized_dicts_message">Предупреждение: Отключение этого параметра приведёт к удалению изученных данных</string>
+    <string name="load_gesture_library_button_load">Загрузить библиотеку</string>
+    <string name="prefs_bottom_padding_scale">Высота нижнего отступа</string>
+    <string name="select_color_gesture">Ввод жестами</string>
+    <string name="show_popup_keys_title">Показывать больше букв с диакритическими знаками при удержании</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Режим одной руки</string>
+    <string name="save_log">Сохранить лог</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
+    <string name="more_autocorrect_summary">Автокоррекция, даже если это явно не запрошено в поле ввода</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
+    <string name="language_switch_key_switch_both">Переключать оба</string>
+    <string name="up" tools:keep="@string/up">Вверх</string>
+    <string name="remove_dictionary_message">Удалить пользовательский словарь \"%s\"?</string>
+    <string name="file_read_error">Не получается прочитать файл</string>
+    <string name="dictionary_link_text">здесь</string>
+    <string name="add_dictionary">Выберите для добавления словаря. Словари в формате .dict можно скачать %s.</string>
+    <string name="right" tools:keep="@string/right">Вправо</string>
+    <string name="dictionary_load_error">Ошибка загрузки файла словаря</string>
+    <string name="customize_shift_symbols">Редактировать раскладку дополнительных символов</string>
+    <string name="customize_symbols">Редактировать раскладку символов</string>
+    <string name="shift_symbols">Больше символов</string>
+    <string name="down" tools:keep="@string/down">Вниз</string>
+    <string name="full_left" tools:keep="@string/full_left">В конец влево</string>
+    <string name="left" tools:keep="@string/left">Влево</string>
+    <string name="replace_dictionary_message">Заменить пользовательский словарь \"%1$s\"?
+\n
+\nТекущий словарь:
+\n%2$s
+\n
+\nНовый словарь:
+\n%3$s</string>
+    <string name="full_right" tools:keep="@string/full_right">В конец вправо</string>
+    <string name="user_dict_settings_add_weight_value">Высота:</string>
+    <string name="title_layout_name_select">Задать имя раскладки</string>
+    <string name="button_load_custom">Загрузить файл</string>
+    <string name="button_copy_existing_layout">Скопировать текущую раскладку</string>
+    <string name="layout_error">Ошибка раскладки: %s</string>
+    <string name="user_dict_word_already_present">Это слово уже присутствует в пользовательском словаре %s. Пожалуйста, введите другое.</string>
+    <string name="dictionary_file_wrong_script">Ошибка: скрипт несовместим с этой клавиатурой</string>
+    <string name="dictionary_file_wrong_locale_ok">Всё ещё используется</string>
+    <string name="dictionary_file_wrong_locale">Выбранный файл предназначен для %1$s, но ожидался %2$s. Всё ещё используете его для %2$s?</string>
+    <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
+    <string name="no_dictionary_message">Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;
+\nВы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для \"%2$s\" напрямую %3$s.</string>
 </resources>

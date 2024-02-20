@@ -3,8 +3,7 @@
     Copyright (C) The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources>
+--><resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_screen_preferences">Imenyafen</string>
     <string name="ime_settings">Iɣewwaren n HeliBoard</string>
     <string name="settings_category_miscellaneous">Wiyyaḍ</string>
@@ -22,4 +21,33 @@
     <string name="setup_finish_action">IH</string>
     <string name="delete">Kkes</string>
     <string name="user_dict_settings_add_word_hint">Aru yiwen n wawal</string>
+    <string name="label_search_key">Nadi</string>
+    <string name="user_dict_settings_add_shortcut_option_name">Anegzum:</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCČDḌEƐFGǦƔHḤIJKLMNPQRṚSṢTṬUWXYZẒ"</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Axuxi</string>
+    <string name="check_for_updates_now">Smiren</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Aqehwi</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lexla</string>
+    <string name="version">Lqem</string>
+    <string name="dialog_close">Mdel</string>
+    <string name="label_pause_key" tools:keep="@string/label_pause_key">Seṛǧu</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Aceɛlal</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Aberkan</string>
+    <string name="settings_screen_about">Ɣef</string>
+    <string name="settings_screen_advanced">Iɣewwaren leqqayen</string>
+    <string name="settings_screen_theme">Asentel</string>
+    <string name="settings_category_input">Anekcum</string>
+    <string name="settings_category_suggestions">Isumar</string>
+    <string name="language_switch_key_switch_subtype">Abeddel n tutlayt</string>
+    <string name="show_emoji_key">Tiqfilt n imujiyen</string>
+    <string name="settings_system_default">Amezwer n unagraw</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Tutlayt</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Asettef</string>
+    <string name="undo" tools:keep="@string/undo">Sefsex</string>
+    <string name="button_default">Amezwer</string>
+    <string name="dictionary_link_text">sya</string>
+    <string name="settings_screen_appearance">Udem</string>
+    <string name="label_send_key">Azen</string>
+    <string name="label_next_key">Uḍfir</string>
+    <string name="label_done_key">Immed</string>
 </resources>

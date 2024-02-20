@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Cerca in nomi contatti"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"La funzione di controllo ortografico usa voci dell\'elenco contatti"</string>
     <string name="vibrate_on_keypress">"Vibrazione tasti"</string>
@@ -171,4 +170,162 @@
     <string name="label_search_key">"Cerca"</string>
     <string name="label_pause_key">"Pausa"</string>
     <string name="label_wait_key">"Attendi"</string>
+    <string name="prefs_always_show_suggestions">Mostrare sempre i suggerimenti</string>
+    <string name="up" tools:keep="@string/up">In alto</string>
+    <string name="voice" tools:keep="@string/voice">Input vocale</string>
+    <string name="show_popup_hints">Mostra suggerimenti funzionali</string>
+    <string name="message_add_custom_layout">Selezionare un file in un formato compatibile. Le informazioni sui formati sono disponibili %s.</string>
+    <string name="restore_error">Errore nel ripristinare il backup: %s</string>
+    <string name="add_to_personal_dictionary_summary">Utilizzare il dizionario personale del dispositivo per memorizzare le parole apprese</string>
+    <string name="button_backup">Backup</string>
+    <string name="space_language_slide_summary">Passare il dito verso l\'alto sulla barra spaziatrice per cambiare la lingua</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Lingua (priorità)</string>
+    <string name="add_to_personal_dictionary">Aggiungi parole al dizionario personale</string>
+    <string name="edit_layout">Toccare per modificare il layout grezzo</string>
+    <string name="language_and_layouts_title">Lingue &amp; Layout</string>
+    <string name="file_read_error">Impossibile leggere file</string>
+    <string name="load_gesture_library_message">È necessaria la libreria per \'%s\'. Le librerie incompatibili potrebbero bloccarsi quando si utilizza la digitazione gestuale.
+\n
+\nAttenzione: il caricamento di codice esterno può essere un rischio per la sicurezza. Utilizzare solo librerie di provenienza affidabile.</string>
+    <string name="load_gesture_library_button_delete">Elimina libreria</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Lingua</string>
+    <string name="right" tools:keep="@string/right">Destra</string>
+    <string name="localized_number_row_summary">Preferire i numeri localizzati a quelli latini</string>
+    <string name="space_language_slide">Barra spaziatrice per lo scorrimento della lingua</string>
+    <string name="checksum_mismatch_message">File di libreria sconosciuto. Si è sicuri di averlo ottenuto da una fonte affidabile e che sia per \'%s\'?</string>
+    <string name="show_popup_keys_normal">Mostra le varianti definite nelle lingue della tastiera (impostazione predefinita)</string>
+    <string name="show_popup_keys_more">Aggiungere varianti comuni</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Appunti</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Riga numerica</string>
+    <string name="button_restore">Ripristino</string>
+    <string name="popup_order">Selezionare l\'ordine dei tasti a comparsa</string>
+    <string name="hint_source">Selezionare la fonte del suggerimento</string>
+    <string name="load_gesture_library_summary">Fornire una libreria nativa per abilitare la digitazione gestuale</string>
+    <string name="url_detection_summary">Cerca di rilevare URL e simili come una singola parola</string>
+    <string name="load_gesture_library">Caricare la libreria di digitazione gestuale</string>
+    <string name="down" tools:keep="@string/down">In basso</string>
+    <string name="toolbar_keys">Selezionare i tasti della barra degli strumenti</string>
+    <string name="backup_error">Errore backup: %s</string>
+    <string name="show_popup_hints_summary">Mostra i suggerimenti se premendo a lungo un tasto si attivano funzionalità aggiuntive</string>
+    <string name="backup_restore_title">Backup e ripristino</string>
+    <string name="full_left" tools:keep="@string/full_left">A sinistra</string>
+    <string name="select_word" tools:keep="@string/select_word">Seleziona parola</string>
+    <string name="left" tools:keep="@string/left">Sinistra</string>
+    <string name="delete_layout">Veramente eliminare layout personalizzato %s?</string>
+    <string name="button_title_add_custom_layout">Aggiungi layout personalizzato</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboli</string>
+    <string name="url_detection_title">Rilevamento URL</string>
+    <string name="full_right" tools:keep="@string/full_right">A destra</string>
+    <string name="localized_number_row">Localizzare la riga dei numeri</string>
+    <string name="show_popup_keys_all">Aggiungere tutte le varianti disponibili</string>
+    <string name="more_autocorrect">Più autocorrezione</string>
+    <string name="split_spacer_scale">Distanza divisione</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorare la richiesta di altre applicazioni di disabilitare i suggerimenti</string>
+    <string name="title_layout_name_select">Imposta nome layout</string>
+    <string name="language_switch_key_switch_subtype">Cambia lingua</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Pulisci appunti</string>
+    <string name="prefs_narrow_key_gaps">Ridurre spazio tra i tasti</string>
+    <string name="disable_personalized_dicts_message">Attenzione: La disattivazione di questa impostazione cancella i dati appresi</string>
+    <string name="load_gesture_library_button_load">Carica libreria</string>
+    <string name="button_load_custom">Carica file</string>
+    <string name="button_copy_existing_layout">Copia layout esistente</string>
+    <string name="show_popup_keys_title">Mostra più lettere con diacritici nel popup</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Modalità ad una mano</string>
+    <string name="layout_error">Errore layout: %s</string>
+    <string name="secondary_locale">Digitazione multilingue</string>
+    <string name="backup_restore_message">Salva o carica da file. Attenzione: il ripristino sovrascrive i dati esistenti</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
+    <string name="more_autocorrect_summary">Correzione automatica anche quando non è esplicitamente richiesta dal campo di input</string>
+    <string name="language_switch_key_switch_both">Cambia entrambi</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (tipo tastiera Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Tipo tastiera Sebeolsik Final)</string>
+    <string name="day_or_night_day">Diurna</string>
+    <string name="customize_background_image">Imposta un\'immagine di sfondo</string>
+    <string name="customize_shift_symbols">Personalizza più simboli del layout</string>
+    <string name="subtype_no_language_bepo">Alphabet (tipo tastiera Bépo)</string>
+    <string name="customize_symbols">Personalizza i simboli del layout</string>
+    <string name="shift_symbols">Più simboli</string>
+    <string name="day_or_night_image">Imposta immagine per modalità diurna o notturna?</string>
+    <string name="dictionary_settings_category">Dizionari</string>
+    <string name="setup_step3_action">Configura la tastiera</string>
+    <string name="day_or_night_night">Notturna</string>
+    <string name="prefs_bottom_padding_scale">Spaziatura dal bordo in basso</string>
+    <string name="select_user_colors_night">Regola i colori (notte)</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Scuro</string>
+    <string name="main_colors">Mostra solo i colori principali</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colori dinamici</string>
+    <string name="settings_screen_appearance">Aspetto</string>
+    <string name="select_color_key_background">Sfondo tasti</string>
+    <string name="theme_colors">Colori</string>
+    <string name="select_color_functional_key_background">Sfondo tasto funzione</string>
+    <string name="user_dict_word_already_present">Questa parola è già presente nel dizionario utente %s. Si prega di digitarne un\'altra.</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrotondato</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Nero</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cioccolato</string>
+    <string name="remove_dictionary_message">Rimuovere davvero il dizionario \"%s\" aggiunto dall\'utente?</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nuvoloso</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="dictionary_file_wrong_script">Errore: script non compatibile con questa tastiera</string>
+    <string name="hidden_features_title">Descrizione delle funzionalità nascoste</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
+    <string name="dictionary_link_text">qui</string>
+    <string name="dictionary_file_error">Errore: Il file selezionato non è un file dizionario valido</string>
+    <string name="hidden_features_text">dispositivo di archiviazione protetto</string>
+    <string name="theme_navbar">Colore barra di navigazione</string>
+    <string name="dictionary_file_wrong_locale_ok">Utilizza ancora</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
+    <string name="add_dictionary">Selezionare un dizionario da aggiungere. I dizionari in formato .dict possono essere scaricati %s.</string>
+    <string name="dictionary_load_error">Errore nel caricamento del file del dizionario</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blu grigio</string>
+    <string name="select_color_spacebar_text">testo barra spaziatrice</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Chiaro</string>
+    <string name="user_dict_add_word_button">Aggiungi una parola</string>
+    <string name="select_color_suggestion">Testo riga suggerimenti</string>
+    <string name="hint_show_keyboard">Clicca per l\'anteprima</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Definito dall\'utente</string>
+    <string name="replace_dictionary">Sostituisci dizionario</string>
+    <string name="button_add_to_language">Aggiungi a %s</string>
+    <string name="select_color_background">Sfondo della tastiera</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indaco</string>
+    <string name="about_github_link">Visualizza su GitHub</string>
+    <string name="version">Versione</string>
+    <string name="button_select_language">Seleziona la lingua</string>
+    <string name="select_color_key">Tasti chiave</string>
+    <string name="select_color_spacebar_background">Sfondo barra spaziatrice</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Più scuro</string>
+    <string name="auto_user_color">Scegli colore automaticamente</string>
+    <string name="settings_screen_about">Informazioni</string>
+    <string name="license">Licenza Open-source</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sabbia</string>
+    <string name="theme_style">Stile</string>
+    <string name="hidden_features_summary">Mostra le funzionalità che potrebbero passare inosservate</string>
+    <string name="theme_colors_night">Colori (notte)</string>
+    <string name="all_colors">Mostra tutti i colori</string>
+    <string name="select_user_colors_summary">Selezionare i colori per il testo e gli sfondi</string>
+    <string name="select_color_key_hint">Tasti suggerimento</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definito dall\'utente (notte)</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrone</string>
+    <string name="replace_dictionary_message">Sostituire davvero il dizionario aggiunto dall\'utente \"%1$s\"?
+\n
+\nDizionario attuale:
+\n%2$s
+\n
+\nNuovo dizionario:
+\n%3$s</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetto</string>
+    <string name="add_new_dictionary_ask_locale">A quale lingua deve essere aggiunto il dizionario \"%1$s\" per %2$s?</string>
+    <string name="user_dict_settings_add_weight_value">Peso:</string>
+    <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti per il testo immesso in precedenza.&lt;br&gt;
+\n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">Non mostrare ancora</string>
+    <string name="dictionary_file_wrong_locale">Il file selezionato è per %1$s, ma %2$s era previsto. Lo si usa ancora per %2$s?</string>
+    <string name="dialog_close">Chiudi</string>
+    <string name="select_color_gesture">Input gestuale</string>
+    <string name="text_tap_languages">Toccare la lingua per aprire le impostazioni</string>
+    <string name="select_user_colors">Regola i colori</string>
+    <string name="save_log">Salva log</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bianco</string>
+    <string name="internal_dictionary_summary">Dizionario interno principale</string>
+    <string name="add_new_dictionary_title">Aggiungi dizionario da file</string>
 </resources>
