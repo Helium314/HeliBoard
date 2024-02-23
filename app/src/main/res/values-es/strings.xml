@@ -173,7 +173,7 @@
     <string name="settings_screen_appearance">Apariencia</string>
     <string name="theme_style">Estilo</string>
     <string name="theme_colors">Colores</string>
-    <string name="theme_colors_night">Colores (noche)</string>
+    <string name="theme_colors_night">Colores (oscuro)</string>
     <string name="theme_navbar">Color de la barra de navegación</string>
     <string name="prefs_narrow_key_gaps">Reducir el espacio entre teclas</string>
     <string name="prefs_bottom_padding_scale">Escala del espacio inferior</string>
