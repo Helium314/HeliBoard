@@ -23,6 +23,7 @@
         <item>sr-Latn</item>
     </string-array>
     <string name="subtype_in_root_locale_hi_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_hi_Latn">Hinglish</string>
+     <string name="subtype_in_root_locale_xdq" translatable="false" tools:keep="@string/subtype_in_root_locale_xdq">Kaitag</string>
     <string name="subtype_in_root_locale_sr_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_sr_Latn">Srpski</string>
 
     <!-- Generic subtype label -->
