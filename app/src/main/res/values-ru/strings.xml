@@ -53,6 +53,7 @@
     <string name="subtype_en_US">Английский (США)</string>
     <string name="subtype_es_US">Испанский (США)</string>
     <string name="subtype_hi_Latn">хинглиш</string>
+    <string name="subtype_xdq">Кайтагский</string>
     <string name="subtype_sr_Latn">сербский (латиница)</string>
     <string name="subtype_with_layout_en_GB">Английский (Великобритания, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Английский (США, <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>

@@ -277,6 +277,7 @@
     <string name="subtype_es_US">Spanish (US)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_hi_Latn">Hinglish</string>
+    <string name="subtype_xdq">Kaitag</string>
     <!-- Description for Serbian (Latin) keyboard subtype [CHAR LIMIT=25]
          (Latin) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_sr_Latn">Serbian (Latin)</string>
