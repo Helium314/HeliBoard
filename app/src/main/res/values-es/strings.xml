@@ -137,7 +137,7 @@
     <string name="space_trackpad_summary">Deslizar en la barra espaciadora para mover el cursor</string>
     <string name="show_emoji_key">Tecla de emojis</string>
     <string name="settings_category_correction">Correcciones</string>
-    <string name="settings_category_experimental">Caracteristicas experimentales</string>
+    <string name="settings_category_experimental">Características experimentales</string>
     <string name="settings_category_input">Entrada</string>
     <string name="ime_settings">Ajustes de HeliBoard</string>
     <string name="settings_category_suggestions">Sugerencias</string>
@@ -170,4 +170,72 @@
     <string name="label_search_key">"Buscar"</string>
     <string name="label_pause_key">"Pausar"</string>
     <string name="label_wait_key">"Espera"</string>
+    <string name="settings_screen_appearance">Apariencia</string>
+    <string name="theme_style">Estilo</string>
+    <string name="theme_colors">Colores</string>
+    <string name="theme_colors_night">Colores (noche)</string>
+    <string name="theme_navbar">Color de la barra de navegación</string>
+    <string name="prefs_narrow_key_gaps">Reducir el espacio entre teclas</string>
+    <string name="prefs_bottom_padding_scale">Escala del espacio inferior</string>
+    <string name="language_and_layouts_title">Idiomas y distribuciones</string>
+    <string name="text_tap_languages">Toca el idioma para abrir configuraciones</string>
+    <string name="hint_source">Selecciona fuente de las sugerencias</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila numérica</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioritario)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Distribución</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>
+    <string name="popup_order">Selecciona el orden de teclas emergentes</string>
+    <string name="show_popup_hints">Mostrar sugerencias funcionales</string>
+    <string name="show_popup_hints_summary">Muestra sugerencias si se pulsa una tecla prolongadamente para mostrar funcionalidades adicionales.</string>
+    <string name="language_switch_key_switch_subtype">Cambiar idioma</string>
+    <string name="toolbar_keys">Selecciona botones de la barra de herramientas</string><string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Borrar portapapeles</string>
+    <string name="voice" tools:keep="@string/voice">Entrada por voz</string>
+    <string name="settings" tools:keep="@string/settings">Configuraciones</string>
+    <string name="select_word" tools:keep="@string/select_word">Seleccionar palabra</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Modo una mano</string>
+    <string name="full_left" tools:keep="@string/full_left">Ir a inicio</string>
+    <string name="full_right" tools:keep="@string/full_right">Ir a final</string>
+    <string name="left" tools:keep="@string/left">Izquierda</string>
+    <string name="right" tools:keep="@string/right">Derecha</string>
+    <string name="up" tools:keep="@string/up">Arriba</string>
+    <string name="down" tools:keep="@string/down">Abajo</string>
+    <string name="undo" tools:keep="@string/undo">Deshacer</string>
+    <string name="redo" tools:keep="@string/redo">Rehacer</string>
+    <string name="prefs_always_show_suggestions">Siempre mostrar sugerencias</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorar que otras aplicaciones desactiven sugerencias</string>
+    <string name="add_to_personal_dictionary">Añadir palabras al diccionario personal</string>
+    <string name="add_to_personal_dictionary_summary">Usar el diccionario personal para guardar las palabras aprendidas.</string>
+    <string name="settings_screen_about">Acerca de</string>
+    <string name="license">Licencia de código abierto</string>
+    <string name="hidden_features_title">Descripción de características ocultas</string>
+    <string name="hidden_features_summary">Mostrar características que pueden pasas desapercibidas.</string>
+    <string name="hidden_features_message">
+        &#9658; Presiona prolongadamente la tecla de portapapeles (la opcional en la barra de sugerencias) pega el contenido del portapapeles. &lt;br&gt; &lt;br&gt;
+        &#9658; Presiona prolongadamente las teclas en la barra de sugerencias las fija en misma barra. &lt;br&gt; &lt;br&gt;
+        &#9658; Presiona prolongadamente la tecla de coma para acceder a la vista del portapapeles, vista de emojis, modo de una mano, configuraciones o cambiar idioma: &lt;br&gt;
+        \t&#8226; La vista emojis y el cambio de idioma desaparecerán si tienes la tecla correspondiente habilitada; &lt;br&gt;
+        \t&#8226; Para algunas distribuciones no es la tecla de coma, sino la tecla en la misma posición (p. ej. es \'q\' para la distribución Dvorak). &lt;br&gt; &lt;br&gt;
+        &#9658; Cuando el modo incógnito está habilitado, no se aprenderán palabras y no se añadirán emojis a recientes. &lt;br&gt; &lt;br&gt;
+        &#9658; Pressiona el icono de Incógnito para acceder a la barra de herramientas. &lt;br&gt; &lt;br&gt;
+        &#9658; Entrada deslizante: Desliza desde la tecla de mayúsculas a otra tecla para escribir una única letra mayúscula. &lt;br&gt; &lt;br&gt;
+        \t&#8226; Esto también funciona para la tecla \'?123\' para escribir un único símbolo del teclado de símbolos, y para teclas relacionadas. &lt;br&gt; &lt;br&gt;
+        &#9658; Presiona prolongadamente una sugerencia en la barra de sugerencias para mostrar más opciones y un botón de eliminar para quitar esta sugerencia. &lt;br&gt; &lt;br&gt;
+        &#9658; Desliza hacia arriba desde una sugerencia para abrir más sugerencias y suelta en la sugerencia para seleccionarla. &lt;br&gt; &lt;br&gt;
+        &#9658; Presiona prolongadamente una entrada en el historial del portapapeles para fijarla (Mantenla en el portapapeles hasta que la desfijes). &lt;br&gt; &lt;br&gt;
+        &#9658; Tú puedes añadir diccionarios abriéndolos en un explorador de archivos: &lt;br&gt;
+        \t&#8226; Esto solo funciona con &lt;i&gt;content-uris&lt;/i&gt; y no con &lt;i&gt;file-uris&lt;/i&gt;, lo que significa que puede que no funcione con algunos exploradores de archivos. &lt;br&gt; &lt;br&gt;
+        &lt;i&gt;Modo debug / debug APK&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+        \t&#8226; Preciona prolongadamente una sugerencia para mostrar el diccionario de origen. &lt;br&gt; &lt;br&gt;
+        \t&#8226; Cuando se usa el APK debug, tú puedes encontrar Ajustes de depuración dentro de las Preferencias avanzadas, aunque la utilidad es limitada excepto para volcar diccionarios en el log. &lt;br&gt; &lt;br&gt;
+        \t&#8226; En caso que la aplicación se cierre inesperadamente, se te preguntará si quieres enviar el log de errores cuando abras los ajustes. &lt;br&gt; &lt;br&gt;
+        \t&#8226; Cuando usas escritura multilingüe, la barra espaciadora mostrará un valor de confianza usado para determinar el idioma actual. &lt;br&gt; &lt;br&gt;
+        \t&#8226; Las sugerencias tendrán algunos números pequeños en la parte superior que muestran una puntuación interna y el diccionario de origen (puede desactivarse). &lt;br&gt; &lt;br&gt;
+        &#9658; Para usuarios que hacen copias de seguridad manuales con acceso root: A partir de Android 7, el archivo de preferencias compartidas no está en la ubicación predeterminada, porque la aplicación está usando %s. &lt;br&gt;
+        Esto es necesario para que los ajustes puedan ser leídos antes de que el dispositivo sea desbloqueado, por ejemplo, al arrancar. &lt;br&gt; &lt;br&gt;
+        El archivo está ubicado en /data/user_de/0/package_id/shared_prefs/, aunque esto puede depender del dispositivo y la versión de Android. &lt;br&gt; &lt;br&gt;
+    </string>
+    <string name="about_github_link">Ver en GitHub</string>
+    <string name="save_log">Guardar log</string>
 </resources>
