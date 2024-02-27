@@ -181,7 +181,7 @@ object LocaleUtils {
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
         val languageTag = locale.toLanguageTag()
         if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return context.getString(R.string.subtype_no_language)
-        if (locale.script() != locale.language.constructLocale().script()) {
+        if (locale.script() != locale.language.constructLocale().script() || locale.language == "xdq") {
             val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
             if (resId != 0) return context.getString(resId)
         }

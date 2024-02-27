@@ -616,6 +616,15 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_xdq"
+            android:subtypeId="0xa3f4d8e2"
+            android:imeSubtypeLocale="xdq"
+            android:languageTag="xdq"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=kaitag,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x6c624c55"
             android:imeSubtypeLocale="lb"
