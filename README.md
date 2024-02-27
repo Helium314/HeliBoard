@@ -12,6 +12,7 @@ Does not use internet permission, and thus is 100% offline.
    * [Translation](#translation)
    * [Dictionary Creation](#dictionary-creation)
    * [Code Contribution](#code-contribution)
+- [To-do](#to-do)
 - [License](#license)
 - [Credits](#credits)
 
@@ -129,6 +130,22 @@ See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 ### Update List of Existing Dictionaries
 
 See make-dict-list tool [README](tools/make-dict-list/README.md).
+
+# To-do
+Planned features and improvements
+* Customizable functional key layout
+  * Will likely result in having the same functional key layout for alphabet and symbols layouts
+  * Requires adjusting names and codes for compatibility with FlorisBoard layouts
+* Support for "special keys" like _alt_ and _ctrl_ (#479)
+* Less complicated addition of languages (e.g. #519)
+* Additional and customizable key swipe functionality
+  * Some functionality will not be possible when using glide typing
+* Ability to enter all emojis independent of Android version (optional, #297)
+* (limited) support for customizing _all_ internally used colors
+* Add and enable emoji dictionaries by default (if available for language)
+* Clearer / more intuitive arrangement of settings
+  * Maybe hide some less used settings by default (similar to color customization)
+* Bug fixes
 
 # License
 
