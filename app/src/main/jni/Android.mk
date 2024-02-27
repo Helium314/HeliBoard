@@ -92,6 +92,9 @@ LOCAL_SDK_VERSION := 14
 LOCAL_NDK_STL_VARIANT := c++_static
 LOCAL_LDFLAGS += -ldl
 
+# Avoid issues with reproducible builds, see https://gitlab.com/fdroid/rfp/-/issues/2662
+LOCAL_LDFLAGS += -Wl,--build-id=none
+
 include $(BUILD_SHARED_LIBRARY)
 #################### Clean up the tmp vars
 include $(LOCAL_PATH)/CleanupNativeFileList.mk
