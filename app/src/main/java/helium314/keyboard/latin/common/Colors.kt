@@ -33,6 +33,7 @@ import helium314.keyboard.latin.utils.brightenOrDarken
 import helium314.keyboard.latin.utils.darken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isDarkColor
+import java.util.EnumMap
 
 interface Colors {
     // these theme parameters should no be in here, but are still used
@@ -534,6 +535,49 @@ class DefaultColors (
         KEY_PREVIEW -> adjustedBackgroundFilter
         ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color)) // create color filter (not great for performance, so the frequently used filters should be stored)
+    }
+}
+
+// todo: allow users to use this class
+//  the colorMap should be stored in settings
+//   reading should consider that colors might be added and removed, i.e. no "simple" serialization
+//  color settings should add another menu option for "all colors"
+//   just show all ColorTypes with current value read from the map (default to black, same as in get)
+//   no string name, as it is not stable
+class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val themeStyle: String, override val hasKeyBorders: Boolean) : Colors {
+    private var keyboardBackground: Drawable? = null
+    private val stateListMap = EnumMap<ColorType, ColorStateList>(ColorType::class.java)
+    private var backgroundSetupDone = false
+    override fun get(color: ColorType): Int = colorMap[color] ?: Color.BLACK
+
+    override fun setColor(drawable: Drawable, color: ColorType) {
+        val colorStateList = stateListMap.getOrPut(color) { stateList(brightenOrDarken(get(color), true), get(color)) }
+        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.MULTIPLY)
+        DrawableCompat.setTintList(drawable, colorStateList)
+    }
+
+    override fun setColor(view: ImageView, color: ColorType) {
+        setColor(view.drawable, color)
+    }
+
+    override fun setBackground(view: View, color: ColorType) {
+        if (view.background == null)
+            view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
+        when (color) {
+            ONE_HANDED_MODE_BUTTON -> setColor(view.background, BACKGROUND) // button has no separate background color
+            MAIN_BACKGROUND -> {
+                if (keyboardBackground != null) {
+                    if (!backgroundSetupDone) {
+                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        backgroundSetupDone = true
+                    }
+                    view.background = keyboardBackground
+                } else {
+                    setColor(view.background, color)
+                }
+            }
+            else -> setColor(view.background, color)
+        }
     }
 }
 
