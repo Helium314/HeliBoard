@@ -88,6 +88,7 @@ Note that issues that that ignore part of the issue template will likely get tre
 
 ## Translation
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
+Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate tranlations.
 
 ## Dictionary Creation
 There will not be any further dictionaries bundled in this app. However, you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries).
