@@ -1525,19 +1525,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
     }
 
-    // TODO: Instead of checking for alphabetic keyboard here, separate keycodes for
-    // alphabetic shift and shift while in symbol layout and get rid of this method.
-    private int getCodePointForKeyboard(final int codePoint) {
-        if (KeyCode.SHIFT == codePoint) {
-            final Keyboard currentKeyboard = mKeyboardSwitcher.getKeyboard();
-            if (null != currentKeyboard && currentKeyboard.mId.isAlphabetKeyboard()) {
-                return codePoint;
-            }
-            return KeyCode.SYMBOL_SHIFT;
-        }
-        return codePoint;
-    }
-
     // Implementation of {@link KeyboardActionListener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
@@ -1556,7 +1543,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // this transformation, it should be done already before calling onEvent.
         final int keyX = mainKeyboardView.getKeyX(x);
         final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(getCodePointForKeyboard(codePoint), keyX, keyY, isKeyRepeat);
+        final Event event = createSoftwareKeypressEvent(codePoint, keyX, keyY, isKeyRepeat);
         onEvent(event);
     }
 

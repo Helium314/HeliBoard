@@ -745,7 +745,6 @@ public final class InputLogic {
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
             case KeyCode.CAPS_LOCK:
-            case KeyCode.SYMBOL_SHIFT:
             case KeyCode.ALPHA_SYMBOL:
             case KeyCode.ALPHA:
             case KeyCode.SYMBOL:
