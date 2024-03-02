@@ -32,6 +32,7 @@ import helium314.keyboard.keyboard.KeyboardView;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
@@ -225,7 +226,7 @@ public final class EmojiPalettesView extends LinearLayout
         mDeleteKey = findViewById(R.id.key_delete);
         mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
         mColors.setColor(mDeleteKey, ColorType.KEY_ICON);
-        mDeleteKey.setTag(Constants.CODE_DELETE);
+        mDeleteKey.setTag(KeyCode.DELETE);
         mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
 
         // {@link #mAlphabetKeyLeft} and spaceKey depend on
@@ -237,7 +238,7 @@ public final class EmojiPalettesView extends LinearLayout
         // {@link #startEmojiPalettes(String,int,float,Typeface)}.
         mAlphabetKeyLeft = findViewById(R.id.key_alphabet);
         mAlphabetKeyLeft.setBackgroundResource(mFunctionalKeyBackgroundId);
-        mAlphabetKeyLeft.setTag(Constants.CODE_SWITCH_ALPHA);
+        mAlphabetKeyLeft.setTag(KeyCode.ALPHA);
         mAlphabetKeyLeft.setOnTouchListener(this);
         mAlphabetKeyLeft.setOnClickListener(this);
         mSpacebar = findViewById(R.id.key_space);
@@ -297,7 +298,7 @@ public final class EmojiPalettesView extends LinearLayout
     public void onClick(View v) {
         final Object tag = v.getTag();
         if (tag instanceof Long) {
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.CODE_UNSPECIFIED, this);
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
             final int categoryId = ((Long) tag).intValue();
             if (categoryId != mEmojiCategory.getCurrentCategoryId()) {
                 setCurrentCategoryAndPageId(categoryId, 0, false);
@@ -333,7 +334,7 @@ public final class EmojiPalettesView extends LinearLayout
     public void onReleaseKey(final Key key) {
         mEmojiPalettesAdapter.addRecentKey(key);
         final int code = key.getCode();
-        if (code == Constants.CODE_OUTPUT_TEXT) {
+        if (code == KeyCode.MULTIPLE_CODE_POINTS) {
             mKeyboardActionListener.onTextInput(key.getOutputText());
         } else {
             mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
@@ -453,13 +454,13 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         private void onTouchDown(final View v) {
-            mKeyboardActionListener.onPressKey(Constants.CODE_DELETE, 0, true);
+            mKeyboardActionListener.onPressKey(KeyCode.DELETE, 0, true);
             v.setPressed(true /* pressed */);
         }
 
         private void onTouchUp(final View v) {
-            mKeyboardActionListener.onCodeInput(Constants.CODE_DELETE, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
-            mKeyboardActionListener.onReleaseKey(Constants.CODE_DELETE, false);
+            mKeyboardActionListener.onCodeInput(KeyCode.DELETE, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
+            mKeyboardActionListener.onReleaseKey(KeyCode.DELETE, false);
             v.setPressed(false /* pressed */);
         }
 

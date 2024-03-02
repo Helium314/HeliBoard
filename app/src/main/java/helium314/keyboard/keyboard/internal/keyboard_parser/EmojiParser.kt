@@ -7,6 +7,7 @@ import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
@@ -66,7 +67,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val specAndSdk = spec.split("||")
         if (specAndSdk.getOrNull(1)?.toIntOrNull()?.let { it > Build.VERSION.SDK_INT } == true) return null
         if ("," !in specAndSdk.first()) {
-            val code = specAndSdk.first().toIntOrNull(16) ?: return specAndSdk.first() to Constants.CODE_OUTPUT_TEXT // text emojis
+            val code = specAndSdk.first().toIntOrNull(16) ?: return specAndSdk.first() to KeyCode.MULTIPLE_CODE_POINTS // text emojis
             val label = StringUtils.newSingleCodePointString(code)
             return label to code
         }
@@ -75,7 +76,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             val cp = codePointString.toInt(16)
             labelBuilder.appendCodePoint(cp)
         }
-        return labelBuilder.toString() to Constants.CODE_OUTPUT_TEXT
+        return labelBuilder.toString() to KeyCode.MULTIPLE_CODE_POINTS
     }
 
     private fun parseEmojiKey(spec: String, popupKeysString: String? = null): KeyParams? {

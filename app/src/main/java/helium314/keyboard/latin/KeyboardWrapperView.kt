@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
@@ -83,7 +84,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)
                     oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
-                    keyboardActionListener?.onCodeInput(Constants.CODE_START_ONE_HANDED_MODE,
+                    keyboardActionListener?.onCodeInput(KeyCode.START_ONE_HANDED_MODE,
                         Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
                 else -> x = 0f
@@ -118,11 +119,11 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
     override fun onClick(view: View) {
         if (view === stopOneHandedModeBtn) {
-            keyboardActionListener?.onCodeInput(Constants.CODE_STOP_ONE_HANDED_MODE,
+            keyboardActionListener?.onCodeInput(KeyCode.STOP_ONE_HANDED_MODE,
                 Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */)
         } else if (view === switchOneHandedModeBtn) {
-            keyboardActionListener?.onCodeInput(Constants.CODE_SWITCH_ONE_HANDED_MODE,
+            keyboardActionListener?.onCodeInput(KeyCode.SWITCH_ONE_HANDED_MODE,
                 Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */)
         }

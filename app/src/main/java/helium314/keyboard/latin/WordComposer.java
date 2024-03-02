@@ -12,6 +12,7 @@ import helium314.keyboard.event.CombinerChain;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.common.Constants;
@@ -176,7 +177,7 @@ public final class WordComposer {
         applyProcessedEvent(event, false);
     }
 
-    // specifically for that Constants.CODE_OUTPUT_TEXT Hangul event: try keeping cursor position
+    // specifically for that KeyCode.MULTIPLE_CODE_POINTS Hangul event: try keeping cursor position
     // because typically nothing changes, todo: if really nothing changes maybe there is a better way to do it
     public void applyProcessedEvent(final Event event, final boolean keepCursorPosition) {
         mCombinerChain.applyProcessedEvent(event);
@@ -191,7 +192,7 @@ public final class WordComposer {
         if (0 == mCodePointSize) {
             mIsOnlyFirstCharCapitalized = false;
         }
-        if (Constants.CODE_DELETE != event.getMKeyCode()) {
+        if (KeyCode.DELETE != event.getMKeyCode()) {
             if (newIndex < MAX_WORD_LENGTH) {
                 // In the batch input mode, the {@code mInputPointers} holds batch input points and
                 // shouldn't be overridden by the "typed key" coordinates

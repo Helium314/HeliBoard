@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.Key;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.CollectionUtils;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -51,10 +52,10 @@ public final class PopupKeySpec {
         final int codeInSpec = KeySpecParser.getCode(popupKeySpec);
         final int code = needsToUpperCase ? StringUtils.toTitleCaseOfKeyCode(codeInSpec, locale)
                 : codeInSpec;
-        if (code == Constants.CODE_UNSPECIFIED) {
+        if (code == KeyCode.NOT_SPECIFIED) {
             // Some letter, for example German Eszett (U+00DF: "ß"), has multiple characters
             // upper case representation ("SS").
-            mCode = Constants.CODE_OUTPUT_TEXT;
+            mCode = KeyCode.MULTIPLE_CODE_POINTS;
             mOutputText = mLabel;
         } else {
             mCode = code;
@@ -103,7 +104,7 @@ public final class PopupKeySpec {
     public String toString() {
         final String label = (mIconId == KeyboardIconsSet.ICON_UNDEFINED ? mLabel
                 : KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(mIconId));
-        final String output = (mCode == Constants.CODE_OUTPUT_TEXT ? mOutputText
+        final String output = (mCode == KeyCode.MULTIPLE_CODE_POINTS ? mOutputText
                 : Constants.printableCode(mCode));
         if (StringUtils.codePointCount(label) == 1 && label.codePointAt(0) == mCode) {
             return output;
@@ -119,7 +120,7 @@ public final class PopupKeySpec {
             final int code = key.getCode();
             if (code > 32) {
                 mCodes.put(code, 0);
-            } else if (code == Constants.CODE_OUTPUT_TEXT) {
+            } else if (code == KeyCode.MULTIPLE_CODE_POINTS) {
                 mTexts.add(key.getOutputText());
             }
         }
@@ -128,7 +129,7 @@ public final class PopupKeySpec {
             final int code = popupKey.mCode;
             if (mCodes.indexOfKey(code) >= 0) {
                 return true;
-            } else return code == Constants.CODE_OUTPUT_TEXT && mTexts.contains(popupKey.mOutputText);
+            } else return code == KeyCode.MULTIPLE_CODE_POINTS && mTexts.contains(popupKey.mOutputText);
         }
     }
 

@@ -6,6 +6,7 @@
 
 package helium314.keyboard.keyboard.internal;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public final class KeyboardCodesSet {
         "key_output_text",
         "key_delete",
         "key_settings",
-        "key_shortcut",
+        "key_voice_input",
         "key_action_next",
         "key_action_previous",
         "key_shift_enter",
@@ -55,26 +56,26 @@ public final class KeyboardCodesSet {
         Constants.CODE_TAB,
         Constants.CODE_ENTER,
         Constants.CODE_SPACE,
-        Constants.CODE_SHIFT,
-        Constants.CODE_CAPSLOCK,
-        Constants.CODE_SWITCH_ALPHA_SYMBOL,
-        Constants.CODE_SWITCH_ALPHA,
-        Constants.CODE_SWITCH_SYMBOL,
-        Constants.CODE_OUTPUT_TEXT,
-        Constants.CODE_DELETE,
-        Constants.CODE_SETTINGS,
-        Constants.CODE_SHORTCUT,
-        Constants.CODE_ACTION_NEXT,
-        Constants.CODE_ACTION_PREVIOUS,
-        Constants.CODE_SHIFT_ENTER,
-        Constants.CODE_LANGUAGE_SWITCH,
-        Constants.CODE_EMOJI,
-        Constants.CODE_UNSPECIFIED,
-        Constants.CODE_CLIPBOARD,
-        Constants.CODE_SWITCH_NUMPAD,
-        Constants.CODE_START_ONE_HANDED_MODE,
-        Constants.CODE_STOP_ONE_HANDED_MODE,
-        Constants.CODE_SWITCH_ONE_HANDED_MODE
+        KeyCode.SHIFT,
+        KeyCode.CAPS_LOCK,
+        KeyCode.ALPHA_SYMBOL,
+        KeyCode.ALPHA,
+        KeyCode.SYMBOL,
+        KeyCode.MULTIPLE_CODE_POINTS,
+        KeyCode.DELETE,
+        KeyCode.SETTINGS,
+        KeyCode.VOICE_INPUT,
+        KeyCode.ACTION_NEXT,
+        KeyCode.ACTION_PREVIOUS,
+        KeyCode.SHIFT_ENTER,
+        KeyCode.LANGUAGE_SWITCH,
+        KeyCode.EMOJI,
+        KeyCode.NOT_SPECIFIED,
+        KeyCode.CLIPBOARD,
+        KeyCode.NUMPAD,
+        KeyCode.START_ONE_HANDED_MODE,
+        KeyCode.STOP_ONE_HANDED_MODE,
+        KeyCode.SWITCH_ONE_HANDED_MODE
     };
 
     static {

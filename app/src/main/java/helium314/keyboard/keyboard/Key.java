@@ -17,6 +17,7 @@ import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -26,12 +27,6 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import static helium314.keyboard.keyboard.internal.KeyboardIconsSet.ICON_UNDEFINED;
-import static helium314.keyboard.latin.common.Constants.CODE_OUTPUT_TEXT;
-import static helium314.keyboard.latin.common.Constants.CODE_SHIFT;
-import static helium314.keyboard.latin.common.Constants.CODE_SWITCH_ALPHA;
-import static helium314.keyboard.latin.common.Constants.CODE_SWITCH_ALPHA_SYMBOL;
-import static helium314.keyboard.latin.common.Constants.CODE_SWITCH_SYMBOL;
-import static helium314.keyboard.latin.common.Constants.CODE_UNSPECIFIED;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -178,7 +173,7 @@ public class Key implements Comparable<Key> {
         @Nullable
         public static OptionalAttributes newInstance(final String outputText, final int altCode,
                 final int disabledIconId, final int visualInsetsLeft, final int visualInsetsRight) {
-            if (outputText == null && altCode == CODE_UNSPECIFIED
+            if (outputText == null && altCode == KeyCode.NOT_SPECIFIED
                     && disabledIconId == ICON_UNDEFINED && visualInsetsLeft == 0
                     && visualInsetsRight == 0) {
                 return null;
@@ -214,10 +209,10 @@ public class Key implements Comparable<Key> {
         mPopupKeys = null;
         mPopupKeysColumnAndFlags = 0;
         mLabel = label;
-        mOptionalAttributes = OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED,
+        mOptionalAttributes = OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED,
                 ICON_UNDEFINED, 0 /* visualInsetsLeft */, 0 /* visualInsetsRight */);
         mCode = code;
-        mEnabled = (code != CODE_UNSPECIFIED);
+        mEnabled = (code != KeyCode.NOT_SPECIFIED);
         mIconId = iconId;
         // Horizontal gap is divided equally to both sides of the key.
         mX = x + mHorizontalGap / 2;
@@ -267,7 +262,7 @@ public class Key implements Comparable<Key> {
     public Key(@NonNull final Key key, @Nullable final PopupKeySpec[] popupKeys,
              @Nullable final String labelHint, final int backgroundType, final int code, @Nullable final String outputText) {
         // Final attributes.
-        mCode = outputText == null ? code : CODE_OUTPUT_TEXT;
+        mCode = outputText == null ? code : KeyCode.MULTIPLE_CODE_POINTS;
         mLabel = outputText == null ? StringUtils.newSingleCodePointString(code) : outputText;
         mHintLabel = labelHint;
         mLabelFlags = key.mLabelFlags;
@@ -284,7 +279,7 @@ public class Key implements Comparable<Key> {
         mBackgroundType = backgroundType;
         mActionFlags = key.mActionFlags;
         mKeyVisualAttributes = key.mKeyVisualAttributes;
-        mOptionalAttributes = outputText == null ? null : Key.OptionalAttributes.newInstance(outputText, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0);
+        mOptionalAttributes = outputText == null ? null : Key.OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED, ICON_UNDEFINED, 0, 0);
         mHashCode = key.mHashCode;
         // Key state.
         mPressed = key.mPressed;
@@ -442,7 +437,7 @@ public class Key implements Comparable<Key> {
 
     public String toShortString() {
         final int code = getCode();
-        if (code == Constants.CODE_OUTPUT_TEXT) {
+        if (code == KeyCode.MULTIPLE_CODE_POINTS) {
             return getOutputText();
         }
         return Constants.printableCode(code);
@@ -514,11 +509,11 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isShift() {
-        return mCode == CODE_SHIFT;
+        return mCode == KeyCode.SHIFT;
     }
 
     public final boolean isModifier() {
-        return mCode == CODE_SHIFT || mCode == CODE_SWITCH_ALPHA_SYMBOL || mCode == CODE_SWITCH_ALPHA || mCode == CODE_SWITCH_SYMBOL;
+        return mCode == KeyCode.SHIFT || mCode == KeyCode.ALPHA_SYMBOL || mCode == KeyCode.ALPHA || mCode == KeyCode.SYMBOL;
     }
 
     public final boolean isRepeatable() {
@@ -704,7 +699,7 @@ public class Key implements Comparable<Key> {
 
     public final int getAltCode() {
         final OptionalAttributes attrs = mOptionalAttributes;
-        return (attrs != null) ? attrs.mAltCode : CODE_UNSPECIFIED;
+        return (attrs != null) ? attrs.mAltCode : KeyCode.NOT_SPECIFIED;
     }
 
     public int getIconId() {
@@ -948,7 +943,7 @@ public class Key implements Comparable<Key> {
          */
         protected Spacer(final KeyboardParams params, final int x, final int y, final int width,
                 final int height) {
-            super(null /* label */, ICON_UNDEFINED, CODE_UNSPECIFIED, null /* outputText */,
+            super(null /* label */, ICON_UNDEFINED, KeyCode.NOT_SPECIFIED, null /* outputText */,
                     null /* hintLabel */, 0 /* labelFlags */, BACKGROUND_TYPE_EMPTY, x, y, width,
                     height, params.mHorizontalGap, params.mVerticalGap);
         }
@@ -1116,7 +1111,7 @@ public class Key implements Comparable<Key> {
                 outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
             }
             // Choose the first letter of the label as primary code if not specified.
-            if (code == CODE_UNSPECIFIED && TextUtils.isEmpty(outputText) && !TextUtils.isEmpty(mLabel)) {
+            if (code == KeyCode.NOT_SPECIFIED && TextUtils.isEmpty(outputText) && !TextUtils.isEmpty(mLabel)) {
                 if (StringUtils.codePointCount(mLabel) == 1) {
                     // Use the first letter of the hint label if shiftedLetterActivated flag is
                     // specified.
@@ -1130,14 +1125,14 @@ public class Key implements Comparable<Key> {
                     // In some locale and case, the character might be represented by multiple code
                     // points, such as upper case Eszett of German alphabet.
                     outputText = mLabel;
-                    mCode = CODE_OUTPUT_TEXT;
+                    mCode = KeyCode.MULTIPLE_CODE_POINTS;
                 }
-            } else if (code == CODE_UNSPECIFIED && outputText != null) {
+            } else if (code == KeyCode.NOT_SPECIFIED && outputText != null) {
                 if (StringUtils.codePointCount(outputText) == 1) {
                     mCode = outputText.codePointAt(0);
                     outputText = null;
                 } else {
-                    mCode = CODE_OUTPUT_TEXT;
+                    mCode = KeyCode.MULTIPLE_CODE_POINTS;
                 }
             } else {
                 mCode = needsToUpcase ? StringUtils.toTitleCaseOfKeyCode(code, localeForUpcasing) : code;
@@ -1145,23 +1140,23 @@ public class Key implements Comparable<Key> {
 
             // action flags don't need to be specified, they can be deduced from the key
             if (backgroundType == BACKGROUND_TYPE_SPACEBAR
-                    || mCode == Constants.CODE_LANGUAGE_SWITCH
-                    || (mCode == CODE_SWITCH_ALPHA_SYMBOL && !params.mId.isAlphabetKeyboard())
+                    || mCode == KeyCode.LANGUAGE_SWITCH
+                    || (mCode == KeyCode.ALPHA_SYMBOL && !params.mId.isAlphabetKeyboard())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-            if (mCode <= Constants.CODE_SPACE && mCode != CODE_OUTPUT_TEXT)
+            if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
-            if (mCode == Constants.CODE_DELETE)
+            if (mCode == KeyCode.DELETE)
                 actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
-            if (mCode == Constants.CODE_SETTINGS || mCode == Constants.CODE_LANGUAGE_SWITCH)
+            if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)
                 actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
             mActionFlags = actionFlags;
 
             final int altCodeInAttr; // settings and language switch keys have alt code space, all others nothing
-            if (mCode == Constants.CODE_SETTINGS || mCode == Constants.CODE_LANGUAGE_SWITCH)
+            if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)
                 altCodeInAttr = Constants.CODE_SPACE;
             else
-                altCodeInAttr = CODE_UNSPECIFIED;
+                altCodeInAttr = KeyCode.NOT_SPECIFIED;
             final int altCode = needsToUpcase
                     ? StringUtils.toTitleCaseOfKeyCode(altCodeInAttr, localeForUpcasing)
                     : altCodeInAttr;
@@ -1206,11 +1201,11 @@ public class Key implements Comparable<Key> {
             }
 
             mLabel = label;
-            mOptionalAttributes = code == Constants.CODE_OUTPUT_TEXT
-                    ? OptionalAttributes.newInstance(label, CODE_UNSPECIFIED, ICON_UNDEFINED, 0, 0)
+            mOptionalAttributes = code == KeyCode.MULTIPLE_CODE_POINTS
+                    ? OptionalAttributes.newInstance(label, KeyCode.NOT_SPECIFIED, ICON_UNDEFINED, 0, 0)
                     : null;
             mCode = code;
-            mEnabled = (code != CODE_UNSPECIFIED);
+            mEnabled = (code != KeyCode.NOT_SPECIFIED);
             mIconId = KeyboardIconsSet.ICON_UNDEFINED;
             mKeyVisualAttributes = null;
         }
@@ -1220,7 +1215,7 @@ public class Key implements Comparable<Key> {
             isSpacer = true; // this is only for spacer!
             mKeyboardParams = params;
 
-            mCode = CODE_UNSPECIFIED;
+            mCode = KeyCode.NOT_SPECIFIED;
             mLabel = null;
             mHintLabel = null;
             mKeyVisualAttributes = null;

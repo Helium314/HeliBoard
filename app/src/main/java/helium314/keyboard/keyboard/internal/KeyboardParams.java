@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.Settings;
@@ -134,7 +135,7 @@ public class KeyboardParams {
             return;
         }
         updateHistogram(key);
-        if (key.getCode() == Constants.CODE_SHIFT) {
+        if (key.getCode() == KeyCode.SHIFT) {
             mShiftKeys.add(key);
         }
         if (key.altCodeWhileTyping()) {

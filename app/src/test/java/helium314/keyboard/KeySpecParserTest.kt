@@ -1,6 +1,7 @@
 package helium314.keyboard
 
 import helium314.keyboard.keyboard.internal.KeySpecParser
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -19,9 +20,9 @@ class KeySpecParserTest {
     @Test fun code() {
         assertEquals('a'.code, KeySpecParser.getCode("a"))
         assertEquals('b'.code, KeySpecParser.getCode("a|b"))
-        assertEquals(Constants.CODE_OUTPUT_TEXT, KeySpecParser.getCode("hey|there"))
+        assertEquals(KeyCode.MULTIPLE_CODE_POINTS, KeySpecParser.getCode("hey|there"))
         assertEquals('c'.code, KeySpecParser.getCode("a|b|c"))
-        assertEquals(Constants.CODE_OUTPUT_TEXT, KeySpecParser.getCode("a\\|b"))
+        assertEquals(KeyCode.MULTIPLE_CODE_POINTS, KeySpecParser.getCode("a\\|b"))
         assertEquals('c'.code, KeySpecParser.getCode("a\\|b|c"))
         assertEquals('d'.code, KeySpecParser.getCode("a\\|b|c|d"))
     }

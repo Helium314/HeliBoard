@@ -42,6 +42,7 @@ import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.keyboard.internal.NonDistinctMultitouchHelper;
 import helium314.keyboard.keyboard.internal.SlidingKeyInputDrawingPreview;
 import helium314.keyboard.keyboard.internal.TimerHandler;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SuggestedWords;
@@ -688,7 +689,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         if (keyboard == null) {
             return;
         }
-        final Key shortcutKey = keyboard.getKey(Constants.CODE_SHORTCUT);
+        final Key shortcutKey = keyboard.getKey(KeyCode.VOICE_INPUT);
         if (shortcutKey == null) {
             return;
         }
@@ -741,7 +742,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes) {
                 drawKeyPopupHint(key, canvas, paint, params);
             }
-        } else if (code == Constants.CODE_LANGUAGE_SWITCH) {
+        } else if (code == KeyCode.LANGUAGE_SWITCH) {
             drawKeyPopupHint(key, canvas, paint, params);
         }
     }

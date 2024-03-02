@@ -14,6 +14,7 @@ import helium314.keyboard.ShadowLocaleManagerCompat
 import helium314.keyboard.event.Event
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.MainKeyboardView
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.ShadowFacilitator2.Companion.lastAddedWord
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.Constants
@@ -81,7 +82,7 @@ class InputLogicTest {
     @Test fun delete() {
         reset()
         setText("hello there ")
-        functionalKeyPress(Constants.CODE_DELETE)
+        functionalKeyPress(KeyCode.DELETE)
         assertEquals("hello there", text)
         assertEquals("there", composingText)
     }
@@ -90,7 +91,7 @@ class InputLogicTest {
         reset()
         setText("hello you there")
         setCursorPosition(8) // after o in you
-        functionalKeyPress(Constants.CODE_DELETE)
+        functionalKeyPress(KeyCode.DELETE)
         assertEquals("hello yu there", text)
         // todo: do we really want an empty composing text in this case?
         //  setting whole word composing will delete text behind cursor
@@ -245,7 +246,7 @@ class InputLogicTest {
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         input("bla")
         input('.')
-        functionalKeyPress(Constants.CODE_SHIFT) // should remove the phantom space (in addition to normal effect)
+        functionalKeyPress(KeyCode.SHIFT) // should remove the phantom space (in addition to normal effect)
         input('c')
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
@@ -326,9 +327,9 @@ class InputLogicTest {
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
-        functionalKeyPress(Constants.CODE_DELETE)
-        functionalKeyPress(Constants.CODE_DELETE)
-        functionalKeyPress(Constants.CODE_DELETE) // delete com
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE) // delete com
         // todo: do we really want no composing text?
         //  probably not... try not to break composing
         assertEquals("", composingText)
@@ -341,8 +342,8 @@ class InputLogicTest {
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
-        functionalKeyPress(Constants.CODE_DELETE)
-        functionalKeyPress(Constants.CODE_DELETE) // delete om
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE) // delete om
         // todo: this is a weird difference to deleting the full TLD (see urlProperlySelected)
         //  what do we want here? (probably consistency)
         assertEquals("example.c/here", composingText)

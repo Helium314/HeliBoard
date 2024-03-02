@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
@@ -23,17 +24,17 @@ internal class KeyCodeDescriptionMapper private constructor() {
     private val mKeyCodeMap = SparseIntArray().apply {
         // Special non-character codes defined in Keyboard
         put(Constants.CODE_SPACE, R.string.spoken_description_space)
-        put(Constants.CODE_DELETE, R.string.spoken_description_delete)
+        put(KeyCode.DELETE, R.string.spoken_description_delete)
         put(Constants.CODE_ENTER, R.string.spoken_description_return)
-        put(Constants.CODE_SETTINGS, R.string.spoken_description_settings)
-        put(Constants.CODE_SHIFT, R.string.spoken_description_shift)
-        put(Constants.CODE_SHORTCUT, R.string.spoken_description_mic)
-        put(Constants.CODE_SWITCH_ALPHA_SYMBOL, R.string.spoken_description_to_symbol)
+        put(KeyCode.SETTINGS, R.string.spoken_description_settings)
+        put(KeyCode.SHIFT, R.string.spoken_description_shift)
+        put(KeyCode.VOICE_INPUT, R.string.spoken_description_mic)
+        put(KeyCode.ALPHA_SYMBOL, R.string.spoken_description_to_symbol)
         put(Constants.CODE_TAB, R.string.spoken_description_tab)
-        put(Constants.CODE_LANGUAGE_SWITCH, R.string.spoken_description_language_switch)
-        put(Constants.CODE_ACTION_NEXT, R.string.spoken_description_action_next)
-        put(Constants.CODE_ACTION_PREVIOUS, R.string.spoken_description_action_previous)
-        put(Constants.CODE_EMOJI, R.string.spoken_description_emoji)
+        put(KeyCode.LANGUAGE_SWITCH, R.string.spoken_description_language_switch)
+        put(KeyCode.ACTION_NEXT, R.string.spoken_description_action_next)
+        put(KeyCode.ACTION_PREVIOUS, R.string.spoken_description_action_previous)
+        put(KeyCode.EMOJI, R.string.spoken_description_emoji)
         // Because the upper-case and lower-case mappings of the following letters is depending on
         // the locale, the upper case descriptions should be defined here. The lower case
         // descriptions are handled in {@link #getSpokenLetterDescriptionId(Context,int)}.
@@ -57,13 +58,13 @@ internal class KeyCodeDescriptionMapper private constructor() {
      */
     fun getDescriptionForKey(context: Context, keyboard: Keyboard?, key: Key, shouldObscure: Boolean): String? {
         val code = key.code
-        if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL || code == Constants.CODE_SWITCH_SYMBOL || code == Constants.CODE_SWITCH_ALPHA) {
+        if (code == KeyCode.ALPHA_SYMBOL || code == KeyCode.SYMBOL || code == KeyCode.ALPHA) {
             val description = getDescriptionForSwitchAlphaSymbol(context, keyboard)
             if (description != null) {
                 return description
             }
         }
-        if (code == Constants.CODE_SHIFT) {
+        if (code == KeyCode.SHIFT) {
             return getDescriptionForShiftKey(context, keyboard)
         }
         if (code == Constants.CODE_ENTER) {
@@ -71,11 +72,11 @@ internal class KeyCodeDescriptionMapper private constructor() {
             // regular enter cases, taking care of all modes.
             return getDescriptionForActionKey(context, keyboard, key)
         }
-        if (code == Constants.CODE_OUTPUT_TEXT) {
+        if (code == KeyCode.MULTIPLE_CODE_POINTS) {
             return key.outputText ?: context.getString(R.string.spoken_description_unknown)
         }
         // Just attempt to speak the description.
-        if (code != Constants.CODE_UNSPECIFIED) {
+        if (code != KeyCode.NOT_SPECIFIED) {
             // If the key description should be obscured, now is the time to do it.
             val isDefinedNonCtrl = (Character.isDefined(code)
                     && !Character.isISOControl(code))

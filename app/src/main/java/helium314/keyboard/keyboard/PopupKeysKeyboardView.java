@@ -22,6 +22,7 @@ import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate;
 import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
@@ -205,9 +206,9 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     protected void onKeyInput(final Key key, final int x, final int y) {
         if (mListener != null) {
             final int code = key.getCode();
-            if (code == Constants.CODE_OUTPUT_TEXT) {
+            if (code == KeyCode.MULTIPLE_CODE_POINTS) {
                 mListener.onTextInput(mCurrentKey.getOutputText());
-            } else if (code != Constants.CODE_UNSPECIFIED) {
+            } else if (code != KeyCode.NOT_SPECIFIED) {
                 if (getKeyboard().hasProximityCharsCorrection(code)) {
                     mListener.onCodeInput(code, x, y, false /* isKeyRepeat */);
                 } else {

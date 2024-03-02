@@ -8,6 +8,7 @@ package helium314.keyboard.latin.common;
 
 import androidx.annotation.NonNull;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.BuildConfig;
 
 public final class Constants {
@@ -191,48 +192,6 @@ public final class Constants {
     public static final String REGEXP_PERIOD = "\\.";
     public static final String STRING_SPACE = " ";
 
-    /**
-     * Special keys code. Must be negative.
-     * These should be aligned with constants in
-     * {@link helium314.keyboard.keyboard.internal.KeyboardCodesSet}.
-     */
-    // todo: switch to using KeyCode for internal values? for FlorisBoard modifier key(code) compatibility
-    public static final int CODE_SHIFT = -1;
-    public static final int CODE_CAPSLOCK = -2;
-    public static final int CODE_SWITCH_ALPHA_SYMBOL = -3;
-    public static final int CODE_OUTPUT_TEXT = -4;
-    public static final int CODE_DELETE = -5;
-    public static final int CODE_SETTINGS = -6;
-    public static final int CODE_SHORTCUT = -7;
-    public static final int CODE_ACTION_NEXT = -8;
-    public static final int CODE_ACTION_PREVIOUS = -9;
-    public static final int CODE_LANGUAGE_SWITCH = -10;
-    public static final int CODE_EMOJI = -11;
-    public static final int CODE_CLIPBOARD = -12;
-    public static final int CODE_SHIFT_ENTER = -13;
-    public static final int CODE_SYMBOL_SHIFT = -14;
-    public static final int CODE_START_ONE_HANDED_MODE = -17;
-    public static final int CODE_STOP_ONE_HANDED_MODE = -18;
-    public static final int CODE_SWITCH_ONE_HANDED_MODE = -19;
-    public static final int CODE_SWITCH_NUMPAD = -20;
-    public static final int CODE_SWITCH_ALPHA = -21;
-    public static final int CODE_SWITCH_SYMBOL = -22;
-    public static final int CODE_SELECT_ALL = -23;
-    public static final int CODE_COPY = -24;
-    public static final int CODE_LEFT = -25;
-    public static final int CODE_RIGHT = -26;
-    public static final int CODE_UP = -27;
-    public static final int CODE_DOWN = -28;
-    public static final int CODE_UNDO = -29;
-    public static final int CODE_REDO = -30;
-    public static final int CODE_TOGGLE_AUTOCORRECT = -31;
-    public static final int CODE_TOGGLE_INCOGNITO = -32;
-    public static final int CODE_HOME = -33;
-    public static final int CODE_END = -34;
-    public static final int CODE_SELECT_WORD = -35;
-    // Code value representing the code is not specified.
-    public static final int CODE_UNSPECIFIED = -200;
-
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;
     }
@@ -240,29 +199,29 @@ public final class Constants {
     @NonNull
     public static String printableCode(final int code) {
         switch (code) {
-        case CODE_SHIFT: return "shift";
-        case CODE_CAPSLOCK: return "capslock";
-        case CODE_SWITCH_ALPHA_SYMBOL: return "alpha_symbol";
-        case CODE_SWITCH_ALPHA: return "alpha";
-        case CODE_SWITCH_SYMBOL: return "symbol";
-        case CODE_OUTPUT_TEXT: return "text";
-        case CODE_DELETE: return "delete";
-        case CODE_SETTINGS: return "settings";
-        case CODE_SHORTCUT: return "shortcut";
-        case CODE_ACTION_NEXT: return "actionNext";
-        case CODE_ACTION_PREVIOUS: return "actionPrevious";
-        case CODE_LANGUAGE_SWITCH: return "languageSwitch";
-        case CODE_EMOJI: return "emoji";
-        case CODE_CLIPBOARD: return "clipboard";
-        case CODE_SHIFT_ENTER: return "shiftEnter";
-        case CODE_UNSPECIFIED: return "unspec";
+        case KeyCode.SHIFT: return "shift";
+        case KeyCode.CAPS_LOCK: return "capslock";
+        case KeyCode.ALPHA_SYMBOL: return "alpha_symbol";
+        case KeyCode.ALPHA: return "alpha";
+        case KeyCode.SYMBOL: return "symbol";
+        case KeyCode.MULTIPLE_CODE_POINTS: return "text";
+        case KeyCode.DELETE: return "delete";
+        case KeyCode.SETTINGS: return "settings";
+        case KeyCode.VOICE_INPUT: return "shortcut";
+        case KeyCode.ACTION_NEXT: return "actionNext";
+        case KeyCode.ACTION_PREVIOUS: return "actionPrevious";
+        case KeyCode.LANGUAGE_SWITCH: return "languageSwitch";
+        case KeyCode.EMOJI: return "emoji";
+        case KeyCode.CLIPBOARD: return "clipboard";
+        case KeyCode.SHIFT_ENTER: return "shiftEnter";
+        case KeyCode.NOT_SPECIFIED: return "unspec";
         case CODE_TAB: return "tab";
         case CODE_ENTER: return "enter";
         case CODE_SPACE: return "space";
-        case CODE_START_ONE_HANDED_MODE: return "startOneHandedMode";
-        case CODE_STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
-        case CODE_SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
-        case CODE_SWITCH_NUMPAD: return "numpad";
+        case KeyCode.START_ONE_HANDED_MODE: return "startOneHandedMode";
+        case KeyCode.STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
+        case KeyCode.SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
+        case KeyCode.NUMPAD: return "numpad";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);
             if (code < 0x100) return String.format("%c", code);

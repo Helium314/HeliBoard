@@ -8,6 +8,7 @@ package helium314.keyboard.event
 
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 
 /**
@@ -30,7 +31,7 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
         val keyCode = keyEvent.keyCode
         val isKeyRepeat = 0 != keyEvent.repeatCount
         if (KeyEvent.KEYCODE_DEL == keyCode) {
-            return Event.createHardwareKeypressEvent(Event.NOT_A_CODE_POINT, Constants.CODE_DELETE, null /* next */, isKeyRepeat)
+            return Event.createHardwareKeypressEvent(Event.NOT_A_CODE_POINT, KeyCode.DELETE, null /* next */, isKeyRepeat)
         }
         if (keyEvent.isPrintingKey || KeyEvent.KEYCODE_SPACE == keyCode || KeyEvent.KEYCODE_ENTER == keyCode) {
             if (0 != codePointAndFlags and KeyCharacterMap.COMBINING_ACCENT) { // A dead key.
@@ -44,7 +45,7 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
                 // Latin IME decide what to do with it.
                 if (keyEvent.isShiftPressed) {
                     Event.createHardwareKeypressEvent(Event.NOT_A_CODE_POINT,
-                            Constants.CODE_SHIFT_ENTER, null /* next */, isKeyRepeat)
+                            KeyCode.SHIFT_ENTER, null /* next */, isKeyRepeat)
                 } else Event.createHardwareKeypressEvent(Constants.CODE_ENTER, keyCode,
                         null /* next */, isKeyRepeat)
             } else Event.createHardwareKeypressEvent(codePointAndFlags, keyCode, null /* next */, isKeyRepeat)

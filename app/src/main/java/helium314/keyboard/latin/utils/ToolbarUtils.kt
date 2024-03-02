@@ -7,8 +7,8 @@ import android.content.res.TypedArray
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.common.Constants.*
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
 
@@ -35,23 +35,23 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
 }
 
 fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
-    VOICE -> CODE_SHORTCUT
-    SETTINGS -> CODE_SETTINGS
-    CLIPBOARD -> CODE_CLIPBOARD
-    SELECT_ALL -> CODE_SELECT_ALL
-    COPY -> CODE_COPY
-    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) CODE_STOP_ONE_HANDED_MODE else CODE_START_ONE_HANDED_MODE
-    LEFT -> CODE_LEFT
-    RIGHT -> CODE_RIGHT
-    UP -> CODE_UP
-    DOWN -> CODE_DOWN
-    UNDO -> CODE_UNDO
-    REDO -> CODE_REDO
-    INCOGNITO -> CODE_TOGGLE_INCOGNITO
-    AUTOCORRECT -> CODE_TOGGLE_AUTOCORRECT
-    FULL_LEFT -> CODE_HOME
-    FULL_RIGHT -> CODE_END
-    SELECT_WORD -> CODE_SELECT_WORD
+    VOICE -> KeyCode.VOICE_INPUT
+    SETTINGS -> KeyCode.SETTINGS
+    CLIPBOARD -> KeyCode.CLIPBOARD
+    SELECT_ALL -> KeyCode.CLIPBOARD_SELECT_ALL
+    COPY -> KeyCode.CLIPBOARD_COPY
+    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
+    LEFT -> KeyCode.ARROW_LEFT
+    RIGHT -> KeyCode.ARROW_RIGHT
+    UP -> KeyCode.ARROW_UP
+    DOWN -> KeyCode.ARROW_DOWN
+    UNDO -> KeyCode.UNDO
+    REDO -> KeyCode.REDO
+    INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
+    AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
+    FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
+    FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
+    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     CLEAR_CLIPBOARD -> null // not managed via code input
 }
 

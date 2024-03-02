@@ -12,6 +12,7 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
@@ -415,7 +416,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return when (key) {
             FunctionalKey.SYMBOL_ALPHA -> KeyParams(
                 if (params.mId.isAlphabetKeyboard) getToSymbolLabel() else params.mLocaleKeyboardInfos.labelAlphabet,
-                Constants.CODE_SWITCH_ALPHA_SYMBOL,
+                KeyCode.ALPHA_SYMBOL,
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
@@ -424,7 +425,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             )
             FunctionalKey.SYMBOL -> KeyParams(
                 getToSymbolLabel(),
-                Constants.CODE_SWITCH_SYMBOL,
+                KeyCode.SYMBOL,
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
@@ -433,7 +434,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             )
             FunctionalKey.ALPHA -> KeyParams(
                 params.mLocaleKeyboardInfos.labelAlphabet,
-                Constants.CODE_SWITCH_ALPHA,
+                KeyCode.ALPHA,
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,

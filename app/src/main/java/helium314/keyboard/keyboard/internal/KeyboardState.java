@@ -7,6 +7,8 @@
 package helium314.keyboard.keyboard.internal;
 
 import android.text.TextUtils;
+
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
@@ -411,21 +413,21 @@ public final class KeyboardState {
                     + " single=" + isSinglePointer
                     + " " + stateToString(autoCapsFlags, recapitalizeMode));
         }
-        if (code != Constants.CODE_SHIFT) {
+        if (code != KeyCode.SHIFT) {
             // Because the double tap shift key timer is to detect two consecutive shift key press,
             // it should be canceled when a non-shift key is pressed.
             mSwitchActions.cancelDoubleTapShiftKeyTimer();
         }
-        if (code == Constants.CODE_SHIFT) {
+        if (code == KeyCode.SHIFT) {
             onPressShift();
-        } else if (code == Constants.CODE_CAPSLOCK) {
+        } else if (code == KeyCode.CAPS_LOCK) {
             // Nothing to do here. See {@link #onReleaseKey(int,boolean)}.
-        } else if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+        } else if (code == KeyCode.ALPHA_SYMBOL) {
             onPressAlphaSymbol(autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_SWITCH_SYMBOL) {
+        } else if (code == KeyCode.SYMBOL) {
             // don't start sliding, causes issues with fully customizable layouts
             // (also does not allow chording, but can be fixed later)
-        } else if (code == Constants.CODE_SWITCH_ALPHA) {
+        } else if (code == KeyCode.ALPHA) {
             // don't start sliding, causes issues with fully customizable layouts
             // (also does not allow chording, but can be fixed later)
         } else {
@@ -457,15 +459,15 @@ public final class KeyboardState {
                     + " sliding=" + withSliding
                     + " " + stateToString(autoCapsFlags, recapitalizeMode));
         }
-        if (code == Constants.CODE_SHIFT) {
+        if (code == KeyCode.SHIFT) {
             onReleaseShift(withSliding, autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_CAPSLOCK) {
+        } else if (code == KeyCode.CAPS_LOCK) {
             setShiftLocked(!mAlphabetShiftState.isShiftLocked());
-        } else if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+        } else if (code == KeyCode.ALPHA_SYMBOL) {
             onReleaseAlphaSymbol(withSliding, autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_SWITCH_SYMBOL) {
+        } else if (code == KeyCode.SYMBOL) {
             onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_SWITCH_ALPHA) {
+        } else if (code == KeyCode.ALPHA) {
             onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode);
         }
     }
@@ -698,7 +700,7 @@ public final class KeyboardState {
 
         switch (mSwitchState) {
         case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL:
-            if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+            if (code == KeyCode.ALPHA_SYMBOL) {
                 // Detected only the mode change key has been pressed, and then released.
                 if (mMode == MODE_ALPHABET) {
                     mSwitchState = SWITCH_STATE_ALPHA;
@@ -708,7 +710,7 @@ public final class KeyboardState {
             }
             break;
         case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE:
-            if (code == Constants.CODE_SHIFT) {
+            if (code == KeyCode.SHIFT) {
                 // Detected only the shift key has been pressed on symbol layout, and then
                 // released.
                 mSwitchState = SWITCH_STATE_SYMBOL_BEGIN;
@@ -727,7 +729,7 @@ public final class KeyboardState {
                 break;
             }
             if (!isSpaceOrEnter(code) && (Constants.isLetterCode(code)
-                    || code == Constants.CODE_OUTPUT_TEXT)) {
+                    || code == KeyCode.MULTIPLE_CODE_POINTS)) {
                 mSwitchState = SWITCH_STATE_SYMBOL;
             }
             // Switch back to alpha keyboard mode if user types one or more non-space/enter
@@ -750,25 +752,25 @@ public final class KeyboardState {
         // If the code is a letter, update keyboard shift state.
         if (Constants.isLetterCode(code)) {
             updateAlphabetShiftState(autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_EMOJI) {
+        } else if (code == KeyCode.EMOJI) {
             setEmojiKeyboard();
-        } else if (code == Constants.CODE_SWITCH_ALPHA) {
+        } else if (code == KeyCode.ALPHA) {
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_CLIPBOARD) {
+        } else if (code == KeyCode.CLIPBOARD) {
             // Note: Printing clipboard content is handled in
             // {@link InputLogic#handleFunctionalEvent(Event,InputTransaction,int,LatinIME.UIHandler)}.
             if (Settings.getInstance().getCurrent().mClipboardHistoryEnabled) {
                 setClipboardKeyboard();
             }
-        } else if (code == Constants.CODE_SWITCH_NUMPAD) {
+        } else if (code == KeyCode.NUMPAD) {
             setNumpadKeyboard();
-        } else if (code == Constants.CODE_SWITCH_SYMBOL) {
+        } else if (code == KeyCode.SYMBOL) {
             setSymbolsKeyboard();
-        } else if (code == Constants.CODE_START_ONE_HANDED_MODE) {
+        } else if (code == KeyCode.START_ONE_HANDED_MODE) {
             setOneHandedModeEnabled(true);
-        } else if (code == Constants.CODE_STOP_ONE_HANDED_MODE) {
+        } else if (code == KeyCode.STOP_ONE_HANDED_MODE) {
             setOneHandedModeEnabled(false);
-        } else if (code == Constants.CODE_SWITCH_ONE_HANDED_MODE) {
+        } else if (code == KeyCode.SWITCH_ONE_HANDED_MODE) {
             switchOneHandedMode();
         }
     }

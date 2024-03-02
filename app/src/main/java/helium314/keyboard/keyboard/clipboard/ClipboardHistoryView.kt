@@ -18,6 +18,7 @@ import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyDrawParams
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.ClipboardHistoryManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
@@ -102,12 +103,12 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         alphabetKey = findViewById(R.id.key_alphabet)
         alphabetKey.setBackgroundResource(functionalKeyBackgroundId)
-        alphabetKey.tag = Constants.CODE_SWITCH_ALPHA
+        alphabetKey.tag = KeyCode.ALPHA
         alphabetKey.setOnTouchListener(this)
         alphabetKey.setOnClickListener(this)
         deleteKey = findViewById(R.id.key_delete)
         deleteKey.setBackgroundResource(functionalKeyBackgroundId)
-        deleteKey.tag = Constants.CODE_DELETE
+        deleteKey.tag = KeyCode.DELETE
         deleteKey.setOnTouchListener(this)
         deleteKey.setOnClickListener(this)
         spacebar = findViewById(R.id.key_space)
@@ -240,13 +241,13 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onKeyDown(clipId: Long) {
-        keyboardActionListener?.onPressKey(Constants.CODE_UNSPECIFIED, 0, true)
+        keyboardActionListener?.onPressKey(KeyCode.NOT_SPECIFIED, 0, true)
     }
 
     override fun onKeyUp(clipId: Long) {
         val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
         keyboardActionListener?.onTextInput(clipContent?.content.toString())
-        keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED, false)
+        keyboardActionListener?.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
     }
 
     override fun onClipboardHistoryEntryAdded(at: Int) {

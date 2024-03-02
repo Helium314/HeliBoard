@@ -11,6 +11,8 @@ import static java.lang.Math.abs;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
+
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.utils.Log;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodSubtype;
@@ -284,7 +286,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState();
         final int code = altersCode ? key.getAltCode() : primaryCode;
         if (DEBUG_LISTENER) {
-            final String output = code == Constants.CODE_OUTPUT_TEXT
+            final String output = code == KeyCode.MULTIPLE_CODE_POINTS
                     ? key.getOutputText() : Constants.printableCode(code);
             Log.d(TAG, String.format(Locale.US, "[%d] onCodeInput: %4d %4d %s%s%s%s", mPointerId, x, y,
                     output, ignoreModifierKey ? " ignoreModifier" : "",
@@ -296,9 +298,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Even if the key is disabled, it should respond if it is in the altCodeWhileTyping state.
         if (key.isEnabled() || altersCode) {
             sTypingTimeRecorder.onCodeInput(code, eventTime);
-            if (code == Constants.CODE_OUTPUT_TEXT) {
+            if (code == KeyCode.MULTIPLE_CODE_POINTS) {
                 sListener.onTextInput(key.getOutputText());
-            } else if (code != Constants.CODE_UNSPECIFIED) {
+            } else if (code != KeyCode.NOT_SPECIFIED) {
                 if (mKeyboard.hasProximityCharsCorrection(code)) {
                     sListener.onCodeInput(code, x, y, isKeyRepeat);
                 } else {
@@ -935,7 +937,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (oldKey != null && oldKey.getCode() == Constants.CODE_DELETE && sv.mDeleteSwipeEnabled) {
+        if (oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mCursorMoved && steps != 0)) {
@@ -1023,7 +1025,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if(mCursorMoved && currentKey.getCode() == Constants.CODE_DELETE) {
+        if(mCursorMoved && currentKey.getCode() == KeyCode.DELETE) {
             sListener.onUpWithDeletePointerActive();
         }
 
@@ -1103,7 +1105,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         final int code = key.getCode();
-        if (code == Constants.CODE_LANGUAGE_SWITCH
+        if (code == KeyCode.LANGUAGE_SWITCH
                 || (code == Constants.CODE_SPACE && Settings.getInstance().getCurrent().mSpaceForLangChange)
         ) {
             // Long pressing the space key invokes IME switcher dialog.
@@ -1113,8 +1115,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 return;
             }
         }
-        if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
-            sListener.onCodeInput(Constants.CODE_SWITCH_NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+        if (code == KeyCode.ALPHA_SYMBOL) {
+            sListener.onCodeInput(KeyCode.NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             return;
         }
 
@@ -1207,7 +1209,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private int getLongPressTimeout(final int code) {
-        if (code == Constants.CODE_SHIFT) {
+        if (code == KeyCode.SHIFT) {
             return sParams.mLongPressShiftLockTimeout;
         }
         final int longpressTimeout = Settings.getInstance().getCurrent().mKeyLongpressTimeout;

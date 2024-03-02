@@ -2,6 +2,7 @@
 
 package helium314.keyboard.event
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 import java.lang.StringBuilder
 import java.util.ArrayList
@@ -14,13 +15,13 @@ class HangulCombiner : Combiner {
     private val syllable: HangulSyllable? get() = history.lastOrNull()
 
     override fun processEvent(previousEvents: ArrayList<Event>?, event: Event): Event {
-        if (event.mKeyCode == Constants.CODE_SHIFT) return event
+        if (event.mKeyCode == KeyCode.SHIFT) return event
         if (Character.isWhitespace(event.mCodePoint)) {
             val text = combiningStateFeedback
             reset()
             return createEventChainFromSequence(text, event)
         } else if (event.isFunctionalKeyEvent) {
-            if(event.mKeyCode == Constants.CODE_DELETE) {
+            if(event.mKeyCode == KeyCode.DELETE) {
                 return when {
                     history.size == 1 && composingWord.isEmpty() || history.isEmpty() && composingWord.length == 1 -> {
                         reset()
@@ -327,7 +328,7 @@ class HangulCombiner : Combiner {
                 0x11ba to 0x11ba to 0x11bb	// ㅆ
         )
         private fun createEventChainFromSequence(text: CharSequence, originalEvent: Event): Event {
-            return Event.createSoftwareTextEvent(text, Constants.CODE_OUTPUT_TEXT, originalEvent)
+            return Event.createSoftwareTextEvent(text, KeyCode.MULTIPLE_CODE_POINTS, originalEvent)
         }
     }
 
