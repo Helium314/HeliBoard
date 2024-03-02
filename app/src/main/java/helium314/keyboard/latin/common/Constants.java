@@ -196,6 +196,7 @@ public final class Constants {
      * These should be aligned with constants in
      * {@link helium314.keyboard.keyboard.internal.KeyboardCodesSet}.
      */
+    // todo: switch to using KeyCode for internal values? for FlorisBoard modifier key(code) compatibility
     public static final int CODE_SHIFT = -1;
     public static final int CODE_CAPSLOCK = -2;
     public static final int CODE_SWITCH_ALPHA_SYMBOL = -3;
@@ -210,14 +211,12 @@ public final class Constants {
     public static final int CODE_CLIPBOARD = -12;
     public static final int CODE_SHIFT_ENTER = -13;
     public static final int CODE_SYMBOL_SHIFT = -14;
-    public static final int CODE_ALPHA_FROM_EMOJI = -15;
-    public static final int CODE_ALPHA_FROM_CLIPBOARD = -16;
     public static final int CODE_START_ONE_HANDED_MODE = -17;
     public static final int CODE_STOP_ONE_HANDED_MODE = -18;
     public static final int CODE_SWITCH_ONE_HANDED_MODE = -19;
-    public static final int CODE_NUMPAD = -20;
-    public static final int CODE_ALPHA_FROM_NUMPAD = -21;
-    public static final int CODE_SYMBOL_FROM_NUMPAD = -22;
+    public static final int CODE_SWITCH_NUMPAD = -20;
+    public static final int CODE_SWITCH_ALPHA = -21;
+    public static final int CODE_SWITCH_SYMBOL = -22;
     public static final int CODE_SELECT_ALL = -23;
     public static final int CODE_COPY = -24;
     public static final int CODE_LEFT = -25;
@@ -243,7 +242,9 @@ public final class Constants {
         switch (code) {
         case CODE_SHIFT: return "shift";
         case CODE_CAPSLOCK: return "capslock";
-        case CODE_SWITCH_ALPHA_SYMBOL: return "symbol";
+        case CODE_SWITCH_ALPHA_SYMBOL: return "alpha_symbol";
+        case CODE_SWITCH_ALPHA: return "alpha";
+        case CODE_SWITCH_SYMBOL: return "symbol";
         case CODE_OUTPUT_TEXT: return "text";
         case CODE_DELETE: return "delete";
         case CODE_SETTINGS: return "settings";
@@ -254,8 +255,6 @@ public final class Constants {
         case CODE_EMOJI: return "emoji";
         case CODE_CLIPBOARD: return "clipboard";
         case CODE_SHIFT_ENTER: return "shiftEnter";
-        case CODE_ALPHA_FROM_EMOJI: return "alpha";
-        case CODE_ALPHA_FROM_CLIPBOARD: return "alpha";
         case CODE_UNSPECIFIED: return "unspec";
         case CODE_TAB: return "tab";
         case CODE_ENTER: return "enter";
@@ -263,9 +262,7 @@ public final class Constants {
         case CODE_START_ONE_HANDED_MODE: return "startOneHandedMode";
         case CODE_STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
         case CODE_SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
-        case CODE_NUMPAD: return "numpad";
-        case CODE_ALPHA_FROM_NUMPAD: return "alphaNumpad";
-        case CODE_SYMBOL_FROM_NUMPAD: return "symbolNumpad";
+        case CODE_SWITCH_NUMPAD: return "numpad";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);
             if (code < 0x100) return String.format("%c", code);

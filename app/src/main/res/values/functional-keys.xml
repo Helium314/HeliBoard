@@ -18,5 +18,5 @@
     split into two groups. Space bar will be adjusted in code for language and emoji keys,
     and other keys in symbol layouts
 -->
-    <string name="key_def_bottom_row" translatable="false">"symbol 15%, comma, space, period, action 15%"</string>
+    <string name="key_def_bottom_row" translatable="false">"symbol_alpha 15%, comma, space, period, action 15%"</string>
 </resources>

@@ -26,10 +26,11 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import static helium314.keyboard.keyboard.internal.KeyboardIconsSet.ICON_UNDEFINED;
-import static helium314.keyboard.latin.common.Constants.CODE_ALPHA_FROM_NUMPAD;
 import static helium314.keyboard.latin.common.Constants.CODE_OUTPUT_TEXT;
 import static helium314.keyboard.latin.common.Constants.CODE_SHIFT;
+import static helium314.keyboard.latin.common.Constants.CODE_SWITCH_ALPHA;
 import static helium314.keyboard.latin.common.Constants.CODE_SWITCH_ALPHA_SYMBOL;
+import static helium314.keyboard.latin.common.Constants.CODE_SWITCH_SYMBOL;
 import static helium314.keyboard.latin.common.Constants.CODE_UNSPECIFIED;
 
 import androidx.annotation.NonNull;
@@ -517,7 +518,7 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isModifier() {
-        return mCode == CODE_SHIFT || mCode == CODE_SWITCH_ALPHA_SYMBOL || mCode == CODE_ALPHA_FROM_NUMPAD;
+        return mCode == CODE_SHIFT || mCode == CODE_SWITCH_ALPHA_SYMBOL || mCode == CODE_SWITCH_ALPHA || mCode == CODE_SWITCH_SYMBOL;
     }
 
     public final boolean isRepeatable() {

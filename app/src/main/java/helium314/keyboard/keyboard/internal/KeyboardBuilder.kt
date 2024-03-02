@@ -207,6 +207,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // reduce width of symbol and action key if in the row, and add this width to space to keep other key size constant
+    // todo: this assumes fixed layout for symbols keys, which will change soon!
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
         val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
         val symbolKey = row.firstOrNull { it.mCode == Constants.CODE_SWITCH_ALPHA_SYMBOL }

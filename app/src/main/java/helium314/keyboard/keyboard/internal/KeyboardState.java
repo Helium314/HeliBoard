@@ -67,7 +67,6 @@ public final class KeyboardState {
 
     private final ShiftKeyState mShiftKeyState = new ShiftKeyState("Shift");
     private final ModifierKeyState mSymbolKeyState = new ModifierKeyState("Symbol");
-    private final ModifierKeyState mAlphaNumpadKeyState = new ModifierKeyState("AlphaNumpad");
     private final AlphabetShiftState mAlphabetShiftState = new AlphabetShiftState();
 
     // TODO: Merge {@link #mSwitchState}, {@link #mIsAlphabetMode}, {@link #mAlphabetShiftState},
@@ -76,12 +75,12 @@ public final class KeyboardState {
     private static final int SWITCH_STATE_ALPHA = 0;
     private static final int SWITCH_STATE_SYMBOL_BEGIN = 1;
     private static final int SWITCH_STATE_SYMBOL = 2;
-    private static final int SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL = 3;
-    private static final int SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE = 4;
-    private static final int SWITCH_STATE_MOMENTARY_ALPHA_SHIFT = 5;
+    private static final int SWITCH_STATE_NUMPAD = 3;
+    private static final int SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL = 4;
+    private static final int SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE = 5;
+    private static final int SWITCH_STATE_MOMENTARY_ALPHA_SHIFT = 6;
+    private static final int SWITCH_STATE_MOMENTARY_FROM_NUMPAD = 7;
     private int mSwitchState = SWITCH_STATE_ALPHA;
-    private static final int SWITCH_STATE_NUMPAD = 6;
-    private static final int SWITCH_STATE_MOMENTARY_NUMPAD_AND_ALPHA = 7;
 
     private static final int MODE_ALPHABET = 0;
     private static final int MODE_SYMBOLS = 1;
@@ -290,23 +289,6 @@ public final class KeyboardState {
         }
     }
 
-    private void toggleNumpadAndAlphabet(final int autoCapsFlags, final int recapitalizeMode) {
-        if (DEBUG_INTERNAL_ACTION) {
-            Log.d(TAG, "toggleNumpadAndAlphabet: "
-                    + stateToString(autoCapsFlags, recapitalizeMode));
-        }
-        if (mMode == MODE_NUMPAD) {
-            mPrevMainKeyboardWasShiftLocked = mAlphabetShiftState.isShiftLocked();
-            setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
-            if (mPrevMainKeyboardWasShiftLocked) {
-                setShiftLocked(true);
-            }
-            mPrevMainKeyboardWasShiftLocked = false;
-        } else {
-            setNumpadKeyboard();
-        }
-    }
-
     // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
     // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
     private void resetKeyboardStateToAlphabet(final int autoCapsFlags, final int recapitalizeMode) {
@@ -439,9 +421,13 @@ public final class KeyboardState {
         } else if (code == Constants.CODE_CAPSLOCK) {
             // Nothing to do here. See {@link #onReleaseKey(int,boolean)}.
         } else if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
-            onPressSymbol(autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_ALPHA_FROM_NUMPAD) {
-            onPressAlphaNumpad(autoCapsFlags, recapitalizeMode);
+            onPressAlphaSymbol(autoCapsFlags, recapitalizeMode);
+        } else if (code == Constants.CODE_SWITCH_SYMBOL) {
+            // don't start sliding, causes issues with fully customizable layouts
+            // (also does not allow chording, but can be fixed later)
+        } else if (code == Constants.CODE_SWITCH_ALPHA) {
+            // don't start sliding, causes issues with fully customizable layouts
+            // (also does not allow chording, but can be fixed later)
         } else {
             mShiftKeyState.onOtherKeyPressed();
             mSymbolKeyState.onOtherKeyPressed();
@@ -476,21 +462,21 @@ public final class KeyboardState {
         } else if (code == Constants.CODE_CAPSLOCK) {
             setShiftLocked(!mAlphabetShiftState.isShiftLocked());
         } else if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+            onReleaseAlphaSymbol(withSliding, autoCapsFlags, recapitalizeMode);
+        } else if (code == Constants.CODE_SWITCH_SYMBOL) {
             onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_ALPHA_FROM_NUMPAD) {
-            onReleaseAlphaNumpad(withSliding, autoCapsFlags, recapitalizeMode);
+        } else if (code == Constants.CODE_SWITCH_ALPHA) {
+            onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode);
         }
     }
 
-    private void onPressSymbol(final int autoCapsFlags,
-            final int recapitalizeMode) {
+    private void onPressAlphaSymbol(final int autoCapsFlags, final int recapitalizeMode) {
         toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
         mSymbolKeyState.onPress();
         mSwitchState = SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL;
     }
 
-    private void onReleaseSymbol(final boolean withSliding, final int autoCapsFlags,
-            final int recapitalizeMode) {
+    private void onReleaseAlphaSymbol(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode) {
         if (mSymbolKeyState.isChording()) {
             // Switch back to the previous keyboard mode if the user chords the mode change key and
             // another key, then releases the mode change key.
@@ -504,27 +490,18 @@ public final class KeyboardState {
         mSymbolKeyState.onRelease();
     }
 
-    private void onPressAlphaNumpad(final int autoCapsFlags,
-                                    final int recapitalizeMode) {
-        toggleNumpadAndAlphabet(autoCapsFlags, recapitalizeMode);
-        mAlphaNumpadKeyState.onPress();
-        mSwitchState = SWITCH_STATE_MOMENTARY_NUMPAD_AND_ALPHA;
+    private void onReleaseSymbol(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode) {
+        final int oldMode = mMode;
+        setSymbolsKeyboard();
+        if (withSliding && oldMode == MODE_NUMPAD)
+            mSwitchState = SWITCH_STATE_MOMENTARY_FROM_NUMPAD;
     }
 
-    private void onReleaseAlphaNumpad(final boolean withSliding, final int autoCapsFlags,
-                                 final int recapitalizeMode) {
-        if (mAlphaNumpadKeyState.isChording()) {
-            // Switch back to the previous keyboard mode if the user chords the mode change key and
-            // another key, then releases the mode change key.
-            toggleNumpadAndAlphabet(autoCapsFlags, recapitalizeMode);
-        } else if (!withSliding) {
-            // If the mode change key is being released without sliding, we should remember
-            // caps lock mode and reset alphabet shift state.
-            mPrevMainKeyboardWasShiftLocked = mAlphabetShiftState.isShiftLocked();
-            mAlphabetShiftState.setShiftLocked(false);
-
-        }
-        mAlphaNumpadKeyState.onRelease();
+    private void onReleaseAlpha(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode) {
+        final int oldMode = mMode;
+        setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
+        if (withSliding && oldMode == MODE_NUMPAD)
+            mSwitchState = SWITCH_STATE_MOMENTARY_FROM_NUMPAD;
     }
 
     public void onUpdateShiftState(final int autoCapsFlags, final int recapitalizeMode) {
@@ -701,18 +678,10 @@ public final class KeyboardState {
         }
         // Switch back to the previous keyboard mode if the user cancels sliding input.
         switch (mSwitchState) {
-        case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL:
-            toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
-            break;
-        case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE:
-            toggleShiftInSymbols();
-            break;
-        case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT:
-            setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
-            break;
-        case SWITCH_STATE_MOMENTARY_NUMPAD_AND_ALPHA:
-            toggleNumpadAndAlphabet(autoCapsFlags, recapitalizeMode);
-            break;
+            case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL -> toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
+            case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE -> toggleShiftInSymbols();
+            case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT -> setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
+            case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> setNumpadKeyboard();
         }
     }
 
@@ -735,16 +704,6 @@ public final class KeyboardState {
                     mSwitchState = SWITCH_STATE_ALPHA;
                 } else {
                     mSwitchState = SWITCH_STATE_SYMBOL_BEGIN;
-                }
-            }
-            break;
-        case SWITCH_STATE_MOMENTARY_NUMPAD_AND_ALPHA:
-            if (code == Constants.CODE_ALPHA_FROM_NUMPAD) {
-                // Detected only the mode change key has been pressed, and then released.
-                if (mMode == MODE_NUMPAD) {
-                    mSwitchState = SWITCH_STATE_NUMPAD;
-                } else {
-                    mSwitchState = SWITCH_STATE_ALPHA;
                 }
             }
             break;
@@ -793,7 +752,7 @@ public final class KeyboardState {
             updateAlphabetShiftState(autoCapsFlags, recapitalizeMode);
         } else if (code == Constants.CODE_EMOJI) {
             setEmojiKeyboard();
-        } else if (code == Constants.CODE_ALPHA_FROM_EMOJI) {
+        } else if (code == Constants.CODE_SWITCH_ALPHA) {
             setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
         } else if (code == Constants.CODE_CLIPBOARD) {
             // Note: Printing clipboard content is handled in
@@ -801,11 +760,9 @@ public final class KeyboardState {
             if (Settings.getInstance().getCurrent().mClipboardHistoryEnabled) {
                 setClipboardKeyboard();
             }
-        } else if (code == Constants.CODE_ALPHA_FROM_CLIPBOARD) {
-            setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
-        } else if (code == Constants.CODE_NUMPAD) {
+        } else if (code == Constants.CODE_SWITCH_NUMPAD) {
             setNumpadKeyboard();
-        } else if (code == Constants.CODE_SYMBOL_FROM_NUMPAD) {
+        } else if (code == Constants.CODE_SWITCH_SYMBOL) {
             setSymbolsKeyboard();
         } else if (code == Constants.CODE_START_ONE_HANDED_MODE) {
             setOneHandedModeEnabled(true);
@@ -826,17 +783,17 @@ public final class KeyboardState {
     }
 
     private static String switchStateToString(final int switchState) {
-        switch (switchState) {
-        case SWITCH_STATE_ALPHA: return "ALPHA";
-        case SWITCH_STATE_SYMBOL_BEGIN: return "SYMBOL-BEGIN";
-        case SWITCH_STATE_SYMBOL: return "SYMBOL";
-        case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL: return "MOMENTARY-ALPHA-SYMBOL";
-        case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE: return "MOMENTARY-SYMBOL-MORE";
-        case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT: return "MOMENTARY-ALPHA_SHIFT";
-        case SWITCH_STATE_NUMPAD: return "NUMPAD";
-        case SWITCH_STATE_MOMENTARY_NUMPAD_AND_ALPHA: return "MOMENTARY-NUMPAD-ALPHA";
-        default: return null;
-        }
+        return switch (switchState) {
+            case SWITCH_STATE_ALPHA -> "ALPHA";
+            case SWITCH_STATE_SYMBOL_BEGIN -> "SYMBOL-BEGIN";
+            case SWITCH_STATE_SYMBOL -> "SYMBOL";
+            case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL -> "MOMENTARY-ALPHA-SYMBOL";
+            case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE -> "MOMENTARY-SYMBOL-MORE";
+            case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT -> "MOMENTARY-ALPHA_SHIFT";
+            case SWITCH_STATE_NUMPAD -> "NUMPAD";
+            case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> "MOMENTARY-FROM-NUMPAD";
+            default -> null;
+        };
     }
 
     @Override

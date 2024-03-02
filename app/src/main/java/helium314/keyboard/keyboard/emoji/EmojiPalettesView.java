@@ -237,7 +237,7 @@ public final class EmojiPalettesView extends LinearLayout
         // {@link #startEmojiPalettes(String,int,float,Typeface)}.
         mAlphabetKeyLeft = findViewById(R.id.key_alphabet);
         mAlphabetKeyLeft.setBackgroundResource(mFunctionalKeyBackgroundId);
-        mAlphabetKeyLeft.setTag(Constants.CODE_ALPHA_FROM_EMOJI);
+        mAlphabetKeyLeft.setTag(Constants.CODE_SWITCH_ALPHA);
         mAlphabetKeyLeft.setOnTouchListener(this);
         mAlphabetKeyLeft.setOnClickListener(this);
         mSpacebar = findViewById(R.id.key_space);

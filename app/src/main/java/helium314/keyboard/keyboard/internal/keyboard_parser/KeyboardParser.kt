@@ -413,9 +413,18 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         // for comma and period: label will override default, popupKeys will be appended
         val width = relativeWidth ?: params.mDefaultRelativeKeyWidth
         return when (key) {
+            FunctionalKey.SYMBOL_ALPHA -> KeyParams(
+                if (params.mId.isAlphabetKeyboard) getToSymbolLabel() else params.mLocaleKeyboardInfos.labelAlphabet,
+                Constants.CODE_SWITCH_ALPHA_SYMBOL,
+                params,
+                width,
+                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
+                Key.BACKGROUND_TYPE_FUNCTIONAL,
+                null
+            )
             FunctionalKey.SYMBOL -> KeyParams(
                 getToSymbolLabel(),
-                getToSymbolCode(),
+                Constants.CODE_SWITCH_SYMBOL,
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
@@ -424,7 +433,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             )
             FunctionalKey.ALPHA -> KeyParams(
                 params.mLocaleKeyboardInfos.labelAlphabet,
-                getToAlphaCode(),
+                Constants.CODE_SWITCH_ALPHA,
                 params,
                 width,
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
@@ -660,16 +669,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             params.mLocaleKeyboardInfos.labelAlphabet
         else params.mLocaleKeyboardInfos.labelSymbol
 
-    private fun getToSymbolCode() =
-        if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD)
-            Constants.CODE_SYMBOL_FROM_NUMPAD
-        else Constants.CODE_SWITCH_ALPHA_SYMBOL
-
-    private fun getToAlphaCode() =
-        if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD)
-            Constants.CODE_ALPHA_FROM_NUMPAD
-        else Constants.CODE_SWITCH_ALPHA_SYMBOL
-
     private fun getShiftLabel(): String {
         val elementId = params.mId.mElementId
         if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
@@ -820,7 +819,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     protected enum class FunctionalKey {
-        EMOJI, LANGUAGE_SWITCH, COM, EMOJI_COM, ACTION, DELETE, PERIOD, COMMA, SPACE, SHIFT, NUMPAD, SYMBOL, ALPHA, ZWNJ
+        EMOJI, LANGUAGE_SWITCH, COM, EMOJI_COM, ACTION, DELETE, PERIOD, COMMA, SPACE, SHIFT, NUMPAD, SYMBOL, ALPHA, SYMBOL_ALPHA, ZWNJ
     }
 
 }

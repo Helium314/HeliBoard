@@ -488,7 +488,9 @@ public final class InputLogic {
         }
         if (!inputTransaction.didAutoCorrect() && processedEvent.getMKeyCode() != Constants.CODE_SHIFT
                 && processedEvent.getMKeyCode() != Constants.CODE_CAPSLOCK
-                && processedEvent.getMKeyCode() != Constants.CODE_SWITCH_ALPHA_SYMBOL)
+                && processedEvent.getMKeyCode() != Constants.CODE_SWITCH_ALPHA_SYMBOL
+                && processedEvent.getMKeyCode() != Constants.CODE_SWITCH_ALPHA
+                && processedEvent.getMKeyCode() != Constants.CODE_SWITCH_SYMBOL)
             mLastComposedWord.deactivate();
         if (Constants.CODE_DELETE != processedEvent.getMKeyCode()) {
             mEnteredText = null;
@@ -744,12 +746,10 @@ public final class InputLogic {
             case Constants.CODE_CAPSLOCK:
             case Constants.CODE_SYMBOL_SHIFT:
             case Constants.CODE_SWITCH_ALPHA_SYMBOL:
+            case Constants.CODE_SWITCH_ALPHA:
+            case Constants.CODE_SWITCH_SYMBOL:
+            case Constants.CODE_SWITCH_NUMPAD:
             case Constants.CODE_EMOJI:
-            case Constants.CODE_ALPHA_FROM_EMOJI:
-            case Constants.CODE_ALPHA_FROM_CLIPBOARD:
-            case Constants.CODE_NUMPAD:
-            case Constants.CODE_ALPHA_FROM_NUMPAD:
-            case Constants.CODE_SYMBOL_FROM_NUMPAD:
             case Constants.CODE_START_ONE_HANDED_MODE:
             case Constants.CODE_STOP_ONE_HANDED_MODE:
             case Constants.CODE_SWITCH_ONE_HANDED_MODE:

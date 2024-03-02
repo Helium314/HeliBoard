@@ -102,7 +102,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         alphabetKey = findViewById(R.id.key_alphabet)
         alphabetKey.setBackgroundResource(functionalKeyBackgroundId)
-        alphabetKey.tag = Constants.CODE_ALPHA_FROM_CLIPBOARD
+        alphabetKey.tag = Constants.CODE_SWITCH_ALPHA
         alphabetKey.setOnTouchListener(this)
         alphabetKey.setOnClickListener(this)
         deleteKey = findViewById(R.id.key_delete)

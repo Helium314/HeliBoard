@@ -57,7 +57,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
      */
     fun getDescriptionForKey(context: Context, keyboard: Keyboard?, key: Key, shouldObscure: Boolean): String? {
         val code = key.code
-        if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
+        if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL || code == Constants.CODE_SWITCH_SYMBOL || code == Constants.CODE_SWITCH_ALPHA) {
             val description = getDescriptionForSwitchAlphaSymbol(context, keyboard)
             if (description != null) {
                 return description

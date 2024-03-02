@@ -1114,7 +1114,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
         }
         if (code == Constants.CODE_SWITCH_ALPHA_SYMBOL) {
-            sListener.onCodeInput(Constants.CODE_NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            sListener.onCodeInput(Constants.CODE_SWITCH_NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             return;
         }
 
