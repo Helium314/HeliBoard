@@ -191,6 +191,8 @@ public final class Constants {
 
     public static final String REGEXP_PERIOD = "\\.";
     public static final String STRING_SPACE = " ";
+    public static final int CODE_ZWNJ = '\u200C';
+    public static final int CODE_ZWJ = '\u200D';
 
     public static boolean isLetterCode(final int code) {
         return code >= CODE_SPACE;
