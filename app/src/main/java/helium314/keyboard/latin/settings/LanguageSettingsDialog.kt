@@ -136,15 +136,18 @@ class LanguageSettingsDialog(
     private fun copyLayout() {
         val layouts = mutableListOf<String>()
         val displayNames = mutableListOf<String>()
-        if (infos.first().subtype.isAsciiCapable) {
-            layouts.addAll(context.resources.getStringArray(R.array.predefined_layouts))
-            layouts.forEach { displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it) }
-        }
         infos.forEach {
             val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
-            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false) { // don't allow copying custom layout (at least for now)
+            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false // don't allow copying custom layout (at least for now)
+                    && !layoutSetName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
                 layouts.add(layoutSetName)
                 displayNames.add(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+            }
+        }
+        if (infos.first().subtype.isAsciiCapable) {
+            context.resources.getStringArray(R.array.predefined_layouts).forEach {
+                layouts.add(it)
+                displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it)
             }
         }
         Builder(context)
