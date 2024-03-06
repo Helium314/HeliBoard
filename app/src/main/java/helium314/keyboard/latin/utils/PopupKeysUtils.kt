@@ -117,7 +117,7 @@ fun reorderPopupKeysDialog(context: Context, key: String, defaultSetting: String
         both.first() to both.last().toBoolean()
     }
     val rv = RecyclerView(context)
-    val padding = (8 * context.resources.displayMetrics.density).toInt()
+    val padding = ResourceUtils.toPx(8, context.resources)
     rv.setPadding(3 * padding, padding, padding, padding)
     rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     val callback = object : DiffUtil.ItemCallback<Pair<String, Boolean>>() {

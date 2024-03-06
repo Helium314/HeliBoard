@@ -326,7 +326,7 @@ class LanguageSettingsDialog(
                 val attrs = context.obtainStyledAttributes(R.style.PreferenceSubtitleText, intArrayOf(android.R.attr.textSize))
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, attrs.getDimension(0, 20f))
                 attrs.recycle()
-                setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
+                setPadding(ResourceUtils.toPx(16, context.resources), 0, 0, 0)
                 isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
             })
         }

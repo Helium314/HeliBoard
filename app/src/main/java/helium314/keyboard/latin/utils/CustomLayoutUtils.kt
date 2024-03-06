@@ -58,7 +58,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .setView(EditText(context).apply {
             setText(name)
             doAfterTextChanged { name = it.toString() }
-            val padding = (8 * context.resources.displayMetrics.density).toInt()
+            val padding = ResourceUtils.toPx(8, context.resources)
             setPadding(3 * padding, padding, 3 * padding, padding)
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         })

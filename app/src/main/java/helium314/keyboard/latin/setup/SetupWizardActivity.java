@@ -6,8 +6,6 @@
 
 package helium314.keyboard.latin.setup;
 
-import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -15,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -33,6 +30,7 @@ import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.utils.ActivityThemeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
+import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
 
 import java.util.ArrayList;
@@ -387,7 +385,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
                 final int paddingEnd = mActionLabel.getPaddingEnd();
                 mActionLabel.setPaddingRelative(paddingEnd, 0, paddingEnd, 0);
             } else {
-                final int size = (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, 24f, res.getDisplayMetrics());
+                final int size = ResourceUtils.toPx(24, res);
                 actionIconDrawable.setBounds(0,0, size, size);
                 mActionLabel.setCompoundDrawablesRelative(actionIconDrawable, null, null, null);
             }

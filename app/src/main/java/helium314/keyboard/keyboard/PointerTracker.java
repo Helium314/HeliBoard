@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.TypedValueCompat;
 
 import helium314.keyboard.keyboard.internal.BatchInputArbiter;
 import helium314.keyboard.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
@@ -84,7 +85,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // Parameters for pointer handling.
     private static PointerTrackerParams sParams;
-    private static final int sPointerStep = (int)(10.0 * Resources.getSystem().getDisplayMetrics().density);
+    private static final int sPointerStep = (int)TypedValueCompat.dpToPx(10, Resources.getSystem().getDisplayMetrics());
     private static GestureStrokeRecognitionParams sGestureStrokeRecognitionParams;
     private static GestureStrokeDrawingParams sGestureStrokeDrawingParams;
     private static boolean sNeedsPhantomSuddenMoveEventHack;
