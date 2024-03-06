@@ -526,7 +526,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     final class SubtypeState {
         private InputMethodSubtype mLastActiveSubtype;
-        private boolean mCurrentSubtypeHasBeenUsed;
+        private boolean mCurrentSubtypeHasBeenUsed = true; // starting with true avoids immediate switch
 
         public void setCurrentSubtypeHasBeenUsed() {
             mCurrentSubtypeHasBeenUsed = true;
@@ -1477,13 +1477,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
         if (shouldSwitchToOtherInputMethods()) {
             final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(false);
-            // todo (later): this will switch IME if we are at the end of the list, but ideally we
-            //  want to switch IME only if all internal subtypes are unused
-            //  -> need to store used/unused subtypes in mSubtypeState
             if (nextSubtype != null) {
                 switchToSubtype(nextSubtype);
                 return;
-            } else if (switchInputMethod()){
+            } else if (switchInputMethod()) {
                 return;
             }
         }
