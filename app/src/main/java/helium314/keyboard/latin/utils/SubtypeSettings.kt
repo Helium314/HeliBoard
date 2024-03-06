@@ -57,9 +57,9 @@ fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
     val subtypeString = newSubtype.prefString()
-    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!.split(SUBTYPE_SEPARATOR)
+    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!.split(SUBTYPE_SEPARATOR)
     val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
-    prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
+    prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 
     if (newSubtype !in enabledSubtypes) {
         enabledSubtypes.add(newSubtype)
@@ -94,7 +94,7 @@ fun removeAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subt
 
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     require(initialized)
-    val localeAndLayout = prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")!!.toLocaleAndLayout()
+    val localeAndLayout = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.toLocaleAndLayout()
     val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
         else enabledSubtypes
     val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
@@ -113,9 +113,9 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
 
 fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     val subtypeString = subtype.prefString()
-    if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "") == subtypeString)
+    if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "") == subtypeString)
         return
-    prefs.edit { putString(Settings.PREF_SELECTED_INPUT_STYLE, subtypeString) }
+    prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
 }
 
 fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
@@ -267,7 +267,7 @@ private fun loadAdditionalSubtypes(context: Context) {
 // requires loadResourceSubtypes to be called before
 private fun loadEnabledSubtypes(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!
+    val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
         .split(SUBTYPE_SEPARATOR).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
 
     for (localeAndLayout in subtypeStrings) {
@@ -299,12 +299,12 @@ private fun loadEnabledSubtypes(context: Context) {
 }
 
 private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String) {
-    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_INPUT_STYLES, "")!!
+    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
     val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(SUBTYPE_SEPARATOR)
     if (newString == oldSubtypeString)
         return // already removed
-    prefs.edit { putString(Settings.PREF_ENABLED_INPUT_STYLES, newString) }
-    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_INPUT_STYLE, "")) {
+    prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
+    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")) {
         // switch subtype if the currently used one has been disabled
         try {
             val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)

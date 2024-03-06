@@ -49,11 +49,27 @@ fun checkVersionUpgrade(context: Context) {
     }
     if (oldVersion == 0) // new install or restoring settings from old app name
         upgradesWhenComingFromOldAppName(context)
-    if (oldVersion == 1000) { // upgrade old custom layouts name
+    if (oldVersion <= 1000) { // upgrade old custom layouts name
         val layoutsDir = Settings.getLayoutsDir(context)
         val oldShiftSymbolsFile = File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}shift_symbols")
         if (oldShiftSymbolsFile.exists()) {
             oldShiftSymbolsFile.renameTo(File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}symbols_shifted"))
+        }
+
+        // rename subtype setting, and clean old subtypes that might remain in some cases
+        val subtypesPref = prefs.getString("enabled_input_styles", "")!!
+            .split(";").filter { it.isNotEmpty() }
+            .map {
+                val localeAndLayout = it.split(":").toMutableList()
+                localeAndLayout[0] = localeAndLayout[0].constructLocale().toLanguageTag()
+                localeAndLayout.joinToString(":")
+            }.toSet().joinToString(";")
+        val selectedSubtype = prefs.getString("selected_input_style", "")
+        prefs.edit {
+            remove("enabled_input_styles")
+            putString(Settings.PREF_ENABLED_SUBTYPES, subtypesPref)
+            remove("selected_input_style")
+            putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype)
         }
     }
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
