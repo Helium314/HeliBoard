@@ -131,7 +131,7 @@ object KeyCode {
     const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
-    private fun Int.checkOrConvertCode(): Int = when (this) {
+    private fun Int.checkOrConvertCode(): Int = if (this > 0) this else when (this) {
         // todo: should work, but not yet
         // CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
 
