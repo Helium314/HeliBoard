@@ -400,15 +400,6 @@ class DefaultColors (
     private var backgroundSetupDone = false
 
     init {
-        if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
-            val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
-            navBar = darkerBackground
-            keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
-            backgroundSetupDone = true
-        } else {
-            navBar = background
-        }
-
         if (isDarkColor(background)) {
             adjustedBackground = brighten(background)
             doubleAdjustedBackground = brighten(adjustedBackground)
@@ -418,14 +409,29 @@ class DefaultColors (
         }
         adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
 
-        val stripBackground = if (keyboardBackground == null && !hasKeyBorders) {
-            if (isDarkColor(background)) 0x16ffffff else 0x11000000
+        val stripBackground: Int
+        val pressedStripElementBackground: Int
+        if (keyboardBackground != null || (themeStyle == STYLE_HOLO && hasKeyBorders)) {
+            stripBackground = Color.TRANSPARENT
+            pressedStripElementBackground = if (isDarkColor(background)) 0x22ffffff // assume background is similar to the background color
+                else 0x11000000
+        } else if (hasKeyBorders) {
+            stripBackground = background
+            pressedStripElementBackground = adjustedBackground
         } else {
-            Color.TRANSPARENT
+            stripBackground = adjustedBackground
+            pressedStripElementBackground = doubleAdjustedBackground
         }
-        val pressedStripElementBackground = if (keyboardBackground == null) adjustedBackground
-            else if (isDarkColor(background)) 0x22ffffff else 0x11000000
         stripBackgroundList = stateList(pressedStripElementBackground, stripBackground)
+
+        if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
+            val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
+            navBar = darkerBackground
+            keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
+            backgroundSetupDone = true
+        } else {
+            navBar = background
+        }
 
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
         if (hasKeyBorders) {
