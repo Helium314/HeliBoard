@@ -3,6 +3,7 @@
 package helium314.keyboard.latin.common
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.TypedArray
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
@@ -540,7 +542,7 @@ class DefaultColors (
 
 // todo: allow users to use this class
 //  the colorMap should be stored in settings
-//   reading should consider that colors might be added and removed, i.e. no "simple" serialization
+//   settings read and write untested
 //  color settings should add another menu option for "all colors"
 //   just show all ColorTypes with current value read from the map (default to black, same as in get)
 //   no string name, as it is not stable
@@ -579,6 +581,25 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
             else -> setColor(view.background, color)
         }
     }
+}
+
+fun readAllColorsMap(prefs: SharedPreferences): EnumMap<ColorType, Int> {
+    val s = prefs.getString("all_colors", "") ?: ""
+    val c = EnumMap<ColorType, Int>(ColorType::class.java)
+    s.split(";").forEach {
+        val ct = try {
+            ColorType.valueOf(it.substringBefore(",").uppercase())
+        } catch (_: Exception) { // todo: which one?
+            return@forEach
+        }
+        val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
+        c[ct] = i
+    }
+    return c
+}
+
+fun writeAllColorsMap(c: EnumMap<ColorType, Int>, prefs: SharedPreferences) {
+    prefs.edit { putString("all_colors", c.map { "${it.key},${it.value}" }.joinToString(";")) }
 }
 
 private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter {
