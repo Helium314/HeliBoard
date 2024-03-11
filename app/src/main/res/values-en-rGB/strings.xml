@@ -129,8 +129,6 @@
     <string name="incognito">Force incognito mode</string>
     <string name="more_keys_strip_description">More keys</string>
     <string name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
-    <string name="space_trackpad">Space bar trackpad</string>
-    <string name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
     <string name="settings_category_correction">Corrections</string>
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_input">Input</string>

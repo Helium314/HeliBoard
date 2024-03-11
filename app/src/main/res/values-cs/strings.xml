@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Vyhledat kontakty"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Kontrola pravopisu používá záznamy z vašeho seznamu kontaktů."</string>
     <string name="vibrate_on_keypress">"Při stisku klávesy vibrovat"</string>
@@ -53,16 +52,16 @@
     <string name="subtype_en_GB">"Angličtina (Velká Británie)"</string>
     <string name="subtype_en_US">"Angličtina (USA)"</string>
     <string name="subtype_es_US">"Španělština (USA)"</string>
-    <string name="subtype_hi_Latn">"Hinglish"</string>
-    <string name="subtype_sr_Latn">"Srbština (Latinka)"</string>
+    <string name="subtype_hi_Latn">hinglish</string>
+    <string name="subtype_sr_Latn">srbština (Latinka)</string>
     <string name="subtype_with_layout_en_GB">"Angličtina (Velká Británie) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US">"Angličtina (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US">"Španělština (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_hi_Latn">hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">"Srbština (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradiční)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompaktní)"</string>
-    <string name="subtype_no_language">"Standardní (Latinka)"</string>
+    <string name="subtype_no_language">standardní (Latinka)</string>
     <string name="subtype_no_language_qwerty">"Latinka (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Latinka (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Latinka (AZERTY)"</string>
@@ -138,8 +137,6 @@
     <string name="settings_category_input">Vstup</string>
     <string name="settings_category_additional_keys">Dodatečné klávesy</string>
     <string name="delete_swipe">Mazat posunutím</string>
-    <string name="space_trackpad">Mezerník jako trackpad</string>
-    <string name="space_trackpad_summary">Posouváním prstu po mezerníku hýbete kurzorem</string>
     <string name="number_row_summary">Vždy aktivní číselná řada</string>
     <string name="show_hints">Nápověda kláves</string>
     <string name="show_hints_summary">Nápověda při dlouhém stisku</string>
@@ -169,4 +166,6 @@
     <string name="label_search_key">"Hledat"</string>
     <string name="label_pause_key">"Pauza"</string>
     <string name="label_wait_key">"Čekat"</string>
+    <string name="split_spacer_scale">Separační vzdálenost</string>
+    <string name="switch_language">Přepnout jazyk</string>
 </resources>

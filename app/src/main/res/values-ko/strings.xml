@@ -143,7 +143,6 @@
     <string name="clipboard_history_retention_time">기록 보존 시간</string>
     <string name="incognito">강제 시크릿 모드</string>
     <string name="more_keys_strip_description">더 많은 키</string>
-    <string name="space_trackpad">스페이스 바 트랙 패드</string>
     <string name="number_row_summary">항상 숫자 행 표시</string>
     <string name="show_hints">키 힌트 표시</string>
     <string name="show_hints_summary">길게 누르기 힌트 표시</string>
@@ -154,7 +153,6 @@
     <string name="day_night_mode">자동 밤낮 모드</string>
     <string name="day_night_mode_summary">시스템 설정에 따른 모양</string>
     <string name="delete_swipe_summary">한번에 많은 글자들을 선택하고 제거하기 위해서는 삭제 키를 스와이프하기</string>
-    <string name="space_trackpad_summary">커서를 움직이기 위해서는 스페이스바를 스와이프</string>
     <string name="key_borders">키의 경계</string>
     <string name="subtype_no_language_workman">알파벳 (Workman)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (벵골어)</string>

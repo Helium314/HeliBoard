@@ -142,10 +142,8 @@
     <string name="settings_category_suggestions">Suggeriments</string>
     <string name="settings_category_experimental">Experimental</string>
     <string name="enable_clipboard_history">Activa l\'historial del porta-retalls</string>
-    <string name="space_trackpad">Barra espaiadora del panell tàctil</string>
     <string name="autospace_after_punctuation">Espai automàtic després d\'un signe de puntuació</string>
     <string name="more_keys_strip_description">Més tecles</string>
-    <string name="space_trackpad_summary">Llisqueu per sobre de la barra espaiadora per moure el cursor.</string>
     <string name="show_hints">Mostra consells de dreceres de teclat</string>
     <string name="autospace_after_punctuation_summary">Si s\'activa, s\'insereix un espai automàticament després de cada signe de puntuació quan es comença a escriure una paraula nova.</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Mantenint premuda la barra espaiadora s\'obrirà el menú de selecció del mètode d\'entrada.</string>

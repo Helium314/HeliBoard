@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"Activer le clavier en deux parties"</string>
     <string name="split_spacer_scale">Distance de la séparation du clavier</string>
     <string name="language_switch_key_switch_input_method">"Autres modes de saisie"</string>
-    <string name="language_switch_key_switch_subtype">Changer de langue</string>
+    <string name="switch_language">Changer de langue</string>
     <string name="language_switch_key_switch_both">Changer les deux</string>
     <string name="show_language_switch_key">"Touche de sélection de langue"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
@@ -171,10 +171,6 @@ Nouveau dictionnaire:
     <string name="number_row">Ligne de chiffres</string>
     <string name="delete_swipe">Balayage sur la touche Effacer</string>
     <string name="delete_swipe_summary">Glissez sur la touche de suppression pour supprimer des parties de texte en une seule fois</string>
-    <string name="space_trackpad">Balayage sur la barre d\'espace</string>
-    <string name="space_trackpad_summary">Glissez sur la barre d\'espace pour déplacer le curseur</string>
-    <string name="space_language_slide">Changer de langue avec la barre d\'espace</string>
-    <string name="space_language_slide_summary">Glissez sur la barre d\'espace vers le haut pour changer de langue</string>
     <string name="backup_restore_title">Sauvegarde et restauration</string>
     <string name="backup_restore_message">Sauvegarde ou chargement à partir d\'un fichier. Attention : la restauration écrasera les données existantes.</string>
     <string name="backup_error">Erreur lors de la sauvegarde : %s</string>
@@ -345,4 +341,6 @@ Nouveau dictionnaire:
     <string name="available_dictionary_experimental">%s (expérimental)</string>
     <string name="version">Version</string>
     <string name="file_read_error">Impossible de lire le fichier</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
 </resources>

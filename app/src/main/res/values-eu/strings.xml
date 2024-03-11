@@ -131,8 +131,6 @@
     <string name="enable_clipboard_history">Arbelaren historia aktibatu</string>
     <string name="enable_clipboard_history_summary">Desgaituta badago, arbeleko teklak arbeleko edukia itsatsiko du halakorik badago</string>
     <string name="clipboard_history_retention_time">Historikoaren atxikitutako denbora</string>
-    <string name="space_trackpad">Ukipen-panela espazio barrarekin</string>
-    <string name="space_trackpad_summary">Irristatu espazio barran kurtsorea mugitzeko</string>
     <string name="prefs_force_incognito_mode_summary">Hitz berrien ikasketa desaktibatu</string>
     <string name="more_keys_strip_description">Tekla gehiago</string>
     <string name="number_row">zenbaki errenkada</string>

@@ -137,7 +137,6 @@
     <string name="android_spell_checker_settings">HeliBoard spellingscontrole instellingen</string>
     <string name="number_row">Nummer rij</string>
     <string name="incognito">Incognitomodus forceren</string>
-    <string name="space_trackpad_summary">Veeg over de spatiebalk om de cursor te verplaatsen</string>
     <string name="show_emoji_key">Emoji-toets</string>
     <string name="settings_category_correction">Correcties</string>
     <string name="settings_category_suggestions">Suggesties</string>
@@ -146,7 +145,6 @@
     <string name="auto_correction_confidence">Vertrouwen in automatische correctie</string>
     <string name="enable_clipboard_history_summary">Indien uitgeschakeld, plakt de klembordtoets de inhoud van het klembord, indien aanwezig</string>
     <string name="show_hints">Toon belangrijke hints</string>
-    <string name="space_trackpad">Spatiebalk-trackpad</string>
     <string name="prefs_force_incognito_mode_summary">Schakel het leren van nieuwe woorden uit</string>
     <string name="show_hints_summary">Hints voor lang indrukken weergeven</string>
     <string name="prefs_keyboard_height_scale">Toetsenbord hoogte schaal</string>

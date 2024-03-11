@@ -86,7 +86,7 @@
     <string name="setup_steps_title">"Configurando <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Activar <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Comproba a aplicación <xliff:g id="APPLICATION_NAME">%s</xliff:g> na configuración Idioma e introdución de texto para que se poida executar no teu dispositivo."</string>
-    <string name="setup_step1_finished_instruction">"A aplicación <xliff:g id="APPLICATION_NAME">%s</xliff:g> xa está activada na configuración Idioma e introdución de texto. Podes pasar ao seguinte paso."</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> xa está activada en Idiomas e Axustes de escritura, así que isto xa está. Imos ao seguinte paso!</string>
     <string name="setup_step1_action">"Activar en Configuración"</string>
     <string name="setup_step2_title">"Cambiar a <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"A continuación, selecciona \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" como o método de introdución de texto activo."</string>
@@ -191,7 +191,7 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_miscellaneous">Varios</string>
     <string name="split_spacer_scale">Distancia de separación</string>
-    <string name="language_switch_key_switch_subtype">Cambiar de Idioma</string>
+    <string name="switch_language">Cambiar de Idioma</string>
     <string name="language_switch_key_switch_both">Cambiar os dous</string>
     <string name="show_emoji_key">Tecla Emoji</string>
     <string name="settings_no_limit">Sen límite</string>
@@ -208,10 +208,6 @@
     <string name="clipboard_history_retention_time">Período de retención do historial</string>
     <string name="delete_swipe">Borrar ao desprazar</string>
     <string name="delete_swipe_summary">Fai un xesto de desprazamento desde a tecla eliminar e elimina anacos grandes de texto dunha pasada</string>
-    <string name="space_trackpad_summary">Desprázate na barra espazadora para mover o cursor</string>
-    <string name="space_trackpad">Desprazamento na barra</string>
-    <string name="space_language_slide_summary">Deprázate hacia arriba na barra espazadora para cambiar de idioma</string>
-    <string name="space_language_slide">Cambio de idioma na barra</string>
     <string name="backup_restore_title">Copia de apoio e restablecer</string>
     <string name="backup_restore_message">Garda ou restablecer desde un ficheiro. Aviso: o restablecemento sobrescribe os datos</string>
     <string name="backup_error">Fallo na copia: %s</string>
@@ -327,4 +323,16 @@
 \n        Podes descargar dicionarios %1$s, ou comprobar se podes decargar directamente %3$s un dicionario para \"%2$s\"."</string>
     <string name="dialog_close">Pechar</string>
     <string name="hidden_features_summary">Mostar características que igual non coñeces</string>
+    <string name="customize_symbols_number_layouts">Personalizar disposición de símbolos e números</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Arábigo)</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Teléfono</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símbolos do teléfono</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Números</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Teclado numérico</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Teclado Num (paisaxe)</string>
+    <string name="customize_symbols_number_layouts_summary">As disposicións (excepto os símbolos) usan axustes internos que aínda poderían cambiar. Se acontece, a disposición podería deixar de funcionar.</string>
+    <string name="hidden_features_message">► Coa pulsación longa na tecla do Portapapeis (opcional nas barra coas suxestións) pegas o contido do portapapeis. &lt;br&gt;&lt;br&gt; ► Coa pulsación longa nunha tecla la barra de suxestións fíxala na barra. &lt;br&gt; &lt;br&gt; ► Coa pulsación longa na telca da vírgula accedes a Vista do Portapapeis, Vista de Emojis, Modo dunha soa man, Axustes ou Cambiar de Idioma: &lt;br&gt; • A Vista de Emoji e Cambio de Idioma aparecerán se tes a tecla correspondente activada; &lt;br&gt; \t • Nalgunhas disposicións non é a tecla da Vírgula, se non a tecla que está na mesma posición (ex. é \'q\' no teclado Dvorak). &lt;br&gt; &lt;br&gt; ► Co modo Incógnito activado, non aprenderá palabras, e tampouco se engaden emojis aos recentes. &lt;br&gt; &lt;br&gt; ► Preme na icona Incógnito para acceder ás ferramentas. &lt;br&gt; &lt;br&gt; ► Escribir con tecla esvaradía: Despraza desde a tecla Shift hacia outra letra para escribir unha sóa maiúscula: &lt;br&gt; \t• Isto tamén funciona para a tecla \'?123\" para escribir un só símbolo dos do teclado de símbolos, e as teclas relacionadas. &lt;br&gt; &lt;br&gt; ► Coa pulsación longa nunha suxestión da barra de suxestións aparecen máis suxestións, e tamén un botón para eliminar esa suxestión. &lt;br&gt; &lt;br&gt; ► Desprázate hacia arriba para ter máis suxestións, e solta onde estea suxestión que queres. &lt;br&gt; &lt;br&gt; ► Fixa unha entrada do historial do portapapeis coa pulsación longa sobre ela (mantela no portapapeis ata que a liberes). &lt;br&gt; &lt;br&gt; ► Podes engadir dicionarios abríndoos nun explorador de ficheiros: &lt;br&gt; \t• Isto só funciona con &lt;i&gt;content-uris&lt;/i&gt; e non con &lt;i&gt;file-uris&lt;/i&gt;, polo que podería non funcionar nalgúns exploradores de ficheiros. &lt;br&gt; &lt;br&gt; &lt;i&gt;Modo depuración / APK debug&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t • Pulsación longa sobre unha suxestión para mostrar o dicionario de orixe.&lt;br&gt; &lt;br&gt; \t • No modo depuración APK, podes atopar os Axustes de Depuración dentro de Preferencias Avanzadas, aínda que a utilidade é limitada excepto para meter os dicionarios no ficheiro de depuración.&lt;br&gt; &lt;br&gt; \t • Se fallase a aplicación, pediráseche se queres ver os ficheiros de depuración ao abrir os Axustes. &lt;br&gt; &lt;br&gt; \t• Ao usar a escritura multi-idioma, a barra espazadora mostrará un valor de confianza usado para determinar o idioma que estás a usar. &lt;br&gt; &lt;br&gt; \t• As suxestións terán un número pequeniño enriba mostrando unha puntuación interna e o dicionario de orixe (pode desactivarse). ► Para as usuarias que fan copias de apoio con acceso root: Desde Android 7, o ficheiro de preferencias compartidas non está na localización por defecto, xa que a app usa %s. &lt;br&gt; isto é preciso para que os axustes se poidan ler antes de que o dispositivo se desbloquee, por exemplo no inicio (boot). &lt;br&gt; O ficheiro está en /data/user_de/0/package_id/shared_prefs/, aínda que podería depender da versión do dispositivo Android.</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_xdq">Kaitag</string>
 </resources>

@@ -50,16 +50,18 @@ def check_changelog():
     assert os.path.isdir(changelog_dir)
     filenames = list(os.scandir(changelog_dir))
     filenames.sort()
-    changelog_version = filenames[-1].replace(".txt", "")
+    changelog_version = filenames[-1].name.replace(".txt", "")
+    version = ""
     with open("app/build.gradle") as f:
         for line in f:
             line = line.lstrip()
             if line.startswith("versionCode"):
-                if changelog_version == line.split(" ")[1]:
-                    print("changelog for", changelog_version, "exists")
-                else:
-                    print("changelog for", changelog_version, "does not exist")
+                version = line.split(" ")[1].rstrip()
                 break
+    if changelog_version == version:
+        print("changelog for", version, "exists")
+    else:
+        print("changelog for", version, "does not exist")
 
 
 def main():

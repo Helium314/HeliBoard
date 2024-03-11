@@ -115,9 +115,7 @@
     <string name="auto_correction_summary">A barra de espaço e a pontuação corrigem automaticamente as palavras com erro</string>
     <string name="bigram_prediction_summary">Utilizar palavra anterior para efetuar sugestões</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de entrada com a tecla Espaço</string>
-    <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
     <string name="clipboard_history_retention_time">Tempo de retenção do histórico</string>
-    <string name="space_trackpad_summary">Deslize na barra de espaço para mover o cursor</string>
     <string name="number_row">Linha de números</string>
     <string name="subtype_with_layout_en_GB">Inglês (Reino Unido) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_with_layout_en_US">Inglês (EUA) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>

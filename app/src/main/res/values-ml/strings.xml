@@ -121,7 +121,6 @@
     <string name="settings_category_miscellaneous">വിവിധ</string>
     <string name="settings_no_limit">പരിധിയില്ല</string>
     <string name="clipboard_history_retention_time">ചരിത്രം സൂക്ഷിക്കുന്ന സമയം</string>
-    <string name="space_trackpad">സ്പേസ് ബാർ ട്രാക്ക്പാഡ്</string>
     <string name="incognito">ഇൻകോഗ്നിറ്റോ മോഡ് നിർബന്ധിക്കുക</string>
     <string name="more_keys_strip_description">കൂടുതൽ കീകൾ</string>
     <string name="number_row_summary">എല്ലായ്പ്പോഴും നമ്പർ വരി കാണിക്കുക</string>
@@ -129,7 +128,6 @@
     <string name="show_hints">കീ സൂചനകൾ കാണിക്കുക</string>
     <string name="android_spell_checker_settings">ഓപ്പൺബോർഡ് സ്പെൽ ചെക്കർ ക്രമീകരണങ്ങൾ</string>
     <string name="delete_swipe">ഡിലീറ്റ് സ്വൈപ്പ്</string>
-    <string name="space_trackpad_summary">കഴ്‌സർ നീക്കാൻ സ്‌പേസ് ബാറിൽ സ്വൈപ്പ് ചെയ്യുക</string>
     <string name="show_emoji_key">ഇമോജി കീ</string>
     <string name="prefs_force_incognito_mode_summary">പുതിയ വാക്കുകൾ പഠിക്കുന്നത് അപ്രാപ്തമാക്കുക</string>
     <string name="settings_category_suggestions">നിർദ്ദേശങ്ങൾ</string>

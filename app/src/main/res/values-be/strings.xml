@@ -135,10 +135,6 @@
     <string name="enable_clipboard_history_summary">Калі выключана, клавіша буфера абмену будзе ўстаўляць змесціва буфера абмену, калі яно ёсць</string>
     <string name="clipboard_history_retention_time">Час захоўвання гісторыі буфера абмену</string>
     <string name="prefs_force_incognito_mode_summary">Адключыць вывучэнне новых слоў</string>
-    <string name="space_trackpad">Клавіша прабел як трэкпад</string>
-    <string name="space_trackpad_summary">Правядзіце пальцам па прабеле, каб перамясціць курсор</string>
-    <string name="space_language_slide">Свайп змены мовы</string>
-    <string name="space_language_slide_summary">Правядзіце пальцам уверх па прабелу, каб змяніць мову</string>
     <string name="backup_restore_title">Рэзервовае капіраванне і аднаўленне</string>
     <string name="backup_restore_message">Захавайце ці загрузіце з файла. Увага: аднаўленне перазапіша існуючыя дадзеныя</string>
     <string name="backup_error">Памылка рэзервовага капіявання: %s</string>
@@ -231,7 +227,7 @@
     <string name="more_autocorrect">Больш аўтакарэкцыі</string>
     <string name="split_spacer_scale">Адлегласць падзелу</string>
     <string name="prefs_always_show_suggestions_summary">Ігнараваць запыты іншых праграм на адключэнне прапаноў</string>
-    <string name="language_switch_key_switch_subtype">Пераключыць мову</string>
+    <string name="switch_language">Пераключыць мову</string>
     <string name="disable_personalized_dicts_message">Папярэджанне: Адключэнне гэтай налады прывядзе да выдалення атрыманых дадзеных</string>
     <string name="load_gesture_library_button_load">Загрузіць бібліятэку</string>
     <string name="show_popup_keys_title">Паказаць больш літар з дыякрытычнымі знакамі пры ўтрыманні</string>
@@ -258,4 +254,6 @@
     <string name="prefs_bottom_padding_scale">Вышыня ніжняй водступу</string>
     <string name="one_handed" tools:keep="@string/one_handed">Рэжым адной рукой</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
+    <string name="localized_number_row">Лакалізаваць лікавы радок</string>
+    <string name="add_to_personal_dictionary_summary">Выкарыстоўваць асабісты слоўнік прылады для захоўвання вывучаных слоў</string>
 </resources>

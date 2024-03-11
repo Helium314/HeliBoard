@@ -138,9 +138,7 @@
     <string name="enable_clipboard_history_summary">Εάν είναι απενεργοποιημένο, το πλήκτρο του προχείρου θα επικολλήσει το περιεχόμενο του προχείρου εάν υπάρχει</string>
     <string name="key_borders">Περίγραμμα πλήκτρου</string>
     <string name="day_night_mode">Αυτόματη λειτουργία ημέρας/νύχτας</string>
-    <string name="space_trackpad_summary">Σύρετε στη γραμμή διαστήματος για να μετακινήσετε τον κέρσορα</string>
     <string name="prefs_keyboard_height_scale">Κλίμακα ύψους πληκτρολογίου</string>
-    <string name="space_trackpad">Επιφάνεια διαδρομής διαστήματος</string>
     <string name="autospace_after_punctuation_summary">Εισαγάγετε αυτόματα κενό διάστημα μετά τα σημεία στίξης όταν πληκτρολογείτε μια νέα λέξη</string>
     <string name="number_row">Αριθμητική σειρά</string>
     <string name="number_row_summary">Να εμφανίζεται πάντα η αριθμητική σειρά</string>

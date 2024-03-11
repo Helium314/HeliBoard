@@ -52,16 +52,16 @@
     <string name="subtype_en_GB">"Angielski (Wielka Brytania)"</string>
     <string name="subtype_en_US">"Angielski (Stany Zjednoczone)"</string>
     <string name="subtype_es_US">"Hiszpański (USA)"</string>
-    <string name="subtype_hi_Latn">"Hinglish"</string>
-    <string name="subtype_sr_Latn">"Serbski (alfabet łaciński)"</string>
+    <string name="subtype_hi_Latn">hinglish</string>
+    <string name="subtype_sr_Latn">serbski (alfabet łaciński)</string>
     <string name="subtype_with_layout_en_GB">Angielski (Wielka Brytania) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Angielski (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Hiszpański (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradycyjny)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktowa)</string>
-    <string name="subtype_no_language">"Standardowy (Alfabet)"</string>
+    <string name="subtype_no_language">standardowy (Alfabet)</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
@@ -139,12 +139,10 @@
     <string name="delete_swipe_summary">Przesuń palcem od klawisza usuwania, aby zaznaczyć i usunąć większe fragmenty tekstu za jednym razem</string>
     <string name="enable_clipboard_history_summary">Po wyłączeniu, klawisz schowka będzie wklejał zawartość schowka, jeśli taka istnieje</string>
     <string name="delete_swipe">Gest usunięcia</string>
-    <string name="space_trackpad_summary">Przesuń palcem po klawiszu spacji, aby przesunąć kursor</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Długie naciśnięcie klawisza spacji spowoduje wyświetlenie menu wyboru metody wprowadzania tekstu</string>
     <string name="show_hints">Pokazuj wskazówki klawiszy</string>
     <string name="prefs_keyboard_height_scale">Skala wysokości klawiatury</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="space_trackpad">Spacja przesuwa kursor</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="ime_settings">Ustawienia HeliBoard</string>
     <string name="settings_category_additional_keys">Dodatkowe klawisze</string>
@@ -194,7 +192,6 @@
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Czekoladowe</string>
     <string name="remove_dictionary_message">Na pewno usunąć słownik \"%s\" dodany przez użytkownika?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pochmurne</string>
-    <string name="space_language_slide_summary">Przesuń w górę po klawiszu spacji, aby zmienić język</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="day_or_night_day">Dzienny</string>
     <string name="dictionary_file_wrong_script">Błąd: skrypt nie jest kompatybilny z tą klawiaturą</string>
@@ -221,7 +218,6 @@
     <string name="right" tools:keep="@string/right">W prawo</string>
     <string name="dictionary_load_error">Błąd podczas dodawania słownika</string>
     <string name="localized_number_row_summary">Preferuj liczby lokalne zamiast łacińskich</string>
-    <string name="space_language_slide">Spacja zmienia język</string>
     <string name="checksum_mismatch_message">Nieznany plik biblioteki. Czy na pewno pochodzi z zaufanego źródła i jest przeznaczony dla \\\'%s\\\'?</string>
     <string name="hidden_features_message">► Długie naciśnięcie klawisza schowka (opcjonalnego na pasku sugestii) spowoduje wklejenie zawartości schowka systemowego. &lt;br&gt; &lt;br&gt; ► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt; ► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt; \t•Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt; \t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt; ► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt; ► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt; ► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt; \t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt; ► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt; ► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt; ► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt; ► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt; \t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt; &lt;i&gt;Tryb debugowania / aplikacja w wersji debug&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Przytrzymaj sugestię, aby wyświetlić słownik źródłowy.&lt;br&gt; &lt;br&gt; \t• Korzystając z aplikacji w wersji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt; &lt;br&gt; \t• W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt; \t• Podczas pisywania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt; \t• Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć). ► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. &lt;br&gt; Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania. &lt;br&gt; Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida.</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Niebiesko-szare</string>
@@ -302,7 +298,7 @@
     <string name="title_layout_name_select">Nazwij układ</string>
     <string name="no_dictionary_message">"Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
 \n        Słowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s."</string>
-    <string name="language_switch_key_switch_subtype">Zmień język</string>
+    <string name="switch_language">Zmień język</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Wyczyść schowek</string>
     <string name="day_or_night_night">Nocny</string>
     <string name="prefs_narrow_key_gaps">Mniejszy odstęp między klawiszami</string>
@@ -328,4 +324,15 @@
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Białe Holo</string>
     <string name="language_switch_key_switch_both">Zmień oba</string>
     <string name="available_dictionary_experimental">%s (eksperymentalny)</string>
+    <string name="customize_symbols_number_layouts">Dostosuj układ symboli i liczb</string>
+    <string name="customize_symbols_number_layouts_summary">Układy (z wyjątkiem symbolicznych) zależą od ustawień wewnętrznych, które mogą jeszcze ulec zmianie. W takim przypadku układy niestandardowe mogą przestać działać poprawnie.</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabski)</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Klawiatura numeryczna</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Klawiatura numeryczna (poziomo)</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Liczby</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symbole telefonu</string>
 </resources>

@@ -129,11 +129,7 @@
     <string name="url_detection_title">Обнаружение URL-адреса</string>
     <string name="url_detection_summary">Попытаться обнаружить URL-адреса и подобные им строки, как одно слово</string>
     <string name="delete_swipe">Удаление жестом</string>
-    <string name="space_trackpad">Пробел в качестве трекпада</string>
     <string name="delete_swipe_summary">Быстрое удаление текста жестом по клавише удаления в направлении \"стрелки\"</string>
-    <string name="space_trackpad_summary">Перемещать курсор при помощи жестов на клавише пробела</string>
-    <string name="space_language_slide">Свайп смены языка</string>
-    <string name="space_language_slide_summary">Проведите пальцем вверх по пробелу, чтобы изменить язык</string>
     <string name="backup_restore_title">Резервное копирование и восстановление</string>
     <string name="backup_restore_message">Сохраните или загрузите из файла. Внимание: восстановление перезапишет существующие данные</string>
     <string name="backup_error">Ошибка резервного копирования: %s</string>
@@ -214,7 +210,7 @@
     <string name="label_go_key">"ОК"</string>
     <string name="label_next_key">"Далее"</string>
     <string name="label_previous_key">"Назад"</string>
-    <string name="label_done_key">"Готово"</string>
+    <string name="label_done_key">Готово</string>
     <string name="label_send_key">"Отправить"</string>
     <string name="label_search_key">"Поиск"</string>
     <string name="label_pause_key">"Пауза"</string>
@@ -282,7 +278,7 @@
     <string name="split_spacer_scale">Расстояние разделения</string>
     <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь \"%1$s\" для %2$s?</string>
     <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений</string>
-    <string name="language_switch_key_switch_subtype">Переключить язык</string>
+    <string name="switch_language">Переключить язык</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистить буфер обмена</string>
     <string name="day_or_night_night">Ночь</string>
     <string name="no_dictionary_dont_show_again_button">Больше не показывать</string>
@@ -328,4 +324,15 @@
     <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
     <string name="no_dictionary_message">Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;
 \nВы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для \"%2$s\" напрямую %3$s.</string>
+    <string name="customize_symbols_number_layouts">Настройка расположения символов и чисел</string>
+    <string name="available_dictionary_experimental">%s (экспериментальных)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Символы</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символы (арабские)</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Числа</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Числовая клавиатура</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числовая клавиатура (горизонтальная)</string>
+    <string name="customize_symbols_number_layouts_summary">Раскладки (кроме символьных) зависят от внутренних настроек, которые ещё могут меняться. Если это произойдёт, кастомные раскладки могут перестать работать корректно.</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Символы телефона</string>
+    <string name="hidden_features_message">► Долгое нажатие клавиши буфера обмена (закреплённой в полосе подсказок) вставляет содержимое буфера обмена. &lt;br&gt; &lt;br&gt; ► Долгое нажатие клавиш на панели инструментов полосы подсказок закрепляет их на полосу подсказок. &lt;br&gt; &lt;br&gt; ► Удерживайте клавишу запятой для доступа к буферу обмена, меню эмодзи, режиму одной руки, настройкам или смене языка: &lt;br&gt; \t• Меню эмодзи и смена языка исчезнет, если соответствующая клавиша включена; &lt;br&gt; \t• Для некоторых раскладок это не клавиша запятой, а клавиша в той же позиции (например, это \'q\' для раскладки Dvorak). &lt;br&gt; &lt;br&gt; ► Когда включён режим инкогнито, ни одно слово не будет выучено и ни один эмодзи не будет добавлен в недавние. &lt;br&gt; &lt;br&gt; ► Нажмите на иконку Инкогнито для доступа к панели инструментов. &lt;br&gt; &lt;br&gt; ► Непрерывный ввод: Проведите от Shift до другой клавиши, чтобы ввести одну заглавную букву: &lt;br&gt; \t• Это также работает для клавиши \'?123\', чтобы ввести один символ из клавиатуры символов, и для связанных клавиш. &lt;br&gt; &lt;br&gt; ► Удерживайте подсказку в полосе подсказок, чтобы показать больше подсказок, и кнопку удалить, чтобы убрать эту подсказку. &lt;br&gt; &lt;br&gt; ► Проведите вверх от подсказки, чтобы открыть больше подсказок, и отпустите на подсказке, чтобы выбрать её. &lt;br&gt; &lt;br&gt; ► Удерживайте элемент в журнале буфера обмена, чтобы закрепить его (сохранять его в буфере обмена, пока не открепите). &lt;br&gt; &lt;br&gt; ► Вы можете добавить словари, открыв их в проводнике: &lt;br&gt; \t• Это работает только с &lt;i&gt;content-uris&lt;/i&gt;, а не с &lt;i&gt;file-uris&lt;/i&gt;, что означает, что это может не работать в некоторых проводниках. &lt;br&gt; &lt;br&gt; &lt;i&gt;Режим отладки / отладочный APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Удерживайте подсказку, чтобы показать исходный словарь.&lt;br&gt; &lt;br&gt; \t• При использовании отладочного APK, вы можете найти настройки отладки в дополнительных настройках, хотя польза от них невелика, за исключением сброса словарей в журнал. &lt;br&gt; &lt;br&gt; \t• При сбое приложения, вам будет предложен журнал отладки, когда вы откроете настройки. &lt;br&gt; &lt;br&gt; \t• При использовании многоязыкового ввода, на клавише пробела будет показано доверительное значение, используемое для определения текущего языка. &lt;br&gt; &lt;br&gt; \t• У подсказок будет некоторые маленькие числа сверху, показывающие внутренние показатели и исходный словарь (может быть отключено). ► Для пользователей, делающих ручное резервное копирование с root-доступом: Начиная с Android 7, общий файл настроек не находится в локации по умолчанию, потому что приложение использует %s. &lt;br&gt; Это необходимо, чтобы настройки могли быть прочитаны перед разблокировкой устройства, например при запуске. &lt;br&gt; Файл находится в /data/user_de/0/package_id/shared_prefs/, хотя это может зависеть от устройства и версии Android.</string>
 </resources>

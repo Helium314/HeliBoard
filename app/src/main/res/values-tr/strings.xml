@@ -123,7 +123,6 @@
     <string name="settings_category_experimental">Deneysel</string>
     <string name="settings_category_miscellaneous">Çeşitli</string>
     <string name="settings_no_limit">Sınır yok</string>
-    <string name="space_trackpad_summary">İmleci hareket ettirmek için boşluk tuşu üzerinde kaydırın</string>
     <string name="incognito">Gizli modu zorla</string>
     <string name="prefs_force_incognito_mode_summary">Yeni sözcüklerin öğrenilmesini devre dışı bırak</string>
     <string name="number_row">Sayı satırı</string>
@@ -131,7 +130,6 @@
     <string name="android_spell_checker_settings">HeliBoard Yazım Denetleyicisi Ayarları</string>
     <string name="prefs_keyboard_height_scale">Klavye yükseklik ölçeği</string>
     <string name="delete_swipe">Silme kaydırması</string>
-    <string name="space_trackpad">Boşluk tuşu dokunması</string>
     <string name="subtype_no_language_workman">Alfabe (Workman)</string>
     <string name="key_borders">Tuş kenarlıkları</string>
     <string name="day_night_mode">Otomatik gündüz/gece modu</string>

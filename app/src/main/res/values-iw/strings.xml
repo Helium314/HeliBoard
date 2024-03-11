@@ -151,8 +151,6 @@
     <string name="settings_category_suggestions">הצעות</string>
     <string name="delete_swipe">מחיקת החלקה</string>
     <string name="delete_swipe_summary">בצע החלקה על מקש המחיקה כדי לבחור ולהסיר חלקים גדולים יותר של טקסט בבת אחת</string>
-    <string name="space_trackpad">משטח עקיבה של מקש רווח</string>
-    <string name="space_trackpad_summary">החלק על מקש הרווח כדי להזיז את הסמן</string>
     <string name="incognito">כפה מקלדת אנונימית</string>
     <string name="prefs_force_incognito_mode_summary">השבת למידה של מילים חדשות</string>
     <string name="more_keys_strip_description">עוד מפתחות</string>

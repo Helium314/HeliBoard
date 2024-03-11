@@ -144,7 +144,6 @@
     <string name="spell_checker_service_name">HeliBoard helyesírás-ellenőrző</string>
     <string name="delete_swipe">Húzás törlése</string>
     <string name="show_emoji_key">Emoji kulcs</string>
-    <string name="space_trackpad_summary">A kurzor mozgatásához nyomja meg a szóköz billentyűt</string>
     <string name="incognito">Inkognitó mód kényszerítése</string>
     <string name="prefs_force_incognito_mode_summary">Új szavak tanulásának letiltása</string>
     <string name="more_keys_strip_description">Több kulcs</string>
@@ -153,7 +152,6 @@
     <string name="number_row">Számsor</string>
     <string name="day_night_mode_summary">A megjelenés követi a rendszerbeállításokat</string>
     <string name="settings_category_input">Bemenet</string>
-    <string name="space_trackpad">Space billentyű trackpad</string>
     <string name="use_personalized_dicts_summary">"Javaslatok javítása a kommunikáció és begépelt adatok alapján"</string>
     <string name="label_go_key">"Mehet"</string>
     <string name="label_next_key">"Köv."</string>

@@ -144,9 +144,7 @@
     <string name="number_row">ردیف اعداد</string>
     <string name="number_row_summary">همیشه ردیف اعداد نشان داده شود</string>
     <string name="prefs_long_press_keyboard_to_change_lang">روش ورودی را با کلید فاصله تغییر دهید</string>
-    <string name="space_trackpad">فاصله به عنوان پد لمسی</string>
     <string name="delete_swipe">حذف با کشیدن</string>
-    <string name="space_trackpad_summary">برای جابجایی مکان نما، انگشت خود را روی فاصله بکشید</string>
     <string name="delete_swipe_summary">برای انتخاب و حذف یکباره بخش‌های بزرگ‌تر از متن، روی کلید حذف بکشید</string>
     <string name="incognito">حالت نا‌شناس اجباری</string>
     <string name="prefs_force_incognito_mode_summary">غیرفعال کردن یادگیری کلمات جدید</string>

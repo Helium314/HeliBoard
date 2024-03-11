@@ -128,7 +128,6 @@
     <string name="enable_clipboard_history_summary">Agar o\'chirilgan bo\'lsa, vaqtinchalik bufer tugmasi mavjud bo\'lsa, almashish buferidagi kontentni joylashtiradi</string>
     <string name="clipboard_history_retention_time">Tarixni saqlash vaqti</string>
     <string name="delete_swipe_summary">Matnning katta qismini birdaniga tanlash va o‘chirib tashlash uchun oʻchirish tugmasidan suring</string>
-    <string name="space_trackpad_summary">Kursorni siljitish uchun spacebar ustida bosib turib suring</string>
     <string name="key_borders">Tugma chegaralari</string>
     <string name="day_night_mode">Avtomatik kunduz/tun rejimi</string>
     <string name="day_night_mode_summary">Tashqi ko\'rinish tizim sozlamalariga binoan</string>
@@ -146,7 +145,6 @@
     <string name="settings_category_experimental">Eksperimental</string>
     <string name="autospace_after_punctuation_summary">Yangi so\'zni kiritishda tinish belgilaridan keyin avtomatik ravishda bo\'sh joy qo\'yish</string>
     <string name="incognito">Majburiy inkognito rejimi</string>
-    <string name="space_trackpad">Bo\'sh joy trek paneli</string>
     <string name="autospace_after_punctuation">Tinish belgilaridan keyin avtomatik bo\'shliq qo‘yish</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Alfavit (Colemak Mod-DH)</string>

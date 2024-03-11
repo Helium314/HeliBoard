@@ -3,14 +3,13 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Slå upp kontaktnanmn"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"I stavningskontrollen används poster från kontaktlistan"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_for_spellchecking_option_title">Slå upp kontaktnamn</string>
+    <string name="use_contacts_for_spellchecking_option_summary">Stavningskontrollen använder poster från din kontaktlista</string>
     <string name="vibrate_on_keypress">"Vibrera vid tangenttryck"</string>
     <string name="sound_on_keypress">"Ljud vid tangenttryck"</string>
     <string name="popup_on_keypress">"Popup vid tangenttryck"</string>
-    <string name="settings_screen_preferences">"Inställningar"</string>
+    <string name="settings_screen_preferences">Alternativ</string>
     <string name="settings_screen_gesture">"Svepskrivning"</string>
     <string name="settings_screen_correction">"Textkorrigering"</string>
     <string name="settings_screen_advanced">"Avancerat"</string>
@@ -76,7 +75,7 @@
     <string name="keyboard_layout_set">"Layout"</string>
     <string name="prefs_keypress_vibration_duration_settings">"Vibrationslängd vid tangenttryck"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volym vid tangenttryck"</string>
-    <string name="prefs_key_longpress_timeout_settings">"Fördröjning vid långt tryck"</string>
+    <string name="prefs_key_longpress_timeout_settings">Fördröjning för långt tangenttryck</string>
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji för fysiskt tangentbord"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Den fysiska Alt-tangenten visar emoji-paletten"</string>
     <string name="button_default">"Standard"</string>
@@ -144,8 +143,6 @@
     <string name="clipboard_history_retention_time">Lagringstid för historik</string>
     <string name="delete_swipe">Backstegssvepning</string>
     <string name="delete_swipe_summary">Gör en svepning från backstegstangenten för att markera och ta bort större mängder text på en gång</string>
-    <string name="space_trackpad_summary">Svep på mellanslagstangenten för att flytta textmarkören</string>
-    <string name="space_trackpad">Styrplatta i mellanslagstangenten</string>
     <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
     <string name="more_keys_strip_description">Fler tangenter</string>
@@ -155,7 +152,7 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="key_borders">Kantlinjer runt tangenter</string>
     <string name="day_night_mode">Automatiskt dag-/nattläge</string>
-    <string name="day_night_mode_summary">Utseendet kommer följa systeminställningarna</string>
+    <string name="day_night_mode_summary">Utseendet kommer att följa systeminställningarna</string>
     <string name="auto_correction_confidence">Förtroende för automatisk korrigering</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Använd systemspråk"</string>
     <string name="select_input_method">"Välj inmatningsmetod"</string>
@@ -170,4 +167,33 @@
     <string name="label_search_key">"Sökning"</string>
     <string name="label_pause_key">"Pausa"</string>
     <string name="label_wait_key">"Vänta"</string>
+    <string name="language_and_layouts_title">Språk &amp; layouter</string>
+    <string name="customize_symbols_number_layouts">Anpassa symboler och nummerlayouter</string>
+    <string name="customize_background_image">Ställ in bakgrundsbild</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (arabiska)</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymboler</string>
+    <string name="about_github_link">Se på GitHub</string>
+    <string name="save_log">Spara logg</string>
+    <string name="license">Licens för öppen källkod</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="version">Version</string>
+    <string name="button_backup">Säkerhetskopiera</string>
+    <string name="button_restore">Återställ</string>
+    <string name="load_gesture_library">Ladda svepskrivningsbibliotek</string>
+    <string name="load_gesture_library_summary">Tillhandahåll ett ursprungligt bibliotek för att aktivera svepskrivning</string>
+    <string name="show_popup_keys_normal">Visa varianter definierade i tangentbordsspråk (standard)</string>
+    <string name="show_popup_keys_more">Lägg till vanliga varianter</string>
+    <string name="show_popup_keys_all">Lägg till alla tillgängliga varianter</string>
+    <string name="url_detection_title">URL-detektering</string>
+    <string name="url_detection_summary">Försök att upptäcka URL:er och liknande som ett enda ord</string>
+    <string name="settings_screen_appearance">Utseende</string>
+    <string name="settings_screen_about">Om</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Fler symboler</string>
+    <string name="show_popup_keys_title">Visa fler bokstäver med diakriter i popup</string>
+    <string name="hidden_features_summary">Visa funktioner som kan gå obemärkta förbi</string>
+    <string name="hidden_features_title">Beskrivning av dolda funktioner</string>
+    <string name="backup_restore_title">Säkerhetskopiering och återställning</string>
+    <string name="dialog_close">Stäng</string>
+    <string name="user_dict_add_word_button">Lägg till ett ord</string>
 </resources>

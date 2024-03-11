@@ -151,8 +151,6 @@
     <string name="number_row">Vrstica s številkami</string>
     <string name="show_emoji_key">Tipka za emotikone</string>
     <string name="delete_swipe">Podrsaj za izbris</string>
-    <string name="space_trackpad">Uporabi preslednico kot drsno ploščico</string>
-    <string name="space_trackpad_summary">Podrsaj po preslednici za premik kazalca</string>
     <string name="show_hints_summary">Prikaži namige z dolgim pritiskom</string>
     <string name="day_night_mode_summary">Izgled bo sledil sistemskim nastavitvam</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Dolg pritisk na preslednico bo priklical meni za izbiro načina vnosa</string>

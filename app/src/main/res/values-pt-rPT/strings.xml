@@ -121,7 +121,6 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="delete_swipe">Deslize para eliminar</string>
-    <string name="space_trackpad">\'Trackpad\' na barra de espaço</string>
     <string name="delete_swipe_summary">Pode deslizar desde a tecla Eliminar para selecionar e remover grandes porções de texto de uma vez</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="incognito">Impor modo incógnito</string>
@@ -135,7 +134,6 @@
     <string name="settings_category_suggestions">Sugestões</string>
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_miscellaneous">Outras</string>
-    <string name="space_trackpad_summary">Deslize na barra de espaço para mover o cursor</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="more_keys_strip_description">Mais teclas</string>
     <string name="number_row">Número de linha</string>

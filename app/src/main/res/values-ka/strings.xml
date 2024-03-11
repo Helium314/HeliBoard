@@ -133,7 +133,6 @@
     <string name="settings_category_correction">შესწორებები</string>
     <string name="settings_category_miscellaneous">სხვადასხვა</string>
     <string name="settings_no_limit">უსაზღვრო</string>
-    <string name="space_trackpad">გამოტოვების ღილაკი ტრეკპადის მაგიერ</string>
     <string name="incognito">ნაძალადევი ინკოგნიტოს რეჟიმი</string>
     <string name="prefs_force_incognito_mode_summary">ახალი სიტყვების სწავლის გამორთვა</string>
     <string name="delete_swipe_summary">ტექსტის დიდი პორციების მოსანიშნად და წასაშლელად წაშლის ღილაკს გაუსვით</string>
@@ -154,7 +153,6 @@
     <string name="subtype_no_language_workman">ანბანი (Workman)</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>წთ.</string>
     <string name="clipboard_history_retention_time">ისტორიის შენახვის დრო</string>
-    <string name="space_trackpad_summary">კურსორის გადასატანად გამოტოვების ღილაკს გაუსვით</string>
     <string name="more_keys_strip_description">მეტი ღილაკი</string>
     <string name="prefs_keyboard_height_scale">კლავიატურის სიმაღლის მასშტაბი</string>
     <string name="key_borders">ღილაკის კონტურები</string>

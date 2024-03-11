@@ -172,7 +172,6 @@
     <string name="hidden_features_title">Опис прихованих функцій</string>
     <string name="hidden_features_summary">Показати функції, які можуть залишитися непоміченими</string>
     <string name="select_input_method">Вибрати метод введення</string>
-    <string name="space_trackpad">Клавіша пробіл як трекпад</string>
     <string name="incognito">Примусовий режим інкогніто</string>
     <string name="prefs_force_incognito_mode_summary">Вимкнути вивчення нових слів</string>
     <string name="show_hints_summary">Показувати підказки довгим натисканням</string>
@@ -186,9 +185,6 @@
     <string name="delete_swipe_summary">Проведіть пальцем по клавіші видалення, щоб виділити і вилучити більші фрагменти тексту за раз</string>
     <string name="url_detection_title">Виявлення URL-адреси</string>
     <string name="url_detection_summary">Спробувати виявити URL-адреси та подібні до них рядки, як одне слово</string>
-    <string name="space_trackpad_summary">Ковзання по клавіші пробіл переміщає курсор</string>
-    <string name="space_language_slide">Свайп зміни мови</string>
-    <string name="space_language_slide_summary">Проведіть пальцем вгору пробілом, щоб змінити мову</string>
     <string name="backup_restore_title">Резервне копіювання та відновлення</string>
     <string name="backup_restore_message">Збережіть або завантажте файл. Увага: відновлення перезапише наявні дані</string>
     <string name="backup_error">Помилка резервного копіювання: %s</string>
@@ -220,7 +216,7 @@
     <string name="language_and_layouts_title">Мови та розкладки</string>
     <string name="add_to_personal_dictionary">Додати слова до особистого словника</string>
     <string name="split_spacer_scale">Відстань розділення</string>
-    <string name="language_switch_key_switch_subtype">Переключити мову</string>
+    <string name="switch_language">Переключити мову</string>
     <string name="disable_personalized_dicts_message">Попередження: Вимкнення цього параметра призведе до видалення отриманих даних</string>
     <string name="language_switch_key_switch_both">Переключити обидва</string>
 </resources>

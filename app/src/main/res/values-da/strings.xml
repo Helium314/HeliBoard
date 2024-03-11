@@ -141,7 +141,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langt tryk på mellemrumstasten vil åbne menuen til valg af inputmetode</string>
     <string name="android_spell_checker_settings">Indstillinger for HeliBoard-stavekontrol</string>
     <string name="autospace_after_punctuation_summary">Indsæt automatisk mellemrum efter tegnsætning, når du skriver et nyt ord</string>
-    <string name="space_trackpad">Pegefelt på mellemrumstasten</string>
     <string name="autospace_after_punctuation">Auto-mellemrum efter tegnsætning</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
@@ -151,7 +150,6 @@
     <string name="settings_category_miscellaneous">Diverse</string>
     <string name="delete_swipe">Swipe-sletning</string>
     <string name="delete_swipe_summary">Udfør et swipe fra slet-tasten for at vælge og fjerne større dele af teksten på én gang</string>
-    <string name="space_trackpad_summary">Stryg på mellemrumstasten for at flytte markøren</string>
     <string name="incognito">Gennemtving inkognitotilstand</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiver indlæring af nye ord</string>
     <string name="more_keys_strip_description">Flere taster</string>

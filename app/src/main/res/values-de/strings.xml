@@ -20,7 +20,7 @@
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Systemstandardeinstellung"</string>
     <string name="use_contacts_dict">"Kontakte vorschlagen"</string>
-    <string name="use_contacts_dict_summary">"Namen aus \"Kontakte\" als Vorschläge und Korrekturmöglichkeiten anzeigen"</string>
+    <string name="use_contacts_dict_summary">Namen aus „Kontakte“ als Vorschläge und Korrekturmöglichkeiten anzeigen</string>
     <string name="use_personalized_dicts">"Personalisierte Vorschläge"</string>
     <string name="use_double_space_period">"Punkt plus Leerzeichen"</string>
     <string name="use_double_space_period_summary">"Doppeltippen auf Leertaste fügt Punkt und Leerzeichen ein"</string>
@@ -128,7 +128,7 @@
     <string name="settings_no_limit">Keine Begrenzung</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> Min.</string>
     <string name="spell_checker_service_name">HeliBoard Rechtschreibprüfung</string>
-    <string name="show_emoji_key">Emoji Taste</string>
+    <string name="show_emoji_key">Emoji-Taste</string>
     <string name="settings_category_input">Eingabe</string>
     <string name="settings_category_additional_keys">Zusätzliche Tasten</string>
     <string name="settings_category_miscellaneous">Sonstiges</string>
@@ -136,8 +136,6 @@
     <string name="delete_swipe_summary">Wische über die Löschen-Taste, um mehr Text auf einmal auszuwählen und zu löschen</string>
     <string name="clipboard_history_retention_time">Speicherdauer des Zwischenablage-Verlaufs</string>
     <string name="delete_swipe">Löschen durch Wischen</string>
-    <string name="space_trackpad_summary">Wische über die Leertaste, um den Zeiger zu bewegen</string>
-    <string name="space_trackpad">Cursorsteuerung durch Leertaste</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiviert das Lernen von neuen Wörtern</string>
     <string name="more_keys_strip_description">Mehr Tasten</string>
     <string name="number_row_summary">Zeigt die Ziffernreihe immer an</string>
@@ -194,7 +192,6 @@
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Schokolade</string>
     <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch \"%s\" wirklich entfernt werden?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Wolkig</string>
-    <string name="space_language_slide_summary">Von Leertaste nach oben wischen um die Sprache zu ändern</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="day_or_night_day">Tag</string>
     <string name="dictionary_file_wrong_script">Fehler: Skript ist kompatibel mit dieser Tastatur</string>
@@ -298,7 +295,7 @@
     <string name="user_dict_settings_add_weight_value">Schriftstärke:</string>
     <string name="prefs_always_show_suggestions_summary">Ignoriere andere App-Anfragen um Vorschläge zu deaktivieren</string>
     <string name="title_layout_name_select">Layout-Name festlegen</string>
-    <string name="language_switch_key_switch_subtype">Sprache wechseln</string>
+    <string name="switch_language">Sprache wechseln</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Zwischenablage löschen</string>
     <string name="day_or_night_night">Nacht</string>
     <string name="prefs_narrow_key_gaps">Enge Tastenlücken</string>
@@ -323,8 +320,19 @@
     <string name="more_autocorrect_summary">Autokorrektur, auch wenn dies vom Eingabefeld nicht explizit angefordert wird</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo weiß</string>
     <string name="language_switch_key_switch_both">Beides wechseln</string>
-    <string name="space_language_slide">Sprachwechsel mit Leertaste</string>
     <string name="hidden_features_message">► Durch langes Drücken der Zwischenablagetaste (die optionale Taste in der Vorschlagsleiste) wird der Inhalt der Systemzwischenablage eingefügt. &lt;br&gt; &lt;br&gt; ► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; ► Halten Sie die Komma-Taste gedrückt, um auf die Zwischenablageansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder den Sprachwechsel zuzugreifen: &lt;br&gt; • Die Emoji-Ansicht und der Sprachwechsel verschwinden, wenn Sie über die entsprechende Taste verfügen ermöglicht; &lt;br&gt; • Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an derselben Position (z. B. ist es „q“ für das Dvorak-Layout). &lt;br&gt; &lt;br&gt; ► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den letzten hinzugefügt. &lt;br&gt; &lt;br&gt; ► Drücken Sie auf das Inkognito-Symbol, um auf die Symbolleiste zuzugreifen. &lt;br&gt; &lt;br&gt; ► Schiebetasteneingabe: Wischen Sie von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; • Dies funktioniert auch für die Taste „?123“, um ein einzelnes Symbol über die Symboltastatur einzugeben, und für zugehörige Schlüssel. &lt;br&gt; &lt;br&gt; ► Drücken Sie lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und klicken Sie auf die Schaltfläche „Löschen“, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; ► Wischen Sie von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lassen Sie den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; ► Drücken Sie lange auf einen Eintrag im Verlauf der Zwischenablage, um ihn anzuheften (belassen Sie ihn in der Zwischenablage, bis Sie die Anheftung aufheben). &lt;br&gt; &lt;br&gt; ► Sie können Wörterbücher hinzufügen, indem Sie sie in einem Datei-Explorer öffnen: &lt;br&gt; • Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt; Dies bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; &lt;i&gt;Debug-Modus / Debug-APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Drücken Sie lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen.&lt;br&gt; &lt;br&gt; • Wenn Sie Debug-APK verwenden, können Sie dies tun Suchen Sie in den erweiterten Einstellungen nach den Debug-Einstellungen. Der Nutzen ist jedoch begrenzt, mit Ausnahme der Speicherung von Wörterbüchern im Protokoll. &lt;br&gt; &lt;br&gt; • Im Falle eines Anwendungsabsturzes werden Sie beim Öffnen der Einstellungen gefragt, ob Sie die Absturzprotokolle wünschen. &lt;br&gt; &lt;br&gt; • Bei mehrsprachiger Eingabe zeigt die Leertaste einen Konfidenzwert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; • Vorschläge werden oben einige kleine Zahlen haben, die eine interne Bewertung und ein Quellwörterbuch anzeigen (kann deaktiviert werden). ► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: Ab Android 7 befindet sich die gemeinsame Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. &lt;br&gt; Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z.B. beim Booten. &lt;br&gt; Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, dies kann jedoch vom Gerät und der Android-Version abhängen.</string>
     <string name="no_dictionary_message">"Ohne Wörterbuch erhalten Sie nur Vorschläge für Text, den Sie zuvor eingegeben haben.&lt;br&gt;
 \n        Sie können Wörterbücher %1$s herunterladen oder überprüfen, ob ein Wörterbuch für \"%2$s\" direkt heruntergeladen werden kann %3$s."</string>
+    <string name="available_dictionary_experimental">%s (experimentell)</string>
+    <string name="customize_symbols_number_layouts">Symbole und Zahlenlayouts anpassen</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabisch)</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefon Symbole</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Zahlen</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Ziffernblock</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Ziffernblock (Querformat)</string>
+    <string name="customize_symbols_number_layouts_summary">Layouts (außer Symbole) legen interne Einstellungen offen, die sich möglicherweise noch ändern. In diesem Fall funktioniert das benutzerdefinierte Layout möglicherweise nicht mehr ordnungsgemäß.</string>
+    <string name="subtype_xdq">Kaitakisch</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitakisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
 </resources>

@@ -28,7 +28,7 @@
     <string name="settings_category_miscellaneous">বিবিধ</string>
     <string name="enable_split_keyboard">বিভক্ত কিবোর্ড সক্রিয়করণ</string>
     <string name="language_switch_key_switch_input_method">অন্য ইনপুট পদ্ধতিতে পরিবর্তন</string>
-    <string name="language_switch_key_switch_subtype">ভাষা পরিবর্তন</string>
+    <string name="switch_language">ভাষা পরিবর্তন</string>
     <string name="language_switch_key_switch_both">উভয় পরিবর্তন</string>
     <string name="show_language_switch_key">ভাষা পরিবর্তন বোতাম</string>
     <string name="show_emoji_key">ইমোজি বোতাম</string>
@@ -73,16 +73,12 @@
     <string name="clipboard_history_retention_time">ইতিহাস স্থিতির সময়কাল</string>
     <string name="delete_swipe">বিলোপ সোয়াইপ</string>
     <string name="delete_swipe_summary">লেখার বড়ো অংশ একসাথে সিলেক্ট করে অপসারণ করার জন্য সোয়াইপ করুন</string>
-    <string name="space_trackpad">স্পেসবার ট্রাকপ্যাড</string>
-    <string name="space_language_slide">স্পেসবারে ভাষা স্লাইড</string>
-    <string name="space_language_slide_summary">ভাষা পরিবর্তনের জন্য স্পেসবারে উপরের দিকে সোয়াইপ করুন</string>
     <string name="secondary_locale">বহুভাষী টাইপিং</string>
     <string name="load_gesture_library">অঙ্গুলিহেলন টাইপিং লাইব্রেরি সংযোজন</string>
     <string name="load_gesture_library_summary">অঙ্গুলিহেলনের মাধ্যমে টাইপিং সক্রিয় করার জন্য স্থানীয় লাইব্রেরি যুক্ত করুন</string>
     <string name="load_gesture_library_message">\'%s\' এর জন্য লাইব্রেরি প্রয়োজন। অসামঞ্জস্যপূর্ণ লাইব্রেরি ব্যবহার অঙ্গুলিহেলন টাইপিংয়ের সময় ক্রাশ করতে পারে। \n\nসতর্কতা: বাহ্যিক কোডের ব্যবহার নিরাপত্তা ঝুঁকির কারণ হতে পারে। বিশ্বস্ত উৎসের লাইব্রেরি ব্যবহার করুন।</string>
     <string name="load_gesture_library_button_load">লাইব্রেরি সংযোজন</string>
     <string name="load_gesture_library_button_delete">লাইব্রেরি অপসারণ</string>
-    <string name="space_trackpad_summary">কার্সর সরানোর জন্য স্পেসবারে সোয়াইপ করুন</string>
     <string name="autospace_after_punctuation">যতিচিহ্নের পরে স্বয়ংক্রিয় স্পেস</string>
     <string name="autospace_after_punctuation_summary">নতুন শব্দ লেখার সময় যতিচিহ্নের পরে স্বয়ংক্রিয়ভাবে স্পেস বসবে</string>
     <string name="url_detection_title">ইউআরএল শনাক্তকরণ</string>

@@ -140,8 +140,6 @@
     <string name="delete_swipe">Izbriši povlačenjem</string>
     <string name="delete_swipe_summary">Povuci prstom od tipke za brisanje, za biranje i uklanjanje većih dijelova teksta</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiviraj učenje novih riječi</string>
-    <string name="space_trackpad">Razmaknica kao dodirna ploča</string>
-    <string name="space_trackpad_summary">Prelazi prstom po razmaknici za pomicanje kursora</string>
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
     <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>
     <string name="incognito">Prisili inkognito način rada</string>

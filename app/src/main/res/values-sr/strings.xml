@@ -126,7 +126,6 @@
     <string name="settings_category_input">Унос</string>
     <string name="settings_category_additional_keys">Додатни кључеви</string>
     <string name="auto_correction_confidence">Поузданост ауто-корекције</string>
-    <string name="space_trackpad">Кретање курсора</string>
     <string name="autospace_after_punctuation">Аутоматски размак после интерпункције</string>
     <string name="number_row_summary">Увек прикажи ред са бројевима</string>
     <string name="show_hints">Прикажи кључне савете</string>
@@ -135,7 +134,6 @@
     <string name="settings_category_experimental">Експерименталне карактеристике</string>
     <string name="enable_clipboard_history_summary">Ако је онемогућено, тастер међумеморије ће налепити садржај међуспремника ако га има</string>
     <string name="delete_swipe_summary">Превуците прстом од тастера за брисање да бисте одједном изабрали и уклонили веће делове текста</string>
-    <string name="space_trackpad_summary">Проведите по пробелу, чтобы переместить курсор</string>
     <string name="incognito">Омогући режим без архивирања</string>
     <string name="number_row">Ред бројева</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Промените начин уноса помоћу тастера за размак</string>

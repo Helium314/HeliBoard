@@ -137,10 +137,8 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Verander toevoer modus met spasiebalk</string>
     <string name="prefs_keyboard_height_scale">Sleutelbord hoogte-skaal</string>
     <string name="delete_swipe">Skrap met vee</string>
-    <string name="space_trackpad">Spasiebalk raakpaneel</string>
     <string name="show_emoji_key">Emoji sleutel</string>
     <string name="delete_swipe_summary">Doen \'n vee van die skrap sleutel om \'n groter seleksie van teks eenmaal te skrap</string>
-    <string name="space_trackpad_summary">Vee op spasiebalk om wyser te beweeg</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="incognito">Dwing incognito-modus</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiveer die leer van nuwe woorde</string>

@@ -129,9 +129,7 @@
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="delete_swipe">Slettingsdragning</string>
     <string name="show_emoji_key">Emoji-tast</string>
-    <string name="space_trackpad_summary">Dra på mellomromstasten for å flytte pekeren</string>
     <string name="delete_swipe_summary">Utfør en dragning fra Delete-tasten for å velge og fjerne større deler av tekst samtidig</string>
-    <string name="space_trackpad">Mellomromspekeflate</string>
     <string name="settings_category_additional_keys">Ytterligere taster</string>
     <string name="settings_category_correction">Korrigeringer</string>
     <string name="settings_category_experimental">Eksperimentelt</string>
