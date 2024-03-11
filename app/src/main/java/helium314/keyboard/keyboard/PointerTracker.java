@@ -1018,7 +1018,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if(mInHorizontalSwipe && currentKey.getCode() == KeyCode.CODE_DELETE) {
+        if(mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
             sListener.onUpWithDeletePointerActive();
         }
 
