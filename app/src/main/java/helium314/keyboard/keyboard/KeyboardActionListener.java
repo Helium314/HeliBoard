@@ -103,6 +103,10 @@ public interface KeyboardActionListener {
 
     KeyboardActionListener EMPTY_LISTENER = new Adapter();
 
+    static int SWIPE_NO_ACTION = 0;
+    static int SWIPE_MOVE_CURSOR = 1;
+    static int SWIPE_SWITCH_LANGUAGE = 2;
+
     class Adapter implements KeyboardActionListener {
         @Override
         public void onPressKey(int primaryCode, int repeatCount, boolean isSinglePointer) {}
