@@ -23,8 +23,10 @@ If you want different key label and use text, set the label to [label]|[text], e
 ## Json format
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
+  * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
 * There is no need for specifying a code, it will be determined from the label automatically
   * You can still specify it, but it's only necessary if you want key label and code to be different
+  * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
 * You can add the numeric value of a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values.
 * More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
 
