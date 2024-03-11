@@ -23,11 +23,22 @@
         latin:maxValue="@integer/config_max_longpress_timeout"
         latin:stepValue="@integer/config_longpress_timeout_step" />
 
-    <SwitchPreference
-        android:key="space_trackpad"
-        android:title="@string/space_trackpad"
-        android:summary="@string/space_trackpad_summary"
-        android:defaultValue="true" />
+    <ListPreference
+        android:defaultValue="None"
+        android:entries="@array/horizontal_space_swipe_entries"
+        android:entryValues="@array/horizontal_space_swipe_values"
+        android:key="horizontal_space_swipe_gesture_key"
+        android:persistent="true"
+        android:summary="%s"
+        android:title="@string/show_horizontal_space_swipe" />
+    <ListPreference
+        android:defaultValue="None"
+        android:entries="@array/vertical_space_swipe_entries"
+        android:entryValues="@array/vertical_space_swipe_values"
+        android:key="vertical_space_swipe_gesture_key"
+        android:persistent="true"
+        android:summary="%s"
+        android:title="@string/show_vertical_space_swipe" />
 
     <SwitchPreference
         android:key="delete_swipe"
@@ -78,12 +89,6 @@
 
     <PreferenceCategory
         android:title="@string/settings_category_experimental">
-
-        <SwitchPreference
-            android:key="space_language_slide"
-            android:title="@string/space_language_slide"
-            android:summary="@string/space_language_slide_summary"
-            android:defaultValue="false" />
 
         <SwitchPreference
             android:key="url_detection"

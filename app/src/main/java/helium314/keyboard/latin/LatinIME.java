@@ -1389,9 +1389,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public boolean onHorizontalSpaceSwipe(final int steps) {
-        if (mSettings.getCurrent().mSpaceTrackpadEnabled)
-            return onMoveCursorHorizontally(steps);
-        return false;
+        String selectedValue = mSettings.getCurrent().mSpaceHorizontalSwipe;
+        // more options can be added later
+        return switch (selectedValue) {
+            case "move_cursor" -> onMoveCursorHorizontally(steps);
+            default -> false;
+        };
     }
 
     private boolean onMoveCursorHorizontally(int steps) {
@@ -1441,11 +1444,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public boolean onVerticalSpaceSwipe(final int steps) {
-        if (mSettings.getCurrent().mSpaceLanguageSlide)
-            return onLanguageSlide(steps);
-        if (mSettings.getCurrent().mSpaceTrackpadEnabled)
-            return onMoveCursorVertically(steps);
-        return false;
+        String selectedValue = mSettings.getCurrent().mSpaceVerticalSwipe;
+        return switch (selectedValue) {
+            case "move_cursor" -> onMoveCursorVertically(steps);
+            case "switch_language" -> onLanguageSlide(steps);
+            default -> false;
+        };
     }
 
     private boolean onLanguageSlide(final int steps) {
