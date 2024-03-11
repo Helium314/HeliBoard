@@ -1390,10 +1390,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public boolean onHorizontalSpaceSwipe(final int steps) {
-        String selectedValue = mSettings.getCurrent().mSpaceHorizontalSwipe;
-        // more options can be added later
-        return switch (selectedValue) {
-            case "move_cursor" -> onMoveCursorHorizontally(steps);
+        return switch (mSettings.getCurrent().mSpaceSwipeHorizontal) {
+            case KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps);
+            case KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps);
             default -> false;
         };
     }
@@ -1445,10 +1444,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public boolean onVerticalSpaceSwipe(final int steps) {
-        String selectedValue = mSettings.getCurrent().mSpaceVerticalSwipe;
-        return switch (selectedValue) {
-            case "move_cursor" -> onMoveCursorVertically(steps);
-            case "switch_language" -> onLanguageSlide(steps);
+        return switch (mSettings.getCurrent().mSpaceSwipeVertical) {
+            case KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps);
+            case KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps);
             default -> false;
         };
     }
@@ -1470,7 +1468,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     private boolean onMoveCursorVertically(int steps) {
         if (steps == 0) return false;
-        int code = (steps < 0) ? Constants.CODE_UP : Constants.CODE_DOWN;
+        int code = (steps < 0) ? KeyCode.ARROW_UP : KeyCode.ARROW_DOWN;
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
         return true;
     }
