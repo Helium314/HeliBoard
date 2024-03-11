@@ -1,0 +1,18 @@
+apply plugin: "java"
+apply plugin: 'kotlin'
+
+ext {
+    javaMainClass = "tools.dict.MakeDictList"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.register('makeDictList', JavaExec) {
+    args project.rootProject.project('app').projectDir.path + File.separator + 'src' +
+            File.separator + 'main' + File.separator + 'assets'
+    classpath = sourceSets.main.runtimeClasspath
+    main = javaMainClass
+}

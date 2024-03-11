@@ -6,6 +6,7 @@
 
 package helium314.keyboard.keyboard.internal;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 
 import java.util.HashMap;
@@ -32,22 +33,20 @@ public final class KeyboardCodesSet {
         "key_shift",
         "key_capslock",
         "key_switch_alpha_symbol",
+        "key_switch_alpha",
+        "key_switch_symbol",
         "key_output_text",
         "key_delete",
         "key_settings",
-        "key_shortcut",
+        "key_voice_input",
         "key_action_next",
         "key_action_previous",
         "key_shift_enter",
         "key_language_switch",
         "key_emoji",
-        "key_alpha_from_emoji",
         "key_unspecified",
         "key_clipboard",
-        "key_alpha_from_clipboard",
         "key_numpad",
-        "key_alphaNumpad",
-        "key_symbolNumpad",
         "key_start_onehanded",
         "key_stop_onehanded",
         "key_switch_onehanded"
@@ -57,28 +56,26 @@ public final class KeyboardCodesSet {
         Constants.CODE_TAB,
         Constants.CODE_ENTER,
         Constants.CODE_SPACE,
-        Constants.CODE_SHIFT,
-        Constants.CODE_CAPSLOCK,
-        Constants.CODE_SWITCH_ALPHA_SYMBOL,
-        Constants.CODE_OUTPUT_TEXT,
-        Constants.CODE_DELETE,
-        Constants.CODE_SETTINGS,
-        Constants.CODE_SHORTCUT,
-        Constants.CODE_ACTION_NEXT,
-        Constants.CODE_ACTION_PREVIOUS,
-        Constants.CODE_SHIFT_ENTER,
-        Constants.CODE_LANGUAGE_SWITCH,
-        Constants.CODE_EMOJI,
-        Constants.CODE_ALPHA_FROM_EMOJI,
-        Constants.CODE_UNSPECIFIED,
-        Constants.CODE_CLIPBOARD,
-        Constants.CODE_ALPHA_FROM_CLIPBOARD,
-        Constants.CODE_NUMPAD,
-        Constants.CODE_ALPHA_FROM_NUMPAD,
-        Constants.CODE_SYMBOL_FROM_NUMPAD,
-        Constants.CODE_START_ONE_HANDED_MODE,
-        Constants.CODE_STOP_ONE_HANDED_MODE,
-        Constants.CODE_SWITCH_ONE_HANDED_MODE
+        KeyCode.SHIFT,
+        KeyCode.CAPS_LOCK,
+        KeyCode.ALPHA_SYMBOL,
+        KeyCode.ALPHA,
+        KeyCode.SYMBOL,
+        KeyCode.MULTIPLE_CODE_POINTS,
+        KeyCode.DELETE,
+        KeyCode.SETTINGS,
+        KeyCode.VOICE_INPUT,
+        KeyCode.ACTION_NEXT,
+        KeyCode.ACTION_PREVIOUS,
+        KeyCode.SHIFT_ENTER,
+        KeyCode.LANGUAGE_SWITCH,
+        KeyCode.EMOJI,
+        KeyCode.NOT_SPECIFIED,
+        KeyCode.CLIPBOARD,
+        KeyCode.NUMPAD,
+        KeyCode.START_ONE_HANDED_MODE,
+        KeyCode.STOP_ONE_HANDED_MODE,
+        KeyCode.SWITCH_ONE_HANDED_MODE
     };
 
     static {

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"واژه‌نامه موجود است"</string>
     <string name="cannot_connect_to_dict_service">"مشکل اتصال به سرویس واژه‌نامه"</string>
     <string name="no_dictionaries_available">"هیچ فرهنگ لغتی موجود نیست"</string>
-    <string name="check_for_updates_now">"بازخوانی"</string>
     <string name="last_update">"آخرین به‌روزرسانی"</string>
     <string name="main_dict_description">"واژه‌نامه اصلی"</string>
     <string name="settings">"تنظیمات"</string>

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Речникот е достапен"</string>
     <string name="cannot_connect_to_dict_service">"Проблем при поврзувањето со услугата речник"</string>
     <string name="no_dictionaries_available">"Нема достапен речник"</string>
-    <string name="check_for_updates_now">"Освежи"</string>
     <string name="last_update">"Последен пат ажурирано"</string>
     <string name="main_dict_description">"Главен речник"</string>
     <string name="settings">"Поставки"</string>

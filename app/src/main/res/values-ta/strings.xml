@@ -102,7 +102,6 @@
     <string name="dictionary_available">"அகராதி கிடைக்கிறது"</string>
     <string name="cannot_connect_to_dict_service">"அகராதி சேவையில் இணைப்பதில் பிரச்சனை ஏற்பட்டது"</string>
     <string name="no_dictionaries_available">"அகராதிகள் எதுவும் இல்லை"</string>
-    <string name="check_for_updates_now">"புதுப்பி"</string>
     <string name="last_update">"இறுதியாகப் புதுப்பித்தது"</string>
     <string name="main_dict_description">"முதன்மை அகராதி"</string>
     <string name="settings">"அமைப்பு"</string>

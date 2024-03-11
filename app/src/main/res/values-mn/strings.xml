@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Толь бичиг байна"</string>
     <string name="cannot_connect_to_dict_service">"Толь бичгийн үйлчилгээнд холбогдоход алдаа гарлаа"</string>
     <string name="no_dictionaries_available">"Толь бичиг байхгүй"</string>
-    <string name="check_for_updates_now">"Дахин шинэчлэх"</string>
     <string name="last_update">"Сүүлд шинэчлэгдсэн"</string>
     <string name="main_dict_description">"Үндсэн толь бичиг"</string>
     <string name="settings">"Тохиргоо"</string>

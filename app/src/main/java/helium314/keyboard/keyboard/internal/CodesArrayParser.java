@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard.internal;
 
 import android.text.TextUtils;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 
@@ -79,7 +80,7 @@ public final class CodesArrayParser {
         if (codeSpec.indexOf(COMMA) < 0) {
             return Integer.parseInt(codeSpec, BASE_HEX);
         }
-        return Constants.CODE_OUTPUT_TEXT;
+        return KeyCode.MULTIPLE_CODE_POINTS;
     }
 
     public static String parseOutputText(final String codesArraySpec) {

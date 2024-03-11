@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Từ điển có sẵn"</string>
     <string name="cannot_connect_to_dict_service">"Lỗi kết nối DV từ điển"</string>
     <string name="no_dictionaries_available">"Không có từ điển nào"</string>
-    <string name="check_for_updates_now">"Làm mới"</string>
     <string name="last_update">"Cập nhật lần cuối"</string>
     <string name="main_dict_description">"Từ điển chính"</string>
     <string name="settings">"Cài đặt"</string>

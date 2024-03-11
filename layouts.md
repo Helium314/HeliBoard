@@ -22,18 +22,21 @@ If you want different key label and use text, set the label to [label]|[text], e
 
 ## Json format
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
-* You can use character layouts from FlorisBoard
+* You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
+  * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
 * There is no need for specifying a code, it will be determined from the label automatically
-  * Specify it if you want key label and code to be different
-* You can add a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
+  * You can still specify it, but it's only necessary if you want key label and code to be different
+  * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
+* You can add the numeric value of a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values.
 * More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
-  * Popup keys in the layout will be in the "Layout" popup key group.
-* Add a layout entry to [method.xml](app/src/main/res/xml/method.xml)
-  * `KeyboardLayoutSet` must be set to the name of your layout file (without file ending)
-  * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. `%s` will be replaced with the language
+  * Popup keys in the layout will be in the "_Layout_" popup key group.
+* Add a layout entry to [`method.xml`](app/src/main/res/xml/method.xml)
+  * `KeyboardLayoutSet` in `android:imeSubtypeExtraValue` must be set to the name of your layout file (without file ending)
+  * `android:subtypeId` must be set to a value that is unique in this file (please use the same length as for other layouts)
+  * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. The new string should be added to default [`strings.xml`](/app/src/main/res/values/strings.xml), and optionally to other languages. `%s` will be replaced with the language.
 * If you add a new language, you might want to provide a [language_key_texts](/app/src/main/assets/language_key_texts) file
   * `[popup_keys]` section contains popup keys that are similar to the letter (like `a` and `ä` or `य` and `य़`)
     * Such forms should _not_ be in the layout. They will apply to all layouts of that language, even custom ones.
@@ -43,3 +46,5 @@ If you want different key label and use text, set the label to [label]|[text], e
   * `[labels]` may contain non-default labels for the following keys `symbol`, `alphabet`, `shift_symbol`, `shift_symbol_tablet`, `comma`, `period`, `question`
   * `[number_row]` may contain a custom number row (1-9 and 0 separated by space). You should also add the language to `numberRowLocales` in [`PreferencesSettingsFragment`](app/src/main/java/helium314/keyboard/latin/settings/PreferencesSettingsFragment.java) so the user can opt into having a localized number row.
   * `[extra_keys]` are typically keys shown in the default layout of the language. This is currently only used for latin layouts to avoid duplicating layouts for just adding few keys on the right side. The layout name need to end with `+`, but the `+` is removed when looking up the actual layout.
+* If you add a new language for which Android does not have a display name, it will be displayed using the language tag
+  * Avoiding this currently is more complicated than necessary: add the language tag to [LocaleUtils.getLocaleDisplayNameInSystemLocale](/app/src/main/java/helium314/keyboard/latin/common/LocaleUtils.kt#L181) to have an exception, and add a string named `subtype_<langage tag, but with _ instead of ->` to [`strings.xml`](/app/src/main/res/values/strings.xml). Further you may need to add a `subtype_in_root_locale_<language tag>` to [donottranslate.xml](/app/src/main/res/values/donottranslate.xml), and add the language tag to `subtype_locale_exception_keys` and `subtype_locale_displayed_in_root_locale`.

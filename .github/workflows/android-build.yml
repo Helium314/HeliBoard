@@ -1,10 +1,14 @@
-name: Build
+name: Build debug
 
 on:
   push:
-    branches: [ new ]
+  # don't run on main. I noticed I often don't push commits to avoid unnecessary workflow runs
+    branches-ignore: [ main ]
+    paths:
+      - 'app/**'
   pull_request:
-    branches: [ new ]
+    paths:
+      - 'app/**'
 
 jobs:
   build:
@@ -15,11 +19,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
+
+      - uses: gradle/actions/setup-gradle@v3
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -28,13 +33,13 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: HeliBoard-debug
           path: app/build/outputs/apk/debug/*-debug*.apk
 
       - name: Archive reports for failed job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: reports
           path: '*/build/reports'

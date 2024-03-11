@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Шукаць імёны кантактаў"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Модуль праверкі правапісу выкарыстоўвае запісы са спісу кантактаў"</string>
     <string name="vibrate_on_keypress">"Вібрацыя пры націску клавіш"</string>
@@ -17,7 +16,7 @@
     <string name="settings_screen_advanced">"Дадатковыя"</string>
     <string name="settings_screen_theme">"Тэма"</string>
     <string name="enable_split_keyboard">"Уключыць раздзеленую клавіятуру"</string>
-    <string name="language_switch_key_switch_input_method">"Перакл. да інш. спос. ув."</string>
+    <string name="language_switch_key_switch_input_method">Пераключаць метады ўводу</string>
     <string name="show_language_switch_key">"Кнопка пераключэння мовы"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> мс"</string>
     <string name="settings_system_default">"Стандартныя сістэмныя"</string>
@@ -43,7 +42,7 @@
     <string name="auto_correction_threshold_mode_very_aggressive">"Вельмі агрэсіўна"</string>
     <string name="bigram_prediction">"Падказкi для наступнага слова"</string>
     <string name="bigram_prediction_summary">"Выкарыстоўваць папярэдняе слова, каб атрымлiваць падказкi"</string>
-    <string name="gesture_input">"Уключыць набор жэстамі"</string>
+    <string name="gesture_input">Уключыць ўвод жэстамі</string>
     <string name="gesture_input_summary">"Уводзьце слова, перасоўваючы палец па літарах"</string>
     <string name="gesture_preview_trail">"Паказаць след жэста"</string>
     <string name="gesture_floating_preview_text">"Дынамічны плаваючы прагляд"</string>
@@ -53,16 +52,16 @@
     <string name="subtype_en_GB">"Англійская (Вялікабрытанія)"</string>
     <string name="subtype_en_US">"Англійская (ЗША)"</string>
     <string name="subtype_es_US">"Іспанская (ЗША)"</string>
-    <string name="subtype_hi_Latn">"Хінгліш"</string>
-    <string name="subtype_sr_Latn">"Сербская (Лацініца)"</string>
+    <string name="subtype_hi_Latn">хінгліш</string>
+    <string name="subtype_sr_Latn">сербская (Лацініца)</string>
     <string name="subtype_with_layout_en_GB">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традыцыйная)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Кампактная)</string>
-    <string name="subtype_no_language">"Стандартная (Лацініца)"</string>
+    <string name="subtype_no_language">стандартная (лацініца)</string>
     <string name="subtype_no_language_qwerty">"Лацініца (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Лацініца (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Лацініца (AZERTY)"</string>
@@ -103,7 +102,6 @@
     <string name="dictionary_available">"Даступны слоўнік"</string>
     <string name="cannot_connect_to_dict_service">"Праблема падключэння да слоўніка"</string>
     <string name="no_dictionaries_available">"Слоўнікаў няма"</string>
-    <string name="check_for_updates_now">"Абнавіць"</string>
     <string name="last_update">"Апошняе абнаўленне"</string>
     <string name="main_dict_description">"Асноўны слоўнік"</string>
     <string name="settings">"Налады"</string>
@@ -130,9 +128,9 @@
     <string name="android_spell_checker_settings">Налады праверкі правапісу HeliBoard</string>
     <string name="show_emoji_key">Клавіша эмодзі</string>
     <string name="ime_settings">Налады HeliBoard</string>
-    <string name="settings_category_input">Увод</string>
+    <string name="settings_category_input">Ўвод</string>
     <string name="settings_category_additional_keys">Дадатковыя клавішы</string>
-    <string name="spell_checker_service_name">Праграма праверкі правапісу HeliBoard</string>
+    <string name="spell_checker_service_name">Праверка правапісу HeliBoard</string>
     <string name="enable_clipboard_history">Уключыць гісторыю буфера абмену</string>
     <string name="enable_clipboard_history_summary">Калі выключана, клавіша буфера абмену будзе ўстаўляць змесціва буфера абмену, калі яно ёсць</string>
     <string name="clipboard_history_retention_time">Час захоўвання гісторыі буфера абмену</string>
@@ -174,9 +172,9 @@
     <string name="select_color_accent">Акцэнт</string>
     <string name="settings_screen_about">Даведка</string>
     <string name="version">Версія</string>
-    <string name="about_github_link" >Паглядзець на GitHub</string>
-    <string name="license" >Ліцэнзія з адкрытым зыходным кодам</string>
-    <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="about_github_link">Паглядзець на GitHub</string>
+    <string name="license">Ліцэнзія з адкрытым зыходным кодам</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">Закрыць</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Выкарыстоўваць мовы сістэмы"</string>
     <string name="text_tap_languages">Націсніце на мову, каб адкрыць наладкі</string>
@@ -193,7 +191,7 @@
     <string name="number_row">Лічбавы рад</string>
     <string name="show_hints">Паказваць ключавыя падказкі</string>
     <string name="show_hints_summary">Паказваць падказкі пры доўгім націску</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Змяняць метад уводу з дапамогай клавішы прабел</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Змяніць метад ўводу з дапамогай клавішы прабел</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Доўгі націск клавішы прабел адкрые меню выбару метаду ўводу</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="day_night_mode">Выкарыстоўваць тэму сістэмы</string>
@@ -218,4 +216,46 @@
     <string name="label_send_key">"Адпр."</string>
     <string name="label_pause_key">"Паўза"</string>
     <string name="label_wait_key">"Чакаць"</string>
+    <string name="prefs_always_show_suggestions">Заўсёды паказваць прапановы</string>
+    <string name="voice" tools:keep="@string/voice">Галасавы ўвод</string>
+    <string name="add_to_personal_dictionary">Дадаць словы ў асабісты слоўнік</string>
+    <string name="language_and_layouts_title">Мовы і раскладкі</string>
+    <string name="load_gesture_library_message">Вам спатрэбіцца бібліятэка для «%s». Несумяшчальныя бібліятэкі могуць выйсці з ладу пры выкарыстанні жэставага ўводу.
+\n
+\nПапярэджанне: загрузка знешняга кода можа пагражаць бяспецы. Выкарыстоўвайце толькі бібліятэку з крыніцы, якой давяраеце.</string>
+    <string name="load_gesture_library_button_delete">Выдаліць бібліятэку</string>
+    <string name="checksum_mismatch_message">Невядомы файл бібліятэкі. Вы ўпэўненыя, што атрымалі яго з надзейнай крыніцы, і гэта для «%s»?</string>
+    <string name="show_popup_keys_normal">Паказаць варыянты, вызначаныя ў мовах клавіятуры (па змаўчанні)</string>
+    <string name="show_popup_keys_more">Дадаць распаўсюджаныя варыянты</string>
+    <string name="show_popup_keys_all">Дадаць ўсе даступныя варыянты</string>
+    <string name="more_autocorrect">Больш аўтакарэкцыі</string>
+    <string name="split_spacer_scale">Адлегласць падзелу</string>
+    <string name="prefs_always_show_suggestions_summary">Ігнараваць запыты іншых праграм на адключэнне прапаноў</string>
+    <string name="language_switch_key_switch_subtype">Пераключыць мову</string>
+    <string name="disable_personalized_dicts_message">Папярэджанне: Адключэнне гэтай налады прывядзе да выдалення атрыманых дадзеных</string>
+    <string name="load_gesture_library_button_load">Загрузіць бібліятэку</string>
+    <string name="show_popup_keys_title">Паказаць больш літар з дыякрытычнымі знакамі пры ўтрыманні</string>
+    <string name="more_autocorrect_summary">Аўтавыпраўленне, нават калі гэта відавочна не запытана ў полі ўводу</string>
+    <string name="language_switch_key_switch_both">Пераключаць абодва</string>
+    <string name="up" tools:keep="@string/up">Уверх</string>
+    <string name="show_popup_hints">Паказаць функцыянальныя падказкі</string>
+    <string name="message_add_custom_layout">Выберыце файл у сумяшчальным фармаце. Інфармацыя пра фарматы даступна %s.</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Мова (прыярытэт)</string>
+    <string name="file_read_error">Немагчыма прачытаць файл</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Мова</string>
+    <string name="right" tools:keep="@string/right">Направа</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Буфер абмену</string>
+    <string name="down" tools:keep="@string/down">Ўніз</string>
+    <string name="toolbar_keys">Выберыце клавішы панэлі інструментаў</string>
+    <string name="full_left" tools:keep="@string/full_left">У левы канец</string>
+    <string name="select_word" tools:keep="@string/select_word">Выберыце слова</string>
+    <string name="left" tools:keep="@string/left">Налева</string>
+    <string name="button_title_add_custom_layout">Дадаць уласную раскладку</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Сімвалы</string>
+    <string name="full_right" tools:keep="@string/full_right">У правы канец</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Ачысціць буфер абмену</string>
+    <string name="button_load_custom">Загрузіць файл</string>
+    <string name="prefs_bottom_padding_scale">Вышыня ніжняй водступу</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Рэжым адной рукой</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
 </resources>

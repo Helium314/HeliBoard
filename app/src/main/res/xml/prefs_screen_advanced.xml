@@ -101,12 +101,9 @@
             android:title="@string/customize_background_image" />
 
         <Preference
-            android:key="custom_symbols_layout"
-            android:title="@string/customize_symbols" />
-
-        <Preference
-            android:key="custom_shift_symbols_layout"
-            android:title="@string/customize_shift_symbols" />
+            android:key="custom_symbols_number_layouts"
+            android:title="@string/customize_symbols_number_layouts"
+            android:summary="@string/customize_symbols_number_layouts_summary" />
 
         <Preference
             android:key="load_gesture_library"

@@ -9,6 +9,7 @@ package helium314.keyboard.latin;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.internal.KeySpecParser;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 
@@ -62,7 +63,7 @@ public final class PunctuationSuggestions extends SuggestedWords {
     public String getWord(final int index) {
         final String keySpec = super.getWord(index);
         final int code = KeySpecParser.getCode(keySpec);
-        return (code == Constants.CODE_OUTPUT_TEXT)
+        return (code == KeyCode.MULTIPLE_CODE_POINTS)
                 ? KeySpecParser.getOutputText(keySpec)
                 : StringUtils.newSingleCodePointString(code);
     }

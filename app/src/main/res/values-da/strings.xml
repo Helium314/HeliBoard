@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Ordbog er tilgængelig"</string>
     <string name="cannot_connect_to_dict_service">"Ingen ordbogstjeneste"</string>
     <string name="no_dictionaries_available">"Ingen tilg. ordbøger"</string>
-    <string name="check_for_updates_now">"Opdater"</string>
     <string name="last_update">"Sidst opdateret"</string>
     <string name="main_dict_description">"Hovedordbog"</string>
     <string name="settings">"Indstillinger"</string>

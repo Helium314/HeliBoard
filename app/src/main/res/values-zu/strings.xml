@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Isichazamazwi siyatholakala"</string>
     <string name="cannot_connect_to_dict_service">"Inkinga yokuxhumanisa kusevisi yesichazamazwi"</string>
     <string name="no_dictionaries_available">"Azikho izachazimazwi ezitholakalayo"</string>
-    <string name="check_for_updates_now">"Qala kabusha"</string>
     <string name="last_update">"Igcine ukulungiswa"</string>
     <string name="main_dict_description">"Isichazamazwi sakho esisemqoka"</string>
     <string name="settings">"Izilungiselelo"</string>

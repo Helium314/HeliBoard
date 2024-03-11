@@ -6,8 +6,8 @@ labels: enhancement
 
 <!--
 Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
-If you have more than one feature request, open mulitple issues (one for each) unleass the requests are closely related.
-Note that given the number of feature requests and available developer time, it may take a long time until the feasture request gets attention.
+If you have more than one feature request, open multiple issues (one for each) unless the requests are closely related.
+Note that given the number of feature requests and available developer time, it may take a long time until the feature request gets attention.
 When a "PR" or "contributor needed" label is added, the feature request is accepted, and interested contributors are welcome to work on this (please comment when you're working on an issue).
 -->
 

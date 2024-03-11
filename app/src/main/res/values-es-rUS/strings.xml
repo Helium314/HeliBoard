@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Diccionario disponible"</string>
     <string name="cannot_connect_to_dict_service">"Err. conex. con dic."</string>
     <string name="no_dictionaries_available">"No hay diccionarios."</string>
-    <string name="check_for_updates_now">"Actualizar"</string>
     <string name="last_update">"Última actualización"</string>
     <string name="main_dict_description">"Diccionario principal"</string>
     <string name="settings">"Configuración"</string>

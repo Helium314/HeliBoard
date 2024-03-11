@@ -102,7 +102,6 @@
     <string name="dictionary_available">"ხელმისაწვდომია ლექსიკონი"</string>
     <string name="cannot_connect_to_dict_service">"ლექსიკონის სერვისთან დაკავშირებით პრობლემა წარმოიშვა"</string>
     <string name="no_dictionaries_available">"ლექსიკონები მიუწვდომელია"</string>
-    <string name="check_for_updates_now">"განახლება"</string>
     <string name="last_update">"ბოლო განახლება"</string>
     <string name="main_dict_description">"მთავარი ლექსიკონი"</string>
     <string name="settings">"პარამეტრები"</string>

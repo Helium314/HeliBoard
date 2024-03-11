@@ -16,6 +16,7 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.KeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.define.DebugFlags
@@ -207,9 +208,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     // reduce width of symbol and action key if in the row, and add this width to space to keep other key size constant
+    // todo: this assumes fixed layout for symbols keys, which will change soon!
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
         val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
-        val symbolKey = row.firstOrNull { it.mCode == Constants.CODE_SWITCH_ALPHA_SYMBOL }
+        val symbolKey = row.firstOrNull { it.mCode == KeyCode.ALPHA_SYMBOL }
         val symbolKeyWidth = symbolKey?.mRelativeWidth ?: 0f
         if (symbolKeyWidth > mParams.mDefaultRelativeKeyWidth) {
             val widthToChange = symbolKey!!.mRelativeWidth - mParams.mDefaultRelativeKeyWidth

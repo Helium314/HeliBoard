@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Сөздік қолжетімді"</string>
     <string name="cannot_connect_to_dict_service">"Сөздік қызметіне қосылу мәселесі"</string>
     <string name="no_dictionaries_available">"Сөздіктер қолжетімсіз"</string>
-    <string name="check_for_updates_now">"Жаңарту"</string>
     <string name="last_update">"Соңғы жаңартылған"</string>
     <string name="main_dict_description">"Негізгі сөздік"</string>
     <string name="settings">"Параметрлер"</string>

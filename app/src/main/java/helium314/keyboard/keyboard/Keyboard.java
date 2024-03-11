@@ -16,6 +16,7 @@ import com.android.inputmethod.keyboard.ProximityInfo;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 
@@ -180,7 +181,7 @@ public class Keyboard {
 
     @Nullable
     public Key getKey(final int code) {
-        if (code == Constants.CODE_UNSPECIFIED) {
+        if (code == KeyCode.NOT_SPECIFIED) {
             return null;
         }
         synchronized (mKeyCache) {

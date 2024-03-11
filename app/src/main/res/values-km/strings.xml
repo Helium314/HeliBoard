@@ -102,7 +102,6 @@
     <string name="dictionary_available">"វចនានុក្រម​​​អាច​ប្រើ​បាន"</string>
     <string name="cannot_connect_to_dict_service">"មាន​បញ្ហា​ក្នុង​ការ​​ភ្ជាប់​ទៅ​​សេវា​កម្ម​វចនានុក្រម"</string>
     <string name="no_dictionaries_available">"គ្មាន​វចនានុក្រម"</string>
-    <string name="check_for_updates_now">"ផ្ទុក​ឡើងវិញ"</string>
     <string name="last_update">"បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"</string>
     <string name="main_dict_description">"វចនានុក្រម​ចម្បង"</string>
     <string name="settings">"ការ​កំណត់"</string>

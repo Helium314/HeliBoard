@@ -53,11 +53,13 @@
     <string name="subtype_en_US">"English (US)"</string>
     <string name="subtype_es_US">"Spanish (US)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
+    <string name="subtype_xdq">"Kaitag"</string>
     <string name="subtype_sr_Latn">"Serbian (Latin)"</string>
     <string name="subtype_with_layout_en_GB">"English (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US">"English (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US">"Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_xdq">"Kaitag (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_sr_Latn">"Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
@@ -102,7 +104,6 @@
     <string name="dictionary_available">"Dictionary available"</string>
     <string name="cannot_connect_to_dict_service">"Problem connecting to dictionary service"</string>
     <string name="no_dictionaries_available">"No dictionaries available"</string>
-    <string name="check_for_updates_now">"Refresh"</string>
     <string name="last_update">"Last updated"</string>
     <string name="main_dict_description">"Main dictionary"</string>
     <string name="settings">"Settings"</string>

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Galimas žodynas"</string>
     <string name="cannot_connect_to_dict_service">"Prisijung. problema"</string>
     <string name="no_dictionaries_available">"Nėra galimų žodynų"</string>
-    <string name="check_for_updates_now">"Atnaujinti"</string>
     <string name="last_update">"Paskutinį kartą atnaujinta"</string>
     <string name="main_dict_description">"Pagrindinis žodynas"</string>
     <string name="settings">"Nustatymai"</string>

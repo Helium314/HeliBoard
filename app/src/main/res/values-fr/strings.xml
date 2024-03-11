@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Rechercher les noms de contacts"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Le correcteur orthographique utilise les noms des contacts."</string>
     <string name="vibrate_on_keypress">"Vibrer à chaque touche"</string>
@@ -92,9 +91,7 @@
     <string name="delete_layout">Souhaitez-vous réellement supprimer la disposition personnalisée %s?</string>
     <string name="layout_error">Erreur de disposition : %s</string>
     <string name="edit_layout">Appuyez pour modifier la disposition d\'origine</string>
-    <string name="customize_symbols">Personnaliser la dispostion des symboles</string>
-    <string name="customize_shift_symbols">Personnaliser davantage la disposition des symboles</string>
-    <string name="shift_symbols">Plus de symboles</string>
+    <string name="layout_symbols_shifted">Plus de symboles</string>
     <string name="customize_background_image">Définir une image d\'arrière-plan</string>
     <string name="day_or_night_image">Définir l\'image pour le mode jour ou nuit ?</string>
     <string name="day_or_night_day">Jour</string>
@@ -151,7 +148,6 @@ Nouveau dictionnaire:
     <string name="dictionary_available">"Dictionnaire disponible"</string>
     <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
     <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
-    <string name="check_for_updates_now">"Actualiser"</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="main_dict_description">"Dictionnaire principal"</string>
     <string name="delete">"Supprimer"</string>
@@ -273,9 +269,9 @@ Nouveau dictionnaire:
     <string name="select_color_accent">Couleur d\'accentuation</string>
     <string name="select_color_gesture">Saisie gestuelle</string>
     <string name="settings_screen_about">À propos</string>
-    <string name="about_github_link" >Lien vers GitHub</string>
+    <string name="about_github_link">Lien vers GitHub</string>
     <string name="save_log">Sauvegarder le journal</string>
-    <string name="license" >Licence Open-source</string>
+    <string name="license">Licence Open-source</string>
     <string name="incognito">Forcer le mode incognito</string>
     <string name="theme_style">Style</string>
     <string name="style_name_Rounded">Arrondi</string>
@@ -313,27 +309,27 @@ Nouveau dictionnaire:
     <string name="hidden_features_summary">Montre les caractéristiques qui peuvent passer inaperçues</string>
     <string name="hidden_features_text">stockage protégé de l\'appareil</string>
     <string name="hidden_features_message">
-        &#9658; Un appui long sur la touche presse-papiers (celle qui est optionnelle dans la bande de suggestions) permet de coller le contenu du presse-papiers. &lt;br&gt; &lt;br&gt;
-        &#9658; Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
-        &#9658; Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
-        \t&#8226; l\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
-        \t&#8226; pour certaines dispositions, ce n\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
-        &#9658; Lorsque le mode incognito est activé, aucun mot n\'est appris et aucun emojis n\'est ajouté à la catégorie récent. &lt;br&gt; &lt;br&gt;
-        &#9658; Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
-        &#9658; Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
-        \t&#8226; fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
-        &#9658; Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
-        &#9658; Balayez vers le haut à partir d\'une suggestion pour ouvrir d\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt;
-        &#9658; Appuyez longuement sur une entrée dans l\'historique du presse-papiers pour l\'épingler (elle reste dans le presse-papiers jusqu\'à ce que vous la désépingliez). &lt;br&gt; &lt;br&gt;
-        &#9658; Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt;
-        \t&#8226; ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
+        ► Un appui long sur la touche presse-papiers (celle qui est optionnelle dans la bande de suggestions) permet de coller le contenu du presse-papiers. &lt;br&gt; &lt;br&gt;
+        ► Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
+        ► Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
+        \t• l\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
+        \t• pour certaines dispositions, ce n\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak). &lt;br&gt; &lt;br&gt;
+        ► Lorsque le mode incognito est activé, aucun mot n\'est appris et aucun emojis n\'est ajouté à la catégorie récent. &lt;br&gt; &lt;br&gt;
+        ► Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
+        ► Saisie par balayage des touches : passez de la touche Maj à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
+        \t• fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées. &lt;br&gt; &lt;br&gt;
+        ► Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
+        ► Balayez vers le haut à partir d\'une suggestion pour ouvrir d\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt;
+        ► Appuyez longuement sur une entrée dans l\'historique du presse-papiers pour l\'épingler (elle reste dans le presse-papiers jusqu\'à ce que vous la désépingliez). &lt;br&gt; &lt;br&gt;
+        ► Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt;
+        \t• ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
         &lt;i&gt; Mode debug / APK de debogage &lt;/i&gt; &lt;br&gt; &lt;br&gt;
-        \t&#8226; Un appui-long sur une suggestion montre la source du dictionnaire.&lt;br&gt; &lt;br&gt;
-        \t&#8226; Lorsque vous utilisez l\'APK de débogage, vous trouverez les paramètres de débogage dans les préférences avancées, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
-        \t&#8226; Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
-        \t&#8226; Lors de la saisie multilingue, la barre d\'espace affiche une valeur de fiabilité utilisée pour déterminer la langue en cours d\'utilisation. &lt;br&gt; &lt;br&gt;
-        \t&#8226; Les suggestions seront accompagnées de petits chiffres indiquant un score interne et la source du dictionnaire (peut être désactivé). &lt;br&gt; &lt;br&gt;
-        &#9658; Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut car l\'application utilise le %s. &lt;br&gt;
+        \t• Un appui-long sur une suggestion montre la source du dictionnaire.&lt;br&gt; &lt;br&gt;
+        \t• Lorsque vous utilisez l\'APK de débogage, vous trouverez les paramètres de débogage dans les préférences avancées, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; &lt;br&gt;
+        \t• Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
+        \t• Lors de la saisie multilingue, la barre d\'espace affiche une valeur de fiabilité utilisée pour déterminer la langue en cours d\'utilisation. &lt;br&gt; &lt;br&gt;
+        \t• Les suggestions seront accompagnées de petits chiffres indiquant un score interne et la source du dictionnaire (peut être désactivé). &lt;br&gt; &lt;br&gt;
+        ► Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : à partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut car l\'application utilise le %s. &lt;br&gt;
         Cela est nécessaire pour que les paramètres puissent être lus avant que l\'appareil ne soit déverrouillé, par exemple au démarrage. &lt;br&gt;
         Le fichier se trouve dans &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt;, mais cela peut dépendre de l\'appareil et de la version d\'Android.</string>
     <string name="use_personalized_dicts_summary">"Améliore les suggestions en fonction des messages et des données saisies"</string>
@@ -345,4 +341,8 @@ Nouveau dictionnaire:
     <string name="label_search_key">"Rech."</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Attente"</string>
+    <string name="subtype_no_language_bepo">Alphabet (Bépo)</string>
+    <string name="available_dictionary_experimental">%s (expérimental)</string>
+    <string name="version">Version</string>
+    <string name="file_read_error">Impossible de lire le fichier</string>
 </resources>

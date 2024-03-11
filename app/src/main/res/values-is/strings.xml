@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Orðabók í boði"</string>
     <string name="cannot_connect_to_dict_service">"Vandamál við að tengjast orðabókarþjónustu"</string>
     <string name="no_dictionaries_available">"Engar orðabækur"</string>
-    <string name="check_for_updates_now">"Endurnýja"</string>
     <string name="last_update">"Síðast uppfært"</string>
     <string name="main_dict_description">"Aðalorðabók"</string>
     <string name="settings">"Stillingar"</string>

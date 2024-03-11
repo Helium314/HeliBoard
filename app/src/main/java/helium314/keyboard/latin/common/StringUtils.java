@@ -9,6 +9,7 @@ package helium314.keyboard.latin.common;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.util.ArrayList;
@@ -586,7 +587,7 @@ public final class StringUtils {
         final String label = newSingleCodePointString(code);
         final String titleCaseLabel = toTitleCaseOfKeyLabel(label, locale);
         return codePointCount(titleCaseLabel) == 1
-                ? titleCaseLabel.codePointAt(0) : Constants.CODE_UNSPECIFIED;
+                ? titleCaseLabel.codePointAt(0) : KeyCode.NOT_SPECIFIED;
     }
 
     public static int getTrailingSingleQuotesCount(@NonNull final CharSequence charSequence) {

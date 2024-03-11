@@ -102,7 +102,6 @@
     <string name="dictionary_available">"En ordlista är tillgänglig"</string>
     <string name="cannot_connect_to_dict_service">"Problem med att ansluta till ordlistetjänsten"</string>
     <string name="no_dictionaries_available">"Inga ordlistor finns"</string>
-    <string name="check_for_updates_now">"Uppdatera"</string>
     <string name="last_update">"Informationen uppdaterades senast"</string>
     <string name="main_dict_description">"Huvudordlista"</string>
     <string name="settings">"Inställningar"</string>

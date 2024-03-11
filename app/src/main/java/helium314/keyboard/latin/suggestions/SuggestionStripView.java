@@ -45,6 +45,7 @@ import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.R;
@@ -645,7 +646,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onClick(final View view) {
-        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.CODE_UNSPECIFIED, this);
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
         final Object tag = view.getTag();
         if (tag instanceof ToolbarKey) {
             final Integer code = getCodeForToolbarKey((ToolbarKey) tag);

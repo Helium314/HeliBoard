@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 
@@ -46,8 +47,10 @@ class AboutFragment : SubScreenFragment() {
     private val logFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = result.data?.data ?: return@registerForActivityResult
-        activity?.contentResolver?.openOutputStream(uri)?.use { os ->
-            os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
+            activity?.contentResolver?.openOutputStream(uri)?.use { os ->
+                os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
+            }
         }
     }
 

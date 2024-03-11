@@ -94,7 +94,7 @@
     te_IN: Telugu (India)/telugu
     th: Thai/thai
     tl: Tagalog/qwerty+
-    tr: Turkish/qwerty
+    tr: Turkish/turkish
     ur_PK: Urdu Pakistan
     uk: Ukrainian/ukrainian
     uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
@@ -616,6 +616,15 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_xdq"
+            android:subtypeId="0xa3f4d8e2"
+            android:imeSubtypeLocale="xdq"
+            android:languageTag="xdq"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=kaitag,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x6c624c55"
             android:imeSubtypeLocale="lb"
@@ -916,7 +925,7 @@
             android:imeSubtypeLocale="tr"
             android:languageTag="tr"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwerty+,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=turkish,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"

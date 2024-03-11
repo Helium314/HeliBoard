@@ -53,6 +53,29 @@ fun hasLetterBeforeLastSpaceBeforeCursor(s: CharSequence): Boolean {
     return letter
 }
 
+/** get the complete emoji at end of [s], considering that emojis can be joined with ZWJ resulting in different emojis */
+fun getFullEmojiAtEnd(s: CharSequence): String {
+    val text = if (s is String) s else s.toString()
+    var offset = text.length
+    while (offset > 0) {
+        val codepoint = text.codePointBefore(offset)
+        // stop if codepoint can't be emoji
+        if (!mightBeEmoji(codepoint)) return ""
+        offset -= Character.charCount(codepoint)
+        if (offset > 0 && text[offset - 1].code == Constants.CODE_ZWJ) {
+            // continue if ZWJ
+            offset -= 1
+            continue
+        }
+        // check the whole text after offset
+        val textToCheck = text.substring(offset)
+        if (isEmoji(textToCheck)) {
+            return textToCheck
+        }
+    }
+    return ""
+}
+
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
 fun String.splitOnFirstSpacesOnly(): List<String> {
     val out = mutableListOf<String>()

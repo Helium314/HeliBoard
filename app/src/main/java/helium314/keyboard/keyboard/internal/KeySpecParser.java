@@ -6,12 +6,10 @@
 
 package helium314.keyboard.keyboard.internal;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
-
-import static helium314.keyboard.latin.common.Constants.CODE_OUTPUT_TEXT;
-import static helium314.keyboard.latin.common.Constants.CODE_UNSPECIFIED;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -184,12 +182,12 @@ public final class KeySpecParser {
     public static int getCode(@Nullable final String keySpec) {
         if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            return CODE_UNSPECIFIED;
+            return KeyCode.NOT_SPECIFIED;
         }
         final int labelEnd = indexOfLabelEnd(keySpec);
         if (hasCode(keySpec, labelEnd)) {
             checkDoubleLabelEnd(keySpec, labelEnd);
-            return parseCode(getAfterLabelEnd(keySpec, labelEnd), CODE_UNSPECIFIED);
+            return parseCode(getAfterLabelEnd(keySpec, labelEnd), KeyCode.NOT_SPECIFIED);
         }
         final String outputText = getOutputTextInternal(keySpec, labelEnd);
         if (outputText != null) {
@@ -198,16 +196,16 @@ public final class KeySpecParser {
             if (StringUtils.codePointCount(outputText) == 1) {
                 return outputText.codePointAt(0);
             }
-            return CODE_OUTPUT_TEXT;
+            return KeyCode.MULTIPLE_CODE_POINTS;
         }
         final String label = getLabel(keySpec);
         if (label == null) {
             if (DebugFlags.DEBUG_ENABLED)
                 throw new KeySpecParserError("Empty label: " + keySpec);
-            else return CODE_OUTPUT_TEXT;
+            else return KeyCode.MULTIPLE_CODE_POINTS;
         }
         // Code is automatically generated for one letter label.
-        return (StringUtils.codePointCount(label) == 1) ? label.codePointAt(0) : CODE_OUTPUT_TEXT;
+        return (StringUtils.codePointCount(label) == 1) ? label.codePointAt(0) : KeyCode.MULTIPLE_CODE_POINTS;
     }
 
     public static int parseCode(@Nullable final String text, final int defaultCode) {

@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Lug‘at mavjud"</string>
     <string name="cannot_connect_to_dict_service">"Ulanib bo‘lmadi"</string>
     <string name="no_dictionaries_available">"Lug‘at mavjud emas"</string>
-    <string name="check_for_updates_now">"Yangilash"</string>
     <string name="last_update">"So‘nggi marta yangilandi"</string>
     <string name="main_dict_description">"Asosiy lug‘at"</string>
     <string name="settings">"Sozlamalar"</string>

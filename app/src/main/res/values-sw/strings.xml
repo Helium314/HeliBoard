@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Kamusi inapatikana"</string>
     <string name="cannot_connect_to_dict_service">"Tatizo wakati wa kuunganisha kwenye huduma ya kamusi"</string>
     <string name="no_dictionaries_available">"Hakuna kamusi inayopatikana"</string>
-    <string name="check_for_updates_now">"Onyesha upya"</string>
     <string name="last_update">"Ilibadilishwa mwisho"</string>
     <string name="main_dict_description">"Kamusi kuu"</string>
     <string name="settings">"Mipangilio"</string>

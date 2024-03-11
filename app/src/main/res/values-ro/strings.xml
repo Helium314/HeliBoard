@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Dicționar disponibil"</string>
     <string name="cannot_connect_to_dict_service">"Eroare conectare la serviciu dicționar"</string>
     <string name="no_dictionaries_available">"Niciun dicționar"</string>
-    <string name="check_for_updates_now">"Actualizați"</string>
     <string name="last_update">"Data ultimei modificări"</string>
     <string name="main_dict_description">"Dicționar principal"</string>
     <string name="settings">"Setări"</string>

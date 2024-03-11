@@ -12,6 +12,7 @@ import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.SettingsValues;
 
@@ -82,7 +83,7 @@ public final class AudioAndHapticFeedbackManager {
         }
         final int sound;
         switch (code) {
-        case Constants.CODE_DELETE:
+        case KeyCode.DELETE:
             sound = AudioManager.FX_KEYPRESS_DELETE;
             break;
         case Constants.CODE_ENTER:

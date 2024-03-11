@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.PointerTracker;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 
@@ -104,7 +105,7 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
         }
         // Use a separate message id for long pressing shift key, because long press shift key
         // timers should be canceled when other key is pressed.
-        final int messageId = (key.getCode() == Constants.CODE_SHIFT)
+        final int messageId = (key.getCode() == KeyCode.SHIFT)
                 ? MSG_LONGPRESS_SHIFT_KEY : MSG_LONGPRESS_KEY;
         sendMessageDelayed(obtainMessage(messageId, tracker), delay);
     }

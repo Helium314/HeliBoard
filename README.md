@@ -1,5 +1,6 @@
 # HeliBoard
 HeliBoard is a privacy-conscious and customizable open-source keyboard, based on AOSP / OpenBoard.
+Does not use internet permission, and thus is 100% offline.
 
 ## Table of Contents
 
@@ -11,36 +12,45 @@ HeliBoard is a privacy-conscious and customizable open-source keyboard, based on
    * [Translation](#translation)
    * [Dictionary Creation](#dictionary-creation)
    * [Code Contribution](#code-contribution)
+- [To-do](#to-do)
 - [License](#license)
 - [Credits](#credits)
 
 # Features
 * Add dictionaries for suggestions and spell check
   * build your own, or get them [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
-  * add them in language settings (click on the language, then on `+` next to _dictionary_), or open the file in a file explorer
   * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
   * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
 * Customize keyboard themes (style, colors and background image)
   * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
   * can follow dynamic colors for Android 12+
-* Customize keyboard [layouts](layouts.md)
+* Customize keyboard [layouts](layouts.md) (only available when disabling _use system languages_)
 * Multilingual typing
-* Glide typing (_only with closed source library_)
+* Glide typing (_only with closed source library_ ☹️)
   * library not included in the app, as there is no compatible open source library available
   * can be extracted from GApps packages ("_swypelibs_"), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
   * if you are concerned about security implications of loading user-provides libraries, please use the _nouserlib_ build variant, which removes this option. If HeliBoard is installed as system app, and _swypelibs_ are available for the system, they will be used.
+  * If the app is installed as a system app and _swypelibs_ are available, glide typing will be available independent of the version.
 * Clipboard history
 * One-handed mode
-* Split keyboard (if the screen is large enough)
+* Split keyboard (only available if the screen is large enough)
 * Number pad
 * Backup and restore your learned word / history data
 
 ## FAQ / Common Issues
-* __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search funtion does not exist.
+* __Add a dictionary__: First download the dictionary file, e.g. from [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries). Then go to language settings, click on the language, then on `+` next to _dictionary_ the _add_ and select the file. Alternatively you can open a `.dict` file in a file explorer with HeliBoard and then select the language. Note that the latter method does not work with all file explorers.
+* __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search function does not exist yet.
+* __Cannot switch choose layout__: This is only possible when _use system languages_ is disabled.
 * __No suggestions for some language__: Check [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries) whether a dictionary is available. If there is one, download it and add it in the language settings for this language.
 * __No suggestions in some app / text field__: This app respects the [no suggestions flag](https://developer.android.com/reference/android/text/InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS) set by some input fields, i.e. the developer does not want you to see suggestions here. Best do in issue report for that app if you think this behavior is wrong. Alternatively you can enable the _always show suggestions_ setting that overrides the _no suggestions_ flag.
-* __How to enable glide typing__: There is no glide typing built into this app, but you can load compatible libraries: Go to advanced settings -> _load gesture typing library_ and point to a file. You can extract the file from GApps packages ("_swypelibs_"), or download one [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs). Make sure to use the correct version (app will tell you in the dialog to load the library).
-* (_to be expanded_...) <!-- auto-correct? incognito always on? can't load library? -->
+* __Multilingual typing__: Enable in _Languages & Layouts_, select the main language and tap the `+` button next to _multilingual typing_ to add a language. Note that the selection is limited to languages with the same script as the main language, and to languages that have a dictionary (see above for how to add).
+* __How to enable glide typing__: There is no glide typing built into this app, but you can load compatible libraries: Go to advanced settings -> _load gesture typing library_ and point to a file (setting not available in _nouserlib_ version). You can extract the file from GApps packages ("_swypelibs_"), or download one [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs). Make sure to use the correct version (app will tell you in the dialog to load the library).
+  * __Glide typing is not working after loading a library__: Possibly the download was corrupted, or you downloaded the wrong file. If you get a "_unknown file_" confirmation popup, it is likely you are not using the correct file (or you might be using a different version of the library).
+* __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
+  > Dynamically loading code from locations other than the application's library directory or the Android platform's built-in library directories is dangerous, as there is an increased risk that the code could have been tampered with. Applications should use loadLibrary when possible, which provides increased assurance that libraries are loaded from one of these safer locations. Application developers should use the features of their development environment to place application native libraries into the lib directory of their compiled APKs.
+
+  The app checks the SHA256 checksum of the library and warns the user if it doesn't match with known library versions. A mismatch indicates the library was modified, but may also occur if the user intentionally provides a different library than expected (e.g. a self-built variant).
+* (_to be expanded_...)
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
@@ -63,7 +73,7 @@ Features that may go unnoticed, and further potentially useful information
   * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
   * When using debug APK, you can find Debug Settings within the Advanced Preferences, though the usefulness is limited except for dumping dictionaries into the log.
   * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings.
-  * When using multilingual typing, space bar will show an confidence value used for determining the currenly used language.
+  * When using multilingual typing, space bar will show an confidence value used for determining the currently used language.
   * Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled)
 * For users doing manual backups with root access: Starting at Android 7, some files and the main shared preferences file are not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings and layout files can be read before the device is unlocked, e.g. at boot. The files are usually located in `/data/user_de/0/<package_id>/`, though the location may depend on the device and Android version.
 
@@ -77,10 +87,11 @@ Before opening a new issue, be sure to check the following:
  - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues). Please search open and closed issues.
  - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
  - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
-Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
+Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, not providing a proper description, or addressing multiple topics).
 
 ## Translation
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
+Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 
 ## Dictionary Creation
 There will not be any further dictionaries bundled in this app. However, you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries).
@@ -112,11 +123,30 @@ In addition to previous elements, HeliBoard must stick to [F-Droid inclusion gui
 
 ### Adding Layouts
 
-See [layouts.md](layouts.md) for how to add new layouts to the app.
+See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new layouts to the app.
 
 ### Update Emojis
 
 See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
+
+### Update List of Existing Dictionaries
+
+See make-dict-list tool [README](tools/make-dict-list/README.md).
+
+# To-do
+Planned features and improvements
+* Customizable functional key layout
+  * Will likely result in having the same functional key layout for alphabet and symbols layouts
+* Support for _alt_, _ctrl_, _meta_ and _fn_  (#479)
+* Less complicated addition of languages (e.g. #519)
+* Additional and customizable key swipe functionality
+  * Some functionality will not be possible when using glide typing
+* Ability to enter all emojis independent of Android version (optional, #297)
+* (limited) support for customizing _all_ internally used colors
+* Add and enable emoji dictionaries by default (if available for language)
+* Clearer / more intuitive arrangement of settings
+  * Maybe hide some less used settings by default (similar to color customization)
+* Bug fixes
 
 # License
 

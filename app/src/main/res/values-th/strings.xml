@@ -102,7 +102,6 @@
     <string name="dictionary_available">"มีพจนานุกรมให้ใช้งาน"</string>
     <string name="cannot_connect_to_dict_service">"พบปัญหาขณะเชื่อมต่อ"</string>
     <string name="no_dictionaries_available">"ไม่มีพจนานุกรม"</string>
-    <string name="check_for_updates_now">"รีเฟรช"</string>
     <string name="last_update">"ปรับปรุงแก้ไขครั้งล่าสุด"</string>
     <string name="main_dict_description">"พจนานุกรมหลัก"</string>
     <string name="settings">"การตั้งค่า"</string>

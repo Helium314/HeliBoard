@@ -3,6 +3,7 @@
 package helium314.keyboard.latin.common
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.TypedArray
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
@@ -33,6 +35,7 @@ import helium314.keyboard.latin.utils.brightenOrDarken
 import helium314.keyboard.latin.utils.darken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isDarkColor
+import java.util.EnumMap
 
 interface Colors {
     // these theme parameters should no be in here, but are still used
@@ -397,15 +400,6 @@ class DefaultColors (
     private var backgroundSetupDone = false
 
     init {
-        if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
-            val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
-            navBar = darkerBackground
-            keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
-            backgroundSetupDone = true
-        } else {
-            navBar = background
-        }
-
         if (isDarkColor(background)) {
             adjustedBackground = brighten(background)
             doubleAdjustedBackground = brighten(adjustedBackground)
@@ -415,14 +409,29 @@ class DefaultColors (
         }
         adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
 
-        val stripBackground = if (keyboardBackground == null && !hasKeyBorders) {
-            if (isDarkColor(background)) 0x16ffffff else 0x11000000
+        val stripBackground: Int
+        val pressedStripElementBackground: Int
+        if (keyboardBackground != null || (themeStyle == STYLE_HOLO && hasKeyBorders)) {
+            stripBackground = Color.TRANSPARENT
+            pressedStripElementBackground = if (isDarkColor(background)) 0x22ffffff // assume background is similar to the background color
+                else 0x11000000
+        } else if (hasKeyBorders) {
+            stripBackground = background
+            pressedStripElementBackground = adjustedBackground
         } else {
-            Color.TRANSPARENT
+            stripBackground = adjustedBackground
+            pressedStripElementBackground = doubleAdjustedBackground
         }
-        val pressedStripElementBackground = if (keyboardBackground == null) adjustedBackground
-            else if (isDarkColor(background)) 0x22ffffff else 0x11000000
         stripBackgroundList = stateList(pressedStripElementBackground, stripBackground)
+
+        if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
+            val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
+            navBar = darkerBackground
+            keyboardBackground = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(background, darkerBackground))
+            backgroundSetupDone = true
+        } else {
+            navBar = background
+        }
 
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
         if (hasKeyBorders) {
@@ -535,6 +544,68 @@ class DefaultColors (
         ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color)) // create color filter (not great for performance, so the frequently used filters should be stored)
     }
+}
+
+// todo: allow users to use this class
+//  the colorMap should be stored in settings
+//   settings read and write untested
+//  color settings should add another menu option for "all colors"
+//   just show all ColorTypes with current value read from the map (default to black, same as in get)
+//   no string name, as it is not stable
+class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val themeStyle: String, override val hasKeyBorders: Boolean) : Colors {
+    private var keyboardBackground: Drawable? = null
+    private val stateListMap = EnumMap<ColorType, ColorStateList>(ColorType::class.java)
+    private var backgroundSetupDone = false
+    override fun get(color: ColorType): Int = colorMap[color] ?: Color.BLACK
+
+    override fun setColor(drawable: Drawable, color: ColorType) {
+        val colorStateList = stateListMap.getOrPut(color) { stateList(brightenOrDarken(get(color), true), get(color)) }
+        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.MULTIPLY)
+        DrawableCompat.setTintList(drawable, colorStateList)
+    }
+
+    override fun setColor(view: ImageView, color: ColorType) {
+        setColor(view.drawable, color)
+    }
+
+    override fun setBackground(view: View, color: ColorType) {
+        if (view.background == null)
+            view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
+        when (color) {
+            ONE_HANDED_MODE_BUTTON -> setColor(view.background, BACKGROUND) // button has no separate background color
+            MAIN_BACKGROUND -> {
+                if (keyboardBackground != null) {
+                    if (!backgroundSetupDone) {
+                        keyboardBackground = BitmapDrawable(view.context.resources, keyboardBackground!!.toBitmap(view.width, view.height))
+                        backgroundSetupDone = true
+                    }
+                    view.background = keyboardBackground
+                } else {
+                    setColor(view.background, color)
+                }
+            }
+            else -> setColor(view.background, color)
+        }
+    }
+}
+
+fun readAllColorsMap(prefs: SharedPreferences): EnumMap<ColorType, Int> {
+    val s = prefs.getString("all_colors", "") ?: ""
+    val c = EnumMap<ColorType, Int>(ColorType::class.java)
+    s.split(";").forEach {
+        val ct = try {
+            ColorType.valueOf(it.substringBefore(",").uppercase())
+        } catch (_: Exception) { // todo: which one?
+            return@forEach
+        }
+        val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
+        c[ct] = i
+    }
+    return c
+}
+
+fun writeAllColorsMap(c: EnumMap<ColorType, Int>, prefs: SharedPreferences) {
+    prefs.edit { putString("all_colors", c.map { "${it.key},${it.value}" }.joinToString(";")) }
 }
 
 private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter {

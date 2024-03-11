@@ -91,7 +91,7 @@ object LocaleUtils {
      * @param tested the locale to test.
      * @return a constant that measures how well the tested locale matches the reference locale.
      */
-    private fun getMatchLevel(reference: Locale, tested: Locale): Int {
+    fun getMatchLevel(reference: Locale, tested: Locale): Int {
         if (reference == tested) return LOCALE_FULL_MATCH
         if (reference.toString().isEmpty()) return LOCALE_ANY_MATCH
         if (reference.language != tested.language) return LOCALE_NO_MATCH
@@ -181,7 +181,7 @@ object LocaleUtils {
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
         val languageTag = locale.toLanguageTag()
         if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return context.getString(R.string.subtype_no_language)
-        if (locale.script() != locale.language.constructLocale().script()) {
+        if (locale.script() != locale.language.constructLocale().script() || locale.language == "xdq") {
             val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
             if (resId != 0) return context.getString(resId)
         }

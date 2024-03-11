@@ -39,7 +39,7 @@ class LanguageSettingsDialog(
     private val onlySystemLocales: Boolean,
     private val reloadSetting: () -> Unit
 ) : AlertDialog(context), LanguageSettingsFragment.Listener {
-    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)!!
+    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     private val binding = LocaleSettingsDialogBinding.inflate(LayoutInflater.from(context))
     private val mainLocale = infos.first().subtype.locale()
     private var hasInternalDictForLanguage = false
@@ -53,6 +53,10 @@ class LanguageSettingsDialog(
         }
 
         if (onlySystemLocales)
+            // don't allow setting subtypes, because
+            //  a. subtypes are set purely based on system locales (in SubtypeSettings)
+            //  b. extra handling needed if user disables all subtypes for a locale
+            // todo (later): fix above and allow it
             binding.subtypes.isGone = true
         else
             fillSubtypesView()
@@ -132,22 +136,25 @@ class LanguageSettingsDialog(
     private fun copyLayout() {
         val layouts = mutableListOf<String>()
         val displayNames = mutableListOf<String>()
-        if (infos.first().subtype.isAsciiCapable) {
-            layouts.addAll(context.resources.getStringArray(R.array.predefined_layouts))
-            layouts.forEach { displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it) }
-        }
         infos.forEach {
             val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
-            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false) { // don't allow copying custom layout (at least for now)
+            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false // don't allow copying custom layout (at least for now)
+                    && !layoutSetName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
                 layouts.add(layoutSetName)
                 displayNames.add(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+            }
+        }
+        if (infos.first().subtype.isAsciiCapable) {
+            context.resources.getStringArray(R.array.predefined_layouts).forEach {
+                layouts.add(it)
+                displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it)
             }
         }
         Builder(context)
             .setTitle(R.string.keyboard_layout_set)
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
-                val fileName = context.assets.list("layouts")!!.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
+                val fileName = context.assets.list("layouts")?.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
                 loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
                     displayNames[i], mainLocale.toLanguageTag(), context) { addSubtype(it) }
             }
@@ -161,11 +168,11 @@ class LanguageSettingsDialog(
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
-        val layoutSetName: String? = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
+        val layoutSetName = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "qwerty"
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
-        if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true) {
+        if (layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
             row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
         } else {
@@ -191,18 +198,18 @@ class LanguageSettingsDialog(
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
-                    val isCustom = layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == true
+                    val isCustom = layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)
                     fun delete() {
                         binding.subtypes.removeView(row)
                         infos.remove(subtype)
                         if (isCustom)
-                            removeCustomLayoutFile(layoutSetName!!, context)
+                            removeCustomLayoutFile(layoutSetName, context)
                         removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
                         removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName!!)), context.getString(R.string.delete)) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }
@@ -268,10 +275,41 @@ class LanguageSettingsDialog(
         binding.secondaryLocales.addView(rowBinding.root)
     }
 
+    private fun createDictionaryText(locale: Locale, context: Context): String {
+        val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+        val message = context.getString(R.string.add_dictionary, link)
+        val knownDicts = mutableListOf<String>()
+        context.assets.open("dictionaries_in_dict_repo.csv").reader().forEachLine {
+            if (it.isBlank()) return@forEachLine
+            val (type, localeString, experimental) = it.split(",")
+            // we use a locale string here because that's in the dictionaries repo
+            // ideally the repo would switch to language tag, but not sure how this is handled in the dictionary header
+            // further, the dicts in the dictionaries repo should be compatible with other AOSP-based keyboards
+            val dictLocale = localeString.constructLocale()
+            if (LocaleUtils.getMatchLevel(locale, dictLocale) < 3) return@forEachLine
+            val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
+            val dictString = if (experimental.isEmpty()) rawDictString
+                else context.getString(R.string.available_dictionary_experimental, rawDictString)
+            val dictBaseUrl = DICTIONARY_URL + DICTIONARY_DOWNLOAD_SUFFIX +
+                    if (experimental.isEmpty()) DICTIONARY_NORMAL_SUFFIX else DICTIONARY_EXPERIMENTAL_SUFFIX
+            val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
+            val fullText = "<li><a href='$dictLink'>$dictString</a></li>"
+            knownDicts.add(fullText)
+        }
+        if (knownDicts.isEmpty()) return message
+        return """
+            <p>$message</p>
+            <b>${context.getString(R.string.dictionary_available)}</b>
+            <ul>
+            ${knownDicts.joinToString("\n")}
+            </ul>
+        """.trimIndent()
+    }
+
     private fun fillDictionariesView() {
         binding.addDictionary.setOnClickListener {
-            val link = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
-            val message = SpannableStringUtils.fromHtml(context.getString(R.string.add_dictionary, link))
+            val messageRawText = createDictionaryText(mainLocale, context)
+            val message = SpannableStringUtils.fromHtml(messageRawText)
             val dialog = Builder(context)
                 .setTitle(R.string.add_new_dictionary_title)
                 .setMessage(message)
@@ -291,7 +329,7 @@ class LanguageSettingsDialog(
                 val attrs = context.obtainStyledAttributes(R.style.PreferenceSubtitleText, intArrayOf(android.R.attr.textSize))
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, attrs.getDimension(0, 20f))
                 attrs.recycle()
-                setPadding((context.resources.displayMetrics.scaledDensity * 16).toInt(), 0, 0, 0)
+                setPadding(ResourceUtils.toPx(16, context.resources), 0, 0, 0)
                 isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}${USER_DICTIONARY_SUFFIX}" }
             })
         }

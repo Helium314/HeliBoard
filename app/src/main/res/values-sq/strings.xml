@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Fjalor i përdorshëm"</string>
     <string name="cannot_connect_to_dict_service">"Problem në lidhjen me shërbimin e fjalorit"</string>
     <string name="no_dictionaries_available">"Nuk mund të përdoret asnjë fjalor"</string>
-    <string name="check_for_updates_now">"Rifresko"</string>
     <string name="last_update">"Përditësimi i fundit"</string>
     <string name="main_dict_description">"Fjalori kryesor"</string>
     <string name="settings">"Cilësimet"</string>

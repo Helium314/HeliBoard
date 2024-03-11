@@ -102,7 +102,6 @@
     <string name="dictionary_available">"నిఘంటువు అందుబాటులో ఉంది"</string>
     <string name="cannot_connect_to_dict_service">"నిఘంటువు సేవకు కనెక్ట్ చేయడంలో సమస్య"</string>
     <string name="no_dictionaries_available">"నిఘంటువులు ఏవీ అందుబాటులో లేవు"</string>
-    <string name="check_for_updates_now">"రీఫ్రెష్ చేయండి"</string>
     <string name="last_update">"చివరిగా నవీకరించబడినది"</string>
     <string name="main_dict_description">"ప్రధాన నిఘంటువు"</string>
     <string name="settings">"సెట్టింగ్‌లు"</string>

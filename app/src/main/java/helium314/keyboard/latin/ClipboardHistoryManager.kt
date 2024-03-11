@@ -17,7 +17,6 @@ class ClipboardHistoryManager(
 ) : ClipboardManager.OnPrimaryClipChangedListener {
 
     private lateinit var clipboardManager: ClipboardManager
-    private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
 
     fun onCreate() {
@@ -148,5 +147,10 @@ class ClipboardHistoryManager(
         fun onClipboardHistoryEntryAdded(at: Int)
         fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int)
         fun onClipboardHistoryEntryMoved(from: Int, to: Int)
+    }
+
+    companion object {
+        // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
+        private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
     }
 }

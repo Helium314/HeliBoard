@@ -102,7 +102,6 @@
     <string name="dictionary_available">"အဘိဓါန်ရရှိနိုင်"</string>
     <string name="cannot_connect_to_dict_service">"အဘိဓါန်ဝန်ဆောင်မှုသို့ ချိတ်ဆက်ရန် ပြဿနာရှိနေသည်"</string>
     <string name="no_dictionaries_available">"အဘိဓါန်မရှိ"</string>
-    <string name="check_for_updates_now">"ပြန်လည်ဆန်းသစ်ရန်"</string>
     <string name="last_update">"နောက်ဆုံး အသစ်မွမ်းမံမှု"</string>
     <string name="main_dict_description">"အဓိက အဘိဓါန်"</string>
     <string name="settings">"ဆက်တင်များ"</string>

@@ -41,7 +41,6 @@ import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
-import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ToolbarKey;
@@ -139,8 +138,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
     public static final String PREF_NAVBAR_COLOR = "navbar_color";
     public static final String PREF_NARROW_KEY_GAPS = "narrow_key_gaps";
-    public static final String PREF_ENABLED_INPUT_STYLES = "enabled_input_styles";
-    public static final String PREF_SELECTED_INPUT_STYLE = "selected_input_style";
+    public static final String PREF_ENABLED_SUBTYPES = "enabled_subtypes";
+    public static final String PREF_SELECTED_SUBTYPE = "selected_subtype";
     public static final String PREF_USE_SYSTEM_LOCALES = "use_system_locales";
     public static final String PREF_URL_DETECTION = "url_detection";
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
@@ -179,7 +178,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
         add(PREF_SHOW_ALL_COLORS);
-        add(PREF_SELECTED_INPUT_STYLE);
+        add(PREF_SELECTED_SUBTYPE);
     }};
 
     public static Settings getInstance() {
@@ -532,26 +531,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         };
     }
 
-    public static String readSymbolsLayoutName(final Context context, final Locale locale) {
+    /** @return custom layout name if there is one for the given layout, else returns "layout" */
+    public static String readLayoutName(final String layout, final Context context) {
         String[] layouts = getLayoutsDir(context).list();
         if (layouts != null) {
             for (String name : layouts) {
-                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "symbols"))
+                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + layout + "."))
                     return name;
             }
         }
-        return ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_ARABIC) ? "symbols_arabic" : "symbols";
-    }
-
-    public static String readShiftedSymbolsLayoutName(final Context context) {
-        String[] layouts = getLayoutsDir(context).list();
-        if (layouts != null) {
-            for (String name : layouts) {
-                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + "shift_symbols"))
-                    return name;
-            }
-        }
-        return "symbols_shifted";
+        return layout;
     }
 
     public static File getLayoutsDir(final Context context) {

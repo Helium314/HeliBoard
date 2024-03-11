@@ -204,7 +204,6 @@
     <string name="dictionary_available">অভিধান উপলব্ধ</string>
     <string name="cannot_connect_to_dict_service">অভিধান পরিষেবার সাথে সংযুক্ত হতে সমস্যা হচ্ছে</string>
     <string name="no_dictionaries_available">কোনো অভিধান উপলব্ধ নয়</string>
-    <string name="check_for_updates_now">"রিফ্রেশ"</string>
     <string name="last_update">সর্বশেষ আপডেট</string>
     <string name="main_dict_description">মূল অভিধান</string>
     <string name="settings">সেটিংস</string>

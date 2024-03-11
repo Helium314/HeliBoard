@@ -8,6 +8,7 @@ package helium314.keyboard.event
 
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 import java.util.*
 
@@ -104,7 +105,7 @@ class CombinerChain(initialText: String) {
      */
     fun applyProcessedEvent(event: Event?) {
         if (null != event) { // TODO: figure out the generic way of doing this
-            if (Constants.CODE_DELETE == event.mKeyCode) {
+            if (KeyCode.DELETE == event.mKeyCode) {
                 val length = mCombinedText.length
                 if (length > 0) {
                     val lastCodePoint = mCombinedText.codePointBefore(length)

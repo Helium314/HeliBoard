@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Բառարանն առկա է"</string>
     <string name="cannot_connect_to_dict_service">"Բառարանային ծառայությանը միացման խնդիր կա"</string>
     <string name="no_dictionaries_available">"Բառարաններ չկան"</string>
-    <string name="check_for_updates_now">"Թարմացնել"</string>
     <string name="last_update">"Վերջին անգամ թարմացվել է"</string>
     <string name="main_dict_description">"Հիմնական բառարան"</string>
     <string name="settings">"Կարգավորումներ"</string>

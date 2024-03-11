@@ -99,7 +99,6 @@ public final class InputAttributes {
 
         final boolean noMicrophone = mIsPasswordField
                 || InputTypeUtils.isEmailVariation(variation)
-                || InputType.TYPE_TEXT_VARIATION_URI == variation
                 || hasNoMicrophoneKeyOption()
                 || !RichInputMethodManager.getInstance().hasShortcutIme();
         mShouldShowVoiceInputKey = !noMicrophone;

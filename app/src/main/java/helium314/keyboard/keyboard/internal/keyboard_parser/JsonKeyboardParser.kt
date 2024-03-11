@@ -11,6 +11,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.AutoTextKeyDa
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.CaseSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.CharWidthSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KanaSelector
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.convertFloris
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.LayoutDirectionSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.MultiTextKeyData
@@ -34,7 +35,7 @@ class JsonKeyboardParser(private val params: KeyboardParams, private val context
         // initially 200 ms parse (debug build on S4 mini)
         // after a few parses it's optimized and 20-30 ms
         // whole load is 50-70 ms vs 30-55 with simple parser -> it's ok
-        return florisKeyData.mapTo(mutableListOf()) { it.mapNotNull { it.compute(params) } }
+        return florisKeyData.mapTo(mutableListOf()) { it.mapNotNull { it.compute(params)?.convertFloris() } }
     }
 
 }

@@ -18,6 +18,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Settings
 import java.io.File
 import java.io.IOException
@@ -28,8 +29,10 @@ fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: 
         return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
     val layoutContent: String
     try {
-        val i = context.contentResolver.openInputStream(uri)
-        layoutContent = i?.use { it.reader().readText() } ?: throw IOException()
+        val tmpFile = File(context.filesDir.absolutePath + File.separator + "tmpfile")
+        FileUtils.copyContentUriToNewFile(uri, context, tmpFile)
+        layoutContent = tmpFile.readText()
+        tmpFile.delete()
     } catch (e: IOException) {
         return infoDialog(context, context.getString(R.string.layout_error, "cannot read layout file"))
     }
@@ -55,7 +58,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .setView(EditText(context).apply {
             setText(name)
             doAfterTextChanged { name = it.toString() }
-            val padding = (8 * context.resources.displayMetrics.density).toInt()
+            val padding = ResourceUtils.toPx(8, context.resources)
             setPadding(3 * padding, padding, 3 * padding, padding)
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         })
@@ -135,7 +138,7 @@ fun removeCustomLayoutFile(layoutName: String, context: Context) {
     getLayoutFile(layoutName, context).delete()
 }
 
-fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, isSymbols: Boolean = false) {
+fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, displayName: CharSequence? = null) {
     val file = getLayoutFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
@@ -149,6 +152,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
                 // todo: this actually always returns the "simple layout" error, even on a json layout with a single small error
+                //  -> check in inverse expected order (set depending in current file name)
                 infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
@@ -160,17 +164,16 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             }
         }
         .setNegativeButton(android.R.string.cancel, null)
-    if (isSymbols) {
-        val name = if (layoutName.contains("shift")) context.getString(R.string.shift_symbols) else context.getString(R.string.popup_keys_symbols)
+    if (displayName != null) {
         if (file.exists()) {
             builder.setNeutralButton(R.string.delete) { _, _ ->
-                confirmDialog(context, context.getString(R.string.delete_layout, name), context.getString(R.string.delete)) {
+                confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(R.string.delete)) {
                     file.delete()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                 }
             }
         }
-        builder.setTitle(name)
+        builder.setTitle(displayName)
     }
     builder.show()
 }

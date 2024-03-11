@@ -8,6 +8,7 @@ package helium314.keyboard.event
 
 import android.text.TextUtils
 import android.util.SparseIntArray
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.Constants
 import java.text.Normalizer
 import java.util.*
@@ -211,7 +212,7 @@ class DeadKeyCombiner : Combiner {
             return resultEvent
         }
         if (event.isFunctionalKeyEvent) {
-            if (Constants.CODE_DELETE == event.mKeyCode) { // Remove the last code point
+            if (KeyCode.DELETE == event.mKeyCode) { // Remove the last code point
                 val trimIndex = mDeadSequence.length - Character.charCount(
                         mDeadSequence.codePointBefore(mDeadSequence.length))
                 mDeadSequence.setLength(trimIndex)

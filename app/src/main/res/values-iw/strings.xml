@@ -102,7 +102,6 @@
     <string name="dictionary_available">"מילון זמין"</string>
     <string name="cannot_connect_to_dict_service">"בעיה בהתחברות לשירות המילון"</string>
     <string name="no_dictionaries_available">"אין מילונים זמינים"</string>
-    <string name="check_for_updates_now">"רענן"</string>
     <string name="last_update">"עודכן לאחרונה"</string>
     <string name="main_dict_description">"מילון ראשי"</string>
     <string name="settings">"הגדרות"</string>

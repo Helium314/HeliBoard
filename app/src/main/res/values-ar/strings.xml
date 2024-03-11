@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"بحث في أسماء جهات الاتصال"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"يستخدم المدقق الإملائي إدخالات من قائمة جهات الاتصال"</string>
     <string name="vibrate_on_keypress">"اهتزاز عند ضغط مفتاح"</string>
@@ -102,7 +101,6 @@
     <string name="dictionary_available">"القاموس متاح"</string>
     <string name="cannot_connect_to_dict_service">"مشكلة في الاتصال بخدمة القاموس"</string>
     <string name="no_dictionaries_available">"لا تتوفر أي قواميس"</string>
-    <string name="check_for_updates_now">"تحديث"</string>
     <string name="last_update">"تاريخ آخر تحديث"</string>
     <string name="main_dict_description">"القاموس الرئيسي"</string>
     <string name="settings">"إعدادات"</string>
@@ -171,4 +169,78 @@
     <string name="label_search_key">"بحث"</string>
     <string name="label_pause_key">"توقف"</string>
     <string name="label_wait_key">"انتظر"</string>
+    <string name="theme_colors">الألوان</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">صف الأرقام</string>
+    <string name="available_dictionary_experimental">%s (تجريبي)</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">اللغة</string>
+    <string name="dictionary_file_wrong_locale_ok">استخدمه على أي حال</string>
+    <string name="theme_style">النمط</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">دائري</string>
+    <string name="localized_number_row">صف الأرقام باللغة المحلية</string>
+    <string name="all_colors">إظهار كافة الألوان</string>
+    <string name="user_dict_add_word_button">إضافة كلمة</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">بنّي</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">سحابي</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">غابة</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">رمل</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">مخصص</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">أزرق رمادي</string>
+    <string name="select_color_background">خلفية لوحة المفاتيح</string>
+    <string name="select_color_key">نص الأزرار</string>
+    <string name="auto_user_color">اختيار تلقائي للون</string>
+    <string name="hint_show_keyboard">انقر للمعانية</string>
+    <string name="version">الإصدار</string>
+    <string name="dialog_close">غلق</string>
+    <string name="settings_screen_appearance">المظهر</string>
+    <string name="select_color_key_background">خلفية الأزرار</string>
+    <string name="select_color_gesture">الإدخال الحَرَكي</string>
+    <string name="save_log">حفظ السِجِلّ</string>
+    <string name="license">رخصة مفتوحة المصدر</string>
+    <string name="select_color_spacebar_text">نص زر المسافة البيضاء</string>
+    <string name="about_github_link">الرابط إلى جت هب</string>
+    <string name="backup_restore_title">النسخ الاحتياطي والإسترجاع</string>
+    <string name="user_dict_settings_add_weight_value">الوزن:</string>
+    <string name="settings_screen_about">عن</string>
+    <string name="select_color_spacebar_background">خلفية زر المسافة البيضاء</string>
+    <string name="split_spacer_scale">مسافة التقسيم</string>
+    <string name="language_switch_key_switch_subtype">تغيير اللغة</string>
+    <string name="more_autocorrect">التصحيح التلقائي المتقدم</string>
+    <string name="prefs_always_show_suggestions">إظهار الاقتراحات دائما</string>
+    <string name="button_backup">حفظ</string>
+    <string name="button_restore">استرجاع</string>
+    <string name="secondary_locale">الكتابة متعددة اللغات</string>
+    <string name="load_gesture_library_button_load">تحميل المكتبة</string>
+    <string name="load_gesture_library_button_delete">حذف المكتبة</string>
+    <string name="load_gesture_library">تحميل مكتبة الإدخال الحرَكي</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">الرموز</string>
+    <string name="clipboard" tools:keep="@string/clipboard">الحافظة</string>
+    <string name="left" tools:keep="@string/left">يسار</string>
+    <string name="right" tools:keep="@string/right">يمين</string>
+    <string name="up" tools:keep="@string/up">أعلى</string>
+    <string name="down" tools:keep="@string/down">أسفل</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">اللغة (أولوية)</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">مسح الحافظة</string>
+    <string name="voice" tools:keep="@string/voice">الإدخال الصوتي</string>
+    <string name="select_word" tools:keep="@string/select_word">اختر كلمة</string>
+    <string name="one_handed" tools:keep="@string/one_handed">وضع اليد الواحدة</string>
+    <string name="prefs_narrow_key_gaps">تقليص المسافة ما بين الأزرار</string>
+    <string name="button_load_custom">تحميل ملف</string>
+    <string name="layout_symbols_shifted">المزيد من الرموز</string>
+    <string name="button_title_add_custom_layout">إضافة تخطيط مخصص</string>
+    <string name="file_read_error">تعذرت قراءة الملف</string>
+    <string name="dictionary_settings_category">القواميس</string>
+    <string name="setup_step3_action">إعداد لوحة المفاتيح</string>
+    <string name="internal_dictionary_summary">القواميس المدمَجَة</string>
+    <string name="add_new_dictionary_title">إضافة قاموس عبر ملف</string>
+    <string name="dictionary_link_text">هنا</string>
+    <string name="button_select_language">اختر اللغة</string>
+    <string name="replace_dictionary">استبدل القاموس</string>
+    <string name="button_add_to_language">إضافة إلى %s</string>
+    <string name="no_dictionary_dont_show_again_button">لا تظهره مرة أخرى</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">فاتح</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">داكن</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">أسود</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">ألوان ديناميكية</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">محيط</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">وردي</string>
 </resources>

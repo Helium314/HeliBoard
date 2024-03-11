@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Шукати імена контактів"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Для перевірки правопису використовувати список контактів"</string>
     <string name="vibrate_on_keypress">"Вібр. при натисканні клавіш"</string>
@@ -14,7 +13,7 @@
     <string name="settings_screen_appearance">"Зовнішній вигляд"</string>
     <string name="settings_screen_gesture">"Введення тексту жестами"</string>
     <string name="settings_screen_correction">"Виправлення тексту"</string>
-    <string name="settings_screen_advanced">"Додатково"</string>
+    <string name="settings_screen_advanced">Додаткові</string>
     <string name="settings_screen_theme">"Тема"</string>
     <string name="enable_split_keyboard">"Увімкнути розділену клавіатуру"</string>
     <string name="language_switch_key_switch_input_method">"Інші методи введення"</string>
@@ -53,16 +52,16 @@
     <string name="subtype_en_GB">"Англійська (Велика Британія)"</string>
     <string name="subtype_en_US">"Англійська (США)"</string>
     <string name="subtype_es_US">"Іспанська (США)"</string>
-    <string name="subtype_hi_Latn">"Хінґліш"</string>
-    <string name="subtype_sr_Latn">"Сербська (латиниця)"</string>
+    <string name="subtype_hi_Latn">гінґліш</string>
+    <string name="subtype_sr_Latn">сербська (латиниця)</string>
     <string name="subtype_with_layout_en_GB">Англійська (Британія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Англійська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Іспанська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Гінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">гінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">сербська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традиційна)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Компактна)</string>
-    <string name="subtype_no_language">"Стандартна (латиниця)"</string>
+    <string name="subtype_no_language">стандартна (латиниця)</string>
     <string name="subtype_no_language_qwerty">"Латиниця (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Латиниця (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Латиниця (AZERTY)"</string>
@@ -103,7 +102,6 @@
     <string name="dictionary_available">Словник доступний</string>
     <string name="cannot_connect_to_dict_service">"Нема з’єднання зі службою словника"</string>
     <string name="no_dictionaries_available">Словники недоступні</string>
-    <string name="check_for_updates_now">Оновити</string>
     <string name="last_update">Останнє оновлення</string>
     <string name="main_dict_description">Основний словник</string>
     <string name="settings">Налаштування</string>
@@ -165,9 +163,9 @@
     <string name="select_color_accent">Акцент</string>
     <string name="settings_screen_about">Довідка</string>
     <string name="version">Версія</string>
-    <string name="about_github_link" >Подивитися на GitHub</string>
-    <string name="license" >Ліцензія з відкритим кодом</string>
-    <string name="gnu_gpl" >GNU General Public License v3.0</string>
+    <string name="about_github_link">Подивитися на GitHub</string>
+    <string name="license">Ліцензія з відкритим кодом</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="use_system_language_to_select_input_method_subtypes">Використовувати мови системи</string>
     <string name="dialog_close">Закрити</string>
     <string name="text_tap_languages">Натисніть мову, щоб відкрити налаштування</string>
@@ -219,4 +217,10 @@
     <string name="label_search_key">"Пошук"</string>
     <string name="label_pause_key">"Пауза"</string>
     <string name="label_wait_key">"Ждати"</string>
+    <string name="language_and_layouts_title">Мови та розкладки</string>
+    <string name="add_to_personal_dictionary">Додати слова до особистого словника</string>
+    <string name="split_spacer_scale">Відстань розділення</string>
+    <string name="language_switch_key_switch_subtype">Переключити мову</string>
+    <string name="disable_personalized_dicts_message">Попередження: Вимкнення цього параметра призведе до видалення отриманих даних</string>
+    <string name="language_switch_key_switch_both">Переключити обидва</string>
 </resources>

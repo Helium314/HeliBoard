@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import androidx.core.util.TypedValueCompat;
+
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.SettingsValues;
 
@@ -258,5 +260,9 @@ public final class ResourceUtils {
 
     public static boolean isNight(final Resources res) {
         return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    public static int toPx(final int dp, final Resources res) {
+        return (int) TypedValueCompat.dpToPx(dp, res.getDisplayMetrics());
     }
 }

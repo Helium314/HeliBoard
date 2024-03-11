@@ -277,6 +277,7 @@
     <string name="subtype_es_US">Spanish (US)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_hi_Latn">Hinglish</string>
+    <string name="subtype_xdq">Kaitag</string>
     <!-- Description for Serbian (Latin) keyboard subtype [CHAR LIMIT=25]
          (Latin) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_sr_Latn">Serbian (Latin)</string>
@@ -297,6 +298,9 @@
     <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->      
     <string name="subtype_with_layout_sr_Latn" tools:keep="@string/subtype_with_layout_sr_Latn">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
          (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
@@ -442,12 +446,26 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->
     <string name="edit_layout">Tap to edit raw layout</string>
-    <!-- Title for customizing symbols layout -->
-    <string name="customize_symbols">Customize symbols layout</string>
-    <!-- Title for customizing shift symbols layout -->
-    <string name="customize_shift_symbols">Customize more symbols layout</string>
-    <!-- Name for more symbols layout -->
-    <string name="shift_symbols">More symbols</string>
+    <!-- Title for customizing symbols or number layouts -->
+    <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
+    <!-- Summary for customizing symbols or number layouts -->
+    <string name="customize_symbols_number_layouts_summary">Layouts (except symbols) expose internal settings which may still change. If that happens, the custom layout may not work properly any more.</string>
+    <!-- Name for symbols layout -->
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbols</string>
+    <!-- Name for symbols layout for arabic language -->
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbols (Arabic)</string>
+    <!-- Name for more symbols layout (when pressing shift) -->
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">More symbols</string>
+    <!-- Name for phone layout -->
+    <string name="layout_phone" tools:keep="@string/layout_phone">Phone</string>
+    <!-- Name for symbols on phone layout -->
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Phone symbols</string>
+    <!-- Name for number layout -->
+    <string name="layout_number" tools:keep="@string/layout_number">Numbers</string>
+    <!-- Name for numpad layout -->
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
+    <!-- Name for numpad layout in landscape mode -->
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
     <!-- Message for selecting day or night background image -->
@@ -547,6 +565,8 @@ New dictionary:
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
     <!-- Title of the link to the download page inserted into messages (add_dictionary and no_dictionary_message) -->
     <string name="dictionary_link_text">"here"</string>
+    <!-- Title of an item in the list of available dictionaries when the dictionary is experimental. This string will be interpreted as HTML -->
+    <string name="available_dictionary_experimental">"%s (experimental)"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->
@@ -563,8 +583,6 @@ New dictionary:
     <string name="cannot_connect_to_dict_service">Problem connecting to dictionary service</string>
     <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available [CHAR LIMIT=20]-->
     <string name="no_dictionaries_available">No dictionaries available</string>
-    <!-- Title of the options to press to refresh the list (as in, check for updates now) [CHAR_LIMIT=50] -->
-    <string name="check_for_updates_now">Refresh</string>
     <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. [CHAR LIMIT=45] -->
     <string name="last_update">Last updated</string>
     <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
@@ -574,40 +592,29 @@ New dictionary:
     <!-- Version text [CHAR LIMIT=30]-->
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->
-    <!-- This resource is corresponding to  msgid="4056762757149923551" -->
     <string name="user_dict_settings_add_menu_title">Add</string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. [CHAR LIMIT=25] -->
-    <!-- This resource is corresponding to msgid="4702613990174126482" -->
     <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). [CHAR LIMIT=20] -->
-    <!-- This resource is corresponding to msgid="660089258866063925" -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the weight field -->
     <string name="user_dict_settings_add_weight_value">Weight:</string>
     <!-- User dictionary settings. Label to put before the language field. [CHAR LIMIT=20] -->
-    <!-- This resource is corresponding to msgid="5696358317061318532" -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
     <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. [CHAR LIMIT=35] -->
-    <!-- This resource is corresponding to msgid="5725254076556821247" -->
     <string name="user_dict_settings_add_word_hint">Type a word</string>
     <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. [CHAR LIMIT=35] -->
-    <!-- This resource is corresponding to msgid="7333763456561873445" -->
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
-    <!-- This resource is corresponding to msgid="8967476444840548674" -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary  [CHAR LIMIT=200] -->
-    <!-- This resource is corresponding to msgid="8165273379942105271" -->
     <string name="user_dict_settings_empty_text">You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.</string>
     <!-- User dictionary settings. The list item to choose to insert a word into the user dictionary for all languages -->
-    <!-- This resource is corresponding to msgid="6742000040975959247" -->
     <string name="user_dict_settings_all_languages">For all languages</string>
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one [CHAR LIMIT=30] -->
-    <!-- This resource is corresponding to msgid="7316375944684977910" -->
     <string name="user_dict_settings_more_languages">More languages…</string>
     <!-- User dictionary settings. Index of the user dictionary [CHAR LIMIT=30]
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
-    <!-- This resource is corresponding to msgid="5433275485499039199" -->
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>

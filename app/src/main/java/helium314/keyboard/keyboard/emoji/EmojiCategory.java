@@ -153,8 +153,6 @@ final class EmojiCategory {
         addShownCategoryId(EmojiCategory.ID_EMOTICONS);
 
         DynamicGridKeyboard recentsKbd = getKeyboard(EmojiCategory.ID_RECENTS, 0);
-        recentsKbd.loadRecentKeys(mCategoryKeyboardMap.values());
-
         mCurrentCategoryId = Settings.readLastShownEmojiCategoryId(mPrefs, defaultCategoryId);
         mCurrentCategoryPageId = Settings.readLastShownEmojiCategoryPageId(mPrefs, 0);
         if (!isShownCategoryId(mCurrentCategoryId)) {
@@ -305,6 +303,7 @@ final class EmojiCategory {
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
                         mMaxRecentsKeyCount, categoryId, currentWidth);
                 mCategoryKeyboardMap.put(categoryKeyboardMapKey, kbd);
+                kbd.loadRecentKeys(mCategoryKeyboardMap.values());
                 return kbd;
             }
 

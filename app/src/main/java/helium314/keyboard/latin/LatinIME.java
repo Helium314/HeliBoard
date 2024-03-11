@@ -42,6 +42,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
 import helium314.keyboard.event.Event;
@@ -525,7 +526,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     final class SubtypeState {
         private InputMethodSubtype mLastActiveSubtype;
-        private boolean mCurrentSubtypeHasBeenUsed;
+        private boolean mCurrentSubtypeHasBeenUsed = true; // starting with true avoids immediate switch
 
         public void setCurrentSubtypeHasBeenUsed() {
             mCurrentSubtypeHasBeenUsed = true;
@@ -1411,7 +1412,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
                 while (steps != 0) {
-                    onCodeInput(Constants.CODE_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
                     ++steps;
                 }
                 return true;
@@ -1421,7 +1422,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             moveSteps = Math.min(availableCharacters, steps);
             if (moveSteps == 0) {
                 while (steps != 0) {
-                    onCodeInput(Constants.CODE_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+                    onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
                     --steps;
                 }
                 return true;
@@ -1488,7 +1489,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void onUpWithDeletePointerActive() {
         if (mInputLogic.mConnection.hasSelection()) {
             mInputLogic.finishInput();
-            onCodeInput(Constants.CODE_DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
         }
     }
 
@@ -1518,13 +1519,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
         if (shouldSwitchToOtherInputMethods()) {
             final InputMethodSubtype nextSubtype = mRichImm.getNextSubtypeInThisIme(false);
-            // todo (later): this will switch IME if we are at the end of the list, but ideally we
-            //  want to switch IME only if all internal subtypes are unused
-            //  -> need to store used/unused subtypes in mSubtypeState
             if (nextSubtype != null) {
                 switchToSubtype(nextSubtype);
                 return;
-            } else if (switchInputMethod()){
+            } else if (switchInputMethod()) {
                 return;
             }
         }
@@ -1566,26 +1564,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
     }
 
-    // TODO: Instead of checking for alphabetic keyboard here, separate keycodes for
-    // alphabetic shift and shift while in symbol layout and get rid of this method.
-    private int getCodePointForKeyboard(final int codePoint) {
-        if (Constants.CODE_SHIFT == codePoint) {
-            final Keyboard currentKeyboard = mKeyboardSwitcher.getKeyboard();
-            if (null != currentKeyboard && currentKeyboard.mId.isAlphabetKeyboard()) {
-                return codePoint;
-            }
-            return Constants.CODE_SYMBOL_SHIFT;
-        }
-        return codePoint;
-    }
-
     // Implementation of {@link KeyboardActionListener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
         if (codePoint < 0) {
             switch (codePoint) {
-                case Constants.CODE_TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
-                case Constants.CODE_TOGGLE_INCOGNITO -> {mSettings.toggleAlwaysIncognitoMode(); return; }
+                case KeyCode.TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
+                case KeyCode.TOGGLE_INCOGNITO_MODE -> {mSettings.toggleAlwaysIncognitoMode(); return; }
             }
         }
         // TODO: this processing does not belong inside LatinIME, the caller should be doing this.
@@ -1597,14 +1582,14 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // this transformation, it should be done already before calling onEvent.
         final int keyX = mainKeyboardView.getKeyX(x);
         final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(getCodePointForKeyboard(codePoint), keyX, keyY, isKeyRepeat);
+        final Event event = createSoftwareKeypressEvent(codePoint, keyX, keyY, isKeyRepeat);
         onEvent(event);
     }
 
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
-        if (Constants.CODE_SHORTCUT == event.getMKeyCode()) {
+        if (KeyCode.VOICE_INPUT == event.getMKeyCode()) {
             mRichImm.switchToShortcutIme(this);
         }
         final InputTransaction completeInputTransaction =
@@ -1637,7 +1622,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onTextInput(final String rawText) {
         // TODO: have the keyboard pass the correct key code when we need it.
-        final Event event = Event.createSoftwareTextEvent(rawText, Constants.CODE_OUTPUT_TEXT);
+        final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS);
         final InputTransaction completeInputTransaction =
                 mInputLogic.onTextInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(), mHandler);
@@ -1844,7 +1829,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return;
         }
         if (repeatCount > 0) {
-            if (code == Constants.CODE_DELETE && !mInputLogic.mConnection.canDeleteCharacters()) {
+            if (code == KeyCode.DELETE && !mInputLogic.mConnection.canDeleteCharacters()) {
                 // No need to feedback when repeat delete key will have no effect.
                 return;
             }

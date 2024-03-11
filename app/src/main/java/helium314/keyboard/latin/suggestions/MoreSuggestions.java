@@ -16,6 +16,7 @@ import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.Constants;
@@ -230,7 +231,7 @@ public final class MoreSuggestions extends Keyboard {
 
         public MoreSuggestionKey(final String word, final String info, final int index,
                 final MoreSuggestionsParam params) {
-            super(word /* label */, KeyboardIconsSet.ICON_UNDEFINED, Constants.CODE_OUTPUT_TEXT,
+            super(word /* label */, KeyboardIconsSet.ICON_UNDEFINED, KeyCode.MULTIPLE_CODE_POINTS,
                     word /* outputText */, info, 0 /* labelFlags */, Key.BACKGROUND_TYPE_NORMAL,
                     params.getX(index), params.getY(index), params.getWidth(index),
                     params.mDefaultRowHeight, params.mHorizontalGap, params.mVerticalGap);

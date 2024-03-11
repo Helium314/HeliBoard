@@ -102,7 +102,6 @@
     <string name="dictionary_available">"Diccionari disponible"</string>
     <string name="cannot_connect_to_dict_service">"Error en connectar amb el diccionari"</string>
     <string name="no_dictionaries_available">"Cap diccion. dispon."</string>
-    <string name="check_for_updates_now">"Actualitza"</string>
     <string name="last_update">"Última actualització"</string>
     <string name="main_dict_description">"Diccionari principal"</string>
     <string name="settings">"Configuració"</string>

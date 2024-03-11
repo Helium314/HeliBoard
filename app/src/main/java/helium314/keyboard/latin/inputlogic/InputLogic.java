@@ -25,6 +25,7 @@ import helium314.keyboard.event.HangulEventDecoder;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
@@ -450,7 +451,7 @@ public final class InputLogic {
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardShiftMode));
-        if (processedEvent.getMKeyCode() != Constants.CODE_DELETE
+        if (processedEvent.getMKeyCode() != KeyCode.DELETE
                 || inputTransaction.getMTimestamp() > mLastKeyTime + Constants.LONG_PRESS_MILLISECONDS) {
             mDeleteCount = 0;
         }
@@ -482,15 +483,17 @@ public final class InputLogic {
         // the backspace key.
         if (!mConnection.hasSlowInputConnection() && !mWordComposer.isComposingWord()
                 && (settingsValues.isWordCodePoint(processedEvent.getMCodePoint())
-                    || processedEvent.getMKeyCode() == Constants.CODE_DELETE)
+                    || processedEvent.getMKeyCode() == KeyCode.DELETE)
                 ) {
             mWordBeingCorrectedByCursor = getWordAtCursor(settingsValues, currentKeyboardScript);
         }
-        if (!inputTransaction.didAutoCorrect() && processedEvent.getMKeyCode() != Constants.CODE_SHIFT
-                && processedEvent.getMKeyCode() != Constants.CODE_CAPSLOCK
-                && processedEvent.getMKeyCode() != Constants.CODE_SWITCH_ALPHA_SYMBOL)
+        if (!inputTransaction.didAutoCorrect() && processedEvent.getMKeyCode() != KeyCode.SHIFT
+                && processedEvent.getMKeyCode() != KeyCode.CAPS_LOCK
+                && processedEvent.getMKeyCode() != KeyCode.ALPHA_SYMBOL
+                && processedEvent.getMKeyCode() != KeyCode.ALPHA
+                && processedEvent.getMKeyCode() != KeyCode.SYMBOL)
             mLastComposedWord.deactivate();
-        if (Constants.CODE_DELETE != processedEvent.getMKeyCode()) {
+        if (KeyCode.DELETE != processedEvent.getMKeyCode()) {
             mEnteredText = null;
         }
         mConnection.endBatchEdit();
@@ -647,12 +650,12 @@ public final class InputLogic {
     private void handleFunctionalEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
         switch (event.getMKeyCode()) {
-            case Constants.CODE_DELETE:
+            case KeyCode.DELETE:
                 handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
                 // Backspace is a functional key, but it affects the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
-            case Constants.CODE_SHIFT:
+            case KeyCode.SHIFT:
                 performRecapitalization(inputTransaction.getMSettingsValues());
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 if (mSuggestedWords.isPrediction()) {
@@ -664,19 +667,19 @@ public final class InputLogic {
                         && inputTransaction.getMSettingsValues().isUsuallyFollowedBySpace(mConnection.getCodePointBeforeCursor()))
                     mSpaceState = SpaceState.NONE;
                 break;
-            case Constants.CODE_SETTINGS:
+            case KeyCode.SETTINGS:
                 onSettingsKeyPressed();
                 break;
-            case Constants.CODE_ACTION_NEXT:
+            case KeyCode.ACTION_NEXT:
                 performEditorAction(EditorInfo.IME_ACTION_NEXT);
                 break;
-            case Constants.CODE_ACTION_PREVIOUS:
+            case KeyCode.ACTION_PREVIOUS:
                 performEditorAction(EditorInfo.IME_ACTION_PREVIOUS);
                 break;
-            case Constants.CODE_LANGUAGE_SWITCH:
+            case KeyCode.LANGUAGE_SWITCH:
                 handleLanguageSwitchKey();
                 break;
-            case Constants.CODE_CLIPBOARD:
+            case KeyCode.CLIPBOARD:
                 // Note: If clipboard history is enabled, switching to clipboard keyboard
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
@@ -689,7 +692,7 @@ public final class InputLogic {
                     }
                 }
                 break;
-            case Constants.CODE_SHIFT_ENTER:
+            case KeyCode.SHIFT_ENTER:
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
                         event.getMKeyCode(), event.getMX(), event.getMY(), event.isKeyRepeat());
                 handleNonSpecialCharacterEvent(tmpEvent, inputTransaction, handler);
@@ -697,62 +700,59 @@ public final class InputLogic {
                 // line, so that does affect the contents of the editor.
                 inputTransaction.setDidAffectContents();
                 break;
-            case Constants.CODE_OUTPUT_TEXT:
+            case KeyCode.MULTIPLE_CODE_POINTS:
                 // added in the hangul branch, createEventChainFromSequence
                 // this introduces issues like space being added behind cursor, or input deleting
                 // a word, but the keepCursorPosition applyProcessedEvent seems to help here
                 mWordComposer.applyProcessedEvent(event, true);
                 break;
-            case Constants.CODE_SELECT_ALL:
+            case KeyCode.CLIPBOARD_SELECT_ALL:
                 mConnection.selectAll();
                 break;
-            case Constants.CODE_SELECT_WORD:
+            case KeyCode.CLIPBOARD_SELECT_WORD:
                 mConnection.selectWord(inputTransaction.getMSettingsValues().mSpacingAndPunctuations, currentKeyboardScript);
                 break;
-            case Constants.CODE_COPY:
+            case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText();
                 break;
-            case Constants.CODE_LEFT:
+            case KeyCode.ARROW_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
-            case Constants.CODE_RIGHT:
+            case KeyCode.ARROW_RIGHT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_RIGHT);
                 break;
-            case Constants.CODE_UP:
+            case KeyCode.ARROW_UP:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_UP);
                 break;
-            case Constants.CODE_DOWN:
+            case KeyCode.ARROW_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_DOWN);
                 break;
-            case Constants.CODE_UNDO:
+            case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
-            case Constants.CODE_REDO:
+            case KeyCode.REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
-            case Constants.CODE_HOME:
+            case KeyCode.MOVE_START_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_HOME);
                 break;
-            case Constants.CODE_END:
+            case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
                 break;
-            case Constants.CODE_SHORTCUT:
+            case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case Constants.CODE_CAPSLOCK:
-            case Constants.CODE_SYMBOL_SHIFT:
-            case Constants.CODE_SWITCH_ALPHA_SYMBOL:
-            case Constants.CODE_EMOJI:
-            case Constants.CODE_ALPHA_FROM_EMOJI:
-            case Constants.CODE_ALPHA_FROM_CLIPBOARD:
-            case Constants.CODE_NUMPAD:
-            case Constants.CODE_ALPHA_FROM_NUMPAD:
-            case Constants.CODE_SYMBOL_FROM_NUMPAD:
-            case Constants.CODE_START_ONE_HANDED_MODE:
-            case Constants.CODE_STOP_ONE_HANDED_MODE:
-            case Constants.CODE_SWITCH_ONE_HANDED_MODE:
+            case KeyCode.CAPS_LOCK:
+            case KeyCode.ALPHA_SYMBOL:
+            case KeyCode.ALPHA:
+            case KeyCode.SYMBOL:
+            case KeyCode.NUMPAD:
+            case KeyCode.EMOJI:
+            case KeyCode.START_ONE_HANDED_MODE:
+            case KeyCode.STOP_ONE_HANDED_MODE:
+            case KeyCode.SWITCH_ONE_HANDED_MODE:
                 break;
             default:
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
@@ -1253,32 +1253,26 @@ public final class InputLogic {
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
-                    final int lengthToDelete =
-                            Character.isSupplementaryCodePoint(codePointBeforeCursor) ? 2 : 1;
-                    if (StringUtils.mightBeEmoji(codePointBeforeCursor)) {
-                        // emoji length varies, so we'd need to find out length to delete correctly
-                        // the solution is not optimal, but a reasonable workaround for issues when trying to delete emojis
-                        sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
-                    } else {
-                        mConnection.deleteTextBeforeCursor(lengthToDelete);
-                        int totalDeletedLength = lengthToDelete;
-                        if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
-                            // If this is an accelerated (i.e., double) deletion, then we need to
-                            // consider unlearning here because we may have already reached
-                            // the previous word, and will lose it after next deletion.
-                            hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
-                                    inputTransaction.getMSettingsValues(), currentKeyboardScript);
-                            final int codePointBeforeCursorToDeleteAgain =
-                                    mConnection.getCodePointBeforeCursor();
-                            if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
-                                final int lengthToDeleteAgain = Character.isSupplementaryCodePoint(
-                                        codePointBeforeCursorToDeleteAgain) ? 2 : 1;
-                                mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
-                                totalDeletedLength += lengthToDeleteAgain;
-                            }
+                    final int lengthToDelete = Character.isSupplementaryCodePoint(codePointBeforeCursor)
+                            ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
+                    mConnection.deleteTextBeforeCursor(lengthToDelete);
+                    int totalDeletedLength = lengthToDelete;
+                    if (mDeleteCount > Constants.DELETE_ACCELERATE_AT) {
+                        // If this is an accelerated (i.e., double) deletion, then we need to
+                        // consider unlearning here because we may have already reached
+                        // the previous word, and will lose it after next deletion.
+                        hasUnlearnedWordBeingDeleted |= unlearnWordBeingDeleted(
+                                inputTransaction.getMSettingsValues(), currentKeyboardScript);
+                        final int codePointBeforeCursorToDeleteAgain =
+                                mConnection.getCodePointBeforeCursor();
+                        if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
+                            final int lengthToDeleteAgain = Character.isSupplementaryCodePoint(codePointBeforeCursorToDeleteAgain)
+                                    ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
+                            mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
+                            totalDeletedLength += lengthToDeleteAgain;
                         }
-                        StatsUtils.onBackspacePressed(totalDeletedLength);
                     }
+                    StatsUtils.onBackspacePressed(totalDeletedLength);
                 }
             }
             if (!hasUnlearnedWordBeingDeleted) {
