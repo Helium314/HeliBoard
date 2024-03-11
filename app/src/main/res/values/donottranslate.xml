@@ -106,4 +106,25 @@
         <item>@string/show_popup_keys_more</item>
         <item>@string/show_popup_keys_all</item>
     </string-array>
+
+    <string-array name="horizontal_space_swipe_values">
+        <item>move_cursor</item>
+        <item>switch_language</item>
+        <item>none</item>
+    </string-array>
+    <string-array name="horizontal_space_swipe_entries">
+        <item>@string/space_swipe_move_cursor_entry</item>
+        <item>@string/language_switch_key_switch_subtype</item>
+        <item>@string/action_none</item>
+    </string-array>
+    <string-array name="vertical_space_swipe_values">
+        <item>move_cursor</item>
+        <item>switch_language</item>
+        <item>none</item>
+    </string-array>
+    <string-array name="vertical_space_swipe_entries">
+        <item>@string/space_swipe_move_cursor_entry</item>
+        <item>@string/language_switch_key_switch_subtype</item>
+        <item>@string/action_none</item>
+    </string-array>
 </resources>

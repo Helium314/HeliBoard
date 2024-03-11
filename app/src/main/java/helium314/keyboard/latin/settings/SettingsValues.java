@@ -67,12 +67,12 @@ public class SettingsValues {
     public final boolean mShowsHints;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
-    public final boolean mSpaceLanguageSlide;
     public final boolean mShowsEmojiKey;
     public final boolean mUsePersonalizedDicts;
     public final boolean mUseDoubleSpacePeriod;
     public final boolean mBlockPotentiallyOffensive;
-    public final boolean mSpaceTrackpadEnabled;
+    public final int mSpaceSwipeHorizontal;
+    public final int mSpaceSwipeVertical;
     public final boolean mDeleteSwipeEnabled;
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
@@ -149,7 +149,6 @@ public class SettingsValues {
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
-        mSpaceLanguageSlide = prefs.getBoolean(Settings.PREF_SPACE_LANGUAGE_SLIDE, false);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
@@ -193,7 +192,8 @@ public class SettingsValues {
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
-        mSpaceTrackpadEnabled = Settings.readSpaceTrackpadEnabled(prefs);
+        mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
+        mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);

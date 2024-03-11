@@ -776,4 +776,12 @@ New dictionary:
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pause</string>
     <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Wait</string>
+    <!-- Title of the settings for horizontal spacebar swipe gesture -->
+    <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
+    <!-- Title of the settings for vertical spacebar swipe gesture -->
+    <string name="show_vertical_space_swipe">Vertical spacebar swipe gesture</string>
+    <!-- Option for no action when (currently only used for swiping the spacebar) -->
+    <string name="action_none">None</string>
+    <!-- Option to move the cursor when swiping the spacebar -->
+    <string name="space_swipe_move_cursor_entry">Move Cursor</string>
 </resources>

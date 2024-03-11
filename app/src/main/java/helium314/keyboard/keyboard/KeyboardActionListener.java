@@ -90,11 +90,22 @@ public interface KeyboardActionListener {
      * @return true if the request has been consumed, false otherwise.
      */
     boolean onCustomRequest(int requestCode);
-    void onMovePointer(int steps);
+
+    /**
+     * Called when the user performs a horizontal or vertical swipe gesture
+     * on the space bar.
+     */
+    boolean onHorizontalSpaceSwipe(int steps);
+    boolean onVerticalSpaceSwipe(int steps);
+
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
 
     KeyboardActionListener EMPTY_LISTENER = new Adapter();
+
+    static int SWIPE_NO_ACTION = 0;
+    static int SWIPE_MOVE_CURSOR = 1;
+    static int SWIPE_SWITCH_LANGUAGE = 2;
 
     class Adapter implements KeyboardActionListener {
         @Override
@@ -122,7 +133,13 @@ public interface KeyboardActionListener {
             return false;
         }
         @Override
-        public void onMovePointer(int steps) {}
+        public boolean onHorizontalSpaceSwipe(int steps) {
+            return false;
+        }
+        @Override
+        public boolean onVerticalSpaceSwipe(int steps) {
+            return false;
+        }
         @Override
         public void onMoveDeletePointer(int steps) {}
         @Override

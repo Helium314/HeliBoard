@@ -130,10 +130,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private int mLastY;
     private int mStartX;
     private int mStartY;
-    private int mPreviousY;
     private long mStartTime;
-    private boolean mCursorMoved = false;
-    private boolean mLanguageSlideStarted = false;
+    private boolean mInHorizontalSwipe = false;
+    private boolean mInVerticalSwipe = false;
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
@@ -704,7 +703,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             setPressedKeyGraphics(key, eventTime);
             mStartX = x;
             mStartY = y;
-            mPreviousY = y;
             mStartTime = System.currentTimeMillis();
         }
     }
@@ -909,31 +907,25 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
             int dX = x - mStartX;
             int dY = y - mStartY;
-            // language switch: upwards movement
-            if (!mCursorMoved && sv.mSpaceLanguageSlide && -dY > abs(dX) && dY / sPointerStep != 0) {
-                List<InputMethodSubtype> subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false);
-                if (subtypes.size() > 1) { // only allow if we have more than one subtype
-                    mLanguageSlideStarted = true;
-                    if (abs(y - mPreviousY) / sPointerStep < 4)
-                        // we want large enough steps between switches
-                        return;
 
-                    // decide next or previous dependent on up or down
-                    InputMethodSubtype current = RichInputMethodManager.getInstance().getCurrentSubtype().getRawSubtype();
-                    int wantedIndex = (subtypes.indexOf(current) + ((y - mPreviousY > 0) ? 1 : -1)) % subtypes.size();
-                    if (wantedIndex < 0) wantedIndex += subtypes.size();
-                    KeyboardSwitcher.getInstance().switchToSubtype(subtypes.get(wantedIndex));
-                    mPreviousY = y;
-                    return;
+            // vertical movement
+            int stepsY = dY / sPointerStep;
+            if (abs(dX) < abs(dY) && !mInHorizontalSwipe) {
+                mInVerticalSwipe = true;
+                if (sListener.onVerticalSpaceSwipe(stepsY)) {
+                    mStartY += stepsY * sPointerStep;
                 }
+                return;
             }
-            // Pointer slider: sideways movement
-            int steps = dX / sPointerStep;
+
+            // Horizontal movement
+            int stepsX = dX / sPointerStep;
             final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
-            if (sv.mSpaceTrackpadEnabled && !mLanguageSlideStarted && steps != 0 && mStartTime + longpressTimeout < System.currentTimeMillis()) {
-                mCursorMoved = true;
-                mStartX += steps * sPointerStep;
-                sListener.onMovePointer(steps);
+            if (!mInVerticalSwipe && mStartTime + longpressTimeout < System.currentTimeMillis()) {
+                mInHorizontalSwipe = true;
+                if (sListener.onHorizontalSpaceSwipe(stepsX)) {
+                    mStartX += stepsX * sPointerStep;
+                }
             }
             return;
         }
@@ -941,9 +933,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
-            if (abs(steps) > 2 || (mCursorMoved && steps != 0)) {
+            if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
                 sTimerProxy.cancelKeyTimersOf(this);
-                mCursorMoved = true;
+                mInHorizontalSwipe = true;
                 mStartX += steps * sPointerStep;
                 sListener.onMoveDeletePointer(steps);
             }
@@ -1026,7 +1018,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if(mCursorMoved && currentKey.getCode() == KeyCode.DELETE) {
+        if(mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
             sListener.onUpWithDeletePointerActive();
         }
 
@@ -1042,9 +1034,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (mCursorMoved || mLanguageSlideStarted) {
-            mCursorMoved = false;
-            mLanguageSlideStarted = false;
+        if (mInHorizontalSwipe || mInVerticalSwipe) {
+            mInHorizontalSwipe = false;
+            mInVerticalSwipe = false;
             return;
         }
 
@@ -1090,7 +1082,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (isShowingPopupKeysPanel()) {
             return;
         }
-        if(mCursorMoved) {
+        if(mInHorizontalSwipe || mInVerticalSwipe) {
             return;
         }
         final Key key = getKey();

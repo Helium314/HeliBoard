@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
@@ -98,7 +99,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
-    public static final String PREF_SPACE_TRACKPAD = "space_trackpad";
+    public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
+    public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_ALWAYS_INCOGNITO_MODE = "always_incognito_mode";
@@ -129,7 +131,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
-    public static final String PREF_SPACE_LANGUAGE_SLIDE = "space_language_slide";
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
@@ -384,8 +385,20 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
     }
 
-    public static boolean readSpaceTrackpadEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_SPACE_TRACKPAD, true);
+    public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
+        return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, "none")) {
+            case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
+            case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
+            default -> KeyboardActionListener.SWIPE_NO_ACTION;
+        };
+    }
+
+    public static int readVerticalSpaceSwipe(final SharedPreferences prefs) {
+        return switch (prefs.getString(PREF_SPACE_VERTICAL_SWIPE, "none")) {
+            case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
+            case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
+            default -> KeyboardActionListener.SWIPE_NO_ACTION;
+        };
     }
 
     public static boolean readDeleteSwipeEnabled(final SharedPreferences prefs) {
