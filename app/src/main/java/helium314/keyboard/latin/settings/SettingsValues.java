@@ -71,8 +71,8 @@ public class SettingsValues {
     public final boolean mUsePersonalizedDicts;
     public final boolean mUseDoubleSpacePeriod;
     public final boolean mBlockPotentiallyOffensive;
-    public final String mSpaceHorizontalSwipe;
-    public final String mSpaceVerticalSwipe;
+    public final int mSpaceSwipeHorizontal;
+    public final int mSpaceSwipeVertical;
     public final boolean mDeleteSwipeEnabled;
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
@@ -192,8 +192,8 @@ public class SettingsValues {
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
         mDisplayOrientation = res.getConfiguration().orientation;
-        mSpaceHorizontalSwipe = Settings.readHorizontalSpaceSwipe(prefs);
-        mSpaceVerticalSwipe = Settings.readVerticalSpaceSwipe(prefs);
+        mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
+        mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
