@@ -24,18 +24,19 @@
         latin:stepValue="@integer/config_longpress_timeout_step" />
 
     <ListPreference
-        android:defaultValue="None"
+        android:defaultValue="none"
         android:entries="@array/horizontal_space_swipe_entries"
         android:entryValues="@array/horizontal_space_swipe_values"
-        android:key="horizontal_space_swipe_gesture_key"
+        android:key="horizontal_space_swipe"
         android:persistent="true"
         android:summary="%s"
         android:title="@string/show_horizontal_space_swipe" />
+
     <ListPreference
-        android:defaultValue="None"
+        android:defaultValue="none"
         android:entries="@array/vertical_space_swipe_entries"
         android:entryValues="@array/vertical_space_swipe_values"
-        android:key="vertical_space_swipe_gesture_key"
+        android:key="vertical_space_swipe"
         android:persistent="true"
         android:summary="%s"
         android:title="@string/show_vertical_space_swipe" />
