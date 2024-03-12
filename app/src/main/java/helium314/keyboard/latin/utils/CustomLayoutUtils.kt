@@ -159,7 +159,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
                 file.parentFile?.mkdir()
                 file.writeText(content)
                 if (isJson != wasJson) // unlikely to be needed, but better be safe
-                    file.renameTo(File(file.absolutePath.substringBeforeLast(".") + if (isJson) "json" else "txt"))
+                    file.renameTo(File(file.absolutePath.substringBeforeLast(".") + "." + if (isJson) "json" else "txt"))
                 KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             }
         }
