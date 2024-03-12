@@ -161,7 +161,7 @@ object KeyCode {
         "view_phone" -> "alpha" // phone keyboard is treated like alphabet, just with different layout
         "view_phone2" -> "symbols" // phone symbols
         "ime_ui_mode_media" -> "emoji"
-        "ime_ui_mode_clipboard" -> "clipboard"
+        "ime_ui_mode_clipboard" -> "clipboard" // todo: is this supported? when yes -> add to readme, and add a test
         "ime_ui_mode_text" -> "alpha"
         "currency_slot_1" -> "$$$"
         "currency_slot_2" -> "$$$1"

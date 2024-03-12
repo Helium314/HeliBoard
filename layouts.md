@@ -12,8 +12,25 @@ Further there is no check whether the layout actually contains characters of the
 If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single letter.
 
 There are special key labels that are intended for internal use only, but can (currently) be set on custom layouts too. An example is `!icon/previous_key|!code/key_action_previous`, so it's unlikely you will stumble upon issues here when not intentionally provoking it.
-One special label that might be wanted though is `$$$`, which will be replaced by the local currency. `$$$1` - `$$$4` will be replaced by currencies available on long-pressing the currency key.
+One special label that might be wanted though is `$$$`, which will be replaced by the local currency. `$$$1` - `$$$5` will be replaced by currencies available on long-pressing the currency key.
 If you want different key label and use text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
+
+Some special key labels will be implemented, most are already working in the (currently experimental) customization of number layouts (numpad and similar). Some keys have two names for compatibility to FlorisBoard layouts.
+* _alpha_ / _view_characters_: switch to alphabet keyboard (or main phone keyboard in case of phone layout)
+* _symbol_ / _view_symbols_: switch to symbol keyboard (or phone symbols keyboard in case of phone layout)
+* _symbol_alpha_: toggle alpha / symbol keyboard
+* _numpad_ / _view_numeric_advanced_: switch to numpad layout
+* _emoji_: switch to emoji view
+* _com_: display common TLDs (.com and similar)
+* _emoji_com_: emoji key, but in URL and email fields it's a com key
+* _language_switch_: language switch key
+* _action_ / _enter_: the action (enter) key
+* _delete_: delete key
+* _shift_: shift key, will change label when in symbols layout
+* _period_: `.` key with punctuation popups, will adapt to language-specific period
+* _comma_: `,` key with special popups, will adapt to language-specific comma, or display `/` in URL fields and `@` in email fields
+* _space_: space key, with icon when using a number layout
+* _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
 
 ## Simple format
 * One key per line
