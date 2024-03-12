@@ -11,7 +11,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.AutoTextKeyDa
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.CaseSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.CharWidthSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KanaSelector
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.convertFloris
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.LayoutDirectionSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.MultiTextKeyData
@@ -28,14 +27,14 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.VariationSele
  *   codes of multi_text_key not used, only the label
  *   (currently) popups is always read to [number, main, relevant] layoutPopupKeys, no choice of which to use or which hint is provided
  */
-class JsonKeyboardParser(private val params: KeyboardParams, private val context: Context) : KeyboardParser(params, context) {
+class JsonKeyboardParser(private val params: KeyboardParams, context: Context) : KeyboardParser(params, context) {
 
     override fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>> {
         val florisKeyData: List<List<AbstractKeyData>> = florisJsonConfig.decodeFromString(layoutContent)
         // initially 200 ms parse (debug build on S4 mini)
         // after a few parses it's optimized and 20-30 ms
         // whole load is 50-70 ms vs 30-55 with simple parser -> it's ok
-        return florisKeyData.mapTo(mutableListOf()) { it.mapNotNull { it.compute(params)?.convertFloris() } }
+        return florisKeyData.mapTo(mutableListOf()) { it.mapNotNull { it.compute(params) } }
     }
 
 }

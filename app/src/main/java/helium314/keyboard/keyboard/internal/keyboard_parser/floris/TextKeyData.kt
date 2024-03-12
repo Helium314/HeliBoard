@@ -10,6 +10,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.convertFlorisLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
@@ -71,7 +73,40 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     // make it non-nullable for simplicity, and to reflect current implementations
-    override fun compute(params: KeyboardParams): KeyData
+    override fun compute(params: KeyboardParams): KeyData {
+        val newLabel = label.convertFlorisLabel()
+        val newCode = code.checkAndConvertCode()
+
+        // resolve currency keys
+        if (newLabel.startsWith("$$$") || newCode in KeyCode.Spec.CURRENCY) {
+            val currencyKey = params.mLocaleKeyboardInfos.currencyKey
+            val currencyCodeAsString = if (newCode in KeyCode.Spec.CURRENCY) {
+                when (newCode) {
+                    KeyCode.CURRENCY_SLOT_1 -> "|" + currencyKey.first
+                    KeyCode.CURRENCY_SLOT_2 -> "|" + currencyKey.second[0]
+                    KeyCode.CURRENCY_SLOT_3 -> "|" + currencyKey.second[1]
+                    KeyCode.CURRENCY_SLOT_4 -> "|" + currencyKey.second[2]
+                    KeyCode.CURRENCY_SLOT_5 -> "|" + currencyKey.second[3]
+                    KeyCode.CURRENCY_SLOT_6 -> "|" + currencyKey.second[4]
+                    else -> ""
+                }
+            } else ""
+            if (newLabel == "$$$") {
+                val finalLabel = currencyKey.first + currencyCodeAsString
+                // the flag is to match old parser, but why is it there for main currency key and not for others?
+                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId, SimplePopups(currencyKey.second), labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
+            }
+            val n = newLabel.substringAfter("$$$").toIntOrNull()
+            if (n != null && n <= 5 && n > 0) {
+                val finalLabel = currencyKey.second[n - 1] + currencyCodeAsString
+                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId, popup, labelFlags)
+            }
+        }
+        if (newCode != code || newLabel != label)
+            return TextKeyData(type, newCode, newLabel, groupId, popup, labelFlags).compute(params)
+        return this
+    }
+
 
     fun isSpaceKey(): Boolean {
         return type == KeyType.CHARACTER && (code == Constants.CODE_SPACE || code == KeyCode.CJK_SPACE
@@ -89,14 +124,27 @@ sealed interface KeyData : AbstractKeyData {
         return if (code == KeyCode.UNSPECIFIED || code == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
             // but also longer labels should work without issues, also for MultiTextKeyData
-            Key.KeyParams(
-                label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
-                params,
-                width,
-                labelFlags or additionalLabelFlags,
-                Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
-                popup,
-            )
+            if (this is MultiTextKeyData) {
+                val outputText = String(codePoints, 0, codePoints.size)
+                Key.KeyParams(
+                    "$label|$outputText",
+                    code,
+                    params,
+                    width,
+                    labelFlags or additionalLabelFlags,
+                    Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
+                    popup,
+                )
+            } else {
+                Key.KeyParams(
+                    label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
+                    params,
+                    width,
+                    labelFlags or additionalLabelFlags,
+                    Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
+                    popup,
+                )
+            }
         } else {
             Key.KeyParams(
                 label.ifEmpty { StringUtils.newSingleCodePointString(code) },
@@ -132,23 +180,6 @@ class TextKeyData(
     override val popup: PopupSet<AbstractKeyData> = PopupSet(),
     override val labelFlags: Int = 0
 ) : KeyData {
-    override fun compute(params: KeyboardParams): KeyData {
-//        if (evaluator.isSlot(this)) { // todo: currency key stuff probably should be taken from florisboard too
-//            return evaluator.slotData(this)?.let { data ->
-//                TextKeyData(type, data.code, data.label, groupId, popup).compute(params)
-//            }
-//        }
-        if (label.startsWith("$$$")) { // currency key
-            if (label == "$$$")
-                return params.mLocaleKeyboardInfos.currencyKey
-                    .let { it.first.toTextKey(it.second.toList(), labelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO) } // the flag is to match old parser, but why for main currency key, but not for others?
-            val n = label.substringAfter("$$$").toIntOrNull()
-            if (n != null && n <= 5 && n > 0)
-                return params.mLocaleKeyboardInfos.currencyKey.second[n - 1].toTextKey()
-        }
-        return this
-    }
-
     override fun asString(isForDisplay: Boolean): String {
         return buildString {
             if (isForDisplay || code == KeyCode.URI_COMPONENT_TLD || code < Constants.CODE_SPACE) {
@@ -168,6 +199,8 @@ class TextKeyData(
 
 }
 
+// AutoTextKeyData is just for converting case with shift, which HeliBoard always does anyway
+// (maybe change later if there is a use case)
 @Serializable
 @SerialName("auto_text_key")
 class AutoTextKeyData(
@@ -178,16 +211,6 @@ class AutoTextKeyData(
     override val popup: PopupSet<AbstractKeyData> = PopupSet(),
     override val labelFlags: Int = 0
 ) : KeyData {
-    // state and recompute not needed, as upcasing is done when creating KeyParams
-
-    override fun compute(params: KeyboardParams): KeyData {
-//        if (evaluator.isSlot(this)) { // todo: see above
-//            return evaluator.slotData(this)?.let { data ->
-//                TextKeyData(type, data.code, data.label, groupId, popup).compute(evaluator)
-//            }
-//        }
-        return this
-    }
 
     override fun asString(isForDisplay: Boolean): String {
         return buildString {
@@ -220,6 +243,8 @@ class MultiTextKeyData(
     @Transient override val code: Int = KeyCode.MULTIPLE_CODE_POINTS
 
     override fun compute(params: KeyboardParams): KeyData {
+        // todo: does this work? maybe convert label to | style?
+        //  but if i allow negative codes, ctrl+z could be on a single key (but floris doesn't support this anyway)
         return this
     }
 

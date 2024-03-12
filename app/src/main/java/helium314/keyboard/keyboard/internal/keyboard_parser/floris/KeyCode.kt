@@ -16,6 +16,7 @@ object KeyCode {
         const val INTERNAL_FLORIS_MAX = -1
         val INTERNAL_FLORIS = INTERNAL_FLORIS_MIN..INTERNAL_FLORIS_MAX
         val INTERNAL_HELI = -19999..-10000 // for keys exclusive to this app
+        val CURRENCY = CURRENCY_SLOT_6..CURRENCY_SLOT_1
     }
 
     const val UNSPECIFIED =                    0
@@ -131,11 +132,9 @@ object KeyCode {
     const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
-    private fun Int.checkOrConvertCode(): Int = if (this > 0) this else when (this) {
-        // todo: should work, but not yet
-        // CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
-
+    fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
         // working
+        CURRENCY_SLOT_1, CURRENCY_SLOT_2, CURRENCY_SLOT_3, CURRENCY_SLOT_4, CURRENCY_SLOT_5, CURRENCY_SLOT_6,
         VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD,
         UNDO, REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
@@ -148,17 +147,19 @@ object KeyCode {
 
         // conversion
         IME_UI_MODE_TEXT -> ALPHA
+        VIEW_PHONE -> ALPHA // phone keyboard is treated like alphabet, just with different layout
+        VIEW_PHONE2 -> SYMBOL
 
         else -> throw IllegalStateException("key code $this not yet supported")
     }
 
     /** to make sure a FlorisBoard label works when reading a JSON layout */
-    private fun String.convertFlorisLabel(): String = when (this) {
+    fun String.convertFlorisLabel(): String = when (this) {
         "view_characters" -> "alpha"
         "view_symbols" -> "symbol"
         "view_numeric_advanced" -> "numpad"
-        "view_phone" -> "alpha"
-        "view_phone2" -> "symbols"
+        "view_phone" -> "alpha" // phone keyboard is treated like alphabet, just with different layout
+        "view_phone2" -> "symbols" // phone symbols
         "ime_ui_mode_media" -> "emoji"
         "ime_ui_mode_clipboard" -> "clipboard"
         "ime_ui_mode_text" -> "alpha"
@@ -168,12 +169,7 @@ object KeyCode {
         "currency_slot_4" -> "$$$3"
         "currency_slot_5" -> "$$$4"
         "currency_slot_6" -> "$$$5"
+        "enter" -> "action"
         else -> this
-    }
-
-    fun KeyData.convertFloris() = when (this) {
-        is TextKeyData -> { TextKeyData(type, code.checkOrConvertCode(), label.convertFlorisLabel(), groupId, popup, labelFlags) }
-        is AutoTextKeyData -> { AutoTextKeyData(type, code.checkOrConvertCode(), label.convertFlorisLabel(), groupId, popup, labelFlags) }
-        is MultiTextKeyData -> { MultiTextKeyData(type, codePoints, label.convertFlorisLabel(), groupId, popup, labelFlags) }
     }
 }

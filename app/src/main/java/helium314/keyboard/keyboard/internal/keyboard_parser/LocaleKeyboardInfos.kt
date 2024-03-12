@@ -271,7 +271,7 @@ private const val READER_MODE_LABELS = 3
 private const val READER_MODE_NUMBER_ROW = 4
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
-private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
+private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
     if (locale.country.matches(euroCountries))
         return euro
     if (locale.toString().matches(euroLocales))
@@ -298,7 +298,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, Array<String>> {
 }
 
 private fun genericCurrencyKey(currency: String) = currency to genericCurrencyPopupKeys
-private val genericCurrencyPopupKeys = arrayOf("£", "€", "$", "¢", "¥", "₱")
+private val genericCurrencyPopupKeys = listOf("£", "€", "$", "¢", "¥", "₱")
 
 private fun getCurrency(locale: Locale): String {
     if (locale.country == "BD") return "৳"
@@ -320,13 +320,13 @@ private fun getCurrency(locale: Locale): String {
 }
 
 // needs at least 4 popupKeys for working shift-symbol keyboard
-private val euro = "€" to arrayOf("£", "¥", "$", "¢", "₱")
-private val dram = "֏" to arrayOf("€", "₽", "$", "£", "¥")
-private val rupee = "₹" to arrayOf("£", "€", "$", "¢", "¥", "₱")
-private val pound = "£" to arrayOf("€", "¥", "$", "¢", "₱")
-private val ruble = "₽" to arrayOf("€", "$", "£", "¥", "₱")
-private val lira = "₺" to arrayOf("€", "$", "£", "¥", "₱")
-private val dollar = "$" to arrayOf("£", "¢", "€", "¥", "₱")
+private val euro = "€" to listOf("£", "¥", "$", "¢", "₱")
+private val dram = "֏" to listOf("€", "₽", "$", "£", "¥")
+private val rupee = "₹" to listOf("£", "€", "$", "¢", "¥", "₱")
+private val pound = "£" to listOf("€", "¥", "$", "¢", "₱")
+private val ruble = "₽" to listOf("€", "$", "£", "¥", "₱")
+private val lira = "₺" to listOf("€", "$", "£", "¥", "₱")
+private val dollar = "$" to listOf("£", "¢", "€", "¥", "₱")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
 

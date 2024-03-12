@@ -244,18 +244,15 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val paramsRow = ArrayList<KeyParams>()
             row.forEach { key ->
                 var keyParams: KeyParams? = null
-                // try parsing a functional key, converting names from florisBoard to what is used here (should be unified)
-                // note that this is ignoring code on those keys, if any
+                // try parsing a functional key
+                // todo: note that this is ignoring code on those keys, if any
                 val functionalKeyName = when (key.label) {
-                    "view_characters" -> "alpha"
-                    "view_symbols" -> "symbol"
-                    "enter" -> "action"
                     // todo (later): maybe add special popupKeys for phone and number layouts?
                     "." -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) "period" else "."
                     "," -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) "comma" else ","
                     else -> key.label
                 }
-                if (functionalKeyName.length > 1 && key.type != KeyType.NUMERIC) {
+                if (functionalKeyName.length > 1 && key.type != KeyType.NUMERIC) { // todo: why exception for numeric?
                     try {
                         keyParams = getFunctionalKeyParams(functionalKeyName)
                     } catch (_: Throwable) {} // just use normal label
