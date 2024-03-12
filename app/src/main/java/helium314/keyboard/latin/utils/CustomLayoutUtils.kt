@@ -92,6 +92,12 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
             return null
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
+    if (layoutContent.startsWith("[")) {
+        // layout can't be loaded, assume it's json -> try json layout again because of error message readout
+        try {
+            JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
+        } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
+    }
     return null
 }
 
@@ -151,8 +157,6 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             val isJson = checkLayout(content, context)
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
-                // todo: this actually always returns the "simple layout" error, even on a json layout with a single small error
-                //  -> check in inverse expected order (set depending in current file name)
                 infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
