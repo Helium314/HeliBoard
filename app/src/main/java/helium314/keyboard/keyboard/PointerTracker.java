@@ -11,11 +11,7 @@ import static java.lang.Math.abs;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
-
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.utils.Log;
 import android.view.MotionEvent;
-import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,18 +28,18 @@ import helium314.keyboard.keyboard.internal.GestureStrokeRecognitionParams;
 import helium314.keyboard.keyboard.internal.PointerTrackerQueue;
 import helium314.keyboard.keyboard.internal.TimerProxy;
 import helium314.keyboard.keyboard.internal.TypingTimeRecorder;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public final class PointerTracker implements PointerTrackerQueue.Element,
@@ -905,12 +901,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final SettingsValues sv = Settings.getInstance().getCurrent();
 
         if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
+            // reason for timeout: https://github.com/openboard-team/openboard/issues/411
+            final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
+            if (mStartTime + longpressTimeout > System.currentTimeMillis())
+                return;
             int dX = x - mStartX;
             int dY = y - mStartY;
 
             // vertical movement
             int stepsY = dY / sPointerStep;
-            if (abs(dX) < abs(dY) && !mInHorizontalSwipe) {
+            if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe) {
                 mInVerticalSwipe = true;
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
@@ -920,8 +920,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
             // Horizontal movement
             int stepsX = dX / sPointerStep;
-            final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
-            if (!mInVerticalSwipe && mStartTime + longpressTimeout < System.currentTimeMillis()) {
+            if (stepsX != 0 && !mInVerticalSwipe) {
                 mInHorizontalSwipe = true;
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
