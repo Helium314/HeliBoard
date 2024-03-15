@@ -101,7 +101,7 @@ To create or update a dictionary for your language, you can use [this tool](http
 
 ### Getting Started
 
-HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/HeliBoard) (or git SSH [URL](git@github.com:Helium314/openboard.git)).
+HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/HeliBoard) (or git SSH [URL](git@github.com:Helium314/heliboard.git)).
 Of course you can also use any other compatible IDE, or work with text editor and command line.
 
 Once everything is up correctly, you're ready to go!
@@ -137,7 +137,7 @@ See make-dict-list tool [README](tools/make-dict-list/README.md).
 Planned features and improvements
 * Customizable functional key layout
   * Will likely result in having the same functional key layout for alphabet and symbols layouts
-* Support for _alt_, _ctrl_, _meta_ and _fn_  (#479)
+* Support for _alt_, _ctrl_, _meta_ and _fn_ (#479)
 * Less complicated addition of languages (e.g. #519)
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
@@ -146,7 +146,14 @@ Planned features and improvements
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
-* Bug fixes
+* Customizable currency keys
+* Customizable clipboard toolbar keys (#513, #403)
+* Ability to export/import (share) custom colors
+* Make use of the `.com` key in URL fields (currently only available for tablets)
+  * With language-dependent TLDs
+* Internal cleanup (a lot of over-complicated and convoluted code)
+* (optionally?) move toolbar key pinning to a setting, so long press actions on unpinned toolbar keys are available
+* [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 # License
 
