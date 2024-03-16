@@ -101,8 +101,10 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
 
     private fun getMenuTitle() = if (moreColors) R.string.main_colors else R.string.all_colors
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        // updateColorPrefs must be called after super.onViewStateRestored because for some reason Android
+        // decides to set the checked state of the bottom-most switch to ALL switches during "restore"
         updateColorPrefs()
     }
 
