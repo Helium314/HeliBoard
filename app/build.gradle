@@ -53,7 +53,7 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError true
     }
 
     ndkVersion '26.2.11394342'
