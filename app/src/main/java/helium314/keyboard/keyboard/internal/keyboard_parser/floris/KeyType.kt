@@ -21,16 +21,18 @@ import kotlinx.serialization.encoding.Encoder
  */
 @Serializable(with = KeyTypeSerializer::class)
 enum class KeyType {
-    CHARACTER,
-    ENTER_EDITING,
-    FUNCTION,
-    LOCK,
-    MODIFIER,
-    NAVIGATION,
-    SYSTEM_GUI,
-    NUMERIC,
-    PLACEHOLDER,
-    UNSPECIFIED;
+    // todo: implement the effect on background
+    //  also, how to get that specific space bar background?
+    CHARACTER,      // default
+    ENTER_EDITING,  // enter/insert/delete, gets functional key background (if not action key)
+    FUNCTION,       // f1..., gets functional key background
+    LOCK,           // scroll lock, num lock, caps lock, gets functional key background
+    MODIFIER,       // alt, ctrl, shift, gets functional key background
+    NAVIGATION,     // home, page up, page down, tab, arrows, geta default background
+    SYSTEM_GUI,     // esc, print, pause, meta, (keyboard layout switch), geta functional background
+    NUMERIC,        // numpad keys, get larger letter and larger width
+    PLACEHOLDER,    // other keys go here, e.g. in shift, placeholder, delete the placeholder gets (typically) replaced by the bottom keyboard row
+    UNSPECIFIED;    // treated like default
 
     override fun toString(): String {
         return super.toString().lowercase()
