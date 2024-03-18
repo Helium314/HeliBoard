@@ -129,7 +129,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         public void setLayoutDirection(final boolean isRtlLanguage) {
             final int layoutDirection = isRtlLanguage ? ViewCompat.LAYOUT_DIRECTION_RTL
                     : ViewCompat.LAYOUT_DIRECTION_LTR;
-            ViewCompat.setLayoutDirection(mSuggestionStripView, layoutDirection);
+            ViewCompat.setLayoutDirection(mSuggestionStripView, ViewCompat.LAYOUT_DIRECTION_LTR);
             ViewCompat.setLayoutDirection(mSuggestionsStrip, layoutDirection);
         }
 
