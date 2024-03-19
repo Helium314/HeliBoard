@@ -701,7 +701,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(VISIBLE);
             mPinnedKeys.setVisibility(VISIBLE);
         }
-        mToolbarExpandKey.setScaleX((visible ? -1f : 1f) * mRtl);
+        mToolbarExpandKey.setScaleX(visible ? -1f : 1f);
     }
 
     private void addKeyToPinnedKeys(final ToolbarKey pinnedKey) {
