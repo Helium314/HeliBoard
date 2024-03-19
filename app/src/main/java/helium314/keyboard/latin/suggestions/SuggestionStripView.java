@@ -109,7 +109,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     Listener mListener;
     private SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
     private int mStartIndexOfMoreSuggestions;
-    private int mRtl = 1; // 1 if LTR, -1 if RTL
 
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
@@ -266,7 +265,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public void setRtl(final boolean isRtlLanguage) {
         mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
-        mRtl = isRtlLanguage ? -1 : 1;
     }
 
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
