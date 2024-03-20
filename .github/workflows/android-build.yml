@@ -1,14 +1,7 @@
 name: Build debug
 
 on:
-  push:
-  # don't run on main. I noticed I often don't push commits to avoid unnecessary workflow runs
-    branches-ignore: [ main ]
-    paths:
-      - 'app/**'
-  pull_request:
-    paths:
-      - 'app/**'
+  [workflow_dispatch]
 
 jobs:
   build:
