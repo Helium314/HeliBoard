@@ -776,4 +776,6 @@ New dictionary:
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
     <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <!-- Title of the settings to fix toolbar direction -->
+    <string name="fix_toolbar_direction">Fix toolbar direction</string>
 </resources>

@@ -98,6 +98,12 @@
             android:key="toolbar_keys"
             android:title="@string/toolbar_keys" />
 
+        <SwitchPreference
+            android:key="fix_toolbar_direction"
+            android:title="@string/fix_toolbar_direction"
+            android:defaultValue="true"
+            android:persistent="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">
