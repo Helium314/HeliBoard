@@ -101,6 +101,7 @@
         <SwitchPreference
             android:key="fix_toolbar_direction"
             android:title="@string/fix_toolbar_direction"
+            android:summary="@string/fix_toolbar_direction_summary"
             android:defaultValue="true"
             android:persistent="true" />
 
