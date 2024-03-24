@@ -8,6 +8,7 @@ package helium314.keyboard.latin.inputlogic;
 
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -968,6 +969,12 @@ public final class InputLogic {
 
             if (swapWeakSpace && trySwapSwapperAndSpace(event, inputTransaction)) {
                 mSpaceState = SpaceState.WEAK;
+            } else if ((settingsValues.mInputAttributes.mInputType & InputType.TYPE_MASK_CLASS) != InputType.TYPE_CLASS_TEXT
+                    && codePoint >= '0' && codePoint <= '9') {
+                // weird issue when committing text: https://github.com/Helium314/HeliBoard/issues/585
+                // but at the same time we don't always want to do it for numbers because it might interfere with url detection
+                // todo: consider always using sendDownUpKeyEvent for non-text-inputType
+                sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
             } else {
                 mConnection.commitCodePoint(codePoint);
             }
