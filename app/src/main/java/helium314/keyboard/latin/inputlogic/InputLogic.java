@@ -2104,9 +2104,8 @@ public final class InputLogic {
     }
 
     private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues, final Boolean forAutoSpace) {
-        final EditorInfo ei = getCurrentInputEditorInfo();
         // URL / mail field and no space -> may be URL
-        if (ei != null && (InputTypeUtils.isUriOrEmailType(ei.inputType)) &&
+        if (InputTypeUtils.isUriOrEmailType(settingsValues.mInputAttributes.mInputType) &&
                 // we never want to commit the first part of the url, but we want to insert autospace if text might be a normal word
                 (forAutoSpace ? mConnection.nonWordCodePointAndNoSpaceBeforeCursor(settingsValues.mSpacingAndPunctuations) // avoid detecting URL if it could be a word
                 : !mConnection.spaceBeforeCursor()))
