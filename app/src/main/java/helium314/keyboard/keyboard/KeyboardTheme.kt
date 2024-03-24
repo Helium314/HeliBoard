@@ -17,6 +17,7 @@ import helium314.keyboard.latin.common.DefaultColors
 import helium314.keyboard.latin.common.DynamicColors
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
@@ -91,7 +92,9 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                 STYLE_ROUNDED -> if (borders) THEME_ID_ROUNDED_BASE_BORDER else THEME_ID_ROUNDED_BASE
                 else -> if (borders) THEME_ID_LXX_BASE_BORDER else THEME_ID_LXX_BASE
             }
-            return KEYBOARD_THEMES.firstOrNull { it.themeId == matchingId } ?: KEYBOARD_THEMES[DEFAULT_THEME_ID]
+            val theme = KEYBOARD_THEMES.firstOrNull { it.themeId == matchingId } ?: KEYBOARD_THEMES[DEFAULT_THEME_ID]
+            Log.d("KeyboardTheme", "Selected theme ${theme.themeId} and style ${theme.mStyleId} from $style (borders: $borders)")
+            return theme
         }
 
         fun getThemeActionAndEmojiKeyLabelFlags(themeId: Int): Int {

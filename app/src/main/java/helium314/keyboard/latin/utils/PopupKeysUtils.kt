@@ -138,7 +138,6 @@ fun reorderPopupKeysDialog(context: Context, key: String, defaultSetting: String
             val switch = viewHolder.itemView.findViewById<Switch>(R.id.popup_keys_switch)
             switch?.setOnCheckedChangeListener(null)
             switch?.isChecked = wasChecked
-            switch?.isEnabled = !(key.contains(Settings.PREF_POPUP_KEYS_ORDER) && text == POPUP_KEYS_LAYOUT) // layout can't be disabled
             switch?.setOnCheckedChangeListener { _, isChecked ->
                 val pos = orderedItems.indexOfFirst { it.first == text }
                 orderedItems[pos] = text to isChecked
