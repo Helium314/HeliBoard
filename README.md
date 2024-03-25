@@ -17,25 +17,31 @@ Does not use internet permission, and thus is 100% offline.
 - [Credits](#credits)
 
 # Features
-* Add dictionaries for suggestions and spell check
-  * build your own, or get them [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries), or in the [experimental](https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries) section (quality may vary)
-  * additional dictionaries for emojis or scientific symbols can be used to provide suggestions ("emoji search")
-  * note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries
-* Customize keyboard themes (style, colors and background image)
-  * can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)
-  * can follow dynamic colors for Android 12+
-* Customize keyboard [layouts](layouts.md) (only available when disabling _use system languages_)
-* Multilingual typing
-* Glide typing (_only with closed source library_ ☹️)
-  * library not included in the app, as there is no compatible open source library available
-  * can be extracted from GApps packages ("_swypelibs_"), or downloaded [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs)
-  * if you are concerned about security implications of loading user-provides libraries, please use the _nouserlib_ build variant, which removes this option. If HeliBoard is installed as system app, and _swypelibs_ are available for the system, they will be used.
-  * If the app is installed as a system app and _swypelibs_ are available, glide typing will be available independent of the version.
-* Clipboard history
-* One-handed mode
-* Split keyboard (only available if the screen is large enough)
-* Number pad
-* Backup and restore your learned word / history data
+<ul>
+  <li>Add dictionaries for suggestions and spell check</li>
+  <ul>
+    <li>build your own, or get them  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">here</a>, or in the <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimental</a> section (quality may vary)</li>
+    <li>additional dictionaries for emojis or scientific symbols can be used to provide suggestions (similar to "emoji search")</li>
+    <li>note that for Korean layouts, suggestions only work using [this dictionary](https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f), the tools in the dictionary repository are not able to create working dictionaries</li>
+  </ul>
+  <li>Customize keyboard themes (style, colors and background image)</li>
+  <ul>
+    <li>can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)</li>
+    <li>can follow dynamic colors for Android 12+</li>
+  </ul>
+  <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
+  <li>Multilingual typing</li>
+  <li>Glide typing (_only with closed source library_ ☹️)</li>
+  <ul>
+    <li>library not included in the app, as there is no compatible open source library available</li>
+    <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a></li>
+  </ul>
+  <li>Clipboard history</li>
+  <li>One-handed mode</li>
+  <li>Split keyboard (only available if the screen is large enough)</li>
+  <li>Number pad</li>
+  <li>Backup and restore your learned word / history data</li>
+</ul>
 
 ## FAQ / Common Issues
 * __Add a dictionary__: First download the dictionary file, e.g. from [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries). Then go to language settings, click on the language, then on `+` next to _dictionary_ the _add_ and select the file. Alternatively you can open a `.dict` file in a file explorer with HeliBoard and then select the language. Note that the latter method does not work with all file explorers.
@@ -134,7 +140,7 @@ See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 See make-dict-list tool [README](tools/make-dict-list/README.md).
 
 # To-do
-Planned features and improvements
+__Planned features and improvements:__
 * Customizable functional key layout
   * Will likely result in having the same functional key layout for alphabet and symbols layouts
 * Support for _alt_, _ctrl_, _meta_ and _fn_ (#479)
