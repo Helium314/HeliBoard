@@ -51,7 +51,7 @@ Does not use internet permission, and thus is 100% offline.
 * __No suggestions in some app / text field__: This app respects the [no suggestions flag](https://developer.android.com/reference/android/text/InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS) set by some input fields, i.e. the developer does not want you to see suggestions here. Best do in issue report for that app if you think this behavior is wrong. Alternatively you can enable the _always show suggestions_ setting that overrides the _no suggestions_ flag.
 * __Multilingual typing__: Enable in _Languages & Layouts_, select the main language and tap the `+` button next to _multilingual typing_ to add a language. Note that the selection is limited to languages with the same script as the main language, and to languages that have a dictionary (see above for how to add).
 * __How to enable glide typing__: There is no glide typing built into this app, but you can load compatible libraries: Go to advanced settings -> _load gesture typing library_ and point to a file (setting not available in _nouserlib_ version). You can extract the file from GApps packages ("_swypelibs_"), or download one [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs). Make sure to use the correct version (app will tell you in the dialog to load the library).
-  * __Glide typing is not working after loading a library__: Possibly the download was corrupted, or you downloaded the wrong file. If you get a "_unknown file_" confirmation popup, it is likely you are not using the correct file (or you might be using a different version of the library).
+  * __Glide typing is not working after loading a library__: Possibly the download was corrupted, or you downloaded the wrong file. If you get a "_unknown file_" confirmation popup, it is likely you are not using the correct file (or you might be using a different version of the library). In rare cases, there might be crashes when the file is not in internal storage, or some [Samsung-specific problems](https://stackoverflow.com/a/75286899). 
 * __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
   > Dynamically loading code from locations other than the application's library directory or the Android platform's built-in library directories is dangerous, as there is an increased risk that the code could have been tampered with. Applications should use loadLibrary when possible, which provides increased assurance that libraries are loaded from one of these safer locations. Application developers should use the features of their development environment to place application native libraries into the lib directory of their compiled APKs.
 
@@ -144,7 +144,7 @@ __Planned features and improvements:__
 * Customizable functional key layout
   * Will likely result in having the same functional key layout for alphabet and symbols layouts
 * Support for _alt_, _ctrl_, _meta_ and _fn_ (#479)
-* Less complicated addition of languages (e.g. #519)
+* Less complicated addition of new keyboard languages (e.g. #519)
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
 * Ability to enter all emojis independent of Android version (optional, #297)
@@ -160,6 +160,11 @@ __Planned features and improvements:__
 * Internal cleanup (a lot of over-complicated and convoluted code)
 * (optionally?) move toolbar key pinning to a setting, so long press actions on unpinned toolbar keys are available
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
+
+__What will _not_ be added:__
+* Material 3 (not worth adding 1.5 MB to app size)
+* Dictionaries for more languages (you can still download them)
+* Anything that requires additional permissions
 
 # License
 
