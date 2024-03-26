@@ -68,7 +68,7 @@ public class SettingsValues {
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mShowsEmojiKey;
-    public final boolean mFixToolbarDirection;
+    public final boolean mVarToolbarDirection;
     public final boolean mUsePersonalizedDicts;
     public final boolean mUseDoubleSpacePeriod;
     public final boolean mBlockPotentiallyOffensive;
@@ -151,7 +151,7 @@ public class SettingsValues {
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
-        mFixToolbarDirection = prefs.getBoolean(Settings.PREF_FIX_TOOLBAR_DIRECTION, true);
+        mVarToolbarDirection = prefs.getBoolean(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, true);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;

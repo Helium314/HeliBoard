@@ -99,9 +99,9 @@
             android:title="@string/toolbar_keys" />
 
         <SwitchPreference
-            android:key="fix_toolbar_direction"
-            android:title="@string/fix_toolbar_direction"
-            android:summary="@string/fix_toolbar_direction_summary"
+            android:key="var_toolbar_direction"
+            android:title="@string/var_toolbar_direction"
+            android:summary="@string/var_toolbar_direction_summary"
             android:defaultValue="true"
             android:persistent="true" />
 

@@ -776,8 +776,8 @@ New dictionary:
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
     <string name="space_swipe_move_cursor_entry">Move Cursor</string>
-    <!-- Title of the settings to fix toolbar direction -->
-    <string name="fix_toolbar_direction">Fix toolbar direction</string>
-    <!-- Description of the fix_toolbar_direction setting -->
-    <string name="fix_toolbar_direction_summary">If disabled, the direction of the active layout will be used</string>
+    <!-- Title of the settings for variable toolbar direction -->
+    <string name="var_toolbar_direction">Variable toolbar direction</string>
+    <!-- Description of the variable toolbar direction setting -->
+    <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
 </resources>
