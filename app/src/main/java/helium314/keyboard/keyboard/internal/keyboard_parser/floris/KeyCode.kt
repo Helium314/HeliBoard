@@ -116,7 +116,8 @@ object KeyCode {
     const val KANA_HALF_KATA =             -9713
 
     const val KESHIDA =                     1600
-    const val HALF_SPACE =                  8204
+    const val ZWNJ =                        8204 // 0x200C, named HALF_SPACE in FlorisBoard
+    const val ZWJ =                         8205 // 0x200D
 
     const val CJK_SPACE =                  12288
 
@@ -154,6 +155,7 @@ object KeyCode {
     }
 
     /** to make sure a FlorisBoard label works when reading a JSON layout */
+    // resulting special labels should be names of FunctionalKey enum, case insensitive
     fun String.convertFlorisLabel(): String = when (this) {
         "view_characters" -> "alpha"
         "view_symbols" -> "symbol"
@@ -170,6 +172,7 @@ object KeyCode {
         "currency_slot_5" -> "$$$4"
         "currency_slot_6" -> "$$$5"
         "enter" -> "action"
+        "half_space" -> "zwnj"
         else -> this
     }
 }

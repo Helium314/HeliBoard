@@ -2,6 +2,7 @@
 
 package helium314.keyboard.latin.common
 
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
@@ -62,8 +63,7 @@ fun getFullEmojiAtEnd(s: CharSequence): String {
         // stop if codepoint can't be emoji
         if (!mightBeEmoji(codepoint)) return ""
         offset -= Character.charCount(codepoint)
-        if (offset > 0 && text[offset - 1].code == Constants.CODE_ZWJ) {
-            // continue if ZWJ
+        if (offset > 0 && text[offset - 1].code == KeyCode.ZWJ) {
             offset -= 1
             continue
         }
