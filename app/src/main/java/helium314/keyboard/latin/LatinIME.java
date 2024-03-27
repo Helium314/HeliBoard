@@ -42,6 +42,8 @@ import android.view.inputmethod.InputMethodSubtype;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
+import helium314.keyboard.keyboard.KeyboardActionListener;
+import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
@@ -51,7 +53,6 @@ import helium314.keyboard.event.HardwareEventDecoder;
 import helium314.keyboard.event.HardwareKeyboardEventDecoder;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
-import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
@@ -102,7 +103,7 @@ import androidx.core.content.ContextCompat;
 /**
  * Input method implementation for Qwerty'ish keyboard.
  */
-public class LatinIME extends InputMethodService implements KeyboardActionListener,
+public class LatinIME extends InputMethodService implements
         SuggestionStripView.Listener, SuggestionStripViewAccessor,
         DictionaryFacilitator.DictionaryInitializationListener,
         PermissionsManager.PermissionsResultCallback {
@@ -122,6 +123,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private static final String SCHEME_PACKAGE = "package";
 
     final Settings mSettings;
+    public final KeyboardActionListener mKeyboardActionListener;
     private int mOriginalNavBarColor = 0;
     private int mOriginalNavBarFlags = 0;
     private final DictionaryFacilitator mDictionaryFacilitator =
@@ -562,6 +564,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mSettings = Settings.getInstance();
         mKeyboardSwitcher = KeyboardSwitcher.getInstance();
         mStatsUtilsManager = StatsUtilsManager.getInstance();
+        mKeyboardActionListener = new KeyboardActionListenerImpl(this, mInputLogic);
         mIsHardwareAcceleratedDrawingEnabled = this.enableHardwareAcceleration();
         Log.i(TAG, "Hardware accelerated drawing: " + mIsHardwareAcceleratedDrawingEnabled);
     }
@@ -1374,121 +1377,14 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         launchSettings();
     }
 
-    @Override
-    public boolean onCustomRequest(final int requestCode) {
+    public boolean showInputPickerDialog() {
         if (isShowingOptionDialog()) return false;
-        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
-            if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */)) {
-                mOptionsDialog = InputMethodPickerKt.createInputMethodPickerDialog(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
-                mOptionsDialog.show();
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onHorizontalSpaceSwipe(final int steps) {
-        return switch (mSettings.getCurrent().mSpaceSwipeHorizontal) {
-            case KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps);
-            case KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps);
-            default -> false;
-        };
-    }
-
-    private boolean onMoveCursorHorizontally(int steps) {
-        if (steps == 0) return false;
-        // for RTL languages we want to invert pointer movement
-        if (mRichImm.getCurrentSubtype().isRtlSubtype())
-            steps = -steps;
-
-        final int moveSteps;
-        if (steps < 0) {
-            int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();
-            moveSteps = availableCharacters < -steps ? -availableCharacters : steps;
-            if (moveSteps == 0) {
-                // some apps don't return any text via input connection, and the cursor can't be moved
-                // we fall back to virtually pressing the left/right key one or more times instead
-                while (steps != 0) {
-                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                    ++steps;
-                }
-                return true;
-            }
-        } else {
-            int availableCharacters = mInputLogic.mConnection.getTextAfterCursor(64, 0).length();
-            moveSteps = Math.min(availableCharacters, steps);
-            if (moveSteps == 0) {
-                while (steps != 0) {
-                    onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-                    --steps;
-                }
-                return true;
-            }
-        }
-
-        if (mInputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
-            // no need to finish input and restart suggestions if we're still in the word
-            // this is a noticeable performance improvement
-            int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
-            mInputLogic.mConnection.setSelection(newPosition, newPosition);
+        if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true)) {
+            mOptionsDialog = InputMethodPickerKt.createInputMethodPickerDialog(this, mRichImm, mKeyboardSwitcher.getMainKeyboardView().getWindowToken());
+            mOptionsDialog.show();
             return true;
         }
-        mInputLogic.finishInput();
-        int newPosition = mInputLogic.mConnection.mExpectedSelStart + moveSteps;
-        mInputLogic.mConnection.setSelection(newPosition, newPosition);
-        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
-        return true;
-    }
-
-    @Override
-    public boolean onVerticalSpaceSwipe(final int steps) {
-        return switch (mSettings.getCurrent().mSpaceSwipeVertical) {
-            case KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps);
-            case KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps);
-            default -> false;
-        };
-    }
-
-    private boolean onLanguageSlide(final int steps) {
-        if (Math.abs(steps) < 4)
-            return false;
-        List<InputMethodSubtype> subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false);
-        if (subtypes.size() <= 1) { // only allow if we have more than one subtype
-            return false;
-        }
-        // decide next or previous dependent on up or down
-        InputMethodSubtype current = RichInputMethodManager.getInstance().getCurrentSubtype().getRawSubtype();
-        int wantedIndex = (subtypes.indexOf(current) + ((steps > 0) ? 1 : -1)) % subtypes.size();
-        if (wantedIndex < 0) wantedIndex += subtypes.size();
-        KeyboardSwitcher.getInstance().switchToSubtype(subtypes.get(wantedIndex));
-        return true;
-    }
-
-    private boolean onMoveCursorVertically(int steps) {
-        if (steps == 0) return false;
-        int code = (steps < 0) ? KeyCode.ARROW_UP : KeyCode.ARROW_DOWN;
-        onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-        return true;
-    }
-
-    @Override
-    public void onMoveDeletePointer(int steps) {
-        mInputLogic.finishInput();
-        int end = mInputLogic.mConnection.getExpectedSelectionEnd();
-        int start = mInputLogic.mConnection.getExpectedSelectionStart() + steps;
-        if (start > end)
-            return;
-        mInputLogic.mConnection.setSelection(start, end);
-    }
-
-    @Override
-    public void onUpWithDeletePointerActive() {
-        if (mInputLogic.mConnection.hasSelection()) {
-            mInputLogic.finishInput();
-            onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-        }
+        return false;
     }
 
     private boolean isShowingOptionDialog() {
@@ -1628,24 +1524,20 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
 
-    @Override
     public void onStartBatchInput() {
         mInputLogic.onStartBatchInput(mSettings.getCurrent(), mKeyboardSwitcher, mHandler);
         mGestureConsumer.onGestureStarted(mRichImm.getCurrentSubtypeLocale(), mKeyboardSwitcher.getKeyboard());
     }
 
-    @Override
     public void onUpdateBatchInput(final InputPointers batchPointers) {
         mInputLogic.onUpdateBatchInput(batchPointers);
     }
 
-    @Override
     public void onEndBatchInput(final InputPointers batchPointers) {
         mInputLogic.onEndBatchInput(batchPointers);
         mGestureConsumer.onGestureCompleted(batchPointers);
     }
 
-    @Override
     public void onCancelBatchInput() {
         mInputLogic.onCancelBatchInput(mHandler);
         mGestureConsumer.onGestureCanceled();
@@ -1671,21 +1563,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         mainKeyboardView.showGestureFloatingPreviewText(suggestedWords,
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
-    }
-
-    // Called from PointerTracker through the KeyboardActionListener interface
-    @Override
-    public void onFinishSlidingInput() {
-        // User finished sliding input.
-        mKeyboardSwitcher.onFinishSlidingInput(getCurrentAutoCapsState(),
-                getCurrentRecapitalizeState());
-    }
-
-    // Called from PointerTracker through the KeyboardActionListener interface
-    @Override
-    public void onCancelInput() {
-        // User released a finger outside any key
-        // Nothing to do so far.
     }
 
     public boolean hasSuggestionStripView() {
@@ -1844,24 +1721,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             feedbackManager.performHapticFeedback(keyboardView);
         }
         feedbackManager.performAudioFeedback(code);
-    }
-
-    // Callback of the {@link KeyboardActionListener}. This is called when a key is depressed;
-    // release matching call is {@link #onReleaseKey(int,boolean)} below.
-    @Override
-    public void onPressKey(final int primaryCode, final int repeatCount,
-                           final boolean isSinglePointer) {
-        mKeyboardSwitcher.onPressKey(primaryCode, isSinglePointer, getCurrentAutoCapsState(),
-                getCurrentRecapitalizeState());
-        hapticAndAudioFeedback(primaryCode, repeatCount);
-    }
-
-    // Callback of the {@link KeyboardActionListener}. This is called when a key is released;
-    // press matching call is {@link #onPressKey(int,int,boolean)} above.
-    @Override
-    public void onReleaseKey(final int primaryCode, final boolean withSliding) {
-        mKeyboardSwitcher.onReleaseKey(primaryCode, withSliding, getCurrentAutoCapsState(),
-                getCurrentRecapitalizeState());
     }
 
     private HardwareEventDecoder getHardwareKeyEventDecoder(final int deviceId) {
