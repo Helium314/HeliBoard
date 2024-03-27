@@ -24,7 +24,7 @@
         latin:stepValue="@integer/config_longpress_timeout_step" />
 
     <ListPreference
-        android:defaultValue="none"
+        android:defaultValue="move_cursor"
         android:entries="@array/horizontal_space_swipe_entries"
         android:entryValues="@array/horizontal_space_swipe_values"
         android:key="horizontal_space_swipe"
