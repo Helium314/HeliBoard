@@ -53,11 +53,13 @@
     <string name="subtype_en_US">"ಇಂಗ್ಲಿಷ್ (US)"</string>
     <string name="subtype_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>
     <string name="subtype_hi_Latn">"ಹಿಂಗ್ಲಿಷ್"</string>
+    <string name="subtype_knx">"ಕನ್ನಡ"</string>
     <string name="subtype_sr_Latn">"ಸರ್ಬಿಯನ್ (ಲ್ಯಾಟಿನ್)"</string>
     <string name="subtype_with_layout_en_GB">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US">"ಇಂಗ್ಲಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_hi_Latn">"ಹಿಂಗ್ಲಿಷ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
+    <string name="subtype_with_layout_knx">"ಕನ್ನಡ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_sr_Latn">"ಸರ್ಬಿಯನ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
