@@ -130,6 +130,7 @@
     <string name="subtype_with_layout_sr_Latn">সার্বিয়ান (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (প্রথাগত)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (অক্ষর)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (প্রভাত)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (সংক্ষিপ্ত)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (সেবালসিক 390)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (সেবালসিক Final)</string>
