@@ -121,6 +121,12 @@
             android:title="@string/clipboard_history_retention_time"
             latin:maxValue="120" /> <!-- minutes -->
 
+        <SwitchPreference
+            android:key="clear_primary_clipboard"
+            android:title="@string/clear_primary_clipboard"
+            android:defaultValue="false"
+            android:persistent="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
