@@ -33,6 +33,20 @@ fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): Lis
     return enabledSubtypes
 }
 
+fun getUniqueScriptLocalesFromEnabledSubtypes(prefs: SharedPreferences): List<Locale> {
+    val subtypes = getEnabledSubtypes(prefs)
+    val locales = mutableListOf<Locale>()
+    val scripts = HashSet<String>()
+    for (subtype in subtypes) {
+        val locale = subtype.locale()
+        val script: String = locale.script()
+        if (scripts.add(script)) {
+            locales.add(locale)
+        }
+    }
+    return locales
+}
+
 fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
     require(initialized)
     return resourceSubtypesByLocale.values.flatten() + additionalSubtypes

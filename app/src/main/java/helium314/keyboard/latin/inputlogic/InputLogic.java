@@ -1580,7 +1580,8 @@ public final class InputLogic {
             return;
         }
 
-        if (!mWordComposer.isComposingWord() && !settingsValues.mBigramPredictionEnabled) {
+        if (!mWordComposer.isComposingWord() && !settingsValues.mBigramPredictionEnabled
+                || mWordComposer.size() > Constants.MAX_CHARACTERS_FOR_SUGGESTIONS) {
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             return;
         }
@@ -2336,6 +2337,11 @@ public final class InputLogic {
     public void getSuggestedWords(final SettingsValues settingsValues,
             final Keyboard keyboard, final int keyboardShiftMode, final int inputStyle,
             final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+        // don't get suggestions if composed word is very long
+        if (mWordComposer.size() > Constants.MAX_CHARACTERS_FOR_SUGGESTIONS) {
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+            return;
+        }
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, keyboardShiftMode));
         mSuggest.getSuggestedWords(mWordComposer,
