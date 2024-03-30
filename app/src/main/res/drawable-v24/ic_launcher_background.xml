@@ -7,7 +7,7 @@
   <path
       android:pathData="M0,0L4320,0L4320,4320L0,4320Z"
       android:strokeLineJoin="round"
-      android:strokeWidth="574.752"
+      android:strokeWidth="0"
       android:strokeColor="#00000000">
     <aapt:attr name="android:fillColor">
       <gradient 
