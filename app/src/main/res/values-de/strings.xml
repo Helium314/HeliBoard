@@ -293,7 +293,7 @@
     <string name="split_spacer_scale">Teilungsabstand</string>
     <string name="add_new_dictionary_ask_locale">Zu welcher Sprache soll das Wörterbuch \"%1$s\" für %2$s hinzugefügt werden?</string>
     <string name="user_dict_settings_add_weight_value">Schriftstärke:</string>
-    <string name="prefs_always_show_suggestions_summary">Ignoriere andere App-Anfragen um Vorschläge zu deaktivieren</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoriere andere App-Anfragen um Vorschläge zu deaktivieren (kann Probleme verursachen)</string>
     <string name="title_layout_name_select">Layout-Name festlegen</string>
     <string name="switch_language">Sprache wechseln</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Zwischenablage löschen</string>
@@ -335,4 +335,8 @@
     <string name="customize_symbols_number_layouts_summary">Layouts (außer Symbole) legen interne Einstellungen offen, die sich möglicherweise noch ändern. In diesem Fall funktioniert das benutzerdefinierte Layout möglicherweise nicht mehr ordnungsgemäß.</string>
     <string name="subtype_xdq">Kaitakisch</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitakisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="show_vertical_space_swipe">Vertikale Wischgeste der Leertaste</string>
+    <string name="action_none">Nichts</string>
+    <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
+    <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
 </resources>

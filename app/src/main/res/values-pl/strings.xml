@@ -294,7 +294,7 @@
     <string name="split_spacer_scale">Szerokość podziału</string>
     <string name="add_new_dictionary_ask_locale">Do którego języka dodać słownik \"%1$s\" przeznaczony dla: %2$s?</string>
     <string name="user_dict_settings_add_weight_value">Wartość:</string>
-    <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii (może powodować problemy)</string>
     <string name="title_layout_name_select">Nazwij układ</string>
     <string name="no_dictionary_message">"Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
 \n        Słowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s."</string>
@@ -335,4 +335,11 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Klawiatura numeryczna (poziomo)</string>
     <string name="layout_number" tools:keep="@string/layout_number">Liczby</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symbole telefonu</string>
+    <string name="show_vertical_space_swipe">Przesuwanie pionowe</string>
+    <string name="show_horizontal_space_swipe">Przesuwanie poziome</string>
+    <string name="space_swipe_move_cursor_entry">Przesuwanie kursora za pomocą spacji</string>
+    <string name="action_none">Brak</string>
+    <string name="var_toolbar_direction_summary">Odwróć kierunek po wybraniu układu klawiatury od prawej do lewej</string>
+    <string name="var_toolbar_direction">Zmienny kierunek paska narzędzi</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Probhat)</string>
 </resources>

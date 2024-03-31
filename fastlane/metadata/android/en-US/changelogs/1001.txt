@@ -1,1 +1,20 @@
- 
+* new icon by @FabianOvrWrt with contributions from @the-eclectic-dyslexic (#517, #592)
+* more customizable space bar trackpad and language switch by @arcarum (#486)
+* add % to shift symbols layout (#568, #428)
+* improve behavior when language switch key is set to switch both language and keyboard
+* show links to existing dictionaries when adding a dictionary
+* add Kaitag layout by @alkaitagi (#519)
+* add Probhat layout by @fahimscirex (#489)
+* optionally reverse toolbar order for RTL languages by @codokie (#557, #574)
+* allow customizing special layouts (numpad, phone, ...)
+  * still experimental, as the base layouts may change
+* updated spellchecker.xml to include locales where dictionaries are available, but not included in app
+* update translations (thanks to all translators!)
+* upgrade ndk by @Syphyr (#560)
+* upgrade inline autofill code by @arcarum (#595)
+* fix issue with toolbar key dialog (#505)
+* fix issue with turkish layout (#508)
+* fix wrong switch states when rotating in customize colors screen (#563)
+* fix issue with recent emojis not loading (#527)
+* fix issue with numbers not appearing in certain fields (#585)
+* some minor fixes

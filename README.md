@@ -31,7 +31,7 @@ Does not use internet permission, and thus is 100% offline.
   </ul>
   <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
   <li>Multilingual typing</li>
-  <li>Glide typing (_only with closed source library_ ☹️)</li>
+  <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
   <ul>
     <li>library not included in the app, as there is no compatible open source library available</li>
     <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a></li>
