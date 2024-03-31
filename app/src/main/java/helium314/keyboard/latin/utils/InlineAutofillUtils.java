@@ -8,7 +8,6 @@ package helium314.keyboard.latin.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Icon;
@@ -16,9 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Size;
-import android.view.Choreographer;
-import android.view.Surface;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,39 +47,37 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
 
+@SuppressLint("RestrictedApi")
 @RequiresApi(api = Build.VERSION_CODES.R)
 public class InlineAutofillUtils {
 
-    public static InlineSuggestionsRequest createInlineSuggestionRequest(Context context) {
-
+    public static InlineSuggestionsRequest createInlineSuggestionRequest(final Context context) {
         final Colors colors = Settings.getInstance().getCurrent().mColors;
+        final int chipBgDrawableId = androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background;
+        final int chipBgColor = colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP);
+        final int chipTextColor = colors.get(ColorType.KEY_TEXT);
+        final int chipTextHintColor = colors.get(ColorType.KEY_HINT_TEXT);
 
         StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
-        @SuppressLint("RestrictedApi") Style style = InlineSuggestionUi.newStyleBuilder()
+        Style style = InlineSuggestionUi.newStyleBuilder()
                 .setSingleIconChipStyle(
                         new ViewStyle.Builder()
-                                .setBackground(
-                                        Icon.createWithResource(context,
-                                                        androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP)))
+                                .setBackground(Icon.createWithResource(context, chipBgDrawableId).setTint(chipBgColor))
                                 .setPadding(0, 0, 0, 0)
                                 .build())
                 .setChipStyle(
                         new ViewStyle.Builder()
-                                .setBackground(
-                                        Icon.createWithResource(context,
-                                                        androidx.autofill.R.drawable.autofill_inline_suggestion_chip_background)
-                                                .setTint(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP)))
+                                .setBackground(Icon.createWithResource(context, chipBgDrawableId).setTint(chipBgColor))
                                 .build())
                 .setStartIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
                 .setTitleStyle(
                         new TextViewStyle.Builder()
-                                .setTextColor(colors.get(ColorType.KEY_TEXT))
+                                .setTextColor(chipTextColor)
                                 .setTextSize(12)
                                 .build())
                 .setSubtitleStyle(
                         new TextViewStyle.Builder()
-                                .setTextColor(colors.get(ColorType.KEY_HINT_TEXT))
+                                .setTextColor(chipTextHintColor)
                                 .setTextSize(10)
                                 .build())
                 .setEndIconStyle(new ImageViewStyle.Builder().setLayoutMargin(0, 0, 0, 0).build())
@@ -106,14 +100,10 @@ public class InlineAutofillUtils {
                 .build();
     }
 
-    public static InlineContentClipView createView(List<InlineSuggestion> inlineSuggestions, Context context) {
-        final int totalSuggestionsCount = inlineSuggestions.size();
-
+    public static InlineContentClipView createView(final List<InlineSuggestion> inlineSuggestions,
+                                                   final Context context) {
         LinearLayout container = new LinearLayout(context);
-
-        for (int i = 0; i < totalSuggestionsCount; i++) {
-            final InlineSuggestion inlineSuggestion = inlineSuggestions.get(i);
-
+        for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
             inlineSuggestion.inflate(context, new Size(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT), context.getMainExecutor(), (view) -> {
                 if (view != null)
@@ -124,13 +114,11 @@ public class InlineAutofillUtils {
         HorizontalScrollView inlineSuggestionView = new HorizontalScrollView(context);
         inlineSuggestionView.setHorizontalScrollBarEnabled(false);
         inlineSuggestionView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
         inlineSuggestionView.addView(container);
 
-        InlineContentClipView mScrollableSuggestionsClip = new InlineContentClipView(context);
-        mScrollableSuggestionsClip.addView(inlineSuggestionView);
-
-        return mScrollableSuggestionsClip;
+        InlineContentClipView scrollableSuggestionsClip = new InlineContentClipView(context);
+        scrollableSuggestionsClip.addView(inlineSuggestionView);
+        return scrollableSuggestionsClip;
     }
 
     /**
@@ -140,7 +128,7 @@ public class InlineAutofillUtils {
      * the InlineContentViews' surfaces would cover parts of your app as these surfaces
      * are owned by another process and always appearing on top of your app.
      */
-    private static class InlineContentClipView extends FrameLayout {
+    public static class InlineContentClipView extends FrameLayout {
         @NonNull
         private final ViewTreeObserver.OnDrawListener mOnDrawListener =
                 this::clipDescendantInlineContentViews;
@@ -148,37 +136,15 @@ public class InlineAutofillUtils {
         private final Rect mParentBounds = new Rect();
         @NonNull
         private final Rect mContentBounds = new Rect();
-        @NonNull
-        private final SurfaceView mBackgroundView;
-        private int mBackgroundColor;
         public InlineContentClipView(@NonNull Context context) {
-            this(context, /*attrs*/ null);
-        }
-        public InlineContentClipView(@NonNull Context context, @Nullable AttributeSet attrs) {
-            this(context, attrs, /*defStyleAttr*/ 0);
+            this(context, /*attrs*/ null, /*defStyleAttr*/ 0);
         }
         public InlineContentClipView(@NonNull Context context, @Nullable AttributeSet attrs,
                                      @AttrRes int defStyleAttr) {
             super(context, attrs, defStyleAttr);
-            mBackgroundView = new SurfaceView(context);
+            SurfaceView mBackgroundView = new SurfaceView(context);
             mBackgroundView.setZOrderOnTop(true);
             mBackgroundView.getHolder().setFormat(PixelFormat.TRANSPARENT);
-            mBackgroundView.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            mBackgroundView.getHolder().addCallback(new SurfaceHolder.Callback() {
-                @Override
-                public void surfaceCreated(@NonNull SurfaceHolder holder) {
-                    drawBackgroundColorIfReady();
-                }
-                @Override
-                public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width,
-                                           int height) { /*do nothing*/ }
-                @Override
-                public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-                    /*do nothing*/
-                }
-            });
             addView(mBackgroundView);
         }
         @Override
@@ -191,33 +157,13 @@ public class InlineAutofillUtils {
             super.onDetachedFromWindow();
             getViewTreeObserver().removeOnDrawListener(mOnDrawListener);
         }
-        @Override
-        public void setBackgroundColor(int color) {
-            mBackgroundColor = color;
-            Choreographer.getInstance().postFrameCallback((frameTimeNanos) ->
-                    drawBackgroundColorIfReady());
-        }
-        private void drawBackgroundColorIfReady() {
-            final Surface surface = mBackgroundView.getHolder().getSurface();
-            if (surface.isValid()) {
-                final Canvas canvas = surface.lockCanvas(null);
-                try {
-                    canvas.drawColor(mBackgroundColor);
-                } finally {
-                    surface.unlockCanvasAndPost(canvas);
-                }
-            }
-        }
-
         private void clipDescendantInlineContentViews() {
             mParentBounds.right = getWidth();
             mParentBounds.bottom = getHeight();
             clipDescendantInlineContentViews(this);
         }
         private void clipDescendantInlineContentViews(@Nullable View root) {
-            if (root == null) {
-                return;
-            }
+            if (root == null) return;
             if (root instanceof InlineContentView inlineContentView) {
                 mContentBounds.set(mParentBounds);
                 offsetRectIntoDescendantCoords(inlineContentView, mContentBounds);
@@ -233,5 +179,4 @@ public class InlineAutofillUtils {
             }
         }
     }
-
 }
