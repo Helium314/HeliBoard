@@ -45,8 +45,14 @@ class ClipboardHistoryManager(
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
-        historyEntries.addAll(pinnedClips)
-        sortHistoryEntries()
+        val added = historyEntries.addAll(pinnedClips.filterNot { pinnedClip ->
+            historyEntries.any { historyEntry ->
+                historyEntry.content == pinnedClip.content
+            }
+        })
+        if (added) {
+            sortHistoryEntries()
+        }
         if (onHistoryChangeListener != null) {
             pinnedClips.forEach {
                 onHistoryChangeListener?.onClipboardHistoryEntryAdded(historyEntries.indexOf(it))
