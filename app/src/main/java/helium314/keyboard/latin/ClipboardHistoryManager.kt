@@ -37,9 +37,10 @@ class ClipboardHistoryManager(
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardHistoryEnabled = latinIME.mSettings.current.mClipboardHistoryEnabled
         maxClipRetentionTime = latinIME.mSettings.current.mClipboardHistoryRetentionTime * ONE_MINUTE_MILLIS
-        fetchPrimaryClip()
+        onPrimaryClipChanged()
         clipboardManager.addPrimaryClipChangedListener(this)
-        loadPinnedClips()
+        if (historyEntries.isEmpty())
+            loadPinnedClips()
         scheduleRetentionCheck()
         DeviceProtectedUtils.getSharedPreferences(latinIME).registerOnSharedPreferenceChangeListener(this)
     }
@@ -99,30 +100,33 @@ class ClipboardHistoryManager(
             // Starting from API 30, onPrimaryClipChanged() can be called multiple times
             // for the same clip. We can identify clips with their timestamps since API 26.
             // We use that to prevent unwanted duplicates.
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)?.also { stamp ->
+            ClipboardManagerCompat.getClipTimestamp(clipData)?.also { stamp ->
                 if (historyEntries.any { it.timeStamp == stamp }) return
-            } ?: System.currentTimeMillis()
-
-            val content = clipItem.coerceToText(latinIME)
-            if (TextUtils.isEmpty(content)) return
-            // Find the first entry with an identical content.
-            // If it exists, update its timestamp and position instead of adding a new entry.
-            val from = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
-            if (from != -1) {
-                val historyEntry = historyEntries[from]
-                historyEntry.timeStamp = timeStamp
-                sortHistoryEntries()
-                val to = historyEntries.indexOf(historyEntry)
-                onHistoryChangeListener?.onClipboardHistoryEntryMoved(from, to)
-                return
             }
-
-            val entry = ClipboardHistoryEntry(timeStamp, content)
-            historyEntries.add(entry)
-            sortHistoryEntries()
-            val at = historyEntries.indexOf(entry)
-            onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+            copyTextToInternalClipboard(clipItem.coerceToText(latinIME))
         }
+    }
+
+    // Copies a CharSequence to internal clipboard.
+    // If there is already an entry with the same text,
+    // then only its timestamp and position is updated.
+    fun copyTextToInternalClipboard(text: CharSequence) {
+        if (TextUtils.isEmpty(text)) return
+        val timeStamp = System.currentTimeMillis()
+        val from = historyEntries.indexOfFirst { it.content.toString() == text.toString() }
+        if (from != -1) {
+            val historyEntry = historyEntries[from]
+            historyEntry.timeStamp = timeStamp
+            sortHistoryEntries()
+            val to = historyEntries.indexOf(historyEntry)
+            onHistoryChangeListener?.onClipboardHistoryEntryMoved(from, to)
+            return
+        }
+        val entry = ClipboardHistoryEntry(timeStamp, text)
+        historyEntries.add(entry)
+        sortHistoryEntries()
+        val at = historyEntries.indexOf(entry)
+        onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
     }
 
     fun toggleClipPinned(ts: Long) {

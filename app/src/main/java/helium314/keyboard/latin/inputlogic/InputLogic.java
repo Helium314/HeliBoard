@@ -714,7 +714,9 @@ public final class InputLogic {
                 mConnection.selectWord(inputTransaction.getMSettingsValues().mSpacingAndPunctuations, currentKeyboardScript);
                 break;
             case KeyCode.CLIPBOARD_COPY:
-                mConnection.copyText();
+                final SettingsValues sv = inputTransaction.getMSettingsValues();
+                final boolean copyToInternalClipboard = sv.mClipboardHistoryEnabled && sv.mCopyToInternalClipboard;
+                mConnection.copyText(mLatinIME.getClipboardHistoryManager(), copyToInternalClipboard);
                 break;
             case KeyCode.CLIPBOARD_CLEAR_HISTORY:
                 mLatinIME.getClipboardHistoryManager().clearHistory();

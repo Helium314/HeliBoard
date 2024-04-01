@@ -127,6 +127,13 @@
             android:defaultValue="false"
             android:persistent="true" />
 
+        <SwitchPreference
+            android:key="copy_to_internal_clipboard"
+            android:title="@string/copy_to_internal_clipboard"
+            android:summary="@string/copy_to_internal_clipboard_summary"
+            android:defaultValue="false"
+            android:persistent="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
