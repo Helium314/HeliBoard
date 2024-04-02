@@ -60,6 +60,7 @@ class ClipboardHistoryManager(
 
             val content = clipItem.coerceToText(latinIME)
             if (TextUtils.isEmpty(content)) return
+            if (historyEntries.any { it.content.toString() == content.toString() }) return
 
             val entry = ClipboardHistoryEntry(timeStamp, content)
             historyEntries.add(entry)
