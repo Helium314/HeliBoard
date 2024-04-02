@@ -664,7 +664,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                         updateKeys(); // update icon
                     view.setActivated(!view.isActivated());
                 }
-                else if (tag == ToolbarKey.CLEAR_CLIPBOARD) {
+                else if (tag == ToolbarKey.CLEAR_CLIPBOARD || tag == ToolbarKey.COPY) {
                     Animator animator = AnimatorInflater.loadAnimator(getContext(), R.animator.button_alpha_transition);
                     animator.setTarget(view);
                     animator.start();
