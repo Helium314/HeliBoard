@@ -165,13 +165,7 @@ class ClipboardHistoryManager(
     private fun checkClipRetentionElapsed() {
         val now = System.currentTimeMillis()
         if (latinIME.mSettings.current?.mClearPrimaryClipboard == true) {
-            // Clear the primary clipboard if it's unpinned and old.
-            val firstUnpinnedEntry = historyEntries.firstOrNull { !it.isPinned }
-            if (firstUnpinnedEntry != null && (now - firstUnpinnedEntry.timeStamp) > maxClipRetentionTime
-                && firstUnpinnedEntry.content.toString() == retrieveClipboardContent().toString()
-            ) {
-                ClipboardManagerCompat.clearPrimaryClip(clipboardManager)
-            }
+            ClipboardManagerCompat.clearPrimaryClip(clipboardManager)
         }
         historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
     }
